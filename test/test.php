@@ -25,7 +25,10 @@ echo $condorcet->add_option().'<br>';
 echo $condorcet->add_option().'<br>';
 echo $condorcet->add_option().'<br>';
 echo $condorcet->add_option('B').'<br>';
+echo $condorcet->add_option('2').'<br>';
 echo $condorcet->add_option(2).'<br>';
+
+echo $condorcet->remove_option('kikoo').'<br>';
 
 echo '<br><br>' ;
 

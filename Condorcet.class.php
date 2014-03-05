@@ -85,6 +85,37 @@ class Condorcet
 
 
 
+	public function remove_option ($option_id)
+	{
+		// only if the vote has not started
+		if ( $this->_vote_state === TRUE ) { return "error : Les votes ont commencé" ; }
+
+		
+		if ( !is_array($option_id) )
+		{
+			$option_id	= array($option_id) ;
+		}
+
+
+		foreach ($option_id as $value)
+		{
+			$option_key = $this->get_option_key ($value) ;
+			if ( $option_key === FALSE )
+				{ return "error : Mauvaise saisie de l'option à supprimer" ; }
+
+
+			unset($this->_options[$option_key]) ;
+		}
+
+	}
+
+
+		protected function get_option_key ($option_id)
+		{
+			return array_search($option_id, $this->_options);
+		}
+
+
 	public function count_options ()
 	{
 		return $this->_options_count ;
