@@ -239,17 +239,16 @@ class Condorcet
 
 			protected function register_vote ($vote)
 			{
-
 				$i = 1 ;
 
-				foreach ($vote as $key => $value)
+				foreach ($vote as $value)
 				{
-					$vote[$i] = explode(',', $value) ;
+					$vote_r[$i] = explode(',', $value) ;
 
 					$i++ ;
 				}
 
-				$this->_votes[] = $vote ;
+				$this->_votes[] = $vote_r ;
 
 			}
 
