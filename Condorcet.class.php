@@ -5,6 +5,22 @@
 class Condorcet
 {
 
+	// Default method
+	private static $_class_method = 'Schulze';
+
+	static function setMethod ($method, $force = false)
+	{
+		self::$_class_method = $method ;
+
+		if ($force === true)
+		{
+			$this->_force_method = false ;
+			$this->set_method() ;
+		}
+	}
+
+
+
 	// Paramètrage
 	protected $_method ;
 	protected $_options ;
@@ -12,23 +28,32 @@ class Condorcet
 
 	// Mécanique
 	protected $_i_option_id	= 'A' ;
-	protected $_vote_state	= FALSE ;
+	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
+	protected $_force_method = FALSE ;
 
 
 	// Constructor
 
-	public function __construct ($method = 'Schulze')
+	public function __construct ($method = null)
 	{
-		$this->_method 	= $method ;
+		$this->set_method($method) ;
 
 		$this->_options	= array() ;
 		$this->_votes 	= array() ;
 	}
 
-	public function set_method ($method)
+	public function set_method ($method = null)
 	{
-		$this->_method = $method ;
+		if ($method != null)
+		{
+			$this->_method = $method ;
+			$this->_force_method = true ;
+		}
+		elseif ($this->_force_method === false)
+		{
+			$this->_method = self::$_class_method ;
+		}
 	}
 
 
@@ -37,7 +62,7 @@ class Condorcet
 	public function add_option ($option_id = null)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state === TRUE ) { return "error : Les votes ont commencé" ; }
+		if ( $this->_vote_state > 1 ) { return "error : Les votes ont commencé" ; }
 		
 		// Filter
 		if ( !is_null($option_id) && !is_string($option_id) && !is_int($option_id) )
@@ -88,7 +113,7 @@ class Condorcet
 	public function remove_option ($option_id)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state === TRUE ) { return "error : Les votes ont commencé" ; }
+		if ( $this->_vote_state > 1 ) { return "error : Les votes ont commencé" ; }
 
 		
 		if ( !is_array($option_id) )
@@ -128,14 +153,21 @@ class Condorcet
 
 	public function close_options_config ()
 	{
-		$this->_vote_state = TRUE ;
+		if ( $this->_vote_state === 1 )
+		{
+			$this->_vote_state = 2 ;
+		}
+		else
+		{
+			return 'Error : Vote already close' ;
+		}
 	}
 
 	public function add_vote (array $vote)
 	{
 
-		// Close vote if needed
-		if ( $this->_vote_state === FALSE ) { $this->close_options_config(); }
+		// Close option if needed
+		if ( $this->_vote_state === 1 ) { $this->close_options_config(); }
 
 
 		// Check array format
@@ -216,6 +248,29 @@ class Condorcet
 				$this->_votes[] = $vote ;
 
 			}
+
+
+
+
+		// Calc Votes
+
+			// Public
+			public function get_complete_result ($method = null)
+			{
+				// Method
+				$this->set_method($method) ;
+
+
+
+
+			}
+
+			public function get_condorcet_winner ()
+			{
+
+			}
+
+
 
 
 
