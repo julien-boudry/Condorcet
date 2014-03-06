@@ -32,6 +32,10 @@ class Condorcet
 	protected $_options_count = 0 ;
 	protected $_force_method = FALSE ;
 
+	// Result
+	protected $_pairwise ;
+	protected $_Schulze_result ;
+
 
 	// Constructor
 
@@ -261,7 +265,11 @@ class Condorcet
 				$this->set_method($method) ;
 
 
-
+				if ( $this->_method === 'Schulze' )
+				{
+					$this->do_Pairwise() ;
+					$this->calc_Schulze() ;
+				}
 
 			}
 
@@ -269,6 +277,20 @@ class Condorcet
 			{
 
 			}
+
+
+			// Pairwise
+			protected function do_Pairwise ()
+			{
+
+			}
+
+
+
+
+			// Schulze
+
+
 
 
 
