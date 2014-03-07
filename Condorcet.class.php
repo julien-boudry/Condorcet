@@ -239,14 +239,35 @@ class Condorcet
 
 			protected function register_vote ($vote)
 			{
-				$i = 1 ;
+				$last_line_check = array() ;
 
+				$i = 1 ;
 				foreach ($vote as $value)
 				{
-					$vote_r[$i] = explode(',', $value) ;
+					$vote_r[$i] = explode(',', $value) ;					
 
+						// $last_line_check
+						foreach ($vote_r[$i] as $option)
+						{
+							$last_line_check[] = $this->get_option_key($option) ;
+						}
+
+						
 					$i++ ;
 				}
+
+				if ( count($last_line_check) < count($this->_options) )
+				{
+					foreach ($this->_options as $key => $value)
+					{
+						if ( !in_array($key,$last_line_check) )
+						{
+							$vote_r[$i][] = $value ;
+						}
+					}
+				}
+
+
 
 				$this->_votes[] = $vote_r ;
 
@@ -289,7 +310,7 @@ class Condorcet
 				// Format array
 				foreach ( $this->_options as $option_key => $option_id )
 				{
-					$this->_pairwise[$option_key] = array( 'win' => array(),'loose' => array() ) ;
+					$this->_pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
 
 
 					foreach ( $this->_options as $option_key_r => $option_id_r )
@@ -297,13 +318,14 @@ class Condorcet
 						if ($option_key_r != $option_key)
 						{
 							$this->_pairwise[$option_key]['win'][$option_key_r]		= 0 ;
+							$this->_pairwise[$option_key]['null'][$option_key_r]	= 0 ;
 							$this->_pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
 						}
 					}
 				}
 
 
-				// Win
+				// Win && Null
 				foreach ( $this->_votes as $vote_id => $vote_ranking)
 				{
 					$done_options = array() ;
@@ -317,13 +339,17 @@ class Condorcet
 							$options_in_rank_keys[] = $this->get_option_key($option) ;
 						}
 
+
 						foreach ($options_in_rank as $option)
 						{
 							$option_key = $this->get_option_key($option);
 
+
+							// Process
 							foreach ( $this->_options as $g_option_key => $g_option_id )
 							{
 
+								// Win
 								if ( 
 										$option_key !== $g_option_key && 
 										!in_array($g_option_key, $done_options, true) && 
@@ -335,11 +361,25 @@ class Condorcet
 
 									$done_options[] = $option_key ;
 								}
+
+								// Null
+								if ( 
+										$option_key !== $g_option_key &&
+										count($options_in_rank) > 1 &&
+										in_array($g_option_key, $options_in_rank_keys)
+									)
+								{
+									$this->_pairwise[$option_key]['null'][$g_option_key]++ ;
+								}
 							}
 						}
 
 					}
 				}
+
+
+				// Loose
+
 
 				$this->_pairwise ;
 
