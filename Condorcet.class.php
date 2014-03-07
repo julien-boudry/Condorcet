@@ -223,7 +223,6 @@ class Condorcet
 						if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
 							else { return FALSE ; }
 
-
 					}
 
 				}
@@ -252,7 +251,6 @@ class Condorcet
 							$last_line_check[] = $this->get_option_key($option) ;
 						}
 
-						
 					$i++ ;
 				}
 
@@ -326,7 +324,7 @@ class Condorcet
 
 
 				// Win && Null
-				foreach ( $this->_votes as $vote_id => $vote_ranking)
+				foreach ( $this->_votes as $vote_id => $vote_ranking )
 				{
 					$done_options = array() ;
 
@@ -379,6 +377,17 @@ class Condorcet
 
 
 				// Loose
+				foreach ( $this->_pairwise as $option_key => $option_results )
+				{
+					foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
+					{
+						$this->_pairwise[$option_key]['loose'][$option_compare_key] = $this->_options_count -
+								(
+									$this->_pairwise[$option_key]['win'][$option_compare_key] + 
+									$this->_pairwise[$option_key]['null'][$option_compare_key]
+								) ;
+					}
+				}
 
 
 				$this->_pairwise ;
