@@ -99,7 +99,8 @@ echo '<br><br><hr><br>';
 
 echo '<h2>Calc result</h2>';
 
-var_dump( $condorcet->get_complete_result() ) ;
+echo '<strong> Condorcet Winner :</strong>' ;
+var_dump( $condorcet->get_condorcet_winner() ) ;
 
 echo '<br><br>' ;
 

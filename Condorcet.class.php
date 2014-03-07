@@ -296,9 +296,44 @@ class Condorcet
 
 			public function get_condorcet_winner ()
 			{
+				// Method
+				$this->set_method() ;
+
+				// State
+				$this->_vote_state = 3 ;
+
+
+				$this->do_Pairwise() ;
+
+
+				//////////////////
+
+
+				foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
+				{
+					$winner = TRUE ;
+
+					foreach ($candidat_detail['win'] as $challenger_key => $win_count )
+					{
+						if		( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
+						{  
+							$winner = FALSE ;
+							break ;
+						}
+
+					}
+
+					if ($winner)
+						{ return $this->_options[$candidat_key] ; }
+				}
+
+				// There is no Winner
+				return FALSE ;
 
 			}
 
+
+			// Calc functions
 
 			// Pairwise
 			protected function do_Pairwise ()
