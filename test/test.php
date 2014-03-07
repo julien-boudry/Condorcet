@@ -79,10 +79,13 @@ $vote_4[2] = 'B';
 $vote_4[3] = 'A';
 $vote_4[4] = 'Z' ;
 
+$vote_5[1] = 'C';
+
 echo $condorcet->add_vote($vote_1).'<br>' ;
 echo $condorcet->add_vote($vote_2).'<br>' ;
 echo $condorcet->add_vote($vote_3).'<br>' ;
 echo $condorcet->add_vote($vote_4).'<br>' ;
+echo $condorcet->add_vote($vote_5).'<br>' ;
 
 
 echo '<br><br>' ;

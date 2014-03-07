@@ -381,7 +381,7 @@ class Condorcet
 				{
 					foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
 					{
-						$this->_pairwise[$option_key]['loose'][$option_compare_key] = $this->_options_count -
+						$this->_pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
 								(
 									$this->_pairwise[$option_key]['win'][$option_compare_key] + 
 									$this->_pairwise[$option_key]['null'][$option_compare_key]
