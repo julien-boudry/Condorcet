@@ -141,7 +141,7 @@ class Condorcet
 
 		protected function get_option_key ($option_id)
 		{
-			return array_search($option_id, $this->_options);
+			return array_search($option_id, $this->_options, true);
 		}
 
 
@@ -263,6 +263,9 @@ class Condorcet
 				// Method
 				$this->set_method($method) ;
 
+				// State
+				$this->_vote_state = 3 ;
+
 
 				if ( $this->_method === 'Schulze' )
 				{
@@ -282,13 +285,74 @@ class Condorcet
 			protected function do_Pairwise ()
 			{
 
+				
+				// Format array
+				foreach ( $this->_options as $option_key => $option_id )
+				{
+					$this->_pairwise[$option_key] = array( 'win' => array(),'loose' => array() ) ;
+
+
+					foreach ( $this->_options as $option_key_r => $option_id_r )
+					{
+						if ($option_key_r != $option_key)
+						{
+							$this->_pairwise[$option_key]['win'][$option_key_r]		= 0 ;
+							$this->_pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
+						}
+					}
+				}
+
+
+				// Win
+				foreach ( $this->_votes as $vote_id => $vote_ranking)
+				{
+					$done_options = array() ;
+
+					foreach ($vote_ranking as $options_in_rank)
+					{
+						$options_in_rank_keys = array() ;
+
+						foreach ($options_in_rank as $option)
+						{
+							$options_in_rank_keys[] = $this->get_option_key($option) ;
+						}
+
+						foreach ($options_in_rank as $option)
+						{
+							$option_key = $this->get_option_key($option);
+
+							foreach ( $this->_options as $g_option_key => $g_option_id )
+							{
+
+								if ( 
+										$option_key !== $g_option_key && 
+										!in_array($g_option_key, $done_options, true) && 
+										!in_array($g_option_key, $options_in_rank_keys, true)
+									)
+								{
+
+									$this->_pairwise[$option_key]['win'][$g_option_key]++ ;
+
+									$done_options[] = $option_key ;
+								}
+							}
+						}
+
+					}
+				}
+
+				$this->_pairwise ;
+
 			}
 
 
 
 
 			// Schulze
+			protected function calc_Schulze ()
+			{
 
+			}
 
 
 
