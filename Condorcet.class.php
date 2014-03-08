@@ -34,7 +34,8 @@ class Condorcet
 
 	// Result
 	protected $_pairwise ;
-	protected $_Schulze_result ;
+	protected $_schulze_strongest_paths ;
+	protected $_schulze_result ;
 
 
 	// Constructor
@@ -328,7 +329,7 @@ class Condorcet
 				}
 
 				// There is no Winner
-				return FALSE ;
+				return NULL ;
 
 			}
 
@@ -341,6 +342,8 @@ class Condorcet
 
 				
 				// Format array
+				$this->_pairwise = array() ;
+
 				foreach ( $this->_options as $option_key => $option_id )
 				{
 					$this->_pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
@@ -435,6 +438,69 @@ class Condorcet
 			// Schulze
 			protected function calc_Schulze ()
 			{
+				// Format array
+				foreach ( $this->_options as $option_key => $option_id )
+				{
+					$this->_schulze_strongest_paths[$option_key] = array() ;
+
+					// Format array for stronghest path
+					foreach ( $this->_options as $option_key_r => $option_id_r )
+					{
+						if ($option_key_r != $option_key)
+						{
+							$this->_schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
+						}
+					}
+
+				}
+
+
+
+				// Algo
+				foreach ($this->_options as $i => $i_value)
+				{
+
+					foreach ($this->_options as $j => $j_value)
+					{
+
+						if ($i !== $j)
+						{
+							if ( $this->_pairwise[$i]['win'][$j] > $this->_pairwise[$j]['win'][$i] )
+							{
+								$this->_schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
+							}
+							else
+							{
+								$this->_schulze_strongest_paths[$i][$j] = 0 ;
+							}
+						}
+
+					}
+
+				}
+				 
+
+				foreach ($this->_options as $i => $i_value)
+				{
+					foreach ($this->_options as $j => $j_value)
+					{
+						if ($i !== $j)
+						{
+							foreach ($this->_options as $k => $k_value)
+							{
+								if ($i !== $k && $j !== $k)
+								{
+									$this->_schulze_strongest_paths[$j][$k] = 
+																	max( 
+																			$this->_schulze_strongest_paths[$j][$k], 
+																			min( $this->_schulze_strongest_paths[$j][$i], $this->_schulze_strongest_paths[$i][$k] ) 
+																		) ;
+								}
+							}
+
+						}
+					}
+				}
 
 			}
 
