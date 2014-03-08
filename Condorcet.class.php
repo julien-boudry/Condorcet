@@ -5,7 +5,8 @@
 class Condorcet
 {
 
-	// Default method
+/////////// DEFAULT METHOD ///////////
+
 	private static $_class_method = 'Schulze';
 
 	static function setMethod ($method, $force = false)
@@ -21,7 +22,9 @@ class Condorcet
 
 
 
-	// Paramètrage
+/////////// CONSTRUCTOR ///////////
+
+
 	protected $_method ;
 	protected $_options ;
 	protected $_votes ;
@@ -37,8 +40,6 @@ class Condorcet
 	protected $_schulze_strongest_paths ;
 	protected $_schulze_result ;
 
-
-	// Constructor
 
 	public function __construct ($method = null)
 	{
@@ -62,7 +63,8 @@ class Condorcet
 	}
 
 
-	// Register vote option
+
+/////////// OPTIONS ///////////
 
 	public function add_option ($option_id = null)
 	{
@@ -154,7 +156,8 @@ class Condorcet
 
 
 
-	// Register votes
+/////////// VOTING ///////////
+
 
 	public function close_options_config ()
 	{
@@ -189,320 +192,347 @@ class Condorcet
 		return TRUE ;
 	}
 
-			protected function check_vote_input ($vote)
+		protected function check_vote_input ($vote)
+		{
+
+			$list_option = array() ;
+
+			if ( isset($vote[0]) || count($vote) > $this->_options_count || count($vote) < 1 )
+				{ return FALSE ; }
+
+			foreach ($vote as $key => $value)
 			{
 
-				$list_option = array() ;
-
-				if ( isset($vote[0]) || count($vote) > $this->_options_count || count($vote) < 1 )
+				// Check key
+				if ( !is_numeric($key) || $key > $this->_options_count )
 					{ return FALSE ; }
 
-				foreach ($vote as $key => $value)
+
+				// Check options
+				if ( empty($value) )
+					{ return FALSE ; }
+
+				$options = explode(',', $value) ;
+
+
+				foreach ($options as $option)
 				{
 
-					// Check key
-					if ( !is_numeric($key) || $key > $this->_options_count )
-						{ return FALSE ; }
-
-
-					// Check options
-					if ( empty($value) )
-						{ return FALSE ; }
-
-					$options = explode(',', $value) ;
-
-
-					foreach ($options as $option)
+					if ( !$this->option_id_exist($option) )
 					{
-
-						if ( !$this->option_id_exist($option) )
-						{
-							return FALSE ;
-						}
-
-						// Don't do 2x the same option
-						if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
-							else { return FALSE ; }
-
+						return FALSE ;
 					}
+
+					// Don't do 2x the same option
+					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
+						else { return FALSE ; }
 
 				}
 
-				return TRUE ;
 			}
 
-			protected function option_id_exist ($option_id)
+			return TRUE ;
+		}
+
+		protected function option_id_exist ($option_id)
+		{
+			return in_array($option_id, $this->_options) ;
+		}
+
+
+		protected function register_vote ($vote)
+		{
+			$last_line_check = array() ;
+
+			$i = 1 ;
+			foreach ($vote as $value)
 			{
-				return in_array($option_id, $this->_options) ;
+				$vote_r[$i] = explode(',', $value) ;					
+
+					// $last_line_check
+					foreach ($vote_r[$i] as $option)
+					{
+						$last_line_check[] = $this->get_option_key($option) ;
+					}
+
+				$i++ ;
 			}
 
-
-			protected function register_vote ($vote)
+			if ( count($last_line_check) < count($this->_options) )
 			{
-				$last_line_check = array() ;
-
-				$i = 1 ;
-				foreach ($vote as $value)
+				foreach ($this->_options as $key => $value)
 				{
-					$vote_r[$i] = explode(',', $value) ;					
-
-						// $last_line_check
-						foreach ($vote_r[$i] as $option)
-						{
-							$last_line_check[] = $this->get_option_key($option) ;
-						}
-
-					$i++ ;
-				}
-
-				if ( count($last_line_check) < count($this->_options) )
-				{
-					foreach ($this->_options as $key => $value)
+					if ( !in_array($key,$last_line_check) )
 					{
-						if ( !in_array($key,$last_line_check) )
-						{
-							$vote_r[$i][] = $value ;
-						}
+						$vote_r[$i][] = $value ;
 					}
 				}
-
-
-
-				$this->_votes[] = $vote_r ;
-
 			}
 
 
 
+			$this->_votes[] = $vote_r ;
 
-		// Calc Votes
+		}
 
-			// Public
-			public function get_complete_result ($method = null)
+
+
+
+/////////// RETURN RESULT ///////////
+
+
+	public function get_complete_result ($method = null)
+	{
+		// Method
+		$this->set_method($method) ;
+
+		// State
+		$this->_vote_state = 3 ;
+
+
+		if ( $this->_method === 'Schulze' )
+		{
+			$this->do_Pairwise() ;
+			$this->calc_Schulze() ;
+		}
+
+	}
+
+	public function get_condorcet_winner ()
+	{
+		// Method
+		$this->set_method() ;
+
+		// State
+		$this->_vote_state = 3 ;
+
+		// Do Pairewise
+		$this->do_Pairwise() ;
+
+
+
+		//Calc basic Condorcet :
+		foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
+		{
+			$winner = TRUE ;
+
+			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
 			{
-				// Method
-				$this->set_method($method) ;
-
-				// State
-				$this->_vote_state = 3 ;
-
-
-				if ( $this->_method === 'Schulze' )
-				{
-					$this->do_Pairwise() ;
-					$this->calc_Schulze() ;
+				if		( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
+				{  
+					$winner = FALSE ;
+					break ;
 				}
 
 			}
 
-			public function get_condorcet_winner ()
+			if ($winner)
+				{ return $this->_options[$candidat_key] ; }
+		}
+
+		// There is no Winner
+		return NULL ;
+
+	}
+
+
+
+/////////// PROCESS RESULT ///////////
+
+
+
+	//:: CALC PAIRWISE :://
+
+
+	protected function do_Pairwise ()
+	{
+
+		
+		// Format array
+		$this->_pairwise = array() ;
+
+		foreach ( $this->_options as $option_key => $option_id )
+		{
+			$this->_pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
+
+
+			foreach ( $this->_options as $option_key_r => $option_id_r )
 			{
-				// Method
-				$this->set_method() ;
-
-				// State
-				$this->_vote_state = 3 ;
-
-
-				$this->do_Pairwise() ;
-
-
-				//////////////////
-
-
-				foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
+				if ($option_key_r != $option_key)
 				{
-					$winner = TRUE ;
+					$this->_pairwise[$option_key]['win'][$option_key_r]		= 0 ;
+					$this->_pairwise[$option_key]['null'][$option_key_r]	= 0 ;
+					$this->_pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
+				}
+			}
+		}
 
-					foreach ($candidat_detail['win'] as $challenger_key => $win_count )
-					{
-						if		( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
-						{  
-							$winner = FALSE ;
-							break ;
-						}
 
-					}
+		// Win && Null
+		foreach ( $this->_votes as $vote_id => $vote_ranking )
+		{
+			$done_options = array() ;
 
-					if ($winner)
-						{ return $this->_options[$candidat_key] ; }
+			foreach ($vote_ranking as $options_in_rank)
+			{
+				$options_in_rank_keys = array() ;
+
+				foreach ($options_in_rank as $option)
+				{
+					$options_in_rank_keys[] = $this->get_option_key($option) ;
 				}
 
-				// There is no Winner
-				return NULL ;
+
+				foreach ($options_in_rank as $option)
+				{
+					$option_key = $this->get_option_key($option);
+
+
+					// Process
+					foreach ( $this->_options as $g_option_key => $g_option_id )
+					{
+
+						// Win
+						if ( 
+								$option_key !== $g_option_key && 
+								!in_array($g_option_key, $done_options, true) && 
+								!in_array($g_option_key, $options_in_rank_keys, true)
+							)
+						{
+
+							$this->_pairwise[$option_key]['win'][$g_option_key]++ ;
+
+							$done_options[] = $option_key ;
+						}
+
+						// Null
+						if ( 
+								$option_key !== $g_option_key &&
+								count($options_in_rank) > 1 &&
+								in_array($g_option_key, $options_in_rank_keys)
+							)
+						{
+							$this->_pairwise[$option_key]['null'][$g_option_key]++ ;
+						}
+					}
+				}
 
 			}
+		}
 
 
-			// Calc functions
+		// Loose
+		foreach ( $this->_pairwise as $option_key => $option_results )
+		{
+			foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
+			{
+				$this->_pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
+						(
+							$this->_pairwise[$option_key]['win'][$option_compare_key] + 
+							$this->_pairwise[$option_key]['null'][$option_compare_key]
+						) ;
+			}
+		}
 
-			// Pairwise
-			protected function do_Pairwise ()
+
+		$this->_pairwise ;
+
+	}
+
+
+
+
+	//:: CALC PAIRWISE :://
+
+
+	protected function calc_Schulze ()
+	{
+		// Format array
+		$this->schulze_array() ;
+
+
+		// Calc Strongest Paths
+		$this->strongest_paths() ;
+
+
+		// Calc ranking
+
+
+	}
+
+
+		// Calculate the strongest Paths for Schulze Method
+		protected function schulze_array ()
+		{
+			foreach ( $this->_options as $option_key => $option_id )
+			{
+				$this->_schulze_strongest_paths[$option_key] = array() ;
+
+				// Format array for stronghest path
+				foreach ( $this->_options as $option_key_r => $option_id_r )
+				{
+					if ($option_key_r != $option_key)
+					{
+						$this->_schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
+					}
+				}
+
+			}				
+		}
+
+
+	// Calculate Strongest Paths
+	protected function strongest_paths ()
+	{
+
+
+		foreach ($this->_options as $i => $i_value)
+		{
+
+			foreach ($this->_options as $j => $j_value)
 			{
 
-				
-				// Format array
-				$this->_pairwise = array() ;
-
-				foreach ( $this->_options as $option_key => $option_id )
+				if ($i !== $j)
 				{
-					$this->_pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
-
-
-					foreach ( $this->_options as $option_key_r => $option_id_r )
+					if ( $this->_pairwise[$i]['win'][$j] > $this->_pairwise[$j]['win'][$i] )
 					{
-						if ($option_key_r != $option_key)
-						{
-							$this->_pairwise[$option_key]['win'][$option_key_r]		= 0 ;
-							$this->_pairwise[$option_key]['null'][$option_key_r]	= 0 ;
-							$this->_pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
-						}
+						$this->_schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
+					}
+					else
+					{
+						$this->_schulze_strongest_paths[$i][$j] = 0 ;
 					}
 				}
-
-
-				// Win && Null
-				foreach ( $this->_votes as $vote_id => $vote_ranking )
-				{
-					$done_options = array() ;
-
-					foreach ($vote_ranking as $options_in_rank)
-					{
-						$options_in_rank_keys = array() ;
-
-						foreach ($options_in_rank as $option)
-						{
-							$options_in_rank_keys[] = $this->get_option_key($option) ;
-						}
-
-
-						foreach ($options_in_rank as $option)
-						{
-							$option_key = $this->get_option_key($option);
-
-
-							// Process
-							foreach ( $this->_options as $g_option_key => $g_option_id )
-							{
-
-								// Win
-								if ( 
-										$option_key !== $g_option_key && 
-										!in_array($g_option_key, $done_options, true) && 
-										!in_array($g_option_key, $options_in_rank_keys, true)
-									)
-								{
-
-									$this->_pairwise[$option_key]['win'][$g_option_key]++ ;
-
-									$done_options[] = $option_key ;
-								}
-
-								// Null
-								if ( 
-										$option_key !== $g_option_key &&
-										count($options_in_rank) > 1 &&
-										in_array($g_option_key, $options_in_rank_keys)
-									)
-								{
-									$this->_pairwise[$option_key]['null'][$g_option_key]++ ;
-								}
-							}
-						}
-
-					}
-				}
-
-
-				// Loose
-				foreach ( $this->_pairwise as $option_key => $option_results )
-				{
-					foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
-					{
-						$this->_pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
-								(
-									$this->_pairwise[$option_key]['win'][$option_compare_key] + 
-									$this->_pairwise[$option_key]['null'][$option_compare_key]
-								) ;
-					}
-				}
-
-
-				$this->_pairwise ;
 
 			}
 
+		}
+		 
 
-
-
-			// Schulze
-			protected function calc_Schulze ()
+		foreach ($this->_options as $i => $i_value)
+		{
+			foreach ($this->_options as $j => $j_value)
 			{
-				// Format array
-				foreach ( $this->_options as $option_key => $option_id )
+				if ($i !== $j)
 				{
-					$this->_schulze_strongest_paths[$option_key] = array() ;
-
-					// Format array for stronghest path
-					foreach ( $this->_options as $option_key_r => $option_id_r )
+					foreach ($this->_options as $k => $k_value)
 					{
-						if ($option_key_r != $option_key)
+						if ($i !== $k && $j !== $k)
 						{
-							$this->_schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
+							$this->_schulze_strongest_paths[$j][$k] = 
+											max( 
+													$this->_schulze_strongest_paths[$j][$k], 
+													min( $this->_schulze_strongest_paths[$j][$i], $this->_schulze_strongest_paths[$i][$k] ) 
+												) ;
 						}
 					}
 
 				}
-
-
-
-				// Algo
-				foreach ($this->_options as $i => $i_value)
-				{
-
-					foreach ($this->_options as $j => $j_value)
-					{
-
-						if ($i !== $j)
-						{
-							if ( $this->_pairwise[$i]['win'][$j] > $this->_pairwise[$j]['win'][$i] )
-							{
-								$this->_schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
-							}
-							else
-							{
-								$this->_schulze_strongest_paths[$i][$j] = 0 ;
-							}
-						}
-
-					}
-
-				}
-				 
-
-				foreach ($this->_options as $i => $i_value)
-				{
-					foreach ($this->_options as $j => $j_value)
-					{
-						if ($i !== $j)
-						{
-							foreach ($this->_options as $k => $k_value)
-							{
-								if ($i !== $k && $j !== $k)
-								{
-									$this->_schulze_strongest_paths[$j][$k] = 
-																	max( 
-																			$this->_schulze_strongest_paths[$j][$k], 
-																			min( $this->_schulze_strongest_paths[$j][$i], $this->_schulze_strongest_paths[$i][$k] ) 
-																		) ;
-								}
-							}
-
-						}
-					}
-				}
-
 			}
+		}
+
+
+	}
 
 
 
