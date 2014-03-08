@@ -147,6 +147,12 @@ class Condorcet
 			return array_search($option_id, $this->_options, true);
 		}
 
+		protected function get_option_id ($option_key)
+		{
+			return $this->_options[$option_key] ;
+		}
+
+
 
 	public function count_options ()
 	{
@@ -448,7 +454,7 @@ class Condorcet
 	protected function calc_Schulze ()
 	{
 		// Format array
-		$this->schulze_array() ;
+		$this->schulze_strongest_array() ;
 
 
 		// Calc Strongest Paths
@@ -456,13 +462,14 @@ class Condorcet
 
 
 		// Calc ranking
-
+		$this->_schulze_result = array() ;
+		$this->schulze_make_ranking() ;
 
 	}
 
 
 		// Calculate the strongest Paths for Schulze Method
-		protected function schulze_array ()
+		protected function schulze_strongest_array ()
 		{
 			foreach ( $this->_options as $option_key => $option_id )
 			{
@@ -529,6 +536,75 @@ class Condorcet
 
 				}
 			}
+		}
+
+
+	}
+
+
+
+	protected function schulze_make_ranking ()
+	{
+		
+		// Calc ranking
+		$done = array () ;
+		$rank = 1 ;
+
+		while (count($done) < $this->_options_count)
+		{
+			$to_done = array() ;
+
+			foreach ( $this->_schulze_strongest_paths as $candidate_key => $options_key )
+			{
+				if ( in_array($candidate_key, $done) )
+				{
+					continue ;
+				}
+
+				$winner = TRUE ;
+
+				foreach ($options_key as $beaten_key => $beaten_value)
+				{
+
+					if ( in_array($beaten_key, $done) )
+					{
+						continue ;
+					}
+
+					if ( $beaten_value <= $this->_schulze_strongest_paths[$beaten_key][$candidate_key] )
+					{
+						$winner = FALSE ;
+					}
+				}
+
+				if ($winner)
+				{
+					$this->_schulze_result[$rank][] = $candidate_key ;
+
+					$to_done[] = $candidate_key ;
+				}
+
+			}
+
+			$done = array_merge($done, $to_done);
+
+			$rank++ ;
+
+		}
+
+
+		// Format ranking
+		foreach ( $this->_schulze_result as $key => $value )
+		{
+			foreach ($value as $ord => $option_key)
+			{
+				$this->_schulze_result[$key][$ord] = $this->get_option_id($option_key) ;
+			}
+		}
+
+		foreach ( $this->_schulze_result as $key => $value )
+		{
+			$this->_schulze_result[$key] = implode(',',$value);
 		}
 
 
