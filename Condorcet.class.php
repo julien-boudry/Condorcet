@@ -16,7 +16,7 @@ class Condorcet
 	const LENGTH_OPION_ID = 10 ;
 
 
-	// To authorize new Method(s) when extend this class
+	// To authorize new Method(s) when extending this class
 	static private function extend_class (array $methods)
 	{
 		foreach ($method as $value)
@@ -26,7 +26,7 @@ class Condorcet
 	}
 
 
-	// Change default method for this class, if $force = TRUE all current and further object will be force to user this method and will not be abble to change it.
+	// Change default method for this class, if $force == TRUE all current and further objects will be forced to use this method and will not be able to change it by themselves.
 	static public function setClassMethod ($method, $force = false)
 	{
 		
@@ -38,7 +38,7 @@ class Condorcet
 		}
 	}
 
-			// if $force = TRUE all current and further object will be force to user this method and will not be abble to change it.
+			// if $force == TRUE all current and further objects will be forced to use this method and will not be abble to change it by themselves.
 			static public function forceMethod ($force = true)
 			{
 				if ($force)
@@ -151,11 +151,11 @@ class Condorcet
 	protected function error ($code, $infos = null)
 	{
 		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
-		$error[2] = array('text'=>'The voting process already began', 'level'=>E_USER_WARNING) ;
-		$error[3] = array('text'=>'This option ID is already register', 'level'=>E_USER_NOTICE) ;
-		$error[4] = array('This option ID not exist'=>'', 'level'=>E_USER_WARNING) ;
+		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
+		$error[3] = array('text'=>'This option ID is already registered', 'level'=>E_USER_NOTICE) ;
+		$error[4] = array('This option ID do not exist'=>'', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
-		$error[6] = array('text'=>'You need to specify votes before result', 'level'=>E_USER_ERROR) ;
+		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
 		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
@@ -277,13 +277,13 @@ class Condorcet
 
 		//:: OPTIONS TOOLS :://
 
-		// Count register options
+		// Count registered options
 		public function count_options ()
 		{
 			return $this->_options_count ;
 		}
 
-		// Get list of register option
+		// Get the list of registered option
 		public function get_options_list ()
 		{
 			return $this->_options ;
@@ -319,13 +319,13 @@ class Condorcet
 	}
 
 
-	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It's no necessary to register the last rank.
+	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
 	public function add_vote (array $vote)
 	{
 		// Close option if needed
 		if ( $this->_vote_state === 1 )
 			{ $this->close_options_config(); }
-		// If voting continue after a first set of results
+		// If voting continues after a first set of results
 		if ( $this->_vote_state > 2 )
 			{ $this->cleanup_result(); }
 
@@ -375,7 +375,7 @@ class Condorcet
 						return FALSE ;
 					}
 
-					// Don't do 2x the same option
+					// Do not do 2x the same option
 					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
 						else { return FALSE ; }
 
@@ -425,13 +425,13 @@ class Condorcet
 
 		//:: VOTING TOOLS :://
 
-		// How many vote register ?
+		// How many votes are registered ?
 		public function count_vote ()
 		{
 			return count($this->_votes) ;
 		}
 
-		// Gest the votes registers list
+		// Get the votes registered list
 		public function get_vote_list ()
 		{
 			return $this->_votes ;
@@ -465,7 +465,7 @@ class Condorcet
 	}
 
 
-	// Gest a Condorcet certified winner. If there are not = null. You can force a winner choice with alternative supported method ($substitution)
+	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
 	public function get_winner_Condorcet ($substitution = false)
 	{
 		// Method
@@ -481,7 +481,7 @@ class Condorcet
 		}
 
 
-		// Calc basic Condorcet :
+		// Basic Condorcet calculation
 		foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
 		{
 			$winner = TRUE ;
@@ -544,11 +544,11 @@ class Condorcet
 		// Format array
 		$this->Schulze_strongest_array() ;
 
-		// Calc Strongest Paths
+		// Strongest Paths calculation
 		$this->strongest_paths() ;
 
 
-		// Calc ranking
+		// Ranking calculation
 		$this->Schulze_make_ranking() ;
 
 
@@ -576,7 +576,7 @@ class Condorcet
 	//:: TOOLS FOR RESULT PROCESS :://
 
 
-	// Prepare to compute result & caching system
+	// Prepare to compute results & caching system
 	protected function prepare_result ()
 	{
 		if ($this->_vote_state > 2)
@@ -604,7 +604,7 @@ class Condorcet
 
 	}
 
-		// Cleanup result to compute again with new votes
+		// Cleanup results to compute again with new votes
 		protected function cleanup_result ()
 		{
 			// Reset state
@@ -629,7 +629,7 @@ class Condorcet
 /////////// PROCESS RESULT ///////////
 
 
-	//:: CALC PAIRWISE :://
+	//:: COMPUTE PAIRWISE :://
 
 	protected function do_Pairwise ()
 	{
@@ -724,7 +724,7 @@ class Condorcet
 
 
 
-	//:: CALC SCHULZE ALGO. :://
+	//:: SCHULZE ALGORITHM. :://
 
 
 	// Calculate the strongest Paths for Schulze Method
@@ -736,7 +736,7 @@ class Condorcet
 		{
 			$this->_Schulze_strongest_paths[$option_key] = array() ;
 
-			// Format array for stronghest path
+			// Format array for the strongest path
 			foreach ( $this->_options as $option_key_r => $option_id_r )
 			{
 				if ($option_key_r != $option_key)
@@ -749,10 +749,9 @@ class Condorcet
 	}
 
 
-	// Calculate Strongest Paths
+	// Calculate the Strongest Paths
 	protected function strongest_paths ()
 	{
-
 
 		foreach ($this->_options as $i => $i_value)
 		{
@@ -803,12 +802,12 @@ class Condorcet
 	}
 
 
-	// Calc & Format human readable ranking
+	// Calculate && Format human readable ranking
 	protected function Schulze_make_ranking ()
 	{		
 		$this->_Schulze_result = array() ;
 
-		// Calc ranking
+		// Calculate ranking
 		$done = array () ;
 		$rank = 1 ;
 
