@@ -7,20 +7,25 @@ class Condorcet
 
 /////////// CLASS ///////////
 
-	private static $_class_method = 'Schulze';
+	private	static $_class_method = 'Schulze';
+	public	static $_auth_methods = 'Condorcet,Schulze' ;
+
 	private static $_force_method = FALSE ;
-
-
 	private static $_show_error = TRUE ;
 
-	static function setMethod ($method, $force = false)
-	{
-		self::$_class_method = $method ;
 
-		self::forceMethod($force);
+	static public function setClassMethod ($method, $force = false)
+	{
+		
+		if ( self::is_auth_method($method) )
+		{
+			self::$_class_method = $method ;
+
+			self::forceMethod($force);
+		}
 	}
 
-			static function forceMethod ($force = true)
+			static private function forceMethod ($force = true)
 			{
 				if ($force)
 				{
@@ -33,7 +38,7 @@ class Condorcet
 			}
 
 
-	static function setError ($param = TRUE)
+	static public function setError ($param = TRUE)
 	{
 		if ($param)
 		{
@@ -43,6 +48,17 @@ class Condorcet
 		{
 			self::$_show_error = FALSE ;
 		}
+	}
+
+
+	static private function is_auth_method ($method)
+	{
+		$auth = explode(',', self::$_auth_methods) ;
+
+		if ( in_array($method,$auth, true) )
+			{ return TRUE ;	}
+		else
+			{ return FALSE ; }
 	}
 
 
@@ -61,36 +77,43 @@ class Condorcet
 
 	// Result
 	protected $_pairwise ;
-	protected $_schulze_strongest_paths ;
-	protected $_schulze_result ;
+
+		// Basic Condorcet
+		protected $_basic_Condorcet_winner ;
+
+		// Schulze
+		protected $_Schulze_strongest_paths ;
+		protected $_Schulze_result ;
 
 
 	public function __construct ($method = null)
 	{
 		if ($method == null)
 			{$method = self::$_class_method ;}
-		$this->set_method($method) ;
+		$this->setMethod($method) ;
 
 		$this->_options	= array() ;
 		$this->_votes 	= array() ;
 	}
 
-	public function set_method ($method = null)
+
+	public function setMethod ($method = null)
 	{
 		if (self::$_force_method)
 		{
 			$this->_method = self::$_class_method ;
 		}
-		elseif ($method != null)
+		elseif ( $method != null && self::is_auth_method($method) )
 		{
 			$this->_method = $method ;
 		}
 
 	}
 
-	public function get_config ()
+
+	public function getConfig ()
 	{
-		$this->set_method() ;
+		$this->setMethod() ;
 
 		return array 	(
 							'object_method'		=> $this->_method,
@@ -104,6 +127,7 @@ class Condorcet
 						);
 	}
 
+
 	protected function error ($code, $infos = null)
 	{
 		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
@@ -111,6 +135,7 @@ class Condorcet
 		$error[3] = array('text'=>'This option ID is already register', 'level'=>E_USER_NOTICE) ;
 		$error[4] = array('This option ID not exist'=>'', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
+		$error[6] = array('text'=>'You need to specify votes befor result', 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
 		{
@@ -130,6 +155,7 @@ class Condorcet
 
 
 /////////// OPTIONS ///////////
+
 
 	public function add_option ($option_id = null)
 	{
@@ -207,6 +233,13 @@ class Condorcet
 	}
 
 
+		//:: OPTIONS TOOLS :://
+
+		public function count_options ()
+		{
+			return $this->_options_count ;
+		}
+
 		protected function get_option_key ($option_id)
 		{
 			return array_search($option_id, $this->_options, true);
@@ -217,13 +250,10 @@ class Condorcet
 			return $this->_options[$option_key] ;
 		}
 
-
-
-	public function count_options ()
-	{
-		return $this->_options_count ;
-	}
-
+		protected function option_id_exist ($option_id)
+		{
+			return in_array($option_id, $this->_options) ;
+		}
 
 
 
@@ -242,11 +272,16 @@ class Condorcet
 		}
 	}
 
+
 	public function add_vote (array $vote)
 	{
 
 		// Close option if needed
-		if ( $this->_vote_state === 1 ) { $this->close_options_config(); }
+		if ( $this->_vote_state === 1 )
+			{ $this->close_options_config(); }
+		// If voting continue after a first set of results
+		if ( $this->_vote_state > 2 )
+			{ $this->cleanup_result(); }
 
 
 		// Check array format
@@ -262,6 +297,27 @@ class Condorcet
 
 		return TRUE ;
 	}
+
+
+		protected function cleanup_result ()
+		{
+			// Reset state
+			$this->_vote_state = 2 ; 
+
+				///
+
+			// Clean pairwise
+			$this->_pairwise = null ;
+
+			// Clean Basic Condorcet
+			$this->_basic_Condorcet_winner = null ;
+
+			// Clean Schulze
+			$this->_Schulze_strongest_paths = null ;
+			$this->_Schulze_result = null ;
+		}
+
+
 
 		protected function check_vote_input ($vote)
 		{
@@ -303,11 +359,6 @@ class Condorcet
 			}
 
 			return TRUE ;
-		}
-
-		protected function option_id_exist ($option_id)
-		{
-			return in_array($option_id, $this->_options) ;
 		}
 
 
@@ -352,37 +403,46 @@ class Condorcet
 /////////// RETURN RESULT ///////////
 
 
-	public function get_complete_result ($method = null)
+	//:: PUBLIC FUNCTIONS :://
+
+
+	public function get_result ($method = null)
 	{
 		// Method
-		$this->set_method($method) ;
+		$this->setMethod($method) ;
 
-		// State
-		$this->_vote_state = 3 ;
+		// Prepare Result
+		$this->prepare_result() ;
 
-
-		if ( $this->_method === 'Schulze' )
+		
+		// Return the good function
+		if ($this->_method !== 'Condorcet')
 		{
-			$this->do_Pairwise() ;
-			$this->calc_Schulze() ;
+			$fonction = 'get_result_'.$this->_method ;
+			return $this->$fonction() ;
 		}
+		else
+			{ return $this->get_winner_Condordet() ; }
 
 	}
 
-	public function get_condorcet_winner ()
+
+	public function get_winner_Condorcet ($substitution = false)
 	{
 		// Method
-		$this->set_method() ;
+		$this->setMethod() ;
 
-		// State
-		$this->_vote_state = 3 ;
+		// Prepare Result
+		$this->prepare_result() ;
 
-		// Do Pairewise
-		$this->do_Pairwise() ;
+		// Cache
+		if ( !$substitution && $this->_basic_Condorcet_winner !== null )
+		{
+			return $this->_basic_Condorcet_winner ;
+		}
 
 
-
-		//Calc basic Condorcet :
+		// Calc basic Condorcet :
 		foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
 		{
 			$winner = TRUE ;
@@ -398,18 +458,95 @@ class Condorcet
 			}
 
 			if ($winner)
-				{ return $this->_options[$candidat_key] ; }
+			{ 
+				$this->_basic_Condorcet_winner = $this->_options[$candidat_key] ;
+
+				return $this->_basic_Condorcet_winner ;
+			}
 		}
 
-		// There is no Winner
-		return NULL ;
 
+		// There is no Winner
+
+			if ( $substitution && $substitution !== 'Condorcet' )
+			{
+				if ( self::is_auth_method($substitution) )
+				{
+					$fonction = 'get_result_'.$substitution ;
+
+					return $this->$fonction()[1] ;
+
+				}
+				elseif ( $this->_method !== 'Condorcet' && $substitution === TRUE )
+				{
+					$fonction = 'get_result_'.$this->_method ;
+
+					return $this->$fonction()[1] ;
+				}
+			}
+
+			return NULL ;
+	}
+
+
+	public function get_result_Schulze ()
+	{
+		// Prepare Result
+		$this->prepare_result() ;
+
+		// Cache
+		if ( $this->_Schulze_result !== null )
+		{
+			return $this->_Schulze_result ;
+		}
+
+			///
+
+		// Format array
+		$this->Schulze_strongest_array() ;
+
+		// Calc Strongest Paths
+		$this->strongest_paths() ;
+
+
+		// Calc ranking
+		$this->Schulze_make_ranking() ;
+
+
+		// Return
+		return $this->_Schulze_result ;
 	}
 
 
 
-/////////// PROCESS RESULT ///////////
+	//:: TOOLS FOR RESULT PROCESS :://
 
+	protected function prepare_result ()
+	{
+		if ($this->_vote_state > 2)
+		{
+			return FALSE ;
+		}
+		elseif ($this->_vote_state === 2)
+		{
+			$this->cleanup_result();
+
+			// Do Pairewise
+			$this->do_Pairwise() ;
+
+			// Change state to result
+			$this->_vote_state = 3 ;
+		}
+		else
+		{
+			$this->error(6) ;
+		}
+	}
+
+
+
+
+/////////// PROCESS RESULT ///////////
 
 
 	//:: CALC PAIRWISE :://
@@ -417,9 +554,7 @@ class Condorcet
 
 	protected function do_Pairwise ()
 	{
-
 		
-		// Format array
 		$this->_pairwise = array() ;
 
 		foreach ( $this->_options as $option_key => $option_id )
@@ -505,52 +640,34 @@ class Condorcet
 			}
 		}
 
-
-		$this->_pairwise ;
-
 	}
 
 
 
 
-	//:: CALC PAIRWISE :://
+	//:: CALC SCHULZE ALGO. :://
 
 
-	protected function calc_Schulze ()
+	// Calculate the strongest Paths for Schulze Method
+	protected function Schulze_strongest_array ()
 	{
-		// Format array
-		$this->schulze_strongest_array() ;
+		$this->_Schulze_strongest_paths = array() ;
 
-
-		// Calc Strongest Paths
-		$this->strongest_paths() ;
-
-
-		// Calc ranking
-		$this->_schulze_result = array() ;
-		$this->schulze_make_ranking() ;
-
-	}
-
-
-		// Calculate the strongest Paths for Schulze Method
-		protected function schulze_strongest_array ()
+		foreach ( $this->_options as $option_key => $option_id )
 		{
-			foreach ( $this->_options as $option_key => $option_id )
+			$this->_Schulze_strongest_paths[$option_key] = array() ;
+
+			// Format array for stronghest path
+			foreach ( $this->_options as $option_key_r => $option_id_r )
 			{
-				$this->_schulze_strongest_paths[$option_key] = array() ;
-
-				// Format array for stronghest path
-				foreach ( $this->_options as $option_key_r => $option_id_r )
+				if ($option_key_r != $option_key)
 				{
-					if ($option_key_r != $option_key)
-					{
-						$this->_schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
-					}
+					$this->_Schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
 				}
+			}
 
-			}				
-		}
+		}				
+	}
 
 
 	// Calculate Strongest Paths
@@ -568,11 +685,11 @@ class Condorcet
 				{
 					if ( $this->_pairwise[$i]['win'][$j] > $this->_pairwise[$j]['win'][$i] )
 					{
-						$this->_schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
+						$this->_Schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
 					}
 					else
 					{
-						$this->_schulze_strongest_paths[$i][$j] = 0 ;
+						$this->_Schulze_strongest_paths[$i][$j] = 0 ;
 					}
 				}
 
@@ -591,10 +708,10 @@ class Condorcet
 					{
 						if ($i !== $k && $j !== $k)
 						{
-							$this->_schulze_strongest_paths[$j][$k] = 
+							$this->_Schulze_strongest_paths[$j][$k] = 
 											max( 
-													$this->_schulze_strongest_paths[$j][$k], 
-													min( $this->_schulze_strongest_paths[$j][$i], $this->_schulze_strongest_paths[$i][$k] ) 
+													$this->_Schulze_strongest_paths[$j][$k], 
+													min( $this->_Schulze_strongest_paths[$j][$i], $this->_Schulze_strongest_paths[$i][$k] ) 
 												) ;
 						}
 					}
@@ -608,9 +725,10 @@ class Condorcet
 
 
 
-	protected function schulze_make_ranking ()
-	{
-		
+	protected function Schulze_make_ranking ()
+	{		
+		$this->_Schulze_result = array() ;
+
 		// Calc ranking
 		$done = array () ;
 		$rank = 1 ;
@@ -619,7 +737,7 @@ class Condorcet
 		{
 			$to_done = array() ;
 
-			foreach ( $this->_schulze_strongest_paths as $candidate_key => $options_key )
+			foreach ( $this->_Schulze_strongest_paths as $candidate_key => $options_key )
 			{
 				if ( in_array($candidate_key, $done) )
 				{
@@ -636,7 +754,7 @@ class Condorcet
 						continue ;
 					}
 
-					if ( $beaten_value <= $this->_schulze_strongest_paths[$beaten_key][$candidate_key] )
+					if ( $beaten_value <= $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
 					{
 						$winner = FALSE ;
 					}
@@ -644,7 +762,7 @@ class Condorcet
 
 				if ($winner)
 				{
-					$this->_schulze_result[$rank][] = $candidate_key ;
+					$this->_Schulze_result[$rank][] = $candidate_key ;
 
 					$to_done[] = $candidate_key ;
 				}
@@ -659,24 +777,21 @@ class Condorcet
 
 
 		// Format ranking
-		foreach ( $this->_schulze_result as $key => $value )
+		foreach ( $this->_Schulze_result as $key => $value )
 		{
 			foreach ($value as $ord => $option_key)
 			{
-				$this->_schulze_result[$key][$ord] = $this->get_option_id($option_key) ;
+				$this->_Schulze_result[$key][$ord] = $this->get_option_id($option_key) ;
 			}
 		}
 
-		foreach ( $this->_schulze_result as $key => $value )
+		foreach ( $this->_Schulze_result as $key => $value )
 		{
-			$this->_schulze_result[$key] = implode(',',$value);
+			$this->_Schulze_result[$key] = implode(',',$value);
 		}
 
 
 	}
-
-
-
 
 
 

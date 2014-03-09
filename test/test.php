@@ -169,11 +169,14 @@ echo '<br><br><hr><br>';
 echo '<h2>Calc result</h2>';
 
 echo '<strong> Condorcet Winner :</strong>' ;
-var_dump( $condorcet->get_condorcet_winner() ) ;
+var_dump( $condorcet->get_winner_Condorcet(true) ) ;
 
 echo '<br><br>' ;
 
-echo '<strong> Condorcet Winner :</strong>' ;
-var_dump( $condorcet->get_complete_result() ) ;
+echo '<strong> Schulze Result :</strong>' ;
+var_dump( $condorcet->get_result() ) ;
+
+echo '<br><br>' ;
+echo '<strong>Var_dump Condorcet :</strong>' ;
 
 var_dump($condorcet);
