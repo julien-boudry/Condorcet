@@ -49,7 +49,19 @@ _**(just some basic examples, incoming more)**_
 #### Create new object
 
 ` require_once 'Condorcet.class.php' ;`  
-`$condorcet = new Condorcet ($method = null) ` You can specify a method instead of default Schulze Method.
+`$condorcet = new Condorcet ($method = null) ` You can specify a method instead of default Schulze Method.  
+
+##### Change the object default methode if needed
+
+`$condorcet->setMethod('Schulze') ;` Argument : A supported method  
+
+
+##### Change the class default methode if needed
+
+`Condorcet::setClassMethod('Schulze') ;` Argument : A supported method  
+`Condorcet::setClassMethod('Schulze', true) ;` Will force actual and futher object to use this by default 
+
+`Condorcet::forceMethod(false) ;` Unforce actual and futher object to use the class default method by default _(force if argument is true)_  
 
 
 #### Vote options
