@@ -29,7 +29,7 @@ echo '<h2>Check Register Options</h2>';
 // echo $condorcet->add_option('2').'<br>';
 // echo $condorcet->add_option(2).'<br>';
 
-$condorcet->add_option('E').'<br>';
+// $condorcet->add_option('E').'<br>';
 $condorcet->add_option('A').'<br>';
 $condorcet->add_option('B').'<br>';
 $condorcet->add_option('C').'<br>';
@@ -46,113 +46,143 @@ echo '<br><br><hr><br>';
 
 echo '<h2>Check Register Votes</h2>';
 
-// $vote_1[1] = 'A';
-// $vote_1[2] = 'B,2,C';
-// $vote_1[3] = 'coucou';
 
-// $vote_2[1] = 'C';
-// $vote_2[3] = 'A';
+// Example 1
 
-// $vote_3[1] = 2 ;
-// $vote_3[2] = 'coucou' ;
-// $vote_3[3] = 'B,C';
+// $vote[1] = 'A';
+// $vote[2] = 'C';
+// $vote[3] = 'B';
+// $vote[4] = 'E' ;
+// $vote[5] = 'D' ;
 
-// $vote_4[1] = 'B';
-// $vote_4[2] = '2';
-// $vote_4[3] = 'C';
-// $vote_4[4] = 'A';
-// $vote_4[5] = 'coucou';
+// for ($i = 1 ; $i <= 5 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
 
-// $vote_5[1] = 'A';
+// $vote[1] = 'A';
+// $vote[2] = 'E';
+// $vote[3] = 'D';
+// $vote[4] = 'C' ;
+// $vote[5] = 'B' ;
+
+// for ($i = 1 ; $i <= 5 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+// $vote[1] = 'B';
+// $vote[2] = 'E';
+// $vote[3] = 'D';
+// $vote[4] = 'A' ;
+// $vote[5] = 'C' ;
+
+// for ($i = 1 ; $i <= 8 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+// $vote[1] = 'C';
+// $vote[2] = 'A';
+// $vote[3] = 'B';
+// $vote[4] = 'E' ;
+// $vote[5] = 'D' ;
+
+// for ($i = 1 ; $i <= 3 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+
+// $vote[1] = 'C';
+// $vote[2] = 'A';
+// $vote[3] = 'E';
+// $vote[4] = 'B' ;
+// $vote[5] = 'D' ;
+
+// for ($i = 1 ; $i <= 7 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+// $vote[1] = 'C';
+// $vote[2] = 'B';
+// $vote[3] = 'A';
+// $vote[4] = 'D' ;
+// $vote[5] = 'E' ;
+
+// for ($i = 1 ; $i <= 2 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+// $vote[1] = 'D';
+// $vote[2] = 'C';
+// $vote[3] = 'E';
+// $vote[4] = 'B' ;
+// $vote[5] = 'A' ;
+
+// for ($i = 1 ; $i <= 7 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+// $vote[1] = 'E';
+// $vote[2] = 'B';
+// $vote[3] = 'A';
+// $vote[4] = 'D' ;
+// $vote[5] = 'C' ;
+
+// for ($i = 1 ; $i <= 8 ; $i++ )
+// {
+// 	$condorcet->add_vote($vote).'<br>' ;
+// }
+
+
+// Example 2
 
 $vote[1] = 'A';
-$vote[2] = 'C';
-$vote[3] = 'B';
-$vote[4] = 'E' ;
-$vote[5] = 'D' ;
-
-for ($i = 1 ; $i <= 5 ; $i++ )
-{
-	echo $condorcet->add_vote($vote).'<br>' ;
-}
-
-$vote[1] = 'A';
-$vote[2] = 'E';
-$vote[3] = 'D';
-$vote[4] = 'C' ;
-$vote[5] = 'B' ;
-
-for ($i = 1 ; $i <= 5 ; $i++ )
-{
-	var_dump($condorcet->add_vote($vote)).'<br>' ;
-}
-
-$vote[1] = 'B';
-$vote[2] = 'E';
-$vote[3] = 'D';
-$vote[4] = 'A' ;
-$vote[5] = 'C' ;
-
-for ($i = 1 ; $i <= 8 ; $i++ )
-{
-	$condorcet->add_vote($vote).'<br>' ;
-}
-
-$vote[1] = 'C';
-$vote[2] = 'A';
-$vote[3] = 'B';
-$vote[4] = 'E' ;
-$vote[5] = 'D' ;
+$vote[2] = 'B';
+$vote[3] = 'C';
+$vote[4] = 'D' ;
 
 for ($i = 1 ; $i <= 3 ; $i++ )
 {
 	$condorcet->add_vote($vote).'<br>' ;
 }
 
-
-$vote[1] = 'C';
+$vote[1] = 'D';
 $vote[2] = 'A';
-$vote[3] = 'E';
-$vote[4] = 'B' ;
-$vote[5] = 'D' ;
-
-for ($i = 1 ; $i <= 7 ; $i++ )
-{
-	$condorcet->add_vote($vote).'<br>' ;
-}
-
-$vote[1] = 'C';
-$vote[2] = 'B';
-$vote[3] = 'A';
-$vote[4] = 'D' ;
-$vote[5] = 'E' ;
+$vote[3] = 'B';
+$vote[4] = 'C' ;
 
 for ($i = 1 ; $i <= 2 ; $i++ )
 {
 	$condorcet->add_vote($vote).'<br>' ;
 }
 
+
 $vote[1] = 'D';
-$vote[2] = 'C';
-$vote[3] = 'E';
-$vote[4] = 'B' ;
-$vote[5] = 'A' ;
-
-for ($i = 1 ; $i <= 7 ; $i++ )
-{
-	$condorcet->add_vote($vote).'<br>' ;
-}
-
-$vote[1] = 'E';
 $vote[2] = 'B';
-$vote[3] = 'A';
-$vote[4] = 'D' ;
-$vote[5] = 'C' ;
+$vote[3] = 'C';
+$vote[4] = 'A' ;
 
-for ($i = 1 ; $i <= 8 ; $i++ )
+for ($i = 1 ; $i <= 2 ; $i++ )
 {
 	$condorcet->add_vote($vote).'<br>' ;
 }
+
+
+$vote[1] = 'C';
+$vote[2] = 'B';
+$vote[3] = 'D';
+$vote[4] = 'A' ;
+
+for ($i = 1 ; $i <= 2 ; $i++ )
+{
+	$condorcet->add_vote($vote).'<br>' ;
+}
+
 
 
 
