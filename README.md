@@ -26,7 +26,7 @@ _This class is not designed for high performances, very high fiability exigence,
   The Condorcet Winner and full Schulze with ranks are supported. Code is ready to be upgraded soon.
   
   
-### Roadmap for further releases 
+### Roadmap for futher releases 
   
   - Ability to remove vote
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
@@ -49,7 +49,7 @@ _**(just some basic examples, incoming more)**_
 #### Create new object
 
 ` require_once 'Condorcet.class.php' ;`  
-`$condorcet = new Condorcet ($method = null) ` You can specify a method instead of default Schulze Method.  
+`$condorcet = new Condorcet ($method = null) ;` You can specify a method instead of default Schulze Method.  
 
 ##### Change the object default methode if needed
 
@@ -104,7 +104,7 @@ Use commas in the case of a tie :
 _Note : You can add vote after asking the results._  
 
 
-#### Gets result
+#### Get result
 
 When you finished to processing vote, you may wants the results.
 
