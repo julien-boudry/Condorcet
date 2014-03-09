@@ -344,8 +344,6 @@ class Condorcet
 		return TRUE ;
 	}
 
-
-
 		protected function check_vote_input ($vote)
 		{
 
@@ -829,13 +827,12 @@ class Condorcet
 
 				foreach ($options_key as $beaten_key => $beaten_value)
 				{
-
 					if ( in_array($beaten_key, $done) )
 					{
 						continue ;
 					}
 
-					if ( $beaten_value <= $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
+					if ( $beaten_value < $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
 					{
 						$winner = FALSE ;
 					}

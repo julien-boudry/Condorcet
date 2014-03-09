@@ -39,13 +39,12 @@ $condorcet->add_option('D').'<br>';
 
 echo '<br><br>' ;
 
-var_dump($condorcet);
 
 echo '<br><br><hr><br>';
 
 /////////////// REGISTER VOTES
 
-echo '<h2>Check Register Options</h2>';
+echo '<h2>Check Register Votes</h2>';
 
 // $vote_1[1] = 'A';
 // $vote_1[2] = 'B,2,C';
@@ -78,14 +77,14 @@ for ($i = 1 ; $i <= 5 ; $i++ )
 }
 
 $vote[1] = 'A';
-$vote[2] = 'D';
-$vote[3] = 'E';
+$vote[2] = 'E';
+$vote[3] = 'D';
 $vote[4] = 'C' ;
 $vote[5] = 'B' ;
 
 for ($i = 1 ; $i <= 5 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	var_dump($condorcet->add_vote($vote)).'<br>' ;
 }
 
 $vote[1] = 'B';
@@ -96,7 +95,7 @@ $vote[5] = 'C' ;
 
 for ($i = 1 ; $i <= 8 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 $vote[1] = 'C';
@@ -107,7 +106,7 @@ $vote[5] = 'D' ;
 
 for ($i = 1 ; $i <= 3 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 
@@ -119,7 +118,7 @@ $vote[5] = 'D' ;
 
 for ($i = 1 ; $i <= 7 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 $vote[1] = 'C';
@@ -130,7 +129,7 @@ $vote[5] = 'E' ;
 
 for ($i = 1 ; $i <= 2 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 $vote[1] = 'D';
@@ -141,7 +140,7 @@ $vote[5] = 'A' ;
 
 for ($i = 1 ; $i <= 7 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 $vote[1] = 'E';
@@ -152,14 +151,13 @@ $vote[5] = 'C' ;
 
 for ($i = 1 ; $i <= 8 ; $i++ )
 {
-	echo $condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote).'<br>' ;
 }
 
 
 
 
 echo '<br><br>' ;
-
 
 echo '<br><br><hr><br>';
 
@@ -169,8 +167,7 @@ echo '<br><br><hr><br>';
 echo '<h2>Calc result</h2>';
 
 echo '<strong> Condorcet Winner :</strong>' ;
-var_dump( $condorcet->get_winner_Condorcet(true) ) ;
-
+var_dump( $condorcet->get_winner_Condorcet() ) ;
 echo '<br><br>' ;
 
 echo '<strong> Schulze Result :</strong>' ;
