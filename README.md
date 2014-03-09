@@ -44,5 +44,8 @@ _This class is not designed for high performances, very high fiability exigence,
 Soon you will find a complete example.php. The most important methods are listed bellow.  
 We encourage you to read the code, and help to improve inline documentation !
 
-_(incoming)_
+_**(incoming more)**_
 
+#### Create new object
+
+` require_once 'Condorcet.class.php' ;$condorcet = new Condorcet () `
