@@ -16,10 +16,11 @@ $condorcet = new Condorcet () ;
 
 echo '<h2>Check Register Options</h2>';
 
+
 // echo $condorcet->add_option('coucou').'<br>' ;
 // echo $condorcet->add_option('kikoo').'<br>';
 // echo $condorcet->add_option('coucou').'<br>';
-echo $condorcet->add_option(TRUE).'<br>';
+// $condorcet->add_option(TRUE).'<br>';
 // echo $condorcet->add_option(array('coucou')).'<br>';
 // echo $condorcet->add_option().'<br>';
 // echo $condorcet->add_option().'<br>';

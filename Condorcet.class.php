@@ -5,18 +5,43 @@
 class Condorcet
 {
 
-/////////// DEFAULT METHOD ///////////
+/////////// CLASS ///////////
 
 	private static $_class_method = 'Schulze';
+	private static $_force_method = FALSE ;
+
+
+	private static $_show_error = TRUE ;
 
 	static function setMethod ($method, $force = false)
 	{
 		self::$_class_method = $method ;
 
-		if ($force === true)
+		self::forceMethod($force);
+	}
+
+			static function forceMethod ($force = true)
+			{
+				if ($force)
+				{
+					self::$_force_method = TRUE ;
+				}
+				else
+				{
+					self::$_force_method = FALSE ;
+				}
+			}
+
+
+	static function setError ($param = TRUE)
+	{
+		if ($param)
 		{
-			$this->_force_method = false ;
-			$this->set_method() ;
+			self::$_show_error = TRUE ;
+		}
+		else
+		{
+			self::$_show_error = FALSE ;
 		}
 	}
 
@@ -33,7 +58,6 @@ class Condorcet
 	protected $_i_option_id	= 'A' ;
 	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
-	protected $_force_method = FALSE ;
 
 	// Result
 	protected $_pairwise ;
@@ -43,6 +67,8 @@ class Condorcet
 
 	public function __construct ($method = null)
 	{
+		if ($method == null)
+			{$method = self::$_class_method ;}
 		$this->set_method($method) ;
 
 		$this->_options	= array() ;
@@ -51,17 +77,32 @@ class Condorcet
 
 	public function set_method ($method = null)
 	{
-		if ($method != null)
-		{
-			$this->_method = $method ;
-			$this->_force_method = true ;
-		}
-		elseif ($this->_force_method === false)
+		if (self::$_force_method)
 		{
 			$this->_method = self::$_class_method ;
 		}
+		elseif ($method != null)
+		{
+			$this->_method = $method ;
+		}
+
 	}
 
+	public function get_config ()
+	{
+		$this->set_method() ;
+
+		return array 	(
+							'object_method'		=> $this->_method,
+							'class_method'		=> self::$_class_method,
+							'force_class_method'=> self::$_force_method,
+
+							'object_state'		=> $this->_vote_state,
+
+							'options'			=> $this->_options,
+							'votes'				=> $this->_votes
+						);
+	}
 
 	protected function error ($code, $infos = null)
 	{
@@ -71,14 +112,16 @@ class Condorcet
 		$error[4] = array('This option ID not exist'=>'', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
 
-
-		if (array_key_exists($code, $error))
+		if (self::$_show_error)
 		{
-			trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
-		}
-		else
-		{
-			trigger_error ( 'Mysterious Error', E_USER_NOTICE );
+			if (array_key_exists($code, $error))
+			{
+				trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
+			}
+			else
+			{
+				trigger_error ( 'Mysterious Error', E_USER_NOTICE );
+			}
 		}
 
 		return FALSE ;
