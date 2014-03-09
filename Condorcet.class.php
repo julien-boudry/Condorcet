@@ -7,13 +7,26 @@ class Condorcet
 
 /////////// CLASS ///////////
 
-	private	static $_class_method = 'Schulze';
-	public	static $_auth_methods = 'Condorcet,Schulze' ;
+	private	static $_class_method	= 'Schulze';
+	public	static $_auth_methods	= 'Condorcet,Schulze' ;
 
-	private static $_force_method = FALSE ;
-	private static $_show_error = TRUE ;
+	private static $_force_method	= FALSE ;
+	private static $_show_error		= TRUE ;
+
+	const LENGTH_OPION_ID = 10 ;
 
 
+	// To authorize new Method(s) when extend this class
+	static private function extend_class (array $methods)
+	{
+		foreach ($method as $value)
+		{
+			self::$_auth_methods .= ','.$value ;
+		}
+	}
+
+
+	// Change default method for this class, if $force = TRUE all current and further object will be force to user this method and will not be abble to change it.
 	static public function setClassMethod ($method, $force = false)
 	{
 		
@@ -25,7 +38,8 @@ class Condorcet
 		}
 	}
 
-			static private function forceMethod ($force = true)
+			// if $force = TRUE all current and further object will be force to user this method and will not be abble to change it.
+			static public function forceMethod ($force = true)
 			{
 				if ($force)
 				{
@@ -38,6 +52,7 @@ class Condorcet
 			}
 
 
+	// Active trigger_error() - True by default
 	static public function setError ($param = TRUE)
 	{
 		if ($param)
@@ -51,6 +66,7 @@ class Condorcet
 	}
 
 
+	// Check if the method is supported
 	static private function is_auth_method ($method)
 	{
 		$auth = explode(',', self::$_auth_methods) ;
@@ -70,7 +86,7 @@ class Condorcet
 	protected $_options ;
 	protected $_votes ;
 
-	// Mécanique
+	// Mechanics 
 	protected $_i_option_id	= 'A' ;
 	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
@@ -86,6 +102,8 @@ class Condorcet
 		protected $_Schulze_result ;
 
 
+	///
+
 	public function __construct ($method = null)
 	{
 		if ($method == null)
@@ -97,6 +115,7 @@ class Condorcet
 	}
 
 
+	// Change the object method, except if self::$_for_method == TRUE
 	public function setMethod ($method = null)
 	{
 		if (self::$_force_method)
@@ -111,6 +130,7 @@ class Condorcet
 	}
 
 
+	// Return object state with options & votes input
 	public function getConfig ()
 	{
 		$this->setMethod() ;
@@ -135,7 +155,8 @@ class Condorcet
 		$error[3] = array('text'=>'This option ID is already register', 'level'=>E_USER_NOTICE) ;
 		$error[4] = array('This option ID not exist'=>'', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
-		$error[6] = array('text'=>'You need to specify votes befor result', 'level'=>E_USER_ERROR) ;
+		$error[6] = array('text'=>'You need to specify votes before result', 'level'=>E_USER_ERROR) ;
+		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
 		{
@@ -153,17 +174,37 @@ class Condorcet
 	}
 
 
+	// Reset all, be ready for a new vote - PREFER A CLEAN DESTRUCT of this object
+	public function reset_all ()
+	{
+		$this->cleanup_result() ;
+
+		$this->_options = null ;
+		$this_options_count = 0
+		$this->_votes = null ;
+		$this->_i_option_id = 'A' ;
+		$this->_vote_state	= 1 ;
+
+
+		$this->setMethod() ;
+
+	}
+
+
 
 /////////// OPTIONS ///////////
 
 
+	// Add a vote option before voting
 	public function add_option ($option_id = null)
 	{
 		// only if the vote has not started
 		if ( $this->_vote_state > 1 ) { return $this->error(2) ; }
 		
 		// Filter
-		if ( !is_null($option_id) && !is_string($option_id) && !is_int($option_id) )
+		if ( !is_null($option_id) && !ctype_alnum($option_id) && !is_int($option_id) )
+			{ return $this->error(1, $option_id) ; }
+		if ( mb_strlen($option_id) > self::LENGTH_OPION_ID )
 			{ return $this->error(1, $option_id) ; }
 
 		
@@ -207,7 +248,7 @@ class Condorcet
 			}
 
 
-
+	// Destroy a register vote option before voting
 	public function remove_option ($option_id)
 	{
 		// only if the vote has not started
@@ -222,12 +263,13 @@ class Condorcet
 
 		foreach ($option_id as $value)
 		{
-			$option_key = $this->get_option_key ($value) ;
+			$option_key = $this->get_option_key($value) ;
 			if ( $option_key === FALSE )
 				{ return $this->error(4,$value) ;  }
 
 
 			unset($this->_options[$option_key]) ;
+			$this->_options_count-- ;
 		}
 
 	}
@@ -235,9 +277,16 @@ class Condorcet
 
 		//:: OPTIONS TOOLS :://
 
+		// Count register options
 		public function count_options ()
 		{
 			return $this->_options_count ;
+		}
+
+		// Get list of register option
+		public function get_options_list ()
+		{
+			return $this->_options ;
 		}
 
 		protected function get_option_key ($option_id)
@@ -260,22 +309,19 @@ class Condorcet
 /////////// VOTING ///////////
 
 
+	// Close the option config, be ready for voting (optional)
 	public function close_options_config ()
 	{
 		if ( $this->_vote_state === 1 )
-		{
-			$this->_vote_state = 2 ;
-		}
+			{ $this->_vote_state = 2 ; }
 		else
-		{
-			return $this->error(2) ;
-		}
+			{ return $this->error(2) ; }
 	}
 
 
+	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It's no necessary to register the last rank.
 	public function add_vote (array $vote)
 	{
-
 		// Close option if needed
 		if ( $this->_vote_state === 1 )
 			{ $this->close_options_config(); }
@@ -297,25 +343,6 @@ class Condorcet
 
 		return TRUE ;
 	}
-
-
-		protected function cleanup_result ()
-		{
-			// Reset state
-			$this->_vote_state = 2 ; 
-
-				///
-
-			// Clean pairwise
-			$this->_pairwise = null ;
-
-			// Clean Basic Condorcet
-			$this->_basic_Condorcet_winner = null ;
-
-			// Clean Schulze
-			$this->_Schulze_strongest_paths = null ;
-			$this->_Schulze_result = null ;
-		}
 
 
 
@@ -398,6 +425,21 @@ class Condorcet
 		}
 
 
+		//:: VOTING TOOLS :://
+
+		// How many vote register ?
+		public function count_vote ()
+		{
+			return count($this->_votes) ;
+		}
+
+		// Gest the votes registers list
+		public function get_vote_list ()
+		{
+			return $this->_votes ;
+		}
+
+
 
 
 /////////// RETURN RESULT ///////////
@@ -406,15 +448,13 @@ class Condorcet
 	//:: PUBLIC FUNCTIONS :://
 
 
+	// Generic function for default result with ability to change default object method
 	public function get_result ($method = null)
 	{
 		// Method
 		$this->setMethod($method) ;
 
-		// Prepare Result
-		$this->prepare_result() ;
 
-		
 		// Return the good function
 		if ($this->_method !== 'Condorcet')
 		{
@@ -427,6 +467,7 @@ class Condorcet
 	}
 
 
+	// Gest a Condorcet certified winner. If there are not = null. You can force a winner choice with alternative supported method ($substitution)
 	public function get_winner_Condorcet ($substitution = false)
 	{
 		// Method
@@ -449,12 +490,11 @@ class Condorcet
 
 			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
 			{
-				if		( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
+				if	( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
 				{  
 					$winner = FALSE ;
 					break ;
 				}
-
 			}
 
 			if ($winner)
@@ -466,22 +506,22 @@ class Condorcet
 		}
 
 
-		// There is no Winner
+		// If There is no Winner
 
 			if ( $substitution && $substitution !== 'Condorcet' )
 			{
 				if ( self::is_auth_method($substitution) )
 				{
-					$fonction = 'get_result_'.$substitution ;
+					$fonction = 'get_winner_'.$substitution ;
 
-					return $this->$fonction()[1] ;
+					return $this->$fonction() ;
 
 				}
 				elseif ( $this->_method !== 'Condorcet' && $substitution === TRUE )
 				{
-					$fonction = 'get_result_'.$this->_method ;
+					$fonction = 'get_winner_'.$this->_method ;
 
-					return $this->$fonction()[1] ;
+					return $this->$fonction() ;
 				}
 			}
 
@@ -489,6 +529,7 @@ class Condorcet
 	}
 
 
+	// Get the Schulze ranking
 	public function get_result_Schulze ()
 	{
 		// Prepare Result
@@ -517,10 +558,27 @@ class Condorcet
 		return $this->_Schulze_result ;
 	}
 
+		// Get only the Schulze Winner(s)
+		public function get_winner_Schulze ()
+		{
+			// Prepare Result
+			$this->prepare_result() ;
+
+			// If there is not Cache
+			if ( $this->_Schulze_result === null )
+			{
+				$this->get_result_Schulze();
+			}
+
+			return $this->_Schulze_result[1] ;
+		}
+
 
 
 	//:: TOOLS FOR RESULT PROCESS :://
 
+
+	// Prepare to compute result & caching system
 	protected function prepare_result ()
 	{
 		if ($this->_vote_state > 2)
@@ -536,12 +594,36 @@ class Condorcet
 
 			// Change state to result
 			$this->_vote_state = 3 ;
+
+			// Return
+			return TRUE ;
 		}
 		else
 		{
 			$this->error(6) ;
+			return FALSE ;
 		}
+
 	}
+
+		// Cleanup result to compute again with new votes
+		protected function cleanup_result ()
+		{
+			// Reset state
+			$this->_vote_state = 2 ; 
+
+				///
+
+			// Clean pairwise
+			$this->_pairwise = null ;
+
+			// Clean Basic Condorcet
+			$this->_basic_Condorcet_winner = null ;
+
+			// Clean Schulze
+			$this->_Schulze_strongest_paths = null ;
+			$this->_Schulze_result = null ;
+		}
 
 
 
@@ -550,7 +632,6 @@ class Condorcet
 
 
 	//:: CALC PAIRWISE :://
-
 
 	protected function do_Pairwise ()
 	{
@@ -724,7 +805,7 @@ class Condorcet
 	}
 
 
-
+	// Calc & Format human readable ranking
 	protected function Schulze_make_ranking ()
 	{		
 		$this->_Schulze_result = array() ;
