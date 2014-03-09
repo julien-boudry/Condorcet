@@ -180,7 +180,7 @@ class Condorcet
 		$this->cleanup_result() ;
 
 		$this->_options = null ;
-		$this_options_count = 0
+		$this->_options_count = 0 ;
 		$this->_votes = null ;
 		$this->_i_option_id = 'A' ;
 		$this->_vote_state	= 1 ;
