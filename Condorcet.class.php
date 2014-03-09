@@ -63,17 +63,39 @@ class Condorcet
 	}
 
 
+	protected function error ($code, $infos = null)
+	{
+		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
+		$error[2] = array('text'=>'The voting process already began', 'level'=>E_USER_WARNING) ;
+		$error[3] = array('text'=>'This option ID is already register', 'level'=>E_USER_NOTICE) ;
+		$error[4] = array('This option ID not exist'=>'', 'level'=>E_USER_WARNING) ;
+		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
+
+
+		if (array_key_exists($code, $error))
+		{
+			trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
+		}
+		else
+		{
+			trigger_error ( 'Mysterious Error', E_USER_NOTICE );
+		}
+
+		return FALSE ;
+	}
+
+
 
 /////////// OPTIONS ///////////
 
 	public function add_option ($option_id = null)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state > 1 ) { return "error : Les votes ont commencé" ; }
+		if ( $this->_vote_state > 1 ) { return $this->error(2) ; }
 		
 		// Filter
 		if ( !is_null($option_id) && !is_string($option_id) && !is_int($option_id) )
-			{ return "error : Mauvaise saisie de l'option" ; }
+			{ return $this->error(1, $option_id) ; }
 
 		
 		// Process
@@ -103,7 +125,7 @@ class Condorcet
 			}
 			else
 			{
-				return 'error : Option déjà existante' ;
+				return $this->error(3,$option_id) ;
 			}
 
 		}
@@ -120,7 +142,7 @@ class Condorcet
 	public function remove_option ($option_id)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state > 1 ) { return "error : Les votes ont commencé" ; }
+		if ( $this->_vote_state > 1 ) { return $this->error(2) ; }
 
 		
 		if ( !is_array($option_id) )
@@ -133,7 +155,7 @@ class Condorcet
 		{
 			$option_key = $this->get_option_key ($value) ;
 			if ( $option_key === FALSE )
-				{ return "error : Mauvaise saisie de l'option à supprimer" ; }
+				{ return $this->error(4,$value) ;  }
 
 
 			unset($this->_options[$option_key]) ;
@@ -173,7 +195,7 @@ class Condorcet
 		}
 		else
 		{
-			return 'Error : Vote already close' ;
+			return $this->error(2) ;
 		}
 	}
 
@@ -186,7 +208,7 @@ class Condorcet
 
 		// Check array format
 		if ( $this->check_vote_input($vote) === FALSE ) 
-			{ return "error : Input de vote mal formulé"; }
+			{ return $this->error(5) ;  }
 
 		// Sort
 		ksort($vote);
