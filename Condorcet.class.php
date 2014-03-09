@@ -88,6 +88,7 @@ class Condorcet
 /////////// CONSTRUCTOR ///////////
 
 
+	// Data and global options
 	protected $_method ;
 	protected $_options ;
 	protected $_votes ;
@@ -98,7 +99,7 @@ class Condorcet
 	protected $_options_count = 0 ;
 
 	// Result
-	protected $_pairwise ;
+	protected $_Pairwise ;
 
 		// Basic Condorcet
 		protected $_basic_Condorcet_winner ;
@@ -108,7 +109,7 @@ class Condorcet
 		protected $_Schulze_result ;
 
 
-	///
+		///
 
 	public function __construct ($method = null)
 	{
@@ -488,7 +489,7 @@ class Condorcet
 
 
 		// Basic Condorcet calculation
-		foreach ( $this->_pairwise as $candidat_key => $candidat_detail )
+		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
 		{
 			$winner = TRUE ;
 
@@ -619,7 +620,7 @@ class Condorcet
 				///
 
 			// Clean pairwise
-			$this->_pairwise = null ;
+			$this->_Pairwise = null ;
 
 			// Clean Basic Condorcet
 			$this->_basic_Condorcet_winner = null ;
@@ -629,6 +630,23 @@ class Condorcet
 			$this->_Schulze_result = null ;
 		}
 
+
+	//:: GET RAW DATA :://
+
+	public function get_Pairwise ()
+	{
+		$this->prepare_result() ;
+
+		return $this->_Pairwise ;
+	}
+
+	public function get_Strongest_Paths ()
+	{
+		$this->prepare_result() ;
+		$this->get_result_Schulze();
+
+		return $this->_Schulze_strongest_paths ;
+	}	
 
 
 
@@ -640,20 +658,20 @@ class Condorcet
 	protected function do_Pairwise ()
 	{
 		
-		$this->_pairwise = array() ;
+		$this->_Pairwise = array() ;
 
 		foreach ( $this->_options as $option_key => $option_id )
 		{
-			$this->_pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
+			$this->_Pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
 
 
 			foreach ( $this->_options as $option_key_r => $option_id_r )
 			{
 				if ($option_key_r != $option_key)
 				{
-					$this->_pairwise[$option_key]['win'][$option_key_r]		= 0 ;
-					$this->_pairwise[$option_key]['null'][$option_key_r]	= 0 ;
-					$this->_pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
+					$this->_Pairwise[$option_key]['win'][$option_key_r]		= 0 ;
+					$this->_Pairwise[$option_key]['null'][$option_key_r]	= 0 ;
+					$this->_Pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
 				}
 			}
 		}
@@ -691,7 +709,7 @@ class Condorcet
 							)
 						{
 
-							$this->_pairwise[$option_key]['win'][$g_option_key]++ ;
+							$this->_Pairwise[$option_key]['win'][$g_option_key]++ ;
 
 							$done_options[] = $option_key ;
 						}
@@ -703,7 +721,7 @@ class Condorcet
 								in_array($g_option_key, $options_in_rank_keys)
 							)
 						{
-							$this->_pairwise[$option_key]['null'][$g_option_key]++ ;
+							$this->_Pairwise[$option_key]['null'][$g_option_key]++ ;
 						}
 					}
 				}
@@ -713,14 +731,14 @@ class Condorcet
 
 
 		// Loose
-		foreach ( $this->_pairwise as $option_key => $option_results )
+		foreach ( $this->_Pairwise as $option_key => $option_results )
 		{
 			foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
 			{
-				$this->_pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
+				$this->_Pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
 						(
-							$this->_pairwise[$option_key]['win'][$option_compare_key] + 
-							$this->_pairwise[$option_key]['null'][$option_compare_key]
+							$this->_Pairwise[$option_key]['win'][$option_compare_key] + 
+							$this->_Pairwise[$option_key]['null'][$option_compare_key]
 						) ;
 			}
 		}
@@ -767,9 +785,9 @@ class Condorcet
 
 				if ($i !== $j)
 				{
-					if ( $this->_pairwise[$i]['win'][$j] > $this->_pairwise[$j]['win'][$i] )
+					if ( $this->_Pairwise[$i]['win'][$j] > $this->_Pairwise[$j]['win'][$i] )
 					{
-						$this->_Schulze_strongest_paths[$i][$j] = $this->_pairwise[$i]['win'][$j] ;
+						$this->_Schulze_strongest_paths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
 					}
 					else
 					{
