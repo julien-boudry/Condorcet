@@ -128,9 +128,12 @@ Use commas in the case of a tie :
 `$condorcet->add_vote($vote) ;`  
 
 
-##### Verify the Options list
+##### Verify the registered votes list
 
-`$Condorcet->get_votes_list ();` // Will return an array where key is the internal numeric vote_id and value an other array like your input.
+`$Condorcet->get_votes_list ();` // Will return an array where key is the internal numeric vote_id and value an other array like your input.  
+
+`$Condorcet->count_votes ();` // Return a numeric value about the number of registered votes.  
+
 
 
 _Note : You can add new vote after the results have already been given_  
