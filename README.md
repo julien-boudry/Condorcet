@@ -36,7 +36,6 @@ _This class is not designed for high performances, very high fiability exigence,
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Official support for exporting object with caching
   - New Condorcet methods
-  - Computing Condorcet looser
   - New analytic methods
   - New ways to register votes & options
   
@@ -148,14 +147,18 @@ When you have finished to processing vote, you would like to have the results.
 ###### Regular
 
 `$condorcet->get_winner_Condorcet() ;` Will return a string with the Option_Identifiant  
+`$condorcet->get_loser_Condorcet() ;` Will return a string with the Option_Identifiant  
 
 
 ###### Special
 
-Only if there is not a regular Condorcet Winner, process to a special winner(s) using an advanced method.  
+Only if there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
 `$condorcet->get_winner_Condorcet(true) ;` With the default object method _(Class Default : Schulze)_  
 `$condorcet->get_winner_Condorcet('Schulze') ;` Name of an valid method  
+
+`$condorcet->get_loser_Condorcet(true)` With the default object method _(Class Default : Schulze)_  
+`$condorcet->get_loser_Condorcet('Schulze') ;` Name of an valid method  
 
 Will return a string with the Option_Identifiant or many Option identifiants separated by commas  
 
