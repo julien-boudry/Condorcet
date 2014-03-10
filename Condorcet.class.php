@@ -443,13 +443,13 @@ class Condorcet
 		//:: VOTING TOOLS :://
 
 		// How many votes are registered ?
-		public function count_vote ()
+		public function count_votes ()
 		{
 			return count($this->_votes) ;
 		}
 
 		// Get the votes registered list
-		public function get_vote_list ()
+		public function get_votes_list ()
 		{
 			return $this->_votes ;
 		}
