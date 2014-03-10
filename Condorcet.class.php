@@ -14,7 +14,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 	private	static $_class_method	= 'Schulze';
-	public	static $_auth_methods	= 'Condorcet,Schulze' ;
+	public	static $_auth_methods	= 'Condorcet_basic,Schulze' ;
 
 	private static $_force_method	= FALSE ;
 	private static $_show_error		= TRUE ;
@@ -478,7 +478,7 @@ class Condorcet
 
 
 		// Return the good function
-		if ($this->_method !== 'Condorcet')
+		if ($this->_method !== 'Condorcet_basic')
 		{
 			$fonction = 'get_result_'.$this->_method ;
 			return $this->$fonction() ;
@@ -530,7 +530,7 @@ class Condorcet
 
 		// If There is no Winner
 
-			if ( $substitution && $substitution !== 'Condorcet' )
+			if ( $substitution && $substitution !== 'Condorcet_basic' )
 			{
 				if ( self::is_auth_method($substitution) )
 				{
@@ -539,7 +539,7 @@ class Condorcet
 					return $this->$fonction() ;
 
 				}
-				elseif ( $this->_method !== 'Condorcet' && $substitution === TRUE )
+				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
 				{
 					$fonction = 'get_winner_'.$this->_method ;
 
@@ -591,7 +591,7 @@ class Condorcet
 
 		// If There is no Winner
 
-			if ( $substitution && $substitution !== 'Condorcet' )
+			if ( $substitution && $substitution !== 'Condorcet_basic' )
 			{
 				if ( self::is_auth_method($substitution) )
 				{
@@ -600,7 +600,7 @@ class Condorcet
 					return $this->$fonction() ;
 
 				}
-				elseif ( $this->_method !== 'Condorcet' && $substitution === TRUE )
+				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
 				{
 					$fonction = 'get_loser_'.$this->_method ;
 
