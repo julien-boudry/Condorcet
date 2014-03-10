@@ -134,6 +134,7 @@ class Condorcet
 			$this->_method = $method ;
 		}
 
+		return $this->_method ;
 	}
 
 
@@ -143,7 +144,7 @@ class Condorcet
 		$this->setMethod() ;
 
 		return array 	(
-							'object_method'		=> $this->_method,
+							'object_method'		=> $this->get_method(),
 							'class_method'		=> self::$_class_method,
 							'force_class_method'=> self::$_force_method,
 
@@ -162,6 +163,11 @@ class Condorcet
 	public function get_auth_methods ()
 	{
 		return explode(',', self::$_auth_methods) ;
+	}
+
+	public function get_method ()
+	{
+		return $this->setMethod() ;
 	}
 
 
