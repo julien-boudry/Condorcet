@@ -13,7 +13,7 @@ _This class is not designed for high performances, very high fiability exigence,
 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
-**Stable Version : 0.2**
+**Stable Version : 0.2**  
 **PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions
 
 - To date, the 0.2 version is not ready for production due to lack of testing.  
