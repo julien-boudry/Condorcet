@@ -147,11 +147,21 @@ class Condorcet
 							'class_method'		=> self::$_class_method,
 							'force_class_method'=> self::$_force_method,
 
+							'class_show_error'	=> self::$_show_error,
+
 							'object_state'		=> $this->_vote_state,
+							'object_auth_methods' => $this->get_auth_methods(),
 
 							'options'			=> $this->_options,
 							'votes'				=> $this->_votes
 						);
+	}
+
+
+	// Return an array with auth methods
+	public function get_auth_methods ()
+	{
+		return explode(',', self::$_auth_methods) ;
 	}
 
 
@@ -637,7 +647,26 @@ class Condorcet
 	{
 		$this->prepare_result() ;
 
-		return $this->_Pairwise ;
+			///
+
+		$explicit_pairwise = array() ;
+
+		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
+		{
+			$candidate_key = $this->get_option_id($candidate_key) ;
+			
+			foreach ($candidate_value as $mode => $mode_value)
+			{
+				foreach ($mode_value as $option_key => $option_value)
+				{
+					$explicit_pairwise[$candidate_key][$mode][$this->get_option_id($option_key)] = $option_value ;
+				}
+			}
+
+		}
+
+
+		return $explicit_pairwise ;
 	}
 
 	public function get_Strongest_Paths ()
@@ -645,7 +674,21 @@ class Condorcet
 		$this->prepare_result() ;
 		$this->get_result_Schulze();
 
-		return $this->_Schulze_strongest_paths ;
+			///
+
+		$explicit = array() ;
+
+		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
+		{
+			$candidate_key = $this->get_option_id($candidate_key) ;
+
+			foreach ($candidate_value as $option_key => $option_value)
+			{
+				$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
+			}
+		}
+
+		return $explicit ;
 	}	
 
 

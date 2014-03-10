@@ -207,3 +207,5 @@ echo '<br><br>' ;
 echo '<strong>Var_dump Condorcet :</strong>' ;
 
 var_dump($condorcet);
+
+var_dump($condorcet->get_Strongest_Paths());
