@@ -14,7 +14,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 	private	static $_class_method	= 'Schulze';
-	public	static $_auth_methods	= 'Condorcet,Schulze' ;
+	public	static $_auth_methods	= 'Condorcet_basic,Schulze' ;
 
 	private static $_force_method	= FALSE ;
 	private static $_show_error		= TRUE ;
@@ -103,6 +103,7 @@ class Condorcet
 
 		// Basic Condorcet
 		protected $_basic_Condorcet_winner ;
+		protected $_basic_Condorcet_loser ;
 
 		// Schulze
 		protected $_Schulze_strongest_paths ;
@@ -134,6 +135,7 @@ class Condorcet
 			$this->_method = $method ;
 		}
 
+		return $this->_method ;
 	}
 
 
@@ -143,15 +145,30 @@ class Condorcet
 		$this->setMethod() ;
 
 		return array 	(
-							'object_method'		=> $this->_method,
+							'object_method'		=> $this->get_method(),
 							'class_method'		=> self::$_class_method,
 							'force_class_method'=> self::$_force_method,
 
+							'class_show_error'	=> self::$_show_error,
+
 							'object_state'		=> $this->_vote_state,
+							'object_auth_methods' => $this->get_auth_methods(),
 
 							'options'			=> $this->_options,
 							'votes'				=> $this->_votes
 						);
+	}
+
+
+	// Return an array with auth methods
+	public function get_auth_methods ()
+	{
+		return explode(',', self::$_auth_methods) ;
+	}
+
+	public function get_method ()
+	{
+		return $this->setMethod() ;
 	}
 
 
@@ -433,13 +450,13 @@ class Condorcet
 		//:: VOTING TOOLS :://
 
 		// How many votes are registered ?
-		public function count_vote ()
+		public function count_votes ()
 		{
 			return count($this->_votes) ;
 		}
 
 		// Get the votes registered list
-		public function get_vote_list ()
+		public function get_votes_list ()
 		{
 			return $this->_votes ;
 		}
@@ -461,7 +478,7 @@ class Condorcet
 
 
 		// Return the good function
-		if ($this->_method !== 'Condorcet')
+		if ($this->_method !== 'Condorcet_basic')
 		{
 			$fonction = 'get_result_'.$this->_method ;
 			return $this->$fonction() ;
@@ -495,7 +512,7 @@ class Condorcet
 
 			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
 			{
-				if	( $win_count <= $candidat_detail['loose'][$challenger_key] ) 
+				if	( $win_count <= $candidat_detail['lose'][$challenger_key] ) 
 				{  
 					$winner = FALSE ;
 					break ;
@@ -513,7 +530,7 @@ class Condorcet
 
 		// If There is no Winner
 
-			if ( $substitution && $substitution !== 'Condorcet' )
+			if ( $substitution && $substitution !== 'Condorcet_basic' )
 			{
 				if ( self::is_auth_method($substitution) )
 				{
@@ -522,9 +539,70 @@ class Condorcet
 					return $this->$fonction() ;
 
 				}
-				elseif ( $this->_method !== 'Condorcet' && $substitution === TRUE )
+				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
 				{
 					$fonction = 'get_winner_'.$this->_method ;
+
+					return $this->$fonction() ;
+				}
+			}
+
+			return NULL ;
+	}
+
+	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
+	public function get_loser_Condorcet ($substitution = false)
+	{
+		// Method
+		$this->setMethod() ;
+
+		// Prepare Result
+		$this->prepare_result() ;
+
+		// Cache
+		if ( !$substitution && $this->_basic_Condorcet_loser !== null )
+		{
+			return $this->_basic_Condorcet_loser ;
+		}
+
+
+		// Basic Condorcet calculation
+		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		{
+			$loser = TRUE ;
+
+			foreach ($candidat_detail['lose'] as $challenger_key => $lose_count )
+			{
+				if	( $lose_count <= $candidat_detail['win'][$challenger_key] ) 
+				{  
+					$loser = FALSE ;
+					break ;
+				}
+			}
+
+			if ($loser)
+			{ 
+				$this->_basic_Condorcet_loser = $this->_options[$candidat_key] ;
+
+				return $this->_basic_Condorcet_loser ;
+			}
+		}
+
+
+		// If There is no Winner
+
+			if ( $substitution && $substitution !== 'Condorcet_basic' )
+			{
+				if ( self::is_auth_method($substitution) )
+				{
+					$fonction = 'get_loser_'.$substitution ;
+
+					return $this->$fonction() ;
+
+				}
+				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
+				{
+					$fonction = 'get_loser_'.$this->_method ;
 
 					return $this->$fonction() ;
 				}
@@ -578,6 +656,21 @@ class Condorcet
 			return $this->_Schulze_result[1] ;
 		}
 
+		// Get only the Schulze Loser(s)
+		public function get_loser_Schulze ()
+		{
+			// Prepare Result
+			$this->prepare_result() ;
+
+			// If there is not Cache
+			if ( $this->_Schulze_result === null )
+			{
+				$this->get_result_Schulze();
+			}
+
+			return $this->_Schulze_result[count($this->get_result_Schulze())] ;
+		}
+
 
 
 	//:: TOOLS FOR RESULT PROCESS :://
@@ -624,6 +717,7 @@ class Condorcet
 
 			// Clean Basic Condorcet
 			$this->_basic_Condorcet_winner = null ;
+			$this->_basic_Condorcet_loser = null ;
 
 			// Clean Schulze
 			$this->_Schulze_strongest_paths = null ;
@@ -637,7 +731,26 @@ class Condorcet
 	{
 		$this->prepare_result() ;
 
-		return $this->_Pairwise ;
+			///
+
+		$explicit_pairwise = array() ;
+
+		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
+		{
+			$candidate_key = $this->get_option_id($candidate_key) ;
+			
+			foreach ($candidate_value as $mode => $mode_value)
+			{
+				foreach ($mode_value as $option_key => $option_value)
+				{
+					$explicit_pairwise[$candidate_key][$mode][$this->get_option_id($option_key)] = $option_value ;
+				}
+			}
+
+		}
+
+
+		return $explicit_pairwise ;
 	}
 
 	public function get_Strongest_Paths ()
@@ -645,7 +758,21 @@ class Condorcet
 		$this->prepare_result() ;
 		$this->get_result_Schulze();
 
-		return $this->_Schulze_strongest_paths ;
+			///
+
+		$explicit = array() ;
+
+		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
+		{
+			$candidate_key = $this->get_option_id($candidate_key) ;
+
+			foreach ($candidate_value as $option_key => $option_value)
+			{
+				$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
+			}
+		}
+
+		return $explicit ;
 	}	
 
 
@@ -662,7 +789,7 @@ class Condorcet
 
 		foreach ( $this->_options as $option_key => $option_id )
 		{
-			$this->_Pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'loose' => array() ) ;
+			$this->_Pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() ) ;
 
 
 			foreach ( $this->_options as $option_key_r => $option_id_r )
@@ -671,7 +798,7 @@ class Condorcet
 				{
 					$this->_Pairwise[$option_key]['win'][$option_key_r]		= 0 ;
 					$this->_Pairwise[$option_key]['null'][$option_key_r]	= 0 ;
-					$this->_Pairwise[$option_key]['loose'][$option_key_r]	= 0 ;
+					$this->_Pairwise[$option_key]['lose'][$option_key_r]	= 0 ;
 				}
 			}
 		}
@@ -735,7 +862,7 @@ class Condorcet
 		{
 			foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
 			{
-				$this->_Pairwise[$option_key]['loose'][$option_compare_key] = count($this->_votes) -
+				$this->_Pairwise[$option_key]['lose'][$option_compare_key] = count($this->_votes) -
 						(
 							$this->_Pairwise[$option_key]['win'][$option_compare_key] + 
 							$this->_Pairwise[$option_key]['null'][$option_compare_key]
