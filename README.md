@@ -54,19 +54,19 @@ _**(just some basic examples, incoming more)**_
 ` require_once 'Condorcet.class.php' ;`  
 `$condorcet = new Condorcet ($method = null) ;` You can specify a method instead of default Schulze Method.  
 
-##### Change the object default methode if needed
+##### Change the object default method if needed
 
 `$condorcet->setMethod('Schulze') ;` Argument : A supported method  
 
 
-##### Change the class default methode if needed
+##### Change the class default method if needed
 
 `Condorcet::setClassMethod('Schulze') ;` Argument : A supported method  
 `Condorcet::setClassMethod('Schulze', true) ;` Will force actual and futher object to use this by default.  
 `Condorcet::forceMethod(false) ;` Unforce actual and futher object to use the class default method  _(or force it if argument is true)_  
 
 
-##### Change the class default methode if needed
+##### About errors
 
 `Condorcet::setError(false) ;` _(true by default)_ Unactive or active trigger_error() usage. Can be unefficent depending of your configuration environnement.    
 
@@ -81,7 +81,7 @@ _**(just some basic examples, incoming more)**_
 `$Condorcet->get_auth_methods ();` Get an array of authorized methods to use.  
 
 
-##### Reset object without destroy it _(discouraged)_
+##### Reset object without destroy it _(discouraged pratice)_
 
 `$Condorcet->reset_all ();`  
 
