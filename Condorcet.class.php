@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.1 (maybe not ready for production, please test)
+	Version : 0.2 (maybe not ready for production, please test)
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
