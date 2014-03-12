@@ -8,8 +8,9 @@ ini_set('xdebug.var_display_max_data', -1);
 header('Content-Type: text/html; charset=utf-8') ;
 
 require_once '../Condorcet.class.php' ;
+require_once '../Condorcet.NewMethod.class - (Extend Example).php' ;
 
-$condorcet = new Condorcet () ;
+$condorcet = new MyNewMethod () ;
 
 
 /////////////// REGISTER OPTIONS
@@ -206,8 +207,7 @@ var_dump( $condorcet->get_result() ) ;
 echo '<br><br>' ;
 echo '<strong>Var_dump Condorcet :</strong>' ;
 
-var_dump($condorcet);
 
-var_dump($condorcet->get_Strongest_Paths());
+var_dump($condorcet);
 
 var_dump($condorcet->getConfig());

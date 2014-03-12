@@ -13,30 +13,19 @@ class Condorcet
 
 /////////// CLASS ///////////
 
-	private	static $_class_method	= 'Schulze';
-	public	static $_auth_methods	= 'Condorcet_basic,Schulze' ;
+	protected static $_class_method	= 'Schulze';
+	protected static $_auth_methods	= 'Condorcet_basic,Schulze' ;
 
-	private static $_force_method	= FALSE ;
-	private static $_show_error		= TRUE ;
+	protected static $_force_method	= FALSE ;
+	protected static $_show_error		= TRUE ;
 
 	const LENGTH_OPION_ID = 10 ;
 
 
-	// To authorize new Method(s) when extending this class
-	static private function extend_class (array $methods)
-	{
-		foreach ($method as $value)
-		{
-			self::$_auth_methods .= ','.$value ;
-		}
-	}
-
-
 	// Change default method for this class, if $force == TRUE all current and further objects will be forced to use this method and will not be able to change it by themselves.
 	static public function setClassMethod ($method, $force = false)
-	{
-		
-		if ( self::is_auth_method($method) )
+	{		
+		if ( $this->is_auth_method($method) )
 		{
 			self::$_class_method = $method ;
 
@@ -71,17 +60,6 @@ class Condorcet
 		}
 	}
 
-
-	// Check if the method is supported
-	static private function is_auth_method ($method)
-	{
-		$auth = explode(',', self::$_auth_methods) ;
-
-		if ( in_array($method,$auth, true) )
-			{ return TRUE ;	}
-		else
-			{ return FALSE ; }
-	}
 
 
 
@@ -130,7 +108,7 @@ class Condorcet
 		{
 			$this->_method = self::$_class_method ;
 		}
-		elseif ( $method != null && self::is_auth_method($method) )
+		elseif ( $method != null && $this->is_auth_method($method) )
 		{
 			$this->_method = $method ;
 		}
@@ -152,10 +130,8 @@ class Condorcet
 							'class_show_error'	=> self::$_show_error,
 
 							'object_state'		=> $this->_vote_state,
-							'object_auth_methods' => $this->get_auth_methods(),
+							'object_auth_methods' => $this->get_auth_methods()
 
-							'options'			=> $this->_options,
-							'votes'				=> $this->_votes
 						);
 	}
 
@@ -163,7 +139,27 @@ class Condorcet
 	// Return an array with auth methods
 	public function get_auth_methods ()
 	{
-		return explode(',', self::$_auth_methods) ;
+		$auth = explode(',', self::$_auth_methods) ;
+
+		// For extend the class
+		if ( property_exists($this, '_extend_auth_methods') )
+		{
+			$called_class = get_called_class() ;
+			$auth = array_merge($auth, explode(',', $called_class::$_extend_auth_methods)) ;
+		}
+
+		return $auth ;
+	}
+
+	// Check if the method is supported
+	protected function is_auth_method ($method)
+	{
+		$auth = $this->get_auth_methods() ;
+
+		if ( in_array($method,$auth, true) )
+			{ return TRUE ;	}
+		else
+			{ return FALSE ; }
 	}
 
 	public function get_method ()
@@ -532,7 +528,7 @@ class Condorcet
 
 			if ( $substitution && $substitution !== 'Condorcet_basic' )
 			{
-				if ( self::is_auth_method($substitution) )
+				if ( $this->is_auth_method($substitution) )
 				{
 					$fonction = 'get_winner_'.$substitution ;
 
@@ -593,7 +589,7 @@ class Condorcet
 
 			if ( $substitution && $substitution !== 'Condorcet_basic' )
 			{
-				if ( self::is_auth_method($substitution) )
+				if ( $this->is_auth_method($substitution) )
 				{
 					$fonction = 'get_loser_'.$substitution ;
 
@@ -722,6 +718,12 @@ class Condorcet
 			// Clean Schulze
 			$this->_Schulze_strongest_paths = null ;
 			$this->_Schulze_result = null ;
+
+			// Clean data from extend class
+			if (method_exists($this, 'extend_cleanup_result'))
+			{
+				$this->extend_cleanup_result() ;
+			}
 		}
 
 
