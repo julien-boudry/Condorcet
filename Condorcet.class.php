@@ -13,19 +13,69 @@ class Condorcet
 
 /////////// CLASS ///////////
 
-	protected static $_class_method	= 'Schulze';
-	protected static $_auth_methods	= 'Condorcet_basic,Schulze' ;
+	protected static $_class_method	= null ;
+	protected static $_auth_methods	= '' ;
 
 	protected static $_force_method	= FALSE ;
-	protected static $_show_error		= TRUE ;
+	protected static $_show_error	= TRUE ;
 
 	const LENGTH_OPION_ID = 10 ;
+
+
+	// Return an array with auth methods
+	public static function get_auth_methods ()
+	{
+		$auth = explode(',', self::$_auth_methods) ;
+
+		return $auth ;
+	}
+
+	// Check if the method is supported
+	public static function is_auth_method ($method)
+	{
+		$auth = self::get_auth_methods() ;
+
+		if ( in_array($method,$auth, true) )
+			{ return TRUE ;	}
+		else
+			{ return FALSE ; }
+	}
+
+
+	// Add algos
+	static public function add_algos ($algos)
+	{
+		if ( is_null($algos) )
+			{ return ; }
+
+		elseif ( is_string($algos) && !self::is_auth_method($algos) )
+		{
+			if ( empty(self::$_auth_methods) )
+				{ self::$_auth_methods .= $algos ; }
+			else
+				{ self::$_auth_methods .= ','.$algos ; }
+		}
+
+		elseif ( is_array($algos) )
+		{
+			foreach ($algos as $value)
+			{
+				if ( !self::is_auth_method($value) )
+					{ continue; }
+
+				if ( empty(self::$_auth_methods) )
+					{ self::$_auth_methods .= $value ; }
+				else
+					{ self::$_auth_methods .= ','.$value ; }				
+			}
+		}
+	}
 
 
 	// Change default method for this class, if $force == TRUE all current and further objects will be forced to use this method and will not be able to change it by themselves.
 	static public function setClassMethod ($method, $force = false)
 	{		
-		if ( $this->is_auth_method($method) )
+		if ( self::is_auth_method($method) )
 		{
 			self::$_class_method = $method ;
 
@@ -78,26 +128,18 @@ class Condorcet
 
 	// Result
 	protected $_Pairwise ;
-
-		// Basic Condorcet
-		protected $_basic_Condorcet_winner ;
-		protected $_basic_Condorcet_loser ;
-
-		// Schulze
-		protected $_Schulze_strongest_paths ;
-		protected $_Schulze_result ;
+	protected $_algos ;
 
 
 		///
 
-	public function __construct ($method = null)
+	public function __construct ($algo = null)
 	{
-		if ($method == null)
-			{$method = self::$_class_method ;}
-		$this->setMethod($method) ;
+		$this->_method = self::$_class_method ;
 
 		$this->_options	= array() ;
 		$this->_votes 	= array() ;
+		$this->_algos 	= self::add_algos($algo) ;
 	}
 
 
@@ -108,7 +150,7 @@ class Condorcet
 		{
 			$this->_method = self::$_class_method ;
 		}
-		elseif ( $method != null && $this->is_auth_method($method) )
+		elseif ( $method != null && self::is_auth_method($method) )
 		{
 			$this->_method = $method ;
 		}
@@ -124,43 +166,17 @@ class Condorcet
 
 		return array 	(
 							'object_method'		=> $this->get_method(),
-							'class_method'		=> self::$_class_method,
+							'class_default_method'	=> self::$_class_method,
+							'class_auth_methods'=> self::get_auth_methods(),
 							'force_class_method'=> self::$_force_method,
 
 							'class_show_error'	=> self::$_show_error,
 
-							'object_state'		=> $this->_vote_state,
-							'object_auth_methods' => $this->get_auth_methods()
+							'object_state'		=> $this->_vote_state						
 
 						);
 	}
 
-
-	// Return an array with auth methods
-	public function get_auth_methods ()
-	{
-		$auth = explode(',', self::$_auth_methods) ;
-
-		// For extend the class
-		if ( property_exists($this, '_extend_auth_methods') )
-		{
-			$called_class = get_called_class() ;
-			$auth = array_merge($auth, explode(',', $called_class::$_extend_auth_methods)) ;
-		}
-
-		return $auth ;
-	}
-
-	// Check if the method is supported
-	protected function is_auth_method ($method)
-	{
-		$auth = $this->get_auth_methods() ;
-
-		if ( in_array($method,$auth, true) )
-			{ return TRUE ;	}
-		else
-			{ return FALSE ; }
-	}
 
 	public function get_method ()
 	{
@@ -177,6 +193,7 @@ class Condorcet
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
 		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
 		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_ERROR) ;
+		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
 		{
@@ -466,206 +483,118 @@ class Condorcet
 	//:: PUBLIC FUNCTIONS :://
 
 
+	protected function init_result ($method)
+	{
+		if ( !isset($this->_algos[$method]) )
+		{
+			$param['_Pairwise'] = $this->_Pairwise ;
+			$param['_options_count'] = $this->_options_count ;
+			$param['_options'] = $this->_options ;
+
+			$class = 'Condorcet_'.$method ;
+			$this->_algos[$method] = new $class($param) ;
+		}
+	}
+
+
+
 	// Generic function for default result with ability to change default object method
 	public function get_result ($method = null)
 	{
 		// Method
-		$this->setMethod($method) ;
+		$this->setMethod() ;
+		// Prepare
+		$this->prepare_result() ;
 
 
-		// Return the good function
-		if ($this->_method !== 'Condorcet_basic')
+		if ($method === null)
 		{
-			$fonction = 'get_result_'.$this->_method ;
-			return $this->$fonction() ;
+			$this->init_result($this->_method) ;
+
+			return $this->_algos[$this->_method]->get_result() ;
+		}
+		elseif ( $method === 'Condorcet_basic' )
+		{ 
+			return $this->get_winner() ;
+		}
+		elseif (self::is_auth_method($method))
+		{
+			$this->init_result($method) ;
+
+			return $this->_algos[$method]->get_result() ;
 		}
 		else
-			{ return $this->get_winner_Condordet() ; }
+		{
+			return $this->error(8,$option_id) ;
+		}
 
 	}
 
-
-	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_winner_Condorcet ($substitution = false)
+	public function get_winner ($substitution = false)
 	{
 		// Method
 		$this->setMethod() ;
-
-		// Prepare Result
+		// Prepare
 		$this->prepare_result() ;
 
-		// Cache
-		if ( !$substitution && $this->_basic_Condorcet_winner !== null )
+		$this->init_result('Condorcet_basic') ;
+		$condorcet_winner = $this->_algos['Condorcet_basic']->get_winner() ;
+
+		if ($condorcet_winner !== null)
 		{
-			return $this->_basic_Condorcet_winner ;
+			return $condorcet_winner ;
 		}
 
-
-		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		if ( $substitution && $substitution !== 'Condorcet_basic' )
 		{
-			$winner = TRUE ;
-
-			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
+			if ( self::is_auth_method($substitution) )
 			{
-				if	( $win_count <= $candidat_detail['lose'][$challenger_key] ) 
-				{  
-					$winner = FALSE ;
-					break ;
-				}
+				$this->init_result($substitution) ;
+
+				return $this->_algos[$substitution]->get_winner() ;
 			}
+			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
+			{
+				$this->init_result($this->_method) ;
 
-			if ($winner)
-			{ 
-				$this->_basic_Condorcet_winner = $this->_options[$candidat_key] ;
-
-				return $this->_basic_Condorcet_winner ;
+				return $this->_algos[$method]->get_winner() ;
 			}
 		}
-
-
-		// If There is no Winner
-
-			if ( $substitution && $substitution !== 'Condorcet_basic' )
-			{
-				if ( $this->is_auth_method($substitution) )
-				{
-					$fonction = 'get_winner_'.$substitution ;
-
-					return $this->$fonction() ;
-
-				}
-				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
-				{
-					$fonction = 'get_winner_'.$this->_method ;
-
-					return $this->$fonction() ;
-				}
-			}
-
-			return NULL ;
 	}
 
-	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_loser_Condorcet ($substitution = false)
+
+	public function get_loser ($substitution = false)
 	{
 		// Method
 		$this->setMethod() ;
-
-		// Prepare Result
+		// Prepare
 		$this->prepare_result() ;
 
-		// Cache
-		if ( !$substitution && $this->_basic_Condorcet_loser !== null )
+		$this->init_result('Condorcet_basic') ;
+		$condorcet_loser = $this->_algos['Condorcet_basic']->get_loser() ;
+
+		if ($condorcet_winner !== null)
 		{
-			return $this->_basic_Condorcet_loser ;
+			return $condorcet_loser ;
 		}
 
-
-		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		if ( $substitution && $substitution !== 'Condorcet_basic' )
 		{
-			$loser = TRUE ;
-
-			foreach ($candidat_detail['lose'] as $challenger_key => $lose_count )
+			if ( self::is_auth_method($substitution) )
 			{
-				if	( $lose_count <= $candidat_detail['win'][$challenger_key] ) 
-				{  
-					$loser = FALSE ;
-					break ;
-				}
+				$this->init_result($substitution) ;
+
+				return $this->_algos[$substitution]->get_loser() ;
 			}
+			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
+			{
+				$this->init_result($this->_method) ;
 
-			if ($loser)
-			{ 
-				$this->_basic_Condorcet_loser = $this->_options[$candidat_key] ;
-
-				return $this->_basic_Condorcet_loser ;
+				return $this->_algos[$method]->get_loser() ;
 			}
 		}
-
-
-		// If There is no Winner
-
-			if ( $substitution && $substitution !== 'Condorcet_basic' )
-			{
-				if ( $this->is_auth_method($substitution) )
-				{
-					$fonction = 'get_loser_'.$substitution ;
-
-					return $this->$fonction() ;
-
-				}
-				elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
-				{
-					$fonction = 'get_loser_'.$this->_method ;
-
-					return $this->$fonction() ;
-				}
-			}
-
-			return NULL ;
+		
 	}
-
-
-	// Get the Schulze ranking
-	public function get_result_Schulze ()
-	{
-		// Prepare Result
-		$this->prepare_result() ;
-
-		// Cache
-		if ( $this->_Schulze_result !== null )
-		{
-			return $this->_Schulze_result ;
-		}
-
-			///
-
-		// Format array
-		$this->Schulze_strongest_array() ;
-
-		// Strongest Paths calculation
-		$this->strongest_paths() ;
-
-
-		// Ranking calculation
-		$this->Schulze_make_ranking() ;
-
-
-		// Return
-		return $this->_Schulze_result ;
-	}
-
-		// Get only the Schulze Winner(s)
-		public function get_winner_Schulze ()
-		{
-			// Prepare Result
-			$this->prepare_result() ;
-
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result_Schulze();
-			}
-
-			return $this->_Schulze_result[1] ;
-		}
-
-		// Get only the Schulze Loser(s)
-		public function get_loser_Schulze ()
-		{
-			// Prepare Result
-			$this->prepare_result() ;
-
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result_Schulze();
-			}
-
-			return $this->_Schulze_result[count($this->get_result_Schulze())] ;
-		}
 
 
 
@@ -711,13 +640,9 @@ class Condorcet
 			// Clean pairwise
 			$this->_Pairwise = null ;
 
-			// Clean Basic Condorcet
-			$this->_basic_Condorcet_winner = null ;
-			$this->_basic_Condorcet_loser = null ;
+			// Algos
+			$this->_basic_Condorcet_winner = array() ;
 
-			// Clean Schulze
-			$this->_Schulze_strongest_paths = null ;
-			$this->_Schulze_result = null ;
 
 			// Clean data from extend class
 			if (method_exists($this, 'extend_cleanup_result'))
@@ -755,27 +680,27 @@ class Condorcet
 		return $explicit_pairwise ;
 	}
 
-	public function get_Strongest_Paths ()
-	{
-		$this->prepare_result() ;
-		$this->get_result_Schulze();
+	// public function get_Strongest_Paths ()
+	// {
+	// 	$this->prepare_result() ;
+	// 	$this->get_result_Schulze();
 
-			///
+	// 		///
 
-		$explicit = array() ;
+	// 	$explicit = array() ;
 
-		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
-		{
-			$candidate_key = $this->get_option_id($candidate_key) ;
+	// 	foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
+	// 	{
+	// 		$candidate_key = $this->get_option_id($candidate_key) ;
 
-			foreach ($candidate_value as $option_key => $option_value)
-			{
-				$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
-			}
-		}
+	// 		foreach ($candidate_value as $option_key => $option_value)
+	// 		{
+	// 			$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
+	// 		}
+	// 	}
 
-		return $explicit ;
-	}	
+	// 	return $explicit ;
+	// }	
 
 
 
@@ -874,8 +799,189 @@ class Condorcet
 
 	}
 
+}
+
+Condorcet::add_algos('Condorcet_basic') ;
+
+class Condorcet_Condorcet_basic
+{
+	// Config
+	protected $_Pairwise ;
+	protected $_options_count ;
+	protected $_options ;
+
+	// Basic Condorcet
+	protected $_basic_Condorcet_winner ;
+	protected $_basic_Condorcet_loser ;
 
 
+	public function __construct (array $config)
+	{
+		$this->_Pairwise = $config['_Pairwise'] ;
+		$this->_options_count = $config['_options_count'] ;
+		$this->_options = $config['_options'] ;
+	}
+
+
+// Public
+
+	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
+	public function get_winner ()
+	{
+		// Cache
+		if ( $this->_basic_Condorcet_winner !== null )
+		{
+			return $this->_basic_Condorcet_winner ;
+		}
+
+
+		// Basic Condorcet calculation
+		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		{
+			$winner = TRUE ;
+
+			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
+			{
+				if	( $win_count <= $candidat_detail['lose'][$challenger_key] ) 
+				{  
+					$winner = FALSE ;
+					break ;
+				}
+			}
+
+			if ($winner)
+			{ 
+				$this->_basic_Condorcet_winner = $this->_options[$candidat_key] ;
+
+				return $this->_basic_Condorcet_winner ;
+			}
+		}
+
+			return NULL ;
+	}
+
+	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
+	public function get_loser ()
+	{
+
+		// Cache
+		if ( $this->_basic_Condorcet_loser !== null )
+		{
+			return $this->_basic_Condorcet_loser ;
+		}
+
+
+		// Basic Condorcet calculation
+		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		{
+			$loser = TRUE ;
+
+			foreach ($candidat_detail['lose'] as $challenger_key => $lose_count )
+			{
+				if	( $lose_count <= $candidat_detail['win'][$challenger_key] ) 
+				{  
+					$loser = FALSE ;
+					break ;
+				}
+			}
+
+			if ($loser)
+			{ 
+				$this->_basic_Condorcet_loser = $this->_options[$candidat_key] ;
+
+				return $this->_basic_Condorcet_loser ;
+			}
+		}
+
+			return NULL ;
+	}
+
+
+
+}
+
+
+
+Condorcet::add_algos('Schulze') ;
+Condorcet::setClassMethod('Schulze') ;
+
+class Condorcet_Schulze
+{
+	// Config
+	protected $_Pairwise ;
+	protected $_options_count ;
+	protected $_options ;
+
+	// Schulze
+	protected $_Schulze_strongest_paths ;
+	protected $_Schulze_result ;
+
+
+	public function __construct (array $config)
+	{
+		$this->_Pairwise = $config['_Pairwise'] ;
+		$this->_options_count = $config['_options_count'] ;
+		$this->_options = $config['_options'] ;
+	}
+
+
+// Public
+
+
+	// Get the Schulze ranking
+	public function get_result ()
+	{
+		// Cache
+		if ( $this->_Schulze_result !== null )
+		{
+			return $this->_Schulze_result ;
+		}
+
+			///
+
+		// Format array
+		$this->Schulze_strongest_array() ;
+
+		// Strongest Paths calculation
+		$this->strongest_paths() ;
+
+
+		// Ranking calculation
+		$this->Schulze_make_ranking() ;
+
+
+		// Return
+		return $this->_Schulze_result ;
+	}
+
+
+		// Get only the Schulze Winner(s)
+		public function get_winner ()
+		{
+			// If there is not Cache
+			if ( $this->_Schulze_result === null )
+			{
+				$this->get_result();
+			}
+
+			return $this->_Schulze_result[1] ;
+		}
+
+		// Get only the Schulze Loser(s)
+		public function get_loser ()
+		{
+			// If there is not Cache
+			if ( $this->_Schulze_result === null )
+			{
+				$this->get_result();
+			}
+
+			return $this->_Schulze_result[count($this->get_result_Schulze())] ;
+		}
+
+
+
+// Compute
 
 	//:: SCHULZE ALGORITHM. :://
 
@@ -1011,7 +1117,7 @@ class Condorcet
 		{
 			foreach ($value as $ord => $option_key)
 			{
-				$this->_Schulze_result[$key][$ord] = $this->get_option_id($option_key) ;
+				$this->_Schulze_result[$key][$ord] = $this->_options[$option_key] ;
 			}
 		}
 
@@ -1022,7 +1128,5 @@ class Condorcet
 
 
 	}
-
-
 
 }

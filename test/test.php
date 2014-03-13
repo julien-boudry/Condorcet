@@ -8,9 +8,9 @@ ini_set('xdebug.var_display_max_data', -1);
 header('Content-Type: text/html; charset=utf-8') ;
 
 require_once '../Condorcet.class.php' ;
-require_once '../Condorcet.NewMethod.class - (Extend Example).php' ;
+// require_once '../Condorcet.NewMethod.class - (Extend Example).php' ;
 
-$condorcet = new MyNewMethod () ;
+$condorcet = new Condorcet () ;
 
 
 /////////////// REGISTER OPTIONS
@@ -197,8 +197,8 @@ echo '<br><br><hr><br>';
 
 echo '<h2>Calc result</h2>';
 
-echo '<strong> Condorcet Loser :</strong>' ;
-var_dump( $condorcet->get_loser_Condorcet() ) ;
+echo '<strong> Condorcet Winner :</strong>' ;
+var_dump( $condorcet->get_winner('Schulze') ) ;
 echo '<br><br>' ;
 
 echo '<strong> Schulze Result :</strong>' ;
