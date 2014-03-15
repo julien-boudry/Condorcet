@@ -50,6 +50,11 @@ class Condorcet
 
 		elseif ( is_string($algos) && !self::is_auth_method($algos) )
 		{
+			if ( !class_exists('Condorcet_'.$algos) )
+			{
+				self::error(9) ;
+			}
+
 			if ( empty(self::$_auth_methods) )
 				{ self::$_auth_methods .= $algos ; }
 			else
@@ -60,6 +65,11 @@ class Condorcet
 		{
 			foreach ($algos as $value)
 			{
+				if ( !class_exists('Condorcet_'.$value) )
+				{
+					self::error(9) ;
+				}
+
 				if ( !self::is_auth_method($value) )
 					{ continue; }
 
@@ -98,7 +108,7 @@ class Condorcet
 
 
 	// Active trigger_error() - True by default
-	static public function setError ($param = TRUE)
+	public static function setError ($param = TRUE)
 	{
 		if ($param)
 		{
@@ -110,6 +120,33 @@ class Condorcet
 		}
 	}
 
+
+	protected static function error ($code, $infos = null)
+	{
+		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
+		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
+		$error[3] = array('text'=>'This option ID is already registered', 'level'=>E_USER_NOTICE) ;
+		$error[4] = array('This option ID do not exist'=>'', 'level'=>E_USER_WARNING) ;
+		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
+		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
+		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_WARNING) ;
+		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
+		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
+
+		if (self::$_show_error)
+		{
+			if (array_key_exists($code, $error))
+			{
+				trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
+			}
+			else
+			{
+				trigger_error ( 'Mysterious Error', E_USER_NOTICE );
+			}
+		}
+
+		return FALSE ;
+	}
 
 
 
@@ -184,33 +221,6 @@ class Condorcet
 	}
 
 
-	protected function error ($code, $infos = null)
-	{
-		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
-		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
-		$error[3] = array('text'=>'This option ID is already registered', 'level'=>E_USER_NOTICE) ;
-		$error[4] = array('This option ID do not exist'=>'', 'level'=>E_USER_WARNING) ;
-		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
-		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
-		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_ERROR) ;
-		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
-
-		if (self::$_show_error)
-		{
-			if (array_key_exists($code, $error))
-			{
-				trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
-			}
-			else
-			{
-				trigger_error ( 'Mysterious Error', E_USER_NOTICE );
-			}
-		}
-
-		return FALSE ;
-	}
-
-
 	// Reset all, be ready for a new vote - PREFER A CLEAN DESTRUCT of this object
 	public function reset_all ()
 	{
@@ -236,13 +246,13 @@ class Condorcet
 	public function add_option ($option_id = null)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state > 1 ) { return $this->error(2) ; }
+		if ( $this->_vote_state > 1 ) { return self::error(2) ; }
 		
 		// Filter
 		if ( !is_null($option_id) && !ctype_alnum($option_id) && !is_int($option_id) )
-			{ return $this->error(1, $option_id) ; }
+			{ return self::error(1, $option_id) ; }
 		if ( mb_strlen($option_id) > self::LENGTH_OPION_ID )
-			{ return $this->error(1, $option_id) ; }
+			{ return self::error(1, $option_id) ; }
 
 		
 		// Process
@@ -272,7 +282,7 @@ class Condorcet
 			}
 			else
 			{
-				return $this->error(3,$option_id) ;
+				return self::error(3,$option_id) ;
 			}
 
 		}
@@ -289,7 +299,7 @@ class Condorcet
 	public function remove_option ($option_id)
 	{
 		// only if the vote has not started
-		if ( $this->_vote_state > 1 ) { return $this->error(2) ; }
+		if ( $this->_vote_state > 1 ) { return self::error(2) ; }
 
 		
 		if ( !is_array($option_id) )
@@ -302,7 +312,7 @@ class Condorcet
 		{
 			$option_key = $this->get_option_key($value) ;
 			if ( $option_key === FALSE )
-				{ return $this->error(4,$value) ;  }
+				{ return self::error(4,$value) ;  }
 
 
 			unset($this->_options[$option_key]) ;
@@ -352,7 +362,7 @@ class Condorcet
 		if ( $this->_vote_state === 1 )
 			{ $this->_vote_state = 2 ; }
 		else
-			{ return $this->error(2) ; }
+			{ return self::error(2) ; }
 	}
 
 
@@ -369,7 +379,7 @@ class Condorcet
 
 		// Check array format
 		if ( $this->check_vote_input($vote) === FALSE ) 
-			{ return $this->error(5) ;  }
+			{ return self::error(5) ;  }
 
 		// Sort
 		ksort($vote);
@@ -510,7 +520,7 @@ class Condorcet
 		}
 		else
 		{
-			return $this->error(8,$option_id) ;
+			return self::error(8,$option_id) ;
 		}
 
 	}
@@ -603,7 +613,7 @@ class Condorcet
 		}
 		else
 		{
-			return $this->error(8,$option_id) ;
+			return self::error(8,$option_id) ;
 		}
 
 	}
@@ -635,11 +645,12 @@ class Condorcet
 		}
 		else
 		{
-			$this->error(6) ;
+			self::error(6) ;
 			return FALSE ;
 		}
 
 	}
+
 
 	protected function init_result ($method)
 	{
@@ -654,27 +665,28 @@ class Condorcet
 		}
 	}
 
-		// Cleanup results to compute again with new votes
-		protected function cleanup_result ()
+
+	// Cleanup results to compute again with new votes
+	protected function cleanup_result ()
+	{
+		// Reset state
+		$this->_vote_state = 2 ; 
+
+			///
+
+		// Clean pairwise
+		$this->_Pairwise = null ;
+
+		// Algos
+		$this->_basic_Condorcet_winner = array() ;
+
+
+		// Clean data from extend class
+		if (method_exists($this, 'extend_cleanup_result'))
 		{
-			// Reset state
-			$this->_vote_state = 2 ; 
-
-				///
-
-			// Clean pairwise
-			$this->_Pairwise = null ;
-
-			// Algos
-			$this->_basic_Condorcet_winner = array() ;
-
-
-			// Clean data from extend class
-			if (method_exists($this, 'extend_cleanup_result'))
-			{
-				$this->extend_cleanup_result() ;
-			}
+			$this->extend_cleanup_result() ;
 		}
+	}
 
 
 	//:: GET RAW DATA :://
