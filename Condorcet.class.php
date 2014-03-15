@@ -483,21 +483,6 @@ class Condorcet
 	//:: PUBLIC FUNCTIONS :://
 
 
-	protected function init_result ($method)
-	{
-		if ( !isset($this->_algos[$method]) )
-		{
-			$param['_Pairwise'] = $this->_Pairwise ;
-			$param['_options_count'] = $this->_options_count ;
-			$param['_options'] = $this->_options ;
-
-			$class = 'Condorcet_'.$method ;
-			$this->_algos[$method] = new $class($param) ;
-		}
-	}
-
-
-
 	// Generic function for default result with ability to change default object method
 	public function get_result ($method = null)
 	{
@@ -597,6 +582,33 @@ class Condorcet
 	}
 
 
+	public function get_result_stats ($method = null)
+	{
+		// Method
+		$this->setMethod() ;
+		// Prepare
+		$this->prepare_result() ;
+
+		if ($method === null)
+		{
+			$this->init_result($this->_method) ;
+
+			return $this->_algos[$this->_method]->get_stats() ;
+		}
+		elseif (self::is_auth_method($method))
+		{
+			$this->init_result($method) ;
+
+			return $this->_algos[$method]->get_stats() ;
+		}
+		else
+		{
+			return $this->error(8,$option_id) ;
+		}
+
+	}
+
+
 
 	//:: TOOLS FOR RESULT PROCESS :://
 
@@ -627,6 +639,19 @@ class Condorcet
 			return FALSE ;
 		}
 
+	}
+
+	protected function init_result ($method)
+	{
+		if ( !isset($this->_algos[$method]) )
+		{
+			$param['_Pairwise'] = $this->_Pairwise ;
+			$param['_options_count'] = $this->_options_count ;
+			$param['_options'] = $this->_options ;
+
+			$class = 'Condorcet_'.$method ;
+			$this->_algos[$method] = new $class($param) ;
+		}
 	}
 
 		// Cleanup results to compute again with new votes
@@ -679,28 +704,6 @@ class Condorcet
 
 		return $explicit_pairwise ;
 	}
-
-	// public function get_Strongest_Paths ()
-	// {
-	// 	$this->prepare_result() ;
-	// 	$this->get_result_Schulze();
-
-	// 		///
-
-	// 	$explicit = array() ;
-
-	// 	foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
-	// 	{
-	// 		$candidate_key = $this->get_option_id($candidate_key) ;
-
-	// 		foreach ($candidate_value as $option_key => $option_value)
-	// 		{
-	// 			$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
-	// 		}
-	// 	}
-
-	// 	return $explicit ;
-	// }	
 
 
 
@@ -824,6 +827,13 @@ class Condorcet_Condorcet_basic
 
 
 // Public
+
+	// Get the Schulze ranking
+	public function get_stats ()
+	{
+		return $this->_Pairwise ;
+	}
+
 
 	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
 	public function get_winner ()
@@ -952,6 +962,29 @@ class Condorcet_Schulze
 
 		// Return
 		return $this->_Schulze_result ;
+	}
+
+
+	// Get the Schulze ranking
+	public function get_stats ()
+	{
+		$this->get_result_Schulze();
+
+			///
+
+		$explicit = array() ;
+
+		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
+		{
+			$candidate_key = $this->get_option_id($candidate_key) ;
+
+			foreach ($candidate_value as $option_key => $option_value)
+			{
+				$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
+			}
+		}
+
+		return $explicit ;
 	}
 
 
