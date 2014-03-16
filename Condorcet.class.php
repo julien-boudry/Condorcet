@@ -740,13 +740,13 @@ class Condorcet
 
 			foreach ($pairwise as $candidate_key => $candidate_value)
 			{
-				$candidate_key = Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				$candidate_key = self::get_static_option_id($candidate_key, $options) ;
 				
 				foreach ($candidate_value as $mode => $mode_value)
 				{
 					foreach ($mode_value as $option_key => $option_value)
 					{
-						$explicit_pairwise[$candidate_key][$mode][Condorcet::get_static_option_id($option_key,$this->_options)] = $option_value ;
+						$explicit_pairwise[$candidate_key][$mode][Condorcet::get_static_option_id($option_key,$options)] = $option_value ;
 					}
 				}
 
