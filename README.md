@@ -74,16 +74,16 @@ _**(just some basic examples, incoming more)**_
 
 ##### Get informations 
 
-`$Condorcet->get_config ();` // Will return an explicit array about the object and Class Constant.  
+`$condorcet->get_config ();` // Will return an explicit array about the object and Class Constant.  
 
-`$Condorcet->get_method ();` // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
+`$condorcet->get_method ();` // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
 
 `Condorcet::get_auth_methods ();` Get an array of authorized methods to use.  
 
 
 ##### Reset object without destroy it _(discouraged pratice)_
 
-`$Condorcet->reset_all ();`  
+`$condorcet->reset_all ();`  
 
 
 #### Vote options
@@ -105,7 +105,7 @@ Enter (or not) an Option_Identifiant
 
 ##### Verify the Options list
 
-`$Condorcet->get_options_list ();` // Will return an array with Option_ID as value.
+`$condorcet->get_options_list ();` // Will return an array with Option_ID as value.
 
 
 _Note : When you start voting, you will never be able to edit the options list._  
@@ -129,9 +129,9 @@ Use commas in the case of a tie :
 
 ##### Verify the registered votes list
 
-`$Condorcet->get_votes_list ();` // Will return an array where key is the internal numeric vote_id and value an other array like your input.  
+`$condorcet->get_votes_list ();` // Will return an array where key is the internal numeric vote_id and value an other array like your input.  
 
-`$Condorcet->count_votes ();` // Return a numeric value about the number of registered votes.  
+`$condorcet->count_votes ();` // Return a numeric value about the number of registered votes.  
 
 
 
@@ -180,9 +180,9 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 ##### Add new algorithm(s)  
 
 
-**Look at how existing algorithm work in the "algorithms" folder.**  
+Look at how existing algorithm work in the "algorithms" folder.  
 
-**Each new class of algorithm must include the public method:**  
+**Each new class of algorithm must include the public method:  
 
 1. get_result  
 2. 'get_stats  
@@ -190,12 +190,12 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 4. get_loser   
 
 
-**The class name should be in this format:**  
+The class name should be in this format: 
 `class Condorcet_ALGORITHM-NAME`  
 
-**You must register this algorithm via this way:**  
+You must register this algorithm via this way:  
 `Condorcet::add_algos('ALGORITHM-NAME') ;`  
 
-**You can specify it as default algorithm:**  
+You can specify it as default algorithm:  
 
-_See the appropriate instructions above._
+_See the appropriate instructions above._  
