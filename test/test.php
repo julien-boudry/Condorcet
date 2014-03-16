@@ -62,8 +62,8 @@ for ($i = 1 ; $i <= 5 ; $i++ )
 }
 
 $vote[1] = 'A';
-$vote[2] = 'E';
-$vote[3] = 'D';
+$vote[2] = 'D';
+$vote[3] = 'E';
 $vote[4] = 'C' ;
 $vote[5] = 'B' ;
 
@@ -211,3 +211,6 @@ echo '<strong>Var_dump Condorcet :</strong>' ;
 var_dump($condorcet);
 
 var_dump($condorcet->getConfig());
+
+
+var_dump($condorcet->get_result_stats());

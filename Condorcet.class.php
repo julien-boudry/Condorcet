@@ -13,6 +13,7 @@ class Condorcet
 
 /////////// CLASS ///////////
 
+
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;
 
@@ -20,6 +21,7 @@ class Condorcet
 	protected static $_show_error	= TRUE ;
 
 	const LENGTH_OPION_ID = 10 ;
+
 
 
 	// Return an array with auth methods
@@ -46,13 +48,13 @@ class Condorcet
 	static public function add_algos ($algos)
 	{
 		if ( is_null($algos) )
-			{ return ; }
+			{ return FALSE ; }
 
 		elseif ( is_string($algos) && !self::is_auth_method($algos) )
 		{
-			if ( !class_exists('Condorcet_'.$algos) )
+			if ( !self::test_algos($algos) )
 			{
-				self::error(9) ;
+				return FALSE ;
 			}
 
 			if ( empty(self::$_auth_methods) )
@@ -65,9 +67,9 @@ class Condorcet
 		{
 			foreach ($algos as $value)
 			{
-				if ( !class_exists('Condorcet_'.$value) )
+				if ( !self::test_algos($value) )
 				{
-					self::error(9) ;
+					return FALSE ;
 				}
 
 				if ( !self::is_auth_method($value) )
@@ -80,6 +82,29 @@ class Condorcet
 			}
 		}
 	}
+
+
+		static protected function test_algos ($algos)
+		{
+			if ( !class_exists('Condorcet_'.$algos) )
+			{				
+				self::error(9) ;
+				return FALSE ;
+			}
+
+			$tests_method = array ('get_result', 'get_stats', 'get_winner', 'get_loser') ;
+
+			foreach ($tests_method as $method)
+			{
+				if ( !method_exists( 'Condorcet_'.$algos , $method ) )
+				{
+					self::error(10) ;
+					return FALSE ;
+				}
+			}
+
+			return TRUE ;
+		}
 
 
 	// Change default method for this class, if $force == TRUE all current and further objects will be forced to use this method and will not be able to change it by themselves.
@@ -132,6 +157,7 @@ class Condorcet
 		$error[7] = array('text'=>'Your Option ID is too long > '.self::LENGTH_OPION_ID, 'level'=>E_USER_WARNING) ;
 		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
 		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
+		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
 		{
@@ -343,8 +369,13 @@ class Condorcet
 
 		protected function get_option_id ($option_key)
 		{
-			return $this->_options[$option_key] ;
+			self::static_get_option_id($option_key, $this->_options) ;
 		}
+
+			public static function get_static_option_id ($option_key, &$options)
+			{
+				return $options[$option_key] ;
+			}
 
 		protected function option_id_exist ($option_id)
 		{
@@ -401,7 +432,6 @@ class Condorcet
 
 			foreach ($vote as $key => $value)
 			{
-
 				// Check key
 				if ( !is_numeric($key) || $key > $this->_options_count )
 					{ return FALSE ; }
@@ -425,7 +455,6 @@ class Condorcet
 					// Do not do 2x the same option
 					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
 						else { return FALSE ; }
-
 				}
 
 			}
@@ -507,10 +536,6 @@ class Condorcet
 			$this->init_result($this->_method) ;
 
 			return $this->_algos[$this->_method]->get_result() ;
-		}
-		elseif ( $method === 'Condorcet_basic' )
-		{ 
-			return $this->get_winner() ;
 		}
 		elseif (self::is_auth_method($method))
 		{
@@ -695,27 +720,30 @@ class Condorcet
 	{
 		$this->prepare_result() ;
 
-			///
+		return self::get_static_Pairwise ($this->_Pairwise, $this->_options) ;
+	}
 
-		$explicit_pairwise = array() ;
-
-		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
+		public static function get_static_Pairwise (&$pairwise, &$options)
 		{
-			$candidate_key = $this->get_option_id($candidate_key) ;
-			
-			foreach ($candidate_value as $mode => $mode_value)
+			$explicit_pairwise = array() ;
+
+			foreach ($pairwise as $candidate_key => $candidate_value)
 			{
-				foreach ($mode_value as $option_key => $option_value)
+				$candidate_key = Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				
+				foreach ($candidate_value as $mode => $mode_value)
 				{
-					$explicit_pairwise[$candidate_key][$mode][$this->get_option_id($option_key)] = $option_value ;
+					foreach ($mode_value as $option_key => $option_value)
+					{
+						$explicit_pairwise[$candidate_key][$mode][Condorcet::get_static_option_id($option_key,$this->_options)] = $option_value ;
+					}
 				}
+
 			}
 
+
+			return $explicit_pairwise ;
 		}
-
-
-		return $explicit_pairwise ;
-	}
 
 
 
@@ -816,6 +844,12 @@ class Condorcet
 
 }
 
+
+
+/////////// ALGOS CLASS ///////////
+
+
+
 Condorcet::add_algos('Condorcet_basic') ;
 
 class Condorcet_Condorcet_basic
@@ -840,10 +874,15 @@ class Condorcet_Condorcet_basic
 
 // Public
 
+	public function get_result ()
+	{
+		return $this->get_winner ;
+	}
+
 	// Get the Schulze ranking
 	public function get_stats ()
 	{
-		return $this->_Pairwise ;
+		return Condorcet::get_static_Pairwise($this->_Pairwise, $this->_options) ;
 	}
 
 
@@ -980,7 +1019,7 @@ class Condorcet_Schulze
 	// Get the Schulze ranking
 	public function get_stats ()
 	{
-		$this->get_result_Schulze();
+		$this->get_result();
 
 			///
 
@@ -988,11 +1027,11 @@ class Condorcet_Schulze
 
 		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
 		{
-			$candidate_key = $this->get_option_id($candidate_key) ;
+			$candidate_key = Condorcet::get_static_option_id($candidate_key,$this->_options) ;
 
 			foreach ($candidate_value as $option_key => $option_value)
 			{
-				$explicit[$candidate_key][$this->get_option_id($option_key)] = $option_value ;
+				$explicit[$candidate_key][Condorcet::get_static_option_id($option_key, $this->_options)] = $option_value ;
 			}
 		}
 
