@@ -1,4 +1,12 @@
-<?php 
+<?php
+/*
+	Part of the Condorcet PHP Class, with Schulze Methods and others !
+
+	Version : 0.3 (maybe not ready for production, please test)
+
+	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
+*/
 
 Condorcet::add_algos('Schulze') ;
 
