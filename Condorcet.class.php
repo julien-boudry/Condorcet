@@ -207,13 +207,14 @@ class Condorcet
 
 		///
 
-	public function __construct ($algo = null)
+	public function __construct ($method = null)
 	{
 		$this->_method = self::$_class_method ;
 
 		$this->_options	= array() ;
 		$this->_votes 	= array() ;
-		$this->_algos 	= self::add_algos($algo) ;
+
+		$this->setMethod($method) ;
 	}
 
 
