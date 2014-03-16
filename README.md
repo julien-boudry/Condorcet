@@ -13,10 +13,10 @@ _This class is not designed for high performances, very high fiability exigence,
 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
-**Stable Version : 0.2**  
-**PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions
+**Stable Version : 0.3**  
+**PHP Requirement :** PHP 5.4+ with Ctype and MB_String common extensions
 
-- To date, the 0.2 version is not ready for production due to lack of testing.  
+- To date, the 0.3 version is not ready for production due to lack of testing.  
 
 
 * * *
@@ -78,7 +78,7 @@ _**(just some basic examples, incoming more)**_
 
 `$Condorcet->get_method ();` // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
 
-`$Condorcet->get_auth_methods ();` Get an array of authorized methods to use.  
+`Condorcet::get_auth_methods ();` Get an array of authorized methods to use.  
 
 
 ##### Reset object without destroy it _(discouraged pratice)_
@@ -146,19 +146,19 @@ When you have finished to processing vote, you would like to have the results.
 
 ###### Regular
 
-`$condorcet->get_winner_Condorcet() ;` Will return a string with the Option_Identifiant  
-`$condorcet->get_loser_Condorcet() ;` Will return a string with the Option_Identifiant  
+`$condorcet->get_winner() ;` Will return a string with the Option_Identifiant  
+`$condorcet->get_loser() ;` Will return a string with the Option_Identifiant  
 
 
 ###### Special
 
 Only if there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
-`$condorcet->get_winner_Condorcet(true) ;` With the default object method _(Class Default : Schulze)_  
-`$condorcet->get_winner_Condorcet('Schulze') ;` Name of an valid method  
+`$condorcet->get_winner(true) ;` With the default object method _(Class Default : Schulze)_  
+`$condorcet->get_winner('Schulze') ;` Name of an valid method  
 
-`$condorcet->get_loser_Condorcet(true)` With the default object method _(Class Default : Schulze)_  
-`$condorcet->get_loser_Condorcet('Schulze') ;` Name of an valid method  
+`$condorcet->get_loser(true)` With the default object method _(Class Default : Schulze)_  
+`$condorcet->get_loser('Schulze') ;` Name of an valid method  
 
 Will return a string with the Option_Identifiant or many Option identifiants separated by commas  
 
@@ -166,17 +166,36 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 ##### Get a complete ranking from advanced methods
 
 `$condorcet->get_result() ;` Set of results with ranking from the default method _(Class Default : Schulze)_  
-`$condorcet->get_result('Schulze') ;` Change the default object method and get a set of results with ranking from the default method  
+`$condorcet->get_result('Schulze') ;` Get a the result for a valid method.
 
-
-###### If you want a specific result without changing the object default method :  
-
-`$condorcet->get_result_Schulze () ;` Example for Schulze Method  
 
 
 ##### Get compute details
 
 `$condorcet->get_Pairwise() ;` Return an explicit array using your Option_ID as keys.  
-`$condorcet->get_Strongest_Paths() ;` ; Return an explicit array using your Option_ID as keys.
+`$condorcet->get_result_stats('Schulze') ;` ; Same thing with a specific method.
 
 
+
+##### Add new algorithm(s)  
+
+
+**Look at how existing algorithm work in the "algorithms" folder.**  
+
+**Each new class of algorithm must include the public method:**  
+
+1. get_result  
+2. 'get_stats  
+3. get_winner  
+4. get_loser   
+
+
+**The class name should be in this format:**  
+`class Condorcet_ALGORITHM-NAME`  
+
+**You must register this algorithm via this way:**  
+`Condorcet::add_algos('ALGORITHM-NAME') ;`  
+
+**You can specify it as default algorithm:**  
+
+_See the appropriate instructions above._
