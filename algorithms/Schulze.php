@@ -104,7 +104,7 @@ class Condorcet_Schulze
 				$this->get_result();
 			}
 
-			return $this->_Schulze_result[count($this->get_result_Schulze())] ;
+			return $this->_Schulze_result[count($this->_Schulze_result)] ;
 		}
 
 

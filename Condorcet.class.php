@@ -576,9 +576,15 @@ class Condorcet
 			return $condorcet_winner ;
 		}
 
-		if ( $substitution && $substitution !== 'Condorcet_basic' )
+		if ( $substitution )
 		{
-			if ( self::is_auth_method($substitution) )
+			if ($substitution === true)
+			{
+				$this->init_result($this->_method) ;
+
+				return $this->_algos[$this->_method]->get_winner() ;
+			}
+			elseif ( self::is_auth_method($substitution) )
 			{
 				$this->init_result($substitution) ;
 
@@ -604,14 +610,20 @@ class Condorcet
 		$this->init_result('Condorcet_basic') ;
 		$condorcet_loser = $this->_algos['Condorcet_basic']->get_loser() ;
 
-		if ($condorcet_winner !== null)
+		if ($condorcet_loser !== null)
 		{
 			return $condorcet_loser ;
 		}
 
-		if ( $substitution && $substitution !== 'Condorcet_basic' )
-		{
-			if ( self::is_auth_method($substitution) )
+		if ( $substitution )
+		{			
+			if ($substitution === true)
+			{
+				$this->init_result($this->_method) ;
+
+				return $this->_algos[$this->_method]->get_loser() ;
+			}
+			elseif ( self::is_auth_method($substitution) )
 			{
 				$this->init_result($substitution) ;
 
