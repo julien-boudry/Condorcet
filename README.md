@@ -173,7 +173,9 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 ##### Get compute details
 
 `$condorcet->get_Pairwise() ;` Return an explicit array using your Option_ID as keys.  
-`$condorcet->get_result_stats('Schulze') ;` ; Same thing with a specific method.
+
+`$condorcet->get_result_stats() ;` Get stats about computing result for the default object method.  
+`$condorcet->get_result_stats('Schulze') ;` ; Same thing with a specific method.  
 
 
 
@@ -185,7 +187,7 @@ Look at how existing algorithm work in the "algorithms" folder.
 **Each new class of algorithm must include the public method:  
 
 1. get_result  
-2. 'get_stats  
+2. get_stats  
 3. get_winner  
 4. get_loser   
 
