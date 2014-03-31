@@ -199,7 +199,7 @@ class Condorcet
 	protected $_i_option_id	= 'A' ;
 	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
-	protected $_vote_identifiant = 0 ;
+	protected $_vote_tag = 0 ;
 
 	// Result
 	protected $_Pairwise ;
@@ -514,9 +514,9 @@ class Condorcet
 			// Vote identifiant
 			if ($tag === null)
 			{
-				$this->_vote_identifiant++ ;
+				$this->_vote_tag++ ;
 
-				$vote_r['tag'] = $this->_vote_identifiant ;
+				$vote_r['tag'] = $this->_vote_tag ;
 			}
 			else
 			{
