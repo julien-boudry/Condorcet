@@ -58,7 +58,7 @@ $vote[5] = 'D' ;
 
 for ($i = 1 ; $i <= 5 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote, 'coucou').'<br>' ;
 }
 
 $vote[1] = 'A';

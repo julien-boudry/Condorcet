@@ -199,6 +199,7 @@ class Condorcet
 	protected $_i_option_id	= 'A' ;
 	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
+	protected $_vote_identifiant = 0 ;
 
 	// Result
 	protected $_Pairwise ;
@@ -410,7 +411,7 @@ class Condorcet
 
 
 	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
-	public function add_vote (array $vote)
+	public function add_vote (array $vote, $tag = null)
 	{
 		// Close option if needed
 		if ( $this->_vote_state === 1 )
@@ -421,22 +422,27 @@ class Condorcet
 
 
 		// Check array format
-		if ( $this->check_vote_input($vote) === FALSE ) 
+		if ( !$this->check_vote_input($vote) ) 
 			{ return self::error(5) ;  }
+
+		// Check tag format
+		if ( 
+				!is_null($tag) &&
+				(!is_string($tag) && !is_int($tag)) &&
+				strlen($tag) <= 20
+			) 
+			{ return self::error(5) ; }
 
 		// Sort
 		ksort($vote);
 
 		// Register vote
-		$this->register_vote($vote) ;
-
-
-		return TRUE ;
+		return $this->register_vote($vote, $tag) ;		
 	}
+
 
 		protected function check_vote_input ($vote)
 		{
-
 			$list_option = array() ;
 
 			if ( isset($vote[0]) || count($vote) > $this->_options_count || count($vote) < 1 )
@@ -475,9 +481,10 @@ class Condorcet
 		}
 
 
-		protected function register_vote ($vote)
+		protected function register_vote ($vote, $tag = null)
 		{
 			$last_line_check = array() ;
+			$vote_r = array() ;
 
 			$i = 1 ;
 			foreach ($vote as $value)
@@ -504,10 +511,22 @@ class Condorcet
 				}
 			}
 
+			// Vote identifiant
+			if ($tag === null)
+			{
+				$this->_vote_identifiant++ ;
 
+				$vote_r['tag'] = $this->_vote_identifiant ;
+			}
+			else
+			{
+				$vote_r['tag'] = $tag ;
+			}
 
+			// Register
 			$this->_votes[] = $vote_r ;
 
+			return $vote_r['tag'] ;
 		}
 
 
@@ -801,6 +820,9 @@ class Condorcet
 		// Win && Null
 		foreach ( $this->_votes as $vote_id => $vote_ranking )
 		{
+			// Del vote identifiant
+			unset($vote_ranking['tag']) ;
+
 			$done_options = array() ;
 
 			foreach ($vote_ranking as $options_in_rank)
