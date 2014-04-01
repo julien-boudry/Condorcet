@@ -214,3 +214,5 @@ var_dump($condorcet->getConfig());
 
 
 var_dump($condorcet->get_result_stats());
+
+var_dump($condorcet->get_votes_list('coucou', false));

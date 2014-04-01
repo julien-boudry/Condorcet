@@ -566,9 +566,36 @@ class Condorcet
 		}
 
 		// Get the votes registered list
-		public function get_votes_list ()
+		public function get_votes_list ($tag = null, $with = true)
 		{
-			return $this->_votes ;
+			if (empty($tag))
+			{
+				return $this->_votes ;
+			}
+			else
+			{
+				$search = array() ;
+
+				foreach ($this->_votes as $key => $value) 
+				{					
+					if ($with)
+					{
+						if ($value['tag'] == $tag)
+						{
+							$search[$key] = $value ;
+						}
+					}
+					else
+					{
+						if ($value['tag'] != $tag)
+						{
+							$search[$key] = $value ;
+						}
+					}
+				}
+
+				return $search ;
+			}
 		}
 
 
