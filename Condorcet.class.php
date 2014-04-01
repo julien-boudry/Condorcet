@@ -404,22 +404,23 @@ class Condorcet
 	public function close_options_config ()
 	{
 		if ( $this->_vote_state === 1 )
-			{ $this->_vote_state = 2 ; }
-		else
-			{ return self::error(2) ; }
+			{ 
+				$this->_vote_state = 2 ;
+				return TRUE ;
+			}
+
+		// If voting continues after a first set of results
+		if ( $this->_vote_state > 2 )
+			{ $this->cleanup_result(); }
 	}
 
 
 	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
 	public function add_vote (array $vote, $tag = null)
 	{
-		// Close option if needed
-		if ( $this->_vote_state === 1 )
-			{ $this->close_options_config(); }
-		// If voting continues after a first set of results
-		if ( $this->_vote_state > 2 )
-			{ $this->cleanup_result(); }
+		$this->close_options_config () ;
 
+			////////
 
 		// Check array format
 		if ( !$this->check_vote_input($vote) ) 
