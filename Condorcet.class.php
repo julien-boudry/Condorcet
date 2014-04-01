@@ -531,6 +531,32 @@ class Condorcet
 		}
 
 
+		public function remove_vote ($tag, $with = true)
+		{
+			$this->close_options_config () ;
+
+				////////
+
+			foreach ($this->_votes as $key => $value) 
+			{					
+				if ($with)
+				{
+					if ($value['tag'] == $tag)
+					{
+						unset($this->_votes[key]) ;
+					}
+				}
+				else
+				{
+					if ($value['tag'] != $tag)
+					{
+						unset($this->_votes[key]) ;
+					}
+				}
+			}
+		}
+
+
 		//:: VOTING TOOLS :://
 
 		// How many votes are registered ?
