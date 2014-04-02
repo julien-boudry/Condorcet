@@ -212,7 +212,7 @@ echo '<strong>Var_dump Condorcet :</strong>' ;
 
 var_dump($condorcet->getConfig());
 
-
+$condorcet->remove_vote('coucou') ; var_dump( $condorcet->get_result() ) ;
 
 
 var_dump($condorcet->get_result_stats());
