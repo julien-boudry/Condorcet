@@ -727,14 +727,7 @@ class Condorcet
 		$this->_Pairwise = null ;
 
 		// Algos
-		$this->_basic_Condorcet_winner = array() ;
-
-
-		// Clean data from extend class
-		if (method_exists($this, 'extend_cleanup_result'))
-		{
-			$this->extend_cleanup_result() ;
-		}
+		$this->_algos = null ;
 	}
 
 
