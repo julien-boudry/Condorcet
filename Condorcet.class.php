@@ -427,11 +427,7 @@ class Condorcet
 			{ return self::error(5) ;  }
 
 		// Check tag format
-		if ( 
-				!is_null($tag) &&
-				(!is_string($tag) && !is_int($tag)) &&
-				strlen($tag) <= 20
-			) 
+		if ( is_bool($tag) )
 			{ return self::error(5) ; }
 
 		// Sort
@@ -517,11 +513,11 @@ class Condorcet
 			{
 				$this->_vote_tag++ ;
 
-				$vote_r['tag'] = $this->_vote_tag ;
+				$vote_r['tag'][] = $this->_vote_tag ;
 			}
 			else
 			{
-				$vote_r['tag'] = $tag ;
+				$vote_r['tag'] = explode(',',$tag) ;
 			}
 
 			// Register
@@ -541,16 +537,16 @@ class Condorcet
 			{					
 				if ($with)
 				{
-					if ($value['tag'] == $tag)
+					if (in_array($tag, $value['tag']))
 					{
-						unset($this->_votes[key]) ;
+						unset($this->_votes[$key]) ;
 					}
 				}
 				else
 				{
-					if ($value['tag'] != $tag)
+					if (!in_array($tag, $value['tag']))
 					{
-						unset($this->_votes[key]) ;
+						unset($this->_votes[$key]) ;
 					}
 				}
 			}
@@ -580,14 +576,14 @@ class Condorcet
 				{					
 					if ($with)
 					{
-						if ($value['tag'] == $tag)
+						if (in_array($tag, $value['tag']))
 						{
 							$search[$key] = $value ;
 						}
 					}
 					else
 					{
-						if ($value['tag'] != $tag)
+						if (!in_array($tag, $value['tag']))
 						{
 							$search[$key] = $value ;
 						}

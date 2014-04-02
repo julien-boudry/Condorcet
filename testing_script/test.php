@@ -56,9 +56,9 @@ $vote[3] = 'B';
 $vote[4] = 'E' ;
 $vote[5] = 'D' ;
 
-for ($i = 1 ; $i <= 5 ; $i++ )
+for ($i = 1 ; $i <= 50 ; $i++ )
 {
-	$condorcet->add_vote($vote, 'coucou').'<br>' ;
+	$condorcet->add_vote($vote, 'coucou') ;
 }
 
 $vote[1] = 'A';
@@ -69,7 +69,7 @@ $vote[5] = 'B' ;
 
 for ($i = 1 ; $i <= 5 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 $vote[1] = 'B';
@@ -80,7 +80,7 @@ $vote[5] = 'C' ;
 
 for ($i = 1 ; $i <= 8 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 $vote[1] = 'C';
@@ -91,7 +91,7 @@ $vote[5] = 'D' ;
 
 for ($i = 1 ; $i <= 3 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 
@@ -103,7 +103,7 @@ $vote[5] = 'D' ;
 
 for ($i = 1 ; $i <= 7 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 $vote[1] = 'C';
@@ -114,7 +114,7 @@ $vote[5] = 'E' ;
 
 for ($i = 1 ; $i <= 2 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 $vote[1] = 'D';
@@ -125,7 +125,7 @@ $vote[5] = 'A' ;
 
 for ($i = 1 ; $i <= 7 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 $vote[1] = 'E';
@@ -136,7 +136,7 @@ $vote[5] = 'C' ;
 
 for ($i = 1 ; $i <= 8 ; $i++ )
 {
-	$condorcet->add_vote($vote).'<br>' ;
+	$condorcet->add_vote($vote) ;
 }
 
 
@@ -208,11 +208,11 @@ echo '<br><br>' ;
 echo '<strong>Var_dump Condorcet :</strong>' ;
 
 
-var_dump($condorcet);
+// var_dump($condorcet);
 
 var_dump($condorcet->getConfig());
 
 
-var_dump($condorcet->get_result_stats());
 
-var_dump($condorcet->get_votes_list('coucou', false));
+
+var_dump($condorcet->get_result_stats());
