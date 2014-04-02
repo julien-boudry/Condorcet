@@ -32,7 +32,6 @@ _This class is not designed for high performances, very high fiability exigence,
   
 ### Roadmap for futher releases 
   
-  - Ability to remove vote
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Official support for exporting object with caching
   - New Condorcet methods
@@ -124,18 +123,32 @@ For each vote, an orderer list from 1
 Use commas in the case of a tie :  
 `$vote[1] = 'A,Wagner' ;`  
 `$vote[2] = 'Debussy' ;`  
-`$condorcet->add_vote($vote) ;`  
+`$condorcet->add_vote($vote) ;` 
+
+You can add the same or different tag for each vote :  
+`$condorcet->add_vote($vote, 'Charlie') ;`  If you do not, an unique and automatic one will be set and return.   
+
+
+_Note : You can add new vote after the results have already been given_  
 
 
 ##### Verify the registered votes list
 
-`$condorcet->get_votes_list ();` // Will return an array where key is the internal numeric vote_id and value an other array like your input.  
+`$condorcet->get_votes_list ();` Will return an array where key is the internal numeric vote_id and value an other array like your input.   
+`$condorcet->get_votes_list ('Charlie');` Will return an array where each vote with this tag.   
+`$condorcet->get_votes_list ('Charlie', false);` Will return an array where each vote without this tag.   
 
-`$condorcet->count_votes ();` // Return a numeric value about the number of registered votes.  
+`$condorcet->count_votes ();` Return a numeric value about the number of registered votes.  
 
 
+##### Remove vote
 
-_Note : You can add new vote after the results have already been given_  
+`$condorcet->remove_vote('Charlie') ;`  Remove vote(s) with tag Charlie
+`$condorcet->remove_vote('Charlie', false) ;`  Remove votes without tag Charlie
+
+
+_Note : You can remove a vote after the results have already been given_  
+
 
 
 #### Get result
@@ -184,7 +197,7 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 
 Look at how existing algorithm work in the "algorithms" folder.  
 
-**Each new class of algorithm must include the public method:  
+** Each new class of algorithm must include the public method:  
 
 1. get_result  
 2. get_stats  
