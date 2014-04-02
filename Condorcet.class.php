@@ -727,7 +727,7 @@ class Condorcet
 		$this->_Pairwise = null ;
 
 		// Algos
-		$this->_basic_Condorcet_winner = array() ;
+		$this->_algos = null ;
 	}
 
 
