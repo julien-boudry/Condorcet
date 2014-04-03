@@ -8,8 +8,12 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+
+// Registering algorithm
 Condorcet::add_algos('Schulze') ;
 
+
+// Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 class Condorcet_Schulze
 {
 	// Config
@@ -30,7 +34,8 @@ class Condorcet_Schulze
 	}
 
 
-// Public
+
+/////////// PUBLIC ///////////
 
 
 	// Get the Schulze ranking
@@ -42,7 +47,7 @@ class Condorcet_Schulze
 			return $this->_Schulze_result ;
 		}
 
-			///
+			//////
 
 		// Format array
 		$this->Schulze_strongest_array() ;
@@ -65,7 +70,7 @@ class Condorcet_Schulze
 	{
 		$this->get_result();
 
-			///
+			//////
 
 		$explicit = array() ;
 
@@ -109,7 +114,8 @@ class Condorcet_Schulze
 
 
 
-// Compute
+/////////// COMPUTE ///////////
+
 
 	//:: SCHULZE ALGORITHM. :://
 
@@ -139,13 +145,10 @@ class Condorcet_Schulze
 	// Calculate the Strongest Paths
 	protected function strongest_paths ()
 	{
-
 		foreach ($this->_options as $i => $i_value)
 		{
-
 			foreach ($this->_options as $j => $j_value)
 			{
-
 				if ($i !== $j)
 				{
 					if ( $this->_Pairwise[$i]['win'][$j] > $this->_Pairwise[$j]['win'][$i] )
@@ -157,9 +160,7 @@ class Condorcet_Schulze
 						$this->_Schulze_strongest_paths[$i][$j] = 0 ;
 					}
 				}
-
 			}
-
 		}
 		 
 
@@ -176,16 +177,13 @@ class Condorcet_Schulze
 							$this->_Schulze_strongest_paths[$j][$k] = 
 											max( 
 													$this->_Schulze_strongest_paths[$j][$k], 
-													min( $this->_Schulze_strongest_paths[$j][$i], $this->_Schulze_strongest_paths[$i][$k] ) 
+													min( $this->_Schulze_strongest_paths[$j][$i], $this->_Schulze_strongest_paths[$i][$k] )
 												) ;
 						}
 					}
-
 				}
 			}
 		}
-
-
 	}
 
 
@@ -230,7 +228,6 @@ class Condorcet_Schulze
 
 					$to_done[] = $candidate_key ;
 				}
-
 			}
 
 			$done = array_merge($done, $to_done);
@@ -253,8 +250,6 @@ class Condorcet_Schulze
 		{
 			$this->_Schulze_result[$key] = implode(',',$value);
 		}
-
-
 	}
 
 }

@@ -9,8 +9,11 @@
 */
 
 
+// Registering algorithm
 Condorcet::add_algos('Condorcet_basic') ;
 
+
+// Condorcet Basic Class, provide natural Condorcet winner or looser
 class Condorcet_Condorcet_basic
 {
 	// Config
@@ -31,7 +34,9 @@ class Condorcet_Condorcet_basic
 	}
 
 
-// Public
+
+/////////// PUBLIC ///////////
+
 
 	public function get_result ()
 	{
@@ -62,15 +67,15 @@ class Condorcet_Condorcet_basic
 
 			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
 			{
-				if	( $win_count <= $candidat_detail['lose'][$challenger_key] ) 
-				{  
+				if	( $win_count <= $candidat_detail['lose'][$challenger_key] )
+				{
 					$winner = FALSE ;
 					break ;
 				}
 			}
 
 			if ($winner)
-			{ 
+			{
 				$this->_basic_Condorcet_winner = $this->_options[$candidat_key] ;
 
 				return $this->_basic_Condorcet_winner ;
@@ -83,22 +88,22 @@ class Condorcet_Condorcet_basic
 	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
 	public function get_loser ()
 	{
-
 		// Cache
 		if ( $this->_basic_Condorcet_loser !== null )
 		{
 			return $this->_basic_Condorcet_loser ;
 		}
 
+			//////
 
 		// Basic Condorcet calculation
 		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
 		{
 			$loser = TRUE ;
 
-			foreach ($candidat_detail['lose'] as $challenger_key => $lose_count )
+			foreach ( $candidat_detail['lose'] as $challenger_key => $lose_count )
 			{
-				if	( $lose_count <= $candidat_detail['win'][$challenger_key] ) 
+				if	( $lose_count <= $candidat_detail['win'][$challenger_key] )
 				{  
 					$loser = FALSE ;
 					break ;
@@ -115,7 +120,6 @@ class Condorcet_Condorcet_basic
 
 			return NULL ;
 	}
-
 
 
 }
