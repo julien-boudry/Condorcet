@@ -514,8 +514,7 @@ class Condorcet
 				$vote_r['tag'] = explode(',',$tag) ;
 			}
 			
-			$this->_vote_tag++ ;
-			$vote_r['tag'][] = $this->_vote_tag ;
+			$vote_r['tag'][] = $this->_vote_tag++ ;
 			
 			
 			// Register
