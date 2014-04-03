@@ -509,17 +509,15 @@ class Condorcet
 			}
 
 			// Vote identifiant
-			if ($tag === null)
-			{
-				$this->_vote_tag++ ;
-
-				$vote_r['tag'][] = $this->_vote_tag ;
-			}
-			else
+			if ($tag !== null)
 			{
 				$vote_r['tag'] = explode(',',$tag) ;
 			}
-
+			
+			$this->_vote_tag++ ;
+			$vote_r['tag'][] = $this->_vote_tag ;
+			
+			
 			// Register
 			$this->_votes[] = $vote_r ;
 
