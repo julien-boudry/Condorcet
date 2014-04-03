@@ -13,7 +13,7 @@ _This class is not designed for high performances, very high fiability exigence,
 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
-**Stable Version : 0.3**  
+**Stable Version : 0.4**  
 **PHP Requirement :** PHP 5.4+ with Ctype and MB_String common extensions
 
 - To date, the 0.3 version is not ready for production due to lack of testing.  
@@ -126,7 +126,8 @@ Use commas in the case of a tie :
 `$condorcet->add_vote($vote) ;` 
 
 You can add the same or different tag for each vote :  
-`$condorcet->add_vote($vote, 'Charlie') ;`  If you do not, an unique and automatic one will be set and return.   
+`$condorcet->add_vote($vote, 'Charlie') ;`  If you do not, an unique and automatic one will be set and return.  
+`$condorcet->add_vote($vote, 'Charlie,Claude') ;`  You can also add multiple tags, separated by commas. 
 
 
 _Note : You can add new vote after the results have already been given_  
