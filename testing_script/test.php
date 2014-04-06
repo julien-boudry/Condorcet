@@ -56,7 +56,7 @@ $vote[3] = 'B';
 $vote[4] = 'E' ;
 $vote[5] = 'D' ;
 
-for ($i = 1 ; $i <= 50 ; $i++ )
+for ($i = 1 ; $i <= 5 ; $i++ )
 {
 	$condorcet->add_vote($vote, 'coucou') ;
 }
@@ -198,11 +198,11 @@ echo '<br><br><hr><br>';
 echo '<h2>Calc result</h2>';
 
 echo '<strong> Condorcet Winner :</strong>' ;
-var_dump( $condorcet->get_winner('Schulze') ) ;
+var_dump( $condorcet->get_winner() ) ;
 echo '<br><br>' ;
 
 echo '<strong> Schulze Result :</strong>' ;
-var_dump( $condorcet->get_result() ) ;
+var_dump( $condorcet->get_result('Copeland') ) ;
 
 echo '<br><br>' ;
 echo '<strong>Var_dump Condorcet :</strong>' ;
@@ -210,9 +210,12 @@ echo '<strong>Var_dump Condorcet :</strong>' ;
 
 // var_dump($condorcet);
 
+echo '<h2>Vote List</h2>';
+
 var_dump($condorcet->getConfig());
 
-$condorcet->remove_vote('coucou') ; var_dump( $condorcet->get_votes_list() ) ;
+// $condorcet->remove_vote('coucou') ; var_dump( $condorcet->get_votes_list() ) ;
 
+echo '<h2>Condorcet Dump</h2>';
 
-var_dump($condorcet->get_result_stats());
+var_dump($condorcet);

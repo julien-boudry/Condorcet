@@ -137,7 +137,6 @@ class Condorcet_Schulze
 					$this->_Schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
 				}
 			}
-
 		}				
 	}
 
@@ -233,7 +232,6 @@ class Condorcet_Schulze
 			$done = array_merge($done, $to_done);
 
 			$rank++ ;
-
 		}
 
 

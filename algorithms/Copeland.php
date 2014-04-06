@@ -50,6 +50,11 @@ class Condorcet_Copeland
 			//////
 
 
+		// Comparison calculation
+		$this->Copeland_make_comparison() ;
+
+		// Ranking calculation
+		$this->Copeland_make_ranking() ;
 
 
 		// Return
@@ -101,7 +106,68 @@ class Condorcet_Copeland
 
 	//:: COPELAND ALGORITHM. :://
 
+	protected function Copeland_make_comparison ()
+	{
+		foreach ($this->_Pairwise as $candidat_key => $candidate_data)
+		{
+			$this->_Copeland_comparison[$candidat_key]['win'] = 0 ;
+			$this->_Copeland_comparison[$candidat_key]['null'] = 0 ;
+			$this->_Copeland_comparison[$candidat_key]['lose'] = 0 ;
+			$this->_Copeland_comparison[$candidat_key]['balance'] = 0 ;
 
 
+			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
+			{
+				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
+				{
+					$this->_Copeland_comparison[$candidat_key]['win']++ ;
+					$this->_Copeland_comparison[$candidat_key]['balance']++ ;
+				}
+				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
+				{
+					$this->_Copeland_comparison[$candidat_key]['null']++ ;
+				}
+				else
+				{
+					$this->_Copeland_comparison[$candidat_key]['lose']++ ;
+					$this->_Copeland_comparison[$candidat_key]['balance']-- ;
+				}
+			}
+		}
+	}
+
+	protected function Copeland_make_ranking ()
+	{
+		$this->_Copeland_result = array() ;
+
+		// Calculate ranking
+		$challenge = array () ;
+		$rank = 1 ;
+		$done = 0 ;
+
+		foreach ($this->_Copeland_comparison as $candidate_key => $candidate_data)
+		{
+			$challenge[$candidate_key] = $candidate_data['balance'] ;
+		}
+
+		while ($done < $this->_options_count)
+		{
+			$looking = max($challenge) ;
+
+			foreach ($challenge as $candidate => $value)
+			{
+				if ($value === $looking)
+				{
+					$this->_Copeland_result[$rank][] = Condorcet::get_static_option_id($candidate, $this->_options) ;
+
+					$done++ ; unset($challenge[$candidate]) ;
+				}
+			}
+
+
+			$this->_Copeland_result[$rank] = implode(',', $this->_Copeland_result[$rank]) ;
+			$rank++ ;
+		}
+	}
 
 }
