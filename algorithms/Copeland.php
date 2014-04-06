@@ -49,7 +49,6 @@ class Condorcet_Copeland
 
 			//////
 
-
 		// Comparison calculation
 		$this->Copeland_make_comparison() ;
 
@@ -70,6 +69,11 @@ class Condorcet_Copeland
 			//////
 
 		$explicit = array() ;
+
+		foreach ($this->_Copeland_comparison as $candidate_key => $value)
+		{
+			$explicit[Condorcet::get_static_option_id($candidate_key, $this->_options)] = $value ;
+		}
 
 		return $explicit ;
 	}
