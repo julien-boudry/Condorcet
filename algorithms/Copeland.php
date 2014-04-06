@@ -34,7 +34,6 @@ class Condorcet_Copeland
 	}
 
 
-
 /////////// PUBLIC ///////////
 
 
@@ -77,7 +76,6 @@ class Condorcet_Copeland
 
 		return $explicit ;
 	}
-
 
 		// Get only the Copeland Winner(s)
 		public function get_winner ()
