@@ -768,6 +768,7 @@ class Condorcet
 			$param['_Pairwise'] = $this->_Pairwise ;
 			$param['_options_count'] = $this->_options_count ;
 			$param['_options'] = $this->_options ;
+			$param['_votes'] = $this->_votes ;
 
 			$class = 'Condorcet_'.$method ;
 			$this->_algos[$method] = new $class($param) ;
