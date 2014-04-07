@@ -29,8 +29,8 @@ class Condorcet
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;
 
-	protected static $_force_method	= FALSE ;
-	protected static $_show_error	= TRUE ;
+	protected static $_force_method	= false ;
+	protected static $_show_error	= true ;
 
 	const LENGTH_OPION_ID = 10 ;
 
@@ -50,9 +50,9 @@ class Condorcet
 		$auth = self::get_auth_methods() ;
 
 		if ( in_array($method,$auth, true) )
-			{ return TRUE ;	}
+			{ return true ;	}
 		else
-			{ return FALSE ; }
+			{ return false ; }
 	}
 
 
@@ -60,13 +60,13 @@ class Condorcet
 	static public function add_algos ($algos)
 	{
 		if ( is_null($algos) )
-			{ return FALSE ; }
+			{ return false ; }
 
 		elseif ( is_string($algos) && !self::is_auth_method($algos) )
 		{
 			if ( !self::test_algos($algos) )
 			{
-				return FALSE ;
+				return false ;
 			}
 
 			if ( empty(self::$_auth_methods) )
@@ -81,7 +81,7 @@ class Condorcet
 			{
 				if ( !self::test_algos($value) )
 				{
-					return FALSE ;
+					return false ;
 				}
 
 				if ( !self::is_auth_method($value) )
@@ -101,7 +101,7 @@ class Condorcet
 			if ( !class_exists('Condorcet_'.$algos) )
 			{				
 				self::error(9) ;
-				return FALSE ;
+				return false ;
 			}
 
 			$tests_method = array ('get_result', 'get_stats', 'get_winner', 'get_loser') ;
@@ -111,15 +111,15 @@ class Condorcet
 				if ( !method_exists( 'Condorcet_'.$algos , $method ) )
 				{
 					self::error(10) ;
-					return FALSE ;
+					return false ;
 				}
 			}
 
-			return TRUE ;
+			return true ;
 		}
 
 
-	// Change default method for this class, if $force == TRUE all current and further objects will be forced to use this method and will not be able to change it by themselves.
+	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
 	static public function setClassMethod ($method, $force = false)
 	{		
 		if ( self::is_auth_method($method) )
@@ -130,30 +130,30 @@ class Condorcet
 		}
 	}
 
-			// if $force == TRUE all current and further objects will be forced to use this method and will not be abble to change it by themselves.
+			// if $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
 			static public function forceMethod ($force = true)
 			{
 				if ($force)
 				{
-					self::$_force_method = TRUE ;
+					self::$_force_method = true ;
 				}
 				else
 				{
-					self::$_force_method = FALSE ;
+					self::$_force_method = false ;
 				}
 			}
 
 
 	// Active trigger_error() - True by default
-	public static function setError ($param = TRUE)
+	public static function setError ($param = true)
 	{
 		if ($param)
 		{
-			self::$_show_error = TRUE ;
+			self::$_show_error = true ;
 		}
 		else
 		{
-			self::$_show_error = FALSE ;
+			self::$_show_error = false ;
 		}
 	}
 
@@ -183,7 +183,7 @@ class Condorcet
 			}
 		}
 
-		return FALSE ;
+		return false ;
 	}
 
 
@@ -219,7 +219,7 @@ class Condorcet
 	}
 
 
-	// Change the object method, except if self::$_for_method == TRUE
+	// Change the object method, except if self::$_for_method == true
 	public function setMethod ($method = null)
 	{
 		if (self::$_force_method)
@@ -312,7 +312,7 @@ class Condorcet
 				$this->_options[] = $option_id ;
 				$this->_options_count++ ;
 
-				return TRUE ;
+				return true ;
 			}
 			else
 			{
@@ -342,7 +342,7 @@ class Condorcet
 		foreach ($option_id as $value)
 		{
 			$option_key = $this->get_option_key($value) ;
-			if ( $option_key === FALSE )
+			if ( $option_key === false )
 				{ return self::error(4,$value) ; }
 
 			unset($this->_options[$option_key]) ;
@@ -396,14 +396,14 @@ class Condorcet
 		if ( $this->_vote_state === 1 )
 			{ 
 				$this->_vote_state = 2 ;
-				return TRUE ;
+				return true ;
 			}
 
 		// If voting continues after a first set of results
 		if ( $this->_vote_state > 2 )
 			{ 
 				$this->cleanup_result();
-				return TRUE ;
+				return true ;
 			}
 	}
 
@@ -436,17 +436,17 @@ class Condorcet
 			$list_option = array() ;
 
 			if ( isset($vote[0]) || count($vote) > $this->_options_count || count($vote) < 1 )
-				{ return FALSE ; }
+				{ return false ; }
 
 			foreach ($vote as $key => $value)
 			{
 				// Check key
 				if ( !is_numeric($key) || $key > $this->_options_count )
-					{ return FALSE ; }
+					{ return false ; }
 
 				// Check options
 				if ( empty($value) )
-					{ return FALSE ; }
+					{ return false ; }
 
 
 				$options = explode(',', $value) ;
@@ -456,17 +456,17 @@ class Condorcet
 
 					if ( !$this->option_id_exist($option) )
 					{
-						return FALSE ;
+						return false ;
 					}
 
 					// Do not do 2x the same option
 					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
-						else { return FALSE ; }
+						else { return false ; }
 				}
 
 			}
 
-			return TRUE ;
+			return true ;
 		}
 
 		// Write a new vote
@@ -652,7 +652,7 @@ class Condorcet
 
 				return $this->_algos[$substitution]->get_winner() ;
 			}
-			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
+			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === true )
 			{
 				$this->init_result($this->_method) ;
 
@@ -691,7 +691,7 @@ class Condorcet
 
 				return $this->_algos[$substitution]->get_loser() ;
 			}
-			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === TRUE )
+			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === true )
 			{
 				$this->init_result($this->_method) ;
 
@@ -738,7 +738,7 @@ class Condorcet
 	{
 		if ($this->_vote_state > 2)
 		{
-			return FALSE ;
+			return false ;
 		}
 		elseif ($this->_vote_state === 2)
 		{
@@ -751,12 +751,12 @@ class Condorcet
 			$this->_vote_state = 3 ;
 
 			// Return
-			return TRUE ;
+			return true ;
 		}
 		else
 		{
 			self::error(6) ;
-			return FALSE ;
+			return false ;
 		}
 	}
 

@@ -206,7 +206,7 @@ class Condorcet_Schulze
 					continue ;
 				}
 
-				$winner = TRUE ;
+				$winner = true ;
 
 				foreach ($options_key as $beaten_key => $beaten_value)
 				{
@@ -217,7 +217,7 @@ class Condorcet_Schulze
 
 					if ( $beaten_value < $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
 					{
-						$winner = FALSE ;
+						$winner = false ;
 					}
 				}
 
