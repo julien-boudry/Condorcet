@@ -630,8 +630,8 @@ class Condorcet
 
 			//////
 
-		$this->init_result('Condorcet_basic') ;
-		$condorcet_winner = $this->_algos['Condorcet_basic']->get_winner() ;
+		$this->init_result('Condorcet_Basic') ;
+		$condorcet_winner = $this->_algos['Condorcet_Basic']->get_winner() ;
 
 		if ($condorcet_winner !== null)
 		{
@@ -652,7 +652,7 @@ class Condorcet
 
 				return $this->_algos[$substitution]->get_winner() ;
 			}
-			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === true )
+			elseif ( $this->_method !== 'Condorcet_Basic' && $substitution === true )
 			{
 				$this->init_result($this->_method) ;
 
@@ -671,8 +671,8 @@ class Condorcet
 
 			//////
 
-		$this->init_result('Condorcet_basic') ;
-		$condorcet_loser = $this->_algos['Condorcet_basic']->get_loser() ;
+		$this->init_result('Condorcet_Basic') ;
+		$condorcet_loser = $this->_algos['Condorcet_Basic']->get_loser() ;
 
 		if ($condorcet_loser !== null)
 			{ return $condorcet_loser ;	}
@@ -691,7 +691,7 @@ class Condorcet
 
 				return $this->_algos[$substitution]->get_loser() ;
 			}
-			elseif ( $this->_method !== 'Condorcet_basic' && $substitution === true )
+			elseif ( $this->_method !== 'Condorcet_Basic' && $substitution === true )
 			{
 				$this->init_result($this->_method) ;
 

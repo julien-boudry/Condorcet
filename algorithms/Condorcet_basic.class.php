@@ -10,11 +10,11 @@
 
 
 // Registering algorithm
-Condorcet::add_algos('Condorcet_basic') ;
+Condorcet::add_algos('Condorcet_Basic') ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Condorcet_basic
+class Condorcet_Condorcet_Basic
 {
 	// Config
 	protected $_Pairwise ;
