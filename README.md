@@ -2,8 +2,12 @@ Condorcet Class for PHP
 ===========================
 
 A PHP class implementing the Condorcet voting system and other Condorcet methods like the Schulze method.  
+_This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
 
-_This class is not designed for high performances, very high fiability exigence, massive voters or candidates_
+**Create by :** Julien Boudry (born 22/10/1988 - France)  
+**License :** MIT _(read de LICENSE file at the root folder)_  
+As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness). You can also offer me a bottle of good wine.  
+
 
 ### Project State
 
