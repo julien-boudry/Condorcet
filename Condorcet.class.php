@@ -57,7 +57,7 @@ class Condorcet
 
 
 	// Add algos
-	static public function add_algos ($algos)
+	public static function add_algos ($algos)
 	{
 		if ( is_null($algos) )
 			{ return false ; }
@@ -96,7 +96,7 @@ class Condorcet
 	}
 
 		// Check if the class Algo. exist and ready to be used
-		static protected function test_algos ($algos)
+		protected static function test_algos ($algos)
 		{
 			if ( !class_exists('Condorcet_'.$algos) )
 			{				
@@ -120,7 +120,7 @@ class Condorcet
 
 
 	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
-	static public function setClassMethod ($method, $force = false)
+	public static function setClassMethod ($method, $force = false)
 	{		
 		if ( self::is_auth_method($method) )
 		{
@@ -131,7 +131,7 @@ class Condorcet
 	}
 
 			// if $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
-			static public function forceMethod ($force = true)
+			public static function forceMethod ($force = true)
 			{
 				if ($force)
 				{
