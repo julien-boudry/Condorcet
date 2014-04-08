@@ -8,9 +8,11 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+namespace Condorcet ;
+
 
 // Include Algorithms
-foreach (glob( __DIR__ . "/algorithms/*.php" ) as $Condorcet_filename)
+foreach (glob( __DIR__ . DIRECTORY_SEPARATOR."algorithms".DIRECTORY_SEPARATOR."*.algo.php" ) as $Condorcet_filename)
 {
 	include_once $Condorcet_filename ;
 }
@@ -33,7 +35,6 @@ class Condorcet
 	protected static $_show_error	= true ;
 
 	const LENGTH_OPION_ID = 10 ;
-
 
 
 	// Return an array with auth methods
@@ -98,7 +99,7 @@ class Condorcet
 		// Check if the class Algo. exist and ready to be used
 		protected static function test_algos ($algos)
 		{
-			if ( !class_exists('Condorcet_'.$algos) )
+			if ( !class_exists(__NAMESPACE__.'\\'.$algos) )
 			{				
 				self::error(9) ;
 				return false ;
@@ -108,7 +109,7 @@ class Condorcet
 
 			foreach ($tests_method as $method)
 			{
-				if ( !method_exists( 'Condorcet_'.$algos , $method ) )
+				if ( !method_exists(__NAMESPACE__.'\\'.$algos , $method) )
 				{
 					self::error(10) ;
 					return false ;
@@ -770,7 +771,7 @@ class Condorcet
 			$param['_options'] = $this->_options ;
 			$param['_votes'] = $this->_votes ;
 
-			$class = 'Condorcet_'.$method ;
+			$class = __NAMESPACE__.'\\'.$method ;
 			$this->_algos[$method] = new $class($param) ;
 		}
 	}

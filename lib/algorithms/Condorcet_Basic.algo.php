@@ -8,13 +8,14 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+namespace Condorcet ;
 
 // Registering algorithm
-Condorcet::add_algos('Condorcet_Basic') ;
+namespace\Condorcet::add_algos('Condorcet_Basic') ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Condorcet_Basic
+class Condorcet_Basic
 {
 	// Config
 	protected $_Pairwise ;

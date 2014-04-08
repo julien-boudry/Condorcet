@@ -8,13 +8,14 @@
 	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
 */
 
+namespace Condorcet ;
 
 // Registering algorithm
-Condorcet::add_algos('Copeland') ;
+namespace\Condorcet::add_algos('Copeland') ;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Condorcet_Copeland
+class Copeland
 {
 	// Config
 	protected $_Pairwise ;

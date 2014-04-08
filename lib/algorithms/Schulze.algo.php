@@ -8,13 +8,14 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+namespace Condorcet ;
 
 // Registering algorithm
-Condorcet::add_algos('Schulze') ;
+namespace\Condorcet::add_algos('Schulze') ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class Condorcet_Schulze
+class Schulze
 {
 	// Config
 	protected $_Pairwise ;
