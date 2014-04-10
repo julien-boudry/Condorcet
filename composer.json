@@ -1,0 +1,25 @@
+{
+    "name": "julien-boudry/Condorcet",
+    "type": "library",
+    "description": "Condorcet is a PHP Class to computing many Condorcet voting methods",
+     "authors": [
+        {
+            "name": "Julien Boudry"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.3",
+        "ext-mbstring": "*",
+        "ext-ctype": "*"
+    },
+    "license": "MIT",
+     "repositories": [
+     {
+     "type": "vcs",
+     "url": "https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class"
+     }
+     ],
+    "autoload": {
+        "psr-0": {"lib\\"}
+    }
+}
