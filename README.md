@@ -114,7 +114,7 @@ $condorcet = new Condorcet (); // If you omit the previous line, do : new Condor
 
 ##### With Composer
 
-
+`composer require julien-boudry/condorcet`
 
 
 ##### Change the object default method if needed
