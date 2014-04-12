@@ -28,6 +28,8 @@ class Condorcet
 /////////// CLASS ///////////
 
 
+	protected static $_version		= '0.5' ;	
+
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;
 
@@ -36,6 +38,11 @@ class Condorcet
 
 	const LENGTH_OPION_ID = 10 ;
 
+	// Return library version numer
+	public static function version ()
+	{
+		return self::$_version ;
+	}
 
 	// Return an array with auth methods
 	public static function get_auth_methods ()
@@ -814,7 +821,7 @@ class Condorcet
 				{
 					foreach ($mode_value as $option_key => $option_value)
 					{
-						$explicit_pairwise[$candidate_key][$mode][Condorcet::get_static_option_id($option_key,$options)] = $option_value ;
+						$explicit_pairwise[$candidate_key][$mode][self::get_static_option_id($option_key,$options)] = $option_value ;
 					}
 				}
 			}
