@@ -23,11 +23,6 @@
          "url": "https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class"
          }
      ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "DEV"
-        }
-    },
     "autoload": {
         "psr-0": { "": "lib/" }
     }
