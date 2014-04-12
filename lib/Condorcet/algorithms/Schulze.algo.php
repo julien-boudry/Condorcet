@@ -8,13 +8,14 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+namespace Condorcet ;
 
 // Registering algorithm
-Condorcet::add_algos('Schulze') ;
+namespace\Condorcet::add_algos('Schulze') ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class Condorcet_Schulze
+class Schulze
 {
 	// Config
 	protected $_Pairwise ;
@@ -206,7 +207,7 @@ class Condorcet_Schulze
 					continue ;
 				}
 
-				$winner = TRUE ;
+				$winner = true ;
 
 				foreach ($options_key as $beaten_key => $beaten_value)
 				{
@@ -217,7 +218,7 @@ class Condorcet_Schulze
 
 					if ( $beaten_value < $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
 					{
-						$winner = FALSE ;
+						$winner = false ;
 					}
 				}
 

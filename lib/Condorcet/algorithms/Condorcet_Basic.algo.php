@@ -8,13 +8,14 @@
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
 */
 
+namespace Condorcet ;
 
 // Registering algorithm
-Condorcet::add_algos('Condorcet_basic') ;
+namespace\Condorcet::add_algos('Condorcet_Basic') ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Condorcet_basic
+class Condorcet_Basic
 {
 	// Config
 	protected $_Pairwise ;
@@ -63,13 +64,13 @@ class Condorcet_Condorcet_basic
 		// Basic Condorcet calculation
 		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
 		{
-			$winner = TRUE ;
+			$winner = true ;
 
 			foreach ($candidat_detail['win'] as $challenger_key => $win_count )
 			{
 				if	( $win_count <= $candidat_detail['lose'][$challenger_key] )
 				{
-					$winner = FALSE ;
+					$winner = false ;
 					break ;
 				}
 			}
@@ -82,7 +83,7 @@ class Condorcet_Condorcet_basic
 			}
 		}
 
-			return NULL ;
+			return null ;
 	}
 
 	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
@@ -99,13 +100,13 @@ class Condorcet_Condorcet_basic
 		// Basic Condorcet calculation
 		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
 		{
-			$loser = TRUE ;
+			$loser = true ;
 
 			foreach ( $candidat_detail['lose'] as $challenger_key => $lose_count )
 			{
 				if	( $lose_count <= $candidat_detail['win'][$challenger_key] )
 				{  
-					$loser = FALSE ;
+					$loser = false ;
 					break ;
 				}
 			}
@@ -118,7 +119,7 @@ class Condorcet_Condorcet_basic
 			}
 		}
 
-			return NULL ;
+			return null ;
 	}
 
 

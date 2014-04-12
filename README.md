@@ -6,17 +6,22 @@ _This class is not designed for high performances, very high fiability exigence,
 
 **Create by :** Julien Boudry (born 22/10/1988 - France)  
 **License :** MIT _(read de LICENSE file at the root folder)_  
-As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness). You can also offer me a bottle of good wine.  
+As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. You can also offer me a bottle of good wine.  
 
 
 ### Project State
 
+To date, the 0.5 is a stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
-**Stable Version : 0.4**  
-**PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions
+#### Specifications and standards  
+**Stable Version : 0.5**  
+**PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
 
-- To date, the 0.4 version is the first stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
+**Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 
+The literature also provides you an easy example of free implementation with or without autoloader.
+
+**Coding standards** : The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 
 * * *
@@ -35,7 +40,7 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 * **Condorcet Basic** Give you the natural winner or looser of Condorcet, if there is one.  
 *(This method is the only core method, you can't remove it)*
 * **Schulze** http://en.wikipedia.org/wiki/Schulze_method
-* **Copeland** *(Since 0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
+* **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
 
 ##### Add new  ?
 	
@@ -63,10 +68,54 @@ _**(just some basic examples, incoming more)**_
 
 #### Create new object & Class configuration
 
+##### Basic and free implementation
 ```php
-require_once 'Condorcet.class.php' ;  
-$condorcet = new Condorcet ($method = null) ; // You can specify a method instead of default Schulze Method.  
+require_once 'Condorcet.php' ; // Customize the path for your use.
+$condorcet = new Condorcet\Condorcet () ; // You can specify as an argument, the name string of method instead of default Schulze Method.  
 ```
+
+##### Example with the official PSR-0 example of Autoloader
+```php
+// PSR-0 style Loader
+
+	// ENTER HERE THE PATH TO YOUR LIB FOLDER
+	define('LIB_PATH', 'lib'.DIRECTORY_SEPARATOR);
+
+	function autoload($className)
+	{
+	    $className = ltrim($className, '\\');
+	    $fileName  = '' ;
+	    $namespace = '';
+	    if ($lastNsPos = strripos($className, '\\')) {
+	        $namespace = substr($className, 0, $lastNsPos);
+	        $className = substr($className, $lastNsPos + 1);
+	        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+	    }
+	    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+	    require LIB_PATH.$fileName;
+	}
+
+	spl_autoload_register('autoload');
+
+
+///// STARTING
+
+use Condorcet\Condorcet ; // Optional !
+
+$condorcet = new Condorcet (); // If you omit the previous line, do : new Condorcet\Condorcet () ;
+
+```
+
+##### With Frameworks
+
+*Read the doc ! The Condorcet folder inside the lib directory can be move into your solution lib directory*
+
+
+##### With Composer
+
+
+
 
 ##### Change the object default method if needed
 
@@ -241,7 +290,7 @@ $condorcet->get_result_stats('Schulze') ; // Same thing with a specific method.
 ##### Add new algorithm(s)  
 
 
-Look at how existing algorithm work in the "algorithms" folder. *(Exept Condorcet Basic, which is the only core algorithm and a little bit special.)*
+Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
 **Each new class of algorithm must include the publics methods:** 
 
