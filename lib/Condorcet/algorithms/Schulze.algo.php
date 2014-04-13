@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.5
+	Version : 0.6
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -33,7 +33,6 @@ class Schulze
 		$this->_options_count = $config['_options_count'] ;
 		$this->_options = $config['_options'] ;
 	}
-
 
 
 /////////// PUBLIC ///////////
@@ -77,11 +76,11 @@ class Schulze
 
 		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
 		{
-			$candidate_key = Condorcet::get_static_option_id($candidate_key,$this->_options) ;
+			$candidate_key = namespace\Condorcet::get_static_option_id($candidate_key,$this->_options) ;
 
 			foreach ($candidate_value as $option_key => $option_value)
 			{
-				$explicit[$candidate_key][Condorcet::get_static_option_id($option_key, $this->_options)] = $option_value ;
+				$explicit[$candidate_key][namespace\Condorcet::get_static_option_id($option_key, $this->_options)] = $option_value ;
 			}
 		}
 
@@ -241,7 +240,7 @@ class Schulze
 		{
 			foreach ($value as $ord => $option_key)
 			{
-				$this->_Schulze_result[$key][$ord] = $this->_options[$option_key] ;
+				$this->_Schulze_result[$key][$ord] = namespace\Condorcet::get_static_option_id($option_key, $this->_options) ;
 			}
 		}
 

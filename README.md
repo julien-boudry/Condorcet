@@ -10,12 +10,11 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Project State
-
-To date, the 0.5 is a stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
+To date, the 0.6 is a stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
 #### Specifications and standards  
-**Stable Version : 0.5**  
+**Stable Version : 0.6**  
 **PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 
@@ -41,9 +40,16 @@ The literature also provides you an easy example of free implementation with or 
 *(This method is the only core method, you can't remove it)*
 * **Schulze** http://en.wikipedia.org/wiki/Schulze_method
 * **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
+* **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
+    * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion.)*  
+    * **Minimax_Margin** *(Does not satisfy the Condorcet loser criterion.)*
+    * **Minimax_Opposition** :warning: *Does not satisfy the Condorcet criterion.*
 
-##### Add new  ?
-	
+
+
+_The name of the above methods must be observed when you make calls, case sensitive._
+
+##### Add new  ?	
 This class is designed to be easily extensible with new algorithms. A modular schematic is used to totu algorithms provided, so you can easily help, do not forget to make a pull request!  
 *More explanations in the documentation below.*
   
@@ -52,19 +58,14 @@ This class is designed to be easily extensible with new algorithms. A modular sc
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Official support for exporting object with caching
-  - New Condorcet methods
-  - New ways to register votes & options
+  - Perhaps new Condorcet methods *(according dificulties thereof)*
   - **Looking for testers !**
-  
   
 
 ## How to use it ?
-
-
 Soon you will find a complete example.php. The most important methods are listed bellow.  
 We encourage you to read the code, and help to improve inline documentation !
 
-_**(just some basic examples, incoming more)**_
 
 #### Create new object & Class configuration
 
@@ -108,12 +109,10 @@ $condorcet = new Condorcet (); // If you omit the previous line, do : new Condor
 ```
 
 ##### With Frameworks
-
 *Read the doc ! The Condorcet folder inside the lib directory can be move into your solution lib directory*
 
 
 ##### With Composer
-
 `composer require julien-boudry/condorcet`
 
 Look https://packagist.org/packages/julien-boudry/condorcet  
@@ -127,7 +126,6 @@ $condorcet->setMethod('Schulze') ; // Argument : A supported method
 
 
 ##### Change the class default method if needed
-
 ```php
 Condorcet::setClassMethod('Schulze') ; // Argument : A supported method  
 Condorcet::setClassMethod('Schulze', true) ; // Will force actual and futher object to use this by default.  
@@ -136,7 +134,6 @@ Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the c
 
 
 ##### About errors
-
 ```php
 Condorcet::setError(false) ; // _(true by default)_ Unactive or active trigger_error() usage. Can be unefficent depending of your configuration environnement.    
 ```
@@ -144,7 +141,6 @@ Condorcet::setError(false) ; // _(true by default)_ Unactive or active trigger_e
 
 
 ##### Get informations 
-
 ```php
 $condorcet->get_config (); // Will return an explicit array about the object and Class Constant.  
 
@@ -154,7 +150,6 @@ Condorcet::get_auth_methods (); // Get an array of authorized methods to use wit
 ```
 
 ##### Get library version 
-
 ```php
 $condorcet->version(); // Will return a string
 // OR
@@ -162,7 +157,6 @@ Condorcet\Condorcet::version();  // Will return a string
 ```
 
 ##### Reset object without destroy it _(discouraged pratice)_
-
 ```php
 $condorcet->reset_all ();
 ``` 
@@ -183,14 +177,12 @@ $condorcet->add_option(2) ; // A numeric argument
 
 
 ##### Removing
-
 ```php
 $condorcet->remove_option('Wagner') ;
 ```
 
 
 ##### Verify the Options list
-
 ```php
 $condorcet->get_options_list (); // Will return an array with Option_ID as value.
 ```
@@ -199,14 +191,17 @@ _Note : When you start voting, you will never be able to edit the options list._
 
 
 #### Start voting
+_Note: All votes are adjusted to estimate all candidates. The pairwise is calculated accordingly._
 
-For each vote, an orderer list from 1
+##### Add a vote
+_Note : You can add new vote after the results have already been given_  
 
+###### With an array
 ```php
 $vote[1] = 'A' ;  
 $vote[2] = 'Debussy' ;  
 $vote[3] = 'Wagner' ;  
-$vote[4] = 2 ; // _The last rank is optionnal_  
+$vote[4] = 2 ; // The last rank is optionnal 
 $condorcet->add_vote($vote) ;  
 ```
 
@@ -217,6 +212,29 @@ $vote[2] = 'Debussy' ;
 $condorcet->add_vote($vote) ; 
 ```
 
+*The last rank is optionnal, it will be automatically deducted.*  
+
+###### With a string
+You can do like this:
+
+```php
+$vote = 'A>B=C=H>G=T>Q' ;
+$condorcet->add_vote($vote) ;  
+
+// It's working with some space, if you want to be durty...
+$vote = 'A> B = C=H >G=T > Q' ;
+$condorcet->add_vote($vote) ;  
+
+// But you can not use '<' operator
+$vote = 'A<B<C' ; // It's not correct
+// Follow can't work too
+$vote = 'A>BC>D' ; // It's not correct
+```
+
+*The last rank is optionnal too, it will be automatically deducted.*  
+
+
+##### Add a tag
 You can add the same or different tag for each vote :  
 ```php
 $condorcet->add_vote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
@@ -224,11 +242,8 @@ $condorcet->add_vote($vote, 'Charlie,Claude') ; // You can also add multiple tag
 ```
 
 
-_Note : You can add new vote after the results have already been given_  
-
 
 ##### Verify the registered votes list
-
 ```php
 $condorcet->get_votes_list (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
 $condorcet->get_votes_list ('Charlie'); // Will return an array where each vote with this tag.   
@@ -239,7 +254,6 @@ $condorcet->count_votes (); // Return a numeric value about the number of regist
 
 
 ##### Remove vote
-
 ```php
 $condorcet->remove_vote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->remove_vote('Charlie', false) ; // Remove votes without tag Charlie
@@ -250,13 +264,11 @@ _Note : You can remove a vote after the results have already been given_
 
 
 #### Get result
-
 When you have finished to processing vote, you would like to have the results.
 
 ##### Just get the natural Condorcet Winner
 
 ###### Regular
-
 ```php
 $condorcet->get_winner() ; // Will return a string with the Option_Identifiant  
 $condorcet->get_loser() ; // Will return a string with the Option_Identifiant  
@@ -264,7 +276,6 @@ $condorcet->get_loser() ; // Will return a string with the Option_Identifiant
 
 
 ###### Special
-
 If there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
 ```php
@@ -279,7 +290,6 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 
 
 ##### Get a complete ranking from advanced methods
-
 ```php
 $condorcet->get_result() ; // Set of results with ranking from the default method. _(Class Default : Schulze)_  
 $condorcet->get_result('Schulze') ; // Get a the result for a valid method.
@@ -287,7 +297,6 @@ $condorcet->get_result('Schulze') ; // Get a the result for a valid method.
 
 
 ##### Get compute details
-
 ```php
 $condorcet->get_Pairwise() ; // Return an explicit array using your Option_ID as keys.  
 
@@ -298,18 +307,16 @@ $condorcet->get_result_stats('Schulze') ; // Same thing with a specific method.
 
 
 ##### Add new algorithm(s)  
-
-
 Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
-**Each new class of algorithm must include the publics methods:** 
+###### Each new class of algorithm must include the publics methods:** 
 
 1. get_result  
 2. get_stats  
 3. get_winner  
 4. get_loser   
 
-**Constructor take an array as follow:** 
+###### Constructor take an array as follow: 
 
 ```php
 $param['_Pairwise'] = (Calculated Pairwise) ;
@@ -317,12 +324,13 @@ $param['_options_count'] = (Number of vote option) ;
 $param['_options'] = (List of option) ;
 $param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise ...
 ```
-
+###### Link your algorithm
 
 The class name should be in this format: 
 ```php
-class Condorcet_ALGORITHM-NAME  
+class AlgorithmName  
 ```
+File on disk must follow this format: `AlgorithmName.algo.php`  
 
 You must register this algorithm via this way:  
 ```php

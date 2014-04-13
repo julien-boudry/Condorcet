@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.5
+	Version : 0.6
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -35,7 +35,6 @@ class Condorcet_Basic
 	}
 
 
-
 /////////// PUBLIC ///////////
 
 
@@ -62,7 +61,7 @@ class Condorcet_Basic
 
 
 		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
 		{
 			$winner = true ;
 
@@ -77,7 +76,7 @@ class Condorcet_Basic
 
 			if ($winner)
 			{
-				$this->_basic_Condorcet_winner = $this->_options[$candidat_key] ;
+				$this->_basic_Condorcet_winner = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
 
 				return $this->_basic_Condorcet_winner ;
 			}
@@ -98,7 +97,7 @@ class Condorcet_Basic
 			//////
 
 		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidat_key => $candidat_detail )
+		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
 		{
 			$loser = true ;
 
@@ -113,7 +112,7 @@ class Condorcet_Basic
 
 			if ($loser)
 			{ 
-				$this->_basic_Condorcet_loser = $this->_options[$candidat_key] ;
+				$this->_basic_Condorcet_loser = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
 
 				return $this->_basic_Condorcet_loser ;
 			}

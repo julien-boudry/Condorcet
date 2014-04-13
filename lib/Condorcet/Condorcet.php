@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.5
+	Version : 0.6
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	protected static $_version		= '0.5' ;	
+	protected static $_version		= '0.6' ;	
 
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;
@@ -296,7 +296,7 @@ class Condorcet
 		// Filter
 		if ( !is_null($option_id) && !ctype_alnum($option_id) && !is_int($option_id) )
 			{ return self::error(1, $option_id) ; }
-		if ( mb_strlen($option_id) > self::LENGTH_OPION_ID )
+		if ( mb_strlen($option_id) > self::LENGTH_OPION_ID || is_bool($option_id) )
 			{ return self::error(1, $option_id) ; }
 
 		
@@ -315,6 +315,8 @@ class Condorcet
 		}
 		else // Try to add the option_id
 		{
+			$option_id = trim($option_id);
+
 			if ( $this->try_add_option($option_id) )
 			{
 				$this->_options[] = $option_id ;
@@ -336,22 +338,25 @@ class Condorcet
 
 
 	// Destroy a register vote option before voting
-	public function remove_option ($option_id)
+	public function remove_option ($list)
 	{
 		// only if the vote has not started
 		if ( $this->_vote_state > 1 ) { return self::error(2) ; }
 
 		
-		if ( !is_array($option_id) )
+		if ( !is_array($list) )
 		{
 			$option_id	= array($option_id) ;
 		}
 
-		foreach ($option_id as $value)
+		foreach ($list as $option_id)
 		{
-			$option_key = $this->get_option_key($value) ;
+			$value = trim($option_id) ;
+
+			$option_key = $this->get_option_key($option_id) ;
+
 			if ( $option_key === false )
-				{ return self::error(4,$value) ; }
+				{ return self::error(4,$option_id) ; }
 
 			unset($this->_options[$option_key]) ;
 			$this->_options_count-- ;
@@ -417,14 +422,20 @@ class Condorcet
 
 
 	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
-	public function add_vote (array $vote, $tag = null)
+	public function add_vote ($vote, $tag = null)
 	{
 		$this->close_options_config () ;
 
 			////////
 
+		// Translate the string if needed
+		if ( is_string($vote) )
+		{
+			$vote = $this->convert_vote_input($vote) ;
+		}
+
 		// Check array format
-		if ( !$this->check_vote_input($vote) )
+		if ( !is_array($vote) || !$this->check_vote_input($vote) )
 			{ return self::error(5) ; }
 
 		// Check tag format
@@ -438,30 +449,51 @@ class Condorcet
 		return $this->register_vote($vote, $tag) ;
 	}
 
+		// From a string like 'A>B=C=H>G=T>Q'
+		protected function convert_vote_input ($formula)
+		{
+			$vote = explode('>', $formula);
+
+			foreach ($vote as $rank => $rank_vote)
+			{
+				$vote[$rank] = explode('=', $rank_vote);
+
+				// Del space at start and end
+				foreach ($vote[$rank] as $key => $value)
+				{
+					$vote[$rank][$key] = trim($value);
+				}
+			}
+
+			return $vote ;
+		}
 
 		protected function check_vote_input ($vote)
 		{
 			$list_option = array() ;
 
-			if ( isset($vote[0]) || count($vote) > $this->_options_count || count($vote) < 1 )
+			if ( count($vote) > $this->_options_count || count($vote) < 1 )
 				{ return false ; }
 
-			foreach ($vote as $key => $value)
+			foreach ($vote as $rank => $choice)
 			{
-				// Check key
-				if ( !is_numeric($key) || $key > $this->_options_count )
+				// Check key & option
+				if ( !is_numeric($rank) || $rank > $this->_options_count || empty($choice) )
 					{ return false ; }
 
-				// Check options
-				if ( empty($value) )
-					{ return false ; }
+					//////
 
-
-				$options = explode(',', $value) ;
+				if (!is_array($choice))
+				{
+					$options = explode(',', $choice) ;
+				}
+				else
+				{
+					$options = $choice ;
+				}
 
 				foreach ($options as $option)
 				{
-
 					if ( !$this->option_id_exist($option) )
 					{
 						return false ;
@@ -471,7 +503,6 @@ class Condorcet
 					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
 						else { return false ; }
 				}
-
 			}
 
 			return true ;
@@ -486,13 +517,20 @@ class Condorcet
 			$i = 1 ;
 			foreach ($vote as $value)
 			{
-				$vote_r[$i] = explode(',', $value) ;
+				if ( !is_array($value) )
+				{
+					$vote_r[$i] = explode(',', $value) ;
+				}
+				else
+				{
+					$vote_r[$i] = $value ;
+				}
 
-					// $last_line_check
-					foreach ($vote_r[$i] as $option)
-					{
-						$last_line_check[] = $this->get_option_key($option) ;
-					}
+				// $last_line_check
+				foreach ($vote_r[$i] as $option)
+				{
+					$last_line_check[] = $this->get_option_key($option) ;
+				}
 
 				$i++ ;
 			}
@@ -624,7 +662,7 @@ class Condorcet
 		}
 		else
 		{
-			return self::error(8,$option_id) ;
+			return self::error(8,$method) ;
 		}
 	}
 
