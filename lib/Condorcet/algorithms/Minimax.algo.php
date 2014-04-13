@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos( array('Minimax_Winning','Minimax_Margin') ) ;
+namespace\Condorcet::add_algos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
@@ -198,5 +198,14 @@ class Minimax_Margin extends Minimax
 	protected function calc_ranking ()
 	{
 		$this->_result = self::calc_ranking_method('margin', $this->_stats, $this->_options) ;
+	}
+}
+
+// Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
+class Minimax_Opposition extends Minimax
+{
+	protected function calc_ranking ()
+	{
+		$this->_result = self::calc_ranking_method('opposition', $this->_stats, $this->_options) ;
 	}
 }
