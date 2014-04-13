@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.5
+	Version : 0.6
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	protected static $_version		= '0.5' ;	
+	protected static $_version		= '0.6' ;	
 
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;

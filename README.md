@@ -15,7 +15,7 @@ To date, the 0.5 is a stable version, but still suffers from a lack of testing, 
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
 #### Specifications and standards  
-**Stable Version : 0.5**  
+**Stable Version : 0.6**  
 **PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 
@@ -41,6 +41,14 @@ The literature also provides you an easy example of free implementation with or 
 *(This method is the only core method, you can't remove it)*
 * **Schulze** http://en.wikipedia.org/wiki/Schulze_method
 * **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
+* **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
+    * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion.)*  
+    * **Minimax_Margin** *(Does not satisfy the Condorcet loser criterion.)*
+    * **Minimax_Margin** :warning: *Does not satisfy the Condorcet criterion.*
+
+
+
+_The name of the above methods must be observed when you make calls, case sensitive._
 
 ##### Add new  ?
 	
