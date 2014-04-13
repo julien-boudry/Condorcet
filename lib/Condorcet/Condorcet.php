@@ -92,13 +92,13 @@ class Condorcet
 					return false ;
 				}
 
-				if ( !self::is_auth_method($value) )
+				if ( self::is_auth_method($value) )
 					{ continue; }
 
 				if ( empty(self::$_auth_methods) )
 					{ self::$_auth_methods .= $value ; }
 				else
-					{ self::$_auth_methods .= ','.$value ; }				
+					{ self::$_auth_methods .= ','.$value ; }
 			}
 		}
 	}
