@@ -210,7 +210,7 @@ _Note : You can add new vote after the results have already been given_
 $vote[1] = 'A' ;  
 $vote[2] = 'Debussy' ;  
 $vote[3] = 'Wagner' ;  
-$vote[4] = 2 ; // _The last rank is optionnal_  
+$vote[4] = 2 ; // The last rank is optionnal 
 $condorcet->add_vote($vote) ;  
 ```
 
@@ -220,6 +220,8 @@ $vote[1] = 'A,Wagner' ;
 $vote[2] = 'Debussy' ;  
 $condorcet->add_vote($vote) ; 
 ```
+
+*The last rank is optionnal, it will be automatically deducted.*  
 
 ###### With a string
 
@@ -236,8 +238,10 @@ $condorcet->add_vote($vote) ;
 // But you can not use '<' operator
 $vote = 'A<B<C' ; // It's not correct
 // Follow can't work too
-$vote = 'A<BC<D' ; // It's not correct
+$vote = 'A>BC>D' ; // It's not correct
 ```
+
+*The last rank is optionnal too, it will be automatically deducted.*  
 
 
 ##### Add a tag
