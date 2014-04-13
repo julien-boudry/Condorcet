@@ -116,6 +116,8 @@ $condorcet = new Condorcet (); // If you omit the previous line, do : new Condor
 
 `composer require julien-boudry/condorcet`
 
+Look https://packagist.org/packages/julien-boudry/condorcet  
+
 
 ##### Change the object default method if needed
 
@@ -149,6 +151,14 @@ $condorcet->get_config (); // Will return an explicit array about the object and
 $condorcet->get_method (); // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
 
 Condorcet::get_auth_methods (); // Get an array of authorized methods to use with the correct string to use as parameter.  
+```
+
+##### Get library version 
+
+```php
+$condorcet->version(); // Will return a string
+// OR
+Condorcet\Condorcet::version();  // Will return a string
 ```
 
 ##### Reset object without destroy it _(discouraged pratice)_
