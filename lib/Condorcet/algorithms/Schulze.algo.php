@@ -35,7 +35,6 @@ class Schulze
 	}
 
 
-
 /////////// PUBLIC ///////////
 
 
