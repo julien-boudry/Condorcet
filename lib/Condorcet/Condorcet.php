@@ -662,7 +662,7 @@ class Condorcet
 		}
 		else
 		{
-			return self::error(8,$option_id) ;
+			return self::error(8,$method) ;
 		}
 	}
 

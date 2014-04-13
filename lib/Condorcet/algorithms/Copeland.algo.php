@@ -72,7 +72,7 @@ class Copeland
 
 		foreach ($this->_Copeland_comparison as $candidate_key => $value)
 		{
-			$explicit[Condorcet::get_static_option_id($candidate_key, $this->_options)] = $value ;
+			$explicit[namespace\Condorcet::get_static_option_id($candidate_key, $this->_options)] = $value ;
 		}
 
 		return $explicit ;
@@ -111,29 +111,29 @@ class Copeland
 
 	protected function Copeland_make_comparison ()
 	{
-		foreach ($this->_Pairwise as $candidat_key => $candidate_data)
+		foreach ($this->_Pairwise as $candidate_key => $candidate_data)
 		{
-			$this->_Copeland_comparison[$candidat_key]['win'] = 0 ;
-			$this->_Copeland_comparison[$candidat_key]['null'] = 0 ;
-			$this->_Copeland_comparison[$candidat_key]['lose'] = 0 ;
-			$this->_Copeland_comparison[$candidat_key]['balance'] = 0 ;
+			$this->_Copeland_comparison[$candidate_key]['win'] = 0 ;
+			$this->_Copeland_comparison[$candidate_key]['null'] = 0 ;
+			$this->_Copeland_comparison[$candidate_key]['lose'] = 0 ;
+			$this->_Copeland_comparison[$candidate_key]['balance'] = 0 ;
 
 
 			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
 			{
 				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
 				{
-					$this->_Copeland_comparison[$candidat_key]['win']++ ;
-					$this->_Copeland_comparison[$candidat_key]['balance']++ ;
+					$this->_Copeland_comparison[$candidate_key]['win']++ ;
+					$this->_Copeland_comparison[$candidate_key]['balance']++ ;
 				}
 				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
 				{
-					$this->_Copeland_comparison[$candidat_key]['null']++ ;
+					$this->_Copeland_comparison[$candidate_key]['null']++ ;
 				}
 				else
 				{
-					$this->_Copeland_comparison[$candidat_key]['lose']++ ;
-					$this->_Copeland_comparison[$candidat_key]['balance']-- ;
+					$this->_Copeland_comparison[$candidate_key]['lose']++ ;
+					$this->_Copeland_comparison[$candidate_key]['balance']-- ;
 				}
 			}
 		}
@@ -161,7 +161,7 @@ class Copeland
 			{
 				if ($value === $looking)
 				{
-					$this->_Copeland_result[$rank][] = Condorcet::get_static_option_id($candidate, $this->_options) ;
+					$this->_Copeland_result[$rank][] = namespace\Condorcet::get_static_option_id($candidate, $this->_options) ;
 
 					$done++ ; unset($challenge[$candidate]) ;
 				}
