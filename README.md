@@ -200,7 +200,11 @@ _Note : When you start voting, you will never be able to edit the options list._
 
 #### Start voting
 
-For each vote, an orderer list from 1
+##### Add a vote
+
+_Note : You can add new vote after the results have already been given_  
+
+###### With an array
 
 ```php
 $vote[1] = 'A' ;  
@@ -217,14 +221,33 @@ $vote[2] = 'Debussy' ;
 $condorcet->add_vote($vote) ; 
 ```
 
+###### With a string
+
+You can do like this
+
+```php
+$vote = 'A>B=C=H>G=T>Q' ;
+$condorcet->add_vote($vote) ;  
+
+// It's working with some space, if you want to be durty...
+$vote = 'A> B = C=H >G=T > Q' ;
+$condorcet->add_vote($vote) ;  
+
+// But you can not use '<' operator
+$vote = 'A<B<C' ; // It's not correct
+// Follow can't work too
+$vote = 'A<BC<D' ; // It's not correct
+```
+
+
+##### Add a tag
+
 You can add the same or different tag for each vote :  
 ```php
 $condorcet->add_vote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
 $condorcet->add_vote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
 ```
 
-
-_Note : You can add new vote after the results have already been given_  
 
 
 ##### Verify the registered votes list
