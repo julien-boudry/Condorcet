@@ -72,7 +72,10 @@ abstract class Minimax
 
 		$explicit = array() ;
 
-		$explicit = $this->_stats();
+		foreach ($this->_stats as $option_key => $value)
+		{
+			$explicit[namespace\Condorcet::get_static_option_id($option_key, $this->_options)] = $value ;
+		}
 
 		return $explicit ;
 	}
