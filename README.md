@@ -149,11 +149,12 @@ $condorcet->get_method (); // Return a string with the name of the default metho
 Condorcet::get_auth_methods (); // Get an array of authorized methods to use with the correct string to use as parameter.  
 ```
 
-##### Get library version 
+##### Get library version / Get object version
+
+The distinction may be useful in the case of a storage of the object in the database.
 ```php
-$condorcet->version(); // Will return a string
-// OR
-Condorcet\Condorcet::version();  // Will return a string
+Condorcet\Condorcet::getClassVersion();  // Return the Class engine
+$condorcet->getObjectVersion(); // Return the Class engine who build this object
 ```
 
 ##### Reset object without destroy it _(discouraged pratice)_

@@ -39,7 +39,7 @@ class Condorcet
 	const LENGTH_OPION_ID = 10 ;
 
 	// Return library version numer
-	public static function version ()
+	public static function getClassVersion ()
 	{
 		return self::$_version ;
 	}
@@ -209,6 +209,7 @@ class Condorcet
 	protected $_vote_state	= 1 ;
 	protected $_options_count = 0 ;
 	protected $_vote_tag = 0 ;
+	protected $_ObjectVersion ;
 
 	// Result
 	protected $_Pairwise ;
@@ -224,7 +225,15 @@ class Condorcet
 		$this->_votes 	= array() ;
 
 		$this->setMethod($method) ;
+
+		// Store constructor version (security for caching)
+		$this->_Object = self::$_version ;
 	}
+
+		public function getObjectVersion ()
+		{
+			return $this->_ClassVersion ;
+		}
 
 
 	// Change the object method, except if self::$_for_method == true
