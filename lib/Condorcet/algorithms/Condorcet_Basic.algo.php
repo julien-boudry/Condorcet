@@ -62,6 +62,7 @@ class Condorcet_Basic
 			return $this->_basic_Condorcet_winner ;
 		}
 
+			//////
 
 		// Basic Condorcet calculation
 		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
@@ -123,6 +124,5 @@ class Condorcet_Basic
 
 			return null ;
 	}
-
 
 }

@@ -178,6 +178,7 @@ class Condorcet
 		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
 		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
 		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
+		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_ERROR) ;
 
 		if (self::$_show_error)
 		{
@@ -235,6 +236,15 @@ class Condorcet
 			return $this->_ClassVersion ;
 		}
 
+	public function __wakeup ()
+	{
+		if ( version_compare($this->getObjectVersion(),self::getClassVersion(),'>') )
+		{
+			return self::error(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
+		}
+	}
+
+		//////
 
 	// Change the object method, except if self::$_for_method == true
 	public function setMethod ($method = null)

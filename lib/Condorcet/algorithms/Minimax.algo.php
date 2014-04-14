@@ -49,14 +49,11 @@ abstract class Minimax
 
 			//////
 
-
 		// Computing
 		$this->ComputeMinimax ();
 
-
 		// Ranking calculation
 		$this->calc_ranking () ;
-
 
 		// Return
 		return $this->_result ;
@@ -134,7 +131,6 @@ abstract class Minimax
 		{
 			$values[$candidate_key] = $candidate_stats[$type] ;
 		}
-
 
 		for ($rank = 1 ; !empty($values) ; $rank++)
 		{
