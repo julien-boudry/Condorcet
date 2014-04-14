@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -86,31 +86,6 @@ class Schulze
 
 		return $explicit ;
 	}
-
-
-		// Get only the Schulze Winner(s)
-		public function get_winner ()
-		{
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Schulze_result[1] ;
-		}
-
-		// Get only the Schulze Loser(s)
-		public function get_loser ()
-		{
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Schulze_result[count($this->_Schulze_result)] ;
-		}
 
 
 

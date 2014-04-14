@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	protected static $_version		= '0.6' ;	
+	protected static $_version		= '0.7' ;	
 
 	protected static $_class_method	= null ;
 	protected static $_auth_methods	= '' ;
@@ -112,7 +112,7 @@ class Condorcet
 				return false ;
 			}
 
-			$tests_method = array ('get_result', 'get_stats', 'get_winner', 'get_loser') ;
+			$tests_method = array ('get_result', 'get_stats') ;
 
 			foreach ($tests_method as $method)
 			{
@@ -676,35 +676,24 @@ class Condorcet
 
 			//////
 
-		$this->init_result('Condorcet_Basic') ;
-		$condorcet_winner = $this->_algos['Condorcet_Basic']->get_winner() ;
-
-		if ($condorcet_winner !== null)
-		{
-			return $condorcet_winner ;
-		}
-
 		if ( $substitution )
 		{
 			if ($substitution === true)
-			{
-				$this->init_result($this->_method) ;
+				{$substitution = $this->_method ;}
 
-				return $this->_algos[$this->_method]->get_winner() ;
-			}
-			elseif ( self::is_auth_method($substitution) )
-			{
-				$this->init_result($substitution) ;
-
-				return $this->_algos[$substitution]->get_winner() ;
-			}
-			elseif ( $this->_method !== 'Condorcet_Basic' && $substitution === true )
-			{
-				$this->init_result($this->_method) ;
-
-				return $this->_algos[$method]->get_winner() ;
-			}
+			if ( self::is_auth_method($substitution) )
+				{$algo = $substitution ;}
+			else
+				{return self::error(9,$substitution);}
 		}
+		else
+			{$algo = 'Condorcet_Basic';}
+
+			//////
+
+		$this->init_result($algo) ;
+
+		return $this->_algos[$algo]->get_result()[1] ;
 	}
 
 
@@ -717,33 +706,26 @@ class Condorcet
 
 			//////
 
-		$this->init_result('Condorcet_Basic') ;
-		$condorcet_loser = $this->_algos['Condorcet_Basic']->get_loser() ;
-
-		if ($condorcet_loser !== null)
-			{ return $condorcet_loser ;	}
-
 		if ( $substitution )
 		{			
 			if ($substitution === true)
-			{
-				$this->init_result($this->_method) ;
+				{$substitution = $this->_method ;}
+			
+			if ( self::is_auth_method($substitution) )
+				{$algo = $substitution ;}
+			else
+				{return self::error(9,$substitution);}
+		}
+		else
+			{$algo = 'Condorcet_Basic';}
 
-				return $this->_algos[$this->_method]->get_loser() ;
-			}
-			elseif ( self::is_auth_method($substitution) )
-			{
-				$this->init_result($substitution) ;
+			//////
 
-				return $this->_algos[$substitution]->get_loser() ;
-			}
-			elseif ( $this->_method !== 'Condorcet_Basic' && $substitution === true )
-			{
-				$this->init_result($this->_method) ;
+		$this->init_result($algo) ;
 
-				return $this->_algos[$method]->get_loser() ;
-			}
-		}		
+		$result = $this->_algos[$algo]->get_result() ;
+
+		return $result[count($result)] ;
 	}
 
 

@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -40,7 +40,10 @@ class Condorcet_Basic
 
 	public function get_result ()
 	{
-		return $this->get_winner ;
+		return array (
+						1 => $this->get_winner(),
+						2 => $this->get_loser()
+					) ;
 	}
 
 	// Get the Schulze ranking

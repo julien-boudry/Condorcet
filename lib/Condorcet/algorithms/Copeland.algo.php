@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Copeland Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
@@ -77,30 +77,6 @@ class Copeland
 
 		return $explicit ;
 	}
-
-		// Get only the Copeland Winner(s)
-		public function get_winner ()
-		{
-			// If there is not Cache
-			if ( $this->_Copeland_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Copeland_result[1] ;
-		}
-
-		// Get only the Copeland Loser(s)
-		public function get_loser ()
-		{
-			// If there is not Cache
-			if ( $this->_Copeland_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Copeland_result[count($this->_Copeland_result)] ;
-		}
 
 
 
