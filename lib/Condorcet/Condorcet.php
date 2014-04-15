@@ -208,7 +208,7 @@ class Condorcet
 
 	// Mechanics 
 	protected $_i_option_id	= 'A' ;
-	protected $_vote_state	= 1 ;
+	protected $_vote_state	= 1 ; // 1 = Add Option / 2 = Voting / 3 = Some result have been computing
 	protected $_options_count = 0 ;
 	protected $_vote_tag = 0 ;
 	protected $_ObjectVersion ;
@@ -229,25 +229,38 @@ class Condorcet
 		$this->setMethod($method) ;
 
 		// Store constructor version (security for caching)
-		$this->_Object = self::$_version ;
+		$this->_ObjectVersion = self::$_version ;
 	}
 
 		public function getObjectVersion ()
 		{
-			return $this->_ClassVersion ;
+			return $this->_ObjectVersion ;
 		}
 
 	public function __sleep ()
 	{
-		$this->cleanup_result() ;
+		// Don't include computing data, only options & votes
+		return array	(
+			'_method',
+			'_options',
+			'_votes',
+			'_i_option_id',
+			'_vote_state',
+			'_options_count',
+			'_vote_tag',
+			'_ObjectVersion'
+						);
 	}
 
 	public function __wakeup ()
 	{
-		if ( version_compare($this->getObjectVersion(),self::getClassVersion(),'>') )
+		if ( version_compare($this->getObjectVersion(),self::getClassVersion(),'<') )
 		{
 			return self::error(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
+
+		if ($this->_vote_state > 2) 
+			{$this->_vote_state = 2 ;}
 	}
 
 		//////
