@@ -178,18 +178,19 @@ class Condorcet
 		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
 		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
 		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
-		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_ERROR) ;
+		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_WARNING) ;
 
-		if (self::$_show_error)
+		
+		if ( array_key_exists($code, $error) )
 		{
-			if (array_key_exists($code, $error))
+			if ( self::$_show_error || $error[$code]['level'] < E_USER_WARNING )
 			{
-				trigger_error ( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
+				trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
 			}
-			else
-			{
-				trigger_error ( 'Mysterious Error', E_USER_NOTICE );
-			}
+		}
+		elseif (self::$_show_error)
+		{
+			trigger_error( 'Mysterious Error : '.$infos, E_USER_NOTICE );
 		}
 
 		return false ;
@@ -235,6 +236,11 @@ class Condorcet
 		{
 			return $this->_ClassVersion ;
 		}
+
+	public function __sleep ()
+	{
+		$this->cleanup_result() ;
+	}
 
 	public function __wakeup ()
 	{
@@ -296,7 +302,6 @@ class Condorcet
 		$this->_votes = null ;
 		$this->_i_option_id = 'A' ;
 		$this->_vote_state	= 1 ;
-
 
 		$this->setMethod() ;
 	}
@@ -428,22 +433,22 @@ class Condorcet
 		if ( $this->_vote_state === 1 )
 			{ 
 				$this->_vote_state = 2 ;
-				return true ;
 			}
 
 		// If voting continues after a first set of results
-		if ( $this->_vote_state > 2 )
+		elseif ( $this->_vote_state > 2 )
 			{ 
 				$this->cleanup_result();
-				return true ;
 			}
+
+		return true ;
 	}
 
 
 	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
 	public function add_vote ($vote, $tag = null)
 	{
-		$this->close_options_config () ;
+		$this->close_options_config() ;
 
 			////////
 
@@ -583,7 +588,7 @@ class Condorcet
 
 	public function remove_vote ($tag, $with = true)
 	{
-		$this->close_options_config () ;
+		$this->close_options_config() ;
 
 			//////
 
@@ -647,7 +652,6 @@ class Condorcet
 			return $search ;
 		}
 	}
-
 
 
 
@@ -827,9 +831,12 @@ class Condorcet
 	protected function cleanup_result ()
 	{
 		// Reset state
-		$this->_vote_state = 2 ;
+		if ($this->_vote_state > 2)
+		{
+			$this->_vote_state = 2 ;
+		}
 
-			///
+			//////
 
 		// Clean pairwise
 		$this->_Pairwise = null ;
@@ -883,7 +890,6 @@ class Condorcet
 		{
 			$this->_Pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() ) ;
 
-
 			foreach ( $this->_options as $option_key_r => $option_id_r )
 			{
 				if ($option_key_r != $option_key)
@@ -913,16 +919,13 @@ class Condorcet
 					$options_in_rank_keys[] = $this->get_option_key($option) ;
 				}
 
-
 				foreach ($options_in_rank as $option)
 				{
 					$option_key = $this->get_option_key($option);
 
-
 					// Process
 					foreach ( $this->_options as $g_option_key => $g_option_id )
 					{
-
 						// Win
 						if (
 								$option_key !== $g_option_key && 
