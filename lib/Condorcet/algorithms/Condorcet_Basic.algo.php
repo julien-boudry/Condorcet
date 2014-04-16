@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Condorcet_Basic') ;
+namespace\Condorcet::addAlgos('Condorcet_Basic') ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
@@ -38,11 +38,11 @@ class Condorcet_Basic
 /////////// PUBLIC ///////////
 
 
-	public function get_result ()
+	public function getResult ()
 	{
 		return array (
-						1 => $this->get_winner(),
-						2 => $this->get_loser()
+						1 => $this->getWinner(),
+						2 => $this->getLoser()
 					) ;
 	}
 
@@ -54,7 +54,7 @@ class Condorcet_Basic
 
 
 	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_winner ()
+	public function getWinner ()
 	{
 		// Cache
 		if ( $this->_basic_Condorcet_winner !== null )
@@ -90,7 +90,7 @@ class Condorcet_Basic
 	}
 
 	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_loser ()
+	public function getLoser ()
 	{
 		// Cache
 		if ( $this->_basic_Condorcet_loser !== null )

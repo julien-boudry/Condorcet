@@ -142,11 +142,11 @@ Condorcet::setError(false) ; // _(true by default)_ Unactive or active trigger_e
 
 ##### Get informations 
 ```php
-$condorcet->get_config (); // Will return an explicit array about the object and Class Constant.  
+$condorcet->getConfig (); // Will return an explicit array about the object and Class Constant.  
 
-$condorcet->get_method (); // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
+$condorcet->getMethod (); // Return a string with the name of the default method in use for this object, including if the force class Constant is defined to true.  
 
-Condorcet::get_auth_methods (); // Get an array of authorized methods to use with the correct string to use as parameter.  
+Condorcet::getAuthMethods (); // Get an array of authorized methods to use with the correct string to use as parameter.  
 ```
 
 ##### Get library version / Get object version
@@ -159,7 +159,7 @@ $condorcet->getObjectVersion(); // Return the Class engine who build this object
 
 ##### Reset object without destroy it _(discouraged pratice)_
 ```php
-$condorcet->reset_all ();
+$condorcet->resetAll ();
 ``` 
 
 
@@ -170,22 +170,22 @@ $condorcet->reset_all ();
 Enter (or not) an Option_Identifiant  
 
 ```php
-$condorcet->add_option('Wagner') ; // mb_strlen(Alphanum option) <= self::LENGTH_OPION_ID _Default : 10_
-$condorcet->add_option('Debussy') ;  
-$condorcet->add_option() ; // Empty argument will return an automatic Option_ID for you _(From A to ZZZZZ)_  
-$condorcet->add_option(2) ; // A numeric argument  
+$condorcet->addOption('Wagner') ; // mb_strlen(Alphanum option) <= self::LENGTH_OPION_ID _Default : 10_
+$condorcet->addOption('Debussy') ;  
+$condorcet->addOption() ; // Empty argument will return an automatic Option_ID for you _(From A to ZZZZZ)_  
+$condorcet->addOption(2) ; // A numeric argument  
 ```
 
 
 ##### Removing
 ```php
-$condorcet->remove_option('Wagner') ;
+$condorcet->removeOption('Wagner') ;
 ```
 
 
 ##### Verify the Options list
 ```php
-$condorcet->get_options_list (); // Will return an array with Option_ID as value.
+$condorcet->getOptionsList (); // Will return an array with Option_ID as value.
 ```
 
 _Note : When you start voting, you will never be able to edit the options list._  
@@ -203,14 +203,14 @@ $vote[1] = 'A' ;
 $vote[2] = 'Debussy' ;  
 $vote[3] = 'Wagner' ;  
 $vote[4] = 2 ; // The last rank is optionnal 
-$condorcet->add_vote($vote) ;  
+$condorcet->addVote($vote) ;  
 ```
 
 Use commas in the case of a tie :  
 ```php
 $vote[1] = 'A,Wagner' ;  
 $vote[2] = 'Debussy' ;  
-$condorcet->add_vote($vote) ; 
+$condorcet->addVote($vote) ; 
 ```
 
 *The last rank is optionnal, it will be automatically deducted.*  
@@ -220,11 +220,11 @@ You can do like this:
 
 ```php
 $vote = 'A>B=C=H>G=T>Q' ;
-$condorcet->add_vote($vote) ;  
+$condorcet->addVote($vote) ;  
 
 // It's working with some space, if you want to be durty...
 $vote = 'A> B = C=H >G=T > Q' ;
-$condorcet->add_vote($vote) ;  
+$condorcet->addVote($vote) ;  
 
 // But you can not use '<' operator
 $vote = 'A<B<C' ; // It's not correct
@@ -238,26 +238,26 @@ $vote = 'A>BC>D' ; // It's not correct
 ##### Add a tag
 You can add the same or different tag for each vote :  
 ```php
-$condorcet->add_vote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
-$condorcet->add_vote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
+$condorcet->addVote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
+$condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
 ```
 
 
 
 ##### Verify the registered votes list
 ```php
-$condorcet->get_votes_list (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
-$condorcet->get_votes_list ('Charlie'); // Will return an array where each vote with this tag.   
-$condorcet->get_votes_list ('Charlie', false); // Will return an array where each vote without this tag.   
+$condorcet->getVotesList (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
+$condorcet->getVotesList ('Charlie'); // Will return an array where each vote with this tag.   
+$condorcet->getVotesList ('Charlie', false); // Will return an array where each vote without this tag.   
 
-$condorcet->count_votes (); // Return a numeric value about the number of registered votes.  
+$condorcet->countVotes (); // Return a numeric value about the number of registered votes.  
 ```
 
 
 ##### Remove vote
 ```php
-$condorcet->remove_vote('Charlie') ; // Remove vote(s) with tag Charlie
-$condorcet->remove_vote('Charlie', false) ; // Remove votes without tag Charlie
+$condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
+$condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
 ```
 
 _Note : You can remove a vote after the results have already been given_  
@@ -271,8 +271,8 @@ When you have finished to processing vote, you would like to have the results.
 
 ###### Regular
 ```php
-$condorcet->get_winner() ; // Will return a string with the Option_Identifiant  
-$condorcet->get_loser() ; // Will return a string with the Option_Identifiant  
+$condorcet->getWinner() ; // Will return a string with the Option_Identifiant  
+$condorcet->getLoser() ; // Will return a string with the Option_Identifiant  
 ```
 
 
@@ -280,11 +280,11 @@ $condorcet->get_loser() ; // Will return a string with the Option_Identifiant
 If there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
 ```php
-$condorcet->get_winner(true) ; // With the default object method _(Class Default : Schulze)_  
-$condorcet->get_winner('Schulze') ; // Name of an valid method  
+$condorcet->getWinner(true) ; // With the default object method _(Class Default : Schulze)_  
+$condorcet->getWinner('Schulze') ; // Name of an valid method  
 
-$condorcet->get_loser(true) With the default object method _(Class Default : Schulze)_  
-$condorcet->get_loser('Schulze') ; // Name of an valid method  
+$condorcet->getLoser(true) With the default object method _(Class Default : Schulze)_  
+$condorcet->getLoser('Schulze') ; // Name of an valid method  
 ```
 
 Will return a string with the Option_Identifiant or many Option identifiants separated by commas  
@@ -292,17 +292,17 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 
 ##### Get a complete ranking from advanced methods
 ```php
-$condorcet->get_result() ; // Set of results with ranking from the default method. _(Class Default : Schulze)_  
-$condorcet->get_result('Schulze') ; // Get a the result for a valid method.
+$condorcet->getResult() ; // Set of results with ranking from the default method. _(Class Default : Schulze)_  
+$condorcet->getResult('Schulze') ; // Get a the result for a valid method.
 ```
 
 
 ##### Get compute details
 ```php
-$condorcet->get_Pairwise() ; // Return an explicit array using your Option_ID as keys.  
+$condorcet->getPairwise() ; // Return an explicit array using your Option_ID as keys.  
 
-$condorcet->get_result_stats() ; // Get stats about computing result for the default object method. _(Class Default : Schulze)_  
-$condorcet->get_result_stats('Schulze') ; // Same thing with a specific method.  
+$condorcet->getResultStats() ; // Get stats about computing result for the default object method. _(Class Default : Schulze)_  
+$condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
 ```
 
 
@@ -312,7 +312,7 @@ Look at how existing algorithm work in the "algorithms" folder, because the algo
 
 ###### Each new class of algorithm must include the publics methods:** 
 
-1. get_result  
+1. getResult  
 2. get_stats  
 
 ###### Constructor take an array as follow: 
@@ -333,7 +333,7 @@ File on disk must follow this format: `AlgorithmName.algo.php`
 
 You must register this algorithm by this way:  
 ```php
-Condorcet::add_algos('ALGORITHM-NAME') ;
+Condorcet::addAlgos('ALGORITHM-NAME') ;
 ```  
 
 You can specify it as default algorithm:  

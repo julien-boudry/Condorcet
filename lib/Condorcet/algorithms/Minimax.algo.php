@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
+namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
@@ -39,7 +39,7 @@ abstract class Minimax
 
 
 	// Get the Schulze ranking
-	public function get_result ()
+	public function getResult ()
 	{
 		// Cache
 		if ( $this->_result !== null )
@@ -63,7 +63,7 @@ abstract class Minimax
 	// Get the Schulze ranking
 	public function get_stats ()
 	{
-		$this->get_result();
+		$this->getResult();
 
 			//////
 

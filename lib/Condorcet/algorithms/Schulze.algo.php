@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Schulze') ;
+namespace\Condorcet::addAlgos('Schulze') ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
@@ -39,7 +39,7 @@ class Schulze
 
 
 	// Get the Schulze ranking
-	public function get_result ()
+	public function getResult ()
 	{
 		// Cache
 		if ( $this->_Schulze_result !== null )
@@ -68,7 +68,7 @@ class Schulze
 	// Get the Schulze ranking
 	public function get_stats ()
 	{
-		$this->get_result();
+		$this->getResult();
 
 			//////
 

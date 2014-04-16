@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Copeland') ;
+namespace\Condorcet::addAlgos('Copeland') ;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
@@ -39,7 +39,7 @@ class Copeland
 
 
 	// Get the Coepland ranking
-	public function get_result ()
+	public function getResult ()
 	{
 		// Cache
 		if ( $this->_Copeland_result !== null )
@@ -64,7 +64,7 @@ class Copeland
 	// Get the Copeland ranking
 	public function get_stats ()
 	{
-		$this->get_result();
+		$this->getResult();
 
 			//////
 

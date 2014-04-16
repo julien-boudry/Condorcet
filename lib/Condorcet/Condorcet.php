@@ -45,7 +45,7 @@ class Condorcet
 	}
 
 	// Return an array with auth methods
-	public static function get_auth_methods ()
+	public static function getAuthMethods ()
 	{
 		$auth = explode(',', self::$_auth_methods) ;
 
@@ -53,9 +53,9 @@ class Condorcet
 	}
 
 	// Check if the method is supported
-	public static function is_auth_method ($method)
+	public static function isAuthMethod ($method)
 	{
-		$auth = self::get_auth_methods() ;
+		$auth = self::getAuthMethods() ;
 
 		if ( in_array($method,$auth, true) )
 			{ return true ;	}
@@ -65,12 +65,12 @@ class Condorcet
 
 
 	// Add algos
-	public static function add_algos ($algos)
+	public static function addAlgos ($algos)
 	{
 		if ( is_null($algos) )
 			{ return false ; }
 
-		elseif ( is_string($algos) && !self::is_auth_method($algos) )
+		elseif ( is_string($algos) && !self::isAuthMethod($algos) )
 		{
 			if ( !self::test_algos($algos) )
 			{
@@ -92,7 +92,7 @@ class Condorcet
 					return false ;
 				}
 
-				if ( self::is_auth_method($value) )
+				if ( self::isAuthMethod($value) )
 					{ continue; }
 
 				if ( empty(self::$_auth_methods) )
@@ -112,7 +112,7 @@ class Condorcet
 				return false ;
 			}
 
-			$tests_method = array ('get_result', 'get_stats') ;
+			$tests_method = array ('getResult', 'get_stats') ;
 
 			foreach ($tests_method as $method)
 			{
@@ -130,7 +130,7 @@ class Condorcet
 	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
 	public static function setClassMethod ($method, $force = false)
 	{		
-		if ( self::is_auth_method($method) )
+		if ( self::isAuthMethod($method) )
 		{
 			self::$_class_method = $method ;
 
@@ -272,7 +272,7 @@ class Condorcet
 		{
 			$this->_method = self::$_class_method ;
 		}
-		elseif ( $method != null && self::is_auth_method($method) )
+		elseif ( $method != null && self::isAuthMethod($method) )
 		{
 			$this->_method = $method ;
 		}
@@ -287,9 +287,9 @@ class Condorcet
 		$this->setMethod() ;
 
 		return array 	(
-							'object_method'		=> $this->get_method(),
+							'object_method'		=> $this->getMethod(),
 							'class_default_method'	=> self::$_class_method,
-							'class_auth_methods'=> self::get_auth_methods(),
+							'class_auth_methods'=> self::getAuthMethods(),
 							'force_class_method'=> self::$_force_method,
 
 							'class_show_error'	=> self::$_show_error,
@@ -299,16 +299,16 @@ class Condorcet
 	}
 
 
-	public function get_method ()
+	public function getMethod ()
 	{
 		return $this->setMethod() ;
 	}
 
 
 	// Reset all, be ready for a new vote - PREFER A CLEAN DESTRUCT of this object
-	public function reset_all ()
+	public function resetAll ()
 	{
-		$this->cleanup_result() ;
+		$this->cleanupResult() ;
 
 		$this->_options = null ;
 		$this->_options_count = 0 ;
@@ -325,7 +325,7 @@ class Condorcet
 
 
 	// Add a vote option before voting
-	public function add_option ($option_id = null)
+	public function addOption ($option_id = null)
 	{
 		// only if the vote has not started
 		if ( $this->_vote_state > 1 ) { return self::error(2) ; }
@@ -340,7 +340,7 @@ class Condorcet
 		// Process
 		if ( empty($option_id) ) // Option_id is empty ...
 		{
-			while ( !$this->try_add_option($this->_i_option_id) )
+			while ( !$this->try_addOption($this->_i_option_id) )
 			{
 				$this->_i_option_id++ ;
 			}
@@ -354,7 +354,7 @@ class Condorcet
 		{
 			$option_id = trim($option_id);
 
-			if ( $this->try_add_option($option_id) )
+			if ( $this->try_addOption($option_id) )
 			{
 				$this->_options[] = $option_id ;
 				$this->_options_count++ ;
@@ -368,14 +368,14 @@ class Condorcet
 		}
 	}
 
-		protected function try_add_option ($option_id)
+		protected function try_addOption ($option_id)
 		{
-			return !$this->option_id_exist($option_id) ;
+			return !$this->existOptionId($option_id) ;
 		}
 
 
 	// Destroy a register vote option before voting
-	public function remove_option ($list)
+	public function removeOption ($list)
 	{
 		// only if the vote has not started
 		if ( $this->_vote_state > 1 ) { return self::error(2) ; }
@@ -390,7 +390,7 @@ class Condorcet
 		{
 			$value = trim($option_id) ;
 
-			$option_key = $this->get_option_key($option_id) ;
+			$option_key = $this->getOptionKey($option_id) ;
 
 			if ( $option_key === false )
 				{ return self::error(4,$option_id) ; }
@@ -404,25 +404,25 @@ class Condorcet
 		//:: OPTIONS TOOLS :://
 
 		// Count registered options
-		public function count_options ()
+		public function countOptions ()
 		{
 			return $this->_options_count ;
 		}
 
 		// Get the list of registered option
-		public function get_options_list ()
+		public function getOptionsList ()
 		{
 			return $this->_options ;
 		}
 
-		protected function get_option_key ($option_id)
+		protected function getOptionKey ($option_id)
 		{
 			return array_search($option_id, $this->_options, true) ;
 		}
 
-		protected function get_option_id ($option_key)
+		protected function getOptionId ($option_key)
 		{
-			self::static_get_option_id($option_key, $this->_options) ;
+			self::get_static_option_id($option_key, $this->_options) ;
 		}
 
 			public static function get_static_option_id ($option_key, &$options)
@@ -430,7 +430,7 @@ class Condorcet
 				return $options[$option_key] ;
 			}
 
-		protected function option_id_exist ($option_id)
+		protected function existOptionId ($option_id)
 		{
 			return in_array($option_id, $this->_options) ;
 		}
@@ -451,7 +451,7 @@ class Condorcet
 		// If voting continues after a first set of results
 		elseif ( $this->_vote_state > 2 )
 			{ 
-				$this->cleanup_result();
+				$this->cleanupResult();
 			}
 
 		return true ;
@@ -459,7 +459,7 @@ class Condorcet
 
 
 	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
-	public function add_vote ($vote, $tag = null)
+	public function addVote ($vote, $tag = null)
 	{
 		$this->close_options_config() ;
 
@@ -472,7 +472,7 @@ class Condorcet
 		}
 
 		// Check array format
-		if ( !is_array($vote) || !$this->check_vote_input($vote) )
+		if ( !is_array($vote) || !$this->checkVoteInput($vote) )
 			{ return self::error(5) ; }
 
 		// Check tag format
@@ -483,7 +483,7 @@ class Condorcet
 		ksort($vote);
 
 		// Register vote
-		return $this->register_vote($vote, $tag) ;
+		return $this->registerVote($vote, $tag) ;
 	}
 
 		// From a string like 'A>B=C=H>G=T>Q'
@@ -505,7 +505,7 @@ class Condorcet
 			return $vote ;
 		}
 
-		protected function check_vote_input ($vote)
+		protected function checkVoteInput ($vote)
 		{
 			$list_option = array() ;
 
@@ -531,14 +531,16 @@ class Condorcet
 
 				foreach ($options as $option)
 				{
-					if ( !$this->option_id_exist($option) )
+					if ( !$this->existOptionId($option) )
 					{
 						return false ;
 					}
 
 					// Do not do 2x the same option
-					if ( !in_array($option, $list_option)  ) { $list_option[] = $option ; }
-						else { return false ; }
+					if ( !in_array($option, $list_option)  )
+						{ $list_option[] = $option ; }
+					else 
+						{ return false ; }
 				}
 			}
 
@@ -546,7 +548,7 @@ class Condorcet
 		}
 
 		// Write a new vote
-		protected function register_vote ($vote, $tag = null)
+		protected function registerVote ($vote, $tag = null)
 		{
 			$last_line_check = array() ;
 			$vote_r = array() ;
@@ -566,7 +568,7 @@ class Condorcet
 				// $last_line_check
 				foreach ($vote_r[$i] as $option)
 				{
-					$last_line_check[] = $this->get_option_key($option) ;
+					$last_line_check[] = $this->getOptionKey($option) ;
 				}
 
 				$i++ ;
@@ -599,7 +601,7 @@ class Condorcet
 		}
 
 
-	public function remove_vote ($tag, $with = true)
+	public function removeVote ($tag, $with = true)
 	{
 		$this->close_options_config() ;
 
@@ -628,13 +630,13 @@ class Condorcet
 	//:: VOTING TOOLS :://
 
 	// How many votes are registered ?
-	public function count_votes ()
+	public function countVotes ()
 	{
 		return count($this->_votes) ;
 	}
 
 	// Get the votes registered list
-	public function get_votes_list ($tag = null, $with = true)
+	public function getVotesList ($tag = null, $with = true)
 	{
 		if (empty($tag))
 		{
@@ -675,26 +677,26 @@ class Condorcet
 
 
 	// Generic function for default result with ability to change default object method
-	public function get_result ($method = null)
+	public function getResult ($method = null)
 	{
 		// Method
 		$this->setMethod() ;
 		// Prepare
-		$this->prepare_result() ;
+		$this->prepareResult() ;
 
 			//////
 
 		if ($method === null)
 		{
-			$this->init_result($this->_method) ;
+			$this->initResult($this->_method) ;
 
-			return $this->_algos[$this->_method]->get_result() ;
+			return $this->_algos[$this->_method]->getResult() ;
 		}
-		elseif (self::is_auth_method($method))
+		elseif (self::isAuthMethod($method))
 		{
-			$this->init_result($method) ;
+			$this->initResult($method) ;
 
-			return $this->_algos[$method]->get_result() ;
+			return $this->_algos[$method]->getResult() ;
 		}
 		else
 		{
@@ -703,12 +705,12 @@ class Condorcet
 	}
 
 
-	public function get_winner ($substitution = false)
+	public function getWinner ($substitution = false)
 	{
 		// Method
 		$this->setMethod() ;
 		// Prepare
-		$this->prepare_result() ;
+		$this->prepareResult() ;
 
 			//////
 
@@ -717,7 +719,7 @@ class Condorcet
 			if ($substitution === true)
 				{$substitution = $this->_method ;}
 
-			if ( self::is_auth_method($substitution) )
+			if ( self::isAuthMethod($substitution) )
 				{$algo = $substitution ;}
 			else
 				{return self::error(9,$substitution);}
@@ -727,18 +729,18 @@ class Condorcet
 
 			//////
 
-		$this->init_result($algo) ;
+		$this->initResult($algo) ;
 
-		return $this->_algos[$algo]->get_result()[1] ;
+		return $this->_algos[$algo]->getResult()[1] ;
 	}
 
 
-	public function get_loser ($substitution = false)
+	public function getLoser ($substitution = false)
 	{
 		// Method
 		$this->setMethod() ;
 		// Prepare
-		$this->prepare_result() ;
+		$this->prepareResult() ;
 
 			//////
 
@@ -747,7 +749,7 @@ class Condorcet
 			if ($substitution === true)
 				{$substitution = $this->_method ;}
 			
-			if ( self::is_auth_method($substitution) )
+			if ( self::isAuthMethod($substitution) )
 				{$algo = $substitution ;}
 			else
 				{return self::error(9,$substitution);}
@@ -757,32 +759,32 @@ class Condorcet
 
 			//////
 
-		$this->init_result($algo) ;
+		$this->initResult($algo) ;
 
-		$result = $this->_algos[$algo]->get_result() ;
+		$result = $this->_algos[$algo]->getResult() ;
 
 		return $result[count($result)] ;
 	}
 
 
-	public function get_result_stats ($method = null)
+	public function getResultStats ($method = null)
 	{
 		// Method
 		$this->setMethod() ;
 		// Prepare
-		$this->prepare_result() ;
+		$this->prepareResult() ;
 
 			//////
 
 		if ($method === null)
 		{
-			$this->init_result($this->_method) ;
+			$this->initResult($this->_method) ;
 
 			return $this->_algos[$this->_method]->get_stats() ;
 		}
-		elseif (self::is_auth_method($method))
+		elseif (self::isAuthMethod($method))
 		{
-			$this->init_result($method) ;
+			$this->initResult($method) ;
 
 			return $this->_algos[$method]->get_stats() ;
 		}
@@ -798,7 +800,7 @@ class Condorcet
 
 
 	// Prepare to compute results & caching system
-	protected function prepare_result ()
+	protected function prepareResult ()
 	{
 		if ($this->_vote_state > 2)
 		{
@@ -806,10 +808,10 @@ class Condorcet
 		}
 		elseif ($this->_vote_state === 2)
 		{
-			$this->cleanup_result();
+			$this->cleanupResult();
 
 			// Do Pairewise
-			$this->do_Pairwise() ;
+			$this->doPairwise() ;
 
 			// Change state to result
 			$this->_vote_state = 3 ;
@@ -825,7 +827,7 @@ class Condorcet
 	}
 
 
-	protected function init_result ($method)
+	protected function initResult ($method)
 	{
 		if ( !isset($this->_algos[$method]) )
 		{
@@ -841,7 +843,7 @@ class Condorcet
 
 
 	// Cleanup results to compute again with new votes
-	protected function cleanup_result ()
+	protected function cleanupResult ()
 	{
 		// Reset state
 		if ($this->_vote_state > 2)
@@ -861,9 +863,9 @@ class Condorcet
 
 	//:: GET RAW DATA :://
 
-	public function get_Pairwise ()
+	public function getPairwise ()
 	{
-		$this->prepare_result() ;
+		$this->prepareResult() ;
 
 		return self::get_static_Pairwise ($this->_Pairwise, $this->_options) ;
 	}
@@ -895,7 +897,7 @@ class Condorcet
 
 	//:: COMPUTE PAIRWISE :://
 
-	protected function do_Pairwise ()
+	protected function doPairwise ()
 	{		
 		$this->_Pairwise = array() ;
 
@@ -929,12 +931,12 @@ class Condorcet
 
 				foreach ($options_in_rank as $option)
 				{
-					$options_in_rank_keys[] = $this->get_option_key($option) ;
+					$options_in_rank_keys[] = $this->getOptionKey($option) ;
 				}
 
 				foreach ($options_in_rank as $option)
 				{
-					$option_key = $this->get_option_key($option);
+					$option_key = $this->getOptionKey($option);
 
 					// Process
 					foreach ( $this->_options as $g_option_key => $g_option_id )
@@ -972,7 +974,7 @@ class Condorcet
 		{
 			foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
 			{
-				$this->_Pairwise[$option_key]['lose'][$option_compare_key] = count($this->_votes) -
+				$this->_Pairwise[$option_key]['lose'][$option_compare_key] = $this->countVotes() -
 						(
 							$this->_Pairwise[$option_key]['win'][$option_compare_key] + 
 							$this->_Pairwise[$option_key]['null'][$option_compare_key]
