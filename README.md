@@ -165,27 +165,27 @@ $condorcet->resetAll ();
 ``` 
 
 
-#### Vote options
+#### 1- Manage Candidates
 
 ##### Registering
 
 Enter (or not) an Option_Identifiant  
 
 ```php
-$condorcet->addOption('Wagner') ; // mb_strlen(Alphanum option) <= self::LENGTH_OPION_ID _Default : 10_
-$condorcet->addOption('Debussy') ;  
-$condorcet->addOption() ; // Empty argument will return an automatic Option_ID for you _(From A to ZZZZZ)_  
-$condorcet->addOption(2) ; // A numeric argument  
+$condorcet->addCandidate('Wagner') ; // mb_strlen(Alphanum option) <= self::MAX_LENGTH_CANDIDATE_ID _Default : 10_
+$condorcet->addCandidate('Debussy') ;  
+$condorcet->addCandidate() ; // Empty argument will return an automatic Option_ID for you _(From A to ZZZZZ)_  
+$condorcet->addCandidate(2) ; // A numeric argument  
 ```
 
 
 ##### Removing
 ```php
-$condorcet->removeOption('Wagner') ;
+$condorcet->removeCandidate('Wagner') ;
 ```
 
 
-##### Verify the Options list
+##### Verify the Candidates list
 ```php
 $condorcet->getOptionsList (); // Will return an array with Option_ID as value.
 ```
@@ -193,7 +193,7 @@ $condorcet->getOptionsList (); // Will return an array with Option_ID as value.
 _Note : When you start voting, you will never be able to edit the options list._  
 
 
-#### Start voting
+#### 2- Start voting
 _Note: All votes are adjusted to estimate all candidates. The pairwise is calculated accordingly._
 
 ##### Add a vote
@@ -266,7 +266,7 @@ _Note : You can remove a vote after the results have already been given_
 
 
 
-#### Get result
+#### 3- Get results & Stats
 When you have finished to processing vote, you would like to have the results.
 
 ##### Just get the natural Condorcet Winner
@@ -309,7 +309,7 @@ $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.
 
 
 
-##### Add new algorithm(s)  
+##### Customize the code : Add new algorithm(s)  
 Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
 ###### Each new class of algorithm must include the publics methods:** 
@@ -321,7 +321,7 @@ Look at how existing algorithm work in the "algorithms" folder, because the algo
 
 ```php
 $param['_Pairwise'] = (Calculated Pairwise) ;
-$param['_options_count'] = (Number of vote option) ;
+$param['_optionsCount'] = (Number of vote option) ;
 $param['_options'] = (List of option) ;
 $param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise ...
 ```
@@ -335,7 +335,7 @@ File on disk must follow this format: `AlgorithmName.algo.php`
 
 You must register this algorithm by this way:  
 ```php
-Condorcet::addAlgos('ALGORITHM-NAME') ;
+Condorcet::addAlgos('AlgorithmName') ;
 ```  
 
 You can specify it as default algorithm:  

@@ -19,19 +19,19 @@ class Condorcet_Basic
 {
 	// Config
 	protected $_Pairwise ;
-	protected $_options_count ;
-	protected $_options ;
+	protected $_CandidatesCount ;
+	protected $_Candidates ;
 
 	// Basic Condorcet
-	protected $_basic_Condorcet_winner ;
-	protected $_basic_Condorcet_loser ;
+	protected $_CondorcetWinner ;
+	protected $_CondorcetLoser ;
 
 
 	public function __construct (array $config)
 	{
 		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_options_count = $config['_options_count'] ;
-		$this->_options = $config['_options'] ;
+		$this->_CandidatesCount = $config['_CandidatesCount'] ;
+		$this->_Candidates = $config['_Candidates'] ;
 	}
 
 
@@ -49,7 +49,7 @@ class Condorcet_Basic
 	// Get the Schulze ranking
 	public function getStats ()
 	{
-		return Condorcet::get_static_Pairwise($this->_Pairwise, $this->_options) ;
+		return Condorcet::getStatic_Pairwise($this->_Pairwise, $this->_Candidates) ;
 	}
 
 
@@ -57,9 +57,9 @@ class Condorcet_Basic
 	public function getWinner ()
 	{
 		// Cache
-		if ( $this->_basic_Condorcet_winner !== null )
+		if ( $this->_CondorcetWinner !== null )
 		{
-			return $this->_basic_Condorcet_winner ;
+			return $this->_CondorcetWinner ;
 		}
 
 			//////
@@ -80,9 +80,9 @@ class Condorcet_Basic
 
 			if ($winner)
 			{
-				$this->_basic_Condorcet_winner = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				$this->_CondorcetWinner = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 
-				return $this->_basic_Condorcet_winner ;
+				return $this->_CondorcetWinner ;
 			}
 		}
 
@@ -93,9 +93,9 @@ class Condorcet_Basic
 	public function getLoser ()
 	{
 		// Cache
-		if ( $this->_basic_Condorcet_loser !== null )
+		if ( $this->_CondorcetLoser !== null )
 		{
-			return $this->_basic_Condorcet_loser ;
+			return $this->_CondorcetLoser ;
 		}
 
 			//////
@@ -116,9 +116,9 @@ class Condorcet_Basic
 
 			if ($loser)
 			{ 
-				$this->_basic_Condorcet_loser = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				$this->_CondorcetLoser = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 
-				return $this->_basic_Condorcet_loser ;
+				return $this->_CondorcetLoser ;
 			}
 		}
 

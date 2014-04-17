@@ -19,19 +19,19 @@ abstract class Minimax
 {
 	// Config
 	protected $_Pairwise ;
-	protected $_options_count ;
-	protected $_options ;
+	protected $_CandidatesCount ;
+	protected $_Candidates ;
 
 	// Minimax
-	protected $_stats ;
-	protected $_result ;
+	protected $_Stats ;
+	protected $_Result ;
 
 
 	public function __construct (array $config)
 	{
 		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_options_count = $config['_options_count'] ;
-		$this->_options = $config['_options'] ;
+		$this->_CandidatesCount = $config['_CandidatesCount'] ;
+		$this->_Candidates = $config['_Candidates'] ;
 	}
 
 
@@ -42,9 +42,9 @@ abstract class Minimax
 	public function getResult ()
 	{
 		// Cache
-		if ( $this->_result !== null )
+		if ( $this->_Result !== null )
 		{
-			return $this->_result ;
+			return $this->_Result ;
 		}
 
 			//////
@@ -56,7 +56,7 @@ abstract class Minimax
 		$this->calc_ranking () ;
 
 		// Return
-		return $this->_result ;
+		return $this->_Result ;
 	}
 
 
@@ -69,9 +69,9 @@ abstract class Minimax
 
 		$explicit = array() ;
 
-		foreach ($this->_stats as $option_key => $value)
+		foreach ($this->_Stats as $option_key => $value)
 		{
-			$explicit[namespace\Condorcet::get_static_option_id($option_key, $this->_options)] = $value ;
+			$explicit[namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates)] = $value ;
 		}
 
 		return $explicit ;
@@ -83,9 +83,9 @@ abstract class Minimax
 
 	protected function ComputeMinimax ()
 	{
-		$this->_stats = array() ;
+		$this->_Stats = array() ;
 
-		foreach ($this->_options as $option_key => $option_id)
+		foreach ($this->_Candidates as $option_key => $candidate_id)
 		{			
 			$lose_score			= array() ;
 			$margin_score		= array() ;
@@ -109,14 +109,14 @@ abstract class Minimax
 
 			// Write result
 				// Winning
-			if (!empty($lose_score)) {$this->_stats[$option_key]['winning'] = max($lose_score) ;}
-			else {$this->_stats[$option_key]['winning'] = 0 ;}
+			if (!empty($lose_score)) {$this->_Stats[$option_key]['winning'] = max($lose_score) ;}
+			else {$this->_Stats[$option_key]['winning'] = 0 ;}
 			
 				// Margin
-			$this->_stats[$option_key]['margin'] = max($margin_score) ;
+			$this->_Stats[$option_key]['margin'] = max($margin_score) ;
 
 				// Opposition
-			$this->_stats[$option_key]['opposition'] = max($opposition_score) ;
+			$this->_Stats[$option_key]['opposition'] = max($opposition_score) ;
 		}
 	}
 
@@ -127,20 +127,20 @@ abstract class Minimax
 		$result = array() ;
 		$values = array() ;
 
-		foreach ($stats as $candidate_key => $candidate_stats)
+		foreach ($stats as $candidate_key => $candidate_Stats)
 		{
-			$values[$candidate_key] = $candidate_stats[$type] ;
+			$values[$candidate_key] = $candidate_Stats[$type] ;
 		}
 
 		for ($rank = 1 ; !empty($values) ; $rank++)
 		{
 			$looking = min($values);
 
-			foreach ($values as $candidate_key => $candidate_stats)
+			foreach ($values as $candidate_key => $candidate_Stats)
 			{
-				if ($candidate_stats === $looking)
+				if ($candidate_Stats === $looking)
 				{
-					$result[$rank][] = namespace\Condorcet::get_static_option_id ($candidate_key, $options) ;
+					$result[$rank][] = namespace\Condorcet::getStatic_CandidateId ($candidate_key, $options) ;
 
 					unset($values[$candidate_key]);
 				}
@@ -160,7 +160,7 @@ class Minimax_Winning extends Minimax
 {
 	protected function calc_ranking ()
 	{
-		$this->_result = self::calc_ranking_method('winning', $this->_stats, $this->_options) ;
+		$this->_Result = self::calc_ranking_method('winning', $this->_Stats, $this->_Candidates) ;
 	}
 }
 
@@ -168,7 +168,7 @@ class Minimax_Margin extends Minimax
 {
 	protected function calc_ranking ()
 	{
-		$this->_result = self::calc_ranking_method('margin', $this->_stats, $this->_options) ;
+		$this->_Result = self::calc_ranking_method('margin', $this->_Stats, $this->_Candidates) ;
 	}
 }
 
@@ -177,6 +177,6 @@ class Minimax_Opposition extends Minimax
 {
 	protected function calc_ranking ()
 	{
-		$this->_result = self::calc_ranking_method('opposition', $this->_stats, $this->_options) ;
+		$this->_Result = self::calc_ranking_method('opposition', $this->_Stats, $this->_Candidates) ;
 	}
 }
