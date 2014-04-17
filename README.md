@@ -72,7 +72,9 @@ We encourage you to read the code, and help to improve inline documentation !
 ##### Basic and free implementation
 ```php
 require_once 'Condorcet.php' ; // Customize the path for your use.
-$condorcet = new Condorcet\Condorcet () ; // You can specify as an argument, the name string of method instead of default Schulze Method.  
+use Condorcet\Condorcet ;
+
+$condorcet = new Condorcet () ; // You can specify as an argument, the name string of method instead of default Schulze Method.  
 ```
 
 ##### Example with the official PSR-0 example of Autoloader
@@ -153,7 +155,7 @@ Condorcet::getAuthMethods (); // Get an array of authorized methods to use with 
 
 The distinction may be useful in the case of a storage of the object in the database.
 ```php
-Condorcet\Condorcet::getClassVersion();  // Return the Class engine
+Condorcet::getClassVersion();  // Return the Class engine
 $condorcet->getObjectVersion(); // Return the Class engine who build this object
 ```
 
