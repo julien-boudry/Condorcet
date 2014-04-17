@@ -47,7 +47,7 @@ class Condorcet_Basic
 	}
 
 	// Get the Schulze ranking
-	public function get_stats ()
+	public function getStats ()
 	{
 		return Condorcet::get_static_Pairwise($this->_Pairwise, $this->_options) ;
 	}

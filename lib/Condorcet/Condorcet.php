@@ -112,7 +112,7 @@ class Condorcet
 				return false ;
 			}
 
-			$tests_method = array ('getResult', 'get_stats') ;
+			$tests_method = array ('getResult', 'getStats') ;
 
 			foreach ($tests_method as $method)
 			{
@@ -780,13 +780,13 @@ class Condorcet
 		{
 			$this->initResult($this->_method) ;
 
-			return $this->_algos[$this->_method]->get_stats() ;
+			return $this->_algos[$this->_method]->getStats() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			return $this->_algos[$method]->get_stats() ;
+			return $this->_algos[$method]->getStats() ;
 		}
 		else
 		{

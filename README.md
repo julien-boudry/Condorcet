@@ -313,7 +313,7 @@ Look at how existing algorithm work in the "algorithms" folder, because the algo
 ###### Each new class of algorithm must include the publics methods:** 
 
 1. getResult  
-2. get_stats  
+2. getStats  
 
 ###### Constructor take an array as follow: 
 

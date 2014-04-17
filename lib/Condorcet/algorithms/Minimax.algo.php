@@ -61,7 +61,7 @@ abstract class Minimax
 
 
 	// Get the Schulze ranking
-	public function get_stats ()
+	public function getStats ()
 	{
 		$this->getResult();
 
