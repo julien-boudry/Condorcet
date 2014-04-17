@@ -131,7 +131,7 @@ $condorcet->setMethod('Schulze') ; // Argument : A supported method
 ```php
 Condorcet::setClassMethod('Schulze') ; // Argument : A supported method  
 Condorcet::setClassMethod('Schulze', true) ; // Will force actual and futher object to use this by default.  
-Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the class default method  _(or force it if argument is true)_  
+Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the class default method (or force it if argument is true)
 ```
 
 
@@ -159,7 +159,7 @@ Condorcet::getClassVersion();  // Return the Class engine
 $condorcet->getObjectVersion(); // Return the Class engine who build this object
 ```
 
-##### Reset object without destroy it _(discouraged pratice)_
+##### Reset object without destroy it (discouraged pratice)
 ```php
 $condorcet->resetAll ();
 ``` 
@@ -174,7 +174,7 @@ Enter (or not) an Option_Identifiant
 ```php
 $condorcet->addCandidate('Wagner') ; // mb_strlen(Alphanum option) <= self::MAX_LENGTH_CANDIDATE_ID _Default : 10_
 $condorcet->addCandidate('Debussy') ;  
-$condorcet->addCandidate() ; // Empty argument will return an automatic Option_ID for you _(From A to ZZZZZ)_  
+$condorcet->addCandidate() ; // Empty argument will return an automatic candidate name for you (From A to ZZZZZ)  
 $condorcet->addCandidate(2) ; // A numeric argument  
 ```
 
@@ -187,7 +187,7 @@ $condorcet->removeCandidate('Wagner') ;
 
 ##### Verify the Candidates list
 ```php
-$condorcet->getOptionsList (); // Will return an array with Option_ID as value.
+$condorcet->getCandidatesList(); // Will return an array with Option_ID as value.
 ```
 
 _Note : When you start voting, you will never be able to edit the options list._  
@@ -282,10 +282,10 @@ $condorcet->getLoser() ; // Will return a string with the Option_Identifiant
 If there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
 ```php
-$condorcet->getWinner(true) ; // With the default object method _(Class Default : Schulze)_  
+$condorcet->getWinner(true) ; // With the default object method (Class Default : Schulze)  
 $condorcet->getWinner('Schulze') ; // Name of an valid method  
 
-$condorcet->getLoser(true) With the default object method _(Class Default : Schulze)_  
+$condorcet->getLoser(true) // With the default object method (Class Default : Schulze)  
 $condorcet->getLoser('Schulze') ; // Name of an valid method  
 ```
 
@@ -294,7 +294,7 @@ Will return a string with the Option_Identifiant or many Option identifiants sep
 
 ##### Get a complete ranking from advanced methods
 ```php
-$condorcet->getResult() ; // Set of results with ranking from the default method. _(Class Default : Schulze)_  
+$condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default : Schulze)  
 $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
 ```
 
@@ -303,7 +303,7 @@ $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
 ```php
 $condorcet->getPairwise() ; // Return an explicit array using your Option_ID as keys.  
 
-$condorcet->getResultStats() ; // Get stats about computing result for the default object method. _(Class Default : Schulze)_  
+$condorcet->getResultStats() ; // Get stats about computing result for the default object method. (Class Default : Schulze)  
 $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
 ```
 
@@ -323,7 +323,7 @@ Look at how existing algorithm work in the "algorithms" folder, because the algo
 $param['_Pairwise'] = (Calculated Pairwise) ;
 $param['_optionsCount'] = (Number of vote option) ;
 $param['_options'] = (List of option) ;
-$param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise ...
+$param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise...
 ```
 ###### Link your algorithm
 
