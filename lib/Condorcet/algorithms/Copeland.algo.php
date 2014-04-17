@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Copeland Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Copeland') ;
+namespace\Condorcet::addAlgos('Copeland') ;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
@@ -19,19 +19,19 @@ class Copeland
 {
 	// Config
 	protected $_Pairwise ;
-	protected $_options_count ;
-	protected $_options ;
+	protected $_CandidatesCount ;
+	protected $_Candidates ;
 
 	// Copeland
-	protected $_Copeland_comparison ;
-	protected $_Copeland_result ;
+	protected $_Comparison ;
+	protected $_Result ;
 
 
 	public function __construct (array $config)
 	{
 		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_options_count = $config['_options_count'] ;
-		$this->_options = $config['_options'] ;
+		$this->_CandidatesCount = $config['_CandidatesCount'] ;
+		$this->_Candidates = $config['_Candidates'] ;
 	}
 
 
@@ -39,12 +39,12 @@ class Copeland
 
 
 	// Get the Coepland ranking
-	public function get_result ()
+	public function getResult ()
 	{
 		// Cache
-		if ( $this->_Copeland_result !== null )
+		if ( $this->_Result !== null )
 		{
-			return $this->_Copeland_result ;
+			return $this->_Result ;
 		}
 
 			//////
@@ -57,50 +57,26 @@ class Copeland
 
 
 		// Return
-		return $this->_Copeland_result ;
+		return $this->_Result ;
 	}
 
 
 	// Get the Copeland ranking
-	public function get_stats ()
+	public function getStats ()
 	{
-		$this->get_result();
+		$this->getResult();
 
 			//////
 
 		$explicit = array() ;
 
-		foreach ($this->_Copeland_comparison as $candidate_key => $value)
+		foreach ($this->_Comparison as $candidate_key => $value)
 		{
-			$explicit[namespace\Condorcet::get_static_option_id($candidate_key, $this->_options)] = $value ;
+			$explicit[namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates)] = $value ;
 		}
 
 		return $explicit ;
 	}
-
-		// Get only the Copeland Winner(s)
-		public function get_winner ()
-		{
-			// If there is not Cache
-			if ( $this->_Copeland_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Copeland_result[1] ;
-		}
-
-		// Get only the Copeland Loser(s)
-		public function get_loser ()
-		{
-			// If there is not Cache
-			if ( $this->_Copeland_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Copeland_result[count($this->_Copeland_result)] ;
-		}
 
 
 
@@ -113,27 +89,27 @@ class Copeland
 	{
 		foreach ($this->_Pairwise as $candidate_key => $candidate_data)
 		{
-			$this->_Copeland_comparison[$candidate_key]['win'] = 0 ;
-			$this->_Copeland_comparison[$candidate_key]['null'] = 0 ;
-			$this->_Copeland_comparison[$candidate_key]['lose'] = 0 ;
-			$this->_Copeland_comparison[$candidate_key]['balance'] = 0 ;
+			$this->_Comparison[$candidate_key]['win'] = 0 ;
+			$this->_Comparison[$candidate_key]['null'] = 0 ;
+			$this->_Comparison[$candidate_key]['lose'] = 0 ;
+			$this->_Comparison[$candidate_key]['balance'] = 0 ;
 
 
 			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
 			{
 				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
 				{
-					$this->_Copeland_comparison[$candidate_key]['win']++ ;
-					$this->_Copeland_comparison[$candidate_key]['balance']++ ;
+					$this->_Comparison[$candidate_key]['win']++ ;
+					$this->_Comparison[$candidate_key]['balance']++ ;
 				}
 				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
 				{
-					$this->_Copeland_comparison[$candidate_key]['null']++ ;
+					$this->_Comparison[$candidate_key]['null']++ ;
 				}
 				else
 				{
-					$this->_Copeland_comparison[$candidate_key]['lose']++ ;
-					$this->_Copeland_comparison[$candidate_key]['balance']-- ;
+					$this->_Comparison[$candidate_key]['lose']++ ;
+					$this->_Comparison[$candidate_key]['balance']-- ;
 				}
 			}
 		}
@@ -141,19 +117,19 @@ class Copeland
 
 	protected function Copeland_make_ranking ()
 	{
-		$this->_Copeland_result = array() ;
+		$this->_Result = array() ;
 
 		// Calculate ranking
 		$challenge = array () ;
 		$rank = 1 ;
 		$done = 0 ;
 
-		foreach ($this->_Copeland_comparison as $candidate_key => $candidate_data)
+		foreach ($this->_Comparison as $candidate_key => $candidate_data)
 		{
 			$challenge[$candidate_key] = $candidate_data['balance'] ;
 		}
 
-		while ($done < $this->_options_count)
+		while ($done < $this->_CandidatesCount)
 		{
 			$looking = max($challenge) ;
 
@@ -161,14 +137,14 @@ class Copeland
 			{
 				if ($value === $looking)
 				{
-					$this->_Copeland_result[$rank][] = namespace\Condorcet::get_static_option_id($candidate, $this->_options) ;
+					$this->_Result[$rank][] = namespace\Condorcet::getStatic_CandidateId($candidate, $this->_Candidates) ;
 
 					$done++ ; unset($challenge[$candidate]) ;
 				}
 			}
 
 
-			$this->_Copeland_result[$rank] = implode(',', $this->_Copeland_result[$rank]) ;
+			$this->_Result[$rank] = implode(',', $this->_Result[$rank]) ;
 			$rank++ ;
 		}
 	}

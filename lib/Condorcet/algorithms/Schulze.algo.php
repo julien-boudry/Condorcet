@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Schulze') ;
+namespace\Condorcet::addAlgos('Schulze') ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
@@ -19,19 +19,19 @@ class Schulze
 {
 	// Config
 	protected $_Pairwise ;
-	protected $_options_count ;
-	protected $_options ;
+	protected $_CandidatesCount ;
+	protected $_Candidates ;
 
 	// Schulze
-	protected $_Schulze_strongest_paths ;
-	protected $_Schulze_result ;
+	protected $_StrongestPaths ;
+	protected $_Result ;
 
 
 	public function __construct (array $config)
 	{
 		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_options_count = $config['_options_count'] ;
-		$this->_options = $config['_options'] ;
+		$this->_CandidatesCount = $config['_CandidatesCount'] ;
+		$this->_Candidates = $config['_Candidates'] ;
 	}
 
 
@@ -39,12 +39,12 @@ class Schulze
 
 
 	// Get the Schulze ranking
-	public function get_result ()
+	public function getResult ()
 	{
 		// Cache
-		if ( $this->_Schulze_result !== null )
+		if ( $this->_Result !== null )
 		{
-			return $this->_Schulze_result ;
+			return $this->_Result ;
 		}
 
 			//////
@@ -61,56 +61,31 @@ class Schulze
 
 
 		// Return
-		return $this->_Schulze_result ;
+		return $this->_Result ;
 	}
 
 
 	// Get the Schulze ranking
-	public function get_stats ()
+	public function getStats ()
 	{
-		$this->get_result();
+		$this->getResult();
 
 			//////
 
 		$explicit = array() ;
 
-		foreach ($this->_Schulze_strongest_paths as $candidate_key => $candidate_value)
+		foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
 		{
-			$candidate_key = namespace\Condorcet::get_static_option_id($candidate_key,$this->_options) ;
+			$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key,$this->_Candidates) ;
 
 			foreach ($candidate_value as $option_key => $option_value)
 			{
-				$explicit[$candidate_key][namespace\Condorcet::get_static_option_id($option_key, $this->_options)] = $option_value ;
+				$explicit[$candidate_key][namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates)] = $option_value ;
 			}
 		}
 
 		return $explicit ;
 	}
-
-
-		// Get only the Schulze Winner(s)
-		public function get_winner ()
-		{
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Schulze_result[1] ;
-		}
-
-		// Get only the Schulze Loser(s)
-		public function get_loser ()
-		{
-			// If there is not Cache
-			if ( $this->_Schulze_result === null )
-			{
-				$this->get_result();
-			}
-
-			return $this->_Schulze_result[count($this->_Schulze_result)] ;
-		}
 
 
 
@@ -123,18 +98,18 @@ class Schulze
 	// Calculate the strongest Paths for Schulze Method
 	protected function Schulze_strongest_array ()
 	{
-		$this->_Schulze_strongest_paths = array() ;
+		$this->_StrongestPaths = array() ;
 
-		foreach ( $this->_options as $option_key => $option_id )
+		foreach ( $this->_Candidates as $option_key => $candidate_id )
 		{
-			$this->_Schulze_strongest_paths[$option_key] = array() ;
+			$this->_StrongestPaths[$option_key] = array() ;
 
 			// Format array for the strongest path
-			foreach ( $this->_options as $option_key_r => $option_id_r )
+			foreach ( $this->_Candidates as $option_key_r => $candidate_id_r )
 			{
 				if ($option_key_r != $option_key)
 				{
-					$this->_Schulze_strongest_paths[$option_key][$option_key_r]	= 0 ;
+					$this->_StrongestPaths[$option_key][$option_key_r]	= 0 ;
 				}
 			}
 		}				
@@ -144,39 +119,39 @@ class Schulze
 	// Calculate the Strongest Paths
 	protected function strongest_paths ()
 	{
-		foreach ($this->_options as $i => $i_value)
+		foreach ($this->_Candidates as $i => $i_value)
 		{
-			foreach ($this->_options as $j => $j_value)
+			foreach ($this->_Candidates as $j => $j_value)
 			{
 				if ($i !== $j)
 				{
 					if ( $this->_Pairwise[$i]['win'][$j] > $this->_Pairwise[$j]['win'][$i] )
 					{
-						$this->_Schulze_strongest_paths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
+						$this->_StrongestPaths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
 					}
 					else
 					{
-						$this->_Schulze_strongest_paths[$i][$j] = 0 ;
+						$this->_StrongestPaths[$i][$j] = 0 ;
 					}
 				}
 			}
 		}
 		 
 
-		foreach ($this->_options as $i => $i_value)
+		foreach ($this->_Candidates as $i => $i_value)
 		{
-			foreach ($this->_options as $j => $j_value)
+			foreach ($this->_Candidates as $j => $j_value)
 			{
 				if ($i !== $j)
 				{
-					foreach ($this->_options as $k => $k_value)
+					foreach ($this->_Candidates as $k => $k_value)
 					{
 						if ($i !== $k && $j !== $k)
 						{
-							$this->_Schulze_strongest_paths[$j][$k] = 
+							$this->_StrongestPaths[$j][$k] = 
 											max( 
-													$this->_Schulze_strongest_paths[$j][$k], 
-													min( $this->_Schulze_strongest_paths[$j][$i], $this->_Schulze_strongest_paths[$i][$k] )
+													$this->_StrongestPaths[$j][$k], 
+													min( $this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k] )
 												) ;
 						}
 					}
@@ -189,17 +164,17 @@ class Schulze
 	// Calculate && Format human readable ranking
 	protected function Schulze_make_ranking ()
 	{		
-		$this->_Schulze_result = array() ;
+		$this->_Result = array() ;
 
 		// Calculate ranking
 		$done = array () ;
 		$rank = 1 ;
 
-		while (count($done) < $this->_options_count)
+		while (count($done) < $this->_CandidatesCount)
 		{
 			$to_done = array() ;
 
-			foreach ( $this->_Schulze_strongest_paths as $candidate_key => $options_key )
+			foreach ( $this->_StrongestPaths as $candidate_key => $options_key )
 			{
 				if ( in_array($candidate_key, $done) )
 				{
@@ -215,7 +190,7 @@ class Schulze
 						continue ;
 					}
 
-					if ( $beaten_value < $this->_Schulze_strongest_paths[$beaten_key][$candidate_key] )
+					if ( $beaten_value < $this->_StrongestPaths[$beaten_key][$candidate_key] )
 					{
 						$winner = false ;
 					}
@@ -223,7 +198,7 @@ class Schulze
 
 				if ($winner)
 				{
-					$this->_Schulze_result[$rank][] = $candidate_key ;
+					$this->_Result[$rank][] = $candidate_key ;
 
 					$to_done[] = $candidate_key ;
 				}
@@ -236,17 +211,17 @@ class Schulze
 
 
 		// Format ranking
-		foreach ( $this->_Schulze_result as $key => $value )
+		foreach ( $this->_Result as $key => $value )
 		{
 			foreach ($value as $ord => $option_key)
 			{
-				$this->_Schulze_result[$key][$ord] = namespace\Condorcet::get_static_option_id($option_key, $this->_options) ;
+				$this->_Result[$key][$ord] = namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates) ;
 			}
 		}
 
-		foreach ( $this->_Schulze_result as $key => $value )
+		foreach ( $this->_Result as $key => $value )
 		{
-			$this->_Schulze_result[$key] = implode(',',$value);
+			$this->_Result[$key] = implode(',',$value);
 		}
 	}
 

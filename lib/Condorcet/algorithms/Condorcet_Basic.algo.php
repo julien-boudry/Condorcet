@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.6
+	Version : 0.7
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
@@ -11,7 +11,7 @@
 namespace Condorcet ;
 
 // Registering algorithm
-namespace\Condorcet::add_algos('Condorcet_Basic') ;
+namespace\Condorcet::addAlgos('Condorcet_Basic') ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
@@ -19,46 +19,50 @@ class Condorcet_Basic
 {
 	// Config
 	protected $_Pairwise ;
-	protected $_options_count ;
-	protected $_options ;
+	protected $_CandidatesCount ;
+	protected $_Candidates ;
 
 	// Basic Condorcet
-	protected $_basic_Condorcet_winner ;
-	protected $_basic_Condorcet_loser ;
+	protected $_CondorcetWinner ;
+	protected $_CondorcetLoser ;
 
 
 	public function __construct (array $config)
 	{
 		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_options_count = $config['_options_count'] ;
-		$this->_options = $config['_options'] ;
+		$this->_CandidatesCount = $config['_CandidatesCount'] ;
+		$this->_Candidates = $config['_Candidates'] ;
 	}
 
 
 /////////// PUBLIC ///////////
 
 
-	public function get_result ()
+	public function getResult ()
 	{
-		return $this->get_winner ;
+		return array (
+						1 => $this->getWinner(),
+						2 => $this->getLoser()
+					) ;
 	}
 
 	// Get the Schulze ranking
-	public function get_stats ()
+	public function getStats ()
 	{
-		return Condorcet::get_static_Pairwise($this->_Pairwise, $this->_options) ;
+		return Condorcet::getStatic_Pairwise($this->_Pairwise, $this->_Candidates) ;
 	}
 
 
 	// Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_winner ()
+	public function getWinner ()
 	{
 		// Cache
-		if ( $this->_basic_Condorcet_winner !== null )
+		if ( $this->_CondorcetWinner !== null )
 		{
-			return $this->_basic_Condorcet_winner ;
+			return $this->_CondorcetWinner ;
 		}
 
+			//////
 
 		// Basic Condorcet calculation
 		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
@@ -76,9 +80,9 @@ class Condorcet_Basic
 
 			if ($winner)
 			{
-				$this->_basic_Condorcet_winner = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				$this->_CondorcetWinner = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 
-				return $this->_basic_Condorcet_winner ;
+				return $this->_CondorcetWinner ;
 			}
 		}
 
@@ -86,12 +90,12 @@ class Condorcet_Basic
 	}
 
 	// Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-	public function get_loser ()
+	public function getLoser ()
 	{
 		// Cache
-		if ( $this->_basic_Condorcet_loser !== null )
+		if ( $this->_CondorcetLoser !== null )
 		{
-			return $this->_basic_Condorcet_loser ;
+			return $this->_CondorcetLoser ;
 		}
 
 			//////
@@ -112,14 +116,13 @@ class Condorcet_Basic
 
 			if ($loser)
 			{ 
-				$this->_basic_Condorcet_loser = namespace\Condorcet::get_static_option_id($candidate_key, $this->_options) ;
+				$this->_CondorcetLoser = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 
-				return $this->_basic_Condorcet_loser ;
+				return $this->_CondorcetLoser ;
 			}
 		}
 
 			return null ;
 	}
-
 
 }
