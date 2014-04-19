@@ -50,10 +50,10 @@ class Copeland
 			//////
 
 		// Comparison calculation
-		$this->Copeland_make_comparison() ;
+		$this->makeComparison() ;
 
 		// Ranking calculation
-		$this->Copeland_make_ranking() ;
+		$this->makeRanking() ;
 
 
 		// Return
@@ -85,7 +85,7 @@ class Copeland
 
 	//:: COPELAND ALGORITHM. :://
 
-	protected function Copeland_make_comparison ()
+	protected function makeComparison ()
 	{
 		foreach ($this->_Pairwise as $candidate_key => $candidate_data)
 		{
@@ -115,7 +115,7 @@ class Copeland
 		}
 	}
 
-	protected function Copeland_make_ranking ()
+	protected function makeRanking ()
 	{
 		$this->_Result = array() ;
 
@@ -142,7 +142,6 @@ class Copeland
 					$done++ ; unset($challenge[$candidate]) ;
 				}
 			}
-
 
 			$this->_Result[$rank] = implode(',', $this->_Result[$rank]) ;
 			$rank++ ;

@@ -50,10 +50,10 @@ abstract class Minimax
 			//////
 
 		// Computing
-		$this->ComputeMinimax ();
+		$this->computeMinimax ();
 
 		// Ranking calculation
-		$this->calc_ranking () ;
+		$this->makeRanking () ;
 
 		// Return
 		return $this->_Result ;
@@ -81,7 +81,7 @@ abstract class Minimax
 
 /////////// COMPUTE ///////////
 
-	protected function ComputeMinimax ()
+	protected function computeMinimax ()
 	{
 		$this->_Stats = array() ;
 
@@ -120,9 +120,9 @@ abstract class Minimax
 		}
 	}
 
-	abstract protected function calc_ranking () ;
+	abstract protected function makeRanking () ;
 
-	protected static function calc_ranking_method ($type, array $stats, $options)
+	protected static function makeRanking_method ($type, array $stats, $options)
 	{
 		$result = array() ;
 		$values = array() ;
@@ -158,25 +158,25 @@ abstract class Minimax
 
 class Minimax_Winning extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('winning', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('winning', $this->_Stats, $this->_Candidates) ;
 	}
 }
 
 class Minimax_Margin extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('margin', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('margin', $this->_Stats, $this->_Candidates) ;
 	}
 }
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
 class Minimax_Opposition extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('opposition', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('opposition', $this->_Stats, $this->_Candidates) ;
 	}
 }

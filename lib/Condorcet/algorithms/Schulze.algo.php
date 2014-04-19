@@ -50,14 +50,14 @@ class Schulze
 			//////
 
 		// Format array
-		$this->Schulze_strongest_array() ;
+		$this->prepareStrongestPath() ;
 
 		// Strongest Paths calculation
-		$this->strongest_paths() ;
+		$this->makeStrongestPaths() ;
 
 
 		// Ranking calculation
-		$this->Schulze_make_ranking() ;
+		$this->makeRanking() ;
 
 
 		// Return
@@ -96,7 +96,7 @@ class Schulze
 
 
 	// Calculate the strongest Paths for Schulze Method
-	protected function Schulze_strongest_array ()
+	protected function prepareStrongestPath ()
 	{
 		$this->_StrongestPaths = array() ;
 
@@ -117,7 +117,7 @@ class Schulze
 
 
 	// Calculate the Strongest Paths
-	protected function strongest_paths ()
+	protected function makeStrongestPaths ()
 	{
 		foreach ($this->_Candidates as $i => $i_value)
 		{
@@ -162,7 +162,7 @@ class Schulze
 
 
 	// Calculate && Format human readable ranking
-	protected function Schulze_make_ranking ()
+	protected function makeRanking ()
 	{		
 		$this->_Result = array() ;
 
