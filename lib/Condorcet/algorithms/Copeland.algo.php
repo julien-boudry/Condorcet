@@ -2,7 +2,7 @@
 /*
 	Part of the Condorcet PHP Class, with Copeland Methods and others !
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
