@@ -23,6 +23,8 @@ class KemenyYoung
 	protected $_Candidates ;
 
 	// Kemeny Young
+	protected $_PossibleRanking ;
+	protected $_RankingScore ;
 	protected $_Result ;
 
 
@@ -37,7 +39,7 @@ class KemenyYoung
 /////////// PUBLIC ///////////
 
 
-	// Get the Coepland ranking
+	// Get the Kemeny ranking
 	public function getResult ()
 	{
 		// Cache
@@ -48,13 +50,14 @@ class KemenyYoung
 
 			//////
 
+		$this->calcPossibleRanking();
+		$this->calcRankingScore();
 
 		// Return
 		return $this->_Result ;
 	}
 
 
-	// Get the Copeland ranking
 	public function getStats ()
 	{
 		$this->getResult();
@@ -67,11 +70,106 @@ class KemenyYoung
 	}
 
 
-
 /////////// COMPUTE ///////////
 
 
-	//:: COPELAND ALGORITHM. :://
+	//:: Kemeny-Young ALGORITHM. :://
+
+	protected function calcPossibleRanking ()
+	{
+		$this->_PossibleRanking = array() ;
+
+		$arrangements = $this->calcPermutation($this->_CandidatesCount);
+		
+		$i_arrangement = 1 ;
+		foreach ($this->_Candidates as $CandidateId => $CandidateName)
+		{
+			$start = $i_arrangement ;
+
+			// Create the possible and the first place
+
+			for ($i = 1 ; $i <= ($arrangements / $this->_CandidatesCount) ; $i++)
+			{
+				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
+
+				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++ )
+				{
+					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
+				}
+
+				$i_arrangement++ ;
+			}
+
+			// Populate the nexts
+			$this->rPossibleRanking($start, $i_arrangement) ;
+		}
+
+		// Tested the integrity of the calculation of possible classifications
+		/*
+		$test = $this->_PossibleRanking ;
+		foreach ($test as $key => $value)
+		{
+			unset($test[$key]);
+
+			if (array_search($value, $test, true))
+			{
+				echo '<h2>ALERTE</h2>';
+			}
+		}
+		*/
+	}
+
+		protected function calcPermutation ($n)
+		{
+			$result = $n ;
+
+			for ($iteration = 1 ; $iteration < $n ; $iteration++)
+			{
+				$result = $result * ($n - $iteration) ;
+			}
+
+			return $result ;
+		}
+
+		protected function rPossibleRanking ($start, $end, $rank = 2)
+		{
+			$nbrCandidates = $this->_CandidatesCount - ($rank - 1) ;
+			$each = $this->calcPermutation($nbrCandidates) / $nbrCandidates ;
+
+			foreach ($this->_Candidates as $CandidateId => $CandidateName)
+			{
+				$do = 0 ;
+
+				// Parcours des possibles
+				for ($i = $start ; $i < $end ; $i++)
+				{
+					if (	$do < $each &&
+							is_null($this->_PossibleRanking[$i][$rank]) &&
+							array_search($CandidateId, $this->_PossibleRanking[$i], true) === FALSE
+						)
+					{	
+						$this->_PossibleRanking[$i][$rank] = $CandidateId ;
+						$do++;
+					}
+				}
+			}
+
+			// Recursive
+			if ($rank < $this->_CandidatesCount)
+			{
+				$rank++ ;
+
+				for ($partielEnd = $start + $each ; $partielEnd <= $end ; $partielEnd += $each)
+				{
+					$this->rPossibleRanking($start, $partielEnd, $rank);
+				}
+			}
+		}
+
+	protected function calcRankingScore ()
+	{
+
+	}
 
 	protected function makeRanking ()
 	{
