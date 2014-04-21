@@ -168,7 +168,27 @@ class KemenyYoung
 
 	protected function calcRankingScore ()
 	{
+		$this->_RankingScore = array() ;
 
+		foreach ($this->_PossibleRanking as $keyScore => $ranking) 
+		{
+			$this->_RankingScore[$keyScore] = 0 ;
+
+			$do = array() ;
+
+			foreach ($ranking as $candidateId)
+			{
+				$do[] = $candidateId ;
+
+				foreach ($ranking as $rank => $rankCandidate)
+				{
+					if (!in_array($rankCandidate, $do))
+					{
+						$this->_RankingScore[$keyScore] += $this->_Pairwise[$candidateId]['win'][$rankCandidate];
+					}
+				}
+			}
+		}
 	}
 
 	protected function makeRanking ()
