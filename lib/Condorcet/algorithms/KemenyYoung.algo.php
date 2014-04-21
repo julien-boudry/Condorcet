@@ -90,8 +90,10 @@ class KemenyYoung
 
 			for ($i = 1 ; $i <= ($arrangements / $this->_CandidatesCount) ; $i++)
 			{
+				// Less clean than to start the recursion from the beginning, but really much faster, and that from 4 candidates!
 				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
 
+				// Prepare empty arrays
 				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++ )
 				{
 					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
@@ -100,7 +102,7 @@ class KemenyYoung
 				$i_arrangement++ ;
 			}
 
-			// Populate the nexts
+			// Recursive function to populate rank 2 to x rank.
 			$this->rPossibleRanking($start, $i_arrangement - 1) ;
 		}
 
@@ -111,7 +113,7 @@ class KemenyYoung
 		{
 			unset($test[$key]);
 
-			if (array_search($value, $test, true))
+			if (in_array($value, $test, true))
 			{
 				echo '<h2>ALERTE</h2>';
 			}
@@ -145,7 +147,7 @@ class KemenyYoung
 				{
 					if (	$do < $each &&
 							is_null($this->_PossibleRanking[$i][$rank]) &&
-							array_search($CandidateId, $this->_PossibleRanking[$i], true) === FALSE
+							!in_array($CandidateId, $this->_PossibleRanking[$i], true)
 						)
 					{	
 						$this->_PossibleRanking[$i][$rank] = $CandidateId ;
