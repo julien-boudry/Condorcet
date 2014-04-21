@@ -29,7 +29,7 @@ class Condorcet
 
 
 	const VERSION = '0.8' ;
-	const MAX_LENGTH_CANDIDATE_ID = 10 ; // Max length for option identifiant string
+	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for option identifiant string
 
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= '' ;
