@@ -101,7 +101,7 @@ class KemenyYoung
 			}
 
 			// Populate the nexts
-			$this->rPossibleRanking($start, $i_arrangement) ;
+			$this->rPossibleRanking($start, $i_arrangement - 1) ;
 		}
 
 		// Tested the integrity of the calculation of possible classifications
@@ -141,7 +141,7 @@ class KemenyYoung
 				$do = 0 ;
 
 				// Parcours des possibles
-				for ($i = $start ; $i < $end ; $i++)
+				for ($i = $start ; $i <= $end ; $i++)
 				{
 					if (	$do < $each &&
 							is_null($this->_PossibleRanking[$i][$rank]) &&
@@ -159,7 +159,7 @@ class KemenyYoung
 			{
 				$rank++ ;
 
-				for ($partielEnd = $start + $each ; $partielEnd <= $end ; $partielEnd += $each)
+				for ($partielEnd = $start + $each - 1 ; $partielEnd <= $end ; $partielEnd += $each)
 				{
 					$this->rPossibleRanking($start, $partielEnd, $rank);
 				}
