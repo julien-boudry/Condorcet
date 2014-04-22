@@ -166,7 +166,7 @@ class Condorcet
 	}
 
 
-	protected static function error ($code, $infos = null)
+	public static function error ($code, $infos = null, $level = E_USER_WARNING)
 	{
 		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
 		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
@@ -190,7 +190,14 @@ class Condorcet
 		}
 		elseif (self::$_showError)
 		{
-			trigger_error( 'Mysterious Error : '.$infos, E_USER_NOTICE );
+			if (!is_null($infos))
+			{
+				trigger_error( $infos, $level );
+			}
+			else
+			{
+				trigger_error( 'Mysterious Error', $level );
+			}
 		}
 
 		return false ;

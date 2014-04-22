@@ -13,10 +13,32 @@ namespace Condorcet ;
 // Registering algorithm
 namespace\Condorcet::addAlgos('KemenyYoung') ;
 
+/*
+* Maximum number of candidates for this algorithm.
+* The script can support six candidates in less than twenty seconds
+* found in PHP 5.5 (Linux) * against fifty on a Windows system.
+* But because five candidates calculation always under 150ms,
+* we will use this number as a limit by default.
+*
+* The number of voters is indifferent.
+*/
+namespace\KemenyYoung::setMaxCandidates(5);
 
-// Kemeny Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
+
+// Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung
 {
+	// Limits
+	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
+
+		public static function setMaxCandidates ($max)
+		{
+			if (is_int($max))
+			{
+				self::$_maxCandidates = $max ;
+			}
+		}
+
 	// Config
 	protected $_Pairwise ;
 	protected $_CandidatesCount ;
@@ -33,6 +55,11 @@ class KemenyYoung
 		$this->_Pairwise = $config['_Pairwise'] ;
 		$this->_CandidatesCount = $config['_CandidatesCount'] ;
 		$this->_Candidates = $config['_Candidates'] ;
+
+		if ($this->_CandidatesCount > self::$_maxCandidates)
+		{
+			namespace\Condorcet::error('','KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates',E_USER_ERROR) ;
+		}
 	}
 
 
