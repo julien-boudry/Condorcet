@@ -1,11 +1,11 @@
 <?php
 /*
-	Part of the Condorcet PHP Class, with Copeland Methods and others !
+	Copeland part of the Condorcet PHP Class
 
 	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
