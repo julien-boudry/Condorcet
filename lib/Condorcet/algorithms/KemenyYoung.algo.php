@@ -52,6 +52,7 @@ class KemenyYoung
 
 		$this->calcPossibleRanking();
 		$this->calcRankingScore();
+		$this->makeRanking();
 
 		// Return
 		return $this->_Result ;
@@ -195,7 +196,7 @@ class KemenyYoung
 
 	protected function makeRanking ()
 	{
-
+		$this->_Result =& $this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ];
 	}
 
 }
