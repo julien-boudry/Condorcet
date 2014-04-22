@@ -202,6 +202,7 @@ class KemenyYoung
 			}
 		}
 
+
 	protected function calcRankingScore ()
 	{
 		$this->_RankingScore = array() ;
@@ -227,6 +228,13 @@ class KemenyYoung
 		}
 	}
 
+
+	/*
+	I do not know how in the very unlikely event that several possible classifications have the same highest score.
+	In the current state, one of them is chosen arbitrarily.
+
+	See issue on Github : https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/issues/6
+	*/
 	protected function makeRanking ()
 	{
 		$this->_Result = $this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ];
