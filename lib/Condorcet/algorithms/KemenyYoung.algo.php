@@ -67,6 +67,12 @@ class KemenyYoung
 
 		$explicit = array() ;
 
+		foreach ($this->_PossibleRanking as $key => $value)
+		{
+			$explicit[$key] = $value ;
+			$explicit[$key]['score'] = $this->_RankingScore[$key] ;
+		}
+
 		return $explicit ;
 	}
 
