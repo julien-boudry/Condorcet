@@ -794,18 +794,23 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			return $this->_Calculator[$this->_Method]->getStats() ;
+			$stats = $this->_Calculator[$this->_Method]->getStats() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			return $this->_Calculator[$method]->getStats() ;
+			$stats = $this->_Calculator[$method]->getStats() ;
 		}
 		else
 		{
 			return self::error(8,$candidate_id) ;
 		}
+
+		if (!is_null($stats))
+			{ return $stats ; }
+		else
+			{ return $this->getPairwise(); }
 	}
 
 
