@@ -137,13 +137,12 @@ class Copeland
 			{
 				if ($value === $looking)
 				{
-					$this->_Result[$rank][] = namespace\Condorcet::getStatic_CandidateId($candidate, $this->_Candidates) ;
+					$this->_Result[$rank][] = $candidate ;
 
 					$done++ ; unset($challenge[$candidate]) ;
 				}
 			}
 
-			$this->_Result[$rank] = implode(',', $this->_Result[$rank]) ;
 			$rank++ ;
 		}
 	}

@@ -208,21 +208,6 @@ class Schulze
 
 			$rank++ ;
 		}
-
-
-		// Format ranking
-		foreach ( $this->_Result as $key => $value )
-		{
-			foreach ($value as $ord => $option_key)
-			{
-				$this->_Result[$key][$ord] = namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates) ;
-			}
-		}
-
-		foreach ( $this->_Result as $key => $value )
-		{
-			$this->_Result[$key] = implode(',',$value);
-		}
 	}
 
 }

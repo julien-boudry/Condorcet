@@ -80,7 +80,7 @@ class Condorcet_Basic
 
 			if ($winner)
 			{
-				$this->_CondorcetWinner = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+				$this->_CondorcetWinner = $candidate_key ;
 
 				return $this->_CondorcetWinner ;
 			}
@@ -116,7 +116,7 @@ class Condorcet_Basic
 
 			if ($loser)
 			{ 
-				$this->_CondorcetLoser = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+				$this->_CondorcetLoser = $candidate_key ;
 
 				return $this->_CondorcetLoser ;
 			}

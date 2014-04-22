@@ -420,14 +420,17 @@ class Condorcet
 			return array_search($candidate_id, $this->_Candidates, true) ;
 		}
 
-		protected function getCandidateId ($option_key)
+		protected function getCandidateId ($candidate_key)
 		{
-			self::getStatic_CandidateId($option_key, $this->_Candidates) ;
+			return self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 		}
 
-			public static function getStatic_CandidateId ($option_key, &$options)
+			public static function getStatic_CandidateId ($candidate_key, &$candidates)
 			{
-				return $options[$option_key] ;
+				if (!array_key_exists($candidate_key, $candidates))
+					{ return false ; }
+
+				return $candidates[$candidate_key] ;
 			}
 
 		protected function existCandidateId ($candidate_id)
@@ -690,30 +693,52 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			return $this->_Calculator[$this->_Method]->getResult() ;
+			$result = $this->_Calculator[$this->_Method]->getResult() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			return $this->_Calculator[$method]->getResult() ;
+			$result = $this->_Calculator[$method]->getResult() ;
 		}
 		else
 		{
 			return self::error(8,$method) ;
 		}
+
+		return $this->humanResult($result) ;
 	}
+
+		protected function humanResult ($robot)
+		{
+			$human = array() ;
+
+			foreach ( $robot as $key => $value )
+			{
+				if (is_array($value))
+				{
+					foreach ($value as $option_key)
+					{
+						$human[$key][] = $this->getCandidateId($option_key) ;
+					}
+				}
+				else
+				{
+					$human[$key][] = $this->getCandidateId($value) ;
+				}
+			}
+
+			foreach ( $human as $key => $value )
+			{
+				$human[$key] = implode(',',$value);
+			}
+
+			return $human ;
+		}
 
 
 	public function getWinner ($substitution = false)
 	{
-		// Method
-		$this->setMethod() ;
-		// Prepare
-		$this->prepareResult() ;
-
-			//////
-
 		if ( $substitution )
 		{
 			if ($substitution === true)
@@ -729,21 +754,12 @@ class Condorcet
 
 			//////
 
-		$this->initResult($algo) ;
-
-		return $this->_Calculator[$algo]->getResult()[1] ;
+		return $this->getResult($algo)[1] ;
 	}
 
 
 	public function getLoser ($substitution = false)
 	{
-		// Method
-		$this->setMethod() ;
-		// Prepare
-		$this->prepareResult() ;
-
-			//////
-
 		if ( $substitution )
 		{			
 			if ($substitution === true)
@@ -759,9 +775,7 @@ class Condorcet
 
 			//////
 
-		$this->initResult($algo) ;
-
-		$result = $this->_Calculator[$algo]->getResult() ;
+		$result = $this->getResult($algo) ;
 
 		return $result[count($result)] ;
 	}
@@ -941,21 +955,18 @@ class Condorcet
 					foreach ( $this->_Candidates as $g_option_key => $g_CandidateId )
 					{
 						// Win
-						if (
-								$option_key !== $g_option_key && 
+						if (	$option_key !== $g_option_key && 
 								!in_array($g_option_key, $done_Candidates, true) && 
 								!in_array($g_option_key, $options_in_rank_keys, true)
 							)
 						{
-
 							$this->_Pairwise[$option_key]['win'][$g_option_key]++ ;
 
 							$done_Candidates[] = $option_key ;
 						}
 
 						// Null
-						if (
-								$option_key !== $g_option_key &&
+						if (	$option_key !== $g_option_key &&
 								count($options_in_rank) > 1 &&
 								in_array($g_option_key, $options_in_rank_keys)
 							)

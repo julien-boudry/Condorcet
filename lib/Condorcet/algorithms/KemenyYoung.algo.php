@@ -203,11 +203,6 @@ class KemenyYoung
 	protected function makeRanking ()
 	{
 		$this->_Result = $this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ];
-
-		foreach ($this->_Result as &$value)
-		{
-			$value = array($value);
-		}
 	}
 
 }

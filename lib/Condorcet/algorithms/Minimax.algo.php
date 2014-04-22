@@ -122,7 +122,7 @@ abstract class Minimax
 
 	abstract protected function makeRanking () ;
 
-	protected static function makeRanking_method ($type, array $stats, $options)
+	protected static function makeRanking_method ($type, array $stats)
 	{
 		$result = array() ;
 		$values = array() ;
@@ -140,16 +140,11 @@ abstract class Minimax
 			{
 				if ($candidate_Stats === $looking)
 				{
-					$result[$rank][] = namespace\Condorcet::getStatic_CandidateId ($candidate_key, $options) ;
+					$result[$rank][] = $candidate_key ;
 
 					unset($values[$candidate_key]);
 				}
 			}
-		}
-
-		foreach ($result as $rank => $options_name)
-		{
-			$result[$rank] = implode(',', $options_name);
 		}
 
 		return $result ;
@@ -160,7 +155,7 @@ class Minimax_Winning extends Minimax
 {
 	protected function makeRanking ()
 	{
-		$this->_Result = self::makeRanking_method('winning', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('winning', $this->_Stats) ;
 	}
 }
 
@@ -168,7 +163,7 @@ class Minimax_Margin extends Minimax
 {
 	protected function makeRanking ()
 	{
-		$this->_Result = self::makeRanking_method('margin', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('margin', $this->_Stats) ;
 	}
 }
 
@@ -177,6 +172,6 @@ class Minimax_Opposition extends Minimax
 {
 	protected function makeRanking ()
 	{
-		$this->_Result = self::makeRanking_method('opposition', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('opposition', $this->_Stats) ;
 	}
 }
