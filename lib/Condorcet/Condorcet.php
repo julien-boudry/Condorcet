@@ -1003,3 +1003,10 @@ class Condorcet
 		}
 	}
 }
+
+
+interface Condorcet_Algo
+{
+	public function getResult();
+	public function getStats();
+}
