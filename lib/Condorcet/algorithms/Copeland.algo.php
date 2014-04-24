@@ -10,12 +10,9 @@
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Copeland') ;
-
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland
+class Copeland implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -148,3 +145,6 @@ class Copeland
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Copeland') ;

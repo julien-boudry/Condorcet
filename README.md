@@ -312,10 +312,7 @@ $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.
 ##### Customize the code : Add new algorithm(s)  
 Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
-###### Each new class of algorithm must include the publics methods:** 
-
-1. getResult  
-2. getStats  
+**Each new class of algorithm must implements the Condorcet_Algo interface:** 
 
 ###### Constructor take an array as follow: 
 
@@ -329,7 +326,7 @@ $param['_votes'] = (Vote details) ; // In case you would need to do more complic
 
 The class name should be in this format: 
 ```php
-class AlgorithmName  
+class AlgorithmName implements namespace\Condorcet_Algo  
 ```
 File on disk must follow this format: `AlgorithmName.algo.php`  
 

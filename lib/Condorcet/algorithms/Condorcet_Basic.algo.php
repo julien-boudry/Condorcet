@@ -10,12 +10,9 @@
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Condorcet_Basic') ;
-
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic
+class Condorcet_Basic implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -126,3 +123,6 @@ class Condorcet_Basic
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Condorcet_Basic') ;

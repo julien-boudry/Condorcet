@@ -106,21 +106,16 @@ class Condorcet
 		// Check if the class Algo. exist and ready to be used
 		protected static function testAlgos ($algos)
 		{
-			if ( !class_exists(__NAMESPACE__.'\\'.$algos) )
+			if ( !class_exists(__NAMESPACE__.'\\'.$algos, false) )
 			{				
 				self::error(9) ;
 				return false ;
 			}
 
-			$to_checks = array ('getResult', 'getStats') ;
-
-			foreach ($to_checks as $method)
+			if ( !in_array(__NAMESPACE__.'\\'.'Condorcet_Algo', class_implements(__NAMESPACE__.'\\'.$algos), false) )
 			{
-				if ( !method_exists(__NAMESPACE__.'\\'.$algos , $method) )
-				{
-					self::error(10) ;
-					return false ;
-				}
+				self::error(10) ;
+				return false ;
 			}
 
 			return true ;
@@ -1004,7 +999,7 @@ class Condorcet
 	}
 }
 
-
+// Interface with the aim of verifying the good modular implementation of algorithms.
 interface Condorcet_Algo
 {
 	public function getResult();

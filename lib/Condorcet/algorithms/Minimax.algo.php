@@ -10,12 +10,9 @@
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
-
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Minimax
+abstract class Minimax implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -175,3 +172,6 @@ class Minimax_Opposition extends Minimax
 		$this->_Result = self::makeRanking_method('opposition', $this->_Stats) ;
 	}
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;

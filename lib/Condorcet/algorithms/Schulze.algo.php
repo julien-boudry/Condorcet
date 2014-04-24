@@ -10,12 +10,9 @@
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Schulze') ;
-
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class Schulze
+class Schulze implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -211,3 +208,6 @@ class Schulze
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Schulze') ;
