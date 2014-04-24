@@ -139,17 +139,11 @@ Look https://packagist.org/packages/julien-boudry/condorcet
 $condorcet->setMethod('Schulze') ; // Argument : A supported method  
 ```
 
-
 #### Change the class default method if needed
 ```php
 Condorcet::setClassMethod('Schulze') ; // Argument : A supported method  
 Condorcet::setClassMethod('Schulze', true) ; // Will force actual and futher object to use this by default.  
 Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the class default method (or force it if argument is true)
-```
-
-#### About errors
-```php
-Condorcet::setError(false) ; // _(true by default)_ Unactive or active trigger_error() usage. Can be unefficent depending of your configuration environnement.    
 ```
 
 #### Get informations 

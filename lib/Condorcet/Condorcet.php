@@ -35,7 +35,6 @@ class Condorcet
 	protected static $_authMethods	= '' ;
 
 	protected static $_forceMethod	= false ;
-	protected static $_showError	= true ;
 
 	// Return library version numer
 	public static function getClassVersion ()
@@ -147,20 +146,6 @@ class Condorcet
 			}
 
 
-	// Active trigger_error() - True by default
-	public static function setError ($param = true)
-	{
-		if ($param)
-		{
-			self::$_showError = true ;
-		}
-		else
-		{
-			self::$_showError = false ;
-		}
-	}
-
-
 	public static function error ($code, $infos = null, $level = E_USER_WARNING)
 	{
 		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
@@ -178,12 +163,9 @@ class Condorcet
 		
 		if ( array_key_exists($code, $error) )
 		{
-			if ( self::$_showError || $error[$code]['level'] < E_USER_WARNING )
-			{
-				trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
-			}
+			trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
 		}
-		elseif (self::$_showError)
+		else
 		{
 			if (!is_null($infos))
 			{
@@ -293,8 +275,6 @@ class Condorcet
 							'class_default_Method'	=> self::$_classMethod,
 							'class_authMethods'=> self::getAuthMethods(),
 							'force_classMethod'=> self::$_forceMethod,
-
-							'class_showError'	=> self::$_showError,
 
 							'object_state'		=> $this->_State
 						);
@@ -807,7 +787,7 @@ class Condorcet
 		}
 		else
 		{
-			return self::error(8,$candidate_id) ;
+			return self::error(8) ;
 		}
 
 		if (!is_null($stats))
