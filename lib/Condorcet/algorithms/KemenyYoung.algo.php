@@ -83,6 +83,13 @@ class KemenyYoung implements namespace\Condorcet_Algo
 		foreach ($this->_PossibleRanking as $key => $value)
 		{
 			$explicit[$key] = $value ;
+
+			// Human redable
+			foreach ($explicit[$key] as &$candidate_key)
+			{
+				$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates);
+			}
+
 			$explicit[$key]['score'] = $this->_RankingScore[$key] ;
 		}
 
