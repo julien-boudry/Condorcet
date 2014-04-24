@@ -10,6 +10,7 @@
 
 namespace Condorcet ;
 
+// Note : This class use some configuration method preset at the bottom of this file.
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung implements namespace\Condorcet_Algo
@@ -84,7 +85,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 		{
 			$explicit[$key] = $value ;
 
-			// Human redable
+			// Human readable
 			foreach ($explicit[$key] as &$candidate_key)
 			{
 				$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates);

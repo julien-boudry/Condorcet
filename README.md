@@ -23,7 +23,7 @@ The literature also provides you an easy example of free implementation with or 
 **Coding standards** : The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 
-* * *
+---------------------------------------
 
 ## Features 
 
@@ -33,51 +33,63 @@ The literature also provides you an easy example of free implementation with or 
   You should be able to find as much functionality and flexibility than you might expect.
   
 #### Supported Condorcet Methods
-	
-##### Provides :
 
 * **Condorcet Basic** Give you the natural winner or looser of Condorcet, if there is one.  
 *(This method is the only core method, you can't remove it)*
-* **Schulze** http://en.wikipedia.org/wiki/Schulze_method
-* **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
-* **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
-    * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion.)*  
-    * **Minimax_Margin** *(Does not satisfy the Condorcet loser criterion.)*
-    * **Minimax_Opposition** :warning: *Does not satisfy the Condorcet criterion.*
 
+* **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
+
+* **Kemeny-Young** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
+*Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding issue Github, and if you are able to comment on issues in Github.   
+Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation via the appropriate static method, but your processor could turn longptemps to exceed six candidates. It is not against by a limited number of voters.*
+
+* **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
+    * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion)*  
+    * **Minimax_Margin** *(Does not satisfy the Condorcet loser criterion)*
+    * **Minimax_Opposition** :warning: *By nature, this alternative does not meet any criterion of Condorcet.*
+
+* **Schulze** http://en.wikipedia.org/wiki/Schulze_method
 
 
 _The name of the above methods must be observed when you make calls, case sensitive._
 
-##### Add new  ?	
-This class is designed to be easily extensible with new algorithms. A modular schematic is used to totu algorithms provided, so you can easily help, do not forget to make a pull request!  
-*More explanations in the documentation below.*
+#### Add new  ?	
+This class is designed to be easily extensible with new algorithms. A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
+[*More explanations in the documentation below*](#newAlgo) 
   
   
 ### Roadmap for futher releases 
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
-  - Official support for exporting object with caching
-  - Perhaps new Condorcet methods *(according dificulties thereof)*
-  - **Looking for testers !**
-  
+  - Perhaps Ranked pairs Condorcet methods *(need help!)*
+  - Non-Condorcet fun methods ? (majority, points ?)
+  - **Looking for testers !**   
+ 
 
+---------------------------------------
 ## How to use it ?
 Soon you will find a complete example.php. The most important methods are listed bellow.  
 We encourage you to read the code, and help to improve inline documentation !
 
+1. [Install it](#install-it)
+2. [Configure it if needed](#configure-it-if-needed)
+3. [1: Manage Candidates](#1-manage-candidates)
+4. [2: Start voting](#2-start-voting)
+5. [3: Get results & Stats](#3-get-results--stats)
+6. [Customize the code : Add new algorithm(s)](#customize-the-code--add-new-algorithms-)
 
-#### Create new object & Class configuration
+---------------------------------------
+### Install it
 
-##### Basic and free implementation
+#### Basically
 ```php
 require_once 'Condorcet.php' ; // Customize the path for your use.
-use Condorcet\Condorcet ;
+use Condorcet\Condorcet ; // Optionnal if you prefer to use the full namespace length
 
 $condorcet = new Condorcet () ; // You can specify as an argument, the name string of method instead of default Schulze Method.  
 ```
 
-##### Example with the official PSR-0 example of Autoloader
+#### Example with the official PSR-0 example of Autoloader
 ```php
 // PSR-0 style Loader
 
@@ -110,39 +122,37 @@ $condorcet = new Condorcet (); // If you omit the previous line, do : new Condor
 
 ```
 
-##### With Frameworks
+#### With Frameworks
 *Read the doc ! The Condorcet folder inside the lib directory can be move into your solution lib directory*
 
 
-##### With Composer
+#### With Composer
 `composer require julien-boudry/condorcet`
 
 Look https://packagist.org/packages/julien-boudry/condorcet  
 
+---------------------------------------
+### Configure it if needed
 
-##### Change the object default method if needed
-
+#### Change the object default method if needed
 ```php
 $condorcet->setMethod('Schulze') ; // Argument : A supported method  
 ```
 
 
-##### Change the class default method if needed
+#### Change the class default method if needed
 ```php
 Condorcet::setClassMethod('Schulze') ; // Argument : A supported method  
 Condorcet::setClassMethod('Schulze', true) ; // Will force actual and futher object to use this by default.  
 Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the class default method (or force it if argument is true)
 ```
 
-
-##### About errors
+#### About errors
 ```php
 Condorcet::setError(false) ; // _(true by default)_ Unactive or active trigger_error() usage. Can be unefficent depending of your configuration environnement.    
 ```
 
-
-
-##### Get informations 
+#### Get informations 
 ```php
 $condorcet->getConfig (); // Will return an explicit array about the object and Class Constant.  
 
@@ -151,7 +161,7 @@ $condorcet->getMethod (); // Return a string with the name of the default method
 Condorcet::getAuthMethods (); // Get an array of authorized methods to use with the correct string to use as parameter.  
 ```
 
-##### Get library version / Get object version
+#### Get library version / Get object version
 
 The distinction may be useful in the case of a storage of the object in the database.
 ```php
@@ -159,15 +169,15 @@ Condorcet::getClassVersion();  // Return the Class engine
 $condorcet->getObjectVersion(); // Return the Class engine who build this object
 ```
 
-##### Reset object without destroy it (discouraged pratice)
+#### Reset object without destroy it (discouraged pratice)
 ```php
 $condorcet->resetAll ();
 ``` 
 
+---------------------------------------
+### 1: Manage Candidates
 
-#### 1- Manage Candidates
-
-##### Registering
+#### Registering
 
 Enter (or not) an Option_Identifiant  
 
@@ -179,13 +189,13 @@ $condorcet->addCandidate(2) ; // A numeric argument
 ```
 
 
-##### Removing
+#### Removing
 ```php
 $condorcet->removeCandidate('Wagner') ;
 ```
 
 
-##### Verify the Candidates list
+#### Verify the Candidates list
 ```php
 $condorcet->getCandidatesList(); // Will return an array with Option_ID as value.
 ```
@@ -193,13 +203,14 @@ $condorcet->getCandidatesList(); // Will return an array with Option_ID as value
 _Note : When you start voting, you will never be able to edit the options list._  
 
 
-#### 2- Start voting
+---------------------------------------
+### 2: Start voting
 _Note: All votes are adjusted to estimate all candidates. The pairwise is calculated accordingly._
 
-##### Add a vote
+#### Add a vote
 _Note : You can add new vote after the results have already been given_  
 
-###### With an array
+##### With an array
 ```php
 $vote[1] = 'A' ;  
 $vote[2] = 'Debussy' ;  
@@ -217,7 +228,7 @@ $condorcet->addVote($vote) ;
 
 *The last rank is optionnal, it will be automatically deducted.*  
 
-###### With a string
+##### With a string
 You can do like this:
 
 ```php
@@ -237,7 +248,7 @@ $vote = 'A>BC>D' ; // It's not correct
 *The last rank is optionnal too, it will be automatically deducted.*  
 
 
-##### Add a tag
+#### Add a tag
 You can add the same or different tag for each vote :  
 ```php
 $condorcet->addVote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
@@ -246,7 +257,7 @@ $condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags
 
 
 
-##### Verify the registered votes list
+#### Verify the registered votes list
 ```php
 $condorcet->getVotesList (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
 $condorcet->getVotesList ('Charlie'); // Will return an array where each vote with this tag.   
@@ -256,7 +267,7 @@ $condorcet->countVotes (); // Return a numeric value about the number of registe
 ```
 
 
-##### Remove vote
+#### Remove vote
 ```php
 $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
@@ -265,20 +276,20 @@ $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
 _Note : You can remove a vote after the results have already been given_  
 
 
-
-#### 3- Get results & Stats
+---------------------------------------
+### 3: Get results & Stats
 When you have finished to processing vote, you would like to have the results.
 
-##### Just get the natural Condorcet Winner
+#### Just get the natural Condorcet Winner
 
-###### Regular
+##### Regular
 ```php
 $condorcet->getWinner() ; // Will return a string with the Option_Identifiant  
 $condorcet->getLoser() ; // Will return a string with the Option_Identifiant  
 ```
 
 
-###### Special
+##### Special
 If there is not a regular Condorcet Winner or Loser, process to a special winner(s) using an advanced method.  
 
 ```php
@@ -292,14 +303,14 @@ $condorcet->getLoser('Schulze') ; // Name of an valid method
 Will return a string with the Option_Identifiant or many Option identifiants separated by commas  
 
 
-##### Get a complete ranking from advanced methods
+#### Get a complete ranking from advanced methods
 ```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default : Schulze)  
 $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
 ```
 
 
-##### Get compute details
+#### Get compute details
 ```php
 $condorcet->getPairwise() ; // Return an explicit array using your Option_ID as keys.  
 
@@ -308,13 +319,13 @@ $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.
 ```
 
 
-
-##### Customize the code : Add new algorithm(s)  
+---------------------------------------
+### Customize the code : Add new algorithm(s) <a name="newAlgo"></a>  
 Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
 **Each new class of algorithm must implements the Condorcet_Algo interface:** 
 
-###### Constructor take an array as follow: 
+##### Constructor take an array as follow: 
 
 ```php
 $param['_Pairwise'] = (Calculated Pairwise) ;
@@ -322,7 +333,8 @@ $param['_optionsCount'] = (Number of vote option) ;
 $param['_options'] = (List of option) ;
 $param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise...
 ```
-###### Link your algorithm
+
+##### Link your algorithm
 
 The class name should be in this format: 
 ```php
@@ -337,4 +349,4 @@ Condorcet::addAlgos('AlgorithmName') ;
 
 You can specify it as default algorithm:  
 
-_See the appropriate instructions at the top._  
+_[See the appropriate instructions at the top](#change-the-class-default-method-if-needed)_  
