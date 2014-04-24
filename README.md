@@ -173,10 +173,10 @@ $condorcet->resetAll ();
 
 #### Registering
 
-Enter (or not) an Option_Identifiant  
+Enter (or not) an Candidate Name 
 
 ```php
-$condorcet->addCandidate('Wagner') ; // mb_strlen(Alphanum option) <= self::MAX_LENGTH_CANDIDATE_ID _Default : 10_
+$condorcet->addCandidate('Wagner') ; // mb_strlen(Candidate Name) <= self::MAX_LENGTH_CANDIDATE_ID, Default : 30
 $condorcet->addCandidate('Debussy') ;  
 $condorcet->addCandidate() ; // Empty argument will return an automatic candidate name for you (From A to ZZZZZ)  
 $condorcet->addCandidate(2) ; // A numeric argument  
@@ -191,10 +191,10 @@ $condorcet->removeCandidate('Wagner') ;
 
 #### Verify the Candidates list
 ```php
-$condorcet->getCandidatesList(); // Will return an array with Option_ID as value.
+$condorcet->getCandidatesList(); // Will return an array with Candidate Name as value.
 ```
 
-_Note : When you start voting, you will never be able to edit the options list._  
+_Note : When you start voting, you will never be able to edit the candidate list._  
 
 
 ---------------------------------------
@@ -278,8 +278,8 @@ When you have finished to processing vote, you would like to have the results.
 
 ##### Regular
 ```php
-$condorcet->getWinner() ; // Will return a string with the Option_Identifiant  
-$condorcet->getLoser() ; // Will return a string with the Option_Identifiant  
+$condorcet->getWinner() ; // Will return a string with the Candidate name
+$condorcet->getLoser() ; // Will return a string with the Candidate name
 ```
 
 
@@ -294,7 +294,7 @@ $condorcet->getLoser(true) // With the default object method (Class Default : Sc
 $condorcet->getLoser('Schulze') ; // Name of an valid method  
 ```
 
-Will return a string with the Option_Identifiant or many Option identifiants separated by commas  
+Will return a string with the Candidate Name or many separated by commas  
 
 
 #### Get a complete ranking from advanced methods
@@ -306,7 +306,7 @@ $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
 
 #### Get compute details
 ```php
-$condorcet->getPairwise() ; // Return an explicit array using your Option_ID as keys.  
+$condorcet->getPairwise() ; // Return an explicit array using your Candidate Name as keys.  
 
 $condorcet->getResultStats() ; // Get stats about computing result for the default object method. (Class Default : Schulze)  
 $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
@@ -322,10 +322,10 @@ Look at how existing algorithm work in the "algorithms" folder, because the algo
 ##### Constructor take an array as follow: 
 
 ```php
-$param['_Pairwise'] = (Calculated Pairwise) ;
-$param['_optionsCount'] = (Number of vote option) ;
-$param['_options'] = (List of option) ;
-$param['_votes'] = (Vote details) ; // In case you would need to do more complicated things than just work on Pairwise...
+$param['_CandidatesCount'] // Number of candidate
+$param['_Candidates'] // Candidate list
+$param['_Votes'] // In case you would need to do more complicated things than just work on Pairwise...
+$param['_Pairwise'] // The Pairwise
 ```
 
 ##### Link your algorithm
