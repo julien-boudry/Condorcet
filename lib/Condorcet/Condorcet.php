@@ -312,9 +312,10 @@ class Condorcet
 	{
 		$this->cleanupResult() ;
 
-		$this->_Candidates = null ;
+		$this->_Candidates = array() ;
 		$this->_CandidatesCount = 0 ;
-		$this->_Votes = null ;
+		$this->_nextVoteTag = 0 ;
+		$this->_Votes = array() ;
 		$this->_i_CandidateId = 'A' ;
 		$this->_State	= 1 ;
 
