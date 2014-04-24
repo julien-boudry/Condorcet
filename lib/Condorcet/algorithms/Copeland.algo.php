@@ -1,21 +1,18 @@
 <?php
 /*
-	Part of the Condorcet PHP Class, with Copeland Methods and others !
+	Copeland part of the Condorcet PHP Class
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Copeland-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Copeland') ;
-
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland
+class Copeland implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -50,10 +47,10 @@ class Copeland
 			//////
 
 		// Comparison calculation
-		$this->Copeland_make_comparison() ;
+		$this->makeComparison() ;
 
 		// Ranking calculation
-		$this->Copeland_make_ranking() ;
+		$this->makeRanking() ;
 
 
 		// Return
@@ -85,7 +82,7 @@ class Copeland
 
 	//:: COPELAND ALGORITHM. :://
 
-	protected function Copeland_make_comparison ()
+	protected function makeComparison ()
 	{
 		foreach ($this->_Pairwise as $candidate_key => $candidate_data)
 		{
@@ -115,7 +112,7 @@ class Copeland
 		}
 	}
 
-	protected function Copeland_make_ranking ()
+	protected function makeRanking ()
 	{
 		$this->_Result = array() ;
 
@@ -137,16 +134,17 @@ class Copeland
 			{
 				if ($value === $looking)
 				{
-					$this->_Result[$rank][] = namespace\Condorcet::getStatic_CandidateId($candidate, $this->_Candidates) ;
+					$this->_Result[$rank][] = $candidate ;
 
 					$done++ ; unset($challenge[$candidate]) ;
 				}
 			}
 
-
-			$this->_Result[$rank] = implode(',', $this->_Result[$rank]) ;
 			$rank++ ;
 		}
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Copeland') ;

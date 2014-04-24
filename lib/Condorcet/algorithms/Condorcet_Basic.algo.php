@@ -1,21 +1,18 @@
 <?php
 /*
-	Part of the Condorcet PHP Class, with Schulze Methods and others !
+	Basic Condorcet Winner & Loser core part of the Condorcet PHP Class
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Condorcet_Basic') ;
-
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic
+class Condorcet_Basic implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -49,7 +46,7 @@ class Condorcet_Basic
 	// Get the Schulze ranking
 	public function getStats ()
 	{
-		return Condorcet::getStatic_Pairwise($this->_Pairwise, $this->_Candidates) ;
+		return null ;
 	}
 
 
@@ -80,7 +77,7 @@ class Condorcet_Basic
 
 			if ($winner)
 			{
-				$this->_CondorcetWinner = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+				$this->_CondorcetWinner = $candidate_key ;
 
 				return $this->_CondorcetWinner ;
 			}
@@ -116,7 +113,7 @@ class Condorcet_Basic
 
 			if ($loser)
 			{ 
-				$this->_CondorcetLoser = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+				$this->_CondorcetLoser = $candidate_key ;
 
 				return $this->_CondorcetLoser ;
 			}
@@ -126,3 +123,6 @@ class Condorcet_Basic
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Condorcet_Basic') ;

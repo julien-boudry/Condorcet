@@ -2,10 +2,10 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
@@ -28,14 +28,13 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.7' ;
-	const MAX_LENGTH_CANDIDATE_ID = 10 ; // Max length for option identifiant string
+	const VERSION = '0.8' ;
+	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for option identifiant string
 
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= '' ;
 
 	protected static $_forceMethod	= false ;
-	protected static $_showError	= true ;
 
 	// Return library version numer
 	public static function getClassVersion ()
@@ -106,21 +105,16 @@ class Condorcet
 		// Check if the class Algo. exist and ready to be used
 		protected static function testAlgos ($algos)
 		{
-			if ( !class_exists(__NAMESPACE__.'\\'.$algos) )
+			if ( !class_exists(__NAMESPACE__.'\\'.$algos, false) )
 			{				
 				self::error(9) ;
 				return false ;
 			}
 
-			$to_checks = array ('getResult', 'getStats') ;
-
-			foreach ($to_checks as $method)
+			if ( !in_array(__NAMESPACE__.'\\'.'Condorcet_Algo', class_implements(__NAMESPACE__.'\\'.$algos), false) )
 			{
-				if ( !method_exists(__NAMESPACE__.'\\'.$algos , $method) )
-				{
-					self::error(10) ;
-					return false ;
-				}
+				self::error(10) ;
+				return false ;
 			}
 
 			return true ;
@@ -152,21 +146,7 @@ class Condorcet
 			}
 
 
-	// Active trigger_error() - True by default
-	public static function setError ($param = true)
-	{
-		if ($param)
-		{
-			self::$_showError = true ;
-		}
-		else
-		{
-			self::$_showError = false ;
-		}
-	}
-
-
-	protected static function error ($code, $infos = null)
+	public static function error ($code, $infos = null, $level = E_USER_WARNING)
 	{
 		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
 		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
@@ -183,14 +163,18 @@ class Condorcet
 		
 		if ( array_key_exists($code, $error) )
 		{
-			if ( self::$_showError || $error[$code]['level'] < E_USER_WARNING )
-			{
-				trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
-			}
+			trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
 		}
-		elseif (self::$_showError)
+		else
 		{
-			trigger_error( 'Mysterious Error : '.$infos, E_USER_NOTICE );
+			if (!is_null($infos))
+			{
+				trigger_error( $infos, $level );
+			}
+			else
+			{
+				trigger_error( 'Mysterious Error', $level );
+			}
 		}
 
 		return false ;
@@ -292,8 +276,6 @@ class Condorcet
 							'class_authMethods'=> self::getAuthMethods(),
 							'force_classMethod'=> self::$_forceMethod,
 
-							'class_showError'	=> self::$_showError,
-
 							'object_state'		=> $this->_State
 						);
 	}
@@ -310,9 +292,10 @@ class Condorcet
 	{
 		$this->cleanupResult() ;
 
-		$this->_Candidates = null ;
+		$this->_Candidates = array() ;
 		$this->_CandidatesCount = 0 ;
-		$this->_Votes = null ;
+		$this->_nextVoteTag = 0 ;
+		$this->_Votes = array() ;
 		$this->_i_CandidateId = 'A' ;
 		$this->_State	= 1 ;
 
@@ -420,14 +403,17 @@ class Condorcet
 			return array_search($candidate_id, $this->_Candidates, true) ;
 		}
 
-		protected function getCandidateId ($option_key)
+		protected function getCandidateId ($candidate_key)
 		{
-			self::getStatic_CandidateId($option_key, $this->_Candidates) ;
+			return self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
 		}
 
-			public static function getStatic_CandidateId ($option_key, &$options)
+			public static function getStatic_CandidateId ($candidate_key, &$candidates)
 			{
-				return $options[$option_key] ;
+				if (!array_key_exists($candidate_key, $candidates))
+					{ return false ; }
+
+				return $candidates[$candidate_key] ;
 			}
 
 		protected function existCandidateId ($candidate_id)
@@ -690,30 +676,52 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			return $this->_Calculator[$this->_Method]->getResult() ;
+			$result = $this->_Calculator[$this->_Method]->getResult() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			return $this->_Calculator[$method]->getResult() ;
+			$result = $this->_Calculator[$method]->getResult() ;
 		}
 		else
 		{
 			return self::error(8,$method) ;
 		}
+
+		return $this->humanResult($result) ;
 	}
+
+		protected function humanResult ($robot)
+		{
+			$human = array() ;
+
+			foreach ( $robot as $key => $value )
+			{
+				if (is_array($value))
+				{
+					foreach ($value as $option_key)
+					{
+						$human[$key][] = $this->getCandidateId($option_key) ;
+					}
+				}
+				else
+				{
+					$human[$key][] = $this->getCandidateId($value) ;
+				}
+			}
+
+			foreach ( $human as $key => $value )
+			{
+				$human[$key] = implode(',',$value);
+			}
+
+			return $human ;
+		}
 
 
 	public function getWinner ($substitution = false)
 	{
-		// Method
-		$this->setMethod() ;
-		// Prepare
-		$this->prepareResult() ;
-
-			//////
-
 		if ( $substitution )
 		{
 			if ($substitution === true)
@@ -729,21 +737,12 @@ class Condorcet
 
 			//////
 
-		$this->initResult($algo) ;
-
-		return $this->_Calculator[$algo]->getResult()[1] ;
+		return $this->getResult($algo)[1] ;
 	}
 
 
 	public function getLoser ($substitution = false)
 	{
-		// Method
-		$this->setMethod() ;
-		// Prepare
-		$this->prepareResult() ;
-
-			//////
-
 		if ( $substitution )
 		{			
 			if ($substitution === true)
@@ -759,9 +758,7 @@ class Condorcet
 
 			//////
 
-		$this->initResult($algo) ;
-
-		$result = $this->_Calculator[$algo]->getResult() ;
+		$result = $this->getResult($algo) ;
 
 		return $result[count($result)] ;
 	}
@@ -780,18 +777,23 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			return $this->_Calculator[$this->_Method]->getStats() ;
+			$stats = $this->_Calculator[$this->_Method]->getStats() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			return $this->_Calculator[$method]->getStats() ;
+			$stats = $this->_Calculator[$method]->getStats() ;
 		}
 		else
 		{
-			return self::error(8,$candidate_id) ;
+			return self::error(8) ;
 		}
+
+		if (!is_null($stats))
+			{ return $stats ; }
+		else
+			{ return $this->getPairwise(); }
 	}
 
 
@@ -941,21 +943,18 @@ class Condorcet
 					foreach ( $this->_Candidates as $g_option_key => $g_CandidateId )
 					{
 						// Win
-						if (
-								$option_key !== $g_option_key && 
+						if (	$option_key !== $g_option_key && 
 								!in_array($g_option_key, $done_Candidates, true) && 
 								!in_array($g_option_key, $options_in_rank_keys, true)
 							)
 						{
-
 							$this->_Pairwise[$option_key]['win'][$g_option_key]++ ;
 
 							$done_Candidates[] = $option_key ;
 						}
 
 						// Null
-						if (
-								$option_key !== $g_option_key &&
+						if (	$option_key !== $g_option_key &&
 								count($options_in_rank) > 1 &&
 								in_array($g_option_key, $options_in_rank_keys)
 							)
@@ -979,4 +978,11 @@ class Condorcet
 			}
 		}
 	}
+}
+
+// Interface with the aim of verifying the good modular implementation of algorithms.
+interface Condorcet_Algo
+{
+	public function getResult();
+	public function getStats();
 }

@@ -1,21 +1,18 @@
 <?php
 /*
-	Part of the Condorcet PHP Class, with Schulze Methods and others !
+	Minimax part of the Condorcet PHP Class
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
-
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Minimax
+abstract class Minimax implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -50,10 +47,10 @@ abstract class Minimax
 			//////
 
 		// Computing
-		$this->ComputeMinimax ();
+		$this->computeMinimax ();
 
 		// Ranking calculation
-		$this->calc_ranking () ;
+		$this->makeRanking () ;
 
 		// Return
 		return $this->_Result ;
@@ -81,7 +78,7 @@ abstract class Minimax
 
 /////////// COMPUTE ///////////
 
-	protected function ComputeMinimax ()
+	protected function computeMinimax ()
 	{
 		$this->_Stats = array() ;
 
@@ -120,9 +117,9 @@ abstract class Minimax
 		}
 	}
 
-	abstract protected function calc_ranking () ;
+	abstract protected function makeRanking () ;
 
-	protected static function calc_ranking_method ($type, array $stats, $options)
+	protected static function makeRanking_method ($type, array $stats)
 	{
 		$result = array() ;
 		$values = array() ;
@@ -140,16 +137,11 @@ abstract class Minimax
 			{
 				if ($candidate_Stats === $looking)
 				{
-					$result[$rank][] = namespace\Condorcet::getStatic_CandidateId ($candidate_key, $options) ;
+					$result[$rank][] = $candidate_key ;
 
 					unset($values[$candidate_key]);
 				}
 			}
-		}
-
-		foreach ($result as $rank => $options_name)
-		{
-			$result[$rank] = implode(',', $options_name);
 		}
 
 		return $result ;
@@ -158,25 +150,28 @@ abstract class Minimax
 
 class Minimax_Winning extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('winning', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('winning', $this->_Stats) ;
 	}
 }
 
 class Minimax_Margin extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('margin', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('margin', $this->_Stats) ;
 	}
 }
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
 class Minimax_Opposition extends Minimax
 {
-	protected function calc_ranking ()
+	protected function makeRanking ()
 	{
-		$this->_Result = self::calc_ranking_method('opposition', $this->_Stats, $this->_Candidates) ;
+		$this->_Result = self::makeRanking_method('opposition', $this->_Stats) ;
 	}
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;

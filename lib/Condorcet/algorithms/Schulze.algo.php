@@ -1,21 +1,18 @@
 <?php
 /*
-	Part of the Condorcet PHP Class, with Schulze Methods and others !
+	Schulze part of the Condorcet PHP Class
 
-	Version : 0.7
+	Version : 0.8
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class 
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
 
 namespace Condorcet ;
 
-// Registering algorithm
-namespace\Condorcet::addAlgos('Schulze') ;
-
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class Schulze
+class Schulze implements namespace\Condorcet_Algo
 {
 	// Config
 	protected $_Pairwise ;
@@ -50,14 +47,14 @@ class Schulze
 			//////
 
 		// Format array
-		$this->Schulze_strongest_array() ;
+		$this->prepareStrongestPath() ;
 
 		// Strongest Paths calculation
-		$this->strongest_paths() ;
+		$this->makeStrongestPaths() ;
 
 
 		// Ranking calculation
-		$this->Schulze_make_ranking() ;
+		$this->makeRanking() ;
 
 
 		// Return
@@ -96,7 +93,7 @@ class Schulze
 
 
 	// Calculate the strongest Paths for Schulze Method
-	protected function Schulze_strongest_array ()
+	protected function prepareStrongestPath ()
 	{
 		$this->_StrongestPaths = array() ;
 
@@ -117,7 +114,7 @@ class Schulze
 
 
 	// Calculate the Strongest Paths
-	protected function strongest_paths ()
+	protected function makeStrongestPaths ()
 	{
 		foreach ($this->_Candidates as $i => $i_value)
 		{
@@ -162,7 +159,7 @@ class Schulze
 
 
 	// Calculate && Format human readable ranking
-	protected function Schulze_make_ranking ()
+	protected function makeRanking ()
 	{		
 		$this->_Result = array() ;
 
@@ -208,21 +205,9 @@ class Schulze
 
 			$rank++ ;
 		}
-
-
-		// Format ranking
-		foreach ( $this->_Result as $key => $value )
-		{
-			foreach ($value as $ord => $option_key)
-			{
-				$this->_Result[$key][$ord] = namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates) ;
-			}
-		}
-
-		foreach ( $this->_Result as $key => $value )
-		{
-			$this->_Result[$key] = implode(',',$value);
-		}
 	}
 
 }
+
+// Registering algorithm
+namespace\Condorcet::addAlgos('Schulze') ;
