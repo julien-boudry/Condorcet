@@ -39,7 +39,7 @@ The literature also provides you an easy example of free implementation with or 
 
 * **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
 
-* **Kemeny-Young** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
+* **KemenyYoung** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
 *Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding issue Github, and if you are able to comment on issues in Github.   
 Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation via the appropriate static method, but your processor could turn longptemps to exceed six candidates. It is not against by a limited number of voters.*
 
