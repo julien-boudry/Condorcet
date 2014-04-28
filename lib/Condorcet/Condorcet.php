@@ -705,15 +705,18 @@ class Condorcet
 						$human[$key][] = $this->getCandidateId($option_key) ;
 					}
 				}
+				elseif (is_null($value))
+					{ $human[$key] = null ;	}
 				else
-				{
-					$human[$key][] = $this->getCandidateId($value) ;
-				}
+					{ $human[$key][] = $this->getCandidateId($value) ; }
 			}
 
 			foreach ( $human as $key => $value )
 			{
-				$human[$key] = implode(',',$value);
+				if (is_null($value))
+					{ $human[$key] = null; }
+				else
+					{ $human[$key] = implode(',',$value); }
 			}
 
 			return $human ;
