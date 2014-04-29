@@ -271,12 +271,15 @@ class Condorcet
 		$this->setMethod() ;
 
 		return array 	(
+							'CondorcetObject_Version' => $this->getObjectVersion(),
+
 							'object_Method'		=> $this->getMethod(),
 							'class_default_Method'	=> self::$_classMethod,
-							'class_authMethods'=> self::getAuthMethods(),
 							'force_classMethod'=> self::$_forceMethod,
 
-							'object_state'		=> $this->_State
+							'class_authMethods'=> self::getAuthMethods(),
+
+							'state'		=> $this->_State
 						);
 	}
 
