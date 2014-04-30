@@ -75,9 +75,9 @@ class Schulze implements namespace\Condorcet_Algo
 		{
 			$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key,$this->_Candidates) ;
 
-			foreach ($candidate_value as $option_key => $option_value)
+			foreach ($candidate_value as $challenger_key => $challenger_value)
 			{
-				$explicit[$candidate_key][namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates)] = $option_value ;
+				$explicit[$candidate_key][namespace\Condorcet::getStatic_CandidateId($challenger_key, $this->_Candidates)] = $challenger_value ;
 			}
 		}
 
@@ -97,16 +97,16 @@ class Schulze implements namespace\Condorcet_Algo
 	{
 		$this->_StrongestPaths = array() ;
 
-		foreach ( $this->_Candidates as $option_key => $candidate_id )
+		foreach ( $this->_Candidates as $candidate_key => $candidate_id )
 		{
-			$this->_StrongestPaths[$option_key] = array() ;
+			$this->_StrongestPaths[$candidate_key] = array() ;
 
 			// Format array for the strongest path
-			foreach ( $this->_Candidates as $option_key_r => $candidate_id_r )
+			foreach ( $this->_Candidates as $candidate_key_r => $candidate_id_r )
 			{
-				if ($option_key_r != $option_key)
+				if ($candidate_key_r != $candidate_key)
 				{
-					$this->_StrongestPaths[$option_key][$option_key_r]	= 0 ;
+					$this->_StrongestPaths[$candidate_key][$candidate_key_r]	= 0 ;
 				}
 			}
 		}				
@@ -171,7 +171,7 @@ class Schulze implements namespace\Condorcet_Algo
 		{
 			$to_done = array() ;
 
-			foreach ( $this->_StrongestPaths as $candidate_key => $options_key )
+			foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key )
 			{
 				if ( in_array($candidate_key, $done) )
 				{
@@ -180,7 +180,7 @@ class Schulze implements namespace\Condorcet_Algo
 
 				$winner = true ;
 
-				foreach ($options_key as $beaten_key => $beaten_value)
+				foreach ($challengers_key as $beaten_key => $beaten_value)
 				{
 					if ( in_array($beaten_key, $done) )
 					{

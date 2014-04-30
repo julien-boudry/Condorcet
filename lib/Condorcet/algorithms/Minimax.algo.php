@@ -66,9 +66,9 @@ abstract class Minimax implements namespace\Condorcet_Algo
 
 		$explicit = array() ;
 
-		foreach ($this->_Stats as $option_key => $value)
+		foreach ($this->_Stats as $candidate_key => $value)
 		{
-			$explicit[namespace\Condorcet::getStatic_CandidateId($option_key, $this->_Candidates)] = $value ;
+			$explicit[namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates)] = $value ;
 		}
 
 		return $explicit ;
@@ -82,16 +82,16 @@ abstract class Minimax implements namespace\Condorcet_Algo
 	{
 		$this->_Stats = array() ;
 
-		foreach ($this->_Candidates as $option_key => $candidate_id)
+		foreach ($this->_Candidates as $candidate_key => $candidate_id)
 		{			
 			$lose_score			= array() ;
 			$margin_score		= array() ;
 			$opposition_score	= array() ;
 
-			foreach ($this->_Pairwise[$option_key]['lose'] as $key_lose => $value_lose)
+			foreach ($this->_Pairwise[$candidate_key]['lose'] as $key_lose => $value_lose)
 			{
 				// Margin
-				$margin = $value_lose - $this->_Pairwise[$option_key]['win'][$key_lose] ;
+				$margin = $value_lose - $this->_Pairwise[$candidate_key]['win'][$key_lose] ;
 				$margin_score[] = $margin ;
 
 				// Winning
@@ -106,14 +106,14 @@ abstract class Minimax implements namespace\Condorcet_Algo
 
 			// Write result
 				// Winning
-			if (!empty($lose_score)) {$this->_Stats[$option_key]['winning'] = max($lose_score) ;}
-			else {$this->_Stats[$option_key]['winning'] = 0 ;}
+			if (!empty($lose_score)) {$this->_Stats[$candidate_key]['winning'] = max($lose_score) ;}
+			else {$this->_Stats[$candidate_key]['winning'] = 0 ;}
 			
 				// Margin
-			$this->_Stats[$option_key]['margin'] = max($margin_score) ;
+			$this->_Stats[$candidate_key]['margin'] = max($margin_score) ;
 
 				// Opposition
-			$this->_Stats[$option_key]['opposition'] = max($opposition_score) ;
+			$this->_Stats[$candidate_key]['opposition'] = max($opposition_score) ;
 		}
 	}
 
