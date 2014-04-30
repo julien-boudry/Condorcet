@@ -36,7 +36,7 @@ abstract class Minimax implements namespace\Condorcet_Algo
 
 
 	// Get the Schulze ranking
-	public function getResult ()
+	public function getResult ($options = null)
 	{
 		// Cache
 		if ( $this->_Result !== null )

@@ -35,7 +35,7 @@ class Condorcet_Basic implements namespace\Condorcet_Algo
 /////////// PUBLIC ///////////
 
 
-	public function getResult ()
+	public function getResult ($options = null)
 	{
 		return array (
 						1 => $this->getWinner(),

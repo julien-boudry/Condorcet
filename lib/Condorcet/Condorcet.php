@@ -666,7 +666,7 @@ class Condorcet
 
 
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = null)
+	public function getResult ($method = null, array $options = null)
 	{
 		// Method
 		$this->setMethod() ;
@@ -679,13 +679,13 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			$result = $this->_Calculator[$this->_Method]->getResult() ;
+			$result = $this->_Calculator[$this->_Method]->getResult($options) ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			$result = $this->_Calculator[$method]->getResult() ;
+			$result = $this->_Calculator[$method]->getResult($options) ;
 		}
 		else
 		{
@@ -697,6 +697,9 @@ class Condorcet
 
 		protected function humanResult ($robot)
 		{
+			if (is_string($robot))
+				{return $robot ;}
+
 			$human = array() ;
 
 			foreach ( $robot as $key => $value )

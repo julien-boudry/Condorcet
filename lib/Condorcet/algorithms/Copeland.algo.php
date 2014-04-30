@@ -36,7 +36,7 @@ class Copeland implements namespace\Condorcet_Algo
 
 
 	// Get the Coepland ranking
-	public function getResult ()
+	public function getResult ($options = null)
 	{
 		// Cache
 		if ( $this->_Result !== null )

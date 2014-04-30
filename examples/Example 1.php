@@ -130,6 +130,14 @@ define('GROUPE', 'Tour 2 - Poule 4');
 
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
+		<?php 
+			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, array('noConflict' => true) ) )  )
+			{
+				echo '<strong style="color:red;">Arbitrary results: '.$calculator->getResult( $method, array('noConflict' => true) ).'</strong>' ;
+			}
+
+		 ?>
+
 		<pre>
 		<?php print_r($calculator->getResult($method)); ?>
 		</pre>
