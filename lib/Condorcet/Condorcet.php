@@ -697,7 +697,7 @@ class Condorcet
 
 		protected function humanResult ($robot)
 		{
-			if (is_string($robot))
+			if (!is_array($robot))
 				{return $robot ;}
 
 			$human = array() ;

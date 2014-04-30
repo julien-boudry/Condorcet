@@ -133,7 +133,7 @@ define('GROUPE', 'Tour 2 - Poule 4');
 		<?php 
 			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, array('noConflict' => true) ) )  )
 			{
-				echo '<strong style="color:red;">Arbitrary results: '.$calculator->getResult( $method, array('noConflict' => true) ).'</strong>' ;
+				echo '<strong style="color:red;">Arbitrary results: '.'Kemeny-Young has '.explode(';',$calculator->getResult($method, array('noConflict' => true)))[0].' possible solutions at score '.explode(';',$calculator->getResult($method, array('noConflict' => true)))[1].'</strong>' ;
 			}
 
 		 ?>

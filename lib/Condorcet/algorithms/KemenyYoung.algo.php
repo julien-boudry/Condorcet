@@ -69,7 +69,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 			$conflicts = $this->conflictInfos() ;
 			if ( $conflicts !== false)
 			{
-				return 'Kemeny-Young has '.$conflicts.' possible solutions at score '.max($this->_RankingScore) ;
+				return $this->conflictInfos() ;
 			}
 		}
 
@@ -119,7 +119,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 				{return false ;}
 			else
 			{
-				return $conflict + 1 ;
+				return ($conflict + 1).';'.max($this->_RankingScore) ;
 			}
 		}
 
