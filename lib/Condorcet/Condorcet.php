@@ -324,7 +324,7 @@ class Condorcet
 
 		
 		// Process
-		if ( empty($candidate_id) ) // Option_id is empty ...
+		if ( empty($candidate_id) ) // $candidate_id is empty ...
 		{
 			while ( !$this->try_addCandidate($this->_i_CandidateId) )
 			{
@@ -345,7 +345,7 @@ class Condorcet
 				$this->_Candidates[] = $candidate_id ;
 				$this->_CandidatesCount++ ;
 
-				return true ;
+				return $candidate_id ;
 			}
 			else
 			{
