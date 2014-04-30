@@ -982,6 +982,45 @@ class Condorcet
 			}
 		}
 	}
+
+
+
+/////////// TOOLS FOR MODULAR ALGORITHMS ///////////
+
+
+	public static function makeStatic_PairwiseComparison (&$pairwise)
+	{
+		$comparison = array();
+
+		foreach ($pairwise as $candidate_key => $candidate_data)
+		{
+			$comparison[$candidate_key]['win'] = 0 ;
+			$comparison[$candidate_key]['null'] = 0 ;
+			$comparison[$candidate_key]['lose'] = 0 ;
+			$comparison[$candidate_key]['balance'] = 0 ;
+
+			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
+			{
+				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
+				{
+					$comparison[$candidate_key]['win']++ ;
+					$comparison[$candidate_key]['balance']++ ;
+				}
+				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
+				{
+					$comparison[$candidate_key]['null']++ ;
+				}
+				else
+				{
+					$comparison[$candidate_key]['lose']++ ;
+					$comparison[$candidate_key]['balance']-- ;
+				}
+			}
+		}
+
+		return $comparison ;
+	}
+
 }
 
 // Interface with the aim of verifying the good modular implementation of algorithms.

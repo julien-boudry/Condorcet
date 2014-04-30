@@ -47,7 +47,7 @@ class Copeland implements namespace\Condorcet_Algo
 			//////
 
 		// Comparison calculation
-		$this->makeComparison() ;
+		$this->_Comparison = namespace\Condorcet::makeStatic_PairwiseComparison($this->_Pairwise) ;
 
 		// Ranking calculation
 		$this->makeRanking() ;
@@ -81,36 +81,6 @@ class Copeland implements namespace\Condorcet_Algo
 
 
 	//:: COPELAND ALGORITHM. :://
-
-	protected function makeComparison ()
-	{
-		foreach ($this->_Pairwise as $candidate_key => $candidate_data)
-		{
-			$this->_Comparison[$candidate_key]['win'] = 0 ;
-			$this->_Comparison[$candidate_key]['null'] = 0 ;
-			$this->_Comparison[$candidate_key]['lose'] = 0 ;
-			$this->_Comparison[$candidate_key]['balance'] = 0 ;
-
-
-			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
-			{
-				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
-				{
-					$this->_Comparison[$candidate_key]['win']++ ;
-					$this->_Comparison[$candidate_key]['balance']++ ;
-				}
-				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
-				{
-					$this->_Comparison[$candidate_key]['null']++ ;
-				}
-				else
-				{
-					$this->_Comparison[$candidate_key]['lose']++ ;
-					$this->_Comparison[$candidate_key]['balance']-- ;
-				}
-			}
-		}
-	}
 
 	protected function makeRanking ()
 	{
