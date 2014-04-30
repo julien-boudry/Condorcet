@@ -878,28 +878,23 @@ class Condorcet
 	{
 		$this->prepareResult() ;
 
-		return self::getStatic_Pairwise ($this->_Pairwise, $this->_Candidates) ;
-	}
+		$explicit_pairwise = array() ;
 
-		public static function getStatic_Pairwise (&$pairwise, &$candidate_lists)
+		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
 		{
-			$explicit_pairwise = array() ;
-
-			foreach ($pairwise as $candidate_key => $candidate_value)
+			$candidate_key = self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+			
+			foreach ($candidate_value as $mode => $mode_value)
 			{
-				$candidate_key = self::getStatic_CandidateId($candidate_key, $candidate_lists) ;
-				
-				foreach ($candidate_value as $mode => $mode_value)
+				foreach ($mode_value as $candidate_list_key => $candidate_list_value)
 				{
-					foreach ($mode_value as $candidate_list_key => $candidate_list_value)
-					{
-						$explicit_pairwise[$candidate_key][$mode][self::getStatic_CandidateId($candidate_list_key,$candidate_lists)] = $candidate_list_value ;
-					}
+					$explicit_pairwise[$candidate_key][$mode][self::getStatic_CandidateId($candidate_list_key,$this->_Candidates)] = $candidate_list_value ;
 				}
 			}
-
-			return $explicit_pairwise ;
 		}
+
+		return $explicit_pairwise ;
+	}
 
 
 
