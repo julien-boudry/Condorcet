@@ -882,13 +882,13 @@ class Condorcet
 
 		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
 		{
-			$candidate_key = self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+			$candidate_key = $this->getCandidateId($candidate_key) ;
 			
 			foreach ($candidate_value as $mode => $mode_value)
 			{
 				foreach ($mode_value as $candidate_list_key => $candidate_list_value)
 				{
-					$explicit_pairwise[$candidate_key][$mode][self::getStatic_CandidateId($candidate_list_key,$this->_Candidates)] = $candidate_list_value ;
+					$explicit_pairwise[$candidate_key][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
 				}
 			}
 		}
@@ -915,7 +915,7 @@ class Condorcet
 			{
 				if ($candidate_key_r != $candidate_key)
 				{
-					$this->_Pairwise[$candidate_key]['win'][$candidate_key_r]		= 0 ;
+					$this->_Pairwise[$candidate_key]['win'][$candidate_key_r]	= 0 ;
 					$this->_Pairwise[$candidate_key]['null'][$candidate_key_r]	= 0 ;
 					$this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]	= 0 ;
 				}
