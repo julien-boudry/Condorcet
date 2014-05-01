@@ -301,6 +301,7 @@ Will return a string with the Candidate Name or many separated by commas
 ```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default : Schulze)  
 $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
+$condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See some details above.
 ```
 
 
@@ -312,6 +313,27 @@ $condorcet->getResultStats() ; // Get stats about computing result for the defau
 $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
 ```
 
+#### Specials options on getResult()
+
+##### Kemeny-Young
+Currently KemeyYoung is potentially subject to conflict leading to a relatively arbitrary final choice. Very likely thing in the case of a very small number of voters. the current implementation does not include any trick to the resolver.   
+
+The next option allows you to get rather than ranking, information on the existence or not of these conflicts. The following example mounts how you use it.   
+
+```php
+$test = $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ;
+
+if ( is_string($test) ) // There is conflicts
+{
+	$test = explode(";",$test);
+
+	echo 'Arbitrary results: Kemeny-Young has '.$test[0].' possible solutions at score '.$test[1] ;
+}
+else
+{
+	// $test is your habitual result ;
+}
+```    
 
 ---------------------------------------
 ### Customize the code : Add new algorithm(s) <a name="newAlgo"></a>  
