@@ -642,7 +642,7 @@ class Condorcet
 			}
 			else
 			{
-				if (!in_array($tag, $value['tag']))
+				if (!in_array($tag, $value['tag'],true))
 				{
 					unset($this->_Votes[$key]) ;
 					$effective++ ;
@@ -677,14 +677,14 @@ class Condorcet
 			{					
 				if ($with)
 				{
-					if (in_array($tag, $value['tag']))
+					if (in_array($tag, $value['tag'],true))
 					{
 						$search[$key] = $value ;
 					}
 				}
 				else
 				{
-					if (!in_array($tag, $value['tag']))
+					if (!in_array($tag, $value['tag'],true))
 					{
 						$search[$key] = $value ;
 					}
