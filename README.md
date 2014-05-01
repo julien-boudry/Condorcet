@@ -10,11 +10,11 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Project State
-To date, the 0.8 is a stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
+To date, the 0.9 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but external testers are more than welcome.
 **This open software project is beginning and needs your help for testing, improved documentation and features**  
 
 #### Specifications and standards  
-**Stable Version : 0.8**  
+**Stable Version : 0.9**  
 **PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 

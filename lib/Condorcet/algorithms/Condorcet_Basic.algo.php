@@ -2,7 +2,7 @@
 /*
 	Basic Condorcet Winner & Loser core part of the Condorcet PHP Class
 
-	Version : 0.8
+	Version : 0.9
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
