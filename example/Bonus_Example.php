@@ -165,6 +165,100 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	 </pre>
 
 
+<br><br><hr>
+
+<h2>Vote manipulation :</h2>
+
+	<h3>Display votes with tag "custom_tag_One"</h3>
+<?php
+	foreach ($calculator->getVotesList('custom_tag_One', true) as $vote)
+	{
+		echo '<div class="votant">';
+
+		echo '<strong style="color:green;">'.implode(' / ',$vote['tag']).'</strong><br>';
+
+		echo "<ol>";
+
+		foreach ($vote as $rank => $value)
+		{
+			if ($rank == 'tag') {continue ;}
+		?>
+
+			<li><?php echo implode(',',$value) ; ?></li>
+
+		<?php
+		}
+
+		echo '</ol><br></div>' ;
+	}
+?>
+<div style="clear:both;"></div>
+
+	<h3>Or without with tag "custom_tag_Two"</h3>
+<?php
+	foreach ($calculator->getVotesList('custom_tag_Two', false) as $vote)
+	{
+		echo '<div class="votant">';
+
+		echo '<strong style="color:green;">'.implode(' / ',$vote['tag']).'</strong><br>';
+
+		echo "<ol>";
+
+		foreach ($vote as $rank => $value)
+		{
+			if ($rank == 'tag') {continue ;}
+		?>
+
+			<li><?php echo implode(',',$value) ; ?></li>
+
+		<?php
+		}
+
+		echo '</ol><br></div>' ;
+	}
+?>
+<div style="clear:both;"></div>
+
+
+	<h3>Delete vote with "custom_tag_Two" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVote('custom_tag_One', false) ) ?>
+
+	<?php 
+		$calculator->removeVote('custom_tag_One') ;
+		$calculator->removeVote('custom_tag_Two') ;
+	?>
+
+
+	 <pre>
+	<?php var_dump($calculator->getResult('KemenyYoung')); ?>
+	 </pre>
+
+
+	<h3>Check the new vote list</h3>
+<?php
+	foreach ($calculator->getVotesList() as $vote)
+	{
+		echo '<div class="votant">';
+
+		echo '<strong style="color:green;">'.implode(' / ',$vote['tag']).'</strong><br>';
+
+		echo "<ol>";
+
+		foreach ($vote as $rank => $value)
+		{
+			if ($rank == 'tag') {continue ;}
+		?>
+
+			<li><?php echo implode(',',$value) ; ?></li>
+
+		<?php
+		}
+
+		echo '</ol><br></div>' ;
+	}
+?>
+<div style="clear:both;"></div>
+
+
 
 <br><br><hr>
 

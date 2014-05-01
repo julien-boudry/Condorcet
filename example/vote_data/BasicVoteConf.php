@@ -15,7 +15,7 @@
 
 	for ($i = 1 ; $i <= 42 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$calculator->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;
 
@@ -26,7 +26,7 @@
 
 	for ($i = 1 ; $i <= 26 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$calculator->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;
 
@@ -35,9 +35,13 @@
 	$vote[] = 'Nashville';
 	$vote[] = 'Memphis';
 
-	for ($i = 1 ; $i <= 15 ; $i++ )
+	for ($i = 1 ; $i <= 12 ; $i++ )
 	{
 		$calculator->addVote($vote) ;
+	}
+	for ($i = 1 ; $i <= 3 ; $i++ )
+	{
+		$calculator->addVote($vote, "custom_tag_One") ;
 	}
 	$vote = array() ;
 
@@ -48,6 +52,6 @@
 
 	for ($i = 1 ; $i <= 17 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$calculator->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;
