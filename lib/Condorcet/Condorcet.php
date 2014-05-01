@@ -50,6 +50,12 @@ class Condorcet
 		return $auth ;
 	}
 
+	// Return the Class default method
+	public static function getClassDefaultMethod ()
+	{
+		return self::$_classMethod ;
+	}
+
 
 	// Check if the method is supported
 	public static function isAuthMethod ($method)
@@ -141,7 +147,7 @@ class Condorcet
 				self::forceMethod($force);
 			}
 
-			return true ;
+			return self::getClassDefaultMethod() ;
 		}
 		else
 			{ return false ; }
