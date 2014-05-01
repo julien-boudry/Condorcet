@@ -2,7 +2,7 @@
 /*
 	Kemeny-Young part of the Condorcet PHP Class
 
-	Version : 0.8
+	Version : 0.9
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -54,19 +54,24 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 
 	// Get the Kemeny ranking
-	public function getResult ()
+	public function getResult ($options = null)
 	{
 		// Cache
-		if ( $this->_Result !== null )
+		if ( $this->_Result === null )
 		{
-			return $this->_Result ;
+			$this->calcPossibleRanking();
+			$this->calcRankingScore();
+			$this->makeRanking();
 		}
 
-			//////
-
-		$this->calcPossibleRanking();
-		$this->calcRankingScore();
-		$this->makeRanking();
+		if (!is_null($options) && isset($options['noConflict']) && $options['noConflict'] === true)
+		{
+			$conflicts = $this->conflictInfos() ;
+			if ( $conflicts !== false)
+			{
+				return $this->conflictInfos() ;
+			}
+		}
 
 		// Return
 		return $this->_Result ;
@@ -96,6 +101,27 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 		return $explicit ;
 	}
+
+		protected function conflictInfos ()
+		{
+			$max = max($this->_RankingScore) ;
+
+			$conflict = -1 ;
+			foreach ($this->_RankingScore as $value)
+			{
+				if ($value === $max)
+				{
+					$conflict++ ;
+				}
+			}
+
+			if ($conflict === 0) 
+				{return false ;}
+			else
+			{
+				return ($conflict + 1).';'.max($this->_RankingScore) ;
+			}
+		}
 
 
 /////////// COMPUTE ///////////

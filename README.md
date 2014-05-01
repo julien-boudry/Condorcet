@@ -4,17 +4,20 @@ Condorcet Class for PHP
 A PHP class implementing the Condorcet voting system and other Condorcet methods like the Schulze method.  
 _This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
 
-**Create by :** Julien Boudry (born 22/10/1988 - France)  
+**Create by :** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry)     
 **License :** MIT _(read de LICENSE file at the root folder)_  
-As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. You can also offer me a bottle of good wine.  
+As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
+**Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
 
 
 ### Project State
-To date, the 0.8 is a stable version, but still suffers from a lack of testing, especially on an advanced use of functional pannel. 
-**This open software project is beginning and needs your help for testing, improved documentation and features**  
+To date, the 0.9 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
+
+- To date, the library is used by [listening compared to the blind Gustav Mahler](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
+http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
-**Stable Version : 0.8**  
+**Stable Version : 0.9**  
 **PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 
@@ -39,7 +42,7 @@ The literature also provides you an easy example of free implementation with or 
 
 * **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
 
-* **Kemeny-Young** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
+* **KemenyYoung** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
 *Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding issue Github, and if you are able to comment on issues in Github.   
 Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation via the appropriate static method, but your processor could turn longptemps to exceed six candidates. It is not against by a limited number of voters.*
 
@@ -301,6 +304,7 @@ Will return a string with the Candidate Name or many separated by commas
 ```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default : Schulze)  
 $condorcet->getResult('Schulze') ; // Get a the result for a valid method.
+$condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See some details above.
 ```
 
 
@@ -312,6 +316,27 @@ $condorcet->getResultStats() ; // Get stats about computing result for the defau
 $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
 ```
 
+#### Specials options on getResult()
+
+##### Kemeny-Young
+Currently KemeyYoung is potentially subject to conflict leading to a relatively arbitrary final choice. Very likely thing in the case of a very small number of voters. the current implementation does not include any trick to the resolver.   
+
+The next option allows you to get rather than ranking, information on the existence or not of these conflicts. The following example mounts how you use it.   
+
+```php
+$test = $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ;
+
+if ( is_string($test) ) // There is conflicts
+{
+	$test = explode(";",$test);
+
+	echo 'Arbitrary results: Kemeny-Young has '.$test[0].' possible solutions at score '.$test[1] ;
+}
+else
+{
+	// $test is your habitual result ;
+}
+```    
 
 ---------------------------------------
 ### Customize the code : Add new algorithm(s) <a name="newAlgo"></a>  

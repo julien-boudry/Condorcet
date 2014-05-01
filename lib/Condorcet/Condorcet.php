@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.8
+	Version : 0.9
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -28,8 +28,8 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.8' ;
-	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for option identifiant string
+	const VERSION = '0.9' ;
+	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= '' ;
@@ -50,6 +50,12 @@ class Condorcet
 		return $auth ;
 	}
 
+	// Return the Class default method
+	public static function getClassDefaultMethod ()
+	{
+		return self::$_classMethod ;
+	}
+
 
 	// Check if the method is supported
 	public static function isAuthMethod ($method)
@@ -66,6 +72,9 @@ class Condorcet
 	// Add algos
 	public static function addAlgos ($algos)
 	{
+		$to_add = array() ;
+
+		// Check algos
 		if ( is_null($algos) )
 			{ return false ; }
 
@@ -76,10 +85,7 @@ class Condorcet
 				return false ;
 			}
 
-			if ( empty(self::$_authMethods) )
-				{ self::$_authMethods .= $algos ; }
-			else
-				{ self::$_authMethods .= ','.$algos ; }
+			$to_add[] = $algos ; 
 		}
 
 		elseif ( is_array($algos) )
@@ -91,15 +97,23 @@ class Condorcet
 					return false ;
 				}
 
-				if ( self::isAuthMethod($value) )
-					{ continue; }
-
-				if ( empty(self::$_authMethods) )
-					{ self::$_authMethods .= $value ; }
-				else
-					{ self::$_authMethods .= ','.$value ; }
+				if ( !self::isAuthMethod($value) )
+				{
+					$to_add[] = $value ; 
+				}
 			}
 		}
+
+		// Adding algo
+		foreach ($to_add as $value)
+		{
+			if ( empty(self::$_authMethods) )
+				{ self::$_authMethods .= $value ; }
+			else
+				{ self::$_authMethods .= ','.$value ; }
+		}
+
+		return true ;
 	}
 
 		// Check if the class Algo. exist and ready to be used
@@ -122,39 +136,48 @@ class Condorcet
 
 
 	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
-	public static function setClassMethod ($method, $force = false)
+	public static function setClassMethod ($method, $force = null)
 	{		
 		if ( self::isAuthMethod($method) )
 		{
 			self::$_classMethod = $method ;
 
-			self::forceMethod($force);
+			if (is_bool($force))
+			{
+				self::forceMethod($force);
+			}
+
+			return self::getClassDefaultMethod() ;
 		}
+		else
+			{ return false ; }
 	}
 
-			// if $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
+			// If $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
 			public static function forceMethod ($force = true)
 			{
 				if ($force)
 				{
 					self::$_forceMethod = true ;
+					return true ;
 				}
 				else
 				{
 					self::$_forceMethod = false ;
+					return false ;
 				}
 			}
 
 
 	public static function error ($code, $infos = null, $level = E_USER_WARNING)
 	{
-		$error[1] = array('text'=>'Bad option format', 'level'=>E_USER_WARNING) ;
+		$error[1] = array('text'=>'Bad candidate format', 'level'=>E_USER_WARNING) ;
 		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
-		$error[3] = array('text'=>'This option ID is already registered', 'level'=>E_USER_NOTICE) ;
-		$error[4] = array('This option ID do not exist'=>'', 'level'=>E_USER_WARNING) ;
+		$error[3] = array('text'=>'This candidate ID is already registered', 'level'=>E_USER_NOTICE) ;
+		$error[4] = array('text'=> 'This candidate ID do not exist', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
 		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
-		$error[7] = array('text'=>'Your Option ID is too long > '.self::MAX_LENGTH_CANDIDATE_ID, 'level'=>E_USER_WARNING) ;
+		$error[7] = array('text'=>'Your Candidate ID is too long > '.self::MAX_LENGTH_CANDIDATE_ID, 'level'=>E_USER_WARNING) ;
 		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
 		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
 		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
@@ -192,7 +215,7 @@ class Condorcet
 
 	// Mechanics 
 	protected $_i_CandidateId	= 'A' ;
-	protected $_State	= 1 ; // 1 = Add Option / 2 = Voting / 3 = Some result have been computing
+	protected $_State	= 1 ; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
 	protected $_CandidatesCount = 0 ;
 	protected $_nextVoteTag = 0 ;
 	protected $_objectVersion ;
@@ -223,7 +246,7 @@ class Condorcet
 
 	public function __sleep ()
 	{
-		// Don't include computing data, only options & votes
+		// Don't include computing data, only candidates & votes
 		return array	(
 			'_Method',
 			'_Candidates',
@@ -265,18 +288,21 @@ class Condorcet
 	}
 
 
-	// Return object state with options & votes input
+	// Return object state with somes infos
 	public function getConfig ()
 	{
 		$this->setMethod() ;
 
 		return array 	(
+							'CondorcetObject_Version' => $this->getObjectVersion(),
+
 							'object_Method'		=> $this->getMethod(),
 							'class_default_Method'	=> self::$_classMethod,
-							'class_authMethods'=> self::getAuthMethods(),
 							'force_classMethod'=> self::$_forceMethod,
 
-							'object_state'		=> $this->_State
+							'class_authMethods'=> self::getAuthMethods(),
+
+							'state'		=> $this->_State
 						);
 	}
 
@@ -300,6 +326,8 @@ class Condorcet
 		$this->_State	= 1 ;
 
 		$this->setMethod() ;
+
+		return true ;
 	}
 
 
@@ -307,7 +335,7 @@ class Condorcet
 /////////// CANDIDATES ///////////
 
 
-	// Add a vote option before voting
+	// Add a vote candidate before voting
 	public function addCandidate ($candidate_id = null)
 	{
 		// only if the vote has not started
@@ -321,7 +349,7 @@ class Condorcet
 
 		
 		// Process
-		if ( empty($candidate_id) ) // Option_id is empty ...
+		if ( empty($candidate_id) ) // $candidate_id is empty ...
 		{
 			while ( !$this->try_addCandidate($this->_i_CandidateId) )
 			{
@@ -342,7 +370,7 @@ class Condorcet
 				$this->_Candidates[] = $candidate_id ;
 				$this->_CandidatesCount++ ;
 
-				return true ;
+				return $candidate_id ;
 			}
 			else
 			{
@@ -357,7 +385,7 @@ class Condorcet
 		}
 
 
-	// Destroy a register vote option before voting
+	// Destroy a register vote candidate before voting
 	public function removeCandidate ($list)
 	{
 		// only if the vote has not started
@@ -366,33 +394,40 @@ class Condorcet
 		
 		if ( !is_array($list) )
 		{
-			$candidate_id	= array($candidate_id) ;
+			$list	= array($list) ;
+		}
+
+		foreach ($list as &$candidate_id)
+		{
+			$candidate_id = trim($candidate_id) ;
+
+			$candidate_key = $this->getCandidateKey($candidate_id) ;
+
+			if ( $candidate_key === false )
+				{ return self::error(4,$candidate_id) ; }
+
+			$candidate_id = $candidate_key ;
 		}
 
 		foreach ($list as $candidate_id)
 		{
-			$value = trim($candidate_id) ;
-
-			$option_key = $this->getCandidateKey($candidate_id) ;
-
-			if ( $option_key === false )
-				{ return self::error(4,$candidate_id) ; }
-
-			unset($this->_Candidates[$option_key]) ;
+			unset($this->_Candidates[$candidate_id]) ;
 			$this->_CandidatesCount-- ;
 		}
+
+		return true ;
 	}
 
 
-		//:: OPTIONS TOOLS :://
+		//:: CANDIDATES TOOLS :://
 
-		// Count registered options
+		// Count registered candidates
 		public function countCandidates ()
 		{
 			return $this->_CandidatesCount ;
 		}
 
-		// Get the list of registered option
+		// Get the list of registered CANDIDATES
 		public function getCandidatesList ()
 		{
 			return $this->_Candidates ;
@@ -416,7 +451,7 @@ class Condorcet
 				return $candidates[$candidate_key] ;
 			}
 
-		protected function existCandidateId ($candidate_id)
+		public function existCandidateId ($candidate_id)
 		{
 			return in_array($candidate_id, $this->_Candidates) ;
 		}
@@ -426,7 +461,7 @@ class Condorcet
 /////////// VOTING ///////////
 
 
-	// Close the option config, be ready for voting (optional)
+	// Close the candidate config, be ready for voting (optional)
 	public function closeCandidatesConfig ()
 	{
 		if ( $this->_State === 1 )
@@ -444,7 +479,7 @@ class Condorcet
 	}
 
 
-	// Add a single vote. Array key is the rank, each option in a rank are separate by ',' It is not necessary to register the last rank.
+	// Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
 	public function addVote ($vote, $tag = null)
 	{
 		$this->closeCandidatesConfig() ;
@@ -469,7 +504,7 @@ class Condorcet
 		ksort($vote);
 
 		// Register vote
-		return $this->registerVote($vote, $tag) ;
+		return $this->registerVote($vote, $tag) ; // Return the array vote tag(s)
 	}
 
 		// From a string like 'A>B=C=H>G=T>Q'
@@ -493,14 +528,14 @@ class Condorcet
 
 		protected function checkVoteInput ($vote)
 		{
-			$list_option = array() ;
+			$list_candidate = array() ;
 
 			if ( count($vote) > $this->_CandidatesCount || count($vote) < 1 )
 				{ return false ; }
 
 			foreach ($vote as $rank => $choice)
 			{
-				// Check key & option
+				// Check key & candidate
 				if ( !is_numeric($rank) || $rank > $this->_CandidatesCount || empty($choice) )
 					{ return false ; }
 
@@ -508,23 +543,23 @@ class Condorcet
 
 				if (!is_array($choice))
 				{
-					$options = explode(',', $choice) ;
+					$candidates = explode(',', $choice) ;
 				}
 				else
 				{
-					$options = $choice ;
+					$candidates = $choice ;
 				}
 
-				foreach ($options as $option)
+				foreach ($candidates as $candidate)
 				{
-					if ( !$this->existCandidateId($option) )
+					if ( !$this->existCandidateId($candidate) )
 					{
 						return false ;
 					}
 
-					// Do not do 2x the same option
-					if ( !in_array($option, $list_option)  )
-						{ $list_option[] = $option ; }
+					// Do not do 2x the same candidate
+					if ( !in_array($candidate, $list_candidate)  )
+						{ $list_candidate[] = $candidate ; }
 					else 
 						{ return false ; }
 				}
@@ -552,9 +587,9 @@ class Condorcet
 				}
 
 				// $last_line_check
-				foreach ($vote_r[$i] as $option)
+				foreach ($vote_r[$i] as $candidate)
 				{
-					$last_line_check[] = $this->getCandidateKey($option) ;
+					$last_line_check[] = $this->getCandidateKey($candidate) ;
 				}
 
 				$i++ ;
@@ -593,23 +628,29 @@ class Condorcet
 
 			//////
 
+		$effective = 0 ;
+
 		foreach ($this->_Votes as $key => $value)
-		{					
+		{
 			if ($with)
 			{
 				if (in_array($tag, $value['tag']))
 				{
 					unset($this->_Votes[$key]) ;
+					$effective++ ;
 				}
 			}
 			else
 			{
-				if (!in_array($tag, $value['tag']))
+				if (!in_array($tag, $value['tag'],true))
 				{
 					unset($this->_Votes[$key]) ;
+					$effective++ ;
 				}
 			}
 		}
+
+		return $effective ;
 	}
 
 
@@ -636,14 +677,14 @@ class Condorcet
 			{					
 				if ($with)
 				{
-					if (in_array($tag, $value['tag']))
+					if (in_array($tag, $value['tag'],true))
 					{
 						$search[$key] = $value ;
 					}
 				}
 				else
 				{
-					if (!in_array($tag, $value['tag']))
+					if (!in_array($tag, $value['tag'],true))
 					{
 						$search[$key] = $value ;
 					}
@@ -663,7 +704,7 @@ class Condorcet
 
 
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = null)
+	public function getResult ($method = null, array $options = null)
 	{
 		// Method
 		$this->setMethod() ;
@@ -676,13 +717,13 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			$result = $this->_Calculator[$this->_Method]->getResult() ;
+			$result = $this->_Calculator[$this->_Method]->getResult($options) ;
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			$result = $this->_Calculator[$method]->getResult() ;
+			$result = $this->_Calculator[$method]->getResult($options) ;
 		}
 		else
 		{
@@ -694,26 +735,32 @@ class Condorcet
 
 		protected function humanResult ($robot)
 		{
+			if (!is_array($robot))
+				{return $robot ;}
+
 			$human = array() ;
 
 			foreach ( $robot as $key => $value )
 			{
 				if (is_array($value))
 				{
-					foreach ($value as $option_key)
+					foreach ($value as $candidate_key)
 					{
-						$human[$key][] = $this->getCandidateId($option_key) ;
+						$human[$key][] = $this->getCandidateId($candidate_key) ;
 					}
 				}
+				elseif (is_null($value))
+					{ $human[$key] = null ;	}
 				else
-				{
-					$human[$key][] = $this->getCandidateId($value) ;
-				}
+					{ $human[$key][] = $this->getCandidateId($value) ; }
 			}
 
 			foreach ( $human as $key => $value )
 			{
-				$human[$key] = implode(',',$value);
+				if (is_null($value))
+					{ $human[$key] = null; }
+				else
+					{ $human[$key] = implode(',',$value); }
 			}
 
 			return $human ;
@@ -869,28 +916,23 @@ class Condorcet
 	{
 		$this->prepareResult() ;
 
-		return self::getStatic_Pairwise ($this->_Pairwise, $this->_Candidates) ;
-	}
+		$explicit_pairwise = array() ;
 
-		public static function getStatic_Pairwise (&$pairwise, &$options)
+		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
 		{
-			$explicit_pairwise = array() ;
-
-			foreach ($pairwise as $candidate_key => $candidate_value)
+			$candidate_key = $this->getCandidateId($candidate_key) ;
+			
+			foreach ($candidate_value as $mode => $mode_value)
 			{
-				$candidate_key = self::getStatic_CandidateId($candidate_key, $options) ;
-				
-				foreach ($candidate_value as $mode => $mode_value)
+				foreach ($mode_value as $candidate_list_key => $candidate_list_value)
 				{
-					foreach ($mode_value as $option_key => $option_value)
-					{
-						$explicit_pairwise[$candidate_key][$mode][self::getStatic_CandidateId($option_key,$options)] = $option_value ;
-					}
+					$explicit_pairwise[$candidate_key][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
 				}
 			}
-
-			return $explicit_pairwise ;
 		}
+
+		return $explicit_pairwise ;
+	}
 
 
 
@@ -903,17 +945,17 @@ class Condorcet
 	{		
 		$this->_Pairwise = array() ;
 
-		foreach ( $this->_Candidates as $option_key => $candidate_id )
+		foreach ( $this->_Candidates as $candidate_key => $candidate_id )
 		{
-			$this->_Pairwise[$option_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() ) ;
+			$this->_Pairwise[$candidate_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() ) ;
 
-			foreach ( $this->_Candidates as $option_key_r => $candidate_id_r )
+			foreach ( $this->_Candidates as $candidate_key_r => $candidate_id_r )
 			{
-				if ($option_key_r != $option_key)
+				if ($candidate_key_r != $candidate_key)
 				{
-					$this->_Pairwise[$option_key]['win'][$option_key_r]		= 0 ;
-					$this->_Pairwise[$option_key]['null'][$option_key_r]	= 0 ;
-					$this->_Pairwise[$option_key]['lose'][$option_key_r]	= 0 ;
+					$this->_Pairwise[$candidate_key]['win'][$candidate_key_r]	= 0 ;
+					$this->_Pairwise[$candidate_key]['null'][$candidate_key_r]	= 0 ;
+					$this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]	= 0 ;
 				}
 			}
 		}
@@ -926,40 +968,40 @@ class Condorcet
 
 			$done_Candidates = array() ;
 
-			foreach ($vote_ranking as $options_in_rank)
+			foreach ($vote_ranking as $candidates_in_rank)
 			{
-				$options_in_rank_keys = array() ;
+				$candidates_in_rank_keys = array() ;
 
-				foreach ($options_in_rank as $option)
+				foreach ($candidates_in_rank as $candidate)
 				{
-					$options_in_rank_keys[] = $this->getCandidateKey($option) ;
+					$candidates_in_rank_keys[] = $this->getCandidateKey($candidate) ;
 				}
 
-				foreach ($options_in_rank as $option)
+				foreach ($candidates_in_rank as $candidate)
 				{
-					$option_key = $this->getCandidateKey($option);
+					$candidate_key = $this->getCandidateKey($candidate);
 
 					// Process
-					foreach ( $this->_Candidates as $g_option_key => $g_CandidateId )
+					foreach ( $this->_Candidates as $g_candidate_key => $g_CandidateId )
 					{
 						// Win
-						if (	$option_key !== $g_option_key && 
-								!in_array($g_option_key, $done_Candidates, true) && 
-								!in_array($g_option_key, $options_in_rank_keys, true)
+						if (	$candidate_key !== $g_candidate_key && 
+								!in_array($g_candidate_key, $done_Candidates, true) && 
+								!in_array($g_candidate_key, $candidates_in_rank_keys, true)
 							)
 						{
-							$this->_Pairwise[$option_key]['win'][$g_option_key]++ ;
+							$this->_Pairwise[$candidate_key]['win'][$g_candidate_key]++ ;
 
-							$done_Candidates[] = $option_key ;
+							$done_Candidates[] = $candidate_key ;
 						}
 
 						// Null
-						if (	$option_key !== $g_option_key &&
-								count($options_in_rank) > 1 &&
-								in_array($g_option_key, $options_in_rank_keys)
+						if (	$candidate_key !== $g_candidate_key &&
+								count($candidates_in_rank) > 1 &&
+								in_array($g_candidate_key, $candidates_in_rank_keys)
 							)
 						{
-							$this->_Pairwise[$option_key]['null'][$g_option_key]++ ;
+							$this->_Pairwise[$candidate_key]['null'][$g_candidate_key]++ ;
 						}
 					}
 				}
@@ -978,11 +1020,50 @@ class Condorcet
 			}
 		}
 	}
+
+
+
+/////////// TOOLS FOR MODULAR ALGORITHMS ///////////
+
+
+	public static function makeStatic_PairwiseComparison (&$pairwise)
+	{
+		$comparison = array();
+
+		foreach ($pairwise as $candidate_key => $candidate_data)
+		{
+			$comparison[$candidate_key]['win'] = 0 ;
+			$comparison[$candidate_key]['null'] = 0 ;
+			$comparison[$candidate_key]['lose'] = 0 ;
+			$comparison[$candidate_key]['balance'] = 0 ;
+
+			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
+			{
+				if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] )
+				{
+					$comparison[$candidate_key]['win']++ ;
+					$comparison[$candidate_key]['balance']++ ;
+				}
+				elseif ( $opponenent['lose'] === $candidate_data['lose'][$opponenent['key']] )
+				{
+					$comparison[$candidate_key]['null']++ ;
+				}
+				else
+				{
+					$comparison[$candidate_key]['lose']++ ;
+					$comparison[$candidate_key]['balance']-- ;
+				}
+			}
+		}
+
+		return $comparison ;
+	}
+
 }
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
 interface Condorcet_Algo
 {
-	public function getResult();
+	public function getResult($options);
 	public function getStats();
 }
