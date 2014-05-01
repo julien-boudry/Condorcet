@@ -18,7 +18,7 @@ $calculator = new Condorcet () ;
 
 // Inluding Data
 
-require_once 'voteConf.php' ;
+require_once 'vote_data'.DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 
 define('TEST_NAME', 'Condorcet Bonus Example');
 
@@ -107,7 +107,68 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 <br><br><hr>
 
+<h2>Some pratices about default method :</h2>
 
+	<h3>Use default method :</h3>
+	
+	<strong>Defaut:</strong> <?php echo $calculator->getMethod() ; ?> <br>
+
+	 <pre>
+	<?php var_dump($calculator->getResult()); ?>
+	 </pre>
+
+	<h3>Change it to MiniMax_Margin :</h3>
+
+	<strong>Defaut:</strong> <?php echo $calculator->setMethod('Minimax_Margin') ; ?> <br>
+
+	 <pre>
+	<?php var_dump($calculator->getResult()); ?>
+	 </pre>
+
+
+	<h3>Come back to the Class default method :</h3>
+
+	<strong>Defaut:</strong> <?php echo $calculator->setMethod(Condorcet::getClassDefaultMethod()) ; ?> <br>
+
+	 <pre>
+	<?php var_dump($calculator->getResult()); ?>
+	 </pre>
+
+
+	<h3>Force all object from Condorcet to use by default Kemeny-Young:</h3>
+
+	<?php 
+		Condorcet::setClassMethod('KemenyYoung', true); 
+		$calculator->setMethod('Copeland') ;
+
+	?>
+
+	<strong>Defaut:</strong> <?php echo $calculator->getMethod() ; ?> <br>
+
+	 <pre>
+	<?php var_dump($calculator->getResult()); ?>
+	 </pre>
+
+
+	<h3>Unforce it:</h3>
+	
+	<?php 
+		Condorcet::forceMethod(false) ;
+		$calculator->setMethod('Minimax_Opposition') ;
+	?>
+
+
+	<strong>Defaut:</strong> <?php echo $calculator->getMethod(); ?> <br>
+
+	 <pre>
+	<?php var_dump($calculator->getResult()); ?>
+	 </pre>
+
+
+
+<br><br><hr>
+
+<h2>Debug Data :</h2>
 
  <h4>About object :</h4>
 

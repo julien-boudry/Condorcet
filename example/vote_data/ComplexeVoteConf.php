@@ -1,6 +1,6 @@
 <?php
 
-	// Candidates
+// Candidates
 	$calculator->addCandidate('A');
 	$calculator->addCandidate('C');
 	$calculator->addCandidate('B');
@@ -8,7 +8,7 @@
 	$calculator->addCandidate('D');
 
 
-	// Votants
+// Votes
 	$vote = array() ;
 	$vote[1] = 'A';
 	$vote[2] = 'C';
