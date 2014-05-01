@@ -66,6 +66,9 @@ class Condorcet
 	// Add algos
 	public static function addAlgos ($algos)
 	{
+		$to_add = array() ;
+
+		// Check algos
 		if ( is_null($algos) )
 			{ return false ; }
 
@@ -76,10 +79,7 @@ class Condorcet
 				return false ;
 			}
 
-			if ( empty(self::$_authMethods) )
-				{ self::$_authMethods .= $algos ; }
-			else
-				{ self::$_authMethods .= ','.$algos ; }
+			$to_add[] = $algos ; 
 		}
 
 		elseif ( is_array($algos) )
@@ -91,15 +91,23 @@ class Condorcet
 					return false ;
 				}
 
-				if ( self::isAuthMethod($value) )
-					{ continue; }
-
-				if ( empty(self::$_authMethods) )
-					{ self::$_authMethods .= $value ; }
-				else
-					{ self::$_authMethods .= ','.$value ; }
+				if ( !self::isAuthMethod($value) )
+				{
+					$to_add[] = $value ; 
+				}
 			}
 		}
+
+		// Adding algo
+		foreach ($to_add as $value)
+		{
+			if ( empty(self::$_authMethods) )
+				{ self::$_authMethods .= $value ; }
+			else
+				{ self::$_authMethods .= ','.$value ; }
+		}
+
+		return true ;
 	}
 
 		// Check if the class Algo. exist and ready to be used
@@ -122,26 +130,35 @@ class Condorcet
 
 
 	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
-	public static function setClassMethod ($method, $force = false)
+	public static function setClassMethod ($method, $force = null)
 	{		
 		if ( self::isAuthMethod($method) )
 		{
 			self::$_classMethod = $method ;
 
-			self::forceMethod($force);
+			if (is_bool($force))
+			{
+				self::forceMethod($force);
+			}
+
+			return true ;
 		}
+		else
+			{ return false ; }
 	}
 
-			// if $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
+			// If $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
 			public static function forceMethod ($force = true)
 			{
 				if ($force)
 				{
 					self::$_forceMethod = true ;
+					return true ;
 				}
 				else
 				{
 					self::$_forceMethod = false ;
+					return false ;
 				}
 			}
 
@@ -151,7 +168,7 @@ class Condorcet
 		$error[1] = array('text'=>'Bad candidate format', 'level'=>E_USER_WARNING) ;
 		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
 		$error[3] = array('text'=>'This candidate ID is already registered', 'level'=>E_USER_NOTICE) ;
-		$error[4] = array('This candidate ID do not exist'=>'', 'level'=>E_USER_WARNING) ;
+		$error[4] = array('text'=> 'This candidate ID do not exist', 'level'=>E_USER_WARNING) ;
 		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
 		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
 		$error[7] = array('text'=>'Your Candidate ID is too long > '.self::MAX_LENGTH_CANDIDATE_ID, 'level'=>E_USER_WARNING) ;
@@ -303,6 +320,8 @@ class Condorcet
 		$this->_State	= 1 ;
 
 		$this->setMethod() ;
+
+		return true ;
 	}
 
 
@@ -369,21 +388,28 @@ class Condorcet
 		
 		if ( !is_array($list) )
 		{
-			$candidate_id	= array($candidate_id) ;
+			$list	= array($list) ;
 		}
 
-		foreach ($list as $candidate_id)
+		foreach ($list as &$candidate_id)
 		{
-			$value = trim($candidate_id) ;
+			$candidate_id = trim($candidate_id) ;
 
 			$candidate_key = $this->getCandidateKey($candidate_id) ;
 
 			if ( $candidate_key === false )
 				{ return self::error(4,$candidate_id) ; }
 
-			unset($this->_Candidates[$candidate_key]) ;
+			$candidate_id = $candidate_key ;
+		}
+
+		foreach ($list as $candidate_id)
+		{
+			unset($this->_Candidates[$candidate_id]) ;
 			$this->_CandidatesCount-- ;
 		}
+
+		return true ;
 	}
 
 
@@ -419,7 +445,7 @@ class Condorcet
 				return $candidates[$candidate_key] ;
 			}
 
-		protected function existCandidateId ($candidate_id)
+		public function existCandidateId ($candidate_id)
 		{
 			return in_array($candidate_id, $this->_Candidates) ;
 		}
@@ -472,7 +498,7 @@ class Condorcet
 		ksort($vote);
 
 		// Register vote
-		return $this->registerVote($vote, $tag) ;
+		return $this->registerVote($vote, $tag) ; // Return the array vote tag(s)
 	}
 
 		// From a string like 'A>B=C=H>G=T>Q'
@@ -596,13 +622,16 @@ class Condorcet
 
 			//////
 
+		$effective = 0 ;
+
 		foreach ($this->_Votes as $key => $value)
-		{					
+		{
 			if ($with)
 			{
 				if (in_array($tag, $value['tag']))
 				{
 					unset($this->_Votes[$key]) ;
+					$effective++ ;
 				}
 			}
 			else
@@ -610,9 +639,12 @@ class Condorcet
 				if (!in_array($tag, $value['tag']))
 				{
 					unset($this->_Votes[$key]) ;
+					$effective++ ;
 				}
 			}
 		}
+
+		return $effective ;
 	}
 
 
