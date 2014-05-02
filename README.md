@@ -44,7 +44,7 @@ The literature also provides you an easy example of free implementation with or 
 
 * **KemenyYoung** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
 *Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding issue Github, and if you are able to comment on issues in Github.   
-Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation via the appropriate static method, but your processor could turn longptemps to exceed six candidates. It is not against by a limited number of voters.*
+Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation by using ```namespace\KemenyYoung::setMaxCandidates(6);```, but your processor could work a long time to exceed six candidates. In contrast, the number of voters do not impact the calculation time significantly.*
 
 * **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion)*  
