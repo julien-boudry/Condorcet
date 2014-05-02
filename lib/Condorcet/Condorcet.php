@@ -1036,6 +1036,7 @@ class Condorcet
 			$comparison[$candidate_key]['null'] = 0 ;
 			$comparison[$candidate_key]['lose'] = 0 ;
 			$comparison[$candidate_key]['balance'] = 0 ;
+			$comparison[$candidate_key]['worst_defeat'] = 0 ;
 
 			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
 			{
@@ -1052,6 +1053,12 @@ class Condorcet
 				{
 					$comparison[$candidate_key]['lose']++ ;
 					$comparison[$candidate_key]['balance']-- ;
+
+					// Worst defeat
+					if ($comparison[$candidate_key]['worst_defeat'] < $candidate_data['lose'][$opponenent['key']])
+					{
+						$comparison[$candidate_key]['worst_defeat'] = $candidate_data['lose'][$opponenent['key']] ;
+					}
 				}
 			}
 		}
