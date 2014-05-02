@@ -1071,7 +1071,6 @@ class Condorcet
 		$comparison = self::makeStatic_PairwiseComparison($pairwise);
 
 		$score = array() ;	
-		$result = array() ;
 
 		foreach ($pairwise as $candidate_key => $candidate_value)
 		{
@@ -1116,7 +1115,6 @@ class Condorcet
 			}
 		});
 
-		var_dump($score);
 
 		return $score ;
 	}
