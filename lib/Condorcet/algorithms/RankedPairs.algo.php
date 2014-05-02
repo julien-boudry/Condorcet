@@ -20,7 +20,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 	protected $_Candidates ;
 
 	// Ranked Pairs
-	protected $_Comparison ;
+	protected $_PairwiseSort ;
 	protected $_Result ;
 
 
@@ -49,12 +49,15 @@ class RankedPairs implements namespace\Condorcet_Algo
 		// Comparison calculation
 		$this->_Comparison = namespace\Condorcet::makeStatic_PairwiseComparison($this->_Pairwise) ;
 
+		// Sort pairwise
+		$this->_PairwiseSort = namespace\Condorcet::makeStatic_PairwiseSort($this->_Pairwise) ;
+
 		// Ranking calculation
 		$this->makeRanking() ;
 
 
 		// Return
-		return $this->_Result ;
+		// return $this->_PairwiseSort ;
 	}
 
 

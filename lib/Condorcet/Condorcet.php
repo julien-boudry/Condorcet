@@ -1066,6 +1066,61 @@ class Condorcet
 		return $comparison ;
 	}
 
+	public static function makeStatic_PairwiseSort (&$pairwise)
+	{
+		$comparison = self::makeStatic_PairwiseComparison($pairwise);
+
+		$score = array() ;	
+		$result = array() ;
+
+		foreach ($pairwise as $candidate_key => $candidate_value)
+		{
+			foreach ($candidate_value['win'] as $challenger_key => $challenger_value)
+			{
+				if ($challenger_value > $candidate_value['lose'][$challenger_key])
+				{
+					$score[$candidate_key.'>'.$challenger_key]['score'] = $challenger_value ;
+					$score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key] ;
+					$score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key] ;
+				}
+				elseif ( $challenger_value === $candidate_value['lose'][$challenger_key] && !isset($score[$challenger_key.'>'.$candidate_key]) )
+				{
+					if ($comparison[$candidate_key]['worst_defeat'] <= $comparison[$challenger_key]['worst_defeat'])
+					{
+						$score[$candidate_key.'>'.$challenger_key]['score'] = 0.1 ;
+						$score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key] ;
+						$score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key] ;
+					}
+				}
+			}
+		}
+
+
+		uasort($score, function ($a, $b){
+			if ($a['score'] < $b['score']) {return 1;} elseif ($a['score'] > $b['score']) {return -1 ;}
+			elseif ($a['score'] === $b['score'])
+			{
+				if ($a['minority'] > $b['minority'])
+					{ return 1 ; }
+				elseif ($a['minority'] < $b['minority'])
+					{ return -1 ; }
+				elseif ($a['minority'] === $b['minority'])
+					{ 
+						if ($a['margin'] < $b['margin'])
+							{ return 1 ; }
+						elseif ($a['margin'] > $b['margin'])
+							{ return -1 ; }
+						else
+							{ return 0 ; }
+					}
+			}
+		});
+
+		var_dump($score);
+
+		return $score ;
+	}
+
 }
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
