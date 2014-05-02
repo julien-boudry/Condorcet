@@ -123,7 +123,6 @@ class RankedPairs implements namespace\Condorcet_Algo
 				if ($count_cycle[$candidate] > 1) // There is a cycle
 				{
 					$this->delArc($test_cycle, $candidate);
-					var_dump($construct);
 
 					return ;
 				}				
@@ -138,7 +137,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 						continue ;
 					}
 
-					$candidat = $new_arc['to'];
+					$candidate_next = $new_arc['to'];
 
 					$done_next = $done ;
 					$done_next[] = $new_arc_key ;
@@ -146,7 +145,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 					// Recursive
 					$construct_next = $construct ;
 					if ($construct_next !== ''){$construct_next .= '-';}
-					$this->checkDelArc($candidate, $construct_next.$new_arc['from'].'-'.$new_arc['to'], $done_next);
+					$this->checkDelArc($candidate_next, $construct_next.$new_arc['to'], $done_next);
 				}
 			}
 			
@@ -154,6 +153,51 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 		protected function delArc ($test_cycle, $candidate)
 		{
+			$cycles = array() ;
+
+			$i = 1 ; $phase = false ;
+			foreach ($test_cycle as $value)
+			{
+				if ($i === 1 && !$phase)
+				{
+					$cycles[$i] = '' ;
+					$cycles[$i] .= $value ;
+
+					$phase = !$phase ;
+
+					continue ;
+				}
+
+				///
+
+				$cycles[$i] .= '>'.$value ;
+
+				if ($i + 1 < count($test_cycle))
+				{
+					$cycles[$i + 1] = '' ;
+					$cycles[$i + 1] .= $value ;
+				}
+
+				$i++ ;
+			}
+
+			$score = array() ;
+			foreach ($cycles as $key => $value)
+			{
+				$score[$key] = $this->_PairwiseSort[$value]['score'] ;
+			}
+
+			$to_del = $cycles[array_search(min($score), $score, true)] ;
+			$to_del = explode ('>', $to_del);
+
+			foreach ($this->_arcs as $key => $value)
+			{
+				if ($value['from'] === $to_del[0] && $value['to'] === $to_del[1])
+				{
+					var_dump($this->_arcs[$key]);
+					unset($this->_arcs[$key]);
+				}
+			}
 
 		}
 
