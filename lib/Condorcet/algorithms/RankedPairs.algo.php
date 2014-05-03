@@ -174,10 +174,8 @@ class RankedPairs implements namespace\Condorcet_Algo
 					$done_next[] = $new_arc_key ;
 
 					// Recursive
-					if (count($done) < 3)
-					{
-						$this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
-					}
+					$this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
+
 				}
 			}			
 		}
