@@ -1094,7 +1094,6 @@ class Condorcet
 			}
 		}
 
-
 		uasort($score, function ($a, $b){
 			if ($a['score'] < $b['score']) {return 1;} elseif ($a['score'] > $b['score']) {return -1 ;}
 			elseif ($a['score'] === $b['score'])
@@ -1114,7 +1113,6 @@ class Condorcet
 					}
 			}
 		});
-
 
 		return $score ;
 	}

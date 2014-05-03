@@ -1,6 +1,6 @@
 <?php
 /*
-	Copeland part of the Condorcet PHP Class
+	Ranked Pairs part of the Condorcet PHP Class
 
 	Version : 0.9
 
@@ -71,7 +71,6 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 			$this->_Result[] = $winner;
 		}
-
 
 		// Return
 		return $this->_Result ;
@@ -237,7 +236,6 @@ class RankedPairs implements namespace\Condorcet_Algo
 					unset($this->_Arcs[$key]);
 				}
 			}
-
 		}
 
 }

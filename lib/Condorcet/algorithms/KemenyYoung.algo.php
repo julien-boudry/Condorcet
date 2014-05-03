@@ -1,6 +1,6 @@
 <?php
 /*
-	Ranked Pairs part of the Condorcet PHP Class
+	Kemeny-Young part of the Condorcet PHP Class
 
 	Version : 0.9
 
