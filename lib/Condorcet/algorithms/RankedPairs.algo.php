@@ -82,6 +82,43 @@ class RankedPairs implements namespace\Condorcet_Algo
 	{
 		$this->makeArcs();
 
+		$this->_Result = array() ;
+
+		while (count($this->_Result) < $this->_CandidatesCount)
+		{
+			$winner = $this->getOneWinner();
+
+			foreach ($this->_arcs as $ArcKey => $Arcvalue)
+			{
+				if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner )
+				{
+					unset($this->_arcs[$ArcKey]);
+				}
+			}
+
+			$this->_Result[] = $winner;
+		}
+	}
+
+	protected function getOneWinner ()
+	{
+		foreach ($this->_Candidates as $candidateKey => $candidateId)
+		{
+			if (!in_array($candidateKey, $this->_Result, true))
+			{
+				$winner = true ;
+				foreach ($this->_arcs as $ArcKey => $ArcValue)
+				{
+					if ($ArcValue['to'] === $candidateKey)
+						{ $winner = false ;}
+				}
+
+				if ($winner)
+				{
+					return $candidateKey ;
+				}
+			}
+		}
 	}
 
 	protected function makeArcs ()
@@ -95,26 +132,17 @@ class RankedPairs implements namespace\Condorcet_Algo
 			$this->_arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strong' => $strong['score']) ;
 		}
 
-		$candidate_fire = array() ;
-		foreach ($this->_arcs as $value)
-		{
-			if (!in_array($value['from'], $candidate_fire, true))
-			{
-				$candidate_fire[] = $value['from'] ;
-			}
-		}
-
 		foreach ($this->_arcs as $key => $value)
 		{
 			if (!isset($this->_arcs[$key]))
 				{continue ;}
 
-			$this->checkDelArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], array($key));
+			$this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], array($key));
 		}
 
 	}
 
-		protected function checkDelArc ($candidate, $candidate_next, $construct, $done)
+		protected function checkingArc ($candidate, $candidate_next, $construct, $done)
 		{
 			// Deleting arc
 			if (count($done) > 1)
@@ -148,7 +176,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 					// Recursive
 					if (count($done) < 3)
 					{
-						$this->checkDelArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
+						$this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
 					}
 				}
 			}			
