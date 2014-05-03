@@ -21,7 +21,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 	// Ranked Pairs
 	protected $_PairwiseSort ;
-	protected $_arcs ;
+	protected $_Arcs ;
 	protected $_Result ;
 
 
@@ -51,13 +51,29 @@ class RankedPairs implements namespace\Condorcet_Algo
 		$this->_PairwiseSort = namespace\Condorcet::makeStatic_PairwiseSort($this->_Pairwise) ;
 
 		// Ranking calculation
-		$this->makeRanking() ;
+		$this->makeArcs();
+
+		$this->_Result = array() ;
+
+		while (count($this->_Result) < $this->_CandidatesCount)
+		{
+			$winner = $this->getOneWinner();
+
+			foreach ($this->_Arcs as $ArcKey => $Arcvalue)
+			{
+				if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner )
+				{
+					unset($this->_Arcs[$ArcKey]);
+				}
+			}
+
+			$this->_Result[] = $winner;
+		}
 
 
 		// Return
-		// return $this->_PairwiseSort ;
+		return $this->_Result ;
 	}
-
 
 	// Get the Ranked Pair ranking
 	public function getStats ()
@@ -78,28 +94,6 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 	//:: RANKED PAIRS ALGORITHM. :://
 
-	protected function makeRanking ()
-	{
-		$this->makeArcs();
-
-		$this->_Result = array() ;
-
-		while (count($this->_Result) < $this->_CandidatesCount)
-		{
-			$winner = $this->getOneWinner();
-
-			foreach ($this->_arcs as $ArcKey => $Arcvalue)
-			{
-				if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner )
-				{
-					unset($this->_arcs[$ArcKey]);
-				}
-			}
-
-			$this->_Result[] = $winner;
-		}
-	}
-
 	protected function getOneWinner ()
 	{
 		foreach ($this->_Candidates as $candidateKey => $candidateId)
@@ -107,7 +101,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 			if (!in_array($candidateKey, $this->_Result, true))
 			{
 				$winner = true ;
-				foreach ($this->_arcs as $ArcKey => $ArcValue)
+				foreach ($this->_Arcs as $ArcKey => $ArcValue)
 				{
 					if ($ArcValue['to'] === $candidateKey)
 						{ $winner = false ;}
@@ -123,18 +117,18 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 	protected function makeArcs ()
 	{
-		$this->_arcs = array() ;
+		$this->_Arcs = array() ;
 
 		foreach ($this->_PairwiseSort as $wise => $strong)
 		{
 			$ord = explode ('>',$wise);
 
-			$this->_arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strong' => $strong['score']) ;
+			$this->_Arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strong' => $strong['score']) ;
 		}
 
-		foreach ($this->_arcs as $key => $value)
+		foreach ($this->_Arcs as $key => $value)
 		{
-			if (!isset($this->_arcs[$key]))
+			if (!isset($this->_Arcs[$key]))
 				{continue ;}
 
 			$this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], array($key));
@@ -158,9 +152,9 @@ class RankedPairs implements namespace\Condorcet_Algo
 				}
 			}
 
-			foreach ($this->_arcs as $new_arc_key => $new_arc)
+			foreach ($this->_Arcs as $new_arc_key => $new_arc)
 			{
-				if (!isset($this->_arcs[$new_arc_key]))
+				if (!isset($this->_Arcs[$new_arc_key]))
 					{continue ;}
 
 				if (!in_array($new_arc_key, $done, true))
@@ -175,9 +169,8 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 					// Recursive
 					$this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
-
 				}
-			}			
+			}
 		}
 
 		protected function delArc ($test_cycle, $candidate)
@@ -220,26 +213,15 @@ class RankedPairs implements namespace\Condorcet_Algo
 			$to_del = explode ('>', $to_del);
 
 
-			foreach ($this->_arcs as $key => $value)
+			foreach ($this->_Arcs as $key => $value)
 			{
 				if ($value['from'] == $to_del[0] && $value['to'] == $to_del[1])
 				{
-					unset($this->_arcs[$key]);
+					unset($this->_Arcs[$key]);
 				}
 			}
 
 		}
-
-		// foreach ($this->_arcs as &$value)
-		// {
-		// 	foreach ($value as $key => &$infos)
-		// 	{
-		// 		if ($key === 'to' || $key === 'from')
-		// 		{
-		// 			$infos = namespace\Condorcet::getStatic_CandidateId($infos, $this->_Candidates);
-		// 		}
-		// 	}
-		// }
 
 }
 
