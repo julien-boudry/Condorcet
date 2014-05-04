@@ -173,7 +173,7 @@ class Schulze implements namespace\Condorcet_Algo
 
 			foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key )
 			{
-				if ( in_array($candidate_key, $done) )
+				if ( in_array($candidate_key, $done, true) )
 				{
 					continue ;
 				}
@@ -182,7 +182,7 @@ class Schulze implements namespace\Condorcet_Algo
 
 				foreach ($challengers_key as $beaten_key => $beaten_value)
 				{
-					if ( in_array($beaten_key, $done) )
+					if ( in_array($beaten_key, $done, true) )
 					{
 						continue ;
 					}
