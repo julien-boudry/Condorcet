@@ -13,17 +13,17 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 ### Project State
 To date, the 0.9 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
 
-- To date, the library is used by [listening compared to the blind Gustav Mahler](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
+- To date, the library is used by [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
 http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
 **Stable Version : 0.9**  
-**PHP Requirement :** PHP 5.4 with Ctype and MB_String common extensions  
+**PHP Requirement:** PHP 5.4 with Ctype and MB_String common extensions  
 
-**Autoloading** : This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most framework. Namespace \Condorcet is used. 
-The literature also provides you an easy example of free implementation with or without autoloader.
+**Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
+The literature also provides easy example of free implementation with or without autoloader.
 
-**Coding standards** : The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
+**Coding standards:** The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 
 ---------------------------------------
@@ -38,13 +38,13 @@ The literature also provides you an easy example of free implementation with or 
 #### Supported Condorcet Methods
 
 * **Condorcet Basic** Give you the natural winner or looser of Condorcet, if there is one.  
-*(This method is the only core method, you can't remove it)*
+*(This method is the only core method, you cannot remove it)*
 
 * **Copeland** *(Since v0.4)* http://en.wikipedia.org/wiki/Copeland%27s_method
 
 * **KemenyYoung** *(Since v0.8)* http://en.wikipedia.org/wiki/Kemeny-Young_method   
-*Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding issue Github, and if you are able to comment on issues in Github.   
-Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation by using ```namespace\KemenyYoung::setMaxCandidates(6);```, but your processor could work a long time to exceed six candidates. In contrast, the number of voters do not impact the calculation time significantly.*
+*Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding Github issue, and if you are able to comment on issues in Github.   
+Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation by using ```namespace\KemenyYoung::setMaxCandidates(6);```, but your processor could work a long time when exceeding six candidates. In contrast, the number of voters do not impact the calculation time significantly.*
 
 * **Minimax Family** *(Since v0.6)* http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion)*  
@@ -56,7 +56,7 @@ Because this implementation uses no heuristic means, it is deliberately restrain
 
 _The name of the above methods must be observed when you make calls, case sensitive._
 
-#### Add new  ?	
+#### Add new one?	
 This class is designed to be easily extensible with new algorithms. A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
 [*More explanations in the documentation below*](#newAlgo) 
   
@@ -64,15 +64,15 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 ### Roadmap for futher releases 
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
-  - Perhaps Ranked pairs Condorcet methods *(need help!)*
-  - Non-Condorcet fun methods ? (majority, points ?)
-  - **Looking for testers !**   
+  - Perhaps Ranked pairs Condorcet methods *(help needed!)*
+  - Non-Condorcet fun methods? (majority, points?)
+  - **Looking for testers!**   
  
 
 ---------------------------------------
-## How to use it ?
+## How to use it?
 Soon you will find a complete example.php. The most important methods are listed bellow.  
-We encourage you to read the code, and help to improve inline documentation !
+We encourage you to read the code, and help to improve inline documentation!
 
 1. [Install it](#install-it)
 2. [Configure it if needed](#configure-it-if-needed)
@@ -119,14 +119,14 @@ $condorcet = new Condorcet () ; // You can specify as an argument, the name stri
 
 ///// STARTING
 
-use Condorcet\Condorcet ; // Optional !
+use Condorcet\Condorcet ; // Optional!
 
-$condorcet = new Condorcet (); // If you omit the previous line, do : new Condorcet\Condorcet () ;
+$condorcet = new Condorcet (); // If you omit the previous line, do: new Condorcet\Condorcet () ;
 
 ```
 
 #### With Frameworks
-*Read the doc ! The Condorcet folder inside the lib directory can be move into your solution lib directory*
+*Read the doc! The Condorcet folder inside the lib directory can be move into your solution lib directory*
 
 
 #### With Composer
@@ -149,7 +149,7 @@ Condorcet::setClassMethod('Schulze', true) ; // Will force actual and futher obj
 Condorcet::forceMethod(false) ; // Unforce actual and futher object to use the class default method (or force it if argument is true)
 ```
 
-#### Get informations 
+#### Get information 
 ```php
 $condorcet->getConfig (); // Will return an explicit array about the object and Class Constant.  
 
@@ -166,7 +166,7 @@ Condorcet::getClassVersion();  // Return the Class engine
 $condorcet->getObjectVersion(); // Return the Class engine who build this object
 ```
 
-#### Reset object without destroy it (discouraged pratice)
+#### Reset object without destroying it (discouraged pratice)
 ```php
 $condorcet->resetAll ();
 ``` 
@@ -176,7 +176,7 @@ $condorcet->resetAll ();
 
 #### Registering
 
-Enter (or not) an Candidate Name 
+Enter (or not) a Candidate Name 
 
 ```php
 $condorcet->addCandidate('Wagner') ; // mb_strlen(Candidate Name) <= self::MAX_LENGTH_CANDIDATE_ID, Default : 30
@@ -197,7 +197,7 @@ $condorcet->removeCandidate('Wagner') ;
 $condorcet->getCandidatesList(); // Will return an array with Candidate Name as value.
 ```
 
-_Note : When you start voting, you will never be able to edit the candidate list._  
+_Note: When you start voting, you will never be able to edit the candidates list._  
 
 
 ---------------------------------------
@@ -205,7 +205,7 @@ _Note : When you start voting, you will never be able to edit the candidate list
 _Note: All votes are adjusted to estimate all candidates. The pairwise is calculated accordingly._
 
 #### Add a vote
-_Note : You can add new vote after the results have already been given_  
+_Note: You can add new votes after the results have already been given_  
 
 ##### With an array
 ```php
@@ -246,7 +246,7 @@ $vote = 'A>BC>D' ; // It's not correct
 
 
 #### Add a tag
-You can add the same or different tag for each vote :  
+You can add the same or different tag for each vote:  
 ```php
 $condorcet->addVote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
 $condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
@@ -270,12 +270,12 @@ $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
 ```
 
-_Note : You can remove a vote after the results have already been given_  
+_Note: You can remove a vote after the results have already been given._  
 
 
 ---------------------------------------
 ### 3: Get results & Stats
-When you have finished to processing vote, you would like to have the results.
+When you have finished to process vote, you would like to have the results.
 
 #### Just get the natural Condorcet Winner
 
@@ -302,9 +302,9 @@ Will return a string with the Candidate Name or many separated by commas
 
 #### Get a complete ranking from advanced methods
 ```php
-$condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default : Schulze)  
-$condorcet->getResult('Schulze') ; // Get a the result for a valid method.
-$condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See some details above.
+$condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default: Schulze)  
+$condorcet->getResult('Schulze') ; // Get the result for a valid method.
+$condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See details above.
 ```
 
 
@@ -312,16 +312,16 @@ $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometim
 ```php
 $condorcet->getPairwise() ; // Return an explicit array using your Candidate Name as keys.  
 
-$condorcet->getResultStats() ; // Get stats about computing result for the default object method. (Class Default : Schulze)  
+$condorcet->getResultStats() ; // Get stats about computing result for the default object method. (Class Default: Schulze)  
 $condorcet->getResultStats('Schulze') ; // Same thing with a specific method.  
 ```
 
 #### Specials options on getResult()
 
 ##### Kemeny-Young
-Currently KemeyYoung is potentially subject to conflict leading to a relatively arbitrary final choice. Very likely thing in the case of a very small number of voters. the current implementation does not include any trick to the resolver.   
+Currently Kemeny-Young is potentially subject to conflict leading to a relatively arbitrary final choice. Very likely thing in the case of a very small number of voters. The current implementation does not include any trick to the resolver.   
 
-The next option allows you to get rather than ranking, information on the existence or not of these conflicts. The following example mounts how you use it.   
+The next option allows you to get rather than ranking, information on the existence or the absence of these conflicts. The following example mounts how to you use it.   
 
 ```php
 $test = $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ;
@@ -339,8 +339,8 @@ else
 ```    
 
 ---------------------------------------
-### Customize the code : Add new algorithm(s) <a name="newAlgo"></a>  
-Look at how existing algorithm work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
+### Customize the code: Add new algorithm(s) <a name="newAlgo"></a>  
+Look at how existing algorithms work in the "algorithms" folder, because the algorithms formally included using the same modular schema. *(Exept Condorcet_Basic, which is the only core algorithm and a little bit special.)*
 
 **Each new class of algorithm must implements the Condorcet_Algo interface:** 
 
@@ -361,7 +361,7 @@ class AlgorithmName implements namespace\Condorcet_Algo
 ```
 File on disk must follow this format: `AlgorithmName.algo.php`  
 
-You must register this algorithm by this way:  
+You must register this algorithm this way:  
 ```php
 Condorcet::addAlgos('AlgorithmName') ;
 ```  
