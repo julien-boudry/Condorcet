@@ -131,6 +131,8 @@ abstract class Schulze_Core
 								break ;
 							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] - $this->_Pairwise[$j]['win'][$i]) ;
 								break ;
+							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] / $this->_Pairwise[$j]['win'][$i]) ;
+								break ;
 						}
 					}
 					else
@@ -234,5 +236,13 @@ class Schulze_Margin extends namespace\Schulze_Core implements namespace\Condorc
 	}
 }
 
+class Schulze_Ratio extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+{
+	public function getResult ($options = null)
+	{
+		return $this->_Result = self::make_getResult($options, 'ratio') ;
+	}
+}
+
 // Registering algorithm
-namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin') ) ;
+namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin', 'Schulze_Ratio') ) ;
