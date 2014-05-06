@@ -12,7 +12,7 @@ namespace Condorcet ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class Schulze implements namespace\Condorcet_Algo
+abstract class Schulze_Core
 {
 	// Config
 	protected $_Pairwise ;
@@ -36,7 +36,9 @@ class Schulze implements namespace\Condorcet_Algo
 
 
 	// Get the Schulze ranking
-	public function getResult ($options = null)
+	abstract public function getResult () ;
+
+	protected function make_getResult ($options, $variant)
 	{
 		// Cache
 		if ( $this->_Result !== null )
@@ -50,8 +52,7 @@ class Schulze implements namespace\Condorcet_Algo
 		$this->prepareStrongestPath() ;
 
 		// Strongest Paths calculation
-		$this->makeStrongestPaths() ;
-
+		$this->makeStrongestPaths($variant) ;
 
 		// Ranking calculation
 		$this->makeRanking() ;
@@ -114,7 +115,7 @@ class Schulze implements namespace\Condorcet_Algo
 
 
 	// Calculate the Strongest Paths
-	protected function makeStrongestPaths ()
+	protected function makeStrongestPaths ($variant)
 	{
 		foreach ($this->_Candidates as $i => $i_value)
 		{
@@ -124,12 +125,21 @@ class Schulze implements namespace\Condorcet_Algo
 				{
 					if ( $this->_Pairwise[$i]['win'][$j] > $this->_Pairwise[$j]['win'][$i] )
 					{
-						$this->_StrongestPaths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
+						switch ($variant)
+						{
+							case 'winning'	: $this->_StrongestPaths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
+								break ;
+							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] - $this->_Pairwise[$j]['win'][$i]) ;
+								break ;
+							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] / $this->_Pairwise[$j]['win'][$i]) ;
+								break ;
+						}
 					}
 					else
 					{
 						$this->_StrongestPaths[$i][$j] = 0 ;
 					}
+
 				}
 			}
 		}
@@ -209,5 +219,30 @@ class Schulze implements namespace\Condorcet_Algo
 
 }
 
+
+class Schulze extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+{
+	public function getResult ($options = null)
+	{
+		return $this->_Result = self::make_getResult($options, 'winning') ;
+	}
+}
+
+class Schulze_Margin extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+{
+	public function getResult ($options = null)
+	{
+		return $this->_Result = self::make_getResult($options, 'margin') ;
+	}
+}
+
+class Schulze_Ratio extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+{
+	public function getResult ($options = null)
+	{
+		return $this->_Result = self::make_getResult($options, 'ratio') ;
+	}
+}
+
 // Registering algorithm
-namespace\Condorcet::addAlgos('Schulze') ;
+namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin', 'Schulze_Ratio') ) ;
