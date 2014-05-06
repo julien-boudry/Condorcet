@@ -57,6 +57,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 		$this->_Result = array() ;
 
+		$rang = 1 ;
 		while (count($this->_Result) < $this->_CandidatesCount)
 		{
 			$winner = $this->getOneWinner();
@@ -69,7 +70,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 				}
 			}
 
-			$this->_Result[] = $winner;
+			$this->_Result[$rang++] = $winner;
 		}
 
 		// Return
