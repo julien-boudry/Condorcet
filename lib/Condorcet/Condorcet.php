@@ -58,14 +58,27 @@ class Condorcet
 
 
 	// Check if the method is supported
-	public static function isAuthMethod ($method)
+	public static function isAuthMethod ($input_methods)
 	{
 		$auth = self::getAuthMethods() ;
 
-		if ( in_array($method,$auth, true) )
-			{ return true ;	}
-		else
-			{ return false ; }
+		if (is_string($input_methods))
+		{
+			$methods = array($input_methods);
+		}
+
+		if (is_array($methods))
+		{
+			foreach ($methods as $method)
+			{
+				if ( !in_array($method,$auth, true) )
+					{ return false ; }
+			}
+
+			return true ;
+		}
+
+		return false ;
 	}
 
 
