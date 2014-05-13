@@ -2,7 +2,7 @@
 /*
 	Minimax part of the Condorcet PHP Class
 
-	Version : 0.9
+	Version : 0.10
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -148,7 +148,7 @@ abstract class Minimax implements namespace\Condorcet_Algo
 	}
 }
 
-class Minimax_Winning extends Minimax
+class Minimax_Winning extends namespace\Minimax
 {
 	protected function makeRanking ()
 	{
@@ -156,7 +156,7 @@ class Minimax_Winning extends Minimax
 	}
 }
 
-class Minimax_Margin extends Minimax
+class Minimax_Margin extends namespace\Minimax
 {
 	protected function makeRanking ()
 	{
@@ -165,7 +165,7 @@ class Minimax_Margin extends Minimax
 }
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
-class Minimax_Opposition extends Minimax
+class Minimax_Opposition extends namespace\Minimax
 {
 	protected function makeRanking ()
 	{

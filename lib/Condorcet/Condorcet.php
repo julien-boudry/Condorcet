@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.9
+	Version : 0.10
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.9' ;
+	const VERSION = '0.10' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
 	protected static $_classMethod	= null ;
@@ -58,14 +58,27 @@ class Condorcet
 
 
 	// Check if the method is supported
-	public static function isAuthMethod ($method)
+	public static function isAuthMethod ($input_methods)
 	{
 		$auth = self::getAuthMethods() ;
 
-		if ( in_array($method,$auth, true) )
-			{ return true ;	}
-		else
-			{ return false ; }
+		if (is_string($input_methods))
+		{
+			$methods = array($input_methods);
+		}
+
+		if (is_array($methods))
+		{
+			foreach ($methods as $method)
+			{
+				if ( !in_array($method,$auth, true) )
+					{ return false ; }
+			}
+
+			return true ;
+		}
+
+		return false ;
 	}
 
 
@@ -1036,6 +1049,7 @@ class Condorcet
 			$comparison[$candidate_key]['null'] = 0 ;
 			$comparison[$candidate_key]['lose'] = 0 ;
 			$comparison[$candidate_key]['balance'] = 0 ;
+			$comparison[$candidate_key]['worst_defeat'] = 0 ;
 
 			foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) 
 			{
@@ -1052,11 +1066,68 @@ class Condorcet
 				{
 					$comparison[$candidate_key]['lose']++ ;
 					$comparison[$candidate_key]['balance']-- ;
+
+					// Worst defeat
+					if ($comparison[$candidate_key]['worst_defeat'] < $candidate_data['lose'][$opponenent['key']])
+					{
+						$comparison[$candidate_key]['worst_defeat'] = $candidate_data['lose'][$opponenent['key']] ;
+					}
 				}
 			}
 		}
 
 		return $comparison ;
+	}
+
+	public static function makeStatic_PairwiseSort (&$pairwise)
+	{
+		$comparison = self::makeStatic_PairwiseComparison($pairwise);
+
+		$score = array() ;	
+
+		foreach ($pairwise as $candidate_key => $candidate_value)
+		{
+			foreach ($candidate_value['win'] as $challenger_key => $challenger_value)
+			{
+				if ($challenger_value > $candidate_value['lose'][$challenger_key])
+				{
+					$score[$candidate_key.'>'.$challenger_key]['score'] = $challenger_value ;
+					$score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key] ;
+					$score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key] ;
+				}
+				elseif ( $challenger_value === $candidate_value['lose'][$challenger_key] && !isset($score[$challenger_key.'>'.$candidate_key]) )
+				{
+					if ($comparison[$candidate_key]['worst_defeat'] <= $comparison[$challenger_key]['worst_defeat'])
+					{
+						$score[$candidate_key.'>'.$challenger_key]['score'] = 0.1 ;
+						$score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key] ;
+						$score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key] ;
+					}
+				}
+			}
+		}
+
+		uasort($score, function ($a, $b){
+			if ($a['score'] < $b['score']) {return 1;} elseif ($a['score'] > $b['score']) {return -1 ;}
+			elseif ($a['score'] === $b['score'])
+			{
+				if ($a['minority'] > $b['minority'])
+					{ return 1 ; }
+				elseif ($a['minority'] < $b['minority'])
+					{ return -1 ; }
+				elseif ($a['minority'] === $b['minority'])
+					{ 
+						if ($a['margin'] < $b['margin'])
+							{ return 1 ; }
+						elseif ($a['margin'] > $b['margin'])
+							{ return -1 ; }
+						else
+							{ return 0 ; }
+					}
+			}
+		});
+
+		return $score ;
 	}
 
 }
