@@ -131,7 +131,10 @@ abstract class Schulze_Core
 								break ;
 							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] - $this->_Pairwise[$j]['win'][$i]) ;
 								break ;
-							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] / $this->_Pairwise[$j]['win'][$i]) ;
+							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$j]['win'][$i] !== 0) ?
+																					($this->_Pairwise[$i]['win'][$j] / $this->_Pairwise[$j]['win'][$i]) :
+																					(0)
+																					;
 								break ;
 						}
 					}
