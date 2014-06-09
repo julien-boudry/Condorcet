@@ -622,7 +622,7 @@ class Condorcet
 			// Vote identifiant
 			if ($tag !== null)
 			{
-				$vote_r['tag'] = explode(',',$tag) ;
+				$vote_r['tag'] = $this->tagsConvert($tag) ;
 			}
 			
 			$vote_r['tag'][] = $this->_nextVoteTag++ ;
@@ -641,13 +641,19 @@ class Condorcet
 
 			//////
 
+		// Prepare Tags
+		// $tag = $this->tagsConvert($tag) ; // Improve it later
+		$tag = trim($tag);
+
+		// Deleting
+
 		$effective = 0 ;
 
 		foreach ($this->_Votes as $key => $value)
 		{
 			if ($with)
 			{
-				if (in_array($tag, $value['tag']))
+				if (in_array($tag, $value['tag'], true))
 				{
 					unset($this->_Votes[$key]) ;
 					$effective++ ;
@@ -655,7 +661,7 @@ class Condorcet
 			}
 			else
 			{
-				if (!in_array($tag, $value['tag'],true))
+				if (!in_array($tag, $value['tag'], true))
 				{
 					unset($this->_Votes[$key]) ;
 					$effective++ ;
@@ -684,6 +690,8 @@ class Condorcet
 		}
 		else
 		{
+			$tag = trim($tag);
+
 			$search = array() ;
 
 			foreach ($this->_Votes as $key => $value)
@@ -706,6 +714,26 @@ class Condorcet
 
 			return $search ;
 		}
+	}
+
+	private function tagsConvert ($tags)
+	{		
+		if (empty($tags))
+			{ return null ; }
+
+		// Make Array
+		if (!is_array($tags))
+		{
+			$tags = explode(',', $tags);
+		}
+
+		// Trim tags
+		foreach ($tags as &$oneTag)
+		{
+			$oneTag = trim($oneTag);
+		}
+
+		return $tags ;
 	}
 
 
