@@ -33,8 +33,8 @@ class Condorcet
 
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= '' ;
-
 	protected static $_forceMethod	= false ;
+	protected static $_max_parse_iteration = false ;
 
 	// Return library version numer
 	public static function getClassVersion ()
@@ -195,6 +195,9 @@ class Condorcet
 		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
 		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
 		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_WARNING) ;
+		$error[12] = array('text'=>'You have exceeded the number of votes allowed for this method.', 'level'=>E_USER_ERROR) ;
+		$error[13] = array('text'=>'Formatting error: You do not multiply by a number!', 'level'=>E_USER_WARNING) ;
+
 
 		
 		if ( array_key_exists($code, $error) )
@@ -670,6 +673,81 @@ class Condorcet
 		}
 
 		return $effective ;
+	}
+
+	public function parseVotes ($input)
+	{
+		// Is string or is file ?
+		if (is_file($input))
+		{
+			$input = file_get_contents($input);
+		}
+
+		// Line
+		$input = preg_replace("(\r\n|\n|\r)",'|--|',$input);
+		$input = explode('|--|', $input);
+
+		// Check each lines
+		$ite = 0 ;
+		foreach ($input as $line)
+		{
+			// Empty Line
+			if (empty($line)) { continue ; }
+
+			// Multiples
+			$multiple_s = strpos($line, '*') ;
+			if ($multiple_s !== false)
+			{
+				$multiple = trim( substr($line, $multiple_s + 1) ) ;
+
+				// Errors
+				if ( !is_numeric($multiple) )
+				{ 
+					$this->error(13, null);
+					continue ;
+				}
+
+				$multiple = intval($multiple) ;
+				$multiple = floor($multiple) ;
+
+
+				// Reformat line
+				$line = substr($line, 0, $multiple_s) ;
+			}
+			else
+				{ $multiple = 1 ; }
+
+			// Tags + vote
+			if (strpos($line, '||') !== false)
+			{
+				$data = explode('||', $line);
+
+				$vote = $data[1] ;
+				$tags = $data[0] ;
+			}
+			// Vote without tags
+			else
+			{
+				$vote = $line ;
+				$tags = null ;
+			}
+
+			// addVote
+			for ($i = 0 ; $i < $multiple ; $i++)
+			{
+				$this->addVote($vote, $tags);
+
+				$ite++ ;
+
+				if (self::$_max_parse_iteration !== false && $ite >= self::$_max_parse_iteration)
+				{
+					$this->error(12, self::$_max_parse_iteration);
+					return false ;
+				}
+			}
+		}
+
+		return $ite ;
 	}
 
 
