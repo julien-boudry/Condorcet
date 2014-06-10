@@ -34,13 +34,27 @@ class Condorcet
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= '' ;
 	protected static $_forceMethod	= false ;
-	protected static $_max_parse_iteration = false ;
+	protected static $_max_parse_iteration = null ;
 
 	// Return library version numer
 	public static function getClassVersion ()
 	{
 		return self::VERSION ;
 	}
+
+
+	// Change max parse iteration
+	public static function setMaxParseIteration ($value)
+	{
+		if (is_int($value) || $value === null)
+		{
+			self::$_max_parse_iteration = $value ;
+			return self::$_max_parse_iteration ;
+		}
+		else
+			{ return false ; }
+	}
+
 
 	// Return an array with auth methods
 	public static function getAuthMethods ()
@@ -49,6 +63,7 @@ class Condorcet
 
 		return $auth ;
 	}
+
 
 	// Return the Class default method
 	public static function getClassDefaultMethod ()
@@ -129,6 +144,7 @@ class Condorcet
 		return true ;
 	}
 
+
 		// Check if the class Algo. exist and ready to be used
 		protected static function testAlgos ($algos)
 		{
@@ -198,7 +214,6 @@ class Condorcet
 		$error[12] = array('text'=>'You have exceeded the number of votes allowed for this method.', 'level'=>E_USER_ERROR) ;
 		$error[13] = array('text'=>'Formatting error: You do not multiply by a number!', 'level'=>E_USER_WARNING) ;
 		$error[14] = array('text'=>'parseVote() must take a string (raw or path) as argument', 'level'=>E_USER_WARNING) ;
-
 
 		
 		if ( array_key_exists($code, $error) )
@@ -300,6 +315,8 @@ class Condorcet
 		{
 			$this->_Method = $method ;
 		}
+		else
+			{ return false ; }
 
 		return $this->_Method ;
 	}
@@ -744,7 +761,7 @@ class Condorcet
 
 				$ite++ ;
 
-				if (self::$_max_parse_iteration !== false && $ite >= self::$_max_parse_iteration)
+				if (self::$_max_parse_iteration !== null && $ite >= self::$_max_parse_iteration)
 				{
 					$this->error(12, self::$_max_parse_iteration);
 					return false ;
@@ -829,7 +846,7 @@ class Condorcet
 
 
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = null, array $options = null)
+	public function getResult ($method = true, array $options = null)
 	{
 		// Method
 		$this->setMethod() ;
@@ -838,7 +855,7 @@ class Condorcet
 
 			//////
 
-		if ($method === null)
+		if ($method === true)
 		{
 			$this->initResult($this->_Method) ;
 

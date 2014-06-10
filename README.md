@@ -142,7 +142,8 @@ Look https://packagist.org/packages/julien-boudry/condorcet
 
 #### Change the object default method if needed
 ```php
-$condorcet->setMethod('Schulze') ; // Argument : A supported method. Return True on success, else return False.  
+$condorcet->setMethod('Schulze') ; // Argument : A supported method. Return the string name of new default method for this object (
+or forced method after the class if fonctionnalitée enabled). False on error.
 ```
 
 #### Change the class default method if needed
@@ -298,6 +299,12 @@ C>D>B*8;A=D>B;Julien,Christelle||A>C>D>B*4;D=B=C>A # Alternatively, you can repl
 ```php
 $condorcet->parseVotes('data/vote42.txt'); // Path to text file. Absolute or relative.
 $condorcet->parseVotes($my_big_string); // Just my big string.
+```
+
+**Anti-flood :**
+```php
+Condorcet::setMaxParseIteration(500); // Will generate an E_USER_ERROR and stop after 500 registered vote by call.
+Condorcet::setMaxParseIteration(null); // No limit (default mode)
 ```
 
 
