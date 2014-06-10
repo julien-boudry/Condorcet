@@ -647,8 +647,7 @@ class Condorcet
 			//////
 
 		// Prepare Tags
-		// $tag = $this->tagsConvert($tag) ; // Improve it later
-		$tag = trim($tag);
+		$tag = $this->tagsConvert($tag) ;
 
 		// Deleting
 
@@ -656,10 +655,14 @@ class Condorcet
 
 		foreach ($this->_Votes as $key => $value)
 		{
-			if ( ($with) ? in_array($tag, $value['tag'], true) : !in_array($tag, $value['tag'], true) )
+			foreach ($tag as $oneTag)
 			{
-				unset($this->_Votes[$key]) ;
-				$effective++ ;
+				if ( ($with) ? in_array($oneTag, $value['tag'], true) : !in_array($oneTag, $value['tag'], true) )
+				{
+					unset($this->_Votes[$key]) ;
+					$effective++ ;
+					continue ;
+				}
 			}
 		}
 
@@ -770,15 +773,19 @@ class Condorcet
 		}
 		else
 		{
-			$tag = trim($tag);
+			$tag = $this->tagsConvert($tag) ;
 
 			$search = array() ;
 
 			foreach ($this->_Votes as $key => $value)
-			{					
-				if ( ($with) ? in_array($tag, $value['tag'],true) : !in_array($tag, $value['tag'],true) )
+			{
+				foreach ($tag as $oneTag)
 				{
-					$search[$key] = $value ;
+					if ( ($with) ? in_array($oneTag, $value['tag'],true) : !in_array($oneTag, $value['tag'],true) )
+					{
+						$search[$key] = $value ;
+						continue ;
+					}
 				}
 			}
 
