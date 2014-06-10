@@ -661,7 +661,7 @@ class Condorcet
 				{
 					unset($this->_Votes[$key]) ;
 					$effective++ ;
-					continue ;
+					break ;
 				}
 			}
 		}
@@ -791,7 +791,7 @@ class Condorcet
 					if ( ($with) ? in_array($oneTag, $value['tag'],true) : !in_array($oneTag, $value['tag'],true) )
 					{
 						$search[$key] = $value ;
-						continue ;
+						break ;
 					}
 				}
 			}
