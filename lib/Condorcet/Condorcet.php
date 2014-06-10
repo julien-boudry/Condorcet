@@ -759,9 +759,16 @@ class Condorcet
 	//:: VOTING TOOLS :://
 
 	// How many votes are registered ?
-	public function countVotes ()
+	public function countVotes ($tag = null, $with = true)
 	{
-		return count($this->_Votes) ;
+		if (!empty($tag))
+		{
+			return count( $this->getVotesList($tag, $with) ) ;
+		}
+		else
+		{
+			return count($this->_Votes) ;
+		}
 	}
 
 	// Get the votes registered list
