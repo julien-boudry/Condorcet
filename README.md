@@ -280,18 +280,49 @@ $condorcet->parseVotes($my_big_string); // Just my big string.
 
 #### Verify the registered votes list
 ```php
+// getVotesList ( [mixed $tag = null, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)   
+
+```php
 $condorcet->getVotesList (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
 $condorcet->getVotesList ('Charlie'); // Will return an array where each vote with this tag.   
 $condorcet->getVotesList ('Charlie', false); // Will return an array where each vote without this tag.   
+$condorcet->getVotesList ('Charlie,Julien'); // With this tag or this tag   
+$condorcet->getVotesList (array('Julien', 'Charlie'), true); // Or like this   
+$condorcet->getVotesList (array('Julien', 'Charlie'), false); // Without this tag or without this tag ...   
+```
 
+#### Count registered votes
+
+```php
+// countVotes ( [mixed $tag = null, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)    
+
+```php
 $condorcet->countVotes (); // Return a numeric value about the number of registered votes.  
+$condorcet->countVotes ('Julien,Charlie'); // Count vote with this tag or this tag.   
+$condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without this tag or without this tag.   
 ```
 
 
 #### Remove vote
 ```php
+// removeVote( mixed $tag [, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)    
+
+```php
+// removeVote ( mixed tag(s), (with this tag(s) = true / without this tag(s) = false) = true )
+
 $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
+$condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie or without tag Julien.
+$condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie or with tag Julien.
 ```
 
 _Note: You can remove a vote after the results have already been given._  
