@@ -501,6 +501,7 @@ class Condorcet
 		$this->closeCandidatesConfig() ;
 
 			////////
+		$original_input = $vote ;
 
 		// Translate the string if needed
 		if ( is_string($vote) )
@@ -510,7 +511,7 @@ class Condorcet
 
 		// Check array format
 		if ( !is_array($vote) || !$this->checkVoteInput($vote) )
-			{ return self::error(5) ; }
+			{ return self::error( 5, (!is_array($original_input) ? $original_input : null) ) ; }
 
 		// Check tag format
 		if ( is_bool($tag) )
