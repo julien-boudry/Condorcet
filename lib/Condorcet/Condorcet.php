@@ -197,6 +197,7 @@ class Condorcet
 		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_WARNING) ;
 		$error[12] = array('text'=>'You have exceeded the number of votes allowed for this method.', 'level'=>E_USER_ERROR) ;
 		$error[13] = array('text'=>'Formatting error: You do not multiply by a number!', 'level'=>E_USER_WARNING) ;
+		$error[14] = array('text'=>'parseVote() must take a string (raw or path) as argument', 'level'=>E_USER_WARNING) ;
 
 
 		
@@ -678,6 +679,10 @@ class Condorcet
 
 	public function parseVotes ($input)
 	{
+		// Input must be a string
+		if (!is_string($input))
+			{ $this->error(14); return false ; }
+
 		// Is string or is file ?
 		if (is_file($input))
 		{
@@ -685,21 +690,28 @@ class Condorcet
 		}
 
 		// Line
-		$input = preg_replace("(\r\n|\n|\r)",'|--|',$input);
-		$input = explode('|--|', $input);
+		$input = preg_replace("(\r\n|\n|\r)",';',$input);
+		$input = explode(';', $input);
 
 		// Check each lines
 		$ite = 0 ;
 		foreach ($input as $line)
 		{
+			// Delete comments
+			$is_comment = strpos($line, '#') ;
+			if ($is_comment !== false)
+			{
+				$line = substr($line, 0, $is_comment) ;
+			}
+
 			// Empty Line
 			if (empty($line)) { continue ; }
 
 			// Multiples
-			$multiple_s = strpos($line, '*') ;
-			if ($multiple_s !== false)
+			$is_multiple = strpos($line, '*') ;
+			if ($is_multiple !== false)
 			{
-				$multiple = trim( substr($line, $multiple_s + 1) ) ;
+				$multiple = trim( substr($line, $is_multiple + 1) ) ;
 
 				// Errors
 				if ( !is_numeric($multiple) )
@@ -713,7 +725,7 @@ class Condorcet
 
 
 				// Reformat line
-				$line = substr($line, 0, $multiple_s) ;
+				$line = substr($line, 0, $is_multiple) ;
 			}
 			else
 				{ $multiple = 1 ; }
