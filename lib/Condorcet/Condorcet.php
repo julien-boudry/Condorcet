@@ -656,21 +656,10 @@ class Condorcet
 
 		foreach ($this->_Votes as $key => $value)
 		{
-			if ($with)
+			if ( ($with) ? in_array($tag, $value['tag'], true) : !in_array($tag, $value['tag'], true) )
 			{
-				if (in_array($tag, $value['tag'], true))
-				{
-					unset($this->_Votes[$key]) ;
-					$effective++ ;
-				}
-			}
-			else
-			{
-				if (!in_array($tag, $value['tag'], true))
-				{
-					unset($this->_Votes[$key]) ;
-					$effective++ ;
-				}
+				unset($this->_Votes[$key]) ;
+				$effective++ ;
 			}
 		}
 
@@ -787,19 +776,9 @@ class Condorcet
 
 			foreach ($this->_Votes as $key => $value)
 			{					
-				if ($with)
+				if ( ($with) ? in_array($tag, $value['tag'],true) : !in_array($tag, $value['tag'],true) )
 				{
-					if (in_array($tag, $value['tag'],true))
-					{
-						$search[$key] = $value ;
-					}
-				}
-				else
-				{
-					if (!in_array($tag, $value['tag'],true))
-					{
-						$search[$key] = $value ;
-					}
+					$search[$key] = $value ;
 				}
 			}
 
