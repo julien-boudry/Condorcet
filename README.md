@@ -142,7 +142,7 @@ Look https://packagist.org/packages/julien-boudry/condorcet
 
 #### Change the object default method if needed
 ```php
-$condorcet->setMethod('Schulze') ; // Argument : A supported method  
+$condorcet->setMethod('Schulze') ; // Argument : A supported method. Return True on success, else return False.  
 ```
 
 #### Change the class default method if needed
@@ -178,6 +178,12 @@ $condorcet->resetAll ();
 ### 1: Manage Candidates
 
 #### Registering
+```php
+// addCandidate ( [mixed $name = automatic] )
+```
+**name :** Alphanumeric string or int.    
+
+**Return value :** New candidate name (your or automatic one)    
 
 Enter (or not) a Candidate Name 
 
@@ -190,6 +196,14 @@ $condorcet->addCandidate(2) ; // A numeric argument
 
 
 #### Removing
+```php
+// removeCandidate ( mixed $name = automatic )
+```
+**name :** Alphanumeric string or int.   
+
+**Return value :** True on success. False if candidate name can't be found or if the vote has began.
+
+
 ```php
 $condorcet->removeCandidate('Wagner') ;
 ```
@@ -209,6 +223,15 @@ _Note: All votes are adjusted to estimate all candidates. The pairwise is calcul
 
 #### Add a vote
 _Note: You can add new votes after the results have already been given_  
+
+
+```php
+// addVote ( mixed $data [, mixed $tag = null] )
+```
+**data :** The vote data  
+**tag :** add tag(s) to this vote for further actions
+
+
 
 ##### With an array
 ```php
@@ -317,8 +340,6 @@ $condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without
 **with :** With or without one a this tag(s)    
 
 ```php
-// removeVote ( mixed tag(s), (with this tag(s) = true / without this tag(s) = false) = true )
-
 $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
 $condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie or without tag Julien.
@@ -333,11 +354,18 @@ _Note: You can remove a vote after the results have already been given._
 When you have finished to process vote, you would like to have the results.
 
 #### Just get the natural Condorcet Winner
+```php
+// getWinner ( [mixed $method = false] )
+// getLoser ( [mixed $method = false] )
+```
+**method :** String name of an available advanced Condorcet method. True for default method.
+
+**Return value :** String or int of the candidate name.
 
 ##### Regular
 ```php
-$condorcet->getWinner() ; // Will return a string with the Candidate name
-$condorcet->getLoser() ; // Will return a string with the Candidate name
+$condorcet->getWinner() ; // Will return a string with the Condorcet Winner candidate name
+$condorcet->getLoser() ; // Will return a string with the Condorcet looser candidate name
 ```
 
 
@@ -356,6 +384,15 @@ Will return a string with the Candidate Name or many separated by commas
 
 
 #### Get a complete ranking from advanced methods
+```php
+// getResult ( [mixed $method = false , array $extra_param = null] )
+```
+**method :** String name of an available advanced Condorcet method. True for default method.
+**extra_param :** Specific for each method, if needed.
+
+**Return value :** False for error, else a nice array for ranking.
+
+
 ```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default: Schulze)  
 $condorcet->getResult('Schulze') ; // Get the result for a valid method.
