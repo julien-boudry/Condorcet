@@ -248,13 +248,34 @@ $vote = 'A>BC>D' ; // It's not correct
 *The last rank is optionnal too, it will be automatically deducted.*  
 
 
-#### Add a tag
+##### Add a tag
 You can add the same or different tag for each vote:  
 ```php
 $condorcet->addVote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
 $condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
-```
+```   
 
+
+#### Add multiple votes from file or large string
+Once your list of candidates previously recorded. You can parse a text file or as a PHP string character to record a large number of votes at once.   
+
+*You can simultaneously combine this method with traditional PHP calls above.*  
+
+##### Syntax
+```
+tag1,tag2,tag3[...] || A>B=D>C # A comment at the end of the line prefixed by '#'. Never use ';' in comment!
+Titan,CoteBoeuf || A>B=D>C # Tags at first, vote at second, separated by '||'
+A>C>D>B # Line break to start a new vote. Tags are optionals. View above for vote syntax.
+tag1,tag2,tag3 || A>B=D>C * 5 # This vote and his tag will be register 5 times
+   tag1  ,  tag2, tag3     ||    A>B=D>C*2        # Working too.
+C>D>B*8;A=D>B;Julien,Christelle||A>C>D>B*4;D=B=C>A # Alternatively, you can replace the line break by a semicolon.
+``` 
+
+##### Method
+```php
+$condorcet->parseVotes('data/vote42.txt'); // Path to text file. Absolute or relative.
+$condorcet->parseVotes($my_big_string); // Just my big string.
+```
 
 
 #### Verify the registered votes list
