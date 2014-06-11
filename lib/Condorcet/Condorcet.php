@@ -851,30 +851,21 @@ class Condorcet
 		// Filter if tag is provided & return
 		if ($tag !== null)
 		{ 
-			$tag = $this->tagsConvert($tag);
-
 			$filter = new self ($this->_Method) ;
 
 			foreach ($this->getCandidatesList() as $candidate)
 			{
 				$filter->addCandidate($candidate);
 			}
-			foreach ($this->getVotesList() as $vote)
+			foreach ($this->getVotesList($tag, $with) as $vote)
 			{
 				$voteTags = $vote['tag'] ;
 				unset($vote['tag']) ;
-				
-				foreach ($tag as $oneTag)
-				{
-					if ( ($with) ? in_array($oneTag, $voteTags) : !in_array($oneTag, $voteTags) )
-					{
-						$filter->addVote($vote, $voteTags) ;
-						break ;
-					}
-				}
+
+				$filter->addVote($vote, $voteTags) ;
 			}
 
-			return $filter->getResult($method, $options, $tag, $with) ;
+			return $filter->getResult($method, $options) ;
 		}
 
 			////// Start //////
