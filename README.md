@@ -180,7 +180,7 @@ $condorcet->resetAll ();
 
 #### Registering
 ```php
-// addCandidate ( [mixed $name = automatic] )
+addCandidate ( [mixed $name = automatic] )
 ```
 **name :** Alphanumeric string or int.    
 
@@ -198,7 +198,7 @@ $condorcet->addCandidate(2) ; // A numeric argument
 
 #### Removing
 ```php
-// removeCandidate ( mixed $name = automatic )
+removeCandidate ( mixed $name = automatic )
 ```
 **name :** Alphanumeric string or int.   
 
@@ -310,7 +310,7 @@ Condorcet::setMaxParseIteration(null); // No limit (default mode)
 
 #### Verify the registered votes list
 ```php
-// getVotesList ( [mixed $tag = null, bool $with = true] )
+getVotesList ( [mixed $tag = null, bool $with = true] )
 ```
 **tag :** List of tags   
 **with :** With or without one a this tag(s)   
@@ -327,7 +327,7 @@ $condorcet->getVotesList (array('Julien', 'Charlie'), false); // Without this ta
 #### Count registered votes
 
 ```php
-// countVotes ( [mixed $tag = null, bool $with = true] )
+countVotes ( [mixed $tag = null, bool $with = true] )
 ```
 **tag :** List of tags   
 **with :** With or without one a this tag(s)    
@@ -341,7 +341,7 @@ $condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without
 
 #### Remove vote
 ```php
-// removeVote( mixed $tag [, bool $with = true] )
+removeVote( mixed $tag [, bool $with = true] )
 ```
 **tag :** List of tags   
 **with :** With or without one a this tag(s)    
@@ -362,8 +362,8 @@ When you have finished to process vote, you would like to have the results.
 
 #### Just get the natural Condorcet Winner
 ```php
-// getWinner ( [mixed $method = false] )
-// getLoser ( [mixed $method = false] )
+getWinner ( [mixed $method = false] )
+getLoser ( [mixed $method = false] )
 ```
 **method :** String name of an available advanced Condorcet method. True for default method.
 
@@ -392,7 +392,7 @@ Will return a string with the Candidate Name or many separated by commas
 
 #### Get a complete ranking from advanced methods
 ```php
-// getResult ( [mixed $method = false , array $extra_param = null] )
+getResult ( [mixed $method = false , array $extra_param = null] )
 ```
 **method :** String name of an available advanced Condorcet method. True for default method.
 **extra_param :** Specific for each method, if needed.
