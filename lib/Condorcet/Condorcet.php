@@ -332,9 +332,10 @@ class Condorcet
 
 							'object_Method'		=> $this->getMethod(),
 							'class_default_Method'	=> self::$_classMethod,
-							'force_classMethod'=> self::$_forceMethod,
+							'is_ClassForceMethod'=> self::$_forceMethod,
 
 							'class_authMethods'=> self::getAuthMethods(),
+							'class_MaxParseIterations'=> self::$_max_parse_iteration,
 
 							'state'		=> $this->_State
 						);
