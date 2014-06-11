@@ -845,10 +845,40 @@ class Condorcet
 
 	//:: PUBLIC FUNCTIONS :://
 
-
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = true, array $options = null)
+	public function getResult ($method = true, array $options = null, $tag = null, $with = true)
 	{
+		// Filter if tag is provided & return
+		if ($tag !== null)
+		{ 
+			$tag = $this->tagsConvert($tag);
+
+			$filter = new self ($this->_Method) ;
+
+			foreach ($this->getCandidatesList() as $candidate)
+			{
+				$filter->addCandidate($candidate);
+			}
+			foreach ($this->getVotesList() as $vote)
+			{
+				$voteTags = $vote['tag'] ;
+				unset($vote['tag']) ;
+				
+				foreach ($tag as $oneTag)
+				{
+					if ( ($with) ? in_array($oneTag, $voteTags) : !in_array($oneTag, $voteTags) )
+					{
+						$filter->addVote($vote, $voteTags) ;
+						break ;
+					}
+				}
+			}
+
+			return $filter->getResult($method, $options, $tag, $with) ;
+		}
+
+			////// Start //////
+
 		// Method
 		$this->setMethod() ;
 		// Prepare

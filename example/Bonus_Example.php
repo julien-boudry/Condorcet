@@ -219,8 +219,14 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 ?>
 <div style="clear:both;"></div>
 
+	<h3>Get a ranking without "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young result but don't delete it</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVote('custom_tag_One', false) ) ?>
 
-	<h3>Delete vote with "custom_tag_Two" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVote('custom_tag_One', false) ) ?>
+	 <pre>
+	<?php var_dump($calculator->getResult('KemenyYoung', null, array('custom_tag_One', 'custom_tag_Two'), false)); ?>
+	 </pre>
+<div style="clear:both;"></div>
+
+	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVote('custom_tag_One', false) ) ?>
 
 	<?php 
 		$calculator->removeVote('custom_tag_One') ;
