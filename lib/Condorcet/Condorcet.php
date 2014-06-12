@@ -671,17 +671,10 @@ class Condorcet
 
 		$effective = 0 ;
 
-		foreach ($this->_Votes as $key => $value)
+		foreach ($this->getVotesList($tag, $with) as $key => $value)
 		{
-			foreach ($tag as $oneTag)
-			{
-				if ( ($with) ? in_array($oneTag, $value['tag'], true) : !in_array($oneTag, $value['tag'], true) )
-				{
-					unset($this->_Votes[$key]) ;
-					$effective++ ;
-					break ;
-				}
-			}
+			unset($this->_Votes[$key]) ;
+			$effective++ ;
 		}
 
 		return $effective ;
@@ -818,7 +811,7 @@ class Condorcet
 		}
 	}
 
-	private function tagsConvert ($tags)
+	protected function tagsConvert ($tags)
 	{		
 		if (empty($tags))
 			{ return null ; }
