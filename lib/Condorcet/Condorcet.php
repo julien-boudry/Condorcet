@@ -797,14 +797,25 @@ class Condorcet
 
 			foreach ($this->_Votes as $key => $value)
 			{
+				$noOne = true ;
 				foreach ($tag as $oneTag)
 				{
-					if ( ($with) ? in_array($oneTag, $value['tag'],true) : !in_array($oneTag, $value['tag'],true) )
+					if ( in_array($oneTag, $value['tag'],true) )
 					{
-						$search[$key] = $value ;
-						break ;
+						if ($with)
+						{
+							$search[$key] = $value ;
+							break ;
+						}
+						else
+						{
+							$noOne = false ;
+						}
 					}
 				}
+
+				if (!$with && $noOne)
+					{ $search[$key] = $value ;}
 			}
 
 			return $search ;
