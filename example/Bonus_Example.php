@@ -52,9 +52,14 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<h2>Candidates list :</h2>
 
-	<pre>
-	<?php print_r($calculator->getCandidatesList()); ?>
-	</pre>
+	<ul>
+	<?php 
+	foreach ($calculator->getCandidatesList() as $candidatName)
+	{ 
+		echo '<li>'.$candidatName.'</li>' ;
+	}
+	?>
+	</ul>
 
 
 	<h2>Registered votes details :</h2>

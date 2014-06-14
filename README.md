@@ -11,13 +11,13 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Project State
-To date, the 0.10 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
+To date, the 0.11 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
 
 - To date, the library is used by [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
 http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
-**Stable Version : 0.10**  
+**Stable Version : 0.11**  
 **PHP Requirement:** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
@@ -334,8 +334,8 @@ countVotes ( [mixed $tag = null, bool $with = true] )
 
 ```php
 $condorcet->countVotes (); // Return a numeric value about the number of registered votes.  
-$condorcet->countVotes ('Julien,Charlie'); // Count vote with this tag or this tag.   
-$condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without this tag or without this tag.   
+$condorcet->countVotes ('Julien,Charlie'); // Count vote with this tag OR this tag.   
+$condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without this tag AND without this tag.   
 ```
 
 
@@ -392,18 +392,24 @@ Will return a string with the Candidate Name or many separated by commas
 
 #### Get a complete ranking from advanced methods
 ```php
-getResult ( [mixed $method = false , array $extra_param = null] )
+getResult ( [mixed $method = false , array $extra_param = null, mixed $tag , bool $with = true] )
 ```
 **method :** String name of an available advanced Condorcet method. True for default method.
 **extra_param :** Specific for each method, if needed.
+**tag :** Use a special set of votes.  
+**with :** With or without one a this tag(s)   
 
 **Return value :** False for error, else a nice array for ranking.
+
+__Warning : Using getResult() with tags filter don't use cache engin and computing each time you call it, prefer clone object and remove votes if you need it.__
 
 
 ```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default: Schulze)  
 $condorcet->getResult('Schulze') ; // Get the result for a valid method.
 $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See details above.
+$condorcet->getResult(true, null, 'Julien,Beethoven') ; // Use the default ranking method, no special parameters to it, but only compute with vote get tag 'Julien' or tag 'Beethoven'.
+$condorcet->getResult('Copeland', null, 'Julien,Beethoven', false) ; // Use the Copeland methodd, no special parameters to it, but only compute with vote without tag 'Julien' and without tag 'Beethoven'.
 ```
 
 
