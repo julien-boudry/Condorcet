@@ -11,13 +11,13 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Project State
-To date, the 0.10 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
+To date, the 0.11 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
 
 - To date, the library is used by [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
 http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
-**Stable Version : 0.10**  
+**Stable Version : 0.11**  
 **PHP Requirement:** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
@@ -142,7 +142,8 @@ Look https://packagist.org/packages/julien-boudry/condorcet
 
 #### Change the object default method if needed
 ```php
-$condorcet->setMethod('Schulze') ; // Argument : A supported method  
+$condorcet->setMethod('Schulze') ; // Argument : A supported method. Return the string name of new default method for this object (
+or forced method after the class if fonctionnalitée enabled). False on error.
 ```
 
 #### Change the class default method if needed
@@ -178,6 +179,12 @@ $condorcet->resetAll ();
 ### 1: Manage Candidates
 
 #### Registering
+```php
+addCandidate ( [mixed $name = automatic] )
+```
+**name :** Alphanumeric string or int.    
+
+**Return value :** New candidate name (your or automatic one)    
 
 Enter (or not) a Candidate Name 
 
@@ -190,6 +197,14 @@ $condorcet->addCandidate(2) ; // A numeric argument
 
 
 #### Removing
+```php
+removeCandidate ( mixed $name = automatic )
+```
+**name :** Alphanumeric string or int.   
+
+**Return value :** True on success. False if candidate name can't be found or if the vote has began.
+
+
 ```php
 $condorcet->removeCandidate('Wagner') ;
 ```
@@ -209,6 +224,15 @@ _Note: All votes are adjusted to estimate all candidates. The pairwise is calcul
 
 #### Add a vote
 _Note: You can add new votes after the results have already been given_  
+
+
+```php
+// addVote ( mixed $data [, mixed $tag = null] )
+```
+**data :** The vote data  
+**tag :** add tag(s) to this vote for further actions
+
+
 
 ##### With an array
 ```php
@@ -248,29 +272,85 @@ $vote = 'A>BC>D' ; // It's not correct
 *The last rank is optionnal too, it will be automatically deducted.*  
 
 
-#### Add a tag
+##### Add a tag
 You can add the same or different tag for each vote:  
 ```php
 $condorcet->addVote($vote, 'Charlie') ; // Please note that a single tag is always created for each vote. 
 $condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags, separated by commas. 
+```   
+
+
+#### Add multiple votes from file or large string
+Once your list of candidates previously recorded. You can parse a text file or as a PHP string character to record a large number of votes at once.   
+
+*You can simultaneously combine this method with traditional PHP calls above.*  
+
+##### Syntax
+```
+tag1,tag2,tag3[...] || A>B=D>C # A comment at the end of the line prefixed by '#'. Never use ';' in comment!
+Titan,CoteBoeuf || A>B=D>C # Tags at first, vote at second, separated by '||'
+A>C>D>B # Line break to start a new vote. Tags are optionals. View above for vote syntax.
+tag1,tag2,tag3 || A>B=D>C * 5 # This vote and his tag will be register 5 times
+   tag1  ,  tag2, tag3     ||    A>B=D>C*2        # Working too.
+C>D>B*8;A=D>B;Julien,Christelle||A>C>D>B*4;D=B=C>A # Alternatively, you can replace the line break by a semicolon.
+``` 
+
+##### Method
+```php
+$condorcet->parseVotes('data/vote42.txt'); // Path to text file. Absolute or relative.
+$condorcet->parseVotes($my_big_string); // Just my big string.
 ```
 
+**Anti-flood :**
+```php
+Condorcet::setMaxParseIteration(500); // Will generate an E_USER_ERROR and stop after 500 registered vote by call.
+Condorcet::setMaxParseIteration(null); // No limit (default mode)
+```
 
 
 #### Verify the registered votes list
 ```php
-$condorcet->getVotesList (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
-$condorcet->getVotesList ('Charlie'); // Will return an array where each vote with this tag.   
-$condorcet->getVotesList ('Charlie', false); // Will return an array where each vote without this tag.   
+getVotesList ( [mixed $tag = null, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)   
 
+```php
+$condorcet->getVotesList (); // Will return an array where key is the internal numeric vote_id and value an other array like your input.   
+$condorcet->getVotesList ('Charlie'); // Will return an array with each vote with this tag.   
+$condorcet->getVotesList ('Charlie', false); // Will return an array where each vote without this tag.   
+$condorcet->getVotesList ('Charlie,Julien'); // With this tag OR this tag   
+$condorcet->getVotesList (array('Julien', 'Charlie'), true); // Or do it like this   
+$condorcet->getVotesList (array('Julien', 'Charlie'), false); // Without this tag AND without this tag ...   
+```
+
+#### Count registered votes
+
+```php
+countVotes ( [mixed $tag = null, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)    
+
+```php
 $condorcet->countVotes (); // Return a numeric value about the number of registered votes.  
+$condorcet->countVotes ('Julien,Charlie'); // Count vote with this tag OR this tag.   
+$condorcet->countVotes (array('Julien','Charlie'), false); // Count vote without this tag AND without this tag.   
 ```
 
 
 #### Remove vote
 ```php
+removeVote( mixed $tag [, bool $with = true] )
+```
+**tag :** List of tags   
+**with :** With or without one a this tag(s)    
+
+```php
 $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
 $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
+$condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+$condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
 ```
 
 _Note: You can remove a vote after the results have already been given._  
@@ -281,11 +361,18 @@ _Note: You can remove a vote after the results have already been given._
 When you have finished to process vote, you would like to have the results.
 
 #### Just get the natural Condorcet Winner
+```php
+getWinner ( [mixed $method = false] )
+getLoser ( [mixed $method = false] )
+```
+**method :** String name of an available advanced Condorcet method. True for default method.
+
+**Return value :** String or int of the candidate name.
 
 ##### Regular
 ```php
-$condorcet->getWinner() ; // Will return a string with the Candidate name
-$condorcet->getLoser() ; // Will return a string with the Candidate name
+$condorcet->getWinner() ; // Will return a string with the Condorcet Winner candidate name
+$condorcet->getLoser() ; // Will return a string with the Condorcet looser candidate name
 ```
 
 
@@ -305,9 +392,24 @@ Will return a string with the Candidate Name or many separated by commas
 
 #### Get a complete ranking from advanced methods
 ```php
+getResult ( [mixed $method = false , array $extra_param = null, mixed $tag , bool $with = true] )
+```
+**method :** String name of an available advanced Condorcet method. True for default method.
+**extra_param :** Specific for each method, if needed.
+**tag :** Use a special set of votes.  
+**with :** With or without one a this tag(s)   
+
+**Return value :** False for error, else a nice array for ranking.
+
+__Warning : Using getResult() with tags filter don't use cache engin and computing each time you call it, prefer clone object and remove votes if you need it.__
+
+
+```php
 $condorcet->getResult() ; // Set of results with ranking from the default method. (Class Default: Schulze)  
 $condorcet->getResult('Schulze') ; // Get the result for a valid method.
 $condorcet->getResult( 'KemenyYoung', array('noConflict' => true) ) ; // Sometimes (actually only this one for KemenyYoung), you can use an array for some algorithm configuration. See details above.
+$condorcet->getResult(true, null, 'Julien,Beethoven') ; // Use the default ranking method, no special parameters to it, but only compute with vote get tag 'Julien' or tag 'Beethoven'.
+$condorcet->getResult('Copeland', null, 'Julien,Beethoven', false) ; // Use the Copeland methodd, no special parameters to it, but only compute with vote without tag 'Julien' and without tag 'Beethoven'.
 ```
 
 
