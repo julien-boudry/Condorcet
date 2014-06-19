@@ -214,6 +214,7 @@ class Condorcet
 		$error[12] = array('text'=>'You have exceeded the number of votes allowed for this method.', 'level'=>E_USER_ERROR) ;
 		$error[13] = array('text'=>'Formatting error: You do not multiply by a number!', 'level'=>E_USER_WARNING) ;
 		$error[14] = array('text'=>'parseVote() must take a string (raw or path) as argument', 'level'=>E_USER_WARNING) ;
+		$error[15] = array('Input must be valid Json format', 'level'=>E_USER_WARNING) ;
 
 		
 		if ( array_key_exists($code, $error) )
@@ -683,7 +684,7 @@ class Condorcet
 	public function jsonVotes ($input)
 	{
 		if (!$this->isJson($input))
-			{ return $this->error(14); }
+			{ return $this->error(15); }
 
 		$input = json_decode($input, true);
 
