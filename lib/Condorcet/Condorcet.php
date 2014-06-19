@@ -680,11 +680,40 @@ class Condorcet
 		return $effective ;
 	}
 
+	public function jsonVotes ($input)
+	{
+		if (!$this->isJson($input))
+			{ return $this->error(14); }
+
+		$input = json_decode($input, true);
+
+			//////
+
+		$count = 0 ;
+
+		foreach ($input as $record)
+		{
+			if (empty($record['vote']))
+				{ continue ; }
+
+			$tags = (!isset($record['tag'])) ? null : $record['tag'] ;
+			$multi = (!isset($record['multi'])) ? 1 : $record['multi'] ;
+
+			for ($i = 0 ; $i < $multi ; $i++)
+			{
+				if ( $this->addVote($record['vote'], $tags) )
+					{ $count++; }
+			}
+		}
+
+		return ($count === 0) ? false : $count ;
+	}
+
 	public function parseVotes ($input)
 	{
 		// Input must be a string
 		if (!is_string($input))
-			{ $this->error(14); return false ; }
+			{ return $this->error(14); }
 
 		// Is string or is file ?
 		if (is_file($input))
@@ -840,6 +869,18 @@ class Condorcet
 		}
 
 		return $tags ;
+	}
+
+	// Check JSON format
+	protected function isJson($string)
+	{
+		// try to decode string
+		json_decode($string);
+
+		// check if error occured
+		$isValid = json_last_error() === JSON_ERROR_NONE;
+
+		return $isValid;
 	}
 
 
