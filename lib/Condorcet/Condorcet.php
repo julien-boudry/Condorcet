@@ -367,6 +367,38 @@ class Condorcet
 	}
 
 
+	// Generic action before parsing data from string input
+	protected function prepareParse ($input, $allowFile)
+	{
+		// Input must be a string
+		if (!is_string($input))
+			{ return $this->error(14); }
+
+		// Is string or is file ?
+		if ($allowFile === true && is_file($input))
+		{
+			$input = file_get_contents($input);
+		}
+
+		// Line
+		$input = preg_replace("(\r\n|\n|\r)",';',$input);
+		$input = explode(';', $input);
+
+		// Delete comments
+		foreach ($input as &$line)
+		{
+			// Delete comments
+			$is_comment = strpos($line, '#') ;
+			if ($is_comment !== false)
+			{
+				$line = substr($line, 0, $is_comment) ;
+			}
+		}
+
+		return $input ;
+	}
+
+
 
 /////////// CANDIDATES ///////////
 
@@ -452,6 +484,25 @@ class Condorcet
 		}
 
 		return true ;
+	}
+
+
+	public function parseCandidates ($input, $allowFile = true)
+	{
+		$input = $this->prepareParse($input, $allowFile) ;
+
+		$ite = 0 ;
+		foreach ($input as $line)
+		{
+			// Empty Line
+			if (empty($line)) { continue ; }
+
+			// addCandidate
+			$this->addCandidate($line) ;
+			$ite++ ;
+		}
+
+		return $ite ;
 	}
 
 
@@ -712,31 +763,12 @@ class Condorcet
 
 	public function parseVotes ($input, $allowFile = true)
 	{
-		// Input must be a string
-		if (!is_string($input))
-			{ return $this->error(14); }
-
-		// Is string or is file ?
-		if ($allowFile === true && is_file($input))
-		{
-			$input = file_get_contents($input);
-		}
-
-		// Line
-		$input = preg_replace("(\r\n|\n|\r)",';',$input);
-		$input = explode(';', $input);
+		$input = $this->prepareParse($input, $allowFile) ;
 
 		// Check each lines
 		$ite = 0 ;
 		foreach ($input as $line)
 		{
-			// Delete comments
-			$is_comment = strpos($line, '#') ;
-			if ($is_comment !== false)
-			{
-				$line = substr($line, 0, $is_comment) ;
-			}
-
 			// Empty Line
 			if (empty($line)) { continue ; }
 
