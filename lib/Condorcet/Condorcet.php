@@ -493,6 +493,7 @@ class Condorcet
 	public function parseCandidates ($input, $allowFile = true)
 	{
 		$input = $this->prepareParse($input, $allowFile) ;
+		if ($input === false) { return $input ; }
 
 		$ite = 0 ;
 		foreach ($input as $line)
@@ -767,6 +768,7 @@ class Condorcet
 	public function parseVotes ($input, $allowFile = true)
 	{
 		$input = $this->prepareParse($input, $allowFile) ;
+		if ($input === false) { return $input ; }
 
 		// Check each lines
 		$ite = 0 ;
