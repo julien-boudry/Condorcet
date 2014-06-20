@@ -410,9 +410,7 @@ class Condorcet
 		if ( $this->_State > 1 ) { return self::error(2) ; }
 		
 		// Filter
-		if ( !is_null($candidate_id) && !ctype_alnum($candidate_id) && !is_int($candidate_id) )
-			{ return self::error(1, $candidate_id) ; }
-		if ( mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID || is_bool($candidate_id) )
+		if ( is_bool($candidate_id) || is_array($candidate_id) || is_object($candidate_id) )
 			{ return self::error(1, $candidate_id) ; }
 
 		
@@ -432,6 +430,11 @@ class Condorcet
 		else // Try to add the candidate_id
 		{
 			$candidate_id = trim($candidate_id);
+
+			if ( mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID || is_bool($candidate_id) )
+				{ return self::error(1, $candidate_id) ; }
+
+				///
 
 			if ( $this->try_addCandidate($candidate_id) )
 			{
