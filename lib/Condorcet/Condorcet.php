@@ -710,14 +710,14 @@ class Condorcet
 		return ($count === 0) ? false : $count ;
 	}
 
-	public function parseVotes ($input)
+	public function parseVotes ($input, $allowFile = true)
 	{
 		// Input must be a string
 		if (!is_string($input))
 			{ return $this->error(14); }
 
 		// Is string or is file ?
-		if (is_file($input))
+		if ($allowFile === true && is_file($input))
 		{
 			$input = file_get_contents($input);
 		}
