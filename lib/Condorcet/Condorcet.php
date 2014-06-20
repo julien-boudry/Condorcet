@@ -399,6 +399,28 @@ class Condorcet
 	}
 
 
+	protected function prepareJson ($input)
+	{
+		if (!$this->isJson($input))
+			{ return $this->error(15); }
+
+		return json_decode($input, true);
+	}
+
+
+	// Check JSON format
+	protected function isJson ($string)
+	{
+		// try to decode string
+		json_decode($string);
+
+		// check if error occured
+		$isValid = json_last_error() === JSON_ERROR_NONE;
+
+		return $isValid;
+	}
+
+
 
 /////////// CANDIDATES ///////////
 
@@ -490,6 +512,24 @@ class Condorcet
 	}
 
 
+	public function jsonCandidates ($input)
+	{
+		$input = $this->prepareJson($input);
+		if ($input === false) { return $input ; }
+
+			//////
+
+		$count = 0 ;
+		foreach ($input as $candidate)
+		{
+			if ($this->addCandidate($candidate))
+				{ $count++; }
+		}
+
+		return $count ;
+	}
+
+
 	public function parseCandidates ($input, $allowFile = true)
 	{
 		$input = $this->prepareParse($input, $allowFile) ;
@@ -502,8 +542,8 @@ class Condorcet
 			if (empty($line)) { continue ; }
 
 			// addCandidate
-			$this->addCandidate($line) ;
-			$ite++ ;
+			if ($this->addCandidate($line))
+				{ $ite++ ; }
 		}
 
 		return $ite ;
@@ -736,12 +776,11 @@ class Condorcet
 		return $effective ;
 	}
 
+
 	public function jsonVotes ($input)
 	{
-		if (!$this->isJson($input))
-			{ return $this->error(15); }
-
-		$input = json_decode($input, true);
+		$input = $this->prepareJson($input);
+		if ($input === false) { return $input ; }
 
 			//////
 
@@ -818,9 +857,8 @@ class Condorcet
 			// addVote
 			for ($i = 0 ; $i < $multiple ; $i++)
 			{
-				$this->addVote($vote, $tags);
-
-				$ite++ ;
+				if ($this->addVote($vote, $tags))
+					{ $ite++ ; }
 
 				if (self::$_max_parse_iteration !== null && $ite >= self::$_max_parse_iteration)
 				{
@@ -907,18 +945,6 @@ class Condorcet
 		}
 
 		return $tags ;
-	}
-
-	// Check JSON format
-	protected function isJson($string)
-	{
-		// try to decode string
-		json_decode($string);
-
-		// check if error occured
-		$isValid = json_last_error() === JSON_ERROR_NONE;
-
-		return $isValid;
 	}
 
 
