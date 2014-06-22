@@ -315,8 +315,6 @@ class Condorcet
 		{
 			$this->_Method = $method ;
 		}
-		else
-			{ return false ; }
 
 		return $this->_Method ;
 	}
