@@ -1403,13 +1403,17 @@ interface Condorcet_Algo
 // Custom Exeption
 class CondorcetException extends \Exception
 {
-	public function __construct($code = 0, $infos = '')
+	public function __construct ($code = 0, $infos = '')
 	{
 		$message = $this->correspondence($code);
 
 		parent::__construct($message, $code);
 	}
 
+	public function __toString ()
+	{
+		   return __CLASS__ . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
+	}
 
 	protected function correspondence ($code)
 	{
