@@ -385,6 +385,9 @@ class Condorcet
 		// Delete comments
 		foreach ($input as &$line)
 		{
+			// Trim
+			$line = trim($line);
+
 			// Delete comments
 			$is_comment = strpos($line, '#') ;
 			if ($is_comment !== false)
