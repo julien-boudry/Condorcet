@@ -45,7 +45,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 		if ($this->_CandidatesCount > self::$_maxCandidates)
 		{
-			namespace\Condorcet::error('','KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates',E_USER_ERROR) ;
+			throw new namespace\CondorcetException('','KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates',E_USER_ERROR) ;
 		}
 	}
 
