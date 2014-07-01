@@ -757,6 +757,11 @@ class Condorcet
 
 			for ($i = 0 ; $i < $multi ; $i++)
 			{
+				if (self::$_max_parse_iteration !== null && $count >= self::$_max_parse_iteration)
+				{
+					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
+				}
+
 				if ( $this->addVote($record['vote'], $tags) )
 					{ $count++; }
 			}
@@ -817,13 +822,13 @@ class Condorcet
 			// addVote
 			for ($i = 0 ; $i < $multiple ; $i++)
 			{
-				if ($this->addVote($vote, $tags))
-					{ $ite++ ; }
-
 				if (self::$_max_parse_iteration !== null && $ite >= self::$_max_parse_iteration)
 				{
 					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
 				}
+
+				if ($this->addVote($vote, $tags))
+					{ $ite++ ; }
 			}
 		}
 
