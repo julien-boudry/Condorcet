@@ -11,13 +11,13 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Project State
-To date, the 0.11 is a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
+To date, we have a stable version. Since version 0.9, an important work of code review and testing was conducted by the creator, but **external testers are more than welcome**.   
 
 - To date, the library is used by [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
 http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
-**Stable Version : 0.11**  
+**Stable Version : 0.12**  
 **PHP Requirement:** PHP 5.4 with Ctype and MB_String common extensions  
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
@@ -82,7 +82,8 @@ We encourage you to read the code, and help to improve inline documentation!
 3. [1: Manage Candidates](#1-manage-candidates)
 4. [2: Start voting](#2-start-voting)
 5. [3: Get results & Stats](#3-get-results--stats)
-6. [Customize the code : Add new algorithm(s)](#customize-the-code--add-new-algorithms-)
+6. [Exceptions codes](#exceptions-code)
+7. [Customize the code : Add new algorithm(s)](#customize-the-code--add-new-algorithms-)
 
 ---------------------------------------
 ### Install it
@@ -143,7 +144,7 @@ Look https://packagist.org/packages/julien-boudry/condorcet
 #### Change the object default method if needed
 ```php
 $condorcet->setMethod('Schulze') ; // Argument : A supported method. Return the string name of new default method for this object (
-or forced method after the class if fonctionnalitée enabled). False on error.
+or forced method after the class if fonctionnalitée enabled). Throw an exception on error.
 ```
 
 #### Change the class default method if needed
@@ -178,13 +179,16 @@ $condorcet->resetAll ();
 ---------------------------------------
 ### 1: Manage Candidates
 
-#### Registering
-```php
-addCandidate ( [mixed $name = automatic] )
-```
-**name :** Alphanumeric string or int.    
+### Registering
 
-**Return value :** New candidate name (your or automatic one)    
+#### Regular
+
+```php
+addCandidate ( [mixed $name = automatic] ) 
+```
+**name :** Alphanumeric string or int. Your candidate name will be trim()    
+
+**Return value :** The new candidate name (your or automatic one). Throw an exception on error (existing candidate...)    
 
 Enter (or not) a Candidate Name 
 
@@ -195,14 +199,44 @@ $condorcet->addCandidate() ; // Empty argument will return an automatic candidat
 $condorcet->addCandidate(2) ; // A numeric argument  
 ```
 
+#### Add multiple candidates from string or text file
 
-#### Removing
+##### Syntax
+```
+Candidate1
+Candidate2 # You can add optionnal comments
+Candidate3 ; Candidate4 # Or in the same line separated by ;, with or without space (will be trim)
+Candidate5
+``` 
+
+##### Method
+```php
+$condorcet->parseCandidates('data/candidates.txt'); // Path to text file. Absolute or relative.
+$condorcet->parseCandidates($my_big_string); // Just my big string.
+```
+
+#### Add multiple candidates from Json
+
+##### Syntax
+```php
+json_encode( array(
+	'Candidate1',
+	'Candidate2'
+) );
+``` 
+
+##### Method
+```php
+$condorcet->jsonCandidates($my_big_string);
+```
+
+### Removing
 ```php
 removeCandidate ( mixed $name = automatic )
 ```
 **name :** Alphanumeric string or int.   
 
-**Return value :** True on success. False if candidate name can't be found or if the vote has began.
+**Return value :** True on success. Throw an exception if candidate name can't be found or if the vote has began.
 
 
 ```php
@@ -210,7 +244,7 @@ $condorcet->removeCandidate('Wagner') ;
 ```
 
 
-#### Verify the Candidates list
+### Verify the Candidates list
 ```php
 $condorcet->getCandidatesList(); // Will return an array with Candidate Name as value.
 ```
@@ -280,7 +314,7 @@ $condorcet->addVote($vote, 'Charlie,Claude') ; // You can also add multiple tags
 ```   
 
 
-#### Add multiple votes from file or large string
+#### Add multiple votes from string or text file
 Once your list of candidates previously recorded. You can parse a text file or as a PHP string character to record a large number of votes at once.   
 
 *You can simultaneously combine this method with traditional PHP calls above.*  
@@ -301,12 +335,35 @@ $condorcet->parseVotes('data/vote42.txt'); // Path to text file. Absolute or rel
 $condorcet->parseVotes($my_big_string); // Just my big string.
 ```
 
-**Anti-flood :**
+#### Add multiple votes from Json
+
+##### Syntax
 ```php
-Condorcet::setMaxParseIteration(500); // Will generate an E_USER_ERROR and stop after 500 registered vote by call.
-Condorcet::setMaxParseIteration(null); // No limit (default mode)
+$json_votes = json_encode( array(
+	array('vote' => 'A>B=D>C', 'tag' => 'ben,jerry'),
+	array('vote' => array('D', 'B,A', 'C'), 'tag' => array('bela','bartok'), 'multi' => 5),
+	array('vote' => array('A', array('B','C'), 'D'))
+) );
+``` 
+
+In the previous example, all parameters are optional exept vote.
+* 'multi' is used to record N times the vote.   
+* 'tag' is used in the same way as addVote ()  
+* 'vote' is used in the same way as addVote ()   
+
+##### Method
+```php
+$condorcet->jsonVotes($json_votes);
 ```
 
+**Anti-flood :**
+
+Be applied and reset each call parseVotes() or jsonVotes()   
+
+```php
+Condorcet::setMaxParseIteration(500); // Will generate an exception and stop after 500 registered vote by call.
+Condorcet::setMaxParseIteration(null); // No limit (default mode)
+```  
 
 #### Verify the registered votes list
 ```php
@@ -367,7 +424,7 @@ getLoser ( [mixed $method = false] )
 ```
 **method :** String name of an available advanced Condorcet method. True for default method.
 
-**Return value :** String or int of the candidate name.
+**Return value :** Candidate name, null if there are no aviable winner or loser. Throw an exception on error.
 
 ##### Regular
 ```php
@@ -399,7 +456,7 @@ getResult ( [mixed $method = false , array $extra_param = null, mixed $tag , boo
 **tag :** Use a special set of votes.  
 **with :** With or without one a this tag(s)   
 
-**Return value :** False for error, else a nice array for ranking.
+**Return value :** Throw an exception on error, else a nice array for ranking.
 
 __Warning : Using getResult() with tags filter don't use cache engin and computing each time you call it, prefer clone object and remove votes if you need it.__
 
@@ -442,6 +499,24 @@ else
 	// $test is your habitual result ;
 }
 ```    
+
+---------------------------------------
+### Exceptions code
+	[1] = 'Bad candidate format';
+	[2] = 'The voting process has already started';
+	[3] = 'This candidate ID is already registered';
+	[4] = 'This candidate ID do not exist';
+	[5] = 'Bad vote format';
+	[6] = 'You need to specify votes before results';
+	[7] = 'Your Candidate ID is too long > ' . namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID;
+	[8] = 'This method do not exist';
+	[9] = 'The algo class you want has not been defined';
+	[10] = 'The algo class you want is not correct';
+	[11] = 'You try to unserialize an object version older than your actual Class version. This is a problematic thing';
+	[12] = 'You have exceeded the number of votes allowed for this method.';
+	[13] = 'Formatting error: You do not multiply by a number!';
+	[14] = 'parseVote() must take a string (raw or path) as argument';
+	[15] = 'Input must be valid Json format';
 
 ---------------------------------------
 ### Customize the code: Add new algorithm(s) <a name="newAlgo"></a>  
