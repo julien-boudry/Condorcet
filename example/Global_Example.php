@@ -40,7 +40,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<h1><?php echo TEST_NAME ;?></h1>
 	
-	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class" target="_blank">Condorcet Class</a> version : <?php echo $calculator->getObjectVersion(); ?></em><br>
+	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class" target="_blank">Condorcet Class</a> version : <?php echo $calculator->getClassVersion(); ?></em><br>
 
 	<em>
 		Number of Candidates : 

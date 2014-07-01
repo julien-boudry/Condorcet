@@ -29,6 +29,7 @@ class Condorcet
 
 
 	const VERSION = '0.12' ;
+	const ENV = 'DEV' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
 	protected static $_classMethod	= null ;
@@ -37,9 +38,9 @@ class Condorcet
 	protected static $_max_parse_iteration = null ;
 
 	// Return library version numer
-	public static function getClassVersion ()
+	public static function getClassVersion ($dev_infos = true)
 	{
-		return self::VERSION ;
+		return ($dev_infos && self::ENV !== 'DEV') ? self::VERSION : self::ENV . ' - '. self::VERSION ;
 	}
 
 
@@ -294,7 +295,7 @@ class Condorcet
 
 	public function __wakeup ()
 	{
-		if ( version_compare($this->getObjectVersion(),self::getClassVersion(),'<') )
+		if ( version_compare($this->getObjectVersion(),self::getClassVersion(false),'<') )
 		{
 			return self::error(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
