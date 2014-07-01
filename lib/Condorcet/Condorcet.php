@@ -196,45 +196,6 @@ class Condorcet
 			}
 
 
-	public static function error ($code, $infos = null, $level = E_USER_WARNING)
-	{
-		$error[1] = array('text'=>'Bad candidate format', 'level'=>E_USER_WARNING) ;
-		$error[2] = array('text'=>'The voting process has already started', 'level'=>E_USER_WARNING) ;
-		$error[3] = array('text'=>'This candidate ID is already registered', 'level'=>E_USER_NOTICE) ;
-		$error[4] = array('text'=> 'This candidate ID do not exist', 'level'=>E_USER_WARNING) ;
-		$error[5] = array('text'=>'Bad vote format', 'level'=>E_USER_WARNING) ;
-		$error[6] = array('text'=>'You need to specify votes before results', 'level'=>E_USER_ERROR) ;
-		$error[7] = array('text'=>'Your Candidate ID is too long > '.self::MAX_LENGTH_CANDIDATE_ID, 'level'=>E_USER_WARNING) ;
-		$error[8] = array('text'=>'This method do not exist', 'level'=>E_USER_ERROR) ;
-		$error[9] = array('text'=>'The algo class you want has not been defined', 'level'=>E_USER_ERROR) ;
-		$error[10] = array('text'=>'The algo class you want is not correct', 'level'=>E_USER_ERROR) ;
-		$error[11] = array('text'=>'You try to unserialize an object version older than your actual Class version. This is a problematic thing', 'level'=>E_USER_WARNING) ;
-		$error[12] = array('text'=>'You have exceeded the number of votes allowed for this method.', 'level'=>E_USER_ERROR) ;
-		$error[13] = array('text'=>'Formatting error: You do not multiply by a number!', 'level'=>E_USER_WARNING) ;
-		$error[14] = array('text'=>'parseVote() must take a string (raw or path) as argument', 'level'=>E_USER_WARNING) ;
-		$error[15] = array('Input must be valid Json format', 'level'=>E_USER_WARNING) ;
-
-		
-		if ( array_key_exists($code, $error) )
-		{
-			trigger_error( $error[$code]['text'].' : '.$infos, $error[$code]['level'] );
-		}
-		else
-		{
-			if (!is_null($infos))
-			{
-				trigger_error( $infos, $level );
-			}
-			else
-			{
-				trigger_error( 'Mysterious Error', $level );
-			}
-		}
-
-		return false ;
-	}
-
-
 
 /////////// CONSTRUCTOR ///////////
 
