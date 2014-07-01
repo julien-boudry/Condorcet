@@ -4,7 +4,7 @@ Condorcet Class for PHP
 A PHP class implementing the Condorcet voting system and other Condorcet methods like the Schulze method.  
 _This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
 
-**Create by :** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry)     
+**Create by :** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
 **License :** MIT _(read de LICENSE file at the root folder)_  
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
 **Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
@@ -18,13 +18,18 @@ http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
 **Stable Version : 0.12**  
-**PHP Requirement:** PHP 5.4 with Ctype and MB_String common extensions  
+**PHP Requirement:** PHP 5.4.3 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
 The literature also provides easy example of free implementation with or without autoloader.
 
 **Coding standards:** The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
+
+#### Related projects
+* [Condorcet API](https://github.com/julien-boudry/Condorcet_API) Very basic and simple http API for Condorcet class (json or text i/o)
+* [Mahler-S2-BlindTest-Condorcet
+](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections). Look like the examples provided here, but better.    
 
 ---------------------------------------
 
@@ -44,7 +49,7 @@ The literature also provides easy example of free implementation with or without
 
 * **KemenyYoung** http://en.wikipedia.org/wiki/Kemeny-Young_method   
 *Neither perfect nor quick, however this implementation is operating normally. You are invited to read the corresponding Github issue, and if you are able to comment on issues in Github.   
-Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation by using ```namespace\KemenyYoung::setMaxCandidates(6);```, but your processor could work a long time when exceeding six candidates. In contrast, the number of voters do not impact the calculation time significantly.*
+Because this implementation uses no heuristic means, it is deliberately restrained to vote involving no more than 5 candidates; however, you can easily bypass this limitation by using ```namespace\KemenyYoung::setMaxCandidates(6);```, but your processor could work a long time when exceeding five candidates. In contrast, the number of voters do not impact the calculation time significantly.*
 
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax_Winning** *(Does not satisfy the Condorcet loser criterion)*  
@@ -58,7 +63,7 @@ Because this implementation uses no heuristic means, it is deliberately restrain
     * **Schulze_Margin**
     * **Schulze_Ratio**
 
-_The name of the above methods must be observed when you make calls, case sensitive._
+**The name of the above methods must be observed when you make calls, case sensitive.**   
 
 #### Add new one?	
 This class is designed to be easily extensible with new algorithms. A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
@@ -74,7 +79,7 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 
 ---------------------------------------
 ## How to use it?
-Soon you will find a complete example.php. The most important methods are listed bellow.  
+You will find comprehensive examples in the example folder, read them! The following documentation is trying to be as complete as possible. Do not hesitate to ask questions.
 We encourage you to read the code, and help to improve inline documentation!
 
 1. [Install it](#install-it)
@@ -83,7 +88,7 @@ We encourage you to read the code, and help to improve inline documentation!
 4. [2: Start voting](#2-start-voting)
 5. [3: Get results & Stats](#3-get-results--stats)
 6. [Exceptions codes](#exceptions-code)
-7. [Customize the code : Add new algorithm(s)](#customize-the-code--add-new-algorithms-)
+7. [Customize the code : Add new algorithm(s)](#customize-the-code-add-new-algorithms-)
 
 ---------------------------------------
 ### Install it

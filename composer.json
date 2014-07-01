@@ -15,7 +15,8 @@
     "require": {
         "php": ">=5.4.3",
         "ext-mbstring": "*",
-        "ext-ctype": "*"
+        "ext-ctype": "*",
+        "ext-json": "*"
     },
      "repositories": [
          {
