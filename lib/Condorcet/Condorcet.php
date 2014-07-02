@@ -197,6 +197,19 @@ class Condorcet
 			}
 
 
+	// Check JSON format
+	public static function isJson ($string)
+	{
+		// try to decode string
+		json_decode($string);
+
+		// check if error occured
+		$isValid = json_last_error() === JSON_ERROR_NONE;
+
+		return $isValid;
+	}
+
+
 
 /////////// CONSTRUCTOR ///////////
 
@@ -362,23 +375,10 @@ class Condorcet
 
 	protected function prepareJson ($input)
 	{
-		if (!$this->isJson($input))
+		if (!self::isJson($input))
 			{ throw new namespace\CondorcetException(15); }
 
 		return json_decode($input, true);
-	}
-
-
-	// Check JSON format
-	protected function isJson ($string)
-	{
-		// try to decode string
-		json_decode($string);
-
-		// check if error occured
-		$isValid = json_last_error() === JSON_ERROR_NONE;
-
-		return $isValid;
 	}
 
 
