@@ -225,6 +225,8 @@ class Condorcet
 	protected $_CandidatesCount = 0 ;
 	protected $_nextVoteTag = 0 ;
 	protected $_objectVersion ;
+	protected $_globalTimer = 0.0 ;
+	protected $_lastTimer = 0.0 ;
 
 	// Result
 	protected $_Pairwise ;
@@ -380,6 +382,19 @@ class Condorcet
 
 		return json_decode($input, true);
 	}
+
+
+	protected function setTimer ($timer)
+	{
+		$this->_globalTimer += $timer ;
+		$this->_lastTimer = $timer ;
+	}
+
+	public function getGlobalTimer ($float = false)
+		{ return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5) ; }
+
+	public function getLastTimer ($float = false)
+		{ return ($float) ? $this->_lastTimer : number_format($this->_lastTimer, 5) ; }
 
 
 
@@ -921,6 +936,8 @@ class Condorcet
 	// Generic function for default result with ability to change default object method
 	public function getResult ($method = true, array $options = null, $tag = null, $with = true)
 	{
+		$timer_start = microtime(true);
+
 		// Filter if tag is provided & return
 		if ($tag !== null)
 		{ 
@@ -937,6 +954,8 @@ class Condorcet
 
 				$filter->addVote($vote, $voteTags) ;
 			}
+
+			$this->setTimer(microtime(true) - $timer_start) ;
 
 			return $filter->getResult($method, $options) ;
 		}
@@ -966,6 +985,8 @@ class Condorcet
 		{
 			throw new namespace\CondorcetException(8,$method) ;
 		}
+
+		$this->setTimer(microtime(true) - $timer_start) ;
 
 		return $this->humanResult($result) ;
 	}
