@@ -86,7 +86,17 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	}
 ?>
 
-<hr style="clear:both;">
+<br><hr style="clear:both;">
+
+<h2>Get pairwise :</h2>
+
+	 <pre>
+	<?php var_dump($calculator->getPairwise()); ?>
+	 </pre> 
+	<br>
+	<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>
+
+<br><br><hr style="clear:both;">
 
 	<h2>Winner by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 

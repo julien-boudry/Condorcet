@@ -386,8 +386,8 @@ class Condorcet
 
 	protected function setTimer ($timer)
 	{
-		$this->_globalTimer += $timer ;
-		$this->_lastTimer = $timer ;
+		$this->_lastTimer = microtime(true) - $timer ;
+		$this->_globalTimer += $this->_lastTimer ;
 	}
 
 	public function getGlobalTimer ($float = false)
@@ -936,11 +936,11 @@ class Condorcet
 	// Generic function for default result with ability to change default object method
 	public function getResult ($method = true, array $options = null, $tag = null, $with = true)
 	{
-		$timer_start = microtime(true);
-
 		// Filter if tag is provided & return
 		if ($tag !== null)
 		{ 
+			$timer_start = microtime(true);
+
 			$filter = new self ($this->_Method) ;
 
 			foreach ($this->getCandidatesList() as $candidate)
@@ -955,7 +955,7 @@ class Condorcet
 				$filter->addVote($vote, $voteTags) ;
 			}
 
-			$this->setTimer(microtime(true) - $timer_start) ;
+			$this->setTimer($timer_start) ;
 
 			return $filter->getResult($method, $options) ;
 		}
@@ -968,6 +968,8 @@ class Condorcet
 		$this->prepareResult() ;
 
 			//////
+
+		$timer_start = microtime(true);
 
 		if ($method === true)
 		{
@@ -986,7 +988,7 @@ class Condorcet
 			throw new namespace\CondorcetException(8,$method) ;
 		}
 
-		$this->setTimer(microtime(true) - $timer_start) ;
+		$this->setTimer($timer_start) ;
 
 		return $this->humanResult($result) ;
 	}
@@ -1200,6 +1202,8 @@ class Condorcet
 
 	protected function doPairwise ()
 	{		
+		$timer_start = microtime(true);
+
 		$this->_Pairwise = array() ;
 
 		foreach ( $this->_Candidates as $candidate_key => $candidate_id )
@@ -1276,6 +1280,8 @@ class Condorcet
 						) ;
 			}
 		}
+
+		$this->setTimer($timer_start);
 	}
 
 
