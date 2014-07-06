@@ -2,7 +2,7 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.12
+	Version : 0.13
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.12' ;
+	const VERSION = '0.13' ;
 	const ENV = 'STABLE' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
@@ -197,6 +197,19 @@ class Condorcet
 			}
 
 
+	// Check JSON format
+	public static function isJson ($string)
+	{
+		// try to decode string
+		json_decode($string);
+
+		// check if error occured
+		$isValid = json_last_error() === JSON_ERROR_NONE;
+
+		return $isValid;
+	}
+
+
 
 /////////// CONSTRUCTOR ///////////
 
@@ -212,6 +225,8 @@ class Condorcet
 	protected $_CandidatesCount = 0 ;
 	protected $_nextVoteTag = 0 ;
 	protected $_objectVersion ;
+	protected $_globalTimer = 0.0 ;
+	protected $_lastTimer = 0.0 ;
 
 	// Result
 	protected $_Pairwise ;
@@ -362,24 +377,24 @@ class Condorcet
 
 	protected function prepareJson ($input)
 	{
-		if (!$this->isJson($input))
+		if (!self::isJson($input))
 			{ throw new namespace\CondorcetException(15); }
 
 		return json_decode($input, true);
 	}
 
 
-	// Check JSON format
-	protected function isJson ($string)
+	protected function setTimer ($timer)
 	{
-		// try to decode string
-		json_decode($string);
-
-		// check if error occured
-		$isValid = json_last_error() === JSON_ERROR_NONE;
-
-		return $isValid;
+		$this->_lastTimer = microtime(true) - $timer ;
+		$this->_globalTimer += $this->_lastTimer ;
 	}
+
+	public function getGlobalTimer ($float = false)
+		{ return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5) ; }
+
+	public function getLastTimer ($float = false)
+		{ return ($float) ? $this->_lastTimer : number_format($this->_lastTimer, 5) ; }
 
 
 
@@ -924,6 +939,8 @@ class Condorcet
 		// Filter if tag is provided & return
 		if ($tag !== null)
 		{ 
+			$timer_start = microtime(true);
+
 			$filter = new self ($this->_Method) ;
 
 			foreach ($this->getCandidatesList() as $candidate)
@@ -938,6 +955,8 @@ class Condorcet
 				$filter->addVote($vote, $voteTags) ;
 			}
 
+			$this->setTimer($timer_start) ;
+
 			return $filter->getResult($method, $options) ;
 		}
 
@@ -949,6 +968,8 @@ class Condorcet
 		$this->prepareResult() ;
 
 			//////
+
+		$timer_start = microtime(true);
 
 		if ($method === true)
 		{
@@ -966,6 +987,8 @@ class Condorcet
 		{
 			throw new namespace\CondorcetException(8,$method) ;
 		}
+
+		$this->setTimer($timer_start) ;
 
 		return $this->humanResult($result) ;
 	}
@@ -1179,6 +1202,8 @@ class Condorcet
 
 	protected function doPairwise ()
 	{		
+		$timer_start = microtime(true);
+
 		$this->_Pairwise = array() ;
 
 		foreach ( $this->_Candidates as $candidate_key => $candidate_id )
@@ -1255,6 +1280,8 @@ class Condorcet
 						) ;
 			}
 		}
+
+		$this->setTimer($timer_start);
 	}
 
 
@@ -1365,8 +1392,12 @@ interface Condorcet_Algo
 // Custom Exeption
 class CondorcetException extends \Exception
 {
+	protected $_infos ;
+
 	public function __construct ($code = 0, $infos = '')
 	{
+		$this->_infos = $infos ;
+
 		parent::__construct($this->correspondence($code), $code);
 	}
 
@@ -1399,7 +1430,7 @@ class CondorcetException extends \Exception
 		}
 		else
 		{
-			return (!is_null($infos)) ? $infos : 'Mysterious Error' ;
+			return (!is_null($this->_infos)) ? $this->_infos : 'Mysterious Error' ;
 		}
 	}
 }

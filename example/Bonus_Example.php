@@ -1,11 +1,15 @@
 <?php
-
-// Inclus les dépendances
 ini_set('xdebug.var_display_max_depth', -1);
 ini_set('xdebug.var_display_max_children', -1);
 ini_set('xdebug.var_display_max_data', -1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL); 
+
+// Exeptions Handler
+function exception_handler($exception) {
+  trigger_error($exception, E_USER_ERROR);
+}
+set_exception_handler('exception_handler');
 
 
 use Condorcet\Condorcet ;
@@ -37,6 +41,10 @@ define('TEST_NAME', 'Condorcet Bonus Example');
  	</style>
  </head>
  <body>
+
+	<header style="text-align:center;">
+		<img src="../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
+	</header>
 
 	<h1><?php echo TEST_NAME ;?></h1>
 	
@@ -86,7 +94,17 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	}
 ?>
 
-<hr style="clear:both;">
+<br><hr style="clear:both;">
+
+<h2>Get pairwise :</h2>
+
+	 <pre>
+	<?php var_dump($calculator->getPairwise()); ?>
+	 </pre> 
+	<br>
+	<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>
+
+<br><br><hr style="clear:both;">
 
 	<h2>Winner by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 

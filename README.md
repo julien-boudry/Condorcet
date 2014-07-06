@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
+</p>   
+
 Condorcet Class for PHP
 ===========================
 
@@ -5,7 +9,7 @@ A PHP class implementing the Condorcet voting system and other Condorcet methods
 _This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
 
 **Create by :** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
-**License :** MIT _(read de LICENSE file at the root folder)_  
+**License :** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
 **Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
 
@@ -17,7 +21,7 @@ To date, we have a stable version. Since version 0.9, an important work of code 
 http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
-**Stable Version : 0.12**  
+**Stable Version : 0.13**  
 **PHP Requirement:** PHP 5.4.3 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
@@ -503,7 +507,50 @@ else
 {
 	// $test is your habitual result ;
 }
-```    
+```   
+
+#### Timer benchmarking 
+These two methods can be useful in estimating the computation time of each call to the algorithm. It is not a calculation of all operations carried out by the library, but those specifically related to modules of algorithms for calculating election results.
+
+#### Last timer
+```php
+getLastTimer (bool $float = false)
+```
+**float :** If true, return a float number. Else, it return number_format($result, 5).
+
+**Return value :** Returns the CPU time measured during the last arithmetic operation results with getResult() getWinner() getLoser() OR the Pairwise with getPairwise().    
+
+
+```php
+$calculator->getPairwise();
+$calculator->getLastTimer(); // Return the pairwise computation time ONLY if call before getResult(), getWinner(), getLoser(). Besause, cache system skip operation next time exept if there are new votes.
+
+$calculator->getResult('RankedPairs');
+$calculator->getLastTimer(); // Return 0.00112 (string)
+$calculator->getResult('RankedPairs');
+$calculator->getLastTimer(); // Return 0.00003 . See the cache system working!
+$calculator->getResult('KemenyYoung');
+$calculator->getLastTimer(true); // Return 0.14926002 (float) . KemenyYoung can be really slow....
+$calculator->getResult('Copeland');
+$calculator->getLastTimer(true); // Return 0.00010030 (float) . But Copeland is really fast!
+```
+
+#### Global timer
+```php
+getGlobalTimer (bool $float = false)
+```
+**float :** If true, return a float number. Else, it return number_format($result, 5).
+
+**Return value :** Returns the CPU time measured in the overall operations of calculation results with getResult () getWinner () getLoser () AND the Pairwise. Since the creation of the object.    
+
+
+```php
+$calculator->getResult('RankedPairs');
+$calculator->getResult('KemenyYoung');
+$calculator->getResult('Copeland');
+$calculator->getLastTimer(true); // Return 0.02600050 (float) . Time calculation, including that of the Pairwise
+```
+
 
 ---------------------------------------
 ### Exceptions code

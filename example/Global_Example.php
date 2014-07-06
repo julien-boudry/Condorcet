@@ -1,12 +1,15 @@
 <?php
-
-// Inclus les dépendances
 ini_set('xdebug.var_display_max_depth', -1);
 ini_set('xdebug.var_display_max_children', -1);
 ini_set('xdebug.var_display_max_data', -1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL); 
 
+// Exeptions Handler
+function exception_handler($exception) {
+  trigger_error($exception, E_USER_ERROR);
+}
+set_exception_handler('exception_handler');
 
 use Condorcet\Condorcet ;
 
@@ -37,6 +40,10 @@ define('TEST_NAME', 'Condorcet Global Example');
  	</style>
  </head>
  <body>
+
+	<header style="text-align:center;">
+		<img src="../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
+	</header>
 
 	<h1><?php echo TEST_NAME ;?></h1>
 	
@@ -97,7 +104,8 @@ define('TEST_NAME', 'Condorcet Global Example');
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
-	</strong>
+		<br>
+		<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
@@ -108,6 +116,8 @@ define('TEST_NAME', 'Condorcet Global Example');
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
+		<br>
+		<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>	</strong>
 	</strong>
 
 <br><br><hr>
@@ -120,6 +130,10 @@ define('TEST_NAME', 'Condorcet Global Example');
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
 		<?php 
+
+			$result = $calculator->getResult($method) ;
+			$lastTimer = $calculator->getLastTimer() ;
+
 			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, array('noConflict' => true) ) )  )
 			{
 				$kemeny_conflicts = explode( ';', $calculator->getResult( $method, array('noConflict' => true) ) ) ;
@@ -130,16 +144,19 @@ define('TEST_NAME', 'Condorcet Global Example');
 		 ?>
 
 		<pre>
-		<?php print_r($calculator->getResult($method)); ?>
+		<?php print_r($result); ?>
 		</pre>
+
+		<em style="color:green;">computed in <?php echo $lastTimer ; ?> second(s).</em>
 	
 	<?php endif; }
 
 ?>
-
- <br><br><hr>
+<br><br><hr><br>
+<strong style="color:green;">Total computed in <?php echo $calculator->getGlobalTimer() ; ?> second(s).</strong>
+<br><br><hr>
  
- <h2>Computing statistics :</h2>
+<h2>Computing statistics :</h2>
 
 	<h3>Pairwise :</h3>
 

@@ -2,7 +2,7 @@
 /*
 	Kemeny-Young part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.9
+	Last modified at: Condorcet Class v0.13
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -45,7 +45,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 		if ($this->_CandidatesCount > self::$_maxCandidates)
 		{
-			throw new namespace\CondorcetException('','KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates',E_USER_ERROR) ;
+			throw new namespace\CondorcetException(0,'KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates') ;
 		}
 	}
 
