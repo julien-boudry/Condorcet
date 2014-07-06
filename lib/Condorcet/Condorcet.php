@@ -1392,8 +1392,12 @@ interface Condorcet_Algo
 // Custom Exeption
 class CondorcetException extends \Exception
 {
+	protected $_infos ;
+
 	public function __construct ($code = 0, $infos = '')
 	{
+		$this->_infos = $infos ;
+
 		parent::__construct($this->correspondence($code), $code);
 	}
 
@@ -1426,7 +1430,7 @@ class CondorcetException extends \Exception
 		}
 		else
 		{
-			return (!is_null($infos)) ? $infos : 'Mysterious Error' ;
+			return (!is_null($this->_infos)) ? $this->_infos : 'Mysterious Error' ;
 		}
 	}
 }
