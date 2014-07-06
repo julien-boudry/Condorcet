@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
+</p>   
+
 Condorcet Class for PHP
 ===========================
 
