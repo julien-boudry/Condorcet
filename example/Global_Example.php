@@ -41,6 +41,10 @@ define('TEST_NAME', 'Condorcet Global Example');
  </head>
  <body>
 
+	<header style="text-align:center;">
+		<img src="../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
+	</header>
+
 	<h1><?php echo TEST_NAME ;?></h1>
 	
 	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class" target="_blank">Condorcet Class</a> version : <?php echo $calculator->getClassVersion(); ?></em><br>

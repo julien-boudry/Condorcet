@@ -9,7 +9,7 @@ A PHP class implementing the Condorcet voting system and other Condorcet methods
 _This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
 
 **Create by :** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
-**License :** MIT _(read de LICENSE file at the root folder)_  
+**License :** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
 **Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
 
