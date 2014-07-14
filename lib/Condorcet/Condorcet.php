@@ -218,6 +218,7 @@ class Condorcet
 	protected $_Method ; // Default method for this object
 	protected $_Candidates ; // Candidate list
 	protected $_Votes ; // Votes list
+	protected $_Checksum ;
 
 	// Mechanics 
 	protected $_i_CandidateId	= 'A' ;
@@ -238,8 +239,8 @@ class Condorcet
 	{
 		$this->_Method = self::$_classMethod ;
 
-		$this->_Candidates	= array() ;
-		$this->_Votes 	= array() ;
+		$this->_Candidates = array() ;
+		$this->_Votes = array() ;
 
 		$this->setMethod($method) ;
 
@@ -254,16 +255,21 @@ class Condorcet
 
 	public function __sleep ()
 	{
+		$this->setChecksum();
+
 		// Don't include computing data, only candidates & votes
 		return array	(
 			'_Method',
 			'_Candidates',
 			'_Votes',
+			'_Checksum',
 			'_i_CandidateId',
 			'_State',
 			'_CandidatesCount',
 			'_nextVoteTag',
-			'_objectVersion'
+			'_objectVersion',
+			'_globalTimer',
+			'_lastTimer'
 						);
 	}
 
@@ -396,6 +402,16 @@ class Condorcet
 	public function getLastTimer ($float = false)
 		{ return ($float) ? $this->_lastTimer : number_format($this->_lastTimer, 5) ; }
 
+	public function getChecksum ()
+	{
+		return $this->setChecksum();
+	}
+
+		protected function setChecksum ()
+		{
+			$this->_Checksum = hash('sha256', serialize($this->_Candidates).serialize($this->_Votes));
+			return $this->_Checksum ;
+		}
 
 
 /////////// CANDIDATES ///////////
