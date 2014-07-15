@@ -410,7 +410,12 @@ class Condorcet
 
 		protected function setChecksum ()
 		{
-			$this->_Checksum = hash('sha256', serialize($this->_Candidates).serialize($this->_Votes));
+			$this->_Checksum = hash('sha256', 
+				serialize($this->_Candidates).
+				serialize($this->_Votes).
+				serialize($this->_Pairwise).
+				serialize($this->_Calculator)
+			);
 			return $this->_Checksum ;
 		}
 
