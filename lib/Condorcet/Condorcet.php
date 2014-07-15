@@ -263,13 +263,17 @@ class Condorcet
 			'_Candidates',
 			'_Votes',
 			'_Checksum',
+
 			'_i_CandidateId',
 			'_State',
 			'_CandidatesCount',
 			'_nextVoteTag',
 			'_objectVersion',
 			'_globalTimer',
-			'_lastTimer'
+			'_lastTimer',
+
+			'_Pairwise',
+			'_Calculator',
 						);
 	}
 
@@ -279,9 +283,6 @@ class Condorcet
 		{
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
-
-		if ($this->_State > 2) 
-			{$this->_State = 2 ;}
 	}
 
 		//////
