@@ -736,13 +736,13 @@ class Condorcet
 				}
 			}
 
+			$vote_r['tag'][0] = $this->_nextVoteTag++ ;
+
 			// Vote identifiant
 			if ($tag !== null)
 			{
-				$vote_r['tag'] = $this->tagsConvert($tag) ;
+				$vote_r['tag'] = array_merge($vote_r['tag'], $this->tagsConvert($tag)) ;
 			}
-			
-			$vote_r['tag'][] = $this->_nextVoteTag++ ;
 			
 			
 			// Register
