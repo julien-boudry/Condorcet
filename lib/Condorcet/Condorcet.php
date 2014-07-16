@@ -944,7 +944,7 @@ class Condorcet
 		// Trim tags
 		foreach ($tags as &$oneTag)
 		{
-			$oneTag = trim($oneTag);
+			$oneTag = (!is_int($oneTag)) ? trim($oneTag) : $oneTag ;
 		}
 
 		return $tags ;
