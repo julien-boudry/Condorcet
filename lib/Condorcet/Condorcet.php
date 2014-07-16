@@ -210,6 +210,49 @@ class Condorcet
 	}
 
 
+	// Generic action before parsing data from string input
+	public static function prepareParse ($input, $allowFile)
+	{
+		// Input must be a string
+		if (!is_string($input))
+			{ throw new namespace\CondorcetException(14); }
+
+		// Is string or is file ?
+		if ($allowFile === true && is_file($input))
+		{
+			$input = file_get_contents($input);
+		}
+
+		// Line
+		$input = preg_replace("(\r\n|\n|\r)",';',$input);
+		$input = explode(';', $input);
+
+		// Delete comments
+		foreach ($input as &$line)
+		{
+			// Trim
+			$line = trim($line);
+
+			// Delete comments
+			$is_comment = strpos($line, '#') ;
+			if ($is_comment !== false)
+			{
+				$line = substr($line, 0, $is_comment) ;
+			}
+		}
+
+		return $input ;
+	}
+
+
+	public static function prepareJson ($input)
+	{
+		if (!self::isJson($input))
+			{ throw new namespace\CondorcetException(15); }
+
+		return json_decode($input, true);
+	}
+
 
 /////////// CONSTRUCTOR ///////////
 
@@ -346,51 +389,6 @@ class Condorcet
 		return true ;
 	}
 
-
-	// Generic action before parsing data from string input
-	protected function prepareParse ($input, $allowFile)
-	{
-		// Input must be a string
-		if (!is_string($input))
-			{ throw new namespace\CondorcetException(14); }
-
-		// Is string or is file ?
-		if ($allowFile === true && is_file($input))
-		{
-			$input = file_get_contents($input);
-		}
-
-		// Line
-		$input = preg_replace("(\r\n|\n|\r)",';',$input);
-		$input = explode(';', $input);
-
-		// Delete comments
-		foreach ($input as &$line)
-		{
-			// Trim
-			$line = trim($line);
-
-			// Delete comments
-			$is_comment = strpos($line, '#') ;
-			if ($is_comment !== false)
-			{
-				$line = substr($line, 0, $is_comment) ;
-			}
-		}
-
-		return $input ;
-	}
-
-
-	protected function prepareJson ($input)
-	{
-		if (!self::isJson($input))
-			{ throw new namespace\CondorcetException(15); }
-
-		return json_decode($input, true);
-	}
-
-
 	protected function setTimer ($timer)
 	{
 		$this->_lastTimer = microtime(true) - $timer ;
@@ -512,7 +510,7 @@ class Condorcet
 
 	public function jsonCandidates ($input)
 	{
-		$input = $this->prepareJson($input);
+		$input = self::prepareJson($input);
 		if ($input === false) { return $input ; }
 
 			//////
@@ -530,7 +528,7 @@ class Condorcet
 
 	public function parseCandidates ($input, $allowFile = true)
 	{
-		$input = $this->prepareParse($input, $allowFile) ;
+		$input = self::prepareParse($input, $allowFile) ;
 		if ($input === false) { return $input ; }
 
 		$ite = 0 ;
@@ -778,7 +776,7 @@ class Condorcet
 
 	public function jsonVotes ($input)
 	{
-		$input = $this->prepareJson($input);
+		$input = self::prepareJson($input);
 		if ($input === false) { return $input ; }
 
 			//////
@@ -810,7 +808,7 @@ class Condorcet
 
 	public function parseVotes ($input, $allowFile = true)
 	{
-		$input = $this->prepareParse($input, $allowFile) ;
+		$input = self::prepareParse($input, $allowFile) ;
 		if ($input === false) { return $input ; }
 
 		// Check each lines
