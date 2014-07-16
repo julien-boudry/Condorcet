@@ -200,6 +200,9 @@ class Condorcet
 	// Check JSON format
 	public static function isJson ($string)
 	{
+		if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null')
+		{ return false ; }
+
 		// try to decode string
 		json_decode($string);
 
