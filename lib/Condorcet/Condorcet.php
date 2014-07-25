@@ -737,8 +737,8 @@ class Condorcet
 				}
 			}
 
-			$vote_r['tag'][0] = $this->_nextVoteTag++ ;
-			$vote_r['tag'][1] = 'timestamp-' . $_SERVER['REQUEST_TIME'] ;
+			$vote_r['tag']['id'] = $this->_nextVoteTag++ ;
+			$vote_r['tag']['timestamp'] = $_SERVER['REQUEST_TIME'] ;
 
 			// Vote identifiant
 			$tag = $this->tagsConvert($tag);
