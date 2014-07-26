@@ -344,7 +344,7 @@ class Condorcet
 
 	public function __wakeup ()
 	{
-		if ( version_compare($this->getObjectVersion(),self::getClassVersion(false),'<') )
+		if ( version_compare($this->getObjectVersion('MAJOR'),self::getClassVersion('MAJOR'),'!=') )
 		{
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
