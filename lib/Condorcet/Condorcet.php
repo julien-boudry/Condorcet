@@ -38,9 +38,19 @@ class Condorcet
 	protected static $_max_parse_iteration = null ;
 
 	// Return library version numer
-	public static function getClassVersion ($dev_infos = true)
+	public static function getClassVersion ($options = 'ENV')
 	{
-		return ($dev_infos && self::ENV !== 'DEV') ? self::VERSION : self::ENV . ' - '. self::VERSION ;
+			switch ($options)
+			{
+				case 'MAJOR':
+					return intval(explode('.', self::VERSION)[1]);
+
+				case 'ENV':
+					return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION ;
+
+				default:
+					return self::VERSION ;
+			}
 	}
 
 
@@ -294,9 +304,16 @@ class Condorcet
 		$this->_objectVersion = self::VERSION ;
 	}
 
-		public function getObjectVersion ()
+		public function getObjectVersion ($options = null)
 		{
-			return $this->_objectVersion ;
+			switch ($options)
+			{
+				case 'MAJOR':
+					return intval(explode('.', $this->_objectVersion)[1]);
+
+				default:
+					return $this->_objectVersion ;
+			}
 		}
 
 	public function __sleep ()
@@ -415,7 +432,8 @@ class Condorcet
 				serialize($this->_Candidates).
 				serialize($this->_Votes).
 				serialize($this->_Pairwise).
-				serialize($this->_Calculator)
+				serialize($this->_Calculator).
+				$this->getObjectVersion('major')
 			);
 			return $this->_Checksum ;
 		}
