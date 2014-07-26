@@ -43,7 +43,8 @@ class Condorcet
 			switch ($options)
 			{
 				case 'MAJOR':
-					return intval(explode('.', self::VERSION)[1]);
+					$version = explode('.', self::VERSION);
+					return $version[0].'.'.$version[1];
 
 				case 'ENV':
 					return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION ;
@@ -309,7 +310,8 @@ class Condorcet
 			switch ($options)
 			{
 				case 'MAJOR':
-					return intval(explode('.', $this->_objectVersion)[1]);
+					$version = explode('.', $this->_objectVersion);
+					return $version[0].'.'.$version[1];
 
 				default:
 					return $this->_objectVersion ;
