@@ -244,15 +244,15 @@ class Condorcet
 		// Delete comments
 		foreach ($input as &$line)
 		{
-			// Trim
-			$line = trim($line);
-
 			// Delete comments
 			$is_comment = strpos($line, '#') ;
 			if ($is_comment !== false)
 			{
 				$line = substr($line, 0, $is_comment) ;
 			}
+
+			// Trim
+			$line = trim($line);
 		}
 
 		return $input ;
