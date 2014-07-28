@@ -914,14 +914,14 @@ class Condorcet
 	// Get the votes registered list
 	public function getVotesList ($tag = null, $with = true)
 	{
-		if (empty($tag))
+		$tag = $this->tagsConvert($tag) ;
+
+		if ($tag === null)
 		{
 			return $this->_Votes ;
 		}
 		else
 		{
-			$tag = $this->tagsConvert($tag) ;
-
 			$search = array() ;
 
 			foreach ($this->_Votes as $key => $value)
