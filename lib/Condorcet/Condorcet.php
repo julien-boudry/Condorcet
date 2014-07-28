@@ -968,7 +968,7 @@ class Condorcet
 			$oneTag = (!is_int($oneTag)) ? trim($oneTag) : $oneTag ;
 
 			if ($oneTag === '')
-				{unset($tag[$key]);}
+				{unset($tags[$key]);}
 		}
 
 		return $tags ;
