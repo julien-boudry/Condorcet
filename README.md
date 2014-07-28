@@ -22,7 +22,7 @@ http://gilles78.artisanat-furieux.net/Condorcet/
 
 #### Specifications and standards  
 **Stable Version : 0.13**  
-**PHP Requirement:** PHP 5.4.3 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
+**PHP Requirement:** PHP 5.5.12 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
 The literature also provides easy example of free implementation with or without autoloader.

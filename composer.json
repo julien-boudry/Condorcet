@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.3",
+        "php": ">=5.5.12",
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "ext-json": "*"
