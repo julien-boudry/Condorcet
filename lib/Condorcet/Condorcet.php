@@ -1458,6 +1458,7 @@ class CondorcetException extends \Exception
 
 	protected function correspondence ($code)
 	{
+		// Common
 		$error[1] = 'Bad candidate format';
 		$error[2] = 'The voting process has already started';
 		$error[3] = 'This candidate ID is already registered';
@@ -1473,6 +1474,9 @@ class CondorcetException extends \Exception
 		$error[13] = 'Formatting error: You do not multiply by a number!';
 		$error[14] = 'parseVote() must take a string (raw or path) as argument';
 		$error[15] = 'Input must be valid Json format';
+
+		// Core algorithms
+		$error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
 
 		if ( array_key_exists($code, $error) )
 		{
