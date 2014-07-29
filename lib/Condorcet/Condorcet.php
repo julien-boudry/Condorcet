@@ -984,7 +984,7 @@ class Condorcet
 	//:: PUBLIC FUNCTIONS :://
 
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = true, array $options = null, $tag = null, $with = true)
+	public function getResult ($method = true, array $options = null, $tag = null, $with = true, $human = true)
 	{
 		// Filter if tag is provided & return
 		if ($tag !== null)
@@ -1040,7 +1040,7 @@ class Condorcet
 
 		$this->setTimer($timer_start) ;
 
-		return $this->humanResult($result) ;
+		return ($human) ? $this->humanResult($result) : $result ;
 	}
 
 		protected function humanResult ($robot)
@@ -1121,7 +1121,7 @@ class Condorcet
 	}
 
 
-	public function getResultStats ($method = null)
+	public function getResultStats ($method = true)
 	{
 		// Method
 		$this->setMethod() ;
@@ -1130,7 +1130,7 @@ class Condorcet
 
 			//////
 
-		if ($method === null)
+		if ($method === true)
 		{
 			$this->initResult($this->_Method) ;
 
@@ -1151,6 +1151,13 @@ class Condorcet
 			{ return $stats ; }
 		else
 			{ return $this->getPairwise(); }
+	}
+
+
+	public function computeResult ($method = true, array $options = null)
+	{
+		$this->getResult($method,$options,null,true,false);
+		$this->getResultStats($method);
 	}
 
 
