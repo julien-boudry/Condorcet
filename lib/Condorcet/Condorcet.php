@@ -36,6 +36,7 @@ class Condorcet
 	protected static $_authMethods	= '' ;
 	protected static $_forceMethod	= false ;
 	protected static $_max_parse_iteration = null ;
+	protected static $_max_vote_number = null ;
 
 	// Return library version numer
 	public static function getClassVersion ($options = 'ENV')
@@ -62,6 +63,18 @@ class Condorcet
 		{
 			self::$_max_parse_iteration = $value ;
 			return self::$_max_parse_iteration ;
+		}
+		else
+			{ return false ; }
+	}
+
+	// Change max vote number
+	public static function setMaxVoteNumber ($value)
+	{
+		if ( is_int($value) || ($value === null || $value === false) )
+		{
+			self::$_max_vote_number = ($value === false) ? null : $value ;
+			return self::$_max_vote_number ;
 		}
 		else
 			{ return false ; }
@@ -278,13 +291,14 @@ class Condorcet
 	protected $_Checksum ;
 
 	// Mechanics 
-	protected $_i_CandidateId	= 'A' ;
-	protected $_State	= 1 ; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
+	protected $_i_CandidateId = 'A' ;
+	protected $_State = 1 ; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
 	protected $_CandidatesCount = 0 ;
 	protected $_nextVoteTag = 0 ;
 	protected $_objectVersion ;
 	protected $_globalTimer = 0.0 ;
 	protected $_lastTimer = 0.0 ;
+	protected $_ignoreStaticMaxVote = false ;
 
 	// Result
 	protected $_Pairwise ;
@@ -322,7 +336,7 @@ class Condorcet
 	{
 		$this->setChecksum();
 
-		// Don't include computing data, only candidates & votes
+		// Don't include others data
 		return array	(
 			'_Method',
 			'_Candidates',
@@ -336,6 +350,7 @@ class Condorcet
 			'_objectVersion',
 			'_globalTimer',
 			'_lastTimer',
+			'_ignoreStaticMaxVote',
 
 			'_Pairwise',
 			'_Calculator',
@@ -439,6 +454,12 @@ class Condorcet
 			);
 			return $this->_Checksum ;
 		}
+
+	public function ignoreMaxVote ($state = true)
+	{
+		$this->_ignoreStaticMaxVote = (is_bool($state)) ? $state : true ;
+		return $this->_ignoreStaticMaxVote ;
+	}
 
 
 /////////// CANDIDATES ///////////
@@ -650,6 +671,10 @@ class Condorcet
 		// Check tag format
 		if ( is_bool($tag) )
 			{ throw new namespace\CondorcetException(5) ; }
+
+		// Check Max Vote Count
+		if ( self::$_max_vote_number !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_max_vote_number )
+			{ throw new namespace\CondorcetException(16, self::$_max_vote_number) ; }
 
 		// Sort
 		ksort($vote);
@@ -1481,6 +1506,7 @@ class CondorcetException extends \Exception
 		$error[13] = 'Formatting error: You do not multiply by a number!';
 		$error[14] = 'parseVote() must take a string (raw or path) as argument';
 		$error[15] = 'Input must be valid Json format';
+		$error[16] = 'You have exceeded the maximum number of votes allowed per election ('.$this->_infos.').';
 
 		// Core algorithms
 		$error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
