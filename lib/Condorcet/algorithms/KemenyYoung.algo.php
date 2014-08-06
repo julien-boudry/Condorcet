@@ -16,7 +16,7 @@ namespace Condorcet ;
 class KemenyYoung implements namespace\Condorcet_Algo
 {
 	// Limits
-	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
+	public static $_maxCandidates = null ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
 		public static function setMaxCandidates ($max)
 		{
@@ -43,7 +43,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 		$this->_CandidatesCount = $config['_CandidatesCount'] ;
 		$this->_Candidates = $config['_Candidates'] ;
 
-		if ($this->_CandidatesCount > self::$_maxCandidates)
+		if (!is_null(self::$_maxCandidates) && $this->_CandidatesCount > self::$_maxCandidates)
 		{
 			throw new namespace\CondorcetException(101,self::$_maxCandidates) ;
 		}
@@ -289,7 +289,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 // Registering algorithm
 namespace\Condorcet::addAlgos('KemenyYoung') ;
 
-/*
+/* WITHOUT CACHE DATA NOTE :
 * Maximum number of candidates for this algorithm.
 * The script can support six candidates in less than twenty seconds
 * found in PHP 5.5 (Linux) * against fifty on a Windows system.
@@ -298,4 +298,4 @@ namespace\Condorcet::addAlgos('KemenyYoung') ;
 *
 * The number of voters is indifferent.
 */
-namespace\KemenyYoung::setMaxCandidates(5);
+namespace\KemenyYoung::setMaxCandidates(6);
