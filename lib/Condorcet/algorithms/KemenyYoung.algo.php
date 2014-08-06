@@ -131,6 +131,30 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 	protected function calcPossibleRanking ()
 	{
+		$path = __DIR__ . '/KemenyYoung-Data/'.$this->_CandidatesCount.'.data' ;
+
+		// But ... where are the data ?! Okay, old way now...
+		if (!file_exists($path))
+			{ $this->doPossibleRanking(); return ; }
+
+		$this->_PossibleRanking = unserialize(file_get_contents($path));
+
+		$i = 0 ;
+		foreach ($this->_Candidates as $candidate_id => $candidate_name)
+		{
+			$identity = 'C'.$i;
+
+			foreach ($this->_PossibleRanking as &$onePossibleRanking)
+			{
+				$onePossibleRanking = str_replace($identity, $candidate_id, $onePossibleRanking);
+			}
+
+			$i++;
+		}
+	}
+
+	protected function doPossibleRanking ()
+	{
 		$this->_PossibleRanking = array() ;
 
 		$arrangements = $this->calcPermutation($this->_CandidatesCount);
@@ -148,7 +172,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
 
 				// Prepare empty arrays
-				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++ )
+				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++)
 				{
 					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
 				}
