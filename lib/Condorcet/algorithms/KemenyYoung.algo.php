@@ -16,15 +16,9 @@ namespace Condorcet ;
 class KemenyYoung implements namespace\Condorcet_Algo
 {
 	// Limits
-	public static $_maxCandidates = null ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
+	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
-		public static function setMaxCandidates ($max)
-		{
-			if (is_int($max))
-			{
-				self::$_maxCandidates = $max ;
-			}
-		}
+		public static function setMaxCandidates ($max) { /* backwards compatibility */ }
 
 	// Config
 	protected $_Pairwise ;
@@ -298,4 +292,3 @@ namespace\Condorcet::addAlgos('KemenyYoung') ;
 *
 * The number of voters is indifferent.
 */
-namespace\KemenyYoung::setMaxCandidates(6);
