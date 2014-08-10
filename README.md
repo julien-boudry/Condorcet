@@ -93,7 +93,7 @@ We encourage you to read the code, and help to improve inline documentation!
 4. [2: Start voting](#2-start-voting)
 5. [3: Get results & Stats](#3-get-results--stats)
 6. [Others tools](#tools)
-7. [Exceptions codes](#exceptions-code)
+7. [Exceptions codes](#exceptions)
 8. [Customize the code: Add new algorithm(s)](#customize-the-code-add-new-algorithms-)
 
 ---------------------------------------
