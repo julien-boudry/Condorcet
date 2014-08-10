@@ -29,6 +29,7 @@ class Condorcet
 
 
 	const VERSION = '0.14' ;
+
 	const ENV = 'DEV' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
@@ -1508,7 +1509,7 @@ class CondorcetException extends \Exception
 		$error[15] = 'Input must be valid Json format';
 		$error[16] = 'You have exceeded the maximum number of votes allowed per election ('.$this->_infos.').';
 
-		// Core algorithms
+		// Algorithms
 		$error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
 
 		if ( array_key_exists($code, $error) )
