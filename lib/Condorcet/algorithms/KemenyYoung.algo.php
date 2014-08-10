@@ -2,7 +2,7 @@
 /*
 	Kemeny-Young part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.13
+	Last modified at: Condorcet Class v0.14
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -18,13 +18,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 	// Limits
 	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
-		public static function setMaxCandidates ($max)
-		{
-			if (is_int($max))
-			{
-				self::$_maxCandidates = $max ;
-			}
-		}
+		public static function setMaxCandidates ($max) { /* backwards compatibility */ }
 
 	// Config
 	protected $_Pairwise ;
@@ -43,9 +37,9 @@ class KemenyYoung implements namespace\Condorcet_Algo
 		$this->_CandidatesCount = $config['_CandidatesCount'] ;
 		$this->_Candidates = $config['_Candidates'] ;
 
-		if ($this->_CandidatesCount > self::$_maxCandidates)
+		if (!is_null(self::$_maxCandidates) && $this->_CandidatesCount > self::$_maxCandidates)
 		{
-			throw new namespace\CondorcetException(0,'KemenyYoung is configured to accept only '.self::$_maxCandidates.' candidates') ;
+			throw new namespace\CondorcetException(101,self::$_maxCandidates) ;
 		}
 	}
 
@@ -131,6 +125,30 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 	protected function calcPossibleRanking ()
 	{
+		$path = __DIR__ . '/KemenyYoung-Data/'.$this->_CandidatesCount.'.data' ;
+
+		// But ... where are the data ?! Okay, old way now...
+		if (!file_exists($path))
+			{ $this->doPossibleRanking(); return ; }
+
+		$this->_PossibleRanking = unserialize(file_get_contents($path));
+
+		$i = 0 ;
+		foreach ($this->_Candidates as $candidate_id => $candidate_name)
+		{
+			$identity = 'C'.$i;
+
+			foreach ($this->_PossibleRanking as &$onePossibleRanking)
+			{
+				$onePossibleRanking = str_replace($identity, $candidate_id, $onePossibleRanking);
+			}
+
+			$i++;
+		}
+	}
+
+	protected function doPossibleRanking ()
+	{
 		$this->_PossibleRanking = array() ;
 
 		$arrangements = $this->calcPermutation($this->_CandidatesCount);
@@ -148,7 +166,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
 
 				// Prepare empty arrays
-				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++ )
+				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++)
 				{
 					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
 				}
@@ -265,7 +283,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 // Registering algorithm
 namespace\Condorcet::addAlgos('KemenyYoung') ;
 
-/*
+/* WITHOUT CACHE DATA NOTE :
 * Maximum number of candidates for this algorithm.
 * The script can support six candidates in less than twenty seconds
 * found in PHP 5.5 (Linux) * against fifty on a Windows system.
@@ -274,4 +292,3 @@ namespace\Condorcet::addAlgos('KemenyYoung') ;
 *
 * The number of voters is indifferent.
 */
-namespace\KemenyYoung::setMaxCandidates(5);
