@@ -32,6 +32,7 @@ The literature also provides easy example of free implementation with or without
 
 
 #### Related projects
+* [Condorcet-Vote.org](http://www.condorcet-vote.org) Web services to create and store online Condorcet election. Including intérractives and collaborative features.   
 * [Condorcet API](https://github.com/julien-boudry/Condorcet_API) Very basic and simple http API for Condorcet class (json or text i/o)
 * [Mahler-S2-BlindTest-Condorcet
 ](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections). Look like the examples provided here, but better.    
@@ -79,6 +80,7 @@ This class is designed to be easily extensible with new algorithms. A modular sc
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Improve & test Ranked pair implementation *(help needed!)*
+  - Kemeny-Young up to 7 candidates
   - **Looking for testers!**   
  
 
