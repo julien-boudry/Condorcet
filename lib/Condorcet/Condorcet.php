@@ -485,7 +485,7 @@ class Condorcet
 				$this->_i_CandidateId++ ;
 			}
 
-			$this->_Candidates[] = $this->_i_CandidateId ;
+			$this->_Candidates[] = new Candidate($this->_i_CandidateId) ;
 			$this->_CandidatesCount++ ;
 
 			return $this->_i_CandidateId ;
@@ -501,7 +501,7 @@ class Condorcet
 
 			if ( $this->try_addCandidate($candidate_id) )
 			{
-				$this->_Candidates[] = $candidate_id ;
+				$this->_Candidates[] = new Candidate ($candidate_id) ;
 				$this->_CandidatesCount++ ;
 
 				return $candidate_id ;
@@ -1540,7 +1540,7 @@ class Candidate
 
     public function __toString ()
     {
-        return $this->_name;
+        return (string) $this->_name;
     }
 
 	// GETTERS
