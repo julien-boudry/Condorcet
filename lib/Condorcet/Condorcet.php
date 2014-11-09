@@ -1522,3 +1522,36 @@ class CondorcetException extends \Exception
 		}
 	}
 }
+
+class Candidate
+{
+	// Object
+
+	protected $_name ;
+	protected $_description ;
+
+	// Constructor
+
+	public function __construct ($name, $description = null)
+	{
+		$this->_name = $name ;
+		$this->_description = $description ;
+	}
+
+    public function __toString ()
+    {
+        return $this->_name;
+    }
+
+	// GETTERS
+
+	public function getName ()
+	{
+		return $_name ;
+	}
+
+	public function getDescription ()
+	{
+		return $_description ;
+	}
+}
