@@ -600,9 +600,19 @@ class Condorcet
 		}
 
 		// Get the list of registered CANDIDATES
-		public function getCandidatesList ()
+		public function getCandidatesList ($arrayMode = false)
 		{
-			return $this->_Candidates ;
+			if (!$arrayMode) : return $this->_Candidates ;
+			else :
+				$result = array() ;
+
+				foreach ($this->_Candidates as $candidateKey => &$oneCandidate)
+				{
+					$result[$candidateKey] = $oneCandidate->getName();
+				}
+
+				return $result;
+			endif;
 		}
 
 		protected function getCandidateKey ($candidate_id)
