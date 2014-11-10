@@ -471,9 +471,9 @@ class Condorcet
 	{
 		// only if the vote has not started
 		if ( $this->_State > 1 ) { throw new namespace\CondorcetException(2) ; }
-		
+
 		// Filter
-		if ( is_bool($candidate_id) || is_array($candidate_id) || is_object($candidate_id) )
+		if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof namespace\Candidate)) )
 			{ throw new namespace\CondorcetException(1, $candidate_id) ; }
 
 		
@@ -607,25 +607,25 @@ class Condorcet
 
 		protected function getCandidateKey ($candidate_id)
 		{
-			return array_search($candidate_id, $this->_Candidates, true) ;
+			return array_search((string) $candidate_id, $this->_Candidates) ;
 		}
 
-		protected function getCandidateId ($candidate_key)
+		protected function getCandidateId ($candidate_key, $onlyName = true)
 		{
-			return self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+			return self::getStatic_CandidateId($candidate_key, $this->_Candidates, $onlyName) ;
 		}
 
-			public static function getStatic_CandidateId ($candidate_key, &$candidates)
+			public static function getStatic_CandidateId ($candidate_key, &$candidates, $onlyName = true)
 			{
 				if (!array_key_exists($candidate_key, $candidates))
 					{ return false ; }
 
-				return $candidates[$candidate_key] ;
+				return ($onlyName) ? $candidates[$candidate_key]->getName() : $candidates[$candidate_key] ;
 			}
 
 		public function existCandidateId ($candidate_id)
 		{
-			return in_array($candidate_id, $this->_Candidates) ;
+			return in_array((string) $candidate_id, $this->_Candidates) ;
 		}
 
 
@@ -1262,13 +1262,13 @@ class Condorcet
 
 		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
 		{
-			$candidate_key = $this->getCandidateId($candidate_key) ;
+			$candidate_name = $this->getCandidateId($candidate_key) ;
 			
 			foreach ($candidate_value as $mode => $mode_value)
 			{
 				foreach ($mode_value as $candidate_list_key => $candidate_list_value)
 				{
-					$explicit_pairwise[$candidate_key][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
+					$explicit_pairwise[$candidate_name][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
 				}
 			}
 		}
@@ -1527,31 +1527,31 @@ class Candidate
 {
 	// Object
 
-	protected $_name ;
-	protected $_description ;
+	private $_name ;
 
 	// Constructor
 
-	public function __construct ($name, $description = null)
+	public function __construct ($name)
 	{
-		$this->_name = $name ;
-		$this->_description = $description ;
+		$this->setName($name);
 	}
 
     public function __toString ()
     {
-        return (string) $this->_name;
+        return $this->_name;
     }
+
+	// SETTERS
+
+	public function setName ($name)
+	{
+		$this->_name = (string) $name ;
+	}
 
 	// GETTERS
 
 	public function getName ()
 	{
-		return $_name ;
-	}
-
-	public function getDescription ()
-	{
-		return $_description ;
+		return $this->_name ;
 	}
 }
