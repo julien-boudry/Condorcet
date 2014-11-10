@@ -476,7 +476,7 @@ class Condorcet
 		if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof namespace\Candidate)) )
 			{ throw new namespace\CondorcetException(1, $candidate_id) ; }
 
-		
+
 		// Process
 		if ( empty($candidate_id) ) // $candidate_id is empty ...
 		{
@@ -492,16 +492,20 @@ class Condorcet
 		}
 		else // Try to add the candidate_id
 		{
-			$candidate_id = trim($candidate_id);
+			if (is_string($candidate_id))
+				{ $candidate_id = trim($candidate_id); }
 
-			if ( mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID || is_bool($candidate_id) )
-				{ throw new namespace\CondorcetException(1, $candidate_id) ; }
+			if (
+					(is_string($candidate_id) && mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID) ||
+					is_bool($candidate_id)
+				)
+				{ throw new namespace\CondorcetException(1, $candidate_id); }
 
 				///
 
 			if ( $this->try_addCandidate($candidate_id) )
 			{
-				$this->_Candidates[] = new Candidate ($candidate_id) ;
+				$this->_Candidates[] = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
 				$this->_CandidatesCount++ ;
 
 				return $candidate_id ;
@@ -1555,7 +1559,12 @@ class Candidate
 
 	public function setName ($name)
 	{
+		if (mb_strlen($name) > namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID )
+			{ throw new namespace\CondorcetException(1, $name) ; }
+
 		$this->_name = (string) $name ;
+
+		return $this->_name ;
 	}
 
 	// GETTERS
