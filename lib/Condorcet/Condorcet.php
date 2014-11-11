@@ -364,6 +364,11 @@ class Condorcet
 		{
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
+
+		foreach ($this->_Candidates as $value)
+		{
+			$value->registerLink($this);
+		}
 	}
 
 		//////
@@ -470,13 +475,14 @@ class Condorcet
 	public function addCandidate ($candidate_id = null)
 	{
 		// only if the vote has not started
-		if ( $this->_State > 1 ) { throw new namespace\CondorcetException(2) ; }
-		
+		if ( $this->_State > 1 )
+			{ throw new namespace\CondorcetException(2); }
+
 		// Filter
-		if ( is_bool($candidate_id) || is_array($candidate_id) || is_object($candidate_id) )
+		if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof namespace\Candidate)) )
 			{ throw new namespace\CondorcetException(1, $candidate_id) ; }
 
-		
+
 		// Process
 		if ( empty($candidate_id) ) // $candidate_id is empty ...
 		{
@@ -485,31 +491,40 @@ class Condorcet
 				$this->_i_CandidateId++ ;
 			}
 
-			$this->_Candidates[] = $this->_i_CandidateId ;
+			$this->_Candidates[] = new Candidate($this->_i_CandidateId) ;
 			$this->_CandidatesCount++ ;
 
 			return $this->_i_CandidateId ;
 		}
 		else // Try to add the candidate_id
 		{
-			$candidate_id = trim($candidate_id);
+			if (is_string($candidate_id))
+				{ $candidate_id = trim($candidate_id); }
 
-			if ( mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID || is_bool($candidate_id) )
-				{ throw new namespace\CondorcetException(1, $candidate_id) ; }
+			if (
+					(is_string($candidate_id) && mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID) ||
+					is_bool($candidate_id)
+				)
+				{ throw new namespace\CondorcetException(1, $candidate_id); }
 
 				///
 
 			if ( $this->try_addCandidate($candidate_id) )
 			{
-				$this->_Candidates[] = $candidate_id ;
+				$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
+
+				$this->_Candidates[] = $newCandidate ;
+
+				// Linking
+				$newCandidate->registerLink($this);
+
+				// Candidate Counter
 				$this->_CandidatesCount++ ;
 
 				return $candidate_id ;
 			}
 			else
-			{
-				throw new namespace\CondorcetException(3,$candidate_id) ;
-			}
+			 { throw new namespace\CondorcetException(3,$candidate_id); }
 		}
 	}
 
@@ -543,9 +558,11 @@ class Condorcet
 			$candidate_id = $candidate_key ;
 		}
 
-		foreach ($list as $candidate_id)
+		foreach ($list as $candidate_key)
 		{
-			unset($this->_Candidates[$candidate_id]) ;
+			$this->_Candidates[$candidate_key]->destroyLink($this);
+
+			unset($this->_Candidates[$candidate_key]) ;
 			$this->_CandidatesCount-- ;
 		}
 
@@ -600,32 +617,42 @@ class Condorcet
 		}
 
 		// Get the list of registered CANDIDATES
-		public function getCandidatesList ()
+		public function getCandidatesList ($arrayMode = false)
 		{
-			return $this->_Candidates ;
+			if (!$arrayMode) : return $this->_Candidates ;
+			else :
+				$result = array() ;
+
+				foreach ($this->_Candidates as $candidateKey => &$oneCandidate)
+				{
+					$result[$candidateKey] = $oneCandidate->getName();
+				}
+
+				return $result;
+			endif;
 		}
 
 		protected function getCandidateKey ($candidate_id)
 		{
-			return array_search($candidate_id, $this->_Candidates, true) ;
+			return array_search((string) $candidate_id, $this->_Candidates) ;
 		}
 
-		protected function getCandidateId ($candidate_key)
+		protected function getCandidateId ($candidate_key, $onlyName = true)
 		{
-			return self::getStatic_CandidateId($candidate_key, $this->_Candidates) ;
+			return self::getStatic_CandidateId($candidate_key, $this->_Candidates, $onlyName) ;
 		}
 
-			public static function getStatic_CandidateId ($candidate_key, &$candidates)
+			public static function getStatic_CandidateId ($candidate_key, &$candidates, $onlyName = true)
 			{
 				if (!array_key_exists($candidate_key, $candidates))
 					{ return false ; }
 
-				return $candidates[$candidate_key] ;
+				return ($onlyName) ? $candidates[$candidate_key]->getName() : $candidates[$candidate_key] ;
 			}
 
 		public function existCandidateId ($candidate_id)
 		{
-			return in_array($candidate_id, $this->_Candidates) ;
+			return in_array((string) $candidate_id, $this->_Candidates) ;
 		}
 
 
@@ -1262,13 +1289,13 @@ class Condorcet
 
 		foreach ($this->_Pairwise as $candidate_key => $candidate_value)
 		{
-			$candidate_key = $this->getCandidateId($candidate_key) ;
+			$candidate_name = $this->getCandidateId($candidate_key) ;
 			
 			foreach ($candidate_value as $mode => $mode_value)
 			{
 				foreach ($mode_value as $candidate_list_key => $candidate_list_value)
 				{
-					$explicit_pairwise[$candidate_key][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
+					$explicit_pairwise[$candidate_name][$mode][$this->getCandidateId($candidate_list_key)] = $candidate_list_value ;
 				}
 			}
 		}
@@ -1520,5 +1547,93 @@ class CondorcetException extends \Exception
 		{
 			return (!is_null($this->_infos)) ? $this->_infos : 'Mysterious Error' ;
 		}
+	}
+}
+
+class Candidate
+{
+	// Object
+
+	private $_name ;
+	private $_link ;
+
+	// Constructor
+
+	public function __construct ($name)
+	{
+		$this->_link = array() ;
+		$this->setName($name);
+	}
+
+	public function __toString ()
+	{
+		return $this->_name;
+	}
+
+	public function __sleep ()
+	{
+		$this->_link = array();
+
+		$var = array() ;
+		foreach (get_object_vars($this) as $key => $value)
+			{ $var[] = $key; }
+
+		return $var ;
+	}
+
+	// Internal
+		# Dot not Overloading ! Do not Use !
+
+	public function registerLink (namespace\Condorcet &$vote)
+	{
+		$this->_link[] = $vote ;
+	}
+
+	public function destroyLink (namespace\Condorcet &$vote)
+	{
+		$destroyKey = array_search($vote, $this->_link, true);
+
+		if ($destroyKey !== false)
+		{
+			unset($this->_link[$destroyKey]);
+			return true ;
+		}
+		else
+			{ return false ; }
+	}
+
+	private function checkName ($name)
+	{
+		foreach ($this->_link as &$link)
+		{
+			if ($link->existCandidateId($name))
+				{ return false; }
+		}
+
+		return true;
+	}
+
+	// SETTERS
+
+	public function setName ($name)
+	{
+		$name = (string) $name;
+
+		if (mb_strlen($name) > namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID )
+			{ throw new namespace\CondorcetException(1, $name) ; }
+
+		if (!$this->checkName($name))
+			{ throw new namespace\CondorcetException(3, $name); }
+
+		$this->_name = (string) $name ;
+
+		return $this->_name ;
+	}
+
+	// GETTERS
+
+	public function getName ()
+	{
+		return $this->_name ;
 	}
 }
