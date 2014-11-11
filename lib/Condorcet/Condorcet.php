@@ -364,6 +364,11 @@ class Condorcet
 		{
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
+
+		foreach ($this->_Candidates as $value)
+		{
+			$value->registerLink($this);
+		}
 	}
 
 		//////
@@ -505,7 +510,14 @@ class Condorcet
 
 			if ( $this->try_addCandidate($candidate_id) )
 			{
-				$this->_Candidates[] = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
+				$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
+
+				$this->_Candidates[] = $newCandidate ;
+
+				// Linking
+				$newCandidate->registerLink($this);
+
+				// Candidate Counter
 				$this->_CandidatesCount++ ;
 
 				return $candidate_id ;
@@ -547,9 +559,11 @@ class Condorcet
 			$candidate_id = $candidate_key ;
 		}
 
-		foreach ($list as $candidate_id)
+		foreach ($list as $candidate_key)
 		{
-			unset($this->_Candidates[$candidate_id]) ;
+			$this->_Candidates[$candidate_key]->destroyLink($this);
+
+			unset($this->_Candidates[$candidate_key]) ;
 			$this->_CandidatesCount-- ;
 		}
 
@@ -1542,18 +1556,52 @@ class Candidate
 	// Object
 
 	private $_name ;
+	private $_link ;
 
 	// Constructor
 
 	public function __construct ($name)
 	{
+		$this->_link = array() ;
 		$this->setName($name);
 	}
 
-    public function __toString ()
-    {
-        return $this->_name;
-    }
+	public function __toString ()
+	{
+		return $this->_name;
+	}
+
+	public function __sleep ()
+	{
+		$this->_link = array();
+
+		$var = array() ;
+		foreach (get_object_vars($this) as $key => $value)
+			{ $var[] = $key; }
+
+		return $var ;
+	}
+
+	// Internal
+		# Dot not Overloading ! Do not Use !
+
+	public function registerLink (namespace\Condorcet &$vote)
+	{
+		$this->_link[] = $vote ;
+	}
+
+	public function destroyLink (namespace\Condorcet &$vote)
+	{
+		$destroyKey = array_search($vote, $this->_link, true);
+
+		if ($destroyKey !== false)
+		{
+			unset($this->_link[$destroyKey]);
+			return true ;
+		}
+		else
+			{ return false ; }
+	}
 
 	// SETTERS
 
