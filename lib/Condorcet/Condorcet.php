@@ -1556,7 +1556,7 @@ class Candidate
 
 	private $_name ;
 
-	// Constructor
+		///
 
 	public function __construct ($name)
 	{
@@ -1569,17 +1569,7 @@ class Candidate
 		return $this->_name;
 	}
 
-
-	private function checkName ($name)
-	{
-		foreach ($this->_link as &$link)
-		{
-			if ($link->existCandidateId($name))
-				{ return false; }
-		}
-
-		return true;
-	}
+		///
 
 	// SETTERS
 
@@ -1604,12 +1594,75 @@ class Candidate
 	{
 		return $this->_name ;
 	}
+
+		///
+
+	// INTERNAL
+
+	private function checkName ($name)
+	{
+		foreach ($this->_link as &$link)
+		{
+			if ($link->existCandidateId($name))
+				{ return false; }
+		}
+
+		return true;
+	}
 }
 
 
 class Vote
 {
 	use CandidateVote_CondorcetLink ;
+
+	private $_ranking = array();
+	private $_tags = array();
+	private $_id;
+	private $_createdAt;
+
+		///
+
+	public function __construct ($ranking, $tags = null)
+	{
+
+	}
+
+		///
+
+	// GETTERS
+
+	public function getRanking ()
+	{
+
+	}
+
+	public function getTags ()
+	{
+
+	}
+
+	public function getCreateTimestamp ()
+	{
+		
+	}
+
+	// SETTERS
+
+	public function setRanking ($ranking)
+	{
+
+	}
+
+	public function setTags ($tags)
+	{
+
+	}
+
+
+		///
+
+	// INTERNAL
 }
 
 
