@@ -1552,10 +1552,9 @@ class CondorcetException extends \Exception
 
 class Candidate
 {
-	// Object
+	use CandidateVote_CondorcetLink ;
 
 	private $_name ;
-	private $_link ;
 
 	// Constructor
 
@@ -1570,37 +1569,6 @@ class Candidate
 		return $this->_name;
 	}
 
-	public function __sleep ()
-	{
-		$this->_link = array();
-
-		$var = array() ;
-		foreach (get_object_vars($this) as $key => $value)
-			{ $var[] = $key; }
-
-		return $var ;
-	}
-
-	// Internal
-		# Dot not Overloading ! Do not Use !
-
-	public function registerLink (namespace\Condorcet &$vote)
-	{
-		$this->_link[] = $vote ;
-	}
-
-	public function destroyLink (namespace\Condorcet &$vote)
-	{
-		$destroyKey = array_search($vote, $this->_link, true);
-
-		if ($destroyKey !== false)
-		{
-			unset($this->_link[$destroyKey]);
-			return true ;
-		}
-		else
-			{ return false ; }
-	}
 
 	private function checkName ($name)
 	{
@@ -1635,5 +1603,49 @@ class Candidate
 	public function getName ()
 	{
 		return $this->_name ;
+	}
+}
+
+
+class Vote
+{
+	use CandidateVote_CondorcetLink ;
+}
+
+
+trait CandidateVote_CondorcetLink
+{
+	private $_link ;
+
+	public function __sleep ()
+	{
+		$this->_link = array();
+
+		$var = array() ;
+		foreach (get_object_vars($this) as $key => $value)
+			{ $var[] = $key; }
+
+		return $var ;
+	}
+
+	// Internal
+		# Dot not Overloading ! Do not Use !
+
+	public function registerLink (namespace\Condorcet &$vote)
+	{
+		$this->_link[] = $vote ;
+	}
+
+	public function destroyLink (namespace\Condorcet &$vote)
+	{
+		$destroyKey = array_search($vote, $this->_link, true);
+
+		if ($destroyKey !== false)
+		{
+			unset($this->_link[$destroyKey]);
+			return true ;
+		}
+		else
+			{ return false ; }
 	}
 }
