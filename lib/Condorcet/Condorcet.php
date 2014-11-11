@@ -28,7 +28,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.14' ;
+	const VERSION = '0.15' ;
 
 	const ENV = 'DEV' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
