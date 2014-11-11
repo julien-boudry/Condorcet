@@ -1555,6 +1555,7 @@ class Candidate
 	// Object
 
 	private $_name ;
+	private $_nameHistory = array() ;
 	private $_link ;
 
 	// Constructor
@@ -1567,7 +1568,7 @@ class Candidate
 
 	public function __toString ()
 	{
-		return $this->_name;
+		return $this->getName();
 	}
 
 	public function __sleep ()
@@ -1625,7 +1626,8 @@ class Candidate
 		if (!$this->checkName($name))
 			{ throw new namespace\CondorcetException(3, $name); }
 
-		$this->_name = (string) $name ;
+		$this->_name = $name ;
+		$this->_nameHistory[] = $name ;
 
 		return $this->_name ;
 	}
@@ -1635,5 +1637,10 @@ class Candidate
 	public function getName ()
 	{
 		return $this->_name ;
+	}
+
+	public function getHistory ()
+	{
+		return $this->_nameHistory ;
 	}
 }
