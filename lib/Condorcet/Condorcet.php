@@ -475,7 +475,8 @@ class Condorcet
 	public function addCandidate ($candidate_id = null)
 	{
 		// only if the vote has not started
-		if ( $this->_State > 1 ) { throw new namespace\CondorcetException(2) ; }
+		if ( $this->_State > 1 )
+			{ throw new namespace\CondorcetException(2); }
 
 		// Filter
 		if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof namespace\Candidate)) )
@@ -523,9 +524,7 @@ class Condorcet
 				return $candidate_id ;
 			}
 			else
-			{
-				throw new namespace\CondorcetException(3,$candidate_id) ;
-			}
+			 { throw new namespace\CondorcetException(3,$candidate_id); }
 		}
 	}
 
@@ -1603,12 +1602,28 @@ class Candidate
 			{ return false ; }
 	}
 
+	private function checkName ($name)
+	{
+		foreach ($this->_link as &$link)
+		{
+			if ($link->existCandidateId($name))
+				{ return false; }
+		}
+
+		return true;
+	}
+
 	// SETTERS
 
 	public function setName ($name)
 	{
+		$name = (string) $name;
+
 		if (mb_strlen($name) > namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID )
 			{ throw new namespace\CondorcetException(1, $name) ; }
+
+		if (!$this->checkName($name))
+			{ throw new namespace\CondorcetException(3, $name); }
 
 		$this->_name = (string) $name ;
 
