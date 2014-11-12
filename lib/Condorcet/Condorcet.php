@@ -1714,7 +1714,10 @@ trait CandidateVote_CondorcetLink
 
 	public function registerLink (namespace\Condorcet &$vote)
 	{
-		$this->_link[] = $vote ;
+		if (array_search($vote, $this->_link, true) === false)
+			{ $this->_link[] = $vote ; }
+		else
+			{ return false; }
 	}
 
 	public function destroyLink (namespace\Condorcet &$vote)
