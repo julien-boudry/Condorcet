@@ -365,11 +365,19 @@ class Condorcet
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
 
-		foreach ($this->_Candidates as $value)
-		{
-			$value->registerLink($this);
-		}
+		$this->registerAllLinks();
 	}
+
+		protected function registerAllLinks ()
+		{
+			foreach ($this->_Candidates as $value)
+				{ $value->registerLink($this); }
+
+			/* A activer ultérieurement
+			foreach ($this->_Votes as $value)
+				{ $value->registerLink($this); }
+			*/
+		}
 
 		//////
 
@@ -418,6 +426,8 @@ class Condorcet
 	// Reset all, be ready for a new vote - PREFER A CLEAN DESTRUCT of this object
 	public function resetAll ()
 	{
+		$this->destroyAllLink();
+
 		$this->cleanupResult() ;
 
 		$this->_Candidates = array() ;
@@ -431,6 +441,17 @@ class Condorcet
 
 		return true ;
 	}
+
+		protected function destroyAllLink ()
+		{
+			foreach ($this->_Candidates as $value)
+				{ $value->destroyLink($this); }
+
+			/* A activer ultérieurement
+			foreach ($this->_Votes as $value)
+				{ $value->destroyLink($this); }
+			*/
+		}
 
 	protected function setTimer ($timer)
 	{
