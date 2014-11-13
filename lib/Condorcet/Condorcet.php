@@ -320,6 +320,11 @@ class Condorcet
 		$this->_objectVersion = self::VERSION ;
 	}
 
+	public function __destruct ()
+	{
+		$this->destroyAllLink();
+	}
+
 		public function getObjectVersion ($options = null)
 		{
 			switch ($options)
