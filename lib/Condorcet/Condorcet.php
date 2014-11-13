@@ -714,12 +714,10 @@ class Condorcet
 
 		// Translate the string if needed
 		if ( is_string($vote) )
-		{
-			$vote = $this->convertVoteInput($vote) ;
-		}
+			{ $vote = $this->convertVoteInput($vote); }
 
-		// Check array format && Make checkVoteInput
-		if ( !is_array($vote) || !self::checkVoteInput($vote) )
+		// Check array format && Make checkVoteCandidate
+		if ( !is_array($vote) || !self::checkVoteCandidate($vote) )
 			{ throw new namespace\CondorcetException( 5, (!is_array($original_input) ? $original_input : null) ) ; }
 
 		// Check tag format
@@ -756,7 +754,8 @@ class Condorcet
 			return $vote ;
 		}
 
-		protected function checkVoteInput ($vote)
+
+		protected function checkVoteCandidate ($vote)
 		{
 			$list_candidate = array() ;
 
