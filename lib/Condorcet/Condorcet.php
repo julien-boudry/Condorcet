@@ -1650,9 +1650,12 @@ class Vote
 	use CandidateVote_CondorcetLink ;
 
 	private $_ranking = array();
+	private $_rankingHistory = array();
+
 	private $_tags = array();
 	private $_id;
 	private $_createdAt;
+	private $updatedAt;
 
 		///
 
@@ -1682,8 +1685,16 @@ class Vote
 
 	// SETTERS
 
-	public function setRanking ($ranking)
+	public function setRanking ($rankingCandidate)
 	{
+		if (empty($this->_link))
+		{
+			$this->archiveRanking();
+		}
+		else
+		{
+			
+		}
 
 	}
 
@@ -1696,6 +1707,14 @@ class Vote
 		///
 
 	// INTERNAL
+
+		private function archiveRanking ()
+		{
+			if (!empty($this->_ranking))
+			{
+				$this->_rankingHistory[] = array('ranking' => $this->_ranking, 'timestamp' => microtime(true));
+			}
+		}
 }
 
 
@@ -1737,5 +1756,4 @@ trait CandidateVote_CondorcetLink
 		else
 			{ return false ; }
 	}
-
 }
