@@ -718,8 +718,8 @@ class Condorcet
 			$vote = $this->convertVoteInput($vote) ;
 		}
 
-		// Check array format
-		if ( !is_array($vote) || !$this->checkVoteInput($vote) )
+		// Check array format && Make checkVoteInput
+		if ( !is_array($vote) || !self::checkVoteInput($vote) )
 			{ throw new namespace\CondorcetException( 5, (!is_array($original_input) ? $original_input : null) ) ; }
 
 		// Check tag format
@@ -738,18 +738,18 @@ class Condorcet
 	}
 
 		// From a string like 'A>B=C=H>G=T>Q'
-		protected function convertVoteInput ($formula)
+		public static function convertVoteInput ($formula)
 		{
 			$vote = explode('>', $formula);
 
-			foreach ($vote as $rank => $rank_vote)
+			foreach ($vote as &$rank_vote)
 			{
-				$vote[$rank] = explode('=', $rank_vote);
+				$rank_vote = explode('=', $rank_vote);
 
 				// Del space at start and end
-				foreach ($vote[$rank] as $key => $value)
+				foreach ($rank_vote as &$value)
 				{
-					$vote[$rank][$key] = trim($value);
+					$value = trim($value);
 				}
 			}
 
