@@ -1611,7 +1611,7 @@ class Candidate
 			{ throw new namespace\CondorcetException(3, $name); }
 
 		$this->_name = $name ;
-		$this->_nameHistory[] = $name ;
+		$this->_nameHistory[] = array('name' => $name, 'timestamp' => microtime(true));
 
 		return $this->_name ;
 	}
