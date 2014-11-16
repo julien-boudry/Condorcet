@@ -1768,16 +1768,15 @@ class Vote implements \Iterator
 
 					$counter++;
 
-					// Check Duplicate
-					if (!in_array($Candidate, $list_candidate, true)) :
+				// Check Duplicate
+
+					// Check objet reference AND check candidates name
+					if (!in_array($Candidate, $list_candidate, true) && !in_array($Candidate, $list_candidate)) :
 						$list_candidate[] = $Candidate;
 					else : throw new namespace\CondorcetException(5); endif;
 
 				endforeach;
 			}
-
-
-
 
 			return $counter;
 		}
