@@ -75,7 +75,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 	{
 		echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote['tag']).'</strong><br>';
+		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
 
 		echo "<ol>";
 

@@ -784,71 +784,27 @@ class Condorcet
 		}
 
 		// Write a new vote
-		protected function registerVote ($vote, $tag = null)
+		protected function registerVote (namespace\Vote $vote, $tag = null)
 		{
-			$last_line_check = array() ;
-			$vote_r = array() ;
-
-			// To delete -> class Vote
-			$i = 1 ;
-			foreach ($vote as $value)
-			{
-				if ( !is_array($value) )
-				{
-					$vote_r[$i] = explode(',', $value) ;
-				}
-				else
-				{
-					$vote_r[$i] = $value ;
-				}
-
-				// $last_line_check
-				foreach ($vote_r[$i] as $candidate)
-				{
-					$last_line_check[] = $this->getCandidateKey($candidate) ;
-				}
-
-				$i++ ;
-			}
-			// END
-
-			if ( count($last_line_check) < count($this->_Candidates) )
-			{
-				foreach ($this->_Candidates as $key => $value)
-				{
-					if ( !in_array($key,$last_line_check) )
-					{
-						$vote_r[$i][] = $value ;
-					}
-				}
-			}
-
-			$vote_r['tag']['id'] = $this->_nextVoteTag++ ;
-			$vote_r['tag']['timestamp'] = $_SERVER['REQUEST_TIME'] ;
-
 			// Vote identifiant
-			$tag = $this->tagsConvert($tag);
-			if ($tag !== null)
-			{
-				$vote_r['tag'] = array_merge($vote_r['tag'], $tag) ;
-			}
-			
+			$vote->addTags($tag);			
 			
 			// Register
-			$this->_Votes[] = $vote_r ;
+			$this->_Votes[] = $vote ;
+			$vote->registerLink($this);
 
-			return $vote_r['tag'] ;
+			return $vote ;
 		}
 
 
 	public function removeVote ($tag, $with = true)
 	{
-		$this->closeCandidatesConfig() ;
+		$this->closeCandidatesConfig();
 
 			//////
 
 		// Prepare Tags
-		$tag = $this->tagsConvert($tag) ;
+		$tag = namespace\Vote::tagsConvert($tag);
 
 		// Deleting
 
@@ -856,6 +812,7 @@ class Condorcet
 
 		foreach ($this->getVotesList($tag, $with) as $key => $value)
 		{
+			$this->_Votes[$key]->destroyLink($this);
 			unset($this->_Votes[$key]) ;
 			$effective++ ;
 		}
@@ -986,7 +943,7 @@ class Condorcet
 		}
 		else
 		{
-			$tag = $this->tagsConvert($tag) ;
+			$tag = namespace\Vote::tagsConvert($tag) ;
 			if ($tag === null)
 				{$tag = array();}
 
@@ -997,7 +954,7 @@ class Condorcet
 				$noOne = true ;
 				foreach ($tag as $oneTag)
 				{
-					if ( in_array($oneTag, $value['tag'],true) )
+					if ( in_array($oneTag, $value->getTags(),true) )
 					{
 						if ($with)
 						{
@@ -1021,25 +978,7 @@ class Condorcet
 
 	protected function tagsConvert ($tags)
 	{		
-		if (empty($tags))
-			{ return null ; }
-
-		// Make Array
-		if (!is_array($tags))
-		{
-			$tags = explode(',', $tags);
-		}
-
-		// Trim tags
-		foreach ($tags as $key => &$oneTag)
-		{
-			$oneTag = (!is_int($oneTag)) ? trim($oneTag) : $oneTag ;
-
-			if ($oneTag === '')
-				{unset($tags[$key]);}
-		}
-
-		return $tags ;
+		return namespace\Vote::tagsConvert($tags);
 	}
 
 
@@ -1065,8 +1004,7 @@ class Condorcet
 			}
 			foreach ($this->getVotesList($tag, $with) as $vote)
 			{
-				$voteTags = $vote['tag'] ;
-				unset($vote['tag']) ;
+				$voteTags = $vote->getTags() ;
 
 				$filter->addVote($vote, $voteTags) ;
 			}
@@ -1347,9 +1285,6 @@ class Condorcet
 		// Win && Null
 		foreach ( $this->_Votes as $vote_id => $vote_ranking )
 		{
-			// Del vote identifiant
-			unset($vote_ranking['tag']) ;
-
 			$done_Candidates = array() ;
 
 			foreach ($vote_ranking as $candidates_in_rank)
@@ -1661,7 +1596,6 @@ class Vote implements \Iterator
 
 	// Vote
 
-
 	private $_ranking = array();
 
 	private $_tags = array();
@@ -1784,14 +1718,14 @@ class Vote implements \Iterator
 
 	public function addTags ($tags)
 	{
-		if (empty($tags))
-			{ return $this->getTags(); }
-
 		if (is_object($tags) || is_bool($tags))
 			{ throw new namespace\CondorcetException(17); }
 
-		elseif (is_string($tags) || is_int($tags))
-			{ $tags = array($tags); }
+		$tags = self::tagsConvert($tags);
+
+		if (empty($tags))
+			{ return $this->getTags(); }
+
 
 		foreach ($tags as $key => $tag)
 		{
@@ -1808,6 +1742,29 @@ class Vote implements \Iterator
 
 		return $this->getTags();
 	}
+
+		public static function tagsConvert ($tags)
+		{
+			if (empty($tags))
+				{ return null; }
+
+			// Make Array
+			if (!is_array($tags))
+			{
+				$tags = explode(',', $tags);
+			}
+
+			// Trim tags
+			foreach ($tags as $key => &$oneTag)
+			{
+				$oneTag = (!is_int($oneTag)) ? trim($oneTag) : $oneTag ;
+
+				if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag))
+					{unset($tags[$key]);}
+			}
+
+			return $tags ;
+		}
 
 
 		///
