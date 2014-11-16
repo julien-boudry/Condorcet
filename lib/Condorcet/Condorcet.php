@@ -757,7 +757,6 @@ class Condorcet
 			if ( !$this->checkVoteCandidate($vote) )
 				{ throw new namespace\CondorcetException(5); }
 
-
 			return $vote;
 		}
 
@@ -1273,7 +1272,7 @@ class Condorcet
 
 			foreach ( $this->_Candidates as $candidate_key_r => $candidate_id_r )
 			{
-				if ($candidate_key_r != $candidate_key)
+				if ($candidate_key_r !== $candidate_key)
 				{
 					$this->_Pairwise[$candidate_key]['win'][$candidate_key_r]	= 0 ;
 					$this->_Pairwise[$candidate_key]['null'][$candidate_key_r]	= 0 ;
@@ -1317,7 +1316,7 @@ class Condorcet
 						// Null
 						if (	$candidate_key !== $g_candidate_key &&
 								count($candidates_in_rank) > 1 &&
-								in_array($g_candidate_key, $candidates_in_rank_keys)
+								in_array($g_candidate_key, $candidates_in_rank_keys, true)
 							)
 						{
 							$this->_Pairwise[$candidate_key]['null'][$g_candidate_key]++ ;
@@ -1327,7 +1326,7 @@ class Condorcet
 			}
 		}
 
-		// Loose
+		// Lose
 		foreach ( $this->_Pairwise as $option_key => $option_results )
 		{
 			foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
@@ -1335,7 +1334,7 @@ class Condorcet
 				$this->_Pairwise[$option_key]['lose'][$option_compare_key] = $this->countVotes() - (
 							$this->_Pairwise[$option_key]['win'][$option_compare_key] + 
 							$this->_Pairwise[$option_key]['null'][$option_compare_key]
-						) ;
+						);
 			}
 		}
 
