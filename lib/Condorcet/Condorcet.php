@@ -710,26 +710,13 @@ class Condorcet
 		$this->closeCandidatesConfig() ;
 
 			////////
-		$original_input = $vote ;
 
-		// Translate the string if needed
-		if ( is_string($vote) )
-			{ $vote = $this->convertVoteInput($vote); }
-
-		// Check array format && Make checkVoteCandidate
-		if ( !is_array($vote) || !self::checkVoteCandidate($vote) )
-			{ throw new namespace\CondorcetException( 5, (!is_array($original_input) ? $original_input : null) ) ; }
-
-		// Check tag format
-		if ( is_bool($tag) )
-			{ throw new namespace\CondorcetException(5) ; }
+		$vote = $this->prepareVoteInput($vote, $tag);
 
 		// Check Max Vote Count
 		if ( self::$_max_vote_number !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_max_vote_number )
 			{ throw new namespace\CondorcetException(16, self::$_max_vote_number) ; }
 
-		// Sort
-		ksort($vote);
 
 		// Register vote
 		return $this->registerVote($vote, $tag) ; // Return the array vote tag(s)
@@ -752,6 +739,35 @@ class Condorcet
 			}
 
 			return $vote ;
+		}
+
+		// return True or throw an Exception
+		public function prepareModifyVote (namespace\Vote $existVote)
+			{ return $this->prepareVoteInput($existVote); }
+
+		// Return the well formated vote to use.
+		protected function prepareVoteInput ($vote, $tag = null)
+		{
+			// Translate Object for test if needed
+			if ($vote instanceof namespace\Vote)
+				{ $vote = $vote->getRanking(); }
+
+			// Translate the string if needed
+			if ( is_string($vote) )
+				{ $vote = $this->convertVoteInput($vote); }
+
+			// Check array format && Make checkVoteCandidate
+			if ( !is_array($vote) || !self::checkVoteCandidate($vote) )
+				{ throw new namespace\CondorcetException(5, (!is_array($original_input) ? $original_input : null)) ; }
+
+			// Check tag format
+			if ( is_bool($tag) )
+				{ throw new namespace\CondorcetException(5); }
+
+			// Sort
+			ksort($vote);
+
+			return $vote;
 		}
 
 
@@ -803,6 +819,7 @@ class Condorcet
 			$last_line_check = array() ;
 			$vote_r = array() ;
 
+			// To delete -> class Vote
 			$i = 1 ;
 			foreach ($vote as $value)
 			{
@@ -823,6 +840,7 @@ class Condorcet
 
 				$i++ ;
 			}
+			// END
 
 			if ( count($last_line_check) < count($this->_Candidates) )
 			{
@@ -1560,6 +1578,8 @@ class CondorcetException extends \Exception
 		$error[14] = 'parseVote() must take a string (raw or path) as argument';
 		$error[15] = 'Input must be valid Json format';
 		$error[16] = 'You have exceeded the maximum number of votes allowed per election ('.$this->_infos.').';
+		$error[17] = 'Bad tags input format';
+		$error[18] = 'New vote can\'t match Candidate of his elections';
 
 		// Algorithms
 		$error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
@@ -1580,13 +1600,11 @@ class Candidate
 	use CandidateVote_CondorcetLink ;
 
 	private $_name ;
-	private $_nameHistory = array() ;
 
 		///
 
 	public function __construct ($name)
 	{
-		$this->_link = array() ;
 		$this->setName($name);
 	}
 
@@ -1609,22 +1627,21 @@ class Candidate
 		if (!$this->checkName($name))
 			{ throw new namespace\CondorcetException(3, $name); }
 
-		$this->_name = $name ;
-		$this->_nameHistory[] = array('name' => $name, 'timestamp' => microtime(true));
+		$this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
 
-		return $this->_name ;
+		return $this->getName() ;
 	}
 
 	// GETTERS
 
-	public function getName ()
+	public function getName ($full = false)
 	{
-		return $this->_name ;
+		return ($full) ? end($this->_name) : end($this->_name)['name'] ;
 	}
 
 	public function getHistory ()
 	{
-		return $this->_nameHistory ;
+		return $this->_name ;
 	}
 
 		///
@@ -1649,18 +1666,15 @@ class Vote
 	use CandidateVote_CondorcetLink ;
 
 	private $_ranking = array();
-	private $_rankingHistory = array();
 
 	private $_tags = array();
 	private $_id;
-	private $_createdAt;
-	private $updatedAt;
 
 		///
 
 	public function __construct ($ranking, $tags = null)
 	{
-
+		$this->setRanking($ranking);
 	}
 
 		///
@@ -1669,37 +1683,105 @@ class Vote
 
 	public function getRanking ()
 	{
-
+		if (!empty($this->_ranking))
+			{ return end($this->_ranking)['ranking']; }
+		else
+			{ return null; }
 	}
 
 	public function getTags ()
 	{
-
+		return $this->_tags;
 	}
 
 	public function getCreateTimestamp ()
 	{
-		
+		return $this->_ranking[0]['timestamp'];
 	}
 
 	// SETTERS
 
 	public function setRanking ($rankingCandidate)
 	{
+		$this->formatRanking($rankingCandidate);
+
 		if (empty($this->_link))
 		{
-			$this->archiveRanking();
+			$this->archiveRanking($rankingCandidate);
 		}
 		else
 		{
-			
+			try {
+				foreach ($this->_link as &$link)
+				{
+					$link->prepareModifyVote($rankingCandidate);
+				}
+			}
+			catch (namespace\CondorcetException $e) {
+				throw new namespace\CondorcetException(18);
+			}
 		}
-
 	}
 
-	public function setTags ($tags)
-	{
+		private function formatRanking (&$ranking)
+		{
+			if (!is_array($rankingCandidate) || empty($rankingCandidate)) :
+				throw new namespace\CondorcetException(5);
+			endif;
 
+
+			ksort($ranking);
+			
+			$i = 1 ; $vote_r = array() ;
+			foreach ($ranking as &$value)
+			{
+				if ( !is_array($value) )
+				{
+					$vote_r[$i] = array($value) ;
+				}
+				else
+				{
+					$vote_r[$i] = $value ;
+				}
+
+				$i++ ;
+			}
+
+			$ranking = $vote_r;
+
+			foreach ($rankingCandidate as &$Candidate)
+			{
+				foreach ($Candidate as $line) :
+					if ( !($line instanceof namespace\Candidate) ) :
+						throw new namespace\CondorcetException(5);
+					endif;
+				endforeach;
+			}
+		}
+
+
+	public function addTags ($tags)
+	{
+		if (is_object($tags) || is_bool($tags))
+			{ throw new namespace\CondorcetException(17); }
+
+		elseif (is_string($tags) || is_int($tags))
+			{ $tags = array($tags); }
+
+		foreach ($tags as $key => $tag)
+		{
+			if (in_array($tag, $this->_tags, true))
+			{
+				unset($tags[$key]);
+			}
+		}
+
+		foreach ($tags as $tag)
+		{
+			$this->_tags[] = $tag;
+		}
+
+		return $this->getTags();
 	}
 
 
@@ -1711,7 +1793,7 @@ class Vote
 		{
 			if (!empty($this->_ranking))
 			{
-				$this->_rankingHistory[] = array('ranking' => $this->_ranking, 'timestamp' => microtime(true));
+				$this->_ranking[] = array('ranking' => $this->_ranking, 'timestamp' => microtime(true));
 			}
 		}
 }
@@ -1719,7 +1801,7 @@ class Vote
 
 trait CandidateVote_CondorcetLink
 {
-	private $_link ;
+	private $_link = array() ;
 
 	public function __sleep ()
 	{
