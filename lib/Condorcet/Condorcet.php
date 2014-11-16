@@ -707,7 +707,7 @@ class Condorcet
 	// Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
 	public function addVote ($vote, $tag = null)
 	{
-		$this->closeCandidatesConfig() ;
+		$this->closeCandidatesConfig();
 
 			////////
 
@@ -715,7 +715,7 @@ class Condorcet
 
 		// Check Max Vote Count
 		if ( self::$_max_vote_number !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_max_vote_number )
-			{ throw new namespace\CondorcetException(16, self::$_max_vote_number) ; }
+			{ throw new namespace\CondorcetException(16, self::$_max_vote_number); }
 
 
 		// Register vote
@@ -748,65 +748,35 @@ class Condorcet
 		// Return the well formated vote to use.
 		protected function prepareVoteInput ($vote, $tag = null)
 		{
-			// Translate Object for test if needed
-			if ($vote instanceof namespace\Vote)
-				{ $vote = $vote->getRanking(); }
-
-			// Translate the string if needed
-			if ( is_string($vote) )
-				{ $vote = $this->convertVoteInput($vote); }
+			if (!($vote instanceof namespace\Vote))
+			{
+				$vote = new namespace\Vote ($vote, $tag);
+			}
 
 			// Check array format && Make checkVoteCandidate
-			if ( !is_array($vote) || !self::checkVoteCandidate($vote) )
-				{ throw new namespace\CondorcetException(5, (!is_array($original_input) ? $original_input : null)) ; }
-
-			// Check tag format
-			if ( is_bool($tag) )
+			if ( !$this->checkVoteCandidate($vote) )
 				{ throw new namespace\CondorcetException(5); }
 
-			// Sort
-			ksort($vote);
 
 			return $vote;
 		}
 
 
-		protected function checkVoteCandidate ($vote)
+		protected function checkVoteCandidate (namespace\Vote $vote)
 		{
 			$list_candidate = array() ;
 
-			if ( count($vote) > $this->_CandidatesCount || count($vote) < 1 )
+			if ( $vote->countInputRanking() > $this->_CandidatesCount )
 				{ return false ; }
 
 			foreach ($vote as $rank => $choice)
 			{
-				// Check key & candidate
-				if ( !is_numeric($rank) || $rank > $this->_CandidatesCount || empty($choice) )
-					{ return false ; }
-
-					//////
-
-				if (!is_array($choice))
-				{
-					$candidates = explode(',', $choice) ;
-				}
-				else
-				{
-					$candidates = $choice ;
-				}
-
-				foreach ($candidates as $candidate)
+				foreach ($choice as $candidate)
 				{
 					if ( !$this->existCandidateId($candidate) )
 					{
 						return false ;
 					}
-
-					// Do not do 2x the same candidate
-					if ( !in_array($candidate, $list_candidate)  )
-						{ $list_candidate[] = $candidate ; }
-					else 
-						{ return false ; }
 				}
 			}
 
@@ -1661,9 +1631,36 @@ class Candidate
 }
 
 
-class Vote
+class Vote implements \Iterator
 {
 	use CandidateVote_CondorcetLink ;
+
+	// Implement Iterator
+
+		private $position = 1;
+
+		public function rewind() {
+			$this->position = 1;
+		}
+
+		public function current() {
+			return $this->getRanking()[$this->position];
+		}
+
+		public function key() {
+			return $this->position;
+		}
+
+		public function next() {
+			++$this->position;
+		}
+
+		public function valid() {
+			return isset($this->getRanking()[$this->position]);
+		}
+
+	// Vote
+
 
 	private $_ranking = array();
 
@@ -1675,6 +1672,7 @@ class Vote
 	public function __construct ($ranking, $tags = null)
 	{
 		$this->setRanking($ranking);
+		$this->addTags($tags);
 	}
 
 		///
@@ -1699,15 +1697,20 @@ class Vote
 		return $this->_ranking[0]['timestamp'];
 	}
 
+	public function countInputRanking ()
+	{
+		return count(end($this->_ranking)['counter']);
+	}
+
 	// SETTERS
 
 	public function setRanking ($rankingCandidate)
 	{
-		$this->formatRanking($rankingCandidate);
+		$candidateCounter = $this->formatRanking($rankingCandidate);
 
 		if (empty($this->_link))
 		{
-			$this->archiveRanking($rankingCandidate);
+			$this->archiveRanking($rankingCandidate, $candidateCounter);
 		}
 		else
 		{
@@ -1720,12 +1723,17 @@ class Vote
 			catch (namespace\CondorcetException $e) {
 				throw new namespace\CondorcetException(18);
 			}
+
+			$this->archiveRanking($rankingCandidate, $candidateCounter);
 		}
 	}
 
 		private function formatRanking (&$ranking)
 		{
-			if (!is_array($rankingCandidate) || empty($rankingCandidate)) :
+			if (is_string($ranking))
+				{ $ranking = namespace\Condorcet::convertVoteInput($ranking); }
+
+			if (!is_array($ranking) || empty($ranking)) :
 				throw new namespace\CondorcetException(5);
 			endif;
 
@@ -1749,19 +1757,37 @@ class Vote
 
 			$ranking = $vote_r;
 
-			foreach ($rankingCandidate as &$Candidate)
+			$counter = 0;
+			$list_candidate = array();
+			foreach ($ranking as &$line)
 			{
-				foreach ($Candidate as $line) :
-					if ( !($line instanceof namespace\Candidate) ) :
-						throw new namespace\CondorcetException(5);
+				foreach ($line as &$Candidate) :
+					if ( !($Candidate instanceof namespace\Candidate) ) :
+						$Candidate = new namespace\Candidate ($Candidate);
 					endif;
+
+					$counter++;
+
+					// Check Duplicate
+					if (!in_array($Candidate, $list_candidate, true)) :
+						$list_candidate[] = $Candidate;
+					else : throw new namespace\CondorcetException(5); endif;
+
 				endforeach;
 			}
+
+
+
+
+			return $counter;
 		}
 
 
 	public function addTags ($tags)
 	{
+		if (empty($tags))
+			{ return $this->getTags(); }
+
 		if (is_object($tags) || is_bool($tags))
 			{ throw new namespace\CondorcetException(17); }
 
@@ -1789,12 +1815,15 @@ class Vote
 
 	// INTERNAL
 
-		private function archiveRanking ()
+		private function archiveRanking ($ranking, $counter)
 		{
-			if (!empty($this->_ranking))
-			{
-				$this->_ranking[] = array('ranking' => $this->_ranking, 'timestamp' => microtime(true));
-			}
+			$this->_ranking[] = array(
+										'ranking' => $ranking,
+										'timestamp' => microtime(true),
+										'counter' => $counter
+										);
+
+			$this->rewind();
 		}
 }
 
