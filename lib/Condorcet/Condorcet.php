@@ -378,10 +378,8 @@ class Condorcet
 			foreach ($this->_Candidates as $value)
 				{ $value->registerLink($this); }
 
-			/* A activer ultérieurement
 			foreach ($this->_Votes as $value)
 				{ $value->registerLink($this); }
-			*/
 		}
 
 		//////
@@ -452,10 +450,8 @@ class Condorcet
 			foreach ($this->_Candidates as $value)
 				{ $value->destroyLink($this); }
 
-			/* A activer ultérieurement
 			foreach ($this->_Votes as $value)
 				{ $value->destroyLink($this); }
-			*/
 		}
 
 	protected function setTimer ($timer)
