@@ -1484,6 +1484,8 @@ class CondorcetException extends \Exception
 		$error[16] = 'You have exceeded the maximum number of votes allowed per election ('.$this->_infos.').';
 		$error[17] = 'Bad tags input format';
 		$error[18] = 'New vote can\'t match Candidate of his elections';
+		$error[19] = 'This name is not allowed in because of a namesake in the election in which the object participates.';
+
 
 		// Algorithms
 		$error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
@@ -1529,7 +1531,7 @@ class Candidate
 			{ throw new namespace\CondorcetException(1, $name) ; }
 
 		if (!$this->checkName($name))
-			{ throw new namespace\CondorcetException(3, $name); }
+			{ throw new namespace\CondorcetException(19, $name); }
 
 		$this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
 
