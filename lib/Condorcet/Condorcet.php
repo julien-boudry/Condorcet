@@ -976,6 +976,35 @@ class Condorcet
 		return namespace\Vote::tagsConvert($tags);
 	}
 
+	protected function babblerVote (namespace\Vote $vote)
+	{
+		if (!in_array($vote, $this->_Votes, true))
+			{ return false; }
+
+		$present = $vote->getAllCandidates();
+
+		if (count($present) < $this->countCandidates())
+		{
+			$last_rank = array();
+			foreach ($this->_Candidates as $oneCandidate)
+			{
+				if (!in_array($oneCandidate->getName(), $present))
+				{
+					$last_rank[] = $oneCandidate;
+				}
+			}
+
+			$ranking = $vote->getRanking();
+			$ranking[] = $last_rank;
+
+			var_dump($ranking);
+
+			return $ranking;
+		}
+		else
+			{ return $vote; }
+	}
+
 
 
 /////////// RETURN RESULT ///////////
@@ -1282,7 +1311,7 @@ class Condorcet
 		{
 			$done_Candidates = array() ;
 
-			foreach ($vote_ranking as $candidates_in_rank)
+			foreach ($this->babblerVote($vote_ranking) as $candidates_in_rank)
 			{
 				$candidates_in_rank_keys = array() ;
 
@@ -1541,11 +1570,6 @@ class Candidate
 		return ($full) ? end($this->_name) : end($this->_name)['name'] ;
 	}
 
-	public function getHistory ()
-	{
-		return $this->_name ;
-	}
-
 		///
 
 	// INTERNAL
@@ -1610,10 +1634,18 @@ class Vote implements \Iterator
 
 	// GETTERS
 
-	public function getRanking ()
+	public function getRanking ($simple = false)
 	{
 		if (!empty($this->_ranking))
-			{ return end($this->_ranking)['ranking']; }
+		{
+			if (!$simple) :
+				return end($this->_ranking)['ranking'];
+			else :
+				// foreach (end($this->_ranking)['ranking'] as $rankNumber => $rankContent) :
+
+				// endforeach;
+			endif;
+		}
 		else
 			{ return null; }
 	}
@@ -1631,6 +1663,21 @@ class Vote implements \Iterator
 	public function countInputRanking ()
 	{
 		return count(end($this->_ranking)['counter']);
+	}
+
+	public function getAllCandidates ()
+	{
+		$list = array();
+
+		foreach ($this->getRanking() as $rank)
+		{
+			foreach ($rank as $oneCandidate)
+			{
+				$list[] = $oneCandidate ;
+			}
+		}
+
+		return $list;
 	}
 
 	// SETTERS
