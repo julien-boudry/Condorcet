@@ -976,36 +976,6 @@ class Condorcet
 		return namespace\Vote::tagsConvert($tags);
 	}
 
-	protected function babblerVote (namespace\Vote $vote)
-	{
-		if (!in_array($vote, $this->_Votes, true))
-			{ return false; }
-
-		$present = $vote->getAllCandidates();
-
-		if (count($present) < $this->countCandidates())
-		{
-			$last_rank = array();
-			foreach ($this->_Candidates as $oneCandidate)
-			{
-				if (!in_array($oneCandidate->getName(), $present))
-				{
-					$last_rank[] = $oneCandidate;
-				}
-			}
-
-			$ranking = $vote->getRanking();
-			$ranking[] = $last_rank;
-
-			var_dump($ranking);
-
-			return $ranking;
-		}
-		else
-			{ return $vote; }
-	}
-
-
 
 /////////// RETURN RESULT ///////////
 
@@ -1311,7 +1281,7 @@ class Condorcet
 		{
 			$done_Candidates = array() ;
 
-			foreach ($this->babblerVote($vote_ranking) as $candidates_in_rank)
+			foreach ($vote_ranking->getContextualVote($this) as $candidates_in_rank)
 			{
 				$candidates_in_rank_keys = array() ;
 
@@ -1680,6 +1650,34 @@ class Vote implements \Iterator
 		return $list;
 	}
 
+	public function getContextualVote (namespace\Condorcet &$election)
+	{
+		if (!$this->haveLink($election))
+			{ return false; }
+
+		$present = $this->getAllCandidates();
+
+		if (count($present) < $election->countCandidates())
+		{
+			$last_rank = array();
+			foreach ($election->getCandidatesList(false) as $oneCandidate)
+			{
+				if (!in_array($oneCandidate->getName(), $present))
+				{
+					$last_rank[] = $oneCandidate;
+				}
+			}
+
+			$ranking = $this->getRanking();
+			$ranking[] = $last_rank;
+
+			return $ranking;
+		}
+		else
+			{ return $vote; }
+	}
+
+
 	// SETTERS
 
 	public function setRanking ($rankingCandidate)
@@ -1843,20 +1841,25 @@ trait CandidateVote_CondorcetLink
 		return $var ;
 	}
 
+	public function haveLink (namespace\Condorcet &$election)
+	{
+		return in_array($election, $this->_link, true);
+	}
+
 	// Internal
 		# Dot not Overloading ! Do not Use !
 
-	public function registerLink (namespace\Condorcet &$vote)
+	public function registerLink (namespace\Condorcet &$election)
 	{
-		if (array_search($vote, $this->_link, true) === false)
-			{ $this->_link[] = $vote ; }
+		if (array_search($election, $this->_link, true) === false)
+			{ $this->_link[] = $election ; }
 		else
 			{ return false; }
 	}
 
-	public function destroyLink (namespace\Condorcet &$vote)
+	public function destroyLink (namespace\Condorcet &$election)
 	{
-		$destroyKey = array_search($vote, $this->_link, true);
+		$destroyKey = array_search($election, $this->_link, true);
 
 		if ($destroyKey !== false)
 		{
