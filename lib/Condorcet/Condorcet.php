@@ -343,7 +343,7 @@ class Condorcet
 		$this->setChecksum();
 
 		// Don't include others data
-		return array	(
+		return array (
 			'_Method',
 			'_Candidates',
 			'_Votes',
@@ -360,7 +360,7 @@ class Condorcet
 
 			'_Pairwise',
 			'_Calculator',
-						);
+		);
 	}
 
 	public function __wakeup ()
@@ -370,6 +370,11 @@ class Condorcet
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
 		}
 
+		$this->registerAllLinks();
+	}
+
+	public function __clone ()
+	{
 		$this->registerAllLinks();
 	}
 
