@@ -1838,7 +1838,7 @@ trait CandidateVote_CondorcetLink
 /*
 	public function __sleep ()
 	{
-		$this->_link = array();
+		$this->destroyAllLink();
 
 		$var = array() ;
 		foreach (get_object_vars($this) as $key => $value)
@@ -1847,6 +1847,11 @@ trait CandidateVote_CondorcetLink
 		return $var ;
 	}
 */
+
+	public function __clone ()
+	{
+		$this->destroyAllLink();
+	}
 
 	public function haveLink (namespace\Condorcet &$election)
 	{
@@ -1875,5 +1880,10 @@ trait CandidateVote_CondorcetLink
 		}
 		else
 			{ return false ; }
+	}
+
+	protected function destroyAllLink ()
+	{
+		$this->_link = array();
 	}
 }
