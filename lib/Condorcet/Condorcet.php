@@ -1835,6 +1835,7 @@ trait CandidateVote_CondorcetLink
 {
 	private $_link = array() ;
 
+/*
 	public function __sleep ()
 	{
 		$this->_link = array();
@@ -1845,6 +1846,7 @@ trait CandidateVote_CondorcetLink
 
 		return $var ;
 	}
+*/
 
 	public function haveLink (namespace\Condorcet &$election)
 	{
