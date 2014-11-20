@@ -14,22 +14,12 @@ namespace Condorcet ;
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Minimax implements namespace\Condorcet_Algo
 {
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
+	use namespace\BaseAlgo;
+
 
 	// Minimax
 	protected $_Stats ;
 	protected $_Result ;
-
-
-	public function __construct (array $config)
-	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
-	}
 
 
 /////////// PUBLIC ///////////
@@ -68,7 +58,7 @@ abstract class Minimax implements namespace\Condorcet_Algo
 
 		foreach ($this->_Stats as $candidate_key => $value)
 		{
-			$explicit[namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates)] = $value ;
+			$explicit[$this->_selfElection->getCandidateId($candidate_key)] = $value ;
 		}
 
 		return $explicit ;
@@ -82,16 +72,16 @@ abstract class Minimax implements namespace\Condorcet_Algo
 	{
 		$this->_Stats = array() ;
 
-		foreach ($this->_Candidates as $candidate_key => $candidate_id)
+		foreach ($this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id)
 		{			
 			$lose_score			= array() ;
 			$margin_score		= array() ;
 			$opposition_score	= array() ;
 
-			foreach ($this->_Pairwise[$candidate_key]['lose'] as $key_lose => $value_lose)
+			foreach ($this->_selfElection->getPairwise(false)[$candidate_key]['lose'] as $key_lose => $value_lose)
 			{
 				// Margin
-				$margin = $value_lose - $this->_Pairwise[$candidate_key]['win'][$key_lose] ;
+				$margin = $value_lose - $this->_selfElection->getPairwise(false)[$candidate_key]['win'][$key_lose] ;
 				$margin_score[] = $margin ;
 
 				// Winning

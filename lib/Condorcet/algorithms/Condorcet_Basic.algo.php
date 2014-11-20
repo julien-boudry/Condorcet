@@ -14,22 +14,12 @@ namespace Condorcet ;
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class Condorcet_Basic implements namespace\Condorcet_Algo
 {
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
+	use namespace\BaseAlgo;
+
 
 	// Basic Condorcet
 	protected $_CondorcetWinner ;
 	protected $_CondorcetLoser ;
-
-
-	public function __construct (array $config)
-	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
-	}
 
 
 /////////// PUBLIC ///////////
@@ -43,10 +33,10 @@ class Condorcet_Basic implements namespace\Condorcet_Algo
 					) ;
 	}
 
-	// Get the Schulze ranking
+
 	public function getStats ()
 	{
-		return null ;
+		return $this->_selfElection->getPairwise();
 	}
 
 
@@ -62,7 +52,7 @@ class Condorcet_Basic implements namespace\Condorcet_Algo
 			//////
 
 		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
+		foreach ( $this->_selfElection->getPairwise(false) as $candidate_key => $candidat_detail )
 		{
 			$winner = true ;
 
@@ -98,7 +88,7 @@ class Condorcet_Basic implements namespace\Condorcet_Algo
 			//////
 
 		// Basic Condorcet calculation
-		foreach ( $this->_Pairwise as $candidate_key => $candidat_detail )
+		foreach ( $this->_selfElection->getPairwise(false) as $candidate_key => $candidat_detail )
 		{
 			$loser = true ;
 

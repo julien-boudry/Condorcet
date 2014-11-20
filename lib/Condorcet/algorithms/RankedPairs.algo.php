@@ -14,10 +14,8 @@ namespace Condorcet ;
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs implements namespace\Condorcet_Algo
 {
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
+	use namespace\BaseAlgo;
+
 
 	// Ranked Pairs
 	protected $_PairwiseSort ;
@@ -25,14 +23,6 @@ class RankedPairs implements namespace\Condorcet_Algo
 	protected $_Stats ;
 	protected $_StatsDone = false ;
 	protected $_Result ;
-
-
-	public function __construct (array $config)
-	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
-	}
 
 
 /////////// PUBLIC ///////////
@@ -50,7 +40,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 			//////
 
 		// Sort pairwise
-		$this->_PairwiseSort = namespace\Condorcet::makeStatic_PairwiseSort($this->_Pairwise) ;
+		$this->_PairwiseSort = namespace\Condorcet::makeStatic_PairwiseSort($this->_selfElection->getPairwise(false)) ;
 
 		// Ranking calculation
 		$this->makeArcs();
@@ -58,7 +48,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 		$this->_Result = array() ;
 
 		$rang = 1 ;
-		while (count($this->_Result) < $this->_CandidatesCount)
+		while (count($this->_Result) < $this->_selfElection->countCandidates())
 		{
 			$winner = $this->getOneWinner();
 
@@ -92,7 +82,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 				{
 					if ($key === 'from' || $key === 'to')
 					{
-						$value = namespace\Condorcet::getStatic_CandidateId($value, $this->_Candidates);
+						$value = $this->_selfElection->getCandidateId($value);
 					}
 				}
 			}
@@ -112,7 +102,7 @@ class RankedPairs implements namespace\Condorcet_Algo
 
 	protected function getOneWinner ()
 	{
-		foreach ($this->_Candidates as $candidateKey => $candidateId)
+		foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId)
 		{
 			if (!in_array($candidateKey, $this->_Result, true))
 			{

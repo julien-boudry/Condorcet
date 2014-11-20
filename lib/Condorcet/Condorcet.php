@@ -664,7 +664,7 @@ class Condorcet
 			return array_search((string) $candidate_id, $this->_Candidates) ;
 		}
 
-		protected function getCandidateId ($candidate_key, $onlyName = true)
+		public function getCandidateId ($candidate_key, $onlyName = true)
 		{
 			return self::getStatic_CandidateId($candidate_key, $this->_Candidates, $onlyName) ;
 		}
@@ -1199,13 +1199,8 @@ class Condorcet
 	{
 		if ( !isset($this->_Calculator[$method]) )
 		{
-			$param['_Pairwise'] = $this->_Pairwise ;
-			$param['_CandidatesCount'] = $this->_CandidatesCount ;
-			$param['_Candidates'] = $this->_Candidates ;
-			$param['_Votes'] = $this->_Votes ;
-
 			$class = __NAMESPACE__.'\\'.$method ;
-			$this->_Calculator[$method] = new $class($param) ;
+			$this->_Calculator[$method] = new $class($this);
 		}
 	}
 
@@ -1231,9 +1226,12 @@ class Condorcet
 
 	//:: GET RAW DATA :://
 
-	public function getPairwise ()
+	public function getPairwise ($explicit = true)
 	{
 		$this->prepareResult() ;
+
+		if (!$explicit)
+			{ return $this->_Pairwise; }
 
 		$explicit_pairwise = array() ;
 
@@ -1346,7 +1344,7 @@ class Condorcet
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
 
-	public static function makeStatic_PairwiseComparison (&$pairwise)
+	public static function makeStatic_PairwiseComparison ($pairwise)
 	{
 		$comparison = array();
 
@@ -1386,7 +1384,7 @@ class Condorcet
 		return $comparison ;
 	}
 
-	public static function makeStatic_PairwiseSort (&$pairwise)
+	public static function makeStatic_PairwiseSort ($pairwise)
 	{
 		$comparison = self::makeStatic_PairwiseComparison($pairwise);
 
@@ -1503,7 +1501,7 @@ class CondorcetException extends \Exception
 
 class Candidate
 {
-	use CandidateVote_CondorcetLink ;
+	use namespace\CandidateVote_CondorcetLink ;
 
 	private $_name ;
 
@@ -1564,7 +1562,7 @@ class Candidate
 
 class Vote implements \Iterator
 {
-	use CandidateVote_CondorcetLink ;
+	use namespace\CandidateVote_CondorcetLink ;
 
 	// Implement Iterator
 
@@ -1831,6 +1829,10 @@ class Vote implements \Iterator
 }
 
 
+/////////// TRAITS ///////////
+
+
+// Generic for Candidate & Vote Class
 trait CandidateVote_CondorcetLink
 {
 	private $_link = array() ;
@@ -1885,5 +1887,17 @@ trait CandidateVote_CondorcetLink
 	protected function destroyAllLink ()
 	{
 		$this->_link = array();
+	}
+}
+
+
+// Generic for Algorithms
+trait BaseAlgo
+{
+	protected $_selfElection;
+
+	public function __construct (namespace\Condorcet $mother)
+	{
+		$this->_selfElection = $mother;
 	}
 }

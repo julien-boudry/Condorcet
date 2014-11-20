@@ -15,15 +15,13 @@ namespace Condorcet ;
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung implements namespace\Condorcet_Algo
 {
+	use namespace\BaseAlgo;
+
 	// Limits
 	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
 		public static function setMaxCandidates ($max) { /* backwards compatibility */ }
 
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
 
 	// Kemeny Young
 	protected $_PossibleRanking ;
@@ -31,13 +29,11 @@ class KemenyYoung implements namespace\Condorcet_Algo
 	protected $_Result ;
 
 
-	public function __construct (array $config)
+	public function __construct (namespace\Condorcet $mother)
 	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
+		$this->_selfElection = $mother;
 
-		if (!is_null(self::$_maxCandidates) && $this->_CandidatesCount > self::$_maxCandidates)
+		if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
 		{
 			throw new namespace\CondorcetException(101,self::$_maxCandidates) ;
 		}
@@ -87,7 +83,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 			// Human readable
 			foreach ($explicit[$key] as &$candidate_key)
 			{
-				$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates);
+				$candidate_key = $this->_selfElection->getCandidateId($candidate_key);
 			}
 
 			$explicit[$key]['score'] = $this->_RankingScore[$key] ;
@@ -125,7 +121,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 	protected function calcPossibleRanking ()
 	{
-		$path = __DIR__ . '/KemenyYoung-Data/'.$this->_CandidatesCount.'.data' ;
+		$path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data' ;
 
 		// But ... where are the data ?! Okay, old way now...
 		if (!file_exists($path))
@@ -134,7 +130,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 		$this->_PossibleRanking = unserialize(file_get_contents($path));
 
 		$i = 0 ;
-		foreach ($this->_Candidates as $candidate_id => $candidate_name)
+		foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name)
 		{
 			$identity = 'C'.$i;
 
@@ -151,22 +147,22 @@ class KemenyYoung implements namespace\Condorcet_Algo
 	{
 		$this->_PossibleRanking = array() ;
 
-		$arrangements = $this->calcPermutation($this->_CandidatesCount);
+		$arrangements = $this->calcPermutation($this->_selfElection->countCandidates());
 		
 		$i_arrangement = 1 ;
-		foreach ($this->_Candidates as $CandidateId => $CandidateName)
+		foreach ($this->_selfElection->getCandidatesList() as $CandidateId => $CandidateName)
 		{
 			$start = $i_arrangement ;
 
 			// Create the possible and the first place
 
-			for ($i = 1 ; $i <= ($arrangements / $this->_CandidatesCount) ; $i++)
+			for ($i = 1 ; $i <= ($arrangements / $this->_selfElection->countCandidates()) ; $i++)
 			{
 				// Less clean than to start the recursion from the beginning, but really much faster, and that from 4 candidates!
 				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
 
 				// Prepare empty arrays
-				for ($ir = 2 ; $ir <= $this->_CandidatesCount ; $ir++)
+				for ($ir = 2 ; $ir <= $this->_selfElection->countCandidates() ; $ir++)
 				{
 					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
 				}
@@ -207,10 +203,10 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 		protected function rPossibleRanking ($start, $end, $rank = 2)
 		{
-			$nbrCandidates = $this->_CandidatesCount - ($rank - 1) ;
+			$nbrCandidates = $this->_selfElection->countCandidates() - ($rank - 1) ;
 			$each = $this->calcPermutation($nbrCandidates) / $nbrCandidates ;
 
-			foreach ($this->_Candidates as $CandidateId => $CandidateName)
+			foreach ($this->_selfElection->getCandidatesList() as $CandidateId => $CandidateName)
 			{
 				$do = 0 ;
 
@@ -229,7 +225,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 			}
 
 			// Recursive
-			if ($rank < $this->_CandidatesCount)
+			if ($rank < $this->_selfElection->countCandidates())
 			{
 				$rank++ ;
 
@@ -259,7 +255,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 				{
 					if (!in_array($rankCandidate, $do))
 					{
-						$this->_RankingScore[$keyScore] += $this->_Pairwise[$candidateId]['win'][$rankCandidate];
+						$this->_RankingScore[$keyScore] += $this->_selfElection->getPairwise(false)[$candidateId]['win'][$rankCandidate];
 					}
 				}
 			}
