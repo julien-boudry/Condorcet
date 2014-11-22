@@ -13,10 +13,8 @@ namespace Condorcet ;
 // Note : This class use some configuration method preset at the bottom of this file.
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
-class KemenyYoung implements namespace\Condorcet_Algo
+class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
 {
-	use namespace\BaseAlgo;
-
 	// Limits
 	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
@@ -31,7 +29,7 @@ class KemenyYoung implements namespace\Condorcet_Algo
 
 	public function __construct (namespace\Condorcet $mother)
 	{
-		$this->_selfElection = $mother;
+		parent::__construct($mother);
 
 		if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
 		{

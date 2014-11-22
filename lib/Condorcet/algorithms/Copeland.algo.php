@@ -12,11 +12,8 @@ namespace Condorcet ;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland implements namespace\Condorcet_Algo
+class Copeland extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
 {
-	use namespace\BaseAlgo;
-
-
 	// Copeland
 	protected $_Comparison ;
 	protected $_Result ;

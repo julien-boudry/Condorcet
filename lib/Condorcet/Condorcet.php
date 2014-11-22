@@ -1444,6 +1444,18 @@ interface Condorcet_Algo
 	public function getStats();
 }
 
+
+// Generic for Algorithms
+abstract class CondorcetAlgo
+{
+	protected $_selfElection;
+
+	public function __construct (namespace\Condorcet $mother)
+	{
+		$this->_selfElection = $mother;
+	}
+}
+
 // Custom Exeption
 class CondorcetException extends \Exception
 {
@@ -1887,17 +1899,5 @@ trait CandidateVote_CondorcetLink
 	protected function destroyAllLink ()
 	{
 		$this->_link = array();
-	}
-}
-
-
-// Generic for Algorithms
-trait BaseAlgo
-{
-	protected $_selfElection;
-
-	public function __construct (namespace\Condorcet $mother)
-	{
-		$this->_selfElection = $mother;
 	}
 }

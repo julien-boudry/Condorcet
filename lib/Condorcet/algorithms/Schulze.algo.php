@@ -12,11 +12,8 @@ namespace Condorcet ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core
+abstract class Schulze_Core extends namespace\CondorcetAlgo
 {
-	use namespace\BaseAlgo;
-
-
 	// Schulze
 	protected $_StrongestPaths ;
 	protected $_Result ;
