@@ -677,9 +677,9 @@ class Condorcet
 				return ($onlyName) ? $candidates[$candidate_key]->getName() : $candidates[$candidate_key] ;
 			}
 
-		public function existCandidateId ($candidate_id)
+		public function existCandidateId ($candidate_id, $strict = true)
 		{
-			return in_array((string) $candidate_id, $this->_Candidates) ;
+			return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates) ;
 		}
 
 
@@ -712,7 +712,7 @@ class Condorcet
 
 			////////
 
-		$vote = $this->prepareVoteInput($vote, $tag);
+		$this->prepareVoteInput($vote, $tag);
 
 		// Check Max Vote Count
 		if ( self::$_max_vote_number !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_max_vote_number )
@@ -747,7 +747,7 @@ class Condorcet
 			{ return $this->prepareVoteInput($existVote); }
 
 		// Return the well formated vote to use.
-		protected function prepareVoteInput ($vote, $tag = null)
+		protected function prepareVoteInput (&$vote, $tag = null)
 		{
 			if (!($vote instanceof namespace\Vote))
 			{
@@ -757,28 +757,35 @@ class Condorcet
 			// Check array format && Make checkVoteCandidate
 			if ( !$this->checkVoteCandidate($vote) )
 				{ throw new namespace\CondorcetException(5); }
-
-			return $vote;
 		}
 
 
 		protected function checkVoteCandidate (namespace\Vote $vote)
 		{
-			$list_candidate = array() ;
+			$linkCount = $vote->countLink();
 
 			if ( $vote->countInputRanking() > $this->_CandidatesCount )
 				{ return false ; }
 
+			$mirror = $vote->getRanking(); $change = false;
 			foreach ($vote as $rank => $choice)
 			{
-				foreach ($choice as $candidate)
+				foreach ($choice as $choiceKey => $candidate)
 				{
-					if ( !$this->existCandidateId($candidate) )
+					if ( !$this->existCandidateId($candidate, true) )
 					{
-						return false ;
+						if ($linkCount === 0 && $this->existCandidateId($candidate, false))  :
+							$mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey($candidate)];
+							$change = true;
+						else :
+							return false;
+						endif;
 					}
 				}
 			}
+
+			if ($change)
+				{ $vote->setRanking($mirror); }
 
 			return true ;
 		}
@@ -1870,6 +1877,11 @@ trait CandidateVote_CondorcetLink
 	public function haveLink (namespace\Condorcet &$election)
 	{
 		return in_array($election, $this->_link, true);
+	}
+
+	public function countLink ()
+	{
+		return count($this->_link);
 	}
 
 	// Internal
