@@ -688,7 +688,7 @@ class Condorcet
 
 
 	// Close the candidate config, be ready for voting (optional)
-	public function closeCandidatesConfig ()
+	public function setStateToVote ()
 	{
 		if ( $this->_State === 1 )
 			{ 
@@ -708,10 +708,6 @@ class Condorcet
 	// Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
 	public function addVote ($vote, $tag = null)
 	{
-		$this->closeCandidatesConfig();
-
-			////////
-
 		$this->prepareVoteInput($vote, $tag);
 
 		// Check Max Vote Count
@@ -793,6 +789,9 @@ class Condorcet
 		// Write a new vote
 		protected function registerVote (namespace\Vote $vote, $tag = null)
 		{
+			// Set Phase 2
+			$this->setStateToVote();
+
 			// Vote identifiant
 			$vote->addTags($tag);			
 			
@@ -806,7 +805,7 @@ class Condorcet
 
 	public function removeVote ($tag, $with = true)
 	{
-		$this->closeCandidatesConfig();
+		$this->setStateToVote();
 
 			//////
 
