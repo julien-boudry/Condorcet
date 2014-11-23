@@ -692,6 +692,9 @@ class Condorcet
 	{
 		if ( $this->_State === 1 )
 			{ 
+				if (empty($this->_Candidates))
+					{ throw new namespace\CondorcetException(20); }
+
 				$this->_State = 2 ;
 			}
 
@@ -740,7 +743,15 @@ class Condorcet
 
 		// return True or throw an Exception
 		public function prepareModifyVote (namespace\Vote $existVote)
-			{ return $this->prepareVoteInput($existVote); }
+			{
+				try	{
+					$this->prepareVoteInput($existVote);
+					$this->setStateToVote();
+				}
+				catch (Exception $e) {
+					throw $e;
+				}
+			}
 
 		// Return the well formated vote to use.
 		protected function prepareVoteInput (&$vote, $tag = null)
@@ -1501,6 +1512,7 @@ class CondorcetException extends \Exception
 		$error[17] = 'Bad tags input format';
 		$error[18] = 'New vote can\'t match Candidate of his elections';
 		$error[19] = 'This name is not allowed in because of a namesake in the election in which the object participates.';
+		$error[20] = 'You need to specify one or more candidates before voting';
 
 
 		// Algorithms
@@ -1671,11 +1683,12 @@ class Vote implements \Iterator
 		return $list;
 	}
 
-	public function getContextualVote (namespace\Condorcet &$election)
+	public function getContextualVote (namespace\Condorcet &$election, $string = true)
 	{
 		if (!$this->haveLink($election))
 			{ return false; }
 
+		$ranking = $this->getRanking();
 		$present = $this->getAllCandidates();
 
 		if (count($present) < $election->countCandidates())
@@ -1689,13 +1702,21 @@ class Vote implements \Iterator
 				}
 			}
 
-			$ranking = $this->getRanking();
 			$ranking[] = $last_rank;
-
-			return $ranking;
 		}
-		else
-			{ return $vote; }
+
+		if ($string)
+		{
+			foreach ($ranking as &$rank)
+			{
+				foreach ($rank as &$oneCandidate)
+				{
+					$oneCandidate = (string) $oneCandidate;
+				}
+			}
+		}
+
+		return $ranking;
 	}
 
 
@@ -1705,19 +1726,20 @@ class Vote implements \Iterator
 	{
 		$candidateCounter = $this->formatRanking($rankingCandidate);
 
-		if (empty($this->_link))
-		{
-			$this->archiveRanking($rankingCandidate, $candidateCounter);
-		}
-		else
+		$this->archiveRanking($rankingCandidate, $candidateCounter);
+
+		if (!empty($this->_link))
 		{
 			try {
 				foreach ($this->_link as &$link)
 				{
-					$link->prepareModifyVote($rankingCandidate);
+					$link->prepareModifyVote($this);
 				}
 			}
 			catch (namespace\CondorcetException $e) {
+				
+				array_pop($this->_ranking);
+
 				throw new namespace\CondorcetException(18);
 			}
 
