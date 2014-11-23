@@ -513,7 +513,7 @@ class Condorcet
 		// Process
 		if ( empty($candidate_id) ) // $candidate_id is empty ...
 		{
-			while ( !$this->try_addCandidate($this->_i_CandidateId) )
+			while ( !$this->canAddCandidate($this->_i_CandidateId) )
 			{
 				$this->_i_CandidateId++ ;
 			}
@@ -536,7 +536,7 @@ class Condorcet
 
 				///
 
-			if ( $this->try_addCandidate($candidate_id) )
+			if ( $this->canAddCandidate($candidate_id) )
 			{
 				$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
 
@@ -555,9 +555,9 @@ class Condorcet
 		}
 	}
 
-		protected function try_addCandidate ($candidate_id)
+		public function canAddCandidate ($candidate_id)
 		{
-			return !$this->existCandidateId($candidate_id) ;
+			return !$this->existCandidateId($candidate_id, false) ;
 		}
 
 
@@ -1553,7 +1553,7 @@ class Candidate
 
 	public function setName ($name)
 	{
-		$name = (string) $name;
+		$name = trim((string) $name);
 
 		if (mb_strlen($name) > namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID )
 			{ throw new namespace\CondorcetException(1, $name) ; }
@@ -1581,7 +1581,7 @@ class Candidate
 	{
 		foreach ($this->_link as &$link)
 		{
-			if ($link->existCandidateId($name))
+			if (!$link->canAddCandidate($name))
 				{ return false; }
 		}
 
