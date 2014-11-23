@@ -2,7 +2,7 @@
 /*
 	Ranked Pairs part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.10
+	Last modified at: Condorcet Class v0.15
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
