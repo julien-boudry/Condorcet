@@ -722,25 +722,6 @@ class Condorcet
 		return $this->registerVote($vote, $tag) ; // Return the array vote tag(s)
 	}
 
-		// From a string like 'A>B=C=H>G=T>Q'
-		public static function convertVoteInput ($formula)
-		{
-			$vote = explode('>', $formula);
-
-			foreach ($vote as &$rank_vote)
-			{
-				$rank_vote = explode('=', $rank_vote);
-
-				// Del space at start and end
-				foreach ($rank_vote as &$value)
-				{
-					$value = trim($value);
-				}
-			}
-
-			return $vote ;
-		}
-
 		// return True or throw an Exception
 		public function prepareModifyVote (namespace\Vote $existVote)
 			{
@@ -991,11 +972,6 @@ class Condorcet
 
 			return $search ;
 		}
-	}
-
-	protected function tagsConvert ($tags)
-	{		
-		return namespace\Vote::tagsConvert($tags);
 	}
 
 
@@ -1750,7 +1726,7 @@ class Vote implements \Iterator
 		private function formatRanking (&$ranking)
 		{
 			if (is_string($ranking))
-				{ $ranking = namespace\Condorcet::convertVoteInput($ranking); }
+				{ $ranking = self::convertVoteInput($ranking); }
 
 			if (!is_array($ranking) || empty($ranking)) :
 				throw new namespace\CondorcetException(5);
@@ -1798,6 +1774,25 @@ class Vote implements \Iterator
 			}
 
 			return $counter;
+		}
+
+		// From a string like 'A>B=C=H>G=T>Q'
+		public static function convertVoteInput ($formula)
+		{
+			$vote = explode('>', $formula);
+
+			foreach ($vote as &$rank_vote)
+			{
+				$rank_vote = explode('=', $rank_vote);
+
+				// Del space at start and end
+				foreach ($rank_vote as &$value)
+				{
+					$value = trim($value);
+				}
+			}
+
+			return $vote ;
 		}
 
 
