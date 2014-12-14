@@ -518,10 +518,7 @@ class Condorcet
 				$this->_i_CandidateId++ ;
 			}
 
-			$this->_Candidates[] = new Candidate($this->_i_CandidateId) ;
-			$this->_CandidatesCount++ ;
-
-			return $this->_i_CandidateId ;
+			$newCandidate = new Candidate($this->_i_CandidateId) ;
 		}
 		else // Try to add the candidate_id
 		{
@@ -539,20 +536,21 @@ class Condorcet
 			if ( $this->canAddCandidate($candidate_id) )
 			{
 				$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
-
-				$this->_Candidates[] = $newCandidate ;
-
-				// Linking
-				$newCandidate->registerLink($this);
-
-				// Candidate Counter
-				$this->_CandidatesCount++ ;
-
-				return $candidate_id ;
 			}
 			else
 			 { throw new namespace\CondorcetException(3,$candidate_id); }
 		}
+
+		// Register it
+		$this->_Candidates[] = $newCandidate ;
+
+		// Linking
+		$newCandidate->registerLink($this);
+
+		// Candidate Counter
+		$this->_CandidatesCount++ ;
+
+		return $newCandidate ;
 	}
 
 		public function canAddCandidate ($candidate_id)
@@ -644,9 +642,9 @@ class Condorcet
 		}
 
 		// Get the list of registered CANDIDATES
-		public function getCandidatesList ($arrayMode = false)
+		public function getCandidatesList ($stringMode = false)
 		{
-			if (!$arrayMode) : return $this->_Candidates ;
+			if (!$stringMode) : return $this->_Candidates ;
 			else :
 				$result = array() ;
 
@@ -666,16 +664,12 @@ class Condorcet
 
 		public function getCandidateId ($candidate_key, $onlyName = true)
 		{
-			return self::getStatic_CandidateId($candidate_key, $this->_Candidates, $onlyName) ;
+			if (!array_key_exists($candidate_key, $this->_Candidates)) :
+				return false ;
+			else :
+				return ($onlyName) ? $this->_Candidates[$candidate_key]->getName() : $this->_Candidates[$candidate_key] ;
+			endif;
 		}
-
-			public static function getStatic_CandidateId ($candidate_key, &$candidates, $onlyName = true)
-			{
-				if (!array_key_exists($candidate_key, $candidates))
-					{ return false ; }
-
-				return ($onlyName) ? $candidates[$candidate_key]->getName() : $candidates[$candidate_key] ;
-			}
 
 		public function existCandidateId ($candidate_id, $strict = true)
 		{
@@ -1871,19 +1865,6 @@ class Vote implements \Iterator
 trait CandidateVote_CondorcetLink
 {
 	private $_link = array() ;
-
-/*
-	public function __sleep ()
-	{
-		$this->destroyAllLink();
-
-		$var = array() ;
-		foreach (get_object_vars($this) as $key => $value)
-			{ $var[] = $key; }
-
-		return $var ;
-	}
-*/
 
 	public function __clone ()
 	{
