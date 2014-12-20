@@ -16,7 +16,7 @@ namespace Condorcet ;
 class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
 {
 	// Limits
-	public static $_maxCandidates = 6 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
+	public static $_maxCandidates = 9 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
 
 		public static function setMaxCandidates ($max) { /* backwards compatibility */ }
 
@@ -33,7 +33,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 
 		if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
 		{
-			throw new namespace\CondorcetException(101,self::$_maxCandidates) ;
+			throw new namespace\CondorcetException(101,self::$_maxCandidates);
 		}
 	}
 
@@ -123,7 +123,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 
 		// But ... where are the data ?! Okay, old way now...
 		if (!file_exists($path))
-			{ $this->doPossibleRanking(); return ; }
+			{ $this->doPossibleRanking($path); }
 
 		$this->_PossibleRanking = unserialize(file_get_contents($path));
 
@@ -141,99 +141,10 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 		}
 	}
 
-	protected function doPossibleRanking ()
+	protected function doPossibleRanking ($path)
 	{
-		$this->_PossibleRanking = array() ;
-
-		$arrangements = $this->calcPermutation($this->_selfElection->countCandidates());
-		
-		$i_arrangement = 1 ;
-		foreach ($this->_selfElection->getCandidatesList() as $CandidateId => $CandidateName)
-		{
-			$start = $i_arrangement ;
-
-			// Create the possible and the first place
-
-			for ($i = 1 ; $i <= ($arrangements / $this->_selfElection->countCandidates()) ; $i++)
-			{
-				// Less clean than to start the recursion from the beginning, but really much faster, and that from 4 candidates!
-				$this->_PossibleRanking[$i_arrangement][1] = $CandidateId ;
-
-				// Prepare empty arrays
-				for ($ir = 2 ; $ir <= $this->_selfElection->countCandidates() ; $ir++)
-				{
-					$this->_PossibleRanking[$i_arrangement][$ir] = null ;
-				}
-
-				$i_arrangement++ ;
-			}
-
-			// Recursive function to populate rank 2 to x rank.
-			$this->rPossibleRanking($start, $i_arrangement - 1) ;
-		}
-
-		// Tested the integrity of the calculation of possible classifications
-		/*
-		$test = $this->_PossibleRanking ;
-		foreach ($test as $key => $value)
-		{
-			unset($test[$key]);
-
-			if (in_array($value, $test, true))
-			{
-				echo '<h2>ALERTE</h2>';
-			}
-		}
-		*/
+		( new namespace\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
 	}
-
-		protected function calcPermutation ($n)
-		{
-			$result = $n ;
-
-			for ($iteration = 1 ; $iteration < $n ; $iteration++)
-			{
-				$result = $result * ($n - $iteration) ;
-			}
-
-			return $result ;
-		}
-
-		protected function rPossibleRanking ($start, $end, $rank = 2)
-		{
-			$nbrCandidates = $this->_selfElection->countCandidates() - ($rank - 1) ;
-			$each = $this->calcPermutation($nbrCandidates) / $nbrCandidates ;
-
-			foreach ($this->_selfElection->getCandidatesList() as $CandidateId => $CandidateName)
-			{
-				$do = 0 ;
-
-				// Parcours des possibles
-				for ($i = $start ; $i <= $end ; $i++)
-				{
-					if (	$do < $each &&
-							is_null($this->_PossibleRanking[$i][$rank]) &&
-							!in_array($CandidateId, $this->_PossibleRanking[$i], true)
-						)
-					{	
-						$this->_PossibleRanking[$i][$rank] = $CandidateId ;
-						$do++;
-					}
-				}
-			}
-
-			// Recursive
-			if ($rank < $this->_selfElection->countCandidates())
-			{
-				$rank++ ;
-
-				for ($partielEnd = $start + $each - 1 ; $partielEnd <= $end ; $partielEnd += $each)
-				{
-					$this->rPossibleRanking($start, $partielEnd, $rank);
-				}
-			}
-		}
-
 
 	protected function calcRankingScore ()
 	{
@@ -276,13 +187,3 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 
 // Registering algorithm
 namespace\Condorcet::addAlgos('KemenyYoung') ;
-
-/* WITHOUT CACHE DATA NOTE :
-* Maximum number of candidates for this algorithm.
-* The script can support six candidates in less than twenty seconds
-* found in PHP 5.5 (Linux) * against fifty on a Windows system.
-* But because five candidates calculation always under 150ms,
-* we will use this number as a limit by default.
-*
-* The number of voters is indifferent.
-*/
