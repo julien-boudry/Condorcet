@@ -1918,6 +1918,27 @@ trait CandidateVote_CondorcetLink
 // Thanks to Jorge Gomes @cyberkurumin 
 class Permutation
 {
+	public static $_prefix = 'C';
+
+	public $results = [];
+
+	public static function countPossiblePermutations ($candidatesNumber) {
+		
+		if (!is_int($candidatesNumber))
+			{ return false; }
+
+
+		$result = $candidatesNumber ;
+
+		for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++)
+		{
+			$result = $result * ($candidatesNumber - $iteration) ;
+		}
+
+		return $result ;
+	}
+
+
 	public function __construct($arr) {
 		ini_set('memory_limit','2048M');
 
@@ -1926,11 +1947,19 @@ class Permutation
 		);
 	}
 
-	private function createCandidates ($numberOfCandidates) {
+	public function getResults ($serialize = false)	{
+		return ($serialize) ? serialize($this->results) : $this->results ;
+	}
+
+	public function writeResults ($path) {
+		file_put_contents($path, $this->getResults(true));
+	}
+
+	protected function createCandidates ($numberOfCandidates) {
 		$arr = array();
 
 		for ($i = 0 ; $i < $numberOfCandidates ; $i++) {
-			$arr[] = 'C'.$i;
+			$arr[] = self::$_prefix.$i;
 		}
 		return $arr;
 	}
