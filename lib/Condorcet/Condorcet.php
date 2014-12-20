@@ -1910,3 +1910,58 @@ trait CandidateVote_CondorcetLink
 		$this->_link = array();
 	}
 }
+
+
+/////////// TOOLS ///////////
+
+
+// Thanks to Jorge Gomes @cyberkurumin 
+class Permutation
+{
+	public function __construct($arr) {
+		ini_set('memory_limit','2048M');
+
+		$this->_exec(
+			$this->_permute( (is_int($arr)) ? $this->createCandidates($arr) : $arr )
+		);
+	}
+
+	private function createCandidates ($numberOfCandidates) {
+		$arr = array();
+
+		for ($i = 0 ; $i < $numberOfCandidates ; $i++) {
+			$arr[] = 'C'.$i;
+		}
+		return $arr;
+	}
+
+	private function _exec($a, array $i = []) {
+		if (is_array($a)) {
+			foreach($a as $k => $v) {
+				$i2 = $i ;
+				$i2[] = $k;
+
+				$this->_exec($v, $i2);
+			}
+		}
+		else {
+			$i[] = $a;
+
+			$this->results[] = $i;
+		}
+	}
+
+	private function _permute(array $arr) {
+		$out = array();
+		if (count($arr) > 1)
+			foreach($arr as $r => $c) {
+				$n = $arr;
+				unset($n[$r]);
+				$out[$c] = $this->_permute($n);
+			}
+		else {
+			return array_shift($arr);
+		}
+		return $out;
+	}
+}
