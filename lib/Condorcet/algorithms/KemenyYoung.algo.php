@@ -149,6 +149,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 	protected function calcRankingScore ()
 	{
 		$this->_RankingScore = array() ;
+		$pairwise = $this->_selfElection->getPairwise(false);
 
 		foreach ($this->_PossibleRanking as $keyScore => $ranking) 
 		{
@@ -162,9 +163,9 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 
 				foreach ($ranking as $rank => $rankCandidate)
 				{
-					if (!in_array($rankCandidate, $do))
+					if (!in_array($rankCandidate, $do, true))
 					{
-						$this->_RankingScore[$keyScore] += $this->_selfElection->getPairwise(false)[$candidateId]['win'][$rankCandidate];
+						$this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
 					}
 				}
 			}
