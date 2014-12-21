@@ -125,20 +125,17 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 		if (!file_exists($path))
 			{ $this->doPossibleRanking($path); }
 
-		$this->_PossibleRanking = unserialize(file_get_contents($path));
-
 		$i = 0 ;
+		$search = array();
+		$replace = array();
+
 		foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name)
 		{
-			$identity = 'C'.$i;
-
-			foreach ($this->_PossibleRanking as &$onePossibleRanking)
-			{
-				$onePossibleRanking = str_replace($identity, $candidate_id, $onePossibleRanking);
-			}
-
-			$i++;
+			$search[] = 's:'.(($i < 10) ? "2" : "3").':"C'.$i++.'"';
+			$replace[] = 'i:'.$candidate_id;
 		}
+
+		$this->_PossibleRanking = unserialize( str_replace($search, $replace, file_get_contents($path)) );
 	}
 
 	protected function doPossibleRanking ($path)

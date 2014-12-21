@@ -1967,7 +1967,7 @@ class Permutation
 	private function _exec($a, array $i = []) {
 		if (is_array($a)) {
 			foreach($a as $k => $v) {
-				$i2 = $i ;
+				$i2 = $i;
 				$i2[] = $k;
 
 				$this->_exec($v, $i2);
