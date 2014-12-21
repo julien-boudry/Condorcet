@@ -1940,8 +1940,6 @@ class Permutation
 
 
 	public function __construct($arr) {
-		ini_set('memory_limit','2048M');
-
 		$this->_exec(
 			$this->_permute( (is_int($arr)) ? $this->createCandidates($arr) : $arr )
 		);

@@ -16,9 +16,9 @@ namespace Condorcet ;
 class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
 {
 	// Limits
-	public static $_maxCandidates = 9 ; // Beyond, and for the performance of PHP on recursive functions, it would be folly for this implementation.
-
-		public static function setMaxCandidates ($max) { /* backwards compatibility */ }
+		/* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will write its cache for life, you must have write permissions in the directory lib / Condorcet / algorithms / KemenyYoung-Data /.
+		Do not try to go to 10, it is not viable! */
+		public static $_maxCandidates = 8 ;
 
 
 	// Kemeny Young
