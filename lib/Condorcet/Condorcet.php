@@ -1543,6 +1543,11 @@ class Candidate
 		return ($full) ? end($this->_name) : end($this->_name)['name'] ;
 	}
 
+	public function getHistory ()
+	{
+		return $this->_name;
+	}
+
 		///
 
 	// INTERNAL
@@ -1622,6 +1627,12 @@ class Vote implements \Iterator
 		else
 			{ return null; }
 	}
+
+	public function getHistory ()
+	{
+		return $this->_ranking;
+	}
+
 
 	public function getTags ()
 	{
