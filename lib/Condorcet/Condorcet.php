@@ -676,6 +676,16 @@ class Condorcet
 			return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates) ;
 		}
 
+		public function getCandidateObjectByName ($s)
+		{
+			foreach ($this->_Candidates as &$oneCandidate)
+			{
+				if ($oneCandidate->getName() === $s) {
+					return $oneCandidate;
+				}
+			}
+		}
+
 
 
 /////////// VOTING ///////////
