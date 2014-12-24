@@ -799,27 +799,41 @@ class Condorcet
 		}
 
 
-	public function removeVote ($tag, $with = true)
+	public function removeVote ($in, $with = true)
 	{
 		$this->setStateToVote();
 
 			//////
 
-		// Prepare Tags
-		$tag = namespace\Vote::tagsConvert($tag);
+		if ($in instanceof namespace\Vote) :
 
-		// Deleting
+			$key = $this->getVoteKey($in);
+			if ($key !== false) {
+				$this->_Votes[$key]->destroyLink($this);
+				unset($this->_Votes[$key]);
 
-		$effective = 0 ;
+				return true;
+			}
+			else {
+				return false;
+			}
 
-		foreach ($this->getVotesList($tag, $with) as $key => $value)
-		{
-			$this->_Votes[$key]->destroyLink($this);
-			unset($this->_Votes[$key]) ;
-			$effective++ ;
-		}
+		else :
+			// Prepare Tags
+			$tag = namespace\Vote::tagsConvert($in);
 
-		return $effective ;
+			// Deleting
+
+			$effective = 0;
+			foreach ($this->getVotesList($tag, $with) as $key => $value)
+			{
+				$this->_Votes[$key]->destroyLink($this);
+				unset($this->_Votes[$key]);
+				$effective++;
+			}
+
+			return $effective;
+		endif;
 	}
 
 
@@ -976,6 +990,10 @@ class Condorcet
 
 			return $search ;
 		}
+	}
+
+	public function getVoteKey (namespace\Vote $vote) {
+		return array_search($vote, $this->_Votes, true);
 	}
 
 
