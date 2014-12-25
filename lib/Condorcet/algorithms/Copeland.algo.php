@@ -56,7 +56,7 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\Condorcet_Al
 
 		foreach ($this->_Comparison as $candidate_key => $value)
 		{
-			$explicit[$this->_selfElection->getCandidateId($candidate_key)] = $value ;
+			$explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
 		}
 
 		return $explicit ;

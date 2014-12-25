@@ -55,7 +55,7 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Cond
 
 		foreach ($this->_Stats as $candidate_key => $value)
 		{
-			$explicit[$this->_selfElection->getCandidateId($candidate_key)] = $value ;
+			$explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
 		}
 
 		return $explicit ;

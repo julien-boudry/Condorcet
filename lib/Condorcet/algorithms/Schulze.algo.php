@@ -62,11 +62,11 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 
 		foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
 		{
-			$candidate_key = $this->_selfElection->getCandidateId($candidate_key);
+			$candidate_key = $this->_selfElection->getCandidateId($candidate_key, true);
 
 			foreach ($candidate_value as $challenger_key => $challenger_value)
 			{
-				$explicit[$candidate_key][$this->_selfElection->getCandidateId($challenger_key)] = $challenger_value ;
+				$explicit[$candidate_key][$this->_selfElection->getCandidateId($challenger_key, true)] = $challenger_value;
 			}
 		}
 

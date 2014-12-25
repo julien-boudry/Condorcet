@@ -81,7 +81,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 			// Human readable
 			foreach ($explicit[$key] as &$candidate_key)
 			{
-				$candidate_key = $this->_selfElection->getCandidateId($candidate_key);
+				$candidate_key = $this->_selfElection->getCandidateId($candidate_key, true);
 			}
 
 			$explicit[$key]['score'] = $this->_RankingScore[$key] ;
