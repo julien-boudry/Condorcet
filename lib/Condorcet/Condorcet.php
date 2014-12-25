@@ -1910,6 +1910,18 @@ trait CandidateVote_CondorcetLink
 		$this->destroyAllLink();
 	}
 
+	public function __debugInfo ()
+	{
+		$var = get_object_vars($this);
+
+		foreach ($var['_link'] as $key => $oneLink)
+		{
+			$var['_link'][$key] = "Object \Condorcet\Condorcet => " . sha1(spl_object_hash($oneLink));
+		}
+
+		return $var;
+	}
+
 	public function haveLink (namespace\Condorcet &$election)
 	{
 		return in_array($election, $this->_link, true);
