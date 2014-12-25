@@ -662,7 +662,7 @@ class Condorcet
 			return array_search((string) $candidate_id, $this->_Candidates) ;
 		}
 
-		public function getCandidateId ($candidate_key, $onlyName = true)
+		public function getCandidateId ($candidate_key, $onlyName = false)
 		{
 			if (!array_key_exists($candidate_key, $this->_Candidates)) :
 				return false ;
@@ -1061,7 +1061,7 @@ class Condorcet
 		return ($human) ? $this->humanResult($result) : $result ;
 	}
 
-		protected function humanResult ($robot)
+		protected function humanResult ($robot, $asString = false)
 		{
 			if (!is_array($robot))
 				{return $robot ;}
@@ -1087,7 +1087,7 @@ class Condorcet
 			{
 				if (is_null($value))
 					{ $human[$key] = null; }
-				else
+				elseif ($asString)
 					{ $human[$key] = implode(',',$value); }
 			}
 
