@@ -99,7 +99,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 <h2>Get pairwise :</h2>
 
 	 <pre>
-	<?php var_dump($calculator->getPairwise()); ?>
+	<?php Condorcet::format($calculator->getPairwise()); ?>
 	 </pre> 
 	<br>
 	<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>
@@ -137,7 +137,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo $calculator->getMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump($calculator->getResult()); ?>
+	<?php Condorcet::format($calculator->getResult()); ?>
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
@@ -145,7 +145,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo $calculator->setMethod('Minimax_Margin') ; ?> <br>
 
 	 <pre>
-	<?php var_dump($calculator->getResult()); ?>
+	<?php Condorcet::format($calculator->getResult()); ?>
 	 </pre>
 
 
@@ -154,7 +154,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo $calculator->setMethod(Condorcet::getClassDefaultMethod()) ; ?> <br>
 
 	 <pre>
-	<?php var_dump($calculator->getResult()); ?>
+	<?php Condorcet::format($calculator->getResult()); ?>
 	 </pre>
 
 
@@ -169,7 +169,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo $calculator->getMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump($calculator->getResult()); ?>
+	<?php Condorcet::format($calculator->getResult()); ?>
 	 </pre>
 
 
@@ -184,7 +184,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo $calculator->getMethod(); ?> <br>
 
 	 <pre>
-	<?php var_dump($calculator->getResult()); ?>
+	<?php Condorcet::format($calculator->getResult()); ?>
 	 </pre>
 
 
@@ -245,7 +245,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<h3>Get a ranking without "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young result but don't delete it</h3>
 
 	 <pre>
-	<?php var_dump($calculator->getResult('KemenyYoung', null, array('custom_tag_One', 'custom_tag_Two'), false)); ?>
+	<?php Condorcet::format($calculator->getResult('KemenyYoung', null, array('custom_tag_One', 'custom_tag_Two'), false)); ?>
 	 </pre>
 <div style="clear:both;"></div>
 
@@ -257,7 +257,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 
 	 <pre>
-	<?php var_dump($calculator->getResult('KemenyYoung')); ?>
+	<?php Condorcet::format($calculator->getResult('KemenyYoung')); ?>
 	 </pre>
 
 
@@ -295,13 +295,13 @@ define('TEST_NAME', 'Condorcet Bonus Example');
  <h4>About object :</h4>
 
  <pre>
-<?php var_dump($calculator->getConfig()); ?>
+<?php Condorcet::format($calculator->getConfig()); ?>
  </pre>
 
-<!-- <h4>Var_Dump (for debug only) :</h4>
+<!-- <h4>Condorcet::format (for debug only) :</h4>
 
  <pre>
-<?php // var_dump($calculator); ?>
+<?php // Condorcet::format($calculator); ?>
  </pre> -->
 
  </body>

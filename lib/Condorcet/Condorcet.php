@@ -282,6 +282,30 @@ class Condorcet
 	}
 
 
+	// Simplify Condorcet Var_Dump. Transform object to String.
+	public static function format ($result, $out = true)
+	{
+		if (is_object($result)) :
+			$r = (string) $result;
+		elseif (!is_array($result)) :
+			$r = $result;
+		else :
+			foreach ($result as &$line) :
+				$line = self::format($line,false);
+			endforeach;
+
+			$r = $result;
+		endif;
+
+			///
+
+		if ($out):
+			var_dump($r);
+		else:
+			return $r;
+		endif;
+	}
+
 /////////// CONSTRUCTOR ///////////
 
 
