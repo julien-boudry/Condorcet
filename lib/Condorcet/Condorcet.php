@@ -1031,10 +1031,12 @@ class Condorcet
 	//:: PUBLIC FUNCTIONS :://
 
 	// Generic function for default result with ability to change default object method
-	public function getResult ($method = true, array $options = null, $tag = null, $with = true, $human = true)
+	public function getResult ($method = true, array $options = [])
 	{
+		$options = $this->formatResultOptions($options);
+
 		// Filter if tag is provided & return
-		if ($tag !== null)
+		if ($options['%tagFilter'])
 		{ 
 			$timer_start = microtime(true);
 
@@ -1044,7 +1046,7 @@ class Condorcet
 			{
 				$filter->addCandidate($candidate);
 			}
-			foreach ($this->getVotesList($tag, $with) as $vote)
+			foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote)
 			{
 				$voteTags = $vote->getTags() ;
 
@@ -1053,7 +1055,7 @@ class Condorcet
 
 			$this->setTimer($timer_start) ;
 
-			return $filter->getResult($method, $options) ;
+			return $filter->getResult($method, ['algoOptions' => $options['algoOptions']]) ;
 		}
 
 			////// Start //////
@@ -1071,13 +1073,13 @@ class Condorcet
 		{
 			$this->initResult($this->_Method) ;
 
-			$result = $this->_Calculator[$this->_Method]->getResult($options) ;
+			$result = $this->_Calculator[$this->_Method]->getResult($options['algoOptions']);
 		}
 		elseif (self::isAuthMethod($method))
 		{
 			$this->initResult($method) ;
 
-			$result = $this->_Calculator[$method]->getResult($options) ;
+			$result = $this->_Calculator[$method]->getResult($options['algoOptions']);
 		}
 		else
 		{
@@ -1086,7 +1088,7 @@ class Condorcet
 
 		$this->setTimer($timer_start) ;
 
-		return ($human) ? $this->humanResult($result) : $result ;
+		return ($options['human']) ? $this->humanResult($result) : $result ;
 	}
 
 		protected function humanResult ($robot, $asString = false)
@@ -1264,6 +1266,33 @@ class Condorcet
 
 		// Algos
 		$this->_Calculator = null ;
+	}
+
+
+	protected function formatResultOptions ($arg)
+	{
+		// About tag filter
+		if (isset($arg['tags'])):
+			$arg['%tagFilter'] = true;
+
+			if ( !isset($arg['withTag']) || !is_bool($arg['withTag']) ) :
+				$arg['withTag'] = true;
+			endif;
+		else:
+			$arg['%tagFilter'] = false;
+		endif;
+
+		// About algo Options
+		if ( !isset($arg['algoOptions']) ) {
+			$arg['algoOptions'] = null;
+		}
+
+		// Human Option (internal use)
+		if ( !isset($arg['human']) || !is_bool($arg['human']) ) {
+			$arg['human'] = true;
+		}
+
+		return $arg;
 	}
 
 
