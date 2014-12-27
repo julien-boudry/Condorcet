@@ -1048,7 +1048,7 @@ class Condorcet
 			{
 				$voteTags = $vote->getTags() ;
 
-				$filter->addVote($vote, $voteTags) ;
+				$filter->addVote($vote) ;
 			}
 
 			$this->setTimer($timer_start) ;
