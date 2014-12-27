@@ -1200,9 +1200,9 @@ class Condorcet
 	}
 
 
-	public function computeResult ($method = true, array $options = null)
+	public function computeResult ($method = true)
 	{
-		$this->getResult($method,$options,null,true,false);
+		$this->getResult($method,['human' => false]);
 		$this->getResultStats($method);
 	}
 
