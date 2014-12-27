@@ -283,15 +283,15 @@ class Condorcet
 
 
 	// Simplify Condorcet Var_Dump. Transform object to String.
-	public static function format ($input, $out = true)
+	public static function format ($input, $out = true, $convertObject = true)
 	{
 		if (is_object($input)) :
-			$r = (string) $input;
+				$r = ($convertObject) ? (string) $input : $input;
 		elseif (!is_array($input)) :
 			$r = $input;
 		else :
 			foreach ($input as $key => $line) :
-				$input[$key] = self::format($line,false);
+				$input[$key] = self::format($line,false,$convertObject);
 			endforeach;
 
 			if (count($input) === 1):
@@ -1140,7 +1140,7 @@ class Condorcet
 
 			//////
 
-		return $this->getResult($algo)[1] ;
+		return self::format($this->getResult($algo)[1],false,false);
 	}
 
 
@@ -1161,9 +1161,9 @@ class Condorcet
 
 			//////
 
-		$result = $this->getResult($algo) ;
+		$result = $this->getResult($algo);
 
-		return $result[count($result)] ;
+		return self::format($result[count($result)],false,false);
 	}
 
 
