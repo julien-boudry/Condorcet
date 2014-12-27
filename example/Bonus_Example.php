@@ -245,7 +245,13 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<h3>Get a ranking without "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young result but don't delete it</h3>
 
 	 <pre>
-	<?php Condorcet::format($calculator->getResult('KemenyYoung', null, array('custom_tag_One', 'custom_tag_Two'), false)); ?>
+	<?php
+	$options =	array(
+					'tags' => array('custom_tag_One', 'custom_tag_Two'),
+					'withTag' => false
+				);
+
+	Condorcet::format($calculator->getResult('KemenyYoung', $options)); ?>
 	 </pre>
 <div style="clear:both;"></div>
 

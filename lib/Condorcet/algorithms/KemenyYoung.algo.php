@@ -52,7 +52,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 			$this->makeRanking();
 		}
 
-		if (!is_null($options) && isset($options['noConflict']) && $options['noConflict'] === true)
+		if (isset($options['noConflict']) && $options['noConflict'] === true)
 		{
 			$conflicts = $this->conflictInfos() ;
 			if ( $conflicts !== false)

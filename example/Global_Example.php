@@ -134,9 +134,10 @@ define('TEST_NAME', 'Condorcet Global Example');
 			$result = $calculator->getResult($method) ;
 			$lastTimer = $calculator->getLastTimer() ;
 
+			$KemenyYoung_Specials_options = array('algoOptions' => ['noConflict' => true]);
 			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, array('noConflict' => true) ) )  )
 			{
-				$kemeny_conflicts = explode( ';', $calculator->getResult( $method, array('noConflict' => true) ) ) ;
+				$kemeny_conflicts = explode( ';', $calculator->getResult( $method,$KemenyYoung_Specials_options ) ) ;
 
 				echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
 			}
