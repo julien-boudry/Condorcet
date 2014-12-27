@@ -1048,8 +1048,6 @@ class Condorcet
 			}
 			foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote)
 			{
-				$voteTags = $vote->getTags() ;
-
 				$filter->addVote($vote) ;
 			}
 
