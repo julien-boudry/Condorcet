@@ -1987,6 +1987,11 @@ trait CandidateVote_CondorcetLink
 		return count($this->_link);
 	}
 
+	public function getLinks ()
+	{
+		return (!empty($this->_link)) ? $this->_link : NULL ;
+	}
+
 	// Internal
 		# Dot not Overloading ! Do not Use !
 
