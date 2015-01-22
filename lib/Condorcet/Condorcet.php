@@ -782,7 +782,7 @@ class Condorcet
 
 		protected function checkVoteCandidate (namespace\Vote $vote)
 		{
-			$linkCount = $vote->countLink();
+			$linkCount = $vote->countLinks();
 
 			if ( $vote->countInputRanking() > $this->_CandidatesCount )
 				{ return false ; }
@@ -1982,7 +1982,7 @@ trait CandidateVote_CondorcetLink
 		return in_array($election, $this->_link, true);
 	}
 
-	public function countLink ()
+	public function countLinks ()
 	{
 		return count($this->_link);
 	}
