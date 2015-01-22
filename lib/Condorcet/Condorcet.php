@@ -1747,7 +1747,7 @@ class Vote implements \Iterator
 		return $list;
 	}
 
-	public function getContextualVote (namespace\Condorcet &$election, $string = true)
+	public function getContextualVote (namespace\Condorcet &$election, $string = false)
 	{
 		if (!$this->haveLink($election))
 			{ return false; }
