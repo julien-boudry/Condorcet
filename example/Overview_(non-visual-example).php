@@ -80,7 +80,6 @@ $myElection1 = new Condorcet ();
 
 		// More fun way to add Vote from full string input !
 		$myVote96 = $myElection1->addVote('Debussy > Olivier Messiaen = Ligeti > Caplet');
-
 		
 		//Add some tags
 		$myVote97 = $myElection1->addVote(
@@ -96,8 +95,8 @@ $myElection1 = new Condorcet ();
 		");
 
 		// Creating self Vote object
-		$myVote111 = new Vote ( [$myDebussyCandidate, $myLutoCandidate, 'Caplet'], 'customeVote' );
-		$myVote112 = new Vote ( 'Olivier Messiaen = Caplet > Wiltod Lutoslawski', ['customVote'] );
+		$myVote111 = new Vote ( [$myDebussyCandidate, $myLutoCandidate, 'Caplet'], 'customeVoteTag,AnAnotherTag' );
+		$myVote112 = new Vote ( 'Olivier Messiaen = Caplet > Wiltod Lutoslawski', ['customVote','AnAnotherTag'] );
 
 		$myElection1->addVote($myVote111); $myElection1->addVote($myVote112);
 
@@ -157,6 +156,52 @@ $myElection1 = new Condorcet ();
 
 // VI - Play with Condorcet objects (Advanced)
 
+		// Create a second election
+		$myElection2 = new Condorcet ();
+			for ($i = 0 ; $i < 3 ; $i++)
+				{$myAutomaticCandidate = $myElection2->addCandidate();} // Will create three candidate : 'A', 'B' and 'C'
 
-	// create se second election
-	$myElection2 = new Condorcet ();
+
+	# Same candidate in multiple elections
+
+		// Add two participating candidates from $myElection1
+		$myElection2->addCandidate( $myElection1->getCandidateObjectByName('Debussy') );
+		$myElection2->addCandidate( $myLutoCandidate );
+
+		// And, I can change again theirs name. The new name is now applied in the two elections and their votes. If namesake in another election, an exception is throw.
+		$myLutoCandidate->setName('W.Lutoslawski');
+
+		// Have a look on $myLutoCandidate history
+		$myLutoCandidate->getHistory();
+
+		// In what this election, this candidates have a part ?
+			$myLutoCandidate->getLinks(); // Get Condorcet objects
+			$myLutoCandidate->countLinks(); // Or just count it
+
+
+	# The same vote applied to multiple elections.
+
+		$myNewVote = new Vote ( [$myLutoCandidate,'Debussy'] );
+
+		// Add it on election 1 and 2
+		$myElection1->addVote( $myNewVote ); // Note that Vote has been altered. 'Debussy' string become a reference to $myElection1->getCandidateObjectByName('Debussy'); Cause there are namesake and there was not any conflict.
+		$myElection2->addVote( $myNewVote );
+		
+
+		// In what this election, this candidates have a part ?
+			$myNewVote->getLinks(); // Get Condorcet objects
+			$myNewVote->countLinks(); // Or just count it
+
+			// Get the vote ranking in context of each elections
+			foreach ($myNewVote->getLinks() as &$link)
+			{
+				$myNewVote->getContextualVote($link);
+			}
+
+		// Now we can change vote ranking
+
+			$myNewVote->setRanking([$myElection1->getCandidateObjectByName('Debussy'),$myLutoCandidate]); // If these votes are already engaged in the election, you must use compatible Candidate objects with all relevant elections.
+
+			# Get Ranking history
+			$myNewVote->getHistory();
+		
