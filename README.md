@@ -11,25 +11,16 @@ _This class is not designed for high performances, very high fiability exigence,
 This library allows both the calculation of results according to the original method of the Marquis de Condorcet that algortihmes implementing more complex way its criteria.   
 But Condorcet Class allows much more than this, and is actually a real manager of election and voting; providing you with powerful management features and your elections storage facilities.
 
+### Contributors and License
+
 **Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
+
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
 **Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
 
 
-### Project State
-To date, we have a stable version.  
-- Since version 0.9, an important work of code review and testing was conducted by the creator.
-- Since version 0.15, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
-
-**External testers are more than welcome**.   
-
-
-- To date, the library is used by [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite).   
-http://gilles78.artisanat-furieux.net/Condorcet/
-- From August 2014: [Condorcet-Vote.org](http://www.condorcet-vote.org) opens with a beta version. It is based in large part on this project, and uses the library as a real election manager for computing, storage & stats.   
-
-#### Specifications and standards  
+### Specifications and standards  
 **Stable Version: 0.15**  
 **PHP Requirement:** PHP 5.5 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
@@ -39,11 +30,21 @@ The literature also provides easy example of free implementation with or without
 **Coding standards:** The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 
-#### Related projects
-* [Condorcet-Vote.org](http://www.condorcet-vote.org) Web services to create and store online Condorcet election. Including intérractives and collaborative features.   
+#### Project State
+To date, we have a stable version.  
+- Since version 0.9, an important work of code review and testing was conducted by the creator.
+- Since version 0.15, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
+
+**External testers are more than welcome**.   
+
+
+#### Related projects / They use Condorcet
+* From August 2014: [Condorcet-Vote.org](http://www.condorcet-vote.org) Web services to create and store online Condorcet election. Including intérractives and collaborative features.    
+It is based in large part on this project, and uses the library as a real election manager for computing, storage & stats.        
 * [Condorcet API](https://github.com/julien-boudry/Condorcet_API) Very basic and simple http API for Condorcet class (json or text i/o)
 * [Mahler-S2-BlindTest-Condorcet
-](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections). Look like the examples provided here, but better.    
+](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
+Look like the examples provided here, but better : [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite)    
 
 ---------------------------------------
 
@@ -115,6 +116,11 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 ### Examples
 
+#### Quick overview
+
+* [Non-visual quick tour of opportunities without interface](examples/Quick_Overview.php) (not exhaustive and partial)
+
+
 #### Officials examples
 
 * [Visual simple & advanced script examples with HTML output](examples/examples-with-html/)
@@ -126,9 +132,3 @@ _This example of implementation in others project can very nice or strange... Th
 
 * [An extremely minimalist HTTP API calculating the results of Condorcet.](https://github.com/julien-boudry/Condorcet_API)
 * [Gustav Mahler fans, making comparative blind test](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet)
-
-
-### Quick overview
-
-* [Non-visual quick tour of opportunities without interface](examples/Quick_Overview.php) (not exhaustive and partial)
-
