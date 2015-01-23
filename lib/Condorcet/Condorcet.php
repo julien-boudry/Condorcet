@@ -720,7 +720,7 @@ class Condorcet
 
 
 	// Close the candidate config, be ready for voting (optional)
-	public function setStateToVote ()
+	protected function setStateToVote ()
 	{
 		if ( $this->_State === 1 )
 			{ 
