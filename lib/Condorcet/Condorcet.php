@@ -1806,8 +1806,6 @@ class Vote implements \Iterator
 
 				throw new namespace\CondorcetException(18);
 			}
-
-			$this->archiveRanking($rankingCandidate, $candidateCounter);
 		}
 	}
 
