@@ -62,6 +62,8 @@ The literature also provides easy example of free implementation with or without
 
 ### Supported Condorcet Methods
 
+*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods)*
+
 * **Condorcet Basic** Give you the natural winner or looser of Condorcet, if there is one.  
 *(This method is the only core method, you cannot remove it)*
 
@@ -93,7 +95,6 @@ This class is designed to be easily extensible with new algorithms. A modular sc
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Ability to add Candidate on Vote
   - Improve & test Ranked pair implementation *(help needed!)*
-  - Kemeny-Young up to 7 candidates
   - **Looking for testers!**   
  
 
@@ -102,14 +103,14 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 
 ### Condorcet Wiki Manual
 
-*[Visit the Manual](wiki)*
+* **[Visit the Manual](https://github.com/julien-boudry/Condorcet/wiki)**
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
 ### Class & Methos reference
 
 The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "doc" folder for each release.   
-* [Class & Methods documentation](https://github.com/julien-boudry/Condorcet/tree/master/doc)
+* [Class & Methods documentation](doc/)
 
 
 ### Examples
