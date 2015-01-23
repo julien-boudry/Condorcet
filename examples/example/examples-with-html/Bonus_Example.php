@@ -14,7 +14,10 @@ set_exception_handler('exception_handler');
 
 use Condorcet\Condorcet ;
 
-require_once '..'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'Condorcet'.DIRECTORY_SEPARATOR.'Condorcet.php' ;
+require_once	'..'.DIRECTORY_SEPARATOR.
+				'..'.DIRECTORY_SEPARATOR.'lib'.
+				DIRECTORY_SEPARATOR.'Condorcet'.
+				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 $calculator = new Condorcet () ;
 
@@ -43,7 +46,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
  <body>
 
 	<header style="text-align:center;">
-		<img src="../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
+		<img src="../../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
 	</header>
 
 	<h1><?php echo TEST_NAME ;?></h1>

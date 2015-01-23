@@ -1,10 +1,6 @@
 <?php
-ini_set('xdebug.var_display_max_depth', 6);
-ini_set('xdebug.var_display_max_children', -1);
-ini_set('xdebug.var_display_max_data', -1);
-ini_set('display_errors', 1);
-error_reporting(E_ALL); 
 
+/* NO INTERFACE here, see html examples for it */
 
 # Quick tour of the main features of Condorcet PHP
 

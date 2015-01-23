@@ -102,7 +102,7 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 
 ### Condorcet Wiki Manual
 
-*[Visit the Manual](https://github.com/julien-boudry/Condorcet/wiki)*
+*[Visit the Manual](wiki)*
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
@@ -116,7 +116,7 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 #### Officials examples
 
-* [Basic & Advanced Examples](https://github.com/julien-boudry/Condorcet/tree/master/example)
+* [Visual simple & advanced script examples with HTML output](examples/examples-with-html/)
 
 
 #### Condorcet Class Implementation
@@ -128,3 +128,6 @@ _This example of implementation in others project can very nice or strange... Th
 
 
 ### Quick overview
+
+* [Non-visual quick tour of opportunities without interface](examples/Quick_Overview.php) (not exhaustive and partial)
+
