@@ -1790,6 +1790,8 @@ class Vote implements \Iterator
 	{
 		$candidateCounter = $this->formatRanking($rankingCandidate);
 
+		$this->archiveRanking($rankingCandidate, $candidateCounter);
+
 		if (!empty($this->_link))
 		{
 			try {
@@ -1804,9 +1806,9 @@ class Vote implements \Iterator
 
 				throw new namespace\CondorcetException(18);
 			}
-		}
 
-		$this->archiveRanking($rankingCandidate, $candidateCounter);
+			$this->archiveRanking($rankingCandidate, $candidateCounter);
+		}
 	}
 
 		private function formatRanking (&$ranking)
