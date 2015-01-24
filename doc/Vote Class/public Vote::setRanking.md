@@ -1,4 +1,4 @@
-## public Condorcet::XXX
+## public Vote::setRanking
 
 ### Description    
 
@@ -6,11 +6,11 @@
 XXX
 ```
 
-- **name:** Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim()    
+- **param1:** description  
 
 ### Return value:   
 
-The new candidate object. Throw an exception on error (existing candidate...)
+Return value
 
 ---------------------------------------
 
