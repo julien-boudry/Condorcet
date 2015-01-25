@@ -805,7 +805,12 @@ class Condorcet
 			}
 
 			if ($change)
-				{ $vote->setRanking($mirror); }
+			{
+				$vote->setRanking(
+									$mirror,
+									( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : false
+				);
+			}
 
 			return true ;
 		}
@@ -1566,6 +1571,7 @@ class CondorcetException extends \Exception
 		$error[18] = 'New vote can\'t match Candidate of his elections';
 		$error[19] = 'This name is not allowed in because of a namesake in the election in which the object participates.';
 		$error[20] = 'You need to specify one or more candidates before voting';
+		$error[21] = 'Bad vote timestamp format';
 
 
 		// Algorithms
@@ -1695,9 +1701,9 @@ class Vote implements \Iterator
 
 		///
 
-	public function __construct ($ranking, $tags = null)
+	public function __construct ($ranking, $tags = null, $ownTimestamp = false)
 	{
-		$this->setRanking($ranking);
+		$this->setRanking($ranking, $ownTimestamp);
 		$this->addTags($tags);
 	}
 
@@ -1795,11 +1801,21 @@ class Vote implements \Iterator
 
 	// SETTERS
 
-	public function setRanking ($rankingCandidate)
+	public function setRanking ($rankingCandidate, $ownTimestamp = false)
 	{
+		// Timestamp
+		if ($ownTimestamp !== false) :
+			if (!is_numeric($ownTimestamp)) :
+				throw new namespace\CondorcetException(21);
+			elseif (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
+				throw new namespace\CondorcetException(21);
+			endif;
+		endif;
+
+		// Ranking
 		$candidateCounter = $this->formatRanking($rankingCandidate);
 
-		$this->archiveRanking($rankingCandidate, $candidateCounter);
+		$this->archiveRanking($rankingCandidate, $candidateCounter, $ownTimestamp);
 
 		if (!empty($this->_link))
 		{
@@ -1946,11 +1962,11 @@ class Vote implements \Iterator
 
 	// INTERNAL
 
-		private function archiveRanking ($ranking, $counter)
+		private function archiveRanking ($ranking, $counter, $ownTimestamp)
 		{
 			$this->_ranking[] = array(
 										'ranking' => $ranking,
-										'timestamp' => microtime(true),
+										'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
 										'counter' => $counter
 										);
 
