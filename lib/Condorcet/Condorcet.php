@@ -1695,17 +1695,11 @@ class Vote implements \Iterator
 
 	// GETTERS
 
-	public function getRanking ($simple = false)
+	public function getRanking ()
 	{
 		if (!empty($this->_ranking))
 		{
-			if (!$simple) :
-				return end($this->_ranking)['ranking'];
-			else :
-				// foreach (end($this->_ranking)['ranking'] as $rankNumber => $rankContent) :
-
-				// endforeach;
-			endif;
+			return end($this->_ranking)['ranking'];
 		}
 		else
 			{ return null; }
