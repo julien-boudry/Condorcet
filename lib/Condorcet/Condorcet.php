@@ -1631,6 +1631,16 @@ class Candidate
 		return $this->_name;
 	}
 
+	public function getCreateTimestamp ()
+	{
+		return $this->_name[0]['timestamp'];
+	}
+
+	public function getTimestamp ()
+	{
+		return end($this->_name)['timestamp'];
+	}
+
 		///
 
 	// INTERNAL
@@ -1719,6 +1729,11 @@ class Vote implements \Iterator
 	public function getCreateTimestamp ()
 	{
 		return $this->_ranking[0]['timestamp'];
+	}
+
+	public function getTimestamp ()
+	{
+		return end($this->_ranking)['timestamp'];
 	}
 
 	public function countInputRanking ()
