@@ -510,10 +510,7 @@ class Condorcet
 		protected function setChecksum ()
 		{
 			$this->_Checksum = hash('sha256', 
-				serialize($this->_Candidates).
-				serialize($this->_Votes).
-				serialize($this->_Pairwise).
-				serialize($this->_Calculator).
+				serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator )	).
 				$this->getObjectVersion('major')
 			);
 			return $this->_Checksum ;
