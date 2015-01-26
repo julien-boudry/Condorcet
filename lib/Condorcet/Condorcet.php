@@ -38,6 +38,7 @@ class Condorcet
 	protected static $_forceMethod	= false ;
 	protected static $_max_parse_iteration = null ;
 	protected static $_max_vote_number = null ;
+	protected static $_checksumMode = false ;
 
 	// Return library version numer
 	public static function getClassVersion ($options = 'ENV')
@@ -317,9 +318,8 @@ class Condorcet
 	protected $_Method ; // Default method for this object
 	protected $_Candidates ; // Candidate list
 	protected $_Votes ; // Votes list
-	protected $_Checksum ;
 
-	// Mechanics 
+	// Mechanics
 	protected $_i_CandidateId = 'A' ;
 	protected $_State = 1 ; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
 	protected $_CandidatesCount = 0 ;
@@ -368,27 +368,28 @@ class Condorcet
 
 	public function __sleep ()
 	{
-		$this->setChecksum();
-
 		// Don't include others data
-		return array (
+		$include = array (
 			'_Method',
 			'_Candidates',
 			'_Votes',
-			'_Checksum',
 
 			'_i_CandidateId',
 			'_State',
 			'_CandidatesCount',
 			'_nextVoteTag',
 			'_objectVersion',
-			'_globalTimer',
-			'_lastTimer',
 			'_ignoreStaticMaxVote',
 
 			'_Pairwise',
 			'_Calculator',
 		);
+
+		!self::$_checksumMode
+			AND
+				array_push($include, '_lastTimer','_globalTimer');
+
+		return $include ;
 	}
 
 	public function __wakeup ()
@@ -504,17 +505,17 @@ class Condorcet
 
 	public function getChecksum ()
 	{
-		return $this->setChecksum();
-	}
+		self::$_checksumMode = true;
 
-		protected function setChecksum ()
-		{
-			$this->_Checksum = hash('sha256', 
-				serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator )	).
-				$this->getObjectVersion('major')
-			);
-			return $this->_Checksum ;
-		}
+		$r = hash('sha256',
+			serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator )	).
+			$this->getObjectVersion('major')
+		);
+
+		self::$_checksumMode = false;
+
+		return $r;
+	}
 
 	public function ignoreMaxVote ($state = true)
 	{
