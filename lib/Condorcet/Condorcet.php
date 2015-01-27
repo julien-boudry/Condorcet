@@ -1004,18 +1004,14 @@ class Condorcet
 				$noOne = true ;
 				foreach ($tag as $oneTag)
 				{
-					if ( in_array($oneTag, $value->getTags(),true) )
-					{
-						if ($with)
-						{
-							$search[$key] = $value ;
+					if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
+						if ($with) :
+							$search[$key] = $value;
 							break ;
-						}
-						else
-						{
-							$noOne = false ;
-						}
-					}
+						else :
+							$noOne = false;
+						endif;
+					endif;
 				}
 
 				if (!$with && $noOne)
@@ -1028,6 +1024,16 @@ class Condorcet
 
 	public function getVoteKey (namespace\Vote $vote) {
 		return array_search($vote, $this->_Votes, true);
+	}
+
+	public function getVoteByKey ($key) {
+		if (!is_int($key)) :
+			return false;
+		elseif (!isset($this->_Votes[$key])) :
+			return false;
+		else :
+			return $this->_Votes[$key];
+		endif;
 	}
 
 
@@ -1927,11 +1933,12 @@ class Vote implements \Iterator
 
 
 		foreach ($tags as $key => $tag)
-		{
-			if (in_array($tag, $this->_tags, true))
-			{
+		{			
+			if (is_numeric($tag)) :
+				throw new namespace\CondorcetException(17);
+			elseif (in_array($tag, $this->_tags, true)) :
 				unset($tags[$key]);
-			}
+			endif;
 		}
 
 		foreach ($tags as $tag)
@@ -1956,7 +1963,7 @@ class Vote implements \Iterator
 			// Trim tags
 			foreach ($tags as $key => &$oneTag)
 			{
-				$oneTag = (!is_int($oneTag)) ? trim($oneTag) : $oneTag ;
+				$oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag) ;
 
 				if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag))
 					{unset($tags[$key]);}
