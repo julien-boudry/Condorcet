@@ -1708,6 +1708,13 @@ class Vote implements \Iterator
 		$this->addTags($tags);
 	}
 
+	public function __sleep ()
+	{
+		$this->position = 1;
+
+		return array_keys(get_object_vars($this));
+	}
+
 		///
 
 	// GETTERS
