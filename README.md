@@ -29,11 +29,19 @@ The literature also provides easy example of free implementation with or without
 
 **Coding standards:** The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
+**Performance:** *Benchmark on a modern machine (linux - x64 - php 5.6) of a large use of methods and algorithms. With relatively complex voting scenarios. For simpler use, Condorcet knows proceed more aggresive (cache, partial computation ...).*    
+Memory usage : less than 2M    
+Execution time : less than 120ms  
+
+use Kemeny-Young 6 candidates : 5MB - 220ms    
+use Kemeny-Young 7 candidates : 32MB - 900ms    
+use Kemeny-Young 8 candidates : 135MB - 3500ms    
+
 
 #### Project State
 To date, we have a stable version.  
 - Since version 0.9, an important work of code review and testing was conducted by the creator.
-- Since version 0.15, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
+- Since version 0.90, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
 
 **External testers are more than welcome**.   
 
