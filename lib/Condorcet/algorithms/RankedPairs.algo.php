@@ -79,7 +79,7 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\Condorcet
 				{
 					if ($key === 'from' || $key === 'to')
 					{
-						$value = $this->_selfElection->getCandidateId($value, true);
+						$value = $this->_selfElection->getCandidateId($value);
 					}
 				}
 			}
