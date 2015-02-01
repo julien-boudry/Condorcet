@@ -1,0 +1,1069 @@
+---
+
+# CLASS Condorcet
+
+"Condorcet::__construct":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::__construct
+    - Condorcet::__construct
+  examples:
+    Text de l'exemple: link
+"Condorcet::addCandidate":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addCandidate
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::addCandidate
+    - Condorcet::addCandidate
+  examples:
+    Text de l'exemple: link
+"Condorcet::addVote":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::addVote
+    - Condorcet::addVote
+  examples:
+    Text de l'exemple: link
+"Condorcet::canAddCandidate":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: canAddCandidate
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::canAddCandidate
+    - Condorcet::canAddCandidate
+  examples:
+    Text de l'exemple: link
+"Condorcet::countCandidates":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: countCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::countCandidates
+    - Condorcet::countCandidates
+  examples:
+    Text de l'exemple: link
+"Condorcet::countVotes":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: countVotes
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::countVotes
+    - Condorcet::countVotes
+  examples:
+    Text de l'exemple: link
+"Condorcet::getCandidateId":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getCandidateId
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getCandidateId
+    - Condorcet::getCandidateId
+  examples:
+    Text de l'exemple: link
+"Condorcet::getCandidateObjectByName":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getCandidateObjectByName
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getCandidateObjectByName
+    - Condorcet::getCandidateObjectByName
+  examples:
+    Text de l'exemple: link
+"Condorcet::getCandidatesList":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getCandidatesList
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getCandidatesList
+    - Condorcet::getCandidatesList
+  examples:
+    Text de l'exemple: link
+"Condorcet::getChecksum":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getChecksum
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getChecksum
+    - Condorcet::getChecksum
+  examples:
+    Text de l'exemple: link
+"Condorcet::getConfig":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getConfig
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getConfig
+    - Condorcet::getConfig
+  examples:
+    Text de l'exemple: link
+"Condorcet::getGlobalTimer":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getGlobalTimer
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getGlobalTimer
+    - Condorcet::getGlobalTimer
+  examples:
+    Text de l'exemple: link
+"Condorcet::getLastTimer":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getLastTimer
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getLastTimer
+    - Condorcet::getLastTimer
+  examples:
+    Text de l'exemple: link
+"Condorcet::getLoser":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getLoser
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getLoser
+    - Condorcet::getLoser
+  examples:
+    Text de l'exemple: link
+"Condorcet::getMethod":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getMethod
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getMethod
+    - Condorcet::getMethod
+  examples:
+    Text de l'exemple: link
+"Condorcet::getPairwise":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getPairwise
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getPairwise
+    - Condorcet::getPairwise
+  examples:
+    Text de l'exemple: link
+"Condorcet::getResult":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getResult
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getResult
+    - Condorcet::getResult
+  examples:
+    Text de l'exemple: link
+"Condorcet::getResultStats":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getResultStats
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getResultStats
+    - Condorcet::getResultStats
+  examples:
+    Text de l'exemple: link
+"Condorcet::getVotesList":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getVotesList
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getVotesList
+    - Condorcet::getVotesList
+  examples:
+    Text de l'exemple: link
+"Condorcet::getWinner":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getWinner
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::getWinner
+    - Condorcet::getWinner
+  examples:
+    Text de l'exemple: link
+"Condorcet::ignoreMaxVote":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: ignoreMaxVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::ignoreMaxVote
+    - Condorcet::ignoreMaxVote
+  examples:
+    Text de l'exemple: link
+"Condorcet::jsonCandidates":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: jsonCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::jsonCandidates
+    - Condorcet::jsonCandidates
+  examples:
+    Text de l'exemple: link
+"Condorcet::jsonVotes":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: jsonVotes
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::jsonVotes
+    - Condorcet::jsonVotes
+  examples:
+    Text de l'exemple: link
+"Condorcet::parseCandidates":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: parseCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::parseCandidates
+    - Condorcet::parseCandidates
+  examples:
+    Text de l'exemple: link
+"Condorcet::parseVotes":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: parseVotes
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::parseVotes
+    - Condorcet::parseVotes
+  examples:
+    Text de l'exemple: link
+"Condorcet::removeCandidate":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: removeCandidate
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::removeCandidate
+    - Condorcet::removeCandidate
+  examples:
+    Text de l'exemple: link
+"Condorcet::removeVote":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: removeVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::removeVote
+    - Condorcet::removeVote
+  examples:
+    Text de l'exemple: link
+"Condorcet::resetAll":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: resetAll
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::resetAll
+    - Condorcet::resetAll
+  examples:
+    Text de l'exemple: link
+"Condorcet::setMethod":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMethod
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Condorcet::setMethod
+    - Condorcet::setMethod
+  examples:
+    Text de l'exemple: link
+static:
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassVersion
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - static
+    - static
+  examples:
+    Text de l'exemple: link
+
+
+# CLASS Candidate
+
+
+"Candidate::__construct":
+  class: Candidate
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Candidate::__construct
+    - Candidate::__construct
+  examples:
+    Text de l'exemple: link
+"Candidate::getHistory":
+  class: Candidate
+  type: method
+  visibility: public
+  name: getHistory
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Candidate::getHistory
+    - Candidate::getHistory
+  examples:
+    Text de l'exemple: link
+"Candidate::getName":
+  class: Candidate
+  type: method
+  visibility: public
+  name: getName
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Candidate::getName
+    - Candidate::getName
+  examples:
+    Text de l'exemple: link
+"Candidate::setName":
+  class: Candidate
+  type: method
+  visibility: public
+  name: setName
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Candidate::setName
+    - Candidate::setName
+  examples:
+    Text de l'exemple: link
+
+
+# CLASS Vote
+
+"Vote::__construct":
+  class: Vote
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::__construct
+    - Vote::__construct
+  examples:
+    Text de l'exemple: link
+"Vote::addTags":
+  class: Vote
+  type: method
+  visibility: public
+  name: addTags
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::addTags
+    - Vote::addTags
+  examples:
+    Text de l'exemple: link
+"Vote::countInputRanking":
+  class: Vote
+  type: method
+  visibility: public
+  name: countInputRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::countInputRanking
+    - Vote::countInputRanking
+  examples:
+    Text de l'exemple: link
+"Vote::getAllCandidates":
+  class: Vote
+  type: method
+  visibility: public
+  name: getAllCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getAllCandidates
+    - Vote::getAllCandidates
+  examples:
+    Text de l'exemple: link
+"Vote::getContextualVote":
+  class: Vote
+  type: method
+  visibility: public
+  name: getContextualVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getContextualVote
+    - Vote::getContextualVote
+  examples:
+    Text de l'exemple: link
+"Vote::getCreateTimestamp":
+  class: Vote
+  type: method
+  visibility: public
+  name: getCreateTimestamp
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getCreateTimestamp
+    - Vote::getCreateTimestamp
+  examples:
+    Text de l'exemple: link
+"Vote::getHistory":
+  class: Vote
+  type: method
+  visibility: public
+  name: getHistory
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getHistory
+    - Vote::getHistory
+  examples:
+    Text de l'exemple: link
+"Vote::getRanking":
+  class: Vote
+  type: method
+  visibility: public
+  name: getRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getRanking
+    - Vote::getRanking
+  examples:
+    Text de l'exemple: link
+"Vote::getTags":
+  class: Vote
+  type: method
+  visibility: public
+  name: getTags
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::getTags
+    - Vote::getTags
+  examples:
+    Text de l'exemple: link
+"Vote::setRanking":
+  class: Vote
+  type: method
+  visibility: public
+  name: setRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+    param2:
+      type: letype
+      text: blabla
+  return: |
+    le retour
+    est là
+  related:
+    - Vote::setRanking
+    - Vote::setRanking
+  examples:
+    Text de l'exemple: link
