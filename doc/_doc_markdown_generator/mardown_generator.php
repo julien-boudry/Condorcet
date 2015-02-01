@@ -20,6 +20,38 @@ foreach ($doc as $entry)
 	file_put_contents($path.$filename, createMarkdownContent($entry));
 }
 
+function computeCleverSpec ($method, array $param) {
+
+	$option = false;
+	$str = '(';
+	$i = 0;
+
+	foreach ($param as $key => $value){
+		
+		$str .= ($value['required'] === false && !$option) ? " [" : "";
+		$str .= ($i > 0) ? "," : "";
+		$str .= " ";
+		$str .= $value['type'];
+		$str .= " ";
+		$str .= $key;
+		$str .= (isset($value['default'])) ? " = ".$value['default'] : "";
+
+		if ($value['required'] === false && !$option) { $option = true; }
+		$i++;
+	}
+
+	if ($option) {
+		$str .= "]";
+	}
+
+	$str .= " )";
+
+
+	return "```php
+".$method." ".$str."
+```";
+}
+
 
 function createMarkdownContent (array $entry)
 {
@@ -34,10 +66,9 @@ $entry['class']."::".$entry['name'].     "
 
 ### Description    
 
-```php
-".$entry['description']."
-```
+".computeCleverSpec($entry['name'],$entry['input'])."
 
+".$entry['description']."    
 ";
 
 	// Input

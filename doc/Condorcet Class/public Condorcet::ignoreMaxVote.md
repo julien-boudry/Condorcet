@@ -3,13 +3,16 @@
 ### Description    
 
 ```php
-la description
-est là
+ignoreMaxVote ( letype param1, letype param2 [, letype param3 = 1] )
 ```
 
+la description
+est là    
 - **param1:** *letype* blabla
 
 - **param2:** *letype* blabla
+
+- **param3:** *letype* blabla
 
 
 
