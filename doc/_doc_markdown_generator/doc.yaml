@@ -869,7 +869,127 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-static:
+"Condorcet::addAlgos":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addAlgos
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::addAlgos
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::addAlgos
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::format":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: format
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::format
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::format
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::getAuthMethods":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getAuthMethods
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::getAuthMethods
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getAuthMethods
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::getClassDefaultMethod":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassDefaultMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::getClassDefaultMethod
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getClassDefaultMethod
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::getClassVersion":
   class: Condorcet
   type: method
   visibility: public
@@ -892,10 +1012,160 @@ static:
     est là
   related:
     - 
-      name: static
+      name: Condorcet::getClassVersion
       link: Candidate Class/machin.md
     - 
-      name: static
+      name: Condorcet::getClassVersion
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::isAuthMethod":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: isAuthMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::isAuthMethod
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::isAuthMethod
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::setClassMethod":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setClassMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::setClassMethod
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::setClassMethod
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::setMaxParseIteration":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMaxParseIteration
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::setMaxParseIteration
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::setMaxParseIteration
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Condorcet::setMaxVoteNumber":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMaxVoteNumber
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::setMaxVoteNumber
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::setMaxVoteNumber
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+"Conndorcet::getClassVersion":
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassVersion
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Conndorcet::getClassVersion
+      link: Candidate Class/machin.md
+    - 
+      name: Conndorcet::getClassVersion
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link

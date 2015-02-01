@@ -1,25 +1,33 @@
-## public static setClassMethod
+## public static Condorcet::setClassMethod
 
 ### Description    
 
 ```php
-XXX
+la description
+est là
 ```
 
-- **param1:** description  
+- **param1:** *letype* blabla
+
+- **param2:** *letype* blabla
+
+
 
 ### Return value:   
 
-Return value
+le retour
+est là
+
 
 ---------------------------------------
 
-### Related method(s)
+### Related method(s)      
 
-*
+* [Condorcet::setClassMethod](Candidate Class/machin.md)    
+* [Condorcet::setClassMethod](Candidate Class/machin.md)    
 
 ---------------------------------------
 
 ### Examples and explanation
 
-* **[Manual : Manage Candidates]()**    
+* **[Text de l'exemple](link)**    

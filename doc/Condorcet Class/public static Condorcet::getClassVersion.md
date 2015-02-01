@@ -1,4 +1,4 @@
-## public Condorcet::getConfig
+## public static Condorcet::getClassVersion
 
 ### Description    
 
@@ -23,8 +23,8 @@ est là
 
 ### Related method(s)      
 
-* [Condorcet::getConfig](Candidate Class/machin.md)    
-* [Condorcet::getConfig](Candidate Class/machin.md)    
+* [Conndorcet::getClassVersion](Candidate Class/machin.md)    
+* [Conndorcet::getClassVersion](Candidate Class/machin.md)    
 
 ---------------------------------------
 
