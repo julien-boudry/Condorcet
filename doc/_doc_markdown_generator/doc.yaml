@@ -1,7 +1,4 @@
 ---
-
-# CLASS Condorcet
-
 "Condorcet::__construct":
   class: Condorcet
   type: method
@@ -15,15 +12,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::__construct
-    - Condorcet::__construct
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::addCandidate":
@@ -39,15 +42,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::addCandidate
-    - Condorcet::addCandidate
+    - 
+      name: Condorcet::addCandidate
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::addCandidate
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::addVote":
@@ -63,15 +72,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::addVote
-    - Condorcet::addVote
+    - 
+      name: Condorcet::addVote
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::addVote
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::canAddCandidate":
@@ -87,15 +102,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::canAddCandidate
-    - Condorcet::canAddCandidate
+    - 
+      name: Condorcet::canAddCandidate
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::canAddCandidate
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::countCandidates":
@@ -111,15 +132,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::countCandidates
-    - Condorcet::countCandidates
+    - 
+      name: Condorcet::countCandidates
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::countCandidates
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::countVotes":
@@ -135,15 +162,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::countVotes
-    - Condorcet::countVotes
+    - 
+      name: Condorcet::countVotes
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::countVotes
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getCandidateId":
@@ -159,15 +192,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getCandidateId
-    - Condorcet::getCandidateId
+    - 
+      name: Condorcet::getCandidateId
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getCandidateId
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getCandidateObjectByName":
@@ -183,15 +222,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getCandidateObjectByName
-    - Condorcet::getCandidateObjectByName
+    - 
+      name: Condorcet::getCandidateObjectByName
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getCandidateObjectByName
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getCandidatesList":
@@ -207,15 +252,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getCandidatesList
-    - Condorcet::getCandidatesList
+    - 
+      name: Condorcet::getCandidatesList
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getCandidatesList
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getChecksum":
@@ -231,15 +282,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getChecksum
-    - Condorcet::getChecksum
+    - 
+      name: Condorcet::getChecksum
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getChecksum
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getConfig":
@@ -255,15 +312,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getConfig
-    - Condorcet::getConfig
+    - 
+      name: Condorcet::getConfig
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getConfig
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getGlobalTimer":
@@ -279,15 +342,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getGlobalTimer
-    - Condorcet::getGlobalTimer
+    - 
+      name: Condorcet::getGlobalTimer
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getGlobalTimer
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getLastTimer":
@@ -303,15 +372,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getLastTimer
-    - Condorcet::getLastTimer
+    - 
+      name: Condorcet::getLastTimer
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getLastTimer
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getLoser":
@@ -327,15 +402,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getLoser
-    - Condorcet::getLoser
+    - 
+      name: Condorcet::getLoser
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getLoser
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getMethod":
@@ -351,15 +432,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getMethod
-    - Condorcet::getMethod
+    - 
+      name: Condorcet::getMethod
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getMethod
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getPairwise":
@@ -375,15 +462,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getPairwise
-    - Condorcet::getPairwise
+    - 
+      name: Condorcet::getPairwise
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getPairwise
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getResult":
@@ -399,15 +492,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getResult
-    - Condorcet::getResult
+    - 
+      name: Condorcet::getResult
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getResult
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getResultStats":
@@ -423,15 +522,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getResultStats
-    - Condorcet::getResultStats
+    - 
+      name: Condorcet::getResultStats
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getResultStats
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getVotesList":
@@ -447,15 +552,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getVotesList
-    - Condorcet::getVotesList
+    - 
+      name: Condorcet::getVotesList
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getVotesList
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::getWinner":
@@ -471,15 +582,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::getWinner
-    - Condorcet::getWinner
+    - 
+      name: Condorcet::getWinner
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::getWinner
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::ignoreMaxVote":
@@ -495,15 +612,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::ignoreMaxVote
-    - Condorcet::ignoreMaxVote
+    - 
+      name: Condorcet::ignoreMaxVote
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::ignoreMaxVote
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::jsonCandidates":
@@ -519,15 +642,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::jsonCandidates
-    - Condorcet::jsonCandidates
+    - 
+      name: Condorcet::jsonCandidates
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::jsonCandidates
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::jsonVotes":
@@ -543,15 +672,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::jsonVotes
-    - Condorcet::jsonVotes
+    - 
+      name: Condorcet::jsonVotes
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::jsonVotes
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::parseCandidates":
@@ -567,15 +702,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::parseCandidates
-    - Condorcet::parseCandidates
+    - 
+      name: Condorcet::parseCandidates
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::parseCandidates
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::parseVotes":
@@ -591,15 +732,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::parseVotes
-    - Condorcet::parseVotes
+    - 
+      name: Condorcet::parseVotes
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::parseVotes
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::removeCandidate":
@@ -615,15 +762,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::removeCandidate
-    - Condorcet::removeCandidate
+    - 
+      name: Condorcet::removeCandidate
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::removeCandidate
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::removeVote":
@@ -639,15 +792,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::removeVote
-    - Condorcet::removeVote
+    - 
+      name: Condorcet::removeVote
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::removeVote
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::resetAll":
@@ -663,15 +822,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::resetAll
-    - Condorcet::resetAll
+    - 
+      name: Condorcet::resetAll
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::resetAll
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Condorcet::setMethod":
@@ -687,15 +852,21 @@
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Condorcet::setMethod
-    - Condorcet::setMethod
+    - 
+      name: Condorcet::setMethod
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::setMethod
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 static:
@@ -711,22 +882,23 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - static
-    - static
+    - 
+      name: static
+      link: Candidate Class/machin.md
+    - 
+      name: static
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-
-
-# CLASS Candidate
-
-
 "Candidate::__construct":
   class: Candidate
   type: method
@@ -740,15 +912,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Candidate::__construct
-    - Candidate::__construct
+    - 
+      name: Candidate::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Candidate::__construct
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Candidate::getHistory":
@@ -764,15 +942,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Candidate::getHistory
-    - Candidate::getHistory
+    - 
+      name: Candidate::getHistory
+      link: Candidate Class/machin.md
+    - 
+      name: Candidate::getHistory
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Candidate::getName":
@@ -788,15 +972,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Candidate::getName
-    - Candidate::getName
+    - 
+      name: Candidate::getName
+      link: Candidate Class/machin.md
+    - 
+      name: Candidate::getName
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Candidate::setName":
@@ -812,21 +1002,23 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Candidate::setName
-    - Candidate::setName
+    - 
+      name: Candidate::setName
+      link: Candidate Class/machin.md
+    - 
+      name: Candidate::setName
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-
-
-# CLASS Vote
-
 "Vote::__construct":
   class: Vote
   type: method
@@ -840,15 +1032,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::__construct
-    - Vote::__construct
+    - 
+      name: Vote::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::__construct
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::addTags":
@@ -864,15 +1062,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::addTags
-    - Vote::addTags
+    - 
+      name: Vote::addTags
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::addTags
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::countInputRanking":
@@ -888,15 +1092,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::countInputRanking
-    - Vote::countInputRanking
+    - 
+      name: Vote::countInputRanking
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::countInputRanking
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getAllCandidates":
@@ -912,15 +1122,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getAllCandidates
-    - Vote::getAllCandidates
+    - 
+      name: Vote::getAllCandidates
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getAllCandidates
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getContextualVote":
@@ -936,15 +1152,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getContextualVote
-    - Vote::getContextualVote
+    - 
+      name: Vote::getContextualVote
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getContextualVote
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getCreateTimestamp":
@@ -960,15 +1182,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getCreateTimestamp
-    - Vote::getCreateTimestamp
+    - 
+      name: Vote::getCreateTimestamp
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getCreateTimestamp
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getHistory":
@@ -984,15 +1212,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getHistory
-    - Vote::getHistory
+    - 
+      name: Vote::getHistory
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getHistory
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getRanking":
@@ -1008,15 +1242,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getRanking
-    - Vote::getRanking
+    - 
+      name: Vote::getRanking
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getRanking
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::getTags":
@@ -1032,15 +1272,21 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::getTags
-    - Vote::getTags
+    - 
+      name: Vote::getTags
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::getTags
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
 "Vote::setRanking":
@@ -1056,14 +1302,20 @@ static:
     param1:
       type: letype
       text: blabla
+      required: true
     param2:
       type: letype
       text: blabla
+      required: true
   return: |
     le retour
     est là
   related:
-    - Vote::setRanking
-    - Vote::setRanking
+    - 
+      name: Vote::setRanking
+      link: Candidate Class/machin.md
+    - 
+      name: Vote::setRanking
+      link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
