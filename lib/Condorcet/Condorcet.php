@@ -531,23 +531,10 @@ class Condorcet
 		}
 		else // Try to add the candidate_id
 		{
-			if (is_string($candidate_id))
-				{ $candidate_id = trim($candidate_id); }
+			$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
 
-			if (
-					(is_string($candidate_id) && mb_strlen($candidate_id) > self::MAX_LENGTH_CANDIDATE_ID) ||
-					is_bool($candidate_id)
-				)
-				{ throw new namespace\CondorcetException(1, $candidate_id); }
-
-				///
-
-			if ( $this->canAddCandidate($candidate_id) )
-			{
-				$newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id) ;
-			}
-			else
-			 { throw new namespace\CondorcetException(3,$candidate_id); }
+			if ( !$this->canAddCandidate($newCandidate) )
+				{ throw new namespace\CondorcetException(3,$candidate_id); }
 		}
 
 		// Register it
