@@ -1,5 +1,5 @@
 ---
-"Condorcet::__construct":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -34,7 +34,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::addCandidate":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -69,7 +69,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::addVote":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -104,7 +104,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::canAddCandidate":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -139,7 +139,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::countCandidates":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -174,7 +174,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::countVotes":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -209,7 +209,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getCandidateId":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -244,7 +244,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getCandidateObjectByName":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -279,7 +279,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getCandidatesList":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -314,7 +314,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getChecksum":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -349,7 +349,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getConfig":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -384,7 +384,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getGlobalTimer":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -419,7 +419,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getLastTimer":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -454,7 +454,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getLoser":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -489,7 +489,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getMethod":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -524,7 +524,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getPairwise":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -559,7 +559,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getResult":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -594,7 +594,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getResultStats":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -629,7 +629,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getVotesList":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -664,7 +664,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getWinner":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -699,7 +699,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::ignoreMaxVote":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -734,7 +734,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::jsonCandidates":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -769,7 +769,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::jsonVotes":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -804,7 +804,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::parseCandidates":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -839,7 +839,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::parseVotes":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -874,7 +874,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::removeCandidate":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -909,7 +909,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::removeVote":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -944,7 +944,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::resetAll":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -979,7 +979,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::setMethod":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1014,7 +1014,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::addAlgos":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1049,7 +1049,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::format":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1084,7 +1084,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getAuthMethods":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1119,7 +1119,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getClassDefaultMethod":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1154,7 +1154,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::getClassVersion":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1189,7 +1189,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::isAuthMethod":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1224,7 +1224,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::setClassMethod":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1259,7 +1259,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::setMaxParseIteration":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1294,7 +1294,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Condorcet::setMaxVoteNumber":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1329,7 +1329,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Conndorcet::getClassVersion":
+- 
   class: Condorcet
   type: method
   visibility: public
@@ -1364,7 +1364,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Candidate::__construct":
+- 
   class: Candidate
   type: method
   visibility: public
@@ -1399,7 +1399,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Candidate::getHistory":
+- 
   class: Candidate
   type: method
   visibility: public
@@ -1434,7 +1434,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Candidate::getName":
+- 
   class: Candidate
   type: method
   visibility: public
@@ -1469,7 +1469,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Candidate::setName":
+- 
   class: Candidate
   type: method
   visibility: public
@@ -1504,7 +1504,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::__construct":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1539,7 +1539,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::addTags":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1574,7 +1574,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::countInputRanking":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1609,7 +1609,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getAllCandidates":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1644,7 +1644,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getContextualVote":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1679,7 +1679,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getCreateTimestamp":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1714,7 +1714,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getHistory":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1749,7 +1749,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getRanking":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1784,7 +1784,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::getTags":
+- 
   class: Vote
   type: method
   visibility: public
@@ -1819,7 +1819,7 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
-"Vote::setRanking":
+- 
   class: Vote
   type: method
   visibility: public

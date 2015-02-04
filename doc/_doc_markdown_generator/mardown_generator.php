@@ -9,16 +9,27 @@ $doc = Spyc::YAMLLoad('doc.yaml');
 
 foreach ($doc as $entry)
 {
-	$filename = 
-		$entry['visibility'].
-		(($entry['static']) ? " static " : " "). 
-		$entry['class']."::".$entry['name'].
-		".md";
+  if (!is_array($entry['class'])) {
+    $entry['class'] = array($entry['class']);
+  }
 
-	$path = "../" . $entry['class'] . " Class/";
+  foreach ($entry['class'] as $class) {
+  	$method = $entry ;
+    $method['class'] = $class;
 
-	file_put_contents($path.$filename, createMarkdownContent($entry));
+    $filename = 
+  		$method['visibility'].
+  		(($method['static']) ? " static " : " "). 
+  		$method['class']."::".$method['name'].
+  		".md";
+
+  	$path = "../" . $method['class'] . " Class/";
+
+  	file_put_contents($path.$filename, createMarkdownContent($method));
+  }
 }
+
+echo 'YAH !';
 
 function computeCleverSpec ($method, array $param) {
 
