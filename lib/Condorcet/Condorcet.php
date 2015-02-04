@@ -410,14 +410,23 @@ class Condorcet
 		$this->registerAllLinks();
 	}
 
-		protected function registerAllLinks ()
-		{
-			foreach ($this->_Candidates as $value)
-				{ $value->registerLink($this); }
+	protected function registerAllLinks ()
+	{
+		foreach ($this->_Candidates as $value)
+			{ $value->registerLink($this); }
 
-			foreach ($this->_Votes as $value)
-				{ $value->registerLink($this); }
-		}
+		foreach ($this->_Votes as $value)
+			{ $value->registerLink($this); }
+	}
+
+	protected function destroyAllLink ()
+	{
+		foreach ($this->_Candidates as $value)
+			{ $value->destroyLink($this); }
+
+		foreach ($this->_Votes as $value)
+			{ $value->destroyLink($this); }
+	}
 
 		//////
 
@@ -461,35 +470,6 @@ class Condorcet
 	{
 		return $this->setMethod() ;
 	}
-
-
-	// Reset all, be ready for a new vote - PREFER A CLEAN DESTRUCT of this object
-	public function resetAll ()
-	{
-		$this->destroyAllLink();
-
-		$this->cleanupResult() ;
-
-		$this->_Candidates = array() ;
-		$this->_CandidatesCount = 0 ;
-		$this->_nextVoteTag = 0 ;
-		$this->_Votes = array() ;
-		$this->_i_CandidateId = 'A' ;
-		$this->_State	= 1 ;
-
-		$this->setMethod() ;
-
-		return true ;
-	}
-
-		protected function destroyAllLink ()
-		{
-			foreach ($this->_Candidates as $value)
-				{ $value->destroyLink($this); }
-
-			foreach ($this->_Votes as $value)
-				{ $value->destroyLink($this); }
-		}
 
 	protected function setTimer ($timer)
 	{
