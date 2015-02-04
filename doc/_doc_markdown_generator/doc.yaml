@@ -1,4 +1,126 @@
 ---
+
+
+# MULTIPLE CLASS
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: countLinks
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+    param3:
+      type: letype
+      text: blabla
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: getLinks
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+    param3:
+      type: letype
+      text: blabla
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: haveLink
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      text: blabla
+      required: true
+    param2:
+      type: letype
+      text: blabla
+      required: true
+    param3:
+      type: letype
+      text: blabla
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+    - 
+      name: Condorcet::__construct
+      link: Candidate Class/machin.md
+  examples:
+    Text de l'exemple: link
+
+
+# CLASS CONDORCET
+
+
 - 
   class: Condorcet
   type: method
@@ -1364,6 +1486,11 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
+
+
+# CLASS CANDIDATE
+
+
 - 
   class: Candidate
   type: method
@@ -1504,6 +1631,12 @@
       link: Candidate Class/machin.md
   examples:
     Text de l'exemple: link
+
+
+
+# CLASS VOTE
+
+
 - 
   class: Vote
   type: method

@@ -17,19 +17,20 @@ foreach ($doc as $entry)
   	$method = $entry ;
     $method['class'] = $class;
 
-    $filename = 
-  		$method['visibility'].
-  		(($method['static']) ? " static " : " "). 
-  		$method['class']."::".$method['name'].
-  		".md";
-
   	$path = "../" . $method['class'] . " Class/";
 
-  	file_put_contents($path.$filename, createMarkdownContent($method));
+  	file_put_contents($path.makeFilename($method), createMarkdownContent($method));
   }
 }
 
 echo 'YAH !';
+
+function makeFilename ($method) {
+  return  $method['visibility'].
+          (($method['static']) ? " static " : " "). 
+          $method['class']."::".$method['name'].
+          ".md";
+}
 
 function computeCleverSpec ($method, array $param) {
 
