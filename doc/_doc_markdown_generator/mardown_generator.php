@@ -67,6 +67,15 @@ endif;
 ```";
 }
 
+function cleverRelated ($name)
+{
+  $infos = explode('::', $name);
+
+  $url = '../'.$infos[0].' Class/public '.$name.'.md';
+
+  return "[".$name."](".$url.")";
+}
+
 
 function createMarkdownContent (array $entry)
 {
@@ -119,8 +128,11 @@ endif;
 
 ";
 
-		foreach ($entry['related'] as $key => $value) {
-$md .= "* [".$value['name']."](".$value['link'].")    
+		foreach ($entry['related'] as $value) {
+
+      if ($value === $entry['class'].'::'.$entry['name']) : continue; endif;
+
+$md .= "* ".cleverRelated($value)."    
 ";
 		}
 

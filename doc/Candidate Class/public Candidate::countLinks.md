@@ -3,34 +3,23 @@
 ### Description    
 
 ```php
-countLinks ( letype param1, letype param2 [, letype param3 = 1] )
+countLinks ( )
 ```
 
-la description
-est là    
-- **param1:** *letype* blabla
-
-- **param2:** *letype* blabla
-
-- **param3:** *letype* blabla
-
+Count number of linked election to this object.    
 
 
 ### Return value:   
 
-le retour
-est là
+(int) Number of linked elections.
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
-* [Condorcet::__construct](Candidate Class/machin.md)    
-* [Condorcet::__construct](Candidate Class/machin.md)    
-
----------------------------------------
-
-### Examples and explanation
-
-* **[Text de l'exemple](link)**    
+* [Vote::countLinks](../Vote Class/public Vote::countLinks.md)    
+* [Vote::getLinks](../Vote Class/public Vote::getLinks.md)    
+* [Candidate::getLinks](../Candidate Class/public Candidate::getLinks.md)    
+* [Vote::haveLink](../Vote Class/public Vote::haveLink.md)    
+* [Candidate::haveLink](../Candidate Class/public Candidate::haveLink.md)    

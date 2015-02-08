@@ -12,34 +12,17 @@
   name: countLinks
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      text: blabla
-      required: true
-    param2:
-      type: letype
-      text: blabla
-      required: true
-    param3:
-      type: letype
-      text: blabla
-      required: false
-      default: true
+    Count number of linked election to this object.
   return: |
-    le retour
-    est là
+    (int) Number of linked elections.
   related:
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-  examples:
-    Text de l'exemple: link
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+  publish: true
 
 - 
   class:
@@ -50,34 +33,17 @@
   name: getLinks
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      text: blabla
-      required: true
-    param2:
-      type: letype
-      text: blabla
-      required: true
-    param3:
-      type: letype
-      text: blabla
-      required: false
-      default: true
+    Get elections object linked to this Vote or Candidate object.
   return: |
-    le retour
-    est là
+    (array) Populated by each elections Condorcet object.
   related:
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-  examples:
-    Text de l'exemple: link
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+  publish: true
 
 - 
   class:
@@ -88,34 +54,24 @@
   name: haveLink
   static: false
   description: |
-    la description
-    est là
+    Check if this election is linked with this Candidate/Vote object.
   input:
-    param1:
-      type: letype
-      text: blabla
+    election:
+      type: object Condorcet\Condorcet
       required: true
-    param2:
-      type: letype
-      text: blabla
-      required: true
-    param3:
-      type: letype
-      text: blabla
-      required: false
-      default: true
+      text: Condorcet election to check.
   return: |
-    le retour
-    est là
+    (bool) True or False.
   related:
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-    - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
-  examples:
-    Text de l'exemple: link
+  related:
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+
+  publish: true
 
 
 # CLASS CONDORCET
@@ -133,15 +89,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -149,11 +105,11 @@
     est là
   related:
     - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
+      Condorcet:__construct
+
     - 
-      name: Condorcet::__construct
-      link: Candidate Class/machin.md
+      Condorcet:__construct
+
   examples:
     Text de l'exemple: link
 - 
@@ -168,15 +124,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -184,11 +140,11 @@
     est là
   related:
     - 
-      name: Condorcet::addCandidate
-      link: Candidate Class/machin.md
+      Condorcet:addCandidate
+
     - 
-      name: Condorcet::addCandidate
-      link: Candidate Class/machin.md
+      Condorcet:addCandidate
+
   examples:
     Text de l'exemple: link
 - 
@@ -203,15 +159,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -219,11 +175,11 @@
     est là
   related:
     - 
-      name: Condorcet::addVote
-      link: Candidate Class/machin.md
+      Condorcet:addVote
+
     - 
-      name: Condorcet::addVote
-      link: Candidate Class/machin.md
+      Condorcet:addVote
+
   examples:
     Text de l'exemple: link
 - 
@@ -238,15 +194,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -254,11 +210,11 @@
     est là
   related:
     - 
-      name: Condorcet::canAddCandidate
-      link: Candidate Class/machin.md
+      Condorcet:canAddCandidate
+
     - 
-      name: Condorcet::canAddCandidate
-      link: Candidate Class/machin.md
+      Condorcet:canAddCandidate
+
   examples:
     Text de l'exemple: link
 - 
@@ -273,15 +229,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -289,11 +245,11 @@
     est là
   related:
     - 
-      name: Condorcet::countCandidates
-      link: Candidate Class/machin.md
+      Condorcet:countCandidates
+
     - 
-      name: Condorcet::countCandidates
-      link: Candidate Class/machin.md
+      Condorcet:countCandidates
+
   examples:
     Text de l'exemple: link
 - 
@@ -308,15 +264,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -324,11 +280,11 @@
     est là
   related:
     - 
-      name: Condorcet::countVotes
-      link: Candidate Class/machin.md
+      Condorcet:countVotes
+
     - 
-      name: Condorcet::countVotes
-      link: Candidate Class/machin.md
+      Condorcet:countVotes
+
   examples:
     Text de l'exemple: link
 - 
@@ -343,15 +299,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -359,11 +315,11 @@
     est là
   related:
     - 
-      name: Condorcet::getCandidateId
-      link: Candidate Class/machin.md
+      Condorcet:getCandidateId
+
     - 
-      name: Condorcet::getCandidateId
-      link: Candidate Class/machin.md
+      Condorcet:getCandidateId
+
   examples:
     Text de l'exemple: link
 - 
@@ -378,15 +334,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -394,11 +350,11 @@
     est là
   related:
     - 
-      name: Condorcet::getCandidateObjectByName
-      link: Candidate Class/machin.md
+      Condorcet:getCandidateObjectByName
+
     - 
-      name: Condorcet::getCandidateObjectByName
-      link: Candidate Class/machin.md
+      Condorcet:getCandidateObjectByName
+
   examples:
     Text de l'exemple: link
 - 
@@ -413,15 +369,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -429,11 +385,11 @@
     est là
   related:
     - 
-      name: Condorcet::getCandidatesList
-      link: Candidate Class/machin.md
+      Condorcet:getCandidatesList
+
     - 
-      name: Condorcet::getCandidatesList
-      link: Candidate Class/machin.md
+      Condorcet:getCandidatesList
+
   examples:
     Text de l'exemple: link
 - 
@@ -448,15 +404,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -464,11 +420,11 @@
     est là
   related:
     - 
-      name: Condorcet::getChecksum
-      link: Candidate Class/machin.md
+      Condorcet:getChecksum
+
     - 
-      name: Condorcet::getChecksum
-      link: Candidate Class/machin.md
+      Condorcet:getChecksum
+
   examples:
     Text de l'exemple: link
 - 
@@ -483,15 +439,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -499,11 +455,11 @@
     est là
   related:
     - 
-      name: Condorcet::getConfig
-      link: Candidate Class/machin.md
+      Condorcet:getConfig
+
     - 
-      name: Condorcet::getConfig
-      link: Candidate Class/machin.md
+      Condorcet:getConfig
+
   examples:
     Text de l'exemple: link
 - 
@@ -518,15 +474,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -534,11 +490,11 @@
     est là
   related:
     - 
-      name: Condorcet::getGlobalTimer
-      link: Candidate Class/machin.md
+      Condorcet:getGlobalTimer
+
     - 
-      name: Condorcet::getGlobalTimer
-      link: Candidate Class/machin.md
+      Condorcet:getGlobalTimer
+
   examples:
     Text de l'exemple: link
 - 
@@ -553,15 +509,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -569,11 +525,11 @@
     est là
   related:
     - 
-      name: Condorcet::getLastTimer
-      link: Candidate Class/machin.md
+      Condorcet:getLastTimer
+
     - 
-      name: Condorcet::getLastTimer
-      link: Candidate Class/machin.md
+      Condorcet:getLastTimer
+
   examples:
     Text de l'exemple: link
 - 
@@ -588,15 +544,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -604,11 +560,11 @@
     est là
   related:
     - 
-      name: Condorcet::getLoser
-      link: Candidate Class/machin.md
+      Condorcet:getLoser
+
     - 
-      name: Condorcet::getLoser
-      link: Candidate Class/machin.md
+      Condorcet:getLoser
+
   examples:
     Text de l'exemple: link
 - 
@@ -623,15 +579,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -639,11 +595,11 @@
     est là
   related:
     - 
-      name: Condorcet::getMethod
-      link: Candidate Class/machin.md
+      Condorcet:getMethod
+
     - 
-      name: Condorcet::getMethod
-      link: Candidate Class/machin.md
+      Condorcet:getMethod
+
   examples:
     Text de l'exemple: link
 - 
@@ -658,15 +614,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -674,11 +630,11 @@
     est là
   related:
     - 
-      name: Condorcet::getPairwise
-      link: Candidate Class/machin.md
+      Condorcet:getPairwise
+
     - 
-      name: Condorcet::getPairwise
-      link: Candidate Class/machin.md
+      Condorcet:getPairwise
+
   examples:
     Text de l'exemple: link
 - 
@@ -693,15 +649,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -709,11 +665,11 @@
     est là
   related:
     - 
-      name: Condorcet::getResult
-      link: Candidate Class/machin.md
+      Condorcet:getResult
+
     - 
-      name: Condorcet::getResult
-      link: Candidate Class/machin.md
+      Condorcet:getResult
+
   examples:
     Text de l'exemple: link
 - 
@@ -728,15 +684,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -744,11 +700,11 @@
     est là
   related:
     - 
-      name: Condorcet::getResultStats
-      link: Candidate Class/machin.md
+      Condorcet:getResultStats
+
     - 
-      name: Condorcet::getResultStats
-      link: Candidate Class/machin.md
+      Condorcet:getResultStats
+
   examples:
     Text de l'exemple: link
 - 
@@ -763,15 +719,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -779,11 +735,11 @@
     est là
   related:
     - 
-      name: Condorcet::getVotesList
-      link: Candidate Class/machin.md
+      Condorcet:getVotesList
+
     - 
-      name: Condorcet::getVotesList
-      link: Candidate Class/machin.md
+      Condorcet:getVotesList
+
   examples:
     Text de l'exemple: link
 - 
@@ -798,15 +754,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -814,11 +770,11 @@
     est là
   related:
     - 
-      name: Condorcet::getWinner
-      link: Candidate Class/machin.md
+      Condorcet:getWinner
+
     - 
-      name: Condorcet::getWinner
-      link: Candidate Class/machin.md
+      Condorcet:getWinner
+
   examples:
     Text de l'exemple: link
 - 
@@ -833,15 +789,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -849,11 +805,11 @@
     est là
   related:
     - 
-      name: Condorcet::ignoreMaxVote
-      link: Candidate Class/machin.md
+      Condorcet:ignoreMaxVote
+
     - 
-      name: Condorcet::ignoreMaxVote
-      link: Candidate Class/machin.md
+      Condorcet:ignoreMaxVote
+
   examples:
     Text de l'exemple: link
 - 
@@ -868,15 +824,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -884,11 +840,11 @@
     est là
   related:
     - 
-      name: Condorcet::jsonCandidates
-      link: Candidate Class/machin.md
+      Condorcet:jsonCandidates
+
     - 
-      name: Condorcet::jsonCandidates
-      link: Candidate Class/machin.md
+      Condorcet:jsonCandidates
+
   examples:
     Text de l'exemple: link
 - 
@@ -903,15 +859,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -919,11 +875,11 @@
     est là
   related:
     - 
-      name: Condorcet::jsonVotes
-      link: Candidate Class/machin.md
+      Condorcet:jsonVotes
+
     - 
-      name: Condorcet::jsonVotes
-      link: Candidate Class/machin.md
+      Condorcet:jsonVotes
+
   examples:
     Text de l'exemple: link
 - 
@@ -938,15 +894,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -954,11 +910,11 @@
     est là
   related:
     - 
-      name: Condorcet::parseCandidates
-      link: Candidate Class/machin.md
+      Condorcet:parseCandidates
+
     - 
-      name: Condorcet::parseCandidates
-      link: Candidate Class/machin.md
+      Condorcet:parseCandidates
+
   examples:
     Text de l'exemple: link
 - 
@@ -973,15 +929,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -989,11 +945,11 @@
     est là
   related:
     - 
-      name: Condorcet::parseVotes
-      link: Candidate Class/machin.md
+      Condorcet:parseVotes
+
     - 
-      name: Condorcet::parseVotes
-      link: Candidate Class/machin.md
+      Condorcet:parseVotes
+
   examples:
     Text de l'exemple: link
 - 
@@ -1008,15 +964,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1024,11 +980,11 @@
     est là
   related:
     - 
-      name: Condorcet::removeCandidate
-      link: Candidate Class/machin.md
+      Condorcet:removeCandidate
+
     - 
-      name: Condorcet::removeCandidate
-      link: Candidate Class/machin.md
+      Condorcet:removeCandidate
+
   examples:
     Text de l'exemple: link
 - 
@@ -1043,15 +999,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1059,11 +1015,11 @@
     est là
   related:
     - 
-      name: Condorcet::removeVote
-      link: Candidate Class/machin.md
+      Condorcet:removeVote
+
     - 
-      name: Condorcet::removeVote
-      link: Candidate Class/machin.md
+      Condorcet:removeVote
+
   examples:
     Text de l'exemple: link
 - 
@@ -1078,15 +1034,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1094,11 +1050,11 @@
     est là
   related:
     - 
-      name: Condorcet::resetAll
-      link: Candidate Class/machin.md
+      Condorcet:resetAll
+
     - 
-      name: Condorcet::resetAll
-      link: Candidate Class/machin.md
+      Condorcet:resetAll
+
   examples:
     Text de l'exemple: link
 - 
@@ -1113,15 +1069,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1129,11 +1085,11 @@
     est là
   related:
     - 
-      name: Condorcet::setMethod
-      link: Candidate Class/machin.md
+      Condorcet:setMethod
+
     - 
-      name: Condorcet::setMethod
-      link: Candidate Class/machin.md
+      Condorcet:setMethod
+
   examples:
     Text de l'exemple: link
 - 
@@ -1148,15 +1104,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1164,11 +1120,11 @@
     est là
   related:
     - 
-      name: Condorcet::addAlgos
-      link: Candidate Class/machin.md
+      Condorcet:addAlgos
+
     - 
-      name: Condorcet::addAlgos
-      link: Candidate Class/machin.md
+      Condorcet:addAlgos
+
   examples:
     Text de l'exemple: link
 - 
@@ -1183,15 +1139,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1199,11 +1155,11 @@
     est là
   related:
     - 
-      name: Condorcet::format
-      link: Candidate Class/machin.md
+      Condorcet:format
+
     - 
-      name: Condorcet::format
-      link: Candidate Class/machin.md
+      Condorcet:format
+
   examples:
     Text de l'exemple: link
 - 
@@ -1218,15 +1174,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1234,11 +1190,11 @@
     est là
   related:
     - 
-      name: Condorcet::getAuthMethods
-      link: Candidate Class/machin.md
+      Condorcet:getAuthMethods
+
     - 
-      name: Condorcet::getAuthMethods
-      link: Candidate Class/machin.md
+      Condorcet:getAuthMethods
+
   examples:
     Text de l'exemple: link
 - 
@@ -1253,15 +1209,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1269,11 +1225,11 @@
     est là
   related:
     - 
-      name: Condorcet::getClassDefaultMethod
-      link: Candidate Class/machin.md
+      Condorcet:getClassDefaultMethod
+
     - 
-      name: Condorcet::getClassDefaultMethod
-      link: Candidate Class/machin.md
+      Condorcet:getClassDefaultMethod
+
   examples:
     Text de l'exemple: link
 - 
@@ -1288,15 +1244,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1304,11 +1260,11 @@
     est là
   related:
     - 
-      name: Condorcet::getClassVersion
-      link: Candidate Class/machin.md
+      Condorcet:getClassVersion
+
     - 
-      name: Condorcet::getClassVersion
-      link: Candidate Class/machin.md
+      Condorcet:getClassVersion
+
   examples:
     Text de l'exemple: link
 - 
@@ -1323,15 +1279,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1339,11 +1295,11 @@
     est là
   related:
     - 
-      name: Condorcet::isAuthMethod
-      link: Candidate Class/machin.md
+      Condorcet:isAuthMethod
+
     - 
-      name: Condorcet::isAuthMethod
-      link: Candidate Class/machin.md
+      Condorcet:isAuthMethod
+
   examples:
     Text de l'exemple: link
 - 
@@ -1358,15 +1314,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1374,11 +1330,11 @@
     est là
   related:
     - 
-      name: Condorcet::setClassMethod
-      link: Candidate Class/machin.md
+      Condorcet:setClassMethod
+
     - 
-      name: Condorcet::setClassMethod
-      link: Candidate Class/machin.md
+      Condorcet:setClassMethod
+
   examples:
     Text de l'exemple: link
 - 
@@ -1393,15 +1349,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1409,11 +1365,11 @@
     est là
   related:
     - 
-      name: Condorcet::setMaxParseIteration
-      link: Candidate Class/machin.md
+      Condorcet:setMaxParseIteration
+
     - 
-      name: Condorcet::setMaxParseIteration
-      link: Candidate Class/machin.md
+      Condorcet:setMaxParseIteration
+
   examples:
     Text de l'exemple: link
 - 
@@ -1428,15 +1384,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1444,11 +1400,11 @@
     est là
   related:
     - 
-      name: Condorcet::setMaxVoteNumber
-      link: Candidate Class/machin.md
+      Condorcet:setMaxVoteNumber
+
     - 
-      name: Condorcet::setMaxVoteNumber
-      link: Candidate Class/machin.md
+      Condorcet:setMaxVoteNumber
+
   examples:
     Text de l'exemple: link
 - 
@@ -1463,15 +1419,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1480,10 +1436,10 @@
   related:
     - 
       name: Conndorcet::getClassVersion
-      link: Candidate Class/machin.md
+
     - 
       name: Conndorcet::getClassVersion
-      link: Candidate Class/machin.md
+
   examples:
     Text de l'exemple: link
 
@@ -1503,15 +1459,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1519,11 +1475,11 @@
     est là
   related:
     - 
-      name: Candidate::__construct
-      link: Candidate Class/machin.md
+      Candidate:__construct
+
     - 
-      name: Candidate::__construct
-      link: Candidate Class/machin.md
+      Candidate:__construct
+
   examples:
     Text de l'exemple: link
 - 
@@ -1538,15 +1494,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1554,11 +1510,11 @@
     est là
   related:
     - 
-      name: Candidate::getHistory
-      link: Candidate Class/machin.md
+      Candidate:getHistory
+
     - 
-      name: Candidate::getHistory
-      link: Candidate Class/machin.md
+      Candidate:getHistory
+
   examples:
     Text de l'exemple: link
 - 
@@ -1573,15 +1529,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1589,11 +1545,11 @@
     est là
   related:
     - 
-      name: Candidate::getName
-      link: Candidate Class/machin.md
+      Candidate:getName
+
     - 
-      name: Candidate::getName
-      link: Candidate Class/machin.md
+      Candidate:getName
+
   examples:
     Text de l'exemple: link
 - 
@@ -1608,15 +1564,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1624,11 +1580,11 @@
     est là
   related:
     - 
-      name: Candidate::setName
-      link: Candidate Class/machin.md
+      Candidate:setName
+
     - 
-      name: Candidate::setName
-      link: Candidate Class/machin.md
+      Candidate:setName
+
   examples:
     Text de l'exemple: link
 
@@ -1649,15 +1605,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1665,11 +1621,11 @@
     est là
   related:
     - 
-      name: Vote::__construct
-      link: Candidate Class/machin.md
+      Vote:__construct
+
     - 
-      name: Vote::__construct
-      link: Candidate Class/machin.md
+      Vote:__construct
+
   examples:
     Text de l'exemple: link
 - 
@@ -1684,15 +1640,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1700,11 +1656,11 @@
     est là
   related:
     - 
-      name: Vote::addTags
-      link: Candidate Class/machin.md
+      Vote:addTags
+
     - 
-      name: Vote::addTags
-      link: Candidate Class/machin.md
+      Vote:addTags
+
   examples:
     Text de l'exemple: link
 - 
@@ -1719,15 +1675,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1735,11 +1691,11 @@
     est là
   related:
     - 
-      name: Vote::countInputRanking
-      link: Candidate Class/machin.md
+      Vote:countInputRanking
+
     - 
-      name: Vote::countInputRanking
-      link: Candidate Class/machin.md
+      Vote:countInputRanking
+
   examples:
     Text de l'exemple: link
 - 
@@ -1754,15 +1710,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1770,11 +1726,11 @@
     est là
   related:
     - 
-      name: Vote::getAllCandidates
-      link: Candidate Class/machin.md
+      Vote:getAllCandidates
+
     - 
-      name: Vote::getAllCandidates
-      link: Candidate Class/machin.md
+      Vote:getAllCandidates
+
   examples:
     Text de l'exemple: link
 - 
@@ -1789,15 +1745,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1805,11 +1761,11 @@
     est là
   related:
     - 
-      name: Vote::getContextualVote
-      link: Candidate Class/machin.md
+      Vote:getContextualVote
+
     - 
-      name: Vote::getContextualVote
-      link: Candidate Class/machin.md
+      Vote:getContextualVote
+
   examples:
     Text de l'exemple: link
 - 
@@ -1824,15 +1780,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1840,11 +1796,11 @@
     est là
   related:
     - 
-      name: Vote::getCreateTimestamp
-      link: Candidate Class/machin.md
+      Vote:getCreateTimestamp
+
     - 
-      name: Vote::getCreateTimestamp
-      link: Candidate Class/machin.md
+      Vote:getCreateTimestamp
+
   examples:
     Text de l'exemple: link
 - 
@@ -1859,15 +1815,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1875,11 +1831,11 @@
     est là
   related:
     - 
-      name: Vote::getHistory
-      link: Candidate Class/machin.md
+      Vote:getHistory
+
     - 
-      name: Vote::getHistory
-      link: Candidate Class/machin.md
+      Vote:getHistory
+
   examples:
     Text de l'exemple: link
 - 
@@ -1894,15 +1850,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1910,11 +1866,11 @@
     est là
   related:
     - 
-      name: Vote::getRanking
-      link: Candidate Class/machin.md
+      Vote:getRanking
+
     - 
-      name: Vote::getRanking
-      link: Candidate Class/machin.md
+      Vote:getRanking
+
   examples:
     Text de l'exemple: link
 - 
@@ -1929,15 +1885,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1945,11 +1901,11 @@
     est là
   related:
     - 
-      name: Vote::getTags
-      link: Candidate Class/machin.md
+      Vote:getTags
+
     - 
-      name: Vote::getTags
-      link: Candidate Class/machin.md
+      Vote:getTags
+
   examples:
     Text de l'exemple: link
 - 
@@ -1964,15 +1920,15 @@
   input:
     param1:
       type: letype
-      text: blabla
+      default: test
       required: true
     param2:
       type: letype
-      text: blabla
+      default: test
       required: true
     param3:
       type: letype
-      text: blabla
+      default: test
       required: false
       default: true
   return: |
@@ -1980,10 +1936,10 @@
     est là
   related:
     - 
-      name: Vote::setRanking
-      link: Candidate Class/machin.md
+      Vote:setRanking
+
     - 
-      name: Vote::setRanking
-      link: Candidate Class/machin.md
+      Vote:setRanking
+
   examples:
     Text de l'exemple: link

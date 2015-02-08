@@ -3,34 +3,23 @@
 ### Description    
 
 ```php
-getLinks ( letype param1, letype param2 [, letype param3 = 1] )
+getLinks ( )
 ```
 
-la description
-est là    
-- **param1:** *letype* blabla
-
-- **param2:** *letype* blabla
-
-- **param3:** *letype* blabla
-
+Get elections object linked to this Vote or Candidate object.    
 
 
 ### Return value:   
 
-le retour
-est là
+(array) Populated by each elections Condorcet object.
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
-* [Condorcet::__construct](Candidate Class/machin.md)    
-* [Condorcet::__construct](Candidate Class/machin.md)    
-
----------------------------------------
-
-### Examples and explanation
-
-* **[Text de l'exemple](link)**    
+* [Vote::countLinks](../Vote Class/public Vote::countLinks.md)    
+* [Candidate::countLinks](../Candidate Class/public Candidate::countLinks.md)    
+* [Vote::getLinks](../Vote Class/public Vote::getLinks.md)    
+* [Vote::haveLink](../Vote Class/public Vote::haveLink.md)    
+* [Candidate::haveLink](../Candidate Class/public Candidate::haveLink.md)    

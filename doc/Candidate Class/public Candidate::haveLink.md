@@ -3,34 +3,25 @@
 ### Description    
 
 ```php
-haveLink ( letype param1, letype param2 [, letype param3 = 1] )
+haveLink ( object Condorcet\Condorcet election )
 ```
 
-la description
-est là    
-- **param1:** *letype* blabla
-
-- **param2:** *letype* blabla
-
-- **param3:** *letype* blabla
+Check if this election is linked with this Candidate/Vote object.    
+- **election:** *object Condorcet\Condorcet* Condorcet election to check.
 
 
 
 ### Return value:   
 
-le retour
-est là
+(bool) True or False.
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
-* [Condorcet::__construct](Candidate Class/machin.md)    
-* [Condorcet::__construct](Candidate Class/machin.md)    
-
----------------------------------------
-
-### Examples and explanation
-
-* **[Text de l'exemple](link)**    
+* [Vote::countLinks](../Vote Class/public Vote::countLinks.md)    
+* [Candidate::countLinks](../Candidate Class/public Candidate::countLinks.md)    
+* [Vote::getLinks](../Vote Class/public Vote::getLinks.md)    
+* [Candidate::getLinks](../Candidate Class/public Candidate::getLinks.md)    
+* [Vote::haveLink](../Vote Class/public Vote::haveLink.md)    
