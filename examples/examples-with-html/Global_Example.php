@@ -138,7 +138,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 			$lastTimer = $calculator->getLastTimer() ;
 
 			$KemenyYoung_Specials_options = array('algoOptions' => ['noConflict' => true]);
-			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, array('noConflict' => true) ) )  )
+			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, $KemenyYoung_Specials_options ) )  )
 			{
 				$kemeny_conflicts = explode( ';', $calculator->getResult( $method,$KemenyYoung_Specials_options ) ) ;
 
