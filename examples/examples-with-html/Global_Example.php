@@ -128,8 +128,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 <?php 
 	foreach (Condorcet::getAuthMethods() as $method)
-	{ 
-		if ($method !== 'Condorcet_Basic') :?>
+	{ ?>
 
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
@@ -154,7 +153,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 		<em style="color:green;">computed in <?php echo $lastTimer ; ?> second(s).</em>
 	
-	<?php endif; }
+	<?php }
 
 ?>
 <br><br><hr><br>

@@ -84,9 +84,14 @@ class Condorcet
 
 
 	// Return an array with auth methods
-	public static function getAuthMethods ()
+	public static function getAuthMethods ($basic = false)
 	{
-		$auth = explode(',', self::$_authMethods) ;
+		$auth = explode(',', self::$_authMethods);
+
+		// Don't show Natural Condorcet
+		if (!$basic) :
+			unset($auth[array_search('Condorcet_Basic', $auth, true)]);
+		endif;
 
 		return $auth ;
 	}
@@ -102,7 +107,7 @@ class Condorcet
 	// Check if the method is supported
 	public static function isAuthMethod ($input_methods)
 	{
-		$auth = self::getAuthMethods() ;
+		$auth = self::getAuthMethods(true) ;
 
 		if (is_string($input_methods))
 		{
