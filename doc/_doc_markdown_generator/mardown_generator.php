@@ -9,6 +9,8 @@ $doc = Spyc::YAMLLoad('doc.yaml');
 
 foreach ($doc as $entry)
 {
+  if (!isset($entry['publish']) || $entry['publish'] !== true) : continue ; endif;
+
   if (!is_array($entry['class'])) {
     $entry['class'] = array($entry['class']);
   }
@@ -32,13 +34,13 @@ function makeFilename ($method) {
           ".md";
 }
 
-function computeCleverSpec ($method, array $param) {
+function computeCleverSpec ($method, $param) {
 
 	$option = false;
 	$str = '(';
 	$i = 0;
 
-	foreach ($param as $key => $value){
+if (is_array($param)) :	foreach ($param as $key => $value) :
 		
 		$str .= ($value['required'] === false && !$option) ? " [" : "";
 		$str .= ($i > 0) ? "," : "";
@@ -50,7 +52,8 @@ function computeCleverSpec ($method, array $param) {
 
 		if ($value['required'] === false && !$option) { $option = true; }
 		$i++;
-	}
+	endforeach;
+endif;
 
 	if ($option) {
 		$str .= "]";
@@ -78,7 +81,7 @@ $entry['class']."::".$entry['name'].     "
 
 ### Description    
 
-".computeCleverSpec($entry['name'],$entry['input'])."
+".computeCleverSpec($entry['name'],(isset($entry['input'])) ? $entry['input'] : null)."
 
 ".$entry['description']."    
 ";
@@ -86,11 +89,12 @@ $entry['class']."::".$entry['name'].     "
 	// Input
 
 
-	foreach ($entry['input'] as $key => $value ) {
+if (isset($entry['input'])) :	foreach ($entry['input'] as $key => $value ) :
 $md .= "- **".$key.":** *".$value['type']."* ".$value['text']."
 
 ";
-	}
+	endforeach;
+endif;
 
 	
 	// Return Value
