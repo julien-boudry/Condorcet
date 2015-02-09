@@ -11,6 +11,21 @@ _This class is not designed for high performances, very high fiability exigence,
 This library allows both the calculation of results according to the original method of the Marquis de Condorcet that algortihmes implementing more complex way its criteria.   
 But Condorcet Class allows much more than this, and is actually a real manager of election and voting; providing you with powerful management features and your elections storage facilities.
 
+
+### Summary
+1. Project Overview     
+  a. [Contributors and License](#contributors-and-License)     
+  b. [Specifications and standards ](#specifications-and-standards)     
+  c. [Project State](#project-State)     
+  d. [Related projects / They use Condorcet](#related-projects--they-use-condorcet)    
+  e. [Key Features](#key-features)     
+2. [How to use it?](#how-to-use-it)    
+  a. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
+  b. [Class & Methods reference](#class---methods-reference)     
+  c. [Examples](#examples)     
+  d. [Really quick and simple example](#really-quick-and-simple-example)
+
+
 ### Contributors and License
 
 **Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
@@ -79,8 +94,7 @@ Look like the examples provided here, but better : [Gustav Mahler blind listenin
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
 
 * **Kemeny-Young** http://en.wikipedia.org/wiki/Kemeny-Young_method   
-*Kemeny-Young is currently limited to elections not exédant 6 candidates. For reasons of performance almost insuperable. Solutions for a populated cache precalculated data are under review to reach 7 or 8 candidates, and maybe even 9.*
-
+*Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
     * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
@@ -116,7 +130,7 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
-### Class & Methos reference
+### Class & Methods reference
 
 The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "doc" folder for each release.   
 * [Class & Methods documentation](doc/)
@@ -140,3 +154,11 @@ _This example of implementation in others project can very nice or strange... Th
 
 * [An extremely minimalist HTTP API calculating the results of Condorcet.](https://github.com/julien-boudry/Condorcet_API)
 * [Gustav Mahler fans, making comparative blind test](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet)
+
+#### Really quick and simple example
+
+_OK : sacrifice to the local tradition of lazy._    
+
+'''php
+
+'''
