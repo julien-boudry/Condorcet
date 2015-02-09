@@ -1,0 +1,1725 @@
+---
+
+
+# MULTIPLE CLASS
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: countLinks
+  static: false
+  description: |
+    Count number of linked election to this object.
+  return: |
+    (int) Number of linked elections.
+  related:
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+  publish: true
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: getLinks
+  static: false
+  description: |
+    Get elections object linked to this Vote or Candidate object.
+  return: |
+    (array) Populated by each elections Condorcet object.
+  related:
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+  publish: true
+
+- 
+  class:
+    - Vote
+    - Candidate
+  type: method
+  visibility: public
+  name: haveLink
+  static: false
+  description: |
+    Check if this election is linked with this Candidate/Vote object.
+  input:
+    election:
+      type: object Condorcet\Condorcet
+      required: true
+      text: Condorcet election to check.
+  return: |
+    (bool) True or False.
+  related:
+  related:
+    - 'Vote::countLinks'
+    - 'Candidate::countLinks'
+    - 'Vote::getLinks'
+    - 'Candidate::getLinks'
+    - 'Vote::haveLink'
+    - 'Candidate::haveLink'
+
+  publish: true
+
+
+# CLASS CONDORCET
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    Build a new Election.
+  input:
+    method:
+      type: string
+      default: null
+      required: false
+      text: Change election default method. Parameter comfort and non-binding. Not recommended.
+  return: |
+    NULL
+  related:
+    - 'Condorcet::__destruct'
+    - 'Condorcet::setMethod'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addCandidate
+  static: false
+  description: |
+    Add one Candidate to an election.
+  input:
+    candidate:
+      type: mixed
+      default: automatic
+      required: false
+      text: Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().
+  return: |
+    The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
+  related:
+    - 'Condorcet::parseCandidates'
+    - 'Condorcet::jsonCandidates'
+    - 'Condorcet::removeCandidate'
+    - 'Condorcet::getCandidatesList'
+    - 'Condorcet::canAddCandidate'
+  examples:
+    'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+  publish: true
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addVote
+  static: false
+  description: |
+    Add a vote to an election.
+  input:
+    vote:
+      type: mixed
+      required: true
+      text: 'String or array representation. Or Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
+    tags:
+      type: mixed
+      default: null
+      required: false
+      text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
+  return: |
+    The vote object.
+  related:
+    - 'Condorcet::parseVotes'
+    - 'Condorcet::jsonVotes'
+    - 'Condorcet::removeVote'
+    - 'Condorcet::getVotesList'
+
+  examples:
+    'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: canAddCandidate
+  static: false
+  description: |
+    Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
+  input:
+    candidate:
+      type: mixed
+      required: true
+      text : String or Condorcet/Vote object.
+  return: |
+    True if your Candidate is available. or False.
+  related:
+    - 'Condorcet::addCandidate'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: countCandidates
+  static: false
+  description: |
+    Count the number of registered candidate
+  return: |
+    (int) Number of registered candidate for this election.
+  related:
+    - 'Condorcet::getCandidatesList'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: countVotes
+  static: false
+  description: |
+    Count the number of actual registered and valid vote for this election.
+  input:
+    tag:
+      type: mixed
+      default: null
+      required: false
+      text: 'Tag into string sparated by commas, or an Array.'
+    with:
+      type: bool
+      default: true
+      required: false
+      text: Count Votes with this tag ou without this tag.
+  return: |
+    (int) Number of valid and registered vote into this election.
+  related:
+    - 'Condorcet::getVotesList'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getCandidateObjectByName
+  static: false
+  description: |
+    Find candidate object by his name into an election.
+  input:
+    candidate:
+      type: string
+      required: true
+      text: Candidate name.
+  return: |
+    Candidate object
+  related:
+    - 'Condorcet::existCandidateId'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getCandidatesList
+  static: false
+  description: |
+    Return a list of registered Candidate into this election.
+  input:
+    stringMode:
+      type: bool
+      default: false
+      required: false
+      text: Convert Candidate objects into string with theirs name.
+  return: |
+    List of Candidate into an array.
+  related:
+    - 'Condorcet::countCandidates'
+    - 'Condorcet::existCandidateId'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getChecksum
+  static: false
+  description: |
+    SHA-2 256 checksum of following internal data:        
+    * Candidates
+    * Votes list & tags
+    * Computed data (pairwise, algorithm cache, stats)
+    * Class version (major version like 0.14)    
+    
+    Can be powerfull to check integrity and security of an election. Or working with serialized object.
+
+  return: |
+    (string) SHA-2 256 bits Hexadecimal
+
+  examples:
+    'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getConfig
+  static: false
+  description: |
+    Get some config summary for this object
+  return: |
+    An explicit array.
+  related:
+    - 'Condorcet::getMethod'
+    - 'Condorcet::isAuthMethod'
+    - 'Condorcet::getClassAuthMethods'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getGlobalTimer
+  static: false
+  description: |
+    Returns the cumulated computation runtime of this object. Include only computation related methods.
+  input:
+    floatNumber:
+      type: bool
+      default: false
+      required: false
+      text: 'If true, return float. else, a string with 5 decimals.'
+  return: |
+    Int or string (look param).
+  related:
+    - 'Condorcet::getLastTimer'
+
+  examples:
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getLastTimer
+  static: false
+  description: |
+    Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
+  input:
+    floatNumber:
+      type: bool
+      default: false
+      required: false
+      text: 'If true, return float. else, a string with 5 decimals.'
+  return: |
+    Int or string (look param).
+  related:
+    - 'Condorcet::getGlobalTimer'
+
+  examples:
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getLoser
+  static: false
+  description: |
+    Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
+  input:
+    method:
+      type: mixed
+      default: null
+      required: false
+      text: |
+        *Only if not null :*
+
+        The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
+
+        Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+
+        If null, Natural Condorcet algorithm will be use.
+  return: |
+    Candidate object given. Null if there are no available winner or loser.
+
+    If you use an advanced method instead of Natural, you can get an array with multiples losers.
+
+    Throw an exception on error.
+  related:
+    - 'Condorcet::getWinner'
+    - 'Condorcet::getResult'
+
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getMethod
+  static: false
+  description: |
+    Get name of the default adavanced method for this Election.
+  return: |
+    (string) Name of the method
+  related:
+    - 'Condorcet::getMethod'
+    - 'Condorcet::isAuthMethod'
+    - 'Condorcet::getClassAuthMethods'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getPairwise
+  static: false
+  description: |
+    Return the Pairwise.
+  input:
+    explicit:
+      type: bool
+      default: true
+      required: true
+      text: Get the candidate string name.
+  return: |
+    Explicit array.
+  related:
+    - 'Condorcet::getResult'
+
+  examples:
+    'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getResult
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getResult
+
+    - 
+      Condorcet:getResult
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getResultStats
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getResultStats
+
+    - 
+      Condorcet:getResultStats
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getVotesList
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getVotesList
+
+    - 
+      Condorcet:getVotesList
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getWinner
+  static: false
+  description: |
+    Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
+  input:
+    method:
+      type: mixed
+      default: null
+      required: false
+      text: |
+        *Only if not null :*
+
+        The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
+
+        Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+
+        If null, Natural Condorcet algorithm will be use.
+  return: |
+    Candidate object given. Null if there are no available winner or loser.
+
+    If you use an advanced method instead of Natural, you can get an array with multiples winners.
+
+    Throw an exception on error.
+  related:
+    - 'Condorcet::getLoser'
+    - 'Condorcet::getResult'
+
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
+  publish: true
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: ignoreMaxVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:ignoreMaxVote
+
+    - 
+      Condorcet:ignoreMaxVote
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: jsonCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:jsonCandidates
+
+    - 
+      Condorcet:jsonCandidates
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: jsonVotes
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:jsonVotes
+
+    - 
+      Condorcet:jsonVotes
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: parseCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:parseCandidates
+
+    - 
+      Condorcet:parseCandidates
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: parseVotes
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:parseVotes
+
+    - 
+      Condorcet:parseVotes
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: removeCandidate
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:removeCandidate
+
+    - 
+      Condorcet:removeCandidate
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: removeVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:removeVote
+
+    - 
+      Condorcet:removeVote
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: resetAll
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:resetAll
+
+    - 
+      Condorcet:resetAll
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMethod
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:setMethod
+
+    - 
+      Condorcet:setMethod
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: addAlgos
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:addAlgos
+
+    - 
+      Condorcet:addAlgos
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: format
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:format
+
+    - 
+      Condorcet:format
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getAuthMethods
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getAuthMethods
+
+    - 
+      Condorcet:getAuthMethods
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassDefaultMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getClassDefaultMethod
+
+    - 
+      Condorcet:getClassDefaultMethod
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassVersion
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:getClassVersion
+
+    - 
+      Condorcet:getClassVersion
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: isAuthMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:isAuthMethod
+
+    - 
+      Condorcet:isAuthMethod
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setClassMethod
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:setClassMethod
+
+    - 
+      Condorcet:setClassMethod
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMaxParseIteration
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:setMaxParseIteration
+
+    - 
+      Condorcet:setMaxParseIteration
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: setMaxVoteNumber
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Condorcet:setMaxVoteNumber
+
+    - 
+      Condorcet:setMaxVoteNumber
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getClassVersion
+  static: true
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      name: Conndorcet::getClassVersion
+
+    - 
+      name: Conndorcet::getClassVersion
+
+  examples:
+    Text de l'exemple: link
+
+
+# CLASS CANDIDATE
+
+
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Candidate:__construct
+
+    - 
+      Candidate:__construct
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: getHistory
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Candidate:getHistory
+
+    - 
+      Candidate:getHistory
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: getName
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Candidate:getName
+
+    - 
+      Candidate:getName
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: setName
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Candidate:setName
+
+    - 
+      Candidate:setName
+
+  examples:
+    Text de l'exemple: link
+
+
+
+# CLASS VOTE
+
+
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: __construct
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:__construct
+
+    - 
+      Vote:__construct
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: addTags
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:addTags
+
+    - 
+      Vote:addTags
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: countInputRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:countInputRanking
+
+    - 
+      Vote:countInputRanking
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getAllCandidates
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getAllCandidates
+
+    - 
+      Vote:getAllCandidates
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getContextualVote
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getContextualVote
+
+    - 
+      Vote:getContextualVote
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getCreateTimestamp
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getCreateTimestamp
+
+    - 
+      Vote:getCreateTimestamp
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getHistory
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getHistory
+
+    - 
+      Vote:getHistory
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getRanking
+
+    - 
+      Vote:getRanking
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getTags
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:getTags
+
+    - 
+      Vote:getTags
+
+  examples:
+    Text de l'exemple: link
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: setRanking
+  static: false
+  description: |
+    la description
+    est là
+  input:
+    param1:
+      type: letype
+      default: test
+      required: true
+    param2:
+      type: letype
+      default: test
+      required: true
+    param3:
+      type: letype
+      default: test
+      required: false
+      default: true
+  return: |
+    le retour
+    est là
+  related:
+    - 
+      Vote:setRanking
+
+    - 
+      Vote:setRanking
+
+  examples:
+    Text de l'exemple: link
