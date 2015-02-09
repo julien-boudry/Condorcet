@@ -1123,7 +1123,7 @@ class Condorcet
 		}
 
 
-	public function getWinner ($substitution = false)
+	public function getWinner ($substitution = null)
 	{
 		if ( $substitution )
 		{
@@ -1144,7 +1144,7 @@ class Condorcet
 	}
 
 
-	public function getLoser ($substitution = false)
+	public function getLoser ($substitution = null)
 	{
 		if ( $substitution )
 		{			
