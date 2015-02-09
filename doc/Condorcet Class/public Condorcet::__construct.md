@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-__construct ( [ string method] )
+public $Condorcet -> __construct ( [ string method] )
 ```
 
 Build a new Election.    

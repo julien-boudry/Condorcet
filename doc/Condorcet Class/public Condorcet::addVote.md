@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-addVote ( mixed vote [, mixed tags] )
+public $Condorcet -> addVote ( mixed vote [, mixed tags] )
 ```
 
 Add a vote to an election.    

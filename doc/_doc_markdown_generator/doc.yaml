@@ -260,34 +260,22 @@
   name: getChecksum
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:getChecksum
+    SHA-2 256 checksum of following internal data:        
+    * Candidates
+    * Votes list & tags
+    * Computed data (pairwise, algorithm cache, stats)
+    * Class version (major version like 0.14)    
+    
+    Can be powerfull to check integrity and security of an election. Or working with serialized object.
 
-    - 
-      Condorcet:getChecksum
+  return: |
+    (string) SHA-2 256 bits Hexadecimal
 
   examples:
-    Text de l'exemple: link
+    'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -295,34 +283,16 @@
   name: getConfig
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get some config summary for this object
   return: |
-    le retour
-    est là
+    An explicit array.
   related:
-    - 
-      Condorcet:getConfig
+    - 'Condorcet::getMethod'
+    - 'Condorcet::isAuthMethod'
+    - 'Condorcet::getClassAuthMethods'
+  publish: true
 
-    - 
-      Condorcet:getConfig
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -330,34 +300,23 @@
   name: getGlobalTimer
   static: false
   description: |
-    la description
-    est là
+    Returns the cumulated computation runtime of this object. Include only computation related methods.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    floatNumber:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    le retour
-    est là
+    Int or string (look param).
   related:
-    - 
-      Condorcet:getGlobalTimer
-
-    - 
-      Condorcet:getGlobalTimer
+    - 'Condorcet::getLastTimer'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -365,34 +324,23 @@
   name: getLastTimer
   static: false
   description: |
-    la description
-    est là
+    Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    floatNumber:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    le retour
-    est là
+    Int or string (look param).
   related:
-    - 
-      Condorcet:getLastTimer
-
-    - 
-      Condorcet:getLastTimer
+    - 'Condorcet::getGlobalTimer'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -400,34 +348,35 @@
   name: getLoser
   static: false
   description: |
-    la description
-    est là
+    Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    method:
+      type: mixed
+      default: null
       required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:getLoser
+      text: |
+        *Only if not null :*
 
-    - 
-      Condorcet:getLoser
+        The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
+
+        Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+
+        If null, Natural Condorcet algorithm will be use.
+  return: |
+    Candidate object given. Null if there are no available winner or loser.
+
+    If you use an advanced method instead of Natural, you can get an array with multiples losers.
+
+    Throw an exception on error.
+  related:
+    - 'Condorcet::getWinner'
+    - 'Condorcet::getResult'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
+  publish: true
+
 - 
   class: Condorcet
   type: method
@@ -435,34 +384,15 @@
   name: getMethod
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get name of the default adavanced method for this Election.
   return: |
-    le retour
-    est là
+    (string) Name of the method
   related:
-    - 
-      Condorcet:getMethod
+    - 'Condorcet::getMethod'
+    - 'Condorcet::isAuthMethod'
+    - 'Condorcet::getClassAuthMethods'
+  publish: true
 
-    - 
-      Condorcet:getMethod
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -470,34 +400,23 @@
   name: getPairwise
   static: false
   description: |
-    la description
-    est là
+    Return the Pairwise.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
+    explicit:
+      type: bool
       default: true
+      required: true
+      text: Get the candidate string name.
   return: |
-    le retour
-    est là
+    Explicit array.
   related:
-    - 
-      Condorcet:getPairwise
-
-    - 
-      Condorcet:getPairwise
+    - 'Condorcet::getResult'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -610,34 +529,34 @@
   name: getWinner
   static: false
   description: |
-    la description
-    est là
+    Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    method:
+      type: mixed
+      default: null
       required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:getWinner
+      text: |
+        *Only if not null :*
 
-    - 
-      Condorcet:getWinner
+        The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
+
+        Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+
+        If null, Natural Condorcet algorithm will be use.
+  return: |
+    Candidate object given. Null if there are no available winner or loser.
+
+    If you use an advanced method instead of Natural, you can get an array with multiples winners.
+
+    Throw an exception on error.
+  related:
+    - 'Condorcet::getLoser'
+    - 'Condorcet::getResult'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
+  publish: true
 - 
   class: Condorcet
   type: method

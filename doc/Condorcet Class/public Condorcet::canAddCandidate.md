@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-canAddCandidate ( mixed candidate )
+public $Condorcet -> canAddCandidate ( mixed candidate )
 ```
 
 Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.    

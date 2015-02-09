@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-countCandidates ( )
+public $Condorcet -> countCandidates ( )
 ```
 
 Count the number of registered candidate    

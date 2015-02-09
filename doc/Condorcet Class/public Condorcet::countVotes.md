@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-countVotes ( [ mixed tag, bool with = true] )
+public $Condorcet -> countVotes ( [ mixed tag, bool with = true] )
 ```
 
 Count the number of actual registered and valid vote for this election.    

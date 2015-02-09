@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-getCandidatesList ( [ bool stringMode = false] )
+public $Condorcet -> getCandidatesList ( [ bool stringMode = false] )
 ```
 
 Return a list of registered Candidate into this election.    
