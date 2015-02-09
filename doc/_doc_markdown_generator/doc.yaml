@@ -84,34 +84,21 @@
   name: __construct
   static: false
   description: |
-    la description
-    est là
+    Build a new Election.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    method:
+      type: string
+      default: null
       required: false
-      default: true
+      text: Change election default method. Parameter comfort and non-binding. Not recommended.
   return: |
-    le retour
-    est là
+    NULL
   related:
-    - 
-      Condorcet:__construct
+    - 'Condorcet::__destruct'
+    - 'Condorcet::setMethod'
+  publish: true
 
-    - 
-      Condorcet:__construct
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -119,34 +106,24 @@
   name: addCandidate
   static: false
   description: |
-    la description
-    est là
+    Add one Candidate to an election.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    candidate:
+      type: mixed
+      default: automatic
       required: false
-      default: true
+      text: Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().
   return: |
-    le retour
-    est là
+    The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
   related:
-    - 
-      Condorcet:addCandidate
-
-    - 
-      Condorcet:addCandidate
-
+    - 'Condorcet::parseCandidates'
+    - 'Condorcet::jsonCandidates'
+    - 'Condorcet::removeCandidate'
+    - 'Condorcet::getCandidatesList'
+    - 'Condorcet::canAddCandidate'
   examples:
-    Text de l'exemple: link
+    'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+  publish: true
 - 
   class: Condorcet
   type: method
@@ -154,34 +131,28 @@
   name: addVote
   static: false
   description: |
-    la description
-    est là
+    Add a vote to an election.
   input:
-    param1:
-      type: letype
-      default: test
+    vote:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+      text: 'String or array representation. Or Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
+    tags:
+      type: mixed
+      default: null
       required: false
-      default: true
+      text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
   return: |
-    le retour
-    est là
+    The vote object.
   related:
-    - 
-      Condorcet:addVote
-
-    - 
-      Condorcet:addVote
+    - 'Condorcet::parseVotes'
+    - 'Condorcet::jsonVotes'
+    - 'Condorcet::removeVote'
+    - 'Condorcet::getVotesList'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
 - 
   class: Condorcet
   type: method
@@ -189,34 +160,18 @@
   name: canAddCandidate
   static: false
   description: |
-    la description
-    est là
+    Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
   input:
-    param1:
-      type: letype
-      default: test
+    candidate:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text : String or Condorcet/Vote object.
   return: |
-    le retour
-    est là
+    True if your Candidate is available. or False.
   related:
-    - 
-      Condorcet:canAddCandidate
+    - 'Condorcet::addCandidate'
+  publish: true
 
-    - 
-      Condorcet:canAddCandidate
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -224,34 +179,14 @@
   name: countCandidates
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Count the number of registered candidate
   return: |
-    le retour
-    est là
+    (int) Number of registered candidate for this election.
   related:
-    - 
-      Condorcet:countCandidates
+    - 'Condorcet::getCandidatesList'
+  publish: true
 
-    - 
-      Condorcet:countCandidates
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -259,69 +194,25 @@
   name: countVotes
   static: false
   description: |
-    la description
-    est là
+    Count the number of actual registered and valid vote for this election.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    tag:
+      type: mixed
+      default: null
       required: false
+      text: 'Tag into string sparated by commas, or an Array.'
+    with:
+      type: bool
       default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:countVotes
-
-    - 
-      Condorcet:countVotes
-
-  examples:
-    Text de l'exemple: link
-- 
-  class: Condorcet
-  type: method
-  visibility: public
-  name: getCandidateId
-  static: false
-  description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
       required: false
-      default: true
+      text: Count Votes with this tag ou without this tag.
   return: |
-    le retour
-    est là
+    (int) Number of valid and registered vote into this election.
   related:
-    - 
-      Condorcet:getCandidateId
+    - 'Condorcet::getVotesList'
+  publish: true
 
-    - 
-      Condorcet:getCandidateId
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -329,34 +220,18 @@
   name: getCandidateObjectByName
   static: false
   description: |
-    la description
-    est là
+    Find candidate object by his name into an election.
   input:
-    param1:
-      type: letype
-      default: test
+    candidate:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Candidate name.
   return: |
-    le retour
-    est là
+    Candidate object
   related:
-    - 
-      Condorcet:getCandidateObjectByName
+    - 'Condorcet::existCandidateId'
+  publish: true
 
-    - 
-      Condorcet:getCandidateObjectByName
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -364,34 +239,20 @@
   name: getCandidatesList
   static: false
   description: |
-    la description
-    est là
+    Return a list of registered Candidate into this election.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    stringMode:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: Convert Candidate objects into string with theirs name.
   return: |
-    le retour
-    est là
+    List of Candidate into an array.
   related:
-    - 
-      Condorcet:getCandidatesList
+    - 'Condorcet::countCandidates'
+    - 'Condorcet::existCandidateId'
+  publish: true
 
-    - 
-      Condorcet:getCandidatesList
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method

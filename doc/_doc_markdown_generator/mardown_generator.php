@@ -34,6 +34,15 @@ function makeFilename ($method) {
           ".md";
 }
 
+function speakBool ($c)
+{
+  if ($c === true) : return 'true'; endif;
+  if ($c === false) : return 'false'; endif;
+  if ($c === null) : return 'null'; endif;
+
+  return $c;
+}
+
 function computeCleverSpec ($method, $param) {
 
 	$option = false;
@@ -48,7 +57,7 @@ if (is_array($param)) :	foreach ($param as $key => $value) :
 		$str .= $value['type'];
 		$str .= " ";
 		$str .= $key;
-		$str .= (isset($value['default'])) ? " = ".$value['default'] : "";
+		$str .= (isset($value['default'])) ? " = ".speakBool($value['default']) : "";
 
 		if ($value['required'] === false && !$option) { $option = true; }
 		$i++;

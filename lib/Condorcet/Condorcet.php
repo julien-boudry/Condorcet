@@ -751,7 +751,7 @@ class Condorcet
 
 
 		// Register vote
-		return $this->registerVote($vote, $tag) ; // Return the array vote tag(s)
+		return $this->registerVote($vote, $tag) ; // Return the vote object
 	}
 
 		// return True or throw an Exception
