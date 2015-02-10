@@ -574,8 +574,6 @@ class Condorcet
 
 		foreach ($list as &$candidate_id)
 		{
-			$candidate_id = trim($candidate_id) ;
-
 			$candidate_key = $this->getCandidateKey($candidate_id) ;
 
 			if ( $candidate_key === false )
@@ -663,7 +661,11 @@ class Condorcet
 
 		protected function getCandidateKey ($candidate_id)
 		{
-			return array_search((string) $candidate_id, $this->_Candidates) ;
+			if ($candidate_id instanceof namespace\Candidate) :
+				return array_search($candidate_id, $this->_Candidates, true);
+			else:
+				return array_search(trim((string) $candidate_id), $this->_Candidates);
+			endif;
 		}
 
 		public function getCandidateId ($candidate_key, $onlyName = false)
