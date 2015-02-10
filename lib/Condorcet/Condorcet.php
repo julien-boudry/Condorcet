@@ -603,14 +603,16 @@ class Condorcet
 
 			//////
 
-		$count = 0 ;
+		$adding = [] ;
 		foreach ($input as $candidate)
 		{
-			if ($this->addCandidate($candidate))
-				{ $count++; }
+			try {
+				$adding[] = $this->addCandidate($candidate);
+			}
+			catch (Exception $e) {}
 		}
 
-		return $count ;
+		return $adding ;
 	}
 
 
@@ -619,18 +621,19 @@ class Condorcet
 		$input = self::prepareParse($input, $allowFile) ;
 		if ($input === false) { return $input ; }
 
-		$ite = 0 ;
+		$adding = [] ;
 		foreach ($input as $line)
 		{
 			// Empty Line
 			if (empty($line)) { continue ; }
 
 			// addCandidate
-			if ($this->addCandidate($line))
-				{ $ite++ ; }
+			try {
+				$adding[] = $this->addCandidate($line);
+			} catch (Exception $e) {}
 		}
 
-		return $ite ;
+		return $adding;
 	}
 
 
@@ -850,7 +853,7 @@ class Condorcet
 
 			//////
 
-		$count = 0 ;
+		$adding = [] ;
 
 		foreach ($input as $record)
 		{
@@ -867,12 +870,13 @@ class Condorcet
 					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
 				}
 
-				if ( $this->addVote($record['vote'], $tags) )
-					{ $count++; }
+				try {
+					$adding[] = $this->addVote($record['vote'], $tags);
+				} catch (Exception $e) {}
 			}
 		}
 
-		return ($count === 0) ? false : $count ;
+		return $adding ;
 	}
 
 	public function parseVotes ($input, $allowFile = true)
@@ -881,7 +885,7 @@ class Condorcet
 		if ($input === false) { return $input ; }
 
 		// Check each lines
-		$ite = 0 ;
+		$adding = [] ;
 		foreach ($input as $line)
 		{
 			// Empty Line
@@ -932,12 +936,13 @@ class Condorcet
 					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
 				}
 
-				if ($this->addVote($vote, $tags))
-					{ $ite++ ; }
+				try {
+					$adding[] = $this->addVote($vote, $tags);
+				} catch (Exception $e) {}
 			}
 		}
 
-		return $ite ;
+		return $adding;
 	}
 
 
