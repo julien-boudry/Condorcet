@@ -665,34 +665,28 @@
   name: removeCandidate
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:removeCandidate
+    Remove Candidate from an election.   
 
-    - 
-      Condorcet:removeCandidate
+    *Please note: You can't remove candidate after the first vote. Exception will be throw.*
+  input:
+    candidate:
+      type: mixed
+      required: true
+      text: |
+          * String matching Candidate Name    
+          * Condorcet\Candidate object    
+          * Array populated by Condorcet\Candidate    
+          * Array populated by string matching Candidate name   
+  return: |
+    *(array)* List of removed Condorcet\Candidate object.
+  related:
+    - 'Condorcet::AddCandidate'
+    - 'Condorcet::getCandidatesList'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+  publish: true
+
 - 
   class: Condorcet
   type: method
@@ -700,69 +694,33 @@
   name: removeVote
   static: false
   description: |
-    la description
-    est là
+    Remove Vote from an election.   
+
+    ```php
+    $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
+    $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
+    $condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
+    ```
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    in:
+      type: mixed
+      required: true         
+    with:
+      type: mixed
       required: false
       default: true
   return: |
-    le retour
-    est là
+    *(array)* List of removed Condorcet\Vote object.
   related:
-    - 
-      Condorcet:removeVote
-
-    - 
-      Condorcet:removeVote
+    - 'Condorcet::AddVote'
+    - 'Condorcet::getVotesList'
 
   examples:
-    Text de l'exemple: link
-- 
-  class: Condorcet
-  type: method
-  visibility: public
-  name: resetAll
-  static: false
-  description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:resetAll
+    'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
+  publish: true
 
-    - 
-      Condorcet:resetAll
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
