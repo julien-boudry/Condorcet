@@ -424,34 +424,30 @@
   name: getResult
   static: false
   description: |
-    la description
-    est là
+    Get a full ranking from an advanced Condorcet method.    
+    *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
+    method:
+      type: mixed
       default: true
+      required: false
+      text: |
+      Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+    options:
+      type: array
+      default: '[]'
+      required: false
+      text: *[Result options documentations]()*
   return: |
-    le retour
-    est là
+    Ordered array or multi-dimensionnal ordered array (if tie), populated by Candidate object.
   related:
-    - 
-      Condorcet:getResult
-
-    - 
-      Condorcet:getResult
-
+    - 'Condorcet::getWinner'
+    - 'Condorcet::getResult'
   examples:
-    Text de l'exemple: link
+    'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -459,34 +455,23 @@
   name: getResultStats
   static: false
   description: |
-    la description
-    est là
+    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
+    method:
+      type: mixed
       default: true
+      required: false
+      text: |
+      Set to True for use object default method. Set the string name of the algorithm for use an specific one.
   return: |
-    le retour
-    est là
+    Varying according to the algorithm used.
   related:
-    - 
-      Condorcet:getResultStats
-
-    - 
-      Condorcet:getResultStats
+    - 'Condorcet::getResult'
 
   examples:
-    Text de l'exemple: link
+    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+  publish: true
+
 - 
   class: Condorcet
   type: method
@@ -494,31 +479,22 @@
   name: getVotesList
   static: false
   description: |
-    la description
-    est là
+    Get registered vote list.
   input:
-    param1:
+    tag:
       type: letype
       default: test
       required: true
-    param2:
+    with:
       type: letype
       default: test
       required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
   return: |
-    le retour
-    est là
+    *(array)* Populated by each Vote object.
   related:
-    - 
-      Condorcet:getVotesList
+    - 'Condorcet::countVotes'
+  publish: true
 
-    - 
-      Condorcet:getVotesList
 
   examples:
     Text de l'exemple: link
@@ -557,6 +533,9 @@
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
   publish: true
+
+
+
 - 
   class: Condorcet
   type: method
@@ -564,34 +543,23 @@
   name: ignoreMaxVote
   static: false
   description: |
-    la description
-    est là
+    Goes beyond the class static limit for this election object only, if static limitation enabled.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
+    ignore:
+      type: bool
       default: true
+      required: false
   return: |
-    le retour
-    est là
+    *(bool)* True if static limitation is ovveride for this election, false if it's not.
   related:
-    - 
-      Condorcet:ignoreMaxVote
-
-    - 
-      Condorcet:ignoreMaxVote
+    - 'static Condorcet::setMaxVoteNumber'
+    - 'static Condorcet::setMaxParseIteration'
 
   examples:
-    Text de l'exemple: link
+    '[Manual - Vote management]': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -599,34 +567,24 @@
   name: jsonCandidates
   static: false
   description: |
-    la description
-    est là
+    Import candidate from a Json source.
   input:
-    param1:
-      type: letype
-      default: test
+    input:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Json string input.
   return: |
-    le retour
-    est là
+    *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
-    - 
-      Condorcet:jsonCandidates
-
-    - 
-      Condorcet:jsonCandidates
-
+    - 'Condorcet::addCandidate'
+    - 'Condorcet::parseCandidates'
+    - 'Condorcet::jsonVotes'
   examples:
-    Text de l'exemple: link
+    - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -634,34 +592,24 @@
   name: jsonVotes
   static: false
   description: |
-    la description
-    est là
+    Import votes from a Json source.
   input:
-    param1:
-      type: letype
-      default: test
+    input:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Json string input.
   return: |
-    le retour
-    est là
+    *(array)* List of new registered vote object. Count it for checking if all votes have been correctly registered.
   related:
-    - 
-      Condorcet:jsonVotes
-
-    - 
-      Condorcet:jsonVotes
+    - 'Condorcet::addVote'
+    - 'Condorcet::parseVotes'
+    - 'Condorcet::jsonCandidates'
 
   examples:
-    Text de l'exemple: link
+    - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
+
 - 
   class: Condorcet
   type: method
@@ -669,34 +617,23 @@
   name: parseCandidates
   static: false
   description: |
-    la description
-    est là
+    Import candidate from a text source.
   input:
-    param1:
-      type: letype
-      default: test
+    input:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: String or valid path to a text file.
   return: |
-    le retour
-    est là
+    *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
-    - 
-      Condorcet:parseCandidates
-
-    - 
-      Condorcet:parseCandidates
-
+    - 'Condorcet::addCandidate'
+    - 'Condorcet::jsonCandidates'
+    - 'Condorcet::parseVotes'
   examples:
-    Text de l'exemple: link
+    - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
+  publish: true
+
 - 
   class: Condorcet
   type: method
@@ -704,34 +641,23 @@
   name: parseVotes
   static: false
   description: |
-    la description
-    est là
+    Import votes from a text source.
   input:
-    param1:
-      type: letype
-      default: test
+    input:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: String or valid path to a text file.
   return: |
-    le retour
-    est là
+    *(array)* List of new registered vote object. Count it for checking if all candidates have been correctly registered.
   related:
-    - 
-      Condorcet:parseVotes
-
-    - 
-      Condorcet:parseVotes
+    - 'Condorcet::addVote'
+    - 'Condorcet::parseCandidates'
+    - 'Condorcet::jsonVotes'
 
   examples:
-    Text de l'exemple: link
+    - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
 - 
   class: Condorcet
   type: method
