@@ -582,15 +582,18 @@ class Condorcet
 			$candidate_id = $candidate_key ;
 		}
 
+		$rem = [];
 		foreach ($list as $candidate_key)
 		{
 			$this->_Candidates[$candidate_key]->destroyLink($this);
+
+			$rem[] = $this->_Candidates[$candidate_key];
 
 			unset($this->_Candidates[$candidate_key]) ;
 			$this->_CandidatesCount-- ;
 		}
 
-		return true ;
+		return $rem ;
 	}
 
 
@@ -815,36 +818,36 @@ class Condorcet
 		$this->setStateToVote();
 
 			//////
+		
+		$rem = [];
 
 		if ($in instanceof namespace\Vote) :
-
 			$key = $this->getVoteKey($in);
-			if ($key !== false) {
+			if ($key !== false) :
 				$this->_Votes[$key]->destroyLink($this);
+
+				$rem[] = $this->_Votes[$key];
+
 				unset($this->_Votes[$key]);
-
-				return true;
-			}
-			else {
-				return false;
-			}
-
+			endif;
 		else :
 			// Prepare Tags
 			$tag = namespace\Vote::tagsConvert($in);
 
 			// Deleting
 
-			$effective = 0;
 			foreach ($this->getVotesList($tag, $with) as $key => $value)
 			{
 				$this->_Votes[$key]->destroyLink($this);
+
+				$rem[] = $this->_Votes[$key];
+
 				unset($this->_Votes[$key]);
-				$effective++;
 			}
 
-			return $effective;
 		endif;
+
+		return $rem;
 	}
 
 
