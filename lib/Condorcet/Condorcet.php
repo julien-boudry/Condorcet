@@ -185,7 +185,7 @@ class Condorcet
 				throw new namespace\CondorcetException(9) ;
 			}
 
-			if ( !in_array(__NAMESPACE__.'\\'.'Condorcet_Algo', class_implements(__NAMESPACE__.'\\'.$algos), false) )
+			if ( !in_array(__NAMESPACE__.'\\'.'Condorcet_Algo', class_implements(__NAMESPACE__.'\\'.$algos, false), true) )
 			{
 				throw new namespace\CondorcetException(10) ;
 			}
