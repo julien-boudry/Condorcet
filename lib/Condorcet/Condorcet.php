@@ -625,8 +625,15 @@ class Condorcet
 
 			// addCandidate
 			try {
+				if (self::$_max_parse_iteration !== null && count($adding) >= self::$_max_parse_iteration) :
+					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
+				endif;
+
 				$adding[] = $this->addCandidate($line);
-			} catch (Exception $e) {}
+			} catch (namespace\CondorcetException $e) {
+				if ($e->getCode() === 12)
+					{throw $e;}
+			}
 		}
 
 		return $adding;
