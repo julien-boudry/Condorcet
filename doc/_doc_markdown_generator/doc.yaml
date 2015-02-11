@@ -948,34 +948,49 @@
   name: __construct
   static: false
   description: |
-    la description
-    est là
+    Build a candidate.
   input:
     param1:
-      type: letype
-      default: test
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Candidate Name
   return: |
-    le retour
-    est là
+    *(string)* The new candidate name.
   related:
-    - 
-      Candidate:__construct
-
-    - 
-      Candidate:__construct
-
+    - 'Candidate::setName'
   examples:
-    Text de l'exemple: link
+    'Manual - Create Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+  publish: true
+
+
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: getCreateTimestamp
+  static: false
+  description: |
+    Get the timestamp corresponding of the creation of this candidate.
+  return: |
+    *(float)* Timestamp
+  related:
+    - 'Candidate::getTimestamp'
+  publish: true
+
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: getTimestamp
+  static: false
+  description: |
+    Get the timestamp corresponding of the last namming change.
+  return: |
+    *(float)* Timestamp
+  related:
+    - 'Candidate::getCreateTimestamp'
+  publish: true
+
 - 
   class: Candidate
   type: method
@@ -983,34 +998,13 @@
   name: getHistory
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Return an history of each namming change, with timestamp.
   return: |
-    le retour
-    est là
+    *(array)* An explicit multi-dimenssional array.
   related:
-    - 
-      Candidate:getHistory
+    - 'Candidate::getCreateTimestamp'
+  publish: true
 
-    - 
-      Candidate:getHistory
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Candidate
   type: method
@@ -1021,31 +1015,21 @@
     la description
     est là
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    full:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: |
+        If true, will return a multi-dimenssionnal array with additionnals infos like timestamps.    
+        Else, just return the actual string name of this Candidate.
   return: |
-    le retour
-    est là
+    *(mixed)* Depending of "full" parameter.
   related:
-    - 
-      Candidate:getName
+    - 'Candidate::getHistory'
+    - 'Candidate::setName'
+  publish: true
 
-    - 
-      Candidate:getName
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Candidate
   type: method
@@ -1053,34 +1037,16 @@
   name: setName
   static: false
   description: |
-    la description
-    est là
+    Change the candidate name.   
+    *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
   input:
-    param1:
-      type: letype
-      default: test
+    name:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Candidate Name
   return: |
-    le retour
-    est là
-  related:
-    - 
-      Candidate:setName
-
-    - 
-      Candidate:setName
-
-  examples:
-    Text de l'exemple: link
+    *(string)* The new candidate name.
+  publish: true
 
 
 
@@ -1269,34 +1235,27 @@
   name: getCreateTimestamp
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get the timestamp corresponding of the creation of this vote.
   return: |
-    le retour
-    est là
+    *(float)* Timestamp
   related:
-    - 
-      Vote:getCreateTimestamp
+    - 'Candidate::getTimestamp'
+  publish: true
 
-    - 
-      Vote:getCreateTimestamp
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getTimestamp
+  static: false
+  description: |
+    Get the timestamp corresponding of the last vote change.
+  return: |
+    *(float)* Timestamp
+  related:
+    - 'Vote::getCreateTimestamp'
+  publish: true
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Vote
   type: method
@@ -1304,34 +1263,13 @@
   name: getHistory
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Return an history of each vote change, with timestamp.
   return: |
-    le retour
-    est là
+    *(array)* An explicit multi-dimenssional array.
   related:
-    - 
-      Vote:getHistory
+    - 'Vote::getCreateTimestamp'
+  publish: true
 
-    - 
-      Vote:getHistory
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Vote
   type: method
