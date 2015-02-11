@@ -401,8 +401,6 @@ class Condorcet
 
 			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion('ENV'));
 		}
-
-		$this->registerAllLinks();
 	}
 
 	public function __clone ()
