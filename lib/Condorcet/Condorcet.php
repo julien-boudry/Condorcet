@@ -34,7 +34,7 @@ class Condorcet
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
 	protected static $_classMethod	= null ;
-	protected static $_authMethods	= '' ;
+	protected static $_authMethods	= [] ;
 	protected static $_forceMethod	= false ;
 	protected static $_max_parse_iteration = null ;
 	protected static $_max_vote_number = null ;
@@ -86,7 +86,7 @@ class Condorcet
 	// Return an array with auth methods
 	public static function getAuthMethods ($basic = false)
 	{
-		$auth = explode(',', self::$_authMethods);
+		$auth = self::$_authMethods;
 
 		// Don't show Natural Condorcet
 		if (!$basic) :
@@ -167,10 +167,7 @@ class Condorcet
 		// Adding algo
 		foreach ($to_add as $value)
 		{
-			if ( empty(self::$_authMethods) )
-				{ self::$_authMethods .= $value ; }
-			else
-				{ self::$_authMethods .= ','.$value ; }
+			self::$_authMethods[] = $value;
 		}
 
 		return true ;
