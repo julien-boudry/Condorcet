@@ -728,34 +728,21 @@
   name: setMethod
   static: false
   description: |
-    la description
-    est là
+    Change the default object method, except if method is forced by Class static configuration.
   input:
-    param1:
-      type: letype
-      default: test
+    method:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Valid algorithm name.
   return: |
-    le retour
-    est là
+    *(string)* The new object default method.
   related:
-    - 
-      Condorcet:setMethod
+    - 'Condorcet::getMethod'
+    - 'static Condorcet::setClassMethod'
+    - 'static Condorcet::forceMethod'
+  publish: true
 
-    - 
-      Condorcet:setMethod
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -763,34 +750,18 @@
   name: addAlgos
   static: true
   description: |
-    la description
-    est là
+    If you create your own Condorcet Algo. You will need it !
   input:
-    param1:
-      type: letype
-      default: test
+    algo:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Algorithm Name
   return: |
-    le retour
-    est là
+    True on Success. False on echec.
   related:
-    - 
-      Condorcet:addAlgos
+    - 'static Condorcet::isAuthMethod'
+  publish: true
 
-    - 
-      Condorcet:addAlgos
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -798,34 +769,28 @@
   name: format
   static: true
   description: |
-    la description
-    est là
+    Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
+    Can be use for improve var_dump, or just to get more simple data output.
   input:
-    param1:
-      type: letype
-      default: test
+    input:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
+      text: All datatype. Like classical var_dump
+    out:
+      type: bool
       default: true
+      required: false
+      text: 'If true, will print the result on scrren. like var_dump() function. Else, just return it.'
+    convertObject:
+      type: bool
+      default: true
+      required: false
+      text: If true. Will convert Candidate objects into string representation of their name.
   return: |
-    le retour
-    est là
-  related:
-    - 
-      Condorcet:format
+    New formatted data.
+  publish: true
 
-    - 
-      Condorcet:format
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -833,34 +798,20 @@
   name: getAuthMethods
   static: true
   description: |
-    la description
-    est là
+    Get a list of supported algorithm.
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    basic:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: Include the natural Condorcet base algorithm.
   return: |
-    le retour
-    est là
+    *(array)* Populated by method string name. You can use it on getResult ... and others methods.
   related:
-    - 
-      Condorcet:getAuthMethods
+    - 'static Condorcet::isAuthMethod'
+  publish: true
 
-    - 
-      Condorcet:getAuthMethods
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -868,34 +819,14 @@
   name: getClassDefaultMethod
   static: true
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Return the Condorcet static default method for the new Condorcet object.
   return: |
-    le retour
-    est là
+    *(string)* Method name.
   related:
-    - 
-      Condorcet:getClassDefaultMethod
+    - 'static Condorcet::getAuthMethods'
+    - 'static Condorcet::setClassMethod'
+  publish: true
 
-    - 
-      Condorcet:getClassDefaultMethod
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -906,31 +837,20 @@
     la description
     est là
   input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+    type:
+      type: string
+      default: 'FULL'
       required: false
-      default: true
+      text: |
+        * 'MAJOR' will return : '0.90'
+        * 'ENV' will return : 'DEV-0.91.0' or '0.92.51'
+        * 'FULL' will return : '0.92.51'
   return: |
-    le retour
-    est là
+    *(string)* Condorcet PHP version.
   related:
-    - 
-      Condorcet:getClassVersion
+    - 'Condorcet::getObjectVersion'
+  publish: true
 
-    - 
-      Condorcet:getClassVersion
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -938,34 +858,18 @@
   name: isAuthMethod
   static: true
   description: |
-    la description
-    est là
+    Test if a method is in the result set of Condorcet::getAuthMethods.
   input:
-    param1:
-      type: letype
-      default: test
+    method:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
   return: |
-    le retour
-    est là
+    *(bool)* Yes or no.
   related:
-    - 
-      Condorcet:isAuthMethod
+    - 'static Condorcet::getAuthMethods'
 
-    - 
-      Condorcet:isAuthMethod
+  publish: true
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -973,34 +877,25 @@
   name: setClassMethod
   static: true
   description: |
-    la description
-    est là
+    Put a new static method by default for the news Condorcet objects.
   input:
-    param1:
-      type: letype
-      default: test
+    method:
+      type: string
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+      text: Method Name.
+    force:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: If true. Will force all Condorcet object ton use this default method.
   return: |
-    le retour
-    est là
+    False on error. Else, the name of the new default method.
   related:
-    - 
-      Condorcet:setClassMethod
+    - 'static Condorcet::getClassDefaultMethod'
+    - 'static Condorcet::forceMethod'
 
-    - 
-      Condorcet:setClassMethod
+  publish: true
 
-  examples:
-    Text de l'exemple: link
 - 
   class: Condorcet
   type: method
@@ -1008,34 +903,20 @@
   name: setMaxParseIteration
   static: true
   description: |
-    la description
-    est là
+    Maximum input for each use of Condorcet::parseCandidate && Condorcet::parseVote. Will throw an exception if exceeded.
   input:
     param1:
-      type: letype
-      default: test
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: 'Null will desactivate this functionnality. Else, enter an integer.'
   return: |
-    le retour
-    est là
+    False on error. Else, the new value (null or integer).
   related:
-    - 
-      Condorcet:setMaxParseIteration
+    - 'static Condorcet::setMaxVoteNumber'
 
-    - 
-      Condorcet:setMaxParseIteration
+  publish: true
 
-  examples:
-    Text de l'exemple: link
+
 - 
   class: Condorcet
   type: method
@@ -1043,69 +924,18 @@
   name: setMaxVoteNumber
   static: true
   description: |
-    la description
-    est là
+    Add a limitation on Condorcet::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
   input:
-    param1:
-      type: letype
-      default: test
+    value:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Null will desactivate this functionnality. An interger will fix the limit.
   return: |
-    le retour
-    est là
+    *(int or null)* The new limit.
   related:
-    - 
-      Condorcet:setMaxVoteNumber
+    - 'static Condorcet::setMaxParseIteration'
+  publish: true
 
-    - 
-      Condorcet:setMaxVoteNumber
-
-  examples:
-    Text de l'exemple: link
-- 
-  class: Condorcet
-  type: method
-  visibility: public
-  name: getClassVersion
-  static: true
-  description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      name: Conndorcet::getClassVersion
-
-    - 
-      name: Conndorcet::getClassVersion
-
-  examples:
-    Text de l'exemple: link
 
 
 # CLASS CANDIDATE
