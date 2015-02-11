@@ -41,7 +41,7 @@ class Condorcet
 	protected static $_checksumMode = false ;
 
 	// Return library version numer
-	public static function getClassVersion ($options = 'ENV')
+	public static function getClassVersion ($options = 'FULL')
 	{
 			switch ($options)
 			{
@@ -399,7 +399,7 @@ class Condorcet
 			$this->_Candidates = [];
 			$this->_Votes = [];
 
-			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion());
+			throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.self::getClassVersion('ENV'));
 		}
 
 		$this->registerAllLinks();
