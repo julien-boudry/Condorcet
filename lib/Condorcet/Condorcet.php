@@ -624,18 +624,9 @@ class Condorcet
 			if (empty($line)) { continue ; }
 
 			// addCandidate
-			
-			for ($i = 0 ; $i < $multiple ; $i++)
-			{
-				if (self::$_max_parse_iteration !== null && $ite >= self::$_max_parse_iteration)
-				{
-					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
-				}
-
-				try {
-					$adding[] = $this->addCandidate($line);
-				} catch (Exception $e) {}
-			}
+			try {
+				$adding[] = $this->addCandidate($line);
+			} catch (Exception $e) {}
 		}
 
 		return $adding;
