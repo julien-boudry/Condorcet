@@ -776,7 +776,7 @@ class Condorcet
 					if ( !$this->existCandidateId($candidate, true) )
 					{
 						if ($linkCount === 0 && $this->existCandidateId($candidate, false))  :
-							$mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey($candidate)];
+							$mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
 							$change = true;
 						else :
 							return false;
