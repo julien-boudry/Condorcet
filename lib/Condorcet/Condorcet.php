@@ -806,8 +806,13 @@ class Condorcet
 			$vote->addTags($tag);			
 			
 			// Register
-			$this->_Votes[] = $vote ;
-			$vote->registerLink($this);
+			try {
+				$vote->registerLink($this);
+				$this->_Votes[] = $vote;				
+			} catch (namespace\CondorcetException $e) {
+				// Security : Check if vote object not already register
+				throw new namespace\CondorcetException(6,'Vote object already registred');
+			}			
 
 			return $vote ;
 		}
@@ -1544,7 +1549,7 @@ class CondorcetException extends \Exception
 		$error[2] = 'The voting process has already started';
 		$error[3] = 'This candidate ID is already registered';
 		$error[4] = 'This candidate ID do not exist';
-		$error[5] = 'Bad vote format';
+		$error[5] = 'Bad vote format | '.$this->_infos;
 		$error[6] = 'You need to specify votes before results';
 		$error[7] = 'Your Candidate ID is too long > ' . namespace\Condorcet::MAX_LENGTH_CANDIDATE_ID;
 		$error[8] = 'This method do not exist';
@@ -2020,7 +2025,7 @@ trait CandidateVote_CondorcetLink
 		if (array_search($election, $this->_link, true) === false)
 			{ $this->_link[] = $election ; }
 		else
-			{ return false; }
+			{ throw new CondorcetException; }
 	}
 
 	public function destroyLink (namespace\Condorcet &$election)
@@ -2033,7 +2038,7 @@ trait CandidateVote_CondorcetLink
 			return true ;
 		}
 		else
-			{ return false ; }
+			{ throw new CondorcetException; }
 	}
 
 	protected function destroyAllLink ()
