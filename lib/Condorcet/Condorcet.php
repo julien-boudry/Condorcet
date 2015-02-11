@@ -306,11 +306,9 @@ class Condorcet
 
 			///
 
-		if ($out):
-			var_dump($r);
-		else:
-			return $r;
-		endif;
+		if ($out): var_dump($r); endif;
+		
+		return $r;
 	}
 
 /////////// CONSTRUCTOR ///////////
