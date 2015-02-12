@@ -2110,7 +2110,10 @@ class Permutation
 		else {
 			$i[] = $a;
 
-			$this->results[] = $i;
+			// Del 0 key, first key must be 1.
+			$r = [0=>null]; $r = array_merge($r,$i); unset($r[0]);
+
+			$this->results[] = $r;
 		}
 	}
 
