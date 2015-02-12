@@ -941,7 +941,7 @@ class Condorcet
 			// addVote
 			for ($i = 0 ; $i < $multiple ; $i++)
 			{
-				if (self::$_max_parse_iteration !== null && $ite >= self::$_max_parse_iteration)
+				if (self::$_max_parse_iteration !== null && count($adding) >= self::$_max_parse_iteration)
 				{
 					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
 				}
