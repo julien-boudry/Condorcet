@@ -765,7 +765,7 @@ class Condorcet
 		{
 			$linkCount = $vote->countLinks();
 
-			if ( $vote->countInputRanking() > $this->_CandidatesCount )
+			if ( $vote->countRankingCandidates() > $this->_CandidatesCount )
 				{ return false ; }
 
 			$mirror = $vote->getRanking(); $change = false;
@@ -1743,9 +1743,9 @@ class Vote implements \Iterator
 		return end($this->_ranking)['timestamp'];
 	}
 
-	public function countInputRanking ()
+	public function countRankingCandidates ()
 	{
-		return count(end($this->_ranking)['counter']);
+		return end($this->_ranking)['counter'];
 	}
 
 	public function getAllCandidates ()
