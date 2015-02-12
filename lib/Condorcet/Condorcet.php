@@ -1920,7 +1920,7 @@ class Vote implements \Iterator
 
 
 		foreach ($tags as $key => $tag)
-		{			
+		{
 			if (is_numeric($tag)) :
 				throw new namespace\CondorcetException(17);
 			elseif (in_array($tag, $this->_tags, true)) :
@@ -1934,6 +1934,33 @@ class Vote implements \Iterator
 		}
 
 		return $this->getTags();
+	}
+
+	public function removeTags ($tags)
+	{
+		if (is_object($tags) || is_bool($tags))
+			{ throw new namespace\CondorcetException(17); }
+
+		$tags = self::tagsConvert($tags);
+
+		if (empty($tags))
+			{ return []; }
+
+
+		$rm = [];
+		foreach ($tags as $key => $tag)
+		{
+			$tagK = array_search($tag, $this->_tags, true);
+
+			if ($tagK === false) :
+				unset($tags[$key]);
+			else :
+				$rm[] = $this->_tags[$tagK];
+				unset($this->_tags[$tagK]);
+			endif;
+		}
+
+		return $rm;
 	}
 
 		public static function tagsConvert ($tags)
