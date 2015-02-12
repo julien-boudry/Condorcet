@@ -36,8 +36,8 @@ class Condorcet
 	protected static $_classMethod	= null ;
 	protected static $_authMethods	= [] ;
 	protected static $_forceMethod	= false ;
-	protected static $_max_parse_iteration = null ;
-	protected static $_max_vote_number = null ;
+	protected static $_maxParseIteration = null ;
+	protected static $_maxVoteNumber = null ;
 	protected static $_checksumMode = false ;
 
 	// Return library version numer
@@ -63,8 +63,8 @@ class Condorcet
 	{
 		if (is_int($value) || $value === null)
 		{
-			self::$_max_parse_iteration = $value ;
-			return self::$_max_parse_iteration ;
+			self::$_maxParseIteration = $value ;
+			return self::$_maxParseIteration ;
 		}
 		else
 			{ return false ; }
@@ -75,8 +75,8 @@ class Condorcet
 	{
 		if ( is_int($value) || ($value === null || $value === false) )
 		{
-			self::$_max_vote_number = ($value === false) ? null : $value ;
-			return self::$_max_vote_number ;
+			self::$_maxVoteNumber = ($value === false) ? null : $value ;
+			return self::$_maxVoteNumber ;
 		}
 		else
 			{ return false ; }
@@ -457,7 +457,7 @@ class Condorcet
 							'is_ClassForceMethod'=> self::$_forceMethod,
 
 							'class_authMethods'=> self::getAuthMethods(),
-							'class_MaxParseIterations'=> self::$_max_parse_iteration,
+							'class_MaxParseIterations'=> self::$_maxParseIteration,
 
 							'state'		=> $this->_State
 						);
@@ -623,8 +623,8 @@ class Condorcet
 
 			// addCandidate
 			try {
-				if (self::$_max_parse_iteration !== null && count($adding) >= self::$_max_parse_iteration) :
-					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
+				if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
+					throw new namespace\CondorcetException(12, self::$_maxParseIteration);
 				endif;
 
 				$adding[] = $this->addCandidate($line);
@@ -727,8 +727,8 @@ class Condorcet
 		$this->prepareVoteInput($vote, $tag);
 
 		// Check Max Vote Count
-		if ( self::$_max_vote_number !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_max_vote_number )
-			{ throw new namespace\CondorcetException(16, self::$_max_vote_number); }
+		if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber )
+			{ throw new namespace\CondorcetException(16, self::$_maxVoteNumber); }
 
 
 		// Register vote
@@ -875,9 +875,9 @@ class Condorcet
 
 			for ($i = 0 ; $i < $multi ; $i++)
 			{
-				if (self::$_max_parse_iteration !== null && $count >= self::$_max_parse_iteration)
+				if (self::$_maxParseIteration !== null && $count >= self::$_maxParseIteration)
 				{
-					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
+					throw new namespace\CondorcetException(12, self::$_maxParseIteration);
 				}
 
 				try {
@@ -941,9 +941,9 @@ class Condorcet
 			// addVote
 			for ($i = 0 ; $i < $multiple ; $i++)
 			{
-				if (self::$_max_parse_iteration !== null && count($adding) >= self::$_max_parse_iteration)
+				if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration)
 				{
-					throw new namespace\CondorcetException(12, self::$_max_parse_iteration);
+					throw new namespace\CondorcetException(12, self::$_maxParseIteration);
 				}
 
 				try {
