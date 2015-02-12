@@ -1060,34 +1060,33 @@
   name: __construct
   static: false
   description: |
-    la description
-    est là
+    Build a vote object.
   input:
-    param1:
-      type: letype
-      default: test
+    ranking:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+      text: Equivalent to Vote::setRanking method.
+    tags:
+      type: mixed
+      default: null
       required: false
-      default: true
+      text: Equivalent to Vote::addTags method.
+    timestamp:
+      type: numeric
+      default: false
+      required: false
+      text: Set your own timestamp metadata on Ranking.
   return: |
-    le retour
-    est là
+    _None_
   related:
-    - 
-      Vote:__construct
-
-    - 
-      Vote:__construct
+    - 'Vote::setRanking'
+    - 'Vote::addTags'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
+
 - 
   class: Vote
   type: method
@@ -1095,69 +1094,55 @@
   name: addTags
   static: false
   description: |
-    la description
-    est là
+    Add tag(s) on this Vote.
   input:
-    param1:
-      type: letype
-      default: test
+    tags:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
   return: |
-    le retour
-    est là
+    Return Vote::getTags
   related:
-    - 
-      Vote:addTags
-
-    - 
-      Vote:addTags
+    - 'Vote::removeTags'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
 - 
   class: Vote
   type: method
   visibility: public
-  name: countInputRanking
+  name: removeTags
   static: false
   description: |
-    la description
-    est là
+    Remove registered tag(s) on this Vote.
   input:
-    param1:
-      type: letype
-      default: test
+    tags:
+      type: mixed
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+      text: They can be added by string separated by commas or an array.
   return: |
-    le retour
-    est là
+    *(array)* List of deleted tags.
   related:
-    - 
-      Vote:countInputRanking
-
-    - 
-      Vote:countInputRanking
+    - 'Vote::addTags'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: countRankingCandidates
+  static: false
+  description: |
+    Count the number of candidate provide into the active Ranking set.
+  return: |
+    *(int)* Number of Candidate into ranking.
+  publish: true
+
 - 
   class: Vote
   type: method
