@@ -307,7 +307,7 @@ class Condorcet
 				$input[$key] = self::format($line,false,$convertObject);
 			endforeach;
 
-			if (count($input) === 1):
+			if (count($input) === 1 && count(reset($input)) === 1):
 				$r = reset($input);
 			else:
 				$r = $input;
