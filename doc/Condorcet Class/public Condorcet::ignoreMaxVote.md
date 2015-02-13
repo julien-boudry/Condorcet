@@ -7,7 +7,10 @@ public $Condorcet -> ignoreMaxVote ( [ bool ignore = true] )
 ```
 
 Goes beyond the class static limit for this election object only, if static limitation enabled.    
-- **ignore:** *bool* 
+
+
+##### **ignore:** *bool*   
+    
 
 
 

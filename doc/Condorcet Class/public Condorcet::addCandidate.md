@@ -7,7 +7,10 @@ public $Condorcet -> addCandidate ( [ mixed candidate = automatic] )
 ```
 
 Add one Candidate to an election.    
-- **candidate:** *mixed* Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().
+
+
+##### **candidate:** *mixed*   
+Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().    
 
 
 

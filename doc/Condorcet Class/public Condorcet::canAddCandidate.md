@@ -7,7 +7,10 @@ public $Condorcet -> canAddCandidate ( mixed candidate )
 ```
 
 Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.    
-- **candidate:** *mixed* String or Condorcet/Vote object.
+
+
+##### **candidate:** *mixed*   
+String or Condorcet/Vote object.    
 
 
 

@@ -7,7 +7,10 @@ public static Condorcet::setMaxVoteNumber ( mixed value )
 ```
 
 Add a limitation on Condorcet::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.    
-- **value:** *mixed* Null will desactivate this functionnality. An interger will fix the limit.
+
+
+##### **value:** *mixed*   
+Null will desactivate this functionnality. An interger will fix the limit.    
 
 
 

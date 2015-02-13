@@ -7,7 +7,10 @@ public static Condorcet::isAuthMethod ( string method )
 ```
 
 Test if a method is in the result set of Condorcet::getAuthMethods.    
-- **method:** *string* 
+
+
+##### **method:** *string*   
+    
 
 
 

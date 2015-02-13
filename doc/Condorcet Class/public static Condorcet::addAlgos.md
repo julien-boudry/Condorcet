@@ -7,7 +7,10 @@ public static Condorcet::addAlgos ( string algo )
 ```
 
 If you create your own Condorcet Algo. You will need it !    
-- **algo:** *string* Algorithm Name
+
+
+##### **algo:** *string*   
+Algorithm Name    
 
 
 

@@ -7,7 +7,10 @@ public $Condorcet -> __construct ( [ string method] )
 ```
 
 Build a new Election.    
-- **method:** *string* Change election default method. Parameter comfort and non-binding. Not recommended.
+
+
+##### **method:** *string*   
+Change election default method. Parameter comfort and non-binding. Not recommended.    
 
 
 

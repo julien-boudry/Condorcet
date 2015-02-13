@@ -7,7 +7,10 @@ public $Condorcet -> jsonCandidates ( string input )
 ```
 
 Import candidate from a Json source.    
-- **input:** *string* Json string input.
+
+
+##### **input:** *string*   
+Json string input.    
 
 
 

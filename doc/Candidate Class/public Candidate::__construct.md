@@ -7,7 +7,10 @@ public $Candidate -> __construct ( string param1 )
 ```
 
 Build a candidate.    
-- **param1:** *string* Candidate Name
+
+
+##### **param1:** *string*   
+Candidate Name    
 
 
 

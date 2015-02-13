@@ -7,7 +7,10 @@ public $Condorcet -> setMethod ( string method )
 ```
 
 Change the default object method, except if method is forced by Class static configuration.    
-- **method:** *string* Valid algorithm name.
+
+
+##### **method:** *string*   
+Valid algorithm name.    
 
 
 

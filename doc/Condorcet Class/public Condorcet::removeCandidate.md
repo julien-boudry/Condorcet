@@ -9,10 +9,13 @@ public $Condorcet -> removeCandidate ( mixed candidate )
 Remove Candidate from an election.
 
 *Please note: You can't remove candidate after the first vote. Exception will be throw.*    
-- **candidate:** *mixed* * String matching Candidate Name
+
+
+##### **candidate:** *mixed*   
+* String matching Candidate Name
 * Condorcet\Candidate object
 * Array populated by Condorcet\Candidate
-* Array populated by string matching Candidate name
+* Array populated by string matching Candidate name    
 
 
 

@@ -108,7 +108,10 @@ $entry['class']."::".$entry['name'].     "
 
 
 if (isset($entry['input'])) :	foreach ($entry['input'] as $key => $value ) :
-$md .= "- **".$key.":** *".$value['type']."* ".((isset($value['text']))?$value['text']:"")."
+$md .= "
+
+##### **".$key.":** *".$value['type']."*   
+".((isset($value['text']))?$value['text']:"")."    
 
 ";
 	endforeach;

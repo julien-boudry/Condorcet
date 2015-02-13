@@ -7,9 +7,15 @@ public static Condorcet::setClassMethod ( string method [, bool force = false] )
 ```
 
 Put a new static method by default for the news Condorcet objects.    
-- **method:** *string* Method Name.
 
-- **force:** *bool* If true. Will force all Condorcet object ton use this default method.
+
+##### **method:** *string*   
+Method Name.    
+
+
+
+##### **force:** *bool*   
+If true. Will force all Condorcet object ton use this default method.    
 
 
 

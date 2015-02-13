@@ -7,7 +7,10 @@ public $Condorcet -> getResultStats ( [ mixed method = true] )
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.    
-- **method:** *mixed* 
+
+
+##### **method:** *mixed*   
+    
 
 
 

@@ -7,7 +7,10 @@ public $Condorcet -> getLastTimer ( [ bool floatNumber = false] )
 ```
 
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.    
-- **floatNumber:** *bool* If true, return float. else, a string with 5 decimals.
+
+
+##### **floatNumber:** *bool*   
+If true, return float. else, a string with 5 decimals.    
 
 
 

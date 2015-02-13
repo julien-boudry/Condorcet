@@ -7,9 +7,15 @@ public $Vote -> getContextualVote ( Condorcet\Condorcet election [, bool stringM
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.    
-- **election:** *Condorcet\Condorcet* An election is already linked to Vote.
 
-- **stringMode:** *bool* If true. Will return string name instead of Candidate object.
+
+##### **election:** *Condorcet\Condorcet*   
+An election is already linked to Vote.    
+
+
+
+##### **stringMode:** *bool*   
+If true. Will return string name instead of Candidate object.    
 
 
 

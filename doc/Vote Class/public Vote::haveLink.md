@@ -7,7 +7,10 @@ public $Vote -> haveLink ( object Condorcet\Condorcet election )
 ```
 
 Check if this election is linked with this Candidate/Vote object.    
-- **election:** *object Condorcet\Condorcet* Condorcet election to check.
+
+
+##### **election:** *object Condorcet\Condorcet*   
+Condorcet election to check.    
 
 
 

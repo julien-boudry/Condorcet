@@ -7,7 +7,10 @@ public $Condorcet -> parseCandidates ( string input )
 ```
 
 Import candidate from a text source.    
-- **input:** *string* String or valid path to a text file.
+
+
+##### **input:** *string*   
+String or valid path to a text file.    
 
 
 

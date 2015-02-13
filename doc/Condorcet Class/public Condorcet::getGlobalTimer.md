@@ -7,7 +7,10 @@ public $Condorcet -> getGlobalTimer ( [ bool floatNumber = false] )
 ```
 
 Returns the cumulated computation runtime of this object. Include only computation related methods.    
-- **floatNumber:** *bool* If true, return float. else, a string with 5 decimals.
+
+
+##### **floatNumber:** *bool*   
+If true, return float. else, a string with 5 decimals.    
 
 
 

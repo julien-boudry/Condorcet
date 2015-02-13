@@ -15,9 +15,15 @@ $condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag C
 $condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
 $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 ```    
-- **in:** *mixed* 
 
-- **with:** *mixed* 
+
+##### **in:** *mixed*   
+    
+
+
+
+##### **with:** *mixed*   
+    
 
 
 

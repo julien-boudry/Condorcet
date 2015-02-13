@@ -7,7 +7,10 @@ public $Condorcet -> parseVotes ( string input )
 ```
 
 Import votes from a text source.    
-- **input:** *string* String or valid path to a text file.
+
+
+##### **input:** *string*   
+String or valid path to a text file.    
 
 
 

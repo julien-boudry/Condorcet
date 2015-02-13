@@ -7,7 +7,10 @@ public $Condorcet -> jsonVotes ( string input )
 ```
 
 Import votes from a Json source.    
-- **input:** *string* Json string input.
+
+
+##### **input:** *string*   
+Json string input.    
 
 
 

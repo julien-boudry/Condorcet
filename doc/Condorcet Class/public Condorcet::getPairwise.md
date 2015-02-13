@@ -7,7 +7,10 @@ public $Condorcet -> getPairwise ( bool explicit = true )
 ```
 
 Return the Pairwise.    
-- **explicit:** *bool* Get the candidate string name.
+
+
+##### **explicit:** *bool*   
+Get the candidate string name.    
 
 
 

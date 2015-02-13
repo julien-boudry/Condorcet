@@ -7,7 +7,10 @@ public $Condorcet -> getCandidatesList ( [ bool stringMode = false] )
 ```
 
 Return a list of registered Candidate into this election.    
-- **stringMode:** *bool* Convert Candidate objects into string with theirs name.
+
+
+##### **stringMode:** *bool*   
+Convert Candidate objects into string with theirs name.    
 
 
 

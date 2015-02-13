@@ -8,8 +8,11 @@ public $Candidate -> getName ( [ bool full = false] )
 
 la description
 est là    
-- **full:** *bool* If true, will return a multi-dimenssionnal array with additionnals infos like timestamps.
-Else, just return the actual string name of this Candidate.
+
+
+##### **full:** *bool*   
+If true, will return a multi-dimenssionnal array with additionnals infos like timestamps.
+Else, just return the actual string name of this Candidate.    
 
 
 

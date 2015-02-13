@@ -7,9 +7,15 @@ public $Condorcet -> getVotesList ( letype tag = test, letype with = test )
 ```
 
 Get registered vote list.    
-- **tag:** *letype* 
 
-- **with:** *letype* 
+
+##### **tag:** *letype*   
+    
+
+
+
+##### **with:** *letype*   
+    
 
 
 

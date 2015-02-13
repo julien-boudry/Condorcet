@@ -7,7 +7,10 @@ public $Condorcet -> getCandidateObjectByName ( string candidate )
 ```
 
 Find candidate object by his name into an election.    
-- **candidate:** *string* Candidate name.
+
+
+##### **candidate:** *string*   
+Candidate name.    
 
 
 
