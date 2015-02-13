@@ -1,10 +1,10 @@
 <?php
 
 // Candidates
-	$calculator->addCandidate('Memphis');
-	$calculator->addCandidate('Nashville');
-	$calculator->addCandidate('Chatta');
-	$calculator->addCandidate('Knoxville');
+	$election->addCandidate('Memphis');
+	$election->addCandidate('Nashville');
+	$election->addCandidate('Chatta');
+	$election->addCandidate('Knoxville');
 
 
 // Votes
@@ -15,7 +15,7 @@
 
 	for ($i = 1 ; $i <= 42 ; $i++ )
 	{
-		$calculator->addVote($vote, "custom_tag_Two") ;
+		$election->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;
 
@@ -26,7 +26,7 @@
 
 	for ($i = 1 ; $i <= 26 ; $i++ )
 	{
-		$calculator->addVote($vote, "custom_tag_Two") ;
+		$election->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;
 
@@ -37,11 +37,11 @@
 
 	for ($i = 1 ; $i <= 12 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 	for ($i = 1 ; $i <= 3 ; $i++ )
 	{
-		$calculator->addVote($vote, "custom_tag_One") ;
+		$election->addVote($vote, "custom_tag_One") ;
 	}
 	$vote = array() ;
 
@@ -52,6 +52,6 @@
 
 	for ($i = 1 ; $i <= 17 ; $i++ )
 	{
-		$calculator->addVote($vote, "custom_tag_Two") ;
+		$election->addVote($vote, "custom_tag_Two") ;
 	}
 	$vote = array() ;

@@ -1,11 +1,11 @@
 <?php
 
 // Candidates
-	$calculator->addCandidate('A');
-	$calculator->addCandidate('C');
-	$calculator->addCandidate('B');
-	$calculator->addCandidate('E');
-	$calculator->addCandidate('D');
+	$election->addCandidate('A');
+	$election->addCandidate('C');
+	$election->addCandidate('B');
+	$election->addCandidate('E');
+	$election->addCandidate('D');
 
 
 // Votes
@@ -18,14 +18,14 @@
 
 	for ($i = 1 ; $i <= 5 ; $i++ )
 	{
-		$calculator->addVote($vote, 'coucou') ;
+		$election->addVote($vote, 'coucou') ;
 	}
 
 	$vote = "A>D>E>C>B" ;
 
 	for ($i = 1 ; $i <= 5 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 
@@ -33,7 +33,7 @@
 
 	for ($i = 1 ; $i <= 8 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 	$vote = array() ;
@@ -45,7 +45,7 @@
 
 	for ($i = 1 ; $i <= 3 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 	$vote = array() ;
@@ -57,7 +57,7 @@
 
 	for ($i = 1 ; $i <= 7 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 	$vote = array() ;
@@ -69,7 +69,7 @@
 
 	for ($i = 1 ; $i <= 2 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 	$vote = array() ;
@@ -81,7 +81,7 @@
 
 	for ($i = 1 ; $i <= 7 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}
 
 	$vote = array() ;
@@ -93,5 +93,5 @@
 
 	for ($i = 1 ; $i <= 8 ; $i++ )
 	{
-		$calculator->addVote($vote) ;
+		$election->addVote($vote) ;
 	}

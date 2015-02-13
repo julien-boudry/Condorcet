@@ -19,7 +19,7 @@ require_once	'..'.DIRECTORY_SEPARATOR.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 
-$calculator = new Condorcet () ;
+$election = new Condorcet () ;
 
 
 
@@ -51,21 +51,21 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<h1><?php echo TEST_NAME ;?></h1>
 	
-	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class" target="_blank">Condorcet Class</a> version : <?php echo $calculator->getClassVersion(); ?></em><br>
+	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class" target="_blank">Condorcet Class</a> version : <?php echo $election->getClassVersion(); ?></em><br>
 
 	<em>
 		Number of Candidates : 
-		<?php echo $calculator->countCandidates() ;?>
+		<?php echo $election->countCandidates() ;?>
 		|
 		Number of votes :
-		<?php echo $calculator->countVotes() ;?>
+		<?php echo $election->countVotes() ;?>
 	</em>
 
 	<h2>Candidates list :</h2>
 
 	<ul>
 	<?php 
-	foreach ($calculator->getCandidatesList() as $candidatName)
+	foreach ($election->getCandidatesList() as $candidatName)
 	{ 
 		echo '<li>'.$candidatName.'</li>' ;
 	}
@@ -75,7 +75,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<h2>Registered votes details :</h2>
 <?php
-	foreach ($calculator->getVotesList() as $vote)
+	foreach ($election->getVotesList() as $vote)
 	{
 		echo '<div class="votant">';
 
@@ -103,25 +103,25 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($calculator->getWinner()) )
-			{ echo $calculator->getWinner() ;}
+		if ( !is_null($election->getWinner()) )
+			{ echo $election->getWinner() ;}
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($calculator->getLoser()) )
-			{ echo $calculator->getLoser() ;}
+		if ( !is_null($election->getLoser()) )
+			{ echo $election->getLoser() ;}
 		else
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $calculator->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
 	</strong>
 
 <br><br><hr>
@@ -134,13 +134,13 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 		<?php 
 
-			$result = $calculator->getResult($method) ;
-			$lastTimer = $calculator->getLastTimer() ;
+			$result = $election->getResult($method) ;
+			$lastTimer = $election->getLastTimer() ;
 
 			$KemenyYoung_Specials_options = array('algoOptions' => ['noConflict' => true]);
-			if ( $method === 'KemenyYoung' && is_string( $calculator->getResult( $method, $KemenyYoung_Specials_options ) )  )
+			if ( $method === 'KemenyYoung' && is_string( $election->getResult( $method, $KemenyYoung_Specials_options ) )  )
 			{
-				$kemeny_conflicts = explode( ';', $calculator->getResult( $method,$KemenyYoung_Specials_options ) ) ;
+				$kemeny_conflicts = explode( ';', $election->getResult( $method,$KemenyYoung_Specials_options ) ) ;
 
 				echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
 			}
@@ -157,7 +157,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 ?>
 <br><br><hr><br>
-<strong style="color:green;">Total computed in <?php echo $calculator->getGlobalTimer() ; ?> second(s).</strong>
+<strong style="color:green;">Total computed in <?php echo $election->getGlobalTimer() ; ?> second(s).</strong>
 <br><br><hr>
  
 <h2>Computing statistics :</h2>
@@ -165,7 +165,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 	<h3>Pairwise :</h3>
 
 	<pre>
-	<?php Condorcet::format($calculator->getPairwise()); ?>
+	<?php Condorcet::format($election->getPairwise()); ?>
 	</pre>
 	
 	<?php
@@ -176,7 +176,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
-		<?php Condorcet::format($calculator->getResultStats($method)); ?>
+		<?php Condorcet::format($election->getResultStats($method)); ?>
 		</pre>
 	
 	<?php endif; } ?>
@@ -188,20 +188,20 @@ define('TEST_NAME', 'Condorcet Global Example');
  <h4>Defaut method (not used explicitly before) :</h4>
 
  <pre>
-<?php Condorcet::format($calculator->getMethod()); ?>
+<?php Condorcet::format($election->getMethod()); ?>
  </pre>
 
 
  <h4>About object :</h4>
 
  <pre>
-<?php Condorcet::format($calculator->getConfig()); ?>
+<?php Condorcet::format($election->getConfig()); ?>
  </pre>
 
 <!-- <h4>Condorcet::format (for debug only) :</h4>
 
  <pre>
-<?php // Condorcet::format($calculator); ?>
+<?php // Condorcet::format($election); ?>
  </pre> -->
 
  </body>
