@@ -289,7 +289,17 @@ class Condorcet
 	public static function format ($input, $out = true, $convertObject = true)
 	{
 		if (is_object($input)) :
-				$r = ($convertObject) ? (string) $input : $input;
+			
+			$r = $input;
+
+			if ($convertObject) :
+				if ($input instanceof namespace\Candidate) :
+					$r = (string) $input;
+				elseif ($input instanceof namespace\Vote) :
+					$r = $input->getRanking();
+				endif;
+			endif;
+
 		elseif (!is_array($input)) :
 			$r = $input;
 		else :
