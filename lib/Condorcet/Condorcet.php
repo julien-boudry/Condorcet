@@ -1833,6 +1833,8 @@ class Vote implements \Iterator
 				throw new namespace\CondorcetException(18);
 			}
 		}
+
+		return $this->getRanking();
 	}
 
 		private function formatRanking (&$ranking)
