@@ -220,14 +220,14 @@
   name: getCandidateObjectByName
   static: false
   description: |
-    Find candidate object by his name into an election.
+    Find candidate object by his string and return the candidate object.
   input:
     candidate:
       type: string
       required: true
       text: Candidate name.
   return: |
-    Candidate object
+    Candidate object (Condorcet\Candidate)
   related:
     - 'Condorcet::existCandidateId'
   publish: true

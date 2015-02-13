@@ -138,22 +138,23 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 ### Examples
 
-#### Quick overview
-
-* [Non-visual quick tour of opportunities without interface](examples/Quick_Overview.php) (not exhaustive and partial)
-
-
-#### Officials examples
-
-* [Visual simple & advanced script examples with HTML output](examples/examples-with-html/)
-
-
 #### Condorcet Class Implementation
 
 _This example of implementation in others project can very nice or strange... They can be current, or otherwise affect older versions of Condorcet._   
 
 * [An extremely minimalist HTTP API calculating the results of Condorcet.](https://github.com/julien-boudry/Condorcet_API)
 * [Gustav Mahler fans, making comparative blind test](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet)
+
+
+#### Great overview
+
+* [Non-visual quick tour of opportunities without interface](examples/Quick_Overview.php) (not exhaustive and partial)
+
+
+#### With html output basics examples
+
+* [Visual simple & advanced script examples with HTML output](examples/examples-with-html/)
+
 
 #### Really quick and simple example
 
