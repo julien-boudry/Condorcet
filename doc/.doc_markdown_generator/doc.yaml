@@ -1150,34 +1150,14 @@
   name: getAllCandidates
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get all the candidates object set in the last ranking of this Vote.
   return: |
-    le retour
-    est là
+    *(array)* Candidates list.
   related:
-    - 
-      Vote:getAllCandidates
+    - 'Vote::getRanking'
+    - 'Vote::countRankingCandidates'
+  publish: true
 
-    - 
-      Vote:getAllCandidates
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Vote
   type: method
@@ -1185,34 +1165,23 @@
   name: getContextualVote
   static: false
   description: |
-    la description
-    est là
+    Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
   input:
-    param1:
-      type: letype
-      default: test
+    election:
+      type: Condorcet\Condorcet
       required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
+      text: An election is already linked to Vote.
+    stringMode:
+      type: bool
+      default: false
       required: false
-      default: true
+      text: If true. Will return string name instead of Candidate object.
   return: |
-    le retour
-    est là
+    *(array)* Contextual full ranking.
   related:
-    - 
-      Vote:getContextualVote
+    - 'Vote::getRanking'
+  publish: true
 
-    - 
-      Vote:getContextualVote
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Vote
   type: method
@@ -1262,34 +1231,13 @@
   name: getRanking
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get the actual Ranking of this Vote.
   return: |
-    le retour
-    est là
+    *(array)* Multidimenssionnal array populated by Candidate object.
   related:
-    - 
-      Vote:getRanking
+    - 'Vote::setRanking'
+  publish: true
 
-    - 
-      Vote:getRanking
-
-  examples:
-    Text de l'exemple: link
 - 
   class: Vote
   type: method
@@ -1297,34 +1245,16 @@
   name: getTags
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
+    Get the registered tags for this Vote.
   return: |
-    le retour
-    est là
+    *(array)* List of registered tag.
   related:
-    - 
-      Vote:getTags
+    - 'Vote::addTags'
+    - 'Vote::removeTags'
 
-    - 
-      Vote:getTags
+  publish: true
 
-  examples:
-    Text de l'exemple: link
+
 - 
   class: Vote
   type: method
@@ -1332,31 +1262,40 @@
   name: setRanking
   static: false
   description: |
-    la description
-    est là
-  input:
-    param1:
-      type: letype
-      default: test
-      required: true
-    param2:
-      type: letype
-      default: test
-      required: true
-    param3:
-      type: letype
-      default: test
-      required: false
-      default: true
-  return: |
-    le retour
-    est là
-  related:
-    - 
-      Vote:setRanking
+    Set a new ranking for this vote.    
 
-    - 
-      Vote:setRanking
+    Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
+  input:
+    ranking:
+      type: mixed
+      required: true
+      text: |
+        * Ranking can be add by string like "A > B = C > D" (by candidate string name)
+        * Multidimensionnal array like :
+           ```php
+           array( $candidate1, [$candidate2,$candidate4], $candidate 3 )
+           ```
+        * Multidimensionnal array with string :
+           ```php
+           array( 'candidate1Name', ['candidate2Name','candidate4Name'], 'candidate3Name' )
+           ```
+        * Or combine the 2 last ways.     
+
+        Note: You can't use string candidate name if your vote is already linked to an election (by Condorcet::addVote).
+
+    timestamp:
+      type: numeric
+      default: false
+      required: false
+      text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
+  return: |
+    Vote::getRanking
+  related:
+    - 'Vote::getRanking'
+    - 'Vote::getHistory'
+    - 'Vote::__construct'
 
   examples:
-    Text de l'exemple: link
+    'Manual - Add a vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
+  publish: true
