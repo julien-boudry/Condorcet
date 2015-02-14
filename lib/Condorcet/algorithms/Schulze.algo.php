@@ -2,7 +2,7 @@
 /*
 	Schulze part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.10
+	Last modified at: Condorcet Class v0.90
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -12,24 +12,12 @@ namespace Condorcet ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core
+abstract class Schulze_Core extends namespace\CondorcetAlgo
 {
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
-
 	// Schulze
 	protected $_StrongestPaths ;
 	protected $_Result ;
 
-
-	public function __construct (array $config)
-	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
-	}
 
 
 /////////// PUBLIC ///////////
@@ -74,11 +62,11 @@ abstract class Schulze_Core
 
 		foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
 		{
-			$candidate_key = namespace\Condorcet::getStatic_CandidateId($candidate_key,$this->_Candidates) ;
+			$candidate_key = $this->_selfElection->getCandidateId($candidate_key, true);
 
 			foreach ($candidate_value as $challenger_key => $challenger_value)
 			{
-				$explicit[$candidate_key][namespace\Condorcet::getStatic_CandidateId($challenger_key, $this->_Candidates)] = $challenger_value ;
+				$explicit[$candidate_key][$this->_selfElection->getCandidateId($challenger_key, true)] = $challenger_value;
 			}
 		}
 
@@ -98,12 +86,12 @@ abstract class Schulze_Core
 	{
 		$this->_StrongestPaths = array() ;
 
-		foreach ( $this->_Candidates as $candidate_key => $candidate_id )
+		foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id )
 		{
 			$this->_StrongestPaths[$candidate_key] = array() ;
 
 			// Format array for the strongest path
-			foreach ( $this->_Candidates as $candidate_key_r => $candidate_id_r )
+			foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r )
 			{
 				if ($candidate_key_r != $candidate_key)
 				{
@@ -117,22 +105,22 @@ abstract class Schulze_Core
 	// Calculate the Strongest Paths
 	protected function makeStrongestPaths ($variant)
 	{
-		foreach ($this->_Candidates as $i => $i_value)
+		foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
 		{
-			foreach ($this->_Candidates as $j => $j_value)
+			foreach ($this->_selfElection->getCandidatesList() as $j => $j_value)
 			{
 				if ($i !== $j)
 				{
-					if ( $this->_Pairwise[$i]['win'][$j] > $this->_Pairwise[$j]['win'][$i] )
+					if ( $this->_selfElection->getPairwise(false)[$i]['win'][$j] > $this->_selfElection->getPairwise(false)[$j]['win'][$i] )
 					{
 						switch ($variant)
 						{
-							case 'winning'	: $this->_StrongestPaths[$i][$j] = $this->_Pairwise[$i]['win'][$j] ;
+							case 'winning'	: $this->_StrongestPaths[$i][$j] = $this->_selfElection->getPairwise(false)[$i]['win'][$j] ;
 								break ;
-							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$i]['win'][$j] - $this->_Pairwise[$j]['win'][$i]) ;
+							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i]) ;
 								break ;
-							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_Pairwise[$j]['win'][$i] !== 0) ?
-																					($this->_Pairwise[$i]['win'][$j] / $this->_Pairwise[$j]['win'][$i]) :
+							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
+																					($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) :
 																					(0)
 																					;
 								break ;
@@ -148,13 +136,13 @@ abstract class Schulze_Core
 		}
 		 
 
-		foreach ($this->_Candidates as $i => $i_value)
+		foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
 		{
-			foreach ($this->_Candidates as $j => $j_value)
+			foreach ($this->_selfElection->getCandidatesList() as $j => $j_value)
 			{
 				if ($i !== $j)
 				{
-					foreach ($this->_Candidates as $k => $k_value)
+					foreach ($this->_selfElection->getCandidatesList() as $k => $k_value)
 					{
 						if ($i !== $k && $j !== $k)
 						{
@@ -180,7 +168,7 @@ abstract class Schulze_Core
 		$done = array () ;
 		$rank = 1 ;
 
-		while (count($done) < $this->_CandidatesCount)
+		while (count($done) < $this->_selfElection->countCandidates())
 		{
 			$to_done = array() ;
 

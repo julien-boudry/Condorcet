@@ -2,7 +2,7 @@
 /*
 	Copeland part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.9
+	Last modified at: Condorcet Class v0.90
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
@@ -12,24 +12,11 @@ namespace Condorcet ;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland implements namespace\Condorcet_Algo
+class Copeland extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
 {
-	// Config
-	protected $_Pairwise ;
-	protected $_CandidatesCount ;
-	protected $_Candidates ;
-
 	// Copeland
 	protected $_Comparison ;
 	protected $_Result ;
-
-
-	public function __construct (array $config)
-	{
-		$this->_Pairwise = $config['_Pairwise'] ;
-		$this->_CandidatesCount = $config['_CandidatesCount'] ;
-		$this->_Candidates = $config['_Candidates'] ;
-	}
 
 
 /////////// PUBLIC ///////////
@@ -47,7 +34,7 @@ class Copeland implements namespace\Condorcet_Algo
 			//////
 
 		// Comparison calculation
-		$this->_Comparison = namespace\Condorcet::makeStatic_PairwiseComparison($this->_Pairwise) ;
+		$this->_Comparison = namespace\Condorcet::makeStatic_PairwiseComparison($this->_selfElection->getPairwise(false)) ;
 
 		// Ranking calculation
 		$this->makeRanking() ;
@@ -69,7 +56,7 @@ class Copeland implements namespace\Condorcet_Algo
 
 		foreach ($this->_Comparison as $candidate_key => $value)
 		{
-			$explicit[namespace\Condorcet::getStatic_CandidateId($candidate_key, $this->_Candidates)] = $value ;
+			$explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
 		}
 
 		return $explicit ;
@@ -96,7 +83,7 @@ class Copeland implements namespace\Condorcet_Algo
 			$challenge[$candidate_key] = $candidate_data['balance'] ;
 		}
 
-		while ($done < $this->_CandidatesCount)
+		while ($done < $this->_selfElection->countCandidates())
 		{
 			$looking = max($challenge) ;
 
