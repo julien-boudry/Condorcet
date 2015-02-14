@@ -54,9 +54,9 @@ use Kemeny-Young 8 candidates : 135MB - 3500ms
 
 
 #### Project State
-To date, we have a stable version.  
-- Since version 0.9, an important work of code review and testing was conducted by the creator.
+To date, we have a stable version, and support is provided.    
 - Since version 0.90, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
+- Some support and fix can be done for 0.14 version on demand.    
 
 **External testers are more than welcome**.   
 
@@ -118,11 +118,16 @@ This class is designed to be easily extensible with new algorithms. A modular sc
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Ability to add Candidate on Vote
   - Improve & test Ranked pair implementation *(help needed!)*
+  - In future results could be provided as an object rather than an array. Will be fun.
   - **Looking for testers!**   
+  - **Research reference librarians!!**  
  
 
 ---------------------------------------
 ## How to use it?
+
+_I have undertaken and continues to undertake efforts to reform and improve the documentation. Thereof is not yet satisfactory plainement nor perfectly updated. Your help is welcome!
+Consider reading the functional examples that are very explicit, test your even the entire function package, and especially to ask questions!_
 
 ### Condorcet Wiki Manual
 
