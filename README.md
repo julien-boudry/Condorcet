@@ -62,7 +62,7 @@ To date, we have a stable version, and support is provided.
 
 
 #### Related projects / They use Condorcet
-* From August 2014: [Condorcet-Vote.org](http://www.condorcet-vote.org) Web services to create and store online Condorcet election. Including intérractives and collaborative features.    
+* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including intérractives and collaborative features.    
 It is based in large part on this project, and uses the library as a real election manager for computing, storage & stats.        
 * [Condorcet API](https://github.com/julien-boudry/Condorcet_API) Very basic and simple http API for Condorcet class (json or text i/o)
 * [Mahler-S2-BlindTest-Condorcet
