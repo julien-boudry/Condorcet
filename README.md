@@ -32,7 +32,7 @@ But Condorcet Class allows much more than this, and is actually a real manager o
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
-**Or finance my studies:** *1FavAXcAU5rNkfDDTgMs4xx1FNzDztwYV6*
+**Or finance my studies:** *13Ui2GBf8CVPKnuGXNB4MSrEsGJ9SuxEzC*
 
 
 ### Specifications and standards  
