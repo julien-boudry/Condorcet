@@ -5,7 +5,7 @@
 	Last modified at: Condorcet Class v0.90
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
+	https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet ;
 
@@ -173,7 +173,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 	I do not know how in the very unlikely event that several possible classifications have the same highest score.
 	In the current state, one of them is chosen arbitrarily.
 
-	See issue on Github : https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/issues/6
+	See issue on Github : https://github.com/julien-boudry/Condorcet/issues/6
 	*/
 	protected function makeRanking ()
 	{

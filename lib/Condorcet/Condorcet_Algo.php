@@ -5,7 +5,7 @@
 	Version : 0.91
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
+	https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet ;
 
