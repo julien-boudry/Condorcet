@@ -30,7 +30,7 @@ class Condorcet
 
 	const VERSION = '0.90' ;
 
-	const ENV = 'DEV' ;
+	const ENV = 'STABLE' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
 	protected static $_classMethod	= null ;
