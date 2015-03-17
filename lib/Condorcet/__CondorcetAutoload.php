@@ -1,5 +1,12 @@
 <?php
+/*
+	Condorcet PHP Class, with Schulze Methods and others !
 
+	Version : 0.91
+
+	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
+*/
 namespace Condorcet ;
 
 spl_autoload_register(function ($className) {

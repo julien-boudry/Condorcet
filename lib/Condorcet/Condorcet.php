@@ -2,12 +2,11 @@
 /*
 	Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.90
+	Version : 0.91
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
-
 namespace Condorcet ;
 
 
@@ -26,7 +25,7 @@ class Condorcet
 /////////// CLASS ///////////
 
 
-	const VERSION = '0.90' ;
+	const VERSION = '0.91' ;
 
 	const ENV = 'DEV' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string

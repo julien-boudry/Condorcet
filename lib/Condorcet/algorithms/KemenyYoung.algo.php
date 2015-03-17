@@ -7,7 +7,6 @@
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class
 */
-
 namespace Condorcet ;
 
 // Note : This class use some configuration method preset at the bottom of this file.
