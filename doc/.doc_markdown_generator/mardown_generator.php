@@ -30,7 +30,7 @@ echo 'YAH !';
 function makeFilename ($method) {
   return  $method['visibility'].
           (($method['static']) ? " static " : " "). 
-          $method['class']."::".$method['name'].
+          $method['class']."--".$method['name'].
           ".md";
 }
 
