@@ -200,4 +200,6 @@ $myElection1 = new Condorcet ();
 
 			# Get Ranking history
 			$myNewVote->getHistory();
-		
+
+
+print 'Success!';		
