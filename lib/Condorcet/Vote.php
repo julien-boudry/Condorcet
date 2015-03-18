@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 class Vote implements \Iterator
 {
-	use namespace\CandidateVote_CondorcetLink ;
+	use namespace\Linkable ;
 
 	// Implement Iterator
 

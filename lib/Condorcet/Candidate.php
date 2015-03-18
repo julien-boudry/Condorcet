@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 class Candidate
 {
-	use namespace\CandidateVote_CondorcetLink ;
+	use namespace\Linkable ;
 
 	private $_name ;
 

@@ -10,7 +10,7 @@
 namespace Condorcet ;
 
 // Generic for Candidate & Vote Class
-trait CandidateVote_CondorcetLink
+trait Linkable
 {
 	private $_link = array() ;
 
