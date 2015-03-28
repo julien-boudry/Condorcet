@@ -23,8 +23,8 @@ Goes beyond the class static limit for this election object only, if static limi
 
 ### Related method(s)      
 
-* [static Condorcet::setMaxVoteNumber](../static Condorcet Class/public static Condorcet--setMaxVoteNumber.md)    
-* [static Condorcet::setMaxParseIteration](../static Condorcet Class/public static Condorcet--setMaxParseIteration.md)    
+* [static Condorcet::setMaxVoteNumber](../Condorcet Class/public static Condorcet--setMaxVoteNumber.md)    
+* [static Condorcet::setMaxParseIteration](../Condorcet Class/public static Condorcet--setMaxParseIteration.md)    
 
 ---------------------------------------
 
