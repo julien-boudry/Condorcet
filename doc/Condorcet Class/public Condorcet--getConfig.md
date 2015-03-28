@@ -18,6 +18,6 @@ An explicit array.
 
 ### Related method(s)      
 
-* [Condorcet::getMethod](../Condorcet Class/public Condorcet::getMethod.md)    
-* [Condorcet::isAuthMethod](../Condorcet Class/public Condorcet::isAuthMethod.md)    
-* [Condorcet::getClassAuthMethods](../Condorcet Class/public Condorcet::getClassAuthMethods.md)    
+* [Condorcet::getMethod](../Condorcet Class/public Condorcet--getMethod.md)    
+* [Condorcet::isAuthMethod](../Condorcet Class/public Condorcet--isAuthMethod.md)    
+* [Condorcet::getClassAuthMethods](../Condorcet Class/public Condorcet--getClassAuthMethods.md)    

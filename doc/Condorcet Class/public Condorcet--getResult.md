@@ -29,7 +29,7 @@ Ordered array or multi-dimensionnal ordered array (if tie), populated by Candida
 
 ### Related method(s)      
 
-* [Condorcet::getWinner](../Condorcet Class/public Condorcet::getWinner.md)    
+* [Condorcet::getWinner](../Condorcet Class/public Condorcet--getWinner.md)    
 
 ---------------------------------------
 

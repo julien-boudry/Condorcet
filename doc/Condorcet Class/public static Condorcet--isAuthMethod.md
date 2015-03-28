@@ -23,4 +23,4 @@ Test if a method is in the result set of Condorcet::getAuthMethods.
 
 ### Related method(s)      
 
-* [static Condorcet::getAuthMethods](../static Condorcet Class/public static Condorcet::getAuthMethods.md)    
+* [static Condorcet::getAuthMethods](../static Condorcet Class/public static Condorcet--getAuthMethods.md)    

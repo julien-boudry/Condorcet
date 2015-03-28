@@ -28,4 +28,4 @@ If true. Will return string name instead of Candidate object.
 
 ### Related method(s)      
 
-* [Vote::getRanking](../Vote Class/public Vote::getRanking.md)    
+* [Vote::getRanking](../Vote Class/public Vote--getRanking.md)    

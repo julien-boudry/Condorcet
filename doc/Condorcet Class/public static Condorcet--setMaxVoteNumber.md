@@ -23,4 +23,4 @@ Null will desactivate this functionnality. An interger will fix the limit.
 
 ### Related method(s)      
 
-* [static Condorcet::setMaxParseIteration](../static Condorcet Class/public static Condorcet::setMaxParseIteration.md)    
+* [static Condorcet::setMaxParseIteration](../static Condorcet Class/public static Condorcet--setMaxParseIteration.md)    

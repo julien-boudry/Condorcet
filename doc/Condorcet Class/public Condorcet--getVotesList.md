@@ -28,7 +28,7 @@ Get registered vote list.
 
 ### Related method(s)      
 
-* [Condorcet::countVotes](../Condorcet Class/public Condorcet::countVotes.md)    
+* [Condorcet::countVotes](../Condorcet Class/public Condorcet--countVotes.md)    
 
 ---------------------------------------
 

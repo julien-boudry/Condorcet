@@ -18,4 +18,4 @@ Get the timestamp corresponding of the last vote change.
 
 ### Related method(s)      
 
-* [Vote::getCreateTimestamp](../Vote Class/public Vote::getCreateTimestamp.md)    
+* [Vote::getCreateTimestamp](../Vote Class/public Vote--getCreateTimestamp.md)    

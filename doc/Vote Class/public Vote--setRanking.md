@@ -41,9 +41,9 @@ Vote::getRanking
 
 ### Related method(s)      
 
-* [Vote::getRanking](../Vote Class/public Vote::getRanking.md)    
-* [Vote::getHistory](../Vote Class/public Vote::getHistory.md)    
-* [Vote::__construct](../Vote Class/public Vote::__construct.md)    
+* [Vote::getRanking](../Vote Class/public Vote--getRanking.md)    
+* [Vote::getHistory](../Vote Class/public Vote--getHistory.md)    
+* [Vote::__construct](../Vote Class/public Vote--__construct.md)    
 
 ---------------------------------------
 

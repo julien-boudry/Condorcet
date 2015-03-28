@@ -23,5 +23,5 @@ List of Candidate into an array.
 
 ### Related method(s)      
 
-* [Condorcet::countCandidates](../Condorcet Class/public Condorcet::countCandidates.md)    
-* [Condorcet::existCandidateId](../Condorcet Class/public Condorcet::existCandidateId.md)    
+* [Condorcet::countCandidates](../Condorcet Class/public Condorcet--countCandidates.md)    
+* [Condorcet::existCandidateId](../Condorcet Class/public Condorcet--existCandidateId.md)    

@@ -23,9 +23,9 @@ Json string input.
 
 ### Related method(s)      
 
-* [Condorcet::addVote](../Condorcet Class/public Condorcet::addVote.md)    
-* [Condorcet::parseVotes](../Condorcet Class/public Condorcet::parseVotes.md)    
-* [Condorcet::jsonCandidates](../Condorcet Class/public Condorcet::jsonCandidates.md)    
+* [Condorcet::addVote](../Condorcet Class/public Condorcet--addVote.md)    
+* [Condorcet::parseVotes](../Condorcet Class/public Condorcet--parseVotes.md)    
+* [Condorcet::jsonCandidates](../Condorcet Class/public Condorcet--jsonCandidates.md)    
 
 ---------------------------------------
 

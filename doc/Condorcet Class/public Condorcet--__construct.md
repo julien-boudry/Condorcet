@@ -23,5 +23,5 @@ NULL
 
 ### Related method(s)      
 
-* [Condorcet::__destruct](../Condorcet Class/public Condorcet::__destruct.md)    
-* [Condorcet::setMethod](../Condorcet Class/public Condorcet::setMethod.md)    
+* [Condorcet::__destruct](../Condorcet Class/public Condorcet--__destruct.md)    
+* [Condorcet::setMethod](../Condorcet Class/public Condorcet--setMethod.md)    

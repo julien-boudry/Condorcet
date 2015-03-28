@@ -23,7 +23,7 @@ Explicit array.
 
 ### Related method(s)      
 
-* [Condorcet::getResult](../Condorcet Class/public Condorcet::getResult.md)    
+* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
 
 ---------------------------------------
 

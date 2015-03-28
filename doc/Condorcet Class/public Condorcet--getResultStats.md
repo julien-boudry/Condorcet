@@ -23,7 +23,7 @@ Varying according to the algorithm used.
 
 ### Related method(s)      
 
-* [Condorcet::getResult](../Condorcet Class/public Condorcet::getResult.md)    
+* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
 
 ---------------------------------------
 

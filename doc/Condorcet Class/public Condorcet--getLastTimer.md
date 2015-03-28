@@ -23,7 +23,7 @@ Int or string (look param).
 
 ### Related method(s)      
 
-* [Condorcet::getGlobalTimer](../Condorcet Class/public Condorcet::getGlobalTimer.md)    
+* [Condorcet::getGlobalTimer](../Condorcet Class/public Condorcet--getGlobalTimer.md)    
 
 ---------------------------------------
 

@@ -23,4 +23,4 @@ True if your Candidate is available. or False.
 
 ### Related method(s)      
 
-* [Condorcet::addCandidate](../Condorcet Class/public Condorcet::addCandidate.md)    
+* [Condorcet::addCandidate](../Condorcet Class/public Condorcet--addCandidate.md)    

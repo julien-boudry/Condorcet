@@ -18,5 +18,5 @@ Get name of the default adavanced method for this Election.
 
 ### Related method(s)      
 
-* [Condorcet::isAuthMethod](../Condorcet Class/public Condorcet::isAuthMethod.md)    
-* [Condorcet::getClassAuthMethods](../Condorcet Class/public Condorcet::getClassAuthMethods.md)    
+* [Condorcet::isAuthMethod](../Condorcet Class/public Condorcet--isAuthMethod.md)    
+* [Condorcet::getClassAuthMethods](../Condorcet Class/public Condorcet--getClassAuthMethods.md)    

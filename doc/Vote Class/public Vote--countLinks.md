@@ -18,8 +18,8 @@ Count number of linked election to this object.
 
 ### Related method(s)      
 
-* [Candidate::countLinks](../Candidate Class/public Candidate::countLinks.md)    
-* [Vote::getLinks](../Vote Class/public Vote::getLinks.md)    
-* [Candidate::getLinks](../Candidate Class/public Candidate::getLinks.md)    
-* [Vote::haveLink](../Vote Class/public Vote::haveLink.md)    
-* [Candidate::haveLink](../Candidate Class/public Candidate::haveLink.md)    
+* [Candidate::countLinks](../Candidate Class/public Candidate--countLinks.md)    
+* [Vote::getLinks](../Vote Class/public Vote--getLinks.md)    
+* [Candidate::getLinks](../Candidate Class/public Candidate--getLinks.md)    
+* [Vote::haveLink](../Vote Class/public Vote--haveLink.md)    
+* [Candidate::haveLink](../Candidate Class/public Candidate--haveLink.md)    
