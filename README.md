@@ -28,7 +28,7 @@ But Condorcet Class allows much more than this, and is actually a real manager o
 
 ### Contributors and License
 
-**Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet_Schulze-PHP_Class/graphs/contributors))_     
+**Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet/graphs/contributors))_     
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 
 As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
