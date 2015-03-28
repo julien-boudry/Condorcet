@@ -26,4 +26,4 @@ est là
 
 ### Related method(s)      
 
-* [Condorcet::getObjectVersion](../Condorcet Class/public Condorcet::getObjectVersion.md)    
+* [Condorcet::getObjectVersion](../Condorcet Class/public Condorcet--getObjectVersion.md)    

@@ -23,7 +23,7 @@ They can be added by string separated by commas or an array.
 
 ### Related method(s)      
 
-* [Vote::addTags](../Vote Class/public Vote::addTags.md)    
+* [Vote::addTags](../Vote Class/public Vote--addTags.md)    
 
 ---------------------------------------
 

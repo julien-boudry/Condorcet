@@ -28,5 +28,5 @@ False on error. Else, the name of the new default method.
 
 ### Related method(s)      
 
-* [static Condorcet::getClassDefaultMethod](../static Condorcet Class/public static Condorcet::getClassDefaultMethod.md)    
-* [static Condorcet::forceMethod](../static Condorcet Class/public static Condorcet::forceMethod.md)    
+* [static Condorcet::getClassDefaultMethod](../static Condorcet Class/public static Condorcet--getClassDefaultMethod.md)    
+* [static Condorcet::forceMethod](../static Condorcet Class/public static Condorcet--forceMethod.md)    

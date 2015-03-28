@@ -25,5 +25,5 @@ Else, just return the actual string name of this Candidate.
 
 ### Related method(s)      
 
-* [Candidate::getHistory](../Candidate Class/public Candidate::getHistory.md)    
-* [Candidate::setName](../Candidate Class/public Candidate::setName.md)    
+* [Candidate::getHistory](../Candidate Class/public Candidate--getHistory.md)    
+* [Candidate::setName](../Candidate Class/public Candidate--setName.md)    

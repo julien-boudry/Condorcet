@@ -18,4 +18,4 @@ Count the number of registered candidate
 
 ### Related method(s)      
 
-* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet::getCandidatesList.md)    
+* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet--getCandidatesList.md)    

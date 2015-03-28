@@ -23,9 +23,9 @@ String or valid path to a text file.
 
 ### Related method(s)      
 
-* [Condorcet::addVote](../Condorcet Class/public Condorcet::addVote.md)    
-* [Condorcet::parseCandidates](../Condorcet Class/public Condorcet::parseCandidates.md)    
-* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet::jsonVotes.md)    
+* [Condorcet::addVote](../Condorcet Class/public Condorcet--addVote.md)    
+* [Condorcet::parseCandidates](../Condorcet Class/public Condorcet--parseCandidates.md)    
+* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet--jsonVotes.md)    
 
 ---------------------------------------
 

@@ -28,8 +28,8 @@ Remove Candidate from an election.
 
 ### Related method(s)      
 
-* [Condorcet::AddCandidate](../Condorcet Class/public Condorcet::AddCandidate.md)    
-* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet::getCandidatesList.md)    
+* [Condorcet::AddCandidate](../Condorcet Class/public Condorcet--AddCandidate.md)    
+* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet--getCandidatesList.md)    
 
 ---------------------------------------
 

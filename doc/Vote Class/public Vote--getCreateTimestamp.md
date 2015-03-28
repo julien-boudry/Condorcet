@@ -18,4 +18,4 @@ Get the timestamp corresponding of the creation of this vote.
 
 ### Related method(s)      
 
-* [Candidate::getTimestamp](../Candidate Class/public Candidate::getTimestamp.md)    
+* [Candidate::getTimestamp](../Candidate Class/public Candidate--getTimestamp.md)    

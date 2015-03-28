@@ -28,4 +28,4 @@ Count Votes with this tag ou without this tag.
 
 ### Related method(s)      
 
-* [Condorcet::getVotesList](../Condorcet Class/public Condorcet::getVotesList.md)    
+* [Condorcet::getVotesList](../Condorcet Class/public Condorcet--getVotesList.md)    

@@ -23,4 +23,4 @@ False on error. Else, the new value (null or integer).
 
 ### Related method(s)      
 
-* [static Condorcet::setMaxVoteNumber](../static Condorcet Class/public static Condorcet::setMaxVoteNumber.md)    
+* [static Condorcet::setMaxVoteNumber](../static Condorcet Class/public static Condorcet--setMaxVoteNumber.md)    

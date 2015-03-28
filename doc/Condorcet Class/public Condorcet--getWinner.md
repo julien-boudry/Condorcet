@@ -33,8 +33,8 @@ Throw an exception on error.
 
 ### Related method(s)      
 
-* [Condorcet::getLoser](../Condorcet Class/public Condorcet::getLoser.md)    
-* [Condorcet::getResult](../Condorcet Class/public Condorcet::getResult.md)    
+* [Condorcet::getLoser](../Condorcet Class/public Condorcet--getLoser.md)    
+* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
 
 ---------------------------------------
 

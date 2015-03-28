@@ -23,7 +23,7 @@ Int or string (look param).
 
 ### Related method(s)      
 
-* [Condorcet::getLastTimer](../Condorcet Class/public Condorcet::getLastTimer.md)    
+* [Condorcet::getLastTimer](../Condorcet Class/public Condorcet--getLastTimer.md)    
 
 ---------------------------------------
 

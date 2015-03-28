@@ -23,7 +23,7 @@ Return Vote::getTags
 
 ### Related method(s)      
 
-* [Vote::removeTags](../Vote Class/public Vote::removeTags.md)    
+* [Vote::removeTags](../Vote Class/public Vote--removeTags.md)    
 
 ---------------------------------------
 

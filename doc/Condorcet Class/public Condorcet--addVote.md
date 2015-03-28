@@ -28,10 +28,10 @@ The vote object.
 
 ### Related method(s)      
 
-* [Condorcet::parseVotes](../Condorcet Class/public Condorcet::parseVotes.md)    
-* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet::jsonVotes.md)    
-* [Condorcet::removeVote](../Condorcet Class/public Condorcet::removeVote.md)    
-* [Condorcet::getVotesList](../Condorcet Class/public Condorcet::getVotesList.md)    
+* [Condorcet::parseVotes](../Condorcet Class/public Condorcet--parseVotes.md)    
+* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet--jsonVotes.md)    
+* [Condorcet::removeVote](../Condorcet Class/public Condorcet--removeVote.md)    
+* [Condorcet::getVotesList](../Condorcet Class/public Condorcet--getVotesList.md)    
 
 ---------------------------------------
 

@@ -80,7 +80,7 @@ function cleverRelated ($name)
 {
   $infos = explode('::', $name);
 
-  $url = '../'.$infos[0].' Class/public '.$name.'.md';
+  $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md' ;
 
   return "[".$name."](".$url.")";
 }
