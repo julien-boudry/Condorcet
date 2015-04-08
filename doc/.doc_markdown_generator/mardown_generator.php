@@ -79,6 +79,7 @@ endif;
 function cleverRelated ($name)
 {
   $infos = explode('::', $name);
+  $infos[0] = str_replace('static ', '', $infos[0]);
 
   $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md' ;
 
