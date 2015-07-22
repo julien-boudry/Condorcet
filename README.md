@@ -36,7 +36,7 @@ As a courtesy, I will thank you to inform me about your project wearing this cod
 
 
 ### Specifications and standards  
-**Stable Version: 0.15**  
+**Stable Version: 0.92**  
 **PHP Requirement:** PHP 5.5 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 **Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
