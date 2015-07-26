@@ -2,7 +2,7 @@
 /*
 	Kemeny-Young part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.90
+	Last modified at: Condorcet Class v0.92
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet
@@ -139,7 +139,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
 	protected function doPossibleRanking ($path)
 	{
-		( new namespace\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
+		( new namespace\AlgoTools\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
 	}
 
 	protected function calcRankingScore ()

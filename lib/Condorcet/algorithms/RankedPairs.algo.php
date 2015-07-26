@@ -36,7 +36,7 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
 			//////
 
 		// Sort pairwise
-		$this->_PairwiseSort = namespace\AlgoTools::PairwiseSort($this->_selfElection->getPairwise(false)) ;
+		$this->_PairwiseSort = namespace\AlgoTools\PairwiseStats::PairwiseSort($this->_selfElection->getPairwise(false)) ;
 
 		// Ranking calculation
 		$this->makeArcs();

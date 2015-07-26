@@ -11,10 +11,10 @@
 
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
-namespace Condorcet ;
+namespace Condorcet\AlgoTools ;
 
 // Generic for Algorithms
-abstract class AlgoTools
+abstract class PairwiseStats
 {
 
 	public static function PairwiseComparison ($pairwise)

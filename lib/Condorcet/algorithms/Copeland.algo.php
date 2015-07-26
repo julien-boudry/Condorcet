@@ -33,7 +33,7 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
 			//////
 
 		// Comparison calculation
-		$this->_Comparison = namespace\AlgoTools::PairwiseComparison($this->_selfElection->getPairwise(false)) ;
+		$this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false)) ;
 
 		// Ranking calculation
 		$this->makeRanking() ;
