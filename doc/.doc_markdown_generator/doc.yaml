@@ -85,17 +85,10 @@
   static: false
   description: |
     Build a new Election.
-  input:
-    method:
-      type: string
-      default: null
-      required: false
-      text: Change election default method. Parameter comfort and non-binding. Not recommended.
   return: |
     NULL
   related:
     - 'Condorcet::__destruct'
-    - 'Condorcet::setMethod'
   publish: true
 
 
@@ -287,9 +280,8 @@
   return: |
     An explicit array.
   related:
-    - 'Condorcet::getMethod'
     - 'Condorcet::isAuthMethod'
-    - 'Condorcet::getClassAuthMethods'
+    - 'Condorcet::getAuthMethods'
   publish: true
 
 
@@ -375,22 +367,6 @@
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
-  publish: true
-
-- 
-  class: Condorcet
-  type: method
-  visibility: public
-  name: getMethod
-  static: false
-  description: |
-    Get name of the default adavanced method for this Election.
-  return: |
-    (string) Name of the method
-  related:
-    - 'Condorcet::getMethod'
-    - 'Condorcet::isAuthMethod'
-    - 'Condorcet::getClassAuthMethods'
   publish: true
 
 - 
@@ -721,27 +697,6 @@
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
 
-- 
-  class: Condorcet
-  type: method
-  visibility: public
-  name: setMethod
-  static: false
-  description: |
-    Change the default object method, except if method is forced by Class static configuration.
-  input:
-    method:
-      type: string
-      required: true
-      text: Valid algorithm name.
-  return: |
-    *(string)* The new object default method.
-  related:
-    - 'Condorcet::getMethod'
-    - 'static Condorcet::setClassMethod'
-    - 'static Condorcet::forceMethod'
-  publish: true
-
 
 - 
   class: Condorcet
@@ -816,7 +771,7 @@
   class: Condorcet
   type: method
   visibility: public
-  name: getClassDefaultMethod
+  name: getDefaultMethod
   static: true
   description: |
     Return the Condorcet static default method for the new Condorcet object.
@@ -824,7 +779,7 @@
     *(string)* Method name.
   related:
     - 'static Condorcet::getAuthMethods'
-    - 'static Condorcet::setClassMethod'
+    - 'static Condorcet::setDefaultMethod'
   publish: true
 
 - 
@@ -874,7 +829,7 @@
   class: Condorcet
   type: method
   visibility: public
-  name: setClassMethod
+  name: setDefaultMethod
   static: true
   description: |
     Put a new static method by default for the news Condorcet objects.
@@ -883,17 +838,10 @@
       type: string
       required: true
       text: Method Name.
-    force:
-      type: bool
-      default: false
-      required: false
-      text: If true. Will force all Condorcet object ton use this default method.
   return: |
     False on error. Else, the name of the new default method.
   related:
-    - 'static Condorcet::getClassDefaultMethod'
-    - 'static Condorcet::forceMethod'
-
+    - 'static Condorcet::getDefaultMethod'
   publish: true
 
 - 

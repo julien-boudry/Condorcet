@@ -15,7 +15,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
 
 
 // Set the default Condorcet Class algorithm
-namespace\Condorcet::setClassMethod('Schulze') ;
+namespace\Condorcet::setDefaultMethod('Schulze') ;
 
 
 // Base Condorcet class
@@ -30,9 +30,8 @@ class Condorcet
 	const ENV = 'DEV' ;
 	const MAX_LENGTH_CANDIDATE_ID = 30 ; // Max length for candidate identifiant string
 
-	protected static $_classMethod	= null ;
+	protected static $_defaultMethod	= null ;
 	protected static $_authMethods	= [] ;
-	protected static $_forceMethod	= false ;
 	protected static $_maxParseIteration = null ;
 	protected static $_maxVoteNumber = null ;
 	protected static $_checksumMode = false ;
@@ -95,9 +94,9 @@ class Condorcet
 
 
 	// Return the Class default method
-	public static function getClassDefaultMethod ()
+	public static function getDefaultMethod ()
 	{
-		return self::$_classMethod ;
+		return self::$_defaultMethod ;
 	}
 
 
@@ -149,13 +148,10 @@ class Condorcet
 		{
 			foreach ($algos as $value)
 			{
-				if ( !self::testAlgos($value) )
-				{
+				if ( !self::testAlgos($value) )	{
 					return false ;
 				}
-
-				if ( !self::isAuthMethod($value) )
-				{
+				elseif ( !self::isAuthMethod($value) ) {
 					$to_add[] = $value ; 
 				}
 			}
@@ -165,6 +161,10 @@ class Condorcet
 		foreach ($to_add as $value)
 		{
 			self::$_authMethods[] = $value;
+
+			if (self::getDefaultMethod() === null) {
+				self::setDefaultMethod($value);
+			}
 		}
 
 		return true ;
@@ -188,38 +188,18 @@ class Condorcet
 		}
 
 
-	// Change default method for this class, if $force == true all current and further objects will be forced to use this method and will not be able to change it by themselves.
-	public static function setClassMethod ($method, $force = null)
+	// Change default method for this class.
+	public static function setDefaultMethod ($method)
 	{		
-		if ( self::isAuthMethod($method) )
+		if ( self::isAuthMethod($method) && $method !== 'Condorcet_Basic' )
 		{
-			self::$_classMethod = $method ;
+			self::$_defaultMethod = $method ;
 
-			if (is_bool($force))
-			{
-				self::forceMethod($force);
-			}
-
-			return self::getClassDefaultMethod() ;
+			return self::getDefaultMethod() ;
 		}
 		else
 			{ return false ; }
 	}
-
-			// If $force == true all current and further objects will be forced to use this method and will not be abble to change it by themselves.
-			public static function forceMethod ($force = true)
-			{
-				if ($force)
-				{
-					self::$_forceMethod = true ;
-					return true ;
-				}
-				else
-				{
-					self::$_forceMethod = false ;
-					return false ;
-				}
-			}
 
 
 	// Check JSON format
@@ -322,7 +302,6 @@ class Condorcet
 
 
 	// Data and global options
-	protected $_Method ; // Default method for this object
 	protected $_Candidates ; // Candidate list
 	protected $_Votes ; // Votes list
 
@@ -342,14 +321,10 @@ class Condorcet
 
 		//////
 
-	public function __construct ($method = null)
+	public function __construct ()
 	{
-		$this->_Method = self::$_classMethod ;
-
 		$this->_Candidates = array() ;
 		$this->_Votes = array() ;
-
-		$this->setMethod($method) ;
 
 		// Store constructor version (security for caching)
 		$this->_objectVersion = self::VERSION ;
@@ -377,7 +352,6 @@ class Condorcet
 	{
 		// Don't include others data
 		$include = array (
-			'_Method',
 			'_Candidates',
 			'_Votes',
 
@@ -435,33 +409,14 @@ class Condorcet
 
 		//////
 
-	// Change the object method, except if self::$_for_Method == true
-	public function setMethod ($method = null)
-	{
-		if (self::$_forceMethod)
-		{
-			$this->_Method = self::$_classMethod ;
-		}
-		elseif ( $method != null && self::isAuthMethod($method) )
-		{
-			$this->_Method = $method ;
-		}
-
-		return $this->_Method ;
-	}
-
 
 	// Return object state with somes infos
 	public function getConfig ()
 	{
-		$this->setMethod() ;
-
 		return array 	(
 							'CondorcetObject_Version' => $this->getObjectVersion(),
 
-							'object_Method'		=> $this->getMethod(),
-							'class_default_Method'	=> self::$_classMethod,
-							'is_ClassForceMethod'=> self::$_forceMethod,
+							'class_default_Method'	=> self::getDefaultMethod(),
 
 							'class_authMethods'=> self::getAuthMethods(),
 							'class_MaxParseIterations'=> self::$_maxParseIteration,
@@ -470,11 +425,6 @@ class Condorcet
 						);
 	}
 
-
-	public function getMethod ()
-	{
-		return $this->setMethod() ;
-	}
 
 	protected function setTimer ($timer)
 	{
@@ -1046,7 +996,7 @@ class Condorcet
 		{ 
 			$timer_start = microtime(true);
 
-			$filter = new self ($this->_Method) ;
+			$filter = new self ;
 
 			foreach ($this->getCandidatesList() as $candidate)
 			{
@@ -1064,8 +1014,6 @@ class Condorcet
 
 			////// Start //////
 
-		// Method
-		$this->setMethod() ;
 		// Prepare
 		$this->prepareResult() ;
 
@@ -1075,9 +1023,9 @@ class Condorcet
 
 		if ($method === true)
 		{
-			$this->initResult($this->_Method) ;
+			$this->initResult(self::getDefaultMethod()) ;
 
-			$result = $this->_Calculator[$this->_Method]->getResult($options['algoOptions']);
+			$result = $this->_Calculator[self::getDefaultMethod()]->getResult($options['algoOptions']);
 		}
 		elseif (self::isAuthMethod($method))
 		{
@@ -1134,7 +1082,7 @@ class Condorcet
 		if ( $substitution )
 		{
 			if ($substitution === true)
-				{$substitution = $this->_Method ;}
+				{$substitution = self::getDefaultMethod() ;}
 
 			if ( self::isAuthMethod($substitution) )
 				{$algo = $substitution ;}
@@ -1155,7 +1103,7 @@ class Condorcet
 		if ( $substitution )
 		{			
 			if ($substitution === true)
-				{$substitution = $this->_Method ;}
+				{$substitution = self::getDefaultMethod() ;}
 			
 			if ( self::isAuthMethod($substitution) )
 				{$algo = $substitution ;}
@@ -1175,8 +1123,6 @@ class Condorcet
 
 	public function getResultStats ($method = true)
 	{
-		// Method
-		$this->setMethod() ;
 		// Prepare
 		$this->prepareResult() ;
 
@@ -1184,9 +1130,9 @@ class Condorcet
 
 		if ($method === true)
 		{
-			$this->initResult($this->_Method) ;
+			$this->initResult(self::getDefaultMethod()) ;
 
-			$stats = $this->_Calculator[$this->_Method]->getStats() ;
+			$stats = $this->_Calculator[self::getDefaultMethod()]->getStats() ;
 		}
 		elseif (self::isAuthMethod($method))
 		{

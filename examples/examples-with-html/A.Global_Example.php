@@ -170,16 +170,14 @@ define('TEST_NAME', 'Condorcet Global Example');
 	
 	<?php
 	foreach (Condorcet::getAuthMethods() as $method)
-	{ 
-		if ($method !== 'Condorcet_Basic') :?>
-
+	{ ?>
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
 		<?php Condorcet::format($election->getResultStats($method)); ?>
 		</pre>
 	
-	<?php endif; } ?>
+	<?php } ?>
 
  <br><br><hr>
  
@@ -188,7 +186,7 @@ define('TEST_NAME', 'Condorcet Global Example');
  <h4>Defaut method (not used explicitly before) :</h4>
 
  <pre>
-<?php Condorcet::format($election->getMethod()); ?>
+<?php Condorcet::format(Condorcet::getDefaultMethod()); ?>
  </pre>
 
 

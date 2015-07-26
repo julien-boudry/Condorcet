@@ -137,7 +137,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<h3>Use default method :</h3>
 	
-	<strong>Defaut:</strong> <?php echo $election->getMethod() ; ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
 	<?php Condorcet::format($election->getResult()); ?>
@@ -145,46 +145,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<h3>Change it to MiniMax_Margin :</h3>
 
-	<strong>Defaut:</strong> <?php echo $election->setMethod('Minimax_Margin') ; ?> <br>
-
-	 <pre>
-	<?php Condorcet::format($election->getResult()); ?>
-	 </pre>
-
-
-	<h3>Come back to the Class default method :</h3>
-
-	<strong>Defaut:</strong> <?php echo $election->setMethod(Condorcet::getClassDefaultMethod()) ; ?> <br>
-
-	 <pre>
-	<?php Condorcet::format($election->getResult()); ?>
-	 </pre>
-
-
-	<h3>Force all object from Condorcet to use by default Kemeny-Young:</h3>
-
-	<?php 
-		Condorcet::setClassMethod('KemenyYoung', true); 
-		$election->setMethod('Copeland') ;
-
-	?>
-
-	<strong>Defaut:</strong> <?php echo $election->getMethod() ; ?> <br>
-
-	 <pre>
-	<?php Condorcet::format($election->getResult()); ?>
-	 </pre>
-
-
-	<h3>Unforce it:</h3>
-	
-	<?php 
-		Condorcet::forceMethod(false) ;
-		$election->setMethod('Minimax_Opposition') ;
-	?>
-
-
-	<strong>Defaut:</strong> <?php echo $election->getMethod(); ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::setDefaultMethod('Minimax_Margin') ; ?> <br>
 
 	 <pre>
 	<?php Condorcet::format($election->getResult()); ?>

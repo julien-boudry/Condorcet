@@ -1,9 +1,9 @@
-## public static Condorcet::getClassDefaultMethod
+## public static Condorcet::getDefaultMethod
 
 ### Description    
 
 ```php
-public static Condorcet::getClassDefaultMethod ( )
+public static Condorcet::getDefaultMethod ( )
 ```
 
 Return the Condorcet static default method for the new Condorcet object.    
@@ -19,4 +19,4 @@ Return the Condorcet static default method for the new Condorcet object.
 ### Related method(s)      
 
 * [static Condorcet::getAuthMethods](../Condorcet Class/public static Condorcet--getAuthMethods.md)    
-* [static Condorcet::setClassMethod](../Condorcet Class/public static Condorcet--setClassMethod.md)    
+* [static Condorcet::setDefaultMethod](../Condorcet Class/public static Condorcet--setDefaultMethod.md)    
