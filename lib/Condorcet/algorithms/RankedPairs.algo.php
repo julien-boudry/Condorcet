@@ -2,7 +2,7 @@
 /*
 	Ranked Pairs part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.90
+	Last modified at: Condorcet Class v0.92
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet
@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairs extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
+class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
 	// Ranked Pairs
 	protected $_PairwiseSort ;
@@ -36,7 +36,7 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\Condorcet
 			//////
 
 		// Sort pairwise
-		$this->_PairwiseSort = namespace\Condorcet::makeStatic_PairwiseSort($this->_selfElection->getPairwise(false)) ;
+		$this->_PairwiseSort = namespace\AlgoTools\PairwiseStats::PairwiseSort($this->_selfElection->getPairwise(false)) ;
 
 		// Ranking calculation
 		$this->makeArcs();

@@ -2,7 +2,7 @@
 /*
 	Kemeny-Young part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.90
+	Last modified at: Condorcet Class v0.92
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet
@@ -12,7 +12,7 @@ namespace Condorcet ;
 // Note : This class use some configuration method preset at the bottom of this file.
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
-class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
+class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
 	// Limits
 		/* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will write its cache for life, you must have write permissions in the directory lib / Condorcet / algorithms / KemenyYoung-Data /.
@@ -139,7 +139,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\Condorcet
 
 	protected function doPossibleRanking ($path)
 	{
-		( new namespace\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
+		( new namespace\AlgoTools\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
 	}
 
 	protected function calcRankingScore ()

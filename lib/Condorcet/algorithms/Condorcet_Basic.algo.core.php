@@ -2,7 +2,7 @@
 /*
 	Basic Condorcet Winner & Loser core part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.90
+	Last modified at: Condorcet Class v0.92
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet
@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
+class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
 	// Basic Condorcet
 	protected $_CondorcetWinner ;

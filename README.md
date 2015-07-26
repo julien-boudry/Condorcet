@@ -5,12 +5,16 @@
 Condorcet Class for PHP
 ===========================
 
-A PHP class implementing the Condorcet voting system and other Condorcet methods like the Schulze method.  
-_This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
+A PHP class implementing the Condorcet voting system and others Condorcet methods like the Schulze method.  
 
-This library allows both the calculation of results according to the original method of the Marquis de Condorcet that algortihmes implementing more complex way its criteria.   
-But Condorcet Class allows much more than this, and is actually a real manager of election and voting; providing you with powerful management features and your elections storage facilities.
+**This library provide you :**
+- Great vote management system. With stats, security, cache, exports, sleeping support and a powerfull vote and candidate management object-oriented.
+- Support for the pairwise computation and implementing of the original method from the Marquis of Condorcet.
+- Native implementation of more complex algortihms meeting the criteria Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _see below_)
+- Modular architecture to easily implement yours own algorithms or extend existing.
 
+_This class is not designed for high performances, very high fiability exigence _(
+Has not been audited.)_, massive voters or candidates_   
 
 ### Summary
 1. Project Overview     
@@ -31,23 +35,29 @@ But Condorcet Class allows much more than this, and is actually a real manager o
 **Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet/graphs/contributors))_     
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 
-As a courtesy, I will thank you to inform me about your project wearing this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
-**Or finance my studies:** *13Ui2GBf8CVPKnuGXNB4MSrEsGJ9SuxEzC*
+As a courtesy, I will thank you to inform me about your project using this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
+**Or finance my studies:** *1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez*
 
 
 ### Specifications and standards  
-**Stable Version: 0.15**  
+**Stable Version: 0.92**  
 **PHP Requirement:** PHP 5.5 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
-**Autoloading:** This project is consistent with the standard-PSR 0 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
+##### Autoloading:   
+This project is consistent with the standard PSR-0 and PSR-4 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
 The literature also provides easy example of free implementation with or without autoloader.
 
-**Coding standards:** The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
+##### Coding standards:  
+The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
-**Performance:** *Benchmark on a modern machine (linux - x64 - php 5.6) of a large use of methods and algorithms. With relatively complex voting scenarios. For simpler use, Condorcet knows proceed more aggresive (cache, partial computation ...).*    
+##### Performance:  
+Benchmark on a modern machine (linux - x64 - php 5.6) of a large use of methods and algorithms. With relatively complex voting scenarios excluding cache use.   
+In pratice, Condorcet knows proceed more aggresive (cache, partial computation ...).    
+
 Memory usage : less than 2M    
 Execution time : less than 120ms  
 
+###### Kemeny-Youg case :   
 use Kemeny-Young 6 candidates : 5MB - 220ms    
 use Kemeny-Young 7 candidates : 32MB - 900ms    
 use Kemeny-Young 8 candidates : 135MB - 3500ms    
@@ -55,8 +65,8 @@ use Kemeny-Young 8 candidates : 135MB - 3500ms
 
 #### Project State
 To date, we have a stable version, and support is provided.    
-- Since version 0.90, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.
-- Some support and fix can be done for 0.14 version on demand.    
+- Since version 0.90, significant structural changes have strong evolutionary implementation of the API. Including a full object management of the Votes and Candidate, in addition to the old and easier string conceptualization.  
+- Some support and fix can be done for 0.14 version on demand.   
 
 **External testers are more than welcome**.   
 

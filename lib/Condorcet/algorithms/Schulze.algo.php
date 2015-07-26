@@ -2,7 +2,7 @@
 /*
 	Schulze part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.90
+	Last modified at: Condorcet Class v0.92
 
 	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
 	https://github.com/julien-boudry/Condorcet
@@ -21,11 +21,9 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 
 /////////// PUBLIC ///////////
 
+	abstract protected function schulzeVariant (&$i,&$j);
 
-	// Get the Schulze ranking
-	abstract public function getResult () ;
-
-	protected function make_getResult ($options, $variant)
+	public function getResult ($options = null)
 	{
 		// Cache
 		if ( $this->_Result !== null )
@@ -39,7 +37,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 		$this->prepareStrongestPath() ;
 
 		// Strongest Paths calculation
-		$this->makeStrongestPaths($variant) ;
+		$this->makeStrongestPaths() ;
 
 		// Ranking calculation
 		$this->makeRanking() ;
@@ -102,7 +100,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 
 
 	// Calculate the Strongest Paths
-	protected function makeStrongestPaths ($variant)
+	protected function makeStrongestPaths ()
 	{
 		foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
 		{
@@ -112,18 +110,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 				{
 					if ( $this->_selfElection->getPairwise(false)[$i]['win'][$j] > $this->_selfElection->getPairwise(false)[$j]['win'][$i] )
 					{
-						switch ($variant)
-						{
-							case 'winning'	: $this->_StrongestPaths[$i][$j] = $this->_selfElection->getPairwise(false)[$i]['win'][$j] ;
-								break ;
-							case 'margin'	: $this->_StrongestPaths[$i][$j] = ($this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i]) ;
-								break ;
-							case 'ratio'	: $this->_StrongestPaths[$i][$j] = ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
-																					($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) :
-																					(0)
-																					;
-								break ;
-						}
+						$this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);						
 					}
 					else
 					{
@@ -210,27 +197,25 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 }
 
 
-class Schulze extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
-	public function getResult ($options = null)
-	{
-		return $this->_Result = self::make_getResult($options, 'winning') ;
+	protected function schulzeVariant (&$i, &$j) {
+		return $this->_selfElection->getPairwise(false)[$i]['win'][$j];
 	}
 }
 
-class Schulze_Margin extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze_Margin extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
-	public function getResult ($options = null)
-	{
-		return $this->_Result = self::make_getResult($options, 'margin') ;
+	protected function schulzeVariant (&$i, &$j) {
+		return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];
 	}
 }
 
-class Schulze_Ratio extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze_Ratio extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
-	public function getResult ($options = null)
-	{
-		return $this->_Result = self::make_getResult($options, 'ratio') ;
+	protected function schulzeVariant (&$i, &$j) {
+		return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
+																					($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) : 0 ;
 	}
 }
 
