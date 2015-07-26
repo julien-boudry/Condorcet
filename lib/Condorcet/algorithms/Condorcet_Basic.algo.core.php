@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
+class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
 	// Basic Condorcet
 	protected $_CondorcetWinner ;

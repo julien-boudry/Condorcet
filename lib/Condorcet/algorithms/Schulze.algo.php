@@ -210,7 +210,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 }
 
 
-class Schulze extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
 	public function getResult ($options = null)
 	{
@@ -218,7 +218,7 @@ class Schulze extends namespace\Schulze_Core implements namespace\Condorcet_Algo
 	}
 }
 
-class Schulze_Margin extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze_Margin extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
 	public function getResult ($options = null)
 	{
@@ -226,7 +226,7 @@ class Schulze_Margin extends namespace\Schulze_Core implements namespace\Condorc
 	}
 }
 
-class Schulze_Ratio extends namespace\Schulze_Core implements namespace\Condorcet_Algo
+class Schulze_Ratio extends namespace\Schulze_Core implements namespace\AlgoInterface
 {
 	public function getResult ($options = null)
 	{

@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairs extends namespace\CondorcetAlgo implements namespace\Condorcet_Algo
+class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
 	// Ranked Pairs
 	protected $_PairwiseSort ;
