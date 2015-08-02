@@ -11,7 +11,7 @@ namespace Condorcet ;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core extends namespace\CondorcetAlgo
+abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Schulze
     protected $_StrongestPaths ;
@@ -197,21 +197,21 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo
 }
 
 
-class Schulze extends namespace\Schulze_Core implements namespace\AlgoInterface
+class Schulze extends namespace\Schulze_Core
 {
     protected function schulzeVariant (&$i, &$j) {
         return $this->_selfElection->getPairwise(false)[$i]['win'][$j];
     }
 }
 
-class Schulze_Margin extends namespace\Schulze_Core implements namespace\AlgoInterface
+class Schulze_Margin extends namespace\Schulze_Core
 {
     protected function schulzeVariant (&$i, &$j) {
         return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];
     }
 }
 
-class Schulze_Ratio extends namespace\Schulze_Core implements namespace\AlgoInterface
+class Schulze_Ratio extends namespace\Schulze_Core
 {
     protected function schulzeVariant (&$i, &$j) {
         return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
