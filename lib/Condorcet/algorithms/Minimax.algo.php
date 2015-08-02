@@ -2,7 +2,7 @@
 /*
     Minimax part of the Condorcet PHP Class
 
-    Last modified at: Condorcet Class v0.92
+    Last modified at: Condorcet Class v0.93
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
