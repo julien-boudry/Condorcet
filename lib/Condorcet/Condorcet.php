@@ -1079,18 +1079,7 @@ class Condorcet
 
     public function getWinner ($substitution = null)
     {
-        if ( $substitution )
-        {
-            if ($substitution === true)
-                {$substitution = self::getDefaultMethod() ;}
-
-            if ( self::isAuthMethod($substitution) )
-                {$algo = $substitution ;}
-            else
-                {throw new namespace\CondorcetException(9,$substitution);}
-        }
-        else
-            {$algo = 'Condorcet_Basic';}
+        $algo = $this->condorcetBasicSubstitution($substitution);
 
             //////
 
@@ -1100,18 +1089,7 @@ class Condorcet
 
     public function getLoser ($substitution = null)
     {
-        if ( $substitution )
-        {           
-            if ($substitution === true)
-                {$substitution = self::getDefaultMethod() ;}
-            
-            if ( self::isAuthMethod($substitution) )
-                {$algo = $substitution ;}
-            else
-                {throw new namespace\CondorcetException(9,$substitution);}
-        }
-        else
-            {$algo = 'Condorcet_Basic';}
+        $algo = $this->condorcetBasicSubstitution($substitution);
 
             //////
 
@@ -1119,6 +1097,23 @@ class Condorcet
 
         return self::format($result[count($result)],false,false);
     }
+
+        protected function condorcetBasicSubstitution ($substitution) {
+            if ( $substitution )
+            {           
+                if ($substitution === true)
+                    {$substitution = self::getDefaultMethod() ;}
+                
+                if ( self::isAuthMethod($substitution) )
+                    {$algo = $substitution ;}
+                else
+                    {throw new namespace\CondorcetException(9,$substitution);}
+            }
+            else
+                {$algo = 'Condorcet_Basic';}
+
+            return $algo;
+        }
 
 
     public function getResultStats ($method = true)
