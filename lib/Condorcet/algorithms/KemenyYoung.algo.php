@@ -15,7 +15,7 @@ namespace Condorcet;
 class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Limits
-        /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will write its cache for life, you must have write permissions in the directory lib / Condorcet / algorithms / KemenyYoung-Data /.
+        /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
         public static $_maxCandidates = 8;
 
@@ -123,6 +123,8 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
         // But ... where are the data ?! Okay, old way now...
         if (!file_exists($path)) :
             $compute = $this->doPossibleRanking( (namespace\Condorcet::ENV === 'DEV') ? $path : null );
+        else :
+            $compute = file_get_contents($path);
         endif;
 
         $i = 0;
@@ -135,7 +137,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
             $replace[] = 'i:'.$candidate_id;
         }
 
-        $this->_PossibleRanking = unserialize( str_replace($search, $replace, file_get_contents($path)) );
+        $this->_PossibleRanking = unserialize( str_replace($search, $replace, $compute) );
     }
 
     protected function doPossibleRanking ($path = null)
