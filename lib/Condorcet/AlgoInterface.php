@@ -1,17 +1,17 @@
 <?php
 /*
-	Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP Class, with Schulze Methods and others !
 
-	Version : 0.92
+    Version: 0.93
 
-	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet
+    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
 interface AlgoInterface
 {
-	public function getResult($options);
-	public function getStats();
+    public function getResult($options);
+    public function getStats();
 }

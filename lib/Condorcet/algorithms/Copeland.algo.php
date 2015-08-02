@@ -1,106 +1,106 @@
 <?php
 /*
-	Copeland part of the Condorcet PHP Class
+    Copeland part of the Condorcet PHP Class
 
-	Last modified at: Condorcet Class v0.92
+    Last modified at: Condorcet Class v0.93
 
-	By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
-	https://github.com/julien-boudry/Condorcet
+    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
-	// Copeland
-	protected $_Comparison ;
-	protected $_Result ;
+    // Copeland
+    protected $_Comparison;
+    protected $_Result;
 
 
 /////////// PUBLIC ///////////
 
 
-	// Get the Coepland ranking
-	public function getResult ($options = null)
-	{
-		// Cache
-		if ( $this->_Result !== null )
-		{
-			return $this->_Result ;
-		}
+    // Get the Coepland ranking
+    public function getResult ($options = null)
+    {
+        // Cache
+        if ( $this->_Result !== null )
+        {
+            return $this->_Result;
+        }
 
-			//////
+            //////
 
-		// Comparison calculation
-		$this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false)) ;
+        // Comparison calculation
+        $this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false));
 
-		// Ranking calculation
-		$this->makeRanking() ;
-
-
-		// Return
-		return $this->_Result ;
-	}
+        // Ranking calculation
+        $this->makeRanking();
 
 
-	// Get the Copeland ranking
-	public function getStats ()
-	{
-		$this->getResult();
+        // Return
+        return $this->_Result;
+    }
 
-			//////
 
-		$explicit = array() ;
+    // Get the Copeland ranking
+    public function getStats ()
+    {
+        $this->getResult();
 
-		foreach ($this->_Comparison as $candidate_key => $value)
-		{
-			$explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
-		}
+            //////
 
-		return $explicit ;
-	}
+        $explicit = array();
+
+        foreach ($this->_Comparison as $candidate_key => $value)
+        {
+            $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
+        }
+
+        return $explicit;
+    }
 
 
 
 /////////// COMPUTE ///////////
 
 
-	//:: COPELAND ALGORITHM. :://
+    //:: COPELAND ALGORITHM. :://
 
-	protected function makeRanking ()
-	{
-		$this->_Result = array() ;
+    protected function makeRanking ()
+    {
+        $this->_Result = array();
 
-		// Calculate ranking
-		$challenge = array () ;
-		$rank = 1 ;
-		$done = 0 ;
+        // Calculate ranking
+        $challenge = array ();
+        $rank = 1;
+        $done = 0;
 
-		foreach ($this->_Comparison as $candidate_key => $candidate_data)
-		{
-			$challenge[$candidate_key] = $candidate_data['balance'] ;
-		}
+        foreach ($this->_Comparison as $candidate_key => $candidate_data)
+        {
+            $challenge[$candidate_key] = $candidate_data['balance'];
+        }
 
-		while ($done < $this->_selfElection->countCandidates())
-		{
-			$looking = max($challenge) ;
+        while ($done < $this->_selfElection->countCandidates())
+        {
+            $looking = max($challenge);
 
-			foreach ($challenge as $candidate => $value)
-			{
-				if ($value === $looking)
-				{
-					$this->_Result[$rank][] = $candidate ;
+            foreach ($challenge as $candidate => $value)
+            {
+                if ($value === $looking)
+                {
+                    $this->_Result[$rank][] = $candidate;
 
-					$done++ ; unset($challenge[$candidate]) ;
-				}
-			}
+                    $done++; unset($challenge[$candidate]);
+                }
+            }
 
-			$rank++ ;
-		}
-	}
+            $rank++;
+        }
+    }
 
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos('Copeland') ;
+namespace\Condorcet::addAlgos('Copeland');
