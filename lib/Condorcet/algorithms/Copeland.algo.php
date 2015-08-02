@@ -7,15 +7,15 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Copeland
-    protected $_Comparison ;
-    protected $_Result ;
+    protected $_Comparison;
+    protected $_Result;
 
 
 /////////// PUBLIC ///////////
@@ -27,20 +27,20 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
         // Cache
         if ( $this->_Result !== null )
         {
-            return $this->_Result ;
+            return $this->_Result;
         }
 
             //////
 
         // Comparison calculation
-        $this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false)) ;
+        $this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false));
 
         // Ranking calculation
-        $this->makeRanking() ;
+        $this->makeRanking();
 
 
         // Return
-        return $this->_Result ;
+        return $this->_Result;
     }
 
 
@@ -51,14 +51,14 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
 
             //////
 
-        $explicit = array() ;
+        $explicit = array();
 
         foreach ($this->_Comparison as $candidate_key => $value)
         {
             $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
         }
 
-        return $explicit ;
+        return $explicit;
     }
 
 
@@ -70,37 +70,37 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
 
     protected function makeRanking ()
     {
-        $this->_Result = array() ;
+        $this->_Result = array();
 
         // Calculate ranking
-        $challenge = array () ;
-        $rank = 1 ;
-        $done = 0 ;
+        $challenge = array ();
+        $rank = 1;
+        $done = 0;
 
         foreach ($this->_Comparison as $candidate_key => $candidate_data)
         {
-            $challenge[$candidate_key] = $candidate_data['balance'] ;
+            $challenge[$candidate_key] = $candidate_data['balance'];
         }
 
         while ($done < $this->_selfElection->countCandidates())
         {
-            $looking = max($challenge) ;
+            $looking = max($challenge);
 
             foreach ($challenge as $candidate => $value)
             {
                 if ($value === $looking)
                 {
-                    $this->_Result[$rank][] = $candidate ;
+                    $this->_Result[$rank][] = $candidate;
 
-                    $done++ ; unset($challenge[$candidate]) ;
+                    $done++; unset($challenge[$candidate]);
                 }
             }
 
-            $rank++ ;
+            $rank++;
         }
     }
 
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos('Copeland') ;
+namespace\Condorcet::addAlgos('Copeland');

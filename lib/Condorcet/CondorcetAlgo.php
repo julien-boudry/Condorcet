@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 // Generic for Algorithms
 abstract class CondorcetAlgo

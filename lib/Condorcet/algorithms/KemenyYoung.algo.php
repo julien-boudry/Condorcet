@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 // Note : This class use some configuration method preset at the bottom of this file.
 
@@ -17,13 +17,13 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will write its cache for life, you must have write permissions in the directory lib / Condorcet / algorithms / KemenyYoung-Data /.
         Do not try to go to 10, it is not viable! */
-        public static $_maxCandidates = 8 ;
+        public static $_maxCandidates = 8;
 
 
     // Kemeny Young
-    protected $_PossibleRanking ;
-    protected $_RankingScore ;
-    protected $_Result ;
+    protected $_PossibleRanking;
+    protected $_RankingScore;
+    protected $_Result;
 
 
     public function __construct (namespace\Condorcet $mother)
@@ -53,15 +53,15 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
         if (isset($options['noConflict']) && $options['noConflict'] === true)
         {
-            $conflicts = $this->conflictInfos() ;
+            $conflicts = $this->conflictInfos();
             if ( $conflicts !== false)
             {
-                return $this->conflictInfos() ;
+                return $this->conflictInfos();
             }
         }
 
         // Return
-        return $this->_Result ;
+        return $this->_Result;
     }
 
 
@@ -71,11 +71,11 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
             //////
 
-        $explicit = array() ;
+        $explicit = array();
 
         foreach ($this->_PossibleRanking as $key => $value)
         {
-            $explicit[$key] = $value ;
+            $explicit[$key] = $value;
 
             // Human readable
             foreach ($explicit[$key] as &$candidate_key)
@@ -83,30 +83,30 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
                 $candidate_key = $this->_selfElection->getCandidateId($candidate_key);
             }
 
-            $explicit[$key]['score'] = $this->_RankingScore[$key] ;
+            $explicit[$key]['score'] = $this->_RankingScore[$key];
         }
 
-        return $explicit ;
+        return $explicit;
     }
 
         protected function conflictInfos ()
         {
-            $max = max($this->_RankingScore) ;
+            $max = max($this->_RankingScore);
 
-            $conflict = -1 ;
+            $conflict = -1;
             foreach ($this->_RankingScore as $value)
             {
                 if ($value === $max)
                 {
-                    $conflict++ ;
+                    $conflict++;
                 }
             }
 
             if ($conflict === 0) 
-                {return false ;}
+                {return false;}
             else
             {
-                return ($conflict + 1).';'.max($this->_RankingScore) ;
+                return ($conflict + 1).';'.max($this->_RankingScore);
             }
         }
 
@@ -118,14 +118,14 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
     protected function calcPossibleRanking ()
     {
-        $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data' ;
+        $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
         // But ... where are the data ?! Okay, old way now...
         if (!file_exists($path)) :
             $compute = $this->doPossibleRanking( (namespace\Condorcet::ENV === 'DEV') ? $path : null );
         endif;
 
-        $i = 0 ;
+        $i = 0;
         $search = array();
         $replace = array();
 
@@ -151,18 +151,18 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
     protected function calcRankingScore ()
     {
-        $this->_RankingScore = array() ;
+        $this->_RankingScore = array();
         $pairwise = $this->_selfElection->getPairwise(false);
 
         foreach ($this->_PossibleRanking as $keyScore => $ranking) 
         {
-            $this->_RankingScore[$keyScore] = 0 ;
+            $this->_RankingScore[$keyScore] = 0;
 
-            $do = array() ;
+            $do = array();
 
             foreach ($ranking as $candidateId)
             {
-                $do[] = $candidateId ;
+                $do[] = $candidateId;
 
                 foreach ($ranking as $rank => $rankCandidate)
                 {
@@ -190,4 +190,4 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos('KemenyYoung') ;
+namespace\Condorcet::addAlgos('KemenyYoung');

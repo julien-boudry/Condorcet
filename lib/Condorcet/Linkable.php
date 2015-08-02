@@ -7,12 +7,12 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 // Generic for Candidate & Vote Class
 trait Linkable
 {
-    private $_link = array() ;
+    private $_link = array();
 
     public function __clone ()
     {
@@ -43,7 +43,7 @@ trait Linkable
 
     public function getLinks ()
     {
-        return (!empty($this->_link)) ? $this->_link : NULL ;
+        return (!empty($this->_link)) ? $this->_link : NULL;
     }
 
     // Internal
@@ -52,7 +52,7 @@ trait Linkable
     public function registerLink (namespace\Condorcet &$election)
     {
         if (array_search($election, $this->_link, true) === false)
-            { $this->_link[] = $election ; }
+            { $this->_link[] = $election; }
         else
             { throw new CondorcetException; }
     }
@@ -64,7 +64,7 @@ trait Linkable
         if ($destroyKey !== false)
         {
             unset($this->_link[$destroyKey]);
-            return true ;
+            return true;
         }
         else
             { throw new CondorcetException; }

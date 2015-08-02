@@ -7,15 +7,15 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Minimax extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Minimax
-    protected $_Stats ;
-    protected $_Result ;
+    protected $_Stats;
+    protected $_Result;
 
 
 /////////// PUBLIC ///////////
@@ -27,7 +27,7 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Algo
         // Cache
         if ( $this->_Result !== null )
         {
-            return $this->_Result ;
+            return $this->_Result;
         }
 
             //////
@@ -36,10 +36,10 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Algo
         $this->computeMinimax ();
 
         // Ranking calculation
-        $this->makeRanking () ;
+        $this->makeRanking ();
 
         // Return
-        return $this->_Result ;
+        return $this->_Result;
     }
 
 
@@ -50,14 +50,14 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Algo
 
             //////
 
-        $explicit = array() ;
+        $explicit = array();
 
         foreach ($this->_Stats as $candidate_key => $value)
         {
             $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = $value;
         }
 
-        return $explicit ;
+        return $explicit;
     }
 
 
@@ -66,56 +66,56 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Algo
 
     protected function computeMinimax ()
     {
-        $this->_Stats = array() ;
+        $this->_Stats = array();
 
         foreach ($this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id)
         {           
-            $lose_score         = array() ;
-            $margin_score       = array() ;
-            $opposition_score   = array() ;
+            $lose_score         = array();
+            $margin_score       = array();
+            $opposition_score   = array();
 
             foreach ($this->_selfElection->getPairwise(false)[$candidate_key]['lose'] as $key_lose => $value_lose)
             {
                 // Margin
-                $margin = $value_lose - $this->_selfElection->getPairwise(false)[$candidate_key]['win'][$key_lose] ;
-                $margin_score[] = $margin ;
+                $margin = $value_lose - $this->_selfElection->getPairwise(false)[$candidate_key]['win'][$key_lose];
+                $margin_score[] = $margin;
 
                 // Winning
                 if ($margin > 0)
                 {
-                    $lose_score[] = $value_lose ;
+                    $lose_score[] = $value_lose;
                 }
 
                 // Opposition
-                $opposition_score[] = $value_lose ;
+                $opposition_score[] = $value_lose;
             }
 
             // Write result
                 // Winning
-            if (!empty($lose_score)) {$this->_Stats[$candidate_key]['winning'] = max($lose_score) ;}
-            else {$this->_Stats[$candidate_key]['winning'] = 0 ;}
+            if (!empty($lose_score)) {$this->_Stats[$candidate_key]['winning'] = max($lose_score);}
+            else {$this->_Stats[$candidate_key]['winning'] = 0;}
             
                 // Margin
-            $this->_Stats[$candidate_key]['margin'] = max($margin_score) ;
+            $this->_Stats[$candidate_key]['margin'] = max($margin_score);
 
                 // Opposition
-            $this->_Stats[$candidate_key]['opposition'] = max($opposition_score) ;
+            $this->_Stats[$candidate_key]['opposition'] = max($opposition_score);
         }
     }
 
-    abstract protected function makeRanking () ;
+    abstract protected function makeRanking ();
 
     protected static function makeRanking_method ($type, array $stats)
     {
-        $result = array() ;
-        $values = array() ;
+        $result = array();
+        $values = array();
 
         foreach ($stats as $candidate_key => $candidate_Stats)
         {
-            $values[$candidate_key] = $candidate_Stats[$type] ;
+            $values[$candidate_key] = $candidate_Stats[$type];
         }
 
-        for ($rank = 1 ; !empty($values) ; $rank++)
+        for ($rank = 1; !empty($values); $rank++)
         {
             $looking = min($values);
 
@@ -123,14 +123,14 @@ abstract class Minimax extends namespace\CondorcetAlgo implements namespace\Algo
             {
                 if ($candidate_Stats === $looking)
                 {
-                    $result[$rank][] = $candidate_key ;
+                    $result[$rank][] = $candidate_key;
 
                     unset($values[$candidate_key]);
                 }
             }
         }
 
-        return $result ;
+        return $result;
     }
 }
 
@@ -138,7 +138,7 @@ class Minimax_Winning extends namespace\Minimax
 {
     protected function makeRanking ()
     {
-        $this->_Result = self::makeRanking_method('winning', $this->_Stats) ;
+        $this->_Result = self::makeRanking_method('winning', $this->_Stats);
     }
 }
 
@@ -146,7 +146,7 @@ class Minimax_Margin extends namespace\Minimax
 {
     protected function makeRanking ()
     {
-        $this->_Result = self::makeRanking_method('margin', $this->_Stats) ;
+        $this->_Result = self::makeRanking_method('margin', $this->_Stats);
     }
 }
 
@@ -155,9 +155,9 @@ class Minimax_Opposition extends namespace\Minimax
 {
     protected function makeRanking ()
     {
-        $this->_Result = self::makeRanking_method('opposition', $this->_Stats) ;
+        $this->_Result = self::makeRanking_method('opposition', $this->_Stats);
     }
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') ) ;
+namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') );

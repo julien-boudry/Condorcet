@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet\AlgoTools ;
+namespace Condorcet\AlgoTools;
 
 // Thanks to Jorge Gomes @cyberkurumin 
 class Permutation
@@ -22,14 +22,14 @@ class Permutation
             { return false; }
 
 
-        $result = $candidatesNumber ;
+        $result = $candidatesNumber;
 
-        for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++)
+        for ($iteration = 1; $iteration < $candidatesNumber; $iteration++)
         {
-            $result = $result * ($candidatesNumber - $iteration) ;
+            $result = $result * ($candidatesNumber - $iteration);
         }
 
-        return $result ;
+        return $result;
     }
 
 
@@ -40,7 +40,7 @@ class Permutation
     }
 
     public function getResults ($serialize = false) {
-        return ($serialize) ? serialize($this->results) : $this->results ;
+        return ($serialize) ? serialize($this->results) : $this->results;
     }
 
     public function writeResults ($path) {
@@ -50,7 +50,7 @@ class Permutation
     protected function createCandidates ($numberOfCandidates) {
         $arr = array();
 
-        for ($i = 0 ; $i < $numberOfCandidates ; $i++) {
+        for ($i = 0; $i < $numberOfCandidates; $i++) {
             $arr[] = self::$_prefix.$i;
         }
         return $arr;

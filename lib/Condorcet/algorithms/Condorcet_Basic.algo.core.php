@@ -7,15 +7,15 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Basic Condorcet
-    protected $_CondorcetWinner ;
-    protected $_CondorcetLoser ;
+    protected $_CondorcetWinner;
+    protected $_CondorcetLoser;
 
 
 /////////// PUBLIC ///////////
@@ -26,7 +26,7 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
         return array (
                         1 => $this->getWinner(),
                         2 => $this->getLoser()
-                    ) ;
+                    );
     }
 
 
@@ -42,7 +42,7 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
         // Cache
         if ( $this->_CondorcetWinner !== null )
         {
-            return $this->_CondorcetWinner ;
+            return $this->_CondorcetWinner;
         }
 
             //////
@@ -50,26 +50,26 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
         // Basic Condorcet calculation
         foreach ( $this->_selfElection->getPairwise(false) as $candidate_key => $candidat_detail )
         {
-            $winner = true ;
+            $winner = true;
 
             foreach ($candidat_detail['win'] as $challenger_key => $win_count )
             {
                 if  ( $win_count <= $candidat_detail['lose'][$challenger_key] )
                 {
-                    $winner = false ;
-                    break ;
+                    $winner = false;
+                    break;
                 }
             }
 
             if ($winner)
             {
-                $this->_CondorcetWinner = $candidate_key ;
+                $this->_CondorcetWinner = $candidate_key;
 
-                return $this->_CondorcetWinner ;
+                return $this->_CondorcetWinner;
             }
         }
 
-            return null ;
+            return null;
     }
 
     // Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
@@ -78,7 +78,7 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
         // Cache
         if ( $this->_CondorcetLoser !== null )
         {
-            return $this->_CondorcetLoser ;
+            return $this->_CondorcetLoser;
         }
 
             //////
@@ -86,29 +86,29 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
         // Basic Condorcet calculation
         foreach ( $this->_selfElection->getPairwise(false) as $candidate_key => $candidat_detail )
         {
-            $loser = true ;
+            $loser = true;
 
             foreach ( $candidat_detail['lose'] as $challenger_key => $lose_count )
             {
                 if  ( $lose_count <= $candidat_detail['win'][$challenger_key] )
                 {  
-                    $loser = false ;
-                    break ;
+                    $loser = false;
+                    break;
                 }
             }
 
             if ($loser)
             { 
-                $this->_CondorcetLoser = $candidate_key ;
+                $this->_CondorcetLoser = $candidate_key;
 
-                return $this->_CondorcetLoser ;
+                return $this->_CondorcetLoser;
             }
         }
 
-            return null ;
+            return null;
     }
 
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos('Condorcet_Basic') ;
+namespace\Condorcet::addAlgos('Condorcet_Basic');

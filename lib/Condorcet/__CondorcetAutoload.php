@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 // Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function. Exept for algorithms class.
 spl_autoload_register(function ($className) {
@@ -21,7 +21,7 @@ spl_autoload_register(function ($className) {
 
         require substr_replace($fileName, __DIR__ . DIRECTORY_SEPARATOR, 0, 10);
     else :
-        return false ;
+        return false;
     endif;
 });
 
@@ -32,6 +32,6 @@ if (!class_exists('\\Condorcet\Condorcet_Basic', false)) {
 
     foreach (glob( __DIR__ . DIRECTORY_SEPARATOR."algorithms".DIRECTORY_SEPARATOR."*.algo.php" ) as $Condorcet_filename)
     {
-        include_once $Condorcet_filename ;
+        include_once $Condorcet_filename;
     }
 }

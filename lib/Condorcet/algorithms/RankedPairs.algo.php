@@ -7,18 +7,18 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Ranked Pairs
-    protected $_PairwiseSort ;
-    protected $_Arcs ;
-    protected $_Stats ;
-    protected $_StatsDone = false ;
-    protected $_Result ;
+    protected $_PairwiseSort;
+    protected $_Arcs;
+    protected $_Stats;
+    protected $_StatsDone = false;
+    protected $_Result;
 
 
 /////////// PUBLIC ///////////
@@ -30,20 +30,20 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
         // Cache
         if ( $this->_Result !== null )
         {
-            return $this->_Result ;
+            return $this->_Result;
         }
 
             //////
 
         // Sort pairwise
-        $this->_PairwiseSort = namespace\AlgoTools\PairwiseStats::PairwiseSort($this->_selfElection->getPairwise(false)) ;
+        $this->_PairwiseSort = namespace\AlgoTools\PairwiseStats::PairwiseSort($this->_selfElection->getPairwise(false));
 
         // Ranking calculation
         $this->makeArcs();
 
-        $this->_Result = array() ;
+        $this->_Result = array();
 
-        $rang = 1 ;
+        $rang = 1;
         while (count($this->_Result) < $this->_selfElection->countCandidates())
         {
             $winner = $this->getOneWinner();
@@ -60,7 +60,7 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
         }
 
         // Return
-        return $this->_Result ;
+        return $this->_Result;
     }
 
     // Get the Ranked Pair ranking
@@ -83,10 +83,10 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
                 }
             }
 
-            $this->_StatsDone = true ;
+            $this->_StatsDone = true;
         }
 
-        return $this->_Stats ;
+        return $this->_Stats;
     }
 
 
@@ -102,16 +102,16 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
         {
             if (!in_array($candidateKey, $this->_Result, true))
             {
-                $winner = true ;
+                $winner = true;
                 foreach ($this->_Arcs as $ArcKey => $ArcValue)
                 {
                     if ($ArcValue['to'] === $candidateKey)
-                        { $winner = false ;}
+                        { $winner = false;}
                 }
 
                 if ($winner)
                 {
-                    return $candidateKey ;
+                    return $candidateKey;
                 }
             }
         }
@@ -119,24 +119,24 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
     protected function makeArcs ()
     {
-        $this->_Arcs = array() ;
+        $this->_Arcs = array();
 
         foreach ($this->_PairwiseSort as $wise => $strength)
         {
             $ord = explode ('>',$wise);
 
-            $this->_Arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score']) ;
+            $this->_Arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score']);
         }
 
         foreach ($this->_Arcs as $key => $value)
         {
             if (!isset($this->_Arcs[$key]))
-                {continue ;}
+                {continue;}
 
             $this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], array($key));
         }
 
-        $this->_Stats = $this->_Arcs ;
+        $this->_Stats = $this->_Arcs;
     }
 
         protected function checkingArc ($candidate, $candidate_next, $construct, $done)
@@ -145,30 +145,30 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
             if (count($done) > 1)
             {
                 $test_cycle = explode('-', $construct);
-                $count_cycle = array_count_values($test_cycle) ;
+                $count_cycle = array_count_values($test_cycle);
 
                 if ($count_cycle[$candidate] > 1) // There is a cycle
                 {                   
                     $this->delArc($test_cycle, $candidate);
 
-                    return ;
+                    return;
                 }
             }
 
             foreach ($this->_Arcs as $new_arc_key => $new_arc)
             {
                 if (!isset($this->_Arcs[$new_arc_key]))
-                    {continue ;}
+                    {continue;}
 
                 if (!in_array($new_arc_key, $done, true))
                 {
                     if ($new_arc['from'] !== $candidate_next)
                     {
-                        continue ;
+                        continue;
                     }
 
-                    $done_next = $done ;
-                    $done_next[] = $new_arc_key ;
+                    $done_next = $done;
+                    $done_next[] = $new_arc_key;
 
                     // Recursive
                     $this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
@@ -178,41 +178,41 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
         protected function delArc ($test_cycle, $candidate)
         {
-            $cycles = array() ;
+            $cycles = array();
 
-            $i = 1 ; $phase = false ;
+            $i = 1; $phase = false;
             foreach ($test_cycle as $value)
             {
                 if ($i === 1 && !$phase)
                 {
-                    $cycles[$i] = '' ;
-                    $cycles[$i] .= $value ;
+                    $cycles[$i] = '';
+                    $cycles[$i] .= $value;
 
-                    $phase = !$phase ;
+                    $phase = !$phase;
 
-                    continue ;
+                    continue;
                 }
 
                 ///
 
-                $cycles[$i] .= '>'.$value ;
+                $cycles[$i] .= '>'.$value;
 
                 if ($i + 1 < count($test_cycle))
                 {
-                    $cycles[$i + 1] = '' ;
-                    $cycles[$i + 1] .= $value ;
+                    $cycles[$i + 1] = '';
+                    $cycles[$i + 1] .= $value;
                 }
 
-                $i++ ;
+                $i++;
             }
 
-            $score = array() ;
+            $score = array();
             foreach ($cycles as $key => $value)
             {
-                $score[$key] = $this->_PairwiseSort[$value]['score'] ;
+                $score[$key] = $this->_PairwiseSort[$value]['score'];
             }
 
-            $to_del = $cycles[array_search(min($score), $score, true)] ;
+            $to_del = $cycles[array_search(min($score), $score, true)];
             $to_del = explode ('>', $to_del);
 
 
@@ -228,4 +228,4 @@ class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInter
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos('RankedPairs') ;
+namespace\Condorcet::addAlgos('RankedPairs');

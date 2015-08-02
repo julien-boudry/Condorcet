@@ -7,11 +7,11 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 class Vote implements \Iterator
 {
-    use namespace\Linkable ;
+    use namespace\Linkable;
 
     // Implement Iterator
 
@@ -107,7 +107,7 @@ class Vote implements \Iterator
         {
             foreach ($rank as $oneCandidate)
             {
-                $list[] = $oneCandidate ;
+                $list[] = $oneCandidate;
             }
         }
 
@@ -200,19 +200,19 @@ class Vote implements \Iterator
 
             ksort($ranking);
             
-            $i = 1 ; $vote_r = array() ;
+            $i = 1; $vote_r = array();
             foreach ($ranking as &$value)
             {
                 if ( !is_array($value) )
                 {
-                    $vote_r[$i] = array($value) ;
+                    $vote_r[$i] = array($value);
                 }
                 else
                 {
-                    $vote_r[$i] = $value ;
+                    $vote_r[$i] = $value;
                 }
 
-                $i++ ;
+                $i++;
             }
 
             $ranking = $vote_r;
@@ -257,7 +257,7 @@ class Vote implements \Iterator
                 }
             }
 
-            return $vote ;
+            return $vote;
         }
 
 
@@ -330,13 +330,13 @@ class Vote implements \Iterator
             // Trim tags
             foreach ($tags as $key => &$oneTag)
             {
-                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag) ;
+                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
 
                 if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag))
                     {unset($tags[$key]);}
             }
 
-            return $tags ;
+            return $tags;
         }
 
 

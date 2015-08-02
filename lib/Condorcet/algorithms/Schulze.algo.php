@@ -7,15 +7,15 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet ;
+namespace Condorcet;
 
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace\AlgoInterface
 {
     // Schulze
-    protected $_StrongestPaths ;
-    protected $_Result ;
+    protected $_StrongestPaths;
+    protected $_Result;
 
 
 
@@ -28,23 +28,23 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
         // Cache
         if ( $this->_Result !== null )
         {
-            return $this->_Result ;
+            return $this->_Result;
         }
 
             //////
 
         // Format array
-        $this->prepareStrongestPath() ;
+        $this->prepareStrongestPath();
 
         // Strongest Paths calculation
-        $this->makeStrongestPaths() ;
+        $this->makeStrongestPaths();
 
         // Ranking calculation
-        $this->makeRanking() ;
+        $this->makeRanking();
 
 
         // Return
-        return $this->_Result ;
+        return $this->_Result;
     }
 
 
@@ -55,7 +55,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
 
             //////
 
-        $explicit = array() ;
+        $explicit = array();
 
         foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
         {
@@ -67,7 +67,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
             }
         }
 
-        return $explicit ;
+        return $explicit;
     }
 
 
@@ -81,18 +81,18 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath ()
     {
-        $this->_StrongestPaths = array() ;
+        $this->_StrongestPaths = array();
 
         foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id )
         {
-            $this->_StrongestPaths[$candidate_key] = array() ;
+            $this->_StrongestPaths[$candidate_key] = array();
 
             // Format array for the strongest path
             foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r )
             {
                 if ($candidate_key_r != $candidate_key)
                 {
-                    $this->_StrongestPaths[$candidate_key][$candidate_key_r]    = 0 ;
+                    $this->_StrongestPaths[$candidate_key][$candidate_key_r]    = 0;
                 }
             }
         }               
@@ -114,7 +114,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
                     }
                     else
                     {
-                        $this->_StrongestPaths[$i][$j] = 0 ;
+                        $this->_StrongestPaths[$i][$j] = 0;
                     }
 
                 }
@@ -136,7 +136,7 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
                                             max( 
                                                     $this->_StrongestPaths[$j][$k], 
                                                     min( $this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k] )
-                                                ) ;
+                                                );
                         }
                     }
                 }
@@ -148,49 +148,49 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
     // Calculate && Format human readable ranking
     protected function makeRanking ()
     {       
-        $this->_Result = array() ;
+        $this->_Result = array();
 
         // Calculate ranking
-        $done = array () ;
-        $rank = 1 ;
+        $done = array ();
+        $rank = 1;
 
         while (count($done) < $this->_selfElection->countCandidates())
         {
-            $to_done = array() ;
+            $to_done = array();
 
             foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key )
             {
                 if ( in_array($candidate_key, $done, true) )
                 {
-                    continue ;
+                    continue;
                 }
 
-                $winner = true ;
+                $winner = true;
 
                 foreach ($challengers_key as $beaten_key => $beaten_value)
                 {
                     if ( in_array($beaten_key, $done, true) )
                     {
-                        continue ;
+                        continue;
                     }
 
                     if ( $beaten_value < $this->_StrongestPaths[$beaten_key][$candidate_key] )
                     {
-                        $winner = false ;
+                        $winner = false;
                     }
                 }
 
                 if ($winner)
                 {
-                    $this->_Result[$rank][] = $candidate_key ;
+                    $this->_Result[$rank][] = $candidate_key;
 
-                    $to_done[] = $candidate_key ;
+                    $to_done[] = $candidate_key;
                 }
             }
 
             $done = array_merge($done, $to_done);
 
-            $rank++ ;
+            $rank++;
         }
     }
 
@@ -215,9 +215,9 @@ class Schulze_Ratio extends namespace\Schulze_Core
 {
     protected function schulzeVariant (&$i, &$j) {
         return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
-                                                                                    ($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) : 0 ;
+                                                                                    ($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) : 0;
     }
 }
 
 // Registering algorithm
-namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin', 'Schulze_Ratio') ) ;
+namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin', 'Schulze_Ratio') );
