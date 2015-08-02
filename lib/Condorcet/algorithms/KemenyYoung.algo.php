@@ -121,8 +121,9 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
         $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data' ;
 
         // But ... where are the data ?! Okay, old way now...
-        if (!file_exists($path))
-            { $this->doPossibleRanking($path); }
+        if (!file_exists($path)) :
+            $compute = $this->doPossibleRanking( (namespace\Condorcet::ENV === 'DEV') ? $path : null );
+        endif;
 
         $i = 0 ;
         $search = array();
@@ -137,9 +138,15 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
         $this->_PossibleRanking = unserialize( str_replace($search, $replace, file_get_contents($path)) );
     }
 
-    protected function doPossibleRanking ($path)
+    protected function doPossibleRanking ($path = null)
     {
-        ( new namespace\AlgoTools\Permutation ($this->_selfElection->countCandidates()) )->writeResults($path);
+        $permutation = new namespace\AlgoTools\Permutation ($this->_selfElection->countCandidates());
+
+        if ($path === null) :
+            return $premutation->getResults(true);
+        else :
+            $permutation->writeResults($path);
+        endif;
     }
 
     protected function calcRankingScore ()
