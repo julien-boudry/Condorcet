@@ -30,8 +30,8 @@ class Condorcet
     const ENV = 'DEV';
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
-    protected static $_defaultMethod    = null;
-    protected static $_authMethods  = [];
+    protected static $_defaultMethod = null;
+    protected static $_authMethods = [];
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
     protected static $_checksumMode = false;
