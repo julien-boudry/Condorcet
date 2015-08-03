@@ -23,10 +23,7 @@ class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoI
 
     public function getResult ($options = null)
     {
-        return array (
-                        1 => $this->getWinner(),
-                        2 => $this->getLoser()
-                    );
+        throw new CondorcetException (102);
     }
 
 

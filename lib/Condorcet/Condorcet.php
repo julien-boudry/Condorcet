@@ -1083,7 +1083,15 @@ class Condorcet
 
             //////
 
-        return self::format($this->getResult($algo)[1],false,false);
+        if ($algo === 'Condorcet_Basic') :
+            $this->initResult($algo);
+
+            $result = $this->_Calculator[$algo]->getWinner();
+
+            return ($result === null) ? null : $this->getCandidateId($result);
+        else :
+            return self::format($this->getResult($algo)[1],false,false);
+        endif;
     }
 
 
@@ -1093,9 +1101,17 @@ class Condorcet
 
             //////
 
-        $result = $this->getResult($algo);
+        if ($algo === 'Condorcet_Basic') :
+            $this->initResult($algo);
 
-        return self::format($result[count($result)],false,false);
+            $result = $this->_Calculator[$algo]->getLoser();
+
+            return ($result === null) ? null : $this->getCandidateId($result);
+        else :
+            $result = $this->getResult($algo);
+
+            return self::format($result[count($result)],false,false);
+        endif;
     }
 
         protected function condorcetBasicSubstitution ($substitution) {
