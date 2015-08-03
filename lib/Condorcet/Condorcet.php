@@ -1297,8 +1297,6 @@ class Condorcet
 
     protected function doPairwise ()
     {       
-        $chrono = new Timer_Chrono ($this->_timer);
-
         $this->_Pairwise = array();
 
         foreach ( $this->_Candidates as $candidate_key => $candidate_id )
