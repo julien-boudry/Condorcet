@@ -11,18 +11,18 @@ namespace Condorcet\Timer;
 
 class Chrono
 {
-    protected $_timer;
+    protected $_manager;
     protected $_start;
 
     public function __construct (namespace\Manager $timer)
     {
-        $this->_timer = $timer;
+        $this->_manager = $timer;
         $this->resetStart();
     }
 
     public function __destruct ()
     {
-        $this->_timer->addTime($this);
+        $this->_manager->addTime($this);
     }
 
     public function getInterval ($reset = true)
@@ -38,7 +38,7 @@ class Chrono
     }
 
     public function getTimerManager () {
-        return $this->_timer;
+        return $this->_manager;
     }
 
     protected function resetStart ($pro = null) {
