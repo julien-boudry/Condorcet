@@ -15,12 +15,19 @@ class Manager
 {
     protected $_globalTimer = 0.0;
     protected $_lastTimer;
+    protected $_lastChronoTimestamp;
 
     public function addTime ( namespace\Chrono $chrono )
     {
         if ($chrono->getTimerManager() === $this) :
-            $this->_lastTimer = $chrono->getInterval(false);
+            $m = microtime(true);
+
+            $c = ( $this->_lastChronoTimestamp > $chrono->getStart() ) ? $this->_lastChronoTimestamp : $chrono->getStart();
+
+            $this->_lastTimer = $m - $c;
             $this->_globalTimer += $this->_lastTimer;
+
+            $this->_lastChronoTimestamp = $m;
         else :
             throw new CondorcetException ('Only chrono linked to this Manager can be used');
         endif;

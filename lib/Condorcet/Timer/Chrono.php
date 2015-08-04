@@ -25,16 +25,9 @@ class Chrono
         $this->_manager->addTime($this);
     }
 
-    public function getInterval ($reset = true)
+    public function getStart ($startPoint = false)
     {
-        $m = microtime(true);
-        $r = $m - $this->_start;
-
-        if ($reset) { 
-            $this->resetStart($m);
-        }
-
-        return $r;
+        return $this->_start;
     }
 
     public function getTimerManager () {
