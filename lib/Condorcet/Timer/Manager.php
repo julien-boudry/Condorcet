@@ -22,11 +22,15 @@ class Manager
         if ($chrono->getTimerManager() === $this) :
             $m = microtime(true);
 
-            $c = ( $this->_lastChronoTimestamp > $chrono->getStart() ) ? $this->_lastChronoTimestamp : $chrono->getStart();
+            if ( $this->_lastChronoTimestamp > $chrono->getStart() ) :
+                $c = $this->_lastChronoTimestamp;
+            else :
+                $c = $chrono->getStart();
+            endif;
 
-            $this->_lastTimer = $m - $c;
-            $this->_globalTimer += $this->_lastTimer;
+            $this->_globalTimer += ($m - $c);
 
+            $this->_lastTimer = ($m - $chrono->getStart());
             $this->_lastChronoTimestamp = $m;
         else :
             throw new CondorcetException ('Only chrono linked to this Manager can be used');
