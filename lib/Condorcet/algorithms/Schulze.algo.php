@@ -9,9 +9,11 @@
 */
 namespace Condorcet;
 
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
     protected $_StrongestPaths;

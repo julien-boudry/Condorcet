@@ -9,9 +9,11 @@
 */
 namespace Condorcet;
 
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class Condorcet_Basic extends Method implements MethodInterface
 {
     // Basic Condorcet
     protected $_CondorcetWinner;

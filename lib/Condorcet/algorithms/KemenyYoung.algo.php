@@ -9,12 +9,14 @@
 */
 namespace Condorcet;
 
-use \Condorcet\Algo\Tools\Permutation;
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\Algo\Tools\Permutation;
 
 // Note : This class use some configuration method preset at the bottom of this file.
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
-class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class KemenyYoung extends Method implements MethodInterface
 {
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.

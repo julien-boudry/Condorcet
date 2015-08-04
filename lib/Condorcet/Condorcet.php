@@ -9,6 +9,7 @@
 */
 namespace Condorcet;
 
+use Condorcet\Algo\MethodInterface;
 
 // Condorcet PSR-O autoload. Can be skipped by other Autoload from framework & Co
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
@@ -179,7 +180,7 @@ class Condorcet
                 throw new namespace\CondorcetException(9);
             }
 
-            if ( !in_array(__NAMESPACE__.'\\'.'AlgoInterface', class_implements(__NAMESPACE__.'\\'.$algos, false), true) )
+            if ( !(__NAMESPACE__.'\\'.$algos instanceof MethodInterface) )
             {
                 throw new namespace\CondorcetException(10);
             }

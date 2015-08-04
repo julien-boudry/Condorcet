@@ -9,9 +9,11 @@
 */
 namespace Condorcet;
 
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Minimax extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+abstract class Minimax extends Method implements MethodInterface
 {
     // Minimax
     protected $_Stats;

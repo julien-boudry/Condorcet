@@ -9,10 +9,12 @@
 */
 namespace Condorcet;
 
-use \Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\Algo\Tools\PairwiseStats;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class Copeland extends Method implements MethodInterface
 {
     // Copeland
     protected $_Comparison;

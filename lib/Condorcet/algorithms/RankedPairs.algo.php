@@ -9,10 +9,12 @@
 */
 namespace Condorcet;
 
-use \Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\Algo\Tools\PairwiseStats;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairs extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class RankedPairs extends Method implements MethodInterface
 {
     // Ranked Pairs
     protected $_PairwiseSort;
