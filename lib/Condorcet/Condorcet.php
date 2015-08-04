@@ -15,11 +15,7 @@ use Condorcet\Timer\Chrono as Timer_Chrono;
 
 // Condorcet PSR-O autoload. Can be skipped by other Autoload from framework & Co
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
-
-
-// Set the default Condorcet Class algorithm
-namespace\Condorcet::setDefaultMethod('Schulze');
-
+require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetConfig.php';
 
 // Base Condorcet class
 class Condorcet
@@ -34,7 +30,7 @@ class Condorcet
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
     protected static $_defaultMethod = null;
-    protected static $_authMethods = [];
+    protected static $_authMethods = ['CondorcetBasic'];
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
     protected static $_checksumMode = false;
@@ -89,7 +85,7 @@ class Condorcet
 
         // Don't show Natural Condorcet
         if (!$basic) :
-            unset($auth[array_search('Condorcet_Basic', $auth, true)]);
+            unset($auth[array_search('CondorcetBasic', $auth, true)]);
         endif;
 
         return $auth;
@@ -177,12 +173,12 @@ class Condorcet
         // Check if the class Algo. exist and ready to be used
         protected static function testAlgos ($algos)
         {
-            if ( !class_exists(__NAMESPACE__.'\\'.$algos, false) )
+            if ( !class_exists(__NAMESPACE__.'\\Algo\\Methods\\'.$algos) )
             {               
                 throw new namespace\CondorcetException(9);
             }
 
-            if ( !(__NAMESPACE__.'\\'.$algos instanceof MethodInterface) )
+            if ( !(__NAMESPACE__.'\\Algo\\Methods\\'.$algos instanceof MethodInterface) )
             {
                 throw new namespace\CondorcetException(10);
             }
@@ -194,7 +190,7 @@ class Condorcet
     // Change default method for this class.
     public static function setDefaultMethod ($method)
     {       
-        if ( self::isAuthMethod($method) && $method !== 'Condorcet_Basic' )
+        if ( self::isAuthMethod($method) && $method !== 'CondorcetBasic' )
         {
             self::$_defaultMethod = $method;
 
@@ -1088,7 +1084,7 @@ class Condorcet
 
             //////
 
-        if ($algo === 'Condorcet_Basic') :
+        if ($algo === 'CondorcetBasic') :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
@@ -1106,7 +1102,7 @@ class Condorcet
 
             //////
 
-        if ($algo === 'Condorcet_Basic') :
+        if ($algo === 'CondorcetBasic') :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
@@ -1131,7 +1127,7 @@ class Condorcet
                     {throw new namespace\CondorcetException(9,$substitution);}
             }
             else
-                {$algo = 'Condorcet_Basic';}
+                {$algo = 'CondorcetBasic';}
 
             return $algo;
         }
@@ -1210,7 +1206,7 @@ class Condorcet
     {
         if ( !isset($this->_Calculator[$method]) )
         {
-            $class = __NAMESPACE__.'\\'.$method;
+            $class = __NAMESPACE__.'\\Algo\\Methods\\'.$method;
             $this->_Calculator[$method] = new $class($this);
         }
     }

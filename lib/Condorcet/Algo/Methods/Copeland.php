@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
@@ -16,6 +16,9 @@ use Condorcet\Algo\Tools\PairwiseStats;
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'Copeland';
+
     // Copeland
     protected $_Comparison;
     protected $_Result;
@@ -104,6 +107,3 @@ class Copeland extends Method implements MethodInterface
     }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('Copeland');

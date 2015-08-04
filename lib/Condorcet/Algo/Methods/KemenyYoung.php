@@ -7,8 +7,9 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
+use Condorcet\Condorcet;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
@@ -18,6 +19,9 @@ use Condorcet\Algo\Tools\Permutation;
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'KemenyYoung';
+
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
@@ -30,7 +34,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected $_Result;
 
 
-    public function __construct (namespace\Condorcet $mother)
+    public function __construct (Condorcet $mother)
     {
         parent::__construct($mother);
 
@@ -194,6 +198,3 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('KemenyYoung');

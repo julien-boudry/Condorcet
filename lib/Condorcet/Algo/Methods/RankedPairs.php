@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
@@ -16,6 +16,9 @@ use Condorcet\Algo\Tools\PairwiseStats;
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'RankedPairs';
+
     // Ranked Pairs
     protected $_PairwiseSort;
     protected $_Arcs;
@@ -229,6 +232,3 @@ class RankedPairs extends Method implements MethodInterface
         }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('RankedPairs');

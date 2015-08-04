@@ -7,7 +7,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
@@ -135,31 +135,3 @@ abstract class Minimax extends Method implements MethodInterface
         return $result;
     }
 }
-
-class Minimax_Winning extends namespace\Minimax
-{
-    protected function makeRanking ()
-    {
-        $this->_Result = self::makeRanking_method('winning', $this->_Stats);
-    }
-}
-
-class Minimax_Margin extends namespace\Minimax
-{
-    protected function makeRanking ()
-    {
-        $this->_Result = self::makeRanking_method('margin', $this->_Stats);
-    }
-}
-
-// Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
-class Minimax_Opposition extends namespace\Minimax
-{
-    protected function makeRanking ()
-    {
-        $this->_Result = self::makeRanking_method('opposition', $this->_Stats);
-    }
-}
-
-// Registering algorithm
-namespace\Condorcet::addAlgos( array('Minimax_Winning','Minimax_Margin', 'Minimax_Opposition') );

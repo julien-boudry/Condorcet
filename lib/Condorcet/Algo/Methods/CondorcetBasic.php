@@ -7,14 +7,17 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
-class Condorcet_Basic extends Method implements MethodInterface
+class CondorcetBasic extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'CondorcetBasic';
+
     // Basic Condorcet
     protected $_CondorcetWinner;
     protected $_CondorcetLoser;
@@ -108,6 +111,3 @@ class Condorcet_Basic extends Method implements MethodInterface
     }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('Condorcet_Basic');

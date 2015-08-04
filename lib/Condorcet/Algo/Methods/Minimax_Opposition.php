@@ -1,0 +1,23 @@
+<?php
+/*
+    Minimax part of the Condorcet PHP Class
+
+    Last modified at: Condorcet Class v0.93
+
+    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    https://github.com/julien-boudry/Condorcet
+*/
+namespace Condorcet\Algo\Methods;
+
+// Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
+class Minimax_Opposition extends namespace\Minimax
+{
+    // Method Name
+    const METHOD_NAME = 'Minimax_Opposition';
+
+    protected function makeRanking ()
+    {
+        $this->_Result = self::makeRanking_method('opposition', $this->_Stats);
+    }
+}
+
