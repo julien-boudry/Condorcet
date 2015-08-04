@@ -11,7 +11,7 @@
 
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
-namespace Condorcet\AlgoTools;
+namespace Condorcet\Algo\Tools;
 
 // Generic for Algorithms
 abstract class PairwiseStats
