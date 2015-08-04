@@ -10,6 +10,8 @@
 namespace Condorcet;
 
 use Condorcet\Algo\MethodInterface;
+use Condorcet\Timer\Manager as Timer_Manager;
+use Condorcet\Timer\Chrono as Timer_Chrono;
 
 // Condorcet PSR-O autoload. Can be skipped by other Autoload from framework & Co
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
@@ -309,11 +311,10 @@ class Condorcet
     // Mechanics
     protected $_i_CandidateId = 'A';
     protected $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
+    protected $_timer;
     protected $_CandidatesCount = 0;
     protected $_nextVoteTag = 0;
     protected $_objectVersion;
-    protected $_globalTimer = 0.0;
-    protected $_lastTimer = 0.0;
     protected $_ignoreStaticMaxVote = false;
 
     // Result
@@ -326,6 +327,7 @@ class Condorcet
     {
         $this->_Candidates = array();
         $this->_Votes = array();
+        $this->_timer = new Timer_Manager;
 
         // Store constructor version (security for caching)
         $this->_objectVersion = self::VERSION;
@@ -367,9 +369,7 @@ class Condorcet
             '_Calculator',
         );
 
-        !self::$_checksumMode
-            AND
-                array_push($include, '_lastTimer','_globalTimer');
+        !self::$_checksumMode AND array_push($include, '_timer');
 
         return $include;
     }
@@ -433,11 +433,17 @@ class Condorcet
         $this->_globalTimer += $this->_lastTimer;
     }
 
-    public function getGlobalTimer ($float = false)
-        { return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5); }
+    public function getGlobalTimer ($float = false) {
+        return $this->_timer->getGlobalTimer($float);
+    }
 
-    public function getLastTimer ($float = false)
-        { return ($float) ? $this->_lastTimer : number_format($this->_lastTimer, 5); }
+    public function getLastTimer ($float = false) {
+        return $this->_timer->getLastTimer($float);
+    }
+
+    public function getTimerManager () {
+        return $this->_timer;
+    }
 
     public function getChecksum ()
     {
@@ -995,7 +1001,7 @@ class Condorcet
         // Filter if tag is provided & return
         if ($options['%tagFilter'])
         { 
-            $timer_start = microtime(true);
+            $chrono = new Timer_Chrono ($this->_timer);
 
             $filter = new self;
 
@@ -1008,7 +1014,7 @@ class Condorcet
                 $filter->addVote($vote);
             }
 
-            $this->setTimer($timer_start);
+            unset($chrono);
 
             return $filter->getResult($method, ['algoOptions' => $options['algoOptions']]);
         }
@@ -1020,7 +1026,7 @@ class Condorcet
 
             //////
 
-        $timer_start = microtime(true);
+        $chrono = new Timer_Chrono ($this->_timer);
 
         if ($method === true)
         {
@@ -1038,8 +1044,6 @@ class Condorcet
         {
             throw new namespace\CondorcetException(8,$method);
         }
-
-        $this->setTimer($timer_start);
 
         return ($options['human']) ? $this->humanResult($result) : $result;
     }
@@ -1085,8 +1089,8 @@ class Condorcet
             //////
 
         if ($algo === 'Condorcet_Basic') :
+            $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
-
             $result = $this->_Calculator[$algo]->getWinner();
 
             return ($result === null) ? null : $this->getCandidateId($result);
@@ -1103,8 +1107,8 @@ class Condorcet
             //////
 
         if ($algo === 'Condorcet_Basic') :
+            $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
-
             $result = $this->_Calculator[$algo]->getLoser();
 
             return ($result === null) ? null : $this->getCandidateId($result);
@@ -1294,7 +1298,7 @@ class Condorcet
 
     protected function doPairwise ()
     {       
-        $timer_start = microtime(true);
+        $chrono = new Timer_Chrono ($this->_timer);
 
         $this->_Pairwise = array();
 
@@ -1369,8 +1373,6 @@ class Condorcet
                         );
             }
         }
-
-        $this->setTimer($timer_start);
     }
 
 }
