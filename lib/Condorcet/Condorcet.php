@@ -9,6 +9,8 @@
 */
 namespace Condorcet;
 
+use Condorcet\Candidate;
+use Condorcet\Vote;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
@@ -241,9 +243,9 @@ class Condorcet
             $r = $input;
 
             if ($convertObject) :
-                if ($input instanceof namespace\Candidate) :
+                if ($input instanceof Candidate) :
                     $r = (string) $input;
-                elseif ($input instanceof namespace\Vote) :
+                elseif ($input instanceof Vote) :
                     $r = $input->getRanking();
                 endif;
             endif;
@@ -445,7 +447,7 @@ class Condorcet
             { throw new namespace\CondorcetException(2); }
 
         // Filter
-        if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof namespace\Candidate)) )
+        if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) )
             { throw new namespace\CondorcetException(1, $candidate_id); }
 
 
@@ -461,7 +463,7 @@ class Condorcet
         }
         else // Try to add the candidate_id
         {
-            $newCandidate = ($candidate_id instanceof namespace\Candidate) ? $candidate_id : new Candidate ($candidate_id);
+            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ($candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) )
                 { throw new namespace\CondorcetException(3,$candidate_id); }
@@ -596,7 +598,7 @@ class Condorcet
 
         protected function getCandidateKey ($candidate_id)
         {
-            if ($candidate_id instanceof namespace\Candidate) :
+            if ($candidate_id instanceof Candidate) :
                 return array_search($candidate_id, $this->_Candidates, true);
             else:
                 return array_search(trim((string) $candidate_id), $this->_Candidates);
@@ -668,7 +670,7 @@ class Condorcet
     }
 
         // return True or throw an Exception
-        public function prepareModifyVote (namespace\Vote $existVote)
+        public function prepareModifyVote (Vote $existVote)
             {
                 try {
                     $this->prepareVoteInput($existVote);
@@ -682,9 +684,9 @@ class Condorcet
         // Return the well formated vote to use.
         protected function prepareVoteInput (&$vote, $tag = null)
         {
-            if (!($vote instanceof namespace\Vote))
+            if (!($vote instanceof Vote))
             {
-                $vote = new namespace\Vote ($vote, $tag);
+                $vote = new Vote ($vote, $tag);
             }
 
             // Check array format && Make checkVoteCandidate
@@ -693,7 +695,7 @@ class Condorcet
         }
 
 
-        protected function checkVoteCandidate (namespace\Vote $vote)
+        protected function checkVoteCandidate (Vote $vote)
         {
             $linkCount = $vote->countLinks();
 
@@ -729,7 +731,7 @@ class Condorcet
         }
 
         // Write a new vote
-        protected function registerVote (namespace\Vote $vote, $tag = null)
+        protected function registerVote (Vote $vote, $tag = null)
         {
             // Set Phase 2
             $this->setStateToVote();
@@ -758,7 +760,7 @@ class Condorcet
         
         $rem = [];
 
-        if ($in instanceof namespace\Vote) :
+        if ($in instanceof Vote) :
             $key = $this->getVoteKey($in);
             if ($key !== false) :
                 $this->_Votes[$key]->destroyLink($this);
@@ -769,7 +771,7 @@ class Condorcet
             endif;
         else :
             // Prepare Tags
-            $tag = namespace\Vote::tagsConvert($in);
+            $tag = Vote::tagsConvert($in);
 
             // Deleting
 
@@ -912,7 +914,7 @@ class Condorcet
         }
         else
         {
-            $tag = namespace\Vote::tagsConvert($tag);
+            $tag = Vote::tagsConvert($tag);
             if ($tag === null)
                 {$tag = array();}
 
@@ -941,7 +943,7 @@ class Condorcet
         }
     }
 
-    public function getVoteKey (namespace\Vote $vote) {
+    public function getVoteKey (Vote $vote) {
         return array_search($vote, $this->_Votes, true);
     }
 

@@ -9,6 +9,8 @@
 */
 namespace Condorcet;
 
+use Condorcet\Candidate;
+
 class Vote implements \Iterator
 {
     use namespace\Linkable;
@@ -222,8 +224,8 @@ class Vote implements \Iterator
             foreach ($ranking as &$line)
             {
                 foreach ($line as &$Candidate) :
-                    if ( !($Candidate instanceof namespace\Candidate) ) :
-                        $Candidate = new namespace\Candidate ($Candidate);
+                    if ( !($Candidate instanceof Candidate) ) :
+                        $Candidate = new Candidate ($Candidate);
                     endif;
 
                     $counter++;
