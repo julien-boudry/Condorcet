@@ -21,6 +21,7 @@ class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name
     const METHOD_NAME = 'KemenyYoung';
+    protected static $method_alias = ['Kemeny-Young'];
 
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.

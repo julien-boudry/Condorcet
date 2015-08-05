@@ -13,6 +13,7 @@ class Minimax_Winning extends namespace\Minimax
 {
     // Method Name
     const METHOD_NAME = 'Minimax_Winning';
+    protected static $method_alias = 'Minimax';
 
     protected function makeRanking ()
     {

@@ -13,6 +13,7 @@ class Schulze_Ratio extends namespace\SchulzeCore
 {
     // Method Name
     const METHOD_NAME = 'Schulze_Ratio';
+    protected static $method_alias = ['Schulze Ratio'];
 
     protected function schulzeVariant (&$i, &$j) {
         return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?

@@ -93,8 +93,7 @@ class Condorcet
 
 
     // Return the Class default method
-    public static function getDefaultMethod ()
-    {
+    public static function getDefaultMethod () {
         return self::$_defaultMethod;
     }
 
@@ -104,21 +103,19 @@ class Condorcet
     {
         $auth = self::getAuthMethods(true);
 
-        if (is_string($methods))
-        {
+        if (is_string($methods)) :
             $methods = array($methods);
-        }
+        endif;
 
-        if (is_array($methods))
-        {
-            foreach ($methods as $method)
-            {
-                if ( !in_array($method,$auth, true) )
-                    { return false; }
-            }
+        if (is_array($methods)) :
+            foreach ($methods as $method) :
+                if ( !in_array($method,$auth, true) ) :
+                    return false;
+                endif;
+            endforeach;
 
             return true;
-        }
+        endif;
 
         return false;
     }
@@ -130,58 +127,33 @@ class Condorcet
         $to_add = array();
 
         // Check algos
-        if ( is_null($algos) )
-            { return false; }
-
-        elseif ( is_string($algos) && !self::isAuthMethod($algos) )
-        {
-            if ( !self::testAlgos($algos) )
-            {
-                return false;
-            }
-
-            $to_add[] = $algos; 
-        }
-
-        elseif ( is_array($algos) )
-        {
-            foreach ($algos as $value)
-            {
-                if ( !self::testAlgos($value) ) {
-                    return false;
-                }
-                elseif ( !self::isAuthMethod($value) ) {
-                    $to_add[] = $value; 
-                }
-            }
-        }
+        if ( !is_string($algos) ) :
+            return false;
+        elseif ( self::isAuthMethod($algos::METHOD_NAME) || !self::testAlgos($algos) ) :
+            return false;
+        endif;
 
         // Adding algo
-        foreach ($to_add as $value)
-        {
-            self::$_authMethods[] = $value;
+        self::$_authMethods[] = $algos::METHOD_NAME;
 
-            if (self::getDefaultMethod() === null) {
-                self::setDefaultMethod($value);
-            }
-        }
+        if (self::getDefaultMethod() === null) :
+            self::setDefaultMethod($algos::METHOD_NAME);
+        endif;
 
         return true;
     }
 
 
         // Check if the class Algo. exist and ready to be used
-        protected static function testAlgos ($algos)
+        protected static function testAlgos ($method)
         {
-            if ( !class_exists(__NAMESPACE__.'\\Algo\\Methods\\'.$algos) )
-            {               
+            if ( !class_exists($method) ) :             
                 throw new namespace\CondorcetException(9);
-            }
+            endif;
 
-            if ( !(__NAMESPACE__.'\\Algo\\Methods\\'.$algos instanceof MethodInterface) )
-            {
+            if ( !is_subclass_of($method, __NAMESPACE__.'\\Algo\\MethodInterface') || !is_subclass_of($method,__NAMESPACE__.'\\Algo\\Method') ) :
                 throw new namespace\CondorcetException(10);
-            }
+            endif;
 
             return true;
         }
