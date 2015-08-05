@@ -11,6 +11,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
+use Condorcet\CondorcetException;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface

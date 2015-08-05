@@ -13,6 +13,7 @@ use Condorcet\Condorcet;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
+use Condorcet\CondorcetException;
 
 // Note : This class use some configuration method preset at the bottom of this file.
 

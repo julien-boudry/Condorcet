@@ -124,6 +124,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 <br><br><hr>
 
 <?php 
+var_dump(Condorcet::getAuthMethods());
 	foreach (Condorcet::getAuthMethods() as $method)
 	{ ?>
 

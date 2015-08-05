@@ -9,9 +9,7 @@
 */
 namespace Condorcet;
 
-use Condorcet\Candidate;
-use Condorcet\Vote;
-use Condorcet\Algo\MethodInterface;
+use Condorcet\CondorcetException;
 use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
@@ -32,7 +30,7 @@ class Condorcet
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
     protected static $_defaultMethod = null;
-    protected static $_authMethods = ['CondorcetBasic'];
+    protected static $_authMethods = [ 'CondorcetBasic' => [] ];
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
     protected static $_checksumMode = false;
@@ -83,12 +81,15 @@ class Condorcet
     // Return an array with auth methods
     public static function getAuthMethods ($basic = false)
     {
+        
         $auth = self::$_authMethods;
 
         // Don't show Natural Condorcet
         if (!$basic) :
-            unset($auth[array_search('CondorcetBasic', $auth, true)]);
+            unset($auth['CondorcetBasic']);
         endif;
+
+        $auth = array_keys($auth);
 
         return $auth;
     }
@@ -101,22 +102,22 @@ class Condorcet
 
 
     // Check if the method is supported
-    public static function isAuthMethod ($methods)
+    public static function isAuthMethod ($method)
     {
-        $auth = self::getAuthMethods(true);
+        $auth = self::$_authMethods;
 
-        if (is_string($methods)) :
-            $methods = array($methods);
+        if (!is_string($method) || empty($method)) :
+            throw new CondorcetException (8);
         endif;
 
-        if (is_array($methods)) :
-            foreach ($methods as $method) :
-                if ( !in_array($method,$auth, true) ) :
-                    return false;
+        if ( isset($auth[$method]) ) :
+            return $method;
+        else :
+            foreach ($auth as $name => &$alias) :
+                if ($key = in_array($method, $auth, true)) :
+                    return $name;
                 endif;
             endforeach;
-
-            return true;
         endif;
 
         return false;
@@ -136,7 +137,7 @@ class Condorcet
         endif;
 
         // Adding algo
-        self::$_authMethods[] = $algos::METHOD_NAME;
+        self::$_authMethods[$algos::METHOD_NAME] = $algos::getNameAlias();
 
         if (self::getDefaultMethod() === null) :
             self::setDefaultMethod($algos::METHOD_NAME);
@@ -164,14 +165,12 @@ class Condorcet
     // Change default method for this class.
     public static function setDefaultMethod ($method)
     {       
-        if ( self::isAuthMethod($method) && $method !== 'CondorcetBasic' )
-        {
+        if ( ($method = self::isAuthMethod($method)) && $method !== 'CondorcetBasic' ) :
             self::$_defaultMethod = $method;
-
             return self::getDefaultMethod();
-        }
-        else
-            { return false; }
+        else :
+            return false;
+        endif;
     }
 
 
@@ -1004,7 +1003,7 @@ class Condorcet
 
             $result = $this->_Calculator[self::getDefaultMethod()]->getResult($options['algoOptions']);
         }
-        elseif (self::isAuthMethod($method))
+        elseif ($method = self::isAuthMethod($method))
         {
             $this->initResult($method);
 
@@ -1120,7 +1119,7 @@ class Condorcet
 
             $stats = $this->_Calculator[self::getDefaultMethod()]->getStats();
         }
-        elseif (self::isAuthMethod($method))
+        elseif ($method = self::isAuthMethod($method))
         {
             $this->initResult($method);
 
@@ -1152,12 +1151,9 @@ class Condorcet
     // Prepare to compute results & caching system
     protected function prepareResult ()
     {
-        if ($this->_State > 2)
-        {
+        if ($this->_State > 2) :
             return false;
-        }
-        elseif ($this->_State === 2)
-        {
+        elseif ($this->_State === 2) :
             $this->cleanupResult();
 
             // Do Pairewise
@@ -1168,11 +1164,9 @@ class Condorcet
 
             // Return
             return true;
-        }
-        else
-        {
+        else :
             throw new namespace\CondorcetException(6);
-        }
+        endif;
     }
 
 

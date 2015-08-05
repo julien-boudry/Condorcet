@@ -12,6 +12,7 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\CondorcetException;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends Method implements MethodInterface

@@ -11,6 +11,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
+use Condorcet\CondorcetException;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class SchulzeCore extends Method implements MethodInterface

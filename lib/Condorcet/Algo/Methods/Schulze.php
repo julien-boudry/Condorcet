@@ -9,6 +9,8 @@
 */
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\CondorcetException;
+
 class Schulze extends namespace\SchulzeCore
 {
     // Method Name

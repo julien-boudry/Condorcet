@@ -21,7 +21,7 @@ abstract class Method
         $this->_selfElection = $mother;
     }
 
-    public function getNameAlias () {
+    public static function getNameAlias () {
     	return (isset(self::$method_alias)) ? self::$method_alias : [];
     }
 }
