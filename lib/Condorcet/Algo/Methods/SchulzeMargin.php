@@ -11,11 +11,11 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\CondorcetException;
 
-class Schulze_Margin extends namespace\SchulzeCore
+class SchulzeMargin extends namespace\Schulze_Core
 {
     // Method Name
-    const METHOD_NAME = 'Schulze_Margin';
-    protected static $method_alias = ['Schulze Margin'];
+    const METHOD_NAME = 'SchulzeMargin';
+    const METHOD_ALIAS = 'Schulze Margin,Schulze_Margin';
 
     protected function schulzeVariant (&$i, &$j) {
         return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];

@@ -14,7 +14,7 @@ use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Minimax extends Method implements MethodInterface
+abstract class Minimax_Core extends Method implements MethodInterface
 {
     // Minimax
     protected $_Stats;

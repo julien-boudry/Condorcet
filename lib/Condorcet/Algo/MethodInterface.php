@@ -14,5 +14,4 @@ interface MethodInterface
 {
     public function getResult($options);
     public function getStats();
-    public static function getNameAlias();
 }

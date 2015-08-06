@@ -19,6 +19,7 @@ class Copeland extends Method implements MethodInterface
 {
     // Method Name
     const METHOD_NAME = 'Copeland';
+    const METHOD_ALIAS = '';
 
     // Copeland
     protected $_Comparison;

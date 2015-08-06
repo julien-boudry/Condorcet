@@ -19,6 +19,7 @@ class RankedPairs extends Method implements MethodInterface
 {
     // Method Name
     const METHOD_NAME = 'RankedPairs';
+    const METHOD_ALIAS = 'Ranked Pairs,Tideman method';
 
     // Ranked Pairs
     protected $_PairwiseSort;

@@ -112,11 +112,13 @@ class Condorcet
 
         if ( isset($auth[$method]) ) :
             return $method;
-        else :
+        else : // Alias
             foreach ($auth as $name => &$alias) :
-                if ($key = in_array($method, $auth, true)) :
-                    return $name;
-                endif;
+                foreach ($alias as &$entry) :
+                    if (strtolower($method) === trim(strtolower($entry))) :
+                        return $name;
+                    endif;
+                endforeach;
             endforeach;
         endif;
 
@@ -137,7 +139,7 @@ class Condorcet
         endif;
 
         // Adding algo
-        self::$_authMethods[$algos::METHOD_NAME] = $algos::getNameAlias();
+        self::$_authMethods[$algos::METHOD_NAME] = explode(',',$algos::METHOD_ALIAS);
 
         if (self::getDefaultMethod() === null) :
             self::setDefaultMethod($algos::METHOD_NAME);

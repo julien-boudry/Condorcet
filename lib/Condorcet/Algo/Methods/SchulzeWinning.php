@@ -11,11 +11,11 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\CondorcetException;
 
-class Schulze extends namespace\SchulzeCore
+class SchulzeWinning extends namespace\Schulze_Core
 {
     // Method Name
-    const METHOD_NAME = 'Schulze';
-    protected static $method_alias = ['Schulze_Winning','Schulze Winning','Schwartz Sequential Dropping','SSD','Cloneproof Schwartz Sequential Dropping','CSSD', 'Beatpath','Beatpath Method','Beatpath Winner','Path Voting','Path Winner'];
+    const METHOD_NAME = 'SchulzeWinning';
+    const METHOD_ALIAS = 'Schulze,Schulze Winning,Schulze_Winning,Schwartz Sequential Dropping,SSD,Cloneproof Schwartz Sequential Dropping,CSSD,Beatpath,Beatpath Method,Beatpath Winner,Path Voting,Path Winner';
 
     protected function schulzeVariant (&$i, &$j) {
         return $this->_selfElection->getPairwise(false)[$i]['win'][$j];

@@ -11,10 +11,11 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\CondorcetException;
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
-class Minimax_Opposition extends namespace\Minimax
+class MinimaxOpposition extends namespace\Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = 'Minimax_Opposition';
+    const METHOD_NAME = 'MinimaxOpposition';
+        const METHOD_ALIAS = 'Minimax_Opposition,Minimax Opposition';
 
     protected function makeRanking ()
     {

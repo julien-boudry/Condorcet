@@ -14,7 +14,7 @@ use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class SchulzeCore extends Method implements MethodInterface
+abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
     protected $_StrongestPaths;

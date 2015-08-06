@@ -12,13 +12,13 @@ namespace Condorcet;
 // Registering native Condorcet Methods implementation
 namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
 namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Minimax_Winning');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Minimax_Margin');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Minimax_Opposition');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\MinimaxOpposition');
 namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\RankedPairs');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Schulze');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Schulze_Margin');
-namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\Schulze_Ratio');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\SchulzeWinning');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\SchulzeMargin');
+namespace\Condorcet::addAlgos(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
 
 // Set the default Condorcet Class algorithm
 namespace\Condorcet::setDefaultMethod('Schulze');

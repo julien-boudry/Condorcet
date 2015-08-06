@@ -10,13 +10,14 @@
 namespace Condorcet\Algo\Methods;
 use Condorcet\CondorcetException;
 
-class Minimax_Margin extends namespace\Minimax
+class MinimaxWinning extends namespace\Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = 'Minimax_Margin';
+    const METHOD_NAME = 'MinimaxWinning';
+    const METHOD_ALIAS = 'Minimax,Minimax Winning,Minimax_Winning';
 
     protected function makeRanking ()
     {
-        $this->_Result = self::makeRanking_method('margin', $this->_Stats);
+        $this->_Result = self::makeRanking_method('winning', $this->_Stats);
     }
 }
