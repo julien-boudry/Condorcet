@@ -13,8 +13,7 @@ use Condorcet\CondorcetException;
 class MinimaxMargin extends namespace\Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = 'MinimaxMargin';
-    const METHOD_ALIAS = 'MinimaxMargin,Minimax_Margin';
+    const METHOD_NAME = 'MinimaxMargin,MinimaxMargin,Minimax_Margin';
 
     protected function makeRanking ()
     {

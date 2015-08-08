@@ -30,7 +30,7 @@ class Condorcet
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
     protected static $_defaultMethod = null;
-    protected static $_authMethods = [ 'CondorcetBasic' => [] ];
+    protected static $_authMethods = [ __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic' => ['CondorcetBasic'] ];
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
     protected static $_checksumMode = false;
@@ -86,7 +86,7 @@ class Condorcet
 
         // Don't show Natural Condorcet
         if (!$basic) :
-            unset($auth['CondorcetBasic']);
+            unset($auth[__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic']);
         endif;
 
         $auth = array_keys($auth);
@@ -113,10 +113,10 @@ class Condorcet
         if ( isset($auth[$method]) ) :
             return $method;
         else : // Alias
-            foreach ($auth as $name => &$alias) :
+            foreach ($auth as $class => &$alias) :
                 foreach ($alias as &$entry) :
                     if (strtolower($method) === trim(strtolower($entry))) :
-                        return $name;
+                        return $class;
                     endif;
                 endforeach;
             endforeach;
@@ -134,15 +134,15 @@ class Condorcet
         // Check algos
         if ( !is_string($algos) ) :
             return false;
-        elseif ( self::isAuthMethod($algos::METHOD_NAME) || !self::testAlgos($algos) ) :
+        elseif ( self::isAuthMethod($algos) || !self::testAlgos($algos) ) :
             return false;
         endif;
 
         // Adding algo
-        self::$_authMethods[$algos::METHOD_NAME] = explode(',',$algos::METHOD_ALIAS);
+        self::$_authMethods[$algos] = explode(',',$algos::METHOD_NAME);
 
         if (self::getDefaultMethod() === null) :
-            self::setDefaultMethod($algos::METHOD_NAME);
+            self::setDefaultMethod($algos);
         endif;
 
         return true;
@@ -167,7 +167,7 @@ class Condorcet
     // Change default method for this class.
     public static function setDefaultMethod ($method)
     {       
-        if ( ($method = self::isAuthMethod($method)) && $method !== 'CondorcetBasic' ) :
+        if ( ($method = self::isAuthMethod($method)) && $method !== __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic' ) :
             self::$_defaultMethod = $method;
             return self::getDefaultMethod();
         else :
@@ -1059,7 +1059,7 @@ class Condorcet
 
             //////
 
-        if ($algo === 'CondorcetBasic') :
+        if ($algo === __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic') :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
@@ -1077,7 +1077,7 @@ class Condorcet
 
             //////
 
-        if ($algo === 'CondorcetBasic') :
+        if ($algo === __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic') :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
@@ -1102,7 +1102,7 @@ class Condorcet
                     {throw new namespace\CondorcetException(9,$substitution);}
             }
             else
-                {$algo = 'CondorcetBasic';}
+                {$algo = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';}
 
             return $algo;
         }
@@ -1172,12 +1172,11 @@ class Condorcet
     }
 
 
-    protected function initResult ($method)
+    protected function initResult ($class)
     {
-        if ( !isset($this->_Calculator[$method]) )
+        if ( !isset($this->_Calculator[$class]) )
         {
-            $class = __NAMESPACE__.'\\Algo\\Methods\\'.$method;
-            $this->_Calculator[$method] = new $class($this);
+            $this->_Calculator[$class] = new $class($this);
         }
     }
 

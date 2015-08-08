@@ -13,8 +13,7 @@ use Condorcet\CondorcetException;
 class MinimaxWinning extends namespace\Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = 'MinimaxWinning';
-    const METHOD_ALIAS = 'Minimax,Minimax Winning,Minimax_Winning';
+    const METHOD_NAME = 'MinimaxWinning,Minimax,Minimax Winning,Minimax_Winning';
 
     protected function makeRanking ()
     {

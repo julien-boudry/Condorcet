@@ -14,6 +14,7 @@ spl_autoload_register(function ($className) {
     $className = ltrim($className, '\\');
 
     if (substr($className,0,9) === 'Condorcet') :
+        $fileName = '';
         if ($lastNsPos = strripos($className, '\\')) {
             $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, substr($className, 0, $lastNsPos)) . DIRECTORY_SEPARATOR;
         }
