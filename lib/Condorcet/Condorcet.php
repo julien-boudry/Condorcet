@@ -116,7 +116,7 @@ class Condorcet
         else : // Alias
             foreach ($auth as $class => &$alias) :
                 foreach ($alias as &$entry) :
-                    if (strtolower($method) === trim(strtolower($entry))) :
+                    if (strtolower($method) === $entry) :
                         return $class;
                     endif;
                 endforeach;
@@ -128,7 +128,7 @@ class Condorcet
 
 
     // Add algos
-    public static function addAlgos ($algos)
+    public static function addMethod ($algos)
     {
         $to_add = array();
 
@@ -140,7 +140,7 @@ class Condorcet
         endif;
 
         // Adding algo
-        self::$_authMethods[$algos] = explode(',',$algos::METHOD_NAME);
+        self::$_authMethods[$algos] = explode(',',strtolower($algos::METHOD_NAME));
 
         if (self::getDefaultMethod() === null) :
             self::setDefaultMethod($algos);
