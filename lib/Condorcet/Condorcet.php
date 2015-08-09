@@ -83,7 +83,6 @@ class Condorcet
     // Return an array with auth methods
     public static function getAuthMethods ($basic = false)
     {
-        
         $auth = self::$_authMethods;
 
         // Don't show Natural Condorcet
@@ -91,7 +90,7 @@ class Condorcet
             unset($auth[self::CONDORCET_BASIC_CLASS]);
         endif;
 
-        $auth = array_keys($auth);
+        $auth = array_column($auth,0);
 
         return $auth;
     }
