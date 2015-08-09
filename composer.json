@@ -25,7 +25,6 @@
          }
      ],
     "autoload": {
-        "psr-0": { "Condorcet\\": "lib/" },
-        "psr-4": { "Condorcet\\": "lib/Condorcet/" }
+        "psr-4": { "Condorcet\\": "lib/" }
     }
 }
