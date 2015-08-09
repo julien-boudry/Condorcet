@@ -18,7 +18,7 @@ use Condorcet\CondorcetException;
 class RankedPairs extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = 'RankedPairs,Ranked Pairs,Tideman method';
+    const METHOD_NAME = 'Ranked Pairs,RankedPairs,Tideman method';
 
     // Ranked Pairs
     protected $_PairwiseSort;

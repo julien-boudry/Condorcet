@@ -14,7 +14,7 @@ use Condorcet\CondorcetException;
 class SchulzeMargin extends namespace\Schulze_Core
 {
     // Method Name
-    const METHOD_NAME = 'SchulzeMargin,Schulze Margin,Schulze_Margin';
+    const METHOD_NAME = 'Schulze Margin,SchulzeMargin,Schulze_Margin';
 
     protected function schulzeVariant (&$i, &$j) {
         return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];

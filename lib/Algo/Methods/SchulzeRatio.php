@@ -14,7 +14,7 @@ use Condorcet\CondorcetException;
 class SchulzeRatio extends namespace\Schulze_Core
 {
     // Method Name
-    const METHOD_NAME = 'SchulzeRatio,Schulze Ratio,Schulze_Ratio';
+    const METHOD_NAME = 'Schulze Ratio,SchulzeRatio,Schulze_Ratio';
 
     protected function schulzeVariant (&$i, &$j) {
         return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
