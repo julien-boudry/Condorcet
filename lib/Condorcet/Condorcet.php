@@ -29,8 +29,10 @@ class Condorcet
     const ENV = 'DEV';
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
+    const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
+
     protected static $_defaultMethod = null;
-    protected static $_authMethods = [ __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic' => ['CondorcetBasic'] ];
+    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => ['CondorcetBasic'] ];
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
     protected static $_checksumMode = false;
@@ -86,7 +88,7 @@ class Condorcet
 
         // Don't show Natural Condorcet
         if (!$basic) :
-            unset($auth[__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic']);
+            unset($auth[self::CONDORCET_BASIC_CLASS]);
         endif;
 
         $auth = array_keys($auth);
@@ -167,7 +169,7 @@ class Condorcet
     // Change default method for this class.
     public static function setDefaultMethod ($method)
     {       
-        if ( ($method = self::isAuthMethod($method)) && $method !== __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic' ) :
+        if ( ($method = self::isAuthMethod($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
             return self::getDefaultMethod();
         else :
@@ -1059,7 +1061,7 @@ class Condorcet
 
             //////
 
-        if ($algo === __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic') :
+        if ($algo === self::CONDORCET_BASIC_CLASS) :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
@@ -1077,7 +1079,7 @@ class Condorcet
 
             //////
 
-        if ($algo === __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic') :
+        if ($algo === self::CONDORCET_BASIC_CLASS) :
             $chrono = new Timer_Chrono ($this->_timer);
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
@@ -1102,7 +1104,7 @@ class Condorcet
                     {throw new namespace\CondorcetException(9,$substitution);}
             }
             else
-                {$algo = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';}
+                {$algo = self::CONDORCET_BASIC_CLASS;}
 
             return $algo;
         }
