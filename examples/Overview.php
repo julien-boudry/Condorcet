@@ -6,7 +6,7 @@
 
 // I - Install
 
-	require_once '../lib/Condorcet/Condorcet.php';
+	require_once '../lib/Condorcet.php';
 
 	use Condorcet\Condorcet ;
 	use Condorcet\Candidate ;
