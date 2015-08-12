@@ -16,27 +16,29 @@ use Condorcet\Timer\Chrono as Timer_Chrono;
 class Pairwise implements \Iterator
 {
     // Implement Iterator
-
-    private $position = 1;
+    private $valid = true;
 
     public function rewind() {
-        $this->position = 1;
+        reset($this->_Pairwise);
+        $this->valid = true;
     }
 
     public function current() {
-        return $this->position;
+        return $this->_Pairwise[$this->key()];
     }
 
     public function key() {
-        return $this->position;
+        return key($this->_Pairwise);
     }
 
     public function next() {
-        ++$this->position;
+        if (next($this->_Pairwise) === false) :
+            $this->valid = false;
+        endif;
     }
 
     public function valid() {
-        return true;
+        return $this->valid;
     }   
 
 
