@@ -29,7 +29,7 @@ class Condorcet
     const ENV = 'DEV';
     const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
-    const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
+    const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
     protected static $_defaultMethod = null;
     protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => ['CondorcetBasic'] ];
