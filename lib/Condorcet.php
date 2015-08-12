@@ -9,6 +9,7 @@
 */
 namespace Condorcet;
 
+use Condorcet\Algo\Tools\Pairwise;
 use Condorcet\CondorcetException;
 use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
@@ -585,7 +586,8 @@ class Condorcet
         // Get the list of registered CANDIDATES
         public function getCandidatesList ($stringMode = false)
         {
-            if (!$stringMode) : return $this->_Candidates;
+            if (!$stringMode) :
+                return $this->_Candidates;
             else :
                 $result = array();
 
@@ -598,12 +600,12 @@ class Condorcet
             endif;
         }
 
-        protected function getCandidateKey ($candidate_id)
+        public function getCandidateKey ($candidate_id)
         {
             if ($candidate_id instanceof Candidate) :
                 return array_search($candidate_id, $this->_Candidates, true);
             else:
-                return array_search(trim((string) $candidate_id), $this->_Candidates);
+                return array_search(trim((string) $candidate_id), $this->_Candidates, false);
             endif;
         }
 
@@ -1160,7 +1162,7 @@ class Condorcet
             $this->cleanupResult();
 
             // Do Pairewise
-            $this->doPairwise();
+            $this->_Pairwise = new Pairwise ($this);
 
             // Change state to result
             $this->_State = 3;
@@ -1234,111 +1236,7 @@ class Condorcet
     {
         $this->prepareResult();
 
-        if (!$explicit)
-            { return $this->_Pairwise; }
-
-        $explicit_pairwise = array();
-
-        foreach ($this->_Pairwise as $candidate_key => $candidate_value)
-        {
-            $candidate_name = $this->getCandidateId($candidate_key, true);
-            
-            foreach ($candidate_value as $mode => $mode_value)
-            {
-                foreach ($mode_value as $candidate_list_key => $candidate_list_value)
-                {
-                    $explicit_pairwise[$candidate_name][$mode][$this->getCandidateId($candidate_list_key, true)] = $candidate_list_value;
-                }
-            }
-        }
-
-        return $explicit_pairwise;
-    }
-
-
-
-/////////// PROCESS RESULT ///////////
-
-
-    //:: COMPUTE PAIRWISE :://
-
-    protected function doPairwise ()
-    {       
-        $chrono = new Timer_Chrono ($this->_timer);
-
-        $this->_Pairwise = array();
-
-        foreach ( $this->_Candidates as $candidate_key => $candidate_id )
-        {
-            $this->_Pairwise[$candidate_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() );
-
-            foreach ( $this->_Candidates as $candidate_key_r => $candidate_id_r )
-            {
-                if ($candidate_key_r !== $candidate_key)
-                {
-                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
-                }
-            }
-        }
-
-        // Win && Null
-        foreach ( $this->_Votes as $vote_id => $vote_ranking )
-        {
-            $done_Candidates = array();
-
-            foreach ($vote_ranking->getContextualVote($this) as $candidates_in_rank)
-            {
-                $candidates_in_rank_keys = array();
-
-                foreach ($candidates_in_rank as $candidate)
-                {
-                    $candidates_in_rank_keys[] = $this->getCandidateKey($candidate);
-                }
-
-                foreach ($candidates_in_rank as $candidate)
-                {
-                    $candidate_key = $this->getCandidateKey($candidate);
-
-                    // Process
-                    foreach ( $this->_Candidates as $g_candidate_key => $g_CandidateId )
-                    {
-                        // Win
-                        if (    $candidate_key !== $g_candidate_key && 
-                                !in_array($g_candidate_key, $done_Candidates, true) && 
-                                !in_array($g_candidate_key, $candidates_in_rank_keys, true)
-                            )
-                        {
-                            $this->_Pairwise[$candidate_key]['win'][$g_candidate_key]++;
-
-                            $done_Candidates[] = $candidate_key;
-                        }
-
-                        // Null
-                        if (    $candidate_key !== $g_candidate_key &&
-                                count($candidates_in_rank) > 1 &&
-                                in_array($g_candidate_key, $candidates_in_rank_keys, true)
-                            )
-                        {
-                            $this->_Pairwise[$candidate_key]['null'][$g_candidate_key]++;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Lose
-        foreach ( $this->_Pairwise as $option_key => $option_results )
-        {
-            foreach ($option_results['win'] as $option_compare_key => $option_compare_value)
-            {
-                $this->_Pairwise[$option_key]['lose'][$option_compare_key] = $this->countVotes() - (
-                            $this->_Pairwise[$option_key]['win'][$option_compare_key] + 
-                            $this->_Pairwise[$option_key]['null'][$option_compare_key]
-                        );
-            }
-        }
+        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getPairwise(true);
     }
 
 }
