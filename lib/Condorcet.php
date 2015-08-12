@@ -1236,7 +1236,7 @@ class Condorcet
     {
         $this->prepareResult();
 
-        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getPairwise(true);
+        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->explicitPairwise();
     }
 
 }

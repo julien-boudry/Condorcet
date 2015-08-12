@@ -13,8 +13,22 @@ namespace Condorcet\Algo\Tools;
 use Condorcet\Condorcet;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
-class Pairwise implements \Iterator
+class Pairwise implements \Iterator,\ArrayAccess
 {
+    // Implement ArrayAccess
+    public function offsetSet($offset, $value) {}
+
+    public function offsetExists($offset) {
+        return isset($this->_Pairwise[$offset]) ? true : false;
+    }
+
+    public function offsetUnset($offset) {}
+
+    public function offsetGet($offset) {
+        return isset($this->_Pairwise[$offset]) ? $this->_Pairwise[$offset] : null;
+    }
+
+
     // Implement Iterator
     private $valid = true;
 
@@ -53,12 +67,8 @@ class Pairwise implements \Iterator
         $this->doPairwise();
     }
 
-    public function getPairwise ($explicit = true)
+    public function explicitPairwise ()
     {
-        if (!$explicit) {
-            return $this->_Pairwise;
-        }
-
         $explicit_pairwise = array();
 
         foreach ($this->_Pairwise as $candidate_key => $candidate_value)
