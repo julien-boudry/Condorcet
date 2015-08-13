@@ -67,7 +67,7 @@ class Pairwise implements \Iterator,\ArrayAccess
         $this->doPairwise();
     }
 
-    public function explicitPairwise ()
+    public function getExplicitPairwise ()
     {
         $explicit_pairwise = array();
 

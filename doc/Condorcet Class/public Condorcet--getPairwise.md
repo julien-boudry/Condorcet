@@ -3,20 +3,20 @@
 ### Description    
 
 ```php
-public $Condorcet -> getPairwise ( bool explicit = true )
+public $Condorcet -> getPairwise ( [ bool explicit = true] )
 ```
 
 Return the Pairwise.    
 
 
 ##### **explicit:** *bool*   
-Get the candidate string name.    
+Get an explicit array with candidates names as keys.    
 
 
 
 ### Return value:   
 
-Explicit array.
+Pairwise object. Or an explicit array if _explicit_ argument == true.
 
 
 ---------------------------------------

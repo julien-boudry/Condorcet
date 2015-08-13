@@ -381,10 +381,10 @@
     explicit:
       type: bool
       default: true
-      required: true
-      text: Get the candidate string name.
+      required: false
+      text: Get an explicit array with candidates names as keys.
   return: |
-    Explicit array.
+    Pairwise object. Or an explicit array if _explicit_ argument == true.
   related:
     - 'Condorcet::getResult'
 
@@ -1247,3 +1247,22 @@
     'Manual - Add a vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
 
   publish: true
+
+
+# CLASS PAIRWISE
+
+
+- 
+  class: Pairwise
+  type: method
+  visibility: public
+  name: getExplicitPairwise
+  static: false
+  description: |
+    Get an explicit pairwise.
+  return: |
+    An explicit array with candidate name as key.
+  related:
+    - 'Condorcet::getPairwise'
+  publish: true
+
