@@ -452,6 +452,22 @@
   class: Condorcet
   type: method
   visibility: public
+  name: getTimerManager
+  static: false
+  description: |
+    Get the Timer manager object.
+  return: |
+    An Condorcet\Timer\Manager object using by this election.
+  related:
+    - 'Condorcet::getGlobalTimer'
+    - 'Condorcet::getLastTimer'
+  publish: true
+
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
   name: getVotesList
   static: false
   description: |
@@ -710,7 +726,8 @@
     algo:
       type: string
       required: true
-      text: Algorithm Name
+      text: |
+        The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
   return: |
     True on Success. False on echec.
   related:
