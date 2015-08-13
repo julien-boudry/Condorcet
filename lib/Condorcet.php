@@ -9,7 +9,7 @@
 */
 namespace Condorcet;
 
-use Condorcet\Algo\Tools\Pairwise;
+use Condorcet\Algo\Pairwise;
 use Condorcet\CondorcetException;
 use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;

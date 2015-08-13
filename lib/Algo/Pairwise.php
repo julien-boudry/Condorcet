@@ -8,7 +8,7 @@
     https://github.com/julien-boudry/Condorcet
 */
 
-namespace Condorcet\Algo\Tools;
+namespace Condorcet\Algo;
 
 use Condorcet\Condorcet;
 use Condorcet\Timer\Chrono as Timer_Chrono;
