@@ -13,8 +13,9 @@ A PHP class implementing the Condorcet voting system and others Condorcet method
 - Native implementation of more complex algortihms meeting the criteria Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _see below_)
 - Modular architecture to easily implement yours own algorithms or extend existing.
 
-_This class is not designed for high performances, very high fiability exigence (
-Has not been audited.), massive voters or candidates_   
+_This class is not designed for high performances, very high fiability exigence, massive voters or candidates_   
+
+* [Examples](#examples) *Have a look on Examples !*
 
 ### Summary
 1. Project Overview     
@@ -26,7 +27,7 @@ Has not been audited.), massive voters or candidates_
 2. [How to use it?](#how-to-use-it)    
   a. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
   b. [Class & Methods reference](#class--methods-reference)     
-  c. [Examples](#examples)     
+  c. [Examples](#examples) *Have a look on Examples !*     
   d. [Really quick and simple example](#really-quick-and-simple-example)
 
 
@@ -162,7 +163,7 @@ _This example of implementation in others project can very nice or strange... Th
 
 #### Great overview
 
-* [Non-visual quick tour of opportunities without interface](examples/Overview.php) (not exhaustive and partial)
+* [Non-visual quick tour of opportunities without interface](examples/Overview.php) (not exhaustive and partial, but just a great tour.)
 
 
 #### With html output basics examples
