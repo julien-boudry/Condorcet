@@ -91,9 +91,7 @@ class Condorcet
             unset($auth[self::CONDORCET_BASIC_CLASS]);
         endif;
 
-        $auth = array_column($auth,0);
-
-        return $auth;
+        return array_column($auth,0);
     }
 
 
@@ -136,7 +134,7 @@ class Condorcet
         // Check algos
         if ( !is_string($algos) ) :
             return false;
-        elseif ( self::isAuthMethod($algos) || !self::testAlgos($algos) ) :
+        elseif ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
             return false;
         endif;
 
@@ -152,7 +150,7 @@ class Condorcet
 
 
         // Check if the class Algo. exist and ready to be used
-        protected static function testAlgos ($method)
+        protected static function testMethod ($method)
         {
             if ( !class_exists($method) ) :             
                 throw new namespace\CondorcetException(9);
