@@ -2,18 +2,27 @@
 /*
     Kemeny-Young part of the Condorcet PHP Class
 
-    Last modified at: Condorcet Class v0.93
+    Last modified at: Condorcet Class v0.94
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
+
+use Condorcet\Condorcet;
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\Algo\Tools\Permutation;
+use Condorcet\CondorcetException;
 
 // Note : This class use some configuration method preset at the bottom of this file.
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
-class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class KemenyYoung extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'Kemeny–Young,Kemeny Young,KemenyYoung,Kemeny rule,VoteFair popularity ranking,maximum likelihood method,median relation';
+
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
@@ -26,13 +35,13 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
     protected $_Result;
 
 
-    public function __construct (namespace\Condorcet $mother)
+    public function __construct (Condorcet $mother)
     {
         parent::__construct($mother);
 
         if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
         {
-            throw new namespace\CondorcetException(101,self::$_maxCandidates);
+            throw new CondorcetException(101,self::$_maxCandidates);
         }
     }
 
@@ -142,7 +151,7 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
 
     protected function doPossibleRanking ($path = null)
     {
-        $permutation = new namespace\AlgoTools\Permutation ($this->_selfElection->countCandidates());
+        $permutation = new Permutation ($this->_selfElection->countCandidates());
 
         if ($path === null) :
             return $premutation->getResults(true);
@@ -190,6 +199,3 @@ class KemenyYoung extends namespace\CondorcetAlgo implements namespace\AlgoInter
     }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('KemenyYoung');

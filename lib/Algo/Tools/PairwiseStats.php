@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.93
+    Version: 0.94
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -11,7 +11,7 @@
 
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
-namespace Condorcet\AlgoTools;
+namespace Condorcet\Algo\Tools;
 
 // Generic for Algorithms
 abstract class PairwiseStats

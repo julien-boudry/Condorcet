@@ -2,17 +2,24 @@
 /*
     Copeland part of the Condorcet PHP Class
 
-    Last modified at: Condorcet Class v0.93
+    Last modified at: Condorcet Class v0.94
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\CondorcetException;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
-class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+class Copeland extends Method implements MethodInterface
 {
+    // Method Name
+    const METHOD_NAME = 'Copeland';
+
     // Copeland
     protected $_Comparison;
     protected $_Result;
@@ -33,7 +40,7 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
             //////
 
         // Comparison calculation
-        $this->_Comparison = namespace\AlgoTools\PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false));
+        $this->_Comparison = PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise(false));
 
         // Ranking calculation
         $this->makeRanking();
@@ -101,6 +108,3 @@ class Copeland extends namespace\CondorcetAlgo implements namespace\AlgoInterfac
     }
 
 }
-
-// Registering algorithm
-namespace\Condorcet::addAlgos('Copeland');

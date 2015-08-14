@@ -2,12 +2,14 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.93
+    Version: 0.94
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet;
+
+use Condorcet\Candidate;
 
 class Vote implements \Iterator
 {
@@ -222,8 +224,8 @@ class Vote implements \Iterator
             foreach ($ranking as &$line)
             {
                 foreach ($line as &$Candidate) :
-                    if ( !($Candidate instanceof namespace\Candidate) ) :
-                        $Candidate = new namespace\Candidate ($Candidate);
+                    if ( !($Candidate instanceof Candidate) ) :
+                        $Candidate = new Candidate ($Candidate);
                     endif;
 
                     $counter++;

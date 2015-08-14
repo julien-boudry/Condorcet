@@ -6,16 +6,12 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL); 
 
 // Exeptions Handler
-function exception_handler($exception) {
-  trigger_error($exception, E_USER_ERROR);
-}
-set_exception_handler('exception_handler');
+
 
 use Condorcet\Condorcet ;
 
 require_once	'..'.DIRECTORY_SEPARATOR.
 				'..'.DIRECTORY_SEPARATOR.'lib'.
-				DIRECTORY_SEPARATOR.'Condorcet'.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 

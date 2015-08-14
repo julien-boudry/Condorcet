@@ -16,7 +16,6 @@ use Condorcet\Condorcet ;
 
 require_once	'..'.DIRECTORY_SEPARATOR.
 				'..'.DIRECTORY_SEPARATOR.'lib'.
-				DIRECTORY_SEPARATOR.'Condorcet'.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 $election = new Condorcet () ;

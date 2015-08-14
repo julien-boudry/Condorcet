@@ -1,16 +1,16 @@
-## public static Condorcet::addAlgos
+## public static Condorcet::addMethod
 
 ### Description    
 
 ```php
-public static Condorcet::addAlgos ( string algo )
+public static Condorcet::addMethod ( string algo )
 ```
 
 If you create your own Condorcet Algo. You will need it !    
 
 
 ##### **algo:** *string*   
-Algorithm Name    
+The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).    
 
 
 

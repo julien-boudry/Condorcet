@@ -381,10 +381,10 @@
     explicit:
       type: bool
       default: true
-      required: true
-      text: Get the candidate string name.
+      required: false
+      text: Get an explicit array with candidates names as keys.
   return: |
-    Explicit array.
+    Pairwise object. Or an explicit array if _explicit_ argument == true.
   related:
     - 'Condorcet::getResult'
 
@@ -447,6 +447,22 @@
   examples:
     'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
   publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getTimerManager
+  static: false
+  description: |
+    Get the Timer manager object.
+  return: |
+    An Condorcet\Timer\Manager object using by this election.
+  related:
+    - 'Condorcet::getGlobalTimer'
+    - 'Condorcet::getLastTimer'
+  publish: true
+
 
 - 
   class: Condorcet
@@ -702,7 +718,7 @@
   class: Condorcet
   type: method
   visibility: public
-  name: addAlgos
+  name: addMethod
   static: true
   description: |
     If you create your own Condorcet Algo. You will need it !
@@ -710,7 +726,8 @@
     algo:
       type: string
       required: true
-      text: Algorithm Name
+      text: |
+        The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
   return: |
     True on Success. False on echec.
   related:
@@ -1247,3 +1264,22 @@
     'Manual - Add a vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
 
   publish: true
+
+
+# CLASS PAIRWISE
+
+
+- 
+  class: Pairwise
+  type: method
+  visibility: public
+  name: getExplicitPairwise
+  static: false
+  description: |
+    Get an explicit pairwise.
+  return: |
+    An explicit array with candidate name as key.
+  related:
+    - 'Condorcet::getPairwise'
+  publish: true
+

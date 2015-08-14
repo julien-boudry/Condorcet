@@ -7,16 +7,18 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet;
+namespace Condorcet\Algo\Methods;
 
+use Condorcet\Algo\Method;
+use Condorcet\Algo\MethodInterface;
+use Condorcet\CondorcetException;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace\AlgoInterface
+abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
     protected $_StrongestPaths;
     protected $_Result;
-
 
 
 /////////// PUBLIC ///////////
@@ -120,7 +122,6 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
                 }
             }
         }
-         
 
         foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
         {
@@ -195,29 +196,3 @@ abstract class Schulze_Core extends namespace\CondorcetAlgo implements namespace
     }
 
 }
-
-
-class Schulze extends namespace\Schulze_Core
-{
-    protected function schulzeVariant (&$i, &$j) {
-        return $this->_selfElection->getPairwise(false)[$i]['win'][$j];
-    }
-}
-
-class Schulze_Margin extends namespace\Schulze_Core
-{
-    protected function schulzeVariant (&$i, &$j) {
-        return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];
-    }
-}
-
-class Schulze_Ratio extends namespace\Schulze_Core
-{
-    protected function schulzeVariant (&$i, &$j) {
-        return ($this->_selfElection->getPairwise(false)[$j]['win'][$i] !== 0) ?
-                                                                                    ($this->_selfElection->getPairwise(false)[$i]['win'][$j] / $this->_selfElection->getPairwise(false)[$j]['win'][$i]) : 0;
-    }
-}
-
-// Registering algorithm
-namespace\Condorcet::addAlgos( array('Schulze', 'Schulze_Margin', 'Schulze_Ratio') );
