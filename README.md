@@ -13,8 +13,8 @@ A PHP class implementing the Condorcet voting system and others Condorcet method
 - Native implementation of more complex algortihms meeting the criteria Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _see below_)
 - Modular architecture to easily implement yours own algorithms or extend existing.
 
-_This class is not designed for high performances, very high fiability exigence _(
-Has not been audited.)_, massive voters or candidates_   
+_This class is not designed for high performances, very high fiability exigence (
+Has not been audited.), massive voters or candidates_   
 
 ### Summary
 1. Project Overview     
@@ -32,10 +32,10 @@ Has not been audited.)_, massive voters or candidates_
 
 ### Contributors and License
 
-**Create by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet/graphs/contributors))_     
+**Created by:** Julien Boudry (born 22/10/1988 - France) [@JulienBoudry](https://twitter.com/JulienBoudry) - _([complete list of contributors](https://github.com/julien-boudry/Condorcet/graphs/contributors))_     
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 
-As a courtesy, I will thank you to inform me about your project using this code, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
+As a courtesy, **I will thank you to inform me about your project using this code**, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
 **Or finance my studies:** *1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez*
 
 
@@ -44,8 +44,8 @@ As a courtesy, I will thank you to inform me about your project using this code,
 **PHP Requirement:** PHP 5.5 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 ##### Autoloading:   
-This project is consistent with the standard PSR-0 and PSR-4 and can be loaded easily and without modification in most frameworks. Namespace \Condorcet is used. 
-The literature also provides easy example of free implementation with or without autoloader.
+This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \Condorcet is used. 
+The examples also provides easy example of free implementation with or without autoloader *(Condorcet provide as fallback his hown PSR-4 like autoloader)*.
 
 ##### Coding standards:  
 The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
@@ -74,7 +74,6 @@ To date, we have a stable version, and support is provided.
 #### Related projects / They use Condorcet
 * From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including intérractives and collaborative features.    
 It is based in large part on this project, and uses the library as a real election manager for computing, storage & stats.        
-* [Condorcet API](https://github.com/julien-boudry/Condorcet_API) Very basic and simple http API for Condorcet class (json or text i/o)
 * [Mahler-S2-BlindTest-Condorcet
 ](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
 Look like the examples provided here, but better : [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite)    
@@ -112,10 +111,10 @@ Look like the examples provided here, but better : [Gustav Mahler blind listenin
 
 * **RankedPairs *(Since v0.10, EXPERIMENTAL)*** https://en.wikipedia.org/wiki/Ranked_pairs  
 
-* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method
-    * **Schulze** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.***
-    * **Schulze Margin**
-    * **Schulze Ratio**
+* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method  
+    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method il also know as Schulze Method.*
+    * **Schulze Margin** Variant from Markus Schulze himself.
+    * **Schulze Ratio** Markus Schulze himself.
 
 
 #### Add new one?	
@@ -126,9 +125,9 @@ This class is designed to be easily extensible with new algorithms. A modular sc
 ### Roadmap for futher releases 
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
-  - Ability to add Candidate on Vote
   - Improve & test Ranked pair implementation *(help needed!)*
-  - In future results could be provided as an object rather than an array. Will be fun.
+  - Add tie breaking on Schulze Core, by the official way recommended by Markus Schulze. *(help needed!)*
+  - In future results could be provided as a new object Coondorcet\Result rather than an array. Will be fun.
   - **Looking for testers!**   
   - **Research reference librarians!!**  
  
