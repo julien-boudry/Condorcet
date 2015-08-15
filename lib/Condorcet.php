@@ -12,9 +12,20 @@ namespace Condorcet;
 use Condorcet\Election;
 use Condorcet\CondorcetException;
 
-// Condorcet PSR-O autoload. Can be skipped by other Autoload from framework & Co
-require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetConfig.php';
+// Registering native Condorcet Methods implementation
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxOpposition');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairs');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeWinning');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeMargin');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
+
+// Set the default Condorcet Class algorithm
+Condorcet::setDefaultMethod('Schulze');
+
 
 abstract class Condorcet
 {

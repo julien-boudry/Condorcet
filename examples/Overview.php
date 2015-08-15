@@ -10,7 +10,7 @@
     use Condorcet\Candidate;
     use Condorcet\Vote;
 
-    require_once '../lib/Condorcet.php';
+    require_once '../__CondorcetAutoload.php';
 
 // II - Create Election
 
