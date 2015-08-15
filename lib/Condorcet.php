@@ -15,7 +15,7 @@ use Condorcet\Election;
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetConfig.php';
 
-class Condorcet
+abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
