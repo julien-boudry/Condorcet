@@ -8,14 +8,14 @@ error_reporting(E_ALL);
 // Exeptions Handler
 
 
-use Condorcet\Condorcet ;
+use Condorcet\Election ;
 
 require_once	'..'.DIRECTORY_SEPARATOR.
 				'..'.DIRECTORY_SEPARATOR.'lib'.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 
-$election = new Condorcet () ;
+$election = new Election () ;
 
 
 

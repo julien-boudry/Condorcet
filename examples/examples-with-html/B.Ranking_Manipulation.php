@@ -12,13 +12,13 @@ function exception_handler($exception) {
 set_exception_handler('exception_handler');
 
 
-use Condorcet\Condorcet ;
+use Condorcet\Election ;
 
 require_once	'..'.DIRECTORY_SEPARATOR.
 				'..'.DIRECTORY_SEPARATOR.'lib'.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
-$election = new Condorcet () ;
+$election = new Election () ;
 
 
 

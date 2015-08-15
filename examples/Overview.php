@@ -8,14 +8,14 @@
 
     require_once '../lib/Condorcet.php';
 
-    use Condorcet\Condorcet ;
+    use Condorcet\Election ;
     use Condorcet\Candidate ;
     use Condorcet\Vote ;
 
 
 // II - Create Election
 
-$myElection1 = new Condorcet ();
+$myElection1 = new Election ();
 
 
 // III - Manage Candidate
@@ -162,7 +162,7 @@ $myElection1 = new Condorcet ();
 // VI - Play with Condorcet objects (Advanced)
 
         // Create a second election
-        $myElection2 = new Condorcet ();
+        $myElection2 = new Election ();
 
          // Create three candidate : 'A', 'B' and 'C'
         for ($i = 0 ; $i < 3 ; $i++) {

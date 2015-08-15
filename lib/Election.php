@@ -19,7 +19,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetConfig.php';
 
 // Base Condorcet class
-class Condorcet
+class Election
 {
 
 /////////// CLASS ///////////
