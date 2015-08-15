@@ -1,9 +1,9 @@
-## public Condorcet::getCandidatesList
+## public Election::getCandidatesList
 
 ### Description    
 
 ```php
-public $Condorcet -> getCandidatesList ( [ bool stringMode = false] )
+public $Election -> getCandidatesList ( [ bool stringMode = false] )
 ```
 
 Return a list of registered Candidate into this election.    
@@ -23,5 +23,5 @@ List of Candidate into an array.
 
 ### Related method(s)      
 
-* [Condorcet::countCandidates](../Condorcet Class/public Condorcet--countCandidates.md)    
-* [Condorcet::existCandidateId](../Condorcet Class/public Condorcet--existCandidateId.md)    
+* [Election::countCandidates](../Election Class/public Election--countCandidates.md)    
+* [Election::existCandidateId](../Election Class/public Election--existCandidateId.md)    

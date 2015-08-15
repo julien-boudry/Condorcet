@@ -1,9 +1,9 @@
-## public Condorcet::removeVote
+## public Election::removeVote
 
 ### Description    
 
 ```php
-public $Condorcet -> removeVote ( mixed in [, mixed with = true] )
+public $Election -> removeVote ( mixed in [, mixed with = true] )
 ```
 
 Remove Vote from an election.
@@ -36,8 +36,8 @@ $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 
 ### Related method(s)      
 
-* [Condorcet::AddVote](../Condorcet Class/public Condorcet--AddVote.md)    
-* [Condorcet::getVotesList](../Condorcet Class/public Condorcet--getVotesList.md)    
+* [Election::AddVote](../Election Class/public Election--AddVote.md)    
+* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    
 
 ---------------------------------------
 

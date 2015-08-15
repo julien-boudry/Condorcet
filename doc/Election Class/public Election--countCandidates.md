@@ -1,9 +1,9 @@
-## public Condorcet::countCandidates
+## public Election::countCandidates
 
 ### Description    
 
 ```php
-public $Condorcet -> countCandidates ( )
+public $Election -> countCandidates ( )
 ```
 
 Count the number of registered candidate    
@@ -18,4 +18,4 @@ Count the number of registered candidate
 
 ### Related method(s)      
 
-* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet--getCandidatesList.md)    
+* [Election::getCandidatesList](../Election Class/public Election--getCandidatesList.md)    

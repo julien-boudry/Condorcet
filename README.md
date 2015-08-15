@@ -176,9 +176,12 @@ _This example of implementation in others project can very nice or strange... Th
 _OK : sacrifice to the local tradition of lazy._    
 
 ```php
-  use Condorcet\Condorcet, Condorcet\Candidate, Condorcet\Vote ;
+  use Condorcet\Condorcet;
+  use Condorcet\Election;
+  use Condorcet\Candidate;
+  use Condorcet\Vote;
 
-  $myElection1 = new Condorcet () ;
+  $myElection1 = new Election () ;
 
   // Create your own candidate object
   $candidate1 = new Candidate ('Candidate 1'); 
@@ -237,7 +240,7 @@ _OK : sacrifice to the local tradition of lazy._
     $myPairwise = $myElection1->getPairwise();
 
   // How long computation time behind us?
-  $timer = $myElection1->getGlobalTimeer();
+  $timer = $myElection1->getGlobalTimer();
 
   // SHA-2 checksum and sleep
   $myChecksum = $myElection1->getChecksum();

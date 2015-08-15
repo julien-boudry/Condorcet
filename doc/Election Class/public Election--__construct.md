@@ -1,9 +1,9 @@
-## public Condorcet::__construct
+## public Election::__construct
 
 ### Description    
 
 ```php
-public $Condorcet -> __construct ( )
+public $Election -> __construct ( )
 ```
 
 Build a new Election.    
@@ -18,4 +18,4 @@ NULL
 
 ### Related method(s)      
 
-* [Condorcet::__destruct](../Condorcet Class/public Condorcet--__destruct.md)    
+* [Election::__destruct](../Election Class/public Election--__destruct.md)    
