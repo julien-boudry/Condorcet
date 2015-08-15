@@ -283,7 +283,6 @@ class Condorcet
     protected $_i_CandidateId = 'A';
     protected $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
     protected $_timer;
-    protected $_CandidatesCount = 0;
     protected $_nextVoteTag = 0;
     protected $_objectVersion;
     protected $_ignoreStaticMaxVote = false;
@@ -331,7 +330,6 @@ class Condorcet
 
             '_i_CandidateId',
             '_State',
-            '_CandidatesCount',
             '_nextVoteTag',
             '_objectVersion',
             '_ignoreStaticMaxVote',
@@ -476,9 +474,6 @@ class Condorcet
         // Linking
         $newCandidate->registerLink($this);
 
-        // Candidate Counter
-        $this->_CandidatesCount++;
-
         return $newCandidate;
     }
 
@@ -518,7 +513,6 @@ class Condorcet
             $rem[] = $this->_Candidates[$candidate_key];
 
             unset($this->_Candidates[$candidate_key]);
-            $this->_CandidatesCount--;
         }
 
         return $rem;
@@ -578,7 +572,7 @@ class Condorcet
         // Count registered candidates
         public function countCandidates ()
         {
-            return $this->_CandidatesCount;
+            return count($this->_Candidates);
         }
 
         // Get the list of registered CANDIDATES
@@ -701,7 +695,7 @@ class Condorcet
         {
             $linkCount = $vote->countLinks();
 
-            if ( $vote->countRankingCandidates() > $this->_CandidatesCount )
+            if ( $vote->countRankingCandidates() > $this->countCandidates() )
                 { return false; }
 
             $mirror = $vote->getRanking(); $change = false;
