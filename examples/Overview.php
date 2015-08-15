@@ -5,13 +5,12 @@
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
+    use Condorcet\Condorcet;
+    use Condorcet\Election;
+    use Condorcet\Candidate;
+    use Condorcet\Vote;
 
     require_once '../lib/Condorcet.php';
-
-    use Condorcet\Election ;
-    use Condorcet\Candidate ;
-    use Condorcet\Vote ;
-
 
 // II - Create Election
 

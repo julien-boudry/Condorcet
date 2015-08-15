@@ -10,7 +10,7 @@
 
 namespace Condorcet\Algo;
 
-use Condorcet\Condorcet;
+use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
 class Pairwise implements \Iterator,\ArrayAccess
@@ -61,7 +61,7 @@ class Pairwise implements \Iterator,\ArrayAccess
     protected $_Election;
     protected $_Pairwise = [];
 
-    public function __construct (Condorcet &$link)
+    public function __construct (Election &$link)
     {
         $this->_Election = $link;
         $this->doPairwise();
