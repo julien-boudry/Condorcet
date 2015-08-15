@@ -38,7 +38,7 @@ class Candidate
     {
         $name = trim((string) $name);
 
-        if (mb_strlen($name) > Condorcet::MAX_LENGTH_CANDIDATE_ID )
+        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID )
             { throw new CondorcetException(1, $name); }
 
         if (!$this->checkName($name))

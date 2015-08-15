@@ -37,7 +37,7 @@ class CondorcetException extends \Exception
         $error[4] = 'This candidate ID do not exist';
         $error[5] = 'Bad vote format | '.$this->_infos;
         $error[6] = 'You need to specify votes before results';
-        $error[7] = 'Your Candidate ID is too long > ' . Condorcet::MAX_LENGTH_CANDIDATE_ID;
+        $error[7] = 'Your Candidate ID is too long > ' . Election::MAX_LENGTH_CANDIDATE_ID;
         $error[8] = 'This method do not exist';
         $error[9] = 'The algo class you want has not been defined';
         $error[10] = 'The algo class you want is not correct';

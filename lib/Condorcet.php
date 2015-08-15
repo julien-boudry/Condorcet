@@ -21,9 +21,7 @@ abstract class Condorcet
 
 /////////// CONSTANTS ///////////
         const VERSION = '0.94';
-
         const ENV = 'DEV';
-        const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
         const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
