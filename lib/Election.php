@@ -185,12 +185,12 @@ class Election
 
     public function __wakeup ()
     {
-        if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getClassVersion('MAJOR'),'!=') )
+        if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') )
         {
             $this->_Candidates = [];
             $this->_Votes = [];
 
-            throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getClassVersion('ENV'));
+            throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
     }
 

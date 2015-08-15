@@ -33,7 +33,7 @@ class Condorcet
 /////////// STATICS METHODS ///////////
 
     // Return library version numer
-    public static function getClassVersion ($options = 'FULL')
+    public static function getVersion ($options = 'FULL')
     {
             switch ($options)
             {
