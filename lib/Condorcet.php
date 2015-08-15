@@ -22,7 +22,7 @@ abstract class Condorcet
 /////////// CONSTANTS ///////////
         const VERSION = '0.95.1';
 
-        const ENV = 'DEV';
+        const ENV = 'STABLE';
 
         const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
