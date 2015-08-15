@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.94
+    Version: 0.95
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -20,7 +20,8 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        const VERSION = '0.94';
+        const VERSION = '0.95.1';
+
         const ENV = 'DEV';
 
         const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
