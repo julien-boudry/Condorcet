@@ -10,6 +10,7 @@
 namespace Condorcet;
 
 use Condorcet\Election;
+use Condorcet\CondorcetException;
 
 // Condorcet PSR-O autoload. Can be skipped by other Autoload from framework & Co
 require_once __DIR__ . DIRECTORY_SEPARATOR . '__CondorcetAutoload.php';
@@ -121,11 +122,11 @@ abstract class Condorcet
         protected static function testMethod ($method)
         {
             if ( !class_exists($method) ) :             
-                throw new namespace\CondorcetException(9);
+                throw new CondorcetException(9);
             endif;
 
             if ( !is_subclass_of($method, __NAMESPACE__.'\\Algo\\MethodInterface') || !is_subclass_of($method,__NAMESPACE__.'\\Algo\\Method') ) :
-                throw new namespace\CondorcetException(10);
+                throw new CondorcetException(10);
             endif;
 
             return true;

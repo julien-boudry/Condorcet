@@ -10,6 +10,7 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\CondorcetException;
 
 class Candidate
 {
@@ -38,10 +39,10 @@ class Candidate
         $name = trim((string) $name);
 
         if (mb_strlen($name) > Condorcet::MAX_LENGTH_CANDIDATE_ID )
-            { throw new namespace\CondorcetException(1, $name); }
+            { throw new CondorcetException(1, $name); }
 
         if (!$this->checkName($name))
-            { throw new namespace\CondorcetException(19, $name); }
+            { throw new CondorcetException(19, $name); }
 
         $this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
 

@@ -73,7 +73,7 @@ class Election
     {
         // Input must be a string
         if (!is_string($input))
-            { throw new namespace\CondorcetException(14); }
+            { throw new CondorcetException(14); }
 
         // Is string or is file ?
         if ($allowFile === true && is_file($input))
@@ -106,7 +106,7 @@ class Election
     public static function prepareJson ($input)
     {
         if (!self::isJson($input))
-            { throw new namespace\CondorcetException(15); }
+            { throw new CondorcetException(15); }
 
         return json_decode($input, true);
     }
@@ -190,7 +190,7 @@ class Election
             $this->_Candidates = [];
             $this->_Votes = [];
 
-            throw new namespace\CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
+            throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
     }
 
@@ -287,11 +287,11 @@ class Election
     {
         // only if the vote has not started
         if ( $this->_State > 1 )
-            { throw new namespace\CondorcetException(2); }
+            { throw new CondorcetException(2); }
 
         // Filter
         if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) )
-            { throw new namespace\CondorcetException(1, $candidate_id); }
+            { throw new CondorcetException(1, $candidate_id); }
 
 
         // Process
@@ -309,7 +309,7 @@ class Election
             $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ($candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) )
-                { throw new namespace\CondorcetException(3,$candidate_id); }
+                { throw new CondorcetException(3,$candidate_id); }
         }
 
         // Register it
@@ -331,7 +331,7 @@ class Election
     public function removeCandidate ($list)
     {
         // only if the vote has not started
-        if ( $this->_State > 1 ) { throw new namespace\CondorcetException(2); }
+        if ( $this->_State > 1 ) { throw new CondorcetException(2); }
 
         
         if ( !is_array($list) )
@@ -344,7 +344,7 @@ class Election
             $candidate_key = $this->getCandidateKey($candidate_id);
 
             if ( $candidate_key === false )
-                { throw new namespace\CondorcetException(4,$candidate_id); }
+                { throw new CondorcetException(4,$candidate_id); }
 
             $candidate_id = $candidate_key;
         }
@@ -397,11 +397,11 @@ class Election
             // addCandidate
             try {
                 if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                    throw new namespace\CondorcetException(12, self::$_maxParseIteration);
+                    throw new CondorcetException(12, self::$_maxParseIteration);
                 endif;
 
                 $adding[] = $this->addCandidate($line);
-            } catch (namespace\CondorcetException $e) {
+            } catch (CondorcetException $e) {
                 if ($e->getCode() === 12)
                     {throw $e;}
             }
@@ -480,7 +480,7 @@ class Election
         if ( $this->_State === 1 )
             { 
                 if (empty($this->_Candidates))
-                    { throw new namespace\CondorcetException(20); }
+                    { throw new CondorcetException(20); }
 
                 $this->_State = 2;
             }
@@ -502,7 +502,7 @@ class Election
 
         // Check Max Vote Count
         if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber )
-            { throw new namespace\CondorcetException(16, self::$_maxVoteNumber); }
+            { throw new CondorcetException(16, self::$_maxVoteNumber); }
 
 
         // Register vote
@@ -531,7 +531,7 @@ class Election
 
             // Check array format && Make checkVoteCandidate
             if ( !$this->checkVoteCandidate($vote) )
-                { throw new namespace\CondorcetException(5); }
+                { throw new CondorcetException(5); }
         }
 
 
@@ -583,9 +583,9 @@ class Election
             try {
                 $vote->registerLink($this);
                 $this->_Votes[] = $vote;                
-            } catch (namespace\CondorcetException $e) {
+            } catch (CondorcetException $e) {
                 // Security : Check if vote object not already register
-                throw new namespace\CondorcetException(6,'Vote object already registred');
+                throw new CondorcetException(6,'Vote object already registred');
             }           
 
             return $vote;
@@ -651,7 +651,7 @@ class Election
             {
                 if (self::$_maxParseIteration !== null && $count >= self::$_maxParseIteration)
                 {
-                    throw new namespace\CondorcetException(12, self::$_maxParseIteration);
+                    throw new CondorcetException(12, self::$_maxParseIteration);
                 }
 
                 try {
@@ -684,7 +684,7 @@ class Election
                 // Errors
                 if ( !is_numeric($multiple) )
                 { 
-                    throw new namespace\CondorcetException(13, null);
+                    throw new CondorcetException(13, null);
                 }
 
                 $multiple = intval($multiple);
@@ -717,7 +717,7 @@ class Election
             {
                 if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration)
                 {
-                    throw new namespace\CondorcetException(12, self::$_maxParseIteration);
+                    throw new CondorcetException(12, self::$_maxParseIteration);
                 }
 
                 try {
@@ -852,7 +852,7 @@ class Election
         }
         else
         {
-            throw new namespace\CondorcetException(8,$method);
+            throw new CondorcetException(8,$method);
         }
 
         return ($options['human']) ? $this->humanResult($result) : $result;
@@ -938,7 +938,7 @@ class Election
                 if ( Condorcet::isAuthMethod($substitution) )
                     {$algo = $substitution;}
                 else
-                    {throw new namespace\CondorcetException(9,$substitution);}
+                    {throw new CondorcetException(9,$substitution);}
             }
             else
                 {$algo = Condorcet::CONDORCET_BASIC_CLASS;}
@@ -968,7 +968,7 @@ class Election
         }
         else
         {
-            throw new namespace\CondorcetException(8);
+            throw new CondorcetException(8);
         }
 
         if (!is_null($stats))
@@ -1006,7 +1006,7 @@ class Election
             // Return
             return true;
         else :
-            throw new namespace\CondorcetException(6);
+            throw new CondorcetException(6);
         endif;
     }
 
