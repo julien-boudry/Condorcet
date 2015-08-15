@@ -1,9 +1,9 @@
-## public Condorcet::ignoreMaxVote
+## public Election::ignoreMaxVote
 
 ### Description    
 
 ```php
-public $Condorcet -> ignoreMaxVote ( [ bool ignore = true] )
+public $Election -> ignoreMaxVote ( [ bool ignore = true] )
 ```
 
 Goes beyond the class static limit for this election object only, if static limitation enabled.    
@@ -23,8 +23,8 @@ Goes beyond the class static limit for this election object only, if static limi
 
 ### Related method(s)      
 
-* [static Condorcet::setMaxVoteNumber](../Condorcet Class/public static Condorcet--setMaxVoteNumber.md)    
-* [static Condorcet::setMaxParseIteration](../Condorcet Class/public static Condorcet--setMaxParseIteration.md)    
+* [static Election::setMaxVoteNumber](../Election Class/public static Election--setMaxVoteNumber.md)    
+* [static Election::setMaxParseIteration](../Election Class/public static Election--setMaxParseIteration.md)    
 
 ---------------------------------------
 

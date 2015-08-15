@@ -1,9 +1,9 @@
-## public Condorcet::getResult
+## public Election::getResult
 
 ### Description    
 
 ```php
-public $Condorcet -> getResult ( [ mixed method = true, array options = []] )
+public $Election -> getResult ( [ mixed method = true, array options = []] )
 ```
 
 Get a full ranking from an advanced Condorcet method.
@@ -29,7 +29,7 @@ Ordered array or multi-dimensionnal ordered array (if tie), populated by Candida
 
 ### Related method(s)      
 
-* [Condorcet::getWinner](../Condorcet Class/public Condorcet--getWinner.md)    
+* [Election::getWinner](../Election Class/public Election--getWinner.md)    
 
 ---------------------------------------
 

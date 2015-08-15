@@ -1,9 +1,9 @@
-## public Condorcet::jsonVotes
+## public Election::jsonVotes
 
 ### Description    
 
 ```php
-public $Condorcet -> jsonVotes ( string input )
+public $Election -> jsonVotes ( string input )
 ```
 
 Import votes from a Json source.    
@@ -23,9 +23,9 @@ Json string input.
 
 ### Related method(s)      
 
-* [Condorcet::addVote](../Condorcet Class/public Condorcet--addVote.md)    
-* [Condorcet::parseVotes](../Condorcet Class/public Condorcet--parseVotes.md)    
-* [Condorcet::jsonCandidates](../Condorcet Class/public Condorcet--jsonCandidates.md)    
+* [Election::addVote](../Election Class/public Election--addVote.md)    
+* [Election::parseVotes](../Election Class/public Election--parseVotes.md)    
+* [Election::jsonCandidates](../Election Class/public Election--jsonCandidates.md)    
 
 ---------------------------------------
 

@@ -18,4 +18,4 @@ An explicit array with candidate name as key.
 
 ### Related method(s)      
 
-* [Condorcet::getPairwise](../Condorcet Class/public Condorcet--getPairwise.md)    
+* [Election::getPairwise](../Election Class/public Election--getPairwise.md)    

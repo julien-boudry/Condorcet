@@ -10,6 +10,7 @@
 namespace Condorcet\Algo\Methods;
 
 use Condorcet\Condorcet;
+use Condorcet\Election;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
@@ -35,7 +36,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected $_Result;
 
 
-    public function __construct (Condorcet $mother)
+    public function __construct (Election $mother)
     {
         parent::__construct($mother);
 
@@ -131,7 +132,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         // But ... where are the data ?! Okay, old way now...
         if (!file_exists($path)) :
-            $compute = $this->doPossibleRanking( (namespace\Condorcet::ENV === 'DEV') ? $path : null );
+            $compute = $this->doPossibleRanking( (Condorcet::ENV === 'DEV') ? $path : null );
         else :
             $compute = file_get_contents($path);
         endif;

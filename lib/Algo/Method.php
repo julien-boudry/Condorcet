@@ -9,14 +9,14 @@
 */
 namespace Condorcet\Algo;
 
-use Condorcet\Condorcet;
+use Condorcet\Election;
 
 // Generic for Algorithms
 abstract class Method
 {
     protected $_selfElection;
 
-    public function __construct (Condorcet $mother)
+    public function __construct (Election $mother)
     {
         $this->_selfElection = $mother;
     }

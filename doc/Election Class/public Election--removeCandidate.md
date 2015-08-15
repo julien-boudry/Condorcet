@@ -1,9 +1,9 @@
-## public Condorcet::removeCandidate
+## public Election::removeCandidate
 
 ### Description    
 
 ```php
-public $Condorcet -> removeCandidate ( mixed candidate )
+public $Election -> removeCandidate ( mixed candidate )
 ```
 
 Remove Candidate from an election.
@@ -28,8 +28,8 @@ Remove Candidate from an election.
 
 ### Related method(s)      
 
-* [Condorcet::AddCandidate](../Condorcet Class/public Condorcet--AddCandidate.md)    
-* [Condorcet::getCandidatesList](../Condorcet Class/public Condorcet--getCandidatesList.md)    
+* [Election::AddCandidate](../Election Class/public Election--AddCandidate.md)    
+* [Election::getCandidatesList](../Election Class/public Election--getCandidatesList.md)    
 
 ---------------------------------------
 

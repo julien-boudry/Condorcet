@@ -1,9 +1,9 @@
-## public Condorcet::countVotes
+## public Election::countVotes
 
 ### Description    
 
 ```php
-public $Condorcet -> countVotes ( [ mixed tag, bool with = true] )
+public $Election -> countVotes ( [ mixed tag, bool with = true] )
 ```
 
 Count the number of actual registered and valid vote for this election.    
@@ -28,4 +28,4 @@ Count Votes with this tag ou without this tag.
 
 ### Related method(s)      
 
-* [Condorcet::getVotesList](../Condorcet Class/public Condorcet--getVotesList.md)    
+* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    

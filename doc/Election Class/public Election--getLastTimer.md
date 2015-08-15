@@ -1,12 +1,12 @@
-## public Condorcet::getGlobalTimer
+## public Election::getLastTimer
 
 ### Description    
 
 ```php
-public $Condorcet -> getGlobalTimer ( [ bool floatNumber = false] )
+public $Election -> getLastTimer ( [ bool floatNumber = false] )
 ```
 
-Returns the cumulated computation runtime of this object. Include only computation related methods.    
+Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.    
 
 
 ##### **floatNumber:** *bool*   
@@ -23,7 +23,7 @@ Int or string (look param).
 
 ### Related method(s)      
 
-* [Condorcet::getLastTimer](../Condorcet Class/public Condorcet--getLastTimer.md)    
+* [Election::getGlobalTimer](../Election Class/public Election--getGlobalTimer.md)    
 
 ---------------------------------------
 

@@ -1,4 +1,8 @@
 <?php
+
+use Condorcet\Condorcet;
+use Condorcet\Election;
+
 ini_set('xdebug.var_display_max_depth', -1);
 ini_set('xdebug.var_display_max_children', -1);
 ini_set('xdebug.var_display_max_data', -1);
@@ -6,18 +10,17 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL); 
 
 // Exeptions Handler
-
-
-use Condorcet\Condorcet ;
+function exception_handler($exception) {
+  trigger_error($exception, E_USER_ERROR);
+}
+set_exception_handler('exception_handler');
 
 require_once	'..'.DIRECTORY_SEPARATOR.
 				'..'.DIRECTORY_SEPARATOR.'lib'.
 				DIRECTORY_SEPARATOR.'Condorcet.php' ;
 
 
-$election = new Condorcet () ;
-
-
+$election = new Election () ;
 
 // Inluding Data
 
@@ -47,7 +50,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<h1><?php echo TEST_NAME ;?></h1>
 	
-	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo $election->getClassVersion(); ?></em><br>
+	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo Condorcet::getVersion(); ?></em><br>
 
 	<em>
 		Number of Candidates : 

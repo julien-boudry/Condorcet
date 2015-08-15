@@ -1,9 +1,9 @@
-## public Condorcet::getPairwise
+## public Election::getPairwise
 
 ### Description    
 
 ```php
-public $Condorcet -> getPairwise ( [ bool explicit = true] )
+public $Election -> getPairwise ( [ bool explicit = true] )
 ```
 
 Return the Pairwise.    
@@ -23,7 +23,7 @@ Pairwise object. Or an explicit array if _explicit_ argument == true.
 
 ### Related method(s)      
 
-* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
+* [Election::getResult](../Election Class/public Election--getResult.md)    
 
 ---------------------------------------
 

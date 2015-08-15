@@ -1,9 +1,9 @@
-## public Condorcet::getLoser
+## public Election::getLoser
 
 ### Description    
 
 ```php
-public $Condorcet -> getLoser ( [ mixed method] )
+public $Election -> getLoser ( [ mixed method] )
 ```
 
 Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.    
@@ -33,8 +33,8 @@ Throw an exception on error.
 
 ### Related method(s)      
 
-* [Condorcet::getWinner](../Condorcet Class/public Condorcet--getWinner.md)    
-* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
+* [Election::getWinner](../Election Class/public Election--getWinner.md)    
+* [Election::getResult](../Election Class/public Election--getResult.md)    
 
 ---------------------------------------
 

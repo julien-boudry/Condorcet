@@ -1,9 +1,9 @@
-## public Condorcet::addVote
+## public Election::addVote
 
 ### Description    
 
 ```php
-public $Condorcet -> addVote ( mixed vote [, mixed tags] )
+public $Election -> addVote ( mixed vote [, mixed tags] )
 ```
 
 Add a vote to an election.    
@@ -28,10 +28,10 @@ The vote object.
 
 ### Related method(s)      
 
-* [Condorcet::parseVotes](../Condorcet Class/public Condorcet--parseVotes.md)    
-* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet--jsonVotes.md)    
-* [Condorcet::removeVote](../Condorcet Class/public Condorcet--removeVote.md)    
-* [Condorcet::getVotesList](../Condorcet Class/public Condorcet--getVotesList.md)    
+* [Election::parseVotes](../Election Class/public Election--parseVotes.md)    
+* [Election::jsonVotes](../Election Class/public Election--jsonVotes.md)    
+* [Election::removeVote](../Election Class/public Election--removeVote.md)    
+* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    
 
 ---------------------------------------
 

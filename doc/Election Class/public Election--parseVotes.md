@@ -1,9 +1,9 @@
-## public Condorcet::parseVotes
+## public Election::parseVotes
 
 ### Description    
 
 ```php
-public $Condorcet -> parseVotes ( string input )
+public $Election -> parseVotes ( string input )
 ```
 
 Import votes from a text source.    
@@ -23,9 +23,9 @@ String or valid path to a text file.
 
 ### Related method(s)      
 
-* [Condorcet::addVote](../Condorcet Class/public Condorcet--addVote.md)    
-* [Condorcet::parseCandidates](../Condorcet Class/public Condorcet--parseCandidates.md)    
-* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet--jsonVotes.md)    
+* [Election::addVote](../Election Class/public Election--addVote.md)    
+* [Election::parseCandidates](../Election Class/public Election--parseCandidates.md)    
+* [Election::jsonVotes](../Election Class/public Election--jsonVotes.md)    
 
 ---------------------------------------
 

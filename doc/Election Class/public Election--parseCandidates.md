@@ -1,16 +1,16 @@
-## public Condorcet::jsonCandidates
+## public Election::parseCandidates
 
 ### Description    
 
 ```php
-public $Condorcet -> jsonCandidates ( string input )
+public $Election -> parseCandidates ( string input )
 ```
 
-Import candidate from a Json source.    
+Import candidate from a text source.    
 
 
 ##### **input:** *string*   
-Json string input.    
+String or valid path to a text file.    
 
 
 
@@ -23,9 +23,9 @@ Json string input.
 
 ### Related method(s)      
 
-* [Condorcet::addCandidate](../Condorcet Class/public Condorcet--addCandidate.md)    
-* [Condorcet::parseCandidates](../Condorcet Class/public Condorcet--parseCandidates.md)    
-* [Condorcet::jsonVotes](../Condorcet Class/public Condorcet--jsonVotes.md)    
+* [Election::addCandidate](../Election Class/public Election--addCandidate.md)    
+* [Election::jsonCandidates](../Election Class/public Election--jsonCandidates.md)    
+* [Election::parseVotes](../Election Class/public Election--parseVotes.md)    
 
 ---------------------------------------
 

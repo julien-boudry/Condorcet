@@ -1,9 +1,9 @@
-## public Condorcet::getVotesList
+## public Election::getVotesList
 
 ### Description    
 
 ```php
-public $Condorcet -> getVotesList ( letype tag = test, letype with = test )
+public $Election -> getVotesList ( letype tag = test, letype with = test )
 ```
 
 Get registered vote list.    
@@ -28,7 +28,7 @@ Get registered vote list.
 
 ### Related method(s)      
 
-* [Condorcet::countVotes](../Condorcet Class/public Condorcet--countVotes.md)    
+* [Election::countVotes](../Election Class/public Election--countVotes.md)    
 
 ---------------------------------------
 

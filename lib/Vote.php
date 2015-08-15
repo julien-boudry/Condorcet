@@ -9,7 +9,9 @@
 */
 namespace Condorcet;
 
+use Condorcet\Election;
 use Condorcet\Candidate;
+use Condorcet\CondorcetException;
 
 class Vote implements \Iterator
 {
@@ -116,7 +118,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualVote (namespace\Condorcet &$election, $string = false)
+    public function getContextualVote (Election &$election, $string = false)
     {
         if (!$this->haveLink($election))
             { return false; }
@@ -160,9 +162,9 @@ class Vote implements \Iterator
         // Timestamp
         if ($ownTimestamp !== false) :
             if (!is_numeric($ownTimestamp)) :
-                throw new namespace\CondorcetException(21);
+                throw new CondorcetException(21);
             elseif (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
-                throw new namespace\CondorcetException(21);
+                throw new CondorcetException(21);
             endif;
         endif;
 
@@ -179,11 +181,11 @@ class Vote implements \Iterator
                     $link->prepareModifyVote($this);
                 }
             }
-            catch (namespace\CondorcetException $e) {
+            catch (CondorcetException $e) {
                 
                 array_pop($this->_ranking);
 
-                throw new namespace\CondorcetException(18);
+                throw new CondorcetException(18);
             }
         }
 
@@ -196,7 +198,7 @@ class Vote implements \Iterator
                 { $ranking = self::convertVoteInput($ranking); }
 
             if (!is_array($ranking) || empty($ranking)) :
-                throw new namespace\CondorcetException(5);
+                throw new CondorcetException(5);
             endif;
 
 
@@ -235,7 +237,7 @@ class Vote implements \Iterator
                     // Check objet reference AND check candidates name
                     if (!in_array($Candidate, $list_candidate, true) && !in_array($Candidate, $list_candidate)) :
                         $list_candidate[] = $Candidate;
-                    else : throw new namespace\CondorcetException(5); endif;
+                    else : throw new CondorcetException(5); endif;
 
                 endforeach;
             }
@@ -266,7 +268,7 @@ class Vote implements \Iterator
     public function addTags ($tags)
     {
         if (is_object($tags) || is_bool($tags))
-            { throw new namespace\CondorcetException(17); }
+            { throw new CondorcetException(17); }
 
         $tags = self::tagsConvert($tags);
 
@@ -277,7 +279,7 @@ class Vote implements \Iterator
         foreach ($tags as $key => $tag)
         {
             if (is_numeric($tag)) :
-                throw new namespace\CondorcetException(17);
+                throw new CondorcetException(17);
             elseif (in_array($tag, $this->_tags, true)) :
                 unset($tags[$key]);
             endif;
@@ -294,7 +296,7 @@ class Vote implements \Iterator
     public function removeTags ($tags)
     {
         if (is_object($tags) || is_bool($tags))
-            { throw new namespace\CondorcetException(17); }
+            { throw new CondorcetException(17); }
 
         $tags = self::tagsConvert($tags);
 

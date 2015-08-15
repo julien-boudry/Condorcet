@@ -23,7 +23,7 @@ Note that if your vote is already linked to one ore more elections, your ranking
    ```
 * Or combine the 2 last ways.
 
-Note: You can't use string candidate name if your vote is already linked to an election (by Condorcet::addVote).    
+Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).    
 
 
 

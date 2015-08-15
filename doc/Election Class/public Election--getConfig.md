@@ -1,9 +1,9 @@
-## public Condorcet::getConfig
+## public Election::getConfig
 
 ### Description    
 
 ```php
-public $Condorcet -> getConfig ( )
+public $Election -> getConfig ( )
 ```
 
 Get some config summary for this object    

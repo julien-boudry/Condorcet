@@ -1,9 +1,9 @@
-## public Condorcet::getChecksum
+## public Election::getChecksum
 
 ### Description    
 
 ```php
-public $Condorcet -> getChecksum ( )
+public $Election -> getChecksum ( )
 ```
 
 SHA-2 256 checksum of following internal data:

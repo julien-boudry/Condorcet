@@ -1,9 +1,9 @@
-## public Condorcet::getResultStats
+## public Election::getResultStats
 
 ### Description    
 
 ```php
-public $Condorcet -> getResultStats ( [ mixed method = true] )
+public $Election -> getResultStats ( [ mixed method = true] )
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.    
@@ -23,7 +23,7 @@ Varying according to the algorithm used.
 
 ### Related method(s)      
 
-* [Condorcet::getResult](../Condorcet Class/public Condorcet--getResult.md)    
+* [Election::getResult](../Election Class/public Election--getResult.md)    
 
 ---------------------------------------
 

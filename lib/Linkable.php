@@ -9,6 +9,9 @@
 */
 namespace Condorcet;
 
+use Condorcet\Election;
+use Condorcet\CondorcetException;
+
 // Generic for Candidate & Vote Class
 trait Linkable
 {
@@ -31,7 +34,7 @@ trait Linkable
         return $var;
     }
 
-    public function haveLink (namespace\Condorcet &$election)
+    public function haveLink (Election &$election)
     {
         return in_array($election, $this->_link, true);
     }
@@ -49,7 +52,7 @@ trait Linkable
     // Internal
         # Dot not Overloading ! Do not Use !
 
-    public function registerLink (namespace\Condorcet &$election)
+    public function registerLink (Election &$election)
     {
         if (array_search($election, $this->_link, true) === false)
             { $this->_link[] = $election; }
@@ -57,7 +60,7 @@ trait Linkable
             { throw new CondorcetException; }
     }
 
-    public function destroyLink (namespace\Condorcet &$election)
+    public function destroyLink (Election &$election)
     {
         $destroyKey = array_search($election, $this->_link, true);
 
