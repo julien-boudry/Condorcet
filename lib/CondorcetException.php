@@ -55,7 +55,9 @@ class CondorcetException extends \Exception
 
 
         // Algorithms
-        $error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
+        if ($code === 101) :
+            $error[101] = explode('|', $this->_infos)[1].' is configured to accept only '.explode('|', $this->_infos)[0].' candidates';
+        endif;
         $error[102] = 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.';
 
 

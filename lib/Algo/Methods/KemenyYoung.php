@@ -42,7 +42,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
         {
-            throw new CondorcetException(101,self::$_maxCandidates);
+            throw new CondorcetException( 101,self::$_maxCandidates.'|'.explode(',', self::METHOD_NAME)[0] );
         }
     }
 
