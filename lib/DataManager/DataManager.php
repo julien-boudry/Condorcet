@@ -10,22 +10,20 @@
 
 namespace Condorcet;
 
-use Condorcet\Election;
-use Condorcet\Vote;
 
-class VotesManager implements \Iterator,\ArrayAccess
+abstract class DataManager implements \Iterator,\ArrayAccess
 {
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
 
     public function offsetExists($offset) {
-        return isset($this->_Votes[$offset]) ? true : false;
+        return isset($this->_Data[$offset]) ? true : false;
     }
 
     public function offsetUnset($offset) {}
 
     public function offsetGet($offset) {
-        return isset($this->_Votes[$offset]) ? $this->_Votes[$offset] : null;
+        return isset($this->_Data[$offset]) ? $this->_Data[$offset] : null;
     }
 
 
@@ -33,20 +31,20 @@ class VotesManager implements \Iterator,\ArrayAccess
     private $valid = true;
 
     public function rewind() {
-        reset($this->_Votes);
+        reset($this->_Data);
         $this->valid = true;
     }
 
     public function current() {
-        return $this->_Votes[$this->key()];
+        return $this->_Data[$this->key()];
     }
 
     public function key() {
-        return key($this->_Votes);
+        return key($this->_Data);
     }
 
     public function next() {
-        if (next($this->_Votes) === false) :
+        if (next($this->_Data) === false) :
             $this->valid = false;
         endif;
     }
@@ -58,9 +56,5 @@ class VotesManager implements \Iterator,\ArrayAccess
 
         //////
 
-    protected $_Votes = [];
-
-    public function __construct (Election &$link)
-    {
-        $this->_Election = $link;
-    }
+    protected $_Data = [];
+}
