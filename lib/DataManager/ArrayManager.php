@@ -8,10 +8,10 @@
     https://github.com/julien-boudry/Condorcet
 */
 
-namespace Condorcet;
+namespace Condorcet\DataManager;
 
 
-abstract class DataManager implements \Iterator,\ArrayAccess
+abstract class ArrayManager implements \Iterator,\ArrayAccess
 {
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
