@@ -19,7 +19,7 @@ class Pairwise implements \Iterator,\ArrayAccess
     public function offsetSet($offset, $value) {}
 
     public function offsetExists($offset) {
-        return isset($this->_Pairwise[$offset]) ? true : false;
+        return isset($this->_Pairwise[$offset]);
     }
 
     public function offsetUnset($offset) {}
