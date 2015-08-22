@@ -10,10 +10,13 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\CondorcetVersion;
 
 // Custom Exeption
 class CondorcetException extends \Exception
 {
+    use CondorcetVersion;
+
     protected $_infos;
 
     public function __construct ($code = 0, $infos = '')

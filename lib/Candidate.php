@@ -10,11 +10,13 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\Linkable;
+use Condorcet\CondorcetVersion;
 use Condorcet\CondorcetException;
 
 class Candidate
 {
-    use namespace\Linkable;
+    use Linkable, CondorcetVersion;
 
     private $_name;
 

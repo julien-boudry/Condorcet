@@ -10,9 +10,12 @@
 namespace Condorcet\Timer;
 
 use Condorcet\CondorcetException;
+use Condorcet\CondorcetVersion;
 
 class Manager
 {
+    use CondorcetVersion;
+
     protected $_globalTimer = 0.0;
     protected $_lastTimer;
     protected $_lastChronoTimestamp;

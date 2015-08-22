@@ -9,8 +9,12 @@
 */
 namespace Condorcet\Timer;
 
+use Condorcet\CondorcetVersion;
+
 class Chrono
 {
+    use CondorcetVersion;
+
     protected $_manager;
     protected $_start;
 
