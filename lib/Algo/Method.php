@@ -15,7 +15,7 @@ use Condorcet\CondorcetVersion;
 // Generic for Algorithms
 abstract class Method
 {
-	use CondorcetVersion;
+    use CondorcetVersion;
 
     protected $_selfElection;
 
