@@ -19,11 +19,16 @@ class Manager
 
     protected $_globalTimer = 0.0;
     protected $_lastTimer;
-    protected $_lastChronoTimestamp;
+    protected $_lastChronoTimestamp = null;
+    protected $_startDeclare = null;
     protected $_history = [];
 
     public function addTime ( Chrono $chrono )
     {
+        if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
+            return;
+        endif;
+
         if ($chrono->getTimerManager() === $this) :
             $m = microtime(true);
 
@@ -60,5 +65,12 @@ class Manager
     public function getHistory ()
     {
         return $this->_history;
+    }
+
+    public function startDeclare (Chrono $chrono)
+    {
+        if ($this->_startDeclare === null) {
+            $this->_startDeclare = $chrono->getStart();
+        }
     }
 }

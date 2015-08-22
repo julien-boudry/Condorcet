@@ -25,6 +25,7 @@ class Chrono
         $this->_manager = $timer;
         $this->setRole($role);        
         $this->resetStart();
+        $this->managerStartDeclare();
     }
 
     public function __destruct ()
@@ -51,5 +52,9 @@ class Chrono
 
     public function setRole ($role) {
         $this->_role = ($role !== null) ? (string) $role : $role;
+    }
+
+    protected function managerStartDeclare () {
+        $this->_manager->startDeclare( $this );
     }
 }
