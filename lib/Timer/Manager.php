@@ -20,6 +20,7 @@ class Manager
     protected $_globalTimer = 0.0;
     protected $_lastTimer;
     protected $_lastChronoTimestamp;
+    protected $_history = [];
 
     public function addTime ( Chrono $chrono )
     {
@@ -30,6 +31,11 @@ class Manager
                 $c = $this->_lastChronoTimestamp;
             else :
                 $c = $chrono->getStart();
+                $this->_history[] = [   'role' => $chrono->getRole(),
+                                        'process_in' => ($m - $c),
+                                        'timer_start' => $c,
+                                        'timer_end' => $m
+                                    ];
             endif;
 
             $this->_globalTimer += ($m - $c);
@@ -49,5 +55,10 @@ class Manager
     public function getLastTimer ($float = false)
     {
         return ($float || $this->_lastTimer === null) ? $this->_lastTimer : number_format($this->_lastTimer, 5);
+    }
+
+    public function getHistory ()
+    {
+        return $this->_history;
     }
 }

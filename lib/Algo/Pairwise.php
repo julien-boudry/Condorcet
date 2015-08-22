@@ -93,7 +93,7 @@ class Pairwise implements \Iterator,\ArrayAccess
     protected function doPairwise ()
     {       
         // Chrono
-        $chrono = new Timer_Chrono ( $this->_Election->getTimerManager() );
+        $chrono = new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
         // Get election data
         $candidate_list = $this->_Election->getCandidatesList(false);
