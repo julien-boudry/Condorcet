@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.95
+    Version: 0.96
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -10,10 +10,13 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\CondorcetVersion;
 
 // Custom Exeption
 class CondorcetException extends \Exception
 {
+    use CondorcetVersion;
+
     protected $_infos;
 
     public function __construct ($code = 0, $infos = '')
@@ -55,7 +58,9 @@ class CondorcetException extends \Exception
 
 
         // Algorithms
-        $error[101] = 'KemenyYoung is configured to accept only '.$this->_infos.' candidates';
+        if ($code === 101) :
+            $error[101] = explode('|', $this->_infos)[1].' is configured to accept only '.explode('|', $this->_infos)[0].' candidates';
+        endif;
         $error[102] = 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.';
 
 

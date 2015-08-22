@@ -2,15 +2,19 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.95
+    Version: 0.96
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Timer;
 
+use Condorcet\CondorcetVersion;
+
 class Chrono
 {
+    use CondorcetVersion;
+
     protected $_manager;
     protected $_start;
 

@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.95
+    Version: 0.96
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -10,6 +10,7 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\CondorcetVersion;
 use Condorcet\Algo\Pairwise;
 use Condorcet\CondorcetException;
 use Condorcet\Timer\Manager as Timer_Manager;
@@ -115,6 +116,7 @@ class Election
 
 /////////// CONSTRUCTOR ///////////
 
+    use CondorcetVersion;
 
     // Data and global options
     protected $_Candidates; // Candidate list
@@ -125,7 +127,6 @@ class Election
     protected $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
     protected $_timer;
     protected $_nextVoteTag = 0;
-    protected $_objectVersion;
     protected $_ignoreStaticMaxVote = false;
 
     // Result
@@ -139,28 +140,12 @@ class Election
         $this->_Candidates = array();
         $this->_Votes = array();
         $this->_timer = new Timer_Manager;
-
-        // Store constructor version (security for caching)
-        $this->_objectVersion = Condorcet::VERSION;
     }
 
     public function __destruct ()
     {
         $this->destroyAllLink();
     }
-
-        public function getObjectVersion ($options = null)
-        {
-            switch ($options)
-            {
-                case 'MAJOR':
-                    $version = explode('.', $this->_objectVersion);
-                    return $version[0].'.'.$version[1];
-
-                default:
-                    return $this->_objectVersion;
-            }
-        }
 
     public function __sleep ()
     {

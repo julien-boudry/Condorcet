@@ -9,6 +9,7 @@
 */
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\Election;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
@@ -20,6 +21,9 @@ class RankedPairs extends Method implements MethodInterface
     // Method Name
     const METHOD_NAME = 'Ranked Pairs,RankedPairs,Tideman method';
 
+    // Limits
+        public static $_maxCandidates = 7;
+
     // Ranked Pairs
     protected $_PairwiseSort;
     protected $_Arcs;
@@ -29,6 +33,16 @@ class RankedPairs extends Method implements MethodInterface
 
 
 /////////// PUBLIC ///////////
+
+    public function __construct (Election $mother)
+    {
+        parent::__construct($mother);
+
+        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
+        {
+            throw new CondorcetException( 101,self::$_maxCandidates.'|'.explode(',', self::METHOD_NAME)[0] );
+        }
+    }
 
 
     // Get the Ranked Pairs ranking

@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.95
+    Version: 0.96
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -12,9 +12,12 @@ namespace Condorcet\Algo;
 
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
+use Condorcet\CondorcetVersion;
 
 class Pairwise implements \Iterator,\ArrayAccess
 {
+    use CondorcetVersion;
+
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
 

@@ -16,8 +16,7 @@ function exception_handler($exception) {
 set_exception_handler('exception_handler');
 
 require_once	'..'.DIRECTORY_SEPARATOR.
-				'..'.DIRECTORY_SEPARATOR.'lib'.
-				DIRECTORY_SEPARATOR.'Condorcet.php' ;
+				'..'.DIRECTORY_SEPARATOR.'__CondorcetAutoload.php';
 
 $election = new Election () ;
 

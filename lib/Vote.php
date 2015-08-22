@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.95
+    Version: 0.96
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -12,10 +12,12 @@ namespace Condorcet;
 use Condorcet\Election;
 use Condorcet\Candidate;
 use Condorcet\CondorcetException;
+use Condorcet\Linkable;
+use Condorcet\CondorcetVersion;
 
 class Vote implements \Iterator
 {
-    use namespace\Linkable;
+    use Linkable, CondorcetVersion;
 
     // Implement Iterator
 
