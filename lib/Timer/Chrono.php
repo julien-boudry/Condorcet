@@ -9,6 +9,7 @@
 */
 namespace Condorcet\Timer;
 
+use Condorcet\Timer\Manager;
 use Condorcet\CondorcetVersion;
 
 class Chrono
@@ -17,10 +18,12 @@ class Chrono
 
     protected $_manager;
     protected $_start;
+    protected $_role;
 
-    public function __construct (namespace\Manager $timer)
+    public function __construct (Manager $timer, $role = null)
     {
         $this->_manager = $timer;
+        $this->_role = ($role !== null) ? (string) $role : $role;
         $this->resetStart();
     }
 
@@ -40,5 +43,9 @@ class Chrono
 
     protected function resetStart ($pro = null) {
         $this->_start = ($pro) ? $pro : microtime(true);
+    }
+
+    public function getRole () {
+        return $this->_role;
     }
 }

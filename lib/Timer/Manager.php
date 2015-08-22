@@ -9,6 +9,7 @@
 */
 namespace Condorcet\Timer;
 
+use Condorcet\Timer\Chrono;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -20,7 +21,7 @@ class Manager
     protected $_lastTimer;
     protected $_lastChronoTimestamp;
 
-    public function addTime ( namespace\Chrono $chrono )
+    public function addTime ( Chrono $chrono )
     {
         if ($chrono->getTimerManager() === $this) :
             $m = microtime(true);
