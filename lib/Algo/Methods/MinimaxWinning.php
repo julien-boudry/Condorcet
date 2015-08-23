@@ -9,9 +9,10 @@
 */
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\Algo\Methods\Minimax_Core;
 use Condorcet\CondorcetException;
 
-class MinimaxWinning extends namespace\Minimax_Core
+class MinimaxWinning extends Minimax_Core
 {
     // Method Name
     const METHOD_NAME = 'Minimax Winning,MinimaxWinning,Minimax,Minimax_Winning';
