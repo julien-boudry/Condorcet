@@ -8,6 +8,7 @@
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Algo\Methods;
+
 use Condorcet\CondorcetException;
 
 class MinimaxMargin extends namespace\Minimax_Core

@@ -8,6 +8,7 @@
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Algo\Methods;
+
 use Condorcet\CondorcetException;
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method

@@ -9,8 +9,8 @@
 */
 namespace Condorcet;
 
-use Condorcet\Election;
 use Condorcet\CondorcetException;
+use Condorcet\Election;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
@@ -25,7 +25,6 @@ Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
 
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');
-
 
 abstract class Condorcet
 {

@@ -9,10 +9,10 @@
 */
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Election;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\Election;
 use Condorcet\CondorcetException;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs

@@ -9,8 +9,8 @@
 */
 namespace Condorcet;
 
-use Condorcet\Election;
 use Condorcet\CondorcetException;
+use Condorcet\Election;
 
 // Generic for Candidate & Vote Class
 trait Linkable

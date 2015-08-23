@@ -9,8 +9,8 @@
 */
 namespace Condorcet\Algo;
 
-use Condorcet\Election;
 use Condorcet\CondorcetVersion;
+use Condorcet\Election;
 
 // Generic for Algorithms
 abstract class Method

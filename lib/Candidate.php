@@ -10,9 +10,9 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
-use Condorcet\Linkable;
-use Condorcet\CondorcetVersion;
 use Condorcet\CondorcetException;
+use Condorcet\CondorcetVersion;
+use Condorcet\Linkable;
 
 class Candidate
 {

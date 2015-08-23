@@ -9,14 +9,12 @@
 */
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Condorcet;
-use Condorcet\Election;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
+use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
-
-// Note : This class use some configuration method preset at the bottom of this file.
+use Condorcet\Election;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface

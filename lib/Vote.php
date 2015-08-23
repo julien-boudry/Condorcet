@@ -9,11 +9,12 @@
 */
 namespace Condorcet;
 
-use Condorcet\Election;
-use Condorcet\Candidate;
 use Condorcet\CondorcetException;
-use Condorcet\Linkable;
 use Condorcet\CondorcetVersion;
+use Condorcet\Candidate;
+use Condorcet\Election;
+use Condorcet\Linkable;
+
 
 class Vote implements \Iterator
 {

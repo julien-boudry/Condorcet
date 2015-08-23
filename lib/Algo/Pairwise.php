@@ -10,9 +10,9 @@
 
 namespace Condorcet\Algo;
 
+use Condorcet\CondorcetVersion;
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
-use Condorcet\CondorcetVersion;
 
 class Pairwise implements \Iterator,\ArrayAccess
 {
