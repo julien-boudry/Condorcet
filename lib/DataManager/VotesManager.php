@@ -11,9 +11,8 @@
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\ArrayManager;
-use Condorcet\Vote;
 use Condorcet\CondorcetException;
-
+use Condorcet\Vote;
 
 class VotesManager extends ArrayManager
 {

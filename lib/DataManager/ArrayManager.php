@@ -10,7 +10,6 @@
 
 namespace Condorcet\DataManager;
 
-
 abstract class ArrayManager implements \Iterator,\ArrayAccess
 {
         //////
