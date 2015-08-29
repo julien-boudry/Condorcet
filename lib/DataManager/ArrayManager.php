@@ -10,7 +10,7 @@
 
 namespace Condorcet\DataManager;
 
-abstract class ArrayManager implements \Iterator,\ArrayAccess
+abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 {
         //////
 
@@ -75,14 +75,15 @@ abstract class ArrayManager implements \Iterator,\ArrayAccess
     }
 
 
+    // Implement Countable
+    public function count () {
+        return $this->_counter;
+    }
+
     // Array Methods
 
     public function keyExist ($offset) {
         return array_key_exists($offset, $this->_Container);
-    }
-
-    public function count () {
-        return $this->_counter;
     }
 
     public function isIn ($needle, $strict = true) {

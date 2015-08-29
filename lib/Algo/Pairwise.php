@@ -13,7 +13,7 @@ namespace Condorcet\Algo;
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
-class Pairwise implements \Iterator,\ArrayAccess
+class Pairwise implements \ArrayAccess,\Iterator
 {
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
