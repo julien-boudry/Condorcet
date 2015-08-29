@@ -72,7 +72,7 @@ class Pairwise implements \Iterator,\ArrayAccess
 
     public function getExplicitPairwise ()
     {
-        $explicit_pairwise = array();
+        $explicit_pairwise = [];
 
         foreach ($this->_Pairwise as $candidate_key => $candidate_value)
         {
@@ -101,7 +101,7 @@ class Pairwise implements \Iterator,\ArrayAccess
 
         foreach ( $candidate_list as $candidate_key => $candidate_id )
         {
-            $this->_Pairwise[$candidate_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() );
+            $this->_Pairwise[$candidate_key] = array( 'win' => [], 'null' => [], 'lose' => [] );
 
             foreach ( $candidate_list as $candidate_key_r => $candidate_id_r )
             {
@@ -117,11 +117,11 @@ class Pairwise implements \Iterator,\ArrayAccess
         // Win && Null
         foreach ( $vote_list as $vote_id => $vote_ranking )
         {
-            $done_Candidates = array();
+            $done_Candidates = [];
 
             foreach ($vote_ranking->getContextualVote($this->_Election) as $candidates_in_rank)
             {
-                $candidates_in_rank_keys = array();
+                $candidates_in_rank_keys = [];
 
                 foreach ($candidates_in_rank as $candidate)
                 {

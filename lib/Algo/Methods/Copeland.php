@@ -58,7 +58,7 @@ class Copeland extends Method implements MethodInterface
 
             //////
 
-        $explicit = array();
+        $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value)
         {
@@ -77,7 +77,7 @@ class Copeland extends Method implements MethodInterface
 
     protected function makeRanking ()
     {
-        $this->_Result = array();
+        $this->_Result = [];
 
         // Calculate ranking
         $challenge = array ();

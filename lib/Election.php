@@ -137,8 +137,8 @@ class Election
 
     public function __construct ()
     {
-        $this->_Candidates = array();
-        $this->_Votes = array();
+        $this->_Candidates = [];
+        $this->_Votes = [];
         $this->_timer = new Timer_Manager;
     }
 
@@ -411,7 +411,7 @@ class Election
             if (!$stringMode) :
                 return $this->_Candidates;
             else :
-                $result = array();
+                $result = [];
 
                 foreach ($this->_Candidates as $candidateKey => &$oneCandidate)
                 {
@@ -742,9 +742,9 @@ class Election
         {
             $tag = Vote::tagsConvert($tag);
             if ($tag === null)
-                {$tag = array();}
+                {$tag = [];}
 
-            $search = array();
+            $search = [];
 
             foreach ($this->_Votes as $key => $value)
             {
@@ -849,7 +849,7 @@ class Election
             if (!is_array($robot))
                 {return $robot;}
 
-            $human = array();
+            $human = [];
 
             foreach ( $robot as $key => $value )
             {

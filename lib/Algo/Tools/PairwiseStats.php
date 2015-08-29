@@ -19,7 +19,7 @@ abstract class PairwiseStats
 
     public static function PairwiseComparison ($pairwise)
     {
-        $comparison = array();
+        $comparison = [];
 
         foreach ($pairwise as $candidate_key => $candidate_data)
         {
@@ -61,7 +61,7 @@ abstract class PairwiseStats
     {
         $comparison = self::PairwiseComparison($pairwise);
 
-        $score = array();  
+        $score = [];  
 
         foreach ($pairwise as $candidate_key => $candidate_value)
         {

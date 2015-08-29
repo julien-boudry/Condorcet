@@ -107,7 +107,7 @@ abstract class Condorcet
     // Add algos
     public static function addMethod ($algos)
     {
-        $to_add = array();
+        $to_add = [];
 
         // Check algos
         if ( !is_string($algos) ) :

@@ -15,7 +15,7 @@ use Condorcet\Election;
 // Generic for Candidate & Vote Class
 trait Linkable
 {
-    private $_link = array();
+    private $_link = [];
 
     public function __clone ()
     {
@@ -75,6 +75,6 @@ trait Linkable
 
     protected function destroyAllLink ()
     {
-        $this->_link = array();
+        $this->_link = [];
     }
 }

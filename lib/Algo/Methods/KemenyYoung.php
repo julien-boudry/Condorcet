@@ -79,7 +79,7 @@ class KemenyYoung extends Method implements MethodInterface
 
             //////
 
-        $explicit = array();
+        $explicit = [];
 
         foreach ($this->_PossibleRanking as $key => $value)
         {
@@ -136,8 +136,8 @@ class KemenyYoung extends Method implements MethodInterface
         endif;
 
         $i = 0;
-        $search = array();
-        $replace = array();
+        $search = [];
+        $replace = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name)
         {
@@ -161,14 +161,14 @@ class KemenyYoung extends Method implements MethodInterface
 
     protected function calcRankingScore ()
     {
-        $this->_RankingScore = array();
+        $this->_RankingScore = [];
         $pairwise = $this->_selfElection->getPairwise(false);
 
         foreach ($this->_PossibleRanking as $keyScore => $ranking) 
         {
             $this->_RankingScore[$keyScore] = 0;
 
-            $do = array();
+            $do = [];
 
             foreach ($ranking as $candidateId)
             {

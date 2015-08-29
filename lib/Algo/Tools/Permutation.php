@@ -48,7 +48,7 @@ class Permutation
     }
 
     protected function createCandidates ($numberOfCandidates) {
-        $arr = array();
+        $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {
             $arr[] = self::$_prefix.$i;
@@ -76,7 +76,7 @@ class Permutation
     }
 
     private function _permute(array $arr) {
-        $out = array();
+        $out = [];
         if (count($arr) > 1)
             foreach($arr as $r => $c) {
                 $n = $arr;
