@@ -28,7 +28,7 @@ trait Linkable
 
         foreach ($var['_link'] as $key => $oneLink)
         {
-            $var['_link'][$key] = "Object \Condorcet\Condorcet => " . sha1(spl_object_hash($oneLink));
+            $var['_link'][$key] = 'Object '.get_class($oneLink).' => '.sha1(spl_object_hash($oneLink));
         }
 
         return $var;
