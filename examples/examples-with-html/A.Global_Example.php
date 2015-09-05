@@ -156,6 +156,8 @@ define('TEST_NAME', 'Condorcet Global Example');
 ?>
 <br><br><hr><br>
 <strong style="color:green;">Total computed in <?php echo $election->getGlobalTimer() ; ?> second(s).</strong>
+<br>
+<?php var_dump($election->getTimerManager()->getHistory()); ?>
 <br><br><hr>
  
 <h2>Computing statistics :</h2>

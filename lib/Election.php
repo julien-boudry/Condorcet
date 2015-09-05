@@ -797,7 +797,7 @@ class Election
         // Filter if tag is provided & return
         if ($options['%tagFilter'])
         { 
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetResult with filter');
 
             $filter = new self;
 
@@ -840,6 +840,8 @@ class Election
         {
             throw new CondorcetException(8,$method);
         }
+
+        $chrono->setRole('GetResult for '.$method);
 
         return ($options['human']) ? $this->humanResult($result) : $result;
     }
@@ -885,7 +887,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
 
@@ -903,7 +905,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
 
