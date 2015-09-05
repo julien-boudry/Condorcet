@@ -19,7 +19,7 @@ foreach ($doc as $entry)
   	$method = $entry ;
     $method['class'] = $class;
 
-  	$path = "../" . $method['class'] . " Class/";
+  	$path = "../" . str_replace("\\", "_", $method['class']) . " Class/";
 
   	file_put_contents($path.makeFilename($method), createMarkdownContent($method));
   }
@@ -30,7 +30,7 @@ echo 'YAH !';
 function makeFilename ($method) {
   return  $method['visibility'].
           (($method['static']) ? " static " : " "). 
-          $method['class']."--".$method['name'].
+          str_replace("\\", "_", $method['class'])."--".$method['name'].
           ".md";
 }
 
