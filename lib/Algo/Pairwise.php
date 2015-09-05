@@ -94,7 +94,7 @@ class Pairwise implements \ArrayAccess,\Iterator
 
         // Get election data
         $candidate_list = $this->_Election->getCandidatesList(false);
-        $vote_list = $this->_Election->getVotesList();
+        $vote_list = $this->_Election->getVotesManager();
 
         foreach ( $candidate_list as $candidate_key => $candidate_id )
         {

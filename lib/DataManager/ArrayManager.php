@@ -82,6 +82,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     // Array Methods
 
+    public function getArray () {
+        return $this->_Container;
+    }
+
     public function keyExist ($offset) {
         return array_key_exists($offset, $this->_Container);
     }

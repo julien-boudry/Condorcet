@@ -15,6 +15,8 @@ use Condorcet\CondorcetException;
 use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
+
+use Condorcet\DataManager\VotesManager;
 // Base Condorcet class
 class Election
 {
@@ -137,7 +139,7 @@ class Election
     public function __construct ()
     {
         $this->_Candidates = array();
-        $this->_Votes = array();
+        $this->_Votes = new VotesManager;
         $this->_timer = new Timer_Manager;
 
         // Store constructor version (security for caching)
@@ -188,9 +190,6 @@ class Election
     {
         if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') )
         {
-            $this->_Candidates = [];
-            $this->_Votes = [];
-
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
     }
@@ -749,43 +748,15 @@ class Election
     // Get the votes registered list
     public function getVotesList ($tag = null, $with = true)
     {
-        if ($tag === null)
-        {
-            return $this->_Votes;
-        }
-        else
-        {
-            $tag = Vote::tagsConvert($tag);
-            if ($tag === null)
-                {$tag = array();}
+        return $this->_Votes->getVotesList($tag, $with);
+    }
 
-            $search = array();
-
-            foreach ($this->_Votes as $key => $value)
-            {
-                $noOne = true;
-                foreach ($tag as $oneTag)
-                {
-                    if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
-                        if ($with) :
-                            $search[$key] = $value;
-                            break;
-                        else :
-                            $noOne = false;
-                        endif;
-                    endif;
-                }
-
-                if (!$with && $noOne)
-                    { $search[$key] = $value;}
-            }
-
-            return $search;
-        }
+    public function getVotesManager () {
+        return $this->_Votes;
     }
 
     public function getVoteKey (Vote $vote) {
-        return array_search($vote, $this->_Votes, true);
+        return $this->_Votes->getVoteKey($vote);
     }
 
     public function getVoteByKey ($key) {
