@@ -13,11 +13,11 @@ use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Algo\Pairwise;
+use Condorcet\DataManager\VotesManager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
 
-use Condorcet\DataManager\VotesManager;
 // Base Condorcet class
 class Election
 {

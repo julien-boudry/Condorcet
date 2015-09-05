@@ -9,6 +9,8 @@
 */
 namespace Condorcet;
 
+use Condorcet\Condorcet;
+
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {
