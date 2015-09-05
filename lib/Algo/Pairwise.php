@@ -14,7 +14,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
-class Pairwise implements \Iterator,\ArrayAccess
+class Pairwise implements \ArrayAccess,\Iterator
 {
     use CondorcetVersion;
 
@@ -22,7 +22,7 @@ class Pairwise implements \Iterator,\ArrayAccess
     public function offsetSet($offset, $value) {}
 
     public function offsetExists($offset) {
-        return isset($this->_Pairwise[$offset]) ? true : false;
+        return isset($this->_Pairwise[$offset]);
     }
 
     public function offsetUnset($offset) {}
@@ -97,7 +97,7 @@ class Pairwise implements \Iterator,\ArrayAccess
 
         // Get election data
         $candidate_list = $this->_Election->getCandidatesList(false);
-        $vote_list = $this->_Election->getVotesList();
+        $vote_list = $this->_Election->getVotesManager();
 
         foreach ( $candidate_list as $candidate_key => $candidate_id )
         {
