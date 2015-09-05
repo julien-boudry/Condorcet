@@ -2,20 +2,20 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet;
 
-use Condorcet\Election;
 use Condorcet\CondorcetException;
+use Condorcet\Election;
 
 // Generic for Candidate & Vote Class
 trait Linkable
 {
-    private $_link = array();
+    private $_link = [];
 
     public function __clone ()
     {
@@ -28,7 +28,7 @@ trait Linkable
 
         foreach ($var['_link'] as $key => $oneLink)
         {
-            $var['_link'][$key] = "Object \Condorcet\Condorcet => " . sha1(spl_object_hash($oneLink));
+            $var['_link'][$key] = 'Object '.get_class($oneLink).' => '.sha1(spl_object_hash($oneLink));
         }
 
         return $var;
@@ -75,6 +75,6 @@ trait Linkable
 
     protected function destroyAllLink ()
     {
-        $this->_link = array();
+        $this->_link = [];
     }
 }

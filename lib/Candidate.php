@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -10,9 +10,9 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
-use Condorcet\Linkable;
-use Condorcet\CondorcetVersion;
 use Condorcet\CondorcetException;
+use Condorcet\CondorcetVersion;
+use Condorcet\Linkable;
 
 class Candidate
 {

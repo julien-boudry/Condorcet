@@ -2,20 +2,20 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Algo;
 
-use Condorcet\Election;
 use Condorcet\CondorcetVersion;
+use Condorcet\Election;
 
 // Generic for Algorithms
 abstract class Method
 {
-	use CondorcetVersion;
+    use CondorcetVersion;
 
     protected $_selfElection;
 

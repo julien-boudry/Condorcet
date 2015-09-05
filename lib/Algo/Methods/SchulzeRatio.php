@@ -9,9 +9,10 @@
 */
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\Algo\Methods\Schulze_Core;
 use Condorcet\CondorcetException;
 
-class SchulzeRatio extends namespace\Schulze_Core
+class SchulzeRatio extends Schulze_Core
 {
     // Method Name
     const METHOD_NAME = 'Schulze Ratio,SchulzeRatio,Schulze_Ratio';

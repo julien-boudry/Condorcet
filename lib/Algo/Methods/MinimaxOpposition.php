@@ -8,10 +8,12 @@
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Algo\Methods;
+
+use Condorcet\Algo\Methods\Minimax_Core;
 use Condorcet\CondorcetException;
 
 // Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
-class MinimaxOpposition extends namespace\Minimax_Core
+class MinimaxOpposition extends Minimax_Core
 {
     // Method Name
     const METHOD_NAME = 'Minimax Opposition,MinimaxOpposition,Minimax_Opposition';

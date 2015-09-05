@@ -9,9 +9,10 @@
 */
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\Algo\Methods\Schulze_Core;
 use Condorcet\CondorcetException;
 
-class SchulzeMargin extends namespace\Schulze_Core
+class SchulzeMargin extends Schulze_Core
 {
     // Method Name
     const METHOD_NAME = 'Schulze Margin,SchulzeMargin,Schulze_Margin';

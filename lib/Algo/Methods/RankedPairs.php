@@ -9,10 +9,10 @@
 */
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Election;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
+use Condorcet\Election;
 use Condorcet\CondorcetException;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
@@ -62,7 +62,7 @@ class RankedPairs extends Method implements MethodInterface
         // Ranking calculation
         $this->makeArcs();
 
-        $this->_Result = array();
+        $this->_Result = [];
 
         $rang = 1;
         while (count($this->_Result) < $this->_selfElection->countCandidates())
@@ -140,7 +140,7 @@ class RankedPairs extends Method implements MethodInterface
 
     protected function makeArcs ()
     {
-        $this->_Arcs = array();
+        $this->_Arcs = [];
 
         foreach ($this->_PairwiseSort as $wise => $strength)
         {
@@ -199,7 +199,7 @@ class RankedPairs extends Method implements MethodInterface
 
         protected function delArc ($test_cycle, $candidate)
         {
-            $cycles = array();
+            $cycles = [];
 
             $i = 1; $phase = false;
             foreach ($test_cycle as $value)
@@ -227,7 +227,7 @@ class RankedPairs extends Method implements MethodInterface
                 $i++;
             }
 
-            $score = array();
+            $score = [];
             foreach ($cycles as $key => $value)
             {
                 $score[$key] = $this->_PairwiseSort[$value]['score'];

@@ -53,7 +53,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
             //////
 
-        $explicit = array();
+        $explicit = [];
 
         foreach ($this->_Stats as $candidate_key => $value)
         {
@@ -69,13 +69,13 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
     protected function computeMinimax ()
     {
-        $this->_Stats = array();
+        $this->_Stats = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id)
         {           
-            $lose_score         = array();
-            $margin_score       = array();
-            $opposition_score   = array();
+            $lose_score         = [];
+            $margin_score       = [];
+            $opposition_score   = [];
 
             foreach ($this->_selfElection->getPairwise(false)[$candidate_key]['lose'] as $key_lose => $value_lose)
             {
@@ -110,8 +110,8 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
     protected static function makeRanking_method ($type, array $stats)
     {
-        $result = array();
-        $values = array();
+        $result = [];
+        $values = [];
 
         foreach ($stats as $candidate_key => $candidate_Stats)
         {

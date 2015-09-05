@@ -2,18 +2,19 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet;
 
-use Condorcet\Election;
-use Condorcet\Candidate;
 use Condorcet\CondorcetException;
-use Condorcet\Linkable;
 use Condorcet\CondorcetVersion;
+use Condorcet\Candidate;
+use Condorcet\Election;
+use Condorcet\Linkable;
+
 
 class Vote implements \Iterator
 {
@@ -45,9 +46,9 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking = array();
+    private $_ranking = [];
 
-    private $_tags = array();
+    private $_tags = [];
     private $_id;
 
         ///
@@ -107,7 +108,7 @@ class Vote implements \Iterator
 
     public function getAllCandidates ()
     {
-        $list = array();
+        $list = [];
 
         foreach ($this->getRanking() as $rank)
         {
@@ -130,7 +131,7 @@ class Vote implements \Iterator
 
         if (count($present) < $election->countCandidates())
         {
-            $last_rank = array();
+            $last_rank = [];
             foreach ($election->getCandidatesList(false) as $oneCandidate)
             {
                 if (!in_array($oneCandidate->getName(), $present))
@@ -206,7 +207,7 @@ class Vote implements \Iterator
 
             ksort($ranking);
             
-            $i = 1; $vote_r = array();
+            $i = 1; $vote_r = [];
             foreach ($ranking as &$value)
             {
                 if ( !is_array($value) )
@@ -224,7 +225,7 @@ class Vote implements \Iterator
             $ranking = $vote_r;
 
             $counter = 0;
-            $list_candidate = array();
+            $list_candidate = [];
             foreach ($ranking as &$line)
             {
                 foreach ($line as &$Candidate) :

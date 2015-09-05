@@ -1271,7 +1271,7 @@
 
 
 - 
-  class: Pairwise
+  class: Algo\Pairwise
   type: method
   visibility: public
   name: getExplicitPairwise
@@ -1284,3 +1284,20 @@
     - 'Election::getPairwise'
   publish: true
 
+
+# CLASS PAIRWISE
+
+
+- 
+  class: Timer\Manager
+  type: method
+  visibility: public
+  name: getHistory
+  static: false
+  description: |
+    Return benchmarked actions history.
+  return: |
+    An explicit array with history.
+  related:
+    - 'Election::getTimerManager'
+  publish: true

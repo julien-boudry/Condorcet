@@ -57,7 +57,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
             //////
 
-        $explicit = array();
+        $explicit = [];
 
         foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
         {
@@ -83,11 +83,11 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath ()
     {
-        $this->_StrongestPaths = array();
+        $this->_StrongestPaths = [];
 
         foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id )
         {
-            $this->_StrongestPaths[$candidate_key] = array();
+            $this->_StrongestPaths[$candidate_key] = [];
 
             // Format array for the strongest path
             foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r )
@@ -149,7 +149,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate && Format human readable ranking
     protected function makeRanking ()
     {       
-        $this->_Result = array();
+        $this->_Result = [];
 
         // Calculate ranking
         $done = array ();
@@ -157,7 +157,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
         while (count($done) < $this->_selfElection->countCandidates())
         {
-            $to_done = array();
+            $to_done = [];
 
             foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key )
             {

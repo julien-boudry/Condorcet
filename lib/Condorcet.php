@@ -2,15 +2,15 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet;
 
-use Condorcet\Election;
 use Condorcet\CondorcetException;
+use Condorcet\Election;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
@@ -26,12 +26,11 @@ Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');
 
-
 abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        const VERSION = '0.96';
+        const VERSION = '0.97';
 
         const ENV = 'STABLE';
 
@@ -108,7 +107,7 @@ abstract class Condorcet
     // Add algos
     public static function addMethod ($algos)
     {
-        $to_add = array();
+        $to_add = [];
 
         // Check algos
         if ( !is_string($algos) ) :

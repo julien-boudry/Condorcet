@@ -1,9 +1,9 @@
-## public Pairwise::getExplicitPairwise
+## public Algo\Pairwise::getExplicitPairwise
 
 ### Description    
 
 ```php
-public $Pairwise -> getExplicitPairwise ( )
+public $Algo\Pairwise -> getExplicitPairwise ( )
 ```
 
 Get an explicit pairwise.    

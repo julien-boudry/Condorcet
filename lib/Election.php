@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -10,12 +10,14 @@
 namespace Condorcet;
 
 use Condorcet\Condorcet;
+use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Algo\Pairwise;
-use Condorcet\CondorcetException;
-use Condorcet\Timer\Manager as Timer_Manager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
+use Condorcet\Timer\Manager as Timer_Manager;
 
+
+use Condorcet\DataManager\VotesManager;
 // Base Condorcet class
 class Election
 {
@@ -137,8 +139,8 @@ class Election
 
     public function __construct ()
     {
-        $this->_Candidates = array();
-        $this->_Votes = array();
+        $this->_Candidates = [];
+        $this->_Votes = new VotesManager;
         $this->_timer = new Timer_Manager;
     }
 
@@ -173,9 +175,6 @@ class Election
     {
         if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') )
         {
-            $this->_Candidates = [];
-            $this->_Votes = [];
-
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
     }
@@ -411,7 +410,7 @@ class Election
             if (!$stringMode) :
                 return $this->_Candidates;
             else :
-                $result = array();
+                $result = [];
 
                 foreach ($this->_Candidates as $candidateKey => &$oneCandidate)
                 {
@@ -734,43 +733,15 @@ class Election
     // Get the votes registered list
     public function getVotesList ($tag = null, $with = true)
     {
-        if ($tag === null)
-        {
-            return $this->_Votes;
-        }
-        else
-        {
-            $tag = Vote::tagsConvert($tag);
-            if ($tag === null)
-                {$tag = array();}
+        return $this->_Votes->getVotesList($tag, $with);
+    }
 
-            $search = array();
-
-            foreach ($this->_Votes as $key => $value)
-            {
-                $noOne = true;
-                foreach ($tag as $oneTag)
-                {
-                    if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
-                        if ($with) :
-                            $search[$key] = $value;
-                            break;
-                        else :
-                            $noOne = false;
-                        endif;
-                    endif;
-                }
-
-                if (!$with && $noOne)
-                    { $search[$key] = $value;}
-            }
-
-            return $search;
-        }
+    public function getVotesManager () {
+        return $this->_Votes;
     }
 
     public function getVoteKey (Vote $vote) {
-        return array_search($vote, $this->_Votes, true);
+        return $this->_Votes->getVoteKey($vote);
     }
 
     public function getVoteByKey ($key) {
@@ -797,7 +768,7 @@ class Election
         // Filter if tag is provided & return
         if ($options['%tagFilter'])
         { 
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetResult with filter');
 
             $filter = new self;
 
@@ -841,6 +812,8 @@ class Election
             throw new CondorcetException(8,$method);
         }
 
+        $chrono->setRole('GetResult for '.$method);
+
         return ($options['human']) ? $this->humanResult($result) : $result;
     }
 
@@ -849,7 +822,7 @@ class Election
             if (!is_array($robot))
                 {return $robot;}
 
-            $human = array();
+            $human = [];
 
             foreach ( $robot as $key => $value )
             {
@@ -885,7 +858,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
 
@@ -903,7 +876,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer);
+            $chrono = new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
 

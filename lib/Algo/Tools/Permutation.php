@@ -2,7 +2,7 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.96
+    Version: 0.97
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -48,7 +48,7 @@ class Permutation
     }
 
     protected function createCandidates ($numberOfCandidates) {
-        $arr = array();
+        $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {
             $arr[] = self::$_prefix.$i;
@@ -76,7 +76,7 @@ class Permutation
     }
 
     private function _permute(array $arr) {
-        $out = array();
+        $out = [];
         if (count($arr) > 1)
             foreach($arr as $r => $c) {
                 $n = $arr;

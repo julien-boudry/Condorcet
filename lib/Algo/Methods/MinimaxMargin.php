@@ -8,9 +8,11 @@
     https://github.com/julien-boudry/Condorcet
 */
 namespace Condorcet\Algo\Methods;
+
+use Condorcet\Algo\Methods\Minimax_Core;
 use Condorcet\CondorcetException;
 
-class MinimaxMargin extends namespace\Minimax_Core
+class MinimaxMargin extends Minimax_Core
 {
     // Method Name
     const METHOD_NAME = 'Minimax Margin,MinimaxMargin,MinimaxMargin,Minimax_Margin';

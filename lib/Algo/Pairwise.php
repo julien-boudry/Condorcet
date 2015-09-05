@@ -10,11 +10,11 @@
 
 namespace Condorcet\Algo;
 
+use Condorcet\CondorcetVersion;
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
-use Condorcet\CondorcetVersion;
 
-class Pairwise implements \Iterator,\ArrayAccess
+class Pairwise implements \ArrayAccess,\Iterator
 {
     use CondorcetVersion;
 
@@ -22,7 +22,7 @@ class Pairwise implements \Iterator,\ArrayAccess
     public function offsetSet($offset, $value) {}
 
     public function offsetExists($offset) {
-        return isset($this->_Pairwise[$offset]) ? true : false;
+        return isset($this->_Pairwise[$offset]);
     }
 
     public function offsetUnset($offset) {}
@@ -72,7 +72,7 @@ class Pairwise implements \Iterator,\ArrayAccess
 
     public function getExplicitPairwise ()
     {
-        $explicit_pairwise = array();
+        $explicit_pairwise = [];
 
         foreach ($this->_Pairwise as $candidate_key => $candidate_value)
         {
@@ -93,15 +93,15 @@ class Pairwise implements \Iterator,\ArrayAccess
     protected function doPairwise ()
     {       
         // Chrono
-        $chrono = new Timer_Chrono ( $this->_Election->getTimerManager() );
+        $chrono = new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
         // Get election data
         $candidate_list = $this->_Election->getCandidatesList(false);
-        $vote_list = $this->_Election->getVotesList();
+        $vote_list = $this->_Election->getVotesManager();
 
         foreach ( $candidate_list as $candidate_key => $candidate_id )
         {
-            $this->_Pairwise[$candidate_key] = array( 'win' => array(), 'null' => array(), 'lose' => array() );
+            $this->_Pairwise[$candidate_key] = array( 'win' => [], 'null' => [], 'lose' => [] );
 
             foreach ( $candidate_list as $candidate_key_r => $candidate_id_r )
             {
@@ -117,11 +117,11 @@ class Pairwise implements \Iterator,\ArrayAccess
         // Win && Null
         foreach ( $vote_list as $vote_id => $vote_ranking )
         {
-            $done_Candidates = array();
+            $done_Candidates = [];
 
             foreach ($vote_ranking->getContextualVote($this->_Election) as $candidates_in_rank)
             {
-                $candidates_in_rank_keys = array();
+                $candidates_in_rank_keys = [];
 
                 foreach ($candidates_in_rank as $candidate)
                 {
