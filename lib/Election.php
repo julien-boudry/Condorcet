@@ -2,8 +2,6 @@
 /*
     Condorcet PHP Class, with Schulze Methods and others !
 
-    Version: 0.97
-
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
@@ -13,11 +11,11 @@ use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Algo\Pairwise;
+use Condorcet\DataManager\VotesManager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
 
-use Condorcet\DataManager\VotesManager;
 // Base Condorcet class
 class Election
 {
