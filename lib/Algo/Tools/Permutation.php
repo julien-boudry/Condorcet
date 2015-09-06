@@ -55,35 +55,36 @@ class Permutation
     }
 
     private function _exec($a, array $i = []) {
-        if (is_array($a)) {
-            foreach($a as $k => $v) {
+        if (is_array($a)) :
+            foreach($a as $k => $v) :
                 $i2 = $i;
                 $i2[] = $k;
 
                 $this->_exec($v, $i2);
-            }
-        }
-        else {
+            endforeach;
+        else :
             $i[] = $a;
 
             // Del 0 key, first key must be 1.
             $r = [0=>null]; $r = array_merge($r,$i); unset($r[0]);
 
             $this->results[] = $r;
-        }
+        endif;
     }
 
     private function _permute(array $arr) {
         $out = [];
-        if (count($arr) > 1)
-            foreach($arr as $r => $c) {
+
+        if (count($arr) > 1) :
+            foreach($arr as $r => $c) :
                 $n = $arr;
                 unset($n[$r]);
                 $out[$c] = $this->_permute($n);
-            }
-        else {
+            endforeach;
+        else :
             return array_shift($arr);
-        }
+        endif;
+
         return $out;
     }
 }

@@ -26,13 +26,11 @@ class Chrono
         $this->managerStartDeclare();
     }
 
-    public function __destruct ()
-    {
+    public function __destruct () {
         $this->_manager->addTime($this);
     }
 
-    public function getStart ()
-    {
+    public function getStart () {
         return $this->_start;
     }
 

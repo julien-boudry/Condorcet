@@ -8,8 +8,12 @@
 
 namespace Condorcet\DataManager;
 
+use Condorcet\CondorcetVersion;
+
 abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 {
+    use CondorcetVersion;
+
         //////
 
     protected $_Container = [];
