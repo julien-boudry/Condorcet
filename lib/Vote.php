@@ -64,6 +64,10 @@ class Vote implements \Iterator
         return array_keys(get_object_vars($this));
     }
 
+    public function __toString () {
+        return $this->getSimpleRanking();
+    }
+
         ///
 
     // GETTERS
@@ -121,38 +125,44 @@ class Vote implements \Iterator
 
     public function getContextualVote (Election &$election, $string = false)
     {
-        if (!$this->haveLink($election))
-            { return false; }
+        if (!$this->haveLink($election)) :
+            throw new CondorcetException(22);
+        endif;
 
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
 
-        if (count($present) < $election->countCandidates())
-        {
+        if (count($present) < $election->countCandidates()) :
             $last_rank = [];
-            foreach ($election->getCandidatesList(false) as $oneCandidate)
-            {
-                if (!in_array($oneCandidate->getName(), $present))
-                {
+            foreach ($election->getCandidatesList(false) as $oneCandidate) :
+                if (!in_array($oneCandidate->getName(), $present)) :
                     $last_rank[] = $oneCandidate;
-                }
-            }
+                endif;
+            endforeach;
 
             $ranking[] = $last_rank;
-        }
+        endif;
 
-        if ($string)
-        {
-            foreach ($ranking as &$rank)
-            {
-                foreach ($rank as &$oneCandidate)
-                {
+        if ($string) :
+            foreach ($ranking as &$rank) :
+                foreach ($rank as &$oneCandidate) :
                     $oneCandidate = (string) $oneCandidate;
-                }
-            }
-        }
+                endforeach;
+            endforeach;
+        endif;
 
         return $ranking;
+    }
+
+    public function getSimpleRanking ($context = false)
+    {
+        $ranking = ($context) ? $this->getContextualVote($context) : $this->getRanking();
+
+        foreach ($ranking as &$rank) :
+            $rank = implode('=',$rank);
+        endforeach;
+
+        return implode('>', $ranking);
     }
 
 

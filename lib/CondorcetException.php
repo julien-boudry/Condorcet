@@ -53,6 +53,7 @@ class CondorcetException extends \Exception
         $error[19] = 'This name is not allowed in because of a namesake in the election in which the object participates.';
         $error[20] = 'You need to specify one or more candidates before voting';
         $error[21] = 'Bad vote timestamp format';
+        $error[22] = 'This context is not valid';
 
 
         // Algorithms
