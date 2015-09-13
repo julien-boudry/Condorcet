@@ -66,7 +66,7 @@ class BddHandler
         $template['end_template'] = ';';
         $template['insert_template'] = 'INSERT INTO '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].', '.$this->_struct['dataColumnName'].') VALUES ';
         $template['delete_template'] = 'DELETE FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'].' = ';
-        $template['select_template'] = 'SELECT '.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'].' = ';
+        $template['select_template'] = 'SELECT '.$this->_struct['primaryColumnName'].','.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
 
         // Select the max key value. Usefull if array cursor is lost on DataManager.
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
@@ -92,7 +92,10 @@ class BddHandler
         $this->_prepare['deleteOneVote'] = $this->_handler->prepare($template['delete_template'] . '?' . $template['end_template']);
 
         // Get a Vote
-        $this->_prepare['selectOneVote'] = $this->_handler->prepare($template['select_template'] . '?' . $template['end_template']);
+        $this->_prepare['selectOneVote'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
+
+        // Get a range of vote
+        $this->_prepare['selectRangeVotes'] = $this->_handler->prepare($template['select_template'] . ' > :startKey LIMIT :limit' . $template['end_template']);
     }
 
 
@@ -190,12 +193,36 @@ class BddHandler
     {
         try {
             $this->_prepare['selectOneVote']->bindParam(1, $key, \PDO::PARAM_INT);
-            $this->_prepare['selectOneVote']->execute([$key]);
+            $this->_prepare['selectOneVote']->execute();
             
             $r = $this->_prepare['selectOneVote']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectOneVote']->closeCursor();
             if (!empty($r)) :
-                return  $r[0][0];
+                return  $r[0][1];
+            else :
+                return false;
+            endif;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function selectRangeVotes ($key, $limit = 10)
+    {
+        try {
+            $this->_prepare['selectRangeVotes']->bindParam(':startKey', $key, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeVotes']->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeVotes']->execute();
+            
+            $r = $this->_prepare['selectRangeVotes']->fetchAll(\PDO::FETCH_NUM);
+            $this->_prepare['selectRangeVotes']->closeCursor();
+            if (!empty($r)) :
+                $result = [];
+                foreach ($r as $value) :
+                    $result[(int) $value[0]] = $value[1];
+                endforeach ;
+
+                return $result;
             else :
                 return false;
             endif;
