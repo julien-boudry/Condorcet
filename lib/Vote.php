@@ -108,13 +108,11 @@ class Vote implements \Iterator
     {
         $list = [];
 
-        foreach ($this->getRanking() as $rank)
-        {
-            foreach ($rank as $oneCandidate)
-            {
+        foreach ($this->getRanking() as $rank) :
+            foreach ($rank as $oneCandidate) :
                 $list[] = $oneCandidate;
-            }
-        }
+            endforeach;
+        endforeach;
 
         return $list;
     }
