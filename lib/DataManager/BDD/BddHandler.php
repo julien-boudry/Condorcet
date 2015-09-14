@@ -65,8 +65,9 @@ class BddHandler
         // Base - Small query ends
         $template['end_template'] = ';';
         $template['insert_template'] = 'INSERT INTO '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].', '.$this->_struct['dataColumnName'].') VALUES ';
-        $template['delete_template'] = 'DELETE FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'].' = ';
+        $template['delete_template'] = 'DELETE FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
         $template['select_template'] = 'SELECT '.$this->_struct['primaryColumnName'].','.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
+        $template['update_template'] = 'UPDATE '.$this->_struct['tableName'].' SET '.$this->_struct['dataColumnName'].' = :data WHERE '.$this->_struct['primaryColumnName'];
 
         // Select the max key value. Usefull if array cursor is lost on DataManager.
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
@@ -89,19 +90,28 @@ class BddHandler
             }
 
         // Delete one Vote
-        $this->_prepare['deleteOneVote'] = $this->_handler->prepare($template['delete_template'] . '?' . $template['end_template']);
+        $this->_prepare['deleteOneVote'] = $this->_handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
 
         // Get a Vote
         $this->_prepare['selectOneVote'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
         // Get a range of vote
         $this->_prepare['selectRangeVotes'] = $this->_handler->prepare($template['select_template'] . ' > :startKey LIMIT :limit' . $template['end_template']);
+
+        // Count Votes
+        $this->_prepare['countVotes'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
+
+        // Update Vote
+        $this->_prepare['updateOneVote'] = $this->_handler->prepare($template['update_template'] . ' = :key' . $template['end_template']);
+
+        // Flush All
+        $this->_prepare['flushAll'] = $this->_handler->prepare($template['delete_template'] . ' is not null' . $template['end_template']);
     }
 
 
     // DATA MANAGER
-    public function insertVotes (array $input) {
-        
+    public function insertVotes (array $input)
+    {        
         $this->sliceInput($input);
 
         try {
@@ -156,6 +166,27 @@ class BddHandler
             endforeach;
         }
 
+    public function updateOneVote ($key,$data)
+    {
+        try {
+            $this->_handler->beginTransaction();
+
+            $this->_prepare['updateOneVote']->bindParam(':key', $key, \PDO::PARAM_INT);
+            $this->_prepare['updateOneVote']->bindParam(':data', $data, \PDO::PARAM_STR);
+
+            $this->_prepare['updateOneVote']->execute();
+
+            if ($this->_prepare['updateOneVote']->rowCount() !== 1) :
+                throw new CondorcetException (0,'Ce vote n\'existe pas !');
+            endif;
+
+            $this->_handler->commit();
+            $this->_prepare['updateOneVote']->closeCursor();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function deleteOneVote ($key)
     {
         try {
@@ -188,6 +219,19 @@ class BddHandler
         }
     }
 
+    public function countVotes ()
+    {
+        try {
+            $this->_prepare['countVotes']->execute();
+            $r = (int) $this->_prepare['countVotes']->fetch(\PDO::FETCH_NUM)[0];
+            $this->_prepare['countVotes']->closeCursor();
+
+            return $r;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     // return false if vote does not exist.
     public function selectOneVote ($key)
     {
@@ -207,7 +251,7 @@ class BddHandler
         }
     }
 
-    public function selectRangeVotes ($key, $limit = 10)
+    public function selectRangeVotes ($key, $limit)
     {
         try {
             $this->_prepare['selectRangeVotes']->bindParam(':startKey', $key, \PDO::PARAM_INT);
@@ -229,6 +273,20 @@ class BddHandler
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    public function flushAll ()
+    {
+        try {
+            $this->_prepare['flushAll']->execute();
+            $r = $this->_prepare['flushAll']->rowCount();
+
+            $this->_prepare['flushAll']->closeCursor();
+
+            return $r;
+        } catch (Exception $e) {
+            throw $e;
+        }      
     }
 
 }
