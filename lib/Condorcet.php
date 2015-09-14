@@ -28,7 +28,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        const VERSION = '0.97';
+        const VERSION = '0.98';
 
         const ENV = 'DEV';
 

@@ -41,7 +41,7 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 
 
 ### Specifications and standards  
-**Stable Version: 0.97**  
+**Stable Version: 0.98**  
 **PHP Requirement:** PHP 5.5 with Ctype, MB_String, Json common extensions. _(tested up to PHP 5.6)_
 
 ##### Autoloading:   
