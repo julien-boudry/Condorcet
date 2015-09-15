@@ -17,17 +17,22 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         //////
 
     protected $_Container = [];
+    protected $_cursor = null;
     protected $_counter = 0;
+    protected $_maxKey = -1;
 
 
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {
         if ($offset === null) :
-            $this->_Container[] = $value;
+            $this->_Container[$this->_cursor = ++$this->_maxKey] = $value;
             ++$this->_counter;
         else :
             if (!$this->keyExist($offset)) :
                 ++$this->_counter;
+                if ($offset > $this->_maxKey) :
+                    $this->_maxKey = $offset;
+                endif;
             endif;
 
             $this->_Container[$offset] = $value;
@@ -54,7 +59,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $valid = true;
 
     public function rewind() {
-        reset($this->_Container);
+        $this->_cursor = null;
         $this->valid = true;
     }
 
@@ -63,13 +68,23 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
     public function key() {
-        return key($this->_Container);
+        if ($this->_cursor === null) :
+            reset($this->_Container);
+            $this->_cursor = key($this->_Container);
+        endif;
+
+        return $this->_cursor;
     }
 
     public function next() {
-        if (next($this->_Container) === false) :
-            $this->valid = false;
-        endif;
+        foreach (array_slice($this->_Container,$this->_cursor,null,true) as $key => $value) {
+            if ($key > $this->_cursor) {
+                $this->_cursor = $key;
+                return;
+            }
+        };
+
+        $this->valid = false;
     }
 
     public function valid() {
