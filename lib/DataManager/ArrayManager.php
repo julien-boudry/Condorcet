@@ -21,6 +21,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $_Container = [];
     protected $_Bdd = null;
+    protected $_Cache = [];
 
     protected $_cursor = null;
     protected $_counter = 0;
@@ -32,7 +33,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// Implement ArrayAccess ///////////
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         if ($offset === null) :
             $this->_Container[$this->_cursor = ++$this->_maxKey] = $value;
             ++$this->_counter;
@@ -46,22 +48,43 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
             $this->_Container[$offset] = $value;
         endif;
+
+        $this->checkRegularize();
     }
 
-    public function offsetExists($offset) {
-        // Use by isset() function, must return false if offset value is null.
-        return isset($this->_Container[$offset]);
+    // Use by isset() function, must return false if offset value is null.
+    public function offsetExists($offset)
+    {
+        if (isset($this->_Container[$offset]) || ($this->_Bdd !== null && $this->_Bdd->selectOneEntity($offset) !== false) ) :
+            return true;
+        else :
+            return false;
+        endif;
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         if ($this->keyExist($offset)) :
-            unset($this->_Container[$offset]);
+            if (array_key_exists($offset, $this->_Container)) :
+                unset($this->_Container[$offset]);
+            else :
+                $this->_Bdd->deleteOneEntity($offset);
+            endif;
+
             --$this->_counter;
         endif;
     }
 
-    public function offsetGet($offset) {
-        return isset($this->_Container[$offset]) ? $this->_Container[$offset] : null;
+    public function offsetGet($offset)
+    {
+        if (isset($this->_Container[$offset])) :
+            return $this->_Container[$offset];
+        elseif ($this->_Bdd !== null) :
+            $query = $this->_Bdd->selectOneEntity($offset);
+            return ($query === false) ? null : $query;
+        else :
+            return null;
+        endif;
     }
 
 
@@ -111,16 +134,20 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     // Array Methods
 
-    public function getFullDataSet () {
-        return $this->_Container;
+    public function getFullDataSet ()
+    {
+        $this->regularize();
+
+        return ($this->_Bdd === null) ? $this->_Container : $this->_Bdd->selectRangeEntitys(0,$this->_maxKey);
     }
 
-    public function keyExist ($offset) {
-        return array_key_exists($offset, $this->_Container);
-    }
-
-    public function isIn ($needle, $strict = true) {
-        return in_array($needle, $this->_Container, $strict);
+    public function keyExist ($offset)
+    {
+        if ( array_key_exists($offset, $this->_Container) || ($this->_Bdd !== null && $this->_Bdd->selectOneEntity($offset) !== false) ) :
+            return true;
+        else  :
+            return false;
+        endif;
     }
 
 
@@ -128,7 +155,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function setBdd ($bdd, $struct = null)
     {
-        $this->_Bdd = new Bddhandler ($bdd);
+        $this->_Bdd = new BddHandler ($bdd);
 
         $this->regularize();
     }
@@ -145,16 +172,21 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-/////////// BDD INTERRACTION ///////////
-
-    public function resetCounter ()
+    public function checkRegularize ()
     {
 
     }
 
+/////////// BDD INTERRACTION ///////////
+
+    public function resetCounter ()
+    {
+        $this->_counter = count($this->_Container) + ( ($this->_Bdd !== null) ? $this->_Bdd->countEntitys() : 0 );
+    }
+
     public function resetMaxKey ()
     {
-
+        $this->_counter = max( max(array_keys($this->_Container)),( ($this->_Bdd !== null) ? $this->_Bdd->selectMaxKey() : 0 ) );
     }
 
     protected function writeData (array $data)

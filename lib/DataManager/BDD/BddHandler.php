@@ -268,7 +268,7 @@ class BddHandler
 
                 return $result;
             else :
-                return false;
+                return [];
             endif;
         } catch (Exception $e) {
             throw $e;
