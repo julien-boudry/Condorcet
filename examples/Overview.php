@@ -12,6 +12,8 @@
 
     require_once '../__CondorcetAutoload.php';
 
+    $start_time = microtime(TRUE);
+
 // II - Create Election
 
 $myElection1 = new Election ();
@@ -213,4 +215,5 @@ $myElection1 = new Election ();
             $myNewVote->getHistory();
 
 
-print 'Success!';       
+print 'Success!  
+Process in: '. (microtime(true) - $start_time) . 's';
