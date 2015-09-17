@@ -31,7 +31,7 @@ class VotesManager extends ArrayManager
     {
         if ($tag === null)
         {
-            return $this->getArray();
+            return $this->getFullDataSet();
         }
         else
         {
@@ -41,7 +41,7 @@ class VotesManager extends ArrayManager
 
             $search = [];
 
-            foreach ($this->_Container as $key => $value)
+            foreach ($this as $key => $value)
             {
                 $noOne = true;
                 foreach ($tag as $oneTag)

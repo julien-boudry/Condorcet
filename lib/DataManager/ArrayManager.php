@@ -99,7 +99,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     // Array Methods
 
-    public function getArray () {
+    public function getFullDataSet () {
         return $this->_Container;
     }
 
