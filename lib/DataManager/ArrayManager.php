@@ -8,6 +8,7 @@
 
 namespace Condorcet\DataManager;
 
+use Condorcet\DataManager\BDD\BddHandler;
 use Condorcet\CondorcetVersion;
 
 abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
@@ -16,13 +17,21 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         //////
 
+    protected static $CacheSize =  13;
+
     protected $_Container = [];
+    protected $_Bdd = null;
+
     protected $_cursor = null;
     protected $_counter = 0;
     protected $_maxKey = -1;
 
 
-    // Implement ArrayAccess
+/////////// Magic ///////////
+
+
+/////////// Implement ArrayAccess ///////////
+
     public function offsetSet($offset, $value) {
         if ($offset === null) :
             $this->_Container[$this->_cursor = ++$this->_maxKey] = $value;
@@ -40,6 +49,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
     public function offsetExists($offset) {
+        // Use by isset() function, must return false if offset value is null.
         return isset($this->_Container[$offset]);
     }
 
@@ -55,7 +65,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
 
-    // Implement Iterator
+/////////// Implement Iterator ///////////
+
     protected $valid = true;
 
     public function rewind() {
@@ -92,7 +103,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
 
-    // Implement Countable
+/////////// Implement Countable ///////////
+
     public function count () {
         return $this->_counter;
     }
@@ -111,4 +123,48 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         return in_array($needle, $this->_Container, $strict);
     }
 
+
+/////////// BDD API ///////////
+
+    public function setBdd ($bdd, $struct = null)
+    {
+        $this->_Bdd = new Bddhandler ($bdd);
+
+        $this->regularize();
+    }
+
+    public function unsetBdd ()
+    {
+
+    }
+
+    public function regularize ()
+    {
+        if ($this->_Bdd === null) :
+            return false;
+        endif;
+    }
+
+/////////// BDD INTERRACTION ///////////
+
+    public function resetCounter ()
+    {
+
+    }
+
+    public function resetMaxKey ()
+    {
+
+    }
+
+    protected function writeData (array $data)
+    {
+        // return int / false
+    }
+
+    protected function removeData (array $keys)
+    {
+        // return int / false
+
+    }
 }
