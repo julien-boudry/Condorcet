@@ -23,7 +23,7 @@ class BddHandler
     // Prepare Query
     protected $_prepare = [];
 
-    public function __construct ($bdd, $tryCreateTable = true, $struct = ['tableName' => 'votes', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
+    public function __construct ($bdd, $tryCreateTable = true, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
     {
         $this->_struct = $this->checkStructureTemplate($struct);
 
@@ -72,7 +72,7 @@ class BddHandler
         // Select the max key value. Usefull if array cursor is lost on DataManager.
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
 
-        // Insert many Votes
+        // Insert many Entitys
             $makeMany = function ($how) use (&$template) {
                 $query = $template['insert_template'];
                 
@@ -86,23 +86,23 @@ class BddHandler
             };
 
             foreach (explode(',', self::SEGMENT) as $value) {
-                $this->_prepare['insert'.$value.'Votes'] = $this->_handler->prepare($makeMany($value));
+                $this->_prepare['insert'.$value.'Entitys'] = $this->_handler->prepare($makeMany($value));
             }
 
-        // Delete one Vote
-        $this->_prepare['deleteOneVote'] = $this->_handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
+        // Delete one Entity
+        $this->_prepare['deleteOneEntity'] = $this->_handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
 
-        // Get a Vote
-        $this->_prepare['selectOneVote'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
+        // Get a Entity
+        $this->_prepare['selectOneEntity'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
-        // Get a range of vote
-        $this->_prepare['selectRangeVotes'] = $this->_handler->prepare($template['select_template'] . ' > :startKey LIMIT :limit' . $template['end_template']);
+        // Get a range of Entity
+        $this->_prepare['selectRangeEntitys'] = $this->_handler->prepare($template['select_template'] . ' > :startKey LIMIT :limit' . $template['end_template']);
 
-        // Count Votes
-        $this->_prepare['countVotes'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
+        // Count Entitys
+        $this->_prepare['countEntitys'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
 
-        // Update Vote
-        $this->_prepare['updateOneVote'] = $this->_handler->prepare($template['update_template'] . ' = :key' . $template['end_template']);
+        // Update Entity
+        $this->_prepare['updateOneEntity'] = $this->_handler->prepare($template['update_template'] . ' = :key' . $template['end_template']);
 
         // Flush All
         $this->_prepare['flushAll'] = $this->_handler->prepare($template['delete_template'] . ' is not null' . $template['end_template']);
@@ -110,7 +110,7 @@ class BddHandler
 
 
     // DATA MANAGER
-    public function insertVotes (array $input)
+    public function insertEntitys (array $input)
     {        
         $this->sliceInput($input);
 
@@ -123,20 +123,20 @@ class BddHandler
                 $i = 1;
                 $group_count = count($group);
 
-                foreach ($group as $key => &$vote) :
+                foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
-                    $param['data'.$i++] = $vote;
-                endforeach; unset($vote);
+                    $param['data'.$i++] = $Entity;
+                endforeach; unset($Entity);
 
-                $this->_prepare['insert'.$group_count.'Votes']->execute(
+                $this->_prepare['insert'.$group_count.'Entitys']->execute(
                     $param
                 );
 
-                if ($this->_prepare['insert'.$group_count.'Votes']->rowCount() !== $group_count) :
-                    throw new CondorcetException (0,'Tous les votes n\'ont pas été insérés');
+                if ($this->_prepare['insert'.$group_count.'Entitys']->rowCount() !== $group_count) :
+                    throw new CondorcetException (0,'Tous les Entitys n\'ont pas été insérés');
                 endif;
 
-                $this->_prepare['insert'.$group_count.'Votes']->closeCursor();
+                $this->_prepare['insert'.$group_count.'Entitys']->closeCursor();
             endforeach;
 
             $this->_handler->commit();
@@ -166,41 +166,41 @@ class BddHandler
             endforeach;
         }
 
-    public function updateOneVote ($key,$data)
+    public function updateOneEntity ($key,$data)
     {
         try {
             $this->_handler->beginTransaction();
 
-            $this->_prepare['updateOneVote']->bindParam(':key', $key, \PDO::PARAM_INT);
-            $this->_prepare['updateOneVote']->bindParam(':data', $data, \PDO::PARAM_STR);
+            $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
+            $this->_prepare['updateOneEntity']->bindParam(':data', $data, \PDO::PARAM_STR);
 
-            $this->_prepare['updateOneVote']->execute();
+            $this->_prepare['updateOneEntity']->execute();
 
-            if ($this->_prepare['updateOneVote']->rowCount() !== 1) :
-                throw new CondorcetException (0,'Ce vote n\'existe pas !');
+            if ($this->_prepare['updateOneEntity']->rowCount() !== 1) :
+                throw new CondorcetException (0,'Ce Entity n\'existe pas !');
             endif;
 
             $this->_handler->commit();
-            $this->_prepare['updateOneVote']->closeCursor();
+            $this->_prepare['updateOneEntity']->closeCursor();
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function deleteOneVote ($key)
+    public function deleteOneEntity ($key)
     {
         try {
             $this->_handler->beginTransaction();
 
-            $this->_prepare['deleteOneVote']->bindParam(1, $key, \PDO::PARAM_INT);
-            $this->_prepare['deleteOneVote']->execute();
+            $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
+            $this->_prepare['deleteOneEntity']->execute();
 
-            if ($this->_prepare['deleteOneVote']->rowCount() !== 1) :
-                throw new CondorcetException (0,'Ce vote n\'existe pas !');
+            if ($this->_prepare['deleteOneEntity']->rowCount() !== 1) :
+                throw new CondorcetException (0,'Ce Entity n\'existe pas !');
             endif;
 
             $this->_handler->commit();
-            $this->_prepare['deleteOneVote']->closeCursor();
+            $this->_prepare['deleteOneEntity']->closeCursor();
         } catch (Exception $e) {
             throw $e;
         }
@@ -219,12 +219,12 @@ class BddHandler
         }
     }
 
-    public function countVotes ()
+    public function countEntitys ()
     {
         try {
-            $this->_prepare['countVotes']->execute();
-            $r = (int) $this->_prepare['countVotes']->fetch(\PDO::FETCH_NUM)[0];
-            $this->_prepare['countVotes']->closeCursor();
+            $this->_prepare['countEntitys']->execute();
+            $r = (int) $this->_prepare['countEntitys']->fetch(\PDO::FETCH_NUM)[0];
+            $this->_prepare['countEntitys']->closeCursor();
 
             return $r;
         } catch (Exception $e) {
@@ -232,15 +232,15 @@ class BddHandler
         }
     }
 
-    // return false if vote does not exist.
-    public function selectOneVote ($key)
+    // return false if Entity does not exist.
+    public function selectOneEntity ($key)
     {
         try {
-            $this->_prepare['selectOneVote']->bindParam(1, $key, \PDO::PARAM_INT);
-            $this->_prepare['selectOneVote']->execute();
+            $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
+            $this->_prepare['selectOneEntity']->execute();
             
-            $r = $this->_prepare['selectOneVote']->fetchAll(\PDO::FETCH_NUM);
-            $this->_prepare['selectOneVote']->closeCursor();
+            $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
+            $this->_prepare['selectOneEntity']->closeCursor();
             if (!empty($r)) :
                 return  $r[0][1];
             else :
@@ -251,15 +251,15 @@ class BddHandler
         }
     }
 
-    public function selectRangeVotes ($key, $limit)
+    public function selectRangeEntitys ($key, $limit)
     {
         try {
-            $this->_prepare['selectRangeVotes']->bindParam(':startKey', $key, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeVotes']->bindParam(':limit', $limit, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeVotes']->execute();
+            $this->_prepare['selectRangeEntitys']->bindParam(':startKey', $key, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeEntitys']->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeEntitys']->execute();
             
-            $r = $this->_prepare['selectRangeVotes']->fetchAll(\PDO::FETCH_NUM);
-            $this->_prepare['selectRangeVotes']->closeCursor();
+            $r = $this->_prepare['selectRangeEntitys']->fetchAll(\PDO::FETCH_NUM);
+            $this->_prepare['selectRangeEntitys']->closeCursor();
             if (!empty($r)) :
                 $result = [];
                 foreach ($r as $value) :
