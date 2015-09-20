@@ -97,7 +97,7 @@ class BddHandler
         $this->_prepare['selectOneEntity'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
         // Get a range of Entity
-        $this->_prepare['selectRangeEntitys'] = $this->_handler->prepare($template['select_template'] . ' > :startKey order by '.$this->_struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
+        $this->_prepare['selectRangeEntitys'] = $this->_handler->prepare($template['select_template'] . ' >= :startKey order by '.$this->_struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
 
         // Count Entitys
         $this->_prepare['countEntitys'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);

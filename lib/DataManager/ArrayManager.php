@@ -29,11 +29,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_maxKey = -1;
 
 
-/////////// Magic ///////////
-
-public function wtf() {
-return \Condorcet\Condorcet::format($this->_Container,false);
-}
 /////////// Implement ArrayAccess ///////////
 
     public function offsetSet($offset, $value)
@@ -49,6 +44,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
                 endif;
             endif;
 
+            unset($this->_Cache[$offset]);
             $this->_Container[$offset] = $value;
         endif;
 
@@ -67,6 +63,8 @@ return \Condorcet\Condorcet::format($this->_Container,false);
             if (array_key_exists($offset, $this->_Container)) :
                 unset($this->_Container[$offset]);
             else :
+                unset($this->_Cache[$offset]);
+
                 $this->_Bdd->deleteOneEntity($offset);
             endif;
 
@@ -79,6 +77,10 @@ return \Condorcet\Condorcet::format($this->_Container,false);
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
         elseif ($this->_Bdd !== null) :
+            if (array_key_exists($offset, $this->_Cache)) :
+                return $this->_Cache[$offset];
+            endif;
+
             $query = $this->_Bdd->selectOneEntity($offset);
             return ($query === false) ? null : $query;
         else :
@@ -202,6 +204,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
         else :
             $this->_Bdd->insertEntitys($this->_Container);
             $this->_Container = [];
+            return true;
         endif;
     }
 
@@ -217,7 +220,29 @@ return \Condorcet\Condorcet::format($this->_Container,false);
 
     protected function populateCache ()
     {
-        $this->regularize();
+        if (    $this->regularize() &&
+                (   empty($this->_Cache) ||
+                    (
+                        count(
+                            array_slice(
+                                $this->_Cache,
+                                array_search($this->key(),
+                                    array_keys($this->_Cache), true
+                                ),
+                                null,true
+                            )
+                        ) < (self::$CacheSize / 3)
+                    )
+                )
+            ) :
+
+            $this->_Cache = $this->_Bdd->selectRangeEntitys($this->key(), self::$CacheSize);
+
+        endif;
+    }
+
+    public function clearCache () {
+        $this->_Cache = [];
     }
 
 /////////// BDD INTERRACTION ///////////
