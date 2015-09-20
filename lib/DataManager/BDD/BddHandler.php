@@ -69,8 +69,9 @@ class BddHandler
         $template['select_template'] = 'SELECT '.$this->_struct['primaryColumnName'].','.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
         $template['update_template'] = 'UPDATE '.$this->_struct['tableName'].' SET '.$this->_struct['dataColumnName'].' = :data WHERE '.$this->_struct['primaryColumnName'];
 
-        // Select the max key value. Usefull if array cursor is lost on DataManager.
+        // Select the max / min key value. Usefull if array cursor is lost on DataManager.
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
+        $this->_prepare['selectMinKey'] = $this->_handler->prepare('SELECT min('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
 
         // Insert many Entitys
             $makeMany = function ($how) use (&$template) {
@@ -212,6 +213,19 @@ class BddHandler
             $this->_prepare['selectMaxKey']->execute();
             $r = (int) $this->_prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
             $this->_prepare['selectMaxKey']->closeCursor();
+
+            return $r;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function selectMinKey ()
+    {
+        try {
+            $this->_prepare['selectMinKey']->execute();
+            $r = (int) $this->_prepare['selectMinKey']->fetch(\PDO::FETCH_NUM)[0];
+            $this->_prepare['selectMinKey']->closeCursor();
 
             return $r;
         } catch (Exception $e) {

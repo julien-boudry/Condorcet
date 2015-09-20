@@ -18,6 +18,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         //////
 
     protected static $CacheSize =  13;
+    protected static $MaxContainerLength =  13;
 
     protected $_Container = [];
     protected $_Bdd = null;
@@ -30,13 +31,15 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// Magic ///////////
 
-
+public function wtf() {
+return \Condorcet\Condorcet::format($this->_Container,false);
+}
 /////////// Implement ArrayAccess ///////////
 
     public function offsetSet($offset, $value)
     {
         if ($offset === null) :
-            $this->_Container[$this->_cursor = ++$this->_maxKey] = $value;
+            $this->_Container[++$this->_maxKey] = $value;
             ++$this->_counter;
         else :
             if (!$this->keyExist($offset)) :
@@ -94,28 +97,47 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
     public function current() {
-        return $this->offsetGet($this->key());
+        return  $this->offsetGet($this->key());
     }
 
-    public function key() {
-        if ($this->_cursor === null) :
-            reset($this->_Container);
-            $this->_cursor = key($this->_Container);
+    public function key()
+    {
+        if ($this->_counter === 0) :
+            return null;
+        else :
+            return ($this->_cursor === null) ? $this->getFirstKey() : $this->_cursor;
+        endif;
+    }
+
+    public function next()
+    {
+        $newCursor = $this->_cursor;
+
+        if ($this->_cursor >= $this->_maxKey) :
+            // Do nothing
+        elseif ($this->_Bdd === null) :
+            $this->setCursorOnNextKeyInArray($this->_Container);
+        else :
+            $this->populateCache();
+            $this->setCursorOnNextKeyInArray($this->_Cache);
         endif;
 
-        return $this->_cursor;
+        if ($this->_cursor === $newCursor) :
+            $this->valid = false;
+        endif;
     }
 
-    public function next() {
-        foreach (array_slice($this->_Container,$this->_cursor,null,true) as $key => $value) {
-            if ($key > $this->_cursor) {
-                $this->_cursor = $key;
-                return;
-            }
-        };
+        protected function setCursorOnNextKeyInArray (array &$array)
+        {
+            $match = $this->key();
 
-        $this->valid = false;
-    }
+            foreach (array_slice($array,$match,2,true) as $key => $value) :
+                if ($key > $match) :
+                    $this->_cursor = $key;
+                    return;
+                endif;
+            endforeach;
+        }
 
     public function valid() {
         return $this->valid;
@@ -128,7 +150,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         return $this->_counter;
     }
 
-    // Array Methods
+/////////// Array Methods ///////////
 
     public function getFullDataSet ()
     {
@@ -144,6 +166,17 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         else  :
             return false;
         endif;
+    }
+
+    public function getFirstKey ()
+    {
+        $r[] = array_keys($this->_Container);
+
+        if ($this->_Bdd !== null) :
+            $r[] = $this->_Bdd->selectMinKey();
+        endif;
+
+        return (int) min($r);
     }
 
 
@@ -163,14 +196,27 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function regularize ()
     {
-        if ($this->_Bdd === null) :
+        if ($this->_Bdd === null || empty($this->_Container)) :
             return false;
+        else :
+            $this->_Bdd->insertEntitys($this->_Container);
+            $this->_Container = [];
         endif;
     }
 
     public function checkRegularize ()
     {
+        if ( $this->_Bdd !== null && self::$MaxContainerLength < count($this->_Container) ) :
+            $this->regularize();
+            return true;
+        else :
+            return false;
+        endif;
+    }
 
+    protected function populateCache ()
+    {
+        $this->regularize();
     }
 
 /////////// BDD INTERRACTION ///////////
