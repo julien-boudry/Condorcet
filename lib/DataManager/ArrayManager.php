@@ -130,6 +130,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
         protected function setCursorOnNextKeyInArray (array &$array)
         {
             $match = $this->key();
+            ksort($array,SORT_NUMERIC);
 
             foreach (array_slice($array,$match,2,true) as $key => $value) :
                 if ($key > $match) :
@@ -170,7 +171,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
 
     public function getFirstKey ()
     {
-        $r[] = array_keys($this->_Container);
+        $r = array_keys($this->_Container);
 
         if ($this->_Bdd !== null) :
             $r[] = $this->_Bdd->selectMinKey();
