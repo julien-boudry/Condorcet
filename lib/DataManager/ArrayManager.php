@@ -111,7 +111,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
 
     public function next()
     {
-        $newCursor = $this->_cursor;
+        $oldCursor = $this->_cursor;
 
         if ($this->_cursor >= $this->_maxKey) :
             // Do nothing
@@ -122,7 +122,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
             $this->setCursorOnNextKeyInArray($this->_Cache);
         endif;
 
-        if ($this->_cursor === $newCursor) :
+        if ($this->_cursor === $oldCursor) :
             $this->valid = false;
         endif;
     }
@@ -132,7 +132,7 @@ return \Condorcet\Condorcet::format($this->_Container,false);
             $match = $this->key();
             ksort($array,SORT_NUMERIC);
 
-            foreach (array_slice($array,$match,2,true) as $key => $value) :
+            foreach (array_slice($array,array_search($match, array_keys($array),true),2,true) as $key => $value) :
                 if ($key > $match) :
                     $this->_cursor = $key;
                     return;
