@@ -28,6 +28,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_counter = 0;
     protected $_maxKey = -1;
 
+    public function __construct () {}
 
 /////////// Implement ArrayAccess ///////////
 
@@ -42,6 +43,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
                 if ($offset > $this->_maxKey) :
                     $this->_maxKey = $offset;
                 endif;
+            elseif ($this->_Bdd !== null) :
+                $this->Bdd->deleteOneEntity($offset);
             endif;
 
             unset($this->_Cache[$offset]);
@@ -69,6 +72,9 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             endif;
 
             --$this->_counter;
+            return true;
+        else :
+            return false;
         endif;
     }
 
@@ -185,7 +191,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// BDD API ///////////
 
-    public function setBdd ($bdd, $struct = null)
+    public function setNewEmptyBdd ($bdd, $struct = null)
     {
         $this->_Bdd = new BddHandler ($bdd);
 

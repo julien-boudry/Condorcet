@@ -138,7 +138,7 @@ class Election
     public function __construct ()
     {
         $this->_Candidates = [];
-        $this->_Votes = new VotesManager;
+        $this->_Votes = new VotesManager ($this);
         $this->_timer = new Timer_Manager;
     }
 
@@ -458,7 +458,7 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-    protected function setStateToVote ()
+    public function setStateToVote ()
     {
         if ( $this->_State === 1 )
             { 
@@ -556,9 +556,6 @@ class Election
         // Write a new vote
         protected function registerVote (Vote $vote, $tag = null)
         {
-            // Set Phase 2
-            $this->setStateToVote();
-
             // Vote identifiant
             $vote->addTags($tag);           
             
@@ -576,11 +573,7 @@ class Election
 
 
     public function removeVote ($in, $with = true)
-    {
-        $this->setStateToVote();
-
-            //////
-        
+    {    
         $rem = [];
 
         if ($in instanceof Vote) :

@@ -56,6 +56,9 @@ class CondorcetException extends \Exception
         $error[22] = 'This context is not valid';
 
 
+        // DataManager
+        $error[30] = 'This entity does not exist.';
+
         // Algorithms
         if ($code === 101) :
             $error[101] = explode('|', $this->_infos)[1].' is configured to accept only '.explode('|', $this->_infos)[0].' candidates';

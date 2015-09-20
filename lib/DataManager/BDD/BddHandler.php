@@ -188,7 +188,7 @@ class BddHandler
         }
     }
 
-    public function deleteOneEntity ($key)
+    public function deleteOneEntity ($key, $justTry = false)
     {
         try {
             $this->_handler->beginTransaction();
@@ -196,12 +196,16 @@ class BddHandler
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
             $this->_prepare['deleteOneEntity']->execute();
 
-            if ($this->_prepare['deleteOneEntity']->rowCount() !== 1) :
-                throw new CondorcetException (0,'Ce Entity n\'existe pas !');
+            $deleteCount = $this->_prepare['deleteOneEntity']->rowCount();
+
+            if (!$justTry && $deleteCount !== 1) :
+                throw new CondorcetException (30);
             endif;
 
             $this->_handler->commit();
             $this->_prepare['deleteOneEntity']->closeCursor();
+
+            return $deleteCount;
         } catch (Exception $e) {
             throw $e;
         }
