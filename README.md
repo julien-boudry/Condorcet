@@ -53,7 +53,7 @@ The code is very close to the respect of PSR-1 (lacks only the naming of methods
 
 ##### Performance:  
 Benchmark on a modern machine (linux - x64 - php 5.6) of a large use of methods and algorithms. With relatively complex voting scenarios excluding cache use.   
-In pratice, Condorcet knows proceed more aggresive (cache, partial computation ...).    
+In pratice, Condorcet knows proceed more aggressive (cache, partial computation ...).    
 
 Memory usage : less than 2M    
 Execution time : less than 120ms  
