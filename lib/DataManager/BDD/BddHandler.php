@@ -17,6 +17,8 @@ class BddHandler
     const SEGMENT = '300,100,50,10,5,1';
 
     protected $_handler;
+    protected $_transaction = false;
+    protected $_queryError = false;
 
     // Database structure
     protected $_struct;
@@ -51,6 +53,17 @@ class BddHandler
 
         $this->initPrepareQuery();
     }
+
+    public function __destruct ()
+    {
+        if ($this->_queryError) :
+            $this->_handler->rollback();
+            $this->_transaction = false;
+        else :
+            $this->closeTransaction();
+        endif;
+    }
+
 
     // INTERNAL
 
@@ -109,6 +122,22 @@ class BddHandler
         $this->_prepare['flushAll'] = $this->_handler->prepare($template['delete_template'] . ' is not null' . $template['end_template']);
     }
 
+    protected function initTransaction ()
+    {
+        if (!$this->_transaction) :
+            $this->_transaction = $this->_handler->beginTransaction();
+        endif;
+    }
+
+    public function closeTransaction ()
+    {
+        if ($this->_transaction === true) :
+            $this->_transaction = !$this->_handler->commit();
+        else :
+            throw new CondorcetException;
+        endif;
+    }
+
 
     // DATA MANAGER
     public function insertEntitys (array $input)
@@ -117,7 +146,7 @@ class BddHandler
 
         try {
 
-            $this->_handler->beginTransaction();
+            $this->initTransaction();
 
             foreach ($input as $group) :
                 $param = [];
@@ -140,10 +169,8 @@ class BddHandler
                 $this->_prepare['insert'.$group_count.'Entitys']->closeCursor();
             endforeach;
 
-            $this->_handler->commit();
-
         } catch (\Exception $e) {
-            $this->_handler->rollBack();
+            $this->_queryError = true;
             throw $e;
         }
     }
@@ -170,7 +197,7 @@ class BddHandler
     public function updateOneEntity ($key,$data)
     {
         try {
-            $this->_handler->beginTransaction();
+            $this->initTransaction();
 
             $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
             $this->_prepare['updateOneEntity']->bindParam(':data', $data, \PDO::PARAM_STR);
@@ -181,9 +208,9 @@ class BddHandler
                 throw new CondorcetException (0,'Ce Entity n\'existe pas !');
             endif;
 
-            $this->_handler->commit();
             $this->_prepare['updateOneEntity']->closeCursor();
         } catch (Exception $e) {
+            $this->_queryError = true;
             throw $e;
         }
     }
@@ -191,7 +218,7 @@ class BddHandler
     public function deleteOneEntity ($key, $justTry = false)
     {
         try {
-            $this->_handler->beginTransaction();
+            $this->initTransaction();
 
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
             $this->_prepare['deleteOneEntity']->execute();
@@ -202,11 +229,11 @@ class BddHandler
                 throw new CondorcetException (30);
             endif;
 
-            $this->_handler->commit();
             $this->_prepare['deleteOneEntity']->closeCursor();
 
             return $deleteCount;
         } catch (Exception $e) {
+            $this->_queryError = true;
             throw $e;
         }
     }
@@ -307,6 +334,7 @@ class BddHandler
 
             return $r;
         } catch (Exception $e) {
+            $this->_queryError = true;
             throw $e;
         }      
     }
