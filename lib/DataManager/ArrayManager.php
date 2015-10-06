@@ -50,17 +50,19 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $this->_Container[++$this->_maxKey] = $value;
             ++$this->_counter;
         else :
-            if (!$this->keyExist($offset)) :
+            $state = !$this->keyExist($offset);
+            $this->_Container[$offset] = $value;
+
+            if ($state) :
                 ++$this->_counter;
+
                 if ($offset > $this->_maxKey) :
                     $this->_maxKey = $offset;
                 endif;
 
-                $this->_Container[$offset] = $value;
                 ksort($this->_Container,SORT_NUMERIC);
             elseif ($this->_Bdd !== null) :
                 $this->_Bdd->deleteOneEntity($offset, true);
-                $this->_Container[$offset] = $value;
             endif;
 
             $this->clearCache();
