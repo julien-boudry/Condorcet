@@ -9,6 +9,7 @@
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\BDD\BddHandler;
+use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
 abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
@@ -205,7 +206,19 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function unsetBdd ()
     {
+        if ($this->_Bdd !== null) :
+            $this->regularize();
+            $this->BddHandler->closeTransaction();
 
+            $this->resetCounter();
+            $this->resetMaxKey();
+
+            $this->_Container = $this->_Bdd->selectRangeEntitys(0,$this->_maxKey);
+
+            $this->_Bdd = null;
+        else :
+            throw new CondorcetExeption;
+        endif;
     }
 
     public function regularize ()
@@ -264,14 +277,4 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    protected function writeData (array $data)
-    {
-        // return int / false
-    }
-
-    protected function removeData (array $keys)
-    {
-        // return int / false
-
-    }
 }

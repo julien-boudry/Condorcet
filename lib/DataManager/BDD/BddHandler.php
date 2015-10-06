@@ -132,6 +132,10 @@ class BddHandler
     public function closeTransaction ()
     {
         if ($this->_transaction === true) :
+            if ($this->_queryError) :
+                throw new CondorcetException;
+            endif;
+
             $this->_transaction = !$this->_handler->commit();
         else :
             throw new CondorcetException;
