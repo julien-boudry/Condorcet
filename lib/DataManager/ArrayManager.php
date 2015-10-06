@@ -26,9 +26,14 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $_cursor = null;
     protected $_counter = 0;
-    protected $_maxKey = -1;
+    public $_maxKey = -1;
 
     public function __construct () {}
+
+    public function __destruct ()
+    {
+        $this->regularize();
+    }
 
 /////////// Implement ArrayAccess ///////////
 
@@ -44,7 +49,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
                     $this->_maxKey = $offset;
                 endif;
             elseif ($this->_Bdd !== null) :
-                $this->Bdd->deleteOneEntity($offset);
+                $this->_Bdd->deleteOneEntity($offset, true);
             endif;
 
             unset($this->_Cache[$offset]);
@@ -85,10 +90,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         elseif ($this->_Bdd !== null) :
             if (array_key_exists($offset, $this->_Cache)) :
                 return $this->_Cache[$offset];
+            else :
+                $query = $this->_Bdd->selectOneEntity($offset);
+                return ($query === false) ? null : $query;
             endif;
-
-            $query = $this->_Bdd->selectOneEntity($offset);
-            return ($query === false) ? null : $query;
         else :
             return null;
         endif;
@@ -255,12 +260,22 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function resetCounter ()
     {
-        $this->_counter = count($this->_Container) + ( ($this->_Bdd !== null) ? $this->_Bdd->countEntitys() : 0 );
+        return $this->_counter = count($this->_Container) + ( ($this->_Bdd !== null) ? $this->_Bdd->countEntitys() : 0 );
     }
 
     public function resetMaxKey ()
     {
-        $this->_counter = max( max(array_keys($this->_Container)),( ($this->_Bdd !== null) ? $this->_Bdd->selectMaxKey() : 0 ) );
+        $this->resetCounter();
+
+        if ($this->count() < 1) :
+            $this->_maxKey = -1;
+            return null;
+        else :
+            $maxContainerKey = (empty($this->_Container)) ? null : max(array_keys($this->_Container));
+            $maxBddKey = ($this->_Bdd !== null) ? $this->_Bdd->selectMaxKey() : null;
+
+            return $this->_maxKey = max( $maxContainerKey,$maxBddKey );
+        endif;
     }
 
     protected function writeData (array $data)

@@ -213,6 +213,10 @@ class BddHandler
 
     public function selectMaxKey ()
     {
+        if ($this->countEntitys() === 0) :
+            return null;
+        endif;
+
         try {
             $this->_prepare['selectMaxKey']->execute();
             $r = (int) $this->_prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
