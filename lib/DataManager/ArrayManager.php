@@ -26,7 +26,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $_cursor = null;
     protected $_counter = 0;
-    public $_maxKey = -1;
+    protected $_maxKey = -1;
 
     public function __construct () {}
 
@@ -231,24 +231,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected function populateCache ()
     {
-        if (    $this->regularize() &&
-                (   empty($this->_Cache) ||
-                    (
-                        count(
-                            array_slice(
-                                $this->_Cache,
-                                array_search($this->key(),
-                                    array_keys($this->_Cache), true
-                                ),
-                                null,true
-                            )
-                        ) < (self::$CacheSize / 3)
-                    )
-                )
-            ) :
+        $this->regularize();
 
+        if ( empty($this->_Cache) || $this->key() >= max(array_keys($this->_Cache)) ) :
             $this->_Cache = $this->_Bdd->selectRangeEntitys($this->key(), self::$CacheSize);
-
         endif;
     }
 
