@@ -29,7 +29,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_counter = 0;
     protected $_maxKey = -1;
 
-    public function __construct () {}
+    public function __construct (BddHandler $bdd = null)
+    {
+            $this->importBdd($bdd);
+    }
 
     public function __destruct ()
     {
@@ -274,6 +277,24 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $maxBddKey = ($this->_Bdd !== null) ? $this->_Bdd->selectMaxKey() : null;
 
             return $this->_maxKey = max( $maxContainerKey,$maxBddKey );
+        endif;
+    }
+
+    public function importBdd (BddHandler $bdd = null)
+    {
+        if ($bdd !== null) :
+            $this->_Bdd = $bdd;
+
+            try {
+                $this->regularize();
+            } catch (Exception $e) {
+                $this->_Bdd = null;
+            }
+
+            $this->resetCounter();
+            $this->resetMaxKey();
+        else :
+            return false;
         endif;
     }
 
