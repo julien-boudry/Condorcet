@@ -23,7 +23,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $_Container = [];
     protected $_Bdd = null;
+
     protected $_Cache = [];
+    protected $_CacheMaxKey = 0;
+    protected $_CacheMinKey = 0;
 
     protected $_cursor = null;
     protected $_counter = 0;
@@ -52,12 +55,15 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
                 if ($offset > $this->_maxKey) :
                     $this->_maxKey = $offset;
                 endif;
+
+                $this->_Container[$offset] = $value;
+                ksort($this->_Container,SORT_NUMERIC);
             elseif ($this->_Bdd !== null) :
                 $this->_Bdd->deleteOneEntity($offset, true);
+                $this->_Container[$offset] = $value;
             endif;
 
-            unset($this->_Cache[$offset]);
-            $this->_Container[$offset] = $value;
+            $this->clearCache();
         endif;
 
         $this->checkRegularize();
@@ -147,12 +153,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         protected function setCursorOnNextKeyInArray (array &$array)
         {
             $match = $this->key();
-            ksort($array,SORT_NUMERIC);
 
-            foreach (array_slice($array,array_search($match, array_keys($array),true),2,true) as $key => $value) :
+            foreach ($array as $key => &$value) :
                 if ($key > $match) :
-                    $this->_cursor = $key;
-                    return;
+                    return $this->_cursor = $key;
                 endif;
             endforeach;
         }
@@ -249,13 +253,22 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $this->regularize();
 
-        if ( empty($this->_Cache) || $this->key() >= max(array_keys($this->_Cache)) ) :
-            $this->_Cache = $this->_Bdd->selectRangeEntitys($this->key(), self::$CacheSize);
+        $currentKey = $this->key();
+
+        if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
+            $this->_Cache = $this->_Bdd->selectRangeEntitys($currentKey, self::$CacheSize);
+
+            $keys = array_keys($this->_Cache);
+            $this->_CacheMaxKey = max($keys);
+            $this->_CacheMinKey = min($keys);
         endif;
     }
 
-    public function clearCache () {
+    public function clearCache ()
+    {
         $this->_Cache = [];
+        $this->_CacheMaxKey = 0;
+        $this->_CachMinKey = 0;
     }
 
 /////////// BDD INTERRACTION ///////////

@@ -137,8 +137,6 @@ class BddHandler
             endif;
 
             $this->_transaction = !$this->_handler->commit();
-        else :
-            throw new CondorcetException;
         endif;
     }
 
