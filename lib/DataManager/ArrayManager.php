@@ -18,8 +18,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         //////
 
-    protected static $CacheSize =  13;
-    protected static $MaxContainerLength =  13;
+    protected static $CacheSize =  5000;
+    protected static $MaxContainerLength =  3000;
 
     protected $_Container = [];
     protected $_Bdd = null;
