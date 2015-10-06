@@ -117,6 +117,9 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     public function rewind() {
         $this->_cursor = null;
         $this->valid = true;
+
+        reset($this->_Cache);
+        reset($this->_Container);
     }
 
     public function current() {
@@ -152,13 +155,12 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         protected function setCursorOnNextKeyInArray (array &$array)
         {
-            $match = $this->key();
+            next($array);
+            $arrayKey = key($array);
 
-            foreach ($array as $key => &$value) :
-                if ($key > $match) :
-                    return $this->_cursor = $key;
-                endif;
-            endforeach;
+            if ($arrayKey > $this->key()) :
+                return $this->_cursor = $arrayKey;
+            endif;
         }
 
     public function valid() {
