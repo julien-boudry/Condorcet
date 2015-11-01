@@ -42,6 +42,18 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->regularize();
     }
 
+    public function __sleep ()
+    {
+        $this->regularize();
+        $this->clearCache();
+        $this->rewind();
+    }
+
+    public function __wakeup ()
+    {
+        
+    }
+
 /////////// Implement ArrayAccess ///////////
 
     public function offsetSet($offset, $value)
@@ -272,7 +284,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $this->_Cache = [];
         $this->_CacheMaxKey = 0;
-        $this->_CachMinKey = 0;
+        $this->_CacheMinKey = 0;
     }
 
 /////////// BDD INTERRACTION ///////////

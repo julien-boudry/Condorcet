@@ -59,7 +59,7 @@ class VotesManager extends ArrayManager
 /////////// Public specific methods ///////////
 
     public function getVoteKey (Vote $vote) {
-        // !!!! To complete
+        // Return False if using with Bdd storing. Futur: Throw a PHP7 Error.
         return array_search($vote, $this->_Container, true);
     }
 
