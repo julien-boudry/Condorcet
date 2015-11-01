@@ -10,6 +10,7 @@ namespace Condorcet;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
+use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
 use Condorcet\Timer\Chrono as Timer_Chrono;

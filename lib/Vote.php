@@ -196,7 +196,7 @@ class Vote implements \Iterator
             if (is_string($ranking))
                 { $ranking = self::convertVoteInput($ranking); }
 
-            if (!is_array($ranking) || empty($ranking)) :
+            if (!is_array($ranking)) :
                 throw new CondorcetException(5);
             endif;
 
@@ -262,6 +262,46 @@ class Vote implements \Iterator
 
             return $vote;
         }
+
+
+    public function removeCandidates (array $candidatesList)
+    {
+        $ranking = $this->getRanking();
+
+        if ($ranking === null) :
+            return false;
+        endif;
+
+        $rankingCandidate = $this->getAllCandidates();
+
+        $canRemove = false;
+        foreach ($candidatesList as $oneCandidate) {
+            if (in_array($oneCandidate, $rankingCandidate, false)) :
+                $canRemove = true;
+                break;
+            endif;
+        }
+
+        if (!$canRemove) :
+            return false;
+        endif;
+
+        $newRanking = [];
+
+        foreach ($ranking as $rankingKey => &$rank) :
+            foreach ($rank as $oneRankKey => $oneRankValue) :
+                if (in_array($oneRankValue, $candidatesList, false)) :
+                    unset($rank[$oneRankKey]);
+                endif;
+            endforeach;
+
+            if (empty($rank)) :
+                unset($ranking[$rankingKey]);
+            endif;
+        endforeach;
+
+        $this->setRanking($ranking);
+    }
 
 
     public function addTags ($tags)

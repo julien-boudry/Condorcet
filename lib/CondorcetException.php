@@ -54,6 +54,8 @@ class CondorcetException extends \Exception
         $error[20] = 'You need to specify one or more candidates before voting';
         $error[21] = 'Bad vote timestamp format';
 
+        $error[30] = 'Candidate not in Ranking';
+
 
         // Algorithms
         if ($code === 101) :
