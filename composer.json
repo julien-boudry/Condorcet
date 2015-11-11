@@ -7,7 +7,7 @@
     "authors": [
         {
             "name": "Julien Boudry",
-            "email": "julien.boudry@supinternet.fr",
+            "email": "julien.boudry@gmail.com",
             "homepage": "http://www.julien-boudry.net",
             "role": "Developer"
         }
@@ -17,6 +17,10 @@
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "ext-json": "*"
+    },
+    "suggest": {
+        "ext-pdo": "Allow to use database for very large elections.",
+        "ext-pdo_sqlite": "Automatically create sqlite3 bases for very large elections."
     },
      "repositories": [
          {

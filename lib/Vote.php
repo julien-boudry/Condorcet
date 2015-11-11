@@ -49,6 +49,8 @@ class Vote implements \Iterator
     private $_tags = [];
     private $_id;
 
+    private $_hashCode;
+
         ///
 
     public function __construct ($ranking, $tags = null, $ownTimestamp = false)
@@ -62,6 +64,25 @@ class Vote implements \Iterator
         $this->position = 1;
 
         return array_keys(get_object_vars($this));
+    }
+
+    public function __wakeup ()
+    {
+        $this->setHashCode();
+    }
+
+    public function __clone ()
+    {
+        $this->destroyAllLink();
+        $this->setHashCode();
+    }
+
+    public function __toString () {
+        return $this->getSimpleRanking();
+    }
+
+    public function getHashCode () {
+        return $this->_hashCode;
     }
 
         ///
@@ -119,38 +140,44 @@ class Vote implements \Iterator
 
     public function getContextualVote (Election &$election, $string = false)
     {
-        if (!$this->haveLink($election))
-            { return false; }
+        if (!$this->haveLink($election)) :
+            throw new CondorcetException(22);
+        endif;
 
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
 
-        if (count($present) < $election->countCandidates())
-        {
+        if (count($present) < $election->countCandidates()) :
             $last_rank = [];
-            foreach ($election->getCandidatesList(false) as $oneCandidate)
-            {
-                if (!in_array($oneCandidate->getName(), $present))
-                {
+            foreach ($election->getCandidatesList(false) as $oneCandidate) :
+                if (!in_array($oneCandidate->getName(), $present)) :
                     $last_rank[] = $oneCandidate;
-                }
-            }
+                endif;
+            endforeach;
 
             $ranking[] = $last_rank;
-        }
+        endif;
 
-        if ($string)
-        {
-            foreach ($ranking as &$rank)
-            {
-                foreach ($rank as &$oneCandidate)
-                {
+        if ($string) :
+            foreach ($ranking as &$rank) :
+                foreach ($rank as &$oneCandidate) :
                     $oneCandidate = (string) $oneCandidate;
-                }
-            }
-        }
+                endforeach;
+            endforeach;
+        endif;
 
         return $ranking;
+    }
+
+    public function getSimpleRanking ($context = false)
+    {
+        $ranking = ($context) ? $this->getContextualVote($context) : $this->getRanking();
+
+        foreach ($ranking as &$rank) :
+            $rank = implode('=',$rank);
+        endforeach;
+
+        return implode('>', $ranking);
     }
 
 
@@ -180,14 +207,15 @@ class Vote implements \Iterator
                     $link->prepareModifyVote($this);
                 }
             }
-            catch (CondorcetException $e) {
-                
+            catch (CondorcetException $e)
+            {                
                 array_pop($this->_ranking);
 
                 throw new CondorcetException(18);
             }
         }
 
+        $this->setHashCode();
         return $this->getRanking();
     }
 
@@ -329,6 +357,7 @@ class Vote implements \Iterator
             $this->_tags[] = $tag;
         }
 
+        $this->setHashCode();
         return $this->getTags();
     }
 
@@ -356,6 +385,7 @@ class Vote implements \Iterator
             endif;
         }
 
+        $this->setHashCode();
         return $rm;
     }
 
@@ -382,19 +412,21 @@ class Vote implements \Iterator
             return $tags;
         }
 
+/////////// INTERNAL ///////////
 
-        ///
+    private function archiveRanking ($ranking, $counter, $ownTimestamp)
+    {
+        $this->_ranking[] = array(
+                                    'ranking' => $ranking,
+                                    'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
+                                    'counter' => $counter
+                                    );
 
-    // INTERNAL
+        $this->rewind();
+    }
 
-        private function archiveRanking ($ranking, $counter, $ownTimestamp)
-        {
-            $this->_ranking[] = array(
-                                        'ranking' => $ranking,
-                                        'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
-                                        'counter' => $counter
-                                        );
-
-            $this->rewind();
-        }
+    private function setHashCode ()
+    {
+        return $this->_hashCode = hash('sha224', spl_object_hash ( $this ) . ((string) $this) . microtime(false));
+    }
 }

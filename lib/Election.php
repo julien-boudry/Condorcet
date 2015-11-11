@@ -139,7 +139,7 @@ class Election
     public function __construct ()
     {
         $this->_Candidates = [];
-        $this->_Votes = new VotesManager;
+        $this->_Votes = new VotesManager ($this);
         $this->_timer = new Timer_Manager;
     }
 
@@ -223,12 +223,6 @@ class Election
                         );
     }
 
-
-    protected function setTimer ($timer)
-    {
-        $this->_lastTimer = microtime(true) - $timer;
-        $this->_globalTimer += $this->_lastTimer;
-    }
 
     public function getGlobalTimer ($float = false) {
         return $this->_timer->getGlobalTimer($float);
@@ -459,7 +453,7 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-    protected function setStateToVote ()
+    public function setStateToVote ()
     {
         if ( $this->_State === 1 )
             { 
@@ -557,9 +551,6 @@ class Election
         // Write a new vote
         protected function registerVote (Vote $vote, $tag = null)
         {
-            // Set Phase 2
-            $this->setStateToVote();
-
             // Vote identifiant
             $vote->addTags($tag);           
             
@@ -577,11 +568,7 @@ class Election
 
 
     public function removeVote ($in, $with = true)
-    {
-        $this->setStateToVote();
-
-            //////
-        
+    {    
         $rem = [];
 
         if ($in instanceof Vote) :
@@ -633,7 +620,7 @@ class Election
 
             for ($i = 0; $i < $multi; $i++)
             {
-                if (self::$_maxParseIteration !== null && $count >= self::$_maxParseIteration)
+                if (self::$_maxParseIteration !== null && $this->countVotes() >= self::$_maxParseIteration)
                 {
                     throw new CondorcetException(12, self::$_maxParseIteration);
                 }
