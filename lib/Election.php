@@ -223,12 +223,6 @@ class Election
     }
 
 
-    protected function setTimer ($timer)
-    {
-        $this->_lastTimer = microtime(true) - $timer;
-        $this->_globalTimer += $this->_lastTimer;
-    }
-
     public function getGlobalTimer ($float = false) {
         return $this->_timer->getGlobalTimer($float);
     }
@@ -625,7 +619,7 @@ class Election
 
             for ($i = 0; $i < $multi; $i++)
             {
-                if (self::$_maxParseIteration !== null && $count >= self::$_maxParseIteration)
+                if (self::$_maxParseIteration !== null && $this->countVotes() >= self::$_maxParseIteration)
                 {
                     throw new CondorcetException(12, self::$_maxParseIteration);
                 }
