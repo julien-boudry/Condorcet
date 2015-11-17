@@ -327,4 +327,17 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
+    public function closeBdd ()
+    {
+        if ($this->_Bdd !== null) :
+            $this->regularize();
+            $this->clearCache();
+
+            $this->_Container = $this->_Bdd->selectRangeEntitys(0,$this->_maxKey + 1);
+            $this->_Bdd->flushAll();
+
+            $this->_Bdd = null;
+        endif;
+    }
+
 }
