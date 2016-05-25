@@ -8,7 +8,7 @@
 
 namespace Condorcet\DataManager;
 
-use Condorcet\DataManager\BDD\BddHandler;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -22,7 +22,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected static $MaxContainerLength =  3000;
 
     protected $_Container = [];
-    protected $_Bdd = null;
+    protected $_DataHandler = null;
 
     protected $_Cache = [];
     protected $_CacheMaxKey = 0;
@@ -32,9 +32,9 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_counter = 0;
     protected $_maxKey = -1;
 
-    public function __construct (BddHandler $bdd = null)
+    public function __construct (DataHandlerInterface $handler = null)
     {
-            $this->importBdd($bdd);
+            $this->importHandler($handler);
     }
 
     public function __destruct ()
@@ -73,8 +73,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
                 endif;
 
                 ksort($this->_Container,SORT_NUMERIC);
-            elseif ($this->_Bdd !== null) :
-                $this->_Bdd->deleteOneEntity($offset, true);
+            elseif ($this->_DataHandler !== null) :
+                $this->_DataHandler->deleteOneEntity($offset, true);
             endif;
 
             $this->clearCache();
@@ -86,7 +86,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     // Use by isset() function, must return false if offset value is null.
     public function offsetExists($offset)
     {
-        return ( isset($this->_Container[$offset]) || ($this->_Bdd !== null && $this->_Bdd->selectOneEntity($offset) !== false) ) ? true : false ;
+        return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) ? true : false ;
     }
 
     public function offsetUnset($offset)
@@ -97,7 +97,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             else :
                 unset($this->_Cache[$offset]);
 
-                $this->_Bdd->deleteOneEntity($offset);
+                $this->_DataHandler->deleteOneEntity($offset);
             endif;
 
             --$this->_counter;
@@ -111,11 +111,11 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
-        elseif ($this->_Bdd !== null) :
+        elseif ($this->_DataHandler !== null) :
             if (array_key_exists($offset, $this->_Cache)) :
                 return $this->_Cache[$offset];
             else :
-                $query = $this->_Bdd->selectOneEntity($offset);
+                $query = $this->_DataHandler->selectOneEntity($offset);
                 return ($query === false) ? null : $query;
             endif;
         else :
@@ -155,7 +155,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         if ($this->_cursor >= $this->_maxKey) :
             // Do nothing
-        elseif ($this->_Bdd === null) :
+        elseif ($this->_DataHandler === null) :
             $this->setCursorOnNextKeyInArray($this->_Container);
         else :
             $this->populateCache();
@@ -194,12 +194,12 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $this->regularize();
 
-        return ($this->_Bdd === null) ? $this->_Container : $this->_Bdd->selectRangeEntitys(0,$this->_maxKey);
+        return ($this->_DataHandler === null) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
     }
 
     public function keyExist ($offset)
     {
-        if ( array_key_exists($offset, $this->_Container) || ($this->_Bdd !== null && $this->_Bdd->selectOneEntity($offset) !== false) ) :
+        if ( array_key_exists($offset, $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) :
             return true;
         else  :
             return false;
@@ -210,35 +210,35 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $r = array_keys($this->_Container);
 
-        if ($this->_Bdd !== null) :
-            $r[] = $this->_Bdd->selectMinKey();
+        if ($this->_DataHandler !== null) :
+            $r[] = $this->_DataHandler->selectMinKey();
         endif;
 
         return (int) min($r);
     }
 
 
-/////////// BDD API ///////////
+/////////// HANDLER API ///////////
 
-    public function setNewEmptyBdd ($bdd, $struct = null)
+    public function setNewEmptyHandler ($handler, $struct = null)
     {
-        $this->_Bdd = new BddHandler ($bdd);
+        $this->_DataHandler = new Condorcet\DataManager\DataHandlerDrivers\BddHandler ($handler);
 
         $this->regularize();
     }
 
-    public function unsetBdd ()
+    public function unsetHandler ()
     {
-        if ($this->_Bdd !== null) :
+        if ($this->_DataHandler !== null) :
             $this->regularize();
-            $this->BddHandler->closeTransaction();
+            $this->Driver->closeTransaction();
 
             $this->resetCounter();
             $this->resetMaxKey();
 
-            $this->_Container = $this->_Bdd->selectRangeEntitys(0,$this->_maxKey);
+            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
 
-            $this->_Bdd = null;
+            $this->_DataHandler = null;
         else :
             throw new CondorcetExeption;
         endif;
@@ -246,10 +246,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function regularize ()
     {
-        if ($this->_Bdd === null || empty($this->_Container)) :
+        if ($this->_DataHandler === null || empty($this->_Container)) :
             return false;
         else :
-            $this->_Bdd->insertEntitys($this->_Container);
+            $this->_DataHandler->insertEntitys($this->_Container);
             $this->_Container = [];
             return true;
         endif;
@@ -257,7 +257,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function checkRegularize ()
     {
-        if ( $this->_Bdd !== null && self::$MaxContainerLength < count($this->_Container) ) :
+        if ( $this->_DataHandler !== null && self::$MaxContainerLength < count($this->_Container) ) :
             $this->regularize();
             return true;
         else :
@@ -272,7 +272,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $currentKey = $this->key();
 
         if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
-            $this->_Cache = $this->_Bdd->selectRangeEntitys($currentKey, self::$CacheSize);
+            $this->_Cache = $this->_DataHandler->selectRangeEntitys($currentKey, self::$CacheSize);
 
             $keys = array_keys($this->_Cache);
             $this->_CacheMaxKey = max($keys);
@@ -287,11 +287,11 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->_CacheMinKey = 0;
     }
 
-/////////// BDD INTERRACTION ///////////
+/////////// HANDLER INTERRACTION ///////////
 
     public function resetCounter ()
     {
-        return $this->_counter = count($this->_Container) + ( ($this->_Bdd !== null) ? $this->_Bdd->countEntitys() : 0 );
+        return $this->_counter = count($this->_Container) + ( ($this->_DataHandler !== null) ? $this->_DataHandler->countEntitys() : 0 );
     }
 
     public function resetMaxKey ()
@@ -303,21 +303,21 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             return null;
         else :
             $maxContainerKey = (empty($this->_Container)) ? null : max(array_keys($this->_Container));
-            $maxBddKey = ($this->_Bdd !== null) ? $this->_Bdd->selectMaxKey() : null;
+            $maxHandlerKey = ($this->_DataHandler !== null) ? $this->_DataHandler->selectMaxKey() : null;
 
-            return $this->_maxKey = max( $maxContainerKey,$maxBddKey );
+            return $this->_maxKey = max( $maxContainerKey,$maxHandlerKey );
         endif;
     }
 
-    public function importBdd (BddHandler $bdd = null)
+    public function importHandler (DataHandlerInterface $handler = null)
     {
-        if ($bdd !== null) :
-            $this->_Bdd = $bdd;
+        if ($handler !== null) :
+            $this->_DataHandler = $handler;
 
             try {
                 $this->regularize();
             } catch (Exception $e) {
-                $this->_Bdd = null;
+                $this->_DataHandler = null;
             }
 
             $this->resetCounter();
@@ -327,16 +327,16 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function closeBdd ()
+    public function closeHandler ()
     {
-        if ($this->_Bdd !== null) :
+        if ($this->_DataHandler !== null) :
             $this->regularize();
             $this->clearCache();
 
-            $this->_Container = $this->_Bdd->selectRangeEntitys(0,$this->_maxKey + 1);
-            $this->_Bdd->flushAll();
+            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
+            $this->_DataHandler->flushAll();
 
-            $this->_Bdd = null;
+            $this->_DataHandler = null;
         endif;
     }
 

@@ -5,12 +5,13 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-namespace Condorcet\DataManager\BDD;
+namespace Condorcet\DataManager\DataHandlerDrivers;
 
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
-class BddHandler
+class BddHandler implements DataHandlerInterface;
 {
     use CondorcetVersion;
 
