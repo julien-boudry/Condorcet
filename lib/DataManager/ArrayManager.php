@@ -97,7 +97,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             else :
                 unset($this->_Cache[$offset]);
 
-                $this->_DataHandler->deleteOneEntity($offset);
+                $this->_DataHandler->deleteOneEntity($offset, false);
             endif;
 
             --$this->_counter;
@@ -220,10 +220,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// HANDLER API ///////////
 
-    public function setNewEmptyHandler ($handler, $struct = null)
+    public function setNewEmptyHandler ($handlerClass)
     {
-        $this->_DataHandler = new Condorcet\DataManager\DataHandlerDrivers\BddHandler ($handler);
-
+        $this->unsetHandler();
+        $this->_DataHandler = new Condorcet\DataManager\DataHandlerDrivers\BddHandler ();
         $this->regularize();
     }
 
@@ -239,8 +239,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
 
             $this->_DataHandler = null;
-        else :
-            throw new CondorcetExeption;
         endif;
     }
 
