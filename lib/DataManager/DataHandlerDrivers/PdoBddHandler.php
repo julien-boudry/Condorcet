@@ -11,7 +11,7 @@ use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
-class BddHandler implements DataHandlerInterface;
+class PdoBddHandler implements DataHandlerInterface
 {
     use CondorcetVersion;
 
