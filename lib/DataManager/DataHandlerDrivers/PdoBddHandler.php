@@ -15,7 +15,7 @@ class PdoBddHandler implements DataHandlerInterface
 {
     use CondorcetVersion;
 
-    const SEGMENT = '300,100,50,10,5,1';
+    const SEGMENT = [300,100,50,10,5,1];
 
     protected $_handler;
     protected $_transaction = false;
@@ -100,7 +100,7 @@ class PdoBddHandler implements DataHandlerInterface
                 return $query;
             };
 
-            foreach (explode(',', self::SEGMENT) as $value) {
+            foreach (self::SEGMENT as $value) {
                 $this->_prepare['insert'.$value.'Entitys'] = $this->_handler->prepare($makeMany($value));
             }
 
@@ -182,7 +182,7 @@ class PdoBddHandler implements DataHandlerInterface
         {
             $count = count($input);
 
-            foreach (explode(',', self::SEGMENT) as $value) :
+            foreach (self::SEGMENT as $value) :
                 if ($count >= $value) :
                     $input = array_chunk($input, $value, true);
 
