@@ -332,7 +332,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $this->clearCache();
 
             $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
-            $this->_DataHandler->flushAll();
 
             $this->_DataHandler = null;
         endif;
