@@ -28,9 +28,13 @@ class PdoBddHandler implements DataHandlerInterface
     // Prepare Query
     protected $_prepare = [];
 
-    public function __construct ($bdd, $tryCreateTable = true, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
+    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
     {
-        $this->_struct = $this->checkStructureTemplate($struct);
+        if (!$this->checkStructureTemplate($struct)) :
+            throw new CondorcetException;
+        endif;
+
+        $this->_struct = $struct;
 
         if (is_string($bdd)) :
 
@@ -47,11 +51,7 @@ class PdoBddHandler implements DataHandlerInterface
         $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         if ($tryCreateTable) {
-            try {
-                $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
-            } catch (Exception $e) {
-                throw $e;
-            }
+            $this->createTable();
         }
 
         $this->initPrepareQuery();
@@ -70,10 +70,24 @@ class PdoBddHandler implements DataHandlerInterface
 
     // INTERNAL
 
-    protected function checkStructureTemplate ($struct)
+    protected function checkStructureTemplate (array &$struct)
     {
-        // Need to be completed
-        return $struct;
+        if (    !empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
+                is_string($struct['tableName']) && is_string($struct['primaryColumnName']) && is_string($struct['dataColumnName'])
+         ) :
+            return true;
+        else :
+            return false;
+        endif;
+    }
+
+    public function createTable ()
+    {
+        try {
+            $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+        } catch (Exception $e) {
+            throw $e;
+        }  
     }
 
     protected function initPrepareQuery ()
