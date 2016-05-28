@@ -42,7 +42,7 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 
 ### Specifications and standards  
 **Stable Version: 0.98**  
-**PHP Requirement:** PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.0)_
+**PHP Requirement:** PHP 7.0 with Ctype, MB_String, Json common extensions.
 
 ##### Autoloading:   
 This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \Condorcet is used. 
