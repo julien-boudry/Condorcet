@@ -16,7 +16,7 @@ use Condorcet\CondorcetException;
 class Copeland extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = 'Copeland';
+    const METHOD_NAME = ['Copeland'];
 
     // Copeland
     protected $_Comparison;

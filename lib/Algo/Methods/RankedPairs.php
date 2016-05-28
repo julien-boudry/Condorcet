@@ -17,7 +17,7 @@ use Condorcet\CondorcetException;
 class RankedPairs extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = 'Ranked Pairs,RankedPairs,Tideman method';
+    const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method'];
 
     // Limits
         public static $_maxCandidates = 7;

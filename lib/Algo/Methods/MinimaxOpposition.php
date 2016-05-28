@@ -14,7 +14,7 @@ use Condorcet\CondorcetException;
 class MinimaxOpposition extends Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = 'Minimax Opposition,MinimaxOpposition,Minimax_Opposition';
+    const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
     protected function makeRanking ()
     {

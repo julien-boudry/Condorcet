@@ -18,7 +18,7 @@ use Condorcet\Election;
 class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = 'Kemeny–Young,Kemeny Young,KemenyYoung,Kemeny rule,VoteFair popularity ranking,maximum likelihood method,median relation';
+    const METHOD_NAME = ['Kemeny–Young','Kemeny Young','KemenyYoung','Kemeny rule','VoteFair popularity ranking','Maximum Likelihood Method','Median Relation'];
 
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
