@@ -56,6 +56,8 @@ class CondorcetException extends \Exception
         $error[20] = 'You need to specify one or more candidates before voting';
         $error[21] = 'Bad vote timestamp format';
         $error[22] = 'This context is not valid';
+        $error[23] = 'No Data Handler in use';
+        $error[24] = 'A Data Handler is already in use';
 
         $error[30] = 'Candidate not in Ranking';
 
