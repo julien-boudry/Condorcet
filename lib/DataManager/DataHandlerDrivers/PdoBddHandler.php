@@ -27,6 +27,9 @@ class PdoBddHandler implements DataHandlerInterface
     protected $_struct;
     // Prepare Query
     protected $_prepare = [];
+    // Data Object Class
+    public $_dataClass = '\Condorcet\Vote';
+
 
     public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
     {
@@ -310,7 +313,7 @@ class PdoBddHandler implements DataHandlerInterface
             $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectOneEntity']->closeCursor();
             if (!empty($r)) :
-                return  $r[0][1];
+                return new $this->_dataClass( $r[0][1] );
             else :
                 return false;
             endif;
@@ -331,7 +334,7 @@ class PdoBddHandler implements DataHandlerInterface
             if (!empty($r)) :
                 $result = [];
                 foreach ($r as $value) :
-                    $result[(int) $value[0]] = $value[1];
+                    $result[(int) $value[0]] = new $this->_dataClass( $value[1] );
                 endforeach ;
 
                 return $result;
