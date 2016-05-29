@@ -19,7 +19,7 @@ class CondorcetException extends \Exception
 
     protected $_infos;
 
-    public function __construct ($code = 0, $infos = '')
+    public function __construct (int $code = 0, string $infos = '')
     {
         $this->_infos = $infos;
 
@@ -31,7 +31,7 @@ class CondorcetException extends \Exception
            return __CLASS__ . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 
-    protected function correspondence ($code)
+    protected function correspondence (int $code)
     {
         // Common
         $error[1] = 'Bad candidate format';

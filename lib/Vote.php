@@ -140,7 +140,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualVote (Election &$election, $string = false)
+    public function getContextualVote (Election &$election, bool $string = false)
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -171,7 +171,7 @@ class Vote implements \Iterator
         return $ranking;
     }
 
-    public function getSimpleRanking ($context = false)
+    public function getSimpleRanking (bool $context = false)
     {
         $ranking = ($context) ? $this->getContextualVote($context) : $this->getRanking();
 
@@ -275,7 +275,7 @@ class Vote implements \Iterator
         }
 
         // From a string like 'A>B=C=H>G=T>Q'
-        public static function convertVoteInput ($formula)
+        public static function convertVoteInput (string $formula)
         {
             $vote = explode('>', $formula);
 
@@ -416,7 +416,7 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, $counter, $ownTimestamp)
+    private function archiveRanking ($ranking, int $counter, $ownTimestamp)
     {
         $this->_ranking[] = array(
                                     'ranking' => $ranking,

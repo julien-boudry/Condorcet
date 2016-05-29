@@ -88,7 +88,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, $with = true)
+    public function getVotesList ($tag = null, bool $with = true)
     {
         if ($tag === null)
         {

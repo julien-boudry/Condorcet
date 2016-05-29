@@ -45,7 +45,6 @@ class Copeland extends Method implements MethodInterface
         // Ranking calculation
         $this->makeRanking();
 
-
         // Return
         return $this->_Result;
     }

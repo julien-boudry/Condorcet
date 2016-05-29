@@ -60,7 +60,7 @@ abstract class Condorcet
     }
 
     // Return an array with auth methods
-    public static function getAuthMethods ($basic = false)
+    public static function getAuthMethods (bool $basic = false)
     {
         $auth = self::$_authMethods;
 
@@ -80,11 +80,11 @@ abstract class Condorcet
 
 
     // Check if the method is supported
-    public static function isAuthMethod ($method)
+    public static function isAuthMethod (string $method)
     {
         $auth = self::$_authMethods;
 
-        if (!is_string($method) || empty($method)) :
+        if (empty($method)) :
             throw new CondorcetException (8);
         endif;
 
@@ -105,12 +105,10 @@ abstract class Condorcet
 
 
     // Add algos
-    public static function addMethod ($algos)
+    public static function addMethod (string $algos)
     {
         // Check algos
-        if ( !is_string($algos) ) :
-            return false;
-        elseif ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
+        if ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
             return false;
         endif;
 
@@ -126,7 +124,7 @@ abstract class Condorcet
 
 
         // Check if the class Algo. exist and ready to be used
-        protected static function testMethod ($method)
+        protected static function testMethod (string $method)
         {
             if ( !class_exists($method) ) :             
                 throw new CondorcetException(9);
@@ -141,7 +139,7 @@ abstract class Condorcet
 
 
     // Change default method for this class.
-    public static function setDefaultMethod ($method)
+    public static function setDefaultMethod (string $method)
     {       
         if ( ($method = self::isAuthMethod($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
@@ -152,7 +150,7 @@ abstract class Condorcet
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, $out = true, $convertObject = true)
+    public static function format ($input, bool $out = true, bool $convertObject = true)
     {
         if (is_object($input)) :
             

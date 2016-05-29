@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Tools;
 
+use Condorcet\Algo\Pairwise;
+
 // Generic for Algorithms
 abstract class PairwiseStats
 {
 
-    public static function PairwiseComparison ($pairwise)
+    public static function PairwiseComparison (Pairwise $pairwise)
     {
         $comparison = [];
 

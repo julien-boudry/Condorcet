@@ -108,7 +108,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
     abstract protected function makeRanking ();
 
-    protected static function makeRanking_method ($type, array $stats)
+    protected static function makeRanking_method (string $type, array $stats)
     {
         $result = [];
         $values = [];

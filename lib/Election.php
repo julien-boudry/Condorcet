@@ -60,7 +60,7 @@ class Election
 
 
     // Check JSON format
-    public static function isJson ($string)
+    public static function isJson (string $string)
     {
         if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string))
         { return false; }
@@ -76,7 +76,7 @@ class Election
 
 
     // Generic action before parsing data from string input
-    public static function prepareParse ($input, $allowFile)
+    public static function prepareParse ($input, bool $allowFile)
     {
         // Input must be a string
         if (!is_string($input))
@@ -110,7 +110,7 @@ class Election
     }
 
 
-    public static function prepareJson ($input)
+    public static function prepareJson (string $input)
     {
         if (!self::isJson($input))
             { throw new CondorcetException(15); }
@@ -228,11 +228,11 @@ class Election
     }
 
 
-    public function getGlobalTimer ($float = false) {
+    public function getGlobalTimer (bool $float = false) {
         return $this->_timer->getGlobalTimer($float);
     }
 
-    public function getLastTimer ($float = false) {
+    public function getLastTimer (bool $float = false) {
         return $this->_timer->getLastTimer($float);
     }
 
@@ -254,9 +254,9 @@ class Election
         return $r;
     }
 
-    public function ignoreMaxVote ($state = true)
+    public function ignoreMaxVote (bool $state = true)
     {
-        $this->_ignoreStaticMaxVote = (is_bool($state)) ? $state : true;
+        $this->_ignoreStaticMaxVote = $state;
         return $this->_ignoreStaticMaxVote;
     }
 
@@ -345,7 +345,7 @@ class Election
     }
 
 
-    public function jsonCandidates ($input)
+    public function jsonCandidates (string $input)
     {
         $input = self::prepareJson($input);
         if ($input === false) { return $input; }
@@ -365,7 +365,7 @@ class Election
     }
 
 
-    public function parseCandidates ($input, $allowFile = true)
+    public function parseCandidates (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
         if ($input === false) { return $input; }
@@ -402,7 +402,7 @@ class Election
         }
 
         // Get the list of registered CANDIDATES
-        public function getCandidatesList ($stringMode = false)
+        public function getCandidatesList (bool $stringMode = false)
         {
             if (!$stringMode) :
                 return $this->_Candidates;
@@ -427,7 +427,7 @@ class Election
             endif;
         }
 
-        public function getCandidateId ($candidate_key, $onlyName = false)
+        public function getCandidateId (int $candidate_key, bool $onlyName = false)
         {
             if (!array_key_exists($candidate_key, $this->_Candidates)) :
                 return false;
@@ -436,12 +436,12 @@ class Election
             endif;
         }
 
-        public function existCandidateId ($candidate_id, $strict = true)
+        public function existCandidateId ($candidate_id, bool $strict = true)
         {
             return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
         }
 
-        public function getCandidateObjectByName ($s)
+        public function getCandidateObjectByName (string $s)
         {
             foreach ($this->_Candidates as &$oneCandidate)
             {
@@ -572,7 +572,7 @@ class Election
         }
 
 
-    public function removeVote ($in, $with = true)
+    public function removeVote ($in, bool $with = true)
     {    
         $rem = [];
 
@@ -606,7 +606,7 @@ class Election
     }
 
 
-    public function jsonVotes ($input)
+    public function jsonVotes (string $input)
     {
         $input = self::prepareJson($input);
         if ($input === false) { return $input; }
@@ -639,7 +639,7 @@ class Election
         return $adding;
     }
 
-    public function parseVotes ($input, $allowFile = true)
+    public function parseVotes (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
         if ($input === false) { return $input; }
@@ -732,7 +732,7 @@ class Election
     //:: VOTING TOOLS :://
 
     // How many votes are registered ?
-    public function countVotes ($tag = null, $with = true)
+    public function countVotes ($tag = null, bool $with = true)
     {
         if (!empty($tag))
         {
@@ -745,7 +745,7 @@ class Election
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, $with = true)
+    public function getVotesList ($tag = null, bool $with = true)
     {
         return $this->_Votes->getVotesList($tag, $with);
     }
@@ -758,10 +758,8 @@ class Election
         return $this->_Votes->getVoteKey($vote);
     }
 
-    public function getVoteByKey ($key) {
-        if (!is_int($key)) :
-            return false;
-        elseif (!isset($this->_Votes[$key])) :
+    public function getVoteByKey (int $key) {
+        if (!isset($this->_Votes[$key])) :
             return false;
         else :
             return $this->_Votes[$key];
@@ -831,7 +829,7 @@ class Election
         return ($options['human']) ? $this->humanResult($result) : $result;
     }
 
-        protected function humanResult ($robot, $asString = false)
+        protected function humanResult ($robot, bool $asString = false)
         {
             if (!is_array($robot))
                 {return $robot;}
@@ -984,7 +982,7 @@ class Election
     }
 
 
-    protected function initResult ($class)
+    protected function initResult (string $class)
     {
         if ( !isset($this->_Calculator[$class]) )
         {
@@ -1012,7 +1010,7 @@ class Election
     }
 
 
-    protected function formatResultOptions ($arg)
+    protected function formatResultOptions (array $arg)
     {
         // About tag filter
         if (isset($arg['tags'])):
@@ -1041,7 +1039,7 @@ class Election
 
     //:: GET RAW DATA :://
 
-    public function getPairwise ($explicit = true)
+    public function getPairwise (bool $explicit = true)
     {
         $this->prepareResult();
 

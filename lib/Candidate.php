@@ -36,9 +36,9 @@ class Candidate
 
     // SETTERS
 
-    public function setName ($name)
+    public function setName (string $name)
     {
-        $name = trim((string) $name);
+        $name = trim($name);
 
         if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID )
             { throw new CondorcetException(1, $name); }
@@ -53,7 +53,7 @@ class Candidate
 
     // GETTERS
 
-    public function getName ($full = false)
+    public function getName (bool $full = false)
     {
         return ($full) ? end($this->_name) : end($this->_name)['name'];
     }
@@ -77,7 +77,7 @@ class Candidate
 
     // INTERNAL
 
-    private function checkName ($name)
+    private function checkName (string $name)
     {
         foreach ($this->_link as &$link)
         {
