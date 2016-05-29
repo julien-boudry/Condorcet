@@ -30,6 +30,27 @@ class VotesManager extends ArrayManager
         parent::__construct();
     }
 
+/////////// Data CallBack for external drivers ///////////
+
+    public function getDataContextObject ()
+    {
+        $context = new Class {
+            public $election;
+
+            public function dataCallBack ($data)
+            {
+                $vote = new Vote ($data);
+                $vote->registerLink($this->election);
+
+                return $vote;
+            }
+        };
+
+        $context->election = $this->_link[0];
+
+        return $context;
+    }
+
 /////////// Array Access - Specials improvements ///////////
 
     public function offsetSet($offset, $value)

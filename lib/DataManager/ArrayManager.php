@@ -34,10 +34,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_counter = 0;
     protected $_maxKey = -1;
 
-    public function __construct (DataHandlerInterface $handler = null)
-    {
-            $this->importHandler($handler);
-    }
+    public function __construct () {}
 
     public function __destruct ()
     {
@@ -55,6 +52,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         
     }
+
 
 /////////// Implement ArrayAccess ///////////
 
@@ -318,6 +316,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         if ($handler !== null) :
             $this->_DataHandler = $handler;
+            $this->_DataHandler->_dataContextObject = $this->getDataContextObject();
 
             try {
                 $this->regularize();
@@ -342,6 +341,16 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
             $this->_DataHandler = null;
         endif;
+    }
+
+    public function getDataContextObject ()
+    {
+        return new Class {
+            public function dataCallBack ($data)
+            {
+                return $data;
+            }
+        };
     }
 
 }

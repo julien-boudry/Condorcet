@@ -27,8 +27,8 @@ class PdoBddHandler implements DataHandlerInterface
     protected $_struct;
     // Prepare Query
     protected $_prepare = [];
-    // Data Object Class
-    public $_dataClass = '\Condorcet\Vote';
+    // Data CallBack function
+    public $_dataContextObject;
 
 
     public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
@@ -38,6 +38,12 @@ class PdoBddHandler implements DataHandlerInterface
         endif;
 
         $this->_struct = $struct;
+        $this->_dataContextObject = new Class {
+            public function dataCallBack ($data)
+            {
+                return $data;
+            }
+        };
 
         if (is_string($bdd)) :
 
@@ -69,6 +75,7 @@ class PdoBddHandler implements DataHandlerInterface
             $this->closeTransaction();
         endif;
     }
+
 
 
     // INTERNAL
@@ -313,7 +320,7 @@ class PdoBddHandler implements DataHandlerInterface
             $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectOneEntity']->closeCursor();
             if (!empty($r)) :
-                return new $this->_dataClass( $r[0][1] );
+                return $this->_dataContextObject->dataCallBack( $r[0][1] );
             else :
                 return false;
             endif;
@@ -334,7 +341,7 @@ class PdoBddHandler implements DataHandlerInterface
             if (!empty($r)) :
                 $result = [];
                 foreach ($r as $value) :
-                    $result[(int) $value[0]] = new $this->_dataClass( $value[1] );
+                    $result[(int) $value[0]] = $this->_dataContextObject->dataCallBack( $value[1] );
                 endforeach ;
 
                 return $result;
