@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
-use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -39,7 +38,12 @@ class PdoBddHandler implements DataHandlerInterface
         endif;
 
         $this->_struct = $struct;
-        $this->_dataContextObject = new NoDataFormat;
+        $this->_dataContextObject = new Class {
+            public function dataCallBack ($data)
+            {
+                return $data;
+            }
+        };
 
         if (is_string($bdd)) :
 

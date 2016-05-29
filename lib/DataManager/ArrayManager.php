@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager;
 
-use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
@@ -346,7 +345,12 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function getDataContextObject ()
     {
-        return new NoDataFormat;
+        return new Class {
+            public function dataCallBack ($data)
+            {
+                return $data;
+            }
+        };
     }
 
 }

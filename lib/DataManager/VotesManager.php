@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\ArrayManager;
-use Condorcet\DataManager\PHP56\VoteManagerDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
@@ -35,7 +34,18 @@ class VotesManager extends ArrayManager
 
     public function getDataContextObject ()
     {
-        $context = new VoteManagerDataFormat;
+        $context = new Class {
+            public $election;
+
+            public function dataCallBack ($data)
+            {
+                $vote = new Vote ($data);
+                $this->election->checkVoteCandidate($vote);
+                $vote->registerLink($this->election);
+
+                return $vote;
+            }
+        };
 
         $context->election = $this->_link[0];
 
