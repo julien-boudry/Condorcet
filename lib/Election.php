@@ -15,6 +15,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
@@ -516,14 +517,15 @@ class Election
         }
 
 
-        protected function checkVoteCandidate (Vote $vote)
+        public function checkVoteCandidate (Vote $vote)
         {
             $linkCount = $vote->countLinks();
 
             if ( $vote->countRankingCandidates() > $this->countCandidates() )
                 { return false; }
 
-            $mirror = $vote->getRanking(); $change = false;
+            $mirror = $vote->getRanking();
+            $change = false;
             foreach ($vote as $rank => $choice)
             {
                 foreach ($choice as $choiceKey => $candidate)
@@ -701,6 +703,29 @@ class Election
         }
 
         return $adding;
+    }
+
+
+    //:: LARGE ELECTION MODE :://
+
+    public function setExternalVotesDatabase (DataHandlerInterface $driver)
+    {
+        if (!$this->_Votes->isUsingHandler()) :
+            $this->_Votes->importHandler($driver);
+            return true;
+        else :
+            throw new CondorcetExeption(24);
+        endif;
+    }
+
+    public function removeExternalVotesDatabase ()
+    {
+        if ($this->_Votes->isUsingHandler()) :
+            $this->_Votes->closeHandler();
+            return true;
+        else :
+            throw new CondorcetExeption(23);
+        endif;
     }
 
 

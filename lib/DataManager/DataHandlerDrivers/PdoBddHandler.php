@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
+use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -27,10 +28,18 @@ class PdoBddHandler implements DataHandlerInterface
     protected $_struct;
     // Prepare Query
     protected $_prepare = [];
+    // Data CallBack function
+    public $_dataContextObject;
 
-    public function __construct ($bdd, $tryCreateTable = true, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
+
+    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
     {
-        $this->_struct = $this->checkStructureTemplate($struct);
+        if (!$this->checkStructureTemplate($struct)) :
+            throw new CondorcetException;
+        endif;
+
+        $this->_struct = $struct;
+        $this->_dataContextObject = new NoDataFormat;
 
         if (is_string($bdd)) :
 
@@ -47,11 +56,7 @@ class PdoBddHandler implements DataHandlerInterface
         $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         if ($tryCreateTable) {
-            try {
-                $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
-            } catch (Exception $e) {
-                throw $e;
-            }
+            $this->createTable();
         }
 
         $this->initPrepareQuery();
@@ -68,12 +73,27 @@ class PdoBddHandler implements DataHandlerInterface
     }
 
 
+
     // INTERNAL
 
-    protected function checkStructureTemplate ($struct)
+    protected function checkStructureTemplate (array &$struct)
     {
-        // Need to be completed
-        return $struct;
+        if (    !empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
+                is_string($struct['tableName']) && is_string($struct['primaryColumnName']) && is_string($struct['dataColumnName'])
+         ) :
+            return true;
+        else :
+            return false;
+        endif;
+    }
+
+    public function createTable ()
+    {
+        try {
+            $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+        } catch (Exception $e) {
+            throw $e;
+        }  
     }
 
     protected function initPrepareQuery ()
@@ -296,7 +316,7 @@ class PdoBddHandler implements DataHandlerInterface
             $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectOneEntity']->closeCursor();
             if (!empty($r)) :
-                return  $r[0][1];
+                return $this->_dataContextObject->dataCallBack( $r[0][1] );
             else :
                 return false;
             endif;
@@ -317,7 +337,7 @@ class PdoBddHandler implements DataHandlerInterface
             if (!empty($r)) :
                 $result = [];
                 foreach ($r as $value) :
-                    $result[(int) $value[0]] = $value[1];
+                    $result[(int) $value[0]] = $this->_dataContextObject->dataCallBack( $value[1] );
                 endforeach ;
 
                 return $result;

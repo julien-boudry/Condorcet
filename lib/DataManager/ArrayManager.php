@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager;
 
+use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
@@ -34,10 +35,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     protected $_counter = 0;
     protected $_maxKey = -1;
 
-    public function __construct (DataHandlerInterface $handler = null)
-    {
-            $this->importHandler($handler);
-    }
+    public function __construct () {}
 
     public function __destruct ()
     {
@@ -55,6 +53,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         
     }
+
 
 /////////// Implement ArrayAccess ///////////
 
@@ -157,7 +156,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         if ($this->_cursor >= $this->_maxKey) :
             // Do nothing
-        elseif ($this->_DataHandler === null) :
+        elseif (!$this->isUsingHandler()) :
             $this->setCursorOnNextKeyInArray($this->_Container);
         else :
             $this->populateCache();
@@ -196,7 +195,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $this->regularize();
 
-        return ($this->_DataHandler === null) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
+        return (!$this->isUsingHandler()) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
     }
 
     public function keyExist ($offset)
@@ -246,7 +245,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function regularize ()
     {
-        if ($this->_DataHandler === null || empty($this->_Container)) :
+        if (!$this->isUsingHandler() || empty($this->_Container)) :
             return false;
         else :
             $this->_DataHandler->insertEntitys($this->_Container);
@@ -287,11 +286,16 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->_CacheMinKey = 0;
     }
 
+    public function isUsingHandler ()
+    {
+        return $this->_DataHandler !== null;
+    }
+
 /////////// HANDLER INTERRACTION ///////////
 
     public function resetCounter ()
     {
-        return $this->_counter = count($this->_Container) + ( ($this->_DataHandler !== null) ? $this->_DataHandler->countEntitys() : 0 );
+        return $this->_counter = count($this->_Container) + ( ($this->isUsingHandler()) ? $this->_DataHandler->countEntitys() : 0 );
     }
 
     public function resetMaxKey ()
@@ -313,6 +317,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         if ($handler !== null) :
             $this->_DataHandler = $handler;
+            $this->_DataHandler->_dataContextObject = $this->getDataContextObject();
 
             try {
                 $this->regularize();
@@ -337,6 +342,11 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
             $this->_DataHandler = null;
         endif;
+    }
+
+    public function getDataContextObject ()
+    {
+        return new NoDataFormat;
     }
 
 }

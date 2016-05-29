@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\ArrayManager;
+use Condorcet\DataManager\PHP56\VoteManagerDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
@@ -28,6 +29,17 @@ class VotesManager extends ArrayManager
         endif;
 
         parent::__construct();
+    }
+
+/////////// Data CallBack for external drivers ///////////
+
+    public function getDataContextObject ()
+    {
+        $context = new VoteManagerDataFormat;
+
+        $context->election = $this->_link[0];
+
+        return $context;
     }
 
 /////////// Array Access - Specials improvements ///////////

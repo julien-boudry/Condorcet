@@ -1208,6 +1208,20 @@
   class: Vote
   type: method
   visibility: public
+  name: getSimpleRanking
+  static: false
+  description: |
+    Get the current ranking as a string format.
+  return: |
+    *(string)* String like 'A>D=C>B'
+  related:
+    - 'Vote::getRanking'
+  publish: true 
+
+- 
+  class: Vote
+  type: method
+  visibility: public
   name: getTags
   static: false
   description: |
