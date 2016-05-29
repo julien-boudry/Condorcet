@@ -40,6 +40,7 @@ class VotesManager extends ArrayManager
             public function dataCallBack ($data)
             {
                 $vote = new Vote ($data);
+                $this->election->checkVoteCandidate($vote);
                 $vote->registerLink($this->election);
 
                 return $vote;

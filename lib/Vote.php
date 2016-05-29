@@ -152,7 +152,7 @@ class Vote implements \Iterator
         if (count($present) < $election->countCandidates()) :
             $last_rank = [];
             foreach ($election->getCandidatesList(false) as $oneCandidate) :
-                if (!in_array($oneCandidate->getName(), $present)) :
+                if (!in_array($oneCandidate->getName(), $present, false)) :
                     $last_rank[] = $oneCandidate;
                 endif;
             endforeach;

@@ -517,14 +517,15 @@ class Election
         }
 
 
-        protected function checkVoteCandidate (Vote $vote)
+        public function checkVoteCandidate (Vote $vote)
         {
             $linkCount = $vote->countLinks();
 
             if ( $vote->countRankingCandidates() > $this->countCandidates() )
                 { return false; }
 
-            $mirror = $vote->getRanking(); $change = false;
+            $mirror = $vote->getRanking();
+            $change = false;
             foreach ($vote as $rank => $choice)
             {
                 foreach ($choice as $choiceKey => $candidate)
