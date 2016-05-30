@@ -221,13 +221,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// HANDLER API ///////////
 
-    public function setNewEmptyHandler ($handlerClass)
-    {
-        $this->unsetHandler();
-        $this->_DataHandler = new Condorcet\DataManager\DataHandlerDrivers\PdoBddHandler ();
-        $this->regularize();
-    }
-
     public function unsetHandler ()
     {
         if ($this->_DataHandler !== null) :
