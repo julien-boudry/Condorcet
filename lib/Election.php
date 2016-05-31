@@ -124,7 +124,7 @@ class Election
     use CondorcetVersion;
 
     // Data and global options
-    protected $_Candidates; // Candidate list
+    protected $_Candidates = []; // Candidate list
     protected $_Votes; // Votes list
 
     // Mechanics
@@ -196,8 +196,10 @@ class Election
         foreach ($this->_Candidates as $value)
             { $value->registerLink($this); }
 
-        foreach ($this->_Votes as $value)
-            { $value->registerLink($this); }
+        if ($this->_State > 1) :
+            foreach ($this->_Votes as $value)
+                { $value->registerLink($this); }
+        endif;
     }
 
     protected function destroyAllLink ()
@@ -205,8 +207,10 @@ class Election
         foreach ($this->_Candidates as $value)
             { $value->destroyLink($this); }
 
-        foreach ($this->_Votes as $value)
-            { $value->destroyLink($this); }
+        if ($this->_State > 1) :
+            foreach ($this->_Votes as $value)
+                { $value->destroyLink($this); }
+        endif;
     }
 
         //////
