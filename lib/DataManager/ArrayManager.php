@@ -48,12 +48,13 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->clearCache();
         $this->rewind();
 
-        return array_keys(get_object_vars($this));
+        return ['_Container','_DataHandler'];
     }
 
     public function __wakeup ()
     {
-        
+        $this->resetMaxKey();
+        $this->resetCounter();
     }
 
 
