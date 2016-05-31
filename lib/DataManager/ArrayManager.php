@@ -47,6 +47,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->regularize();
         $this->clearCache();
         $this->rewind();
+
+        return array_keys(get_object_vars($this));
     }
 
     public function __wakeup ()
