@@ -68,11 +68,6 @@ class Vote implements \Iterator
         return array_keys(get_object_vars($this));
     }
 
-    public function __wakeup ()
-    {
-        $this->setHashCode();
-    }
-
     public function __clone ()
     {
         $this->destroyAllLink();
@@ -434,6 +429,6 @@ class Vote implements \Iterator
 
     private function setHashCode ()
     {
-        return $this->_hashCode = hash('sha224', spl_object_hash ( $this ) . ((string) $this) . microtime(false));
+        return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
     }
 }
