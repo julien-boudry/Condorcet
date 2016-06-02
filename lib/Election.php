@@ -443,7 +443,7 @@ class Election
 
         public function getCandidateObjectByName ($s)
         {
-            foreach ($this->_Candidates as &$oneCandidate)
+            foreach ($this->_Candidates as $oneCandidate)
             {
                 if ($oneCandidate->getName() === $s) {
                     return $oneCandidate;

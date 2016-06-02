@@ -153,7 +153,7 @@ class KemenyYoung extends Method implements MethodInterface
         $permutation = new Permutation ($this->_selfElection->countCandidates());
 
         if ($path === null) :
-            return $premutation->getResults(true);
+            return $permutation->getResults(true);
         else :
             $permutation->writeResults($path);
         endif;
