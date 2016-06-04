@@ -309,9 +309,9 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function importHandler (DataHandlerDriverInterface $handler = null)
+    public function importHandler (DataHandlerDriverInterface $handler)
     {
-        if ($handler !== null) :
+        if ($handler->countEntitys() === 0) :
             $this->_DataHandler = $handler;
             $this->_DataHandler->_dataContextObject = $this->getDataContextObject();
 
@@ -319,12 +319,17 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
                 $this->regularize();
             } catch (Exception $e) {
                 $this->_DataHandler = null;
+                $this->resetCounter();
+                $this->resetMaxKey();
+                throw $e;
             }
 
             $this->resetCounter();
             $this->resetMaxKey();
+
+            return true;
         else :
-            return false;
+            throw new CondorcetException;
         endif;
     }
 

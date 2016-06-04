@@ -18,7 +18,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
-    const SEGMENT = [300,100,50,10,5,1];
+    const SEGMENT = [300,100,50,10,1];
 
     protected $_handler;
     protected $_transaction = false;
