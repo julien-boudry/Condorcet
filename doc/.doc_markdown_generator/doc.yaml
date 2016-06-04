@@ -239,7 +239,6 @@
     - 'Election::__destruct'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -265,6 +264,7 @@
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
+
 - 
   class: Election
   type: method
@@ -294,6 +294,7 @@
   examples:
     'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
+
 - 
   class: Election
   type: method
@@ -327,7 +328,6 @@
     - 'Election::getCandidatesList'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -352,7 +352,6 @@
   related:
     - 'Election::getVotesList'
   publish: true
-
 
 - 
   class: Election
@@ -416,7 +415,6 @@
     'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -431,7 +429,6 @@
     - 'Condorcet::isAuthMethod'
     - 'Condorcet::getAuthMethods'
   publish: true
-
 
 - 
   class: Election
@@ -456,7 +453,6 @@
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -479,7 +475,6 @@
   examples:
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
   publish: true
-
 
 - 
   class: Election
@@ -540,7 +535,6 @@
     'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -570,7 +564,6 @@
   examples:
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29'
   publish: true
-
 
 - 
   class: Election
@@ -611,7 +604,6 @@
     - 'Election::getLastTimer'
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -638,6 +630,7 @@
 
   examples:
     Text de l'exemple: link
+
 - 
   class: Election
   type: method
@@ -674,8 +667,6 @@
 
   publish: true
 
-
-
 - 
   class: Election
   type: method
@@ -698,7 +689,6 @@
   examples:
     '[Manual - Vote management]': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
-
 
 - 
   class: Election
@@ -724,7 +714,6 @@
 
   publish: true
 
-
 - 
   class: Election
   type: method
@@ -748,7 +737,6 @@
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
-
 
 - 
   class: Election
@@ -831,6 +819,20 @@
   class: Election
   type: method
   visibility: public
+  name: removeExternalDataHandler
+  static: false
+  description: |
+    Remove an external driver to store vote on very large election. And import his data into classical memory.
+  return: |
+    *(bool)* True if success. Else throw an Exception.
+  related:
+    - 'Election::setExternalDataHandler'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: removeVote
   static: false
   description: |
@@ -861,6 +863,25 @@
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: setExternalDataHandler
+  static: false
+  description: |
+    Import and enable an external driver to store vote on very large election.
+  input:
+    driver:
+      type: Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface
+      required: true
+  return: |
+    *(bool)* True if success. Else throw an Exception.
+  related:
+    - 'Election::removeExternalDataHandler'
+  examples:
+    '[Manual - DataHandler]': 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php'
+  publish: true
 
 - 
   class: Election
@@ -881,7 +902,6 @@
     - 'static Election::setMaxVoteNumber'
 
   publish: true
-
 
 - 
   class: Election
@@ -995,7 +1015,6 @@
     - 'Candidate::setName'
   publish: true
 
-
 - 
   class: Candidate
   type: method
@@ -1051,7 +1070,6 @@
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
-
 
 - 
   class: Vote
@@ -1134,7 +1152,7 @@
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
   input:
     election:
-      type: Condorcet\Condorcet
+      type: Condorcet\Election
       required: true
       text: An election is already linked to Vote.
     stringMode:
@@ -1234,7 +1252,6 @@
 
   publish: true
 
-
 - 
   class: Vote
   type: method
@@ -1300,7 +1317,6 @@
 
 
 # CLASS PAIRWISE
-
 
 - 
   class: Timer\Manager
