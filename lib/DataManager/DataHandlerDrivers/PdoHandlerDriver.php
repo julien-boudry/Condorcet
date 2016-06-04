@@ -32,7 +32,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public $_dataContextObject;
 
 
-    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
+    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) :
             throw new CondorcetException;
@@ -90,7 +90,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function createTable ()
     {
         try {
-            $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
         } catch (Exception $e) {
             throw $e;
         }  
