@@ -180,7 +180,8 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                 foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
                     $param['data'.$i++] = $Entity;
-                endforeach; unset($Entity);
+                endforeach;
+                unset($Entity);
 
                 $this->_prepare['insert'.$group_count.'Entitys']->execute(
                     $param
@@ -238,7 +239,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function deleteOneEntity ($key, $justTry = false)
+    public function deleteOneEntity ($key, $justTry)
     {
         try {
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
