@@ -9,7 +9,7 @@
     use Condorcet\Election;
     use Condorcet\Candidate;
     use Condorcet\Vote;
-    use Condorcet\DataManager\DataHandlerDrivers\PdoBddHandler;
+    use Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
 
     require_once '../../__CondorcetAutoload.php';
 
@@ -32,16 +32,17 @@
     /* We will use PDO SQLITE, but can be MySQL or else */
 
     $pdo_object = new \PDO ('sqlite:'.__DIR__.'/bdd.sqlite');
+    $database_map = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'];
 
-    $driver = new PdoBddHandler ($pdo_object, true); // true = Try to create table
+    $driver = new PdoHandlerDriver ($pdo_object, true, $database_map); // true = Try to create table
 
-    $myElection->setExternalVotesDatabase($driver);
+    $myElection->setExternalDataHandler($driver);
 
 // III - Add hundred of thousands votes
 
     set_time_limit ( 60 * 5 );
 
-    $howMany = 200000;
+    $howMany = 100000;
 
     $voteModel = $myElection->getCandidatesList();
 
@@ -51,8 +52,15 @@
     }
 
 
+// IV - Get somes results
 
+    $myElection->getWinner();
+
+    $myElection->getResult('Schulze');
 
 
 print 'Success!  
-Process in: '. (microtime(true) - $start_time) . 's';
+Process in: '. (microtime(true) - $start_time) . 's
+';
+
+echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024,($i=floor(log(memory_get_peak_usage(),1024)))),2).' '.['b','kb','mb','gb','tb','pb'][$i].'<br>';

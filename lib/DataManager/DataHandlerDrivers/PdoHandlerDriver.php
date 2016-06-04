@@ -17,7 +17,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
-    const SEGMENT = [300,100,50,10,5,1];
+    const SEGMENT = [300,100,50,10,1];
 
     protected $_handler;
     protected $_transaction = false;
@@ -31,7 +31,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public $_dataContextObject;
 
 
-    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'key', 'dataColumnName' => 'data'])
+    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) :
             throw new CondorcetException;
@@ -94,7 +94,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function createTable ()
     {
         try {
-            $this->_handler->exec('CREATE  TABLE  IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
         } catch (Exception $e) {
             throw $e;
         }  
@@ -184,7 +184,8 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                 foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
                     $param['data'.$i++] = $Entity;
-                endforeach; unset($Entity);
+                endforeach;
+                unset($Entity);
 
                 $this->_prepare['insert'.$group_count.'Entitys']->execute(
                     $param
@@ -242,7 +243,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function deleteOneEntity ($key, $justTry = false)
+    public function deleteOneEntity ($key, $justTry)
     {
         try {
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
