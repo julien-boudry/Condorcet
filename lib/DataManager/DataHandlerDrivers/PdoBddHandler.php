@@ -166,11 +166,10 @@ class PdoBddHandler implements DataHandlerInterface
 
     // DATA MANAGER
     public function insertEntitys (array $input)
-    {        
+    {
         $this->sliceInput($input);
 
         try {
-
             $this->initTransaction();
 
             foreach ($input as $group) :
@@ -194,6 +193,7 @@ class PdoBddHandler implements DataHandlerInterface
                 $this->_prepare['insert'.$group_count.'Entitys']->closeCursor();
             endforeach;
 
+            $this->closeTransaction();
         } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
@@ -222,8 +222,6 @@ class PdoBddHandler implements DataHandlerInterface
     public function updateOneEntity ($key,$data)
     {
         try {
-            $this->initTransaction();
-
             $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
             $this->_prepare['updateOneEntity']->bindParam(':data', $data, \PDO::PARAM_STR);
 
@@ -243,8 +241,6 @@ class PdoBddHandler implements DataHandlerInterface
     public function deleteOneEntity ($key, $justTry = false)
     {
         try {
-            $this->initTransaction();
-
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
             $this->_prepare['deleteOneEntity']->execute();
 
