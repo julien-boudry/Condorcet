@@ -15,7 +15,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
@@ -722,7 +722,7 @@ class Election
 
     //:: LARGE ELECTION MODE :://
 
-    public function setExternalDataHandler (DataHandlerInterface $driver)
+    public function setExternalDataHandler (DataHandlerDriverInterface $driver)
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);

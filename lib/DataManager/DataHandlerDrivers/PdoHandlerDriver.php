@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
-class PdoBddHandler implements DataHandlerInterface
+class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
