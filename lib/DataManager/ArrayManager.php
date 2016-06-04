@@ -11,7 +11,7 @@
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\PHP56\NoDataFormat;
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -309,7 +309,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function importHandler (DataHandlerInterface $handler = null)
+    public function importHandler (DataHandlerDriverInterface $handler = null)
     {
         if ($handler !== null) :
             $this->_DataHandler = $handler;

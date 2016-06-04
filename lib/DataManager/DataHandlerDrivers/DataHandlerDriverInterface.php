@@ -9,7 +9,7 @@
 
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
-interface DataHandlerInterface
+interface DataHandlerDriverInterface
 {
     public function insertEntitys(array $input);
     public function updateOneEntity ($key,$data);

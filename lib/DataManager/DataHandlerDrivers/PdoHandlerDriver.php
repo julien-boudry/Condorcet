@@ -9,12 +9,12 @@
 
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerInterface;
+use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
-class PdoBddHandler implements DataHandlerInterface
+class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
