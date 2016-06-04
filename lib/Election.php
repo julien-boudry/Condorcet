@@ -722,7 +722,7 @@ class Election
 
     //:: LARGE ELECTION MODE :://
 
-    public function setExternalVotesDatabase (DataHandlerInterface $driver)
+    public function setExternalDataHandler (DataHandlerInterface $driver)
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);
@@ -732,7 +732,7 @@ class Election
         endif;
     }
 
-    public function removeExternalVotesDatabase ()
+    public function removeExternalDataHandler ()
     {
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes->closeHandler();
