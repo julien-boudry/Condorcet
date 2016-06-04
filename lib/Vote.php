@@ -68,11 +68,6 @@ class Vote implements \Iterator
         return array_keys(get_object_vars($this));
     }
 
-    public function __wakeup ()
-    {
-        $this->setHashCode();
-    }
-
     public function __clone ()
     {
         $this->destroyAllLink();
@@ -230,6 +225,9 @@ class Vote implements \Iterator
                 throw new CondorcetException(5);
             endif;
 
+            $ranking = array_filter($ranking, function ($key) {
+                return is_numeric($key);
+            }, ARRAY_FILTER_USE_KEY);
 
             ksort($ranking);
             
@@ -264,9 +262,11 @@ class Vote implements \Iterator
                 // Check Duplicate
 
                     // Check objet reference AND check candidates name
-                    if (!in_array($Candidate, $list_candidate, true) && !in_array($Candidate, $list_candidate)) :
+                    if (!in_array($Candidate, $list_candidate)) :
                         $list_candidate[] = $Candidate;
-                    else : throw new CondorcetException(5); endif;
+                    else : 
+                        throw new CondorcetException(5);
+                    endif;
 
                 endforeach;
             }
@@ -429,6 +429,6 @@ class Vote implements \Iterator
 
     private function setHashCode ()
     {
-        return $this->_hashCode = hash('sha224', spl_object_hash ( $this ) . ((string) $this) . microtime(false));
+        return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
     }
 }

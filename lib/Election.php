@@ -124,7 +124,7 @@ class Election
     use CondorcetVersion;
 
     // Data and global options
-    protected $_Candidates; // Candidate list
+    protected $_Candidates = []; // Candidate list
     protected $_Votes; // Votes list
 
     // Mechanics
@@ -180,6 +180,16 @@ class Election
         {
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
+
+        /* PHP 7 seriazlization bug : Candidates become reference at seriazlization ! It's really strange... and can not be reproduced on PHP 5.6 or simplier examples. Need to try to remove this patch on the next minor version of PHP 7 (> 7.0.7).
+        This patch remove reference at the wake-up time. */
+        if ( version_compare(PHP_VERSION, '7.0','>=') ) :
+            $mirror = [];
+            foreach ($this->_Candidates as $key => $oneCandidate) :
+                $mirror[$key] = $oneCandidate;
+            endforeach;
+            $this->_Candidates = $mirror;
+        endif;
     }
 
     public function __clone ()
@@ -196,8 +206,10 @@ class Election
         foreach ($this->_Candidates as $value)
             { $value->registerLink($this); }
 
-        foreach ($this->_Votes as $value)
-            { $value->registerLink($this); }
+        if ($this->_State > 1) :
+            foreach ($this->_Votes as $value)
+                { $value->registerLink($this); }
+        endif;
     }
 
     protected function destroyAllLink ()
@@ -205,8 +217,10 @@ class Election
         foreach ($this->_Candidates as $value)
             { $value->destroyLink($this); }
 
-        foreach ($this->_Votes as $value)
-            { $value->destroyLink($this); }
+        if ($this->_State > 1) :
+            foreach ($this->_Votes as $value)
+                { $value->destroyLink($this); }
+        endif;
     }
 
         //////
@@ -443,7 +457,7 @@ class Election
 
         public function getCandidateObjectByName (string $s)
         {
-            foreach ($this->_Candidates as &$oneCandidate)
+            foreach ($this->_Candidates as $oneCandidate)
             {
                 if ($oneCandidate->getName() === $s) {
                     return $oneCandidate;
@@ -708,7 +722,7 @@ class Election
 
     //:: LARGE ELECTION MODE :://
 
-    public function setExternalVotesDatabase (DataHandlerInterface $driver)
+    public function setExternalDataHandler (DataHandlerInterface $driver)
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);
@@ -718,7 +732,7 @@ class Election
         endif;
     }
 
-    public function removeExternalVotesDatabase ()
+    public function removeExternalDataHandler ()
     {
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes->closeHandler();

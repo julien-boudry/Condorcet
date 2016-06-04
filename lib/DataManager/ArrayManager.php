@@ -20,8 +20,8 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
         //////
 
-    protected static $CacheSize =  5000;
-    protected static $MaxContainerLength =  3000;
+    public static $CacheSize =  2000;
+    public static $MaxContainerLength =  2000;
 
     protected $_Container = [];
     protected $_DataHandler = null;
@@ -46,11 +46,14 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->regularize();
         $this->clearCache();
         $this->rewind();
+
+        return ['_Container','_DataHandler'];
     }
 
     public function __wakeup ()
     {
-        
+        $this->resetMaxKey();
+        $this->resetCounter();
     }
 
 
@@ -219,13 +222,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 
 /////////// HANDLER API ///////////
-
-    public function setNewEmptyHandler ($handlerClass)
-    {
-        $this->unsetHandler();
-        $this->_DataHandler = new Condorcet\DataManager\DataHandlerDrivers\PdoBddHandler ();
-        $this->regularize();
-    }
 
     public function unsetHandler ()
     {
