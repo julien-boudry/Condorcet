@@ -26,10 +26,9 @@ _This class is not designed for high performances or very high fiability exigenc
 ### Summary
 1. Project Overview     
   a. [Contributors and License](#contributors-and-license)     
-  b. [Specifications and standards ](#specifications-and-standards)     
-  c. [Project State](#project-state)     
-  d. [Supported Condorcet Methods](#supported-condorcet-methods)     
-  e. [Related projects / They use Condorcet](#related-projects--they-use-condorcet)       
+  b. [Project State and Specifications ](#project-state-and-specifications)       
+  c. [Supported Condorcet Methods](#supported-condorcet-methods)     
+  d. [Related projects / They use Condorcet](#related-projects--they-use-condorcet)       
 2. [How to use it?](#how-to-use-it)    
   a. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
   b. [Class & Methods reference](#class--methods-reference)     
@@ -47,9 +46,9 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 **Or finance my studies:** *1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez*
 
 
-### Specifications and standards   
+### Project State and Specifications    
 
-#### Project State   
+##### Versions  
 
 *Supported Version:*
 * **Stable Version: 1.0.x**  
@@ -121,7 +120,7 @@ However, the quality of the external system chosen does not change much performa
 
 ##### Add new one? 
 This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
-[*More explanations in the documentation below*](#newAlgo)  
+[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)  
 
 
 #### Related projects / They use Condorcet
