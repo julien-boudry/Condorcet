@@ -11,6 +11,10 @@ namespace Condorcet\DataManager\DataHandlerDrivers;
 
 interface DataHandlerDriverInterface
 {
+    /* public $_dataContextObject; */
+    // The Data Manager will set an object into this property. You should call for each Entity $_dataContextObject->dataCallBack($EntityData) before returning stored data by the two select method.
+
+
     // Entitys to register. 
         // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
     public function insertEntitys(array $input);
