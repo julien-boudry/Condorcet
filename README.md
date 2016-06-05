@@ -2,14 +2,14 @@
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>   
 
-Condorcet Class for PHP
+Condorcet PHP
 ===========================
 
-A PHP class implementing the Condorcet voting system and others Condorcet methods like the Schulze method.  
+A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also also a powerfull election manager.  
 
 **This library provide you :**
 - Computing Pairwise, Natural Condorcet Winner or Loser
-- Algorithms implements (fully or partially) the criteria of the Marquis de Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _[see below](#class--methods-reference)_)
+- Algorithms implements (fully or partially) the criteria of the Marquis de Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _[see below](#supported-condorcet-methods)_)
 - Advanced Management for votes and candidates, Condorcet is also a powerful election manager.
 - Support many inputs types (string, complex strings, array, json) or full object management (Candidate and Vote are objects).
 - Management for inter-elections candidates and votes. And others tools for simulate scenarios.
