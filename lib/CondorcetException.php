@@ -26,12 +26,12 @@ class CondorcetException extends \Exception
         parent::__construct($this->correspondence($code), $code);
     }
 
-    public function __toString ()
+    public function __toString () : string
     {
            return __CLASS__ . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 
-    protected function correspondence (int $code)
+    protected function correspondence (int $code) : string
     {
         // Common
         $error[1] = 'Bad candidate format';
