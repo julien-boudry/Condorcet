@@ -266,7 +266,8 @@ class Election
         foreach ($this->_Votes as $value) {
             hash_update($r, (string) $value);
         }
-        hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+        $this->_Pairwise !== null
+            AND hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
         // hash_update($r, serialize($this->_Calculator));
         hash_update($r, $this->getObjectVersion('major'));
 
