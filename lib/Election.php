@@ -258,14 +258,26 @@ class Election
     {
         self::$_checksumMode = true;
 
-        $r = hash('sha256',
-            serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator ) ).
-            $this->getObjectVersion('major')
-        );
+        $r = hash_init('sha256');
+
+        foreach ($this->_Candidates as $value) {
+            hash_update($r, (string) $value);
+        }
+        foreach ($this->_Votes as $value) {
+            hash_update($r, (string) $value);
+        }
+        hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+        // hash_update($r, serialize($this->_Calculator));
+        hash_update($r, $this->getObjectVersion('major'));
+
+        // $r = hash('sha256',
+        //     serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator ) ).
+        //     $this->getObjectVersion('major')
+        // );
 
         self::$_checksumMode = false;
 
-        return $r;
+        return hash_final($r);
     }
 
     public function ignoreMaxVote ($state = true)
