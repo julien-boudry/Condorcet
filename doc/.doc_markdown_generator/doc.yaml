@@ -1085,7 +1085,7 @@
       required: true
       text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
   return: |
-    Return Vote::getTags
+    In case of success, return TRUE
   related:
     - 'Vote::removeTags'
 
@@ -1286,7 +1286,7 @@
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
   return: |
-    Vote::getRanking
+    In case of success, return TRUE
   related:
     - 'Vote::getRanking'
     - 'Vote::getHistory'
