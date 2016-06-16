@@ -31,7 +31,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public $_dataContextObject;
 
 
-    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
+    public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) :
             throw new CondorcetException;
@@ -224,7 +224,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             endforeach;
         }
 
-    public function updateOneEntity ($key,$data)
+    public function updateOneEntity (int $key,$data)
     {
         try {
             $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
@@ -243,7 +243,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function deleteOneEntity ($key, $justTry)
+    public function deleteOneEntity (int $key, bool $justTry)
     {
         try {
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
@@ -308,7 +308,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     }
 
     // return false if Entity does not exist.
-    public function selectOneEntity ($key)
+    public function selectOneEntity (int $key)
     {
         try {
             $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
@@ -326,7 +326,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function selectRangeEntitys ($key, $limit)
+    public function selectRangeEntitys (int $key, int $limit)
     {
         try {
             $this->_prepare['selectRangeEntitys']->bindParam(':startKey', $key, \PDO::PARAM_INT);

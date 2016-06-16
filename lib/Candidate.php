@@ -22,7 +22,7 @@ class Candidate
 
         ///
 
-    public function __construct ($name)
+    public function __construct (string $name)
     {
         $this->setName($name);
     }

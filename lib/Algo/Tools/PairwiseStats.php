@@ -63,7 +63,7 @@ abstract class PairwiseStats
         return $comparison;
     }
 
-    public static function PairwiseSort ($pairwise)
+    public static function PairwiseSort (Pairwise $pairwise)
     {
         $comparison = self::PairwiseComparison($pairwise);
 

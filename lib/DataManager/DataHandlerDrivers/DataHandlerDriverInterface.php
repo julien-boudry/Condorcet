@@ -21,10 +21,10 @@ interface DataHandlerDriverInterface
 
     // Update Entity with this key to this Data.
         // Args example: (42,Condorcet/Vote)
-    public function updateOneEntity ($key,$data);
+    public function updateOneEntity (int $key,$data);
 
     // Delete Entity with this key to this Data. If justTry is true, don't throw Exception if row not exist. Else throw one Concordet/CondorcetException(30)
-    public function deleteOneEntity ($key, $justTry);
+    public function deleteOneEntity (int $key, bool $justTry);
 
     // Return (int) max register key.
         // SQL example : SELECT max(key) FROM...
@@ -39,12 +39,12 @@ interface DataHandlerDriverInterface
     public function countEntitys ();
 
     // Return one Entity by key
-    public function selectOneEntity ($key);
+    public function selectOneEntity (int $key);
 
     // Return an array of entity where $key is the first Entity and $limit is the maximum number of entity. Must return an array, keys must be preseve into there.
         // Arg example : (42, 3)
         // Return example : [42 => Condorcet/Vote, 43 => Condorcet/Vote, 44 => Condorcet/Vote]
-    public function selectRangeEntitys ($key, $limit);
+    public function selectRangeEntitys (int $key, int $limit);
 
     // Delete * Entitys
         // SQL example : DELETE * FROM...

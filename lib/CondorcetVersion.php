@@ -17,7 +17,7 @@ trait CondorcetVersion
     // Build by Version
     protected $_objectVersion = Condorcet::VERSION;
 
-    public function getObjectVersion ($options = null)
+    public function getObjectVersion (string $options = null)
     {
         switch ($options)
         {

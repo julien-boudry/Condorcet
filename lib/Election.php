@@ -76,12 +76,8 @@ class Election
 
 
     // Generic action before parsing data from string input
-    public static function prepareParse ($input, bool $allowFile)
+    public static function prepareParse (string $input, bool $allowFile)
     {
-        // Input must be a string
-        if (!is_string($input))
-            { throw new CondorcetException(14); }
-
         // Is string or is file ?
         if ($allowFile === true && is_file($input))
         {
@@ -345,7 +341,7 @@ class Election
         
         if ( !is_array($list) )
         {
-            $list   = array($list);
+            $list = array($list);
         }
 
         foreach ($list as &$candidate_id)

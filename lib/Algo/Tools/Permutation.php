@@ -34,7 +34,7 @@ class Permutation
         );
     }
 
-    public function getResults ($serialize = false) {
+    public function getResults (bool $serialize = false) {
         return ($serialize) ? serialize($this->results) : $this->results;
     }
 
