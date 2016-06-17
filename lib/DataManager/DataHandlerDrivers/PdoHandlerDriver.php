@@ -80,7 +80,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     // INTERNAL
 
-    protected function checkStructureTemplate (array &$struct)
+    protected function checkStructureTemplate (array &$struct) : bool
     {
         if (    !empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
                 is_string($struct['tableName']) && is_string($struct['primaryColumnName']) && is_string($struct['dataColumnName'])
@@ -294,7 +294,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function countEntitys ()
+    public function countEntitys () : int
     {
         try {
             $this->_prepare['countEntitys']->execute();
@@ -326,7 +326,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function selectRangeEntitys (int $key, int $limit)
+    public function selectRangeEntitys (int $key, int $limit) : array
     {
         try {
             $this->_prepare['selectRangeEntitys']->bindParam(':startKey', $key, \PDO::PARAM_INT);

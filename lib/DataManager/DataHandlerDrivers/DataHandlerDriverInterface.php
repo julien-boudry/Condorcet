@@ -36,7 +36,7 @@ interface DataHandlerDriverInterface
 
     // Return (int) :nomber of recording
         // SQL example : SELECT count(*) FROM...
-    public function countEntitys ();
+    public function countEntitys () : int;
 
     // Return one Entity by key
     public function selectOneEntity (int $key);
@@ -44,7 +44,7 @@ interface DataHandlerDriverInterface
     // Return an array of entity where $key is the first Entity and $limit is the maximum number of entity. Must return an array, keys must be preseve into there.
         // Arg example : (42, 3)
         // Return example : [42 => Condorcet/Vote, 43 => Condorcet/Vote, 44 => Condorcet/Vote]
-    public function selectRangeEntitys (int $key, int $limit);
+    public function selectRangeEntitys (int $key, int $limit) : array;
 
     // Delete * Entitys
         // SQL example : DELETE * FROM...
