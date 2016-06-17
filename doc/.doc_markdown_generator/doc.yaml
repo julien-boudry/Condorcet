@@ -217,7 +217,7 @@
       required: true
       text: Method Name.
   return: |
-    False on error. Else, the name of the new default method.
+    (bool) In case of success, return TRUE
   related:
     - 'static Condorcet::getDefaultMethod'
   publish: true
@@ -1030,7 +1030,7 @@
       required: true
       text: Candidate Name
   return: |
-    *(string)* The new candidate name.
+    *(bool)* In case of success, return TRUE
   publish: true
 
 

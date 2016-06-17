@@ -18,7 +18,7 @@ class Candidate
 {
     use Linkable, CondorcetVersion;
 
-    private $_name;
+    private $_name = [];
 
         ///
 
@@ -27,7 +27,7 @@ class Candidate
         $this->setName($name);
     }
 
-    public function __toString ()
+    public function __toString () : string
     {
         return $this->getName();
     }
@@ -36,7 +36,7 @@ class Candidate
 
     // SETTERS
 
-    public function setName (string $name)
+    public function setName (string $name) : bool
     {
         $name = trim($name);
 
@@ -48,27 +48,27 @@ class Candidate
 
         $this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
 
-        return $this->getName();
+        return true;
     }
 
     // GETTERS
 
-    public function getName (bool $full = false)
+    public function getName (bool $full = false) : string
     {
         return ($full) ? end($this->_name) : end($this->_name)['name'];
     }
 
-    public function getHistory ()
+    public function getHistory () : array
     {
         return $this->_name;
     }
 
-    public function getCreateTimestamp ()
+    public function getCreateTimestamp () : float
     {
         return $this->_name[0]['timestamp'];
     }
 
-    public function getTimestamp ()
+    public function getTimestamp () : float
     {
         return end($this->_name)['timestamp'];
     }
@@ -77,7 +77,7 @@ class Candidate
 
     // INTERNAL
 
-    private function checkName (string $name)
+    private function checkName (string $name) : bool
     {
         foreach ($this->_link as &$link)
         {
