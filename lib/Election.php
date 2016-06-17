@@ -76,7 +76,7 @@ class Election
 
 
     // Generic action before parsing data from string input
-    public static function prepareParse (string $input, bool $allowFile)
+    public static function prepareParse (string $input, bool $allowFile) : array
     {
         // Is string or is file ?
         if ($allowFile === true && is_file($input))
@@ -148,7 +148,7 @@ class Election
         $this->destroyAllLink();
     }
 
-    public function __sleep ()
+    public function __sleep () : array
     {
         // Don't include others data
         $include = array (
@@ -223,7 +223,7 @@ class Election
 
 
     // Return object state with somes infos
-    public function getConfig ()
+    public function getConfig () : array
     {
         return array    (
                             'CondorcetObject_Version' => $this->getObjectVersion(),
@@ -246,11 +246,11 @@ class Election
         return $this->_timer->getLastTimer($float);
     }
 
-    public function getTimerManager () {
+    public function getTimerManager () : Timer_Manager {
         return $this->_timer;
     }
 
-    public function getChecksum ()
+    public function getChecksum () : string
     {
         self::$_checksumMode = true;
 
@@ -277,7 +277,7 @@ class Election
         return hash_final($r);
     }
 
-    public function ignoreMaxVote (bool $state = true)
+    public function ignoreMaxVote (bool $state = true) : bool
     {
         $this->_ignoreStaticMaxVote = $state;
         return $this->_ignoreStaticMaxVote;
@@ -288,7 +288,7 @@ class Election
 
 
     // Add a vote candidate before voting
-    public function addCandidate ($candidate_id = null)
+    public function addCandidate ($candidate_id = null) : Candidate
     {
         // only if the vote has not started
         if ( $this->_State > 1 )
@@ -326,14 +326,14 @@ class Election
         return $newCandidate;
     }
 
-        public function canAddCandidate ($candidate_id)
+        public function canAddCandidate ($candidate_id) : bool
         {
             return !$this->existCandidateId($candidate_id, false);
         }
 
 
     // Destroy a register vote candidate before voting
-    public function removeCandidate ($list)
+    public function removeCandidate ($list) : array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) { throw new CondorcetException(2); }
@@ -419,13 +419,13 @@ class Election
         //:: CANDIDATES TOOLS :://
 
         // Count registered candidates
-        public function countCandidates ()
+        public function countCandidates () : int
         {
             return count($this->_Candidates);
         }
 
         // Get the list of registered CANDIDATES
-        public function getCandidatesList (bool $stringMode = false)
+        public function getCandidatesList (bool $stringMode = false) : array
         {
             if (!$stringMode) :
                 return $this->_Candidates;
@@ -459,7 +459,7 @@ class Election
             endif;
         }
 
-        public function existCandidateId ($candidate_id, bool $strict = true)
+        public function existCandidateId ($candidate_id, bool $strict = true) : bool
         {
             return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
         }
@@ -472,6 +472,8 @@ class Election
                     return $oneCandidate;
                 }
             }
+
+            return false;
         }
 
 
@@ -480,7 +482,7 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-    public function setStateToVote ()
+    public function setStateToVote () : bool
     {
         if ( $this->_State === 1 )
             { 
@@ -501,7 +503,7 @@ class Election
 
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    public function addVote ($vote, $tag = null)
+    public function addVote ($vote, $tag = null) : Vote
     {
         $this->prepareVoteInput($vote, $tag);
 
@@ -540,7 +542,7 @@ class Election
         }
 
 
-        public function checkVoteCandidate (Vote $vote)
+        public function checkVoteCandidate (Vote $vote) : bool
         {
             $linkCount = $vote->countLinks();
 
@@ -555,7 +557,7 @@ class Election
                 {
                     if ( !$this->existCandidateId($candidate, true) )
                     {
-                        if ($linkCount === 0 && $this->existCandidateId($candidate, false))  :
+                        if ($linkCount === 0 && $this->existCandidateId($candidate, false)) :
                             $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                             $change = true;
                         else :
@@ -577,7 +579,7 @@ class Election
         }
 
         // Write a new vote
-        protected function registerVote (Vote $vote, $tag = null)
+        protected function registerVote (Vote $vote, $tag = null) : Vote
         {
             // Vote identifiant
             $vote->addTags($tag);           
@@ -595,7 +597,7 @@ class Election
         }
 
 
-    public function removeVote ($in, bool $with = true)
+    public function removeVote ($in, bool $with = true) : array
     {    
         $rem = [];
 
@@ -731,7 +733,7 @@ class Election
 
     //:: LARGE ELECTION MODE :://
 
-    public function setExternalDataHandler (DataHandlerDriverInterface $driver)
+    public function setExternalDataHandler (DataHandlerDriverInterface $driver) : bool
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);
@@ -741,7 +743,7 @@ class Election
         endif;
     }
 
-    public function removeExternalDataHandler ()
+    public function removeExternalDataHandler () : bool
     {
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes->closeHandler();
@@ -755,25 +757,22 @@ class Election
     //:: VOTING TOOLS :://
 
     // How many votes are registered ?
-    public function countVotes ($tag = null, bool $with = true)
+    public function countVotes ($tag = null, bool $with = true) : int
     {
-        if (!empty($tag))
-        {
+        if (!empty($tag)) :
             return count( $this->getVotesList($tag, $with) );
-        }
-        else
-        {
+        else :
             return count($this->_Votes);
-        }
+        endif;
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, bool $with = true)
+    public function getVotesList ($tag = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList($tag, $with);
     }
 
-    public function getVotesManager () {
+    public function getVotesManager () : VotesManager {
         return $this->_Votes;
     }
 
@@ -796,7 +795,7 @@ class Election
     //:: PUBLIC FUNCTIONS :://
 
     // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = [])
+    public function getResult ($method = true, array $options = []) : array
     {
         $options = $this->formatResultOptions($options);
 
@@ -923,7 +922,7 @@ class Election
         endif;
     }
 
-        protected function condorcetBasicSubstitution ($substitution) {
+        protected function condorcetBasicSubstitution ($substitution) : string {
             if ( $substitution )
             {           
                 if ($substitution === true)
@@ -984,7 +983,7 @@ class Election
 
 
     // Prepare to compute results & caching system
-    protected function prepareResult ()
+    protected function prepareResult () : bool
     {
         if ($this->_State > 2) :
             return false;
@@ -1033,7 +1032,7 @@ class Election
     }
 
 
-    protected function formatResultOptions (array $arg)
+    protected function formatResultOptions (array $arg) : array
     {
         // About tag filter
         if (isset($arg['tags'])):
