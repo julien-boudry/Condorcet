@@ -25,7 +25,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getResult ($options = null)
+    public function getResult ($options = null) : array
     {
         // Cache
         if ( $this->_Result !== null )
@@ -47,7 +47,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getStats ()
+    public function getStats () : array
     {
         $this->getResult();
 
@@ -108,7 +108,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
     abstract protected function makeRanking ();
 
-    protected static function makeRanking_method (string $type, array $stats)
+    protected static function makeRanking_method (string $type, array $stats) : array
     {
         $result = [];
         $values = [];

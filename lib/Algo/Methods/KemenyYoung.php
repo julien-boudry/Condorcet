@@ -49,7 +49,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
-    public function getResult ($options = null)
+    public function getResult ($options = null) : array
     {
         // Cache
         if ( $this->_Result === null )
@@ -73,7 +73,7 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    public function getStats ()
+    public function getStats () : array
     {
         $this->getResult();
 

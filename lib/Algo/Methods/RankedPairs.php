@@ -46,7 +46,7 @@ class RankedPairs extends Method implements MethodInterface
 
 
     // Get the Ranked Pairs ranking
-    public function getResult ($options = null)
+    public function getResult ($options = null) : array
     {
         // Cache
         if ( $this->_Result !== null )
@@ -85,7 +85,7 @@ class RankedPairs extends Method implements MethodInterface
     }
 
     // Get the Ranked Pair ranking
-    public function getStats ()
+    public function getStats () : array
     {
         $this->getResult();
 

@@ -25,7 +25,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
     abstract protected function schulzeVariant (int &$i,int &$j);
 
-    public function getResult ($options = null)
+    public function getResult ($options = null) : array
     {
         // Cache
         if ( $this->_Result !== null )
@@ -51,7 +51,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getStats ()
+    public function getStats () : array
     {
         $this->getResult();
 

@@ -27,13 +27,13 @@ class CondorcetBasic extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    public function getResult ($options = null)
+    public function getResult ($options = null) : array
     {
         throw new CondorcetException (102);
     }
 
 
-    public function getStats ()
+    public function getStats () : array
     {
         return $this->_selfElection->getPairwise();
     }
