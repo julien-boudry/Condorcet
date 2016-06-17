@@ -22,7 +22,7 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    public function __debugInfo ()
+    public function __debugInfo () : array
     {
         $var = get_object_vars($this);
 
@@ -34,12 +34,12 @@ trait Linkable
         return $var;
     }
 
-    public function haveLink (Election &$election)
+    public function haveLink (Election &$election) : bool
     {
         return in_array($election, $this->_link, true);
     }
 
-    public function countLinks ()
+    public function countLinks () : int
     {
         return count($this->_link);
     }
@@ -60,7 +60,7 @@ trait Linkable
             { throw new CondorcetException; }
     }
 
-    public function destroyLink (Election &$election)
+    public function destroyLink (Election &$election) : bool
     {
         $destroyKey = array_search($election, $this->_link, true);
 
