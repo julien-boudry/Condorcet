@@ -21,7 +21,7 @@ class Pairwise implements \ArrayAccess,\Iterator
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset) : bool {
         return isset($this->_Pairwise[$offset]);
     }
 
@@ -54,7 +54,7 @@ class Pairwise implements \ArrayAccess,\Iterator
         endif;
     }
 
-    public function valid() {
+    public function valid() : bool {
         return $this->valid;
     }   
 
@@ -70,7 +70,7 @@ class Pairwise implements \ArrayAccess,\Iterator
         $this->doPairwise();
     }
 
-    public function getExplicitPairwise ()
+    public function getExplicitPairwise () : array
     {
         $explicit_pairwise = [];
 

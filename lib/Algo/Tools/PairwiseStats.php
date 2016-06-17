@@ -18,8 +18,7 @@ use Condorcet\Algo\Pairwise;
 // Generic for Algorithms
 abstract class PairwiseStats
 {
-
-    public static function PairwiseComparison (Pairwise $pairwise)
+    public static function PairwiseComparison (Pairwise $pairwise) : array
     {
         $comparison = [];
 
@@ -63,7 +62,7 @@ abstract class PairwiseStats
         return $comparison;
     }
 
-    public static function PairwiseSort (Pairwise $pairwise)
+    public static function PairwiseSort (Pairwise $pairwise) : array
     {
         $comparison = self::PairwiseComparison($pairwise);
 
@@ -92,7 +91,7 @@ abstract class PairwiseStats
             endforeach;
         endforeach;
 
-        uasort($score, function ($a, $b){
+        uasort($score, function ($a, $b) : int {
             if ($a['score'] < $b['score']) : return 1;
             elseif ($a['score'] > $b['score']) : return -1;
             elseif ($a['score'] === $b['score']) :
@@ -114,5 +113,4 @@ abstract class PairwiseStats
 
         return $score;
     }
-
 }

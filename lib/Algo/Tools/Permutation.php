@@ -42,7 +42,8 @@ class Permutation
         file_put_contents($path, $this->getResults(true));
     }
 
-    protected function createCandidates (int $numberOfCandidates) {
+    protected function createCandidates (int $numberOfCandidates) : array
+    {
         $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {

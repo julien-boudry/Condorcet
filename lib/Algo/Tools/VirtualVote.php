@@ -13,7 +13,7 @@ use Condorcet\Vote;
 
 class VirtualVote
 {
-    public static function removeCandidates (Vote $vote, array $candidatesList)
+    public static function removeCandidates (Vote $vote, array $candidatesList) : Vote
     {
         ($virtualVote = clone $vote)->removeCandidates($candidatesList);
 
