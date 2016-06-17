@@ -36,7 +36,7 @@ class Chrono
         return $this->_start;
     }
 
-    public function getTimerManager () {
+    public function getTimerManager () : Manager {
         return $this->_manager;
     }
 

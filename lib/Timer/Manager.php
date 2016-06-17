@@ -62,7 +62,7 @@ class Manager
         return ($float || $this->_lastTimer === null) ? $this->_lastTimer : number_format($this->_lastTimer, 5);
     }
 
-    public function getHistory ()
+    public function getHistory () : array
     {
         return $this->_history;
     }
