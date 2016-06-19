@@ -849,41 +849,8 @@ class Election
 
         $chrono->setRole('GetResult for '.$method);
 
-        return ($options['human']) ? $this->humanResult($result) : $result;
+        return $result;
     }
-
-        protected function humanResult ($robot, bool $asString = false)
-        {
-            if (!is_array($robot))
-                {return $robot;}
-
-            $human = [];
-
-            foreach ( $robot as $key => $value )
-            {
-                if (is_array($value))
-                {
-                    foreach ($value as $candidate_key)
-                    {
-                        $human[$key][] = $this->getCandidateId($candidate_key);
-                    }
-                }
-                elseif (is_null($value))
-                    { $human[$key] = null; }
-                else
-                    { $human[$key][] = $this->getCandidateId($value); }
-            }
-
-            foreach ( $human as $key => $value )
-            {
-                if (is_null($value))
-                    { $human[$key] = null; }
-                elseif ($asString)
-                    { $human[$key] = implode(',',$value); }
-            }
-
-            return $human;
-        }
 
 
     public function getWinner ($substitution = null)
@@ -974,7 +941,7 @@ class Election
 
     public function computeResult ($method = true)
     {
-        $this->getResult($method,['human' => false]);
+        $this->getResult($method);
         $this->getResultStats($method);
     }
 
@@ -1049,11 +1016,6 @@ class Election
         // About algo Options
         if ( !isset($arg['algoOptions']) ) {
             $arg['algoOptions'] = null;
-        }
-
-        // Human Option (internal use)
-        if ( !isset($arg['human']) || !is_bool($arg['human']) ) {
-            $arg['human'] = true;
         }
 
         return $arg;

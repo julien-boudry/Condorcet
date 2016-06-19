@@ -163,7 +163,7 @@ abstract class Condorcet
                 elseif ($input instanceof Vote) :
                     $r = $input->getRanking();
                 elseif ($input instanceof Result) :
-                    $r = $input->getResultAsArray();
+                    $r = $input->getResultAsArray(true);
                 endif;
             endif;
 
