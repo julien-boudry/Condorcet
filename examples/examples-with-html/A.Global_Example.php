@@ -136,14 +136,12 @@ define('TEST_NAME', 'Condorcet Global Example');
 			$result = $election->getResult($method) ;
 			$lastTimer = $election->getLastTimer() ;
 
-			$KemenyYoung_Specials_options = array('algoOptions' => ['noConflict' => true]);
-			if ( $method === 'KemenyYoung' && is_string( $election->getResult( $method, $KemenyYoung_Specials_options ) )  )
+			if ( $method === 'Kemeny–Young' && !empty($result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)) )
 			{
-				$kemeny_conflicts = explode( ';', $election->getResult( $method,$KemenyYoung_Specials_options ) ) ;
+				$kemeny_conflicts = explode( ';', $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg'] ) ;
 
 				echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
 			}
-
 		 ?>
 
 		<pre>

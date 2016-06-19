@@ -23,6 +23,9 @@ class KemenyYoung extends Method implements MethodInterface
     // Method Name
     const METHOD_NAME = ['Kemeny–Young','Kemeny Young','KemenyYoung','Kemeny rule','VoteFair popularity ranking','Maximum Likelihood Method','Median Relation'];
 
+    // Method Name
+    const CONFLICT_WARNING_CODE = 42;
+
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
@@ -57,15 +60,7 @@ class KemenyYoung extends Method implements MethodInterface
             $this->calcPossibleRanking();
             $this->calcRankingScore();
             $this->makeRanking();
-        }
-
-        if (isset($options['noConflict']) && $options['noConflict'] === true)
-        {
-            $conflicts = $this->conflictInfos();
-            if ( $conflicts !== false)
-            {
-                return $this->conflictInfos();
-            }
+            $this->conflictInfos();
         }
 
         // Return
@@ -102,20 +97,15 @@ class KemenyYoung extends Method implements MethodInterface
             $max = max($this->_RankingScore);
 
             $conflict = -1;
-            foreach ($this->_RankingScore as $value)
-            {
-                if ($value === $max)
-                {
+            foreach ($this->_RankingScore as $value) :
+                if ($value === $max) :
                     $conflict++;
-                }
-            }
+                endif;
+            endforeach;
 
-            if ($conflict === 0) 
-                {return false;}
-            else
-            {
-                return ($conflict + 1).';'.max($this->_RankingScore);
-            }
+            if ($conflict > 0)  :
+                $this->_Result->addWarning(self::CONFLICT_WARNING_CODE, ($conflict + 1).';'.max($this->_RankingScore) );
+            endif;
         }
 
 

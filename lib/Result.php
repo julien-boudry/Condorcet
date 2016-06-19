@@ -67,12 +67,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
 
-    // Result
+/////////// CONSTRUCTOR ///////////
 
     protected $_Election;
 
     protected $_Result;
     protected $_UserResult;
+
+    protected $_warning = [];
 
     public function __construct (Election $election, array $result)
     {
@@ -80,6 +82,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult();
     }
+
+
+/////////// Get Result ///////////
 
     public function getResultAsArray (bool $convertToString = false) : array
     {
@@ -127,6 +132,33 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         endforeach;
 
         return $userResult;
+    }
+
+
+/////////// Get & Set MetaData ///////////
+
+    public function addWarning (int $type, string $msg = null) : bool
+    {
+        $this->_warning[] = ['type' => $type, 'msg' => $msg];
+
+        return true;
+    }
+
+    public function getWarning ($type = null) : array
+    {
+        if ($type === null) :
+            return $this->_warning;
+        else :
+            $r = [];
+
+            foreach ($this->_warning as $oneWarning) :
+                if ($oneWarning['type'] === (int) $type) :
+                    $r[] = $oneWarning;
+                endif;
+            endforeach;
+
+            return $r;
+        endif;
     }
 
 }
