@@ -15,6 +15,7 @@ use Condorcet\Algo\Tools\Permutation;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
+use Condorcet\Result;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
@@ -31,7 +32,6 @@ class KemenyYoung extends Method implements MethodInterface
     // Kemeny Young
     protected $_PossibleRanking;
     protected $_RankingScore;
-    protected $_Result;
 
 
     public function __construct (Election $mother)
@@ -49,7 +49,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result === null )
@@ -194,7 +194,7 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking ()
     {
-        $this->_Result = $this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ];
+        $this->_Result = $this->createResult($this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ]);
     }
 
 }

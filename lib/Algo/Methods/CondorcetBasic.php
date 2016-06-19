@@ -12,6 +12,7 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface
@@ -27,7 +28,7 @@ class CondorcetBasic extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         throw new CondorcetException (102);
     }

@@ -11,6 +11,7 @@ namespace Condorcet;
 
 use Condorcet\CondorcetException;
 use Condorcet\Election;
+use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
@@ -161,6 +162,8 @@ abstract class Condorcet
                     $r = (string) $input;
                 elseif ($input instanceof Vote) :
                     $r = $input->getRanking();
+                elseif ($input instanceof Result) :
+                    $r = $input->getResultAsArray();
                 endif;
             endif;
 

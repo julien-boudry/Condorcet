@@ -18,14 +18,13 @@ abstract class Minimax_Core extends Method implements MethodInterface
 {
     // Minimax
     protected $_Stats;
-    protected $_Result;
 
 
 /////////// PUBLIC ///////////
 
 
     // Get the Schulze ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result !== null )

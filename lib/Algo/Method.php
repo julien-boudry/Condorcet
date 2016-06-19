@@ -11,6 +11,7 @@ namespace Condorcet\Algo;
 
 use Condorcet\CondorcetVersion;
 use Condorcet\Election;
+use Condorcet\Result;
 
 // Generic for Algorithms
 abstract class Method
@@ -18,9 +19,18 @@ abstract class Method
     use CondorcetVersion;
 
     protected $_selfElection;
+    protected $_Result;
 
     public function __construct (Election $mother)
     {
         $this->_selfElection = $mother;
+    }
+
+    protected function createResult (array $result) : Result
+    {
+    	return new Result (
+    		$this->_selfElection,
+    		$result
+    	);
     }
 }

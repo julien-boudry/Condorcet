@@ -13,6 +13,7 @@ use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends Method implements MethodInterface
@@ -22,14 +23,13 @@ class Copeland extends Method implements MethodInterface
 
     // Copeland
     protected $_Comparison;
-    protected $_Result;
 
 
 /////////// PUBLIC ///////////
 
 
     // Get the Coepland ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -76,7 +76,7 @@ class Copeland extends Method implements MethodInterface
 
     protected function makeRanking ()
     {
-        $this->_Result = [];
+        $result = [];
 
         // Calculate ranking
         $challenge = array ();
@@ -96,7 +96,7 @@ class Copeland extends Method implements MethodInterface
             {
                 if ($value === $looking)
                 {
-                    $this->_Result[$rank][] = $candidate;
+                    $result[$rank][] = $candidate;
 
                     $done++; unset($challenge[$candidate]);
                 }
@@ -104,6 +104,8 @@ class Copeland extends Method implements MethodInterface
 
             $rank++;
         }
+
+        $this->_Result = $this->createResult($result);
     }
 
 }

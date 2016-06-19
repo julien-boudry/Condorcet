@@ -12,20 +12,20 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
     protected $_StrongestPaths;
-    protected $_Result;
 
 
 /////////// PUBLIC ///////////
 
     abstract protected function schulzeVariant (int &$i,int &$j);
 
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -149,7 +149,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate && Format human readable ranking
     protected function makeRanking ()
     {       
-        $this->_Result = [];
+        $result = [];
 
         // Calculate ranking
         $done = array ();
@@ -183,7 +183,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
                 if ($winner)
                 {
-                    $this->_Result[$rank][] = $candidate_key;
+                    $result[$rank][] = $candidate_key;
 
                     $to_done[] = $candidate_key;
                 }
@@ -193,6 +193,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
             $rank++;
         }
+
+        $this->_Result = $this->createResult($result);
     }
 
 }

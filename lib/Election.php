@@ -12,6 +12,7 @@ namespace Condorcet;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
+use Condorcet\Result;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
@@ -795,7 +796,7 @@ class Election
     //:: PUBLIC FUNCTIONS :://
 
     // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = []) : array
+    public function getResult ($method = true, array $options = []) : Result
     {
         $options = $this->formatResultOptions($options);
 

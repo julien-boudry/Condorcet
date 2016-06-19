@@ -12,8 +12,9 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
-use Condorcet\Election;
 use Condorcet\CondorcetException;
+use Condorcet\Election;
+use Condorcet\Result;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs extends Method implements MethodInterface
@@ -29,7 +30,6 @@ class RankedPairs extends Method implements MethodInterface
     protected $_Arcs;
     protected $_Stats;
     protected $_StatsDone = false;
-    protected $_Result;
 
 
 /////////// PUBLIC ///////////
@@ -46,7 +46,7 @@ class RankedPairs extends Method implements MethodInterface
 
 
     // Get the Ranked Pairs ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -62,12 +62,12 @@ class RankedPairs extends Method implements MethodInterface
         // Ranking calculation
         $this->makeArcs();
 
-        $this->_Result = [];
+        $result = [];
 
         $rang = 1;
-        while (count($this->_Result) < $this->_selfElection->countCandidates())
+        while (count($result) < $this->_selfElection->countCandidates())
         {
-            $winner = $this->getOneWinner();
+            $winner = $this->getOneWinner($result);
 
             foreach ($this->_Arcs as $ArcKey => $Arcvalue)
             {
@@ -77,11 +77,11 @@ class RankedPairs extends Method implements MethodInterface
                 }
             }
 
-            $this->_Result[$rang++] = $winner;
+            $result[$rang++] = $winner;
         }
 
         // Return
-        return $this->_Result;
+        return $this->_Result = $this->createResult($result);
     }
 
     // Get the Ranked Pair ranking
@@ -117,11 +117,11 @@ class RankedPairs extends Method implements MethodInterface
 
     //:: RANKED PAIRS ALGORITHM. :://
 
-    protected function getOneWinner ()
+    protected function getOneWinner (array $result)
     {
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId)
         {
-            if (!in_array($candidateKey, $this->_Result, true))
+            if (!in_array($candidateKey, $result, true))
             {
                 $winner = true;
                 foreach ($this->_Arcs as $ArcKey => $ArcValue)
