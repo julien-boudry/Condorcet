@@ -68,12 +68,8 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_PossibleRanking as $key => $value)

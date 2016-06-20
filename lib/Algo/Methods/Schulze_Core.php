@@ -51,12 +51,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)

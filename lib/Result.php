@@ -74,13 +74,16 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected $_Result;
     protected $_UserResult;
 
+    protected $_Stats;
+
     protected $_warning = [];
 
-    public function __construct (Election $election, array $result)
+    public function __construct (Election $election, array $result, $stats)
     {
         $this->_Election = $election;
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult();
+        $this->_Stats = $stats;
     }
 
 
@@ -108,6 +111,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_Result;
     }
 
+    public function getStats () {
+        return $this->_Stats;
+    }
 
     protected function makeUserResult () : array
     {

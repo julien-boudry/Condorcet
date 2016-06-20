@@ -47,12 +47,8 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_Stats as $candidate_key => $value)

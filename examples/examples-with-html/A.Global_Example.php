@@ -173,7 +173,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
-		<?php Condorcet::format($election->getResultStats($method)); ?>
+		<?php Condorcet::format($election->getResult($method)->getStats()); ?>
 		</pre>
 	
 	<?php } ?>

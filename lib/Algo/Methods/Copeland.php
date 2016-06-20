@@ -51,12 +51,8 @@ class Copeland extends Method implements MethodInterface
 
 
     // Get the Copeland ranking
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value)

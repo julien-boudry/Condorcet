@@ -26,11 +26,14 @@ abstract class Method
         $this->_selfElection = $mother;
     }
 
+    abstract protected function getStats () : array;
+
     protected function createResult (array $result) : Result
     {
     	return new Result (
     		$this->_selfElection,
-    		$result
+    		$result,
+            $this->getStats()
     	);
     }
 }

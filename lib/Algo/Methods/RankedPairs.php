@@ -85,12 +85,8 @@ class RankedPairs extends Method implements MethodInterface
     }
 
     // Get the Ranked Pair ranking
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         if (!$this->_StatsDone)
         {
             foreach ($this->_Stats as $ArcKey => &$Arcvalue)

@@ -34,7 +34,7 @@ class CondorcetBasic extends Method implements MethodInterface
     }
 
 
-    public function getStats () : array
+    protected function getStats () : array
     {
         return $this->_selfElection->getPairwise();
     }

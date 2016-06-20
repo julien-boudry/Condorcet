@@ -908,43 +908,10 @@ class Election
         }
 
 
-    public function getResultStats ($method = true)
-    {
-        // Prepare
-        $this->prepareResult();
-
-            //////
-
-        if ($method === true)
-        {
-            $this->initResult(Condorcet::getDefaultMethod());
-
-            $stats = $this->_Calculator[Condorcet::getDefaultMethod()]->getStats();
-        }
-        elseif ($method = Condorcet::isAuthMethod($method))
-        {
-            $this->initResult($method);
-
-            $stats = $this->_Calculator[$method]->getStats();
-        }
-        else
-        {
-            throw new CondorcetException(8);
-        }
-
-        if (!is_null($stats))
-            { return $stats; }
-        else
-            { return $this->getPairwise(); }
-    }
-
-
     public function computeResult ($method = true)
     {
         $this->getResult($method);
-        $this->getResultStats($method);
     }
-
 
 
     //:: TOOLS FOR RESULT PROCESS :://

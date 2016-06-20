@@ -13,5 +13,4 @@ namespace Condorcet\Algo;
 interface MethodInterface
 {
     public function getResult($options);
-    public function getStats() : array;
 }
