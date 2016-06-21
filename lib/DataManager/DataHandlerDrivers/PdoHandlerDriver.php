@@ -45,17 +45,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             }
         };
 
-        if (is_string($bdd)) :
-
-            $this->_handler = new \PDO ('sqlite:'.$bdd);
-
-        elseif ($bdd instanceof \PDO) :
-
-            $this->_handler = $bdd;
-
-        else :
-            throw new CondorcetException;
-        endif;
+        $this->_handler = $bdd;
 
         $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
