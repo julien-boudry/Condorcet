@@ -31,6 +31,8 @@ abstract class Method
     protected function createResult (array $result) : Result
     {
     	return new Result (
+            get_class($this)::METHOD_NAME[0],
+            get_class($this),
     		$this->_selfElection,
     		$result,
             $this->getStats()

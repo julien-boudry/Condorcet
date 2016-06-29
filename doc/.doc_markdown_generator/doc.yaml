@@ -557,36 +557,12 @@
       required: false
       text: *[Result options documentations]()*
   return: |
-    Ordered array or multi-dimensionnal ordered array (if tie), populated by Candidate object.
+    An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
   related:
     - 'Election::getWinner'
     - 'Election::getResult'
   examples:
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: getResultStats
-  static: false
-  description: |
-    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
-  input:
-    method:
-      type: mixed
-      default: true
-      required: false
-      text: |
-      Set to True for use object default method. Set the string name of the algorithm for use an specific one.
-  return: |
-    Varying according to the algorithm used.
-  related:
-    - 'Election::getResult'
-
-  examples:
-    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
   publish: true
 
 - 
@@ -1316,7 +1292,7 @@
   publish: true
 
 
-# CLASS PAIRWISE
+# CLASS TIMER/MANAGER
 
 - 
   class: Timer\Manager
@@ -1330,4 +1306,45 @@
     An explicit array with history.
   related:
     - 'Election::getTimerManager'
+  publish: true
+
+
+# CLASS RESULT
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getStats
+  static: false
+  description: |
+    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
+  return: |
+    Varying according to the algorithm used.
+  related:
+    - 'Election::getResult'
+  examples:
+    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getResultAsArray
+  static: false
+  description: |
+    Get result as an array
+  input:
+    convertToString:
+      type: bool
+      default: false
+      required: false
+      text: 'Convert Candidate object to string'
+  return: |
+    An ordered multidimensionnal array by rank.
+  related:
+    - 'Election::getResult'
   publish: true

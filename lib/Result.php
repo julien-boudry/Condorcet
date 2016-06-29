@@ -69,8 +69,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 /////////// CONSTRUCTOR ///////////
 
-    protected $_Election;
-
     protected $_Result;
     protected $_UserResult;
 
@@ -78,12 +76,21 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected $_warning = [];
 
-    public function __construct (Election $election, array $result, $stats)
+    protected $_BuildTimeStamp;
+    protected $_fromMethod;
+    protected $_byClass;
+    protected $_ElectionCondorcetVersion;
+
+
+    public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
     {
-        $this->_Election = $election;
         $this->_Result = $result;
-        $this->_UserResult = $this->makeUserResult();
+        $this->_UserResult = $this->makeUserResult($election);
         $this->_Stats = $stats;
+        $this->_fromMethod = $fromMethod;
+        $this->_byClass = $byClass;
+        $this->_ElectionCondorcetVersion = $election->getObjectVersion();
+        $this->_BuildTimeStamp = microtime(true);
     }
 
 
@@ -115,19 +122,19 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_Stats;
     }
 
-    protected function makeUserResult () : array
+    protected function makeUserResult (Election $election) : array
     {
         $userResult = [];
 
         foreach ( $this->_Result as $key => $value ) :
             if (is_array($value)) :
                 foreach ($value as $candidate_key) :
-                    $userResult[$key][] = $this->_Election->getCandidateId($candidate_key);
+                    $userResult[$key][] = $election->getCandidateId($candidate_key);
                 endforeach;
             elseif (is_null($value)) :
                 $userResult[$key] = null;
             else :
-                $userResult[$key][] = $this->_Election->getCandidateId($value);
+                $userResult[$key][] = $election->getCandidateId($value);
             endif;
         endforeach;
 
@@ -165,6 +172,22 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
             return $r;
         endif;
+    }
+
+    public function getClassGenerator () : string {
+        return $this->_byClass;
+    }
+
+    public function getMethod () : string {
+        return $this->_fromMethod;
+    }
+
+    public function getBuildTimeStamp () : float {
+        return $this->_BuildTimeStamp;
+    }
+
+    public function getCondorcetElectionGeneratorVersion () : string {
+        return $this->_ElectionCondorcetVersion;
     }
 
 }

@@ -5,6 +5,8 @@ ini_set('xdebug.var_display_max_data', -1);
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_ERROR | E_WARNING | E_PARSE | E_NOTICE); 
 
+$start_time = microtime(true);
+
 // Markdown Implementation : https://github.com/mustangostang/spyc
 require_once 'Spyc.php';
 
@@ -29,7 +31,7 @@ foreach ($doc as $entry)
   }
 }
 
-echo 'YAH !';
+echo 'YAH ! <br>' . (microtime(true) - $start_time) .'s';
 
 function makeFilename ($method) {
   return  $method['visibility'].

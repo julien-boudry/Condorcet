@@ -16,7 +16,7 @@ Method Name.
 
 ### Return value:   
 
-False on error. Else, the name of the new default method.
+(bool) In case of success, return TRUE
 
 
 ---------------------------------------

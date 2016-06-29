@@ -34,7 +34,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 
 ### Return value:   
 
-Vote::getRanking
+In case of success, return TRUE
 
 
 ---------------------------------------
