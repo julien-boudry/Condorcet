@@ -1348,3 +1348,91 @@
   related:
     - 'Election::getResult'
   publish: true
+
+
+  - 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetWinner
+  static: false
+  description: |
+    Get the Condorcet winner, if exist, at the result time.
+  return: |
+    Condorcet/Candidate object if there is a Condorcet winner or NULL instead.
+  related:
+    - 'Result::getCondorcetLoser'
+    - 'Election::getWinner'
+  publish: true
+
+
+    - 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetLoser
+  static: false
+  description: |
+    Get the Condorcet loser, if exist, at the result time.
+  return: |
+    Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
+  related:
+    - 'Result::getCondorcetWinner'
+    - 'Election::getLoser'
+  publish: true
+
+
+      - 
+  class: Result
+  type: method
+  visibility: public
+  name: getMethod
+  static: false
+  description: |
+    Get the The algorithmic method used for this result.
+  return: |
+    (string) Method name.
+  related:
+    - 'Result::getClassGenerator'
+  publish: true
+
+
+        - 
+  class: Result
+  type: method
+  visibility: public
+  name: getClassGenerator
+  static: false
+  description: |
+    Get the The algorithmic method used for this result.
+  return: |
+    (string) Method class path like Condorcet\Algo\Methods\Copeland
+  related:
+    - 'Result::getMethod'
+  publish: true
+
+
+          - 
+  class: Result
+  type: method
+  visibility: public
+  name: getBuildTimeStamp
+  static: false
+  description: |
+    Get the timestamp of this result.
+  return: |
+    (float) Microsecond timestamp.
+  publish: true
+
+
+            - 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetElectionGeneratorVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version that build this Result.
+  return: |
+    (string) Condorcet PHp version string format.
+  publish: true

@@ -71,6 +71,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected $_Result;
     protected $_UserResult;
+    protected $_CondorcetWinner;
+    protected $_CondorcetLoser;
 
     protected $_Stats;
 
@@ -90,6 +92,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_fromMethod = $fromMethod;
         $this->_byClass = $byClass;
         $this->_ElectionCondorcetVersion = $election->getObjectVersion();
+        $this->_CondorcetWinner = $election->getWinner();
+        $this->_CondorcetLoser = $election->getLoser();
         $this->_BuildTimeStamp = microtime(true);
     }
 
@@ -120,6 +124,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getStats () {
         return $this->_Stats;
+    }
+
+    public function getCondorcetWinner () {
+        return $this->_CondorcetWinner;
+    }
+
+    public function getCondorcetLoser () {
+        return $this->_CondorcetWinner;
     }
 
     protected function makeUserResult (Election $election) : array
@@ -183,7 +195,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function getBuildTimeStamp () : float {
-        return $this->_BuildTimeStamp;
+        return (float) $this->_BuildTimeStamp;
     }
 
     public function getCondorcetElectionGeneratorVersion () : string {
