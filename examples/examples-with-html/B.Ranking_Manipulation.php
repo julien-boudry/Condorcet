@@ -144,8 +144,9 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
+	<?php Condorcet::setDefaultMethod('Minimax_Margin') ; ?>
 
-	<strong>Defaut:</strong> <?php echo Condorcet::setDefaultMethod('Minimax_Margin') ; ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
 	<?php Condorcet::format($election->getResult()); ?>

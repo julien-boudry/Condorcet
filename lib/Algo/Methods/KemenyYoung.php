@@ -15,12 +15,16 @@ use Condorcet\Algo\Tools\Permutation;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
+use Condorcet\Result;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name
     const METHOD_NAME = ['Kemeny–Young','Kemeny Young','KemenyYoung','Kemeny rule','VoteFair popularity ranking','Maximum Likelihood Method','Median Relation'];
+
+    // Method Name
+    const CONFLICT_WARNING_CODE = 42;
 
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
@@ -31,7 +35,6 @@ class KemenyYoung extends Method implements MethodInterface
     // Kemeny Young
     protected $_PossibleRanking;
     protected $_RankingScore;
-    protected $_Result;
 
 
     public function __construct (Election $mother)
@@ -49,7 +52,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result === null )
@@ -57,15 +60,7 @@ class KemenyYoung extends Method implements MethodInterface
             $this->calcPossibleRanking();
             $this->calcRankingScore();
             $this->makeRanking();
-        }
-
-        if (isset($options['noConflict']) && $options['noConflict'] === true)
-        {
-            $conflicts = $this->conflictInfos();
-            if ( $conflicts !== false)
-            {
-                return $this->conflictInfos();
-            }
+            $this->conflictInfos();
         }
 
         // Return
@@ -73,12 +68,8 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_PossibleRanking as $key => $value)
@@ -102,20 +93,15 @@ class KemenyYoung extends Method implements MethodInterface
             $max = max($this->_RankingScore);
 
             $conflict = -1;
-            foreach ($this->_RankingScore as $value)
-            {
-                if ($value === $max)
-                {
+            foreach ($this->_RankingScore as $value) :
+                if ($value === $max) :
                     $conflict++;
-                }
-            }
+                endif;
+            endforeach;
 
-            if ($conflict === 0) 
-                {return false;}
-            else
-            {
-                return ($conflict + 1).';'.max($this->_RankingScore);
-            }
+            if ($conflict > 0)  :
+                $this->_Result->addWarning(self::CONFLICT_WARNING_CODE, ($conflict + 1).';'.max($this->_RankingScore) );
+            endif;
         }
 
 
@@ -194,7 +180,7 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking ()
     {
-        $this->_Result = $this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ];
+        $this->_Result = $this->createResult($this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ]);
     }
 
 }

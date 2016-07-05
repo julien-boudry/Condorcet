@@ -12,6 +12,7 @@ namespace Condorcet;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
+use Condorcet\Result;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
@@ -785,7 +786,7 @@ class Election
     //:: PUBLIC FUNCTIONS :://
 
     // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = []) : array
+    public function getResult ($method = true, array $options = []) : Result
     {
         $options = $this->formatResultOptions($options);
 
@@ -838,41 +839,8 @@ class Election
 
         $chrono->setRole('GetResult for '.$method);
 
-        return ($options['human']) ? $this->humanResult($result) : $result;
+        return $result;
     }
-
-        protected function humanResult ($robot, bool $asString = false)
-        {
-            if (!is_array($robot))
-                {return $robot;}
-
-            $human = [];
-
-            foreach ( $robot as $key => $value )
-            {
-                if (is_array($value))
-                {
-                    foreach ($value as $candidate_key)
-                    {
-                        $human[$key][] = $this->getCandidateId($candidate_key);
-                    }
-                }
-                elseif (is_null($value))
-                    { $human[$key] = null; }
-                else
-                    { $human[$key][] = $this->getCandidateId($value); }
-            }
-
-            foreach ( $human as $key => $value )
-            {
-                if (is_null($value))
-                    { $human[$key] = null; }
-                elseif ($asString)
-                    { $human[$key] = implode(',',$value); }
-            }
-
-            return $human;
-        }
 
 
     public function getWinner ($substitution = null)
@@ -930,43 +898,10 @@ class Election
         }
 
 
-    public function getResultStats ($method = true)
-    {
-        // Prepare
-        $this->prepareResult();
-
-            //////
-
-        if ($method === true)
-        {
-            $this->initResult(Condorcet::getDefaultMethod());
-
-            $stats = $this->_Calculator[Condorcet::getDefaultMethod()]->getStats();
-        }
-        elseif ($method = Condorcet::isAuthMethod($method))
-        {
-            $this->initResult($method);
-
-            $stats = $this->_Calculator[$method]->getStats();
-        }
-        else
-        {
-            throw new CondorcetException(8);
-        }
-
-        if (!is_null($stats))
-            { return $stats; }
-        else
-            { return $this->getPairwise(); }
-    }
-
-
     public function computeResult ($method = true)
     {
-        $this->getResult($method,['human' => false]);
-        $this->getResultStats($method);
+        $this->getResult($method);
     }
-
 
 
     //:: TOOLS FOR RESULT PROCESS :://
@@ -1038,11 +973,6 @@ class Election
         // About algo Options
         if ( !isset($arg['algoOptions']) ) {
             $arg['algoOptions'] = null;
-        }
-
-        // Human Option (internal use)
-        if ( !isset($arg['human']) || !is_bool($arg['human']) ) {
-            $arg['human'] = true;
         }
 
         return $arg;

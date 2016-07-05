@@ -11,6 +11,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Methods\Minimax_Core;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 class MinimaxWinning extends Minimax_Core
 {
@@ -19,6 +20,6 @@ class MinimaxWinning extends Minimax_Core
 
     protected function makeRanking ()
     {
-        $this->_Result = self::makeRanking_method('winning', $this->_Stats);
+        $this->_Result = $this->createResult(self::makeRanking_method('winning', $this->_Stats));
     }
 }

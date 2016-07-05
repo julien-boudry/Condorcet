@@ -12,20 +12,20 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Minimax_Core extends Method implements MethodInterface
 {
     // Minimax
     protected $_Stats;
-    protected $_Result;
 
 
 /////////// PUBLIC ///////////
 
 
     // Get the Schulze ranking
-    public function getResult ($options = null) : array
+    public function getResult ($options = null) : Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -47,12 +47,8 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    public function getStats () : array
+    protected function getStats () : array
     {
-        $this->getResult();
-
-            //////
-
         $explicit = [];
 
         foreach ($this->_Stats as $candidate_key => $value)

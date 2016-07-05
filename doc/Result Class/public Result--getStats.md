@@ -1,17 +1,12 @@
-## public Election::getResultStats
+## public Result::getStats
 
 ### Description    
 
 ```php
-public $Election -> getResultStats ( [ mixed method = true] )
+public $Result -> getStats ( )
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.    
-
-
-##### **method:** *mixed*   
-    
-
 
 
 ### Return value:   

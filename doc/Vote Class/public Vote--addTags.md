@@ -16,7 +16,7 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 
 ### Return value:   
 
-Return Vote::getTags
+In case of success, return TRUE
 
 
 ---------------------------------------
