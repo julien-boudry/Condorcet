@@ -28,7 +28,7 @@ class Copeland extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    // Get the Coepland ranking
+    // Get the Copeland ranking
     public function getResult ($options = null) : Result
     {
         // Cache

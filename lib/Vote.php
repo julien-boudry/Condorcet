@@ -49,7 +49,6 @@ class Vote implements \Iterator
     private $_ranking = [];
 
     private $_tags = [];
-    private $_id;
 
     private $_hashCode;
 
@@ -315,8 +314,6 @@ class Vote implements \Iterator
         if (!$canRemove) :
             return false;
         endif;
-
-        $newRanking = [];
 
         foreach ($ranking as $rankingKey => &$rank) :
             foreach ($rank as $oneRankKey => $oneRankValue) :

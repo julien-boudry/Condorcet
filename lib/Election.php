@@ -372,7 +372,7 @@ class Election
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
-            catch (Exception $e) {}
+            catch (\Exception $e) {}
         }
 
         return $adding;
@@ -514,7 +514,7 @@ class Election
                     $this->prepareVoteInput($existVote);
                     $this->setStateToVote();
                 }
-                catch (Exception $e) {
+                catch (\Exception $e) {
                     throw $e;
                 }
             }
@@ -648,7 +648,7 @@ class Election
 
                 try {
                     $adding[] = $this->addVote($record['vote'], $tags);
-                } catch (Exception $e) {}
+                } catch (\Exception $e) {}
             }
         }
 
@@ -714,7 +714,7 @@ class Election
 
                 try {
                     $adding[] = $this->addVote($vote, $tags);
-                } catch (Exception $e) {}
+                } catch (\Exception $e) {}
             }
         }
 
@@ -730,7 +730,7 @@ class Election
             $this->_Votes->importHandler($driver);
             return true;
         else :
-            throw new CondorcetExeption(24);
+            throw new CondorcetException(24);
         endif;
     }
 
@@ -740,7 +740,7 @@ class Election
             $this->_Votes->closeHandler();
             return true;
         else :
-            throw new CondorcetExeption(23);
+            throw new CondorcetException(23);
         endif;
     }
 

@@ -85,7 +85,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         try {
             $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }  
     }
@@ -227,7 +227,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             endif;
 
             $this->_prepare['updateOneEntity']->closeCursor();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }
@@ -248,7 +248,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['deleteOneEntity']->closeCursor();
 
             return $deleteCount;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }
@@ -266,7 +266,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['selectMaxKey']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -279,7 +279,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['selectMinKey']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -292,7 +292,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['countEntitys']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -311,7 +311,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             else :
                 return false;
             endif;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -335,7 +335,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             else :
                 return [];
             endif;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -349,7 +349,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['flushAll']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }      

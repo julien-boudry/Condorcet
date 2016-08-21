@@ -48,7 +48,7 @@ class Manager
             $this->_lastTimer = ($m - $chrono->getStart());
             $this->_lastChronoTimestamp = $m;
         else :
-            throw new CondorcetException ('Only chrono linked to this Manager can be used');
+            throw new CondorcetException (0, 'Only chrono linked to this Manager can be used');
         endif;
     }
 

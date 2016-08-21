@@ -227,7 +227,6 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         if ($this->_DataHandler !== null) :
             $this->regularize();
-            $this->Driver->closeTransaction();
 
             $this->resetCounter();
             $this->resetMaxKey();
@@ -316,7 +315,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
             try {
                 $this->regularize();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->_DataHandler = null;
                 $this->resetCounter();
                 $this->resetMaxKey();
