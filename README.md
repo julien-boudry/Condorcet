@@ -7,23 +7,23 @@ Condorcet PHP
 
 A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also a powerful election manager.  
 
-**This library provide you:**
-* Manage an election
+### This library provide you:
+* __Manage an election__
   * Respect an election cycle: Registering candidate, registering vote, get results from many algorithms.
   * Ordered votes, delete it, simulate partials results.
   * Many input type available (String, Json, Parse text, Objects...)
   * Integrity check (checksumming) and logs.
   * Support for storing elections (serializing Election object, exports datas...)
   * Some methods can be use nearly front final user (anti-spam check, parsing input, human friendly results and stats...)
-* Get election results and stats
+* __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
   * Get full ranking from advanced methods (Schulze, Copeland, Ranked Paris, Kemeny-Young, Minimax...)
   * Get some additional stats from these methods
-* Be more powerful
+* __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
   * Candidates and Votes are object which can take part to multiples elections on the same time and change her name or content dynamically. That allow powerful tools to simulate elections.
   * Manage hundreds of billions votes by enable external datastore system for votes between process.
-* Extend it! Configure it!
+* __Extend it! Configure it!__
   * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module.
   * Allow you to use your own datastore driver to manage very large elections at your way.
   * Many configurations options and methods.
@@ -263,7 +263,7 @@ _This example of implementation in others project can very nice or strange... Th
 * [Gustav Mahler fans, making comparative blind test](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet)
 
 
-### Roadmap for futher releases 
+### Roadmap for further releases 
   
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Improve & test Ranked pair implementation *(help needed!)*
