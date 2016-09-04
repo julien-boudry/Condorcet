@@ -1,40 +1,50 @@
-<p align="center">
+ <p align="center">
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>   
 
 Condorcet PHP
 ===========================
 
-A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also also a powerfull election manager.  
+A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also a powerful election manager.  
 
-**This library provide you :**
-- Computing Pairwise, Natural Condorcet Winner or Loser
-- Algorithms implements (fully or partially) the criteria of the Marquis de Condorcet (Schulze, Copeland, RankedPair, Kemeny-Young, MiniMax Family... _[see below](#supported-condorcet-methods)_)
-- Advanced Management for votes and candidates, Condorcet is also a powerful election manager.
-- Support many inputs types (string, complex strings, array, json) or full object management (Candidate and Vote are objects).
-- Management for inter-elections candidates and votes. And others tools for simulate scenarios.
-- Support for storing elections (serializing Election object, exports datas, checksuming...)
-- Ready to be extend, or support your own algorithms (modular architecture).
-- Optionally use provided or external driver to support and storing data for very large election (millions of votes). _STILL EXPERIMENTAL_
-- Many smarts tools to manage election.
-- [...]
+**This library provide you:**
+* Manage an election
+  * Respect an election cycle: Registering candidate, registering vote, get results from many algorithms.
+  * Ordered votes, delete it, simulate partials results.
+  * Many input type available (String, Json, Parse text, Objects...)
+  * Integrity check (checksumming) and logs.
+  * Support for storing elections (serializing Election object, exports datas...)
+  * Some methods can be use nearly front final user (anti-spam check, parsing input, human friendly results and stats...)
+* Get election results and stats
+  * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
+  * Get full ranking from advanced methods (Schulze, Copeland, Ranked Paris, Kemeny-Young, Minimax...)
+  * Get some additional stats from these methods
+* Be more powerful
+  * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
+  * Candidates and Votes are object which can take part to multiples elections on the same time and change her name or content dynamically. That allow powerful tools to simulate elections.
+  * Manage hundreds of billions votes by enable external datastore system for votes between process.
+* Extend it! Configure it!
+  * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module.
+  * Allow you to use your own datastore driver to manage very large elections at your way.
+  * Many configurations options and methods.
 
-_This class is not designed for high performances or very high fiability exigence. Since v0.98, an experimental support is provided for ver high number of voters (millions)._   
 
-* [Examples](#examples) *Have a look on Examples !*
+_This class is not designed for high performances or very high reliability exigence._    
+
+* [Examples](#examples) *Have a look on Examples!*
 
 ### Summary
 1. Project Overview     
   a. [Contributors and License](#contributors-and-license)     
-  b. [Project State and Specifications ](#project-state-and-specifications)       
+  b. [Project State and Specifications](#project-state-and-specifications)       
   c. [Supported Condorcet Methods](#supported-condorcet-methods)     
   d. [Related projects / They use Condorcet](#related-projects--they-use-condorcet)       
 2. [How to use it?](#how-to-use-it)    
   a. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
   b. [Class & Methods reference](#class--methods-reference)     
-  c. [Examples](#examples) *Have a look on Examples !*     
+  c. [Examples](#examples) *Have a look on Examples!*     
   d. [Really quick and simple example](#really-quick-and-simple-example)
-3. [Roadmap for futher releases](#roadmap-for-futher-releases)
+3. [Roadmap for further releases](#roadmap-for-further-releases)
 
 
 ### Contributors and License
@@ -56,51 +66,47 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 * **Old Stable _(support and patch are still provided)_: 1.0.x**  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 * **Development Version: 1.2.x**  
-  * *PHP Requirement:* PHP 7 with Ctype, MB_String, Json common extensions.
+  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
 
 To date, we have a stable version, and support is provided.  
-- v0.9x series is no longer supported. But bug report are welcome, code base can be close to v1.x series.    
-- Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider than it's a new projet (api, engine).
+- v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series.    
+- Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider than it's a new project (api, engine).
 
 External testers are more than welcome!      
 
 ##### Autoloading:   
 This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \Condorcet is used. 
-The examples also provides easy example of implementation using an optional Condorcet autoloader. If you don't want to use composer or other standard PSR-4 autoloader.
+The examples also provide easy example of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
 
 ##### Coding standards:  
 The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 ##### Performance:  
-* Complex scenario with all algorithms chained, multiple elections sharing votes & candidates scenarios and hundred of votes.
-  * _Memory usage : less than 2M_    
-  * _Execution time : less than 80ms_  
-* Complex scenario with three algorithms chained (Natural Condorcet, Schulze, Copeland), multiple elections sharing votes & candidates scenarios and hundred of votes.
-  * _Memory usage : less than 2M_    
-  * _Execution time : less than 30ms_  
+* Complex use case with three algorithms chained (Natural Condorcet, Schulze, Copeland), multiple elections sharing votes & candidates and hundreds of votes.
+  * _Memory usage: less than 2M_    
+  * _Execution time: less than 30ms_  
 
 _Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._     
 
-###### Kemeny-Youg case :   
-* use Kemeny-Young 6 candidates : 5MB - 150ms    
-* use Kemeny-Young 7 candidates : 32MB - 600ms    
-* use Kemeny-Young 8 candidates : 135MB - 2500ms    
+###### Kemeny-Youg case:   
+* use Kemeny-Young 6 candidates: 5MB - 150ms    
+* use Kemeny-Young 7 candidates: 32MB - 600ms    
+* use Kemeny-Young 8 candidates: 135MB - 2500ms    
 
-###### Massive election case :   
-If you need to manage election with more than 50 000 votes. You can consider putting in place an modular external driver or the provided driver to store data out of the RAM, into SQL database for example _(it's support hundreds of millions votes)_. [Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
+###### Massive election case:  
+Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
 
-Extending PHP memory_limit allows you to manage hundreds thousands votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
-However, the quality of the external system chosen does not change much performance. From a certain point: slowdowns being overwhelmingly intrinsically linked to internal processing side Condorcet engine.    
+If you need to manage election with more than 50 000 votes. You should consider externalize your data, Condorcet provide a simple PDO driver to store data outside RAM between processing steps, this driver store it into classical relational database system, it's support hundreds millions votes _(or more)_.
+You can too develop your own datastore driver (to store into NoSQL... all yours fantasy), the modular architecture allows you to link it easily.
 
-* use simple Vote 6 Candidates / 100 000 Votes with SQLite : 27s _(MySQL for example is not faster, actual limit is Condorcet PHP engine)_
-
+[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
 
 #### Supported Condorcet Methods
 
 *[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods)*
 
-* **Condorcet Basic** Give you the natural winner or looser of Condorcet, if there is one.  
+* **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
 *(This method is the only core method, you cannot remove it)*
 
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
@@ -110,12 +116,12 @@ However, the quality of the external system chosen does not change much performa
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
     * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
-    * **Minimax Opposition**:warning: *By nature, this alternative does not meet any criterion of Condorcet.*
+    * **Minimax Opposition** :warning: *By nature, this alternative does not meet any criterion of Condorcet.*
 
 * **RankedPairs *(Since v0.10, EXPERIMENTAL)*** https://en.wikipedia.org/wiki/Ranked_pairs  
 
 * **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method  
-    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method il also know as Schulze Method.*
+    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method is also known as Schulze Method.*
     * **Schulze Margin** Variant from Markus Schulze himself.
     * **Schulze Ratio** Markus Schulze himself.
 
@@ -126,19 +132,18 @@ This class is designed to be easily extensible with new algorithms (they don't n
 
 
 #### Related projects / They use Condorcet
-* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including intérractives and collaborative features.    
+* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including interactives and collaborative features.    
 It is based in large part on this project, and uses the library as a real election manager for computing, storage & stats.        
 * [Mahler-S2-BlindTest-Condorcet
-](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (french interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
-Look like the examples provided here, but better : [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite)    
+](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (French interface) Web wrapper to compute and show result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
+Look like the examples provided here, but better: [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite)    
 
  
 
 ---------------------------------------
 ## How to use it?
 
-_I have undertaken and continues to undertake efforts to reform and improve the documentation. Thereof is not yet satisfactory plainement nor perfectly updated. Your help is welcome!
-Consider reading the functional examples that are very explicit, test your even the entire function package, and especially to ask questions!_
+_I have undertaken and continues to undertake efforts to reform and improve the documentation. Thereof is not yet satisfactory and perfectly updated. Your help is welcome!
 
 ### Condorcet Wiki Manual
 
@@ -172,7 +177,7 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 #### Really quick and simple example
 
-_OK : sacrifice to the local tradition of lazy._    
+_OK: sacrifice to the local tradition of lazy._    
 
 ```php
   use Condorcet\Condorcet;
@@ -263,7 +268,7 @@ _This example of implementation in others project can very nice or strange... Th
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Improve & test Ranked pair implementation *(help needed!)*
   - Add tie breaking on Schulze Core, by the official way recommended by Markus Schulze. *(help needed!)*
-  - In future results could be provided as a new object Coondorcet\Result rather than an array. Will be fun.
-  - Very soon, Condorcet will only support PHP 7 and use his news features (special branch already in test).
+  - Condorcet 1.2 will require PHP 7.1.
+  - Rebuild Exception System
   - **Looking for testers!**   
-  - **Research reference librarians!!**  
+  - **Research reference librarians !!**  
