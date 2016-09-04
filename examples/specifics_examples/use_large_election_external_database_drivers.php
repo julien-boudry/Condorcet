@@ -65,3 +65,7 @@ Process in: '. (microtime(true) - $start_time) . 's
 ';
 
 echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024,($i=floor(log(memory_get_peak_usage(),1024)))),2).' '.['b','kb','mb','gb','tb','pb'][$i].'<br>';
+
+
+// Close external driver and and retrieve data into classical internal RAM memory.
+/* $myElection->closeHandler(); */

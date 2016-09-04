@@ -1350,7 +1350,7 @@
   publish: true
 
 
-  - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1366,7 +1366,7 @@
   publish: true
 
 
-    - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1382,7 +1382,7 @@
   publish: true
 
 
-      - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1397,7 +1397,7 @@
   publish: true
 
 
-        - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1412,7 +1412,7 @@
   publish: true
 
 
-          - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1425,7 +1425,7 @@
   publish: true
 
 
-            - 
+- 
   class: Result
   type: method
   visibility: public
@@ -1434,5 +1434,5 @@
   description: |
     Get the Condorcet PHP version that build this Result.
   return: |
-    (string) Condorcet PHp version string format.
+    (string) Condorcet PHP version string format.
   publish: true

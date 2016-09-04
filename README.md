@@ -230,7 +230,7 @@ _OK : sacrifice to the local tradition of lazy._
       Condorcet::format($myResultBySchulze);
 
     // Get Schulze advanced computing data & stats
-    $mySchulzeStats = $myElection1->getResultStats('Schulze');
+    $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
 
     // Get Copeland Ranking
     $myResultByCopeland = $myElection1->getResult('Copeland');
