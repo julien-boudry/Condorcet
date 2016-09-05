@@ -46,7 +46,7 @@ $myElection1 = new Election ();
         $myElection1->removeCandidate('A');
         $myElection1->removeCandidate($myAutomaticCandidate);
 
-        // Lutoslawski change is name
+        // Lutoslawski change his name
         $myLutoCandidate->setName('Wiltod Lutoslawski'); # Done !
 
             # What was his old names?
@@ -82,7 +82,7 @@ $myElection1 = new Election ();
         //Add some tags
         $myVote97 = $myElection1->addVote(
                                             array($myDebussyCandidate, 'Koechlin'),
-                                            'greatFrenchVote , strangeVote' // You can also pu your tags in an array. tags must be string.
+                                            ['greatFrenchVote','strangeVote'] // You can also pu your tags for this vote
         );
 
         // Parse multiple Votes
@@ -94,9 +94,10 @@ $myElection1 = new Election ();
 
         // Creating self Vote object
         $myVote111 = new Vote ( [$myDebussyCandidate, $myLutoCandidate, 'Caplet'], 'customeVoteTag,AnAnotherTag' );
-        $myVote112 = new Vote ( 'Olivier Messiaen = Caplet > Wiltod Lutoslawski', ['customVote','AnAnotherTag'] );
+        $myVote112 = new Vote ( 'Olivier Messiaen = Caplet > Wiltod Lutoslawski', ['customVoteTag','AnAnotherTag'] );
 
-        $myElection1->addVote($myVote111); $myElection1->addVote($myVote112);
+        $myElection1->addVote($myVote111);
+        $myElection1->addVote($myVote112);
 
 
     # -B- Manage Votes
@@ -106,7 +107,7 @@ $myElection1 = new Election ();
             $myElection1->getVotesList(); // Returns an array of all votes as object.
 
             // How many Vote with tag "strangeVote" ?
-            $myElection1->countVotes('strangeVote'); // Return 14 (int)
+            $myElection1->countVotes('strangeVote'); // Return 12 (int)
 
             // Return this 12 votes !
             $myElection1->getVotesList('strangeVote');
@@ -114,8 +115,8 @@ $myElection1 = new Election ();
             $oneVoteToDelete = $myElection1->getVotesList('strangeVote', false)[0] ;
 
         # 2- Vote objet
-            $oneVoteToDelete->getRanking(); // Return the current ranking
-            $myVote111->getContextualVote($myElection1); // Return the full ranking in the context of election 1 (with 6 candidates)
+            var_dump($myVote111->getRanking()); // Return the current ranking
+            var_dump($myVote111->getContextualVote($myElection1)); // Return the full ranking in the context of election 1 (with 6 candidates)
 
             // Change the vote
             $myVote111->setRanking  ( [
