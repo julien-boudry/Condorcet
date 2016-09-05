@@ -126,12 +126,20 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_Stats;
     }
 
+    public function getWinner () {
+        Condorcet::format($this[1],false,false);
+    }
+
+    public function getLoser () {
+        Condorcet::format($this[count($this)],false,false);
+    }
+
     public function getCondorcetWinner () {
         return $this->_CondorcetWinner;
     }
 
     public function getCondorcetLoser () {
-        return $this->_CondorcetWinner;
+        return $this->_CondorcetLoser;
     }
 
     protected function makeUserResult (Election $election) : array

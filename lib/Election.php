@@ -853,7 +853,7 @@ class Election
 
             return ($result === null) ? null : $this->getCandidateId($result);
         else :
-            return Condorcet::format($this->getResult($algo)[1],false,false);
+            return $this->getResult($algo)->getWinner();
         endif;
     }
 
@@ -871,9 +871,7 @@ class Election
 
             return ($result === null) ? null : $this->getCandidateId($result);
         else :
-            $result = $this->getResult($algo);
-
-            return Condorcet::format($result[count($result)],false,false);
+            return $this->getResult($algo)->getLoser();
         endif;
     }
 

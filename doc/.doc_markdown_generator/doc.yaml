@@ -1349,6 +1349,37 @@
     - 'Election::getResult'
   publish: true
 
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getWinner
+  static: false
+  description: |
+    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+  return: |
+    Candidate object given. Null if there are no available winner.
+    You can get an array with multiples winners.
+  related:
+    - 'Result::getLoser'
+    - 'Election::getWinner'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getLoser
+  static: false
+  description: |
+    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+  return: |
+    Candidate object given. Null if there are no available loser.
+    You can get an array with multiples losers.
+  related:
+    - 'Result::getWinner'
+    - 'Election::getLoser'
+  publish: true
 
 - 
   class: Result
