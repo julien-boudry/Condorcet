@@ -299,7 +299,7 @@ class Election
         }
         else // Try to add the candidate_id
         {
-            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ($candidate_id);
+            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) )
                 { throw new CondorcetException(3,$candidate_id); }
