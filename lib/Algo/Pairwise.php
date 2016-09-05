@@ -28,7 +28,7 @@ class Pairwise implements \ArrayAccess,\Iterator
     public function offsetUnset($offset) {}
 
     public function offsetGet($offset) {
-        return isset($this->_Pairwise[$offset]) ? $this->_Pairwise[$offset] : null;
+        return $this->_Pairwise[$offset] ?? null;
     }
 
 

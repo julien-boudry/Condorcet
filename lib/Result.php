@@ -57,7 +57,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function offsetGet ($offset) {
-        return isset($this->_UserResult[$offset]) ? $this->_UserResult[$offset] : null;
+        return $this->_UserResult[$offset] ?? null;
     }
 
     // Implement Countable
