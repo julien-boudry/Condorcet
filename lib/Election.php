@@ -533,6 +533,7 @@ class Election
         public function checkVoteCandidate (Vote $vote) : bool
         {
             $linkCount = $vote->countLinks();
+            $links = $vote->getLinks();
 
             if ( $vote->countRankingCandidates() > $this->countCandidates() )
                 { return false; }
@@ -545,7 +546,7 @@ class Election
                 {
                     if ( !$this->existCandidateId($candidate, true) )
                     {
-                        if ($linkCount === 0 && $this->existCandidateId($candidate, false)) :
+                        if (($linkCount === 0 || ($linkCount === 1 && reset($links) === $this)) && $this->existCandidateId($candidate, false)) :
                             $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                             $change = true;
                         else :
