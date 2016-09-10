@@ -66,18 +66,18 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset($offset)
     {
-        if (parent::offsetUnset($offset)) {
+        if (parent::offsetUnset($offset)) :
             $this->setStateToVote();
-        }
+        endif;
     }
 
 /////////// Internal Election related methods ///////////
 
     protected function setStateToVote ()
     {
-        foreach ($this->_link as &$element) {
+        foreach ($this->_link as &$element) :
             $element->setStateToVote();
-        }
+        endforeach;
     }
 
 /////////// Public specific methods ///////////
@@ -90,23 +90,19 @@ class VotesManager extends ArrayManager
     // Get the votes registered list
     public function getVotesList ($tag = null, bool $with = true) : array
     {
-        if ($tag === null)
-        {
+        if ($tag === null) :
             return $this->getFullDataSet();
-        }
-        else
-        {
+        else :
             $tag = Vote::tagsConvert($tag);
-            if ($tag === null)
-                {$tag = [];}
+            if ($tag === null) :
+                $tag = [];
+            endif;
 
             $search = [];
 
-            foreach ($this as $key => $value)
-            {
+            foreach ($this as $key => $value) :
                 $noOne = true;
-                foreach ($tag as $oneTag)
-                {
+                foreach ($tag as $oneTag) :
                     if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
                         if ($with) :
                             $search[$key] = $value;
@@ -115,13 +111,14 @@ class VotesManager extends ArrayManager
                             $noOne = false;
                         endif;
                     endif;
-                }
+                endforeach;
 
-                if (!$with && $noOne)
-                    { $search[$key] = $value;}
-            }
+                if (!$with && $noOne) :
+                    $search[$key] = $value;
+                endif;
+            endforeach;
 
             return $search;
-        }
+        endif;
     }
 }
