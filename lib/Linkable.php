@@ -22,6 +22,7 @@ trait Linkable
         $this->destroyAllLink();
     }
 
+    /*
     public function __debugInfo () : array
     {
         $var = get_object_vars($this);
@@ -33,8 +34,9 @@ trait Linkable
 
         return $var;
     }
+    */
 
-    public function haveLink (Election &$election) : bool
+    public function haveLink (Election $election) : bool
     {
         return in_array($election, $this->_link, true);
     }
@@ -52,7 +54,7 @@ trait Linkable
     // Internal
         # Dot not Overloading ! Do not Use !
 
-    public function registerLink (Election &$election)
+    public function registerLink (Election $election)
     {
         if (array_search($election, $this->_link, true) === false)
             { $this->_link[] = $election; }
@@ -60,7 +62,7 @@ trait Linkable
             { throw new CondorcetException; }
     }
 
-    public function destroyLink (Election &$election) : bool
+    public function destroyLink (Election $election) : bool
     {
         $destroyKey = array_search($election, $this->_link, true);
 
