@@ -72,18 +72,16 @@ class KemenyYoung extends Method implements MethodInterface
     {
         $explicit = [];
 
-        foreach ($this->_PossibleRanking as $key => $value)
-        {
+        foreach ($this->_PossibleRanking as $key => $value) :
             $explicit[$key] = $value;
 
             // Human readable
-            foreach ($explicit[$key] as &$candidate_key)
-            {
+            foreach ($explicit[$key] as &$candidate_key) :
                 $candidate_key = $this->_selfElection->getCandidateId($candidate_key);
-            }
+            endforeach;
 
             $explicit[$key]['score'] = $this->_RankingScore[$key];
-        }
+        endforeach;
 
         return $explicit;
     }
@@ -125,11 +123,10 @@ class KemenyYoung extends Method implements MethodInterface
         $search = [];
         $replace = [];
 
-        foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name)
-        {
+        foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name) :
             $search[] = 's:'.(($i < 10) ? "2" : "3").':"C'.$i++.'"';
             $replace[] = 'i:'.$candidate_id;
-        }
+        endforeach;
 
         $this->_PossibleRanking = unserialize( str_replace($search, $replace, $compute) );
     }
@@ -150,25 +147,21 @@ class KemenyYoung extends Method implements MethodInterface
         $this->_RankingScore = [];
         $pairwise = $this->_selfElection->getPairwise(false);
 
-        foreach ($this->_PossibleRanking as $keyScore => $ranking) 
-        {
+        foreach ($this->_PossibleRanking as $keyScore => $ranking) :
             $this->_RankingScore[$keyScore] = 0;
 
             $do = [];
 
-            foreach ($ranking as $candidateId)
-            {
+            foreach ($ranking as $candidateId) :
                 $do[] = $candidateId;
 
-                foreach ($ranking as $rank => $rankCandidate)
-                {
-                    if (!in_array($rankCandidate, $do, true))
-                    {
+                foreach ($ranking as $rank => $rankCandidate) :
+                    if (!in_array($rankCandidate, $do, true)) :
                         $this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
-                    }
-                }
-            }
-        }
+                    endif;
+                endforeach;
+            endforeach;
+        endforeach;
     }
 
 

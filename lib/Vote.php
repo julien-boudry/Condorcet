@@ -304,12 +304,12 @@ class Vote implements \Iterator
         $rankingCandidate = $this->getAllCandidates();
 
         $canRemove = false;
-        foreach ($candidatesList as $oneCandidate) {
+        foreach ($candidatesList as $oneCandidate) :
             if (in_array($oneCandidate, $rankingCandidate, false)) :
                 $canRemove = true;
                 break;
             endif;
-        }
+        endforeach;
 
         if (!$canRemove) :
             return false;
