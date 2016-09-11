@@ -590,11 +590,11 @@
     Get registered vote list.
   input:
     tag:
-      type: letype
+      type: mixed
       default: test
       required: true
     with:
-      type: letype
+      type: mixed
       default: test
       required: true
   return: |

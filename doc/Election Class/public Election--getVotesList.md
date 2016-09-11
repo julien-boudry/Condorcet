@@ -3,18 +3,18 @@
 ### Description    
 
 ```php
-public $Election -> getVotesList ( letype tag = test, letype with = test )
+public $Election -> getVotesList ( mixed tag = test, mixed with = test )
 ```
 
 Get registered vote list.    
 
 
-##### **tag:** *letype*   
+##### **tag:** *mixed*   
     
 
 
 
-##### **with:** *letype*   
+##### **with:** *mixed*   
     
 
 
