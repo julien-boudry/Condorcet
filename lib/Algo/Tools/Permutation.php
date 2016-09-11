@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\Algo\Tools;
 
@@ -16,12 +16,7 @@ class Permutation
 
     public $results = [];
 
-    public static function countPossiblePermutations ($candidatesNumber) {
-        
-        if (!is_int($candidatesNumber))
-            { return false; }
-
-
+    public static function countPossiblePermutations (int $candidatesNumber) {
         $result = $candidatesNumber;
 
         for ($iteration = 1; $iteration < $candidatesNumber; $iteration++)
@@ -39,15 +34,16 @@ class Permutation
         );
     }
 
-    public function getResults ($serialize = false) {
+    public function getResults (bool $serialize = false) {
         return ($serialize) ? serialize($this->results) : $this->results;
     }
 
-    public function writeResults ($path) {
+    public function writeResults (string $path) {
         file_put_contents($path, $this->getResults(true));
     }
 
-    protected function createCandidates ($numberOfCandidates) {
+    protected function createCandidates (int $numberOfCandidates) : array
+    {
         $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {

@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
@@ -19,19 +19,19 @@ class CondorcetException extends \Exception
 
     protected $_infos;
 
-    public function __construct ($code = 0, $infos = '')
+    public function __construct (int $code = 0, $infos = '')
     {
         $this->_infos = $infos;
 
         parent::__construct($this->correspondence($code), $code);
     }
 
-    public function __toString ()
+    public function __toString () : string
     {
            return __CLASS__ . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 
-    protected function correspondence ($code)
+    protected function correspondence (int $code) : string
     {
         // Common
         $error[1] = 'Bad candidate format';

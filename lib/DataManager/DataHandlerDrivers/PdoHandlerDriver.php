@@ -5,12 +5,11 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use Condorcet\DataManager\PHP56\NoDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
@@ -32,26 +31,21 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public $_dataContextObject;
 
 
-    public function __construct ($bdd, $tryCreateTable = false, $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
+    public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) :
             throw new CondorcetException;
         endif;
 
         $this->_struct = $struct;
-        $this->_dataContextObject = new NoDataFormat;
+        $this->_dataContextObject = new Class {
+            public function dataCallBack ($data)
+            {
+                return $data;
+            }
+        };
 
-        if (is_string($bdd)) :
-
-            $this->_handler = new \PDO ('sqlite:'.$bdd);
-
-        elseif ($bdd instanceof \PDO) :
-
-            $this->_handler = $bdd;
-
-        else :
-            throw new CondorcetException;
-        endif;
+        $this->_handler = $bdd;
 
         $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
@@ -76,7 +70,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     // INTERNAL
 
-    protected function checkStructureTemplate (array &$struct)
+    protected function checkStructureTemplate (array &$struct) : bool
     {
         if (    !empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
                 is_string($struct['tableName']) && is_string($struct['primaryColumnName']) && is_string($struct['dataColumnName'])
@@ -91,7 +85,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         try {
             $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }  
     }
@@ -220,7 +214,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             endforeach;
         }
 
-    public function updateOneEntity ($key,$data)
+    public function updateOneEntity (int $key,$data)
     {
         try {
             $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
@@ -233,13 +227,13 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             endif;
 
             $this->_prepare['updateOneEntity']->closeCursor();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }
     }
 
-    public function deleteOneEntity ($key, $justTry)
+    public function deleteOneEntity (int $key, bool $justTry)
     {
         try {
             $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
@@ -254,7 +248,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['deleteOneEntity']->closeCursor();
 
             return $deleteCount;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }
@@ -272,7 +266,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['selectMaxKey']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -285,12 +279,12 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['selectMinKey']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    public function countEntitys ()
+    public function countEntitys () : int
     {
         try {
             $this->_prepare['countEntitys']->execute();
@@ -298,13 +292,13 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['countEntitys']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
 
     // return false if Entity does not exist.
-    public function selectOneEntity ($key)
+    public function selectOneEntity (int $key)
     {
         try {
             $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
@@ -317,12 +311,12 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             else :
                 return false;
             endif;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
 
-    public function selectRangeEntitys ($key, $limit)
+    public function selectRangeEntitys (int $key, int $limit) : array
     {
         try {
             $this->_prepare['selectRangeEntitys']->bindParam(':startKey', $key, \PDO::PARAM_INT);
@@ -341,7 +335,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             else :
                 return [];
             endif;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }
@@ -355,7 +349,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['flushAll']->closeCursor();
 
             return $r;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_queryError = true;
             throw $e;
         }      

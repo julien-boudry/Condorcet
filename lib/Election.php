@@ -5,13 +5,14 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
+use Condorcet\Result;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
@@ -60,7 +61,7 @@ class Election
 
 
     // Check JSON format
-    public static function isJson ($string)
+    public static function isJson (string $string)
     {
         if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string))
         { return false; }
@@ -76,12 +77,8 @@ class Election
 
 
     // Generic action before parsing data from string input
-    public static function prepareParse ($input, $allowFile)
+    public static function prepareParse (string $input, bool $allowFile) : array
     {
-        // Input must be a string
-        if (!is_string($input))
-            { throw new CondorcetException(14); }
-
         // Is string or is file ?
         if ($allowFile === true && is_file($input))
         {
@@ -110,7 +107,7 @@ class Election
     }
 
 
-    public static function prepareJson ($input)
+    public static function prepareJson (string $input)
     {
         if (!self::isJson($input))
             { throw new CondorcetException(15); }
@@ -152,7 +149,7 @@ class Election
         $this->destroyAllLink();
     }
 
-    public function __sleep ()
+    public function __sleep () : array
     {
         // Don't include others data
         $include = array (
@@ -180,16 +177,6 @@ class Election
         {
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
         }
-
-        /* PHP 7 seriazlization bug : Candidates become reference at seriazlization ! It's really strange... and can not be reproduced on PHP 5.6 or simplier examples. Need to try to remove this patch on the next minor version of PHP 7 (> 7.0.7).
-        This patch remove reference at the wake-up time. */
-        if ( version_compare(PHP_VERSION, '7.0','>=') ) :
-            $mirror = [];
-            foreach ($this->_Candidates as $key => $oneCandidate) :
-                $mirror[$key] = $oneCandidate;
-            endforeach;
-            $this->_Candidates = $mirror;
-        endif;
     }
 
     public function __clone ()
@@ -227,7 +214,7 @@ class Election
 
 
     // Return object state with somes infos
-    public function getConfig ()
+    public function getConfig () : array
     {
         return array    (
                             'CondorcetObject_Version' => $this->getObjectVersion(),
@@ -242,48 +229,45 @@ class Election
     }
 
 
-    public function getGlobalTimer ($float = false) {
+    public function getGlobalTimer (bool $float = false) {
         return $this->_timer->getGlobalTimer($float);
     }
 
-    public function getLastTimer ($float = false) {
+    public function getLastTimer (bool $float = false) {
         return $this->_timer->getLastTimer($float);
     }
 
-    public function getTimerManager () {
+    public function getTimerManager () : Timer_Manager {
         return $this->_timer;
     }
 
-    public function getChecksum ()
+    public function getChecksum () : string
     {
         self::$_checksumMode = true;
 
         $r = hash_init('sha256');
 
-        foreach ($this->_Candidates as $value) {
+        foreach ($this->_Candidates as $value) :
             hash_update($r, (string) $value);
-        }
-        foreach ($this->_Votes as $value) {
+        endforeach;
+
+        foreach ($this->_Votes as $value) :
             hash_update($r, (string) $value);
-        }
+        endforeach;
+
         $this->_Pairwise !== null
             AND hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
-        // hash_update($r, serialize($this->_Calculator));
-        hash_update($r, $this->getObjectVersion('major'));
 
-        // $r = hash('sha256',
-        //     serialize( array( $this->_Candidates, $this->_Votes, $this->_Pairwise, $this->_Calculator ) ).
-        //     $this->getObjectVersion('major')
-        // );
+        hash_update($r, $this->getObjectVersion('major'));
 
         self::$_checksumMode = false;
 
         return hash_final($r);
     }
 
-    public function ignoreMaxVote ($state = true)
+    public function ignoreMaxVote (bool $state = true) : bool
     {
-        $this->_ignoreStaticMaxVote = (is_bool($state)) ? $state : true;
+        $this->_ignoreStaticMaxVote = $state;
         return $this->_ignoreStaticMaxVote;
     }
 
@@ -292,7 +276,7 @@ class Election
 
 
     // Add a vote candidate before voting
-    public function addCandidate ($candidate_id = null)
+    public function addCandidate ($candidate_id = null) : Candidate
     {
         // only if the vote has not started
         if ( $this->_State > 1 )
@@ -315,7 +299,7 @@ class Election
         }
         else // Try to add the candidate_id
         {
-            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ($candidate_id);
+            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) )
                 { throw new CondorcetException(3,$candidate_id); }
@@ -330,14 +314,14 @@ class Election
         return $newCandidate;
     }
 
-        public function canAddCandidate ($candidate_id)
+        public function canAddCandidate ($candidate_id) : bool
         {
             return !$this->existCandidateId($candidate_id, false);
         }
 
 
     // Destroy a register vote candidate before voting
-    public function removeCandidate ($list)
+    public function removeCandidate ($list) : array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) { throw new CondorcetException(2); }
@@ -345,7 +329,7 @@ class Election
         
         if ( !is_array($list) )
         {
-            $list   = array($list);
+            $list = array($list);
         }
 
         foreach ($list as &$candidate_id)
@@ -372,7 +356,7 @@ class Election
     }
 
 
-    public function jsonCandidates ($input)
+    public function jsonCandidates (string $input)
     {
         $input = self::prepareJson($input);
         if ($input === false) { return $input; }
@@ -385,14 +369,14 @@ class Election
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
-            catch (Exception $e) {}
+            catch (\Exception $e) {}
         }
 
         return $adding;
     }
 
 
-    public function parseCandidates ($input, $allowFile = true)
+    public function parseCandidates (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
         if ($input === false) { return $input; }
@@ -423,13 +407,13 @@ class Election
         //:: CANDIDATES TOOLS :://
 
         // Count registered candidates
-        public function countCandidates ()
+        public function countCandidates () : int
         {
             return count($this->_Candidates);
         }
 
         // Get the list of registered CANDIDATES
-        public function getCandidatesList ($stringMode = false)
+        public function getCandidatesList (bool $stringMode = false) : array
         {
             if (!$stringMode) :
                 return $this->_Candidates;
@@ -454,7 +438,7 @@ class Election
             endif;
         }
 
-        public function getCandidateId ($candidate_key, $onlyName = false)
+        public function getCandidateId (int $candidate_key, bool $onlyName = false)
         {
             if (!array_key_exists($candidate_key, $this->_Candidates)) :
                 return false;
@@ -463,12 +447,12 @@ class Election
             endif;
         }
 
-        public function existCandidateId ($candidate_id, $strict = true)
+        public function existCandidateId ($candidate_id, bool $strict = true) : bool
         {
             return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
         }
 
-        public function getCandidateObjectByName ($s)
+        public function getCandidateObjectByName (string $s)
         {
             foreach ($this->_Candidates as $oneCandidate)
             {
@@ -476,6 +460,8 @@ class Election
                     return $oneCandidate;
                 }
             }
+
+            return false;
         }
 
 
@@ -484,7 +470,7 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-    public function setStateToVote ()
+    public function setStateToVote () : bool
     {
         if ( $this->_State === 1 )
             { 
@@ -505,7 +491,7 @@ class Election
 
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    public function addVote ($vote, $tag = null)
+    public function addVote ($vote, $tag = null) : Vote
     {
         $this->prepareVoteInput($vote, $tag);
 
@@ -525,7 +511,7 @@ class Election
                     $this->prepareVoteInput($existVote);
                     $this->setStateToVote();
                 }
-                catch (Exception $e) {
+                catch (\Exception $e) {
                     throw $e;
                 }
             }
@@ -544,30 +530,27 @@ class Election
         }
 
 
-        public function checkVoteCandidate (Vote $vote)
+        public function checkVoteCandidate (Vote $vote) : bool
         {
             $linkCount = $vote->countLinks();
-
-            if ( $vote->countRankingCandidates() > $this->countCandidates() )
-                { return false; }
+            $links = $vote->getLinks();
 
             $mirror = $vote->getRanking();
             $change = false;
-            foreach ($vote as $rank => $choice)
-            {
-                foreach ($choice as $choiceKey => $candidate)
-                {
-                    if ( !$this->existCandidateId($candidate, true) )
-                    {
-                        if ($linkCount === 0 && $this->existCandidateId($candidate, false))  :
-                            $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
-                            $change = true;
-                        else :
-                            return false;
+            foreach ($vote as $rank => $choice) :
+                foreach ($choice as $choiceKey => $candidate) :
+                    if ( !$this->existCandidateId($candidate, true) ) :
+                        if ($this->existCandidateId($candidate, false)) :
+                            if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
+                                $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
+                                $change = true;
+                            else :
+                                return false;
+                            endif;
                         endif;
-                    }
-                }
-            }
+                    endif;
+                endforeach;
+            endforeach;
 
             if ($change)
             {
@@ -581,7 +564,7 @@ class Election
         }
 
         // Write a new vote
-        protected function registerVote (Vote $vote, $tag = null)
+        protected function registerVote (Vote $vote, $tag = null) : Vote
         {
             // Vote identifiant
             $vote->addTags($tag);           
@@ -599,7 +582,7 @@ class Election
         }
 
 
-    public function removeVote ($in, $with = true)
+    public function removeVote ($in, bool $with = true) : array
     {    
         $rem = [];
 
@@ -633,7 +616,7 @@ class Election
     }
 
 
-    public function jsonVotes ($input)
+    public function jsonVotes (string $input)
     {
         $input = self::prepareJson($input);
         if ($input === false) { return $input; }
@@ -659,14 +642,14 @@ class Election
 
                 try {
                     $adding[] = $this->addVote($record['vote'], $tags);
-                } catch (Exception $e) {}
+                } catch (\Exception $e) {}
             }
         }
 
         return $adding;
     }
 
-    public function parseVotes ($input, $allowFile = true)
+    public function parseVotes (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
         if ($input === false) { return $input; }
@@ -725,7 +708,7 @@ class Election
 
                 try {
                     $adding[] = $this->addVote($vote, $tags);
-                } catch (Exception $e) {}
+                } catch (\Exception $e) {}
             }
         }
 
@@ -735,23 +718,23 @@ class Election
 
     //:: LARGE ELECTION MODE :://
 
-    public function setExternalDataHandler (DataHandlerDriverInterface $driver)
+    public function setExternalDataHandler (DataHandlerDriverInterface $driver) : bool
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);
             return true;
         else :
-            throw new CondorcetExeption(24);
+            throw new CondorcetException(24);
         endif;
     }
 
-    public function removeExternalDataHandler ()
+    public function removeExternalDataHandler () : bool
     {
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes->closeHandler();
             return true;
         else :
-            throw new CondorcetExeption(23);
+            throw new CondorcetException(23);
         endif;
     }
 
@@ -759,25 +742,22 @@ class Election
     //:: VOTING TOOLS :://
 
     // How many votes are registered ?
-    public function countVotes ($tag = null, $with = true)
+    public function countVotes ($tag = null, bool $with = true) : int
     {
-        if (!empty($tag))
-        {
+        if (!empty($tag)) :
             return count( $this->getVotesList($tag, $with) );
-        }
-        else
-        {
+        else :
             return count($this->_Votes);
-        }
+        endif;
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, $with = true)
+    public function getVotesList ($tag = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList($tag, $with);
     }
 
-    public function getVotesManager () {
+    public function getVotesManager () : VotesManager {
         return $this->_Votes;
     }
 
@@ -785,10 +765,8 @@ class Election
         return $this->_Votes->getVoteKey($vote);
     }
 
-    public function getVoteByKey ($key) {
-        if (!is_int($key)) :
-            return false;
-        elseif (!isset($this->_Votes[$key])) :
+    public function getVoteByKey (int $key) {
+        if (!isset($this->_Votes[$key])) :
             return false;
         else :
             return $this->_Votes[$key];
@@ -802,7 +780,7 @@ class Election
     //:: PUBLIC FUNCTIONS :://
 
     // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = [])
+    public function getResult ($method = true, array $options = []) : Result
     {
         $options = $this->formatResultOptions($options);
 
@@ -855,41 +833,8 @@ class Election
 
         $chrono->setRole('GetResult for '.$method);
 
-        return ($options['human']) ? $this->humanResult($result) : $result;
+        return $result;
     }
-
-        protected function humanResult ($robot, $asString = false)
-        {
-            if (!is_array($robot))
-                {return $robot;}
-
-            $human = [];
-
-            foreach ( $robot as $key => $value )
-            {
-                if (is_array($value))
-                {
-                    foreach ($value as $candidate_key)
-                    {
-                        $human[$key][] = $this->getCandidateId($candidate_key);
-                    }
-                }
-                elseif (is_null($value))
-                    { $human[$key] = null; }
-                else
-                    { $human[$key][] = $this->getCandidateId($value); }
-            }
-
-            foreach ( $human as $key => $value )
-            {
-                if (is_null($value))
-                    { $human[$key] = null; }
-                elseif ($asString)
-                    { $human[$key] = implode(',',$value); }
-            }
-
-            return $human;
-        }
 
 
     public function getWinner ($substitution = null)
@@ -905,7 +850,7 @@ class Election
 
             return ($result === null) ? null : $this->getCandidateId($result);
         else :
-            return Condorcet::format($this->getResult($algo)[1],false,false);
+            return $this->getResult($algo)->getWinner();
         endif;
     }
 
@@ -923,13 +868,11 @@ class Election
 
             return ($result === null) ? null : $this->getCandidateId($result);
         else :
-            $result = $this->getResult($algo);
-
-            return Condorcet::format($result[count($result)],false,false);
+            return $this->getResult($algo)->getLoser();
         endif;
     }
 
-        protected function condorcetBasicSubstitution ($substitution) {
+        protected function condorcetBasicSubstitution ($substitution) : string {
             if ( $substitution )
             {           
                 if ($substitution === true)
@@ -947,50 +890,17 @@ class Election
         }
 
 
-    public function getResultStats ($method = true)
-    {
-        // Prepare
-        $this->prepareResult();
-
-            //////
-
-        if ($method === true)
-        {
-            $this->initResult(Condorcet::getDefaultMethod());
-
-            $stats = $this->_Calculator[Condorcet::getDefaultMethod()]->getStats();
-        }
-        elseif ($method = Condorcet::isAuthMethod($method))
-        {
-            $this->initResult($method);
-
-            $stats = $this->_Calculator[$method]->getStats();
-        }
-        else
-        {
-            throw new CondorcetException(8);
-        }
-
-        if (!is_null($stats))
-            { return $stats; }
-        else
-            { return $this->getPairwise(); }
-    }
-
-
     public function computeResult ($method = true)
     {
-        $this->getResult($method,['human' => false]);
-        $this->getResultStats($method);
+        $this->getResult($method);
     }
-
 
 
     //:: TOOLS FOR RESULT PROCESS :://
 
 
     // Prepare to compute results & caching system
-    protected function prepareResult ()
+    protected function prepareResult () : bool
     {
         if ($this->_State > 2) :
             return false;
@@ -1011,7 +921,7 @@ class Election
     }
 
 
-    protected function initResult ($class)
+    protected function initResult (string $class)
     {
         if ( !isset($this->_Calculator[$class]) )
         {
@@ -1039,7 +949,7 @@ class Election
     }
 
 
-    protected function formatResultOptions ($arg)
+    protected function formatResultOptions (array $arg) : array
     {
         // About tag filter
         if (isset($arg['tags'])):
@@ -1057,18 +967,13 @@ class Election
             $arg['algoOptions'] = null;
         }
 
-        // Human Option (internal use)
-        if ( !isset($arg['human']) || !is_bool($arg['human']) ) {
-            $arg['human'] = true;
-        }
-
         return $arg;
     }
 
 
     //:: GET RAW DATA :://
 
-    public function getPairwise ($explicit = true)
+    public function getPairwise (bool $explicit = true)
     {
         $this->prepareResult();
 

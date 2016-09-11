@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
@@ -17,7 +17,7 @@ trait CondorcetVersion
     // Build by Version
     protected $_objectVersion = Condorcet::VERSION;
 
-    public function getObjectVersion ($options = null)
+    public function getObjectVersion (string $options = null) : string
     {
         switch ($options)
         {

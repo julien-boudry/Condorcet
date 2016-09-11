@@ -22,7 +22,7 @@ Get a full ranking from an advanced Condorcet method.
 
 ### Return value:   
 
-Ordered array or multi-dimensionnal ordered array (if tie), populated by Candidate object.
+An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
 
 ---------------------------------------

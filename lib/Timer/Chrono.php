@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\Timer;
 
@@ -36,7 +36,7 @@ class Chrono
         return $this->_start;
     }
 
-    public function getTimerManager () {
+    public function getTimerManager () : Manager {
         return $this->_manager;
     }
 

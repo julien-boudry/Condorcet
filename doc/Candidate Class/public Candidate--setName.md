@@ -17,5 +17,5 @@ Candidate Name
 
 ### Return value:   
 
-*(string)* The new candidate name.
+*(bool)* In case of success, return TRUE
 

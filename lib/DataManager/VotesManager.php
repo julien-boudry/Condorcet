@@ -5,13 +5,12 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\ArrayManager;
-use Condorcet\DataManager\PHP56\VoteManagerDataFormat;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
@@ -35,7 +34,18 @@ class VotesManager extends ArrayManager
 
     public function getDataContextObject ()
     {
-        $context = new VoteManagerDataFormat;
+        $context = new Class {
+            public $election;
+
+            public function dataCallBack ($data)
+            {
+                $vote = new Vote ($data);
+                $this->election->checkVoteCandidate($vote);
+                $vote->registerLink($this->election);
+
+                return $vote;
+            }
+        };
 
         $context->election = $this->_link[0];
 
@@ -56,18 +66,18 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset($offset)
     {
-        if (parent::offsetUnset($offset)) {
+        if (parent::offsetUnset($offset)) :
             $this->setStateToVote();
-        }
+        endif;
     }
 
 /////////// Internal Election related methods ///////////
 
     protected function setStateToVote ()
     {
-        foreach ($this->_link as &$element) {
+        foreach ($this->_link as &$element) :
             $element->setStateToVote();
-        }
+        endforeach;
     }
 
 /////////// Public specific methods ///////////
@@ -78,25 +88,21 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, $with = true)
+    public function getVotesList ($tag = null, bool $with = true) : array
     {
-        if ($tag === null)
-        {
+        if ($tag === null) :
             return $this->getFullDataSet();
-        }
-        else
-        {
+        else :
             $tag = Vote::tagsConvert($tag);
-            if ($tag === null)
-                {$tag = [];}
+            if ($tag === null) :
+                $tag = [];
+            endif;
 
             $search = [];
 
-            foreach ($this as $key => $value)
-            {
+            foreach ($this as $key => $value) :
                 $noOne = true;
-                foreach ($tag as $oneTag)
-                {
+                foreach ($tag as $oneTag) :
                     if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
                         if ($with) :
                             $search[$key] = $value;
@@ -105,13 +111,14 @@ class VotesManager extends ArrayManager
                             $noOne = false;
                         endif;
                     endif;
-                }
+                endforeach;
 
-                if (!$with && $noOne)
-                    { $search[$key] = $value;}
-            }
+                if (!$with && $noOne) :
+                    $search[$key] = $value;
+                endif;
+            endforeach;
 
             return $search;
-        }
+        endif;
     }
 }

@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
 
 use Condorcet\Condorcet;
 use Condorcet\Election;
 
-ini_set('xdebug.var_display_max_depth', -1);
-ini_set('xdebug.var_display_max_children', -1);
-ini_set('xdebug.var_display_max_data', -1);
-ini_set('display_errors', 1);
+ini_set('xdebug.var_display_max_depth', '-1');
+ini_set('xdebug.var_display_max_children', '-1');
+ini_set('xdebug.var_display_max_data', '-1');
+ini_set('display_errors', '1');
 error_reporting(E_ALL); 
 
 // Exeptions Handler
@@ -143,8 +144,9 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
+	<?php Condorcet::setDefaultMethod('Minimax_Margin') ; ?>
 
-	<strong>Defaut:</strong> <?php echo Condorcet::setDefaultMethod('Minimax_Margin') ; ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
 	<?php Condorcet::format($election->getResult()); ?>

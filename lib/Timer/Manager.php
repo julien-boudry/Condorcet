@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\Timer;
 
@@ -48,21 +48,21 @@ class Manager
             $this->_lastTimer = ($m - $chrono->getStart());
             $this->_lastChronoTimestamp = $m;
         else :
-            throw new CondorcetException ('Only chrono linked to this Manager can be used');
+            throw new CondorcetException (0, 'Only chrono linked to this Manager can be used');
         endif;
     }
 
-    public function getGlobalTimer ($float = false)
+    public function getGlobalTimer (bool $float = false)
     {
         return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5);
     }
 
-    public function getLastTimer ($float = false)
+    public function getLastTimer (bool $float = false)
     {
         return ($float || $this->_lastTimer === null) ? $this->_lastTimer : number_format($this->_lastTimer, 5);
     }
 
-    public function getHistory ()
+    public function getHistory () : array
     {
         return $this->_history;
     }

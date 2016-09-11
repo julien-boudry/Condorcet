@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
@@ -22,7 +22,8 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    public function __debugInfo ()
+    /*
+    public function __debugInfo () : array
     {
         $var = get_object_vars($this);
 
@@ -33,13 +34,14 @@ trait Linkable
 
         return $var;
     }
+    */
 
-    public function haveLink (Election &$election)
+    public function haveLink (Election $election) : bool
     {
         return in_array($election, $this->_link, true);
     }
 
-    public function countLinks ()
+    public function countLinks () : int
     {
         return count($this->_link);
     }
@@ -52,7 +54,7 @@ trait Linkable
     // Internal
         # Dot not Overloading ! Do not Use !
 
-    public function registerLink (Election &$election)
+    public function registerLink (Election $election)
     {
         if (array_search($election, $this->_link, true) === false)
             { $this->_link[] = $election; }
@@ -60,7 +62,7 @@ trait Linkable
             { throw new CondorcetException; }
     }
 
-    public function destroyLink (Election &$election)
+    public function destroyLink (Election $election) : bool
     {
         $destroyKey = array_search($election, $this->_link, true);
 

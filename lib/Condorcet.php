@@ -5,12 +5,13 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
 use Condorcet\CondorcetException;
 use Condorcet\Election;
+use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
@@ -30,7 +31,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        const VERSION = '1.0.2';
+        const VERSION = '1.1.0';
 
         const ENV = 'STABLE';
 
@@ -43,7 +44,7 @@ abstract class Condorcet
 /////////// STATICS METHODS ///////////
 
     // Return library version numer
-    public static function getVersion ($options = 'FULL')
+    public static function getVersion (string $options = 'FULL') : string
     {
             switch ($options)
             {
@@ -60,7 +61,7 @@ abstract class Condorcet
     }
 
     // Return an array with auth methods
-    public static function getAuthMethods ($basic = false)
+    public static function getAuthMethods (bool $basic = false) : array
     {
         $auth = self::$_authMethods;
 
@@ -80,11 +81,11 @@ abstract class Condorcet
 
 
     // Check if the method is supported
-    public static function isAuthMethod ($method)
+    public static function isAuthMethod (string $method)
     {
         $auth = self::$_authMethods;
 
-        if (!is_string($method) || empty($method)) :
+        if (empty($method)) :
             throw new CondorcetException (8);
         endif;
 
@@ -105,12 +106,10 @@ abstract class Condorcet
 
 
     // Add algos
-    public static function addMethod ($algos)
+    public static function addMethod (string $algos) : bool
     {
         // Check algos
-        if ( !is_string($algos) ) :
-            return false;
-        elseif ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
+        if ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
             return false;
         endif;
 
@@ -126,7 +125,7 @@ abstract class Condorcet
 
 
         // Check if the class Algo. exist and ready to be used
-        protected static function testMethod ($method)
+        protected static function testMethod (string $method) : bool
         {
             if ( !class_exists($method) ) :             
                 throw new CondorcetException(9);
@@ -141,18 +140,18 @@ abstract class Condorcet
 
 
     // Change default method for this class.
-    public static function setDefaultMethod ($method)
+    public static function setDefaultMethod (string $method) : bool
     {       
         if ( ($method = self::isAuthMethod($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
-            return self::getDefaultMethod();
+            return true;
         else :
             return false;
         endif;
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, $out = true, $convertObject = true)
+    public static function format ($input, bool $out = true, bool $convertObject = true)
     {
         if (is_object($input)) :
             
@@ -163,6 +162,8 @@ abstract class Condorcet
                     $r = (string) $input;
                 elseif ($input instanceof Vote) :
                     $r = $input->getRanking();
+                elseif ($input instanceof Result) :
+                    $r = $input->getResultAsArray(true);
                 endif;
             endif;
 

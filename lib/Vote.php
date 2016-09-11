@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet;
 
@@ -32,7 +32,7 @@ class Vote implements \Iterator
             return $this->getRanking()[$this->position];
         }
 
-        public function key() {
+        public function key() : int {
             return $this->position;
         }
 
@@ -40,7 +40,7 @@ class Vote implements \Iterator
             ++$this->position;
         }
 
-        public function valid() {
+        public function valid() : bool {
             return isset($this->getRanking()[$this->position]);
         }
 
@@ -49,7 +49,6 @@ class Vote implements \Iterator
     private $_ranking = [];
 
     private $_tags = [];
-    private $_id;
 
     private $_hashCode;
 
@@ -61,7 +60,7 @@ class Vote implements \Iterator
         $this->addTags($tags);
     }
 
-    public function __sleep ()
+    public function __sleep () : array
     {
         $this->position = 1;
 
@@ -74,11 +73,11 @@ class Vote implements \Iterator
         $this->setHashCode();
     }
 
-    public function __toString () {
+    public function __toString () : string {
         return $this->getSimpleRanking();
     }
 
-    public function getHashCode () {
+    public function getHashCode () : string {
         return $this->_hashCode;
     }
 
@@ -86,7 +85,7 @@ class Vote implements \Iterator
 
     // GETTERS
 
-    public function getRanking ()
+    public function getRanking () : array
     {
         if (!empty($this->_ranking))
         {
@@ -96,33 +95,33 @@ class Vote implements \Iterator
             { return null; }
     }
 
-    public function getHistory ()
+    public function getHistory () : array
     {
         return $this->_ranking;
     }
 
 
-    public function getTags ()
+    public function getTags () : array
     {
         return $this->_tags;
     }
 
-    public function getCreateTimestamp ()
+    public function getCreateTimestamp () : float
     {
         return $this->_ranking[0]['timestamp'];
     }
 
-    public function getTimestamp ()
+    public function getTimestamp () : float
     {
         return end($this->_ranking)['timestamp'];
     }
 
-    public function countRankingCandidates ()
+    public function countRankingCandidates () : int
     {
         return end($this->_ranking)['counter'];
     }
 
-    public function getAllCandidates ()
+    public function getAllCandidates () : array
     {
         $list = [];
 
@@ -135,7 +134,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualVote (Election &$election, $string = false)
+    public function getContextualVote (Election $election, bool $string = false) : array
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -143,30 +142,42 @@ class Vote implements \Iterator
 
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
+        $newRanking = [];
+        $candidates_list = $election->getCandidatesList(false);
+
+        $nextRank = 1;
+        foreach ($ranking as $CandidatesInRanks) :
+            foreach ($CandidatesInRanks as $candidate) :
+                if ( $election->existCandidateId($candidate, true) ) :
+                    $newRanking[$nextRank][] = $candidate;
+                endif;
+            endforeach;
+            ++$nextRank;
+        endforeach;
 
         if (count($present) < $election->countCandidates()) :
             $last_rank = [];
-            foreach ($election->getCandidatesList(false) as $oneCandidate) :
-                if (!in_array($oneCandidate->getName(), $present, false)) :
+            foreach ($candidates_list as $oneCandidate) :
+                if (!in_array($oneCandidate, $present, true)) :
                     $last_rank[] = $oneCandidate;
                 endif;
             endforeach;
 
-            $ranking[] = $last_rank;
+            $newRanking[] = $last_rank;
         endif;
 
         if ($string) :
-            foreach ($ranking as &$rank) :
+            foreach ($newRanking as &$rank) :
                 foreach ($rank as &$oneCandidate) :
                     $oneCandidate = (string) $oneCandidate;
                 endforeach;
             endforeach;
         endif;
 
-        return $ranking;
+        return $newRanking;
     }
 
-    public function getSimpleRanking ($context = false)
+    public function getSimpleRanking (bool $context = false) : string
     {
         $ranking = ($context) ? $this->getContextualVote($context) : $this->getRanking();
 
@@ -180,7 +191,7 @@ class Vote implements \Iterator
 
     // SETTERS
 
-    public function setRanking ($rankingCandidate, $ownTimestamp = false)
+    public function setRanking ($rankingCandidate, $ownTimestamp = false) : bool
     {
         // Timestamp
         if ($ownTimestamp !== false) :
@@ -213,10 +224,10 @@ class Vote implements \Iterator
         }
 
         $this->setHashCode();
-        return $this->getRanking();
+        return true;
     }
 
-        private function formatRanking (&$ranking)
+        private function formatRanking (&$ranking) : int
         {
             if (is_string($ranking))
                 { $ranking = self::convertVoteInput($ranking); }
@@ -275,7 +286,7 @@ class Vote implements \Iterator
         }
 
         // From a string like 'A>B=C=H>G=T>Q'
-        public static function convertVoteInput ($formula)
+        public static function convertVoteInput (string $formula) : array
         {
             $vote = explode('>', $formula);
 
@@ -305,18 +316,16 @@ class Vote implements \Iterator
         $rankingCandidate = $this->getAllCandidates();
 
         $canRemove = false;
-        foreach ($candidatesList as $oneCandidate) {
+        foreach ($candidatesList as $oneCandidate) :
             if (in_array($oneCandidate, $rankingCandidate, false)) :
                 $canRemove = true;
                 break;
             endif;
-        }
+        endforeach;
 
         if (!$canRemove) :
             return false;
         endif;
-
-        $newRanking = [];
 
         foreach ($ranking as $rankingKey => &$rank) :
             foreach ($rank as $oneRankKey => $oneRankValue) :
@@ -360,10 +369,11 @@ class Vote implements \Iterator
         }
 
         $this->setHashCode();
-        return $this->getTags();
+
+        return true;
     }
 
-    public function removeTags ($tags)
+    public function removeTags ($tags) : array
     {
         if (is_object($tags) || is_bool($tags))
             { throw new CondorcetException(17); }
@@ -416,7 +426,7 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, $counter, $ownTimestamp)
+    private function archiveRanking ($ranking, int $counter, $ownTimestamp)
     {
         $this->_ranking[] = array(
                                     'ranking' => $ranking,
@@ -427,7 +437,7 @@ class Vote implements \Iterator
         $this->rewind();
     }
 
-    private function setHashCode ()
+    private function setHashCode () : string
     {
         return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
     }

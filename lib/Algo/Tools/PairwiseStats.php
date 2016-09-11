@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 
 
@@ -13,11 +13,12 @@
 
 namespace Condorcet\Algo\Tools;
 
+use Condorcet\Algo\Pairwise;
+
 // Generic for Algorithms
 abstract class PairwiseStats
 {
-
-    public static function PairwiseComparison ($pairwise)
+    public static function PairwiseComparison (Pairwise $pairwise) : array
     {
         $comparison = [];
 
@@ -61,7 +62,7 @@ abstract class PairwiseStats
         return $comparison;
     }
 
-    public static function PairwiseSort ($pairwise)
+    public static function PairwiseSort (Pairwise $pairwise) : array
     {
         $comparison = self::PairwiseComparison($pairwise);
 
@@ -90,7 +91,7 @@ abstract class PairwiseStats
             endforeach;
         endforeach;
 
-        uasort($score, function ($a, $b){
+        uasort($score, function ($a, $b) : int {
             if ($a['score'] < $b['score']) : return 1;
             elseif ($a['score'] > $b['score']) : return -1;
             elseif ($a['score'] === $b['score']) :
@@ -112,5 +113,4 @@ abstract class PairwiseStats
 
         return $score;
     }
-
 }

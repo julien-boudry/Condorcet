@@ -5,13 +5,14 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\CondorcetException;
+use Condorcet\Result;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface
@@ -27,13 +28,13 @@ class CondorcetBasic extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    public function getResult ($options = null)
+    public function getResult ($options = null) : Result
     {
         throw new CondorcetException (102);
     }
 
 
-    public function getStats ()
+    protected function getStats () : array
     {
         return $this->_selfElection->getPairwise();
     }

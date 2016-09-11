@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Condorcet\Algo;
 
@@ -13,5 +13,4 @@ namespace Condorcet\Algo;
 interface MethodInterface
 {
     public function getResult($options);
-    public function getStats();
 }

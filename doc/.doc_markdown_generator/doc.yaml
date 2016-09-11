@@ -217,7 +217,7 @@
       required: true
       text: Method Name.
   return: |
-    False on error. Else, the name of the new default method.
+    (bool) In case of success, return TRUE
   related:
     - 'static Condorcet::getDefaultMethod'
   publish: true
@@ -557,36 +557,12 @@
       required: false
       text: *[Result options documentations]()*
   return: |
-    Ordered array or multi-dimensionnal ordered array (if tie), populated by Candidate object.
+    An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
   related:
     - 'Election::getWinner'
     - 'Election::getResult'
   examples:
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: getResultStats
-  static: false
-  description: |
-    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
-  input:
-    method:
-      type: mixed
-      default: true
-      required: false
-      text: |
-      Set to True for use object default method. Set the string name of the algorithm for use an specific one.
-  return: |
-    Varying according to the algorithm used.
-  related:
-    - 'Election::getResult'
-
-  examples:
-    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
   publish: true
 
 - 
@@ -614,11 +590,11 @@
     Get registered vote list.
   input:
     tag:
-      type: letype
+      type: mixed
       default: test
       required: true
     with:
-      type: letype
+      type: mixed
       default: test
       required: true
   return: |
@@ -1030,7 +1006,7 @@
       required: true
       text: Candidate Name
   return: |
-    *(string)* The new candidate name.
+    *(bool)* In case of success, return TRUE
   publish: true
 
 
@@ -1085,7 +1061,7 @@
       required: true
       text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
   return: |
-    Return Vote::getTags
+    In case of success, return TRUE
   related:
     - 'Vote::removeTags'
 
@@ -1286,7 +1262,7 @@
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
   return: |
-    Vote::getRanking
+    In case of success, return TRUE
   related:
     - 'Vote::getRanking'
     - 'Vote::getHistory'
@@ -1316,7 +1292,7 @@
   publish: true
 
 
-# CLASS PAIRWISE
+# CLASS TIMER/MANAGER
 
 - 
   class: Timer\Manager
@@ -1330,4 +1306,164 @@
     An explicit array with history.
   related:
     - 'Election::getTimerManager'
+  publish: true
+
+
+# CLASS RESULT
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getStats
+  static: false
+  description: |
+    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
+  return: |
+    Varying according to the algorithm used.
+  related:
+    - 'Election::getResult'
+  examples:
+    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getResultAsArray
+  static: false
+  description: |
+    Get result as an array
+  input:
+    convertToString:
+      type: bool
+      default: false
+      required: false
+      text: 'Convert Candidate object to string'
+  return: |
+    An ordered multidimensionnal array by rank.
+  related:
+    - 'Election::getResult'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getWinner
+  static: false
+  description: |
+    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+  return: |
+    Candidate object given. Null if there are no available winner.
+    You can get an array with multiples winners.
+  related:
+    - 'Result::getLoser'
+    - 'Election::getWinner'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getLoser
+  static: false
+  description: |
+    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+  return: |
+    Candidate object given. Null if there are no available loser.
+    You can get an array with multiples losers.
+  related:
+    - 'Result::getWinner'
+    - 'Election::getLoser'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetWinner
+  static: false
+  description: |
+    Get the Condorcet winner, if exist, at the result time.
+  return: |
+    Condorcet/Candidate object if there is a Condorcet winner or NULL instead.
+  related:
+    - 'Result::getCondorcetLoser'
+    - 'Election::getWinner'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetLoser
+  static: false
+  description: |
+    Get the Condorcet loser, if exist, at the result time.
+  return: |
+    Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
+  related:
+    - 'Result::getCondorcetWinner'
+    - 'Election::getLoser'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getMethod
+  static: false
+  description: |
+    Get the The algorithmic method used for this result.
+  return: |
+    (string) Method name.
+  related:
+    - 'Result::getClassGenerator'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getClassGenerator
+  static: false
+  description: |
+    Get the The algorithmic method used for this result.
+  return: |
+    (string) Method class path like Condorcet\Algo\Methods\Copeland
+  related:
+    - 'Result::getMethod'
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getBuildTimeStamp
+  static: false
+  description: |
+    Get the timestamp of this result.
+  return: |
+    (float) Microsecond timestamp.
+  publish: true
+
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetElectionGeneratorVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version that build this Result.
+  return: |
+    (string) Condorcet PHP version string format.
   publish: true

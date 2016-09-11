@@ -5,7 +5,7 @@
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-//declare(strict_types=1);
+declare(strict_types=1);
 
 
 namespace Condorcet\Algo;
@@ -21,14 +21,14 @@ class Pairwise implements \ArrayAccess,\Iterator
     // Implement ArrayAccess
     public function offsetSet($offset, $value) {}
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset) : bool {
         return isset($this->_Pairwise[$offset]);
     }
 
     public function offsetUnset($offset) {}
 
     public function offsetGet($offset) {
-        return isset($this->_Pairwise[$offset]) ? $this->_Pairwise[$offset] : null;
+        return $this->_Pairwise[$offset] ?? null;
     }
 
 
@@ -54,7 +54,7 @@ class Pairwise implements \ArrayAccess,\Iterator
         endif;
     }
 
-    public function valid() {
+    public function valid() : bool {
         return $this->valid;
     }   
 
@@ -70,7 +70,7 @@ class Pairwise implements \ArrayAccess,\Iterator
         $this->doPairwise();
     }
 
-    public function getExplicitPairwise ()
+    public function getExplicitPairwise () : array
     {
         $explicit_pairwise = [];
 
