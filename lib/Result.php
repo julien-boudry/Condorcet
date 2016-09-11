@@ -71,6 +71,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected $_Result;
     protected $_UserResult;
+    protected $_stringResult;
     protected $_CondorcetWinner;
     protected $_CondorcetLoser;
 
@@ -88,6 +89,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult($election);
+        $this->_stringResult = $this->getResultAsArray(true);
         $this->_Stats = $stats;
         $this->_fromMethod = $fromMethod;
         $this->_byClass = $byClass;
@@ -102,19 +104,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getResultAsArray (bool $convertToString = false) : array
     {
-        $r = $this->_UserResult;
+        if ($convertToString && !empty($this->_stringResult)) :
+            return $this->_stringResult;
+        else :
+            $r = $this->_UserResult;
 
-        foreach ($r as &$rank) :
-            if (count($rank) === 1) :
-                $rank = ($convertToString) ? (string) $rank[0] : $rank[0];
-            elseif ($convertToString) :
-                foreach ($rank as &$subRank) :
-                    $subRank = (string) $subRank;
-                endforeach;
-            endif;
-        endforeach;
+            foreach ($r as &$rank) :
+                if (count($rank) === 1) :
+                    $rank = ($convertToString) ? (string) $rank[0] : $rank[0];
+                elseif ($convertToString) :
+                    foreach ($rank as &$subRank) :
+                        $subRank = (string) $subRank;
+                    endforeach;
+                endif;
+            endforeach;
 
-        return $r;
+            return $r;
+        endif;
     }
 
     public function getResultAsInternalKey () : array
