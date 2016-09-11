@@ -535,26 +535,22 @@ class Election
             $linkCount = $vote->countLinks();
             $links = $vote->getLinks();
 
-            if ( $vote->countRankingCandidates() > $this->countCandidates() )
-                { return false; }
-
             $mirror = $vote->getRanking();
             $change = false;
-            foreach ($vote as $rank => $choice)
-            {
-                foreach ($choice as $choiceKey => $candidate)
-                {
-                    if ( !$this->existCandidateId($candidate, true) )
-                    {
-                        if (($linkCount === 0 || ($linkCount === 1 && reset($links) === $this)) && $this->existCandidateId($candidate, false)) :
-                            $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
-                            $change = true;
-                        else :
-                            return false;
+            foreach ($vote as $rank => $choice) :
+                foreach ($choice as $choiceKey => $candidate) :
+                    if ( !$this->existCandidateId($candidate, true) ) :
+                        if ($this->existCandidateId($candidate, false)) :
+                            if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
+                                $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
+                                $change = true;
+                            else :
+                                return false;
+                            endif;
                         endif;
-                    }
-                }
-            }
+                    endif;
+                endforeach;
+            endforeach;
 
             if ($change)
             {
