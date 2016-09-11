@@ -134,7 +134,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualVote (Election &$election, bool $string = false) : array
+    public function getContextualVote (Election $election, bool $string = false) : array
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -142,27 +142,39 @@ class Vote implements \Iterator
 
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
+        $newRanking = [];
+        $candidates_list = $election->getCandidatesList(false);
+
+        $nextRank = 1;
+        foreach ($ranking as $CandidatesInRanks) :
+            foreach ($CandidatesInRanks as $candidate) :
+                if ( $election->existCandidateId($candidate, true) ) :
+                    $newRanking[$nextRank][] = $candidate;
+                endif;
+            endforeach;
+            ++$nextRank;
+        endforeach;
 
         if (count($present) < $election->countCandidates()) :
             $last_rank = [];
-            foreach ($election->getCandidatesList(false) as $oneCandidate) :
-                if (!in_array($oneCandidate->getName(), $present, false)) :
+            foreach ($candidates_list as $oneCandidate) :
+                if (!in_array($oneCandidate, $present, true)) :
                     $last_rank[] = $oneCandidate;
                 endif;
             endforeach;
 
-            $ranking[] = $last_rank;
+            $newRanking[] = $last_rank;
         endif;
 
         if ($string) :
-            foreach ($ranking as &$rank) :
+            foreach ($newRanking as &$rank) :
                 foreach ($rank as &$oneCandidate) :
                     $oneCandidate = (string) $oneCandidate;
                 endforeach;
             endforeach;
         endif;
 
-        return $ranking;
+        return $newRanking;
     }
 
     public function getSimpleRanking (bool $context = false) : string
