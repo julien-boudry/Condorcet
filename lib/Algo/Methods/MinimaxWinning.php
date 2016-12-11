@@ -16,9 +16,9 @@ use Condorcet\Result;
 class MinimaxWinning extends Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning'];
+    public const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning'];
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_Result = $this->createResult(self::makeRanking_method('winning', $this->_Stats));
     }

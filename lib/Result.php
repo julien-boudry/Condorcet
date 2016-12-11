@@ -22,7 +22,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement Iterator
 
-    function rewind() {
+    function rewind() :void {
         reset($this->_UserResult);
     }
 
@@ -34,7 +34,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return key($this->_UserResult);
     }
 
-    function next () {
+    function next () : void {
         next($this->_UserResult);
     }
 
@@ -44,7 +44,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement ArrayAccess
 
-    public function offsetSet ($offset, $value) {
+    public function offsetSet ($offset, $value) : void {
         throw new CondorcetException (0,"Can't change a result");
     }
 
@@ -52,7 +52,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return isset($this->_UserResult[$offset]);
     }
 
-    public function offsetUnset ($offset) {
+    public function offsetUnset ($offset) : void {
         throw new CondorcetException (0,"Can't change a result");
     }
 

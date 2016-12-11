@@ -19,7 +19,7 @@ use Condorcet\Result;
 class Copeland extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = ['Copeland'];
+    public const METHOD_NAME = ['Copeland'];
 
     // Copeland
     protected $_Comparison;
@@ -32,10 +32,9 @@ class Copeland extends Method implements MethodInterface
     public function getResult ($options = null) : Result
     {
         // Cache
-        if ( $this->_Result !== null )
-        {
+        if ( $this->_Result !== null ) :
             return $this->_Result;
-        }
+        endif;
 
             //////
 
@@ -70,7 +69,7 @@ class Copeland extends Method implements MethodInterface
 
     //:: COPELAND ALGORITHM. :://
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $result = [];
 

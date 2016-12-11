@@ -61,11 +61,13 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 ##### Versions  
 
 *Supported Version:*
-* **Stable Version: 1.1.x**  
-  * *PHP Requirement:* PHP 7 with Ctype, MB_String, Json common extensions.
-* **Old Stable _(support and patch are still provided)_: 1.0.x**  
+* **Stable Version: 1.2.x**  
+  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
+* **Old Stable _(support and patch are still provided)_: 1.1.x**  
+    * *PHP Requirement:* PHP 7.0 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
+* **Old Stable : 1.0.x**  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
-* **Development Version: 1.2.x**  
+* **Development Version: 1.3.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
 
 To date, we have a stable version, and support is provided.  
@@ -268,7 +270,6 @@ _This example of implementation in others project can very nice or strange... Th
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Improve & test Ranked pair implementation *(help needed!)*
   - Add tie breaking on Schulze Core, by the official way recommended by Markus Schulze. *(help needed!)*
-  - Condorcet 1.2 will require PHP 7.1.
   - Rebuild Exception System
   - **Looking for testers!**   
   - **Research reference librarians !!**  

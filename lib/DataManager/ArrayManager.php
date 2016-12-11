@@ -59,7 +59,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// Implement ArrayAccess ///////////
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value) : void
     {
         if ($offset === null) :
             $this->_Container[++$this->_maxKey] = $value;
@@ -131,7 +131,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $valid = true;
 
-    public function rewind() {
+    public function rewind() : void {
         $this->_cursor = null;
         $this->valid = true;
 
@@ -140,10 +140,10 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     }
 
     public function current() {
-        return  $this->offsetGet($this->key());
+        return $this->offsetGet($this->key());
     }
 
-    public function key()
+    public function key() : ?int
     {
         if ($this->_counter === 0) :
             return null;
@@ -152,7 +152,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function next()
+    public function next() : void
     {
         $oldCursor = $this->_cursor;
 
@@ -223,7 +223,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
 /////////// HANDLER API ///////////
 
-    public function unsetHandler ()
+    public function unsetHandler () : void
     {
         if ($this->_DataHandler !== null) :
             $this->regularize();
@@ -258,7 +258,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    protected function populateCache ()
+    protected function populateCache () : void
     {
         $this->regularize();
 
@@ -273,7 +273,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function clearCache ()
+    public function clearCache () : void
     {
         $this->_Cache = [];
         $this->_CacheMaxKey = 0;
@@ -292,7 +292,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         return $this->_counter = count($this->_Container) + ( ($this->isUsingHandler()) ? $this->_DataHandler->countEntitys() : 0 );
     }
 
-    public function resetMaxKey ()
+    public function resetMaxKey () : ?int
     {
         $this->resetCounter();
 
@@ -331,7 +331,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function closeHandler ()
+    public function closeHandler () : void
     {
         if ($this->_DataHandler !== null) :
             $this->regularize();

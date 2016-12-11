@@ -12,11 +12,11 @@ namespace Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin 
 class Permutation
 {
-    public static $_prefix = 'C';
+    private const PREFIX = 'C';
 
     public $results = [];
 
-    public static function countPossiblePermutations (int $candidatesNumber) {
+    public static function countPossiblePermutations (int $candidatesNumber) : int {
         $result = $candidatesNumber;
 
         for ($iteration = 1; $iteration < $candidatesNumber; $iteration++)
@@ -38,7 +38,7 @@ class Permutation
         return ($serialize) ? serialize($this->results) : $this->results;
     }
 
-    public function writeResults (string $path) {
+    public function writeResults (string $path) : void {
         file_put_contents($path, $this->getResults(true));
     }
 
@@ -47,12 +47,12 @@ class Permutation
         $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {
-            $arr[] = self::$_prefix.$i;
+            $arr[] = self::PREFIX.$i;
         }
         return $arr;
     }
 
-    private function _exec($a, array $i = []) {
+    private function _exec($a, array $i = []) : void {
         if (is_array($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;

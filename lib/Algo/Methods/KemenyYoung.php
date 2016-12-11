@@ -21,10 +21,10 @@ use Condorcet\Result;
 class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = ['Kemeny–Young','Kemeny Young','KemenyYoung','Kemeny rule','VoteFair popularity ranking','Maximum Likelihood Method','Median Relation'];
+    public const METHOD_NAME = ['Kemeny–Young','Kemeny Young','KemenyYoung','Kemeny rule','VoteFair popularity ranking','Maximum Likelihood Method','Median Relation'];
 
     // Method Name
-    const CONFLICT_WARNING_CODE = 42;
+    protected const CONFLICT_WARNING_CODE = 42;
 
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
@@ -86,7 +86,7 @@ class KemenyYoung extends Method implements MethodInterface
         return $explicit;
     }
 
-        protected function conflictInfos ()
+        protected function conflictInfos () : void
         {
             $max = max($this->_RankingScore);
 
@@ -108,7 +108,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     //:: Kemeny-Young ALGORITHM. :://
 
-    protected function calcPossibleRanking ()
+    protected function calcPossibleRanking () : void
     {
         $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
@@ -142,7 +142,7 @@ class KemenyYoung extends Method implements MethodInterface
         endif;
     }
 
-    protected function calcRankingScore ()
+    protected function calcRankingScore () : void
     {
         $this->_RankingScore = [];
         $pairwise = $this->_selfElection->getPairwise(false);
@@ -171,7 +171,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     See issue on Github : https://github.com/julien-boudry/Condorcet/issues/6
     */
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_Result = $this->createResult($this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ]);
     }

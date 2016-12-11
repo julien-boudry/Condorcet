@@ -27,7 +27,7 @@ class Election
 
 /////////// PROPERTIES ///////////
 
-    const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
+    public const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
     protected static $_maxParseIteration = null;
     protected static $_maxVoteNumber = null;
@@ -61,7 +61,7 @@ class Election
 
 
     // Check JSON format
-    public static function isJson (string $string)
+    public static function isJson (string $string) : bool
     {
         if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string))
         { return false; }
@@ -70,9 +70,7 @@ class Election
         json_decode($string);
 
         // check if error occured
-        $isValid = json_last_error() === JSON_ERROR_NONE;
-
-        return $isValid;
+        return json_last_error() === JSON_ERROR_NONE;
     }
 
 
@@ -188,7 +186,7 @@ class Election
 /////////// INTERNAL GENERIC REGULATION ///////////
 
 
-    protected function registerAllLinks ()
+    protected function registerAllLinks () : void
     {
         foreach ($this->_Candidates as $value)
             { $value->registerLink($this); }
@@ -199,7 +197,7 @@ class Election
         endif;
     }
 
-    protected function destroyAllLink ()
+    protected function destroyAllLink () : void
     {
         foreach ($this->_Candidates as $value)
             { $value->destroyLink($this); }
@@ -359,18 +357,19 @@ class Election
     public function jsonCandidates (string $input)
     {
         $input = self::prepareJson($input);
-        if ($input === false) { return $input; }
+        if ($input === false) :
+            return $input;
+        endif;
 
             //////
 
         $adding = [];
-        foreach ($input as $candidate)
-        {
+        foreach ($input as $candidate) :
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
             catch (\Exception $e) {}
-        }
+        endforeach;
 
         return $adding;
     }
@@ -379,13 +378,16 @@ class Election
     public function parseCandidates (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
-        if ($input === false) { return $input; }
+        if ($input === false) :
+            return $input;
+        endif;
 
         $adding = [];
-        foreach ($input as $line)
-        {
+        foreach ($input as $line) :
             // Empty Line
-            if (empty($line)) { continue; }
+            if (empty($line)) :
+                continue;
+            endif;
 
             // addCandidate
             try {
@@ -398,7 +400,7 @@ class Election
                 if ($e->getCode() === 12)
                     {throw $e;}
             }
-        }
+        endforeach;
 
         return $adding;
     }
@@ -517,7 +519,7 @@ class Election
             }
 
         // Return the well formated vote to use.
-        protected function prepareVoteInput (&$vote, $tag = null)
+        protected function prepareVoteInput (&$vote, $tag = null) : void
         {
             if (!($vote instanceof Vote))
             {
@@ -619,7 +621,9 @@ class Election
     public function jsonVotes (string $input)
     {
         $input = self::prepareJson($input);
-        if ($input === false) { return $input; }
+        if ($input === false) :
+            return $input;
+        endif;
 
             //////
 
@@ -652,7 +656,9 @@ class Election
     public function parseVotes (string $input, bool $allowFile = true)
     {
         $input = self::prepareParse($input, $allowFile);
-        if ($input === false) { return $input; }
+        if ($input === false) :
+            return $input;
+        endif;
 
         // Check each lines
         $adding = [];
@@ -890,7 +896,7 @@ class Election
         }
 
 
-    public function computeResult ($method = true)
+    public function computeResult ($method = true) : void
     {
         $this->getResult($method);
     }
@@ -921,7 +927,7 @@ class Election
     }
 
 
-    protected function initResult (string $class)
+    protected function initResult (string $class) : void
     {
         if ( !isset($this->_Calculator[$class]) )
         {
@@ -931,13 +937,12 @@ class Election
 
 
     // Cleanup results to compute again with new votes
-    protected function cleanupResult ()
+    protected function cleanupResult () : void
     {
         // Reset state
-        if ($this->_State > 2)
-        {
+        if ($this->_State > 2) : 
             $this->_State = 2;
-        }
+        endif;
 
             //////
 
@@ -963,9 +968,9 @@ class Election
         endif;
 
         // About algo Options
-        if ( !isset($arg['algoOptions']) ) {
+        if ( !isset($arg['algoOptions']) ) :
             $arg['algoOptions'] = null;
-        }
+        endif;
 
         return $arg;
     }

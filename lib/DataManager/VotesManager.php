@@ -54,7 +54,7 @@ class VotesManager extends ArrayManager
 
 /////////// Array Access - Specials improvements ///////////
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value) : void
     {
         if ($value instanceof Vote) :
             parent::offsetSet($offset,$value);
@@ -64,7 +64,7 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset) : void
     {
         if (parent::offsetUnset($offset)) :
             $this->setStateToVote();
@@ -73,7 +73,7 @@ class VotesManager extends ArrayManager
 
 /////////// Internal Election related methods ///////////
 
-    protected function setStateToVote ()
+    protected function setStateToVote () : void
     {
         foreach ($this->_link as &$element) :
             $element->setStateToVote();
