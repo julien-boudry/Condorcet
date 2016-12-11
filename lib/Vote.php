@@ -24,7 +24,7 @@ class Vote implements \Iterator
 
         private $position = 1;
 
-        public function rewind() {
+        public function rewind() : void {
             $this->position = 1;
         }
 
@@ -36,7 +36,7 @@ class Vote implements \Iterator
             return $this->position;
         }
 
-        public function next() {
+        public function next() : void {
             ++$this->position;
         }
 
@@ -305,7 +305,7 @@ class Vote implements \Iterator
         }
 
 
-    public function removeCandidates (array $candidatesList)
+    public function removeCandidates (array $candidatesList) : bool
     {
         $ranking = $this->getRanking();
 
@@ -340,18 +340,21 @@ class Vote implements \Iterator
         endforeach;
 
         $this->setRanking($ranking);
+
+        return true;
     }
 
 
-    public function addTags ($tags)
+    public function addTags ($tags) : bool
     {
         if (is_object($tags) || is_bool($tags))
             { throw new CondorcetException(17); }
 
         $tags = self::tagsConvert($tags);
 
-        if (empty($tags))
-            { return $this->getTags(); }
+        if (empty($tags)) :
+            return false;
+        endif;
 
 
         foreach ($tags as $key => $tag)
@@ -401,7 +404,7 @@ class Vote implements \Iterator
         return $rm;
     }
 
-        public static function tagsConvert ($tags)
+        public static function tagsConvert ($tags) : ?array
         {
             if (empty($tags))
                 { return null; }
@@ -426,7 +429,7 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, int $counter, $ownTimestamp)
+    private function archiveRanking ($ranking, int $counter, $ownTimestamp) : void
     {
         $this->_ranking[] = array(
                                     'ranking' => $ranking,

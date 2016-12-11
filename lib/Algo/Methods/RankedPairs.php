@@ -134,7 +134,7 @@ class RankedPairs extends Method implements MethodInterface
         }
     }
 
-    protected function makeArcs ()
+    protected function makeArcs () : void
     {
         $this->_Arcs = [];
 
@@ -156,7 +156,7 @@ class RankedPairs extends Method implements MethodInterface
         $this->_Stats = $this->_Arcs;
     }
 
-        protected function checkingArc ($candidate, $candidate_next, $construct, $done)
+        protected function checkingArc ($candidate, $candidate_next, $construct, $done) : void
         {
             // Deleting arc
             if (count($done) > 1)
@@ -193,7 +193,7 @@ class RankedPairs extends Method implements MethodInterface
             }
         }
 
-        protected function delArc ($test_cycle, $candidate)
+        protected function delArc ($test_cycle, $candidate) : void
         {
             $cycles = [];
 

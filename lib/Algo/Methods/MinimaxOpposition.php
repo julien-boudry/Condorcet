@@ -19,7 +19,7 @@ class MinimaxOpposition extends Minimax_Core
     // Method Name
     const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_Result = $this->createResult(self::makeRanking_method('opposition', $this->_Stats));
     }

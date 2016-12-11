@@ -41,7 +41,7 @@ class CondorcetBasic extends Method implements MethodInterface
 
 
     // Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-    public function getWinner ()
+    public function getWinner () : ?int
     {
         // Cache
         if ( $this->_CondorcetWinner !== null )
@@ -77,7 +77,7 @@ class CondorcetBasic extends Method implements MethodInterface
     }
 
     // Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-    public function getLoser ()
+    public function getLoser () : ?int
     {
         // Cache
         if ( $this->_CondorcetLoser !== null )

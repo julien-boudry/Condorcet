@@ -16,7 +16,7 @@ class Permutation
 
     public $results = [];
 
-    public static function countPossiblePermutations (int $candidatesNumber) {
+    public static function countPossiblePermutations (int $candidatesNumber) : int {
         $result = $candidatesNumber;
 
         for ($iteration = 1; $iteration < $candidatesNumber; $iteration++)
@@ -38,7 +38,7 @@ class Permutation
         return ($serialize) ? serialize($this->results) : $this->results;
     }
 
-    public function writeResults (string $path) {
+    public function writeResults (string $path) : void {
         file_put_contents($path, $this->getResults(true));
     }
 
@@ -52,7 +52,7 @@ class Permutation
         return $arr;
     }
 
-    private function _exec($a, array $i = []) {
+    private function _exec($a, array $i = []) : void {
         if (is_array($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;

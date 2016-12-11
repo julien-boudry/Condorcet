@@ -18,7 +18,7 @@ class MinimaxMargin extends Minimax_Core
     // Method Name
     const METHOD_NAME = ['Minimax Margin','MinimaxMargin','MinimaxMargin','Minimax_Margin'];
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_Result = $this->createResult(self::makeRanking_method('margin', $this->_Stats));
     }

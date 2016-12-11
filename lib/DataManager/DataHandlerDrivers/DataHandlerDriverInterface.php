@@ -17,22 +17,22 @@ interface DataHandlerDriverInterface
 
     // Entitys to register. 
         // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
-    public function insertEntitys(array $input);
+    public function insertEntitys(array $input) : void;
 
     // Update Entity with this key to this Data.
         // Args example: (42,Condorcet/Vote)
-    public function updateOneEntity (int $key,$data);
+    public function updateOneEntity (int $key,$data) : void;
 
     // Delete Entity with this key to this Data. If justTry is true, don't throw Exception if row not exist. Else throw one Concordet/CondorcetException(30)
-    public function deleteOneEntity (int $key, bool $justTry);
+    public function deleteOneEntity (int $key, bool $justTry) : ?int;
 
     // Return (int) max register key.
         // SQL example : SELECT max(key) FROM...
-    public function selectMaxKey ();
+    public function selectMaxKey () : ?int;
 
     // Return (int) max register key.
         // SQL example : SELECT min(key) FROM...
-    public function selectMinKey ();
+    public function selectMinKey () : ?int;
 
     // Return (int) :nomber of recording
         // SQL example : SELECT count(*) FROM...
@@ -48,5 +48,5 @@ interface DataHandlerDriverInterface
 
     // Delete * Entitys
         // SQL example : DELETE * FROM...
-    public function flushAll ();
+    public function flushAll () : ?int;
 }

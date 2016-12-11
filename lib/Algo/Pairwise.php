@@ -19,15 +19,15 @@ class Pairwise implements \ArrayAccess,\Iterator
     use CondorcetVersion;
 
     // Implement ArrayAccess
-    public function offsetSet($offset, $value) {}
+    public function offsetSet($offset, $value) : void {}
 
     public function offsetExists($offset) : bool {
         return isset($this->_Pairwise[$offset]);
     }
 
-    public function offsetUnset($offset) {}
+    public function offsetUnset($offset) : void {}
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset) : ?array {
         return $this->_Pairwise[$offset] ?? null;
     }
 
@@ -35,20 +35,20 @@ class Pairwise implements \ArrayAccess,\Iterator
     // Implement Iterator
     private $valid = true;
 
-    public function rewind() {
+    public function rewind() : void {
         reset($this->_Pairwise);
         $this->valid = true;
     }
 
-    public function current() {
+    public function current() : array {
         return $this->_Pairwise[$this->key()];
     }
 
-    public function key() {
+    public function key() : ?int {
         return key($this->_Pairwise);
     }
 
-    public function next() {
+    public function next() : void {
         if (next($this->_Pairwise) === false) :
             $this->valid = false;
         endif;
@@ -91,7 +91,7 @@ class Pairwise implements \ArrayAccess,\Iterator
         return $explicit_pairwise;
     }
 
-    protected function doPairwise ()
+    protected function doPairwise () : void
     {
         // Chrono
         $chrono = new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );

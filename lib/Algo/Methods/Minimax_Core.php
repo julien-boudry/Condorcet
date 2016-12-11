@@ -63,7 +63,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
 
 /////////// COMPUTE ///////////
 
-    protected function computeMinimax ()
+    protected function computeMinimax () : void
     {
         $this->_Stats = [];
 
@@ -102,7 +102,7 @@ abstract class Minimax_Core extends Method implements MethodInterface
         }
     }
 
-    abstract protected function makeRanking ();
+    abstract protected function makeRanking () : void;
 
     protected static function makeRanking_method (string $type, array $stats) : array
     {

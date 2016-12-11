@@ -46,15 +46,15 @@ trait Linkable
         return count($this->_link);
     }
 
-    public function getLinks ()
+    public function getLinks () : ?array
     {
-        return (!empty($this->_link)) ? $this->_link : NULL;
+        return (!empty($this->_link)) ? $this->_link : null;
     }
 
     // Internal
         # Dot not Overloading ! Do not Use !
 
-    public function registerLink (Election $election)
+    public function registerLink (Election $election) : void
     {
         if (array_search($election, $this->_link, true) === false)
             { $this->_link[] = $election; }
@@ -75,7 +75,7 @@ trait Linkable
             { throw new CondorcetException; }
     }
 
-    protected function destroyAllLink ()
+    protected function destroyAllLink () : void
     {
         $this->_link = [];
     }
