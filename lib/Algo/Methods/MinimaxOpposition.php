@@ -17,7 +17,7 @@ use Condorcet\Result;
 class MinimaxOpposition extends Minimax_Core
 {
     // Method Name
-    const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
+    public const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
     protected function makeRanking () : void
     {

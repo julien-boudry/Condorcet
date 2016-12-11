@@ -270,7 +270,6 @@ _This example of implementation in others project can very nice or strange... Th
   - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
   - Improve & test Ranked pair implementation *(help needed!)*
   - Add tie breaking on Schulze Core, by the official way recommended by Markus Schulze. *(help needed!)*
-  - Condorcet 1.2 will require PHP 7.1.
   - Rebuild Exception System
   - **Looking for testers!**   
   - **Research reference librarians !!**  

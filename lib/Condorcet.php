@@ -31,11 +31,11 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        const VERSION = '1.2.0';
+        public const VERSION = '1.2.0';
 
-        const ENV = 'DEV';
+        public const ENV = 'DEV';
 
-        const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
+        public const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
         protected static $_defaultMethod = null;
         protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => ['CondorcetBasic'] ];

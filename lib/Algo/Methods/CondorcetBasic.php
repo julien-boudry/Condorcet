@@ -18,7 +18,7 @@ use Condorcet\Result;
 class CondorcetBasic extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = 'CondorcetBasic';
+    public const METHOD_NAME = 'CondorcetBasic';
 
     // Basic Condorcet
     protected $_CondorcetWinner;

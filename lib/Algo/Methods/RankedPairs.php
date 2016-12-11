@@ -20,7 +20,7 @@ use Condorcet\Result;
 class RankedPairs extends Method implements MethodInterface
 {
     // Method Name
-    const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method'];
+    public const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method'];
 
     // Limits
         public static $_maxCandidates = 7;

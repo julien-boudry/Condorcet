@@ -12,7 +12,7 @@ namespace Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin 
 class Permutation
 {
-    public static $_prefix = 'C';
+    private const PREFIX = 'C';
 
     public $results = [];
 
@@ -47,7 +47,7 @@ class Permutation
         $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) {
-            $arr[] = self::$_prefix.$i;
+            $arr[] = self::PREFIX.$i;
         }
         return $arr;
     }
