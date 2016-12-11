@@ -31,7 +31,10 @@
 
     /* We will use PDO SQLITE, but can be MySQL or else */
 
-    unlink(__DIR__.'/bdd.sqlite');
+    if (file_exists(__DIR__.'/bdd.sqlite')) :
+        unlink(__DIR__.'/bdd.sqlite');
+    endif;
+
     $pdo_object = new \PDO ('sqlite:'.__DIR__.'/bdd.sqlite');
     $database_map = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'];
 
