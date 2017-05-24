@@ -53,7 +53,7 @@ _This class is not designed for high performances or very high reliability exige
 **License:** MIT _(read de LICENSE file at the root folder)_  Including code, examples, logo and documentation     
 
 As a courtesy, **I will thank you to inform me about your project using this code**, produced with love and selflessness. **You can also offer me a bottle of good wine**.   
-**Or finance my studies:** *1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez*
+**Or offer some Bitcoins to finance my studies:** *1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez*
 
 
 ### Project State and Specifications    
