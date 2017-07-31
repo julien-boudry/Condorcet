@@ -22,12 +22,6 @@
         "ext-pdo": "Allow to use database for very large elections.",
         "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
     },
-     "repositories": [
-         {
-         "type": "vcs",
-         "url": "https://github.com/julien-boudry/Condorcet"
-         }
-     ],
     "autoload": {
         "psr-4": { "Condorcet\\": "lib/" }
     }
