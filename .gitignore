@@ -8,3 +8,7 @@ lib/Condorcet/algorithms/KemenyYoung-Data/10.data
 .idea/
 
 *.sqlite
+
+# composer
+/vendor/
+/composer.lock
