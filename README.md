@@ -62,9 +62,7 @@ As a courtesy, **I will thank you to inform me about your project using this cod
 
 *Supported Version:*
 * **Stable Version: 1.2.x**  
-  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
-* **Old Stable _(support and patch are still provided)_: 1.1.x**  
-    * *PHP Requirement:* PHP 7.0 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
+  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x**  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 * **Development Version: 1.3.x**  
