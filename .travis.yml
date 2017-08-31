@@ -4,8 +4,11 @@ php:
   - nightly
 
 matrix:
-    allow_failures:
-        - php: nightly
+  allow_failures:
+      - php: nightly
+
+install:
+  - composer update
 
 script:
-    - vendor/bin/phpunit
+  - vendor/bin/phpunit
