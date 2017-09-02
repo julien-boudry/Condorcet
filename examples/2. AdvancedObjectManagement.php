@@ -14,7 +14,7 @@ declare(strict_types=1);
     $firstPart = '';
 
 /* THE FOLLOWING CODE IS LIVE FOLLOWING THE FIRST PART EXPRESSED IN THE PREVIOUS FILE "1. Overview.php" */
-    require_once '1. Overview.php';
+    require_once __DIR__.'/1. Overview.php';
 
 
 // VI - Play with Condorcet objects (Advanced)
