@@ -53,9 +53,9 @@ class Candidate
 
     // GETTERS
 
-    public function getName (bool $full = false) : string
+    public function getName () : string
     {
-        return ($full) ? end($this->_name) : end($this->_name)['name'];
+        return end($this->_name)['name'];
     }
 
     public function getHistory () : array

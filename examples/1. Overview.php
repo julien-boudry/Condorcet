@@ -11,7 +11,7 @@ declare(strict_types=1);
     use Condorcet\Candidate;
     use Condorcet\Vote;
 
-    require_once '../__CondorcetAutoload.php';
+    require_once __DIR__.'/../__CondorcetAutoload.php';
 
     $start_time = microtime(TRUE);
 

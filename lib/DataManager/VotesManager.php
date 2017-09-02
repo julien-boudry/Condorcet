@@ -47,7 +47,7 @@ class VotesManager extends ArrayManager
             }
         };
 
-        $context->election = $this->_link[0];
+        $context->election = $this->_link[0] ?? null;
 
         return $context;
     }

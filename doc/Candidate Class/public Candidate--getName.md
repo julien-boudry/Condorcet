@@ -3,22 +3,15 @@
 ### Description    
 
 ```php
-public $Candidate -> getName ( [ bool full = false] )
+public $Candidate -> getName ( )
 ```
 
-la description
-est là    
-
-
-##### **full:** *bool*   
-If true, will return a multi-dimenssionnal array with additionnals infos like timestamps.
-Else, just return the actual string name of this Candidate.    
-
+Get the candidate name.    
 
 
 ### Return value:   
 
-*(mixed)* Depending of "full" parameter.
+*(string)* Candidate name.
 
 
 ---------------------------------------

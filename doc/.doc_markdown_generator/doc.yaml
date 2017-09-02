@@ -974,18 +974,9 @@
   name: getName
   static: false
   description: |
-    la description
-    est là
-  input:
-    full:
-      type: bool
-      default: false
-      required: false
-      text: |
-        If true, will return a multi-dimenssionnal array with additionnals infos like timestamps.    
-        Else, just return the actual string name of this Candidate.
+    Get the candidate name.
   return: |
-    *(mixed)* Depending of "full" parameter.
+    *(string)* Candidate name.
   related:
     - 'Candidate::getHistory'
     - 'Candidate::setName'
