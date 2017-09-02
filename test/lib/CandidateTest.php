@@ -71,7 +71,4 @@ class CandidateTest extends TestCase
         $election2->addCandidate('Debussy');
         $this->candidate1->setName('Debussy'); // Throw an Exception. Code 20.
     }
-
-
-
 }
