@@ -4,6 +4,7 @@
 
 Condorcet PHP
 ===========================
+[![Build Status](https://travis-ci.org/julien-boudry/Condorcet.svg?branch=master)](https://travis-ci.org/julien-boudry/Condorcet)
 
 A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also a powerful election manager.  
 
