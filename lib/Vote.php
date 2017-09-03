@@ -410,6 +410,12 @@ class Vote implements \Iterator
         return $rm;
     }
 
+    public function removeAllTags () : bool
+    {
+        $this->removeTags($this->getTags());
+        return true;
+    }
+
         public static function tagsConvert ($tags) : ?array
         {
             if (empty($tags))
@@ -424,10 +430,11 @@ class Vote implements \Iterator
             // Trim tags
             foreach ($tags as $key => &$oneTag)
             {
-                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
+                if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag)) {unset($tags[$key]);
+                    continue;
+                }
 
-                if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag))
-                    {unset($tags[$key]);}
+                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
             }
 
             return $tags;
