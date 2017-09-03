@@ -49,14 +49,14 @@ class CandidateTest extends TestCase
         $election3 = new Election ();
 
         // Add candidate to election
-        $this->assertEquals($this->candidate1,$election1->addCandidate($this->candidate1));
-        $this->assertEquals($this->candidate1,$election2->addCandidate($this->candidate1));
-        $this->assertEquals($this->candidate1,$election3->addCandidate($this->candidate1));
+        $this->assertSame($this->candidate1,$election1->addCandidate($this->candidate1));
+        $this->assertSame($this->candidate1,$election2->addCandidate($this->candidate1));
+        $this->assertSame($this->candidate1,$election3->addCandidate($this->candidate1));
 
         // Check Candidate Link
-        $this->assertEquals($election1,$this->candidate1->getLinks()[0]);
-        $this->assertEquals($election2,$this->candidate1->getLinks()[1]);
-        $this->assertEquals($election3,$this->candidate1->getLinks()[2]);
+        $this->assertSame($election1,$this->candidate1->getLinks()[0]);
+        $this->assertSame($election2,$this->candidate1->getLinks()[1]);
+        $this->assertSame($election3,$this->candidate1->getLinks()[2]);
         $this->assertCount(3,$this->candidate1->getLinks());
 
         $election3->removeCandidate('candidate1.n1');
@@ -66,7 +66,7 @@ class CandidateTest extends TestCase
         // Add some conflicts
         $this->assertTrue($this->candidate1->setName('candidate1.n2'));
         $this->assertEquals('candidate1.n2',$this->candidate1->getName());
-        $this->assertNotEquals($this->candidate1, $election1->addCandidate('candidate1.n1'));
+        $this->assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
 
         $election2->addCandidate('Debussy');
         $this->candidate1->setName('Debussy'); // Throw an Exception. Code 20.
