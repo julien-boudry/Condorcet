@@ -155,7 +155,10 @@ class Vote implements \Iterator
                     $countContextualCandidate++;
                 endif;
             endforeach;
-            ++$nextRank;
+
+            if (isset($newRanking[$nextRank])) :
+                $nextRank++;
+            endif;
         endforeach;
 
         if ($countContextualCandidate < $election->countCandidates()) :
