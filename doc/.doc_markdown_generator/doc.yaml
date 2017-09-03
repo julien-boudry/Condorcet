@@ -1082,6 +1082,21 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
+  - 
+  class: Vote
+  type: method
+  visibility: public
+  name: removeAllTags
+  static: false
+  description: |
+    Remove all registered tag(s) on this Vote.
+  return: |
+    *(bool)* Return True.
+  related:
+    - 'Vote::addTags'
+    - 'Vote::removeTags'
+  publish: true
+
 - 
   class: Vote
   type: method
