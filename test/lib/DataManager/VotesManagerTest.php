@@ -5,6 +5,7 @@ namespace Condorcet\DataManager;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
+use Condorcet\DataManager\DataContextInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,10 +36,9 @@ class VotesManagerTest extends TestCase
 
     public function testGetDataContextObject()
     {
-        // Testing the class type is not possible, since it is an
-        // anonymous class not implementing any interface.
         self::assertNull($this->empty_votes_manager->getDataContextObject()->election);
         self::assertSame($this->election, $this->votes_manager->getDataContextObject()->election);
+        self::assertInstanceOf(DataContextInterface::class,$this->votes_manager->getDataContextObject());
     }
 
     public function testOffsetSet()

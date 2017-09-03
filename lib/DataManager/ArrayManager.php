@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager;
 
+use Condorcet\DataManager\DataContextInterface;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
@@ -345,7 +346,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function getDataContextObject ()
     {
-        return new Class {
+        return new Class implements DataContextInterface {
             public function dataCallBack ($data)
             {
                 return $data;
