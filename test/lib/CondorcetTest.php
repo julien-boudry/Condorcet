@@ -19,18 +19,18 @@ class CondorcetTest extends TestCase
     {
         $algoClassPath = Condorcet::getDefaultMethod();
 
-        $this->assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
+        self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
 
-        $this->assertFalse(Condorcet::addMethod($algoClassPath));
+        self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
     public function testaddValidMethod ()
     {
         $algoClassPath = 'Condorcet\\CondorcetTest_ValidAlgorithmName';
 
-        $this->assertTrue(Condorcet::addMethod($algoClassPath));
+        self::assertTrue(Condorcet::addMethod($algoClassPath));
 
-        $this->assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
+        self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
     }
 
     /**
@@ -41,7 +41,7 @@ class CondorcetTest extends TestCase
     {
         $algoClassPath = 'Condorcet\\CondorcetTest_UnvalidAlgorithmName';
 
-        $this->assertFalse(Condorcet::addMethod($algoClassPath));
+        self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
 }

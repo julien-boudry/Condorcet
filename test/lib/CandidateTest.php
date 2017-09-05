@@ -25,17 +25,17 @@ class CandidateTest extends TestCase
 
     public function testCreateTimestamp ()
     {
-        $this->assertEquals($this->candidate1->getCreateTimestamp(), $this->candidate1->getTimestamp());
+        self::assertEquals($this->candidate1->getCreateTimestamp(), $this->candidate1->getTimestamp());
     }
 
     public function testChangeName ()
     {
-        $this->assertTrue($this->candidate1->setName('candidate1.n2'));
+        self::assertTrue($this->candidate1->setName('candidate1.n2'));
 
-        $this->assertEquals('candidate1.n2',$this->candidate1->getName());
+        self::assertEquals('candidate1.n2',$this->candidate1->getName());
 
-        $this->assertLessThan($this->candidate1->getTimestamp(), $this->candidate1->getCreateTimestamp());
-        $this->assertCount(2,$this->candidate1->getHistory());
+        self::assertLessThan($this->candidate1->getTimestamp(), $this->candidate1->getCreateTimestamp());
+        self::assertCount(2,$this->candidate1->getHistory());
     }
 
     /**
@@ -49,24 +49,24 @@ class CandidateTest extends TestCase
         $election3 = new Election ();
 
         // Add candidate to election
-        $this->assertSame($this->candidate1,$election1->addCandidate($this->candidate1));
-        $this->assertSame($this->candidate1,$election2->addCandidate($this->candidate1));
-        $this->assertSame($this->candidate1,$election3->addCandidate($this->candidate1));
+        self::assertSame($this->candidate1,$election1->addCandidate($this->candidate1));
+        self::assertSame($this->candidate1,$election2->addCandidate($this->candidate1));
+        self::assertSame($this->candidate1,$election3->addCandidate($this->candidate1));
 
         // Check Candidate Link
-        $this->assertSame($election1,$this->candidate1->getLinks()[0]);
-        $this->assertSame($election2,$this->candidate1->getLinks()[1]);
-        $this->assertSame($election3,$this->candidate1->getLinks()[2]);
-        $this->assertCount(3,$this->candidate1->getLinks());
+        self::assertSame($election1,$this->candidate1->getLinks()[0]);
+        self::assertSame($election2,$this->candidate1->getLinks()[1]);
+        self::assertSame($election3,$this->candidate1->getLinks()[2]);
+        self::assertCount(3,$this->candidate1->getLinks());
 
         $election3->removeCandidate('candidate1.n1');
 
-        $this->assertCount(2,$this->candidate1->getLinks());
+        self::assertCount(2,$this->candidate1->getLinks());
 
         // Add some conflicts
-        $this->assertTrue($this->candidate1->setName('candidate1.n2'));
-        $this->assertEquals('candidate1.n2',$this->candidate1->getName());
-        $this->assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
+        self::assertTrue($this->candidate1->setName('candidate1.n2'));
+        self::assertEquals('candidate1.n2',$this->candidate1->getName());
+        self::assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
 
         $election2->addCandidate('Debussy');
         $this->candidate1->setName('Debussy'); // Throw an Exception. Code 20.

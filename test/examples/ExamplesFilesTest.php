@@ -24,7 +24,7 @@ class ExamplesFilesTest extends TestCase
             $r = false;
         }
 
-        $this->assertTrue($r);
+        self::assertTrue($r);
     }
 
     /**
@@ -41,7 +41,7 @@ class ExamplesFilesTest extends TestCase
             $r = false;
         }
 
-        $this->assertTrue($r);
+        self::assertTrue($r);
     }
 
     /**
@@ -61,7 +61,7 @@ class ExamplesFilesTest extends TestCase
             $r = false;
         }
 
-        $this->assertTrue($r);
+        self::assertTrue($r);
     }
 
     /**
@@ -80,7 +80,7 @@ class ExamplesFilesTest extends TestCase
             $r = false;
         }
 
-        $this->assertTrue($r);
+        self::assertTrue($r);
     }
 
 
