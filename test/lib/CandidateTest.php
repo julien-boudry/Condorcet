@@ -38,6 +38,23 @@ class CandidateTest extends TestCase
         self::assertCount(2,$this->candidate1->getHistory());
     }
 
+    public function testTrimName ()
+    {
+        $candidate = new Candidate (' candidateName ');
+        self::assertSame('candidateName',(string) $candidate);
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 1
+      */
+    public function testToLongName ()
+    {
+        new Candidate (
+            bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42))
+        );
+    }
+
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 19
@@ -65,10 +82,10 @@ class CandidateTest extends TestCase
 
         // Add some conflicts
         self::assertTrue($this->candidate1->setName('candidate1.n2'));
-        self::assertEquals('candidate1.n2',$this->candidate1->getName());
+        self::assertSame('candidate1.n2',$this->candidate1->getName());
         self::assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
 
         $election2->addCandidate('Debussy');
-        $this->candidate1->setName('Debussy'); // Throw an Exception. Code 20.
+        $this->candidate1->setName('Debussy'); // Throw an Exception. Code 19.
     }
 }
