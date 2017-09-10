@@ -26,6 +26,9 @@ class VoteTest extends TestCase
         $this->candidate1 = $this->election1->addCandidate('candidate1');
         $this->candidate2 = $this->election1->addCandidate('candidate2');
         $this->candidate3 = $this->election1->addCandidate('candidate3');
+        $this->candidate4 = new Candidate('candidate4');
+        $this->candidate5 = new Candidate('candidate5');
+        $this->candidate6 = new Candidate('candidate6');
     }
 
     public function testTimestamp ()
@@ -160,6 +163,53 @@ class VoteTest extends TestCase
                 $newRanking1,
                 $vote1->getContextualVote($this->election1)
             );
+    }
+
+    public function testDifferentElection () {
+
+        $election1 = $this->election1;
+
+        $election2 = new Election;
+        $election2->addCandidate($this->candidate1);
+        $election2->addCandidate($this->candidate2);
+        $election2->addCandidate($this->candidate4);
+
+        $vote1 = new Vote ([
+            $this->candidate1,
+            $this->candidate2,
+            $this->candidate3,
+            $this->candidate4
+        ]);
+        $vote1_originalRanking = $vote1->getRanking();
+
+        $election1->addVote($vote1);
+        $election2->addVote($vote1);
+
+        self::assertSame($vote1_originalRanking,$vote1->getRanking());
+        self::assertSame(
+            [1=>[$this->candidate1],2=>[$this->candidate2],3=>[$this->candidate3]],
+            $vote1->getContextualVote($election1)
+        );
+        self::assertSame(
+            [1=>[$this->candidate1],2=>[$this->candidate2],3=>[$this->candidate4]],
+            $vote1->getContextualVote($election2)
+        );
+        self::assertNotSame($vote1->getRanking(),$vote1->getContextualVote($election2));
+
+        self::assertTrue($vote1->setRanking([
+            [$this->candidate5,$this->candidate2],
+            $this->candidate3,
+        ]));
+
+        self::assertSame(
+            [1=>[$this->candidate2],2=>[$this->candidate3],3=>[$this->candidate1]],
+            $vote1->getContextualVote($election1)
+        );
+        self::assertSame(
+            [1=>[$this->candidate2],2=>[$this->candidate1,$this->candidate4]],
+            $vote1->getContextualVote($election2)
+        );
+
     }
 
 
