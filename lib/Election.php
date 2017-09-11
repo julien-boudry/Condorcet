@@ -843,7 +843,7 @@ class Election
     }
 
 
-    public function getWinner ($substitution = null)
+    public function getWinner (?string $substitution = null)
     {
         $algo = $this->condorcetBasicSubstitution($substitution);
 
@@ -861,7 +861,7 @@ class Election
     }
 
 
-    public function getLoser ($substitution = null)
+    public function getLoser (?string $substitution = null)
     {
         $algo = $this->condorcetBasicSubstitution($substitution);
 
