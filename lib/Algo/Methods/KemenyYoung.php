@@ -83,7 +83,10 @@ class KemenyYoung extends Method implements MethodInterface
             $explicit[$key]['score'] = $this->_RankingScore[$key];
         endforeach;
 
-        return $explicit;
+        $stats['bestScore'] = max($this->_RankingScore);
+        $stats['rankingScore'] = $explicit;
+
+        return $stats;
     }
 
         protected function conflictInfos () : void
