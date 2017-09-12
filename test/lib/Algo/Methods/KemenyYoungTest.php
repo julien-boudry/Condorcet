@@ -50,8 +50,6 @@ class KemenyYoungTest extends TestCase
 
         self::assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['bestScore']);
 
-        $this->election->getWinner('KemenyYoung');
-
         self::assertSame($this->election->getWinner(),$this->election->getWinner('KemenyYoung'));
     }
 }
