@@ -110,4 +110,31 @@ class MinimaxTest extends TestCase
             $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
         );
     }
+
+    public function testResult_3 ()
+    {
+        $this->election->addCandidate('Abby');
+        $this->election->addCandidate('Brad');
+        $this->election->addCandidate('Cora');
+        $this->election->addCandidate('Dave');
+        $this->election->addCandidate('Erin');
+
+        $this->election->parseVotes('
+            Abby>Cora>Erin>Dave>Brad * 98
+            Brad>Abby>Erin>Cora>Dave * 64
+            Brad>Abby>Erin>Dave>Cora * 12
+            Brad>Erin>Abby>Cora>Dave * 98
+            Brad>Erin>Abby>Dave>Cora * 13
+            Brad>Erin>Dave>Abby>Cora * 125
+            Cora>Abby>Erin>Dave>Brad * 124
+            Cora>Erin>Abby>Dave>Brad * 76
+            Dave>Abby>Brad>Erin>Cora * 21
+            Dave>Brad>Abby>Erin>Cora * 30
+            Dave>Brad>Erin>Cora>Abby * 98
+            Dave>Cora>Abby>Brad>Erin * 139
+            Dave>Cora>Brad>Abby>Erin * 23
+        ');
+
+        self::assertEquals('Cora',$this->election->getWinner('Minimax Winning'));
+    }
 }

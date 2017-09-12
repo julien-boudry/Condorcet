@@ -323,5 +323,39 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
     }
 
+    public function testResult_11 ()
+    {
+        $this->election->addCandidate('Abby');
+        $this->election->addCandidate('Brad');
+        $this->election->addCandidate('Cora');
+        $this->election->addCandidate('Dave');
+        $this->election->addCandidate('Erin');
 
+        $this->election->parseVotes('
+            Abby>Cora>Erin>Dave>Brad * 98
+            Brad>Abby>Erin>Cora>Dave * 64
+            Brad>Abby>Erin>Dave>Cora * 12
+            Brad>Erin>Abby>Cora>Dave * 98
+            Brad>Erin>Abby>Dave>Cora * 13
+            Brad>Erin>Dave>Abby>Cora * 125
+            Cora>Abby>Erin>Dave>Brad * 124
+            Cora>Erin>Abby>Dave>Brad * 76
+            Dave>Abby>Brad>Erin>Cora * 21
+            Dave>Brad>Abby>Erin>Cora * 30
+            Dave>Brad>Erin>Cora>Abby * 98
+            Dave>Cora>Abby>Brad>Erin * 139
+            Dave>Cora>Brad>Abby>Erin * 23
+        ');
+
+        self::assertEquals('Abby',$this->election->getWinner('Schulze Winning'));
+
+        self::assertSame(
+            $this->election->getResult('Schulze Winning')->getResultAsArray(true),
+            [   1 => 'Abby',
+                2 => 'Brad',
+                3 => 'Erin',
+                4 => 'Dave',
+                5 => 'Cora'    ]
+        );
+    }
 }
