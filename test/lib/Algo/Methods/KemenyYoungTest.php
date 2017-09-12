@@ -31,18 +31,12 @@ class KemenyYoungTest extends TestCase
         $this->election->addCandidate('Knoxville');
         $this->election->addCandidate('Chattanooga');
 
-        for($i=0;$i<42;$i++) {
-            $this->election->addVote('Memphis > Nashville > Chattanooga');
-        }
-        for($i=0;$i<26;$i++) {
-            $this->election->addVote('Nashville > Chattanooga > Knoxville');
-        }
-        for($i=0;$i<15;$i++) {
-            $this->election->addVote( 'Chattanooga > Knoxville > Nashville');
-        }
-        for($i=0;$i<17;$i++) {
-            $this->election->addVote( 'Knoxville > Chattanooga > Nashville');
-        }
+        $this->election->parseVotes('
+            Memphis > Nashville > Chattanooga * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
 
 
         self::assertEquals($this->election->getResult('KemenyYoung')->getResultAsArray(true),

@@ -30,18 +30,12 @@ class CondorcetBasicTest extends TestCase
         $this->election->addCandidate('b');
         $this->election->addCandidate('c');
 
-        for($i=0;$i<23;$i++) {
-            $this->election->addVote('a > c > b');
-        }
-        for($i=0;$i<19;$i++) {
-            $this->election->addVote('b > c > a');
-        }
-        for($i=0;$i<16;$i++) {
-            $this->election->addVote('c > b > a');
-        }
-        for($i=0;$i<2;$i++) {
-            $this->election->addVote('c > a > b');
-        }
+        $this->election->parseVotes('
+            a > c > b * 23
+            b > c > a * 19
+            c > b > a * 16
+            c > a > b * 2
+        ');
 
         self::assertEquals($this->election->getWinner(),'c');
     }
@@ -52,15 +46,11 @@ class CondorcetBasicTest extends TestCase
         $this->election->addCandidate('Y');
         $this->election->addCandidate('Z');
 
-        for($i=0;$i<41;$i++) {
-            $this->election->addVote('X > Y > Z');
-        }
-        for($i=0;$i<33;$i++) {
-            $this->election->addVote('Y > Z > X');
-        }
-        for($i=0;$i<22;$i++) {
-            $this->election->addVote('Z > X > Y');
-        }
+        $this->election->parseVotes('
+            X > Y > Z * 41
+            Y > Z > X * 33
+            Z > X > Y * 22
+        ');
 
         self::assertSame($this->election->getWinner(),null);
     }
@@ -72,18 +62,12 @@ class CondorcetBasicTest extends TestCase
         $this->election->addCandidate('Knoxville');
         $this->election->addCandidate('Chattanooga');
 
-        for($i=0;$i<42;$i++) {
-            $this->election->addVote('Memphis > Nashville > Chattanooga');
-        }
-        for($i=0;$i<26;$i++) {
-            $this->election->addVote('Nashville > Chattanooga > Knoxville');
-        }
-        for($i=0;$i<15;$i++) {
-            $this->election->addVote( 'Chattanooga > Knoxville > Nashville');
-        }
-        for($i=0;$i<17;$i++) {
-            $this->election->addVote( 'Knoxville > Chattanooga > Nashville');
-        }
+        $this->election->parseVotes('
+            Memphis > Nashville > Chattanooga * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
 
         self::assertEquals($this->election->getWinner(),'Nashville');
     }
@@ -95,18 +79,12 @@ class CondorcetBasicTest extends TestCase
         $this->election->addCandidate('Knoxville');
         $this->election->addCandidate('Chattanooga');
 
-        for($i=0;$i<42;$i++) {
-            $this->election->addVote('Memphis > Chattanooga > Nashville ');
-        }
-        for($i=0;$i<26;$i++) {
-            $this->election->addVote('Nashville > Chattanooga > Knoxville');
-        }
-        for($i=0;$i<15;$i++) {
-            $this->election->addVote( 'Chattanooga > Knoxville > Nashville');
-        }
-        for($i=0;$i<17;$i++) {
-            $this->election->addVote( 'Knoxville > Chattanooga > Nashville');
-        }
+        $this->election->parseVotes('
+            Memphis > Chattanooga > Nashville * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
 
         self::assertEquals($this->election->getWinner(),'Chattanooga');
     }
