@@ -15,6 +15,7 @@ use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Dodgson');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
