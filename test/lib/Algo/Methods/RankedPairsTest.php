@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class RankedPairsTest extends TestCase
 {
     /**
-     * @var election1
+     * @var election
      */
     private $election;
 
@@ -26,6 +26,8 @@ class RankedPairsTest extends TestCase
 
     public function testResult_1 ()
     {
+        # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Condorcet_avec_rangement_des_paires_par_ordre_d%C3%A9croissant
+
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');
@@ -45,18 +47,20 @@ class RankedPairsTest extends TestCase
 
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
 
-        /* self::assertSame(
+        self::assertSame(
             $this->election->getResult('Ranked Pairs')->getResultAsArray(true),
-            [   1 => 'E',
-                2 => 'A',
-                3 => 'C',
+            [   1 => 'A',
+                2 => 'C',
+                3 => 'E',
                 4 => 'B',
                 5 => 'D'    ]
-        ); */
+        );
     }
 
     public function testResult_2 ()
     {
+        # From https://en.wikipedia.org/wiki/Ranked_pairs
+
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
         $this->election->addCandidate('Knoxville');
@@ -82,6 +86,8 @@ class RankedPairsTest extends TestCase
 
     public function testResult_3 ()
     {
+        # from http://www.cs.wustl.edu/~legrand/rbvote/desc.html
+
         $this->election->addCandidate('Abby');
         $this->election->addCandidate('Brad');
         $this->election->addCandidate('Cora');
@@ -117,8 +123,10 @@ class RankedPairsTest extends TestCase
     }
 
 /*
+    # Condorcet do not support ignored candidates. he puts them at the last rank. So results are different.
     public function testResult_4 ()
     {
+        # From https://en.wikipedia.org/wiki/Ranked_pairs
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');

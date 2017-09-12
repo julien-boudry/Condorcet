@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class KemenyYoungTest extends TestCase
 {
     /**
-     * @var election1
+     * @var election
      */
     private $election;
 

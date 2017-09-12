@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 class SchulzeTest extends TestCase
 {
     /**
-     * @var election1
+     * @var election
      */
     private $election;
 
