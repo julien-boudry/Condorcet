@@ -1,6 +1,6 @@
 <?php
 /*
-    DODGSON part of the Condorcet PHP Class
+    Simpson part of the Condorcet PHP Class
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet

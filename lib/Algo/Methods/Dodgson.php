@@ -1,6 +1,6 @@
 <?php
 /*
-    DODGSON part of the Condorcet PHP Class
+    Dodgson part of the Condorcet PHP Class
 
     By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
@@ -19,7 +19,7 @@ use Condorcet\Result;
 class Dodgson extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Dodgson','Dodgson Method'];
+    public const METHOD_NAME = ['Dodgson','Dodgson Method','Lewis Carroll'];
 
     // DODGSON
     protected $_Comparison;
