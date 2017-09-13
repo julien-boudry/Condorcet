@@ -24,7 +24,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
  	<style>
 		.votant {
-		  float: left;
+		  display: inline-block;
 		  margin-right: 2cm;
 		}
  	</style>
