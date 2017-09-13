@@ -26,10 +26,12 @@ class MinimaxTest extends TestCase
 
     public function testResult_1 ()
     {
+        # From https://en.wikipedia.org/wiki/Minimax_Condorcet
+
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
-        $this->election->addCandidate('Knoxville');
         $this->election->addCandidate('Chattanooga');
+        $this->election->addCandidate('Knoxville');
 
         $this->election->parseVotes('
             Memphis > Nashville > Chattanooga * 42
@@ -65,11 +67,36 @@ class MinimaxTest extends TestCase
             $expectedRanking,
             $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
         );
-        
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_defeat_winning" => 58],
+                "Nashville"     =>  ["worst_pairwise_defeat_winning" => 0],
+                "Chattanooga"   =>  ["worst_pairwise_defeat_winning" => 68],
+                "Knoxville"     =>  ["worst_pairwise_defeat_winning" => 83]  ],
+            $this->election->getResult('Minimax Winning')->getStats()
+        );
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_defeat_margin" => 16],
+                "Nashville"     =>  ["worst_pairwise_defeat_margin" => -16],
+                "Chattanooga"   =>  ["worst_pairwise_defeat_margin" => 36],
+                "Knoxville"     =>  ["worst_pairwise_defeat_margin" => 66]  ],
+            $this->election->getResult('Minimax Margin')->getStats()
+        );
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_opposition" => 58],
+                "Nashville"     =>  ["worst_pairwise_opposition" => 42],
+                "Chattanooga"   =>  ["worst_pairwise_opposition" => 68],
+                "Knoxville"     =>  ["worst_pairwise_opposition" => 83]  ],
+            $this->election->getResult('Minimax Opposition')->getStats()
+        );
     }
 
     public function testResult_2 ()
     {
+        # From https://en.wikipedia.org/wiki/Minimax_Condorcet
+
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');
@@ -113,6 +140,8 @@ class MinimaxTest extends TestCase
 
     public function testResult_3 ()
     {
+        # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
+
         $this->election->addCandidate('Abby');
         $this->election->addCandidate('Brad');
         $this->election->addCandidate('Cora');
