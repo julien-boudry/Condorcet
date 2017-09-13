@@ -52,7 +52,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
-    public function getResult ($options = null) : Result
+    public function getResult () : Result
     {
         // Cache
         if ( $this->_Result === null )

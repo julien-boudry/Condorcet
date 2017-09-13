@@ -808,7 +808,7 @@ class Election
 
             unset($chrono);
 
-            return $filter->getResult($method, ['algoOptions' => $options['algoOptions']]);
+            return $filter->getResult($method);
         }
 
             ////// Start //////
@@ -824,13 +824,13 @@ class Election
         {
             $this->initResult(Condorcet::getDefaultMethod());
 
-            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult($options['algoOptions']);
+            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
         }
         elseif ($method = Condorcet::isAuthMethod($method))
         {
             $this->initResult($method);
 
-            $result = $this->_Calculator[$method]->getResult($options['algoOptions']);
+            $result = $this->_Calculator[$method]->getResult();
         }
         else
         {
@@ -965,11 +965,6 @@ class Election
             endif;
         else:
             $arg['%tagFilter'] = false;
-        endif;
-
-        // About algo Options
-        if ( !isset($arg['algoOptions']) ) :
-            $arg['algoOptions'] = null;
         endif;
 
         return $arg;

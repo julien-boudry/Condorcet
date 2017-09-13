@@ -46,7 +46,7 @@ class RankedPairs extends Method implements MethodInterface
 
 
     // Get the Ranked Pairs ranking
-    public function getResult ($options = null) : Result
+    public function getResult () : Result
     {
         // Cache
         if ( $this->_Result !== null )

@@ -25,7 +25,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
     abstract protected function schulzeVariant (int &$i,int &$j);
 
-    public function getResult ($options = null) : Result
+    public function getResult () : Result
     {
         // Cache
         if ( $this->_Result !== null )

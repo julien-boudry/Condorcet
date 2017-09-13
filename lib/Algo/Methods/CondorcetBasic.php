@@ -28,7 +28,7 @@ class CondorcetBasic extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    public function getResult ($options = null) : Result
+    public function getResult () : Result
     {
         throw new CondorcetException (102);
     }
