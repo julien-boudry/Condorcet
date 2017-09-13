@@ -112,6 +112,8 @@ You can too develop your own datastore driver (to store into NoSQL... all yours 
 
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
 
+* **Dodgson** https://en.wikipedia.org/wiki/Dodgson%27s_method
+
 * **Kemeny-Young** http://en.wikipedia.org/wiki/Kemeny-Young_method   
 *Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
