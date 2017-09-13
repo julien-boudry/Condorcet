@@ -16,7 +16,7 @@ use Condorcet\CondorcetException;
 use Condorcet\Result;
 
 // DODGSON is a Condorcet Algorithm | http://en.wikipedia.org/wiki/DODGSON_method
-abstract class CopelandLike_Core extends Method implements MethodInterface
+abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected $_Comparison;
 

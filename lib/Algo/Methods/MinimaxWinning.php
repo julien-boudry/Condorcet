@@ -9,17 +9,24 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\Minimax_Core;
-use Condorcet\CondorcetException;
-use Condorcet\Result;
+use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
+use Condorcet\Algo\MethodInterface;
 
-class MinimaxWinning extends Minimax_Core
+// Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
+class MinimaxWinning extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning'];
+    public const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning','Simpson','Simpson-Kramer','Simpson-Kramer Method','Simpson Method'];
 
-    protected function makeRanking () : void
+    protected $_countType = 'worst_pairwise_defeat_winning';
+
+
+/////////// COMPUTE ///////////
+
+    //:: SIMPSON ALGORITHM. :://
+
+    protected function looking (array $challenge) : int
     {
-        $this->_Result = $this->createResult(self::makeRanking_method('winning', $this->_Stats));
+        return min($challenge);
     }
 }

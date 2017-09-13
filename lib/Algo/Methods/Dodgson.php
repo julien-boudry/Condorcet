@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\CopelandLike_Core;
+use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 use Condorcet\Algo\MethodInterface;
 
 // DODGSON is a Condorcet Algorithm | https://en.wikipedia.org/wiki/Dodgson%27s_method
-class Dodgson extends CopelandLike_Core implements MethodInterface
+class Dodgson extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
     public const METHOD_NAME = ['Dodgson','Dodgson Method','Lewis Carroll'];
 
-    protected $_countType = 'defeat_margin';
+    protected $_countType = 'sum_defeat_margin';
 
 
 /////////// COMPUTE ///////////

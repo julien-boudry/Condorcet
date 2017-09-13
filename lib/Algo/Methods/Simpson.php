@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\CopelandLike_Core;
+use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 use Condorcet\Algo\MethodInterface;
 
 // SIMPSON is a Condorcet Algorithm
-class Simpson extends CopelandLike_Core implements MethodInterface
+class Simpson extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
     public const METHOD_NAME = ['Simpson','Simpson Method'];
 
-    protected $_countType = 'worst_defeat';
+    protected $_countType = 'worst_pairwise_defeat_winning';
 
 
 /////////// COMPUTE ///////////

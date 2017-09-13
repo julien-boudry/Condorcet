@@ -24,7 +24,6 @@ Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairs');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeMargin');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Simpson');
 
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');

@@ -28,11 +28,31 @@ abstract class PairwiseStats
             $comparison[$candidate_key]['null'] = 0;
             $comparison[$candidate_key]['lose'] = 0;
             $comparison[$candidate_key]['balance'] = 0;
-            $comparison[$candidate_key]['defeat_margin'] = 0;
-            $comparison[$candidate_key]['worst_defeat'] = 0;
+            $comparison[$candidate_key]['sum_defeat_margin'] = 0;
+            $comparison[$candidate_key]['worst_pairwise_defeat_winning'] = 0;
+            $comparison[$candidate_key]['worst_pairwise_defeat_margin'] = null;
+            $comparison[$candidate_key]['worst_pairwise_opposition'] = 0;
 
             foreach ($candidate_data['win'] as $opponenent['key'] => $opponenent['lose']) :
 
+                $defeat_margin = $candidate_data['lose'][$opponenent['key']] - $opponenent['lose'];
+
+                // Worst margin defeat
+                if ($comparison[$candidate_key]['worst_pairwise_defeat_margin'] < $defeat_margin) :
+
+                    $comparison[$candidate_key]['worst_pairwise_defeat_margin'] = $defeat_margin;
+
+                endif;
+
+                // Worst pairwise opposition
+                if ($comparison[$candidate_key]['worst_pairwise_opposition'] < $candidate_data['lose'][$opponenent['key']]) :
+
+                    $comparison[$candidate_key]['worst_pairwise_opposition'] = $candidate_data['lose'][$opponenent['key']];
+
+                endif;
+
+
+                // for each Win, null, Lose
                 if ( $opponenent['lose'] > $candidate_data['lose'][$opponenent['key']] ) :
 
                     $comparison[$candidate_key]['win']++;
@@ -46,12 +66,13 @@ abstract class PairwiseStats
 
                     $comparison[$candidate_key]['lose']++;
                     $comparison[$candidate_key]['balance']--;
-                    $comparison[$candidate_key]['defeat_margin'] += $candidate_data['lose'][$opponenent['key']] - $opponenent['lose'];
 
-                    // Worst defeat
-                    if ($comparison[$candidate_key]['worst_defeat'] < $candidate_data['lose'][$opponenent['key']]) :
+                    $comparison[$candidate_key]['sum_defeat_margin'] += $defeat_margin;
 
-                        $comparison[$candidate_key]['worst_defeat'] = $candidate_data['lose'][$opponenent['key']];
+                    // Worst winning defeat
+                    if ($comparison[$candidate_key]['worst_pairwise_defeat_winning'] < $candidate_data['lose'][$opponenent['key']]) :
+
+                        $comparison[$candidate_key]['worst_pairwise_defeat_winning'] = $candidate_data['lose'][$opponenent['key']];
 
                     endif;
 
