@@ -70,6 +70,7 @@ class CondorcetBasicTest extends TestCase
         ');
 
         self::assertEquals($this->election->getWinner(),'Nashville');
+        self::assertEquals($this->election->getLoser(),'Memphis');
     }
 
     public function testResult_4 ()
@@ -87,6 +88,46 @@ class CondorcetBasicTest extends TestCase
         ');
 
         self::assertEquals($this->election->getWinner(),'Chattanooga');
+    }
+
+    public function testResult_5 ()
+    {
+        # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('L');
+
+        $this->election->parseVotes('
+            A > B > C * 1
+            A > B > L * 1
+            B > C > A * 3
+            C > L > A * 1
+            L > A > B * 1
+            L > C > A * 2
+        ');
+
+        self::assertEquals($this->election->getLoser(),'L');
+        self::assertSame($this->election->getWinner(),null);
+    }
+
+    public function testResult_6 ()
+    {
+        # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('L');
+
+        $this->election->parseVotes('
+            A > B > L
+            B > C > L
+            A > C > L
+        ');
+
+        self::assertEquals($this->election->getLoser(),'L');
     }
 
 
