@@ -474,19 +474,16 @@ class Election
     // Close the candidate config, be ready for voting (optional)
     public function setStateToVote () : bool
     {
-        if ( $this->_State === 1 )
-            { 
+        if ( $this->_State === 1 ) :
                 if (empty($this->_Candidates))
                     { throw new CondorcetException(20); }
 
                 $this->_State = 2;
-            }
 
         // If voting continues after a first set of results
-        elseif ( $this->_State > 2 )
-            { 
+        elseif ( $this->_State > 2 ) :
                 $this->cleanupResult();
-            }
+        endif;
 
         return true;
     }
@@ -498,8 +495,9 @@ class Election
         $this->prepareVoteInput($vote, $tag);
 
         // Check Max Vote Count
-        if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber )
-            { throw new CondorcetException(16, self::$_maxVoteNumber); }
+        if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber ) :
+            throw new CondorcetException(16, self::$_maxVoteNumber);
+        endif;
 
 
         // Register vote
@@ -521,14 +519,14 @@ class Election
         // Return the well formated vote to use.
         protected function prepareVoteInput (&$vote, $tag = null) : void
         {
-            if (!($vote instanceof Vote))
-            {
+            if (!($vote instanceof Vote)) :
                 $vote = new Vote ($vote, $tag);
-            }
+            endif;
 
             // Check array format && Make checkVoteCandidate
-            if ( !$this->checkVoteCandidate($vote) )
-                { throw new CondorcetException(5); }
+            if ( !$this->checkVoteCandidate($vote) ) :
+                throw new CondorcetException(5);
+            endif;
         }
 
 
@@ -554,13 +552,12 @@ class Election
                 endforeach;
             endforeach;
 
-            if ($change)
-            {
+            if ($change) :
                 $vote->setRanking(
                                     $mirror,
                                     ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : false
                 );
-            }
+            endif;
 
             return true;
         }
@@ -578,7 +575,7 @@ class Election
             } catch (CondorcetException $e) {
                 // Security : Check if vote object not already register
                 throw new CondorcetException(6,'Vote object already registred');
-            }           
+            }
 
             return $vote;
         }

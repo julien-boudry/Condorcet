@@ -87,12 +87,11 @@ class Vote implements \Iterator
 
     public function getRanking () : array
     {
-        if (!empty($this->_ranking))
-        {
+        if (!empty($this->_ranking)) :
             return end($this->_ranking)['ranking'];
-        }
-        else
-            { return null; }
+        else :
+            return null;
+        endif;
     }
 
     public function getHistory () : array
@@ -216,10 +215,9 @@ class Vote implements \Iterator
         if (!empty($this->_link))
         {
             try {
-                foreach ($this->_link as &$link)
-                {
+                foreach ($this->_link as &$link) :
                     $link->prepareModifyVote($this);
-                }
+                endforeach;
             }
             catch (CondorcetException $e)
             {                
@@ -235,8 +233,9 @@ class Vote implements \Iterator
 
         private function formatRanking (&$ranking) : int
         {
-            if (is_string($ranking))
-                { $ranking = self::convertVoteInput($ranking); }
+            if (is_string($ranking)) :
+                $ranking = self::convertVoteInput($ranking);
+            endif;
 
             if (!is_array($ranking)) :
                 throw new CondorcetException(5);
@@ -249,26 +248,21 @@ class Vote implements \Iterator
             ksort($ranking);
             
             $i = 1; $vote_r = [];
-            foreach ($ranking as &$value)
-            {
-                if ( !is_array($value) )
-                {
+            foreach ($ranking as &$value) :
+                if ( !is_array($value) ) :
                     $vote_r[$i] = array($value);
-                }
-                else
-                {
+                else :
                     $vote_r[$i] = $value;
-                }
+                endif;
 
                 $i++;
-            }
+            endforeach;
 
             $ranking = $vote_r;
 
             $counter = 0;
             $list_candidate = [];
-            foreach ($ranking as &$line)
-            {
+            foreach ($ranking as &$line) :
                 foreach ($line as &$Candidate) :
                     if ( !($Candidate instanceof Candidate) ) :
                         $Candidate = new Candidate ($Candidate);
@@ -286,7 +280,7 @@ class Vote implements \Iterator
                     endif;
 
                 endforeach;
-            }
+            endforeach;
 
             return $counter;
         }
@@ -296,16 +290,14 @@ class Vote implements \Iterator
         {
             $vote = explode('>', $formula);
 
-            foreach ($vote as &$rank_vote)
-            {
+            foreach ($vote as &$rank_vote) :
                 $rank_vote = explode('=', $rank_vote);
 
                 // Del space at start and end
-                foreach ($rank_vote as &$value)
-                {
+                foreach ($rank_vote as &$value) :
                     $value = trim($value);
-                }
-            }
+                endforeach;
+            endforeach;
 
             return $vote;
         }
@@ -353,8 +345,9 @@ class Vote implements \Iterator
 
     public function addTags ($tags) : bool
     {
-        if (is_object($tags) || is_bool($tags))
-            { throw new CondorcetException(17); }
+        if (is_object($tags) || is_bool($tags)) :
+            throw new CondorcetException(17);
+        endif;
 
         $tags = self::tagsConvert($tags);
 
@@ -363,19 +356,17 @@ class Vote implements \Iterator
         endif;
 
 
-        foreach ($tags as $key => $tag)
-        {
+        foreach ($tags as $key => $tag) :
             if (is_numeric($tag)) :
                 throw new CondorcetException(17);
             elseif (in_array($tag, $this->_tags, true)) :
                 unset($tags[$key]);
             endif;
-        }
+        endforeach;
 
-        foreach ($tags as $tag)
-        {
+        foreach ($tags as $tag) :
             $this->_tags[] = $tag;
-        }
+        endforeach;
 
         $this->setHashCode();
 
@@ -384,18 +375,19 @@ class Vote implements \Iterator
 
     public function removeTags ($tags) : array
     {
-        if (is_object($tags) || is_bool($tags))
-            { throw new CondorcetException(17); }
+        if (is_object($tags) || is_bool($tags)) :
+            throw new CondorcetException(17);
+        endif;
 
         $tags = self::tagsConvert($tags);
 
-        if (empty($tags))
-            { return []; }
+        if (empty($tags)) :
+            return [];
+        endif;
 
 
         $rm = [];
-        foreach ($tags as $key => $tag)
-        {
+        foreach ($tags as $key => $tag) :
             $tagK = array_search($tag, $this->_tags, true);
 
             if ($tagK === false) :
@@ -404,7 +396,7 @@ class Vote implements \Iterator
                 $rm[] = $this->_tags[$tagK];
                 unset($this->_tags[$tagK]);
             endif;
-        }
+        endforeach;
 
         $this->setHashCode();
         return $rm;
@@ -418,24 +410,23 @@ class Vote implements \Iterator
 
         public static function tagsConvert ($tags) : ?array
         {
-            if (empty($tags))
-                { return null; }
+            if (empty($tags)) :
+                return null;
+            endif;
 
             // Make Array
-            if (!is_array($tags))
-            {
+            if (!is_array($tags)) :
                 $tags = explode(',', $tags);
-            }
+            endif;
 
             // Trim tags
-            foreach ($tags as $key => &$oneTag)
-            {
+            foreach ($tags as $key => &$oneTag) :
                 if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag)) {unset($tags[$key]);
                     continue;
                 }
 
                 $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
-            }
+            endforeach;
 
             return $tags;
         }
