@@ -136,6 +136,28 @@ class VoteTest extends TestCase
         // Ranking 8
         self::assertTrue(
             $vote1->setRanking([
+                2=> $this->candidate2,
+                1=> $this->candidate1,
+                3=> $this->candidate3
+            ])
+        );
+
+            self::assertSame(
+                $newRanking1,
+                $vote1->getContextualVote($this->election1)
+            );
+    }
+
+    public function testProvisionalCandidateObject ()
+    {
+        // Ranking 1
+        $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
+        $newRanking1 = $vote1->getRanking();
+        $this->election1->addVote($vote1);
+
+        // I
+        self::assertTrue(
+            $vote1->setRanking([
                 new Candidate('candidate1'),
                 $this->candidate2,
                 $this->candidate3
@@ -148,26 +170,59 @@ class VoteTest extends TestCase
             );
 
             self::assertSame(
-                [   1=> [$this->candidate2],
+                [   1 => [$this->candidate2],
                     2 => [$this->candidate3],
                     3 => [$this->candidate1]  ],
                 $vote1->getContextualVote($this->election1)
             );
 
 
-        // Ranking 9
-        self::assertTrue(
-            $vote1->setRanking([
-                2=> $this->candidate2,
-                1=> $this->candidate1,
-                3=> $this->candidate3
-            ])
+        // II
+        $vote2 = new Vote ('candidate1>candidate2');
+
+        self::assertTrue($vote2->getRanking()[1][0]->getProvisionalState());
+        $vote2_firstRanking = $vote2->getRanking();
+
+        $this->election1->addVote($vote2);
+
+        self::assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
+
+        self::assertSame(
+            [   1 => [$this->candidate1],
+                2 => [$this->candidate2],
+                3 => [$this->candidate3]  ],
+            $vote2->getContextualVote($this->election1)
         );
 
-            self::assertSame(
-                $newRanking1,
-                $vote1->getContextualVote($this->election1)
-            );
+        self::assertNotEquals(
+            $vote2_firstRanking,
+            $vote2->getRanking()
+        );
+
+
+        // III
+        $otherCandidate1 = new candidate ('candidate1');
+        $otherCandidate2 = new candidate ('candidate2');
+
+        $vote3 = new Vote ([$otherCandidate1,$otherCandidate2,$this->candidate3]);
+
+        self::assertFalse($vote3->getRanking()[1][0]->getProvisionalState());
+        $vote3_firstRanking = $vote3->getRanking();
+
+        $this->election1->addVote($vote3);
+
+        self::assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
+
+        self::assertSame(
+            [   1 => [$this->candidate3],
+                2 => [$this->candidate1,$this->candidate2]  ],
+            $vote3->getContextualVote($this->election1)
+        );
+
+        self::assertEquals(
+            $vote3_firstRanking,
+            $vote3->getRanking()
+        );
     }
 
     public function testDifferentElection () {
