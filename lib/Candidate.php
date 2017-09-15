@@ -19,6 +19,7 @@ class Candidate
     use Linkable, CondorcetVersion;
 
     private $_name = [];
+    private $_provisional = false;
 
         ///
 
@@ -51,6 +52,12 @@ class Candidate
         return true;
     }
 
+    public function setProvisionalState (bool $provisional) : bool
+    {
+        $this->_provisional = $provisional;
+        return true;
+    }
+
     // GETTERS
 
     public function getName () : string
@@ -71,6 +78,11 @@ class Candidate
     public function getTimestamp () : float
     {
         return end($this->_name)['timestamp'];
+    }
+
+    public function getProvisionalState () : bool
+    {
+        return $this->_provisional;
     }
 
         ///

@@ -142,10 +142,15 @@ class VoteTest extends TestCase
             ])
         );
 
-            /* The new object will be ignored and replaced with the legitimate object of the same name from election. However, this behavior is confusing and is not really safe!
-            We need to think about a major refactoring of how candidates are managed in the vote object. For version 1.3? */
-            self::assertSame(
+            self::assertNotSame(
                 $newRanking1,
+                $vote1->getContextualVote($this->election1)
+            );
+
+            self::assertSame(
+                [   1=> [$this->candidate2],
+                    2 => [$this->candidate3],
+                    3 => [$this->candidate1]  ],
                 $vote1->getContextualVote($this->election1)
             );
 

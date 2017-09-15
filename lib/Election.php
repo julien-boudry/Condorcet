@@ -309,6 +309,9 @@ class Election
         // Linking
         $newCandidate->registerLink($this);
 
+        // Disallow other candidate object name matching 
+        $newCandidate->setProvisionalState = false;
+
         return $newCandidate;
     }
 
@@ -540,7 +543,7 @@ class Election
             foreach ($vote as $rank => $choice) :
                 foreach ($choice as $choiceKey => $candidate) :
                     if ( !$this->existCandidateId($candidate, true) ) :
-                        if ($this->existCandidateId($candidate, false)) :
+                        if ($candidate->getProvisionalState() && $this->existCandidateId($candidate, false)) :
                             if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
                                 $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                                 $change = true;

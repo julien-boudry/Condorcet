@@ -266,6 +266,7 @@ class Vote implements \Iterator
                 foreach ($line as &$Candidate) :
                     if ( !($Candidate instanceof Candidate) ) :
                         $Candidate = new Candidate ($Candidate);
+                        $Candidate->setProvisionalState(true);
                     endif;
 
                     $counter++;
