@@ -160,7 +160,7 @@ class Vote implements \Iterator
             endif;
         endforeach;
 
-        if ($countContextualCandidate < $election->countCandidates()) :
+        if ($election->getRankingAllRule() && $countContextualCandidate < $election->countCandidates()) :
             $last_rank = [];
             foreach ($candidates_list as $oneCandidate) :
                 if (!in_array($oneCandidate, $present, true)) :

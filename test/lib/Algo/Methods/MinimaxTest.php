@@ -187,4 +187,34 @@ class MinimaxTest extends TestCase
 
         self::assertEquals($this->election->getWinner('Minimax Winning'),'L');
     }
+
+    public function testResult_5 ()
+    {
+        # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
+
+        $this->election->setRankingAllRule(false);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A > C > B > D * 30
+            D > B > A > C * 15
+            D > B > C > A * 14
+            B > C > A > D * 6
+            D > C > A = B * 4
+            C > A = B * 16
+            B > C * 14
+            C > A * 3
+        ');
+
+        self::assertEquals($this->election->getWinner('Minimax Winning'),'A');
+        self::assertEquals($this->election->getWinner('Minimax Margin'),'B');
+        self::assertEquals($this->election->getWinner('Minimax Opposition'),'D');
+
+        $this->election->setRankingAllRule(true);
+        self::assertNotEquals($this->election->getWinner('Minimax Winning'),'A');
+    }
 }

@@ -119,6 +119,9 @@ class Election
     protected $_nextVoteTag = 0;
     protected $_ignoreStaticMaxVote = false;
 
+    // Params
+    protected $_RankingAllRule = true;
+
     // Result
     protected $_Pairwise;
     protected $_Calculator;
@@ -257,6 +260,18 @@ class Election
     {
         $this->_ignoreStaticMaxVote = $state;
         return $this->_ignoreStaticMaxVote;
+    }
+
+    public function getRankingAllRule () : bool
+    {
+        return $this->_RankingAllRule;
+    }
+
+    public function setRankingAllRule (bool $rule) : bool
+    {
+        $this->_RankingAllRule = $rule;
+        $this->cleanupResult();
+        return true;
     }
 
 
