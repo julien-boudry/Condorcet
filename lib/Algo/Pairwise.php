@@ -102,7 +102,7 @@ class Pairwise implements \ArrayAccess,\Iterator
 
         foreach ( $candidate_list as $candidate_key => $candidate_id ) :
 
-            $this->_Pairwise[$candidate_key] = array( 'win' => [], 'null' => [], 'lose' => [] );
+            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
             foreach ( $candidate_list as $candidate_key_r => $candidate_id_r ) :
 

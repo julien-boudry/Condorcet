@@ -142,7 +142,7 @@ class RankedPairs extends Method implements MethodInterface
         {
             $ord = explode ('>',$wise);
 
-            $this->_Arcs[] = array('from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score']);
+            $this->_Arcs[] = [ 'from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score'] ];
         }
 
         foreach ($this->_Arcs as $key => $value)
@@ -150,7 +150,7 @@ class RankedPairs extends Method implements MethodInterface
             if (!isset($this->_Arcs[$key]))
                 {continue;}
 
-            $this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], array($key));
+            $this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], [$key]);
         }
 
         $this->_Stats = $this->_Arcs;

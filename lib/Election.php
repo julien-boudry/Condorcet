@@ -320,7 +320,7 @@ class Election
 
         
         if ( !is_array($list) ) :
-            $list = array($list);
+            $list = [$list];
         endif;
 
         foreach ($list as &$candidate_id) :

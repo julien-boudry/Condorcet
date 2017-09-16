@@ -250,7 +250,7 @@ class Vote implements \Iterator
             $i = 1; $vote_r = [];
             foreach ($ranking as &$value) :
                 if ( !is_array($value) ) :
-                    $vote_r[$i] = array($value);
+                    $vote_r[$i] = [$value];
                 else :
                     $vote_r[$i] = $value;
                 endif;
@@ -436,11 +436,9 @@ class Vote implements \Iterator
 
     private function archiveRanking ($ranking, int $counter, $ownTimestamp) : void
     {
-        $this->_ranking[] = array(
-                                    'ranking' => $ranking,
-                                    'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
-                                    'counter' => $counter
-                                    );
+        $this->_ranking[] = [   'ranking' => $ranking,
+                                'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
+                                'counter' => $counter   ];
 
         $this->rewind();
     }

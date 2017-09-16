@@ -47,7 +47,7 @@ class Candidate
         if (!$this->checkName($name))
             { throw new CondorcetException(19, $name); }
 
-        $this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
+        $this->_name[] =  [ 'name' => $name, 'timestamp' => microtime(true) ];
 
         return true;
     }
