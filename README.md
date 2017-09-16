@@ -156,26 +156,26 @@ Living and learning examples, giving an overview but not exhaustive of the possi
 
 ### Class & Methods reference
 
-The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "doc" folder for each release.   
-* [Class & Methods documentation](doc/)
+The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "Documentation" folder for each release.   
+* [Class & Methods documentation](Documentation/)
 
 
 ### Examples
 
 #### Great overview
 
-* [Non-visual quick tour of opportunities without interface](examples/Overview.php) (not exhaustive and partial, but just a great tour.)
+* [Non-visual quick tour of opportunities without interface](Examples/Overview.php) (not exhaustive and partial, but just a great tour.)
 
 
 #### With html output basics examples
 
-* [Visual simple & advanced script examples with HTML output](examples/examples-with-html/)
+* [Visual simple & advanced script examples with HTML output](Examples/Examples-with-html/)
 
 
 #### Specifics examples
 
 * [Condorcet Wiki Manual](#condorcet-wiki-manual) provide many code example
-* [Manage millions of votes with an external database drive](examples/specifics_examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
+* [Manage millions of votes with an external database drive](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
 
 
 #### Really quick and simple example

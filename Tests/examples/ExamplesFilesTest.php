@@ -18,7 +18,7 @@ class ExamplesFilesTest extends TestCase
         $r = true;
 
         try {
-            include __DIR__.'/../../examples/1. Overview.php';
+            include __DIR__.'/../../Examples/1. Overview.php';
         } catch (Exception $e) {
             throw $e;
             $r = false;
@@ -35,7 +35,7 @@ class ExamplesFilesTest extends TestCase
         $r = true;
 
         try {
-            include __DIR__.'/../../examples/2. AdvancedObjectManagement.php';
+            include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
         } catch (Exception $e) {
             throw $e;
             $r = false;
@@ -53,7 +53,7 @@ class ExamplesFilesTest extends TestCase
 
         try {
             ob_start();
-                include __DIR__.'/../../examples/examples-with-html/A.Global_Example.php';
+                include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
             ob_end_clean();
 
         } catch (Exception $e) {
@@ -73,7 +73,7 @@ class ExamplesFilesTest extends TestCase
 
         try {
             ob_start();
-                include __DIR__.'/../../examples/examples-with-html/B.Ranking_Manipulation.php';
+                include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
             ob_end_clean();
         } catch (Exception $e) {
             throw $e;

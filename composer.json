@@ -29,13 +29,13 @@
         "psr-4": { "Condorcet\\": "lib/" }
     },
     "autoload-dev": {
-        "psr-4": { "Condorcet\\": "test/" }
+        "psr-4": { "Condorcet\\": "Tests/" }
     },
     "archive": {
         "exclude": [
-            "/test",
-            "/doc",
-            "/examples",
+            "/Tests",
+            "/Documentation",
+            "/Examples",
             "condorcet-logo.psd",
             "phpcs.xml.dist",
             ".travis.yml"
