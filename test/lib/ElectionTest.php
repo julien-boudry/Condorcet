@@ -56,6 +56,42 @@ class ElectionTest extends TestCase
         self::assertNotSame($resultFilter1,$resultFilter2);
     }
 
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 12
+      */
+    public function testMaxParseIteration ()
+    {
+        self::assertSame(42,Election::setMaxParseIteration(42));
+
+        self::assertCount(42,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+
+        self::assertCount(42,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+
+        self::assertSame(null,Election::setMaxParseIteration(null));
+
+        self::assertCount(43,$this->election1->parseVotes('candidate1>candidate2 * 43'));
+
+        self::assertSame(42,Election::setMaxParseIteration(42));
+
+        $this->election1->parseVotes('candidate1>candidate2 * 43');
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 16
+      */
+    public function testMaxVoteNumber ()
+    {
+        self::assertSame(42,Election::setMaxVoteNumber(42));
+
+        self::assertCount(17,$this->election1->parseVotes('candidate1>candidate2 * 17'));
+
+        self::assertCount(21,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+
+        $this->election1->addVote('candidate3');
+    }
+
 
 
 
