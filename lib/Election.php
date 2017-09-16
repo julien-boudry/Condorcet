@@ -81,7 +81,7 @@ class Election
         foreach ($input as &$line)
         {
             // Delete comments
-            $is_comment = strpos($line, '#');
+            $is_comment = mb_strpos($line, '#');
             if ($is_comment !== false)
             {
                 $line = substr($line, 0, $is_comment);
@@ -669,7 +669,7 @@ class Election
             endif;
 
             // Multiples
-            $is_multiple = strpos($line, '*');
+            $is_multiple = mb_strpos($line, '*');
             if ($is_multiple !== false) :
                 $multiple = trim( substr($line, $is_multiple + 1) );
 
@@ -689,7 +689,7 @@ class Election
             endif;
 
             // Tags + vote
-            if (strpos($line, '||') !== false) :
+            if (mb_strpos($line, '||') !== false) :
                 $data = explode('||', $line);
 
                 $vote = $data[1];
