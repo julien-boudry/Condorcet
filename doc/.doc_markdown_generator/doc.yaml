@@ -873,7 +873,7 @@
       required: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
   return: |
-    False on error. Else, the new value (null or integer).
+    *(int or null)* The new limit.
   related:
     - 'static Election::setMaxVoteNumber'
 

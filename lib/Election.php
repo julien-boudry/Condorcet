@@ -36,27 +36,17 @@ class Election
 /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
-    public static function setMaxParseIteration ($value)
+    public static function setMaxParseIteration (?int $value) : ?int
     {
-        if (is_int($value) || $value === null)
-        {
-            self::$_maxParseIteration = $value;
-            return self::$_maxParseIteration;
-        }
-        else
-            { return false; }
+        self::$_maxParseIteration = $value;
+        return self::$_maxParseIteration;
     }
 
     // Change max vote number
-    public static function setMaxVoteNumber ($value)
+    public static function setMaxVoteNumber (?int $value) : ?int
     {
-        if ( is_int($value) || ($value === null || $value === false) )
-        {
-            self::$_maxVoteNumber = ($value === false) ? null : $value;
-            return self::$_maxVoteNumber;
-        }
-        else
-            { return false; }
+        self::$_maxVoteNumber = $value;
+        return self::$_maxVoteNumber;
     }
 
 

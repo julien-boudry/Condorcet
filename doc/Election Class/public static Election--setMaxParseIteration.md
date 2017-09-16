@@ -16,7 +16,7 @@ Null will desactivate this functionnality. Else, enter an integer.
 
 ### Return value:   
 
-False on error. Else, the new value (null or integer).
+*(int or null)* The new limit.
 
 
 ---------------------------------------
