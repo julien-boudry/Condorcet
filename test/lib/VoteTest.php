@@ -328,4 +328,35 @@ class VoteTest extends TestCase
             self::assertTrue($vote1->removeAllTags());
     }
 
+    public function testAddRemoveTags ()
+    {
+        $this->vote1 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]);
+
+        $this->vote1->addTags('tag1');
+        $this->vote1->addTags(['tag2','tag3']);
+        self::assertTrue($this->vote1->addTags('tag4,tag5'));
+
+        self::assertSame(
+            ['tag1','tag2','tag3','tag4','tag5'],
+            $this->vote1->getTags()
+        );
+
+        $this->vote1->removeTags('tag1');
+        $this->vote1->removeTags(['tag2','tag3']);
+        self::assertsame($this->vote1->removeTags('tag4,tag5'),['tag4','tag5']);
+
+        self::assertSame(
+            [],
+            $this->vote1->getTags()
+        );
+
+        self::assertTrue($this->vote1->addTags('tag4,tag5'));
+        self::assertTrue($this->vote1->removeAllTags());
+
+        self::assertSame(
+            [],
+            $this->vote1->getTags()
+        );
+    }
+
 }
