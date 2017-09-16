@@ -47,18 +47,17 @@ abstract class Condorcet
     // Return library version numer
     public static function getVersion (string $options = 'FULL') : string
     {
-            switch ($options)
-            {
-                case 'MAJOR':
-                    $version = explode('.', self::VERSION);
-                    return $version[0].'.'.$version[1];
+        switch ($options) :
+            case 'MAJOR':
+                $version = explode('.', self::VERSION);
+                return $version[0].'.'.$version[1];
 
-                case 'ENV':
-                    return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
+            case 'ENV':
+                return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
 
-                default:
-                    return self::VERSION;
-            }
+            default:
+                return self::VERSION;
+        endswitch;
     }
 
     // Return an array with auth methods

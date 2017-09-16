@@ -19,10 +19,9 @@ class Permutation
     public static function countPossiblePermutations (int $candidatesNumber) : int {
         $result = $candidatesNumber;
 
-        for ($iteration = 1; $iteration < $candidatesNumber; $iteration++)
-        {
+        for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
             $result = $result * ($candidatesNumber - $iteration);
-        }
+        endfor;
 
         return $result;
     }

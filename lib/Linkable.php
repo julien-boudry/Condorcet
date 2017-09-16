@@ -66,13 +66,12 @@ trait Linkable
     {
         $destroyKey = array_search($election, $this->_link, true);
 
-        if ($destroyKey !== false)
-        {
+        if ($destroyKey !== false) :
             unset($this->_link[$destroyKey]);
             return true;
-        }
-        else
-            { throw new CondorcetException; }
+        else :
+            throw new CondorcetException;
+        endif;
     }
 
     protected function destroyAllLink () : void

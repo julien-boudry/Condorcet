@@ -72,13 +72,10 @@ class CondorcetException extends \Exception
         $error[102] = 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.';
 
 
-        if ( array_key_exists($code, $error) )
-        {
+        if ( array_key_exists($code, $error) ) :
             return $error[$code];
-        }
-        else
-        {
+        else :
             return (!is_null($this->_infos)) ? $this->_infos : 'Mysterious Error';
-        }
+        endif;
     }
 }

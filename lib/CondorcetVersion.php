@@ -19,14 +19,13 @@ trait CondorcetVersion
 
     public function getObjectVersion (string $options = null) : string
     {
-        switch ($options)
-        {
+        switch ($options) :
             case 'MAJOR':
                 $version = explode('.', $this->_objectVersion);
                 return $version[0].'.'.$version[1];
 
             default:
                 return $this->_objectVersion;
-        }
+        endswitch;
     }
 }

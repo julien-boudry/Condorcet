@@ -41,11 +41,13 @@ class Candidate
     {
         $name = trim($name);
 
-        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID )
-            { throw new CondorcetException(1, $name); }
+        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
+            throw new CondorcetException(1, $name);
+        endif;
 
-        if (!$this->checkName($name))
-            { throw new CondorcetException(19, $name); }
+        if (!$this->checkName($name)) :
+            throw new CondorcetException(19, $name);
+        endif;
 
         $this->_name[] =  [ 'name' => $name, 'timestamp' => microtime(true) ];
 
@@ -91,11 +93,11 @@ class Candidate
 
     private function checkName (string $name) : bool
     {
-        foreach ($this->_link as &$link)
-        {
-            if (!$link->canAddCandidate($name))
-                { return false; }
-        }
+        foreach ($this->_link as &$link) :
+            if (!$link->canAddCandidate($name)) :
+                return false;
+            endif;
+        endforeach;
 
         return true;
     }
