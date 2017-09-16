@@ -34,6 +34,13 @@ class ElectionTest extends TestCase
 
     }
 
+    public function testRemoveVote ()
+    {
+        self::assertSame([$this->vote2],$this->election1->removeVote($this->vote2));
+
+        self::assertCount(3,$this->election1->getVotesList());
+    }
+
     public function testTagsFilter ()
     {
         $this->vote1->addtags('tag1,tag2,tag3');
