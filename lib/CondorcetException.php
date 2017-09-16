@@ -58,6 +58,7 @@ class CondorcetException extends \Exception
         $error[22] = 'This context is not valid';
         $error[23] = 'No Data Handler in use';
         $error[24] = 'A Data Handler is already in use';
+        $error[25] = 'Algo class try to use existing alias';
 
         $error[30] = 'Candidate not in Ranking';
 

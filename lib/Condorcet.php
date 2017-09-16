@@ -135,6 +135,12 @@ abstract class Condorcet
                 throw new CondorcetException(10);
             endif;
 
+            foreach ($method::METHOD_NAME as $alias) :
+                if (self::isAuthMethod($alias)) :
+                    throw new CondorcetException(25);
+                endif;
+            endforeach;
+
             return true;
         }
 
