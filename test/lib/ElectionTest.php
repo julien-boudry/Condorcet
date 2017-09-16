@@ -99,7 +99,4 @@ class ElectionTest extends TestCase
         $this->election1->addVote('candidate3');
     }
 
-
-
-
 }

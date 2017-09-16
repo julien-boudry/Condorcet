@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CondorcetTest extends TestCase
 {
-    public function testaddExistingMethod ()
+    public function testAddExistingMethod ()
     {
         $algoClassPath = Condorcet::getDefaultMethod();
 
@@ -24,24 +24,53 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testaddValidMethod ()
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 25
+      */
+    public function testAddMethod ()
     {
         $algoClassPath = 'Condorcet\\CondorcetTest_ValidAlgorithmName';
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
 
         self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
+
+        // Try to add existing alias
+        $algoClassPath = 'Condorcet\\CondorcetTest_DuplicateAlgorithmAlias';
+
+        self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 10
       */
-    public function testaddUnvalidMethod ()
+    public function testAddUnvalidMethod ()
     {
         $algoClassPath = 'Condorcet\\CondorcetTest_UnvalidAlgorithmName';
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
+
+        self::assertSame(
+            __NAMESPACE__.'\\CondorcetTest_UnvalidAlgorithmName',
+            Condorcet::isAuthMethod('FirstMethodName')
+        );
+    }
+
+    public function testMethodAlias ()
+    {
+        self::assertSame(
+            __NAMESPACE__.'\\Algo\\Methods\\KemenyYoung',
+            Condorcet::isAuthMethod('kemeny–Young')
+        );
+
+        self::assertSame(
+            __NAMESPACE__.'\\Algo\\Methods\\KemenyYoung',
+            Condorcet::isAuthMethod('Maximum likelihood Method')
+        );
+
+        self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
     }
 
 }
@@ -92,6 +121,11 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
         $this->_Result = $this->createResult($result);
     }
+}
+
+class CondorcetTest_DuplicateAlgorithmAlias extends CondorcetTest_ValidAlgorithmName implements MethodInterface
+{
+    const METHOD_NAME = ['SecondMethodName','Alias_2'];
 }
 
 
