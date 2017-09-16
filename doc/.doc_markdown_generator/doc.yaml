@@ -91,7 +91,7 @@
       text: |
         The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
   return: |
-    True on Success. False on echec.
+    True on Success. False on failure.
   related:
     - 'static Condorcet::isAuthMethod'
   publish: true
@@ -539,6 +539,22 @@
   class: Election
   type: method
   visibility: public
+  name: getRankingAllRule
+  static: false
+  description: |
+    Returns the corresponding setting as currently set (True by default).
+    If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+    If it is false, then the candidates not ranked, are not taken into account at all.
+  return: |
+    (bool) True / False
+  related:
+    - 'Election::setRankingAllRule'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getResult
   static: false
   description: |
@@ -898,6 +914,27 @@
     - 'static Election::setMaxParseIteration'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: setRankingAllRule
+  static: false
+  description: |
+    Set the setting and reset all result data.
+    If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+    If it is false, then the candidates not ranked, are not taken into account at all.
+  input:
+    rule:
+      type: bool
+      default: true
+      required: true
+      text: New rule.
+  return: |
+    Return True
+  related:
+    - 'Election::getRankingAllRule'
+  publish: true
 
 
 # CLASS CANDIDATE

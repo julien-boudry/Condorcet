@@ -16,7 +16,7 @@ The class name implementing your method. The class name includes the namespace i
 
 ### Return value:   
 
-True on Success. False on echec.
+True on Success. False on failure.
 
 
 ---------------------------------------
