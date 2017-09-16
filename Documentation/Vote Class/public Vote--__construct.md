@@ -33,8 +33,8 @@ _None_
 
 ### Related method(s)      
 
-* [Vote::setRanking](../Vote Class/public Vote--setRanking.md)    
-* [Vote::addTags](../Vote Class/public Vote--addTags.md)    
+* [Vote::setRanking](../Vote%20Class/public%20Vote--setRanking.md)    
+* [Vote::addTags](../Vote%20Class/public%20Vote--addTags.md)    
 
 ---------------------------------------
 

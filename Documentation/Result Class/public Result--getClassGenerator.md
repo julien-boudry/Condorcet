@@ -18,4 +18,4 @@ Get the The algorithmic method used for this result.
 
 ### Related method(s)      
 
-* [Result::getMethod](../Result Class/public Result--getMethod.md)    
+* [Result::getMethod](../Result%20Class/public%20Result--getMethod.md)    

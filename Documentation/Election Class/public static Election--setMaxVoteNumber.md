@@ -23,4 +23,4 @@ Null will desactivate this functionnality. An interger will fix the limit.
 
 ### Related method(s)      
 
-* [static Election::setMaxParseIteration](../Election Class/public static Election--setMaxParseIteration.md)    
+* [static Election::setMaxParseIteration](../Election%20Class/public%20static%20Election--setMaxParseIteration.md)    

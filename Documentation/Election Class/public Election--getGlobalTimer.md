@@ -23,7 +23,7 @@ Int or string (look param).
 
 ### Related method(s)      
 
-* [Election::getLastTimer](../Election Class/public Election--getLastTimer.md)    
+* [Election::getLastTimer](../Election%20Class/public%20Election--getLastTimer.md)    
 
 ---------------------------------------
 

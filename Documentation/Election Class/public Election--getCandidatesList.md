@@ -23,5 +23,5 @@ List of Candidate into an array.
 
 ### Related method(s)      
 
-* [Election::countCandidates](../Election Class/public Election--countCandidates.md)    
-* [Election::existCandidateId](../Election Class/public Election--existCandidateId.md)    
+* [Election::countCandidates](../Election%20Class/public%20Election--countCandidates.md)    
+* [Election::existCandidateId](../Election%20Class/public%20Election--existCandidateId.md)    

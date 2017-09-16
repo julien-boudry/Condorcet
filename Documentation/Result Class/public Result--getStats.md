@@ -18,7 +18,7 @@ Varying according to the algorithm used.
 
 ### Related method(s)      
 
-* [Election::getResult](../Election Class/public Election--getResult.md)    
+* [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
 
 ---------------------------------------
 

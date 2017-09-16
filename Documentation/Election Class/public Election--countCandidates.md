@@ -18,4 +18,4 @@ Count the number of registered candidate
 
 ### Related method(s)      
 
-* [Election::getCandidatesList](../Election Class/public Election--getCandidatesList.md)    
+* [Election::getCandidatesList](../Election%20Class/public%20Election--getCandidatesList.md)    

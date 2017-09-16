@@ -28,4 +28,4 @@ Count Votes with this tag ou without this tag.
 
 ### Related method(s)      
 
-* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    
+* [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    

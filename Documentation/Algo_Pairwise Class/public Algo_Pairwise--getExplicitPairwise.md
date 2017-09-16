@@ -18,4 +18,4 @@ An explicit array with candidate name as key.
 
 ### Related method(s)      
 
-* [Election::getPairwise](../Election Class/public Election--getPairwise.md)    
+* [Election::getPairwise](../Election%20Class/public%20Election--getPairwise.md)    

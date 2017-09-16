@@ -23,8 +23,8 @@ They can be added by string separated by commas or an array.
 
 ### Related method(s)      
 
-* [Vote::addTags](../Vote Class/public Vote--addTags.md)    
-* [Vote::removeTags](../Vote Class/public Vote--removeTags.md)    
+* [Vote::addTags](../Vote%20Class/public%20Vote--addTags.md)    
+* [Vote::removeTags](../Vote%20Class/public%20Vote--removeTags.md)    
 
 ---------------------------------------
 

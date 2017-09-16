@@ -23,7 +23,7 @@ Pairwise object. Or an explicit array if _explicit_ argument == true.
 
 ### Related method(s)      
 
-* [Election::getResult](../Election Class/public Election--getResult.md)    
+* [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
 
 ---------------------------------------
 

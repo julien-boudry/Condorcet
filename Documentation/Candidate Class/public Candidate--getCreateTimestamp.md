@@ -18,4 +18,4 @@ Get the timestamp corresponding of the creation of this candidate.
 
 ### Related method(s)      
 
-* [Candidate::getTimestamp](../Candidate Class/public Candidate--getTimestamp.md)    
+* [Candidate::getTimestamp](../Candidate%20Class/public%20Candidate--getTimestamp.md)    

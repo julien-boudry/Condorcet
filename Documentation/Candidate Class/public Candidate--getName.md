@@ -18,5 +18,5 @@ Get the candidate name.
 
 ### Related method(s)      
 
-* [Candidate::getHistory](../Candidate Class/public Candidate--getHistory.md)    
-* [Candidate::setName](../Candidate Class/public Candidate--setName.md)    
+* [Candidate::getHistory](../Candidate%20Class/public%20Candidate--getHistory.md)    
+* [Candidate::setName](../Candidate%20Class/public%20Candidate--setName.md)    

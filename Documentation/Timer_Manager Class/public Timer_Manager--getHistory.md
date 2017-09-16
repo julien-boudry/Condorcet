@@ -18,4 +18,4 @@ An explicit array with history.
 
 ### Related method(s)      
 
-* [Election::getTimerManager](../Election Class/public Election--getTimerManager.md)    
+* [Election::getTimerManager](../Election%20Class/public%20Election--getTimerManager.md)    

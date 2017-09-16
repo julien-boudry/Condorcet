@@ -28,8 +28,8 @@ Remove Candidate from an election.
 
 ### Related method(s)      
 
-* [Election::AddCandidate](../Election Class/public Election--AddCandidate.md)    
-* [Election::getCandidatesList](../Election Class/public Election--getCandidatesList.md)    
+* [Election::AddCandidate](../Election%20Class/public%20Election--AddCandidate.md)    
+* [Election::getCandidatesList](../Election%20Class/public%20Election--getCandidatesList.md)    
 
 ---------------------------------------
 

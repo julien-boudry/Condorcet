@@ -28,7 +28,7 @@ Get registered vote list.
 
 ### Related method(s)      
 
-* [Election::countVotes](../Election Class/public Election--countVotes.md)    
+* [Election::countVotes](../Election%20Class/public%20Election--countVotes.md)    
 
 ---------------------------------------
 

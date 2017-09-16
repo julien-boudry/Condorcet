@@ -36,8 +36,8 @@ $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 
 ### Related method(s)      
 
-* [Election::AddVote](../Election Class/public Election--AddVote.md)    
-* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    
+* [Election::AddVote](../Election%20Class/public%20Election--AddVote.md)    
+* [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
 
 ---------------------------------------
 

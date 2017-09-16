@@ -23,8 +23,8 @@ Goes beyond the class static limit for this election object only, if static limi
 
 ### Related method(s)      
 
-* [static Election::setMaxVoteNumber](../Election Class/public static Election--setMaxVoteNumber.md)    
-* [static Election::setMaxParseIteration](../Election Class/public static Election--setMaxParseIteration.md)    
+* [static Election::setMaxVoteNumber](../Election%20Class/public%20static%20Election--setMaxVoteNumber.md)    
+* [static Election::setMaxParseIteration](../Election%20Class/public%20static%20Election--setMaxParseIteration.md)    
 
 ---------------------------------------
 

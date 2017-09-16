@@ -18,5 +18,5 @@ Return the Condorcet static default method for the new Condorcet object.
 
 ### Related method(s)      
 
-* [static Condorcet::getAuthMethods](../Condorcet Class/public static Condorcet--getAuthMethods.md)    
-* [static Condorcet::setDefaultMethod](../Condorcet Class/public static Condorcet--setDefaultMethod.md)    
+* [static Condorcet::getAuthMethods](../Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md)    
+* [static Condorcet::setDefaultMethod](../Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md)    

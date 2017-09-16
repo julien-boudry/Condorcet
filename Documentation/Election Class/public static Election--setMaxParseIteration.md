@@ -23,4 +23,4 @@ Null will desactivate this functionnality. Else, enter an integer.
 
 ### Related method(s)      
 
-* [static Election::setMaxVoteNumber](../Election Class/public static Election--setMaxVoteNumber.md)    
+* [static Election::setMaxVoteNumber](../Election%20Class/public%20static%20Election--setMaxVoteNumber.md)    

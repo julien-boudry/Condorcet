@@ -23,7 +23,7 @@ Int or string (look param).
 
 ### Related method(s)      
 
-* [Election::getGlobalTimer](../Election Class/public Election--getGlobalTimer.md)    
+* [Election::getGlobalTimer](../Election%20Class/public%20Election--getGlobalTimer.md)    
 
 ---------------------------------------
 

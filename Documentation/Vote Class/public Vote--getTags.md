@@ -18,5 +18,5 @@ Get the registered tags for this Vote.
 
 ### Related method(s)      
 
-* [Vote::addTags](../Vote Class/public Vote--addTags.md)    
-* [Vote::removeTags](../Vote Class/public Vote--removeTags.md)    
+* [Vote::addTags](../Vote%20Class/public%20Vote--addTags.md)    
+* [Vote::removeTags](../Vote%20Class/public%20Vote--removeTags.md)    

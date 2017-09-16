@@ -23,7 +23,7 @@ Import and enable an external driver to store vote on very large election.
 
 ### Related method(s)      
 
-* [Election::removeExternalDataHandler](../Election Class/public Election--removeExternalDataHandler.md)    
+* [Election::removeExternalDataHandler](../Election%20Class/public%20Election--removeExternalDataHandler.md)    
 
 ---------------------------------------
 

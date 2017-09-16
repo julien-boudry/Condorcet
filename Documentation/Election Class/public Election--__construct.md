@@ -18,4 +18,4 @@ NULL
 
 ### Related method(s)      
 
-* [Election::__destruct](../Election Class/public Election--__destruct.md)    
+* [Election::__destruct](../Election%20Class/public%20Election--__destruct.md)    

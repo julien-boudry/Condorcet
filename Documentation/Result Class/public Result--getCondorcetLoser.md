@@ -18,5 +18,5 @@ Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
 
 ### Related method(s)      
 
-* [Result::getCondorcetWinner](../Result Class/public Result--getCondorcetWinner.md)    
-* [Election::getLoser](../Election Class/public Election--getLoser.md)    
+* [Result::getCondorcetWinner](../Result%20Class/public%20Result--getCondorcetWinner.md)    
+* [Election::getLoser](../Election%20Class/public%20Election--getLoser.md)    

@@ -23,8 +23,8 @@ Condorcet election to check.
 
 ### Related method(s)      
 
-* [Vote::countLinks](../Vote Class/public Vote--countLinks.md)    
-* [Candidate::countLinks](../Candidate Class/public Candidate--countLinks.md)    
-* [Vote::getLinks](../Vote Class/public Vote--getLinks.md)    
-* [Candidate::getLinks](../Candidate Class/public Candidate--getLinks.md)    
-* [Candidate::haveLink](../Candidate Class/public Candidate--haveLink.md)    
+* [Vote::countLinks](../Vote%20Class/public%20Vote--countLinks.md)    
+* [Candidate::countLinks](../Candidate%20Class/public%20Candidate--countLinks.md)    
+* [Vote::getLinks](../Vote%20Class/public%20Vote--getLinks.md)    
+* [Candidate::getLinks](../Candidate%20Class/public%20Candidate--getLinks.md)    
+* [Candidate::haveLink](../Candidate%20Class/public%20Candidate--haveLink.md)    

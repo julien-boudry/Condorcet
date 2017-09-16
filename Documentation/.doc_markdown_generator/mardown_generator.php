@@ -88,6 +88,7 @@ function cleverRelated ($name)
   $infos[0] = str_replace('static ', '', $infos[0]);
 
   $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md' ;
+  $url = str_replace(' ', '%20', $url);
 
   return "[".$name."](".$url.")";
 }

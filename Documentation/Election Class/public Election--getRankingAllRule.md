@@ -20,4 +20,4 @@ If it is false, then the candidates not ranked, are not taken into account at al
 
 ### Related method(s)      
 
-* [Election::setRankingAllRule](../Election Class/public Election--setRankingAllRule.md)    
+* [Election::setRankingAllRule](../Election%20Class/public%20Election--setRankingAllRule.md)    

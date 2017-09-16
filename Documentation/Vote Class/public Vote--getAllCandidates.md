@@ -18,5 +18,5 @@ Get all the candidates object set in the last ranking of this Vote.
 
 ### Related method(s)      
 
-* [Vote::getRanking](../Vote Class/public Vote--getRanking.md)    
-* [Vote::countRankingCandidates](../Vote Class/public Vote--countRankingCandidates.md)    
+* [Vote::getRanking](../Vote%20Class/public%20Vote--getRanking.md)    
+* [Vote::countRankingCandidates](../Vote%20Class/public%20Vote--countRankingCandidates.md)    

@@ -23,4 +23,4 @@ Candidate object (Condorcet\Candidate)
 
 ### Related method(s)      
 
-* [Election::existCandidateId](../Election Class/public Election--existCandidateId.md)    
+* [Election::existCandidateId](../Election%20Class/public%20Election--existCandidateId.md)    

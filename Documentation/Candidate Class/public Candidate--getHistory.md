@@ -18,4 +18,4 @@ Return an history of each namming change, with timestamp.
 
 ### Related method(s)      
 
-* [Candidate::getCreateTimestamp](../Candidate Class/public Candidate--getCreateTimestamp.md)    
+* [Candidate::getCreateTimestamp](../Candidate%20Class/public%20Candidate--getCreateTimestamp.md)    

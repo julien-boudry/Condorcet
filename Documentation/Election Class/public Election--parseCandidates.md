@@ -23,9 +23,9 @@ String or valid path to a text file.
 
 ### Related method(s)      
 
-* [Election::addCandidate](../Election Class/public Election--addCandidate.md)    
-* [Election::jsonCandidates](../Election Class/public Election--jsonCandidates.md)    
-* [Election::parseVotes](../Election Class/public Election--parseVotes.md)    
+* [Election::addCandidate](../Election%20Class/public%20Election--addCandidate.md)    
+* [Election::jsonCandidates](../Election%20Class/public%20Election--jsonCandidates.md)    
+* [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
 
 ---------------------------------------
 

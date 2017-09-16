@@ -29,7 +29,7 @@ An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use li
 
 ### Related method(s)      
 
-* [Election::getWinner](../Election Class/public Election--getWinner.md)    
+* [Election::getWinner](../Election%20Class/public%20Election--getWinner.md)    
 
 ---------------------------------------
 

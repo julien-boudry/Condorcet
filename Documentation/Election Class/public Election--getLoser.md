@@ -33,8 +33,8 @@ Throw an exception on error.
 
 ### Related method(s)      
 
-* [Election::getWinner](../Election Class/public Election--getWinner.md)    
-* [Election::getResult](../Election Class/public Election--getResult.md)    
+* [Election::getWinner](../Election%20Class/public%20Election--getWinner.md)    
+* [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
 
 ---------------------------------------
 

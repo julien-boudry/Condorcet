@@ -23,9 +23,9 @@ Json string input.
 
 ### Related method(s)      
 
-* [Election::addCandidate](../Election Class/public Election--addCandidate.md)    
-* [Election::parseCandidates](../Election Class/public Election--parseCandidates.md)    
-* [Election::jsonVotes](../Election Class/public Election--jsonVotes.md)    
+* [Election::addCandidate](../Election%20Class/public%20Election--addCandidate.md)    
+* [Election::parseCandidates](../Election%20Class/public%20Election--parseCandidates.md)    
+* [Election::jsonVotes](../Election%20Class/public%20Election--jsonVotes.md)    
 
 ---------------------------------------
 

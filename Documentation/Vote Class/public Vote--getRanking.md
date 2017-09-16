@@ -18,4 +18,4 @@ Get the actual Ranking of this Vote.
 
 ### Related method(s)      
 
-* [Vote::setRanking](../Vote Class/public Vote--setRanking.md)    
+* [Vote::setRanking](../Vote%20Class/public%20Vote--setRanking.md)    

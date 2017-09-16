@@ -18,4 +18,4 @@ Return an history of each vote change, with timestamp.
 
 ### Related method(s)      
 
-* [Vote::getCreateTimestamp](../Vote Class/public Vote--getCreateTimestamp.md)    
+* [Vote::getCreateTimestamp](../Vote%20Class/public%20Vote--getCreateTimestamp.md)    

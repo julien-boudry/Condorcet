@@ -18,4 +18,4 @@ Get the current ranking as a string format.
 
 ### Related method(s)      
 
-* [Vote::getRanking](../Vote Class/public Vote--getRanking.md)    
+* [Vote::getRanking](../Vote%20Class/public%20Vote--getRanking.md)    

@@ -23,4 +23,4 @@ True if your Candidate is available. or False.
 
 ### Related method(s)      
 
-* [Election::addCandidate](../Election Class/public Election--addCandidate.md)    
+* [Election::addCandidate](../Election%20Class/public%20Election--addCandidate.md)    

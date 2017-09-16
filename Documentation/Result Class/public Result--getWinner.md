@@ -19,5 +19,5 @@ You can get an array with multiples winners.
 
 ### Related method(s)      
 
-* [Result::getLoser](../Result Class/public Result--getLoser.md)    
-* [Election::getWinner](../Election Class/public Election--getWinner.md)    
+* [Result::getLoser](../Result%20Class/public%20Result--getLoser.md)    
+* [Election::getWinner](../Election%20Class/public%20Election--getWinner.md)    

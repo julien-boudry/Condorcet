@@ -18,4 +18,4 @@ Remove an external driver to store vote on very large election. And import his d
 
 ### Related method(s)      
 
-* [Election::setExternalDataHandler](../Election Class/public Election--setExternalDataHandler.md)    
+* [Election::setExternalDataHandler](../Election%20Class/public%20Election--setExternalDataHandler.md)    

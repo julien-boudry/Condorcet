@@ -41,9 +41,9 @@ In case of success, return TRUE
 
 ### Related method(s)      
 
-* [Vote::getRanking](../Vote Class/public Vote--getRanking.md)    
-* [Vote::getHistory](../Vote Class/public Vote--getHistory.md)    
-* [Vote::__construct](../Vote Class/public Vote--__construct.md)    
+* [Vote::getRanking](../Vote%20Class/public%20Vote--getRanking.md)    
+* [Vote::getHistory](../Vote%20Class/public%20Vote--getHistory.md)    
+* [Vote::__construct](../Vote%20Class/public%20Vote--__construct.md)    
 
 ---------------------------------------
 

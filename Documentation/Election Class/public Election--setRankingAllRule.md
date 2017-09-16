@@ -25,4 +25,4 @@ Return True
 
 ### Related method(s)      
 
-* [Election::getRankingAllRule](../Election Class/public Election--getRankingAllRule.md)    
+* [Election::getRankingAllRule](../Election%20Class/public%20Election--getRankingAllRule.md)    

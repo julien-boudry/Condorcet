@@ -23,7 +23,7 @@ In case of success, return TRUE
 
 ### Related method(s)      
 
-* [Vote::removeTags](../Vote Class/public Vote--removeTags.md)    
+* [Vote::removeTags](../Vote%20Class/public%20Vote--removeTags.md)    
 
 ---------------------------------------
 

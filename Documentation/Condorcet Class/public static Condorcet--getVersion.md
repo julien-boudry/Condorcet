@@ -25,4 +25,4 @@ Get the library version.
 
 ### Related method(s)      
 
-* [Election::getObjectVersion](../Election Class/public Election--getObjectVersion.md)    
+* [Election::getObjectVersion](../Election%20Class/public%20Election--getObjectVersion.md)    

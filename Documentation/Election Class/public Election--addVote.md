@@ -28,10 +28,10 @@ The vote object.
 
 ### Related method(s)      
 
-* [Election::parseVotes](../Election Class/public Election--parseVotes.md)    
-* [Election::jsonVotes](../Election Class/public Election--jsonVotes.md)    
-* [Election::removeVote](../Election Class/public Election--removeVote.md)    
-* [Election::getVotesList](../Election Class/public Election--getVotesList.md)    
+* [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
+* [Election::jsonVotes](../Election%20Class/public%20Election--jsonVotes.md)    
+* [Election::removeVote](../Election%20Class/public%20Election--removeVote.md)    
+* [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
 
 ---------------------------------------
 

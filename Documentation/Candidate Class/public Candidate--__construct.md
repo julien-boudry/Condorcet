@@ -23,7 +23,7 @@ Candidate Name
 
 ### Related method(s)      
 
-* [Candidate::setName](../Candidate Class/public Candidate--setName.md)    
+* [Candidate::setName](../Candidate%20Class/public%20Candidate--setName.md)    
 
 ---------------------------------------
 

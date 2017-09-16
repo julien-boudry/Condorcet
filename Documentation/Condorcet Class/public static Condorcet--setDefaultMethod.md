@@ -23,4 +23,4 @@ Method Name.
 
 ### Related method(s)      
 
-* [static Condorcet::getDefaultMethod](../Condorcet Class/public static Condorcet--getDefaultMethod.md)    
+* [static Condorcet::getDefaultMethod](../Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md)    

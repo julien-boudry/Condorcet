@@ -18,4 +18,4 @@ Get the The algorithmic method used for this result.
 
 ### Related method(s)      
 
-* [Result::getClassGenerator](../Result Class/public Result--getClassGenerator.md)    
+* [Result::getClassGenerator](../Result%20Class/public%20Result--getClassGenerator.md)    

@@ -18,5 +18,5 @@ An Condorcet\Timer\Manager object using by this election.
 
 ### Related method(s)      
 
-* [Election::getGlobalTimer](../Election Class/public Election--getGlobalTimer.md)    
-* [Election::getLastTimer](../Election Class/public Election--getLastTimer.md)    
+* [Election::getGlobalTimer](../Election%20Class/public%20Election--getGlobalTimer.md)    
+* [Election::getLastTimer](../Election%20Class/public%20Election--getLastTimer.md)    

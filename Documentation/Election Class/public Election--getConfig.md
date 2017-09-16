@@ -18,5 +18,5 @@ An explicit array.
 
 ### Related method(s)      
 
-* [Condorcet::isAuthMethod](../Condorcet Class/public Condorcet--isAuthMethod.md)    
-* [Condorcet::getAuthMethods](../Condorcet Class/public Condorcet--getAuthMethods.md)    
+* [Condorcet::isAuthMethod](../Condorcet%20Class/public%20Condorcet--isAuthMethod.md)    
+* [Condorcet::getAuthMethods](../Condorcet%20Class/public%20Condorcet--getAuthMethods.md)    
