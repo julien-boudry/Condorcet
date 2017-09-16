@@ -122,11 +122,10 @@ class RankedPairsTest extends TestCase
         );
     }
 
-/*
-    # Condorcet do not support ignored candidates. he puts them at the last rank. So results are different.
     public function testResult_4 ()
     {
         # From https://en.wikipedia.org/wiki/Ranked_pairs
+
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');
@@ -137,7 +136,12 @@ class RankedPairsTest extends TestCase
             C > A * 52
         ');
 
+        // Not supporting not ranked candidate
+        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs'));
+
+        // Supporting not ranked candidate
+        $this->election->setRankingAllRule(false);
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
-*/
+    }
 
 }
