@@ -1,11 +1,7 @@
-testing_script/
-
-doc/.doc_markdown_generator/Spyc.php
+Documentation/.doc_markdown_generator/Spyc.php
 
 lib/Condorcet/algorithms/KemenyYoung-Data/9.data
 lib/Condorcet/algorithms/KemenyYoung-Data/10.data
-
-.idea/
 
 *.sqlite
 

@@ -15,6 +15,7 @@ use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Dodgson');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
@@ -31,7 +32,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        public const VERSION = '1.2.3';
+        public const VERSION = '1.3.0';
 
         public const ENV = 'STABLE';
 
@@ -46,18 +47,17 @@ abstract class Condorcet
     // Return library version numer
     public static function getVersion (string $options = 'FULL') : string
     {
-            switch ($options)
-            {
-                case 'MAJOR':
-                    $version = explode('.', self::VERSION);
-                    return $version[0].'.'.$version[1];
+        switch ($options) :
+            case 'MAJOR':
+                $version = explode('.', self::VERSION);
+                return $version[0].'.'.$version[1];
 
-                case 'ENV':
-                    return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
+            case 'ENV':
+                return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
 
-                default:
-                    return self::VERSION;
-            }
+            default:
+                return self::VERSION;
+        endswitch;
     }
 
     // Return an array with auth methods
@@ -135,6 +135,12 @@ abstract class Condorcet
                 throw new CondorcetException(10);
             endif;
 
+            foreach ($method::METHOD_NAME as $alias) :
+                if (self::isAuthMethod($alias)) :
+                    throw new CondorcetException(25);
+                endif;
+            endforeach;
+
             return true;
         }
 
@@ -174,7 +180,7 @@ abstract class Condorcet
                 $input[$key] = self::format($line,false,$convertObject);
             endforeach;
 
-            if (count($input) === 1 && is_array(reset($input)) && count(reset($input)) === 1):
+            if (count($input) === 1 && is_int(key($input)) && (!is_array(reset($input)) || count(reset($input)) === 1)):
                 $r = reset($input);
             else:
                 $r = $input;

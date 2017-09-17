@@ -19,6 +19,7 @@ class Candidate
     use Linkable, CondorcetVersion;
 
     private $_name = [];
+    private $_provisional = false;
 
         ///
 
@@ -40,14 +41,22 @@ class Candidate
     {
         $name = trim($name);
 
-        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID )
-            { throw new CondorcetException(1, $name); }
+        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
+            throw new CondorcetException(1, $name);
+        endif;
 
-        if (!$this->checkName($name))
-            { throw new CondorcetException(19, $name); }
+        if (!$this->checkName($name)) :
+            throw new CondorcetException(19, $name);
+        endif;
 
-        $this->_name[] = array('name' => $name, 'timestamp' => microtime(true));
+        $this->_name[] =  [ 'name' => $name, 'timestamp' => microtime(true) ];
 
+        return true;
+    }
+
+    public function setProvisionalState (bool $provisional) : bool
+    {
+        $this->_provisional = $provisional;
         return true;
     }
 
@@ -73,17 +82,22 @@ class Candidate
         return end($this->_name)['timestamp'];
     }
 
+    public function getProvisionalState () : bool
+    {
+        return $this->_provisional;
+    }
+
         ///
 
     // INTERNAL
 
     private function checkName (string $name) : bool
     {
-        foreach ($this->_link as &$link)
-        {
-            if (!$link->canAddCandidate($name))
-                { return false; }
-        }
+        foreach ($this->_link as &$link) :
+            if (!$link->canAddCandidate($name)) :
+                return false;
+            endif;
+        endforeach;
 
         return true;
     }

@@ -2,7 +2,7 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php" forceCoversAnnotation = "true">
     <testsuites>
         <testsuite name="PHPUnit tests">
-            <directory>./test</directory>
+            <directory>./Tests</directory>
         </testsuite>
     </testsuites>
     <filter>

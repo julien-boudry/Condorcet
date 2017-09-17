@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Condorcet\DataManager;
 
 use Condorcet\DataManager\ArrayManager;
+use Condorcet\DataManager\DataContextInterface;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
@@ -34,7 +35,7 @@ class VotesManager extends ArrayManager
 
     public function getDataContextObject ()
     {
-        $context = new Class {
+        $context = new Class implements DataContextInterface {
             public $election;
 
             public function dataCallBack ($data)

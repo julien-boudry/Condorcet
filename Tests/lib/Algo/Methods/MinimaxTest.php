@@ -1,0 +1,220 @@
+<?php
+declare(strict_types=1);
+namespace Condorcet;
+
+use Condorcet\CondorcetException;
+use Condorcet\Candidate;
+use Condorcet\Election;
+use Condorcet\Vote;
+
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @covers \Condorcet\Algo\Methods\Minimax_Core
+ */
+class MinimaxTest extends TestCase
+{
+    /**
+     * @var election1
+     */
+    private $election;
+
+    public function setUp()
+    {
+        $this->election = new Election;
+    }
+
+    public function testResult_1 ()
+    {
+        # From https://en.wikipedia.org/wiki/Minimax_Condorcet
+
+        $this->election->addCandidate('Memphis');
+        $this->election->addCandidate('Nashville');
+        $this->election->addCandidate('Chattanooga');
+        $this->election->addCandidate('Knoxville');
+
+        $this->election->parseVotes('
+            Memphis > Nashville > Chattanooga * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
+
+        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Winning'));
+
+        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Margin'));
+
+        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Opposition'));
+
+        $expectedRanking = [
+            1 => 'Nashville',
+            2 => 'Memphis',
+            3 => 'Chattanooga',
+            4 => 'Knoxville'
+        ];
+
+        self::assertSame(
+            $expectedRanking,
+            $this->election->getResult('Minimax Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expectedRanking,
+            $this->election->getResult('Minimax Margin')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expectedRanking,
+            $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_defeat_winning" => 58],
+                "Nashville"     =>  ["worst_pairwise_defeat_winning" => 0],
+                "Chattanooga"   =>  ["worst_pairwise_defeat_winning" => 68],
+                "Knoxville"     =>  ["worst_pairwise_defeat_winning" => 83]  ],
+            $this->election->getResult('Minimax Winning')->getStats()
+        );
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_defeat_margin" => 16],
+                "Nashville"     =>  ["worst_pairwise_defeat_margin" => -16],
+                "Chattanooga"   =>  ["worst_pairwise_defeat_margin" => 36],
+                "Knoxville"     =>  ["worst_pairwise_defeat_margin" => 66]  ],
+            $this->election->getResult('Minimax Margin')->getStats()
+        );
+
+        self::assertSame(
+            [   "Memphis"       =>  ["worst_pairwise_opposition" => 58],
+                "Nashville"     =>  ["worst_pairwise_opposition" => 42],
+                "Chattanooga"   =>  ["worst_pairwise_opposition" => 68],
+                "Knoxville"     =>  ["worst_pairwise_opposition" => 83]  ],
+            $this->election->getResult('Minimax Opposition')->getStats()
+        );
+    }
+
+    public function testResult_2 ()
+    {
+        # From https://en.wikipedia.org/wiki/Minimax_Condorcet
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A = C > B * 4
+            A > C > B * 47
+            C > B > A * 43
+            B > A = C * 6
+        ');
+
+        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Winning'));
+
+        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Margin'));
+
+        self::assertEquals('C',$this->election->getWinner('Minimax Opposition'));
+
+        $expectedRanking1 = [
+            1 => 'A',
+            2 => 'C',
+            3 => 'B'
+        ];
+
+        self::assertSame(
+            $expectedRanking1,
+            $this->election->getResult('Minimax Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expectedRanking1,
+            $this->election->getResult('Minimax Margin')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            [   1 => 'C',
+                2 => 'A',
+                3 => 'B'    ],
+            $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_3 ()
+    {
+        # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
+
+        $this->election->addCandidate('Abby');
+        $this->election->addCandidate('Brad');
+        $this->election->addCandidate('Cora');
+        $this->election->addCandidate('Dave');
+        $this->election->addCandidate('Erin');
+
+        $this->election->parseVotes('
+            Abby>Cora>Erin>Dave>Brad * 98
+            Brad>Abby>Erin>Cora>Dave * 64
+            Brad>Abby>Erin>Dave>Cora * 12
+            Brad>Erin>Abby>Cora>Dave * 98
+            Brad>Erin>Abby>Dave>Cora * 13
+            Brad>Erin>Dave>Abby>Cora * 125
+            Cora>Abby>Erin>Dave>Brad * 124
+            Cora>Erin>Abby>Dave>Brad * 76
+            Dave>Abby>Brad>Erin>Cora * 21
+            Dave>Brad>Abby>Erin>Cora * 30
+            Dave>Brad>Erin>Cora>Abby * 98
+            Dave>Cora>Abby>Brad>Erin * 139
+            Dave>Cora>Brad>Abby>Erin * 23
+        ');
+
+        self::assertEquals('Cora',$this->election->getWinner('Minimax Winning'));
+    }
+
+    public function testResult_4 ()
+    {
+        # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('L');
+
+        $this->election->parseVotes('
+            A > B > C * 1
+            A > B > L * 1
+            B > C > A * 3
+            C > L > A * 1
+            L > A > B * 1
+            L > C > A * 2
+        ');
+
+        self::assertEquals($this->election->getWinner('Minimax Winning'),'L');
+    }
+
+    public function testResult_5 ()
+    {
+        # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
+
+        $this->election->setRankingAllRule(false);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A > C > B > D * 30
+            D > B > A > C * 15
+            D > B > C > A * 14
+            B > C > A > D * 6
+            D > C > A = B * 4
+            C > A = B * 16
+            B > C * 14
+            C > A * 3
+        ');
+
+        self::assertEquals($this->election->getWinner('Minimax Winning'),'A');
+        self::assertEquals($this->election->getWinner('Minimax Margin'),'B');
+        self::assertEquals($this->election->getWinner('Minimax Opposition'),'D');
+
+        $this->election->setRankingAllRule(true);
+        self::assertNotEquals($this->election->getWinner('Minimax Winning'),'A');
+    }
+}

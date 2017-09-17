@@ -9,19 +9,24 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\Minimax_Core;
-use Condorcet\CondorcetException;
-use Condorcet\Result;
+use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
+use Condorcet\Algo\MethodInterface;
 
-// Beware, this method is not a Condorcet method ! Winner can be different than Condorcet Basic method
-class MinimaxOpposition extends Minimax_Core
+// Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
+class MinimaxOpposition extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
     public const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
-    protected function makeRanking () : void
+    protected $_countType = 'worst_pairwise_opposition';
+
+
+/////////// COMPUTE ///////////
+
+    //:: SIMPSON ALGORITHM. :://
+
+    protected function looking (array $challenge) : int
     {
-        $this->_Result = $this->createResult(self::makeRanking_method('opposition', $this->_Stats));
+        return min($challenge);
     }
 }
-

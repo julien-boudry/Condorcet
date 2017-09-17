@@ -58,6 +58,7 @@ class CondorcetException extends \Exception
         $error[22] = 'This context is not valid';
         $error[23] = 'No Data Handler in use';
         $error[24] = 'A Data Handler is already in use';
+        $error[25] = 'Algo class try to use existing alias';
 
         $error[30] = 'Candidate not in Ranking';
 
@@ -72,13 +73,10 @@ class CondorcetException extends \Exception
         $error[102] = 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.';
 
 
-        if ( array_key_exists($code, $error) )
-        {
+        if ( array_key_exists($code, $error) ) :
             return $error[$code];
-        }
-        else
-        {
+        else :
             return (!is_null($this->_infos)) ? $this->_infos : 'Mysterious Error';
-        }
+        endif;
     }
 }

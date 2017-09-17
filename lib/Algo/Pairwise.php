@@ -102,7 +102,7 @@ class Pairwise implements \ArrayAccess,\Iterator
 
         foreach ( $candidate_list as $candidate_key => $candidate_id ) :
 
-            $this->_Pairwise[$candidate_key] = array( 'win' => [], 'null' => [], 'lose' => [] );
+            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
             foreach ( $candidate_list as $candidate_key_r => $candidate_id_r ) :
 
@@ -118,10 +118,20 @@ class Pairwise implements \ArrayAccess,\Iterator
 
         // Win && Null
         foreach ( $vote_list as $vote_id => $vote_ranking ) :
+            $vote_ranking = $vote_ranking->getContextualVote($this->_Election);
+
+            $vote_candidate_list = (function (array $r) : array { $list = [];
+                    foreach ($r as $rank) :
+                        foreach ($rank as $oneCandidate) :
+                            $list[] = $oneCandidate;
+                        endforeach;
+                    endforeach;
+
+                    return $list;})($vote_ranking);
 
             $done_Candidates = [];
 
-            foreach ($vote_ranking->getContextualVote($this->_Election) as $candidates_in_rank) :
+            foreach ($vote_ranking as $candidates_in_rank) :
 
                 $candidates_in_rank_keys = [];
 
@@ -134,48 +144,31 @@ class Pairwise implements \ArrayAccess,\Iterator
                     $candidate_key = $this->_Election->getCandidateKey($candidate);
 
                     // Process
-                    foreach ( $candidate_list as $g_candidate_key => $g_CandidateId ) :
+                    foreach ( $vote_candidate_list as $g_Candidate ) :
 
-                        // Win
-                        if (    $candidate_key !== $g_candidate_key && 
-                                !in_array($g_candidate_key, $done_Candidates, true) && 
-                                !in_array($g_candidate_key, $candidates_in_rank_keys, true)
-                            ) :
+                        $g_candidate_key = $this->_Election->getCandidateKey($g_Candidate);
+
+                        if ($candidate_key === $g_candidate_key) :
+                            continue;
+                        endif;
+
+                        // Win & Lose
+                        if (    !in_array($g_candidate_key, $done_Candidates, true) && 
+                                !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
                             $this->_Pairwise[$candidate_key]['win'][$g_candidate_key]++;
+                            $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key]++;
 
                             $done_Candidates[] = $candidate_key;
 
-                        endif;
-
                         // Null
-                        if (    $candidate_key !== $g_candidate_key &&
-                                count($candidates_in_rank) > 1 &&
-                                in_array($g_candidate_key, $candidates_in_rank_keys, true)
-                            ) :
-
+                        elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
                             $this->_Pairwise[$candidate_key]['null'][$g_candidate_key]++;
-
                         endif;
 
                     endforeach;
 
                 endforeach;
-
-            endforeach;
-
-        endforeach;
-
-        // Lose
-        foreach ( $this->_Pairwise as $option_key => $option_results ) :
-
-            foreach ($option_results['win'] as $option_compare_key => $option_compare_value) :
-
-                $this->_Pairwise[$option_key]['lose'][$option_compare_key] = $this->_Election->countVotes() -
-                        (
-                            $this->_Pairwise[$option_key]['win'][$option_compare_key] + 
-                            $this->_Pairwise[$option_key]['null'][$option_compare_key]
-                        );
 
             endforeach;
 

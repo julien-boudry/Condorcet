@@ -36,27 +36,17 @@ class Election
 /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
-    public static function setMaxParseIteration ($value)
+    public static function setMaxParseIteration (?int $value) : ?int
     {
-        if (is_int($value) || $value === null)
-        {
-            self::$_maxParseIteration = $value;
-            return self::$_maxParseIteration;
-        }
-        else
-            { return false; }
+        self::$_maxParseIteration = $value;
+        return self::$_maxParseIteration;
     }
 
     // Change max vote number
-    public static function setMaxVoteNumber ($value)
+    public static function setMaxVoteNumber (?int $value) : ?int
     {
-        if ( is_int($value) || ($value === null || $value === false) )
-        {
-            self::$_maxVoteNumber = ($value === false) ? null : $value;
-            return self::$_maxVoteNumber;
-        }
-        else
-            { return false; }
+        self::$_maxVoteNumber = $value;
+        return self::$_maxVoteNumber;
     }
 
 
@@ -91,7 +81,7 @@ class Election
         foreach ($input as &$line)
         {
             // Delete comments
-            $is_comment = strpos($line, '#');
+            $is_comment = mb_strpos($line, '#');
             if ($is_comment !== false)
             {
                 $line = substr($line, 0, $is_comment);
@@ -128,6 +118,9 @@ class Election
     protected $_timer;
     protected $_nextVoteTag = 0;
     protected $_ignoreStaticMaxVote = false;
+
+    // Params
+    protected $_RankingAllRule = true;
 
     // Result
     protected $_Pairwise;
@@ -269,6 +262,18 @@ class Election
         return $this->_ignoreStaticMaxVote;
     }
 
+    public function getRankingAllRule () : bool
+    {
+        return $this->_RankingAllRule;
+    }
+
+    public function setRankingAllRule (bool $rule) : bool
+    {
+        $this->_RankingAllRule = $rule;
+        $this->cleanupResult();
+        return true;
+    }
+
 
 /////////// CANDIDATES ///////////
 
@@ -277,37 +282,39 @@ class Election
     public function addCandidate ($candidate_id = null) : Candidate
     {
         // only if the vote has not started
-        if ( $this->_State > 1 )
-            { throw new CondorcetException(2); }
+        if ( $this->_State > 1 ) :
+            throw new CondorcetException(2);
+        endif;
 
         // Filter
-        if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) )
-            { throw new CondorcetException(1, $candidate_id); }
+        if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) ) :
+            throw new CondorcetException(1, $candidate_id);
+        endif;
 
 
         // Process
-        if ( empty($candidate_id) ) // $candidate_id is empty ...
-        {
-            while ( !$this->canAddCandidate($this->_i_CandidateId) )
-            {
+        if ( empty($candidate_id) ) : // $candidate_id is empty ...
+            while ( !$this->canAddCandidate($this->_i_CandidateId) ) :
                 $this->_i_CandidateId++;
-            }
+            endwhile;
 
             $newCandidate = new Candidate($this->_i_CandidateId);
-        }
-        else // Try to add the candidate_id
-        {
+        else : // Try to add the candidate_id
             $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
 
-            if ( !$this->canAddCandidate($newCandidate) )
-                { throw new CondorcetException(3,$candidate_id); }
-        }
+            if ( !$this->canAddCandidate($newCandidate) ) :
+                throw new CondorcetException(3,$candidate_id);
+            endif;
+        endif;
 
         // Register it
         $this->_Candidates[] = $newCandidate;
 
         // Linking
         $newCandidate->registerLink($this);
+
+        // Disallow other candidate object name matching 
+        $newCandidate->setProvisionalState = false;
 
         return $newCandidate;
     }
@@ -322,33 +329,33 @@ class Election
     public function removeCandidate ($list) : array
     {
         // only if the vote has not started
-        if ( $this->_State > 1 ) { throw new CondorcetException(2); }
+        if ( $this->_State > 1 ) :
+            throw new CondorcetException(2);
+        endif;
 
         
-        if ( !is_array($list) )
-        {
-            $list = array($list);
-        }
+        if ( !is_array($list) ) :
+            $list = [$list];
+        endif;
 
-        foreach ($list as &$candidate_id)
-        {
+        foreach ($list as &$candidate_id) :
             $candidate_key = $this->getCandidateKey($candidate_id);
 
-            if ( $candidate_key === false )
-                { throw new CondorcetException(4,$candidate_id); }
+            if ( $candidate_key === false ) :
+                throw new CondorcetException(4,$candidate_id);
+            endif;
 
             $candidate_id = $candidate_key;
-        }
+        endforeach;
 
         $rem = [];
-        foreach ($list as $candidate_key)
-        {
+        foreach ($list as $candidate_key) :
             $this->_Candidates[$candidate_key]->destroyLink($this);
 
             $rem[] = $this->_Candidates[$candidate_key];
 
             unset($this->_Candidates[$candidate_key]);
-        }
+        endforeach;
 
         return $rem;
     }
@@ -422,10 +429,9 @@ class Election
             else :
                 $result = [];
 
-                foreach ($this->_Candidates as $candidateKey => &$oneCandidate)
-                {
+                foreach ($this->_Candidates as $candidateKey => &$oneCandidate) :
                     $result[$candidateKey] = $oneCandidate->getName();
-                }
+                endforeach;
 
                 return $result;
             endif;
@@ -456,12 +462,12 @@ class Election
 
         public function getCandidateObjectByName (string $s)
         {
-            foreach ($this->_Candidates as $oneCandidate)
-            {
-                if ($oneCandidate->getName() === $s) {
+            foreach ($this->_Candidates as $oneCandidate) :
+
+                if ($oneCandidate->getName() === $s) :
                     return $oneCandidate;
-                }
-            }
+                endif;
+            endforeach;
 
             return false;
         }
@@ -474,19 +480,17 @@ class Election
     // Close the candidate config, be ready for voting (optional)
     public function setStateToVote () : bool
     {
-        if ( $this->_State === 1 )
-            { 
-                if (empty($this->_Candidates))
-                    { throw new CondorcetException(20); }
+        if ( $this->_State === 1 ) :
+                if (empty($this->_Candidates)) :
+                    throw new CondorcetException(20);
+                endif;
 
                 $this->_State = 2;
-            }
 
         // If voting continues after a first set of results
-        elseif ( $this->_State > 2 )
-            { 
+        elseif ( $this->_State > 2 ) :
                 $this->cleanupResult();
-            }
+        endif;
 
         return true;
     }
@@ -498,8 +502,9 @@ class Election
         $this->prepareVoteInput($vote, $tag);
 
         // Check Max Vote Count
-        if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber )
-            { throw new CondorcetException(16, self::$_maxVoteNumber); }
+        if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber ) :
+            throw new CondorcetException(16, self::$_maxVoteNumber);
+        endif;
 
 
         // Register vote
@@ -521,14 +526,14 @@ class Election
         // Return the well formated vote to use.
         protected function prepareVoteInput (&$vote, $tag = null) : void
         {
-            if (!($vote instanceof Vote))
-            {
+            if (!($vote instanceof Vote)) :
                 $vote = new Vote ($vote, $tag);
-            }
+            endif;
 
             // Check array format && Make checkVoteCandidate
-            if ( !$this->checkVoteCandidate($vote) )
-                { throw new CondorcetException(5); }
+            if ( !$this->checkVoteCandidate($vote) ) :
+                throw new CondorcetException(5);
+            endif;
         }
 
 
@@ -542,7 +547,7 @@ class Election
             foreach ($vote as $rank => $choice) :
                 foreach ($choice as $choiceKey => $candidate) :
                     if ( !$this->existCandidateId($candidate, true) ) :
-                        if ($this->existCandidateId($candidate, false)) :
+                        if ($candidate->getProvisionalState() && $this->existCandidateId($candidate, false)) :
                             if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
                                 $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                                 $change = true;
@@ -554,13 +559,12 @@ class Election
                 endforeach;
             endforeach;
 
-            if ($change)
-            {
+            if ($change) :
                 $vote->setRanking(
                                     $mirror,
                                     ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : false
                 );
-            }
+            endif;
 
             return true;
         }
@@ -578,7 +582,7 @@ class Election
             } catch (CondorcetException $e) {
                 // Security : Check if vote object not already register
                 throw new CondorcetException(6,'Vote object already registred');
-            }           
+            }
 
             return $vote;
         }
@@ -602,15 +606,13 @@ class Election
             $tag = Vote::tagsConvert($in);
 
             // Deleting
-
-            foreach ($this->getVotesList($tag, $with) as $key => $value)
-            {
+            foreach ($this->getVotesList($tag, $with) as $key => $value) :
                 $this->_Votes[$key]->destroyLink($this);
 
                 $rem[] = $this->_Votes[$key];
 
                 unset($this->_Votes[$key]);
-            }
+            endforeach;
 
         endif;
 
@@ -629,26 +631,24 @@ class Election
 
         $adding = [];
 
-        foreach ($input as $record)
-        {
-            if (empty($record['vote']))
-                { continue; }
+        foreach ($input as $record) :
+            if (empty($record['vote'])) :
+                continue;
+            endif;
 
             $tags = (!isset($record['tag'])) ? null : $record['tag'];
             $multi = (!isset($record['multi'])) ? 1 : $record['multi'];
 
-            for ($i = 0; $i < $multi; $i++)
-            {
-                if (self::$_maxParseIteration !== null && $this->countVotes() >= self::$_maxParseIteration)
-                {
+            for ($i = 0; $i < $multi; $i++) :
+                if (self::$_maxParseIteration !== null && $this->countVotes() >= self::$_maxParseIteration) :
                     throw new CondorcetException(12, self::$_maxParseIteration);
-                }
+                endif;
 
                 try {
                     $adding[] = $this->addVote($record['vote'], $tags);
                 } catch (\Exception $e) {}
-            }
-        }
+            endfor;
+        endforeach;
 
         return $adding;
     }
@@ -662,22 +662,21 @@ class Election
 
         // Check each lines
         $adding = [];
-        foreach ($input as $line)
-        {
+        foreach ($input as $line) :
             // Empty Line
-            if (empty($line)) { continue; }
+            if (empty($line)) :
+                continue;
+            endif;
 
             // Multiples
-            $is_multiple = strpos($line, '*');
-            if ($is_multiple !== false)
-            {
+            $is_multiple = mb_strpos($line, '*');
+            if ($is_multiple !== false) :
                 $multiple = trim( substr($line, $is_multiple + 1) );
 
                 // Errors
-                if ( !is_numeric($multiple) )
-                { 
+                if ( !is_numeric($multiple) ) :
                     throw new CondorcetException(13, null);
-                }
+                endif;
 
                 $multiple = intval($multiple);
                 $multiple = floor($multiple);
@@ -685,38 +684,33 @@ class Election
 
                 // Reformat line
                 $line = substr($line, 0, $is_multiple);
-            }
-            else
-                { $multiple = 1; }
+            else :
+                $multiple = 1;
+            endif;
 
             // Tags + vote
-            if (strpos($line, '||') !== false)
-            {
+            if (mb_strpos($line, '||') !== false) :
                 $data = explode('||', $line);
 
                 $vote = $data[1];
                 $tags = $data[0];
-            }
             // Vote without tags
-            else
-            {
+            else :
                 $vote = $line;
                 $tags = null;
-            }
+            endif;
 
             // addVote
-            for ($i = 0; $i < $multiple; $i++)
-            {
-                if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration)
-                {
+            for ($i = 0; $i < $multiple; $i++) :
+                if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
                     throw new CondorcetException(12, self::$_maxParseIteration);
-                }
+                endif;
 
                 try {
                     $adding[] = $this->addVote($vote, $tags);
                 } catch (\Exception $e) {}
-            }
-        }
+            endfor;
+        endforeach;
 
         return $adding;
     }
@@ -791,25 +785,23 @@ class Election
         $options = $this->formatResultOptions($options);
 
         // Filter if tag is provided & return
-        if ($options['%tagFilter'])
-        { 
+        if ($options['%tagFilter']) :
             $chrono = new Timer_Chrono ($this->_timer, 'GetResult with filter');
 
             $filter = new self;
 
-            foreach ($this->getCandidatesList() as $candidate)
-            {
+            foreach ($this->getCandidatesList() as $candidate) :
                 $filter->addCandidate($candidate);
-            }
-            foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote)
-            {
+            endforeach;
+
+            foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote) :
                 $filter->addVote($vote);
-            }
+            endforeach;
 
             unset($chrono);
 
-            return $filter->getResult($method, ['algoOptions' => $options['algoOptions']]);
-        }
+            return $filter->getResult($method);
+        endif;
 
             ////// Start //////
 
@@ -820,22 +812,15 @@ class Election
 
         $chrono = new Timer_Chrono ($this->_timer);
 
-        if ($method === true)
-        {
+        if ($method === true) :
             $this->initResult(Condorcet::getDefaultMethod());
-
-            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult($options['algoOptions']);
-        }
-        elseif ($method = Condorcet::isAuthMethod($method))
-        {
+            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
+        elseif ($method = Condorcet::isAuthMethod($method)) :
             $this->initResult($method);
-
-            $result = $this->_Calculator[$method]->getResult($options['algoOptions']);
-        }
-        else
-        {
+            $result = $this->_Calculator[$method]->getResult();
+        else :
             throw new CondorcetException(8,$method);
-        }
+        endif;
 
         $chrono->setRole('GetResult for '.$method);
 
@@ -843,7 +828,7 @@ class Election
     }
 
 
-    public function getWinner ($substitution = null)
+    public function getWinner (?string $substitution = null)
     {
         $algo = $this->condorcetBasicSubstitution($substitution);
 
@@ -861,7 +846,7 @@ class Election
     }
 
 
-    public function getLoser ($substitution = null)
+    public function getLoser (?string $substitution = null)
     {
         $algo = $this->condorcetBasicSubstitution($substitution);
 
@@ -879,18 +864,19 @@ class Election
     }
 
         protected function condorcetBasicSubstitution ($substitution) : string {
-            if ( $substitution )
-            {           
-                if ($substitution === true)
-                    {$substitution = Condorcet::getDefaultMethod();}
+            if ( $substitution ) :
+                if ($substitution === true) :
+                    $substitution = Condorcet::getDefaultMethod();
+                endif;
                 
-                if ( Condorcet::isAuthMethod($substitution) )
-                    {$algo = $substitution;}
-                else
-                    {throw new CondorcetException(9,$substitution);}
-            }
-            else
-                {$algo = Condorcet::CONDORCET_BASIC_CLASS;}
+                if ( Condorcet::isAuthMethod($substitution) ) :
+                    $algo = $substitution;
+                else :
+                    throw new CondorcetException(9,$substitution);
+                endif;
+            else :
+                $algo = Condorcet::CONDORCET_BASIC_CLASS;
+            endif;
 
             return $algo;
         }
@@ -929,10 +915,9 @@ class Election
 
     protected function initResult (string $class) : void
     {
-        if ( !isset($this->_Calculator[$class]) )
-        {
+        if ( !isset($this->_Calculator[$class]) ) :
             $this->_Calculator[$class] = new $class($this);
-        }
+        endif;
     }
 
 
@@ -965,11 +950,6 @@ class Election
             endif;
         else:
             $arg['%tagFilter'] = false;
-        endif;
-
-        // About algo Options
-        if ( !isset($arg['algoOptions']) ) :
-            $arg['algoOptions'] = null;
         endif;
 
         return $arg;

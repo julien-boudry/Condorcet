@@ -134,11 +134,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function getWinner () {
-        Condorcet::format($this[1],false,false);
+        return Condorcet::format($this[1],false,false);
     }
 
     public function getLoser () {
-        Condorcet::format($this[count($this)],false,false);
+        return Condorcet::format($this[count($this)],false,false);
     }
 
     public function getCondorcetWinner () {
