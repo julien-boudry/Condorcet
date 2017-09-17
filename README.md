@@ -3,11 +3,12 @@
 </p>
 
 [![Build Status](https://travis-ci.org/julien-boudry/Condorcet.svg?branch=master)](https://travis-ci.org/julien-boudry/Condorcet)   
-
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](License.md) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTE.md)   
-> Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._
+> Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
+
+> Methods provided natively: Condorcet / Copeland / Dodgson / Kemeny-Young / Minimax & Variants / Ranked Pairs / Schulze & Variants   
 
 Condorcet PHP
 ===========================
@@ -17,7 +18,7 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 1. [Project State and Specifications](#project-state-and-specifications)  
 1. [Main features](#main-features)     
 1. [Supported Condorcet Methods](#supported-condorcet-methods)  
-  a. [Native provided methods](#native-provided-methods)     
+  a. [Methods provided natively](#methods-provided-natively)     
   b. [Add your own method](#add-your-own-method-as-module)  
 1. [How to use it?](#how-to-use-it)  
   a. [Install](#install)  
@@ -67,7 +68,7 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
 _This class is not designed for high performances or very high reliability exigence._   
 
 ## Supported Condorcet Methods
-### Native provided methods
+### Methods provided natively
 
 *[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods)*
 
@@ -119,7 +120,7 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 ### Great overview
 
-* [Non-visual quick tour of opportunities without interface](Examples/1. Overview.php) (not exhaustive and partial, but just a great tour.)
+* [Non-visual quick tour of opportunities without interface](Examples/1.%20Overview.php) (not exhaustive and partial, but just a great tour.)
 
 ### With html output basics examples
 
