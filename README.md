@@ -7,7 +7,7 @@
 > License: [MIT](License.md) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTE.md)   
 > Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
-
+>
 > Methods provided natively: Condorcet / Copeland / Dodgson / Kemeny-Young / Minimax & Variants / Ranked Pairs / Schulze & Variants   
 
 Condorcet PHP
@@ -56,9 +56,10 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
   * Get full ranking from advanced methods (Schulze, Copeland, Ranked Paris, Kemeny-Young, Minimax...)
   * Get some additional stats from these methods
+  * Force ranking all candidate implicitly _(default)_ or allow voters to not rank all candidates.
 * __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
-  * Candidates and Votes are object which can take part to multiples elections on the same time and change her name or content dynamically. That allow powerful tools to simulate elections.
+  * Candidates and Votes are object which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
   * Manage hundreds of billions votes by enable external datastore system for votes between process.
 * __Extend it! Configure it!__
   * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module.
