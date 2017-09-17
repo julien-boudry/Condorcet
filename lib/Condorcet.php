@@ -163,6 +163,8 @@ abstract class Condorcet
                     $r = (string) $input;
                 elseif ($input instanceof Vote) :
                     $r = $input->getRanking();
+                elseif ($input instanceof Result) :
+                    $r = $input->getResultAsArray(true);
                 endif;
             endif;
 
@@ -173,7 +175,7 @@ abstract class Condorcet
                 $input[$key] = self::format($line,false,$convertObject);
             endforeach;
 
-            if (count($input) === 1 && count(reset($input)) === 1):
+            if (count($input) === 1 && is_int(key($input)) && (!is_array(reset($input)) || count(reset($input)) === 1)):
                 $r = reset($input);
             else:
                 $r = $input;
