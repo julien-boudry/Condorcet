@@ -3,13 +3,13 @@
 </p>
 
 [![Build Status](https://img.shields.io/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
 [![Packagist](https://img.shields.io/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![Packagist Download](https://img.shields.io/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![GitHub contributors](https://img.shields.io/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
-> License: [MIT](LICENSE.md) _- Please say hello if you like or use this code!_  
+> License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTE.md)   
 > Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
 >
