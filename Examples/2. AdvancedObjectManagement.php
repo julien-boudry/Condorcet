@@ -41,7 +41,7 @@ declare(strict_types=1);
         $myLutoCandidate->getHistory();
 
         // Have a look to a vote from $election1. The candidate name have changed.
-        $myVote4->getContextualVote($election1, true);
+        $myVote4->getContextualRanking($election1, true);
 
         // In what elections, this candidates have a part ?
             $myLutoCandidate->getLinks(); // Get his the two Election objects
@@ -69,8 +69,8 @@ declare(strict_types=1);
         // Check ranking
         $myNewVote->getRanking(); // Here you get the original 9 ranks.
         // Check ranking
-        $myNewVote->getContextualVote($election1); // Here you get the vote applicable to $election 1
-        $myNewVote->getContextualVote($election2); // Here you get the vote applicable to $election 2
+        $myNewVote->getContextualRanking($election1); // Here you get the vote applicable to $election 1
+        $myNewVote->getContextualRanking($election2); // Here you get the vote applicable to $election 2
 
         // In what election, this candidates have a part ?
             $myNewVote->getLinks(); // Get Condorcet objects

@@ -88,7 +88,7 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
             self::assertCount(
@@ -105,7 +105,7 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
         // Ranking 6
@@ -117,7 +117,7 @@ class VoteTest extends TestCase
 
             self::assertNotSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
         // Ranking 7
@@ -129,7 +129,7 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
 
@@ -144,8 +144,20 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
+    }
+
+    public function testSimpleRanking ()
+    {
+        // Ranking 1
+        $vote1 = new Vote('candidate1 > candidate2 = candidate3 > candidate4');
+
+        self::assertSame($vote1->getSimpleRanking(),'candidate1 > candidate2 = candidate3 > candidate4');
+
+        $this->election1->addVote($vote1);
+
+        self::assertSame($vote1->getSimpleRanking($this->election1),'candidate1 > candidate2 = candidate3');
     }
 
     public function testProvisionalCandidateObject ()
@@ -166,14 +178,14 @@ class VoteTest extends TestCase
 
             self::assertNotSame(
                 $newRanking1,
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
             self::assertSame(
                 [   1 => [$this->candidate2],
                     2 => [$this->candidate3],
                     3 => [$this->candidate1]  ],
-                $vote1->getContextualVote($this->election1)
+                $vote1->getContextualRanking($this->election1)
             );
 
 
@@ -191,7 +203,7 @@ class VoteTest extends TestCase
             [   1 => [$this->candidate1],
                 2 => [$this->candidate2],
                 3 => [$this->candidate3]  ],
-            $vote2->getContextualVote($this->election1)
+            $vote2->getContextualRanking($this->election1)
         );
 
         self::assertNotEquals(
@@ -216,7 +228,7 @@ class VoteTest extends TestCase
         self::assertSame(
             [   1 => [$this->candidate3],
                 2 => [$this->candidate1,$this->candidate2]  ],
-            $vote3->getContextualVote($this->election1)
+            $vote3->getContextualRanking($this->election1)
         );
 
         self::assertEquals(
@@ -248,13 +260,13 @@ class VoteTest extends TestCase
         self::assertSame($vote1_originalRanking,$vote1->getRanking());
         self::assertSame(
             [1=>[$this->candidate1],2=>[$this->candidate2],3=>[$this->candidate3]],
-            $vote1->getContextualVote($election1)
+            $vote1->getContextualRanking($election1)
         );
         self::assertSame(
             [1=>[$this->candidate1],2=>[$this->candidate2],3=>[$this->candidate4]],
-            $vote1->getContextualVote($election2)
+            $vote1->getContextualRanking($election2)
         );
-        self::assertNotSame($vote1->getRanking(),$vote1->getContextualVote($election2));
+        self::assertNotSame($vote1->getRanking(),$vote1->getContextualRanking($election2));
 
         self::assertTrue($vote1->setRanking([
             [$this->candidate5,$this->candidate2],
@@ -263,11 +275,11 @@ class VoteTest extends TestCase
 
         self::assertSame(
             [1=>[$this->candidate2],2=>[$this->candidate3],3=>[$this->candidate1]],
-            $vote1->getContextualVote($election1)
+            $vote1->getContextualRanking($election1)
         );
         self::assertSame(
             [1=>[$this->candidate2],2=>[$this->candidate1,$this->candidate4]],
-            $vote1->getContextualVote($election2)
+            $vote1->getContextualRanking($election2)
         );
 
     }

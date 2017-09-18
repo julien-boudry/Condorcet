@@ -539,7 +539,7 @@
   class: Election
   type: method
   visibility: public
-  name: getRankingAllRule
+  name: getImplicitRanking
   static: false
   description: |
     Returns the corresponding setting as currently set (True by default).
@@ -548,7 +548,7 @@
   return: |
     (bool) True / False
   related:
-    - 'Election::setRankingAllRule'
+    - 'Election::setImplicitRanking'
   publish: true
 
 - 
@@ -918,7 +918,7 @@
   class: Election
   type: method
   visibility: public
-  name: setRankingAllRule
+  name: setImplicitRanking
   static: false
   description: |
     Set the setting and reset all result data.
@@ -933,7 +933,7 @@
   return: |
     Return True
   related:
-    - 'Election::getRankingAllRule'
+    - 'Election::getImplicitRanking'
   publish: true
 
 
@@ -1092,7 +1092,6 @@
     In case of success, return TRUE
   related:
     - 'Vote::removeTags'
-
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -1114,12 +1113,11 @@
     *(array)* List of deleted tags.
   related:
     - 'Vote::addTags'
-
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-  - 
+- 
   class: Vote
   type: method
   visibility: public
@@ -1165,7 +1163,7 @@
   class: Vote
   type: method
   visibility: public
-  name: getContextualVote
+  name: getContextualRanking
   static: false
   description: |
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.

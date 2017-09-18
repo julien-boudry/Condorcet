@@ -140,7 +140,7 @@ class RankedPairsTest extends TestCase
         self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs'));
 
         // Supporting not ranked candidate
-        $this->election->setRankingAllRule(false);
+        $this->election->setImplicitRanking(false);
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
     }
 

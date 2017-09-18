@@ -168,7 +168,7 @@ $election1 = new Election ();
 
         # 2- Vote objet
             $myVote3->getRanking(); // This vote specifies four candidates. Although the election comprises 6. This method return the original input.
-            $myVote3->getContextualVote($election1); // Return the full ranking in the context of election 1 (with 6 candidates). It is one that is taken into account when calculating the results of the election 1.
+            $myVote3->getContextualRanking($election1); // Return the full ranking in the context of election 1 (with 6 candidates). It is one that is taken into account when calculating the results of the election 1.
             
 
             // Change the vote
