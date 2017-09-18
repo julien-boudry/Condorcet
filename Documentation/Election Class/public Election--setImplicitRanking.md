@@ -1,9 +1,9 @@
-## public Election::setRankingAllRule
+## public Election::setImplicitRanking
 
 ### Description    
 
 ```php
-public $Election -> setRankingAllRule ( bool rule = true )
+public $Election -> setImplicitRanking ( bool rule = true )
 ```
 
 Set the setting and reset all result data.
@@ -25,4 +25,4 @@ Return True
 
 ### Related method(s)      
 
-* [Election::getRankingAllRule](../Election%20Class/public%20Election--getRankingAllRule.md)    
+* [Election::getImplicitRanking](../Election%20Class/public%20Election--getImplicitRanking.md)    

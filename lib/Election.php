@@ -120,7 +120,7 @@ class Election
     protected $_ignoreStaticMaxVote = false;
 
     // Params
-    protected $_RankingAllRule = true;
+    protected $_ImplicitRanking = true;
 
     // Result
     protected $_Pairwise;
@@ -262,14 +262,14 @@ class Election
         return $this->_ignoreStaticMaxVote;
     }
 
-    public function getRankingAllRule () : bool
+    public function getImplicitRanking () : bool
     {
-        return $this->_RankingAllRule;
+        return $this->_ImplicitRanking;
     }
 
-    public function setRankingAllRule (bool $rule) : bool
+    public function setImplicitRanking (bool $rule) : bool
     {
-        $this->_RankingAllRule = $rule;
+        $this->_ImplicitRanking = $rule;
         $this->cleanupResult();
         return true;
     }

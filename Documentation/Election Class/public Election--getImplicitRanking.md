@@ -1,9 +1,9 @@
-## public Election::getRankingAllRule
+## public Election::getImplicitRanking
 
 ### Description    
 
 ```php
-public $Election -> getRankingAllRule ( )
+public $Election -> getImplicitRanking ( )
 ```
 
 Returns the corresponding setting as currently set (True by default).
@@ -20,4 +20,4 @@ If it is false, then the candidates not ranked, are not taken into account at al
 
 ### Related method(s)      
 
-* [Election::setRankingAllRule](../Election%20Class/public%20Election--setRankingAllRule.md)    
+* [Election::setImplicitRanking](../Election%20Class/public%20Election--setImplicitRanking.md)    
