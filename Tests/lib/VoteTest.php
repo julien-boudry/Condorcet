@@ -148,6 +148,18 @@ class VoteTest extends TestCase
             );
     }
 
+    public function testSimpleRanking ()
+    {
+        // Ranking 1
+        $vote1 = new Vote('candidate1 > candidate2 = candidate3 > candidate4');
+
+        self::assertSame($vote1->getSimpleRanking(),'candidate1 > candidate2 = candidate3 > candidate4');
+
+        $this->election1->addVote($vote1);
+
+        self::assertSame($vote1->getSimpleRanking($this->election1),'candidate1 > candidate2 = candidate3');
+    }
+
     public function testProvisionalCandidateObject ()
     {
         // Ranking 1

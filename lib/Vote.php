@@ -182,15 +182,15 @@ class Vote implements \Iterator
         return $newRanking;
     }
 
-    public function getSimpleRanking (bool $context = false) : string
+    public function getSimpleRanking (?Election $context = null) : string
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
         foreach ($ranking as &$rank) :
-            $rank = implode('=',$rank);
+            $rank = implode(' = ',$rank);
         endforeach;
 
-        return implode('>', $ranking);
+        return implode(' > ', $ranking);
     }
 
 
