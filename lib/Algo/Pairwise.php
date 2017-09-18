@@ -118,7 +118,7 @@ class Pairwise implements \ArrayAccess,\Iterator
 
         // Win && Null
         foreach ( $vote_list as $vote_id => $vote_ranking ) :
-            $vote_ranking = $vote_ranking->getContextualVote($this->_Election);
+            $vote_ranking = $vote_ranking->getContextualRanking($this->_Election);
 
             $vote_candidate_list = (function (array $r) : array { $list = [];
                     foreach ($r as $rank) :

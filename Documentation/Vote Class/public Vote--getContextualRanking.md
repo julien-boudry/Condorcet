@@ -1,9 +1,9 @@
-## public Vote::getContextualVote
+## public Vote::getContextualRanking
 
 ### Description    
 
 ```php
-public $Vote -> getContextualVote ( Condorcet\Election election [, bool stringMode = false] )
+public $Vote -> getContextualRanking ( Condorcet\Election election [, bool stringMode = false] )
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.    

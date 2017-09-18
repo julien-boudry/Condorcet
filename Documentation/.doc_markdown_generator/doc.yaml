@@ -1165,7 +1165,7 @@
   class: Vote
   type: method
   visibility: public
-  name: getContextualVote
+  name: getContextualRanking
   static: false
   description: |
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.

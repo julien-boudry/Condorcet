@@ -133,7 +133,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualVote (Election $election, bool $string = false) : array
+    public function getContextualRanking (Election $election, bool $string = false) : array
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -184,7 +184,7 @@ class Vote implements \Iterator
 
     public function getSimpleRanking (bool $context = false) : string
     {
-        $ranking = ($context) ? $this->getContextualVote($context) : $this->getRanking();
+        $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
         foreach ($ranking as &$rank) :
             $rank = implode('=',$rank);
