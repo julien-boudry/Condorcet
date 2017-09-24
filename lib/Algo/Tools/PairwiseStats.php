@@ -38,7 +38,7 @@ abstract class PairwiseStats
                 $defeat_margin = $candidate_data['lose'][$opponenent['key']] - $opponenent['lose'];
 
                 // Worst margin defeat
-                if ($comparison[$candidate_key]['worst_pairwise_defeat_margin'] < $defeat_margin) :
+                if ($comparison[$candidate_key]['worst_pairwise_defeat_margin'] === null || $comparison[$candidate_key]['worst_pairwise_defeat_margin'] < $defeat_margin) :
 
                     $comparison[$candidate_key]['worst_pairwise_defeat_margin'] = $defeat_margin;
 
@@ -103,7 +103,7 @@ abstract class PairwiseStats
                 elseif (    $challenger_value === $candidate_value['lose'][$challenger_key] &&
                             !isset($score[$challenger_key.'>'.$candidate_key]) ) :
 
-                    if ($comparison[$candidate_key]['worst_defeat'] <= $comparison[$challenger_key]['worst_defeat']) :
+                    if ($comparison[$candidate_key]['worst_pairwise_defeat_winning'] <= $comparison[$challenger_key]['worst_pairwise_defeat_winning']) :
                         $score[$candidate_key.'>'.$challenger_key]['score'] = 0.1;
                         $score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key];
                         $score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];

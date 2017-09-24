@@ -217,4 +217,21 @@ class MinimaxTest extends TestCase
         $this->election->setImplicitRanking(true);
         self::assertNotEquals($this->election->getWinner('Minimax Winning'),'A');
     }
+
+    public function testResult_6 ()
+    {
+        # From https://en.wikipedia.org/wiki/Minimax_Condorcet
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C
+            C > B > A
+        ');
+
+        self::assertNotNull($this->election->getWinner('Minimax Margin'));
+
+    }
 }
