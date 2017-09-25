@@ -19,7 +19,8 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.2"
+        "phpunit/phpunit": "^6.2",
+        "mustangostang/spyc": "^0.6.2"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
