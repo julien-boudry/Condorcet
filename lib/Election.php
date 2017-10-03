@@ -143,7 +143,7 @@ class Election
     public function __sleep () : array
     {
         // Don't include others data
-        $include = array (
+        $include = [
             '_Candidates',
             '_Votes',
 
@@ -155,7 +155,7 @@ class Election
 
             '_Pairwise',
             '_Calculator',
-        );
+        ];
 
         !self::$_checksumMode AND array_push($include, '_timer');
 
@@ -207,16 +207,14 @@ class Election
     // Return object state with somes infos
     public function getConfig () : array
     {
-        return array    (
-                            'CondorcetObject_Version' => $this->getObjectVersion(),
+        return [    'CondorcetObject_Version' => $this->getObjectVersion(),
 
-                            'class_default_Method'  => Condorcet::getDefaultMethod(),
+                    'class_default_Method'  => Condorcet::getDefaultMethod(),
 
-                            'class_authMethods'=> Condorcet::getAuthMethods(),
-                            'class_MaxParseIterations'=> self::$_maxParseIteration,
+                    'class_authMethods'=> Condorcet::getAuthMethods(),
+                    'class_MaxParseIterations'=> self::$_maxParseIteration,
 
-                            'state'     => $this->_State
-                        );
+                    'state'     => $this->_State    ];
     }
 
 
@@ -573,12 +571,12 @@ class Election
         protected function registerVote (Vote $vote, $tag = null) : Vote
         {
             // Vote identifiant
-            $vote->addTags($tag);           
+            $vote->addTags($tag);
             
             // Register
             try {
                 $vote->registerLink($this);
-                $this->_Votes[] = $vote;                
+                $this->_Votes[] = $vote;
             } catch (CondorcetException $e) {
                 // Security : Check if vote object not already register
                 throw new CondorcetException(6,'Vote object already registred');

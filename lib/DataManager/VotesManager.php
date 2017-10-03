@@ -18,11 +18,10 @@ use Condorcet\Vote;
 
 class VotesManager extends ArrayManager
 {
-    protected $_link = [];
 
 /////////// Magic ///////////
 
-    public function __construct (Election $election = null)
+    public function __construct (?Election $election = null)
     {
         if ($election !== null) :
             $this->_link[] = $election;

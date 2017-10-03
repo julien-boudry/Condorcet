@@ -7,29 +7,29 @@ error_reporting(E_ALL | E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
 $start_time = microtime(true);
 
-// Markdown Implementation : https://github.com/mustangostang/spyc
-require_once 'Spyc.php';
-
+// Composer Autoload
+require_once '../../vendor/autoload.php';
 
 $doc = Spyc::YAMLLoad('doc.yaml');
 
-foreach ($doc as $entry)
-{
-  if (!isset($entry['publish']) || $entry['publish'] !== true) : continue ; endif;
+foreach ($doc as $entry) :
+  if (!isset($entry['publish']) || $entry['publish'] !== true) :
+    continue;
+  endif;
 
-  if (!is_array($entry['class'])) {
+  if (!is_array($entry['class'])) :
     $entry['class'] = array($entry['class']);
-  }
+  endif;
 
-  foreach ($entry['class'] as $class) {
+  foreach ($entry['class'] as $class) :
   	$method = $entry ;
     $method['class'] = $class;
 
   	$path = "../" . str_replace("\\", "_", $method['class']) . " Class/";
 
   	file_put_contents($path.makeFilename($method), createMarkdownContent($method));
-  }
-}
+  endforeach;
+endforeach;
 
 echo 'YAH ! <br>' . (microtime(true) - $start_time) .'s';
 
