@@ -18,7 +18,6 @@ use Condorcet\Vote;
 
 class VotesManager extends ArrayManager
 {
-    protected $_link = [];
 
 /////////// Magic ///////////
 

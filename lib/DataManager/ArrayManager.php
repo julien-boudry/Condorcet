@@ -26,6 +26,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     protected $_Container = [];
     protected $_DataHandler = null;
+    protected $_link = [];
 
     protected $_Cache = [];
     protected $_CacheMaxKey = 0;
@@ -48,7 +49,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         $this->clearCache();
         $this->rewind();
 
-        return ['_Container','_DataHandler'];
+        return ['_Container','_DataHandler','_link'];
     }
 
     public function __wakeup ()
