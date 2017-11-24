@@ -61,4 +61,169 @@ class DodgsonTest extends TestCase
                 5 => 'Erin'   ]
         );
     }
+
+    public function testResult_2 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            D>C>A>B*2
+            B>C>A>D*2
+            C>A>B>D*2
+            D>B>C>A*2
+            A>B>C>D*2
+            A>D>B>C*1
+            D>A>B>C*1
+        ');
+
+        self::assertEquals(
+            (string) $this->election->getWinner('Dodgson'),'A');
+    }
+
+    public function testResult_3 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            D>C>A>B*6
+            B>C>A>D*6
+            C>A>B>D*6
+            D>B>C>A*6
+            A>B>C>D*6
+            A>D>B>C*3
+            D>A>B>C*3
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'D');
+    }
+
+    public function testResult_4 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            C>A>D>B*15
+            B>D>C>A*9
+            A>B>D>C*9
+            A>C>B>D*5
+            B>A>C>D*5
+        ');
+
+        self::assertEquals(
+            (string) $this->election->getWinner('Dodgson'),'A');
+    }
+
+    public function testResult_5 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            C>A>D>B*15
+            B>D>C>A*9
+            A>B>D>C*9
+            A>C>B>D*5
+            A>B>C>D*5
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'C');
+    }
+
+    public function testResult_6 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            D>A>B>C*10
+            B>C>A>D*8
+            C>A>B<D*7
+            D>C>A>B*4
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'D');
+    }
+
+    public function testResult_7 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            C>B>A>D*10
+            D>A>C>B*8
+            D>B>A>C*7
+            B>A>C>D*4
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'D');
+    }
+
+    public function testResult_8 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A>B>C*5
+            B>C>A*4
+            C>A>B*3
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'A');
+    }
+
+    public function testResult_9 ()
+    {
+        # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('Cp');
+
+        $this->election->parseVotes('
+            A>B>C>Cp*5
+            B>C>Cp>A*4
+            C>Cp>A>B*3
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'B');
+    }
 }
