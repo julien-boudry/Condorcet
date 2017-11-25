@@ -223,6 +223,23 @@ class DodgsonTest extends TestCase
             C>Cp>A>B*3
         ');
 
+
+    public function testResult_10 ()
+    {
+        # From https://link.springer.com/article/10.1007/s003550000060
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D*21
+            C>D>B>A*12
+            D>C>A>B*5
+            B>D>A>C*12
+        ');
+
         self::assertEquals(
             $this->election->getWinner('Dodgson'),'B');
     }
