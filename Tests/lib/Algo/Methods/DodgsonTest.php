@@ -162,7 +162,7 @@ class DodgsonTest extends TestCase
         $this->election->parseVotes('
             D>A>B>C*10
             B>C>A>D*8
-            C>A>B<D*7
+            C>A>B>D*7
             D>C>A>B*4
         ');
 
