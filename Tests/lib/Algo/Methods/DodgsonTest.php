@@ -223,6 +223,9 @@ class DodgsonTest extends TestCase
             C>Cp>A>B*3
         ');
 
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'B');
+    }
 
     public function testResult_10 ()
     {
