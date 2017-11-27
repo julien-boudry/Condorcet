@@ -246,4 +246,55 @@ class DodgsonTest extends TestCase
         self::assertEquals(
             $this->election->getWinner('Dodgson'),'B');
     }
+
+    public function testResult_11 ()
+    {
+        # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D*3
+            D>B>A>C*1
+            D>C>A>B*1
+            B>D>C>A*1
+            C>D>B>A*1
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'B');
+    }
+
+    public function testResult_12 ()
+    {
+        # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D*5
+            D>C>A>B*6
+            C>A>B>D*5
+            D>B>C>A*5
+            B>C>A>D*4
+            D>A>B>C*4
+            C>D>A>B*1
+            B>A>C>D*1
+            B>D>A>C*1
+            C>A>B>D*1
+            A>D>B>C*1
+            C>B>A>D*1
+        ');
+
+        self::assertEquals(
+            $this->election->getWinner('Dodgson'),'C');
+    }
+
+
 }
