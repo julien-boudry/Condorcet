@@ -185,7 +185,7 @@ class MinimaxTest extends TestCase
             L > C > A * 2
         ');
 
-        self::assertEquals($this->election->getWinner('Minimax Winning'),'L');
+        self::assertEquals('L',$this->election->getWinner('Minimax Winning'));
     }
 
     public function testResult_5 ()
@@ -210,12 +210,12 @@ class MinimaxTest extends TestCase
             C > A * 3
         ');
 
-        self::assertEquals($this->election->getWinner('Minimax Winning'),'A');
-        self::assertEquals($this->election->getWinner('Minimax Margin'),'B');
-        self::assertEquals($this->election->getWinner('Minimax Opposition'),'D');
+        self::assertEquals('A',$this->election->getWinner('Minimax Winning'));
+        self::assertEquals('B',$this->election->getWinner('Minimax Margin'));
+        self::assertEquals('D',$this->election->getWinner('Minimax Opposition'));
 
         $this->election->setImplicitRanking(true);
-        self::assertNotEquals($this->election->getWinner('Minimax Winning'),'A');
+        self::assertNotEquals('A',$this->election->getWinner('Minimax Winning'));
     }
 
     public function testResult_6 ()
