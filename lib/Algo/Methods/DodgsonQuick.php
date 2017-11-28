@@ -14,11 +14,11 @@ use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
 use Condorcet\Result;
 
-// DODGSON is a Condorcet Algorithm | https://en.wikipedia.org/wiki/Dodgson%27s_method
-class Dodgson extends Method implements MethodInterface
+// DODGSON Quick is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+class DodgsonQuick extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Dodgson','Dodgson Method','Lewis Carroll'];
+    public const METHOD_NAME = ['Dodgson Quick','DodgsonQuick','Dodgson Quick Winner'];
 
     public function getResult () : Result
     {
@@ -42,7 +42,7 @@ class Dodgson extends Method implements MethodInterface
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function computeDodgson ()
+    protected function computeDodgson () : void
     {
         $pairwise = $this->_selfElection->getPairwise(false);
         $HeadToHead = [];
