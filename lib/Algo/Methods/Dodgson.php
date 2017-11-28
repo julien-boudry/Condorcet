@@ -28,7 +28,6 @@ class Dodgson extends Method implements MethodInterface
         endif;
 
         $this->computeDodgson();
-        $this->_Result = $this->createResult($this->_Result);
 
         return $this->_Result;
     }
@@ -55,51 +54,38 @@ class Dodgson extends Method implements MethodInterface
                 endif;
             endforeach;
         endforeach;
-        foreach ($HeadToHead as &$value) :
-            asort($value);
-        endforeach;
 
-        $swaps = [];
+        $dodgsonQuick = [];
 
-        foreach ($HeadToHead as $CandidateId => $CandidateDeafeats) :
-            $CandidateNeededWinCout = count($CandidateDeafeats);
-            $swaps[$CandidateId] = 0;
-            $i = 0;
+        foreach ($HeadToHead as $candidateId => $CandidateTidemanScores) :
+            $dodgsonQuick[$candidateId] = 0;
 
-            foreach ($CandidateDeafeats as $DeafeatMarging) :
-                if ($i === $CandidateNeededWinCout) :
-                    break;
-                endif;
-
-                $swaps[$CandidateId] += $DeafeatMarging;
-
-                $i++;
+            foreach ($CandidateTidemanScores as $opponentId => $oneTidemanScore) :
+                $dodgsonQuick[$candidateId] += ceil($oneTidemanScore / 2);
             endforeach;
         endforeach;
-
-        asort($swaps);
-
-        // var_dump($HeadToHead);
-        // var_dump($swaps);
+        asort($dodgsonQuick);
 
         $rank = 0;
+        $result = [];
 
         if($basicCondorcetWinner = $this->_selfElection->getWinner(null)) :
-            $this->_Result[++$rank][] = $this->_selfElection->getCandidateKey($basicCondorcetWinner);
+            $result[++$rank][] = $this->_selfElection->getCandidateKey($basicCondorcetWinner);
         endif;
 
-        $lastSwapsValue = null;
+        $lastDodgsonQuickValue = null;
 
-        foreach ($swaps as $CandidateId => $swapsValue) :
-            if($lastSwapsValue === $swapsValue) :
-                $this->_Result[$rank][] = $CandidateId;
+        foreach ($dodgsonQuick as $CandidateId => $dodgsonQuickValue) :
+            if($lastDodgsonQuickValue === $dodgsonQuickValue) :
+                $result[$rank][] = $CandidateId;
             else:
-                $this->_Result[++$rank][] = $CandidateId;
-                $lastSwapsValue = $swapsValue;
+                $result[++$rank][] = $CandidateId;
+                $lastDodgsonQuickValue = $dodgsonQuickValue;
             endif;
         endforeach;
 
-        $this->_Stats = $swaps;
+        $this->_Stats = $dodgsonQuick;
+        $this->_Result = $this->createResult($result);
     }
 
 }
