@@ -41,10 +41,9 @@ class KemenyYoung extends Method implements MethodInterface
     {
         parent::__construct($mother);
 
-        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
-        {
+        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates) :
             throw new CondorcetException( 101,self::$_maxCandidates.'|'.self::METHOD_NAME[0] );
-        }
+        endif;
     }
 
 
@@ -55,13 +54,12 @@ class KemenyYoung extends Method implements MethodInterface
     public function getResult () : Result
     {
         // Cache
-        if ( $this->_Result === null )
-        {
+        if ( $this->_Result === null ) :
             $this->calcPossibleRanking();
             $this->calcRankingScore();
             $this->makeRanking();
             $this->conflictInfos();
-        }
+        endif;
 
         // Return
         return $this->_Result;

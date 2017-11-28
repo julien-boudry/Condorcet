@@ -53,8 +53,9 @@ class Election
     // Check JSON format
     public static function isJson (string $string) : bool
     {
-        if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string))
-        { return false; }
+        if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
+            return false;
+        endif;
 
         // try to decode string
         json_decode($string);
@@ -68,28 +69,25 @@ class Election
     public static function prepareParse (string $input, bool $allowFile) : array
     {
         // Is string or is file ?
-        if ($allowFile === true && is_file($input))
-        {
+        if ($allowFile === true && is_file($input)) :
             $input = file_get_contents($input);
-        }
+        endif;
 
         // Line
         $input = preg_replace("(\r\n|\n|\r)",';',$input);
         $input = explode(';', $input);
 
         // Delete comments
-        foreach ($input as &$line)
-        {
+        foreach ($input as &$line) :
             // Delete comments
             $is_comment = mb_strpos($line, '#');
-            if ($is_comment !== false)
-            {
+            if ($is_comment !== false) :
                 $line = substr($line, 0, $is_comment);
-            }
+            endif;
 
             // Trim
             $line = trim($line);
-        }
+        endforeach;
 
         return $input;
     }
@@ -97,8 +95,9 @@ class Election
 
     public static function prepareJson (string $input)
     {
-        if (!self::isJson($input))
-            { throw new CondorcetException(15); }
+        if (!self::isJson($input)) :
+            throw new CondorcetException(15);
+        endif;
 
         return json_decode($input, true);
     }
@@ -164,10 +163,9 @@ class Election
 
     public function __wakeup ()
     {
-        if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') )
-        {
+        if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') ) :
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
-        }
+        endif;
     }
 
     public function __clone ()
@@ -181,23 +179,27 @@ class Election
 
     protected function registerAllLinks () : void
     {
-        foreach ($this->_Candidates as $value)
-            { $value->registerLink($this); }
+        foreach ($this->_Candidates as $value) :
+            $value->registerLink($this);
+        endforeach;
 
         if ($this->_State > 1) :
-            foreach ($this->_Votes as $value)
-                { $value->registerLink($this); }
+            foreach ($this->_Votes as $value) :
+                $value->registerLink($this);
+            endforeach;
         endif;
     }
 
     protected function destroyAllLink () : void
     {
-        foreach ($this->_Candidates as $value)
-            { $value->destroyLink($this); }
+        foreach ($this->_Candidates as $value) :
+            $value->destroyLink($this);
+        endforeach;
 
         if ($this->_State > 1) :
-            foreach ($this->_Votes as $value)
-                { $value->destroyLink($this); }
+            foreach ($this->_Votes as $value) :
+                $value->destroyLink($this);
+            endforeach;
         endif;
     }
 
@@ -511,15 +513,15 @@ class Election
 
         // return True or throw an Exception
         public function prepareModifyVote (Vote $existVote)
-            {
-                try {
-                    $this->prepareVoteInput($existVote);
-                    $this->setStateToVote();
-                }
-                catch (\Exception $e) {
-                    throw $e;
-                }
+        {
+            try {
+                $this->prepareVoteInput($existVote);
+                $this->setStateToVote();
             }
+            catch (\Exception $e) {
+                throw $e;
+            }
+        }
 
         // Return the well formated vote to use.
         protected function prepareVoteInput (&$vote, $tag = null) : void
