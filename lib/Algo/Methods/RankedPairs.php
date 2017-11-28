@@ -38,10 +38,9 @@ class RankedPairs extends Method implements MethodInterface
     {
         parent::__construct($mother);
 
-        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates)
-        {
+        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates) :
             throw new CondorcetException( 101,self::$_maxCandidates.'|'.self::METHOD_NAME[0] );
-        }
+        endif;
     }
 
 
@@ -49,10 +48,9 @@ class RankedPairs extends Method implements MethodInterface
     public function getResult () : Result
     {
         // Cache
-        if ( $this->_Result !== null )
-        {
+        if ( $this->_Result !== null ) :
             return $this->_Result;
-        }
+        endif;
 
             //////
 
@@ -65,20 +63,17 @@ class RankedPairs extends Method implements MethodInterface
         $result = [];
 
         $rang = 1;
-        while (count($result) < $this->_selfElection->countCandidates())
-        {
+        while (count($result) < $this->_selfElection->countCandidates()) :
             $winner = $this->getOneWinner($result);
 
-            foreach ($this->_Arcs as $ArcKey => $Arcvalue)
-            {
-                if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner )
-                {
+            foreach ($this->_Arcs as $ArcKey => $Arcvalue) :
+                if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner ) :
                     unset($this->_Arcs[$ArcKey]);
-                }
-            }
+                endif;
+            endforeach;
 
             $result[$rang++] = $winner;
-        }
+        endwhile;
 
         // Return
         return $this->_Result = $this->createResult($result);
@@ -87,21 +82,17 @@ class RankedPairs extends Method implements MethodInterface
     // Get the Ranked Pair ranking
     protected function getStats () : array
     {
-        if (!$this->_StatsDone)
-        {
-            foreach ($this->_Stats as $ArcKey => &$Arcvalue)
-            {
-                foreach ($Arcvalue as $key => &$value)
-                {
-                    if ($key === 'from' || $key === 'to')
-                    {
+        if (!$this->_StatsDone) :
+            foreach ($this->_Stats as $ArcKey => &$Arcvalue) :
+                foreach ($Arcvalue as $key => &$value) :
+                    if ($key === 'from' || $key === 'to') :
                         $value = $this->_selfElection->getCandidateId($value);
-                    }
-                }
-            }
+                    endif;
+                endforeach;
+            endforeach;
 
             $this->_StatsDone = true;
-        }
+        endif;
 
         return $this->_Stats;
     }
@@ -115,43 +106,39 @@ class RankedPairs extends Method implements MethodInterface
 
     protected function getOneWinner (array $result)
     {
-        foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId)
-        {
-            if (!in_array($candidateKey, $result, true))
-            {
+        foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
+            if (!in_array($candidateKey, $result, true)) :
                 $winner = true;
-                foreach ($this->_Arcs as $ArcKey => $ArcValue)
-                {
-                    if ($ArcValue['to'] === $candidateKey)
-                        { $winner = false;}
-                }
+                foreach ($this->_Arcs as $ArcKey => $ArcValue) :
+                    if ($ArcValue['to'] === $candidateKey) :
+                        $winner = false;
+                    endif;
+                endforeach;
 
-                if ($winner)
-                {
+                if ($winner) :
                     return $candidateKey;
-                }
-            }
-        }
+                endif;
+            endif;
+        endforeach;
     }
 
     protected function makeArcs () : void
     {
         $this->_Arcs = [];
 
-        foreach ($this->_PairwiseSort as $wise => $strength)
-        {
+        foreach ($this->_PairwiseSort as $wise => $strength) :
             $ord = explode ('>',$wise);
 
             $this->_Arcs[] = [ 'from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score'] ];
-        }
+        endforeach;
 
-        foreach ($this->_Arcs as $key => $value)
-        {
-            if (!isset($this->_Arcs[$key]))
-                {continue;}
+        foreach ($this->_Arcs as $key => $value) :
+            if (!isset($this->_Arcs[$key])) :
+                continue;
+            endif;
 
             $this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], [$key]);
-        }
+        endforeach;
 
         $this->_Stats = $this->_Arcs;
     }
@@ -159,87 +146,77 @@ class RankedPairs extends Method implements MethodInterface
         protected function checkingArc ($candidate, $candidate_next, $construct, $done) : void
         {
             // Deleting arc
-            if (count($done) > 1)
-            {
+            if (count($done) > 1) :
                 $test_cycle = explode('-', $construct);
                 $count_cycle = array_count_values($test_cycle);
 
-                if ($count_cycle[$candidate] > 1) // There is a cycle
-                {                   
+                if ($count_cycle[$candidate] > 1) : // There is a cycle                  
                     $this->delArc($test_cycle, $candidate);
-
                     return;
-                }
-            }
+                endif;
+            endif;
 
-            foreach ($this->_Arcs as $new_arc_key => $new_arc)
-            {
-                if (!isset($this->_Arcs[$new_arc_key]))
-                    {continue;}
+            foreach ($this->_Arcs as $new_arc_key => $new_arc) :
+                if (!isset($this->_Arcs[$new_arc_key])) :
+                    continue;
+                endif;
 
-                if (!in_array($new_arc_key, $done, true))
-                {
-                    if ($new_arc['from'] !== $candidate_next)
-                    {
+                if (!in_array($new_arc_key, $done, true)) :
+                    if ($new_arc['from'] !== $candidate_next) :
                         continue;
-                    }
+                    endif;
 
                     $done_next = $done;
                     $done_next[] = $new_arc_key;
 
                     // Recursive
                     $this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
-                }
-            }
+                endif;
+            endforeach;
         }
 
         protected function delArc ($test_cycle, $candidate) : void
         {
             $cycles = [];
 
-            $i = 1; $phase = false;
-            foreach ($test_cycle as $value)
-            {
-                if ($i === 1 && !$phase)
-                {
+            $i = 1;
+            $phase = false;
+            foreach ($test_cycle as $value) :
+                if ($i === 1 && !$phase) :
                     $cycles[$i] = '';
                     $cycles[$i] .= $value;
 
                     $phase = !$phase;
 
                     continue;
-                }
+                endif;
 
                 ///
 
                 $cycles[$i] .= '>'.$value;
 
-                if ($i + 1 < count($test_cycle))
-                {
+                if ($i + 1 < count($test_cycle)) :
                     $cycles[$i + 1] = '';
                     $cycles[$i + 1] .= $value;
-                }
+                endif;
 
                 $i++;
-            }
+            endforeach;
 
             $score = [];
-            foreach ($cycles as $key => $value)
-            {
+            foreach ($cycles as $key => $value) :
                 $score[$key] = $this->_PairwiseSort[$value]['score'];
-            }
+            endforeach;
 
             $to_del = $cycles[array_search(min($score), $score, true)];
             $to_del = explode ('>', $to_del);
 
 
-            foreach ($this->_Arcs as $key => $value)
-            {
-                if ($value['from'] == $to_del[0] && $value['to'] == $to_del[1])
-                {
+            foreach ($this->_Arcs as $key => $value) :
+                if ($value['from'] == $to_del[0] && $value['to'] == $to_del[1]) :
                     unset($this->_Arcs[$key]);
-                }
-            }
+                endif;
+            endforeach;
         }
 
 }

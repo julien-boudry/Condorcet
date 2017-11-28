@@ -37,7 +37,7 @@ class CondorcetBasicTest extends TestCase
             c > a > b * 2
         ');
 
-        self::assertEquals($this->election->getWinner(),'c');
+        self::assertEquals('c', $this->election->getWinner());
     }
 
     public function testResult_2 ()
@@ -52,7 +52,7 @@ class CondorcetBasicTest extends TestCase
             Z > X > Y * 22
         ');
 
-        self::assertSame($this->election->getWinner(),null);
+        self::assertSame(null, $this->election->getWinner());
     }
 
     public function testResult_3 ()
@@ -69,8 +69,8 @@ class CondorcetBasicTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertEquals($this->election->getWinner(),'Nashville');
-        self::assertEquals($this->election->getLoser(),'Memphis');
+        self::assertEquals('Nashville', $this->election->getWinner());
+        self::assertEquals('Memphis', $this->election->getLoser());
     }
 
     public function testResult_4 ()
@@ -87,7 +87,7 @@ class CondorcetBasicTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertEquals($this->election->getWinner(),'Chattanooga');
+        self::assertEquals('Chattanooga', $this->election->getWinner());
     }
 
     public function testResult_5 ()
@@ -108,8 +108,8 @@ class CondorcetBasicTest extends TestCase
             L > C > A * 2
         ');
 
-        self::assertEquals($this->election->getLoser(),'L');
-        self::assertSame($this->election->getWinner(),null);
+        self::assertEquals('L', $this->election->getLoser());
+        self::assertSame(null, $this->election->getWinner());
     }
 
     public function testResult_6 ()
@@ -127,7 +127,7 @@ class CondorcetBasicTest extends TestCase
             A > C > L
         ');
 
-        self::assertEquals($this->election->getLoser(),'L');
+        self::assertEquals('L', $this->election->getLoser());
     }
 
 

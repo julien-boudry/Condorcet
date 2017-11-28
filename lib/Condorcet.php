@@ -15,7 +15,8 @@ use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Dodgson');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonQuick');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonTidemanApproximation');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
@@ -32,7 +33,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        public const VERSION = '1.3.3';
+        public const VERSION = '1.3.4';
 
         public const ENV = 'STABLE';
 

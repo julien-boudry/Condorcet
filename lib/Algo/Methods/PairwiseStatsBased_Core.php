@@ -50,10 +50,9 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
     {
         $explicit = [];
 
-        foreach ($this->_Comparison as $candidate_key => $value)
-        {
+        foreach ($this->_Comparison as $candidate_key => $value) :
             $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = [$this->_countType => $value[$this->_countType]];
-        }
+        endforeach;
 
         return $explicit;
     }
@@ -73,28 +72,24 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $rank = 1;
         $done = 0;
 
-        foreach ($this->_Comparison as $candidate_key => $candidate_data)
-        {
+        foreach ($this->_Comparison as $candidate_key => $candidate_data) :
             $challenge[$candidate_key] = $candidate_data[$this->_countType];
-        }
+        endforeach;
 
-        while ($done < $this->_selfElection->countCandidates())
-        {
+        while ($done < $this->_selfElection->countCandidates()) :
             $looking = $this->looking($challenge);
 
-            foreach ($challenge as $candidate => $value)
-            {
-                if ($value === $looking)
-                {
+            foreach ($challenge as $candidate => $value) :
+                if ($value === $looking) :
                     $result[$rank][] = $candidate;
 
                     $done++;
                     unset($challenge[$candidate]);
-                }
-            }
+                endif;
+            endforeach;
 
             $rank++;
-        }
+        endwhile;
 
         $this->_Result = $this->createResult($result);
     }

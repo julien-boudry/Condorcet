@@ -28,10 +28,9 @@ abstract class Schulze_Core extends Method implements MethodInterface
     public function getResult () : Result
     {
         // Cache
-        if ( $this->_Result !== null )
-        {
+        if ( $this->_Result !== null ) :
             return $this->_Result;
-        }
+        endif;
 
             //////
 
@@ -55,15 +54,13 @@ abstract class Schulze_Core extends Method implements MethodInterface
     {
         $explicit = [];
 
-        foreach ($this->_StrongestPaths as $candidate_key => $candidate_value)
-        {
+        foreach ($this->_StrongestPaths as $candidate_key => $candidate_value) :
             $candidate_key = $this->_selfElection->getCandidateId($candidate_key, true);
 
-            foreach ($candidate_value as $challenger_key => $challenger_value)
-            {
+            foreach ($candidate_value as $challenger_key => $challenger_value) :
                 $explicit[$candidate_key][$this->_selfElection->getCandidateId($challenger_key, true)] = $challenger_value;
-            }
-        }
+            endforeach;
+        endforeach;
 
         return $explicit;
     }
@@ -81,64 +78,47 @@ abstract class Schulze_Core extends Method implements MethodInterface
     {
         $this->_StrongestPaths = [];
 
-        foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id )
-        {
+        foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id ) :
             $this->_StrongestPaths[$candidate_key] = [];
 
             // Format array for the strongest path
-            foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r )
-            {
-                if ($candidate_key_r != $candidate_key)
-                {
+            foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
+                if ($candidate_key_r != $candidate_key) :
                     $this->_StrongestPaths[$candidate_key][$candidate_key_r]    = 0;
-                }
-            }
-        }               
+                endif;
+            endforeach;
+        endforeach;
     }
 
 
     // Calculate the Strongest Paths
     protected function makeStrongestPaths () : void
     {
-        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
-        {
-            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value)
-            {
-                if ($i !== $j)
-                {
-                    if ( $this->_selfElection->getPairwise(false)[$i]['win'][$j] > $this->_selfElection->getPairwise(false)[$j]['win'][$i] )
-                    {
+        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value) :
+            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
+                if ($i !== $j) :
+                    if ( $this->_selfElection->getPairwise(false)[$i]['win'][$j] > $this->_selfElection->getPairwise(false)[$j]['win'][$i] ) :
                         $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);                      
-                    }
-                    else
-                    {
+                    else :
                         $this->_StrongestPaths[$i][$j] = 0;
-                    }
+                    endif;
+                endif;
+            endforeach;
+        endforeach;
 
-                }
-            }
-        }
-
-        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value)
-        {
-            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value)
-            {
-                if ($i !== $j)
-                {
-                    foreach ($this->_selfElection->getCandidatesList() as $k => $k_value)
-                    {
-                        if ($i !== $k && $j !== $k)
-                        {
+        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value) :
+            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
+                if ($i !== $j) :
+                    foreach ($this->_selfElection->getCandidatesList() as $k => $k_value) :
+                        if ($i !== $k && $j !== $k) :
                             $this->_StrongestPaths[$j][$k] = 
-                                            max( 
-                                                    $this->_StrongestPaths[$j][$k], 
-                                                    min( $this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k] )
-                                                );
-                        }
-                    }
-                }
-            }
-        }
+                                max( $this->_StrongestPaths[$j][$k], 
+                                     min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k]) );
+                        endif;
+                    endforeach;
+                endif;
+            endforeach;
+        endforeach;
     }
 
 
@@ -151,44 +131,37 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $done = array ();
         $rank = 1;
 
-        while (count($done) < $this->_selfElection->countCandidates())
-        {
+        while (count($done) < $this->_selfElection->countCandidates()) :
             $to_done = [];
 
-            foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key )
-            {
-                if ( in_array($candidate_key, $done, true) )
-                {
+            foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key ) :
+                if ( in_array($candidate_key, $done, true) ) :
                     continue;
-                }
+                endif;
 
                 $winner = true;
 
-                foreach ($challengers_key as $beaten_key => $beaten_value)
-                {
-                    if ( in_array($beaten_key, $done, true) )
-                    {
+                foreach ($challengers_key as $beaten_key => $beaten_value) :
+                    if ( in_array($beaten_key, $done, true) ) :
                         continue;
-                    }
+                    endif;
 
-                    if ( $beaten_value < $this->_StrongestPaths[$beaten_key][$candidate_key] )
-                    {
+                    if ( $beaten_value < $this->_StrongestPaths[$beaten_key][$candidate_key] ) :
                         $winner = false;
-                    }
-                }
+                    endif;
+                endforeach;
 
-                if ($winner)
-                {
+                if ($winner) :
                     $result[$rank][] = $candidate_key;
 
                     $to_done[] = $candidate_key;
-                }
-            }
+                endif;
+            endforeach;
 
             $done = array_merge($done, $to_done);
 
             $rank++;
-        }
+        endwhile;
 
         $this->_Result = $this->createResult($result);
     }

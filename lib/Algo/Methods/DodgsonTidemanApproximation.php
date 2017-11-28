@@ -12,11 +12,11 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 use Condorcet\Algo\MethodInterface;
 
-// DODGSON is a Condorcet Algorithm | https://en.wikipedia.org/wiki/Dodgson%27s_method
-class Dodgson extends PairwiseStatsBased_Core implements MethodInterface
+// DODGSON Tideman is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Dodgson','Dodgson Method','Lewis Carroll'];
+    public const METHOD_NAME = ['DodgsonTidemanApproximation','Dodgson Tideman Approximation','Dodgson Tideman','DodgsonTideman'];
 
     protected $_countType = 'sum_defeat_margin';
 

@@ -39,13 +39,14 @@ class KemenyYoungTest extends TestCase
         ');
 
 
-        self::assertEquals($this->election->getResult('KemenyYoung')->getResultAsArray(true),
+        self::assertEquals(
             [
                 1 => 'Nashville',
                 2 => 'Chattanooga',
                 3 => 'Knoxville',
                 4 => 'Memphis'
-            ]
+            ],
+            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
 
         self::assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['bestScore']);
