@@ -296,5 +296,65 @@ class DodgsonTest extends TestCase
             $this->election->getWinner('Dodgson'),'C');
     }
 
+    public function testResult_13 ()
+    {
+        # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+        $this->election->addCandidate('E');
+        $this->election->addCandidate('F');
+
+        $this->election->parseVotes('
+            A>B>C>D>E>F*19
+            F>A>B>C>D>E*12
+            E>D>C>B>F>A*12
+            B>A>C>D>E>F*9
+            F>E>D>C>B>A*9
+            F>B>A>C>D>E*10
+            E>D>C>A>F>B*10
+            E>B>A>C>D>F*10
+            F>D>C>A>E>B*10
+            D>B>A>C>E>F*10
+            F>E>C>A>D>B*10
+        ');
+
+
+
+        self::assertEquals(
+            (string) $this->election->getWinner('Dodgson'),'A');
+    }
+
+    public function testResult_14 ()
+    {
+        # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
+        # Same as previous test, each voters add 4 friends. 
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+        $this->election->addCandidate('E');
+        $this->election->addCandidate('F');
+
+        $this->election->parseVotes('
+            A>B>C>D>E>F*95
+            F>A>B>C>D>E*60
+            E>D>C>B>F>A*60
+            B>A>C>D>E>F*45
+            F>E>D>C>B>A*45
+            F>B>A>C>D>E*50
+            E>D>C>A>F>B*50
+            E>B>A>C>D>F*50
+            F>D>C>A>E>B*50
+            D>B>A>C>E>F*50
+            F>E>C>A>D>B*50
+        ');
+
+        self::assertEquals(
+            (string) $this->election->getWinner('Dodgson'),'B');
+    }
 
 }
