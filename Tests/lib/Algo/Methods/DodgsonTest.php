@@ -53,12 +53,12 @@ class DodgsonTest extends TestCase
         self::assertSame($CandidateCora,$this->election->getWinner('Dodgson'));
 
         self::assertSame(
-            $this->election->getResult('Dodgson')->getResultAsArray(true),
             [   1 => 'Cora',
                 2 => 'Abby',
                 3 => 'Brad',
                 4 => 'Dave',
-                5 => 'Erin'   ]
+                5 => 'Erin'   ],
+            $this->election->getResult('Dodgson')->getResultAsArray(true)
         );
     }
 
@@ -82,7 +82,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            (string) $this->election->getWinner('Dodgson'),'A');
+            'A',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_3 ()
@@ -105,7 +105,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'D');
+            'D',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_4 ()
@@ -126,7 +126,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            (string) $this->election->getWinner('Dodgson'),'A');
+            'A',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_5 ()
@@ -147,7 +147,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'C');
+            'C',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_6 ()
@@ -167,7 +167,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'D');
+            'D',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_7 ()
@@ -187,7 +187,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'D');
+            'D',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_8 ()
@@ -205,7 +205,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'A');
+            'A',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_9 ()
@@ -224,7 +224,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'B');
+            'B',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_10 ()
@@ -244,7 +244,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'B');
+            'B',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_11 ()
@@ -265,7 +265,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'B');
+            'B',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_12 ()
@@ -293,7 +293,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            $this->election->getWinner('Dodgson'),'C');
+            'C',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_13 ()
@@ -324,7 +324,7 @@ class DodgsonTest extends TestCase
 
 
         self::assertEquals(
-            (string) $this->election->getWinner('Dodgson'),'A');
+            'A',(string) $this->election->getWinner('Dodgson'));
     }
 
     public function testResult_14 ()
@@ -354,7 +354,7 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            (string) $this->election->getWinner('Dodgson'),'B');
+            'B',(string) $this->election->getWinner('Dodgson'));
     }
 
 }
