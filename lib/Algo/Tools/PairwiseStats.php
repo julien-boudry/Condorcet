@@ -123,13 +123,7 @@ abstract class PairwiseStats
                 elseif ($a['minority'] < $b['minority']) :
                     return -1;
                 elseif ($a['minority'] === $b['minority']) :
-                    if ($a['margin'] < $b['margin']) :
-                        return 1;
-                    elseif ($a['margin'] > $b['margin']) :
-                        return -1;
-                    else :
-                        return 0;
-                    endif;
+                    return 0;
                 endif;
             endif;
         });
