@@ -145,7 +145,7 @@ class RankedPairsTest extends TestCase
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
     }
 
-     public function testResult_5 ()
+    public function testResult_5 ()
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example1/
 
@@ -170,7 +170,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-     public function testResult_6 ()
+    public function testResult_6 ()
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example2/
 
@@ -193,4 +193,58 @@ class RankedPairsTest extends TestCase
             $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
         );
     }
+
+    public function testResult_7 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example3/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 7
+            B > A > C * 7
+            C > A > B * 2
+            C > B > A * 2
+        ');
+
+
+        self::assertSame(
+            [   1 => ['A','B'],
+                2 => 'C' ],
+            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_8 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example4/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>D>C>B*12
+            B>A>C>D*3
+            B>C>A>D*25
+            C>B>A>D*21
+            D>A>B>C*12
+            D>A>C>B*21
+            D>B>A>C*6
+        ');
+
+        self::assertEquals('B',(string) $this->election->getWinner('Ranked Pairs'));
+
+        self::assertSame(
+            [   1 => 'B',
+                2 => 'A',
+                3 => 'D',
+                4 => 'C' ],
+            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+        );
+    }  
+
 }
