@@ -60,23 +60,8 @@ class RankedPairs extends Method implements MethodInterface
         // Ranking calculation
         $this->makeArcs();
 
-        $result = [];
-
-        $rang = 1;
-        while (count($result) < $this->_selfElection->countCandidates()) :
-            $winner = $this->getOneWinner($result);
-
-            foreach ($this->_Arcs as $ArcKey => $Arcvalue) :
-                if ($Arcvalue['from'] === $winner || $Arcvalue['to'] === $winner ) :
-                    unset($this->_Arcs[$ArcKey]);
-                endif;
-            endforeach;
-
-            $result[$rang++] = $winner;
-        endwhile;
-
-        // Return
-        return $this->_Result = $this->createResult($result);
+        // Make Result      
+        return $this->_Result = $this->createResult($this->makeResult());
     }
 
     // Get the Ranked Pair ranking
@@ -98,125 +83,116 @@ class RankedPairs extends Method implements MethodInterface
     }
 
 
-
 /////////// COMPUTE ///////////
 
 
     //:: RANKED PAIRS ALGORITHM. :://
 
-    protected function getOneWinner (array $result)
+    protected function makeResult () : array
     {
+        $result = [];
+        $alreadyDone = [];
+        $lastWinner = null;
+
+        $rang = 1;
+        while (count($alreadyDone) < $this->_selfElection->countCandidates()) :
+            $winners = $this->getWinners($alreadyDone);
+
+            foreach ($this->_Arcs as $ArcKey => $Arcvalue) :
+                foreach ($winners as $oneWinner) :
+                    if ($Arcvalue['from'] === $oneWinner || $Arcvalue['to'] === $oneWinner ) :
+                        unset($this->_Arcs[$ArcKey]);
+                    endif;
+                endforeach;
+            endforeach;
+
+            $result[$rang++] = $winners;
+            $alreadyDone = array_merge($alreadyDone,$winners);
+        endwhile;
+
+        return $result;
+    }
+
+    protected function getWinners (array $alreadyDone) : array
+    {
+        $winners = [];
+
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            if (!in_array($candidateKey, $result, true)) :
-                $winner = true;
+            if (!in_array($candidateKey, $alreadyDone, true)) :
+                $win = true;
                 foreach ($this->_Arcs as $ArcKey => $ArcValue) :
                     if ($ArcValue['to'] === $candidateKey) :
-                        $winner = false;
+                        $win = false;
                     endif;
                 endforeach;
 
-                if ($winner) :
-                    return $candidateKey;
+                if ($win) :
+                    $winners[] = $candidateKey;
                 endif;
             endif;
         endforeach;
+
+        return $winners;
     }
+
 
     protected function makeArcs () : void
     {
         $this->_Arcs = [];
 
-        foreach ($this->_PairwiseSort as $wise => $strength) :
-            $ord = explode ('>',$wise);
+        foreach ($this->_PairwiseSort as $newArcsRound) :
+            $virtualArcs = $this->_Arcs;
+            $testNewsArcs = [];
 
-            $this->_Arcs[] = [ 'from' => intval($ord[0]), 'to' => intval($ord[1]), 'strength' => $strength['score'] ];
-        endforeach;
+            foreach ($newArcsRound as $newArc) :
+                $virtualArcs[] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
+                $testNewsArcs[] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
+            endforeach;
 
-        foreach ($this->_Arcs as $key => $value) :
-            if (!isset($this->_Arcs[$key])) :
-                continue;
-            endif;
+            foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) :
+                if (($toDeleteKey = array_search($virtualArcs[$cycleArcKey], $testNewsArcs, true)) !== false) :
+                    unset($testNewsArcs[$toDeleteKey]);
+                endif;
+            endforeach;
 
-            $this->checkingArc($value['from'], $value['to'], $value['from'].'-'.$value['to'], [$key]);
+            foreach ($testNewsArcs as $newArc) :
+                $this->_Arcs[] = $newArc;
+            endforeach;
+
         endforeach;
 
         $this->_Stats = $this->_Arcs;
     }
 
-        protected function checkingArc ($candidate, $candidate_next, $construct, $done) : void
-        {
-            // Deleting arc
-            if (count($done) > 1) :
-                $test_cycle = explode('-', $construct);
-                $count_cycle = array_count_values($test_cycle);
+    protected function getArcsInCycle (array $virtualArcs) : array
+    {
+        $cycles = [];
 
-                if ($count_cycle[$candidate] > 1) : // There is a cycle                  
-                    $this->delArc($test_cycle, $candidate);
-                    return;
+        foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
+            $cycles = array_merge($cycles,$this->followCycle($virtualArcs,$candidateKey,$candidateKey));
+        endforeach;
+
+        return $cycles;
+    }
+
+    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = [])
+    {
+        $arcsInCycle = [];
+
+        foreach ($virtualArcs as $ArcKey => $ArcValue) :
+            if ($ArcValue['from'] === $startCandidateKey) :
+                if ($ArcValue['to'] === $searchCandidateKey) :
+                    return [$ArcKey];
+                elseif (in_array($ArcKey, $done, true)) :
+                    continue;
+                else :
+                    $done[] = $ArcKey;
+                    $arcsInCycle = array_merge($arcsInCycle,$this->followCycle($virtualArcs,$ArcValue['to'],$searchCandidateKey, $done));
                 endif;
             endif;
+        endforeach;
 
-            foreach ($this->_Arcs as $new_arc_key => $new_arc) :
-                if (!isset($this->_Arcs[$new_arc_key])) :
-                    continue;
-                endif;
-
-                if (!in_array($new_arc_key, $done, true)) :
-                    if ($new_arc['from'] !== $candidate_next) :
-                        continue;
-                    endif;
-
-                    $done_next = $done;
-                    $done_next[] = $new_arc_key;
-
-                    // Recursive
-                    $this->checkingArc($candidate, $new_arc['to'], $construct.'-'.$new_arc['to'], $done_next);
-                endif;
-            endforeach;
-        }
-
-        protected function delArc ($test_cycle, $candidate) : void
-        {
-            $cycles = [];
-
-            $i = 1;
-            $phase = false;
-            foreach ($test_cycle as $value) :
-                if ($i === 1 && !$phase) :
-                    $cycles[$i] = '';
-                    $cycles[$i] .= $value;
-
-                    $phase = !$phase;
-
-                    continue;
-                endif;
-
-                ///
-
-                $cycles[$i] .= '>'.$value;
-
-                if ($i + 1 < count($test_cycle)) :
-                    $cycles[$i + 1] = '';
-                    $cycles[$i + 1] .= $value;
-                endif;
-
-                $i++;
-            endforeach;
-
-            $score = [];
-            foreach ($cycles as $key => $value) :
-                $score[$key] = $this->_PairwiseSort[$value]['score'];
-            endforeach;
-
-            $to_del = $cycles[array_search(min($score), $score, true)];
-            $to_del = explode ('>', $to_del);
-
-
-            foreach ($this->_Arcs as $key => $value) :
-                if ($value['from'] == $to_del[0] && $value['to'] == $to_del[1]) :
-                    unset($this->_Arcs[$key]);
-                endif;
-            endforeach;
-        }
+        return $arcsInCycle;
+    }
 
 }
