@@ -145,4 +145,52 @@ class RankedPairsTest extends TestCase
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
     }
 
+     public function testResult_5 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example1/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 7
+            B > A > C * 5
+            C > A > B * 4
+            B > C > A * 2
+        ');
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+
+        self::assertSame(
+            [   1 => 'A',
+                2 => 'B',
+                3 => 'C' ],
+            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+        );
+    }
+
+     public function testResult_6 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example2/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 40
+            B > C > A * 35
+            C > A > B * 25
+        ');
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+
+        self::assertSame(
+            [   1 => 'A',
+                2 => 'B',
+                3 => 'C' ],
+            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+        );
+    }
 }
