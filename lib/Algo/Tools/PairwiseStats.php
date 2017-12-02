@@ -87,37 +87,32 @@ abstract class PairwiseStats
 
     public static function PairwiseSort (Pairwise $pairwise) : array
     {
-        $comparison = self::PairwiseComparison($pairwise);
-
         $score = [];  
 
+        $i = 0;
         foreach ($pairwise as $candidate_key => $candidate_value) :
             foreach ($candidate_value['win'] as $challenger_key => $challenger_value) :
 
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) :
 
-                    $score[$candidate_key.'>'.$challenger_key]['score'] = $challenger_value;
-                    $score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key];
-                    $score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
+                    $score[$i]['victory'] = $candidate_key;
+                    $score[$i]['defeat'] = $challenger_key;
 
-                elseif (    $challenger_value === $candidate_value['lose'][$challenger_key] &&
-                            !isset($score[$challenger_key.'>'.$candidate_key]) ) :
+                    $score[$i]['win'] = $challenger_value;
+                    $score[$i]['minority'] = $candidate_value['lose'][$challenger_key];
+                    $score[$i]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
 
-                    if ($comparison[$candidate_key]['worst_pairwise_defeat_winning'] <= $comparison[$challenger_key]['worst_pairwise_defeat_winning']) :
-                        $score[$candidate_key.'>'.$challenger_key]['score'] = 0.1;
-                        $score[$candidate_key.'>'.$challenger_key]['minority'] = $candidate_value['lose'][$challenger_key];
-                        $score[$candidate_key.'>'.$challenger_key]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
-                    endif;
+                    $i++;
 
                 endif;
 
             endforeach;
         endforeach;
 
-        uasort($score, function ($a, $b) : int {
-            if ($a['score'] < $b['score']) : return 1;
-            elseif ($a['score'] > $b['score']) : return -1;
-            elseif ($a['score'] === $b['score']) :
+        usort($score, function ($a, $b) : int {
+            if ($a['win'] < $b['win']) : return 1;
+            elseif ($a['win'] > $b['win']) : return -1;
+            elseif ($a['win'] === $b['win']) :
                 if ($a['minority'] > $b['minority']) :
                     return 1;
                 elseif ($a['minority'] < $b['minority']) :
@@ -128,6 +123,20 @@ abstract class PairwiseStats
             endif;
         });
 
-        return $score;
+        $newArcs = [];
+        $i = 0;
+        $f = true;
+        foreach ($score as $scoreKey => $scoreValue) :
+            if ($f === true) :
+                $newArcs[$i][] = $score[$scoreKey];
+                $f = false;
+            elseif ($score[$scoreKey]['win'] === $score[$scoreKey - 1]['win'] && $score[$scoreKey]['minority'] === $score[$scoreKey - 1]['minority']) :
+                $newArcs[$i][] = $score[$scoreKey];
+            else :
+                $newArcs[++$i][] = $score[$scoreKey];
+            endif;
+        endforeach;
+
+        return $newArcs;
     }
 }
