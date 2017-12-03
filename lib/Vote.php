@@ -187,6 +187,7 @@ class Vote implements \Iterator
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
         foreach ($ranking as &$rank) :
+            sort($rank);
             $rank = implode(' = ',$rank);
         endforeach;
 

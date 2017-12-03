@@ -151,7 +151,7 @@ class VoteTest extends TestCase
     public function testSimpleRanking ()
     {
         // Ranking 1
-        $vote1 = new Vote('candidate1 > candidate2 = candidate3 > candidate4');
+        $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
         self::assertSame($vote1->getSimpleRanking(),'candidate1 > candidate2 = candidate3 > candidate4');
 
