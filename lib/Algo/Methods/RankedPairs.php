@@ -143,15 +143,19 @@ class RankedPairs extends Method implements MethodInterface
         foreach ($this->_PairwiseSort as $newArcsRound) :
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
+            $candidatesToCheck = [];
 
+            $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) :
-                $virtualArcs[] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
-                $testNewsArcs[] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
+                $virtualArcs[$newKey] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
+                $candidatesToCheck[] = $virtualArcs[$newKey]['to'];
+                $testNewsArcs[$newKey] = $virtualArcs[$newKey];
+                $newKey++;
             endforeach;
 
-            foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) :
-                if (($toDeleteKey = array_search($virtualArcs[$cycleArcKey], $testNewsArcs, true)) !== false) :
-                    unset($testNewsArcs[$toDeleteKey]);
+            foreach ($this->getArcsInCycle($virtualArcs,$candidatesToCheck) as $cycleArcKey) :
+                if (array_key_exists($cycleArcKey, $testNewsArcs)) :
+                    unset($testNewsArcs[$cycleArcKey]);
                 endif;
             endforeach;
 
@@ -164,11 +168,11 @@ class RankedPairs extends Method implements MethodInterface
         $this->_Stats = $this->_Arcs;
     }
 
-    protected function getArcsInCycle (array $virtualArcs) : array
+    protected function getArcsInCycle (array $virtualArcs, array $candidatesToCheck) : array
     {
         $cycles = [];
 
-        foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
+        foreach ($candidatesToCheck as $candidateKey) :
             $cycles = array_merge($cycles,$this->followCycle($virtualArcs,$candidateKey,$candidateKey));
         endforeach;
 

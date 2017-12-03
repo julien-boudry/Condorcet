@@ -236,7 +236,7 @@ class RankedPairsTest extends TestCase
             D>B>A>C*6
         ');
 
-        self::assertEquals('B',(string) $this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs'));
 
         self::assertSame(
             [   1 => 'B',
