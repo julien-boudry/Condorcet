@@ -22,9 +22,6 @@ class RankedPairs extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method'];
 
-    // Limits
-        public static $_maxCandidates = 7;
-
     // Ranked Pairs
     protected $_PairwiseSort;
     protected $_Arcs;
@@ -33,16 +30,6 @@ class RankedPairs extends Method implements MethodInterface
 
 
 /////////// PUBLIC ///////////
-
-    public function __construct (Election $mother)
-    {
-        parent::__construct($mother);
-
-        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates) :
-            throw new CondorcetException( 101,self::$_maxCandidates.'|'.self::METHOD_NAME[0] );
-        endif;
-    }
-
 
     // Get the Ranked Pairs ranking
     public function getResult () : Result
@@ -148,12 +135,11 @@ class RankedPairs extends Method implements MethodInterface
             $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) :
                 $virtualArcs[$newKey] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
-                $candidatesToCheck[] = $virtualArcs[$newKey]['to'];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
                 $newKey++;
             endforeach;
 
-            foreach ($this->getArcsInCycle($virtualArcs,$candidatesToCheck) as $cycleArcKey) :
+            foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) :
                 if (array_key_exists($cycleArcKey, $testNewsArcs)) :
                     unset($testNewsArcs[$cycleArcKey]);
                 endif;
@@ -168,27 +154,28 @@ class RankedPairs extends Method implements MethodInterface
         $this->_Stats = $this->_Arcs;
     }
 
-    protected function getArcsInCycle (array $virtualArcs, array $candidatesToCheck) : array
+    protected function getArcsInCycle (array $virtualArcs) : array
     {
         $cycles = [];
 
-        foreach ($candidatesToCheck as $candidateKey) :
+        foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
             $cycles = array_merge($cycles,$this->followCycle($virtualArcs,$candidateKey,$candidateKey));
         endforeach;
 
         return $cycles;
     }
 
-    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = [])
+    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = [])
     {
         $arcsInCycle = [];
 
         foreach ($virtualArcs as $ArcKey => $ArcValue) :
             if ($ArcValue['from'] === $startCandidateKey) :
-                if ($ArcValue['to'] === $searchCandidateKey) :
-                    return [$ArcKey];
-                elseif (in_array($ArcKey, $done, true)) :
+                if (in_array($ArcKey, $done, true)) :
                     continue;
+                elseif ($ArcValue['to'] === $searchCandidateKey) :
+                    $done[] = $ArcKey;
+                    $arcsInCycle[] = $ArcKey;
                 else :
                     $done[] = $ArcKey;
                     $arcsInCycle = array_merge($arcsInCycle,$this->followCycle($virtualArcs,$ArcValue['to'],$searchCandidateKey, $done));

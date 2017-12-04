@@ -245,6 +245,111 @@ class RankedPairsTest extends TestCase
                 4 => 'C' ],
             $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
         );
-    }  
+    }
+
+    public function testResult_9 ()
+    {
+        # Test fix for rare bug
+
+        for ($i=0; $i < 8 ; $i++) { 
+            $this->election->addCandidate();
+        }
+
+        $this->election->parseVotes('
+            A > E > B > H > G > F > D > C * 1
+            B > F > E > H > C > A > G > D * 1
+            G > F > B > C > D > E > H > A * 1
+            H > A > B > F > E > C > D > G * 1
+            B > H > A > E > G > F > D > C * 1
+            E > D > H > C > B > A > F > G * 1
+            C > A > F > B > E > D > H > G * 1
+            G > H > D > C > E > F > B > A * 1
+            F > E > H > A > B > C > G > D * 1
+            D > B > F > C > G > E > A > H * 1
+            H > G > A > E > B > C > F > D * 1
+            E > D > G > F > A > B > H > C * 1
+            C > D > G > A > E > H > B > F * 1
+            H > C > B > G > A > D > F > E * 1
+            C > B > G > A > D > H > F > E * 1
+            B > D > F > H > G > E > A > C * 1
+            B > C > E > F > G > H > D > A * 1
+            C > G > H > F > D > E > A > B * 1
+            E > A > H > C > F > D > G > B * 1
+            C > D > G > H > B > A > E > F * 1
+            B > D > A > C > G > F > E > H * 1
+            C > A > B > G > E > D > H > F * 1
+            E > G > H > A > D > C > F > B * 1
+            F > G > B > H > E > C > D > A * 1
+            A > H > D > C > F > E > B > G * 1
+           ');
+
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs'));
+    }
+
+    public function testResult_10 ()
+    {
+        # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
+        # Example 5
+
+        $this->election->addCandidate('v');
+        $this->election->addCandidate('w');
+        $this->election->addCandidate('x');
+        $this->election->addCandidate('y');
+        $this->election->addCandidate('z');
+
+        $this->election->parseVotes('
+            v>w>x>y>z*7
+            z>y>v>w>x*3
+            y>z>w>x>v*6
+            w>x>v>z>y*3
+            z>x>v>w>y*5
+            y>x>v>w>z*3
+        ');
+
+
+        self::assertEquals('v',$this->election->getWinner('Ranked Pairs'));
+
+        self::assertSame(
+            [   1 => 'v',
+                2 => 'w',
+                3 => 'x',
+                4 => 'y',
+                5 => 'z' ],
+            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+        );
+    }
+
+    // public function testResult_stresTests ()
+    // {
+    //     $rounds = 1;
+    //     $candidates = 332;
+    //     $votes = 500;
+
+    //     # Test fix for rare bug
+    //     for ($j=0; $j < $rounds; $j++) { 
+    //         $this->election = new Election;
+
+    //         for ($i=0; $i < $candidates ; $i++) { 
+    //             $this->election->addCandidate();
+    //         }
+
+
+    //         $VoteModel = $this->election->getCandidatesList();
+    //         shuffle($VoteModel);
+
+    //         for ($i = 0 ; $i < $votes ; $i++) {
+    //             shuffle($VoteModel);
+    //             $this->election->addVote( $VoteModel );
+    //         }
+
+    //         var_dump($j);
+
+    //         var_dump($this->election->getVotesListAsString());
+
+    //         var_dump($this->election->getResult('Ranked Pairs')->getResultAsArray(true));
+
+    //         self::assertEquals(true,true);
+    //     }
+    // }
 
 }
