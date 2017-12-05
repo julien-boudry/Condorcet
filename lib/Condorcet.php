@@ -33,7 +33,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        public const VERSION = '1.3.4';
+        public const VERSION = '1.4.0';
 
         public const ENV = 'DEV';
 

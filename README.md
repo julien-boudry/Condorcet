@@ -39,11 +39,11 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 
 > [**Releases Notes**](release)
 
-* **Stable Version: 1.3.x**  
+* **Stable Version: 1.4.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
-* **Development Version: 1.4.x**  
+* **Development Version: 1.5.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
 
 _v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series._    
@@ -88,7 +88,7 @@ _This class is not designed for high performances or very high reliability exige
     * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
     * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
     * **Minimax Opposition** *(By nature, this alternative does not meet any criterion of Condorcet)*
-* **RankedPairs *(:warning: Experimental implementation)*** https://en.wikipedia.org/wiki/Ranked_pairs  
+* **RankedPairs** https://en.wikipedia.org/wiki/Ranked_pairs  
 * **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method  
     * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method is also known as Schulze Method.*
     * **Schulze Margin** Variant from Markus Schulze himself.
