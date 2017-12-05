@@ -99,4 +99,29 @@ class ElectionTest extends TestCase
         $this->election1->addVote('candidate3');
     }
 
+    public function testGetVotesListAsString ()
+    {
+        $this->election1 = new Election;
+
+        $this->election1->addCandidate('C');
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('D');
+        $this->election1->addCandidate('E');
+        $this->election1->addCandidate('A');
+
+        $this->election1->parseVotes('
+            D * 6
+            A * 6
+            E = A = B *3
+            A > C = B > E * 5
+        ');
+
+        self::assertSame(
+        "A > B = C = D = E * 6\n".
+        "D > A = B = C = E * 6\n".
+        "A > B = C > E > D * 5\n".
+        "A = B = E > C = D * 3",
+        $this->election1->getVotesListAsString());
+    }
+
 }

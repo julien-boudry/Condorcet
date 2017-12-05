@@ -140,8 +140,14 @@ class VotesManager extends ArrayManager
             $set[$oneVoteString]++;
         endforeach;
 
+        ksort($set);
+        arsort($set);
+
+        $isFirst = true;
         foreach ($set as $key => $value) :
-            $simpleList .= $key.' * '.$value."\n";
+            if (!$isFirst) : $simpleList .= "\n"; endif;
+            $simpleList .= $key.' * '.$value;
+            $isFirst = false;
         endforeach;
 
         return $simpleList;
