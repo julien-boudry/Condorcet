@@ -319,7 +319,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    // public function testResult_stresTests ()
+    // public function testResult_stressTests ()
     // {
     //     $rounds = 1;
     //     $candidates = 332;
