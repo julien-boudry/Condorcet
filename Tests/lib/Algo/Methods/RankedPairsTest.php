@@ -10,7 +10,9 @@ use Condorcet\Vote;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Condorcet\Algo\Methods\RankedPairs
+ * @covers \Condorcet\Algo\Methods\RankedPairs_Core
+ * @covers \Condorcet\Algo\Methods\RankedPairsWinning
+ * @covers \Condorcet\Algo\Methods\RankedPairsMargin
  */
 class RankedPairsTest extends TestCase
 {
@@ -45,15 +47,22 @@ class RankedPairsTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+
+        $expected = [   1 => 'A',
+                        2 => 'C',
+                        3 => 'E',
+                        4 => 'B',
+                        5 => 'D'    ];
 
         self::assertSame(
-            [   1 => 'A',
-                2 => 'C',
-                3 => 'E',
-                4 => 'B',
-                5 => 'D'    ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -73,15 +82,20 @@ class RankedPairsTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
+        $expected = [   1 => 'Nashville',
+                        2 => 'Chattanooga',
+                        3 => 'Knoxville',
+                        4 => 'Memphis'];
+
 
         self::assertEquals(
-            [
-                1 => 'Nashville',
-                2 => 'Chattanooga',
-                3 => 'Knoxville',
-                4 => 'Memphis'
-            ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -111,15 +125,22 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Brad',$this->election->getWinner('Ranked Pairs'));
+        $expected =[   1 => 'Brad',
+                        2 => 'Abby',
+                        3 => 'Erin',
+                        4 => 'Dave',
+                        5 => 'Cora'];
+
+        self::assertEquals('Brad',$this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
-            [   1 => 'Brad',
-                2 => 'Abby',
-                3 => 'Erin',
-                4 => 'Dave',
-                5 => 'Cora'    ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -138,11 +159,11 @@ class RankedPairsTest extends TestCase
         ');
 
         // Not supporting not ranked candidate
-        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
 
         // Supporting not ranked candidate
         $this->election->setImplicitRanking(false);
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
     }
 
     public function testResult_5 ()
@@ -160,13 +181,20 @@ class RankedPairsTest extends TestCase
             B > C > A * 2
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        $expected = [   1 => 'A',
+                        2 => 'B',
+                        3 => 'C' ];
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
-            [   1 => 'A',
-                2 => 'B',
-                3 => 'C' ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -184,13 +212,20 @@ class RankedPairsTest extends TestCase
             C > A > B * 25
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        $expected = [   1 => 'A',
+                        2 => 'B',
+                        3 => 'C' ];
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
-            [   1 => 'A',
-                2 => 'B',
-                3 => 'C' ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -209,11 +244,17 @@ class RankedPairsTest extends TestCase
             C > B > A * 2
         ');
 
+        $expected =  [   1 => ['A','B'],
+                         2 => 'C' ];
 
         self::assertSame(
-            [   1 => ['A','B'],
-                2 => 'C' ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -236,14 +277,21 @@ class RankedPairsTest extends TestCase
             D>B>A>C*6
         ');
 
-        self::assertEquals('B',$this->election->getWinner('Ranked Pairs'));
+        $expected = [   1 => 'B',
+                        2 => 'A',
+                        3 => 'D',
+                        4 => 'C' ];
+
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
-            [   1 => 'B',
-                2 => 'A',
-                3 => 'D',
-                4 => 'C' ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -283,7 +331,7 @@ class RankedPairsTest extends TestCase
             A > H > D > C > F > E > B > G * 1
            ');
 
-        self::assertEquals('B',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
     }
 
     public function testResult_10 ()
@@ -307,15 +355,27 @@ class RankedPairsTest extends TestCase
         ');
 
 
-        self::assertEquals('v',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('v',$this->election->getWinner('Ranked Pairs Winning'));
+
+        $expected = [   1 => 'v',
+                        2 => 'w',
+                        3 => 'x',
+                        4 => 'y',
+                        5 => 'z' ];
 
         self::assertSame(
-            [   1 => 'v',
-                2 => 'w',
-                3 => 'x',
-                4 => 'y',
-                5 => 'z' ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -332,7 +392,7 @@ class RankedPairsTest extends TestCase
 
         $this->election->parseVotes('A');
 
-        $this->election->getWinner('Ranked Pairs');
+        $this->election->getWinner('Ranked Pairs Winning');
     }
 
     // public function testResult_stressTests ()
@@ -362,7 +422,7 @@ class RankedPairsTest extends TestCase
 
     //         var_dump($this->election->getVotesListAsString());
 
-    //         var_dump($this->election->getResult('Ranked Pairs')->getResultAsArray(true));
+    //         var_dump($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
 
     //         self::assertEquals(true,true);
     //     }

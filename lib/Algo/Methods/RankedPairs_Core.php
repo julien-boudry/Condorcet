@@ -16,11 +16,8 @@ use Condorcet\Election;
 use Condorcet\Result;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairs extends Method implements MethodInterface
+class RankedPairs_Core extends Method implements MethodInterface
 {
-    // Method Name
-    public const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method'];
-
     // Limits
         public static $_maxCandidates = 40;
 
@@ -191,7 +188,7 @@ class RankedPairs extends Method implements MethodInterface
 
     protected function pairwiseSort () : array
     {
-        $score = [];  
+        $pairs = [];  
 
         $i = 0;
         foreach ($this->_selfElection->getPairwise(false) as $candidate_key => $candidate_value) :
@@ -199,12 +196,12 @@ class RankedPairs extends Method implements MethodInterface
 
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) :
 
-                    $score[$i]['victory'] = $candidate_key;
-                    $score[$i]['defeat'] = $challenger_key;
+                    $pairs[$i]['victory'] = $candidate_key;
+                    $pairs[$i]['defeat'] = $challenger_key;
 
-                    $score[$i]['win'] = $challenger_value;
-                    $score[$i]['minority'] = $candidate_value['lose'][$challenger_key];
-                    $score[$i]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
+                    $pairs[$i]['win'] = $challenger_value;
+                    $pairs[$i]['minority'] = $candidate_value['lose'][$challenger_key];
+                    $pairs[$i]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
 
                     $i++;
 
@@ -213,15 +210,17 @@ class RankedPairs extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        usort($score, function ($a, $b) : int {
-            if ($a['win'] < $b['win']) : return 1;
-            elseif ($a['win'] > $b['win']) : return -1;
-            elseif ($a['win'] === $b['win']) :
+        usort($pairs, function ($a, $b) : int {
+            if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) :
+                return 1;
+            elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) :
+                return -1;
+            else : // Equal
                 if ($a['minority'] > $b['minority']) :
                     return 1;
                 elseif ($a['minority'] < $b['minority']) :
                     return -1;
-                elseif ($a['minority'] === $b['minority']) :
+                else : // Equal
                     return 0;
                 endif;
             endif;
@@ -230,14 +229,14 @@ class RankedPairs extends Method implements MethodInterface
         $newArcs = [];
         $i = 0;
         $f = true;
-        foreach ($score as $scoreKey => $scoreValue) :
+        foreach ($pairs as $pairsKey => $pairsValue) :
             if ($f === true) :
-                $newArcs[$i][] = $score[$scoreKey];
+                $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;
-            elseif ($score[$scoreKey]['win'] === $score[$scoreKey - 1]['win'] && $score[$scoreKey]['minority'] === $score[$scoreKey - 1]['minority']) :
-                $newArcs[$i][] = $score[$scoreKey];
+            elseif ($pairs[$pairsKey][static::RP_VARIANT_1] === $pairs[$pairsKey - 1][static::RP_VARIANT_1] && $pairs[$pairsKey]['minority'] === $pairs[$pairsKey - 1]['minority']) :
+                $newArcs[$i][] = $pairs[$pairsKey];
             else :
-                $newArcs[++$i][] = $score[$scoreKey];
+                $newArcs[++$i][] = $pairs[$pairsKey];
             endif;
         endforeach;
 
