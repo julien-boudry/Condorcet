@@ -12,7 +12,6 @@ namespace Condorcet\Algo\Methods;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\PairwiseStats;
-use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Result;
 
@@ -33,15 +32,6 @@ class RankedPairs extends Method implements MethodInterface
 
 
 /////////// PUBLIC ///////////
-
-    public function __construct (Election $mother)
-    {
-        parent::__construct($mother);
-
-        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates) :
-            throw new CondorcetException( 101,self::$_maxCandidates.'|'.self::METHOD_NAME[0] );
-        endif;
-    }
 
 
     // Get the Ranked Pairs ranking

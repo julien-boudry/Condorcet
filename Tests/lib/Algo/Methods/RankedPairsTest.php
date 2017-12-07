@@ -319,6 +319,22 @@ class RankedPairsTest extends TestCase
         );
     }
 
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 101
+      * @expectedExceptionMessage Ranked Pairs is configured to accept only 40 candidates
+      */
+    public function testMaxCandidates ()
+    {
+        for ($i=0; $i < 41; $i++) :
+            $this->election->addCandidate();
+        endfor;
+
+        $this->election->parseVotes('A');
+
+        $this->election->getWinner('Ranked Pairs');
+    }
+
     // public function testResult_stressTests ()
     // {
     //     $rounds = 1;

@@ -53,4 +53,20 @@ class KemenyYoungTest extends TestCase
 
         self::assertSame($this->election->getWinner(),$this->election->getWinner('KemenyYoung'));
     }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 101
+      * @expectedExceptionMessage Kemeny–Young is configured to accept only 8 candidates
+      */
+    public function testMaxCandidates ()
+    {
+        for ($i=0; $i < 10; $i++) :
+            $this->election->addCandidate();
+        endfor;
+
+        $this->election->parseVotes('A');
+
+        $this->election->getWinner('KemenyYoung');
+    }
 }
