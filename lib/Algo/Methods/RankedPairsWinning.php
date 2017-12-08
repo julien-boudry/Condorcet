@@ -16,7 +16,7 @@ use Condorcet\Algo\MethodInterface;
 class RankedPairsWinning extends RankedPairs_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Ranked Pairs','RankedPairs','Tideman method', 'Ranked Pairs Winning', 'Tideman Winning'];
+    public const METHOD_NAME = ['Ranked Pairs Winning','Tideman Winning','RP Winning'];
 
     protected const RP_VARIANT_1 = 'win';
 }

@@ -81,18 +81,20 @@ _This class is not designed for high performances or very high reliability exige
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
 * **Dodgson Approximations** *(Not the real Dodgson method, see: [Lewis Caroll, Voting and the taxicab metric](https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf))*
-    * **Dodgson Quick** *(recommended)*  
+    * **Dodgson Quick** *(recommended)*
     * **Dodgson Tideman approximation**
 * **Kemeny-Young** http://en.wikipedia.org/wiki/Kemeny-Young_method _Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB._
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
     * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
     * **Minimax Opposition** *(By nature, this alternative does not meet any criterion of Condorcet)*
-* **RankedPairs** https://en.wikipedia.org/wiki/Ranked_pairs  
-* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method  
-    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method is also known as Schulze Method.*
+* **Ranked Pairs Family** https://en.wikipedia.org/wiki/Ranked_pairs *This method is also known as Tideman method.*
+    * **Ranked Pairs Margin** Margin variant is recommended by Nicolaus Tideman himself. ***This is the default choice.***
+    * **Ranked Pairs Winning** Widely used variant, maybe more than the original.
+* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method *This method is also known as Schulze Method.*
+    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.***
     * **Schulze Margin** Variant from Markus Schulze himself.
-    * **Schulze Ratio** Markus Schulze himself.
+    * **Schulze Ratio** Variant from Markus Schulze himself.
 
 ### Add your own method as module
 This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
