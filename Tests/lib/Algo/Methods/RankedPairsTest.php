@@ -125,7 +125,7 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $expected =[   1 => 'Brad',
+        $expected =[    1 => 'Brad',
                         2 => 'Abby',
                         3 => 'Erin',
                         4 => 'Dave',
@@ -372,17 +372,30 @@ class RankedPairsTest extends TestCase
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
+    }
 
-        self::assertSame(
-            $expected,
-            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
-        );
+    public function testResult_11 ()
+    {
+        # From http://rangevoting.org/WinningVotes.htmls
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            B > C > A * 9
+            C = A > B * 6
+            A > B > C * 5
+        ');
+
+        self::assertNotEquals(  $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true),
+                                $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
     }
 
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 101
-      * @expectedExceptionMessage Ranked Pairs is configured to accept only 40 candidates
+      * @expectedExceptionMessage Ranked Pairs Winning is configured to accept only 40 candidates
       */
     public function testMaxCandidates ()
     {
