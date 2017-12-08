@@ -16,7 +16,7 @@ use Condorcet\Algo\MethodInterface;
 class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['DodgsonTidemanApproximation','Dodgson Tideman Approximation','Dodgson Tideman','DodgsonTideman'];
+    public const METHOD_NAME = ['Dodgson Tideman Approximation','DodgsonTidemanApproximation','Dodgson Tideman','DodgsonTideman'];
 
     protected $_countType = 'sum_defeat_margin';
 
