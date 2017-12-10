@@ -24,3 +24,4 @@ An ordered multidimensionnal array by rank.
 ### Related method(s)      
 
 * [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
+* [Election::getResultAsString](../Election%20Class/public%20Election--getResultAsString.md)    

@@ -617,6 +617,7 @@
     *(array)* Populated by each Vote object.
   related:
     - 'Election::countVotes'
+    - 'Election::getVotesListAsString'
   publish: true
 
 - 
@@ -628,8 +629,8 @@
   description: |
     Get registered vote list.
   return: |
-    *(string)* Return a string like :
-    A > B > C * 3
+    *(string)* Return a string like :  
+    A > B > C * 3  
     A = B > C * 6
   related:
     - 'Election::parseVotes'
@@ -1394,6 +1395,7 @@
     An ordered multidimensionnal array by rank.
   related:
     - 'Election::getResult'
+    - 'Election::getResultAsString'
   publish: true
 
 - 
@@ -1408,6 +1410,7 @@
     (string) Result ranking as string.
   related:
     - 'Election::getResult'
+    - 'Election::getResultAsArray'
   publish: true
 
 - 
