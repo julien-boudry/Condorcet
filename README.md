@@ -76,7 +76,7 @@ _This class is not designed for high performances or very high reliability exige
 ## Supported Condorcet Methods
 ### Methods provided natively
 
-*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods)*
+*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)*
 
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
