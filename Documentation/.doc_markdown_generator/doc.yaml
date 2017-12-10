@@ -619,9 +619,22 @@
     - 'Election::countVotes'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: getVotesListAsString
+  static: false
+  description: |
+    Get registered vote list.
+  return: |
+    *(string)* Return a string like :
+    A > B > C * 3
+    A = B > C * 6
+  related:
+    - 'Election::parseVotes'
+  publish: true
 
-  examples:
-    Text de l'exemple: link
 
 - 
   class: Election
@@ -703,7 +716,6 @@
     - 'Election::jsonVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-
   publish: true
 
 - 
@@ -725,7 +737,6 @@
     - 'Election::addVote'
     - 'Election::parseVotes'
     - 'Election::jsonCandidates'
-
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -751,7 +762,6 @@
     - 'Election::parseVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-
   publish: true
 
 - 
@@ -773,7 +783,6 @@
     - 'Election::addVote'
     - 'Election::parseCandidates'
     - 'Election::jsonVotes'
-
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -802,7 +811,6 @@
   related:
     - 'Election::AddCandidate'
     - 'Election::getCandidatesList'
-
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
@@ -850,7 +858,6 @@
   related:
     - 'Election::AddVote'
     - 'Election::getVotesList'
-
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
@@ -892,7 +899,6 @@
     *(int or null)* The new limit.
   related:
     - 'static Election::setMaxVoteNumber'
-
   publish: true
 
 - 
@@ -1386,6 +1392,20 @@
       text: 'Convert Candidate object to string'
   return: |
     An ordered multidimensionnal array by rank.
+  related:
+    - 'Election::getResult'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getResultAsString
+  static: false
+  description: |
+    Get result as string
+  return: |
+    (string) Result ranking as string.
   related:
     - 'Election::getResult'
   publish: true
