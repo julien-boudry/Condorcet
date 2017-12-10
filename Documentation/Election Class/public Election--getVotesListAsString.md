@@ -11,8 +11,8 @@ Get registered vote list.
 
 ### Return value:   
 
-*(string)* Return a string like :
-A > B > C * 3
+*(string)* Return a string like :<br>
+A > B > C * 3<br>
 A = B > C * 6
 
 
