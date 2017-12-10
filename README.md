@@ -98,7 +98,7 @@ _This class is not designed for high performances or very high reliability exige
 
 ### Add your own method as module
 This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
-[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
+[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
 ## How to use it?
@@ -113,7 +113,7 @@ The examples also provide easy example of implementation using an optional Condo
 
 #### Composer, Vanilla PHP, others Frameworks...
 
-> [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-1.-Installation)    
+> [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-1.-Installation)    
 
 ## Condorcet Wiki Manual
 
@@ -240,7 +240,7 @@ Extending PHP memory_limit allows you to manage hundreds of thousands of votes, 
 If you need to manage election with more than 50 000 votes. You should consider externalize your data, Condorcet provide a simple PDO driver to store data outside RAM between processing steps, this driver store it into classical relational database system, it's support hundreds millions votes _(or more)_.
 You can too develop your own datastore driver (to store into NoSQL... all yours fantasy), the modular architecture allows you to link it easily.
 
-[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
+[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
 _Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._ 
 
