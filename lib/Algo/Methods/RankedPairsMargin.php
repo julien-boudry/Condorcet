@@ -16,7 +16,7 @@ use Condorcet\Algo\MethodInterface;
 class RankedPairsMargin extends RankedPairs_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Ranked Pairs Margin','Tideman Margin','RP Margin','Ranked Pairs','RankedPairs','Tideman method'];
+    public const METHOD_NAME = ['Ranked Pairs Margin','RankedPairsMargin','Tideman Margin','RP Margin','Ranked Pairs','RankedPairs','Tideman method'];
 
     protected const RP_VARIANT_1 = 'margin';
 }
