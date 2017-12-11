@@ -13,7 +13,7 @@ use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 use Condorcet\Algo\MethodInterface;
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class MinimaxWinning extends PairwiseStatsBased_Core implements MethodInterface
+class MinimaxWinning extends PairwiseStatsBased_Core
 {
     // Method Name
     public const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning','Simpson','Simpson-Kramer','Simpson-Kramer Method','Simpson Method'];

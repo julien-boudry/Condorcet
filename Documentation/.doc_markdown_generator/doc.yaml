@@ -176,7 +176,6 @@
       required: false
       text: |
         * 'MAJOR' will return : '0.90'
-        * 'ENV' will return : 'DEV-0.91.51' or '0.92.51'
         * 'FULL' will return : '0.92.51'
   return: |
     *(string)* Condorcet PHP version.
@@ -412,7 +411,7 @@
     (string) SHA-2 256 bits Hexadecimal
 
   examples:
-    'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-2.-Cryptographic-Checksum'
+    'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum'
   publish: true
 
 - 
@@ -450,7 +449,7 @@
     - 'Election::getLastTimer'
 
   examples:
-    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
   publish: true
 
 - 
@@ -473,7 +472,7 @@
     - 'Election::getGlobalTimer'
 
   examples:
-    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking'
+    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
   publish: true
 
 - 
@@ -532,7 +531,7 @@
     - 'Election::getResult'
 
   examples:
-    'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+    'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management'
   publish: true
 
 - 
@@ -578,7 +577,7 @@
     - 'Election::getWinner'
     - 'Election::getResult'
   examples:
-    'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29'
+    'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods'
   publish: true
 
 - 
@@ -617,11 +616,25 @@
     *(array)* Populated by each Vote object.
   related:
     - 'Election::countVotes'
+    - 'Election::getVotesListAsString'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: getVotesListAsString
+  static: false
+  description: |
+    Get registered vote list.
+  return: |
+    *(string)* Return a string like :<br>
+    A > B > C * 3<br>
+    A = B > C * 6
+  related:
+    - 'Election::parseVotes'
+  publish: true
 
-  examples:
-    Text de l'exemple: link
 
 - 
   class: Election
@@ -703,7 +716,6 @@
     - 'Election::jsonVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-
   publish: true
 
 - 
@@ -725,7 +737,6 @@
     - 'Election::addVote'
     - 'Election::parseVotes'
     - 'Election::jsonCandidates'
-
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -751,7 +762,6 @@
     - 'Election::parseVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-
   publish: true
 
 - 
@@ -773,7 +783,6 @@
     - 'Election::addVote'
     - 'Election::parseCandidates'
     - 'Election::jsonVotes'
-
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -802,7 +811,6 @@
   related:
     - 'Election::AddCandidate'
     - 'Election::getCandidatesList'
-
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
@@ -850,7 +858,6 @@
   related:
     - 'Election::AddVote'
     - 'Election::getVotesList'
-
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
@@ -892,7 +899,6 @@
     *(int or null)* The new limit.
   related:
     - 'static Election::setMaxVoteNumber'
-
   publish: true
 
 - 
@@ -1388,6 +1394,22 @@
     An ordered multidimensionnal array by rank.
   related:
     - 'Election::getResult'
+    - 'Election::getResultAsString'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getResultAsString
+  static: false
+  description: |
+    Get result as string
+  return: |
+    (string) Result ranking as string.
+  related:
+    - 'Election::getResult'
+    - 'Election::getResultAsArray'
   publish: true
 
 - 

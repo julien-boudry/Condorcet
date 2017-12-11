@@ -14,6 +14,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Candidate;
 use Condorcet\Election;
 use Condorcet\Linkable;
+use Condorcet\Vote;
 
 
 class Result implements \ArrayAccess, \Countable, \Iterator 
@@ -117,6 +118,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         endforeach;
 
         return $r;
+    }
+
+    public function getResultAsString ()
+    {
+        return Vote::getVoteAsString($this->getResultAsArray(true));
     }
 
     public function getOriginalArrayWithString () : array

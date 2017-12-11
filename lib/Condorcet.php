@@ -21,7 +21,8 @@ Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxOpposition');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairs');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairsMargin');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairsWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeWinning');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeMargin');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
@@ -33,9 +34,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        public const VERSION = '1.3.4';
-
-        public const ENV = 'STABLE';
+        public const VERSION = '1.4.0';
 
         public const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
@@ -52,9 +51,6 @@ abstract class Condorcet
             case 'MAJOR':
                 $version = explode('.', self::VERSION);
                 return $version[0].'.'.$version[1];
-
-            case 'ENV':
-                return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
 
             default:
                 return self::VERSION;

@@ -10,7 +10,9 @@ use Condorcet\Vote;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Condorcet\Algo\Methods\RankedPairs
+ * @covers \Condorcet\Algo\Methods\RankedPairs_Core
+ * @covers \Condorcet\Algo\Methods\RankedPairsWinning
+ * @covers \Condorcet\Algo\Methods\RankedPairsMargin
  */
 class RankedPairsTest extends TestCase
 {
@@ -45,15 +47,22 @@ class RankedPairsTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+
+        $expected = [   1 => 'A',
+                        2 => 'C',
+                        3 => 'E',
+                        4 => 'B',
+                        5 => 'D'    ];
 
         self::assertSame(
-            [   1 => 'A',
-                2 => 'C',
-                3 => 'E',
-                4 => 'B',
-                5 => 'D'    ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -73,15 +82,20 @@ class RankedPairsTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
+        $expected = [   1 => 'Nashville',
+                        2 => 'Chattanooga',
+                        3 => 'Knoxville',
+                        4 => 'Memphis'];
+
 
         self::assertEquals(
-            [
-                1 => 'Nashville',
-                2 => 'Chattanooga',
-                3 => 'Knoxville',
-                4 => 'Memphis'
-            ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -111,15 +125,22 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Brad',$this->election->getWinner('Ranked Pairs'));
+        $expected =[    1 => 'Brad',
+                        2 => 'Abby',
+                        3 => 'Erin',
+                        4 => 'Dave',
+                        5 => 'Cora'];
+
+        self::assertEquals('Brad',$this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
-            [   1 => 'Brad',
-                2 => 'Abby',
-                3 => 'Erin',
-                4 => 'Dave',
-                5 => 'Cora'    ],
-            $this->election->getResult('Ranked Pairs')->getResultAsArray(true)
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
     }
 
@@ -138,11 +159,291 @@ class RankedPairsTest extends TestCase
         ');
 
         // Not supporting not ranked candidate
-        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
 
         // Supporting not ranked candidate
         $this->election->setImplicitRanking(false);
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs'));
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
     }
+
+    public function testResult_5 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example1/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 7
+            B > A > C * 5
+            C > A > B * 4
+            B > C > A * 2
+        ');
+
+        $expected = [   1 => 'A',
+                        2 => 'B',
+                        3 => 'C' ];
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_6 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example2/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 40
+            B > C > A * 35
+            C > A > B * 25
+        ');
+
+        $expected = [   1 => 'A',
+                        2 => 'B',
+                        3 => 'C' ];
+
+        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_7 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example3/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A > B > C * 7
+            B > A > C * 7
+            C > A > B * 2
+            C > B > A * 2
+        ');
+
+        $expected =  [   1 => ['A','B'],
+                         2 => 'C' ];
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_8 ()
+    {
+        # From http://ericgorr.net/condorcet/rankedpairs/example4/
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>D>C>B*12
+            B>A>C>D*3
+            B>C>A>D*25
+            C>B>A>D*21
+            D>A>B>C*12
+            D>A>C>B*21
+            D>B>A>C*6
+        ');
+
+        $expected = [   1 => 'B',
+                        2 => 'A',
+                        3 => 'D',
+                        4 => 'C' ];
+
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'),
+            $this->election->getResult('Ranked Pairs Winning')->getStats()
+        );
+    }
+
+    public function testResult_9 ()
+    {
+        # Test fix for rare bug
+
+        for ($i=0; $i < 8 ; $i++) { 
+            $this->election->addCandidate();
+        }
+
+        $this->election->parseVotes('
+            A > E > B > H > G > F > D > C * 1
+            B > F > E > H > C > A > G > D * 1
+            G > F > B > C > D > E > H > A * 1
+            H > A > B > F > E > C > D > G * 1
+            B > H > A > E > G > F > D > C * 1
+            E > D > H > C > B > A > F > G * 1
+            C > A > F > B > E > D > H > G * 1
+            G > H > D > C > E > F > B > A * 1
+            F > E > H > A > B > C > G > D * 1
+            D > B > F > C > G > E > A > H * 1
+            H > G > A > E > B > C > F > D * 1
+            E > D > G > F > A > B > H > C * 1
+            C > D > G > A > E > H > B > F * 1
+            H > C > B > G > A > D > F > E * 1
+            C > B > G > A > D > H > F > E * 1
+            B > D > F > H > G > E > A > C * 1
+            B > C > E > F > G > H > D > A * 1
+            C > G > H > F > D > E > A > B * 1
+            E > A > H > C > F > D > G > B * 1
+            C > D > G > H > B > A > E > F * 1
+            B > D > A > C > G > F > E > H * 1
+            C > A > B > G > E > D > H > F * 1
+            E > G > H > A > D > C > F > B * 1
+            F > G > B > H > E > C > D > A * 1
+            A > H > D > C > F > E > B > G * 1
+           ');
+
+        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
+    }
+
+    public function testResult_10 ()
+    {
+        # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
+        # Example 5
+
+        $this->election->addCandidate('v');
+        $this->election->addCandidate('w');
+        $this->election->addCandidate('x');
+        $this->election->addCandidate('y');
+        $this->election->addCandidate('z');
+
+        $this->election->parseVotes('
+            v>w>x>y>z*7
+            z>y>v>w>x*3
+            y>z>w>x>v*6
+            w>x>v>z>y*3
+            z>x>v>w>y*5
+            y>x>v>w>z*3
+        ');
+
+
+        self::assertEquals('v',$this->election->getWinner('Ranked Pairs Winning'));
+
+        $expected = [   1 => 'v',
+                        2 => 'w',
+                        3 => 'x',
+                        4 => 'y',
+                        5 => 'z' ];
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
+        );
+
+        self::assertSame(
+            $expected,
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_11 ()
+    {
+        # From http://rangevoting.org/WinningVotes.htmls
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            B > C > A * 9
+            C = A > B * 6
+            A > B > C * 5
+        ');
+
+        self::assertNotEquals(  $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true),
+                                $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 101
+      * @expectedExceptionMessage Ranked Pairs Winning is configured to accept only 40 candidates
+      */
+    public function testMaxCandidates ()
+    {
+        for ($i=0; $i < 41; $i++) :
+            $this->election->addCandidate();
+        endfor;
+
+        $this->election->parseVotes('A');
+
+        $this->election->getWinner('Ranked Pairs Winning');
+    }
+
+    // public function testResult_stressTests ()
+    // {
+    //     $rounds = 1;
+    //     $candidates = 332;
+    //     $votes = 500;
+
+    //     # Test fix for rare bug
+    //     for ($j=0; $j < $rounds; $j++) { 
+    //         $this->election = new Election;
+
+    //         for ($i=0; $i < $candidates ; $i++) { 
+    //             $this->election->addCandidate();
+    //         }
+
+
+    //         $VoteModel = $this->election->getCandidatesList();
+    //         shuffle($VoteModel);
+
+    //         for ($i = 0 ; $i < $votes ; $i++) {
+    //             shuffle($VoteModel);
+    //             $this->election->addVote( $VoteModel );
+    //         }
+
+    //         var_dump($j);
+
+    //         var_dump($this->election->getVotesListAsString());
+
+    //         var_dump($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+
+    //         self::assertEquals(true,true);
+    //     }
+    // }
 
 }

@@ -13,7 +13,7 @@
 > Contribute: [Contribute File](CONTRIBUTE.md)   
 > Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
 >
-> Methods provided natively: Condorcet / Copeland / Dodgson / Kemeny-Young / Minimax & Variants / Ranked Pairs / Schulze & Variants   
+> Methods provided natively: Condorcet / Copeland / Dodgson (2 Approximations) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
 Condorcet PHP
 ===========================
@@ -39,11 +39,11 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 
 > [**Releases Notes**](release)
 
-* **Stable Version: 1.3.x**  
+* **Stable Version: 1.4.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
-* **Development Version: 1.4.x**  
+* **Development Version: 1.5.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
 
 _v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series._    
@@ -59,44 +59,47 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Some methods can be use nearly front final user (anti-spam check, parsing input, human friendly results and stats...)
 * __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
-  * Get full ranking from advanced methods (Schulze, Copeland, Ranked Paris, Kemeny-Young, Minimax...)
+  * Get full ranking from advanced methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
   * Get some additional stats from these methods
   * Force ranking all candidate implicitly _(default)_ or allow voters to not rank all candidates.
 * __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
-  * Candidates and Votes are object which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
-  * Manage hundreds of billions votes by enable external datastore system for votes between process.
+  * Candidates and Votes are objects which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
+  * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDP driver is provided by default, an example is provided with SQL Lite, an interface allows you to design others drivers.
 * __Extend it! Configure it!__
-  * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module.
+  * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module on your own namespace.
+  * Candidate and Vote class are extensible.
   * Allow you to use your own datastore driver to manage very large elections at your way.
   * Many configurations options and methods.
 
-_This class is not designed for high performances or very high reliability exigence._   
+_Condorcet PHP is not designed for high performances or very high reliability exigence._   
 
 ## Supported Condorcet Methods
 ### Methods provided natively
 
-*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods)*
+*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)*
 
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
 * **Dodgson Approximations** *(Not the real Dodgson method, see: [Lewis Caroll, Voting and the taxicab metric](https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf))*
-    * **Dodgson Quick** *(recommended)*  
+    * **Dodgson Quick** *(recommended)*
     * **Dodgson Tideman approximation**
-* **Kemeny-Young** http://en.wikipedia.org/wiki/Kemeny-Young_method _Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB._
+* **Kemeny–Young** http://en.wikipedia.org/wiki/Kemeny-Young_method _Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB._
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
     * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
     * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
     * **Minimax Opposition** *(By nature, this alternative does not meet any criterion of Condorcet)*
-* **RankedPairs *(:warning: Experimental implementation)*** https://en.wikipedia.org/wiki/Ranked_pairs  
-* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method  
-    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.*** *This method is also known as Schulze Method.*
+* **Ranked Pairs Family** https://en.wikipedia.org/wiki/Ranked_pairs *This method is also known as Tideman method.*
+    * **Ranked Pairs Margin** Margin variant is recommended by Nicolaus Tideman himself. ***This is the default choice.***
+    * **Ranked Pairs Winning** Widely used variant, maybe more than the original.
+* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method *This method is also known as Schulze Method.*
+    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.***
     * **Schulze Margin** Variant from Markus Schulze himself.
-    * **Schulze Ratio** Markus Schulze himself.
+    * **Schulze Ratio** Variant from Markus Schulze himself.
 
 ### Add your own method as module
 This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
-[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
+[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
 ## How to use it?
@@ -107,11 +110,9 @@ _I have undertaken and continues to undertake efforts to reform and improve the 
 
 #### Autoloading:   
 This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \Condorcet is used. 
-The examples also provide easy example of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
+The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
 
-#### Composer, Vanilla PHP, others Frameworks...
-
-> [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-1.-Installation)    
+> [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-1.-Installation)    
 
 ## Condorcet Wiki Manual
 
@@ -238,16 +239,14 @@ Extending PHP memory_limit allows you to manage hundreds of thousands of votes, 
 If you need to manage election with more than 50 000 votes. You should consider externalize your data, Condorcet provide a simple PDO driver to store data outside RAM between processing steps, this driver store it into classical relational database system, it's support hundreds millions votes _(or more)_.
 You can too develop your own datastore driver (to store into NoSQL... all yours fantasy), the modular architecture allows you to link it easily.
 
-[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
+[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
 _Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._ 
 
 ## Roadmap for further releases 
   
-  - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote
-  - Improve & test Ranked pair implementation *(help needed!)*
+  - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote. This would remain a minor optimization that does not concern all cases of use.
   - Rebuild Exception System
-  - **Looking for testers!**   
   - **Research reference librarians !!**  
 
 

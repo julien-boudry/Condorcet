@@ -35,4 +35,4 @@ An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use li
 
 ### Examples and explanation
 
-* **[Manual - Ranking from Condorcet Method](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Simple-Ranking-from-Condorcet-Method%28s%29)**    
+* **[Manual - Ranking from Condorcet Method](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods)**    

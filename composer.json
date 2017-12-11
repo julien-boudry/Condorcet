@@ -3,7 +3,7 @@
     "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/julien-boudry/Condorcet",
-    "description": "Condorcet is a PHP Class to computing many Condorcet voting methods",
+    "description": "Complete election manager, providing natively many methods of Condorcet : Condorcet basic / Copeland / Dodgson / Kemeny–Young / Minimax / Ranked Pairs / Schulze",
     "authors": [
         {
             "name": "Julien Boudry",

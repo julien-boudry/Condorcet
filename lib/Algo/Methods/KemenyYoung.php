@@ -13,7 +13,6 @@ use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
 use Condorcet\Condorcet;
-use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Result;
 
@@ -36,15 +35,6 @@ class KemenyYoung extends Method implements MethodInterface
     protected $_PossibleRanking;
     protected $_RankingScore;
 
-
-    public function __construct (Election $mother)
-    {
-        parent::__construct($mother);
-
-        if (!is_null(self::$_maxCandidates) && $this->_selfElection->countCandidates() > self::$_maxCandidates) :
-            throw new CondorcetException( 101,self::$_maxCandidates.'|'.self::METHOD_NAME[0] );
-        endif;
-    }
 
 
 /////////// PUBLIC ///////////

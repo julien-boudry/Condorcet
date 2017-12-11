@@ -757,6 +757,11 @@ class Election
         return $this->_Votes->getVotesList($tag, $with);
     }
 
+    public function getVotesListAsString () : string
+    {
+        return $this->_Votes->getVotesListAsString();
+    }
+
     public function getVotesManager () : VotesManager {
         return $this->_Votes;
     }

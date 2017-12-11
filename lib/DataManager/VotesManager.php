@@ -123,4 +123,33 @@ class VotesManager extends ArrayManager
             return $search;
         endif;
     }
+
+    public function getVotesListAsString () : string
+    {
+        $simpleList = '' ;
+
+        $set = [];
+
+        foreach($this->getVotesList() as $oneVote) :
+            $oneVoteString = $oneVote->getSimpleRanking($this->_link[0]);
+
+            if(!array_key_exists($oneVoteString, $set)) :
+                $set[$oneVoteString] = 0;
+            endif;
+
+            $set[$oneVoteString]++;
+        endforeach;
+
+        ksort($set);
+        arsort($set);
+
+        $isFirst = true;
+        foreach ($set as $key => $value) :
+            if (!$isFirst) : $simpleList .= "\n"; endif;
+            $simpleList .= $key.' * '.$value;
+            $isFirst = false;
+        endforeach;
+
+        return $simpleList;
+    }
 }

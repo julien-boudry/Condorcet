@@ -10,7 +10,10 @@ use Condorcet\Vote;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Condorcet\Algo\Methods\SchulzeCore
+ * @covers \Condorcet\Algo\Methods\Schulze_Core
+ * @covers \Condorcet\Algo\Methods\SchulzeMargin
+ * @covers \Condorcet\Algo\Methods\SchulzeRatio
+ * @covers \Condorcet\Algo\Methods\SchulzeWinning
  */
 class SchulzeTest extends TestCase
 {

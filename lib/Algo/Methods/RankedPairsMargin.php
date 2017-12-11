@@ -13,20 +13,10 @@ use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 use Condorcet\Algo\MethodInterface;
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class MinimaxMargin extends PairwiseStatsBased_Core
+class RankedPairsMargin extends RankedPairs_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Minimax Margin','MinimaxMargin','MinimaxMargin','Minimax_Margin'];
+    public const METHOD_NAME = ['Ranked Pairs Margin','Tideman Margin','RP Margin','Ranked Pairs','RankedPairs','Tideman method'];
 
-    protected $_countType = 'worst_pairwise_defeat_margin';
-
-
-/////////// COMPUTE ///////////
-
-    //:: SIMPSON ALGORITHM. :://
-
-    protected function looking (array $challenge) : int
-    {
-        return min($challenge);
-    }
+    protected const RP_VARIANT_1 = 'margin';
 }

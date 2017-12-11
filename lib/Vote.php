@@ -186,8 +186,16 @@ class Vote implements \Iterator
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
+        return self::getVoteAsString($ranking);
+    }
+
+    public static function getVoteAsString (array $ranking) : string
+    {
         foreach ($ranking as &$rank) :
-            $rank = implode(' = ',$rank);
+            if (is_array($rank)) :
+                sort($rank);
+                $rank = implode(' = ',$rank);
+            endif;
         endforeach;
 
         return implode(' > ', $ranking);

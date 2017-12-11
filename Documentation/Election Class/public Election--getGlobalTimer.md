@@ -29,4 +29,4 @@ Int or string (look param).
 
 ### Examples and explanation
 
-* **[Manual - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features-%26-Configuration-%23-1.-Timer-Benchmarking)**    
+* **[Manual - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    
