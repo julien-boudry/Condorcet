@@ -47,6 +47,10 @@ class RankedPairs_Core extends Method implements MethodInterface
         // Ranking calculation
         $this->makeArcs();
 
+        // Make Stats
+        $this->_Stats['tally'] = $this->_PairwiseSort;
+        $this->_Stats['arcs'] = $this->_Arcs;
+
         // Make Result      
         return $this->_Result = $this->createResult($this->makeResult());
     }
@@ -55,10 +59,20 @@ class RankedPairs_Core extends Method implements MethodInterface
     protected function getStats () : array
     {
         if (!$this->_StatsDone) :
-            foreach ($this->_Stats as $ArcKey => &$Arcvalue) :
+            foreach ($this->_Stats['tally'] as &$Roundvalue) :
+                foreach ($Roundvalue as $ArcKey => &$Arcvalue) :
+                    foreach ($Arcvalue as $key => &$value) :
+                        if ($key === 'from' || $key === 'to') :
+                            $value = $this->_selfElection->getCandidateId($value, true);
+                        endif;
+                    endforeach;
+                endforeach;
+            endforeach;
+
+            foreach ($this->_Stats['arcs'] as $ArcKey => &$Arcvalue) :
                 foreach ($Arcvalue as $key => &$value) :
                     if ($key === 'from' || $key === 'to') :
-                        $value = $this->_selfElection->getCandidateId($value);
+                        $value = $this->_selfElection->getCandidateId($value, true);
                     endif;
                 endforeach;
             endforeach;
@@ -134,7 +148,7 @@ class RankedPairs_Core extends Method implements MethodInterface
 
             $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) :
-                $virtualArcs[$newKey] = [ 'from' => $newArc['victory'], 'to' => $newArc['defeat'] ];
+                $virtualArcs[$newKey] = [ 'from' => $newArc['from'], 'to' => $newArc['to'] ];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
                 $newKey++;
             endforeach;
@@ -150,8 +164,6 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
 
         endforeach;
-
-        $this->_Stats = $this->_Arcs;
     }
 
     protected function getArcsInCycle (array $virtualArcs) : array
@@ -196,8 +208,10 @@ class RankedPairs_Core extends Method implements MethodInterface
 
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) :
 
-                    $pairs[$i]['victory'] = $candidate_key;
-                    $pairs[$i]['defeat'] = $challenger_key;
+                    // Victory
+                    $pairs[$i]['from'] = $candidate_key;
+                    // Defeat
+                    $pairs[$i]['to'] = $challenger_key;
 
                     $pairs[$i]['win'] = $challenger_value;
                     $pairs[$i]['minority'] = $candidate_value['lose'][$challenger_key];
