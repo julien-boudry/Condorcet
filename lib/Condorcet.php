@@ -36,8 +36,6 @@ abstract class Condorcet
 /////////// CONSTANTS ///////////
         public const VERSION = '1.4.0';
 
-        public const ENV = 'DEV';
-
         public const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
 
         protected static $_defaultMethod = null;
@@ -53,9 +51,6 @@ abstract class Condorcet
             case 'MAJOR':
                 $version = explode('.', self::VERSION);
                 return $version[0].'.'.$version[1];
-
-            case 'ENV':
-                return ( (self::ENV === 'DEV') ? self::ENV . ' - ' : '') . self::VERSION;
 
             default:
                 return self::VERSION;

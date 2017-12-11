@@ -11,7 +11,6 @@ Get the library version.
 
 ##### **type:** *string*   
 * 'MAJOR' will return : '0.90'
-* 'ENV' will return : 'DEV-0.91.51' or '0.92.51'
 * 'FULL' will return : '0.92.51'    
 
 
