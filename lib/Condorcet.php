@@ -34,12 +34,12 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-        public const VERSION = '1.4.0';
+    public const VERSION = '1.4.0';
 
-        public const CONDORCET_BASIC_CLASS = 'Condorcet\\Algo\\Methods\\CondorcetBasic';
+    public const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
 
-        protected static $_defaultMethod = null;
-        protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => ['CondorcetBasic'] ];
+    protected static $_defaultMethod = null;
+    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic')::METHOD_NAME ];
 
 
 /////////// STATICS METHODS ///////////
