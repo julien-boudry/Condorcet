@@ -175,13 +175,6 @@ define('TEST_NAME', 'Condorcet Global Example');
 <?php Condorcet::format(Condorcet::getDefaultMethod()); ?>
  </pre>
 
-
- <h4>About object :</h4>
-
- <pre>
-<?php Condorcet::format($election->getConfig()); ?>
- </pre>
-
 <!-- <h4>Condorcet::format (for debug only) :</h4>
 
  <pre>
