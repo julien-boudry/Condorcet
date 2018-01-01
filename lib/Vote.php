@@ -48,6 +48,8 @@ class Vote implements \Iterator
 
     private $_ranking = [];
 
+    private $_weight = 1;
+
     private $_tags = [];
 
     private $_hashCode;
@@ -56,8 +58,26 @@ class Vote implements \Iterator
 
     public function __construct ($ranking, $tags = null, $ownTimestamp = false)
     {
+        // Vote Weight
+        if (is_string($ranking)) :
+            $is_voteWeight = mb_strpos($ranking, '^');
+            if ($is_voteWeight !== false) :
+                $weight = intval( trim( substr($ranking, $is_voteWeight + 1) ) );
+                $ranking = substr($ranking, 0,$is_voteWeight);
+
+                // Errors
+                if ( !is_numeric($weight) ) :
+                    throw new CondorcetException(13, null);
+                endif;
+            endif;
+        endif;
+
         $this->setRanking($ranking, $ownTimestamp);
         $this->addTags($tags);
+
+        if (isset($weight)) :
+            $this->setWeight($weight);
+        endif;
     }
 
     public function __sleep () : array
@@ -85,7 +105,7 @@ class Vote implements \Iterator
 
     // GETTERS
 
-    public function getRanking () : array
+    public function getRanking () : ?array
     {
         if (!empty($this->_ranking)) :
             return end($this->_ranking)['ranking'];
@@ -186,7 +206,13 @@ class Vote implements \Iterator
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
-        return self::getVoteAsString($ranking);
+        $simpleRanking = self::getVoteAsString($ranking);
+
+        if ($this->_weight > 1 && ( ($context && $context->isVoteWeightIsAllowed()) || $context === null )  ) :
+            $simpleRanking .= " ^".$this->getWeight();
+        endif;
+
+        return $simpleRanking;
     }
 
     public static function getVoteAsString (array $ranking) : string
@@ -220,8 +246,7 @@ class Vote implements \Iterator
 
         $this->archiveRanking($rankingCandidate, $candidateCounter, $ownTimestamp);
 
-        if (!empty($this->_link))
-        {
+        if (!empty($this->_link)) :
             try {
                 foreach ($this->_link as &$link) :
                     $link->prepareModifyVote($this);
@@ -233,7 +258,7 @@ class Vote implements \Iterator
 
                 throw new CondorcetException(18);
             }
-        }
+        endif;
 
         $this->setHashCode();
         return true;
@@ -439,6 +464,30 @@ class Vote implements \Iterator
 
             return $tags;
         }
+
+    public function getWeight () : int
+    {
+        return $this->_weight;
+    }
+
+    public function setWeight (int $newWeight) : int
+    {
+        if ($newWeight < 1) :
+            throw new CondorcetException(26);
+        endif;
+
+        $this->_weight = $newWeight;
+
+        if (!empty($this->_link)) :
+            foreach ($this->_link as &$link) :
+                $link->setStateToVote();
+            endforeach;
+        endif;
+
+        $this->setHashCode();
+
+        return $this->getWeight();
+    }
 
 /////////// INTERNAL ///////////
 

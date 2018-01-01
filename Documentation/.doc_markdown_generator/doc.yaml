@@ -298,6 +298,28 @@
   class: Election
   type: method
   visibility: public
+  name: allowVoteWeight
+  static: false
+  description: |
+    Set the setting and reset all result data.
+    Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
+    By default, the voting weight is not activated and all votes are considered equal. 
+  input:
+    rule:
+      type: bool
+      default: true
+      required: true
+      text: New rule.
+  return: |
+    Return True
+  related:
+    - 'Election::isVoteWeightIsAllowed'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: canAddCandidate
   static: false
   description: |
@@ -635,6 +657,20 @@
     - 'Election::parseVotes'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: isVoteWeightIsAllowed
+  static: false
+  description: |
+    Returns the corresponding setting as currently set (False by default).
+    If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
+  return: |
+    (bool) True / False
+  related:
+    - 'Election::allowVoteWeight'
+  publish: true
 
 - 
   class: Election

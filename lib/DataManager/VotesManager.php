@@ -126,27 +126,37 @@ class VotesManager extends ArrayManager
 
     public function getVotesListAsString () : string
     {
-        $simpleList = '' ;
+        $simpleList = '';
 
-        $set = [];
+        $weight = [];
+        $nb = [];
 
         foreach($this->getVotesList() as $oneVote) :
             $oneVoteString = $oneVote->getSimpleRanking($this->_link[0]);
 
-            if(!array_key_exists($oneVoteString, $set)) :
-                $set[$oneVoteString] = 0;
+            if(!array_key_exists($oneVoteString, $weight)) :
+                $weight[$oneVoteString] = 0;
+            endif;
+            if(!array_key_exists($oneVoteString, $nb)) :
+                $nb[$oneVoteString] = 0;
             endif;
 
-            $set[$oneVoteString]++;
+            if ($this->_link[0]->isVoteWeightIsAllowed()) :
+                $weight[$oneVoteString] += $oneVote->getWeight();
+            else :
+                $weight[$oneVoteString]++;
+            endif;
+
+            $nb[$oneVoteString]++;
         endforeach;
 
-        ksort($set);
-        arsort($set);
+        ksort($weight);
+        arsort($weight);
 
         $isFirst = true;
-        foreach ($set as $key => $value) :
+        foreach ($weight as $key => $value) :
             if (!$isFirst) : $simpleList .= "\n"; endif;
-            $simpleList .= $key.' * '.$value;
+            $simpleList .= $key.' * '.$nb[$key];
             $isFirst = false;
         endforeach;
 

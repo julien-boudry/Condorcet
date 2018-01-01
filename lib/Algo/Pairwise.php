@@ -116,6 +116,8 @@ class Pairwise implements \ArrayAccess,\Iterator
         foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
             $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
+            $voteWeight = ($this->_Election->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+
             $vote_candidate_list = (function (array $r) : array { $list = [];
                     foreach ($r as $rank) :
                         foreach ($rank as $oneCandidate) :
@@ -152,14 +154,14 @@ class Pairwise implements \ArrayAccess,\Iterator
                         if (    !in_array($g_candidate_key, $done_Candidates, true) && 
                                 !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
-                            $this->_Pairwise[$candidate_key]['win'][$g_candidate_key]++;
-                            $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key]++;
+                            $this->_Pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
+                            $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
 
                             $done_Candidates[] = $candidate_key;
 
                         // Null
                         elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
-                            $this->_Pairwise[$candidate_key]['null'][$g_candidate_key]++;
+                            $this->_Pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
                         endif;
 
                     endforeach;

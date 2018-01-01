@@ -46,7 +46,7 @@ class CondorcetException extends \Exception
         $error[10] = 'The algo class you want is not correct';
         $error[11] = 'You try to unserialize an object version older than your actual Class version. This is a problematic thing';
         $error[12] = 'You have exceeded the number of votes allowed for this method.';
-        $error[13] = 'Formatting error: You do not multiply by a number!';
+        $error[13] = 'Formatting error: You must specify an integer';
         $error[14] = 'parseVote() must take a string (raw or path) as argument';
         $error[15] = 'Input must be valid Json format';
         $error[16] = 'You have exceeded the maximum number of votes allowed per election ('.$this->_infos.').';
@@ -59,6 +59,7 @@ class CondorcetException extends \Exception
         $error[23] = 'No Data Handler in use';
         $error[24] = 'A Data Handler is already in use';
         $error[25] = 'Algo class try to use existing alias';
+        $error[26] = 'Weight can not be < 1';
 
         $error[30] = 'Candidate not in Ranking';
 

@@ -124,4 +124,84 @@ class ElectionTest extends TestCase
         $this->election1->getVotesListAsString());
     }
 
+    public function testVoteWeight ()
+    {
+        $election = new Election;
+
+        $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+        $election->addCandidate('D');
+
+        $election->parseVotes('
+            A > C > D * 6
+            B > A > D * 1
+            C > B > D * 3
+            D > B > A * 3
+        ');
+
+        $voteWithWeight = $election->addVote('D > C > B');
+        $voteWithWeight->setWeight(2);
+
+        self::assertSame(
+            'D > C > B ^2',
+            (string) $voteWithWeight
+        );
+
+        self::assertSame(
+            'D > C > B > A',
+            $voteWithWeight->getSimpleRanking($election)
+        );
+
+        self::assertNotSame(
+            'A = D > C > B',
+            $election->getResult('Schulze Winning')->getResultAsString()
+        );
+
+        $election->allowVoteWeight(true);
+
+        self::assertSame(
+            'D > C > B > A ^2',
+            $voteWithWeight->getSimpleRanking($election)
+        );
+
+        self::assertSame(
+            'A = D > C > B',
+            $election->getResult('Schulze Winning')->getResultAsString()
+        );
+
+        $election->allowVoteWeight(false);
+
+        self::assertNotSame(
+            'A = D > C > B',
+            $election->getResult('Schulze Winning')->getResultAsString()
+        );
+
+        $election->allowVoteWeight( !$election->isVoteWeightIsAllowed() );
+
+        $election->removeVote($voteWithWeight);
+
+        $election->parseVotes('
+            D > C > B ^2 * 1
+        ');
+
+        // self::assertSame(
+        //     'A = D > C > B',
+        //     $election->getResult('Schulze Winning')->getResultAsString()
+        // );
+
+        $voteWithWeight = $election->addVote('D > C > B');
+
+        self::assertSame(
+'A > C > D > B * 6
+C > B > D > A * 3
+D > B > A > C * 3
+D > C > B > A ^2 * 1
+B > A > D > C * 1
+D > C > B > A * 1',
+            $election->getVotesListAsString()
+        );
+
+    }
+
 }

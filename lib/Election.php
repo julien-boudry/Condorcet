@@ -120,6 +120,7 @@ class Election
 
     // Params
     protected $_ImplicitRanking = true;
+    protected $_VoteWeightRule = false;
 
     // Result
     protected $_Pairwise;
@@ -153,6 +154,7 @@ class Election
             '_ignoreStaticMaxVote',
 
             '_ImplicitRanking',
+            '_VoteWeightRule',
 
             '_Pairwise',
             '_Calculator',
@@ -260,6 +262,18 @@ class Election
         $this->_ImplicitRanking = $rule;
         $this->cleanupResult();
         return $this->getImplicitRankingRule();
+    }
+
+    public function isVoteWeightIsAllowed () : bool
+    {
+        return $this->_VoteWeightRule;
+    }
+
+    public function allowVoteWeight (bool $rule = true) : bool
+    {
+        $this->_VoteWeightRule = $rule;
+        $this->cleanupResult();
+        return $this->isVoteWeightIsAllowed();
     }
 
 
@@ -667,13 +681,29 @@ class Election
                 endif;
 
                 $multiple = intval($multiple);
-                $multiple = floor($multiple);
-
 
                 // Reformat line
                 $line = substr($line, 0, $is_multiple);
             else :
                 $multiple = 1;
+            endif;
+
+            // Vote Weight
+            $is_voteWeight = mb_strpos($line, '^');
+            if ($is_voteWeight !== false) :
+                $weight = trim( substr($line, $is_voteWeight + 1) );
+
+                // Errors
+                if ( !is_numeric($weight) ) :
+                    throw new CondorcetException(13, null);
+                endif;
+
+                $weight = intval($weight);
+
+                // Reformat line
+                $line = substr($line, 0, $is_voteWeight);
+            else :
+                $weight = 1;
             endif;
 
             // Tags + vote
@@ -695,7 +725,8 @@ class Election
                 endif;
 
                 try {
-                    $adding[] = $this->addVote($vote, $tags);
+                    $adding[] = ($newVote = $this->addVote($vote, $tags));
+                    $newVote->setWeight($weight);
                 } catch (\Exception $e) {}
             endfor;
         endforeach;
