@@ -538,7 +538,7 @@
   class: Election
   type: method
   visibility: public
-  name: getImplicitRanking
+  name: getImplicitRankingRule
   static: false
   description: |
     Returns the corresponding setting as currently set (True by default).
@@ -939,7 +939,7 @@
   return: |
     Return True
   related:
-    - 'Election::getImplicitRanking'
+    - 'Election::getImplicitRankingRule'
   publish: true
 
 

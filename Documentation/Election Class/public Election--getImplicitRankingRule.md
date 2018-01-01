@@ -1,9 +1,9 @@
-## public Election::getImplicitRanking
+## public Election::getImplicitRankingRule
 
 ### Description    
 
 ```php
-public $Election -> getImplicitRanking ( )
+public $Election -> getImplicitRankingRule ( )
 ```
 
 Returns the corresponding setting as currently set (True by default).

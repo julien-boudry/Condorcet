@@ -25,4 +25,4 @@ Return True
 
 ### Related method(s)      
 
-* [Election::getImplicitRanking](../Election%20Class/public%20Election--getImplicitRanking.md)    
+* [Election::getImplicitRankingRule](../Election%20Class/public%20Election--getImplicitRankingRule.md)    

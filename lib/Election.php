@@ -250,16 +250,16 @@ class Election
         return $this->_ignoreStaticMaxVote;
     }
 
-    public function getImplicitRanking () : bool
+    public function getImplicitRankingRule () : bool
     {
         return $this->_ImplicitRanking;
     }
 
-    public function setImplicitRanking (bool $rule) : bool
+    public function setImplicitRanking (bool $rule = true) : bool
     {
         $this->_ImplicitRanking = $rule;
         $this->cleanupResult();
-        return true;
+        return $this->getImplicitRankingRule();
     }
 
 
