@@ -354,5 +354,4 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             }
         };
     }
-
 }

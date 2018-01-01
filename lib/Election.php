@@ -206,20 +206,6 @@ class Election
         //////
 
 
-    // Return object state with somes infos
-    public function getConfig () : array
-    {
-        return [    'CondorcetObject_Version' => $this->getObjectVersion(),
-
-                    'class_default_Method'  => Condorcet::getDefaultMethod(),
-
-                    'class_authMethods'=> Condorcet::getAuthMethods(),
-                    'class_MaxParseIterations'=> self::$_maxParseIteration,
-
-                    'state'     => $this->_State    ];
-    }
-
-
     public function getGlobalTimer (bool $float = false) {
         return $this->_timer->getGlobalTimer($float);
     }
