@@ -96,15 +96,11 @@ class Pairwise implements \ArrayAccess,\Iterator
         // Chrono
         $chrono = new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
-        // Get election data
-        $candidate_list = $this->_Election->getCandidatesList(false);
-        $vote_list = $this->_Election->getVotesManager();
-
-        foreach ( $candidate_list as $candidate_key => $candidate_id ) :
+        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
 
             $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
-            foreach ( $candidate_list as $candidate_key_r => $candidate_id_r ) :
+            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
 
                 if ($candidate_key_r !== $candidate_key) :
                     $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
@@ -117,8 +113,8 @@ class Pairwise implements \ArrayAccess,\Iterator
         endforeach;
 
         // Win && Null
-        foreach ( $vote_list as $vote_id => $vote_ranking ) :
-            $vote_ranking = $vote_ranking->getContextualRanking($this->_Election);
+        foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
+            $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
             $vote_candidate_list = (function (array $r) : array { $list = [];
                     foreach ($r as $rank) :
