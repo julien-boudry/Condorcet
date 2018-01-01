@@ -152,6 +152,8 @@ class Election
             '_objectVersion',
             '_ignoreStaticMaxVote',
 
+            '_ImplicitRanking',
+
             '_Pairwise',
             '_Calculator',
         ];
