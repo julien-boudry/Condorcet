@@ -39,12 +39,10 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 
 > [**Releases Notes**](release)
 
-* **Stable Version: 1.4.x**  
+* **Stable Version: 1.5.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
-* **Development Version: 1.5.x**  
-  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.
 
 _v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series._    
 _Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider than it's a new project (api, engine)._  

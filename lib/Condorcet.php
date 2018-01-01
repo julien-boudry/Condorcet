@@ -34,7 +34,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '1.4.0';
+    public const VERSION = '1.5.0';
 
     public const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
 
