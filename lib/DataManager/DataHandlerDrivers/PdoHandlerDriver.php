@@ -49,9 +49,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        if ($tryCreateTable) {
+        if ($tryCreateTable) :
             $this->createTable();
-        }
+        endif;
 
         $this->initPrepareQuery();
     }
@@ -65,7 +65,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->closeTransaction();
         endif;
     }
-
 
 
     // INTERNAL
@@ -107,18 +106,18 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $makeMany = function ($how) use (&$template) {
                 $query = $template['insert_template'];
                 
-                for ($i=1; $i < $how; $i++) {
+                for ($i=1; $i < $how; $i++) :
                     $query .= '(:key'.$i.', :data'.$i.'),';
-                }
+                endfor;
 
                 $query .= '(:key'.$how.', :data'.$how.')' . $template['end_template'];
 
                 return $query;
             };
 
-            foreach (self::SEGMENT as $value) {
+            foreach (self::SEGMENT as $value) :
                 $this->_prepare['insert'.$value.'Entitys'] = $this->_handler->prepare($makeMany($value));
-            }
+            endforeach;
 
         // Delete one Entity
         $this->_prepare['deleteOneEntity'] = $this->_handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
