@@ -37,7 +37,7 @@ class VotesManager extends ArrayManager
         $context = new Class implements DataContextInterface {
             public $election;
 
-            public function dataCallBack ($data)
+            public function dataCallBack ($data) : Vote
             {
                 $vote = new Vote ($data);
                 $this->election->checkVoteCandidate($vote);
