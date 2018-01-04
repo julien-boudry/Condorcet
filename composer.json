@@ -19,6 +19,8 @@
         "ext-json": "*"
     },
     "require-dev": {
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
         "phpunit/phpunit": "^6.2",
         "mustangostang/spyc": "^0.6.2"
     },
