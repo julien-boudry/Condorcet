@@ -199,7 +199,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
     {
         $this->regularize();
 
-        return (!$this->isUsingHandler()) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
+        return (!$this->isUsingHandler()) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
     }
 
     public function keyExist ($offset) : bool
@@ -233,7 +233,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $this->resetCounter();
             $this->resetMaxKey();
 
-            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey);
+            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey +1);
 
             $this->_DataHandler = null;
         endif;
