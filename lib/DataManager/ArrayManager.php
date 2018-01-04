@@ -222,22 +222,23 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         return (int) min($r);
     }
 
+    public function getContainerSize () : int
+    {
+        return count($this->_Container);
+    }
+
+    public function getCacheSize () : int
+    {
+        return count($this->_Cache);
+    }
+
+    public function debugGetCache () : array
+    {
+        return $this->_Cache;
+    }
+
 
 /////////// HANDLER API ///////////
-
-    public function unsetHandler () : void
-    {
-        if ($this->_DataHandler !== null) :
-            $this->regularize();
-
-            $this->resetCounter();
-            $this->resetMaxKey();
-
-            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey +1);
-
-            $this->_DataHandler = null;
-        endif;
-    }
 
     public function regularize () : bool
     {
@@ -291,7 +292,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function resetCounter () : int
     {
-        return $this->_counter = count($this->_Container) + ( ($this->isUsingHandler()) ? $this->_DataHandler->countEntitys() : 0 );
+        return $this->_counter = $this->getContainerSize() + ( ($this->isUsingHandler()) ? $this->_DataHandler->countEntitys() : 0 );
     }
 
     public function resetMaxKey () : ?int
@@ -342,6 +343,9 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
 
             $this->_DataHandler = null;
+
+            $this->resetCounter();
+            $this->resetMaxKey();
         endif;
     }
 
