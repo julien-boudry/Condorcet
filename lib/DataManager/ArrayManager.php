@@ -252,7 +252,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
 
     public function checkRegularize () : bool
     {
-        if ( $this->_DataHandler !== null && self::$MaxContainerLength < count($this->_Container) ) :
+        if ( $this->_DataHandler !== null && self::$MaxContainerLength <= $this->getContainerSize() ) :
             $this->regularize();
             return true;
         else :
