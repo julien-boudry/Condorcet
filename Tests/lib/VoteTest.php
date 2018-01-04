@@ -371,4 +371,17 @@ class VoteTest extends TestCase
         );
     }
 
+    public function testTagsOnConstructorByStringInput ()
+    {
+        $vote1 = new Vote('tag1,tag2 ||A > B >C','tag3,tag4');
+
+        self::assertSame(['tag3','tag4','tag1','tag2'],$vote1->getTags());
+
+        self::assertSame('A > B > C',$vote1->getSimpleRanking());
+
+        $vote2 = new Vote ((string) $vote1);
+
+        self::assertSame((string) $vote1,(string) $vote2);
+    }
+
 }

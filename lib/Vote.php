@@ -58,6 +58,7 @@ class Vote implements \Iterator
 
     public function __construct ($ranking, $tags = null, $ownTimestamp = false)
     {
+        $tagsFromString = null;
         // Vote Weight
         if (is_string($ranking)) :
             $is_voteWeight = mb_strpos($ranking, '^');
@@ -70,10 +71,17 @@ class Vote implements \Iterator
                     throw new CondorcetException(13, null);
                 endif;
             endif;
+
+            $is_voteTags = mb_strpos($ranking, '||');
+            if ($is_voteTags !== false) :
+                $tagsFromString = explode(',', trim( substr($ranking, 0, $is_voteTags) ));
+                $ranking = substr($ranking, $is_voteTags + 2);
+            endif;
         endif;
 
         $this->setRanking($ranking, $ownTimestamp);
         $this->addTags($tags);
+        $this->addTags($tagsFromString);
 
         if (isset($weight)) :
             $this->setWeight($weight);
@@ -94,7 +102,12 @@ class Vote implements \Iterator
     }
 
     public function __toString () : string {
-        return $this->getSimpleRanking();
+        
+        if (empty($this->getTags())) :
+            return $this->getSimpleRanking();
+        else :
+            return $this->getTagsAsString().' || '.$this->getSimpleRanking();
+        endif;
     }
 
     public function getHashCode () : string {
@@ -123,6 +136,11 @@ class Vote implements \Iterator
     public function getTags () : array
     {
         return $this->_tags;
+    }
+
+    public function getTagsAsString () : string
+    {
+        return implode(',',$this->getTags());
     }
 
     public function getCreateTimestamp () : float
@@ -206,7 +224,7 @@ class Vote implements \Iterator
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
-        $simpleRanking = self::getVoteAsString($ranking);
+        $simpleRanking = self::getRankingAsString($ranking);
 
         if ($this->_weight > 1 && ( ($context && $context->isVoteWeightIsAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
@@ -215,7 +233,7 @@ class Vote implements \Iterator
         return $simpleRanking;
     }
 
-    public static function getVoteAsString (array $ranking) : string
+    public static function getRankingAsString (array $ranking) : string
     {
         foreach ($ranking as &$rank) :
             if (is_array($rank)) :

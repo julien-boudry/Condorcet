@@ -122,7 +122,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getResultAsString ()
     {
-        return Vote::getVoteAsString($this->getResultAsArray(true));
+        return Vote::getRankingAsString($this->getResultAsArray(true));
     }
 
     public function getOriginalArrayWithString () : array

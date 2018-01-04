@@ -127,7 +127,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
 
         // Change my mind : Set again the a new handler
-        // unset($handlerDriver);
+        unset($handlerDriver);
         $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriverReady());
 
         self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
@@ -135,6 +135,30 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
+    }
+
+    public function testVotePreserveTag()
+    {
+        // Setup
+        ArrayManager::$CacheSize = 10;
+        ArrayManager::$MaxContainerLength = 10;
+
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler($this->getDriverReady());
+
+        $electionWithDb->parseCandidates('A;B;C');
+
+        $electionWithDb->parseVotes(    'A > B > C * 5
+                                        tag1 || B > A > C * 3');
+
+        self::assertSame(5,$electionWithDb->countVotes('tag1',false));
+        self::assertSame(3,$electionWithDb->countVotes('tag1',true));
+
+        $electionWithDb->parseVotes(    'A > B > C * 5
+                                        tag1 || B > A > C * 3');
+
+        self::assertSame(10,$electionWithDb->countVotes('tag1',false));
+        self::assertSame(6,$electionWithDb->countVotes('tag1',true));
     }
 
 }
