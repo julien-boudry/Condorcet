@@ -26,6 +26,18 @@ class PdoHandlerDriverTest extends TestCase
         return new PdoHandlerDriver ($pdoObject, true);  
     }
 
+    protected function hashVotesList (Election $elec) : string {
+            $c = 0;
+            $voteCompil = '';
+            foreach ($elec->getVotesManager() as $oneVote) :
+                $c++;
+                $voteCompil .= (string) $oneVote;
+            endforeach;
+
+            return $c.'||'.hash('md5',$voteCompil);
+    }
+
+
     public function testManyVoteManipulation()
     {
         // Setup
@@ -34,13 +46,14 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb = new Election;
         $electionInMemory = new Election;
-        $electionWithDb->setExternalDataHandler($this->getDriverReady());
+        $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriverReady());
 
         // Run Test
 
         $electionWithDb->parseCandidates('A;B;C;D;E');
         $electionInMemory->parseCandidates('A;B;C;D;E');
 
+        // 45 Votes
         $votes =   'A > C > B > E * 5
                     A > D > E > C * 5
                     B > E > D > A * 8
@@ -53,33 +66,75 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
 
+        self::assertSame(   $electionWithDb->countVotes(),
+                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
+        self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
 
         self::assertEquals((string) $electionInMemory->getWinner('Ranked Pairs Winning'),(string) $electionWithDb->getWinner('Ranked Pairs Winning'));
         self::assertEquals($electionInMemory->getWinner(),$electionWithDb->getWinner());
 
 
+        // 58 Votes
         $votes = 'A > B > C > E * 58';
 
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
+
+        self::assertSame(58 % ArrayManager::$MaxContainerLength,$electionWithDb->getVotesManager()->getContainerSize());
+        self::assertSame(   $electionWithDb->countVotes(),
+                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
 
         self::assertEquals('A',$electionWithDb->getWinner());
         self::assertEquals((string) $electionInMemory->getWinner(),(string) $electionWithDb->getWinner());
 
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
+        self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
+        self::assertSame(0,$electionWithDb->getVotesManager()->getContainerSize());
+        self::assertLessThanOrEqual(ArrayManager::$CacheSize,$electionWithDb->getVotesManager()->getCacheSize());
 
-        $browseVotes = function (Election $elec) : int {
-            $c = 0;
-            foreach ($elec->getVotesManager() as $value) :
-                $c++;
-            endforeach;
-            return $c;
-        };
+        // Delete 3 votes
+        unset($electionInMemory->getVotesManager()[13]);
+        unset($electionInMemory->getVotesManager()[100]);
+        unset($electionInMemory->getVotesManager()[102]);
+        unset($electionWithDb->getVotesManager()[13]);
+        unset($electionWithDb->getVotesManager()[100]);
+        unset($electionWithDb->getVotesManager()[102]);
 
-        self::assertSame($browseVotes($electionInMemory),$browseVotes($electionWithDb));
+        self::assertSame(   $electionWithDb->countVotes(),
+                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+        self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
+        self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
+        self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
+        self::assertSame(0,$electionWithDb->getVotesManager()->getContainerSize());
+        self::assertLessThanOrEqual(ArrayManager::$CacheSize,$electionWithDb->getVotesManager()->getCacheSize());
+        self::assertArrayNotHasKey(13,$electionWithDb->getVotesManager()->debugGetCache());
+        self::assertArrayNotHasKey(102,$electionWithDb->getVotesManager()->debugGetCache());
+        self::assertArrayNotHasKey(100,$electionWithDb->getVotesManager()->debugGetCache());
+        self::assertArrayHasKey(101,$electionWithDb->getVotesManager()->debugGetCache());
+
+
+        // Unset Handler
+        $electionWithDb->removeExternalDataHandler();
+
+        self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
+        self::assertSame($electionInMemory->getVotesManager()->getContainerSize(),$electionWithDb->getVotesManager()->getContainerSize());
+        self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
+        self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
+        self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
+
+        // Change my mind : Set again the a new handler
+        // unset($handlerDriver);
+        $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriverReady());
+
+        self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
+        self::assertSame(0,$electionWithDb->getVotesManager()->getContainerSize());
+        self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
+        self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
+        self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
     }
 
 }
