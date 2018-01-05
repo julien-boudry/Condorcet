@@ -97,16 +97,11 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, bool $with = true) : array
+    public function getVotesList (?array $tag = null, bool $with = true) : array
     {
-        if ($tag === null) :
+        if (($tag = Vote::tagsConvert($tag)) === null) :
             return $this->getFullDataSet();
         else :
-            $tag = Vote::tagsConvert($tag);
-            if ($tag === null) :
-                $tag = [];
-            endif;
-
             $search = [];
 
             foreach ($this as $key => $value) :
@@ -168,5 +163,34 @@ class VotesManager extends ArrayManager
         endforeach;
 
         return $simpleList;
+    }
+
+    public function countVotes (?array $tag, bool $with) : int
+    {
+        if ($tag === null) :
+            return count($this);
+        else :
+            $count = 0;
+
+            foreach ($this as $key => $value) :
+                $noOne = true;
+                foreach ($tag as $oneTag) :
+                    if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
+                        if ($with) :
+                            $count++;
+                            break;
+                        else :
+                            $noOne = false;
+                        endif;
+                    endif;
+                endforeach;
+
+                if (!$with && $noOne) :
+                    $count++;
+                endif;
+            endforeach;
+
+            return $count;
+        endif;
     }
 }

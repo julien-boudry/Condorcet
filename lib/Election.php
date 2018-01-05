@@ -763,17 +763,13 @@ class Election
     // How many votes are registered ?
     public function countVotes ($tag = null, bool $with = true) : int
     {
-        if (!empty($tag)) :
-            return count( $this->getVotesList($tag, $with) );
-        else :
-            return count($this->_Votes);
-        endif;
+        return $this->_Votes->countVotes(Vote::tagsConvert($tag),$with);
     }
 
     // Get the votes registered list
     public function getVotesList ($tag = null, bool $with = true) : array
     {
-        return $this->_Votes->getVotesList($tag, $with);
+        return $this->_Votes->getVotesList(Vote::tagsConvert($tag), $with);
     }
 
     public function getVotesListAsString () : string
