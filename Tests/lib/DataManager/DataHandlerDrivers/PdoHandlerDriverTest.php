@@ -161,4 +161,26 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(6,$electionWithDb->countVotes('tag1',true));
     }
 
+    public function testVoteObjectIntoDataHandler()
+    {
+        // Setup
+        ArrayManager::$CacheSize = 10;
+        ArrayManager::$MaxContainerLength = 10;
+
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler($this->getDriverReady());
+
+        $electionWithDb->parseCandidates('A;B;C');
+
+        $myVote = $electionWithDb->addVote('A>B>C');
+
+        $electionWithDb->getVotesManager()->regularize();
+        self::assertSame(0,$electionWithDb->getVotesManager()->getContainerSize());
+
+        // myVote is no longer a part of the election. Internally, it will work with clones.
+        self::assertSame(0,$myVote->countLinks());
+        self::assertNotSame($electionWithDb->getVotesList()[0],$myVote);
+        self::assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
+    }
+
 }

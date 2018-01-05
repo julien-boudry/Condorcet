@@ -43,6 +43,11 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             {
                 return $data;
             }
+
+            public function dataPrepareStoringAndFormat ($data)
+            {
+                return $data;
+            }
         };
 
         $this->_handler = $bdd;
@@ -172,7 +177,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
                 foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
-                    $param['data'.$i++] = $Entity;
+                    $param['data'.$i++] = $this->_dataContextObject->dataPrepareStoringAndFormat($Entity);
                 endforeach;
                 unset($Entity);
 

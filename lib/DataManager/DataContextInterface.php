@@ -12,4 +12,6 @@ namespace Condorcet\DataManager;
 interface DataContextInterface
 {
     public function dataCallBack ($data);
+
+    public function dataPrepareStoringAndFormat ($data);
 }

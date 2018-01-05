@@ -45,6 +45,13 @@ class VotesManager extends ArrayManager
 
                 return $vote;
             }
+
+            public function dataPrepareStoringAndFormat ($data) : string
+            {
+                $data->destroyLink($this->election);
+
+                return (string) $data;
+            }
         };
 
         $context->election = $this->_link[0] ?? null;
