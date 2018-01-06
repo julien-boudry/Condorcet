@@ -356,6 +356,11 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
             {
                 return $data;
             }
+
+            public function dataPrepareStoringAndFormat ($data)
+            {
+                return $data;
+            }
         };
     }
 }
