@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Condorcet\Condorcet
- * @runTestsInSeparateProcesses
  */
 class CondorcetTest extends TestCase
 {
@@ -24,9 +23,17 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
+    public function testAuthMethod ()
+    {
+        self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
+        self::assertSame('Condorcet\Algo\Methods\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
+    }
+
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 25
+      * @runInSeparateProcess
+      * @preserveGlobalState disabled
       */
     public function testAddMethod ()
     {
@@ -45,6 +52,8 @@ class CondorcetTest extends TestCase
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 10
+      * @runInSeparateProcess
+      * @preserveGlobalState disabled
       */
     public function testAddUnvalidMethod ()
     {
@@ -69,8 +78,6 @@ class CondorcetTest extends TestCase
             __NAMESPACE__.'\\Algo\\Methods\\KemenyYoung',
             Condorcet::isAuthMethod('Maximum likelihood Method')
         );
-
-        self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
     }
 
 }

@@ -8,10 +8,7 @@ use Condorcet\Vote;
 use Condorcet\DataManager\DataContextInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\DataManager\VotesManager
- * @covers \Condorcet\DataManager\ArrayManager
- */
+
 class VotesManagerTest extends TestCase
 {
     private $election;

@@ -9,11 +9,7 @@ use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Algo\Methods\RankedPairs_Core
- * @covers \Condorcet\Algo\Methods\RankedPairsWinning
- * @covers \Condorcet\Algo\Methods\RankedPairsMargin
- */
+
 class RankedPairsTest extends TestCase
 {
     /**

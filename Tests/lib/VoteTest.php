@@ -9,9 +9,7 @@ use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Vote
- */
+
 class VoteTest extends TestCase
 {
     /**

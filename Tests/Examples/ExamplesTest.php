@@ -4,11 +4,8 @@ namespace Condorcet;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\DataManager\VotesManager
- * @covers \Condorcet\DataManager\ArrayManager
- */
-class ExamplesFilesTest extends TestCase
+
+class ExamplesTest extends TestCase
 {
     /**
      * @runInSeparateProcess

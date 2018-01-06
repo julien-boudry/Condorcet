@@ -6,9 +6,7 @@ use Condorcet\Election;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Result
- */
+
 class ResultTest extends TestCase
 {
     /**

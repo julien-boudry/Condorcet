@@ -9,10 +9,7 @@ use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\DataManager\VotesManager
- * @covers \Condorcet\DataManager\ArrayManager
- */
+
 class ReadmeQuickExampleTest extends TestCase
 {
     public function testReadmeQuickExample()

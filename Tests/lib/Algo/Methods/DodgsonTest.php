@@ -9,10 +9,7 @@ use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Algo\Methods\DodgsonQuick
- * @covers \Condorcet\Algo\Methods\DodgsonTidemanApproximation
- */
+
 class DodgsonTest extends TestCase
 {
     /**

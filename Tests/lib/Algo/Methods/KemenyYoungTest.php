@@ -9,9 +9,7 @@ use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Algo\Methods\KemenyYoung
- */
+
 class KemenyYoungTest extends TestCase
 {
     /**

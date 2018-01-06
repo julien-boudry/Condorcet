@@ -10,9 +10,6 @@ use Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver
- * @covers Condorcet\DataManager\Datamanager
- * @covers Condorcet\DataManager\VotesManager
  * @preserveGlobalState disabled
  * @backupGlobals disabled
  * @backupStaticAttributes disabled
