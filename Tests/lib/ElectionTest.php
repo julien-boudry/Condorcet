@@ -16,6 +16,7 @@ class ElectionTest extends TestCase
      * @var election1
      */
     private $election1;
+    private $election2;
 
     public function setUp()
     {
@@ -30,6 +31,7 @@ class ElectionTest extends TestCase
         $this->election1->addVote($this->vote3 = new Vote ([$this->candidate3,$this->candidate1,$this->candidate2]));
         $this->election1->addVote($this->vote4 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]));
 
+        $this->election2 = new Election;
     }
 
     public function testRemoveVote ()
@@ -59,6 +61,19 @@ class ElectionTest extends TestCase
         self::assertNotSame($resultGlobal,$resultFilter1);
         self::assertNotSame($resultGlobal,$resultFilter2);
         self::assertNotSame($resultFilter1,$resultFilter2);
+    }
+
+    public function testParseCandidates ()
+    {
+        self::assertSame(4,
+        count($this->election2->parseCandidates('Bruckner;   Mahler   ;   
+            Debussy
+             Bibendum'))
+        );
+
+        self::assertSame(['Bruckner','Mahler','Debussy','Bibendum'],
+        $this->election2->getCandidatesList(true)
+        );
     }
 
     /**
