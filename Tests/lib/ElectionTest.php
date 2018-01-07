@@ -198,12 +198,12 @@ class ElectionTest extends TestCase
             D > C > B ^2 * 1
         ');
 
-        // self::assertSame(
-        //     'A = D > C > B',
-        //     $election->getResult('Schulze Winning')->getResultAsString()
-        // );
+        self::assertSame(
+            'A = D > C > B',
+            $election->getResult('Schulze Winning')->getResultAsString()
+        );
 
-        $voteWithWeight = $election->addVote('D > C > B');
+        $election->addVote('D > C > B');
 
         self::assertSame(
 'A > C > D > B * 6

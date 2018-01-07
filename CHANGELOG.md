@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## [v1.5.0] - 2018-01-08
 ### Description
-This publication focuses on the management of very large elections.
+This release focuses on the management of very large elections.
 It more rigorously reviews the functioning of the DataHandler, which is an advanced way to manage a very large number of votes, which is more stable, mature and tested.
 It adds, as an alternative and as a complement (both can be used in consort) the notion of the weight of a vote. This may be useful for elections in which voters are not equal. Or to emulate a big election (without too many possible combinations!) if you don't need to store the details of each vote at Condorcet level.
 
