@@ -60,6 +60,7 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Get full ranking from advanced methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
   * Get some additional stats from these methods
   * Force ranking all candidate implicitly _(default)_ or allow voters to not rank all candidates.
+  * Put weight for each vote, give more importance to certain voters.
 * __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
   * Candidates and Votes are objects which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
