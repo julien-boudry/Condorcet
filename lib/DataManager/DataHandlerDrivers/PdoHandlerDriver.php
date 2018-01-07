@@ -38,17 +38,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         endif;
 
         $this->_struct = $struct;
-        $this->_dataContextObject = new Class {
-            public function dataCallBack ($data)
-            {
-                return $data;
-            }
-
-            public function dataPrepareStoringAndFormat ($data)
-            {
-                return $data;
-            }
-        };
 
         $this->_handler = $bdd;
 
