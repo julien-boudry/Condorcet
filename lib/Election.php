@@ -377,7 +377,7 @@ class Election
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
-            catch (\CondorcetException $e) {}
+            catch (CondorcetException $e) {}
         endforeach;
 
         return $adding;
@@ -727,7 +727,7 @@ class Election
                 try {
                     $adding[] = ($newVote = $this->addVote($vote, $tags));
                     $newVote->setWeight($weight);
-                } catch (\CondorcetException $e) {}
+                } catch (CondorcetException $e) {}
             endfor;
         endforeach;
 
