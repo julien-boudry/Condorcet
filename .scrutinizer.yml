@@ -1,14 +1,22 @@
 build:
-    environment:
-        php: '7.2'
-    tests:
+  nodes:
+    analysis:
+      project_setup:
+        override: ['true']
+      tests:
+        override: ['php-scrutinizer-run']
+      environment:
+          php: '7.2'
+    craft-tests:
+      tests:
         override:
-            - [php-scrutinizer-run]
-            -
-                command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
-                coverage:
-                    file: 'coverage.clover'
-                    format: 'clover'
+          -
+              command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
+              coverage:
+                  file: 'coverage.clover'
+                  format: 'clover'
+      environment:
+          php: '7.2'
 
 checks:
     php:
