@@ -406,4 +406,21 @@ class DodgsonTest extends TestCase
             'B', $this->election->getWinner('DodgsonQuick'));
     }
 
+    public function testResult_15 ()
+    {
+        $this->election->addCandidate('Memphis');
+        $this->election->addCandidate('Nashville');
+        $this->election->addCandidate('Knoxville');
+        $this->election->addCandidate('Chattanooga');
+
+        $this->election->parseVotes('
+            Memphis > Chattanooga > Nashville * 42
+            Nashville > Chattanooga > Knoxville * 26
+            Chattanooga > Knoxville > Nashville * 15
+            Knoxville > Chattanooga > Nashville * 17
+        ');
+
+        self::assertEquals($this->election->getWinner(null),$this->election->getWinner('DodgsonQuick'));
+    }
+
 }

@@ -53,6 +53,38 @@ class KemenyYoungTest extends TestCase
     }
 
     /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testResult2 ()
+    {
+        \Condorcet\Algo\Methods\KemenyYoung::$useCache = false;
+
+        $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
+
+        $this->election->parseVotes('
+            Elliot > Roland ^30
+            Elliot > Meredith ^60
+            Elliot > Selden ^60
+            Roland > Meredith ^70
+            Roland > Selden ^60
+            Meredith > Selden ^40
+        ');
+
+        $this->election->setImplicitRanking(false);
+
+        self::assertEquals(
+            [
+                1 => 'Elliot',
+                2 => 'Roland',
+                3 => 'Meredith',
+                4 => 'Selden'
+            ],
+            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
+        );
+    }
+
+    /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 101
       * @expectedExceptionMessage Kemeny–Young is configured to accept only 8 candidates
@@ -66,5 +98,37 @@ class KemenyYoungTest extends TestCase
         $this->election->parseVotes('A');
 
         $this->election->getWinner('KemenyYoung');
+    }
+
+    public function testConflicts ()
+    {
+        $this->election->parseCandidates('A;B;C');
+
+        $this->election->parseVotes('
+            A>B>C;
+            B>C>A;
+            C>A>B');
+
+        $result = $this->election->getResult( 'KemenyYoung' ) ;
+
+        self::assertEquals(
+            [ 0 => [
+                'type' => 42,
+                'msg' => '3;5'
+              ]
+            ],
+            $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
+        );
+
+        $this->election->addVote('A>B>C');
+
+        $result = $this->election->getResult( 'KemenyYoung' ) ;
+
+        self::assertEquals(
+            [],
+            $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
+        );
+
+        self::assertEquals('A',$this->election->getWinner('KemenyYoung'));
     }
 }

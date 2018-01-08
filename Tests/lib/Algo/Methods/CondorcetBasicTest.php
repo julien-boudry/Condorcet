@@ -128,5 +128,24 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('L', $this->election->getLoser());
     }
 
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 102
+      */
+    public function testNoResultObject ()
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('L');
+
+        $this->election->parseVotes('
+            A > B > L
+            B > C > L
+            A > C > L
+        ');
+
+        $this->election->getResult(__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic');
+    }
 
 }

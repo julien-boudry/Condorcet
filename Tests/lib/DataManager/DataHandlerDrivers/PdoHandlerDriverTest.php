@@ -11,16 +11,13 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @preserveGlobalState disabled
- * @backupGlobals disabled
  * @backupStaticAttributes disabled
  */
 class PdoHandlerDriverTest extends TestCase
 {
-    protected function getDriverReady ()
+    protected function getPDO ()
     {
-        $pdoObject = new \PDO ('sqlite::memory:','','',[\PDO::ATTR_PERSISTENT => false]);
-
-        return new PdoHandlerDriver ($pdoObject, true);  
+        return new \PDO ('sqlite::memory:','','',[\PDO::ATTR_PERSISTENT => false]);
     }
 
     protected function hashVotesList (Election $elec) : string {
@@ -43,7 +40,7 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb = new Election;
         $electionInMemory = new Election;
-        $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriverReady());
+        $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver ($this->getPDO(),true));
 
         // Run Test
 
@@ -125,7 +122,7 @@ class PdoHandlerDriverTest extends TestCase
 
         // Change my mind : Set again the a new handler
         unset($handlerDriver);
-        $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriverReady());
+        $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver ($this->getPDO(),true));
 
         self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
         self::assertSame(0,$electionWithDb->getVotesManager()->getContainerSize());
@@ -141,7 +138,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 10;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler($this->getDriverReady());
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -165,7 +162,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 10;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler($this->getDriverReady());
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
 
         $electionWithDb->parseCandidates('A;B;C');
 

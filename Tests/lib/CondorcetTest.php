@@ -9,11 +9,14 @@ use Condorcet\Algo\MethodInterface;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Condorcet\Condorcet
- */
 class CondorcetTest extends TestCase
 {
+    public function testgetVersion ()
+    {
+        self::assertSame(Condorcet::VERSION,CONDORCET::getVersion());
+        self::assertRegExp('/^[1-9]+\.[1-9]+$/',CONDORCET::getVersion('MAJOR'));
+    }
+
     public function testAddExistingMethod ()
     {
         $algoClassPath = Condorcet::getDefaultMethod();
@@ -65,6 +68,20 @@ class CondorcetTest extends TestCase
             __NAMESPACE__.'\\CondorcetTest_UnvalidAlgorithmName',
             Condorcet::isAuthMethod('FirstMethodName')
         );
+    }
+
+    public function testUnvalidDefaultMethod ()
+    {
+        self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 8
+      */
+    public function testEmptyMethod ()
+    {
+        Condorcet::isAuthMethod('');
     }
 
     public function testMethodAlias ()

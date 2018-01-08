@@ -282,7 +282,6 @@ class VoteTest extends TestCase
 
     }
 
-
     public function testTags ()
     {
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
@@ -312,6 +311,12 @@ class VoteTest extends TestCase
                 $targetTags,
                 array_values($vote1->getTags())
             );
+
+            self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
+
+            self::assertEquals(
+                ['tag1','tag3'],
+                array_values($vote1->getTags()));
 
             self::assertTrue($vote1->removeAllTags());
 
