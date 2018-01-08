@@ -12,4 +12,4 @@ install:
   - composer update
 
 script:
-  - vendor/bin/phpunit --coverage-clover=coverage.clover
+  - vendor/bin/phpunit
