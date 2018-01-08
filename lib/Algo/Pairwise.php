@@ -14,7 +14,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Election;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
-class Pairwise implements \ArrayAccess,\Iterator
+class Pairwise implements \ArrayAccess, \Iterator
 {
     use CondorcetVersion;
 

@@ -855,7 +855,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
+            new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
 
@@ -873,7 +873,7 @@ class Election
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            $chrono = new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
+            new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
 

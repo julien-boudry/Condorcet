@@ -15,7 +15,7 @@ use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 
-abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
+abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
 
