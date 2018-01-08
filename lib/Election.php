@@ -316,7 +316,7 @@ class Election
         $newCandidate->registerLink($this);
 
         // Disallow other candidate object name matching 
-        $newCandidate->setProvisionalState = false;
+        $newCandidate->setProvisionalState(false);
 
         return $newCandidate;
     }

@@ -349,7 +349,7 @@ abstract class ArrayManager implements \ArrayAccess,\Countable,\Iterator
         endif;
     }
 
-    public function getDataContextObject ()
+    public function getDataContextObject () : DataContextInterface
     {
         return new Class implements DataContextInterface {
             public function dataCallBack ($data)

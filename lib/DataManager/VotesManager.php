@@ -32,7 +32,7 @@ class VotesManager extends ArrayManager
 
 /////////// Data CallBack for external drivers ///////////
 
-    public function getDataContextObject ()
+    public function getDataContextObject () : DataContextInterface
     {
         $context = new Class implements DataContextInterface {
             public $election;

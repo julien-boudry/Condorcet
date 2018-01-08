@@ -19,6 +19,7 @@ use Condorcet\Result;
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected $_Comparison;
+    protected $_countType;
 
 
 /////////// PUBLIC ///////////

@@ -20,6 +20,8 @@ class DodgsonQuick extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['Dodgson Quick','DodgsonQuick','Dodgson Quick Winner'];
 
+    protected $_Stats;
+
     public function getResult () : Result
     {
         // Cache
