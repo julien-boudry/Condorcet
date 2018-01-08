@@ -1,4 +1,6 @@
 build:
+    environment:
+        php: '7.2'
     tests:
         override:
             -
@@ -6,3 +8,14 @@ build:
                 coverage:
                     file: 'coverage.clover'
                     format: 'clover'
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
+filter:
+    excluded_paths:
+        - Tests/*
+        - Examples/*
+        - Documentation/*
