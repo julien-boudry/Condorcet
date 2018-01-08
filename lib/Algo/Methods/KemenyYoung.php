@@ -30,6 +30,8 @@ class KemenyYoung extends Method implements MethodInterface
         Do not try to go to 10, it is not viable! */
         public static $_maxCandidates = 8;
 
+    // Cache
+    public static $useCache = true;
 
     // Kemeny Young
     protected $_PossibleRanking;
@@ -104,8 +106,8 @@ class KemenyYoung extends Method implements MethodInterface
         $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
         // But ... where are the data ?! Okay, old way now...
-        if (!file_exists($path)) :
-            $compute = $this->doPossibleRanking( (Condorcet::ENV === 'DEV') ? $path : null );
+        if (!self::$useCache || !file_exists($path)) :
+            $compute = $this->doPossibleRanking( null );
         else :
             $compute = file_get_contents($path);
         endif;
@@ -122,7 +124,7 @@ class KemenyYoung extends Method implements MethodInterface
         $this->_PossibleRanking = unserialize( str_replace($search, $replace, $compute) );
     }
 
-    protected function doPossibleRanking (string $path = null)
+    protected function doPossibleRanking (?string $path = null)
     {
         $permutation = new Permutation ($this->_selfElection->countCandidates());
 
