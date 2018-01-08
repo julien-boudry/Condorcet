@@ -174,7 +174,7 @@ abstract class Condorcet
             $r = $input;
         else :
             foreach ($input as $key => $line) :
-                $input[$key] = self::format($line,false,$convertObject);
+                $input[$key] = self::format($line,$convertObject);
             endforeach;
 
             if (count($input) === 1 && is_int(key($input)) && (!is_array(reset($input)) || count(reset($input)) === 1)):
