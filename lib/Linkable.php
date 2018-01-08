@@ -22,20 +22,6 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    /*
-    public function __debugInfo () : array
-    {
-        $var = get_object_vars($this);
-
-        foreach ($var['_link'] as $key => $oneLink)
-        {
-            $var['_link'][$key] = 'Object '.get_class($oneLink).' => '.sha1(spl_object_hash($oneLink));
-        }
-
-        return $var;
-    }
-    */
-
     public function haveLink (Election $election) : bool
     {
         return in_array($election, $this->_link, true);

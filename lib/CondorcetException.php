@@ -33,6 +33,8 @@ class CondorcetException extends \Exception
 
     protected function correspondence (int $code) : string
     {
+        $error = [];
+
         // Common
         $error[1] = 'Bad candidate format';
         $error[2] = 'The voting process has already started';

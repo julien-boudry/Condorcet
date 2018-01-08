@@ -85,6 +85,8 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     protected function initPrepareQuery () : void
     {
+        $template = [];
+
         // Base - Small query ends
         $template['end_template'] = ';';
         $template['insert_template'] = 'INSERT INTO '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].', '.$this->_struct['dataColumnName'].') VALUES ';

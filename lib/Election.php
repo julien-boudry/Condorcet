@@ -160,7 +160,7 @@ class Election
             '_Calculator',
         ];
 
-        !self::$_checksumMode AND array_push($include, '_timer');
+        !self::$_checksumMode && array_push($include, '_timer');
 
         return $include;
     }
@@ -237,7 +237,7 @@ class Election
         endforeach;
 
         $this->_Pairwise !== null
-            AND hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+            && hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
 
         hash_update($r, $this->getObjectVersion('major'));
 
@@ -295,7 +295,7 @@ class Election
 
 
         // Process
-        if ( empty($candidate_id) ) : // $candidate_id is empty ...
+        if ( empty($candidate_id) ) :
             while ( !$this->canAddCandidate($this->_i_CandidateId) ) :
                 $this->_i_CandidateId++;
             endwhile;
@@ -377,7 +377,7 @@ class Election
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
-            catch (\Exception $e) {}
+            catch (\CondorcetException $e) {}
         endforeach;
 
         return $adding;
@@ -727,7 +727,7 @@ class Election
                 try {
                     $adding[] = ($newVote = $this->addVote($vote, $tags));
                     $newVote->setWeight($weight);
-                } catch (\Exception $e) {}
+                } catch (\CondorcetException $e) {}
             endfor;
         endforeach;
 
@@ -835,7 +835,7 @@ class Election
         if ($method === true) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::isAuthMethod($method)) :
+        elseif ($method = Condorcet::isAuthMethod((string) $method)) :
             $this->initResult($method);
             $result = $this->_Calculator[$method]->getResult();
         else :

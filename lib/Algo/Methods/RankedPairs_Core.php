@@ -93,7 +93,6 @@ class RankedPairs_Core extends Method implements MethodInterface
     {
         $result = [];
         $alreadyDone = [];
-        $lastWinner = null;
 
         $rang = 1;
         while (count($alreadyDone) < $this->_selfElection->countCandidates()) :
@@ -144,7 +143,6 @@ class RankedPairs_Core extends Method implements MethodInterface
         foreach ($this->_PairwiseSort as $newArcsRound) :
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
-            $candidatesToCheck = [];
 
             $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) :
