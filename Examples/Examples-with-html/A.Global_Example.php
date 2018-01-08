@@ -132,7 +132,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 		 ?>
 
 		<pre>
-		<?php Condorcet::format($result); ?>
+		<?php var_dump( Condorcet::format($result) ); ?>
 		</pre>
 
 		<em style="color:green;">computed in <?php echo $lastTimer ; ?> second(s).</em>
@@ -151,7 +151,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 	<h3>Pairwise :</h3>
 
 	<pre>
-	<?php Condorcet::format($election->getPairwise()); ?>
+	<?php var_dump( Condorcet::format($election->getPairwise()) ); ?>
 	</pre>
 	
 	<?php
@@ -160,7 +160,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
-		<?php Condorcet::format($election->getResult($method)->getStats()); ?>
+		<?php var_dump( Condorcet::format($election->getResult($method)->getStats()) ); ?>
 		</pre>
 	
 	<?php } ?>
@@ -172,7 +172,7 @@ define('TEST_NAME', 'Condorcet Global Example');
  <h4>Defaut method (not used explicitly before) :</h4>
 
  <pre>
-<?php Condorcet::format(Condorcet::getDefaultMethod()); ?>
+<?php var_dump( Condorcet::format(Condorcet::getDefaultMethod()) ); ?>
  </pre>
 
 <!-- <h4>Condorcet::format (for debug only) :</h4>

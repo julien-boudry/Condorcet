@@ -154,7 +154,7 @@ abstract class Condorcet
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, bool $out = true, bool $convertObject = true)
+    public static function format ($input, bool $convertObject = true)
     {
         if (is_object($input)) :
             
@@ -183,10 +183,6 @@ abstract class Condorcet
                 $r = $input;
             endif;
         endif;
-
-            ///
-
-        if ($out): var_dump($r); endif;
         
         return $r;
     }

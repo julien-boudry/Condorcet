@@ -61,7 +61,7 @@ class ReadmeQuickExampleTest extends TestCase
             // Schulze Ranking
             $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
               # Echo it easily 
-            $this->assertEquals([1=>'Candidate 1',2=>'Candidate 2',3=>'Candidate 4',4=>'Candidate 3']  ,Condorcet::format($myResultBySchulze,false));
+            $this->assertEquals([1=>'Candidate 1',2=>'Candidate 2',3=>'Candidate 4',4=>'Candidate 3']  ,Condorcet::format($myResultBySchulze));
 
             // Get Schulze advanced computing data & stats
             $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
