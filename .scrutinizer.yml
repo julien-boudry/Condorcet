@@ -1,11 +1,9 @@
 build:
     environment:
         php: '7.2'
-    analysis:
-      tests:
-        override: [php-scrutinizer-run]
     tests:
         override:
+            - [php-scrutinizer-run]
             -
                 command: 'vendor/bin/phpunit --coverage-clover=coverage.clover'
                 coverage:
