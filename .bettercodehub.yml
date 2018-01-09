@@ -1,0 +1,6 @@
+exclude:
+- /Documentation/.*
+- /Examples/.*
+component_depth: 2
+languages:
+- php
