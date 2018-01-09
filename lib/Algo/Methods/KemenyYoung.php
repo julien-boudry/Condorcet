@@ -13,7 +13,6 @@ use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
 use Condorcet\Algo\Tools\Permutation;
 use Condorcet\Condorcet;
-use Condorcet\Election;
 use Condorcet\Result;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method

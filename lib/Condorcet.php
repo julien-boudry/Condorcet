@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Condorcet;
 
 use Condorcet\CondorcetException;
-use Condorcet\Election;
 use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
