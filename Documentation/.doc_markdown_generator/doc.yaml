@@ -100,35 +100,6 @@
   class: Condorcet
   type: method
   visibility: public
-  name: format
-  static: true
-  description: |
-    Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
-    Can be use for improve var_dump, or just to get more simple data output.
-  input:
-    input:
-      type: mixed
-      required: true
-      text: All datatype. Like classical var_dump
-    out:
-      type: bool
-      default: true
-      required: false
-      text: 'If true, will print the result on scrren. like var_dump() function. Else, just return it.'
-    convertObject:
-      type: bool
-      default: true
-      required: false
-      text: If true. Will convert Candidate objects into string representation of their name.
-  return: |
-    New formatted data.
-  publish: true
-
-
-- 
-  class: Condorcet
-  type: method
-  visibility: public
   name: getAuthMethods
   static: true
   description: |
@@ -144,7 +115,6 @@
   related:
     - 'static Condorcet::isAuthMethod'
   publish: true
-
 
 - 
   class: Condorcet
@@ -1565,4 +1535,35 @@
     Get the Condorcet PHP version that build this Result.
   return: |
     (string) Condorcet PHP version string format.
+  publish: true
+
+
+# CLASS UTIL
+
+- 
+  class: Util
+  type: method
+  visibility: public
+  name: format
+  static: true
+  description: |
+    Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
+    Can be use for improve var_dump, or just to get more simple data output.
+  input:
+    input:
+      type: mixed
+      required: true
+      text: All datatype. Like classical var_dump
+    out:
+      type: bool
+      default: true
+      required: false
+      text: 'If true, will print the result on scrren. like var_dump() function. Else, just return it.'
+    convertObject:
+      type: bool
+      default: true
+      required: false
+      text: If true. Will convert Candidate objects into string representation of their name.
+  return: |
+    New formatted data.
   publish: true

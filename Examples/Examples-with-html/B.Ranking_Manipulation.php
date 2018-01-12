@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Condorcet\Condorcet;
 use Condorcet\Election;
+use Condorcet\Util;
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
@@ -88,7 +89,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 <h2>Get pairwise :</h2>
 
 	 <pre>
-	<?php var_dump( Condorcet::format($election->getPairwise()) ); ?>
+	<?php var_dump( Util::format($election->getPairwise()) ); ?>
 	 </pre> 
 	<br>
 	<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>
@@ -126,7 +127,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump( Condorcet::format($election->getResult()) ); ?>
+	<?php var_dump( Util::format($election->getResult()) ); ?>
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
@@ -135,7 +136,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump( Condorcet::format($election->getResult()) ); ?>
+	<?php var_dump( Util::format($election->getResult()) ); ?>
 	 </pre>
 
 
@@ -202,7 +203,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 					'withTag' => false
 				);
 
-	var_dump( Condorcet::format($election->getResult('KemenyYoung', $options)) ); ?>
+	var_dump( Util::format($election->getResult('KemenyYoung', $options)) ); ?>
 	 </pre>
 <div style="clear:both;"></div>
 
@@ -214,7 +215,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 
 	 <pre>
-	<?php var_dump( Condorcet::format($election->getResult('KemenyYoung')) ); ?>
+	<?php var_dump( Util::format($election->getResult('KemenyYoung')) ); ?>
 	 </pre>
 
 
@@ -247,10 +248,10 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 <br><br><hr>
 
-<!-- <h4>Condorcet::format (for debug only) :</h4>
+<!-- <h4>Util::format (for debug only) :</h4>
 
  <pre>
-<?php // Condorcet::format($election); ?>
+<?php // Util::format($election); ?>
  </pre> -->
 
  </body>

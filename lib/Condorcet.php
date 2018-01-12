@@ -151,38 +151,4 @@ abstract class Condorcet
             return false;
         endif;
     }
-
-    // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, bool $convertObject = true)
-    {
-        if (is_object($input)) :
-            
-            $r = $input;
-
-            if ($convertObject) :
-                if ($input instanceof Candidate) :
-                    $r = (string) $input;
-                elseif ($input instanceof Vote) :
-                    $r = $input->getRanking();
-                elseif ($input instanceof Result) :
-                    $r = $input->getResultAsArray(true);
-                endif;
-            endif;
-
-        elseif (!is_array($input)) :
-            $r = $input;
-        else :
-            foreach ($input as $key => $line) :
-                $input[$key] = self::format($line,$convertObject);
-            endforeach;
-
-            if (count($input) === 1 && is_int(key($input)) && (!is_array(reset($input)) || count(reset($input)) === 1)):
-                $r = reset($input);
-            else:
-                $r = $input;
-            endif;
-        endif;
-        
-        return $r;
-    }
 }

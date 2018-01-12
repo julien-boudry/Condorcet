@@ -1,9 +1,9 @@
-## public static Condorcet::format
+## public static Util::format
 
 ### Description    
 
 ```php
-public static Condorcet::format ( mixed input [, bool out = true, bool convertObject = true] )
+public static Util::format ( mixed input [, bool out = true, bool convertObject = true] )
 ```
 
 Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.

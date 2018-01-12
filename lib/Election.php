@@ -13,6 +13,7 @@ use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Result;
+use Condorcet\Util;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
@@ -47,59 +48,6 @@ class Election
     {
         self::$_maxVoteNumber = $value;
         return self::$_maxVoteNumber;
-    }
-
-
-    // Check JSON format
-    public static function isJson (string $string) : bool
-    {
-        if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
-            return false;
-        endif;
-
-        // try to decode string
-        json_decode($string);
-
-        // check if error occured
-        return json_last_error() === JSON_ERROR_NONE;
-    }
-
-
-    // Generic action before parsing data from string input
-    public static function prepareParse (string $input, bool $allowFile) : array
-    {
-        // Is string or is file ?
-        if ($allowFile === true && is_file($input)) :
-            $input = file_get_contents($input);
-        endif;
-
-        // Line
-        $input = preg_replace("(\r\n|\n|\r)",';',$input);
-        $input = explode(';', $input);
-
-        // Delete comments
-        foreach ($input as &$line) :
-            // Delete comments
-            $is_comment = mb_strpos($line, '#');
-            if ($is_comment !== false) :
-                $line = substr($line, 0, $is_comment);
-            endif;
-
-            // Trim
-            $line = trim($line);
-        endforeach;
-
-        return $input;
-    }
-
-
-    public static function prepareJson (string $input)
-    {
-        if (!self::isJson($input)) :
-            throw new CondorcetException(15);
-        endif;
-
-        return json_decode($input, true);
     }
 
 
@@ -365,7 +313,7 @@ class Election
 
     public function jsonCandidates (string $input)
     {
-        $input = self::prepareJson($input);
+        $input = Util::prepareJson($input);
         if ($input === false) :
             return $input;
         endif;
@@ -383,10 +331,9 @@ class Election
         return $adding;
     }
 
-
     public function parseCandidates (string $input, bool $allowFile = true)
     {
-        $input = self::prepareParse($input, $allowFile);
+        $input = Util::prepareParse($input, $allowFile);
         if ($input === false) :
             return $input;
         endif;
@@ -624,7 +571,7 @@ class Election
 
     public function jsonVotes (string $input)
     {
-        $input = self::prepareJson($input);
+        $input = Util::prepareJson($input);
         if ($input === false) :
             return $input;
         endif;
@@ -657,7 +604,7 @@ class Election
 
     public function parseVotes (string $input, bool $allowFile = true)
     {
-        $input = self::prepareParse($input, $allowFile);
+        $input = Util::prepareParse($input, $allowFile);
         if ($input === false) :
             return $input;
         endif;
