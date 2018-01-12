@@ -149,6 +149,7 @@ _OK: sacrifice to the local tradition of lazy._
   use Condorcet\Condorcet;
   use Condorcet\Election;
   use Condorcet\Candidate;
+  use Condorcet\Util;
   use Condorcet\Vote;
 
   $myElection1 = new Election () ;
@@ -198,7 +199,7 @@ _OK: sacrifice to the local tradition of lazy._
     // Schulze Ranking
     $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
       # Echo it easily 
-      Condorcet::format($myResultBySchulze);
+      Util::format($myResultBySchulze);
 
     // Get Schulze advanced computing data & stats
     $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();

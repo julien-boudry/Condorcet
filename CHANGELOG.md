@@ -73,8 +73,6 @@ This functionality is managed at the level of an election, it is possible to swi
 
 Also add Dodgson method.
 
-Translated with www.DeepL.com/Translator
-
 ### Added
 - Adds [Dodgson method](https://en.wikipedia.org/wiki/Dodgson%27s_method)
 - Previously, if within a ranking, you do not specify all candidates participating in an election. It was considered that you placed the missing ones implicitly on a last rank.
@@ -177,7 +175,7 @@ As the class keeps the Condorcet high static method (although specialized), code
 ### Changed
 - Condorcet:addAlgos is renamed to Condorcet::addMethod, it's more logic. Argument is now a fully-qualified class name. This class can now be outside of \Condocet namespace. Adding your own algorithm is now much cleaner.
 - Condorcet::getPairwise(false) now return the new pairwise object instead of an abstract array. Condorcet::getPairwise(true) is unchanged and equivalent to Pairwise::getExplicitPairwise.  
-  The new pairwise object implement \Iterator and \ArrayAccess interfaces, so change may be transparent for you.
+  The new pairwise object implement \Iterastor and \ArrayAccess interfaces, so change may be transparent for you.
 - PSR-0 autoloader support is removed. Instead, Condorcet is compliant with any PSR-4 autoloader, and it is now the only way to use it with Composer.
   If you don't have PSR-4 autoloader or you don't want to use Composer, you can continue to just include lib\Condorcet.php, its use now his own fallback PSR-4 implementation instead of his old PSR-0 implementation.
   Be careful, path to Condorcet.php change cause of PSR-4. It's now lib/Condorcet.php and not the old lib/Condorcet/Condorcet.php old path.

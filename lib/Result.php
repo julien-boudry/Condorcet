@@ -143,7 +143,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function getLoser () {
-        return Condorcet::format($this[count($this)],false);
+        return Util::format($this[count($this)],false);
     }
 
     public function getCondorcetWinner () {
