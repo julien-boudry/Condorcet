@@ -79,6 +79,9 @@ class ElectionTest extends TestCase
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 12
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
       */
     public function testMaxParseIteration ()
     {
