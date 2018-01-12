@@ -217,4 +217,58 @@ D > C > B > A * 1',
 
     }
 
+    public function testJsonVotes ()
+    {
+        $election = new Election;
+
+        $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+
+        $votes = [];
+
+        $votes[]['vote'] = 'B>C>A';
+        $votes[]['vote'] = new \stdClass(); // Invalid Vote
+        $votes[]['vote'] = ['C','B','A'];
+
+        $election->jsonVotes(json_encode($votes));
+
+        self::assertSame(
+'B > C > A * 1
+C > B > A * 1',
+            $election->getVotesListAsString()
+        );
+
+        $votes = [];
+
+        $votes[0]['vote'] = 'A>B>C';
+        $votes[0]['multi'] = 5;
+        $votes[0]['tag'] = 'tag1';
+
+        $election->jsonVotes(json_encode($votes));
+
+        self::assertSame(
+'A > B > C * 5
+B > C > A * 1
+C > B > A * 1',
+            $election->getVotesListAsString()
+        );
+        self::assertSame(5,$election->countVotes('tag1'));
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 15
+      */
+    public function testJsonVotesWithInvalidJson ()
+    {
+        self::assertFalse($this->election1->jsonVotes("42"));
+        self::assertFalse($this->election1->jsonVotes(42));
+        self::assertFalse($this->election1->jsonVotes(false));
+        self::assertFalse($this->election1->jsonVotes(true));
+        self::assertFalse($$this->election1->jsonVotes(""));
+        self::assertFalse($$this->election1->jsonVotes(" "));
+        self::assertFalse($$this->election1->jsonVotes([]));
+        self::assertFalse($$this->election1->jsonVotes(json_encode(new \stdClass())));
+    }
 }
