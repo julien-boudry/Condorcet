@@ -732,14 +732,6 @@ class Election
         return $this->_Votes->getVoteKey($vote);
     }
 
-    public function getVoteByKey (int $key) {
-        if (!isset($this->_Votes[$key])) :
-            return false;
-        else :
-            return $this->_Votes[$key];
-        endif;
-    }
-
 
 /////////// RESULTS ///////////
 
