@@ -76,6 +76,12 @@ class ElectionTest extends TestCase
         );
     }
 
+    public function testGetCandidateObjectByName()
+    {
+        self::assertSame($this->candidate1,$this->election1->getCandidateObjectByName('candidate1'));
+        self::assertFalse($this->election1->getCandidateObjectByName('candidate42'));
+    }
+
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 12
@@ -103,6 +109,9 @@ class ElectionTest extends TestCase
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 16
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
       */
     public function testMaxVoteNumber ()
     {
@@ -259,6 +268,19 @@ C > B > A * 1',
         self::assertSame(5,$election->countVotes('tag1'));
     }
 
+    public function testJsonCadidates ()
+    {
+        $election = new Election;
+
+        $candidates = ['candidate1 ','candidate2'];
+
+        $election->jsonCandidates(json_encode($candidates));
+
+        self::assertSame(2,$election->countCandidates());
+
+        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesList(true));
+    }
+
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 15
@@ -273,5 +295,44 @@ C > B > A * 1',
         self::assertFalse($$this->election1->jsonVotes(" "));
         self::assertFalse($$this->election1->jsonVotes([]));
         self::assertFalse($$this->election1->jsonVotes(json_encode(new \stdClass())));
+    }
+
+    public function testCachingResult()
+    {
+        $election = new Election;
+
+        $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+        $election->addCandidate('D');
+
+        $election->addVote($vote1 = new Vote ('A > C > D'));
+
+        $result1 = $election->getResult('Schulze');
+        self::assertSame($result1,$election->getResult('Schulze'));
+    }
+
+    public function testElectionSerializing ()
+    {
+        $election = new Election;
+
+        $candidateA = $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+        $election->addCandidate('D');
+
+        $election->addVote($vote1 = new Vote ('A > C > D'));
+        $result1 = $election->getResult('Schulze');
+
+        $election = serialize($election);
+        $election = unserialize($election);
+
+        self::assertNotSame($result1,$election->getResult('Schulze'));
+        self::assertSame($result1->getResultAsString(),$election->getResult('Schulze')->getResultAsString());
+
+        self::assertNotSame($vote1,$election->getVotesList()[0]);
+        self::assertSame($vote1->getSimpleRanking(),$election->getVotesList()[0]->getSimpleRanking());
+        self::assertTrue($election->getVotesList()[0]->haveLink($election));
+        self::assertFalse($vote1->haveLink($election));
     }
 }

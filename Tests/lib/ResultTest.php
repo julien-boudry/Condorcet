@@ -9,11 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
-    /**
-     * @var election1
-     */
-    private $election1;
-
     public function setUp()
     {
         $this->election1 = new Election;
@@ -96,7 +91,7 @@ class ResultTest extends TestCase
             c > a > b * 2
         ');
 
-        // self::assertEquals('c', $this->election1->getResult()->getWinner());
+        self::assertEquals('c', (string) $this->election1->getResult()->getWinner());
     }
 
     public function testGetCondorcetLoser ()
@@ -113,7 +108,7 @@ class ResultTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        // self::assertEquals('Memphis', (string) $this->election1->getResult()->getLoser());
+        self::assertEquals('Memphis', (string) $this->election1->getResult()->getLoser());
     }
 
     public function testgetOriginalArrayWithString ()

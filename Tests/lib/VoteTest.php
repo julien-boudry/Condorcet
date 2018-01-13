@@ -400,4 +400,12 @@ class VoteTest extends TestCase
         self::assertSame(1,$vote1->countLinks());
     }
 
+    public function testIterator ()
+    {
+        $vote = new Vote ('C > B > A');
+
+        foreach ($vote as $key => $value) :
+            self::assertSame($vote->getRanking()[$key],$value);
+        endforeach;
+    }
 }
