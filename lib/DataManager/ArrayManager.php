@@ -43,6 +43,11 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->regularize();
     }
 
+    public function __clone ()
+    {
+        $this->_link = [];
+    }
+
     public function __sleep () : array
     {
         $this->regularize();

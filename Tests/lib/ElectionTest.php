@@ -335,4 +335,26 @@ C > B > A * 1',
         self::assertTrue($election->getVotesList()[0]->haveLink($election));
         self::assertFalse($vote1->haveLink($election));
     }
+
+    public function testCloneElection ()
+    {
+        $this->election1->computeResult();
+
+        $cloneElection = clone $this->election1;
+
+        self::assertNotSame($this->election1->getVotesManager(),$cloneElection->getVotesManager());
+        self::assertSame($this->election1->getVotesList(),$cloneElection->getVotesList());
+
+        self::assertSame($this->election1->getCandidatesList(),$cloneElection->getCandidatesList());
+
+        self::assertNotSame($this->election1->getPairwise(false),$cloneElection->getPairwise(false));
+        self::assertEquals($this->election1->getPairwise(true),$cloneElection->getPairwise(true));
+
+        self::assertNotSame($this->election1->getTimerManager(),$cloneElection->getTimerManager());
+
+        self::assertSame($this->election1->getVotesList()[0],$cloneElection->getVotesList()[0]);
+
+        self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
+        self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
+    }
 }
