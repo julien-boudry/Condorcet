@@ -129,6 +129,8 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
+
+        return $handlerDriver;
     }
 
     public function testVotePreserveTag()

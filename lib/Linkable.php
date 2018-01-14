@@ -12,7 +12,6 @@ namespace Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 
-// Generic for Candidate & Vote Class
 trait Linkable
 {
     private $_link = [];

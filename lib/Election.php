@@ -122,7 +122,16 @@ class Election
 
     public function __clone ()
     {
+        $this->_Votes = clone $this->_Votes;
+        $this->_Votes->setElection($this);      
         $this->registerAllLinks();
+
+        $this->_timer = clone $this->_timer;
+
+        if ($this->_Pairwise !== null) :
+            $this->_Pairwise = clone $this->_Pairwise;
+            $this->_Pairwise->setElection($this);
+        endif;
     }
 
 
@@ -730,14 +739,6 @@ class Election
 
     public function getVoteKey (Vote $vote) {
         return $this->_Votes->getVoteKey($vote);
-    }
-
-    public function getVoteByKey (int $key) {
-        if (!isset($this->_Votes[$key])) :
-            return false;
-        else :
-            return $this->_Votes[$key];
-        endif;
     }
 
 

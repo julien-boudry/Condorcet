@@ -76,9 +76,18 @@ class ElectionTest extends TestCase
         );
     }
 
+    public function testGetCandidateObjectByName()
+    {
+        self::assertSame($this->candidate1,$this->election1->getCandidateObjectByName('candidate1'));
+        self::assertFalse($this->election1->getCandidateObjectByName('candidate42'));
+    }
+
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 12
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
       */
     public function testMaxParseIteration ()
     {
@@ -100,6 +109,9 @@ class ElectionTest extends TestCase
     /**
       * @expectedException Condorcet\CondorcetException
       * @expectedExceptionCode 16
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
       */
     public function testMaxVoteNumber ()
     {
@@ -217,4 +229,132 @@ D > C > B > A * 1',
 
     }
 
+    public function testJsonVotes ()
+    {
+        $election = new Election;
+
+        $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+
+        $votes = [];
+
+        $votes[]['vote'] = 'B>C>A';
+        $votes[]['vote'] = new \stdClass(); // Invalid Vote
+        $votes[]['vote'] = ['C','B','A'];
+
+        $election->jsonVotes(json_encode($votes));
+
+        self::assertSame(
+'B > C > A * 1
+C > B > A * 1',
+            $election->getVotesListAsString()
+        );
+
+        $votes = [];
+
+        $votes[0]['vote'] = 'A>B>C';
+        $votes[0]['multi'] = 5;
+        $votes[0]['tag'] = 'tag1';
+
+        $election->jsonVotes(json_encode($votes));
+
+        self::assertSame(
+'A > B > C * 5
+B > C > A * 1
+C > B > A * 1',
+            $election->getVotesListAsString()
+        );
+        self::assertSame(5,$election->countVotes('tag1'));
+    }
+
+    public function testJsonCadidates ()
+    {
+        $election = new Election;
+
+        $candidates = ['candidate1 ','candidate2'];
+
+        $election->jsonCandidates(json_encode($candidates));
+
+        self::assertSame(2,$election->countCandidates());
+
+        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesList(true));
+    }
+
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 15
+      */
+    public function testJsonVotesWithInvalidJson ()
+    {
+        self::assertFalse($this->election1->jsonVotes("42"));
+        self::assertFalse($this->election1->jsonVotes(42));
+        self::assertFalse($this->election1->jsonVotes(false));
+        self::assertFalse($this->election1->jsonVotes(true));
+        self::assertFalse($$this->election1->jsonVotes(""));
+        self::assertFalse($$this->election1->jsonVotes(" "));
+        self::assertFalse($$this->election1->jsonVotes([]));
+        self::assertFalse($$this->election1->jsonVotes(json_encode(new \stdClass())));
+    }
+
+    public function testCachingResult()
+    {
+        $election = new Election;
+
+        $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+        $election->addCandidate('D');
+
+        $election->addVote($vote1 = new Vote ('A > C > D'));
+
+        $result1 = $election->getResult('Schulze');
+        self::assertSame($result1,$election->getResult('Schulze'));
+    }
+
+    public function testElectionSerializing ()
+    {
+        $election = new Election;
+
+        $candidateA = $election->addCandidate('A');
+        $election->addCandidate('B');
+        $election->addCandidate('C');
+        $election->addCandidate('D');
+
+        $election->addVote($vote1 = new Vote ('A > C > D'));
+        $result1 = $election->getResult('Schulze');
+
+        $election = serialize($election);
+        $election = unserialize($election);
+
+        self::assertNotSame($result1,$election->getResult('Schulze'));
+        self::assertSame($result1->getResultAsString(),$election->getResult('Schulze')->getResultAsString());
+
+        self::assertNotSame($vote1,$election->getVotesList()[0]);
+        self::assertSame($vote1->getSimpleRanking(),$election->getVotesList()[0]->getSimpleRanking());
+        self::assertTrue($election->getVotesList()[0]->haveLink($election));
+        self::assertFalse($vote1->haveLink($election));
+    }
+
+    public function testCloneElection ()
+    {
+        $this->election1->computeResult();
+
+        $cloneElection = clone $this->election1;
+
+        self::assertNotSame($this->election1->getVotesManager(),$cloneElection->getVotesManager());
+        self::assertSame($this->election1->getVotesList(),$cloneElection->getVotesList());
+
+        self::assertSame($this->election1->getCandidatesList(),$cloneElection->getCandidatesList());
+
+        self::assertNotSame($this->election1->getPairwise(false),$cloneElection->getPairwise(false));
+        self::assertEquals($this->election1->getPairwise(true),$cloneElection->getPairwise(true));
+
+        self::assertNotSame($this->election1->getTimerManager(),$cloneElection->getTimerManager());
+
+        self::assertSame($this->election1->getVotesList()[0],$cloneElection->getVotesList()[0]);
+
+        self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
+        self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
+    }
 }

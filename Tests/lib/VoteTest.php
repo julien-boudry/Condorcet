@@ -387,4 +387,25 @@ class VoteTest extends TestCase
         self::assertSame((string) $vote1,(string) $vote2);
     }
 
+    public function testCloneVote ()
+    {
+        // Ranking 1
+        $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+
+        $this->election1->addVote($vote1);
+
+        $vote2 = clone $vote1;
+
+        self::assertSame(0,$vote2->countLinks());
+        self::assertSame(1,$vote1->countLinks());
+    }
+
+    public function testIterator ()
+    {
+        $vote = new Vote ('C > B > A');
+
+        foreach ($vote as $key => $value) :
+            self::assertSame($vote->getRanking()[$key],$value);
+        endforeach;
+    }
 }

@@ -26,6 +26,15 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
+    /**
+      * @expectedException Condorcet\CondorcetException
+      * @expectedExceptionCode 9
+      */
+    public function testBadClassMethod ()
+    {
+        Condorcet::addMethod('sjskkdlkkzksh');
+    }
+
     public function testAuthMethod ()
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));

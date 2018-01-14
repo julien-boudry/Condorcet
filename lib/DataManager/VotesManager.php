@@ -24,10 +24,15 @@ class VotesManager extends ArrayManager
     public function __construct (?Election $election = null)
     {
         if ($election !== null) :
-            $this->_link[] = $election;
+            $this->setElection($election);
         endif;
 
         parent::__construct();
+    }
+
+    public function setElection (Election $election)
+    {
+        $this->_link[0] = $election;
     }
 
 /////////// Data CallBack for external drivers ///////////

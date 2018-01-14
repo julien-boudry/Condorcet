@@ -12,9 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetBasicTest extends TestCase
 {
-    /**
-     * @var election1
-     */
     private $election;
 
     public function setUp()

@@ -26,7 +26,6 @@ class Permutation
         return $result;
     }
 
-
     public function __construct($arr) {
         $this->_exec(
             $this->_permute( (is_int($arr)) ? $this->createCandidates($arr) : $arr )
