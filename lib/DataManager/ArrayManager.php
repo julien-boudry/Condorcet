@@ -99,7 +99,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) ? true : false ;
     }
 
-    public function offsetUnset($offset) : bool
+    public function offsetUnset($offset) : void
     {
         if ($this->keyExist($offset)) :
             if (array_key_exists($offset, $this->_Container)) :
@@ -111,9 +111,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             endif;
 
             --$this->_counter;
-            return true;
-        else :
-            return false;
         endif;
     }
 

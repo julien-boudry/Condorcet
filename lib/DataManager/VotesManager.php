@@ -76,13 +76,11 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function offsetUnset($offset) : bool
+    public function offsetUnset($offset) : void
     {
         if (parent::offsetUnset($offset)) :
             $this->setStateToVote();
-            return true;
         endif;
-        return false;
     }
 
 /////////// Internal Election related methods ///////////

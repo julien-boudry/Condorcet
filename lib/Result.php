@@ -22,23 +22,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement Iterator
 
-    function rewind() :void {
+    public function rewind() :void {
         reset($this->_UserResult);
     }
 
-    function current () {
+    public function current () {
         return current($this->_UserResult);
     }
 
-    function key () : int {
+    public function key () : int {
         return key($this->_UserResult);
     }
 
-    function next () : void {
+    public function next () : void {
         next($this->_UserResult);
     }
 
-    function valid () : bool {
+    public function valid () : bool {
         return (key($this->_UserResult) === null) ? false : true;
     }
 
