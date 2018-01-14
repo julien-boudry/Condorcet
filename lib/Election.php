@@ -205,8 +205,7 @@ class Election
 
     public function ignoreMaxVote (bool $state = true) : bool
     {
-        $this->_ignoreStaticMaxVote = $state;
-        return $this->_ignoreStaticMaxVote;
+        return $this->_ignoreStaticMaxVote = $state;
     }
 
     public function getImplicitRankingRule () : bool
@@ -831,12 +830,8 @@ class Election
         endif;
     }
 
-        protected function condorcetBasicSubstitution ($substitution) : string {
-            if ( $substitution ) :
-                if ($substitution === true) :
-                    $substitution = Condorcet::getDefaultMethod();
-                endif;
-                
+        protected function condorcetBasicSubstitution (?string $substitution) : string {
+            if ( $substitution !== null ) :
                 if ( Condorcet::isAuthMethod($substitution) ) :
                     $algo = $substitution;
                 else :

@@ -356,9 +356,10 @@ class VoteTest extends TestCase
             $this->vote1->getTags()
         );
 
+        self::assertsame([],$this->vote1->removeTags(''));
         $this->vote1->removeTags('tag1');
         $this->vote1->removeTags(['tag2','tag3']);
-        self::assertsame($this->vote1->removeTags('tag4,tag5'),['tag4','tag5']);
+        self::assertsame($this->vote1->removeTags('tag4,tag5,tag42'),['tag4','tag5']);
 
         self::assertSame(
             [],
@@ -407,5 +408,14 @@ class VoteTest extends TestCase
         foreach ($vote as $key => $value) :
             self::assertSame($vote->getRanking()[$key],$value);
         endforeach;
+    }
+
+    public function testWeight()
+    {
+        $vote = new Vote ('A>B>C^42');
+
+        self::assertsame(42,$vote->getWeight());
+        self::assertsame(2,$vote->setWeight(2));
+        self::assertsame(2,$vote->getWeight());
     }
 }

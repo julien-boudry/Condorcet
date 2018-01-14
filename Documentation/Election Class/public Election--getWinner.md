@@ -3,18 +3,16 @@
 ### Description    
 
 ```php
-public $Election -> getWinner ( [ mixed method] )
+public $Election -> getWinner ( [ string method] )
 ```
 
 Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.    
 
 
-##### **method:** *mixed*   
+##### **method:** *string*   
 *Only if not null :*
 
 The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
-
-Set to True for use object default method. Set the string name of the algorithm for use an specific one.
 
 If null, Natural Condorcet algorithm will be use.    
 
