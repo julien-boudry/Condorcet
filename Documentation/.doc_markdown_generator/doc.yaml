@@ -1534,10 +1534,10 @@
   publish: true
 
 
-# CLASS UTIL
+# CLASS CONDORCETUTIL
 
 - 
-  class: Util
+  class: CondorcetUtil
   type: method
   visibility: public
   name: format

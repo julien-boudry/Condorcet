@@ -15,7 +15,7 @@ use Condorcet\Election;
 use Condorcet\Result;
 use Condorcet\Vote;
 
-abstract class Util
+abstract class CondorcetUtil
 {
     // Check JSON format
     public static function isJson (string $string) : bool
@@ -33,7 +33,7 @@ abstract class Util
 
     public static function prepareJson (string $input)
     {
-        if (!Util::isJson($input)) :
+        if (!self::isJson($input)) :
             throw new CondorcetException(15);
         endif;
 

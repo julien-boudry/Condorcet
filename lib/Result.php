@@ -12,7 +12,7 @@ namespace Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Election;
-use Condorcet\Util;
+use Condorcet\CondorcetUtil;
 use Condorcet\Vote;
 
 
@@ -139,11 +139,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function getWinner () {
-        return Util::format($this[1],false);
+        return CondorcetUtil::format($this[1],false);
     }
 
     public function getLoser () {
-        return Util::format($this[count($this)],false);
+        return CondorcetUtil::format($this[count($this)],false);
     }
 
     public function getCondorcetWinner () {

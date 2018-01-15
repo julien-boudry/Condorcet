@@ -13,7 +13,7 @@ use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Result;
-use Condorcet\Util;
+use Condorcet\CondorcetUtil;
 use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
@@ -321,7 +321,7 @@ class Election
 
     public function jsonCandidates (string $input)
     {
-        $input = Util::prepareJson($input);
+        $input = CondorcetUtil::prepareJson($input);
         if ($input === false) :
             return $input;
         endif;
@@ -341,7 +341,7 @@ class Election
 
     public function parseCandidates (string $input, bool $allowFile = true)
     {
-        $input = Util::prepareParse($input, $allowFile);
+        $input = CondorcetUtil::prepareParse($input, $allowFile);
         if ($input === false) :
             return $input;
         endif;
@@ -579,7 +579,7 @@ class Election
 
     public function jsonVotes (string $input)
     {
-        $input = Util::prepareJson($input);
+        $input = CondorcetUtil::prepareJson($input);
         if ($input === false) :
             return $input;
         endif;
@@ -612,7 +612,7 @@ class Election
 
     public function parseVotes (string $input, bool $allowFile = true)
     {
-        $input = Util::prepareParse($input, $allowFile);
+        $input = CondorcetUtil::prepareParse($input, $allowFile);
         if ($input === false) :
             return $input;
         endif;
