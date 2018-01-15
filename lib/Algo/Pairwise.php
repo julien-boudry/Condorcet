@@ -75,7 +75,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->_Election = null;
     }
 
-    public function setElection (Election $election)
+    public function setElection (Election $election) : void
     {
         $this->_Election = $election;
     }

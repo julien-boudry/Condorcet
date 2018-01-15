@@ -18,6 +18,7 @@ use Condorcet\Vote;
 use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+use Condorcet\ElectionProcess\ResultManager;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
@@ -71,8 +72,7 @@ class Election
     protected $_VoteWeightRule = false;
 
     // Result
-    protected $_Pairwise;
-    protected $_Calculator;
+    protected $_ResultManager;
 
         //////
 
@@ -104,8 +104,7 @@ class Election
             '_ImplicitRanking',
             '_VoteWeightRule',
 
-            '_Pairwise',
-            '_Calculator',
+            '_ResultManager'
         ];
 
         !self::$_checksumMode && array_push($include, '_timer');
@@ -128,9 +127,9 @@ class Election
 
         $this->_timer = clone $this->_timer;
 
-        if ($this->_Pairwise !== null) :
-            $this->_Pairwise = clone $this->_Pairwise;
-            $this->_Pairwise->setElection($this);
+        if ($this->_ResultManager !== null) :
+            $this->_ResultManager = clone $this->_ResultManager;
+            $this->_ResultManager->setElection($this);
         endif;
     }
 
@@ -193,8 +192,8 @@ class Election
             hash_update($r, (string) $value);
         endforeach;
 
-        $this->_Pairwise !== null
-            && hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+        $this->_ResultManager !== null
+            && hash_update($r,serialize($this->_ResultManager->getPairwise()->getExplicitPairwise()));
 
         hash_update($r, $this->getObjectVersion('major'));
 
@@ -290,7 +289,6 @@ class Election
         if ( $this->_State > 1 ) :
             throw new CondorcetException(2);
         endif;
-
         
         if ( !is_array($list) ) :
             $list = [$list];
@@ -743,106 +741,31 @@ class Election
 
 /////////// RESULTS ///////////
 
-
     //:: PUBLIC FUNCTIONS :://
 
     // Generic function for default result with ability to change default object method
     public function getResult ($method = true, array $options = []) : Result
     {
-        $options = $this->formatResultOptions($options);
-
-        // Filter if tag is provided & return
-        if ($options['%tagFilter']) :
-            $chrono = new Timer_Chrono ($this->_timer, 'GetResult with filter');
-
-            $filter = new self;
-
-            foreach ($this->getCandidatesList() as $candidate) :
-                $filter->addCandidate($candidate);
-            endforeach;
-
-            foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote) :
-                $filter->addVote($vote);
-            endforeach;
-
-            unset($chrono);
-
-            return $filter->getResult($method);
-        endif;
-
-            ////// Start //////
-
-        // Prepare
         $this->prepareResult();
 
-            //////
-
-        $chrono = new Timer_Chrono ($this->_timer);
-
-        if ($method === true) :
-            $this->initResult(Condorcet::getDefaultMethod());
-            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::isAuthMethod((string) $method)) :
-            $this->initResult($method);
-            $result = $this->_Calculator[$method]->getResult();
-        else :
-            throw new CondorcetException(8,$method);
-        endif;
-
-        $chrono->setRole('GetResult for '.$method);
-
-        return $result;
+        return $this->_ResultManager->getResult($method,$options);
     }
 
 
     public function getWinner (?string $substitution = null)
     {
-        $algo = $this->condorcetBasicSubstitution($substitution);
+        $this->prepareResult();
 
-            //////
-
-        if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
-            $this->initResult($algo);
-            $result = $this->_Calculator[$algo]->getWinner();
-
-            return ($result === null) ? null : $this->getCandidateId($result);
-        else :
-            return $this->getResult($algo)->getWinner();
-        endif;
+        return $this->_ResultManager->getWinner($substitution);
     }
 
 
     public function getLoser (?string $substitution = null)
     {
-        $algo = $this->condorcetBasicSubstitution($substitution);
+        $this->prepareResult();
 
-            //////
-
-        if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
-            $this->initResult($algo);
-            $result = $this->_Calculator[$algo]->getLoser();
-
-            return ($result === null) ? null : $this->getCandidateId($result);
-        else :
-            return $this->getResult($algo)->getLoser();
-        endif;
+        return $this->_ResultManager->getLoser($substitution);
     }
-
-        protected function condorcetBasicSubstitution (?string $substitution) : string {
-            if ( $substitution !== null ) :
-                if ( Condorcet::isAuthMethod($substitution) ) :
-                    $algo = $substitution;
-                else :
-                    throw new CondorcetException(9,$substitution);
-                endif;
-            else :
-                $algo = Condorcet::CONDORCET_BASIC_CLASS;
-            endif;
-
-            return $algo;
-        }
 
 
     public function computeResult ($method = true) : void
@@ -862,8 +785,7 @@ class Election
         elseif ($this->_State === 2) :
             $this->cleanupResult();
 
-            // Do Pairewise
-            $this->_Pairwise = new Pairwise ($this);
+            $this->_ResultManager = new ResultManager ($this);
 
             // Change state to result
             $this->_State = 3;
@@ -872,14 +794,6 @@ class Election
             return true;
         else :
             throw new CondorcetException(6);
-        endif;
-    }
-
-
-    protected function initResult (string $class) : void
-    {
-        if ( !isset($this->_Calculator[$class]) ) :
-            $this->_Calculator[$class] = new $class($this);
         endif;
     }
 
@@ -894,28 +808,7 @@ class Election
 
             //////
 
-        // Clean pairwise
-        $this->_Pairwise = null;
-
-        // Algos
-        $this->_Calculator = null;
-    }
-
-
-    protected function formatResultOptions (array $arg) : array
-    {
-        // About tag filter
-        if (isset($arg['tags'])):
-            $arg['%tagFilter'] = true;
-
-            if ( !isset($arg['withTag']) || !is_bool($arg['withTag']) ) :
-                $arg['withTag'] = true;
-            endif;
-        else:
-            $arg['%tagFilter'] = false;
-        endif;
-
-        return $arg;
+        $this->_ResultManager = null;
     }
 
 
@@ -925,7 +818,9 @@ class Election
     {
         $this->prepareResult();
 
-        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getExplicitPairwise();
+        $pairwise = $this->_ResultManager->getPairwise($explicit);
+
+        return (!$explicit) ? $pairwise : $pairwise->getExplicitPairwise($explicit);
     }
 
 }

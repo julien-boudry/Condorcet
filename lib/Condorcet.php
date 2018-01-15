@@ -149,4 +149,19 @@ abstract class Condorcet
             return false;
         endif;
     }
+
+    public static function condorcetBasicSubstitution (?string $substitution) : string
+    {
+        if ( $substitution !== null ) :
+            if ( Condorcet::isAuthMethod($substitution) ) :
+                $algo = $substitution;
+            else :
+                throw new CondorcetException(9,$substitution);
+            endif;
+        else :
+            $algo = Condorcet::CONDORCET_BASIC_CLASS;
+        endif;
+
+        return $algo;
+    }
 }
