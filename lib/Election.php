@@ -15,11 +15,9 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Result;
 use Condorcet\CondorcetUtil;
 use Condorcet\Vote;
-use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\ElectionProcess\ResultManager;
-use Condorcet\Timer\Chrono as Timer_Chrono;
 use Condorcet\Timer\Manager as Timer_Manager;
 
 
