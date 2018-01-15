@@ -179,4 +179,34 @@ class PdoHandlerDriverTest extends TestCase
         self::assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
     }
 
+    public function testUpdateEntity()
+    {
+        // Setup
+        ArrayManager::$CacheSize = 10;
+        ArrayManager::$MaxContainerLength = 10;
+
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
+
+        $electionWithDb->parseCandidates('A;B;C');
+
+        $electionWithDb->addVote('C>B>A','voteToUpdate');
+        $electionWithDb->parseVotes('A>B>C * 20');
+
+        $vote = $electionWithDb->getVotesList('voteToUpdate',true)[0];
+        $vote->setRanking('B>A>C');
+        $vote = null;
+
+        $electionWithDb->parseVotes('A>B>C * 20');
+
+        $this->markTestSkipped(
+          'To implement'
+        );
+
+        self::assertSame(
+'A > B > C * 40
+B > A > C * 1',
+        $electionWithDb->getVotesListAsString());
+    }
+
 }
