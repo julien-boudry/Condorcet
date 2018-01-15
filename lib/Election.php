@@ -515,7 +515,7 @@ class Election
             if ($change) :
                 $vote->setRanking(
                                     $mirror,
-                                    ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : false
+                                    ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
                 );
             endif;
 

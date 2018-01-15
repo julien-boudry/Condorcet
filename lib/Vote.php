@@ -56,7 +56,7 @@ class Vote implements \Iterator
 
         ///
 
-    public function __construct ($ranking, $tags = null, $ownTimestamp = false)
+    public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null)
     {
         $tagsFromString = null;
         // Vote Weight
@@ -248,13 +248,11 @@ class Vote implements \Iterator
 
     // SETTERS
 
-    public function setRanking ($rankingCandidate, $ownTimestamp = false) : bool
+    public function setRanking ($rankingCandidate, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
-        if ($ownTimestamp !== false) :
-            if (!is_numeric($ownTimestamp)) :
-                throw new CondorcetException(21);
-            elseif (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
+        if ($ownTimestamp !== null) :
+            if (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
                 throw new CondorcetException(21);
             endif;
         endif;
@@ -509,10 +507,10 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, int $counter, $ownTimestamp) : void
+    private function archiveRanking ($ranking, int $counter, ?float $ownTimestamp) : void
     {
         $this->_ranking[] = [   'ranking' => $ranking,
-                                'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
+                                'timestamp' => ($ownTimestamp !== null) ? $ownTimestamp : microtime(true),
                                 'counter' => $counter   ];
 
         $this->rewind();

@@ -418,4 +418,25 @@ class VoteTest extends TestCase
         self::assertsame(2,$vote->setWeight(2));
         self::assertsame(2,$vote->getWeight());
     }
+
+    public function testCustomTimestamp()
+    {
+        $vote = new Vote (
+            'A>B>C',
+            null, 
+            $createTimestamp = microtime(true) - (3600 * 1000));
+
+        self::assertSame($createTimestamp, $vote->getTimestamp());
+
+        $vote->setRanking('B>C>A',$ranking2Timestamp = microtime(true) - (60 * 1000));
+
+        self::assertSame($ranking2Timestamp, $vote->getTimestamp());
+
+        self::assertSame($createTimestamp, $vote->getCreateTimestamp());
+
+        self::assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
+
+        self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
+
+    }
 }

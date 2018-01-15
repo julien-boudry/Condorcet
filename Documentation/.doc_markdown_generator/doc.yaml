@@ -1070,7 +1070,7 @@
       text: Equivalent to Vote::addTags method.
     timestamp:
       type: numeric
-      default: false
+      default: null
       required: false
       text: Set your own timestamp metadata on Ranking.
   return: |
@@ -1307,7 +1307,7 @@
 
     timestamp:
       type: numeric
-      default: false
+      default: null
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
   return: |
