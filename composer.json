@@ -22,7 +22,8 @@
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "phpunit/phpunit": "^6.2",
-        "mustangostang/spyc": "^0.6.2"
+        "mustangostang/spyc": "^0.6.2",
+        "codacy/coverage": "dev-master"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
