@@ -14,6 +14,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Candidate;
 use Condorcet\Election;
 use Condorcet\Linkable;
+use Condorcet\ElectionProcess\VoteUtil;
 
 
 class Vote implements \Iterator
@@ -224,25 +225,13 @@ class Vote implements \Iterator
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
-        $simpleRanking = self::getRankingAsString($ranking);
+        $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
         if ($this->_weight > 1 && ( ($context && $context->isVoteWeightIsAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
         endif;
 
         return $simpleRanking;
-    }
-
-    public static function getRankingAsString (array $ranking) : string
-    {
-        foreach ($ranking as &$rank) :
-            if (is_array($rank)) :
-                sort($rank);
-                $rank = implode(' = ',$rank);
-            endif;
-        endforeach;
-
-        return implode(' > ', $ranking);
     }
 
 
@@ -283,7 +272,7 @@ class Vote implements \Iterator
         private function formatRanking (&$ranking) : int
         {
             if (is_string($ranking)) :
-                $ranking = self::convertVoteInput($ranking);
+                $ranking = VoteUtil::convertVoteInput($ranking);
             endif;
 
             if (!is_array($ranking)) :
@@ -335,23 +324,6 @@ class Vote implements \Iterator
             return $counter;
         }
 
-        // From a string like 'A>B=C=H>G=T>Q'
-        public static function convertVoteInput (string $formula) : array
-        {
-            $vote = explode('>', $formula);
-
-            foreach ($vote as &$rank_vote) :
-                $rank_vote = explode('=', $rank_vote);
-
-                // Del space at start and end
-                foreach ($rank_vote as &$value) :
-                    $value = trim($value);
-                endforeach;
-            endforeach;
-
-            return $vote;
-        }
-
 
     public function removeCandidates (array $candidatesList) : bool
     {
@@ -399,7 +371,7 @@ class Vote implements \Iterator
             throw new CondorcetException(17);
         endif;
 
-        $tags = self::tagsConvert($tags);
+        $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return false;
@@ -429,7 +401,7 @@ class Vote implements \Iterator
             throw new CondorcetException(17);
         endif;
 
-        $tags = self::tagsConvert($tags);
+        $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return [];
@@ -457,29 +429,6 @@ class Vote implements \Iterator
         $this->removeTags($this->getTags());
         return true;
     }
-
-        public static function tagsConvert ($tags) : ?array
-        {
-            if (empty($tags)) :
-                return null;
-            endif;
-
-            // Make Array
-            if (!is_array($tags)) :
-                $tags = explode(',', $tags);
-            endif;
-
-            // Trim tags
-            foreach ($tags as $key => &$oneTag) :
-                if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag)) {unset($tags[$key]);
-                    continue;
-                }
-
-                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
-            endforeach;
-
-            return $tags;
-        }
 
     public function getWeight () : int
     {

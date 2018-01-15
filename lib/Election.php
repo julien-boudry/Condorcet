@@ -18,6 +18,7 @@ use Condorcet\Vote;
 use Condorcet\DataManager\VotesManager;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\ElectionProcess\ResultManager;
+use Condorcet\ElectionProcess\VoteUtil;
 use Condorcet\Timer\Manager as Timer_Manager;
 
 
@@ -556,7 +557,7 @@ class Election
             endif;
         else :
             // Prepare Tags
-            $tag = Vote::tagsConvert($in);
+            $tag = VoteUtil::tagsConvert($in);
 
             // Deleting
             foreach ($this->getVotesList($tag, $with) as $key => $value) :
@@ -714,13 +715,13 @@ class Election
     // How many votes are registered ?
     public function countVotes ($tag = null, bool $with = true) : int
     {
-        return $this->_Votes->countVotes(Vote::tagsConvert($tag),$with);
+        return $this->_Votes->countVotes(VoteUtil::tagsConvert($tag),$with);
     }
 
     // Get the votes registered list
     public function getVotesList ($tag = null, bool $with = true) : array
     {
-        return $this->_Votes->getVotesList(Vote::tagsConvert($tag), $with);
+        return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tag), $with);
     }
 
     public function getVotesListAsString () : string

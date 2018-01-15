@@ -15,6 +15,7 @@ use Condorcet\DataManager\DataContextInterface;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
+use Condorcet\ElectionProcess\VoteUtil;
 
 class VotesManager extends ArrayManager
 {
@@ -102,7 +103,7 @@ class VotesManager extends ArrayManager
     // Get the votes registered list
     public function getVotesList (?array $tag = null, bool $with = true) : array
     {
-        if (($tag = Vote::tagsConvert($tag)) === null) :
+        if (($tag = VoteUtil::tagsConvert($tag)) === null) :
             return $this->getFullDataSet();
         else :
             $search = [];
