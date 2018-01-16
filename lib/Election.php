@@ -15,10 +15,11 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Result;
 use Condorcet\CondorcetUtil;
 use Condorcet\Vote;
+use Condorcet\Algo\Pairwise;
 use Condorcet\DataManager\VotesManager;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\ElectionProcess\CandidatesManager;
-use Condorcet\ElectionProcess\ResultManager;
+use Condorcet\ElectionProcess\ResultsManager;
 use Condorcet\ElectionProcess\VoteUtil;
 use Condorcet\Timer\Manager as Timer_Manager;
 
@@ -70,7 +71,8 @@ class Election
     protected $_VoteWeightRule = false;
 
     // Result
-    protected $_ResultManager;
+    protected $_Pairwise;
+    protected $_Calculator;
 
         //////
 
@@ -102,7 +104,8 @@ class Election
             '_ImplicitRanking',
             '_VoteWeightRule',
 
-            '_ResultManager'
+            '_Pairwise',
+            '_Calculator',
         ];
 
         !self::$_checksumMode && array_push($include, '_timer');
@@ -125,9 +128,9 @@ class Election
 
         $this->_timer = clone $this->_timer;
 
-        if ($this->_ResultManager !== null) :
-            $this->_ResultManager = clone $this->_ResultManager;
-            $this->_ResultManager->setElection($this);
+        if ($this->_Pairwise !== null) :
+            $this->_Pairwise = clone $this->_Pairwise;
+            $this->_Pairwise->setElection($this);
         endif;
     }
 
@@ -190,8 +193,8 @@ class Election
             hash_update($r, (string) $value);
         endforeach;
 
-        $this->_ResultManager !== null
-            && hash_update($r,serialize($this->_ResultManager->getPairwise()->getExplicitPairwise()));
+        $this->_Pairwise !== null
+            && hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
 
         hash_update($r, $this->getObjectVersion('major'));
 
@@ -546,86 +549,6 @@ class Election
 
 /////////// RESULTS ///////////
 
-    //:: PUBLIC FUNCTIONS :://
-
-    // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = []) : Result
-    {
-        $this->prepareResult();
-
-        return $this->_ResultManager->getResult($method,$options);
-    }
-
-
-    public function getWinner (?string $substitution = null)
-    {
-        $this->prepareResult();
-
-        return $this->_ResultManager->getWinner($substitution);
-    }
-
-
-    public function getLoser (?string $substitution = null)
-    {
-        $this->prepareResult();
-
-        return $this->_ResultManager->getLoser($substitution);
-    }
-
-
-    public function computeResult ($method = true) : void
-    {
-        $this->getResult($method);
-    }
-
-
-    //:: TOOLS FOR RESULT PROCESS :://
-
-
-    // Prepare to compute results & caching system
-    protected function prepareResult () : bool
-    {
-        if ($this->_State > 2) :
-            return false;
-        elseif ($this->_State === 2) :
-            $this->cleanupResult();
-
-            $this->_ResultManager = new ResultManager ($this);
-
-            // Change state to result
-            $this->_State = 3;
-
-            // Return
-            return true;
-        else :
-            throw new CondorcetException(6);
-        endif;
-    }
-
-
-    // Cleanup results to compute again with new votes
-    protected function cleanupResult () : void
-    {
-        // Reset state
-        if ($this->_State > 2) : 
-            $this->_State = 2;
-        endif;
-
-            //////
-
-        $this->_ResultManager = null;
-    }
-
-
-    //:: GET RAW DATA :://
-
-    public function getPairwise (bool $explicit = true)
-    {
-        $this->prepareResult();
-
-        $pairwise = $this->_ResultManager->getPairwise($explicit);
-
-        return (!$explicit) ? $pairwise : $pairwise->getExplicitPairwise($explicit);
-    }
+    use ResultsManager;
 
 }
