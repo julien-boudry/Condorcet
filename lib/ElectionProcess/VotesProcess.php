@@ -210,7 +210,9 @@ trait VotesProcess
 
                 try {
                     $adding[] = $this->addVote($record['vote'], $tags);
-                } catch (\Exception $e) {}
+                } catch (\Exception $e) {
+                    // Ignore invalid vote
+                }
             endfor;
         endforeach;
 

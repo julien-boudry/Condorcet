@@ -106,21 +106,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         // Chrono
         new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
-        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
-
-            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
-
-            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
-
-                if ($candidate_key_r !== $candidate_key) :
-                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
-                endif;
-
-            endforeach;
-
-        endforeach;
+        $this->formatNewpairwise();
 
         // Win && Null
         foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
@@ -177,6 +163,25 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endforeach;
 
                 endforeach;
+
+            endforeach;
+
+        endforeach;
+    }
+
+    protected function formatNewpairwise () : void
+    {
+        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
+
+            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
+
+            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
+
+                if ($candidate_key_r !== $candidate_key) :
+                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
+                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
+                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
+                endif;
 
             endforeach;
 

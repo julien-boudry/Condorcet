@@ -184,7 +184,9 @@ trait CandidatesProcess
             try {
                 $adding[] = $this->addCandidate($candidate);
             }
-            catch (CondorcetException $e) {}
+            catch (CondorcetException $e) {
+                // Ignore invalid vote
+            }
         endforeach;
 
         return $adding;
