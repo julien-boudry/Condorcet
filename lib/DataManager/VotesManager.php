@@ -22,7 +22,7 @@ class VotesManager extends ArrayManager
 
 /////////// Magic ///////////
 
-    public function __construct (Election $election = null)
+    public function __construct (Election $election)
     {
         $this->setElection($election);
 
@@ -98,8 +98,7 @@ class VotesManager extends ArrayManager
 /////////// Public specific methods ///////////
 
     public function getVoteKey (Vote $vote) {
-        ($r = array_search($vote, $this->_Container, true)) !== false
-            OR ($r = array_search($vote, $this->_Cache, true));
+        ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
 
         return $r;
     }
