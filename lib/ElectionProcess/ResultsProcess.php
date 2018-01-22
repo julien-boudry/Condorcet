@@ -16,45 +16,22 @@ use Condorcet\Algo\Pairwise;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
 // Manage Results for Election class
-trait ResultsManager
+trait ResultsProcess
 {
 
 /////////// CONSTRUCTOR ///////////
-
-    // Params
-    protected $_ImplicitRanking = true;
-    protected $_VoteWeightRule = false;
 
     // Result
     protected $_Pairwise;
     protected $_Calculator;
 
 
-/////////// RESULTS TYPE ///////////
-
-
-    public function getImplicitRankingRule () : bool
-    {
-        return $this->_ImplicitRanking;
-    }
-
-    public function setImplicitRanking (bool $rule = true) : bool
-    {
-        $this->_ImplicitRanking = $rule;
-        $this->cleanupResult();
-        return $this->getImplicitRankingRule();
-    }
-
-
-/////////// RESULTS ///////////
-
-
-    //:: PUBLIC FUNCTIONS :://
+/////////// GET RESULTS ///////////
 
     // Generic function for default result with ability to change default object method
     public function getResult ($method = true, array $options = []) : Result
     {
-        $options = $this->formatResultOptions($options);
+        $options = self::formatResultOptions($options);
 
         // Filter if tag is provided & return
         if ($options['%tagFilter']) :
@@ -135,36 +112,25 @@ trait ResultsManager
         endif;
     }
 
+    public function getPairwise (bool $explicit = true)
+    {
+        $this->prepareResult();
+
+        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getExplicitPairwise();
+    }
+
+
+/////////// MAKE RESULTS ///////////
+
     public function computeResult ($method = true) : void
     {
         $this->getResult($method);
     }
 
-
-    //:: TOOLS FOR RESULT PROCESS :://
-
-
-    // Prepare to compute results & caching system
-    protected function prepareResult () : bool
+    protected function makePairwise () : void
     {
-        if ($this->_State > 2) :
-            return false;
-        elseif ($this->_State === 2) :
-            $this->cleanupResult();
-
-            // Do Pairewise
-            $this->_Pairwise = new Pairwise ($this);
-
-            // Change state to result
-            $this->_State = 3;
-
-            // Return
-            return true;
-        else :
-            throw new CondorcetException(6);
-        endif;
+        $this->_Pairwise = new Pairwise ($this);
     }
-
 
     protected function initResult (string $class) : void
     {
@@ -172,7 +138,6 @@ trait ResultsManager
             $this->_Calculator[$class] = new $class($this);
         endif;
     }
-
 
     // Cleanup results to compute again with new votes
     protected function cleanupResult () : void
@@ -192,7 +157,9 @@ trait ResultsManager
     }
 
 
-    protected function formatResultOptions (array $arg) : array
+/////////// UTILS ///////////
+
+    protected static function formatResultOptions (array $arg) : array
     {
         // About tag filter
         if (isset($arg['tags'])):
@@ -208,13 +175,4 @@ trait ResultsManager
         return $arg;
     }
 
-
-    //:: GET RAW DATA :://
-
-    public function getPairwise (bool $explicit = true)
-    {
-        $this->prepareResult();
-
-        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getExplicitPairwise();
-    }
 }
