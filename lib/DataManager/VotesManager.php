@@ -22,11 +22,9 @@ class VotesManager extends ArrayManager
 
 /////////// Magic ///////////
 
-    public function __construct (?Election $election = null)
+    public function __construct (Election $election = null)
     {
-        if ($election !== null) :
-            $this->setElection($election);
-        endif;
+        $this->setElection($election);
 
         parent::__construct();
     }
@@ -65,6 +63,11 @@ class VotesManager extends ArrayManager
         return $context;
     }
 
+    protected function preDeletedTask ($object) : void
+    {
+        $object->destroyLink($this->_link[0]);
+    }
+
 /////////// Array Access - Specials improvements ///////////
 
     public function offsetSet($offset, $value) : void
@@ -79,16 +82,15 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset($offset) : void
     {
-        if (parent::offsetUnset($offset)) :
-            $this->setStateToVote();
-        endif;
+        parent::offsetUnset($offset);
+        $this->setStateToVote();
     }
 
 /////////// Internal Election related methods ///////////
 
     protected function setStateToVote () : void
     {
-        foreach ($this->_link as &$element) :
+        foreach ($this->_link as $element) :
             $element->setStateToVote();
         endforeach;
     }
@@ -96,8 +98,10 @@ class VotesManager extends ArrayManager
 /////////// Public specific methods ///////////
 
     public function getVoteKey (Vote $vote) {
-        // Return False if using with Bdd storing. Futur: Throw a PHP7 Error.
-        return array_search($vote, $this->_Container, true);
+        ($r = array_search($vote, $this->_Container, true)) !== false
+            OR ($r = array_search($vote, $this->_Cache, true));
+
+        return $r;
     }
 
     // Get the votes registered list
@@ -197,4 +201,5 @@ class VotesManager extends ArrayManager
             return $count;
         endif;
     }
+
 }

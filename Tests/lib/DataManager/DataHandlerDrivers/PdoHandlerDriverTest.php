@@ -190,22 +190,18 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb->parseCandidates('A;B;C');
 
+        $electionWithDb->parseVotes('A>B>C * 19');
         $electionWithDb->addVote('C>B>A','voteToUpdate');
-        $electionWithDb->parseVotes('A>B>C * 20');
 
-        $vote = $electionWithDb->getVotesList('voteToUpdate',true)[0];
+        $vote = $electionWithDb->getVotesList('voteToUpdate',true)[19];
         $vote->setRanking('B>A>C');
         $vote = null;
 
         $electionWithDb->parseVotes('A>B>C * 20');
 
-        $this->markTestSkipped(
-          'To implement'
-        );
-
         self::assertSame(
-'A > B > C * 40
-B > A > C * 1',
+            "A > B > C * 39\n".
+            "B > A > C * 1",
         $electionWithDb->getVotesListAsString());
     }
 

@@ -13,71 +13,58 @@ class VotesManagerTest extends TestCase
 {
     private $election;
 
-    /**
-     * @var VotesManager
-     */
-    private $empty_votes_manager;
-
-    /**
-     * @var VotesManager
-     */
     private $votes_manager;
 
     protected function setUp()
     {
         $this->election = new Election();
+        $this->election->parseCandidates('A;B;C');
 
-        $this->votes_manager = new VotesManager($this->election);
-        $this->empty_votes_manager = new VotesManager();
+        $this->votes_manager = $this->election->getVotesManager();
     }
 
     public function testGetDataContextObject()
     {
-        self::assertNull($this->empty_votes_manager->getDataContextObject()->election);
         self::assertSame($this->election, $this->votes_manager->getDataContextObject()->election);
         self::assertInstanceOf(DataContextInterface::class,$this->votes_manager->getDataContextObject());
     }
 
+    /**
+      * @expectedException Condorcet\CondorcetException
+      */
     public function testOffsetSet()
     {
         $vote = new Vote([]);
 
         // add valid vote
-        $this->empty_votes_manager[] = $vote;
-        self::assertSame($vote, $this->empty_votes_manager->getVotesList()[0]);
+        $this->votes_manager[] = $vote;
+        self::assertSame($vote, $this->votes_manager->getVotesList()[0]);
 
         // add invalid vote
-        self::expectException(CondorcetException::class);
-        $this->empty_votes_manager[] = null;
+        $this->votes_manager[] = null;
     }
 
     public function testOffsetUnset()
     {
-        $before_list = $this->empty_votes_manager->getVotesList();
+        $before_list = $this->votes_manager->getVotesList();
 
         // unset non existent vote
-        unset($this->empty_votes_manager[0]);
-        self::assertSame($before_list, $this->empty_votes_manager->getVotesList());
+        unset($this->votes_manager[0]);
+        self::assertSame($before_list, $this->votes_manager->getVotesList());
 
         // unset existing vote
-        $this->empty_votes_manager[] = new Vote([]);
-        unset($this->empty_votes_manager[0]);
-        self::assertEmpty($this->empty_votes_manager->getVotesList());
+        $this->votes_manager[] = new Vote([]);
+        unset($this->votes_manager[0]);
+        self::assertEmpty($this->votes_manager->getVotesList());
     }
 
     public function testGetVoteKey()
     {
-        self::assertFalse($this->empty_votes_manager->getVoteKey(new Vote([])));
+        self::assertFalse($this->votes_manager->getVoteKey(new Vote([])));
     }
 
     public function testGetVotesList()
     {
-        // Without Election
-        self::assertEmpty($this->empty_votes_manager->getVotesList());
-
-        $this->empty_votes_manager[] = new Vote([]);
-        self::assertNotEmpty($this->empty_votes_manager->getVotesList());
-
         // With Election
         self::assertEmpty($this->votes_manager->getVotesList());
 

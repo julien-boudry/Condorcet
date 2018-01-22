@@ -55,7 +55,7 @@ trait Linkable
             unset($this->_link[$destroyKey]);
             return true;
         else :
-            throw new CondorcetException;
+            return false;
         endif;
     }
 

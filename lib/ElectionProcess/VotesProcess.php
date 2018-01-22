@@ -77,11 +77,15 @@ trait VotesProcess
     }
 
     // return True or throw an Exception
-    public function prepareModifyVote (Vote $existVote)
+    public function prepareModifyVote (Vote $existVote) : void
     {
         try {
             $this->prepareVoteInput($existVote);
             $this->setStateToVote();
+
+            if ($this->_Votes->isUsingHandler()) : 
+                $this->_Votes[$this->getVoteKey($existVote)] = $existVote;
+            endif;
         }
         catch (\Exception $e) {
             throw $e;
