@@ -27,6 +27,10 @@ foreach ($doc as $entry) :
 
   	$path = "../" . str_replace("\\", "_", $method['class']) . " Class/";
 
+    if (!is_dir($path)) :
+        mkdir($path);
+    endif;
+
   	file_put_contents($path.makeFilename($method), createMarkdownContent($method));
   endforeach;
 endforeach;
