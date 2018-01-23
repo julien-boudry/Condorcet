@@ -1,8 +1,11 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    PDO DataHandler Module - From the original Condorcet PHP
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
+
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
