@@ -7,6 +7,7 @@
 [![Packagist](https://img.shields.io/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![Packagist Download](https://img.shields.io/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![GitHub contributors](https://img.shields.io/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/badges/shields.svg?style=flat-square)]()
 [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/julien-boudry/Condorcet.svg?style=flat-square)](https://scrutinizer-ci.com/g/julien-boudry/Condorcet/code-structure/master/code-coverage)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
