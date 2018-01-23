@@ -160,6 +160,8 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('Schulze');
 
+        self::assertSame(true,isset($result[1]));
+
         unset($result[1]);
     }
 

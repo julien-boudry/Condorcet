@@ -86,4 +86,15 @@ class CandidateTest extends TestCase
         $election2->addCandidate('Debussy');
         $this->candidate1->setName('Debussy'); // Throw an Exception. Code 19.
     }
+
+    public function testCloneCandidate()
+    {
+        ($election = new Election)->addCandidate($this->candidate1);
+
+        self::assertsame(1,$this->candidate1->countLinks());
+
+        $cloneCandidate = clone $this->candidate1;
+
+        self::assertsame(0,$cloneCandidate->countLinks());
+    }
 }

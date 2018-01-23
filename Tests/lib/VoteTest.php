@@ -439,4 +439,34 @@ class VoteTest extends TestCase
         self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
 
     }
+
+    public function testHashCode()
+    {
+        $vote = new Vote ('A>B>C');
+
+        $hashCode[1] = $vote->getHashCode();
+
+        $vote->addTags('tag1');
+
+        $hashCode[2] = $vote->getHashCode();
+
+        $vote->setRanking('C>A>B');
+
+        $hashCode[3] = $vote->getHashCode();
+
+        $vote->setRanking('C>A>B');
+
+        $hashCode[4] = $vote->getHashCode();
+
+        self::assertNotsame($hashCode[2],$hashCode[1]);
+        self::assertNotsame($hashCode[3],$hashCode[2]);
+        self::assertNotSame($hashCode[4],$hashCode[3]);
+    }
+
+    public function testCountRankingCandidates()
+    {
+        $vote = new Vote ('A>B>C');
+
+        self::assertsame(3,$vote->countRankingCandidates());
+    }
 }
