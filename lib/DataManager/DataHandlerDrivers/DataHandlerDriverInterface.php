@@ -41,8 +41,4 @@ interface DataHandlerDriverInterface
         // Arg example : (42, 3)
         // Return example : [42 => Condorcet/Vote, 43 => Condorcet/Vote, 44 => Condorcet/Vote]
     public function selectRangeEntitys (int $key, int $limit) : array;
-
-    // Delete * Entitys
-        // SQL example : DELETE * FROM...
-    public function flushAll () : ?int;
 }

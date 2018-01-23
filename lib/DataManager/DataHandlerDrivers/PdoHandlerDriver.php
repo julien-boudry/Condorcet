@@ -125,9 +125,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         // Count Entitys
         $this->_prepare['countEntitys'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
-
-        // Flush All
-        $this->_prepare['flushAll'] = $this->_handler->prepare($template['delete_template'] . ' is not null' . $template['end_template']);
     }
 
     protected function initTransaction () : void
@@ -311,21 +308,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    public function flushAll () : ?int
-    {
-        try {
-            $this->_prepare['flushAll']->execute();
-            $r = $this->_prepare['flushAll']->rowCount();
-
-            $this->_prepare['flushAll']->closeCursor();
-
-            return $r;
-        } catch (\Exception $e) {
-            $this->_queryError = true;
-            throw $e;
-        }      
     }
 
 }
