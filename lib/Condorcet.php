@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -10,7 +11,6 @@ declare(strict_types=1);
 namespace Condorcet;
 
 use Condorcet\CondorcetException;
-use Condorcet\Result;
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
@@ -148,5 +148,20 @@ abstract class Condorcet
         else :
             return false;
         endif;
+    }
+
+    public static function condorcetBasicSubstitution (?string $substitution) : string
+    {
+        if ( $substitution !== null ) :
+            if ( Condorcet::isAuthMethod($substitution) ) :
+                $algo = $substitution;
+            else :
+                throw new CondorcetException(9,$substitution);
+            endif;
+        else :
+            $algo = Condorcet::CONDORCET_BASIC_CLASS;
+        endif;
+
+        return $algo;
     }
 }

@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -18,10 +19,6 @@ interface DataHandlerDriverInterface
     // Entitys to register. 
         // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
     public function insertEntitys(array $input) : void;
-
-    // Update Entity with this key to this Data.
-        // Args example: (42,Condorcet/Vote)
-    public function updateOneEntity (int $key,$data) : void;
 
     // Delete Entity with this key to this Data. If justTry is true, don't throw Exception if row not exist. Else throw one Concordet/CondorcetException(30)
     public function deleteOneEntity (int $key, bool $justTry) : ?int;
@@ -45,8 +42,4 @@ interface DataHandlerDriverInterface
         // Arg example : (42, 3)
         // Return example : [42 => Condorcet/Vote, 43 => Condorcet/Vote, 44 => Condorcet/Vote]
     public function selectRangeEntitys (int $key, int $limit) : array;
-
-    // Delete * Entitys
-        // SQL example : DELETE * FROM...
-    public function flushAll () : ?int;
 }

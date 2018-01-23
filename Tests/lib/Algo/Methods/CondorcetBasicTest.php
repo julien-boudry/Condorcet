@@ -48,6 +48,9 @@ class CondorcetBasicTest extends TestCase
         ');
 
         self::assertSame(null, $this->election->getWinner());
+
+        // Schulze Substitution
+        self::assertEquals('X', $this->election->getWinner('Schulze'));
     }
 
     public function testResult_3 ()

@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -14,6 +15,7 @@ use Condorcet\CondorcetVersion;
 use Condorcet\Candidate;
 use Condorcet\Election;
 use Condorcet\Linkable;
+use Condorcet\ElectionProcess\VoteUtil;
 
 
 class Vote implements \Iterator
@@ -56,7 +58,7 @@ class Vote implements \Iterator
 
         ///
 
-    public function __construct ($ranking, $tags = null, $ownTimestamp = false)
+    public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null)
     {
         $tagsFromString = null;
         // Vote Weight
@@ -224,7 +226,7 @@ class Vote implements \Iterator
     {
         $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
 
-        $simpleRanking = self::getRankingAsString($ranking);
+        $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
         if ($this->_weight > 1 && ( ($context && $context->isVoteWeightIsAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
@@ -233,28 +235,14 @@ class Vote implements \Iterator
         return $simpleRanking;
     }
 
-    public static function getRankingAsString (array $ranking) : string
-    {
-        foreach ($ranking as &$rank) :
-            if (is_array($rank)) :
-                sort($rank);
-                $rank = implode(' = ',$rank);
-            endif;
-        endforeach;
-
-        return implode(' > ', $ranking);
-    }
-
 
     // SETTERS
 
-    public function setRanking ($rankingCandidate, $ownTimestamp = false) : bool
+    public function setRanking ($rankingCandidate, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
-        if ($ownTimestamp !== false) :
-            if (!is_numeric($ownTimestamp)) :
-                throw new CondorcetException(21);
-            elseif (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
+        if ($ownTimestamp !== null) :
+            if (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
                 throw new CondorcetException(21);
             endif;
         endif;
@@ -285,7 +273,7 @@ class Vote implements \Iterator
         private function formatRanking (&$ranking) : int
         {
             if (is_string($ranking)) :
-                $ranking = self::convertVoteInput($ranking);
+                $ranking = VoteUtil::convertVoteInput($ranking);
             endif;
 
             if (!is_array($ranking)) :
@@ -337,23 +325,6 @@ class Vote implements \Iterator
             return $counter;
         }
 
-        // From a string like 'A>B=C=H>G=T>Q'
-        public static function convertVoteInput (string $formula) : array
-        {
-            $vote = explode('>', $formula);
-
-            foreach ($vote as &$rank_vote) :
-                $rank_vote = explode('=', $rank_vote);
-
-                // Del space at start and end
-                foreach ($rank_vote as &$value) :
-                    $value = trim($value);
-                endforeach;
-            endforeach;
-
-            return $vote;
-        }
-
 
     public function removeCandidates (array $candidatesList) : bool
     {
@@ -401,7 +372,7 @@ class Vote implements \Iterator
             throw new CondorcetException(17);
         endif;
 
-        $tags = self::tagsConvert($tags);
+        $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return false;
@@ -431,7 +402,7 @@ class Vote implements \Iterator
             throw new CondorcetException(17);
         endif;
 
-        $tags = self::tagsConvert($tags);
+        $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return [];
@@ -460,29 +431,6 @@ class Vote implements \Iterator
         return true;
     }
 
-        public static function tagsConvert ($tags) : ?array
-        {
-            if (empty($tags)) :
-                return null;
-            endif;
-
-            // Make Array
-            if (!is_array($tags)) :
-                $tags = explode(',', $tags);
-            endif;
-
-            // Trim tags
-            foreach ($tags as $key => &$oneTag) :
-                if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag)) {unset($tags[$key]);
-                    continue;
-                }
-
-                $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
-            endforeach;
-
-            return $tags;
-        }
-
     public function getWeight () : int
     {
         return $this->_weight;
@@ -509,10 +457,10 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, int $counter, $ownTimestamp) : void
+    private function archiveRanking ($ranking, int $counter, ?float $ownTimestamp) : void
     {
         $this->_ranking[] = [   'ranking' => $ranking,
-                                'timestamp' => ($ownTimestamp !== false) ? (float) $ownTimestamp : microtime(true),
+                                'timestamp' => ($ownTimestamp !== null) ? $ownTimestamp : microtime(true),
                                 'counter' => $counter   ];
 
         $this->rewind();

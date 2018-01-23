@@ -12,4 +12,7 @@ install:
   - composer update
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-clover build/coverage/xml
+
+after_script:
+  - php vendor/bin/codacycoverage clover build/coverage/xml

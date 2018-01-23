@@ -121,6 +121,16 @@ class ElectionTest extends TestCase
 
         self::assertCount(21,$this->election1->parseVotes('candidate1>candidate2 * 42'));
 
+        self::assertSame(42,$this->election1->countVotes());
+
+        $this->election1->ignoreMaxVote(true);
+
+        $this->election1->addVote('candidate1');
+
+        self::assertSame(43,$this->election1->countVotes());
+
+        $this->election1->ignoreMaxVote(false);
+
         $this->election1->addVote('candidate3');
     }
 

@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -75,7 +76,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->_Election = null;
     }
 
-    public function setElection (Election $election)
+    public function setElection (Election $election) : void
     {
         $this->_Election = $election;
     }
@@ -106,21 +107,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         // Chrono
         new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
-        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
-
-            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
-
-            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
-
-                if ($candidate_key_r !== $candidate_key) :
-                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
-                endif;
-
-            endforeach;
-
-        endforeach;
+        $this->formatNewpairwise();
 
         // Win && Null
         foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
@@ -177,6 +164,25 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endforeach;
 
                 endforeach;
+
+            endforeach;
+
+        endforeach;
+    }
+
+    protected function formatNewpairwise () : void
+    {
+        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
+
+            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
+
+            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
+
+                if ($candidate_key_r !== $candidate_key) :
+                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
+                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
+                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
+                endif;
 
             endforeach;
 

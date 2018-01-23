@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -15,17 +16,16 @@ use Condorcet\DataManager\DataContextInterface;
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
+use Condorcet\ElectionProcess\VoteUtil;
 
 class VotesManager extends ArrayManager
 {
 
 /////////// Magic ///////////
 
-    public function __construct (?Election $election = null)
+    public function __construct (Election $election)
     {
-        if ($election !== null) :
-            $this->setElection($election);
-        endif;
+        $this->setElection($election);
 
         parent::__construct();
     }
@@ -64,6 +64,11 @@ class VotesManager extends ArrayManager
         return $context;
     }
 
+    protected function preDeletedTask ($object) : void
+    {
+        $object->destroyLink($this->_link[0]);
+    }
+
 /////////// Array Access - Specials improvements ///////////
 
     public function offsetSet($offset, $value) : void
@@ -76,20 +81,17 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function offsetUnset($offset) : bool
+    public function offsetUnset($offset) : void
     {
-        if (parent::offsetUnset($offset)) :
-            $this->setStateToVote();
-            return true;
-        endif;
-        return false;
+        parent::offsetUnset($offset);
+        $this->setStateToVote();
     }
 
 /////////// Internal Election related methods ///////////
 
     protected function setStateToVote () : void
     {
-        foreach ($this->_link as &$element) :
+        foreach ($this->_link as $element) :
             $element->setStateToVote();
         endforeach;
     }
@@ -97,14 +99,15 @@ class VotesManager extends ArrayManager
 /////////// Public specific methods ///////////
 
     public function getVoteKey (Vote $vote) {
-        // Return False if using with Bdd storing. Futur: Throw a PHP7 Error.
-        return array_search($vote, $this->_Container, true);
+        ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
+
+        return $r;
     }
 
     // Get the votes registered list
     public function getVotesList (?array $tag = null, bool $with = true) : array
     {
-        if (($tag = Vote::tagsConvert($tag)) === null) :
+        if (($tag = VoteUtil::tagsConvert($tag)) === null) :
             return $this->getFullDataSet();
         else :
             $search = [];
@@ -198,4 +201,5 @@ class VotesManager extends ArrayManager
             return $count;
         endif;
     }
+
 }

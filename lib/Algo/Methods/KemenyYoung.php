@@ -1,8 +1,11 @@
 <?php
 /*
-    Kemeny-Young part of the Condorcet PHP Class
+    Part of KEMENY–YOUNG method Module - From the original Condorcet PHP
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
+
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -72,6 +75,7 @@ class KemenyYoung extends Method implements MethodInterface
             $explicit[$key]['score'] = $this->_RankingScore[$key];
         endforeach;
 
+        $stats = [];
         $stats['bestScore'] = max($this->_RankingScore);
         $stats['rankingScore'] = $explicit;
 

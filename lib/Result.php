@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -12,8 +13,9 @@ namespace Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 use Condorcet\Election;
-use Condorcet\Util;
+use Condorcet\CondorcetUtil;
 use Condorcet\Vote;
+use Condorcet\ElectionProcess\VoteUtil;
 
 
 class Result implements \ArrayAccess, \Countable, \Iterator 
@@ -22,23 +24,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement Iterator
 
-    function rewind() :void {
+    public function rewind() :void {
         reset($this->_UserResult);
     }
 
-    function current () {
+    public function current () {
         return current($this->_UserResult);
     }
 
-    function key () : int {
+    public function key () : int {
         return key($this->_UserResult);
     }
 
-    function next () : void {
+    public function next () : void {
         next($this->_UserResult);
     }
 
-    function valid () : bool {
+    public function valid () : bool {
         return (key($this->_UserResult) === null) ? false : true;
     }
 
@@ -121,7 +123,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getResultAsString ()
     {
-        return Vote::getRankingAsString($this->getResultAsArray(true));
+        return VoteUtil::getRankingAsString($this->getResultAsArray(true));
     }
 
     public function getOriginalArrayWithString () : array
@@ -139,11 +141,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function getWinner () {
-        return Util::format($this[1],false);
+        return CondorcetUtil::format($this[1],false);
     }
 
     public function getLoser () {
-        return Util::format($this[count($this)],false);
+        return CondorcetUtil::format($this[count($this)],false);
     }
 
     public function getCondorcetWinner () {

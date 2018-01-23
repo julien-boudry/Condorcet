@@ -9,7 +9,7 @@ declare(strict_types=1);
     use Condorcet\Condorcet;
     use Condorcet\Election;
     use Condorcet\Candidate;
-    use Condorcet\Util;
+    use Condorcet\CondorcetUtil;
     use Condorcet\Vote;
 
     $firstPart = '';

@@ -356,9 +356,10 @@ class VoteTest extends TestCase
             $this->vote1->getTags()
         );
 
+        self::assertsame([],$this->vote1->removeTags(''));
         $this->vote1->removeTags('tag1');
         $this->vote1->removeTags(['tag2','tag3']);
-        self::assertsame($this->vote1->removeTags('tag4,tag5'),['tag4','tag5']);
+        self::assertsame($this->vote1->removeTags('tag4,tag5,tag42'),['tag4','tag5']);
 
         self::assertSame(
             [],
@@ -407,5 +408,65 @@ class VoteTest extends TestCase
         foreach ($vote as $key => $value) :
             self::assertSame($vote->getRanking()[$key],$value);
         endforeach;
+    }
+
+    public function testWeight()
+    {
+        $vote = new Vote ('A>B>C^42');
+
+        self::assertsame(42,$vote->getWeight());
+        self::assertsame(2,$vote->setWeight(2));
+        self::assertsame(2,$vote->getWeight());
+    }
+
+    public function testCustomTimestamp()
+    {
+        $vote = new Vote (
+            'A>B>C',
+            null, 
+            $createTimestamp = microtime(true) - (3600 * 1000));
+
+        self::assertSame($createTimestamp, $vote->getTimestamp());
+
+        $vote->setRanking('B>C>A',$ranking2Timestamp = microtime(true) - (60 * 1000));
+
+        self::assertSame($ranking2Timestamp, $vote->getTimestamp());
+
+        self::assertSame($createTimestamp, $vote->getCreateTimestamp());
+
+        self::assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
+
+        self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
+
+    }
+
+    public function testHashCode()
+    {
+        $vote = new Vote ('A>B>C');
+
+        $hashCode[1] = $vote->getHashCode();
+
+        $vote->addTags('tag1');
+
+        $hashCode[2] = $vote->getHashCode();
+
+        $vote->setRanking('C>A>B');
+
+        $hashCode[3] = $vote->getHashCode();
+
+        $vote->setRanking('C>A>B');
+
+        $hashCode[4] = $vote->getHashCode();
+
+        self::assertNotsame($hashCode[2],$hashCode[1]);
+        self::assertNotsame($hashCode[3],$hashCode[2]);
+        self::assertNotSame($hashCode[4],$hashCode[3]);
+    }
+
+    public function testCountRankingCandidates()
+    {
+        $vote = new Vote ('A>B>C');
+
+        self::assertsame(3,$vote->countRankingCandidates());
     }
 }

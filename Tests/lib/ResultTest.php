@@ -78,7 +78,7 @@ class ResultTest extends TestCase
         self::assertTrue(is_float($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp()));
     }
 
-    public function testGetCondorcetWinner ()
+    public function testGetWinner ()
     {
         $this->election1->addCandidate('a');
         $this->election1->addCandidate('b');
@@ -91,10 +91,12 @@ class ResultTest extends TestCase
             c > a > b * 2
         ');
 
-        self::assertEquals('c', (string) $this->election1->getResult()->getWinner());
+        self::assertEquals('c', $this->election1->getResult()->getWinner());
+        self::assertEquals('c', $this->election1->getResult()->getCondorcetWinner());
+
     }
 
-    public function testGetCondorcetLoser ()
+    public function testGetLoser ()
     {
         $this->election1->addCandidate('Memphis');
         $this->election1->addCandidate('Nashville');
@@ -108,7 +110,8 @@ class ResultTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertEquals('Memphis', (string) $this->election1->getResult()->getLoser());
+        self::assertEquals('Memphis', $this->election1->getResult()->getLoser());
+        self::assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
     }
 
     public function testgetOriginalArrayWithString ()
@@ -156,6 +159,8 @@ class ResultTest extends TestCase
         $this->election1->addVote('C > B > A');
 
         $result = $this->election1->getResult('Schulze');
+
+        self::assertSame(true,isset($result[1]));
 
         unset($result[1]);
     }

@@ -1,8 +1,11 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    PDO DataHandler Module - From the original Condorcet PHP
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
+
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -92,7 +95,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $template['insert_template'] = 'INSERT INTO '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].', '.$this->_struct['dataColumnName'].') VALUES ';
         $template['delete_template'] = 'DELETE FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
         $template['select_template'] = 'SELECT '.$this->_struct['primaryColumnName'].','.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
-        $template['update_template'] = 'UPDATE '.$this->_struct['tableName'].' SET '.$this->_struct['dataColumnName'].' = :data WHERE '.$this->_struct['primaryColumnName'];
 
         // Select the max / min key value. Usefull if array cursor is lost on DataManager.
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
@@ -126,12 +128,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         // Count Entitys
         $this->_prepare['countEntitys'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
-
-        // Update Entity
-        $this->_prepare['updateOneEntity'] = $this->_handler->prepare($template['update_template'] . ' = :key' . $template['end_template']);
-
-        // Flush All
-        $this->_prepare['flushAll'] = $this->_handler->prepare($template['delete_template'] . ' is not null' . $template['end_template']);
     }
 
     protected function initTransaction () : void
@@ -209,24 +205,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             endforeach;
         }
 
-    public function updateOneEntity (int $key,$data) : void
-    {
-        try {
-            $this->_prepare['updateOneEntity']->bindParam(':key', $key, \PDO::PARAM_INT);
-            $this->_prepare['updateOneEntity']->bindParam(':data', $data, \PDO::PARAM_STR);
-
-            $this->_prepare['updateOneEntity']->execute();
-
-            if ($this->_prepare['updateOneEntity']->rowCount() !== 1) :
-                throw new CondorcetException (0,'Ce Entity n\'existe pas !');
-            endif;
-
-            $this->_prepare['updateOneEntity']->closeCursor();
-        } catch (\Exception $e) {
-            $this->_queryError = true;
-            throw $e;
-        }
-    }
 
     public function deleteOneEntity (int $key, bool $justTry) : ?int
     {
@@ -333,21 +311,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    public function flushAll () : ?int
-    {
-        try {
-            $this->_prepare['flushAll']->execute();
-            $r = $this->_prepare['flushAll']->rowCount();
-
-            $this->_prepare['flushAll']->closeCursor();
-
-            return $r;
-        } catch (\Exception $e) {
-            $this->_queryError = true;
-            throw $e;
-        }      
     }
 
 }

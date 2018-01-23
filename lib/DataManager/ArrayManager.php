@@ -1,8 +1,9 @@
 <?php
 /*
-    Condorcet PHP Class, with Schulze Methods and others !
+    Condorcet PHP - Election manager and results calculator.
+    Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
-    By Julien Boudry - MIT LICENSE (Please read LICENSE.txt)
+    By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
 declare(strict_types=1);
@@ -72,10 +73,10 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->_Container[++$this->_maxKey] = $value;
             ++$this->_counter;
         else :
-            $state = !$this->keyExist($offset);
+            $state = $this->keyExist($offset);
             $this->_Container[$offset] = $value;
 
-            if ($state) :
+            if (!$state) :
                 ++$this->_counter;
 
                 if ($offset > $this->_maxKey) :
@@ -99,21 +100,22 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) ? true : false ;
     }
 
-    public function offsetUnset($offset) : bool
+    public function offsetUnset($offset) : void
     {
         if ($this->keyExist($offset)) :
             if (array_key_exists($offset, $this->_Container)) :
+                $this->preDeletedTask($this->_Container[$offset]);
                 unset($this->_Container[$offset]);
             else :
-                unset($this->_Cache[$offset]);
+                if (array_key_exists($offset, $this->_Cache)) :
+                    $this->preDeletedTask($this->_Cache[$offset]);
+                    unset($this->_Cache[$offset]);
+                endif;
 
                 $this->_DataHandler->deleteOneEntity($offset, false);
             endif;
 
             --$this->_counter;
-            return true;
-        else :
-            return false;
         endif;
     }
 
@@ -125,8 +127,13 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             if (array_key_exists($offset, $this->_Cache)) :
                 return $this->_Cache[$offset];
             else :
-                $query = $this->_DataHandler->selectOneEntity($offset);
-                return ($query === false) ? null : $query;
+                $oneEntity = $this->_DataHandler->selectOneEntity($offset);
+                if ($oneEntity === false) :
+                    return null;
+                else : 
+                    $this->_Cache[$offset] = $oneEntity;
+                    return $oneEntity;
+                endif;
             endif;
         else :
             return null;
@@ -188,7 +195,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         }
 
     public function valid() : bool {
-        return $this->valid;
+        return ($this->_counter !== 0) ? $this->valid : false;
     }
 
 
@@ -202,9 +209,14 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function getFullDataSet () : array
     {
-        $this->regularize();
+        if ($this->isUsingHandler()) :
+            $this->regularize();
+            $this->clearCache();
 
-        return (!$this->isUsingHandler()) ? $this->_Container : $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
+            return $this->_Cache = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
+        else :
+            return $this->_Container;
+        endif;
     }
 
     public function keyExist ($offset) : bool
@@ -245,6 +257,8 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
 /////////// HANDLER API ///////////
 
+    abstract protected function preDeletedTask ($object) : void;
+
     public function regularize () : bool
     {
         if (!$this->isUsingHandler() || empty($this->_Container)) :
@@ -273,6 +287,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $currentKey = $this->key();
 
         if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
+            $this->clearCache();
             $this->_Cache = $this->_DataHandler->selectRangeEntitys($currentKey, self::$CacheSize);
 
             $keys = array_keys($this->_Cache);
@@ -283,6 +298,10 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function clearCache () : void
     {
+        foreach ($this->_Cache as $e) :
+            $this->preDeletedTask($e);
+        endforeach;
+
         $this->_Cache = [];
         $this->_CacheMaxKey = 0;
         $this->_CacheMinKey = 0;
@@ -354,18 +373,5 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function getDataContextObject () : DataContextInterface
-    {
-        return new Class implements DataContextInterface {
-            public function dataCallBack ($data)
-            {
-                return $data;
-            }
-
-            public function dataPrepareStoringAndFormat ($data)
-            {
-                return $data;
-            }
-        };
-    }
+    abstract public function getDataContextObject () : DataContextInterface;
 }
