@@ -21,6 +21,7 @@
     "require-dev": {
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
+        "condorcetphp/condorcet-doc-generator": "dev-master",
         "phpunit/phpunit": "^6.2",
         "mustangostang/spyc": "^0.6.2",
         "codacy/coverage": "dev-master"
