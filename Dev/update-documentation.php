@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-    $cmd = '../vendor/bin/condorcet-doc "'.__DIR__.'/Documentation"';
-    $cmd = str_replace('/', DIRECTORY_SEPARATOR, $cmd);
-    $cmd = str_replace(str_replace('/',DIRECTORY_SEPARATOR,'/Dev/Documentation'), str_replace('/',DIRECTORY_SEPARATOR,'/Documentation'), $cmd);
+    $call = str_replace('/', DIRECTORY_SEPARATOR, '../vendor/bin/condorcet-doc');
+    $arg = substr(__DIR__, 0, strlen(__DIR__) - 4);
+    $arg .= DIRECTORY_SEPARATOR.'Documentation';
 
-    var_dump($cmd);
+    $cmd = $call.' "'.$arg.'"';
 
     shell_exec($cmd);
