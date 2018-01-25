@@ -96,7 +96,7 @@ class VotesManager extends ArrayManager
         endforeach;
     }
 
-/////////// Public specific methods ///////////
+/////////// Get Votes Methods ///////////
 
     public function getVoteKey (Vote $vote) {
         ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
@@ -104,33 +104,57 @@ class VotesManager extends ArrayManager
         return $r;
     }
 
-    // Get the votes registered list
-    public function getVotesList (?array $tag = null, bool $with = true) : array
+    protected function getFulllVotesListGenerator () : \Generator
     {
-        if (($tag = VoteUtil::tagsConvert($tag)) === null) :
+        foreach ($this as $voteKey => $vote) :
+            yield $voteKey => $vote;
+        endforeach;
+    }
+
+    protected function getPartialVotesListGenerator (array $tag, bool $with) : \Generator
+    {
+        foreach ($this as $voteKey => $vote) :
+            $noOne = true;
+            foreach ($tag as $oneTag) :
+                if ( ( $oneTag === $voteKey ) || in_array($oneTag, $vote->getTags(),true) ) :
+                    if ($with) :
+                        yield $voteKey => $vote;
+                        break;
+                    else :
+                        $noOne = false;
+                    endif;
+                endif;
+            endforeach;
+
+            if (!$with && $noOne) :
+                yield $voteKey => $vote;
+            endif;
+        endforeach;
+    }
+
+    // Get the votes list
+    public function getVotesList ($tag = null, bool $with = true) : array
+    {
+        if ($tag === null) :
             return $this->getFullDataSet();
         else :
             $search = [];
 
-            foreach ($this as $key => $value) :
-                $noOne = true;
-                foreach ($tag as $oneTag) :
-                    if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
-                        if ($with) :
-                            $search[$key] = $value;
-                            break;
-                        else :
-                            $noOne = false;
-                        endif;
-                    endif;
-                endforeach;
-
-                if (!$with && $noOne) :
-                    $search[$key] = $value;
-                endif;
+            foreach ($this->getPartialVotesListGenerator($tag,$with) as $voteKey => $vote) :
+                $search[$voteKey] = $vote;
             endforeach;
 
             return $search;
+        endif;
+    }
+
+    // Get the votes list as a generator object
+    public function getVotesListGenerator ($tag = null, bool $with = true) : \Generator
+    {
+        if ($tag === null) :
+            return $this->getFulllVotesListGenerator();
+        else :
+            return $this->getPartialVotesListGenerator($tag,$with);
         endif;
     }
 
@@ -141,7 +165,7 @@ class VotesManager extends ArrayManager
         $weight = [];
         $nb = [];
 
-        foreach($this->getVotesList() as $oneVote) :
+        foreach ($this as $oneVote) :
             $oneVoteString = $oneVote->getSimpleRanking($this->_link[0]);
 
             if(!array_key_exists($oneVoteString, $weight)) :

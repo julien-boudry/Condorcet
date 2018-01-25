@@ -55,6 +55,11 @@ trait VotesProcess
         return $this->_Votes;
     }
 
+    public function getVotesListGenerator ($tag = null, bool $with = true) : \Generator
+    {
+        return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tag), $with);
+    }
+
     public function getVoteKey (Vote $vote) {
         return $this->_Votes->getVoteKey($vote);
     }

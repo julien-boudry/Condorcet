@@ -205,4 +205,31 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->getVotesListAsString());
     }
 
+    public function testGetVotesListGenerator()
+    {
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
+
+        $electionWithDb->parseCandidates('A;B;C');
+
+        $electionWithDb->parseVotes('A>B>C * 10;tag42 || C>B>A * 42');
+
+        $votesListGenerator = [];
+
+        foreach ($electionWithDb->getVotesListGenerator() as $key => $value) :
+            $votesListGenerator[$key] = $value;
+        endforeach;
+
+        self::assertSame(52,count($votesListGenerator));
+
+
+        $votesListGenerator = [];
+
+        foreach ($electionWithDb->getVotesListGenerator('tag42') as $key => $value) :
+            $votesListGenerator[$key] = $value;
+        endforeach;
+
+        self::assertSame(42,count($votesListGenerator));
+    }
+
 }

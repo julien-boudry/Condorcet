@@ -613,6 +613,30 @@
   class: Election
   type: method
   visibility: public
+  name: getVotesListGenerator
+  static: false
+  description: |
+    Same as Election::getVotesList. But Return a PHP generator object.
+    Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
+  input:
+    tag:
+      type: mixed
+      default: test
+      required: true
+    with:
+      type: mixed
+      default: test
+      required: true
+  return: |
+    *(\Generator)* Populated by each Vote object.
+  related:
+    - 'Election::getVotesList'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getVotesListAsString
   static: false
   description: |

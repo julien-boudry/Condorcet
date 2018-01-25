@@ -74,4 +74,28 @@ class VotesManagerTest extends TestCase
         $this->votes_manager[] = new Vote([]);
         self::assertNotEmpty($this->votes_manager->getVotesList());
     }
+
+    public function testGetVotesListGenerator()
+    {
+        $this->election->parseVotes('A>B>C * 10;tag42 || C>B>A * 42');
+
+        $votesListGenerator = [];
+
+        foreach ($this->election->getVotesListGenerator() as $key => $value) :
+            $votesListGenerator[$key] = $value;
+        endforeach;
+
+        self::assertEquals($this->election->getVotesList(),$votesListGenerator);
+        self::assertSame(52,count($votesListGenerator));
+
+
+        $votesListGenerator = [];
+
+        foreach ($this->election->getVotesListGenerator('tag42') as $key => $value) :
+            $votesListGenerator[$key] = $value;
+        endforeach;
+
+        self::assertEquals($this->election->getVotesList('tag42'),$votesListGenerator);
+        self::assertSame(42,count($votesListGenerator));
+    }
 }
