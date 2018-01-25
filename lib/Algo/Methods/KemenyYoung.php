@@ -34,6 +34,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     // Cache
     public static $useCache = true;
+    public static $devWriteCache = false;
 
     // Kemeny Young
     protected $_PossibleRanking;
@@ -110,7 +111,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         // But ... where are the data ?! Okay, old way now...
         if (!self::$useCache || !file_exists($path)) :
-            $compute = $this->doPossibleRanking( null );
+            $compute = $this->doPossibleRanking( (self::$devWriteCache) ? $path : null );
         else :
             $compute = file_get_contents($path);
         endif;
@@ -135,6 +136,7 @@ class KemenyYoung extends Method implements MethodInterface
             return $permutation->getResults(true);
         else :
             $permutation->writeResults($path);
+            return $permutation->getResults(true);
         endif;
     }
 

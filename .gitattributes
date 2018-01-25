@@ -1,5 +1,6 @@
 * text=auto eol=lf
 
+/Dev                        export-ignore
 /Documentation              export-ignore
 /Examples                   export-ignore
 /Tests                      export-ignore
