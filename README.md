@@ -41,7 +41,7 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 1.5.x**  
+* **Stable Version: 1.6.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
@@ -150,7 +150,7 @@ _OK: sacrifice to the local tradition of lazy._
   use Condorcet\Condorcet;
   use Condorcet\Election;
   use Condorcet\Candidate;
-  use Condorcet\Util;
+  use Condorcet\CondorcetUtil;
   use Condorcet\Vote;
 
   $myElection1 = new Election () ;
@@ -200,7 +200,7 @@ _OK: sacrifice to the local tradition of lazy._
     // Schulze Ranking
     $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
       # Echo it easily 
-      Util::format($myResultBySchulze);
+      CondorcetUtil::format($myResultBySchulze);
 
     // Get Schulze advanced computing data & stats
     $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();

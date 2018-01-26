@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v1.6.0] - 2018-01-27
+### Description
+Publication centred on two axes:  
+Firstly, the improvement and finishing of the internal structure, often for the purpose of readability of the code and good practices. And an extension of the tests.  
+The second part concerns the continued improvement of the management of the very large elections.
+
+### Added
+- Add \Condorcet\Election::getVotesListGenerator and \Condorcet\DataManager\VotesManager::getVotesListGenerator methods. Same as getVotesList method, but output a PHP generator instead of full array. Useful only for working on vera large election with an external DataHandler.
+
+### Changed
+- \Condorcet\Condorcet::format() method move to \Condorcet\CondorcetUtil::format()
+- \Condorcet\CondorcetUtil::format() can no longer optionally produce a var_dump(). You must do it yourself.
+- Remove \Condorcet\Election::getVoteByKey() method
+- Fix \Condorcet\Election cloning issues
+- Simply DataHandlerDriverInterface
+- Optimize \Condorcet\Election::countVotes and \Condorcet\DataManager\VotesManager::countVotes methods performance and memory usage in case of using an external DataHandler.
+
+### Internal changes
+- Cut out some classes and functions into smaller sub-groups.
+- New dev tools in new dedicated folder (update documentation, generate Kemeny–Young cache)
+- Documentation generator code move to a new repository
+- Git force Unix style line-ending (This could cause unexpected behavior in some tests related to the export of votes in string output.)
+- Various optimizations & bugfix
+- Test coverage up to 95%
+- Wonderful new files headers
+
 ## [v1.5.0] - 2018-01-08
 ### Description
 This release focuses on the management of very large elections.
