@@ -232,4 +232,20 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(42,count($votesListGenerator));
     }
 
+    public function testSliceInput()
+    {
+        // Setup
+        ArrayManager::$CacheSize = 462;
+        ArrayManager::$MaxContainerLength = 462;
+
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
+
+        $electionWithDb->parseCandidates('A;B;C');
+
+        $electionWithDb->parseVotes('A>B>C * 463');
+
+        self::assertSame(463,$electionWithDb->countVotes());
+    }
+
 }
