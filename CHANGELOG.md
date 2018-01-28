@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [v1.6.0] - 2018-01-27
+## [v1.6.0] - 2018-01-28
 ### Description
 Publication centred on two axes:  
 Firstly, the improvement and finishing of the internal structure, often for the purpose of readability of the code and good practices. And an extension of the tests.  
