@@ -98,5 +98,4 @@ class DodgsonQuick extends Method implements MethodInterface
         $this->_Stats = $dodgsonQuick;
         $this->_Result = $this->createResult($result);
     }
-
 }

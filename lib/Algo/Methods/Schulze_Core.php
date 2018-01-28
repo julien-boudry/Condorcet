@@ -168,5 +168,4 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
         $this->_Result = $this->createResult($result);
     }
-
 }

@@ -99,5 +99,4 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
     }
 
     abstract protected function looking (array $challenge) : int;
-
 }

@@ -223,5 +223,4 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     public function getCondorcetElectionGeneratorVersion () : string {
         return $this->_ElectionCondorcetVersion;
     }
-
 }

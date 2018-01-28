@@ -312,5 +312,4 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             throw $e;
         }
     }
-
 }

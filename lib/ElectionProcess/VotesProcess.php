@@ -307,5 +307,4 @@ trait VotesProcess
 
         return $adding;
     }
-
 }

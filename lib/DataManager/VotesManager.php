@@ -225,5 +225,4 @@ class VotesManager extends ArrayManager
             return $count;
         endif;
     }
-
 }

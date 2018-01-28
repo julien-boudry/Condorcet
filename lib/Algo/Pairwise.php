@@ -188,5 +188,4 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         endforeach;
     }
-
 }

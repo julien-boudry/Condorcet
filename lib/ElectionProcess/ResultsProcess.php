@@ -175,5 +175,4 @@ trait ResultsProcess
 
         return $arg;
     }
-
 }

@@ -173,5 +173,4 @@ class KemenyYoung extends Method implements MethodInterface
     {
         $this->_Result = $this->createResult($this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ]);
     }
-
 }

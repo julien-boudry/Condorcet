@@ -66,5 +66,4 @@ abstract class VoteUtil
 
         return $ranking;
     }
-
 }

@@ -84,5 +84,4 @@ abstract class PairwiseStats
 
         return $comparison;
     }
-
 }

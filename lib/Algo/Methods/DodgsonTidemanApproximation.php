@@ -32,5 +32,4 @@ class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements Met
     {
         return min($challenge);
     }
-
 }

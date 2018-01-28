@@ -98,5 +98,4 @@ class CondorcetBasic extends Method implements MethodInterface
 
         return null;
     }
-
 }

@@ -257,5 +257,4 @@ class RankedPairs_Core extends Method implements MethodInterface
 
         return $newArcs;
     }
-
 }

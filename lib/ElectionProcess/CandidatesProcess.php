@@ -222,5 +222,4 @@ trait CandidatesProcess
 
         return $adding;
     }
-
 }

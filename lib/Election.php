@@ -298,5 +298,4 @@ class Election
 /////////// RESULTS ///////////
 
     use ResultsProcess;
-
 }
