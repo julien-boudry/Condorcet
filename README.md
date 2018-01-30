@@ -2,13 +2,13 @@
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>
 
-[![Build Status](https://img.shields.io/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
-[![Packagist](https://img.shields.io/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![Packagist Download](https://img.shields.io/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![GitHub contributors](https://img.shields.io/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/julien-boudry/Condorcet.svg?style=flat-square)](https://scrutinizer-ci.com/g/julien-boudry/Condorcet/code-structure/master/code-coverage)
+[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
+[![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
+[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
+![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
+[![Scrutinizer Coverage](https://d3g33cz5i5omk9.cloudfront.net/scrutinizer/coverage/g/julien-boudry/Condorcet.svg?style=flat-square)](https://scrutinizer-ci.com/g/julien-boudry/Condorcet/code-structure/master/code-coverage)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
