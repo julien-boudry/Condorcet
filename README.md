@@ -66,14 +66,15 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
 * __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
   * Candidates and Votes are objects which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
-  * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDP driver is provided by default, an example is provided with SQL Lite, an interface allows you to design others drivers.
+  * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDO driver is provided by default, an example is provided with SQLite, an interface allows you to design others drivers.
 * __Extend it! Configure it!__
   * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module on your own namespace.
   * Candidate and Vote class are extensible.
   * Allow you to use your own datastore driver to manage very large elections at your way.
   * Many configurations options and methods.
 
-_Condorcet PHP is not designed for high performances or very high reliability exigence._   
+_Condorcet PHP is not designed for high performances. But can handle virtually unlimited voting without limit or degrading performance_  
+_And has no certification or proven implementation that would guarantee a very high level of reliability._   
 
 ## Supported Condorcet Methods
 ### Methods provided natively
@@ -99,7 +100,7 @@ _Condorcet PHP is not designed for high performances or very high reliability ex
     * **Schulze Ratio** Variant from Markus Schulze himself.
 
 ### Add your own method as module
-This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
+Condorcet is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
 [*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
