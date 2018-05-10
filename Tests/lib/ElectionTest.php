@@ -322,7 +322,7 @@ C > B > A * 1',
     {
         $election = new Election;
 
-        $candidateA = $election->addCandidate('A');
+        $election->addCandidate('A');
         $election->addCandidate('B');
         $election->addCandidate('C');
         $election->addCandidate('D');

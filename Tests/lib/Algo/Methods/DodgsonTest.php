@@ -22,11 +22,11 @@ class DodgsonTest extends TestCase
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
-        $CandidateAbby = $this->election->addCandidate('Abby');
-        $CandidateBrad = $this->election->addCandidate('Brad');
         $CandidateCora = $this->election->addCandidate('Cora');
-        $CandidateDave = $this->election->addCandidate('Dave');
-        $CandidateErin = $this->election->addCandidate('Erin');
+        $this->election->addCandidate('Abby');
+        $this->election->addCandidate('Brad');
+        $this->election->addCandidate('Dave');
+        $this->election->addCandidate('Erin');
 
         $this->election->parseVotes('
             Abby>Cora>Erin>Dave>Brad * 98
