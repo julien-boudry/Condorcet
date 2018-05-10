@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\Schulze_Core;
-use Condorcet\CondorcetException;
 
 class SchulzeWinning extends Schulze_Core
 {

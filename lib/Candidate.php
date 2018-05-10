@@ -10,10 +10,6 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\Condorcet;
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
-use Condorcet\Linkable;
 
 class Candidate
 {

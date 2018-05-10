@@ -10,17 +10,13 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\Condorcet;
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
-use Condorcet\Result;
-use Condorcet\Vote;
+
 use Condorcet\DataManager\VotesManager;
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\ElectionProcess\CandidatesProcess;
 use Condorcet\ElectionProcess\ResultsProcess;
 use Condorcet\ElectionProcess\VotesProcess;
-use Condorcet\ElectionProcess\VoteUtil;
+
 use Condorcet\Timer\Manager as Timer_Manager;
 
 

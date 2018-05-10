@@ -10,11 +10,6 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\CondorcetException;
-use Condorcet\Candidate;
-use Condorcet\Election;
-use Condorcet\Result;
-use Condorcet\Vote;
 
 abstract class CondorcetUtil
 {

@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
-use Condorcet\Algo\Methods\PairwiseStatsBased_Core;
-use Condorcet\Algo\MethodInterface;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends PairwiseStatsBased_Core

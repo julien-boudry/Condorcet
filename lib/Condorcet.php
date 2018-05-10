@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\CondorcetException;
+
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');

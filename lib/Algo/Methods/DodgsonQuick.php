@@ -14,7 +14,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
-use Condorcet\Algo\Tools\PairwiseStats;
+
 use Condorcet\Result;
 
 // DODGSON Quick is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf

@@ -10,11 +10,7 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
-use Condorcet\Election;
-use Condorcet\CondorcetUtil;
-use Condorcet\Vote;
+
 use Condorcet\ElectionProcess\VoteUtil;
 
 

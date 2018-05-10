@@ -14,7 +14,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
-use Condorcet\CondorcetException;
+
 use Condorcet\Result;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method

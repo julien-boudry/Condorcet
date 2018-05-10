@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager;
 
-use Condorcet\DataManager\DataContextInterface;
+
 use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;

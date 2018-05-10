@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+
 use Condorcet\CondorcetException;
 use Condorcet\CondorcetVersion;
 

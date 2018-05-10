@@ -11,12 +11,11 @@ declare(strict_types=1);
 
 namespace Condorcet\DataManager;
 
-use Condorcet\DataManager\ArrayManager;
-use Condorcet\DataManager\DataContextInterface;
+
 use Condorcet\CondorcetException;
 use Condorcet\Election;
 use Condorcet\Vote;
-use Condorcet\ElectionProcess\VoteUtil;
+
 
 class VotesManager extends ArrayManager
 {

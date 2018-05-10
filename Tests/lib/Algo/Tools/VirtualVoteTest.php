@@ -2,8 +2,7 @@
 declare(strict_types=1);
 namespace Condorcet;
 
-use Condorcet\Election;
-use Condorcet\Vote;
+
 use Condorcet\Algo\Tools\VirtualVote;
 
 use PHPUnit\Framework\TestCase;

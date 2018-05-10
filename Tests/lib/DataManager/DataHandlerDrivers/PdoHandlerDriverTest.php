@@ -2,11 +2,11 @@
 declare(strict_types=1);
 namespace Condorcet\DataManager\DataHandlerDrivers;
 
-use Condorcet\CondorcetException;
+
 use Condorcet\Election;
-use Condorcet\Vote;
+
 use Condorcet\DataManager\ArrayManager;
-use Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
+
 use PHPUnit\Framework\TestCase;
 
 /**

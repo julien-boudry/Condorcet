@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Condorcet\Timer;
 
-use Condorcet\Timer\Manager;
+
 use Condorcet\CondorcetVersion;
 
 class Chrono

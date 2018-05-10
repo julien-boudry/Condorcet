@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\CondorcetException;
-use Condorcet\Election;
 
 trait Linkable
 {

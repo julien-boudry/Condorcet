@@ -10,8 +10,6 @@ declare(strict_types=1);
 
 namespace Condorcet;
 
-use Condorcet\Condorcet;
-use Condorcet\CondorcetVersion;
 
 // Custom Exeption
 class CondorcetException extends \Exception

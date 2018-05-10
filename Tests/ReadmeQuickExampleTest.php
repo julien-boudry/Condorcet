@@ -2,11 +2,6 @@
 declare(strict_types=1);
 namespace Condorcet;
 
-use Condorcet\Condorcet;
-use Condorcet\Election;
-use Condorcet\Candidate;
-use Condorcet\CondorcetUtil;
-use Condorcet\Vote;
 
 use PHPUnit\Framework\TestCase;
 

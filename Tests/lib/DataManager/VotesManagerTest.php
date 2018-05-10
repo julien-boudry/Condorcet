@@ -2,10 +2,10 @@
 declare(strict_types=1);
 namespace Condorcet\DataManager;
 
-use Condorcet\CondorcetException;
+
 use Condorcet\Election;
 use Condorcet\Vote;
-use Condorcet\DataManager\DataContextInterface;
+
 use PHPUnit\Framework\TestCase;
 
 

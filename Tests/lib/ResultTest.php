@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Condorcet;
 
-use Condorcet\Election;
+
 
 use PHPUnit\Framework\TestCase;
 
