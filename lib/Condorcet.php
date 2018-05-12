@@ -13,6 +13,8 @@ namespace Condorcet;
 
 
 // Registering native Condorcet Methods implementation
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\BordaCount1');
+Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\BordaCount0');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonQuick');
 Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonTidemanApproximation');
