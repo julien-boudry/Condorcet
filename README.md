@@ -12,7 +12,7 @@
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
-> Contribute: [Contribute File](CONTRIBUTE.md)   
+> Contribute: [Contribute File](CONTRIBUTING.md)   
 > Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
 >
 > Methods provided natively: Condorcet / Copeland / Dodgson (2 Approximations) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
@@ -41,7 +41,7 @@ A PHP library implementing the Condorcet voting system and others Condorcet meth
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 1.6.x**  
+* **Stable Version: 1.7.x**  
   * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
