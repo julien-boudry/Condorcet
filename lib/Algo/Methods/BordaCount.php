@@ -96,7 +96,7 @@ class BordaCount extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function getScoreByCandidateRanking (int $CandidatesRanked) : int
+    protected function getScoreByCandidateRanking (int $CandidatesRanked) : float
     {
         return $this->_selfElection->countCandidates() + static::$starting - 1 - $CandidatesRanked;
     }
