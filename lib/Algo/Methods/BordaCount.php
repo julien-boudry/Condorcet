@@ -17,12 +17,12 @@ use Condorcet\Algo\MethodInterface;
 
 use Condorcet\Result;
 
-class BordaCount1 extends Method implements MethodInterface
+class BordaCount extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['BordaCount','Borda Count','Borda','BordaCount1','Borda Count 1','Borda1'];
+    public const METHOD_NAME = ['BordaCount','Borda Count','Borda'];
 
-    public const STARTING = 1;
+    public static $starting = 1;
 
     protected $_Stats;
 
@@ -98,6 +98,6 @@ class BordaCount1 extends Method implements MethodInterface
 
     protected function getScoreByCandidateRanking (int $CandidatesRanked) : int
     {
-        return $this->_selfElection->countCandidates() + static::STARTING - 1 - $CandidatesRanked;
+        return $this->_selfElection->countCandidates() + static::$starting - 1 - $CandidatesRanked;
     }
 }

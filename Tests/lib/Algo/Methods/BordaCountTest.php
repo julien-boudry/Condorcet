@@ -83,37 +83,4 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getStats()
         );
     }
-
-    public function testResult_3 ()
-    {
-        # From https://en.wikipedia.org/wiki/Borda_count
-
-        $this->election->addCandidate('Memphis');
-        $this->election->addCandidate('Nashville');
-        $this->election->addCandidate('Chattanooga');
-        $this->election->addCandidate('Knoxville');
-
-        $this->election->parseVotes('
-            Memphis>Nashville>Chattanooga>Knoxville * 42
-            Nashville>Chattanooga>Knoxville>Memphis * 26
-            Chattanooga>Knoxville>Nashville>Memphis * 15
-            Knoxville>Chattanooga>Nashville>Memphis * 17
-        ');
-
-        self::assertEquals( [
-            1 => 'Nashville',
-            2 => 'Chattanooga',
-            3 => 'Memphis',
-            4 => 'Knoxville' ],
-            $this->election->getResult('Borda0')->getResultAsArray(true)
-        );
-
-        self::assertEquals( [
-            'Nashville' => 194,
-            'Chattanooga' => 173,
-            'Memphis' => 126,
-            'Knoxville' => 107 ],
-            $this->election->getResult('Borda0')->getStats()
-        );
-    }
 }
