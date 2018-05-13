@@ -83,4 +83,43 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getStats()
         );
     }
+
+    public function testResult_3 ()
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A
+        ');
+
+        self::assertEquals( [
+            1 => 'A',
+            2 => ['B','C'] ],
+            $this->election->getResult('Borda Count')->getResultAsArray(true)
+        );
+
+        self::assertEquals( [
+            'A' => 3,
+            'B' => 1.5,
+            'C' => 1.5 ],
+            $this->election->getResult('Borda Count')->getStats()
+        );
+
+        $this->election->setImplicitRanking(false);
+
+        self::assertEquals( [
+            1 => 'A',
+            2 => ['B','C'] ],
+            $this->election->getResult('Borda Count')->getResultAsArray(true)
+        );
+
+        self::assertEquals( [
+            'A' => 3,
+            'B' => 0,
+            'C' => 0 ],
+            $this->election->getResult('Borda Count')->getStats()
+        );
+    }
 }
