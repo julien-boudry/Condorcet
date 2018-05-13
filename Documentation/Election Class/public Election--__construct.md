@@ -13,9 +13,3 @@ Build a new Election.
 
 NULL
 
-
----------------------------------------
-
-### Related method(s)      
-
-* [Election::__destruct](../Election%20Class/public%20Election--__destruct.md)    

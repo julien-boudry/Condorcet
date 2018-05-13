@@ -18,9 +18,3 @@ Candidate name.
 
 Candidate object (Condorcet\Candidate)
 
-
----------------------------------------
-
-### Related method(s)      
-
-* [Election::existCandidateId](../Election%20Class/public%20Election--existCandidateId.md)    

@@ -145,8 +145,8 @@
       default: 'FULL'
       required: false
       text: |
-        * 'MAJOR' will return : '0.90'
-        * 'FULL' will return : '0.92.51'
+        * 'MAJOR' will return : '1.7'
+        * 'FULL' will return : '1.7.0'
   return: |
     *(string)* Condorcet PHP version.
   related:
@@ -204,8 +204,6 @@
     Build a new Election.
   return: |
     NULL
-  related:
-    - 'Election::__destruct'
   publish: true
 
 - 
@@ -359,8 +357,6 @@
       text: Candidate name.
   return: |
     Candidate object (Condorcet\Candidate)
-  related:
-    - 'Election::existCandidateId'
   publish: true
 
 - 
@@ -381,7 +377,6 @@
     List of Candidate into an array.
   related:
     - 'Election::countCandidates'
-    - 'Election::existCandidateId'
   publish: true
 
 - 
@@ -417,8 +412,8 @@
   return: |
     An explicit array.
   related:
-    - 'Condorcet::isAuthMethod'
-    - 'Condorcet::getAuthMethods'
+    - 'static Condorcet::isAuthMethod'
+    - 'static Condorcet::getAuthMethods'
   publish: true
 
 - 
@@ -499,6 +494,28 @@
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
+  publish: true
+
+-
+  class: Election
+  type: method
+  visibility: public
+  name: getObjectVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
+  input:
+    type:
+      type: string
+      default: 'FULL'
+      required: false
+      text: |
+        * 'MAJOR' will return : '1.7'
+        * 'FULL' will return : '1.7.0'
+  return: |
+    *(string)* Condorcet PHP version.
+  related:
+    - 'static Condorcet::getVersion'
   publish: true
 
 - 
@@ -835,7 +852,7 @@
   return: |
     *(array)* List of removed Condorcet\Candidate object.
   related:
-    - 'Election::AddCandidate'
+    - 'Election::addCandidate'
     - 'Election::getCandidatesList'
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
@@ -882,7 +899,7 @@
   return: |
     *(array)* List of removed Condorcet\Vote object.
   related:
-    - 'Election::AddVote'
+    - 'Election::addVote'
     - 'Election::getVotesList'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
@@ -1420,7 +1437,7 @@
     An ordered multidimensionnal array by rank.
   related:
     - 'Election::getResult'
-    - 'Election::getResultAsString'
+    - 'Result::getResultAsString'
   publish: true
 
 - 
@@ -1435,7 +1452,7 @@
     (string) Result ranking as string.
   related:
     - 'Election::getResult'
-    - 'Election::getResultAsArray'
+    - 'Result::getResultAsArray'
   publish: true
 
 - 

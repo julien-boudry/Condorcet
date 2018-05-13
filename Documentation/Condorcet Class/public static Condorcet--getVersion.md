@@ -10,8 +10,8 @@ Get the library version.
 
 
 ##### **type:** *string*   
-* 'MAJOR' will return : '0.90'
-* 'FULL' will return : '0.92.51'    
+* 'MAJOR' will return : '1.7'
+* 'FULL' will return : '1.7.0'    
 
 
 

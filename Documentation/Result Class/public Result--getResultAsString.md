@@ -19,4 +19,4 @@ Get result as string
 ### Related method(s)      
 
 * [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
-* [Election::getResultAsArray](../Election%20Class/public%20Election--getResultAsArray.md)    
+* [Result::getResultAsArray](../Result%20Class/public%20Result--getResultAsArray.md)    
