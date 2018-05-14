@@ -34,6 +34,18 @@ abstract class Method
         endif;
     }
 
+    public function getResult () : Result
+    {
+        // Cache
+        if ( $this->_Result !== null ) :
+            return $this->_Result;
+        endif;
+
+        $this->compute();
+
+        return $this->_Result;
+    }
+
     abstract protected function getStats () : array;
 
     protected function createResult (array $result) : Result

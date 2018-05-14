@@ -20,23 +20,11 @@ use Condorcet\Result;
 class BordaCount extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['BordaCount','Borda Count','Borda'];
+    public const METHOD_NAME = ['BordaCount','Borda Count','Borda','Méthode Borda'];
 
     public static $starting = 1;
 
     protected $_Stats;
-
-    public function getResult () : Result
-    {
-        // Cache
-        if ( $this->_Result !== null ) :
-            return $this->_Result;
-        endif;
-
-        $this->computeBorda();
-
-        return $this->_Result;
-    }
 
     protected function getStats () : array
     {
@@ -54,7 +42,7 @@ class BordaCount extends Method implements MethodInterface
 
     //:: BORDA ALGORITHM. :://
 
-    protected function computeBorda () : void
+    protected function compute () : void
     {
         $score = [];
 

@@ -25,18 +25,6 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected $_Stats;
 
-    public function getResult () : Result
-    {
-        // Cache
-        if ( $this->_Result !== null ) :
-            return $this->_Result;
-        endif;
-
-        $this->computeDodgson();
-
-        return $this->_Result;
-    }
-
     protected function getStats () : array
     {
         $stats = [];
@@ -53,7 +41,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function computeDodgson () : void
+    protected function compute () : void
     {
         $pairwise = $this->_selfElection->getPairwise(false);
         $HeadToHead = [];
