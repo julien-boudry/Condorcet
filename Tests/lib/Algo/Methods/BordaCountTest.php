@@ -60,11 +60,13 @@ class BordaCountTest extends TestCase
         $this->election->addCandidate('C');
         $this->election->addCandidate('D');
 
+        $this->election->allowVoteWeight(true);
+
         $this->election->parseVotes('
             B>A>C>D * 30
             B>A>D>C * 30
             A>C>D>B * 25
-            A>D>C>B * 15
+            A>D>C>B ^ 15
         ');
 
         self::assertEquals( [

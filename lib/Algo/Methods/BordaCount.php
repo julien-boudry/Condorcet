@@ -51,19 +51,23 @@ class BordaCount extends Method implements MethodInterface
         endforeach;
 
         foreach ($this->_selfElection->getVotesManager() as $oneVote) :
-            $CandidatesRanked = 0;
-            $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
+            $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
 
-            foreach ($oneRanking as $oneRank) :
-                $rankScore = 0;
-                foreach ($oneRank as $oneCandidateInRank) :
-                    $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++);
-                endforeach;
+            for ($i = 0 ; $i < $weight ; $i++) :
+                $CandidatesRanked = 0;
+                $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 
-                foreach ($oneRank as $oneCandidateInRank) :
-                    $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += $rankScore / count($oneRank);
+                foreach ($oneRanking as $oneRank) :
+                    $rankScore = 0;
+                    foreach ($oneRank as $oneCandidateInRank) :
+                        $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++);
+                    endforeach;
+
+                    foreach ($oneRank as $oneCandidateInRank) :
+                        $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += $rankScore / count($oneRank);
+                    endforeach;
                 endforeach;
-            endforeach;
+            endfor;
         endforeach;
 
         arsort($score,SORT_NUMERIC);
