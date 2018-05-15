@@ -47,33 +47,7 @@ class InstantRunoff extends Method implements MethodInterface
         $CandidatesLoserCount = 0;
 
         while (count($candidateDone) < $candidateCount) :
-            $score = [];
-            foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-                if (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
-                    $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
-                endif;
-            endforeach;
-
-            foreach ($this->_selfElection->getVotesManager() as $oneVote) :
-                $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
-
-                for ($i = 0 ; $i < $weight ; $i++) :
-                    $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
-
-                    foreach ($oneRanking as $oneRank) :
-                        foreach ($oneRank as $oneCandidate) :
-                            if(count($oneRank) !== 1) :
-                                break;
-                            elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
-                                $score[$this->_selfElection->getCandidateKey(reset($oneRank))] += 1;
-                                break 2;
-                            endif;
-                        endforeach;
-                    endforeach;
-                endfor;
-
-            endforeach;
-
+            $score = $this->makeScore($candidateDone);
             $maxScore = max($score);
             $minScore = min($score);
 
@@ -89,21 +63,55 @@ class InstantRunoff extends Method implements MethodInterface
                     endif;
                 endforeach;
             else :
-                $rank = $candidateCount - $CandidatesLoserCount;
+                $LosersToRegister = [];
+
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $minScore) :
                         continue;
                     else :
-                        $result[$rank][] = $candidateKey;
+                        $LosersToRegister[] = $candidateKey;
                         $candidateDone[] = $candidateKey;
                         $CandidatesLoserCount++;
                     endif;
                 endforeach;
+
+                $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
 
         endwhile;
 
         $this->_Result = $this->createResult($result);
+    }
+
+    protected function makeScore (array $candidateDone) : array
+    {
+        $score = [];
+        foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
+            if (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
+                $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
+            endif;
+        endforeach;
+
+        foreach ($this->_selfElection->getVotesManager() as $oneVote) :
+            $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+
+            for ($i = 0 ; $i < $weight ; $i++) :
+                $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
+
+                foreach ($oneRanking as $oneRank) :
+                    foreach ($oneRank as $oneCandidate) :
+                        if(count($oneRank) !== 1) :
+                            break;
+                        elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
+                            $score[$this->_selfElection->getCandidateKey(reset($oneRank))] += 1;
+                            break 2;
+                        endif;
+                    endforeach;
+                endforeach;
+            endfor;
+        endforeach;
+
+        return $score;
     }
 
     protected function tieBreaking (array $candidatesKeys) : int
