@@ -52,15 +52,23 @@ class InstantRunoff extends Method implements MethodInterface
             $minScore = min($score);
 
             if ($maxScore > $this->_selfElection->sumVotesWeight()) :
+                $WinnersToRegister = [];
                 $rank = $CandidatesWinnerCount + 1;
+
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $maxScore) :
                         continue;
                     else :
-                        $result[$rank][] = $candidateKey;
-                        $candidateDone[] = $candidateKey;
-                        $CandidatesWinnerCount++;
+                        $WinnersToRegister[] = $candidateKey;
                     endif;
+
+                    if(count($WinnersToRegister) > 1) :
+                        $WinnersToRegister = $this->tieBreaking($WinnersToRegister, true);
+                    endif;
+
+                    $CandidatesWinnerCount += count($WinnersToRegister);
+                    $candidateDone = array_merge($candidateDone,$WinnersToRegister);
+                    $result[$rank][] = $WinnersToRegister;
                 endforeach;
             else :
                 $LosersToRegister = [];
@@ -70,11 +78,15 @@ class InstantRunoff extends Method implements MethodInterface
                         continue;
                     else :
                         $LosersToRegister[] = $candidateKey;
-                        $candidateDone[] = $candidateKey;
-                        $CandidatesLoserCount++;
                     endif;
                 endforeach;
 
+                if(count($LosersToRegister) > 1) :
+                    $LosersToRegister = $this->tieBreaking($LosersToRegister, false);
+                endif;
+
+                $CandidatesLoserCount += count($LosersToRegister);
+                $candidateDone = array_merge($candidateDone,$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
 
@@ -114,8 +126,42 @@ class InstantRunoff extends Method implements MethodInterface
         return $score;
     }
 
-    protected function tieBreaking (array $candidatesKeys) : int
+    protected function tieBreaking (array $candidatesKeys, bool $isWinnerTieBreaking) : array
     {
+        $pairwise = $this->_selfElection->getPairwise(false);
+        $tooKeep = [];
 
+        foreach ($candidatesKeys as $oneCandidateKeyTotest) :
+            $select = true;
+            foreach ($candidatesKeys as $oneChallengerKey) :
+                if ($oneCandidateKeyTotest === $oneChallengerKey) :
+                    continue;
+                endif;
+
+
+                $win = $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey];
+                $lose = $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey];
+
+                if ( ($isWinnerTieBreaking) ? $this->winnerTieBreaking($win,$lose) : $this->loserTieBreaking($win,$lose) ) :
+                    $select = false;
+                endif;
+            endforeach;
+
+            if ($select) :
+                $tooKeep[] = $oneCandidateKeyTotest;
+            endif;
+        endforeach;
+
+        return $tooKeep;
+    }
+
+    protected function winnerTieBreaking (int $win, int $lose) : bool
+    {
+        return $win < $lose;
+    }
+
+    protected function loserTieBreaking (int $win, int $lose) : bool
+    {
+        return $win > $lose;
     }
 }

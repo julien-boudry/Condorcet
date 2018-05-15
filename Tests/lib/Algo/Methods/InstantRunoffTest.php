@@ -69,4 +69,28 @@ class InstantRunoffTest extends TestCase
 
     }
 
+    public function testResult_3 ()
+    {
+        $this->election->addCandidate('bob');
+        $this->election->addCandidate('sue');
+        $this->election->addCandidate('bill');
+
+        $this->election->parseVotes('
+            bob > bill > sue
+            sue > bob > bill
+            bill > sue > bob
+            bob > bill > sue
+            sue > bob > bill
+            bill > bob > sur
+        ');
+
+        self::assertEquals( [
+            1 => 'bob',
+            2 => 'bill',
+            3 => 'sue' ],
+            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
+        );
+
+    }
+
 }
