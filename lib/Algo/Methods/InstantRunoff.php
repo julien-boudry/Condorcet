@@ -1,6 +1,6 @@
 <?php
 /*
-    Part of BORDA COUNT method Module - From the original Condorcet PHP
+    Part of INSTANT-RUNOFF method Module - From the original Condorcet PHP
 
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -43,6 +43,8 @@ class InstantRunoff extends Method implements MethodInterface
         $candidateCount = $this->_selfElection->countCandidates();
         $candidateDone = [];
         $result = [];
+        $CandidatesWinnerCount = 0;
+        $CandidatesLoserCount = 0;
 
         while (count($candidateDone) < $candidateCount) :
             $score = [];
@@ -72,34 +74,40 @@ class InstantRunoff extends Method implements MethodInterface
 
             endforeach;
 
-            arsort($score,SORT_NUMERIC);
-
-            $winner = [];
             $maxScore = max($score);
-            foreach ($score as $candidateKey => $candidateScore) :
-                if ($candidateScore !== $maxScore) :
-                    break;
-                else :
-                    $winner[] = $candidateKey;
-                endif;
-            endforeach;
+            $minScore = min($score);
 
-            if (count($winner) > 1) :
-                $betterWinner = null;
-
-                if ($betterWinner !== null) :
-                    $winner = [$betterWinner];
-                endif;
+            if ($maxScore > $this->_selfElection->countVotes()) :
+                $rank = $CandidatesWinnerCount + 1;
+                foreach ($score as $candidateKey => $candidateScore) :
+                    if ($candidateScore !== $maxScore) :
+                        continue;
+                    else :
+                        $result[$rank][] = $candidateKey;
+                        $candidateDone[] = $candidateKey;
+                        $CandidatesWinnerCount++;
+                    endif;
+                endforeach;
+            else :
+                $rank = $candidateCount - $CandidatesLoserCount;
+                foreach ($score as $candidateKey => $candidateScore) :
+                    if ($candidateScore !== $minScore) :
+                        continue;
+                    else :
+                        $result[$rank][] = $candidateKey;
+                        $candidateDone[] = $candidateKey;
+                        $CandidatesLoserCount++;
+                    endif;
+                endforeach;
             endif;
-
-            $rank = count($candidateDone) + 1;
-            foreach ($winner as $oneWinner) :
-                $result[$rank][] = $oneWinner;
-                $candidateDone[] = $oneWinner;
-            endforeach;
 
         endwhile;
 
         $this->_Result = $this->createResult($result);
+    }
+
+    protected function tieBreaking (array $candidatesKeys) : int
+    {
+
     }
 }

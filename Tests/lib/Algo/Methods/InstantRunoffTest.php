@@ -35,11 +35,11 @@ class InstantRunoffTest extends TestCase
         ');
 
         self::assertEquals( [
-                1 => 'A',
-                2 => 'B',
-                3 => 'C',
-                4 => 'D' ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
+                1 => 'D',
+                2 => 'A',
+                3 => 'B',
+                4 => 'C' ],
+            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
 
     }
@@ -61,10 +61,10 @@ class InstantRunoffTest extends TestCase
         ');
 
         self::assertEquals( [
-            1 => 'Sue',
-            2 => 'Bob',
-            3 => 'Bill' ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
+            1 => 'sue',
+            2 => 'bob',
+            3 => 'bill' ],
+            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
 
     }
