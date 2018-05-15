@@ -40,6 +40,12 @@ trait VotesProcess
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tag),$with);
     }
 
+    // Sum votes weight
+    public function sumVotesWeight () : int
+    {
+        return $this->_Votes->sumVotesWeight();
+    }
+
     // Get the votes registered list
     public function getVotesList ($tag = null, bool $with = true) : array
     {

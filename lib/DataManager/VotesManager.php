@@ -224,4 +224,15 @@ class VotesManager extends ArrayManager
             return $count;
         endif;
     }
+
+    public function sumVotesWeight () : int
+    {
+        $sum = 0;
+
+        foreach ($this as $oneVote) :
+            $sum += ($this->_link[0]->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+        endforeach;
+
+        return $sum;
+    }
 }

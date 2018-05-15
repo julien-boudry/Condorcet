@@ -51,7 +51,7 @@ class InstantRunoff extends Method implements MethodInterface
             $maxScore = max($score);
             $minScore = min($score);
 
-            if ($maxScore > $this->_selfElection->countVotes()) :
+            if ($maxScore > $this->_selfElection->sumVotesWeight()) :
                 $rank = $CandidatesWinnerCount + 1;
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $maxScore) :

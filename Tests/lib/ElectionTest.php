@@ -175,6 +175,11 @@ class ElectionTest extends TestCase
         $voteWithWeight->setWeight(2);
 
         self::assertSame(
+            14,
+            $election->sumVotesWeight()
+        );
+
+        self::assertSame(
             'D > C > B ^2',
             (string) $voteWithWeight
         );
@@ -192,6 +197,11 @@ class ElectionTest extends TestCase
         $election->allowVoteWeight(true);
 
         self::assertSame(
+            15,
+            $election->sumVotesWeight()
+        );
+
+        self::assertSame(
             'D > C > B > A ^2',
             $voteWithWeight->getSimpleRanking($election)
         );
@@ -203,6 +213,11 @@ class ElectionTest extends TestCase
 
         $election->allowVoteWeight(false);
 
+        self::assertSame(
+            14,
+            $election->sumVotesWeight()
+        );
+
         self::assertNotSame(
             'A = D > C > B',
             $election->getResult('Schulze Winning')->getResultAsString()
@@ -212,9 +227,19 @@ class ElectionTest extends TestCase
 
         $election->removeVote($voteWithWeight);
 
+        self::assertSame(
+            13,
+            $election->sumVotesWeight()
+        );
+
         $election->parseVotes('
             D > C > B ^2 * 1
         ');
+
+        self::assertSame(
+            15,
+            $election->sumVotesWeight()
+        );
 
         self::assertSame(
             'A = D > C > B',
