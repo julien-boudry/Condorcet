@@ -20,13 +20,13 @@ use Condorcet\Result;
 class InstantRunoff extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Instant-runoff','InstantRunoff','preferential voting','ranked-choice voting','alternative vote','AlternativeVote','transferable vote','Vote alternatif'];
+    public const METHOD_NAME = ['Instant-runoff', 'InstantRunoff', 'preferential voting', 'ranked-choice voting', 'alternative vote', 'AlternativeVote', 'transferable vote', 'Vote alternatif'];
 
     public static $starting = 1;
 
     protected $_Stats;
 
-    protected function getStats () : array
+    protected function getStats(): array
     {
         $stats = [];
 
@@ -38,7 +38,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     //:: Alternative Vote ALGORITHM. :://
 
-    protected function compute () : void
+    protected function compute (): void
     {
         $candidateCount = $this->_selfElection->countCandidates();
         $candidateDone = [];
@@ -52,23 +52,13 @@ class InstantRunoff extends Method implements MethodInterface
             $minScore = min($score);
 
             if ($maxScore > $this->_selfElection->sumVotesWeight()) :
-                $WinnersToRegister = [];
-                $rank = $CandidatesWinnerCount + 1;
-
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $maxScore) :
                         continue;
                     else :
-                        $WinnersToRegister[] = $candidateKey;
+                        $candidateDone[] = $candidateKey;
+                        $result[++$CandidatesWinnerCount][] = $candidateKey;
                     endif;
-
-                    if(count($WinnersToRegister) > 1) :
-                        $WinnersToRegister = $this->tieBreaking($WinnersToRegister, true);
-                    endif;
-
-                    $CandidatesWinnerCount += count($WinnersToRegister);
-                    $candidateDone = array_merge($candidateDone,$WinnersToRegister);
-                    $result[$rank][] = $WinnersToRegister;
                 endforeach;
             else :
                 $LosersToRegister = [];
@@ -81,12 +71,12 @@ class InstantRunoff extends Method implements MethodInterface
                     endif;
                 endforeach;
 
-                if(count($LosersToRegister) > 1) :
-                    $LosersToRegister = $this->tieBreaking($LosersToRegister, false);
+                if (count($LosersToRegister) > 1) :
+                    $LosersToRegister = $this->tieBreaking($LosersToRegister);
                 endif;
 
                 $CandidatesLoserCount += count($LosersToRegister);
-                $candidateDone = array_merge($candidateDone,$LosersToRegister);
+                $candidateDone = array_merge($candidateDone, $LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
 
@@ -95,11 +85,11 @@ class InstantRunoff extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $candidateDone) : array
+    protected function makeScore (array $candidateDone): array
     {
         $score = [];
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
+            if (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
                 $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
             endif;
         endforeach;
@@ -107,14 +97,14 @@ class InstantRunoff extends Method implements MethodInterface
         foreach ($this->_selfElection->getVotesManager() as $oneVote) :
             $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
 
-            for ($i = 0 ; $i < $weight ; $i++) :
+            for ($i = 0; $i < $weight; $i++) :
                 $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 
                 foreach ($oneRanking as $oneRank) :
                     foreach ($oneRank as $oneCandidate) :
-                        if(count($oneRank) !== 1) :
+                        if (count($oneRank) !== 1) :
                             break;
-                        elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate),$candidateDone,true)) :
+                        elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
                             $score[$this->_selfElection->getCandidateKey(reset($oneRank))] += 1;
                             break 2;
                         endif;
@@ -126,7 +116,7 @@ class InstantRunoff extends Method implements MethodInterface
         return $score;
     }
 
-    protected function tieBreaking (array $candidatesKeys, bool $isWinnerTieBreaking) : array
+    protected function tieBreaking (array $candidatesKeys): array
     {
         $pairwise = $this->_selfElection->getPairwise(false);
         $tooKeep = [];
@@ -138,11 +128,7 @@ class InstantRunoff extends Method implements MethodInterface
                     continue;
                 endif;
 
-
-                $win = $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey];
-                $lose = $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey];
-
-                if ( ($isWinnerTieBreaking) ? $this->winnerTieBreaking($win,$lose) : $this->loserTieBreaking($win,$lose) ) :
+                if ($pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey]) :
                     $select = false;
                 endif;
             endforeach;
@@ -153,15 +139,5 @@ class InstantRunoff extends Method implements MethodInterface
         endforeach;
 
         return $tooKeep;
-    }
-
-    protected function winnerTieBreaking (int $win, int $lose) : bool
-    {
-        return $win < $lose;
-    }
-
-    protected function loserTieBreaking (int $win, int $lose) : bool
-    {
-        return $win > $lose;
     }
 }
