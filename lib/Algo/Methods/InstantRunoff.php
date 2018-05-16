@@ -41,6 +41,8 @@ class InstantRunoff extends Method implements MethodInterface
     protected function compute (): void
     {
         $candidateCount = $this->_selfElection->countCandidates();
+        $majority = $this->_selfElection->sumVotesWeight() / 2;
+
         $candidateDone = [];
         $result = [];
         $CandidatesWinnerCount = 0;
@@ -51,7 +53,7 @@ class InstantRunoff extends Method implements MethodInterface
             $maxScore = max($score);
             $minScore = min($score);
 
-            if ($maxScore > $this->_selfElection->sumVotesWeight()) :
+            if ( $maxScore > $majority ) :
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $maxScore) :
                         continue;
