@@ -14,6 +14,9 @@ Adds for the first time methods unrelated to Condorcet's criteria (Borda, Altern
 - New voting method: Instant-runoff (also know as Alternative Voting or Preferential Voting)
 - New voting method: First-past-the-post
 
+### Changed
+- Result object (iterator and his others methods) is now ordered by key  from first rank to last rank. However, no method officially implemented before version 1.7 was affected by this theoretical problem. This never affected the correct rank allocation, but could cause misinterpretation if carelessly repeated in a loop.
+
 ### Internal changes
 - Code cleanup & test improvements
 
