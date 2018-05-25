@@ -15,16 +15,16 @@
 > Contribute: [Contribute File](CONTRIBUTING.md)   
 > Donation: ₿ [1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez](https://blockchain.info/address/1LhZZVxmNCTPWftKFTUKbRiUKzA67RPWez) _You can also offer me a bottle of good wine._  
 >
-> Methods provided natively: Condorcet / Copeland / Dodgson (2 Approximations) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
+> Methods provided natively: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
 Condorcet PHP
 ===========================
-A PHP library implementing the Condorcet voting system and others Condorcet methods like the Schulze method. And also a powerful election manager.  
+A PHP library implementing the Condorcet voting system and others methods like the Schulze method. And also a powerful election manager.  
 
 ## Summary
 1. [Project State and Specifications](#project-state-and-specifications)  
 1. [Main features](#main-features)     
-1. [Supported Condorcet Methods](#supported-condorcet-methods)  
+1. [Supported Methods](#supported-methods)  
   a. [Methods provided natively](#methods-provided-natively)     
   b. [Add your own method](#add-your-own-method-as-module)  
 1. [How to use it?](#how-to-use-it)  
@@ -75,26 +75,31 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
 
 _Condorcet PHP is not designed for high performances or very high reliability exigence._   
 
-## Supported Condorcet Methods
+## Supported Methods
 ### Methods provided natively
 
 *[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)*
 
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
+* **Borda count** https://en.wikipedia.org/wiki/Borda_count
+    * **Borda System** *(starting at 1)*
+    * **Dowdall system (Nauru)**
 * **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
 * **Dodgson Approximations** *(Not the real Dodgson method, see: [Lewis Caroll, Voting and the taxicab metric](https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf))*
     * **Dodgson Quick** *(recommended)*
     * **Dodgson Tideman approximation**
+* **First-past-the-post** https://en.wikipedia.org/wiki/First-past-the-post_voting
+* **Instant-runoff** *(Alternative Vote / Preferential Voting)* https://en.wikipedia.org/wiki/Instant-runoff_voting
 * **Kemeny–Young** http://en.wikipedia.org/wiki/Kemeny-Young_method _Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB._
 * **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
-    * **Minimax Winning** *(Does not satisfy the Condorcet loser criterion)*  
-    * **Minimax Margin** *(Does not satisfy the Condorcet loser criterion)*
-    * **Minimax Opposition** *(By nature, this alternative does not meet any criterion of Condorcet)*
-* **Ranked Pairs Family** https://en.wikipedia.org/wiki/Ranked_pairs *This method is also known as Tideman method.*
-    * **Ranked Pairs Margin** Margin variant is recommended by Nicolaus Tideman himself. ***This is the default choice.***
+    * **Minimax Winning**
+    * **Minimax Margin**
+    * **Minimax Opposition**
+* **Ranked Pairs Family** *(Tideman method)* https://en.wikipedia.org/wiki/Ranked_pairs
+    * **Ranked Pairs Margin** Margin variant is recommended by Nicolaus Tideman himself.
     * **Ranked Pairs Winning** Widely used variant, maybe more than the original.
-* **Schulze Family** http://en.wikipedia.org/wiki/Schulze_method *This method is also known as Schulze Method.*
-    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself. ***This is the default choice.***
+* **Schulze Method** http://en.wikipedia.org/wiki/Schulze_method
+    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself.
     * **Schulze Margin** Variant from Markus Schulze himself.
     * **Schulze Ratio** Variant from Markus Schulze himself.
 

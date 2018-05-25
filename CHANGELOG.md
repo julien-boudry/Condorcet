@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v1.7.0] - 2018-05-26
+### Description
+Adds for the first time methods unrelated to Condorcet's criteria (Borda, Alternative Voting, FTPT).
+
+### Added
+- New voting method: Borda Count
+- New voting method: Dowdall System (Nauru), a Borda Count variant.
+- New voting method: Instant-runoff (also know as Alternative Voting or Preferential Voting)
+- New voting method: First-past-the-post
+
+### Internal changes
+- Code cleanup & test improvements
+
 ## [v1.6.0] - 2018-01-28
 ### Description
 Publication centred on two axes:  
