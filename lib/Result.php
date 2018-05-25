@@ -85,6 +85,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
     {
+        ksort($result, SORT_NUMERIC);
+
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult($election);
         $this->_stringResult = $this->getResultAsArray(true);
