@@ -42,6 +42,30 @@ class InstantRunoffTest extends TestCase
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
 
+        self::assertSame(
+            [
+                1 =>
+                    [
+                        "A" => 42,
+                        "B" => 26,
+                        "C" => 15,
+                        "D" => 17
+                    ],
+                2 =>
+                    [
+                        "A" => 42,
+                        "B" => 26,
+                        "D" => 32
+                    ],
+                3 =>
+                    [
+                        "A" => 42,
+                        "D" => 58
+                    ]
+            ],
+            $this->election->getResult('InstantRunoff')->getStats()
+        );
+
     }
 
     public function testResult_2 ()

@@ -30,6 +30,16 @@ class InstantRunoff extends Method implements MethodInterface
     {
         $stats = [];
 
+        foreach ($this->_Stats as $oneIterationKey => $oneIterationData) :
+            if (count($oneIterationData) === 1) :
+                break;
+            endif;
+
+            foreach ($oneIterationData as $candidateKey => $candidateValue) :
+                $stats[$oneIterationKey][(string) $this->_selfElection->getCandidateId($candidateKey)] = $candidateValue;
+            endforeach;
+        endforeach;
+
         return $stats;
     }
 
@@ -48,10 +58,14 @@ class InstantRunoff extends Method implements MethodInterface
         $CandidatesWinnerCount = 0;
         $CandidatesLoserCount = 0;
 
+        $iteration = 0;
+
         while (count($candidateDone) < $candidateCount) :
             $score = $this->makeScore($candidateDone);
             $maxScore = max($score);
             $minScore = min($score);
+
+            $this->_Stats[++$iteration] = $score;
 
             if ( $maxScore > $majority ) :
                 foreach ($score as $candidateKey => $candidateScore) :
