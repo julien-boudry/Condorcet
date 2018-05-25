@@ -81,4 +81,30 @@ class FtptTest extends TestCase
             $this->election->getResult('Ftpt')->getStats()
         );
     }
+
+    public function testResult_3 ()
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A>B>C
+            A=C>B
+        ');
+
+        self::assertSame( [
+            1 => 'A',
+            2 => 'C',
+            3 => 'B' ],
+            $this->election->getResult('Ftpt')->getResultAsArray(true)
+        );
+
+        self::assertSame( [
+            'A' => 1 + 1/2,
+            'C' => 1/2,
+            'B' => 0 ],
+            $this->election->getResult('Ftpt')->getStats()
+        );
+    }
 }
