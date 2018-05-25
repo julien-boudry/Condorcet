@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Condorcet;
 
 
+use Condorcet\Algo\Methods\KemenyYoung;
 use PHPUnit\Framework\TestCase;
 
 
@@ -49,12 +50,11 @@ class KemenyYoungTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testResult2 ()
     {
-        \Condorcet\Algo\Methods\KemenyYoung::$useCache = false;
+        KemenyYoung::$useCache = false;
 
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
 
@@ -78,6 +78,9 @@ class KemenyYoungTest extends TestCase
             ],
             $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
+
+        KemenyYoung::$useCache = true;
+
     }
 
     /**
@@ -126,5 +129,23 @@ class KemenyYoungTest extends TestCase
         );
 
         self::assertEquals('A',$this->election->getWinner('KemenyYoung'));
+    }
+
+    public function testWritePermutation ()
+    {
+        $this->election->parseCandidates('A;B');
+
+        $this->election->parseVotes('
+            A>B;
+            B>A;
+            A>B');
+
+        KemenyYoung::$devWriteCache = true;
+        KemenyYoung::$useCache = false;
+        $this->election->getResult( 'KemenyYoung' ) ;
+        KemenyYoung::$devWriteCache = false;
+        KemenyYoung::$useCache = true;
+
+        self::assertSame(true,true);
     }
 }
