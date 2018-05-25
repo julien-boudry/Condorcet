@@ -2,13 +2,13 @@
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>
 
-[![Build Status](https://img.shields.io/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
-[![Packagist](https://img.shields.io/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![Packagist Download](https://img.shields.io/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![GitHub contributors](https://img.shields.io/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
-[![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/julien-boudry/Condorcet.svg?style=flat-square)](https://scrutinizer-ci.com/g/julien-boudry/Condorcet/code-structure/master/code-coverage)
+[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
+[![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
+[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
+![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
+[![Scrutinizer Coverage](https://d3g33cz5i5omk9.cloudfront.net/scrutinizer/coverage/g/julien-boudry/Condorcet.svg?style=flat-square)](https://scrutinizer-ci.com/g/julien-boudry/Condorcet/code-structure/master/code-coverage)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
@@ -66,14 +66,15 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
 * __Be more powerful__
   * All are objects, all are abstract _(But there is many higher level functions and inputs types)_.
   * Candidates and Votes are objects which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
-  * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDP driver is provided by default, an example is provided with SQL Lite, an interface allows you to design others drivers.
+  * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDO driver is provided by default, an example is provided with SQLite, an interface allows you to design others drivers.
 * __Extend it! Configure it!__
   * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module on your own namespace.
   * Candidate and Vote class are extensible.
   * Allow you to use your own datastore driver to manage very large elections at your way.
   * Many configurations options and methods.
 
-_Condorcet PHP is not designed for high performances or very high reliability exigence._   
+_Condorcet PHP is not designed for high performances. But can handle virtually unlimited voting without limit or degrading performance_  
+_And has no certification or proven implementation that would guarantee a very high level of reliability._   
 
 ## Supported Methods
 ### Methods provided natively
@@ -104,7 +105,7 @@ _Condorcet PHP is not designed for high performances or very high reliability ex
     * **Schulze Ratio** Variant from Markus Schulze himself.
 
 ### Add your own method as module
-This class is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
+Condorcet is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
 [*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
