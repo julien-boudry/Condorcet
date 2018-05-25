@@ -34,7 +34,7 @@ class KemenyYoungTest extends TestCase
         ');
 
 
-        self::assertEquals(
+        self::assertSame(
             [
                 1 => 'Nashville',
                 2 => 'Chattanooga',
@@ -69,7 +69,7 @@ class KemenyYoungTest extends TestCase
 
         $this->election->setImplicitRanking(false);
 
-        self::assertEquals(
+        self::assertSame(
             [
                 1 => 'Elliot',
                 2 => 'Roland',

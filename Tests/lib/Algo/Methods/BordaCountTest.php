@@ -34,7 +34,7 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
                 1 => 'B',
                 2 => 'C',
                 3 => 'A',
@@ -69,7 +69,7 @@ class BordaCountTest extends TestCase
             A>D>C>B ^ 15
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => 'A',
             2 => 'B',
             3 => 'C',
@@ -96,7 +96,7 @@ class BordaCountTest extends TestCase
             A
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => 'A',
             2 => ['B','C'] ],
             $this->election->getResult('Borda Count')->getResultAsArray(true)
@@ -111,7 +111,7 @@ class BordaCountTest extends TestCase
 
         $this->election->setImplicitRanking(false);
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => 'A',
             2 => ['B','C'] ],
             $this->election->getResult('Borda Count')->getResultAsArray(true)

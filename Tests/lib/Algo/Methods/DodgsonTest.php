@@ -416,7 +416,7 @@ class DodgsonTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertEquals($this->election->getWinner(null),$this->election->getWinner('DodgsonQuick'));
+        self::assertSame($this->election->getWinner(null),$this->election->getWinner('DodgsonQuick'));
     }
 
 }

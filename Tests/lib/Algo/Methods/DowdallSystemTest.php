@@ -33,7 +33,7 @@ class DowdallSystemTest extends TestCase
             A>B>C>D>E>F
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
                 1 => 'A',
                 2 => 'B',
                 3 => 'C',

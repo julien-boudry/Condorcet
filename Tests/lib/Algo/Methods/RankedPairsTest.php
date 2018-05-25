@@ -80,7 +80,7 @@ class RankedPairsTest extends TestCase
                         4 => 'Memphis'];
 
 
-        self::assertEquals(
+        self::assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );

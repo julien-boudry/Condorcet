@@ -35,7 +35,7 @@ class CopelandTest extends TestCase
         ');
 
 
-        self::assertEquals( [
+        self::assertSame( [
                 1 => 'Nashville',
                 2 => 'Chattanooga',
                 3 => 'Knoxville',

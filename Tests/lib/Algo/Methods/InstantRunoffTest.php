@@ -34,7 +34,7 @@ class InstantRunoffTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
                 1 => 'D',
                 2 => 'A',
                 3 => 'B',
@@ -84,7 +84,7 @@ class InstantRunoffTest extends TestCase
             sue > bob > bill
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => 'sue',
             2 => 'bob',
             3 => 'bill' ],
@@ -108,7 +108,7 @@ class InstantRunoffTest extends TestCase
             bill > bob > sue
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => 'bob',
             2 => 'bill',
             3 => 'sue' ],
@@ -127,7 +127,7 @@ class InstantRunoffTest extends TestCase
             A=B=C
         ');
 
-        self::assertEquals( [
+        self::assertSame( [
             1 => ['A','B','C'] ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
