@@ -14,7 +14,7 @@ namespace Condorcet\Algo\Methods;
 
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
-
+use Condorcet\Algo\Tools\PairwiseStats;
 use Condorcet\Result;
 
 class InstantRunoff extends Method implements MethodInterface
@@ -73,9 +73,11 @@ class InstantRunoff extends Method implements MethodInterface
                     endif;
                 endforeach;
 
-                if (count($LosersToRegister) > 1) :
+                // Tie Breaking
+                $round = count($LosersToRegister);
+                for ($i = 1 ; $i < $round ; $i++) : // A little silly. But ultimately shorter and simpler.
                     $LosersToRegister = $this->tieBreaking($LosersToRegister);
-                endif;
+                endfor;
 
                 $CandidatesLoserCount += count($LosersToRegister);
                 $candidateDone = array_merge($candidateDone, $LosersToRegister);
@@ -121,6 +123,7 @@ class InstantRunoff extends Method implements MethodInterface
     protected function tieBreaking (array $candidatesKeys): array
     {
         $pairwise = $this->_selfElection->getPairwise(false);
+        $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
         $tooKeep = [];
 
         foreach ($candidatesKeys as $oneCandidateKeyTotest) :
@@ -130,7 +133,10 @@ class InstantRunoff extends Method implements MethodInterface
                     continue;
                 endif;
 
-                if ($pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey]) :
+                if (    $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
+                        $pairwiseStats[$oneCandidateKeyTotest]['balance'] > $pairwiseStats[$oneChallengerKey]['balance'] ||
+                        $pairwiseStats[$oneCandidateKeyTotest]['win'] > $pairwiseStats[$oneChallengerKey]['win']
+                ) :
                     $select = false;
                 endif;
             endforeach;

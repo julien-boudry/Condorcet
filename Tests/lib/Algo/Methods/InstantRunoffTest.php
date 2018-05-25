@@ -81,7 +81,7 @@ class InstantRunoffTest extends TestCase
             bill > sue > bob
             bob > bill > sue
             sue > bob > bill
-            bill > bob > sur
+            bill > bob > sue
         ');
 
         self::assertEquals( [
