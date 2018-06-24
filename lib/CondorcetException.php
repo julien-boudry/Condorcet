@@ -66,11 +66,8 @@ class CondorcetException extends \Exception
         $error[29] = 'This vote constraint is already registered';
         $error[30] = 'You can\'t add constraint after starting to record votes ';
 
-        $error[30] = 'Candidate not in Ranking';
-
-
         // DataManager
-        $error[30] = 'This entity does not exist.';
+        $error[50] = 'This entity does not exist.';
 
         // Algorithms
         if ($code === 101) :

@@ -215,7 +215,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $deleteCount = $this->_prepare['deleteOneEntity']->rowCount();
 
             if (!$justTry && $deleteCount !== 1) :
-                throw new CondorcetException (30);
+                throw new CondorcetException (50);
             endif;
 
             $this->_prepare['deleteOneEntity']->closeCursor();
