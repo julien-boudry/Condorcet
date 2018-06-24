@@ -60,6 +60,7 @@ class Election
     // Params
     protected $_ImplicitRanking = true;
     protected $_VoteWeightRule = false;
+    protected $_Constraints = [];
 
         //////
 
@@ -213,6 +214,33 @@ class Election
         $this->_VoteWeightRule = $rule;
         $this->cleanupResult();
         return $this->isVoteWeightIsAllowed();
+    }
+
+
+    /////////// VOTE CONSTRAINT ///////////
+
+    public function addConstraint (string $class) : bool
+    {
+        if ($this->_State > 1) :
+            throw new CondorcetException(30);
+        elseif ( !class_exists($class) ) :
+            throw new CondorcetException(27);
+        elseif ( !is_subclass_of($class, __NAMESPACE__.'\\VoteConstraint') ) :
+            throw new CondorcetException(28);
+        elseif (in_array($class,$this->_Constraints, true)) :
+            throw new CondorcetException(29);
+        endif;
+
+        $this->_Constraints[] = $class;
+
+        return true;
+    }
+
+    public function clearConstraints () : bool
+    {
+        $this->_Constraints = [];
+
+        return true;
     }
 
 

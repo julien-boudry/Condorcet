@@ -61,6 +61,10 @@ class CondorcetException extends \Exception
         $error[24] = 'A Data Handler is already in use';
         $error[25] = 'Algo class try to use existing alias';
         $error[26] = 'Weight can not be < 1';
+        $error[27] = 'The vote constraint class you want has not been defined';
+        $error[28] = 'The vote constraint class you want is not correct';
+        $error[29] = 'This vote constraint is already registered';
+        $error[30] = 'You can\'t add constraint after starting to record votes ';
 
         $error[30] = 'Candidate not in Ranking';
 
