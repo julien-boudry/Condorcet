@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v1.8.0] - 2018-06-25
+### Description
+You can add custom modules to force votes to meet certain criteria.   
+A first module is officially proposed (disabled by default). Preventing votes from including ties.
+
+### Added
+- Vote constraints functionality
+- First official vote constraint module : Disallow vote tie on any rank in election context.
+
 ## [v1.7.0] - 2018-05-26
 ### Description
 Adds for the first time methods unrelated to Condorcet's criteria (Borda, Alternative Voting, FTPT).

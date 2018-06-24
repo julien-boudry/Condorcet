@@ -41,8 +41,8 @@ A PHP library implementing the Condorcet voting system and others methods like t
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 1.7.x**  
-  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.2)_
+* **Stable Version: 1.8.x**  
+  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.3)_
 * **Old Stable : 1.0.x** _support provided_  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
@@ -56,7 +56,7 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Many input type available (String, Json, Parse text, Objects...)
   * Integrity check (checksumming) and logs.
   * Support for storing elections (serializing Election object, exports datas...)
-  * Some methods can be use nearly front final user (anti-spam check, parsing input, human friendly results and stats...)
+  * Some methods can be use nearly front final user (anti-spam check, parsing input, human friendly results and stats, vote constraints...)
 * __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
   * Get full ranking from advanced methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
