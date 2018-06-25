@@ -29,9 +29,14 @@ class VotesManager extends ArrayManager
         parent::__construct();
     }
 
-    public function setElection (Election $election)
+    public function setElection (Election $election) : void
     {
         $this->_link[0] = $election;
+    }
+
+    public function getElection () : Election
+    {
+        return $this->_link[0];
     }
 
 /////////// Data CallBack for external drivers ///////////
@@ -174,7 +179,7 @@ class VotesManager extends ArrayManager
                 $nb[$oneVoteString] = 0;
             endif;
 
-            if ($this->_link[0]->isVoteWeightIsAllowed()) :
+            if ($this->getElection()->isVoteWeightIsAllowed()) :
                 $weight[$oneVoteString] += $oneVote->getWeight();
             else :
                 $weight[$oneVoteString]++;
@@ -225,12 +230,27 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function sumVotesWeight () : int
+    public function countInvalidVoteWithConstraints () : int
+    {
+        $count = 0;
+
+        foreach ($this as $oneVote) :
+            if($this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+                $count++;
+            endif;
+        endforeach;
+
+        return $count;
+    }
+
+    public function sumVotesWeight (bool $constraint = false) : int
     {
         $sum = 0;
 
         foreach ($this as $oneVote) :
-            $sum += ($this->_link[0]->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+            if ( !$constraint || $this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote) ) :
+                $sum += ($this->getElection()->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+            endif;
         endforeach;
 
         return $sum;

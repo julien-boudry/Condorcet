@@ -51,7 +51,7 @@ class InstantRunoff extends Method implements MethodInterface
     protected function compute (): void
     {
         $candidateCount = $this->_selfElection->countCandidates();
-        $majority = $this->_selfElection->sumVotesWeight() / 2;
+        $majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
 
         $candidateDone = [];
         $result = [];
@@ -113,6 +113,12 @@ class InstantRunoff extends Method implements MethodInterface
         endforeach;
 
         foreach ($this->_selfElection->getVotesManager() as $oneVote) :
+
+            // Ignore vote who don't respect election constraints
+            if(!$this->_selfElection->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+                continue;
+            endif;
+
             $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
 
             for ($i = 0; $i < $weight; $i++) :

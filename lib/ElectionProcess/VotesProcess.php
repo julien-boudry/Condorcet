@@ -40,10 +40,25 @@ trait VotesProcess
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tag),$with);
     }
 
+    public function countInvalidVoteWithConstraints () : int
+    {
+        return $this->_Votes->countInvalidVoteWithConstraints();
+    }
+
+    public function countValidVoteWithConstraints () : int
+    {
+        return $this->countVotes() - $this->countInvalidVoteWithConstraints();
+    }
+
     // Sum votes weight
     public function sumVotesWeight () : int
     {
-        return $this->_Votes->sumVotesWeight();
+        return $this->_Votes->sumVotesWeight(false);
+    }
+
+    public function sumValidVotesWeightWithConstraints () : int
+    {
+        return $this->_Votes->sumVotesWeight(true);
     }
 
     // Get the votes registered list

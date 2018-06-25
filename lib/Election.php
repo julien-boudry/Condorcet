@@ -243,6 +243,17 @@ class Election
         return true;
     }
 
+    public function testIfVoteIsValidUnderElectionConstraints (Vote $vote) : bool
+    {
+        foreach ($this->_Constraints as $oneConstraint) :
+            if ($oneConstraint::isVoteAllow($vote) === false) :
+                return false;
+            endif;
+        endforeach;
+
+        return true;
+    }
+
 
 /////////// LARGE ELECTION MODE ///////////
 

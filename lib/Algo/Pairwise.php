@@ -111,6 +111,12 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         // Win && Null
         foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
+
+            // Ignore vote who don't respect election constraints
+            if(!$this->_Election->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+                continue;
+            endif;
+
             $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
             $voteWeight = ($this->_Election->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
