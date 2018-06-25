@@ -14,7 +14,7 @@ use Condorcet\VoteConstraint;
 
 class NoTie extends VoteConstraint
 {
-    public static function evaluateVote (array $vote): bool
+    protected static function evaluateVote (array $vote): bool
     {
         foreach ($vote as $oneRank) :
             if (count($oneRank) > 1) :
