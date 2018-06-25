@@ -17,7 +17,7 @@ class NoTie extends VoteConstraint
     public static function evaluateVote (array $vote): bool
     {
         foreach ($vote as $oneRank) :
-            if (count($oneRank > 1)) :
+            if (count($oneRank) > 1) :
                 return false;
             endif;
         endforeach;

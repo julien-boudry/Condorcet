@@ -235,7 +235,7 @@ class VotesManager extends ArrayManager
         $count = 0;
 
         foreach ($this as $oneVote) :
-            if($this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+            if(!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
                 $count++;
             endif;
         endforeach;
