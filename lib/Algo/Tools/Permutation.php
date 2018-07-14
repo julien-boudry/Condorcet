@@ -27,13 +27,15 @@ class Permutation
         return $result;
     }
 
-    public function __construct($arr) {
+    public function __construct ($arr)
+    {
         $this->_exec(
             $this->_permute( (is_int($arr)) ? $this->createCandidates($arr) : $arr )
         );
     }
 
-    public function getResults (bool $serialize = false) {
+    public function getResults (bool $serialize = false)
+    {
         return ($serialize) ? serialize($this->results) : $this->results;
     }
 
@@ -51,7 +53,8 @@ class Permutation
         return $arr;
     }
 
-    private function _exec($a, array $i = []) : void {
+    private function _exec ($a, array $i = []) : void
+    {
         if (is_array($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;
@@ -69,7 +72,8 @@ class Permutation
         endif;
     }
 
-    private function _permute(array $arr) {
+    private function _permute (array $arr)
+    {
         $out = [];
 
         if (count($arr) > 1) :
