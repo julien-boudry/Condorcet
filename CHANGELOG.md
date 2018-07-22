@@ -11,6 +11,7 @@ Constraint are designed as free modules (external class to load into each electi
 - Vote constraints functionality
 - First official vote constraint module: Disallow vote tie on any rank in election context.
 - Tested with PHP 7.3.
+- Always better code!
 
 ## [v1.7.0] - 2018-05-26
 ### Description

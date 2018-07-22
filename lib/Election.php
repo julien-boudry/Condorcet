@@ -16,7 +16,6 @@ use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use Condorcet\ElectionProcess\CandidatesProcess;
 use Condorcet\ElectionProcess\ResultsProcess;
 use Condorcet\ElectionProcess\VotesProcess;
-
 use Condorcet\Timer\Manager as Timer_Manager;
 
 

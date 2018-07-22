@@ -266,40 +266,10 @@ trait VotesProcess
             endif;
 
             // Multiples
-            $is_multiple = mb_strpos($line, '*');
-            if ($is_multiple !== false) :
-                $multiple = trim( substr($line, $is_multiple + 1) );
-
-                // Errors
-                if ( !is_numeric($multiple) ) :
-                    throw new CondorcetException(13, null);
-                endif;
-
-                $multiple = intval($multiple);
-
-                // Reformat line
-                $line = substr($line, 0, $is_multiple);
-            else :
-                $multiple = 1;
-            endif;
+            $multiple = $this->parseAnalysingOneLine(mb_strpos($line, '*'),$line);
 
             // Vote Weight
-            $is_voteWeight = mb_strpos($line, '^');
-            if ($is_voteWeight !== false) :
-                $weight = trim( substr($line, $is_voteWeight + 1) );
-
-                // Errors
-                if ( !is_numeric($weight) ) :
-                    throw new CondorcetException(13, null);
-                endif;
-
-                $weight = intval($weight);
-
-                // Reformat line
-                $line = substr($line, 0, $is_voteWeight);
-            else :
-                $weight = 1;
-            endif;
+            $weight = $this->parseAnalysingOneLine(mb_strpos($line, '^'),$line);
 
             // Tags + vote
             if (mb_strpos($line, '||') !== false) :
@@ -327,5 +297,24 @@ trait VotesProcess
         endforeach;
 
         return $adding;
+    }
+
+    protected function parseAnalysingOneLine ($searchCharacter, string &$line) : int
+    {
+        if ($searchCharacter !== false) :
+            $value = trim( substr($line, $searchCharacter + 1) );
+
+            // Errors
+            if ( !is_numeric($value) ) :
+                throw new CondorcetException(13, null);
+            endif;
+
+            // Reformat line
+            $line = substr($line, 0, $searchCharacter);
+
+            return intval($value);
+        else :
+            return 1;
+        endif;
     }
 }
