@@ -2,16 +2,15 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
-
-## [v1.8.0] - 2018-06-25
+## [v1.8.0] - 2018-07-22
 ### Description
-You can add custom modules to force votes to meet certain criteria.   
-A first module is officially proposed (disabled by default). Preventing votes from including ties.
+You can add custom constraint to force votes to meet certain criteria.   
+Constraint are designed as free modules (external class to load into each election). A first module is officially proposed (disabled by default): Preventing votes from including ties.
 
 ### Added
 - Vote constraints functionality
-- First official vote constraint module : Disallow vote tie on any rank in election context.
+- First official vote constraint module: Disallow vote tie on any rank in election context.
+- Tested with PHP 7.3.
 
 ## [v1.7.0] - 2018-05-26
 ### Description
