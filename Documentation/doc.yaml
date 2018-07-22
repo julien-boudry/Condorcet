@@ -232,6 +232,30 @@
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
+  -
+    class: Election
+    type: method
+    visibility: public
+    name: addConstraint
+    static: false
+    description: |
+      Add a constraint rules as a valid class path.
+    input:
+      class:
+        type: string
+        required: true
+        text: A valid class path. Class must implementing VoteConstraintInterface.
+    return: |
+      True on success. Throw CondorcetException code 27/28/29 on error.
+    related:
+      - 'Election::getConstraints'
+      - 'Election::clearConstraints'
+      - 'Election::testIfVoteIsValidUnderElectionConstraints'
+    examples:
+      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+    publish: true
+
+
 - 
   class: Election
   type: method
@@ -303,6 +327,24 @@
     - 'Election::addCandidate'
   publish: true
 
+  -
+    class: Election
+    type: method
+    visibility: public
+    name: clearConstraints
+    static: false
+    description: |
+      Clear all constraints rules and clear previous results.
+    return: |
+      Return True.
+    related:
+      - 'Election::getConstraints'
+      - 'Election::addConstraints'
+      - 'Election::testIfVoteIsValidUnderElectionConstraints'
+    examples:
+      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+    publish: true
+
 - 
   class: Election
   type: method
@@ -324,13 +366,13 @@
   name: countVotes
   static: false
   description: |
-    Count the number of actual registered and valid vote for this election.
+    Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
   input:
     tag:
       type: mixed
       default: null
       required: false
-      text: 'Tag into string sparated by commas, or an Array.'
+      text: 'Tag into string separated by commas, or an Array.'
     with:
       type: bool
       default: true
@@ -340,7 +382,40 @@
     (int) Number of valid and registered vote into this election.
   related:
     - 'Election::getVotesList'
+    - 'Election::countValidVoteWithConstraints'
   publish: true
+
+-
+    class: Election
+    type: method
+    visibility: public
+    name: countInvalidVoteWithConstraints
+    static: false
+    description: |
+      Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
+    return: |
+      (int) Number of valid and registered vote into this election.
+    related:
+      - 'Election::countValidVoteWithConstraints'
+      - 'Election::countVotes'
+      - 'Election::sumVotesWeightWithConstraints'
+    publish: true
+
+-
+    class: Election
+    type: method
+    visibility: public
+    name: countValidVoteWithConstraints
+    static: false
+    description: |
+      Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
+    return: |
+      (int) Number of valid and registered vote into this election.
+    related:
+      - 'Election::countInvalidVoteWithConstraints'
+      - 'Election::countVotes'
+      - 'Election::sumVotesWeightWithConstraints'
+    publish: true
 
 - 
   class: Election
@@ -984,6 +1059,59 @@
   related:
     - 'Election::getImplicitRankingRule'
   publish: true
+
+-
+  class: Election
+  type: method
+  visibility: public
+  name: sumVotesWeight
+  static: false
+  description: |
+    Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.
+  return: |
+    (Int) Total vote weight
+  related:
+    - 'Election::sumValidVotesWeightWithConstraints'
+  publish: true
+
+-
+  class: Election
+  type: method
+  visibility: public
+  name: sumVotesWeightWithConstraints
+  static: false
+  description: |
+    Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
+  return: |
+    (Int) Total vote weight
+  related:
+    - 'Election::sumValidVotesWeightWithConstraints'
+    - 'Election::countValidVoteWithConstraints'
+    - 'Election::countInvalidVoteWithConstraints'
+  publish: true
+
+  -
+    class: Election
+    type: method
+    visibility: public
+    name: testIfVoteIsValidUnderElectionConstraints
+    static: false
+    description: |
+      Test if a vote is valid with these election constraints.
+    input:
+      vote:
+        type: Condorcet\Vote
+        required: true
+        text: A vote. Not necessarily registered in this election.
+    return: |
+      Return True if vote will pass the constraints rules, else False.
+    related:
+      - 'Election::getConstraints'
+      - 'Election::addConstraints'
+      - 'Election::clearConstraints'
+    examples:
+      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+    publish: true
 
 
 # CLASS CANDIDATE

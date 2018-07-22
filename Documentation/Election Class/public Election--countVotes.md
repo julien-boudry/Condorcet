@@ -6,11 +6,11 @@
 public $Election -> countVotes ( [ mixed tag, bool with = true] )
 ```
 
-Count the number of actual registered and valid vote for this election.    
+Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.    
 
 
 ##### **tag:** *mixed*   
-Tag into string sparated by commas, or an Array.    
+Tag into string separated by commas, or an Array.    
 
 
 
@@ -29,3 +29,4 @@ Count Votes with this tag ou without this tag.
 ### Related method(s)      
 
 * [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
+* [Election::countValidVoteWithConstraints](../Election%20Class/public%20Election--countValidVoteWithConstraints.md)    
