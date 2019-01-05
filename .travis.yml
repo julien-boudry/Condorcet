@@ -8,7 +8,6 @@ php:
 matrix:
   allow_failures:
       - php: nightly
-      - php: '7.3'
 
 install:
   - composer update
