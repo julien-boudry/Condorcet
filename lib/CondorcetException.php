@@ -27,7 +27,7 @@ class CondorcetException extends \Exception
 
     public function __toString () : string
     {
-           return __CLASS__ . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
+           return static::class . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 
     protected function correspondence (int $code) : string
