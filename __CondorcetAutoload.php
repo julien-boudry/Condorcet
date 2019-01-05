@@ -7,7 +7,7 @@
     https://github.com/julien-boudry/Condorcet
 */
 
-// Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function. Exept for algorithms class.
+// Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function.
 spl_autoload_register(function ($class) {
 
     // project-specific namespace prefix
