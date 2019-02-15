@@ -19,7 +19,7 @@ class MinimaxWinning extends PairwiseStatsBased_Core
     // Method Name
     public const METHOD_NAME = ['Minimax Winning','MinimaxWinning','Minimax','Minimax_Winning','Simpson','Simpson-Kramer','Simpson-Kramer Method','Simpson Method'];
 
-    protected string $_countType = 'worst_pairwise_defeat_winning';
+    protected const COUNT_TYPE = 'worst_pairwise_defeat_winning';
 
 
 /////////// COMPUTE ///////////

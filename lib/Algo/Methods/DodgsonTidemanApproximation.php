@@ -21,7 +21,7 @@ class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements Met
     // Method Name
     public const METHOD_NAME = ['Dodgson Tideman Approximation','DodgsonTidemanApproximation','Dodgson Tideman','DodgsonTideman'];
 
-    protected string $_countType = 'sum_defeat_margin';
+    protected const COUNT_TYPE = 'sum_defeat_margin';
 
 
 /////////// COMPUTE ///////////

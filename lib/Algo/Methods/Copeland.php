@@ -19,7 +19,7 @@ class Copeland extends PairwiseStatsBased_Core
     // Method Name
     public const METHOD_NAME = ['Copeland'];
 
-    protected string $_countType = 'balance';
+    protected const COUNT_TYPE = $_countType = 'balance';
 
 
 /////////// COMPUTE ///////////

@@ -22,7 +22,6 @@ use Condorcet\Result;
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected array $_Comparison;
-    protected string $_countType;
 
 
 /////////// PUBLIC ///////////
@@ -55,7 +54,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value) :
-            $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = [$this->_countType => $value[$this->_countType]];
+            $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         endforeach;
 
         return $explicit;
@@ -77,7 +76,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $done = 0;
 
         foreach ($this->_Comparison as $candidate_key => $candidate_data) :
-            $challenge[$candidate_key] = $candidate_data[$this->_countType];
+            $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
         endforeach;
 
         while ($done < $this->_selfElection->countCandidates()) :
