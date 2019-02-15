@@ -22,8 +22,8 @@ class CondorcetBasic extends Method implements MethodInterface
     public const METHOD_NAME = ['CondorcetBasic'];
 
     // Basic Condorcet
-    protected $_CondorcetWinner;
-    protected $_CondorcetLoser;
+    protected ?int $_CondorcetWinner = null;
+    protected ?int $_CondorcetLoser = null;
 
 
 /////////// PUBLIC ///////////
@@ -66,7 +66,7 @@ class CondorcetBasic extends Method implements MethodInterface
             endif;
         endforeach;
 
-            return null;
+        return null;
     }
 
     // Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)

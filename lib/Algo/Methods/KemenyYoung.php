@@ -33,13 +33,12 @@ class KemenyYoung extends Method implements MethodInterface
         public static $_maxCandidates = 8;
 
     // Cache
-    public static $useCache = true;
-    public static $devWriteCache = false;
+    public static bool $useCache = true;
+    public static bool $devWriteCache = false;
 
     // Kemeny Young
     protected $_PossibleRanking;
     protected $_RankingScore;
-
 
 
 /////////// PUBLIC ///////////

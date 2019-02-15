@@ -67,20 +67,20 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 /////////// CONSTRUCTOR ///////////
 
-    protected $_Result;
-    protected $_UserResult;
-    protected $_stringResult;
-    protected $_CondorcetWinner;
-    protected $_CondorcetLoser;
+    protected array $_Result;
+    protected array $_UserResult;
+    protected string $_stringResult;
+    protected ?Candidate $_CondorcetWinner;
+    protected ?Candidate $_CondorcetLoser;
 
     protected $_Stats;
 
-    protected $_warning = [];
+    protected array $_warning = [];
 
-    protected $_BuildTimeStamp;
-    protected $_fromMethod;
-    protected $_byClass;
-    protected $_ElectionCondorcetVersion;
+    protected float $_BuildTimeStamp;
+    protected string $_fromMethod;
+    protected string $_byClass;
+    protected Election $_ElectionCondorcetVersion;
 
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)

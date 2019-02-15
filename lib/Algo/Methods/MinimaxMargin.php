@@ -19,7 +19,7 @@ class MinimaxMargin extends PairwiseStatsBased_Core
     // Method Name
     public const METHOD_NAME = ['Minimax Margin','MinimaxMargin','MinimaxMargin','Minimax_Margin'];
 
-    protected $_countType = 'worst_pairwise_defeat_margin';
+    protected string $_countType = 'worst_pairwise_defeat_margin';
 
 
 /////////// COMPUTE ///////////

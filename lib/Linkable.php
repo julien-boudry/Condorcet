@@ -13,7 +13,7 @@ namespace Condorcet;
 
 trait Linkable
 {
-    private $_link = [];
+    private array $_link = [];
 
     public function __clone ()
     {

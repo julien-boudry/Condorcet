@@ -22,16 +22,16 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     protected const SEGMENT = [300,100,50,10,1];
 
-    protected $_handler;
-    protected $_transaction = false;
-    protected $_queryError = false;
+    protected \PDO $_handler;
+    protected bool $_transaction = false;
+    protected bool $_queryError = false;
 
     // Database structure
-    protected $_struct;
+    protected array $_struct;
     // Prepare Query
-    protected $_prepare = [];
+    protected array $_prepare = [];
     // Data CallBack function
-    public $_dataContextObject;
+    public DataContextInterface $_dataContextObject;
 
 
     public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])

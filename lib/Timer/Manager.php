@@ -18,11 +18,11 @@ class Manager
 {
     use CondorcetVersion;
 
-    protected $_globalTimer = 0.0;
-    protected $_lastTimer;
-    protected $_lastChronoTimestamp = null;
-    protected $_startDeclare = null;
-    protected $_history = [];
+    protected float $_globalTimer = 0.0;
+    protected ?float $_lastTimer = null;
+    protected ?float $_lastChronoTimestamp = null;
+    protected ?float $_startDeclare = null;
+    protected array $_history = [];
 
     public function addTime ( Chrono $chrono )
     {

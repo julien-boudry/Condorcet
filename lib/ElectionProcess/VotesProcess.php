@@ -22,8 +22,8 @@ trait VotesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected $_Votes; // Votes list
-    protected $_ignoreStaticMaxVote = false;
+    protected VotesManager $_Votes; // Votes list
+    protected bool $_ignoreStaticMaxVote = false;
 
 
     public function ignoreMaxVote (bool $state = true) : bool

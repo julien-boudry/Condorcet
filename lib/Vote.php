@@ -20,7 +20,7 @@ class Vote implements \Iterator
 
     // Implement Iterator
 
-        private $position = 1;
+        private int $position = 1;
 
         public function rewind() : void {
             $this->position = 1;
@@ -44,13 +44,13 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking = [];
+    private array $_ranking = [];
 
-    private $_weight = 1;
+    private int $_weight = 1;
 
-    private $_tags = [];
+    private array $_tags = [];
 
-    private $_hashCode;
+    private string $_hashCode = '';
 
         ///
 

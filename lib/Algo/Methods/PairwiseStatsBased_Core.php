@@ -21,8 +21,8 @@ use Condorcet\Result;
 // DODGSON is a Condorcet Algorithm | http://en.wikipedia.org/wiki/DODGSON_method
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
-    protected $_Comparison;
-    protected $_countType;
+    protected array $_Comparison;
+    protected string $_countType;
 
 
 /////////// PUBLIC ///////////

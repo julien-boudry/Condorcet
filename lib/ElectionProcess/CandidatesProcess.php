@@ -22,8 +22,8 @@ trait CandidatesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected $_Candidates = []; // Candidate list
-    protected $_i_CandidateId = 'A';
+    protected array $_Candidates = []; // Candidate list
+    protected string $_i_CandidateId = 'A';
 
 
 /////////// GET CANDIDATES ///////////

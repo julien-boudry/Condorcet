@@ -41,8 +41,8 @@ abstract class Condorcet
 
     public const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
 
-    protected static $_defaultMethod = null;
-    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic')::METHOD_NAME ];
+    protected static ?string $_defaultMethod = null;
+    protected static array $_authMethods = [ self::CONDORCET_BASIC_CLASS => (__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic')::METHOD_NAME ];
 
 
 /////////// STATICS METHODS ///////////

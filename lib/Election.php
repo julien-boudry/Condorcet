@@ -27,9 +27,9 @@ class Election
 
     public const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
-    protected static $_maxParseIteration = null;
-    protected static $_maxVoteNumber = null;
-    protected static $_checksumMode = false;
+    protected static ?int $_maxParseIteration = null;
+    protected static ?int $_maxVoteNumber = null;
+    protected static bool $_checksumMode = false;
 
 /////////// STATICS METHODS ///////////
 
@@ -53,13 +53,13 @@ class Election
     use CondorcetVersion;
 
     // Mechanics
-    protected $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
-    protected $_timer;
+    protected int $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
+    protected Timer_Manager $_timer;
 
     // Params
-    protected $_ImplicitRanking = true;
-    protected $_VoteWeightRule = false;
-    protected $_Constraints = [];
+    protected bool $_ImplicitRanking = true;
+    protected bool $_VoteWeightRule = false;
+    protected array $_Constraints = [];
 
         //////
 

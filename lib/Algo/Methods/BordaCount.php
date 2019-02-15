@@ -22,9 +22,9 @@ class BordaCount extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['BordaCount','Borda Count','Borda','Méthode Borda'];
 
-    public static $starting = 1;
+    public static int $starting = 1;
 
-    protected $_Stats;
+    protected ?array $_Stats = null;
 
     protected function getStats () : array
     {

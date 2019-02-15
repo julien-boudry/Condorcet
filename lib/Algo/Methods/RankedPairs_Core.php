@@ -12,23 +12,21 @@ declare(strict_types=1);
 
 namespace Condorcet\Algo\Methods;
 
+use Condorcet\Result;
 use Condorcet\Algo\Method;
 use Condorcet\Algo\MethodInterface;
-
-
-use Condorcet\Result;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-        public static $_maxCandidates = 40;
+        public static int $_maxCandidates = 40;
 
     // Ranked Pairs
-    protected $_PairwiseSort;
-    protected $_Arcs;
-    protected $_Stats;
-    protected $_StatsDone = false;
+    protected array $_PairwiseSort;
+    protected array $_Arcs = [];
+    protected ?array $_Stats = null;
+    protected bool $_StatsDone = false;
 
 
 /////////// PUBLIC ///////////
@@ -141,8 +139,6 @@ class RankedPairs_Core extends Method implements MethodInterface
 
     protected function makeArcs () : void
     {
-        $this->_Arcs = [];
-
         foreach ($this->_PairwiseSort as $newArcsRound) :
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];

@@ -19,7 +19,7 @@ class MinimaxOpposition extends PairwiseStatsBased_Core
     // Method Name
     public const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
-    protected $_countType = 'worst_pairwise_opposition';
+    protected string $_countType = 'worst_pairwise_opposition';
 
 
 /////////// COMPUTE ///////////

@@ -13,6 +13,7 @@ namespace Condorcet\ElectionProcess;
 use Condorcet\Condorcet;
 use Condorcet\CondorcetException;
 use Condorcet\Result;
+use Condorcet\Algo\Method;
 use Condorcet\Algo\Pairwise;
 use Condorcet\Timer\Chrono as Timer_Chrono;
 
@@ -23,8 +24,8 @@ trait ResultsProcess
 /////////// CONSTRUCTOR ///////////
 
     // Result
-    protected $_Pairwise;
-    protected $_Calculator;
+    protected ?Pairwise $_Pairwise = null;
+    protected ?array $_Calculator = null;
 
 
 /////////// GET RESULTS ///////////
