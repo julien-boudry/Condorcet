@@ -2,6 +2,14 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v1.8.2] - 2019-02-16
+### Description
+Allow development environment for PHP 7.4.
+
+### Changed
+- Use PHP UNIT 8.x (compatible up to PHP 7.4) for PHP version >= 7.2.
+- Compatibility with PHP Unit 8.x serie
+
 ## [v1.8.1] - 2019-01-05
 ### Description
 Tests for PHP 7.3 and prevent PHP >=7.4 deprecations.
