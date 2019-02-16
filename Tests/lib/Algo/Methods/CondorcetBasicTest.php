@@ -10,7 +10,7 @@ class CondorcetBasicTest extends TestCase
 {
     private $election;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election = new Election;
     }
@@ -124,12 +124,11 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('L', $this->election->getLoser());
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 102
-      */
     public function testNoResultObject ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(102);
+
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');

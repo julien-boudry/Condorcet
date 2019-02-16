@@ -13,7 +13,7 @@ class VoteTest extends TestCase
      */
     private $election1;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election1 = new Election;
 

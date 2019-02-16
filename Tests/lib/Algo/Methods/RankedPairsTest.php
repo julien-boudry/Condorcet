@@ -13,7 +13,7 @@ class RankedPairsTest extends TestCase
      */
     private $election;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election = new Election;
     }
@@ -389,13 +389,12 @@ class RankedPairsTest extends TestCase
                                 $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 101
-      * @expectedExceptionMessage Ranked Pairs Winning is configured to accept only 40 candidates
-      */
     public function testMaxCandidates ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(101);
+        $this->expectExceptionMessage('Ranked Pairs Winning is configured to accept only 40 candidates');
+
         for ($i=0; $i < 41; $i++) :
             $this->election->addCandidate();
         endfor;

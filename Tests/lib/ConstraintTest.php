@@ -13,7 +13,7 @@ class ConstraintTest extends TestCase
      */
     private $election;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election = new Election;
 
@@ -22,12 +22,11 @@ class ConstraintTest extends TestCase
         $this->election->addCandidate('C');
     }
 
-    /**
-     * @expectedException \Condorcet\CondorcetException
-     * @expectedExceptionCode 29
-     */
     public function testAddConstraintAndClear ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(29);
+
         $class = __NAMESPACE__.'\\Constraints\\NoTie';
 
         self::assertTrue($this->election->addConstraint($class));
@@ -43,23 +42,21 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    /**
-     * @expectedException \Condorcet\CondorcetException
-     * @expectedExceptionCode 27
-     */
     public function testPhantomClass ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(27);
+
         $class = __NAMESPACE__.'\\Constraints\\NoJuju';
 
         $this->election->addConstraint($class);
     }
 
-    /**
-     * @expectedException \Condorcet\CondorcetException
-     * @expectedExceptionCode 28
-     */
     public function testBadClass ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(28);
+
         $class = __NAMESPACE__.'\\Vote';
 
         $this->election->addConstraint($class);

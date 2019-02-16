@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->election1 = new Election;
     }
@@ -131,11 +131,10 @@ class ResultTest extends TestCase
         );
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      */
     public function testOffsetSet ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
         $this->election1->addCandidate('C');
@@ -147,11 +146,10 @@ class ResultTest extends TestCase
         $result[] = 42;
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      */
     public function testOffUnset ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
         $this->election1->addCandidate('C');

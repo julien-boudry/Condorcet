@@ -14,7 +14,7 @@ class KemenyYoungTest extends TestCase
      */
     private $election;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election = new Election;
     }
@@ -83,13 +83,12 @@ class KemenyYoungTest extends TestCase
 
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 101
-      * @expectedExceptionMessage Kemeny–Young is configured to accept only 8 candidates
-      */
     public function testMaxCandidates ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(101);
+        $this->expectExceptionMessage('Kemeny–Young is configured to accept only 8 candidates');
+
         for ($i=0; $i < 10; $i++) :
             $this->election->addCandidate();
         endfor;
