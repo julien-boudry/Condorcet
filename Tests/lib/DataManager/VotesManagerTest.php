@@ -15,7 +15,7 @@ class VotesManagerTest extends TestCase
 
     private $votes_manager;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->election = new Election();
         $this->election->parseCandidates('A;B;C');
@@ -29,11 +29,10 @@ class VotesManagerTest extends TestCase
         self::assertInstanceOf(DataContextInterface::class,$this->votes_manager->getDataContextObject());
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      */
     public function testOffsetSet()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+
         $vote = new Vote([]);
 
         // add valid vote

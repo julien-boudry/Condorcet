@@ -13,7 +13,7 @@ class CandidateTest extends TestCase
      */
     private $candidate1;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->candidate1 = new Candidate ('candidate1.n1');
     }
@@ -39,23 +39,21 @@ class CandidateTest extends TestCase
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 1
-      */
     public function testToLongName ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(1);
+
         new Candidate (
             bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42))
         );
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 19
-      */
-    public function testSameCandidateToMultipleElection ()
+    function testSameCandidateToMultipleElection ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(19);
+
         $election1 = new Election ();
         $election2 = new Election ();
         $election3 = new Election ();

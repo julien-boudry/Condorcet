@@ -14,7 +14,7 @@ class ElectionTest extends TestCase
     private $election1;
     private $election2;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election1 = new Election;
 
@@ -79,14 +79,15 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 12
       * @preserveGlobalState disabled
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
     public function testMaxParseIteration ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(12);
+
         self::assertSame(42,Election::setMaxParseIteration(42));
 
         self::assertCount(42,$this->election1->parseVotes('candidate1>candidate2 * 42'));
@@ -103,14 +104,15 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 16
       * @preserveGlobalState disabled
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
     public function testMaxVoteNumber ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(16);
+
         self::assertSame(42,Election::setMaxVoteNumber(42));
 
         self::assertCount(17,$this->election1->parseVotes('candidate1>candidate2 * 17'));
@@ -312,12 +314,11 @@ C > B > A * 1',
         self::assertEquals(['candidate1','candidate2'],$election->getCandidatesList(true));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 15
-      */
     public function testJsonVotesWithInvalidJson ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(15);
+
         self::assertFalse($this->election1->jsonVotes("42"));
         self::assertFalse($this->election1->jsonVotes(42));
         self::assertFalse($this->election1->jsonVotes(false));

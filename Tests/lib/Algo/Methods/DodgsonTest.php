@@ -13,7 +13,7 @@ class DodgsonTest extends TestCase
      */
     private $election;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->election = new Election;
     }

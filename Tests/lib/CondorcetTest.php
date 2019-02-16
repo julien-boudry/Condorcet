@@ -25,12 +25,11 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 9
-      */
     public function testBadClassMethod ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(9);
+
         Condorcet::addMethod('sjskkdlkkzksh');
     }
 
@@ -40,14 +39,11 @@ class CondorcetTest extends TestCase
         self::assertSame('Condorcet\Algo\Methods\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 25
-      * @runInSeparateProcess
-      * @preserveGlobalState disabled
-      */
     public function testAddMethod ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(25);
+
         $algoClassPath = 'Condorcet\\CondorcetTest_ValidAlgorithmName';
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
@@ -60,14 +56,11 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 10
-      * @runInSeparateProcess
-      * @preserveGlobalState disabled
-      */
     public function testAddUnvalidMethod ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(10);
+
         $algoClassPath = 'Condorcet\\CondorcetTest_UnvalidAlgorithmName';
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
@@ -83,12 +76,11 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
     }
 
-    /**
-      * @expectedException Condorcet\CondorcetException
-      * @expectedExceptionCode 8
-      */
     public function testEmptyMethod ()
     {
+        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectExceptionCode(8);
+
         Condorcet::isAuthMethod('');
     }
 
