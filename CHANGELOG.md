@@ -2,6 +2,21 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.0.0] - Unreleased
+### Description
+Jump to PHP 7.4 as minimal requirement and change vendor namespace.
+
+### Added
+
+
+### Changed
+- Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one.
+- Support only PHP 7.4
+
+### Internal changes
+- Use PHP 7.4 type for class property
+- Voting Method extending PairwiseStatsBased_Core must use static constant COUNT_TYPE instead of $\_countType property property.
+
 ## [v1.8.2] - 2019-02-16
 ### Description
 Allow development environment for PHP 7.4.
@@ -52,15 +67,15 @@ Firstly, the improvement and finishing of the internal structure, often for the 
 The second part concerns the continued improvement of the management of the very large elections.
 
 ### Added
-- Add \Condorcet\Election::getVotesListGenerator and \Condorcet\DataManager\VotesManager::getVotesListGenerator methods. Same as getVotesList method, but output a PHP generator instead of full array. Useful only for working on vera large election with an external DataHandler.
+- Add \CondorcetPHP\Election::getVotesListGenerator and \CondorcetPHP\DataManager\VotesManager::getVotesListGenerator methods. Same as getVotesList method, but output a PHP generator instead of full array. Useful only for working on vera large election with an external DataHandler.
 
 ### Changed
-- \Condorcet\Condorcet::format() method move to \Condorcet\CondorcetUtil::format()
-- \Condorcet\CondorcetUtil::format() can no longer optionally produce a var_dump(). You must do it yourself.
-- Remove \Condorcet\Election::getVoteByKey() method
-- Fix \Condorcet\Election cloning issues
+- \CondorcetPHP\Condorcet::format() method move to \CondorcetPHP\CondorcetUtil::format()
+- \CondorcetPHP\CondorcetUtil::format() can no longer optionally produce a var_dump(). You must do it yourself.
+- Remove \CondorcetPHP\Election::getVoteByKey() method
+- Fix \CondorcetPHP\Election cloning issues
 - Simply DataHandlerDriverInterface
-- Optimize \Condorcet\Election::countVotes and \Condorcet\DataManager\VotesManager::countVotes methods performance and memory usage in case of using an external DataHandler.
+- Optimize \CondorcetPHP\Election::countVotes and \CondorcetPHP\DataManager\VotesManager::countVotes methods performance and memory usage in case of using an external DataHandler.
 
 ### Internal changes
 - Cut out some classes and functions into smaller sub-groups.
@@ -202,7 +217,7 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
   Benchmark shows that on PHP 7 + SQLite, 200 000 votes can be registered and computed in less than 60 seconds on a little server, with ~60mb RAM use. However, the speed of the driver does not change much the performance. From a certain point: slowdowns are intrinsically linked to internal processing side Condorcet engine. Major optimizations for speed can easily be done for further releases, but this would require a trade-off between speed and code complexity.     <br>
   _If you are interested by this feature, please have a look to the documentation. Consider that the functionality come in BETA stage._    
 - New method Vote::getSimpleRanking -> Provide vote ranking as a string in one line. (Ex: 'A>B=D>C')
-- New Condorcet\Algo\Tools\VirtualVote:: removeCandidates(Condorcet/Vote $vote, array $candidateToRemove) static method clone your vote and return this clone without specified candidates.   
+- New CondorcetPHP\Algo\Tools\VirtualVote:: removeCandidates(Condorcet/Vote $vote, array $candidateToRemove) static method clone your vote and return this clone without specified candidates.   
 
 ### Changed
 - Requirement: PHP 5.6 is the new minimal PHP version. Full official support for PHP7 is now provided (and include some bug fixes).
@@ -211,7 +226,7 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 ## [v0.97.0] - 2015-09-05
 ### Changed
 - Internal change, for future management ability of billions of votes.
-- Timer manager knows give an historic with Condorcet\Timer\Manager->getHistory();
+- Timer manager knows give an historic with CondorcetPHP\Timer\Manager->getHistory();
 
 ## [v0.96.0] - 2015-08-22
 ### Changed
@@ -237,7 +252,7 @@ As the class keeps the Condorcet high static method (although specialized), code
 ## [v0.94.0] - 2015-08-14
 ### Added
 - Method name now have alias.
-  So _Condorcet::getResult('Schulze')_ is now strictly equivalent to _Condorcet::getResult('Schulze Winning')_ or _Condorcet::getResult('Schulze_Winning')_ or the class namespace Condorcet::getResult('Condorcet\Algo\Methods\SchulzeWinning').
+  So _Condorcet::getResult('Schulze')_ is now strictly equivalent to _Condorcet::getResult('Schulze Winning')_ or _Condorcet::getResult('Schulze_Winning')_ or the class namespace CondorcetPHP::getResult('CondorcetPHP\Algo\Methods\SchulzeWinning').
 
 ### Changed
 - Condorcet:addAlgos is renamed to Condorcet::addMethod, it's more logic. Argument is now a fully-qualified class name. This class can now be outside of \Condocet namespace. Adding your own algorithm is now much cleaner.

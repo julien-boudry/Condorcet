@@ -41,9 +41,11 @@ A PHP library implementing the Condorcet voting system and others methods like t
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 1.8.x**  
-  * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.3)_
-* **Old Stable : 1.0.x** _support provided_  
+* **Stable Version: 2.0.x**  
+  * *PHP Requirement:* PHP 7.4 with Ctype, MB_String, Json common extensions.  _(tested up to PHP 7.4)_
+* **Old Stable : 1.8.x** _support provided_  
+    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
+* **Very Old Stable : 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
 _v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series._    
@@ -153,11 +155,11 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 _OK: sacrifice to the local tradition of lazy._    
 
 ```php
-  use Condorcet\Condorcet;
-  use Condorcet\Election;
-  use Condorcet\Candidate;
-  use Condorcet\CondorcetUtil;
-  use Condorcet\Vote;
+  use CondorcetPHP\Condorcet;
+  use CondorcetPHP\Election;
+  use CondorcetPHP\Candidate;
+  use CondorcetPHP\CondorcetUtil;
+  use CondorcetPHP\Vote;
 
   $myElection1 = new Election () ;
 
