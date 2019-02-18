@@ -44,7 +44,7 @@ class VotesManager extends ArrayManager
     public function getDataContextObject () : DataContextInterface
     {
         $context = new Class implements DataContextInterface {
-            public $election;
+            public Election $election;
 
             public function dataCallBack ($data) : Vote
             {
