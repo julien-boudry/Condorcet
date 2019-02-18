@@ -8,15 +8,15 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
-use CondorcetPHP\DataManager\VotesManager;
-use CondorcetPHP\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\ElectionProcess\CandidatesProcess;
-use CondorcetPHP\ElectionProcess\ResultsProcess;
-use CondorcetPHP\ElectionProcess\VotesProcess;
-use CondorcetPHP\Timer\Manager as Timer_Manager;
+use CondorcetPHP\Condorcet\DataManager\VotesManager;
+use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+use CondorcetPHP\Condorcet\ElectionProcess\CandidatesProcess;
+use CondorcetPHP\Condorcet\ElectionProcess\ResultsProcess;
+use CondorcetPHP\Condorcet\ElectionProcess\VotesProcess;
+use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 
 // Base Condorcet class

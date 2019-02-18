@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ class ConstraintTest extends TestCase
 
     public function testAddConstraintAndClear ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(29);
 
         $class = __NAMESPACE__.'\\Constraints\\NoTie';
@@ -44,7 +44,7 @@ class ConstraintTest extends TestCase
 
     public function testPhantomClass ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(27);
 
         $class = __NAMESPACE__.'\\Constraints\\NoJuju';
@@ -54,7 +54,7 @@ class ConstraintTest extends TestCase
 
     public function testBadClass ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(28);
 
         $class = __NAMESPACE__.'\\Vote';

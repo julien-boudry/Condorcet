@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method

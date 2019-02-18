@@ -16,5 +16,5 @@ Candidate name.
 
 ### Return value:   
 
-Candidate object (CondorcetPHP\Candidate)
+Candidate object (CondorcetPHP\Condorcet\Candidate)
 

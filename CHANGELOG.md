@@ -10,7 +10,7 @@ Jump to PHP 7.4 as minimal requirement and change vendor namespace.
 
 
 ### Changed
-- Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one.
+- Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one. The new base namespace is \CondorcetPHP\Condorcet\
 - Support only PHP 7.4
 
 ### Internal changes

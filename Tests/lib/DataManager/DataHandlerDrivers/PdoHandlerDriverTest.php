@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\DataManager\DataHandlerDrivers;
+namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
 
-use CondorcetPHP\Election;
+use CondorcetPHP\Condorcet\Election;
 
-use CondorcetPHP\DataManager\ArrayManager;
+use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 
 use PHPUnit\Framework\TestCase;
 

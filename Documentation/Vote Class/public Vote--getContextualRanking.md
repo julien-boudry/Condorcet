@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Vote -> getContextualRanking ( CondorcetPHP\Election election [, bool stringMode = false] )
+public $Vote -> getContextualRanking ( CondorcetPHP\Condorcet\Election election [, bool stringMode = false] )
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.    
 
 
-##### **election:** *CondorcetPHP\Election*   
+##### **election:** *CondorcetPHP\Condorcet\Election*   
 An election is already linked to Vote.    
 
 

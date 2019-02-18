@@ -5,11 +5,11 @@
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use CondorcetPHP\Condorcet;
-    use CondorcetPHP\Election;
-    use CondorcetPHP\Candidate;
-    use CondorcetPHP\Vote;
-    use CondorcetPHP\DataManager\DataHandlerDrivers\PdoHandlerDriver;
+    use CondorcetPHP\Condorcet\Condorcet;
+    use CondorcetPHP\Condorcet\Election;
+    use CondorcetPHP\Condorcet\Candidate;
+    use CondorcetPHP\Condorcet\Vote;
+    use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
 
     require_once '../../__CondorcetAutoload.php';
 

@@ -8,14 +8,16 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\ElectionProcess;
+namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet;
-use CondorcetPHP\CondorcetException;
-use CondorcetPHP\Result;
-use CondorcetPHP\Algo\Method;
-use CondorcetPHP\Algo\Pairwise;
-use CondorcetPHP\Timer\Chrono as Timer_Chrono;
+
+use CondorcetPHP\Condorcet\Condorcet;
+use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\Method;
+use CondorcetPHP\Condorcet\Algo\Pairwise;
+use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
+
 
 // Manage Results for Election class
 trait ResultsProcess

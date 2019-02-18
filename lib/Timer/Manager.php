@@ -8,11 +8,11 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Timer;
+namespace CondorcetPHP\Condorcet\Timer;
 
 
-use CondorcetPHP\CondorcetException;
-use CondorcetPHP\CondorcetVersion;
+use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\CondorcetVersion;
 
 class Manager
 {

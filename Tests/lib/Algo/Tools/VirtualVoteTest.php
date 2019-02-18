@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
-use CondorcetPHP\Algo\Tools\VirtualVote;
+use CondorcetPHP\Condorcet\Algo\Tools\VirtualVote;
 
 use PHPUnit\Framework\TestCase;
 

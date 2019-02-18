@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 
-namespace CondorcetPHP\DataManager;
+namespace CondorcetPHP\Condorcet\DataManager;
 
 
-use CondorcetPHP\CondorcetException;
-use CondorcetPHP\Election;
-use CondorcetPHP\Vote;
+use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Vote;
 
 
 class VotesManager extends ArrayManager

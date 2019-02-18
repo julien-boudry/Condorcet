@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class CandidateTest extends TestCase
 
     public function testToLongName ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(1);
 
         new Candidate (
@@ -51,7 +51,7 @@ class CandidateTest extends TestCase
 
     function testSameCandidateToMultipleElection ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(19);
 
         $election1 = new Election ();

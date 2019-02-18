@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Election -> setExternalDataHandler ( CondorcetPHP\DataManager\DataHandlerDrivers\DataHandlerDriverInterface driver )
+public $Election -> setExternalDataHandler ( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface driver )
 ```
 
 Import and enable an external driver to store vote on very large election.    
 
 
-##### **driver:** *CondorcetPHP\DataManager\DataHandlerDrivers\DataHandlerDriverInterface*   
+##### **driver:** *CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface*   
     
 
 

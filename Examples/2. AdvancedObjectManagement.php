@@ -6,11 +6,11 @@ declare(strict_types=1);
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use CondorcetPHP\Condorcet;
-    use CondorcetPHP\Election;
-    use CondorcetPHP\Candidate;
-    use CondorcetPHP\CondorcetUtil;
-    use CondorcetPHP\Vote;
+    use CondorcetPHP\Condorcet\Condorcet;
+    use CondorcetPHP\Condorcet\Election;
+    use CondorcetPHP\Condorcet\Candidate;
+    use CondorcetPHP\Condorcet\CondorcetUtil;
+    use CondorcetPHP\Condorcet\Vote;
 
     $firstPart = '';
 

@@ -8,7 +8,8 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
+
 
 abstract class VoteConstraint
 {

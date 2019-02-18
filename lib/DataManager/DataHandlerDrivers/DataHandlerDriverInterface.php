@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\DataManager\DataHandlerDrivers;
+namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
 interface DataHandlerDriverInterface
 {

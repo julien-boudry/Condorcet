@@ -8,8 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP;
-
+namespace CondorcetPHP\Condorcet;
 
 
 // Registering native Condorcet Methods implementation
