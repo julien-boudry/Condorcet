@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 
-namespace Condorcet\DataManager;
+namespace CondorcetPHP\DataManager;
 
 
-use Condorcet\CondorcetException;
-use Condorcet\Election;
-use Condorcet\Vote;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\Election;
+use CondorcetPHP\Vote;
 
 
 class VotesManager extends ArrayManager
@@ -81,7 +81,7 @@ class VotesManager extends ArrayManager
             parent::offsetSet($offset,$value);
             $this->setStateToVote();
         else :
-            throw new CondorcetException (0,'Value must be an instanceof Condorcet\\Vote');
+            throw new CondorcetException (0,'Value must be an instanceof CondorcetPHP\\Vote');
         endif;
     }
 

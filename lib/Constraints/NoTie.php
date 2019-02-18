@@ -8,9 +8,9 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Constraints;
+namespace CondorcetPHP\Constraints;
 
-use Condorcet\VoteConstraint;
+use CondorcetPHP\VoteConstraint;
 
 class NoTie extends VoteConstraint
 {

@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use Condorcet\Election;
-use Condorcet\Algo\Methods\KemenyYoung;
+use CondorcetPHP\Election;
+use CondorcetPHP\Algo\Methods\KemenyYoung;
 
 require_once __DIR__.'/../__CondorcetAutoload.php';
 

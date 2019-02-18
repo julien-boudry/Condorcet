@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Tools;
+namespace CondorcetPHP\Algo\Tools;
 
 // Thanks to Jorge Gomes @cyberkurumin 
 class Permutation

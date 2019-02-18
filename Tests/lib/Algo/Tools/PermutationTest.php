@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Condorcet;
+namespace CondorcetPHP;
 
-use Condorcet\Algo\Tools\Permutation;
+use CondorcetPHP\Algo\Tools\Permutation;
 
 use PHPUnit\Framework\TestCase;
 

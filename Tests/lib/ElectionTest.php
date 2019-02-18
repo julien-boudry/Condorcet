@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Condorcet;
+namespace CondorcetPHP;
 
 
 use PHPUnit\Framework\TestCase;
@@ -85,7 +85,7 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(12);
 
         self::assertSame(42,Election::setMaxParseIteration(42));
@@ -110,7 +110,7 @@ class ElectionTest extends TestCase
       */
     public function testMaxVoteNumber ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(16);
 
         self::assertSame(42,Election::setMaxVoteNumber(42));
@@ -316,7 +316,7 @@ C > B > A * 1',
 
     public function testJsonVotesWithInvalidJson ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(15);
 
         self::assertFalse($this->election1->jsonVotes("42"));

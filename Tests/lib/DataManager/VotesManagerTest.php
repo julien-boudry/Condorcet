@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Condorcet\DataManager;
+namespace CondorcetPHP\DataManager;
 
 
-use Condorcet\Election;
-use Condorcet\Vote;
+use CondorcetPHP\Election;
+use CondorcetPHP\Vote;
 
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +31,7 @@ class VotesManagerTest extends TestCase
 
     public function testOffsetSet()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
 
         $vote = new Vote([]);
 
