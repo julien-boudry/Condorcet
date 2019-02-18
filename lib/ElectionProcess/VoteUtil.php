@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\ElectionProcess;
+namespace CondorcetPHP\ElectionProcess;
 
 
 // Base Condorcet class

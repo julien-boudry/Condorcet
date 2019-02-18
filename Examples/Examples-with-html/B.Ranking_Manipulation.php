@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use Condorcet\Condorcet;
-use Condorcet\Election;
-use Condorcet\CondorcetUtil;
+use CondorcetPHP\Condorcet;
+use CondorcetPHP\Election;
+use CondorcetPHP\CondorcetUtil;
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace Condorcet;
+namespace CondorcetPHP;
 
 
-use Condorcet\Algo\Method;
-use Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Algo\Method;
+use CondorcetPHP\Algo\MethodInterface;
 
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +27,7 @@ class CondorcetTest extends TestCase
 
     public function testBadClassMethod ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(9);
 
         Condorcet::addMethod('sjskkdlkkzksh');
@@ -36,32 +36,32 @@ class CondorcetTest extends TestCase
     public function testAuthMethod ()
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
-        self::assertSame('Condorcet\Algo\Methods\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
+        self::assertSame('CondorcetPHP\Algo\Methods\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
     }
 
     public function testAddMethod ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(25);
 
-        $algoClassPath = 'Condorcet\\CondorcetTest_ValidAlgorithmName';
+        $algoClassPath = 'CondorcetPHP\\CondorcetTest_ValidAlgorithmName';
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
 
         self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
 
         // Try to add existing alias
-        $algoClassPath = 'Condorcet\\CondorcetTest_DuplicateAlgorithmAlias';
+        $algoClassPath = 'CondorcetPHP\\CondorcetTest_DuplicateAlgorithmAlias';
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
     public function testAddUnvalidMethod ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(10);
 
-        $algoClassPath = 'Condorcet\\CondorcetTest_UnvalidAlgorithmName';
+        $algoClassPath = 'CondorcetPHP\\CondorcetTest_UnvalidAlgorithmName';
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
 
@@ -78,7 +78,7 @@ class CondorcetTest extends TestCase
 
     public function testEmptyMethod ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(8);
 
         Condorcet::isAuthMethod('');

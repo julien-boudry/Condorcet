@@ -8,10 +8,10 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Timer;
+namespace CondorcetPHP\Timer;
 
 
-use Condorcet\CondorcetVersion;
+use CondorcetPHP\CondorcetVersion;
 
 class Chrono
 {

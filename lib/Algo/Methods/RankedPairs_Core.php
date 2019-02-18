@@ -10,13 +10,13 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Methods;
+namespace CondorcetPHP\Algo\Methods;
 
-use Condorcet\Algo\Method;
-use Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Algo\Method;
+use CondorcetPHP\Algo\MethodInterface;
 
 
-use Condorcet\Result;
+use CondorcetPHP\Result;
 
 // Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 class RankedPairs_Core extends Method implements MethodInterface

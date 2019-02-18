@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use Condorcet\Condorcet;
-use Condorcet\Election;
-use Condorcet\CondorcetUtil;
+use CondorcetPHP\Condorcet;
+use CondorcetPHP\Election;
+use CondorcetPHP\CondorcetUtil;
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
@@ -124,9 +124,9 @@ define('TEST_NAME', 'Condorcet Global Example');
 			$result = $election->getResult($method) ;
 			$lastTimer = $election->getLastTimer() ;
 
-			if ( $method === 'Kemeny–Young' && !empty($result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)) )
+			if ( $method === 'Kemeny–Young' && !empty($result->getWarning(\CondorcetPHP\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)) )
 			{
-				$kemeny_conflicts = explode( ';', $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg'] ) ;
+				$kemeny_conflicts = explode( ';', $result->getWarning(\CondorcetPHP\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg'] ) ;
 
 				echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
 			}

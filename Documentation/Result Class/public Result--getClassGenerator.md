@@ -11,7 +11,7 @@ Get the The algorithmic method used for this result.
 
 ### Return value:   
 
-(string) Method class path like Condorcet\Algo\Methods\Copeland
+(string) Method class path like CondorcetPHP\Algo\Methods\Copeland
 
 
 ---------------------------------------

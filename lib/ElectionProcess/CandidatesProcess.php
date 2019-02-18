@@ -8,11 +8,11 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\ElectionProcess;
+namespace CondorcetPHP\ElectionProcess;
 
-use Condorcet\Candidate;
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetUtil;
+use CondorcetPHP\Candidate;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\CondorcetUtil;
 
 
 // Manage Candidates for Election class

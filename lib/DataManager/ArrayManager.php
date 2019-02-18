@@ -9,12 +9,12 @@
 declare(strict_types=1);
 
 
-namespace Condorcet\DataManager;
+namespace CondorcetPHP\DataManager;
 
 
-use Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
+use CondorcetPHP\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\CondorcetVersion;
 
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {

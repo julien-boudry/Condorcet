@@ -11,7 +11,7 @@ Get the Timer manager object.
 
 ### Return value:   
 
-An Condorcet\Timer\Manager object using by this election.
+An CondorcetPHP\Timer\Manager object using by this election.
 
 
 ---------------------------------------

@@ -8,10 +8,10 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet;
+namespace CondorcetPHP;
 
 
-use Condorcet\ElectionProcess\VoteUtil;
+use CondorcetPHP\ElectionProcess\VoteUtil;
 
 
 class Result implements \ArrayAccess, \Countable, \Iterator 

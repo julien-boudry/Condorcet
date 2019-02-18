@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Candidate -> haveLink ( object Condorcet\Condorcet election )
+public $Candidate -> haveLink ( object CondorcetPHP\Condorcet election )
 ```
 
 Check if this election is linked with this Candidate/Vote object.    
 
 
-##### **election:** *object Condorcet\Condorcet*   
+##### **election:** *object CondorcetPHP\Condorcet*   
 Condorcet election to check.    
 
 

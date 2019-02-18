@@ -10,7 +10,7 @@ Add one Candidate to an election.
 
 
 ##### **candidate:** *mixed*   
-Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().    
+Alphanumeric string or CondorcetPHP\Candidate objet. Your candidate name will be trim().    
 
 
 

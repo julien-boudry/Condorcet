@@ -30,10 +30,10 @@
         "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
     },
     "autoload": {
-        "psr-4": { "Condorcet\\": "lib/" }
+        "psr-4": { "CondorcetPHP\\": "lib/" }
     },
     "autoload-dev": {
-        "psr-4": { "Condorcet\\": "Tests/" }
+        "psr-4": { "CondorcetPHP\\": "Tests/" }
     },
     "archive": {
         "exclude": [

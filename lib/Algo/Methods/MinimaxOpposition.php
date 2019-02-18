@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Methods;
+namespace CondorcetPHP\Algo\Methods;
 
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method

@@ -8,12 +8,12 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo;
+namespace CondorcetPHP\Algo;
 
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
-use Condorcet\Election;
-use Condorcet\Result;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\CondorcetVersion;
+use CondorcetPHP\Election;
+use CondorcetPHP\Result;
 
 // Generic for Algorithms
 abstract class Method

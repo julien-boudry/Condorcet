@@ -10,12 +10,12 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Methods;
+namespace CondorcetPHP\Algo\Methods;
 
-use Condorcet\Algo\Method;
-use Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Algo\Method;
+use CondorcetPHP\Algo\MethodInterface;
 
-use Condorcet\Result;
+use CondorcetPHP\Result;
 
 // DODGSON Quick is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
 class DodgsonQuick extends Method implements MethodInterface

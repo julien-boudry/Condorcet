@@ -57,7 +57,7 @@
     Check if this election is linked with this Candidate/Vote object.
   input:
     election:
-      type: object Condorcet\Condorcet
+      type: object CondorcetPHP\Condorcet
       required: true
       text: Condorcet election to check.
   return: |
@@ -219,7 +219,7 @@
       type: mixed
       default: automatic
       required: false
-      text: Alphanumeric string or Condorcet\Candidate objet. Your candidate name will be trim().
+      text: Alphanumeric string or CondorcetPHP\Candidate objet. Your candidate name will be trim().
   return: |
     The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
   related:
@@ -268,7 +268,7 @@
     vote:
       type: mixed
       required: true
-      text: 'String or array representation. Or Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
+      text: 'String or array representation. Or CondorcetPHP\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
     tags:
       type: mixed
       default: null
@@ -431,7 +431,7 @@
       required: true
       text: Candidate name.
   return: |
-    Candidate object (Condorcet\Candidate)
+    Candidate object (CondorcetPHP\Candidate)
   publish: true
 
 - 
@@ -671,7 +671,7 @@
   description: |
     Get the Timer manager object.
   return: |
-    An Condorcet\Timer\Manager object using by this election.
+    An CondorcetPHP\Timer\Manager object using by this election.
   related:
     - 'Election::getGlobalTimer'
     - 'Election::getLastTimer'
@@ -921,11 +921,11 @@
       required: true
       text: |
           * String matching Candidate Name    
-          * Condorcet\Candidate object    
-          * Array populated by Condorcet\Candidate    
+          * CondorcetPHP\Candidate object    
+          * Array populated by CondorcetPHP\Candidate    
           * Array populated by string matching Candidate name   
   return: |
-    *(array)* List of removed Condorcet\Candidate object.
+    *(array)* List of removed CondorcetPHP\Candidate object.
   related:
     - 'Election::addCandidate'
     - 'Election::getCandidatesList'
@@ -972,7 +972,7 @@
       required: false
       default: true
   return: |
-    *(array)* List of removed Condorcet\Vote object.
+    *(array)* List of removed CondorcetPHP\Vote object.
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
@@ -990,7 +990,7 @@
     Import and enable an external driver to store vote on very large election.
   input:
     driver:
-      type: Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface
+      type: CondorcetPHP\DataManager\DataHandlerDrivers\DataHandlerDriverInterface
       required: true
   return: |
     *(bool)* True if success. Else throw an Exception.
@@ -1100,7 +1100,7 @@
       Test if a vote is valid with these election constraints.
     input:
       vote:
-        type: Condorcet\Vote
+        type: CondorcetPHP\Vote
         required: true
         text: A vote. Not necessarily registered in this election.
     return: |
@@ -1346,7 +1346,7 @@
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
   input:
     election:
-      type: Condorcet\Election
+      type: CondorcetPHP\Election
       required: true
       text: An election is already linked to Vote.
     stringMode:
@@ -1671,7 +1671,7 @@
   description: |
     Get the The algorithmic method used for this result.
   return: |
-    (string) Method class path like Condorcet\Algo\Methods\Copeland
+    (string) Method class path like CondorcetPHP\Algo\Methods\Copeland
   related:
     - 'Result::getMethod'
   publish: true

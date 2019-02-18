@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Methods;
+namespace CondorcetPHP\Algo\Methods;
 
 
 class SchulzeMargin extends Schulze_Core

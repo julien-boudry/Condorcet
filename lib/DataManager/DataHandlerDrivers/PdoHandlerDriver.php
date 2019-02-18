@@ -10,11 +10,11 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\DataManager\DataHandlerDrivers;
+namespace CondorcetPHP\DataManager\DataHandlerDrivers;
 
 
-use Condorcet\CondorcetException;
-use Condorcet\CondorcetVersion;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\CondorcetVersion;
 
 class PdoHandlerDriver implements DataHandlerDriverInterface
 {

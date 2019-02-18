@@ -6,11 +6,11 @@ declare(strict_types=1);
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use Condorcet\Condorcet;
-    use Condorcet\Election;
-    use Condorcet\Candidate;
-    use Condorcet\CondorcetUtil;
-    use Condorcet\Vote;
+    use CondorcetPHP\Condorcet;
+    use CondorcetPHP\Election;
+    use CondorcetPHP\Candidate;
+    use CondorcetPHP\CondorcetUtil;
+    use CondorcetPHP\Vote;
 
     require_once __DIR__.'/../__CondorcetAutoload.php';
 
@@ -29,10 +29,10 @@ $election1 = new Election ();
         $election1->addCandidate('Debussy');
         $election1->addCandidate('Caplet');
         $election1->addCandidate('A');
-        $myLutoCandidate = $election1->addCandidate( 'Lutoslawski' );  // Return the Condorcet\Candidate object.
+        $myLutoCandidate = $election1->addCandidate( 'Lutoslawski' );  // Return the CondorcetPHP\Candidate object.
 
         // Automatic name
-        $myAutomaticCandidate = $election1->addCandidate(); // Return an automatic Condorcet\Candidate
+        $myAutomaticCandidate = $election1->addCandidate(); // Return an automatic CondorcetPHP\Candidate
         $myAutomaticCandidate->getName(); // return 'B'. Because we have already register the A candidate above.
 
         // An objet

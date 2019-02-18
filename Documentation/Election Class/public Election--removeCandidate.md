@@ -13,15 +13,15 @@ Remove Candidate from an election.
 
 ##### **candidate:** *mixed*   
 * String matching Candidate Name
-* Condorcet\Candidate object
-* Array populated by Condorcet\Candidate
+* CondorcetPHP\Candidate object
+* Array populated by CondorcetPHP\Candidate
 * Array populated by string matching Candidate name    
 
 
 
 ### Return value:   
 
-*(array)* List of removed Condorcet\Candidate object.
+*(array)* List of removed CondorcetPHP\Candidate object.
 
 
 ---------------------------------------

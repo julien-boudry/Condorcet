@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace Condorcet;
+namespace CondorcetPHP;
 
 
-use Condorcet\Algo\Methods\KemenyYoung;
+use CondorcetPHP\Algo\Methods\KemenyYoung;
 use PHPUnit\Framework\TestCase;
 
 
@@ -85,7 +85,7 @@ class KemenyYoungTest extends TestCase
 
     public function testMaxCandidates ()
     {
-        $this->expectException(\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\CondorcetException::class);
         $this->expectExceptionCode(101);
         $this->expectExceptionMessage('Kemeny–Young is configured to accept only 8 candidates');
 
@@ -115,7 +115,7 @@ class KemenyYoungTest extends TestCase
                 'msg' => '3;5'
               ]
             ],
-            $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
+            $result->getWarning(\CondorcetPHP\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
         );
 
         $this->election->addVote('A>B>C');
@@ -124,7 +124,7 @@ class KemenyYoungTest extends TestCase
 
         self::assertEquals(
             [],
-            $result->getWarning(\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
+            $result->getWarning(\CondorcetPHP\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
         );
 
         self::assertEquals('A',$this->election->getWinner('KemenyYoung'));

@@ -8,9 +8,9 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Tools;
+namespace CondorcetPHP\Algo\Tools;
 
-use Condorcet\Vote;
+use CondorcetPHP\Vote;
 
 class VirtualVote
 {

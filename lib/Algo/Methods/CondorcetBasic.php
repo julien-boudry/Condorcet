@@ -8,12 +8,12 @@
 */
 declare(strict_types=1);
 
-namespace Condorcet\Algo\Methods;
+namespace CondorcetPHP\Algo\Methods;
 
-use Condorcet\Algo\Method;
-use Condorcet\Algo\MethodInterface;
-use Condorcet\CondorcetException;
-use Condorcet\Result;
+use CondorcetPHP\Algo\Method;
+use CondorcetPHP\Algo\MethodInterface;
+use CondorcetPHP\CondorcetException;
+use CondorcetPHP\Result;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface
