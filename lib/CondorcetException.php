@@ -16,7 +16,7 @@ class CondorcetException extends \Exception
 {
     use CondorcetVersion;
 
-    protected string $_infos;
+    protected $_infos;
 
     public function __construct (int $code = 0, $infos = '')
     {
