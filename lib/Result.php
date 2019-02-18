@@ -80,7 +80,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected float $_BuildTimeStamp;
     protected string $_fromMethod;
     protected string $_byClass;
-    protected Election $_ElectionCondorcetVersion;
+    protected string $_ElectionCondorcetVersion;
 
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
