@@ -30,15 +30,15 @@ class KemenyYoung extends Method implements MethodInterface
     // Limits
         /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
-        public static $_maxCandidates = 8;
+        public static ?int $_maxCandidates = 8;
 
     // Cache
     public static bool $useCache = true;
     public static bool $devWriteCache = false;
 
     // Kemeny Young
-    protected $_PossibleRanking;
-    protected $_RankingScore;
+    protected array $_PossibleRanking;
+    protected array $_RankingScore;
 
 
 /////////// PUBLIC ///////////
