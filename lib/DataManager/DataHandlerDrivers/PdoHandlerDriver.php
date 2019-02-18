@@ -15,6 +15,8 @@ namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
 use CondorcetPHP\Condorcet\CondorcetException;
 use CondorcetPHP\Condorcet\CondorcetVersion;
+use CondorcetPHP\Condorcet\DataManager\DataContextInterface;
+
 
 class PdoHandlerDriver implements DataHandlerDriverInterface
 {
