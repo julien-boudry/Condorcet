@@ -1,5 +1,5 @@
-lib/Condorcet/algorithms/KemenyYoung-Data/9.data
-lib/Condorcet/algorithms/KemenyYoung-Data/10.data
+lib/Algo/Methods/KemenyYoung-Data/9.data
+lib/Algo/Methods/KemenyYoung-Data/10.data
 
 *.sqlite
 *.clover
