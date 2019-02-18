@@ -69,7 +69,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Result;
     protected array $_UserResult;
-    protected string $_stringResult;
+    protected array $_stringResult;
     protected ?Candidate $_CondorcetWinner;
     protected ?Candidate $_CondorcetLoser;
 
