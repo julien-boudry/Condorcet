@@ -18,7 +18,7 @@ class CondorcetException extends \Exception
 
     protected string $_infos;
 
-    public function __construct (int $code = 0, string $infos = '')
+    public function __construct (int $code = 0, $infos = '')
     {
         $this->_infos = $infos;
 
