@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
-namespace CondorcetPHP\Algo\Tools;
+namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Algo\Pairwise;
+use CondorcetPHP\Condorcet\Algo\Pairwise;
 
 // Generic for Algorithms
 abstract class PairwiseStats

@@ -155,11 +155,11 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 _OK: sacrifice to the local tradition of lazy._    
 
 ```php
-  use CondorcetPHP\Condorcet;
-  use CondorcetPHP\Election;
-  use CondorcetPHP\Candidate;
-  use CondorcetPHP\CondorcetUtil;
-  use CondorcetPHP\Vote;
+  use CondorcetPHP\Condorcet\Condorcet;
+  use CondorcetPHP\Condorcet\Election;
+  use CondorcetPHP\Condorcet\Candidate;
+  use CondorcetPHP\Condorcet\CondorcetUtil;
+  use CondorcetPHP\Condorcet\Vote;
 
   $myElection1 = new Election () ;
 

@@ -8,9 +8,9 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Algo;
+namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Result;
+use CondorcetPHP\Condorcet\Result;
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
 interface MethodInterface

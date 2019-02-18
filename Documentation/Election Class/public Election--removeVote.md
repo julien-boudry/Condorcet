@@ -29,7 +29,7 @@ $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 
 ### Return value:   
 
-*(array)* List of removed CondorcetPHP\Vote object.
+*(array)* List of removed CondorcetPHP\Condorcet\Vote object.
 
 
 ---------------------------------------

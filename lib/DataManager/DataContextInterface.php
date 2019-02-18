@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\DataManager;
+namespace CondorcetPHP\Condorcet\DataManager;
 
 interface DataContextInterface
 {

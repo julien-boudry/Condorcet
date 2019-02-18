@@ -8,12 +8,12 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\ElectionProcess;
+namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\CondorcetException;
-use CondorcetPHP\CondorcetUtil;
-use CondorcetPHP\Vote;
-use CondorcetPHP\DataManager\VotesManager;
+use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\CondorcetUtil;
+use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 // Manage Results for Election class
 trait VotesProcess

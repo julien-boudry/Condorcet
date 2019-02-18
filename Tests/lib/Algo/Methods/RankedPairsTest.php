@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
 use PHPUnit\Framework\TestCase;
@@ -391,7 +391,7 @@ class RankedPairsTest extends TestCase
 
     public function testMaxCandidates ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(101);
         $this->expectExceptionMessage('Ranked Pairs Winning is configured to accept only 40 candidates');
 

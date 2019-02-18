@@ -11,7 +11,7 @@
 spl_autoload_register(function ($class) {
 
     // project-specific namespace prefix
-    $prefix = 'CondorcetPHP\\';
+    $prefix = 'CondorcetPHP\\Condorcet\\';
 
 
     // does the class use the namespace prefix?

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP;
+namespace CondorcetPHP\Condorcet;
 
 
 use PHPUnit\Framework\TestCase;
@@ -126,7 +126,7 @@ class CondorcetBasicTest extends TestCase
 
     public function testNoResultObject ()
     {
-        $this->expectException(\CondorcetPHP\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(102);
 
         $this->election->addCandidate('A');
