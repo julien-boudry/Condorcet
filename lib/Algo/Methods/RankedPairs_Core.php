@@ -20,7 +20,7 @@ use Condorcet\Algo\MethodInterface;
 class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-        public static int $_maxCandidates = 40;
+        public static ?int $_maxCandidates = 40;
 
     // Ranked Pairs
     protected array $_PairwiseSort;
