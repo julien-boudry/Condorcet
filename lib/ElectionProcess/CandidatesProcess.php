@@ -98,7 +98,7 @@ trait CandidatesProcess
 
         // Filter
         if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) ) :
-            throw new CondorcetException(1, $candidate_id);
+            throw new CondorcetException(1);
         endif;
 
 
@@ -215,8 +215,7 @@ trait CandidatesProcess
 
                 $adding[] = $this->addCandidate($line);
             } catch (CondorcetException $e) {
-                if ($e->getCode() === 12)
-                    {throw $e;}
+                throw $e;
             }
         endforeach;
 
