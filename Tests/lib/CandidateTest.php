@@ -49,6 +49,27 @@ class CandidateTest extends TestCase
         );
     }
 
+    public function testCandidateBadClass ()
+    {
+        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(1);
+
+        (new Election)->addCandidate(new \stdClass );
+    }
+
+    public function testAddSameCandidate ()
+    {
+        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(3);
+
+        $election1 = new Election ();
+
+        $candidate = new Candidate ('Schizophrenic');
+
+        $election1->addCandidate($candidate);
+        $election1->addCandidate($candidate);
+    }
+
     function testSameCandidateToMultipleElection ()
     {
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);

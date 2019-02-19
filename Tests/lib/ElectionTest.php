@@ -83,7 +83,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration ()
+    public function testMaxParseIteration1 ()
     {
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(12);
@@ -101,6 +101,31 @@ class ElectionTest extends TestCase
         self::assertSame(42,Election::setMaxParseIteration(42));
 
         $this->election1->parseVotes('candidate1>candidate2 * 43');
+    }
+
+    /**
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
+      */
+    public function testMaxParseIteration2 ()
+    {
+        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(12);
+
+        self::assertSame(2,Election::setMaxParseIteration(2));
+
+        $this->election2->parseCandidates('candidate1;candidate2');
+
+        $this->election2->parseCandidates('candidate3;candidate4');
+
+        self::assertSame(null,Election::setMaxParseIteration(null));
+
+        $this->election2->parseCandidates('candidate5;candidate6;candidate7');
+
+        self::assertSame(2,Election::setMaxParseIteration(2));
+
+        $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
 
     /**
@@ -389,4 +414,30 @@ C > B > A * 1',
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
     }
+
+    public function testGetCandidateId ()
+    {
+        self::assertSame($this->candidate2,$this->election1->getCandidateId(1));
+        self::assertSame($this->candidate2->getName(),$this->election1->getCandidateId(1,true));
+
+        self::assertSame(false,$this->election1->getCandidateId(42));
+    }
+
+    public function testElectionState1 ()
+    {
+        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(2);
+
+        $this->election1->addCandidate('candidate4');
+    }
+
+    public function testElectionState2 ()
+    {
+        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(2);
+
+        $this->election1->removeCandidate('candidate4');
+    }
+
+
 }
