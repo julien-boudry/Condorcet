@@ -36,7 +36,7 @@ class InstantRunoff extends Method implements MethodInterface
             endif;
 
             foreach ($oneIterationData as $candidateKey => $candidateValue) :
-                $stats[$oneIterationKey][(string) $this->_selfElection->getCandidateId($candidateKey)] = $candidateValue;
+                $stats[$oneIterationKey][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
             endforeach;
         endforeach;
 

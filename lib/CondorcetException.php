@@ -65,6 +65,7 @@ class CondorcetException extends \Exception
         $error[28] = 'The vote constraint class you want is not correct';
         $error[29] = 'This vote constraint is already registered';
         $error[30] = 'You can\'t add constraint after starting to record votes ';
+        $error[31] = 'Vote object already registred';
 
         // DataManager
         $error[50] = 'This entity does not exist.';

@@ -161,12 +161,12 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         foreach ( $this->_Result as $key => $value ) :
             if (is_array($value)) :
                 foreach ($value as $candidate_key) :
-                    $userResult[$key][] = $election->getCandidateId($candidate_key);
+                    $userResult[$key][] = $election->getCandidateObjectFromKey($candidate_key);
                 endforeach;
             elseif (is_null($value)) :
                 $userResult[$key] = null;
             else :
-                $userResult[$key][] = $election->getCandidateId($value);
+                $userResult[$key][] = $election->getCandidateObjectFromKey($value);
             endif;
         endforeach;
 

@@ -7,3 +7,6 @@ lib/Algo/Methods/KemenyYoung-Data/10.data
 # composer
 /vendor/
 /composer.lock
+
+# phpunit
+.phpunit.result.cache

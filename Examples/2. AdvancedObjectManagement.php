@@ -32,7 +32,7 @@ declare(strict_types=1);
     # Same candidate in multiple elections
 
         // Add two participating candidates from $election1
-        $election2->addCandidate( $election1->getCandidateObjectByName('Debussy') );
+        $election2->addCandidate( $election1->getCandidateObjectFromName('Debussy') );
         $election2->addCandidate( $myLutoCandidate );
 
         // And, I can change again theirs name. The new name is now applied in the two elections and their votes. If namesake in another election, an exception is throw.
@@ -52,15 +52,15 @@ declare(strict_types=1);
     # The same vote applied to multiple elections.
 
         $myNewVote = new Vote ( array (
-            1 => $election1->getCandidateObjectByName('Debussy'),
-            2 => $election2->getCandidateObjectByName('A'),
-            3 => $election1->getCandidateObjectByName('Olivier Messiaen'),
-            4 => $election2->getCandidateObjectByName('B'),
-            5 => $election1->getCandidateObjectByName('Koechlin'),
-            6 => $election1->getCandidateObjectByName('W.Lutoslawski'),
+            1 => $election1->getCandidateObjectFromName('Debussy'),
+            2 => $election2->getCandidateObjectFromName('A'),
+            3 => $election1->getCandidateObjectFromName('Olivier Messiaen'),
+            4 => $election2->getCandidateObjectFromName('B'),
+            5 => $election1->getCandidateObjectFromName('Koechlin'),
+            6 => $election1->getCandidateObjectFromName('W.Lutoslawski'),
             7 => new Candidate ('Another candidate'), // This one does not takes part in any of two elections.
-            8 => $election1->getCandidateObjectByName('Caplet'),
-            9 => $election2->getCandidateObjectByName('C')
+            8 => $election1->getCandidateObjectFromName('Caplet'),
+            9 => $election2->getCandidateObjectFromName('C')
         ) );
 
         // Add it on election 1 and 2
@@ -80,9 +80,9 @@ declare(strict_types=1);
         // Now we can change vote ranking. result from all election will be affected.
 
             $myNewVote->setRanking( array (
-                1 => $election2->getCandidateObjectByName('B'),
-                2 => $election1->getCandidateObjectByName('Koechlin'),
-                3 => $election1->getCandidateObjectByName('W.Lutoslawski')
+                1 => $election2->getCandidateObjectFromName('B'),
+                2 => $election1->getCandidateObjectFromName('Koechlin'),
+                3 => $election1->getCandidateObjectFromName('W.Lutoslawski')
             ) );
 
             # Get Ranking history

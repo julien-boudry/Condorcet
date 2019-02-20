@@ -66,7 +66,7 @@ class RankedPairs_Core extends Method implements MethodInterface
                 foreach ($Roundvalue as $ArcKey => &$Arcvalue) :
                     foreach ($Arcvalue as $key => &$value) :
                         if ($key === 'from' || $key === 'to') :
-                            $value = $this->_selfElection->getCandidateId($value, true);
+                            $value = $this->_selfElection->getCandidateObjectFromKey($value)->getName();
                         endif;
                     endforeach;
                 endforeach;
@@ -75,7 +75,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             foreach ($this->_Stats['arcs'] as $ArcKey => &$Arcvalue) :
                 foreach ($Arcvalue as $key => &$value) :
                     if ($key === 'from' || $key === 'to') :
-                        $value = $this->_selfElection->getCandidateId($value, true);
+                        $value = $this->_selfElection->getCandidateObjectFromKey($value)->getName();
                     endif;
                 endforeach;
             endforeach;

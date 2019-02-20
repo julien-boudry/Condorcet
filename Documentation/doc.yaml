@@ -421,7 +421,7 @@
   class: Election
   type: method
   visibility: public
-  name: getCandidateObjectByName
+  name: getCandidateObjectFromName
   static: false
   description: |
     Find candidate object by his string and return the candidate object.
@@ -442,14 +442,22 @@
   static: false
   description: |
     Return a list of registered Candidate into this election.
-  input:
-    stringMode:
-      type: bool
-      default: false
-      required: false
-      text: Convert Candidate objects into string with theirs name.
   return: |
-    List of Candidate into an array.
+    (array) List of Candidate into an array.
+  related:
+    - 'Election::countCandidates'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: getCandidatesListAsString
+  static: false
+  description: |
+    Return a list of registered Candidate into this election.
+  return: |
+    (array) List of Candidate into an array populated by strign instead CandidateObject.
   related:
     - 'Election::countCandidates'
   publish: true
@@ -872,6 +880,10 @@
       type: string
       required: true
       text: String or valid path to a text file.
+    isFile:
+      type: bool
+      required: true
+      text: If true, the input is evalatued as path to text file.
   return: |
     *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
@@ -895,6 +907,10 @@
       type: string
       required: true
       text: String or valid path to a text file.
+    isFile:
+      type: bool
+      required: true
+      text: If true, the input is evalatued as path to text file.
   return: |
     *(array)* List of new registered vote object. Count it for checking if all candidates have been correctly registered.
   related:

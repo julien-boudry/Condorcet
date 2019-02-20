@@ -34,20 +34,21 @@ trait CandidatesProcess
         return count($this->_Candidates);
     }
 
-    // Get the list of registered CANDIDATES
-    public function getCandidatesList (bool $stringMode = false) : array
+    public function getCandidatesList () : array
     {
-        if (!$stringMode) :
-            return $this->_Candidates;
-        else :
-            $result = [];
+        return $this->_Candidates;
+    }
 
-            foreach ($this->_Candidates as $candidateKey => &$oneCandidate) :
-                $result[$candidateKey] = $oneCandidate->getName();
-            endforeach;
+    // Get the list of registered CANDIDATES
+    public function getCandidatesListAsString () : array
+    {
+        $result = [];
 
-            return $result;
-        endif;
+        foreach ($this->_Candidates as $candidateKey => &$oneCandidate) :
+            $result[$candidateKey] = $oneCandidate->getName();
+        endforeach;
+
+        return $result;
     }
 
     public function getCandidateKey ($candidate_id)
@@ -59,21 +60,21 @@ trait CandidatesProcess
         endif;
     }
 
-    public function getCandidateId (int $candidate_key, bool $onlyName = false)
+    public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
     {
         if (!array_key_exists($candidate_key, $this->_Candidates)) :
-            return false;
+            return null;
         else :
-            return ($onlyName) ? $this->_Candidates[$candidate_key]->getName() : $this->_Candidates[$candidate_key];
+            return $this->_Candidates[$candidate_key];
         endif;
     }
 
-    public function existCandidateId ($candidate_id, bool $strict = true) : bool
+    public function isRegisteredCandidate ($candidate_id, bool $strict = true) : bool
     {
         return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
     }
 
-    public function getCandidateObjectByName (string $s)
+    public function getCandidateObjectFromName (string $s) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
 
@@ -82,7 +83,7 @@ trait CandidatesProcess
             endif;
         endforeach;
 
-        return false;
+        return null;
     }
 
 
@@ -98,7 +99,7 @@ trait CandidatesProcess
 
         // Filter
         if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) ) :
-            throw new CondorcetException(1, $candidate_id);
+            throw new CondorcetException(1);
         endif;
 
 
@@ -131,7 +132,7 @@ trait CandidatesProcess
 
     public function canAddCandidate ($candidate_id) : bool
     {
-        return !$this->existCandidateId($candidate_id, false);
+        return !$this->isRegisteredCandidate($candidate_id, false);
     }
 
     // Destroy a register vote candidate before voting
@@ -171,34 +172,34 @@ trait CandidatesProcess
 
 /////////// PARSE CANDIDATES ///////////
 
-    public function jsonCandidates (string $input)
+    public function jsonCandidates (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
-        if ($input === false) :
-            return $input;
-        endif;
 
             //////
 
         $adding = [];
         foreach ($input as $candidate) :
-            try {
-                $adding[] = $this->addCandidate($candidate);
-            }
-            catch (CondorcetException $e) {
-                // Ignore invalid vote
-            }
+            $candidate = new Candidate ($candidate);
+
+            if (!$this->canAddCandidate($candidate)) :
+                throw new CondorcetException(3);
+            endif;
+
+            $adding[] = $candidate;
+        endforeach;
+
+        // Add Candidates
+        foreach ($adding as $oneCandidate) :
+            $this->addCandidate($oneCandidate);
         endforeach;
 
         return $adding;
     }
 
-    public function parseCandidates (string $input, bool $allowFile = true)
+    public function parseCandidates (string $input, bool $isFile = false) : array
     {
-        $input = CondorcetUtil::prepareParse($input, $allowFile);
-        if ($input === false) :
-            return $input;
-        endif;
+        $input = CondorcetUtil::prepareParse($input, $isFile);
 
         $adding = [];
         foreach ($input as $line) :
@@ -208,16 +209,19 @@ trait CandidatesProcess
             endif;
 
             // addCandidate
-            try {
-                if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                    throw new CondorcetException(12, self::$_maxParseIteration);
-                endif;
+            if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
+                throw new CondorcetException(12, self::$_maxParseIteration);
+            endif;
 
-                $adding[] = $this->addCandidate($line);
-            } catch (CondorcetException $e) {
-                if ($e->getCode() === 12)
-                    {throw $e;}
-            }
+            if (!$this->canAddCandidate($line)) :
+                throw new CondorcetException(3);
+            endif;
+
+            $adding[] = $line;
+        endforeach;
+
+        foreach ($adding as $oneNewCandidate) :
+            $this->addCandidate($oneNewCandidate);
         endforeach;
 
         return $adding;

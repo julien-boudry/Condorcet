@@ -193,8 +193,11 @@ class VotesManager extends ArrayManager
 
         $isFirst = true;
         foreach ($weight as $key => $value) :
-            if (!$isFirst) : $simpleList .= "\n"; endif;
-            $simpleList .= $key.' * '.$nb[$key];
+            if (!$isFirst) :
+                $simpleList .= "\n";
+            endif;
+            $voteString = ($key === '') ? '{{EMPTY_VOTE_IN_CONTEXT}}' : $key;
+            $simpleList .= $voteString.' * '.$nb[$key];
             $isFirst = false;
         endforeach;
 

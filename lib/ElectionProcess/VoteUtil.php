@@ -11,6 +11,9 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 
+use CondorcetPHP\Condorcet\CondorcetException;
+
+
 // Base Condorcet class
 abstract class VoteUtil
 {
@@ -65,5 +68,24 @@ abstract class VoteUtil
         endforeach;
 
         return $ranking;
+    }
+
+    public static function parseAnalysingOneLine ($searchCharacter, string &$line) : int
+    {
+        if ($searchCharacter !== false) :
+            $value = trim( substr($line, $searchCharacter + 1) );
+
+            // Errors
+            if ( !is_numeric($value) ) :
+                throw new CondorcetException(13, null);
+            endif;
+
+            // Reformat line
+            $line = substr($line, 0, $searchCharacter);
+
+            return intval($value);
+        else :
+            return 1;
+        endif;
     }
 }

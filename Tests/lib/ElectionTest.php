@@ -68,14 +68,14 @@ class ElectionTest extends TestCase
         );
 
         self::assertSame(['Bruckner','Mahler','Debussy','Bibendum'],
-        $this->election2->getCandidatesList(true)
+        $this->election2->getCandidatesListAsString()
         );
     }
 
-    public function testGetCandidateObjectByName()
+    public function testgetCandidateObjectFromName()
     {
-        self::assertSame($this->candidate1,$this->election1->getCandidateObjectByName('candidate1'));
-        self::assertFalse($this->election1->getCandidateObjectByName('candidate42'));
+        self::assertSame($this->candidate1,$this->election1->getCandidateObjectFromName('candidate1'));
+        self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
     }
 
     /**
@@ -83,7 +83,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration ()
+    public function testMaxParseIteration1 ()
     {
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(12);
@@ -101,6 +101,50 @@ class ElectionTest extends TestCase
         self::assertSame(42,Election::setMaxParseIteration(42));
 
         $this->election1->parseVotes('candidate1>candidate2 * 43');
+    }
+
+    /**
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
+      */
+    public function testMaxParseIteration2 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(12);
+
+        self::assertSame(42,Election::setMaxParseIteration(42));
+
+        self::assertCount(42,$this->election1->parseVotes('
+            candidate1>candidate2 * 21
+            candidate1>candidate2 * 21
+            candidate1>candidate2 * 21
+        '));
+    }
+
+    /**
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
+      */
+    public function testMaxParseIteration3 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(12);
+
+        self::assertSame(2,Election::setMaxParseIteration(2));
+
+        $this->election2->parseCandidates('candidate1;candidate2');
+
+        $this->election2->parseCandidates('candidate3;candidate4');
+
+        self::assertSame(null,Election::setMaxParseIteration(null));
+
+        $this->election2->parseCandidates('candidate5;candidate6;candidate7');
+
+        self::assertSame(2,Election::setMaxParseIteration(2));
+
+        $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
 
     /**
@@ -147,13 +191,25 @@ class ElectionTest extends TestCase
             A * 6
             E = A = B *3
             A > C = B > E * 5
+            Y > Z
         ');
 
         self::assertSame(
         "A > B = C = D = E * 6\n".
         "D > A = B = C = E * 6\n".
         "A > B = C > E > D * 5\n".
-        "A = B = E > C = D * 3",
+        "A = B = E > C = D * 3\n".
+        "A = B = C = D = E * 1",
+        $this->election1->getVotesListAsString());
+
+        $this->election1->setImplicitRanking(false);
+
+        self::assertSame(
+        "A * 6\n".
+        "D * 6\n".
+        "A > B = C > E * 5\n".
+        "A = B = E * 3\n".
+        "{{EMPTY_VOTE_IN_CONTEXT}} * 1",
         $this->election1->getVotesListAsString());
     }
 
@@ -264,6 +320,9 @@ D > C > B > A * 1',
 
     public function testJsonVotes ()
     {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(15);
+
         $election = new Election;
 
         $election->addCandidate('A');
@@ -299,10 +358,15 @@ C > B > A * 1',
             $election->getVotesListAsString()
         );
         self::assertSame(5,$election->countVotes('tag1'));
+
+        $election->jsonVotes(json_encode($votes).'{42');
     }
 
-    public function testJsonCadidates ()
+    public function testJsonCandidates ()
     {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(15);
+
         $election = new Election;
 
         $candidates = ['candidate1 ','candidate2'];
@@ -311,7 +375,9 @@ C > B > A * 1',
 
         self::assertSame(2,$election->countCandidates());
 
-        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesList(true));
+        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
+
+        $election->jsonCandidates(json_encode(['candidate3']).'{42');
     }
 
     public function testJsonVotesWithInvalidJson ()
@@ -389,4 +455,37 @@ C > B > A * 1',
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
     }
+
+    public function testGetCandidateObjectFromKey ()
+    {
+        self::assertSame($this->candidate2,$this->election1->getCandidateObjectFromKey(1));
+
+        self::assertSame(null,$this->election1->getCandidateObjectFromKey(42));
+    }
+
+    public function testElectionState1 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(2);
+
+        $this->election1->addCandidate('candidate4');
+    }
+
+    public function testElectionState2 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(2);
+
+        $this->election1->removeCandidate('candidate4');
+    }
+
+    public function testAddSameVote ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(31);
+
+        $this->election1->addVote($this->vote1);
+    }
+
+
 }

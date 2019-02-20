@@ -92,7 +92,7 @@ trait ResultsProcess
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
 
-            return ($result === null) ? null : $this->getCandidateId($result);
+            return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         else :
             return $this->getResult($algo)->getWinner();
         endif;
@@ -110,7 +110,7 @@ trait ResultsProcess
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
 
-            return ($result === null) ? null : $this->getCandidateId($result);
+            return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         else :
             return $this->getResult($algo)->getLoser();
         endif;

@@ -54,7 +54,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value) :
-            $explicit[$this->_selfElection->getCandidateId($candidate_key, true)] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
+            $explicit[$this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         endforeach;
 
         return $explicit;

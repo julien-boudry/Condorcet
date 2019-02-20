@@ -31,7 +31,7 @@ class BordaCount extends Method implements MethodInterface
         $stats = [];
 
         foreach ($this->_Stats as $candidateKey => $oneScore) :
-             $stats[(string) $this->_selfElection->getCandidateId($candidateKey)] = $oneScore;
+             $stats[(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $oneScore;
         endforeach;
 
         return $stats;
