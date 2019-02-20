@@ -209,6 +209,10 @@ trait CandidatesProcess
                 throw new CondorcetException(12, self::$_maxParseIteration);
             endif;
 
+            if (!$this->canAddCandidate($line)) :
+                throw new  CondorcetException(3);
+            endif;
+
             $adding[] = $line;
         endforeach;
 

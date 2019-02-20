@@ -57,7 +57,7 @@ class CandidateTest extends TestCase
         (new Election)->addCandidate(new \stdClass );
     }
 
-    public function testAddSameCandidate ()
+    public function testAddSameCandidate1 ()
     {
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(3);
@@ -68,6 +68,40 @@ class CandidateTest extends TestCase
 
         $election1->addCandidate($candidate);
         $election1->addCandidate($candidate);
+    }
+
+    public function testAddSameCandidate2 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(3);
+
+        $election1 = new Election ();
+
+        $election1->parseCandidates('candidate1;candidate2;candidate1');
+    }
+
+    public function testAddSameCandidate3 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(3);
+
+        $election1 = new Election ();
+
+        $election1->addCandidate('candidate1');
+        $election1->parseCandidates('candidate2;candidate1');
+    }
+
+    public function testAddSameCandidate4 ()
+    {
+        $election1 = new Election ();
+
+        $candidate1= $election1->addCandidate('candidate1');
+
+        try {
+            $election1->parseCandidates('candidate2;candidate1');
+        } catch (\Exception $e) {}
+
+        self::assertsame([$candidate1],$election1->getCandidatesList());
     }
 
     function testSameCandidateToMultipleElection ()
