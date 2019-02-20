@@ -191,13 +191,25 @@ class ElectionTest extends TestCase
             A * 6
             E = A = B *3
             A > C = B > E * 5
+            Y > Z
         ');
 
         self::assertSame(
         "A > B = C = D = E * 6\n".
         "D > A = B = C = E * 6\n".
         "A > B = C > E > D * 5\n".
-        "A = B = E > C = D * 3",
+        "A = B = E > C = D * 3\n".
+        "A = B = C = D = E * 1",
+        $this->election1->getVotesListAsString());
+
+        $this->election1->setImplicitRanking(false);
+
+        self::assertSame(
+        "A * 6\n".
+        "D * 6\n".
+        "A > B = C > E * 5\n".
+        "A = B = E * 3\n".
+        "{{EMPTY_VOTE_IN_CONTEXT}} * 1",
         $this->election1->getVotesListAsString());
     }
 
