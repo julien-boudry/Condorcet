@@ -872,6 +872,10 @@
       type: string
       required: true
       text: String or valid path to a text file.
+    isFile:
+      type: bool
+      required: true
+      text: If true, the input is evalatued as path to text file.
   return: |
     *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
@@ -895,6 +899,10 @@
       type: string
       required: true
       text: String or valid path to a text file.
+    isFile:
+      type: bool
+      required: true
+      text: If true, the input is evalatued as path to text file.
   return: |
     *(array)* List of new registered vote object. Count it for checking if all candidates have been correctly registered.
   related:

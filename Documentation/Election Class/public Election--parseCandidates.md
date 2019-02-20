@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> parseCandidates ( string input )
+public $Election -> parseCandidates ( string input, bool isFile )
 ```
 
 Import candidate from a text source.    
@@ -11,6 +11,11 @@ Import candidate from a text source.
 
 ##### **input:** *string*   
 String or valid path to a text file.    
+
+
+
+##### **isFile:** *bool*   
+If true, the input is evalatued as path to text file.    
 
 
 
