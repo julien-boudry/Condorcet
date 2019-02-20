@@ -68,7 +68,7 @@ class ElectionTest extends TestCase
         );
 
         self::assertSame(['Bruckner','Mahler','Debussy','Bibendum'],
-        $this->election2->getCandidatesList(true)
+        $this->election2->getCandidatesListAsString()
         );
     }
 

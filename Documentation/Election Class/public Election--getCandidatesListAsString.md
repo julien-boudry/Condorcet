@@ -1,9 +1,9 @@
-## public Election::getCandidatesList
+## public Election::getCandidatesListAsString
 
 ### Description    
 
 ```php
-public $Election -> getCandidatesList ( )
+public $Election -> getCandidatesListAsString ( )
 ```
 
 Return a list of registered Candidate into this election.    
@@ -11,7 +11,7 @@ Return a list of registered Candidate into this election.
 
 ### Return value:   
 
-(array) List of Candidate into an array.
+(array) List of Candidate into an array populated by strign instead CandidateObject.
 
 
 ---------------------------------------

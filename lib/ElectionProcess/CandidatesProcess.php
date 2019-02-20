@@ -34,20 +34,21 @@ trait CandidatesProcess
         return count($this->_Candidates);
     }
 
-    // Get the list of registered CANDIDATES
-    public function getCandidatesList (bool $stringMode = false) : array
+    public function getCandidatesList () : array
     {
-        if (!$stringMode) :
-            return $this->_Candidates;
-        else :
-            $result = [];
+        return $this->_Candidates;
+    }
 
-            foreach ($this->_Candidates as $candidateKey => &$oneCandidate) :
-                $result[$candidateKey] = $oneCandidate->getName();
-            endforeach;
+    // Get the list of registered CANDIDATES
+    public function getCandidatesListAsString () : array
+    {
+        $result = [];
 
-            return $result;
-        endif;
+        foreach ($this->_Candidates as $candidateKey => &$oneCandidate) :
+            $result[$candidateKey] = $oneCandidate->getName();
+        endforeach;
+
+        return $result;
     }
 
     public function getCandidateKey ($candidate_id)
