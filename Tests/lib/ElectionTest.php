@@ -110,7 +110,7 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration2 ()
     {
-        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(12);
 
         self::assertSame(2,Election::setMaxParseIteration(2));
@@ -425,7 +425,7 @@ C > B > A * 1',
 
     public function testElectionState1 ()
     {
-        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(2);
 
         $this->election1->addCandidate('candidate4');
@@ -433,7 +433,7 @@ C > B > A * 1',
 
     public function testElectionState2 ()
     {
-        self::expectException(\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(2);
 
         $this->election1->removeCandidate('candidate4');
