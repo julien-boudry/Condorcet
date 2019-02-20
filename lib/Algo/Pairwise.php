@@ -178,11 +178,11 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function formatNewpairwise () : void
     {
-        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
+        foreach ( $this->_Election->getCandidatesList() as $candidate_key => $candidate_id ) :
 
             $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
-            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
+            foreach ( $this->_Election->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
 
                 if ($candidate_key_r !== $candidate_key) :
                     $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;

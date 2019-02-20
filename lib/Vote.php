@@ -178,7 +178,7 @@ class Vote implements \Iterator
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
         $newRanking = [];
-        $candidates_list = $election->getCandidatesList(false);
+        $candidates_list = $election->getCandidatesList();
 
         $nextRank = 1;
         $countContextualCandidate = 0;
