@@ -162,7 +162,7 @@ trait VotesProcess
             $this->_Votes[] = $vote;
         } catch (CondorcetException $e) {
             // Security : Check if vote object not already register
-            throw new CondorcetException(6,'Vote object already registred');
+            throw new CondorcetException(31);
         }
 
         return $vote;
@@ -250,12 +250,9 @@ trait VotesProcess
         return $adding;
     }
 
-    public function parseVotes (string $input, bool $allowFile = true)
+    public function parseVotes (string $input, bool $isFile = false) : array
     {
-        $input = CondorcetUtil::prepareParse($input, $allowFile);
-        if ($input === false) :
-            return $input;
-        endif;
+        $input = CondorcetUtil::prepareParse($input, $isFile);
 
         // Check each lines
         $adding = [];
@@ -266,10 +263,10 @@ trait VotesProcess
             endif;
 
             // Multiples
-            $multiple = $this->parseAnalysingOneLine(mb_strpos($line, '*'),$line);
+            $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '*'),$line);
 
             // Vote Weight
-            $weight = $this->parseAnalysingOneLine(mb_strpos($line, '^'),$line);
+            $weight = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '^'),$line);
 
             // Tags + vote
             if (mb_strpos($line, '||') !== false) :
@@ -289,32 +286,18 @@ trait VotesProcess
                     throw new CondorcetException(12, self::$_maxParseIteration);
                 endif;
 
-                try {
-                    $adding[] = ($newVote = $this->addVote($vote, $tags));
-                    $newVote->setWeight($weight);
-                } catch (CondorcetException $e) {}
+                $newVote = new Vote ($vote, $tags);
+                $newVote->setWeight($weight);
+
+                $adding[] = $newVote;
             endfor;
+        endforeach;
+
+        foreach ($adding as $oneNewVote) :
+            $this->addVote($oneNewVote);
         endforeach;
 
         return $adding;
     }
 
-    protected function parseAnalysingOneLine ($searchCharacter, string &$line) : int
-    {
-        if ($searchCharacter !== false) :
-            $value = trim( substr($line, $searchCharacter + 1) );
-
-            // Errors
-            if ( !is_numeric($value) ) :
-                throw new CondorcetException(13, null);
-            endif;
-
-            // Reformat line
-            $line = substr($line, 0, $searchCharacter);
-
-            return intval($value);
-        else :
-            return 1;
-        endif;
-    }
 }

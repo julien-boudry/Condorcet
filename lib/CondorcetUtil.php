@@ -37,10 +37,10 @@ abstract class CondorcetUtil
     }
 
     // Generic action before parsing data from string input
-    public static function prepareParse (string $input, bool $allowFile) : array
+    public static function prepareParse (string $input, bool $isFile) : array
     {
         // Is string or is file ?
-        if ($allowFile === true && is_file($input)) :
+        if ($isFile === true) :
             $input = file_get_contents($input);
         endif;
 

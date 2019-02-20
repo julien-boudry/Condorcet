@@ -193,12 +193,9 @@ trait CandidatesProcess
         return $adding;
     }
 
-    public function parseCandidates (string $input, bool $allowFile = true)
+    public function parseCandidates (string $input, bool $isFile = false) : array
     {
-        $input = CondorcetUtil::prepareParse($input, $allowFile);
-        if ($input === false) :
-            return $input;
-        endif;
+        $input = CondorcetUtil::prepareParse($input, $isFile);
 
         $adding = [];
         foreach ($input as $line) :
@@ -208,15 +205,15 @@ trait CandidatesProcess
             endif;
 
             // addCandidate
-            try {
-                if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                    throw new CondorcetException(12, self::$_maxParseIteration);
-                endif;
+            if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
+                throw new CondorcetException(12, self::$_maxParseIteration);
+            endif;
 
-                $adding[] = $this->addCandidate($line);
-            } catch (CondorcetException $e) {
-                throw $e;
-            }
+            $adding[] = $line;
+        endforeach;
+
+        foreach ($adding as $oneNewCandidate) :
+            $this->addCandidate($oneNewCandidate);
         endforeach;
 
         return $adding;
