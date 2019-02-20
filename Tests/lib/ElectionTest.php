@@ -320,6 +320,9 @@ D > C > B > A * 1',
 
     public function testJsonVotes ()
     {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(15);
+
         $election = new Election;
 
         $election->addCandidate('A');
@@ -355,10 +358,15 @@ C > B > A * 1',
             $election->getVotesListAsString()
         );
         self::assertSame(5,$election->countVotes('tag1'));
+
+        $election->jsonVotes(json_encode($votes).'{42');
     }
 
-    public function testJsonCadidates ()
+    public function testJsonCandidates ()
     {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(15);
+
         $election = new Election;
 
         $candidates = ['candidate1 ','candidate2'];
@@ -367,7 +375,9 @@ C > B > A * 1',
 
         self::assertSame(2,$election->countCandidates());
 
-        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesList(true));
+        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
+
+        $election->jsonCandidates(json_encode(['candidate3']).'{42');
     }
 
     public function testJsonVotesWithInvalidJson ()

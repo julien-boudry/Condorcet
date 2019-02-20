@@ -215,12 +215,9 @@ trait VotesProcess
         endif;
     }
 
-    public function jsonVotes (string $input)
+    public function jsonVotes (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
-        if ($input === false) :
-            return $input;
-        endif;
 
             //////
 
@@ -239,12 +236,12 @@ trait VotesProcess
                     throw new CondorcetException(12, self::$_maxParseIteration);
                 endif;
 
-                try {
-                    $adding[] = $this->addVote($record['vote'], $tags);
-                } catch (\Exception $e) {
-                    // Ignore invalid vote
-                }
+                $adding[] = new Vote ($record['vote'], $tags);
             endfor;
+        endforeach;
+
+        foreach ($adding as $oneNewVote) :
+            $this->addVote($oneNewVote);
         endforeach;
 
         return $adding;

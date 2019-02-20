@@ -172,23 +172,26 @@ trait CandidatesProcess
 
 /////////// PARSE CANDIDATES ///////////
 
-    public function jsonCandidates (string $input)
+    public function jsonCandidates (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
-        if ($input === false) :
-            return $input;
-        endif;
 
             //////
 
         $adding = [];
         foreach ($input as $candidate) :
-            try {
-                $adding[] = $this->addCandidate($candidate);
-            }
-            catch (CondorcetException $e) {
-                // Ignore invalid vote
-            }
+            $candidate = new Candidate ($candidate);
+
+            if (!$this->canAddCandidate($candidate)) :
+                throw new CondorcetException(3);
+            endif;
+
+            $adding[] = $candidate;
+        endforeach;
+
+        // Add Candidates
+        foreach ($adding as $oneCandidate) :
+            $this->addCandidate($oneCandidate);
         endforeach;
 
         return $adding;
@@ -211,7 +214,7 @@ trait CandidatesProcess
             endif;
 
             if (!$this->canAddCandidate($line)) :
-                throw new  CondorcetException(3);
+                throw new CondorcetException(3);
             endif;
 
             $adding[] = $line;
