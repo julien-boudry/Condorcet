@@ -185,7 +185,7 @@ class Vote implements \Iterator
 
         foreach ($ranking as $CandidatesInRanks) :
             foreach ($CandidatesInRanks as $candidate) :
-                if ( $election->existCandidateId($candidate, true) ) :
+                if ( $election->isRegisteredCandidate($candidate, true) ) :
                     $newRanking[$nextRank][] = $candidate;
                     $countContextualCandidate++;
                 endif;

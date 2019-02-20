@@ -70,7 +70,7 @@ class KemenyYoung extends Method implements MethodInterface
 
             // Human readable
             foreach ($explicit[$key] as &$candidate_key) :
-                $candidate_key = $this->_selfElection->getCandidateId($candidate_key);
+                $candidate_key = $this->_selfElection->getCandidateObjectFromKey($candidate_key);
             endforeach;
 
             $explicit[$key]['score'] = $this->_RankingScore[$key];

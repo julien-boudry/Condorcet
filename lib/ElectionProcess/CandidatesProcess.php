@@ -60,21 +60,21 @@ trait CandidatesProcess
         endif;
     }
 
-    public function getCandidateId (int $candidate_key, bool $onlyName = false)
+    public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
     {
         if (!array_key_exists($candidate_key, $this->_Candidates)) :
-            return false;
+            return null;
         else :
-            return ($onlyName) ? $this->_Candidates[$candidate_key]->getName() : $this->_Candidates[$candidate_key];
+            return $this->_Candidates[$candidate_key];
         endif;
     }
 
-    public function existCandidateId ($candidate_id, bool $strict = true) : bool
+    public function isRegisteredCandidate ($candidate_id, bool $strict = true) : bool
     {
         return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
     }
 
-    public function getCandidateObjectByName (string $s)
+    public function getCandidateObjectFromName (string $s) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
 
@@ -83,7 +83,7 @@ trait CandidatesProcess
             endif;
         endforeach;
 
-        return false;
+        return null;
     }
 
 
@@ -132,7 +132,7 @@ trait CandidatesProcess
 
     public function canAddCandidate ($candidate_id) : bool
     {
-        return !$this->existCandidateId($candidate_id, false);
+        return !$this->isRegisteredCandidate($candidate_id, false);
     }
 
     // Destroy a register vote candidate before voting

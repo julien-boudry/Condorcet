@@ -87,12 +87,12 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         foreach ($this->_Pairwise as $candidate_key => $candidate_value) :
 
-            $candidate_name = $this->_Election->getCandidateId($candidate_key, true);
+            $candidate_name = $this->_Election->getCandidateObjectFromKey($candidate_key)->getName();
             
             foreach ($candidate_value as $mode => $mode_value) :
 
                 foreach ($mode_value as $candidate_list_key => $candidate_list_value) :
-                    $explicit_pairwise[$candidate_name][$mode][$this->_Election->getCandidateId($candidate_list_key, true)] = $candidate_list_value;
+                    $explicit_pairwise[$candidate_name][$mode][$this->_Election->getCandidateObjectFromKey($candidate_list_key)->getName()] = $candidate_list_value;
                 endforeach;
 
             endforeach;

@@ -60,7 +60,7 @@ $election1 = new Election ();
         $election1->getCandidatesList(true); // Return an array pupulate by each Candidate name as String.
 
         // OK, I need my Debussy (want his candidate object)
-        $myDebussyCandidate = $election1->getCandidateObjectByName('Debussy');
+        $myDebussyCandidate = $election1->getCandidateObjectFromName('Debussy');
 
 
 // IV - Votes
@@ -89,7 +89,7 @@ $election1 = new Election ();
 
         // Off course, you can vote by candidate object. Which is recommended. Or mix the two methods.
         $myVote4 = $election1->addVote( array(
-            $election1->getCandidateObjectByName('Ligeti'),
+            $election1->getCandidateObjectFromName('Ligeti'),
             $myLutoCandidate,
             [$myMessiaenCandidate,'Koechlin']
 
@@ -97,11 +97,11 @@ $election1 = new Election ();
 
         // Finishing with another really nice example.
         $myVote5 = new Vote ( array (
-            1 => $election1->getCandidateObjectByName('Debussy'),
-            2 => $election1->getCandidateObjectByName('Olivier Messiaen'),
-            3 => [ $election1->getCandidateObjectByName('Wiltod Lutoslawski'), $election1->getCandidateObjectByName('Ligeti') ],
-            4 => $election1->getCandidateObjectByName('Koechlin'),
-            5 => $election1->getCandidateObjectByName('Caplet')
+            1 => $election1->getCandidateObjectFromName('Debussy'),
+            2 => $election1->getCandidateObjectFromName('Olivier Messiaen'),
+            3 => [ $election1->getCandidateObjectFromName('Wiltod Lutoslawski'), $election1->getCandidateObjectFromName('Ligeti') ],
+            4 => $election1->getCandidateObjectFromName('Koechlin'),
+            5 => $election1->getCandidateObjectFromName('Caplet')
         ) );
 
         $myVote5->addTags('jusGreatVote');
@@ -109,7 +109,7 @@ $election1 = new Election ();
         $election1->addVote($myVote5);
 
             // Please note that :
-              $election1->getCandidateObjectByName('Olivier Messiaen') === $myMessiaenCandidate; // Return TRUE
+              $election1->getCandidateObjectFromName('Olivier Messiaen') === $myMessiaenCandidate; // Return TRUE
 
 
         // Add some nice tags to my Vote 1 & 2 & 3 (You can do this before or after add register into to the Election)

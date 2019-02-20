@@ -421,7 +421,7 @@
   class: Election
   type: method
   visibility: public
-  name: getCandidateObjectByName
+  name: getCandidateObjectFromName
   static: false
   description: |
     Find candidate object by his string and return the candidate object.

@@ -30,7 +30,7 @@ class DodgsonQuick extends Method implements MethodInterface
         $stats = [];
 
         foreach ($this->_Stats as $candidateKey => $dodgsonQuickValue) :
-             $stats[(string) $this->_selfElection->getCandidateId($candidateKey)] = $dodgsonQuickValue;
+             $stats[(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
         endforeach;
 
         return $stats;

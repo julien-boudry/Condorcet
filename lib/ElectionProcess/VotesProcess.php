@@ -128,8 +128,8 @@ trait VotesProcess
         $change = false;
         foreach ($vote as $rank => $choice) :
             foreach ($choice as $choiceKey => $candidate) :
-                if ( !$this->existCandidateId($candidate, true) ) :
-                    if ($candidate->getProvisionalState() && $this->existCandidateId($candidate, false)) :
+                if ( !$this->isRegisteredCandidate($candidate, true) ) :
+                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
                         if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
                             $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                             $change = true;

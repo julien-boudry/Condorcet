@@ -72,10 +72,10 @@ class ElectionTest extends TestCase
         );
     }
 
-    public function testGetCandidateObjectByName()
+    public function testgetCandidateObjectFromName()
     {
-        self::assertSame($this->candidate1,$this->election1->getCandidateObjectByName('candidate1'));
-        self::assertFalse($this->election1->getCandidateObjectByName('candidate42'));
+        self::assertSame($this->candidate1,$this->election1->getCandidateObjectFromName('candidate1'));
+        self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
     }
 
     /**
@@ -446,12 +446,11 @@ C > B > A * 1',
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
     }
 
-    public function testGetCandidateId ()
+    public function testGetCandidateObjectFromKey ()
     {
-        self::assertSame($this->candidate2,$this->election1->getCandidateId(1));
-        self::assertSame($this->candidate2->getName(),$this->election1->getCandidateId(1,true));
+        self::assertSame($this->candidate2,$this->election1->getCandidateObjectFromKey(1));
 
-        self::assertSame(false,$this->election1->getCandidateId(42));
+        self::assertSame(null,$this->election1->getCandidateObjectFromKey(42));
     }
 
     public function testElectionState1 ()
