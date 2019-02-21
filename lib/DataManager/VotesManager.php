@@ -162,6 +162,17 @@ class VotesManager extends ArrayManager
         endif;
     }
 
+    public function getVotesValidUnderConstraintGenerator () : \Generator
+    {
+        foreach ($this as $voteKey => $oneVote) :
+            if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+                continue;
+            endif;
+
+            yield $voteKey => $oneVote;
+        endforeach;
+    }
+
     public function getVotesListAsString () : string
     {
         $simpleList = '';
