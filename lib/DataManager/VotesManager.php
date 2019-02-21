@@ -108,7 +108,7 @@ class VotesManager extends ArrayManager
         return $r;
     }
 
-    protected function getFulllVotesListGenerator () : \Generator
+    protected function getFullVotesListGenerator () : \Generator
     {
         foreach ($this as $voteKey => $vote) :
             yield $voteKey => $vote;
@@ -156,7 +156,7 @@ class VotesManager extends ArrayManager
     public function getVotesListGenerator ($tag = null, bool $with = true) : \Generator
     {
         if ($tag === null) :
-            return $this->getFulllVotesListGenerator();
+            return $this->getFullVotesListGenerator();
         else :
             return $this->getPartialVotesListGenerator($tag,$with);
         endif;

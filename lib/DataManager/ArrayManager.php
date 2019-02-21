@@ -162,7 +162,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         if ($this->_counter === 0) :
             return null;
         else :
-            return ($this->_cursor === null) ? $this->getFirstKey() : $this->_cursor;
+            return $this->_cursor ?? $this->getFirstKey();
         endif;
     }
 
@@ -184,13 +184,13 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-        protected function setCursorOnNextKeyInArray (array &$array)
+        protected function setCursorOnNextKeyInArray (array &$array) : void
         {
             next($array);
             $arrayKey = key($array);
 
             if ($arrayKey > $this->key()) :
-                return $this->_cursor = $arrayKey;
+                $this->_cursor = $arrayKey;
             endif;
         }
 
