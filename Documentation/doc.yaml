@@ -508,14 +508,8 @@
   static: false
   description: |
     Returns the cumulated computation runtime of this object. Include only computation related methods.
-  input:
-    floatNumber:
-      type: bool
-      default: false
-      required: false
-      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    Int or string (look param).
+    (Float) Timer
   related:
     - 'Election::getLastTimer'
 
@@ -531,14 +525,8 @@
   static: false
   description: |
     Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
-  input:
-    floatNumber:
-      type: bool
-      default: false
-      required: false
-      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    Int or string (look param).
+    (Float) Timer
   related:
     - 'Election::getGlobalTimer'
 

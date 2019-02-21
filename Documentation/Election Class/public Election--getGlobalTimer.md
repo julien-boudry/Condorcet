@@ -3,20 +3,15 @@
 ### Description    
 
 ```php
-public $Election -> getGlobalTimer ( [ bool floatNumber = false] )
+public $Election -> getGlobalTimer ( )
 ```
 
 Returns the cumulated computation runtime of this object. Include only computation related methods.    
 
 
-##### **floatNumber:** *bool*   
-If true, return float. else, a string with 5 decimals.    
-
-
-
 ### Return value:   
 
-Int or string (look param).
+(Float) Timer
 
 
 ---------------------------------------

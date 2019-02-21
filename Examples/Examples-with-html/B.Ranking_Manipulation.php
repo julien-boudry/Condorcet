@@ -92,7 +92,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
 	 </pre> 
 	<br>
-	<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>
+	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>
 
 <br><br><hr style="clear:both;">
 

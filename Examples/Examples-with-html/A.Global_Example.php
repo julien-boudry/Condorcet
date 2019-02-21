@@ -96,7 +96,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
@@ -108,7 +108,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
 		?>
 		<br>
-		<em style="color:green;">computed in <?php echo $election->getLastTimer() ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>	</strong>
 	</strong>
 
 <br><br><hr>
@@ -142,7 +142,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 ?>
 <br><br><hr><br>
-<strong style="color:green;">Total computed in <?php echo $election->getGlobalTimer() ; ?> second(s).</strong>
+<strong style="color:green;">Total computed in <?php echo number_format($election->getGlobalTimer(),5) ; ?> second(s).</strong>
 <br>
 <?php var_dump($election->getTimerManager()->getHistory()); ?>
 <br><br><hr>

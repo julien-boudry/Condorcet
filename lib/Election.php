@@ -124,12 +124,12 @@ class Election
 
 /////////// TIMER & CHECKSUM ///////////
 
-    public function getGlobalTimer (bool $float = false) {
-        return $this->_timer->getGlobalTimer($float);
+    public function getGlobalTimer () : float {
+        return $this->_timer->getGlobalTimer();
     }
 
-    public function getLastTimer (bool $float = false) {
-        return $this->_timer->getLastTimer($float);
+    public function getLastTimer () : float {
+        return $this->_timer->getLastTimer();
     }
 
     public function getTimerManager () : Timer_Manager {

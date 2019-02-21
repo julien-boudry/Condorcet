@@ -53,14 +53,14 @@ class Manager
         endif;
     }
 
-    public function getGlobalTimer (bool $float = false)
+    public function getGlobalTimer () : float
     {
-        return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5);
+        return $this->_globalTimer;
     }
 
-    public function getLastTimer (bool $float = false)
+    public function getLastTimer () : float
     {
-        return ($float || $this->_lastTimer === null) ? $this->_lastTimer : number_format($this->_lastTimer, 5);
+        return $this->_lastTimer;
     }
 
     public function getHistory () : array
