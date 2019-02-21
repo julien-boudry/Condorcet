@@ -1367,14 +1367,30 @@
       type: CondorcetPHP\Condorcet\Election
       required: true
       text: An election is already linked to Vote.
-    stringMode:
-      type: bool
-      default: false
-      required: false
-      text: If true. Will return string name instead of Candidate object.
   return: |
     *(array)* Contextual full ranking.
   related:
+    - 'Vote::getContextualRankingAsString'
+    - 'Vote::getRanking'
+  publish: true
+
+  - 
+  class: Vote
+  type: method
+  visibility: public
+  name: getContextualRankingAsString
+  static: false
+  description: |
+    Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
+  input:
+    election:
+      type: CondorcetPHP\Condorcet\Election
+      required: true
+      text: An election is already linked to Vote.
+  return: |
+    *(array)* Contextual full ranking, with string instead Candidate object.
+  related:
+    - 'Vote::getContextualRanking'
     - 'Vote::getRanking'
   publish: true
 

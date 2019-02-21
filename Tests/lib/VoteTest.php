@@ -182,6 +182,12 @@ class VoteTest extends TestCase
                 $vote1->getContextualRanking($this->election1)
             );
 
+            self::assertSame(
+                [   1 => 'candidate2',
+                    2 => 'candidate3',
+                    3 => 'candidate1'  ],
+                $vote1->getContextualRankingAsString($this->election1)
+            );
 
         // II
         $vote2 = new Vote ('candidate1>candidate2');
@@ -223,6 +229,12 @@ class VoteTest extends TestCase
             [   1 => [$this->candidate3],
                 2 => [$this->candidate1,$this->candidate2]  ],
             $vote3->getContextualRanking($this->election1)
+        );
+
+        self::assertSame(
+            [   1 => 'candidate3',
+                2 => ['candidate1','candidate2']  ],
+            $vote3->getContextualRankingAsString($this->election1)
         );
 
         self::assertEquals(
