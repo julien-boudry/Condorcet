@@ -102,8 +102,8 @@ class Election
 
     public function __wakeup ()
     {
-        if ( version_compare($this->getObjectVersion('MAJOR'),Condorcet::getVersion('MAJOR'),'!=') ) :
-            throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion('ENV'));
+        if ( version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
+            throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
         endif;
     }
 
@@ -153,7 +153,7 @@ class Election
         $this->_Pairwise !== null
             && hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
 
-        hash_update($r, $this->getObjectVersion('major'));
+        hash_update($r, $this->getObjectVersion(true));
 
         self::$_checksumMode = false;
 

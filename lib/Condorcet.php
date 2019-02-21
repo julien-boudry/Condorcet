@@ -47,9 +47,9 @@ abstract class Condorcet
 /////////// STATICS METHODS ///////////
 
     // Return library version numer
-    public static function getVersion (string $option = 'FULL') : string
+    public static function getVersion (bool $major = false) : string
     {
-        if ($option === 'MAJOR') :
+        if ($major === true) :
             $version = explode('.', self::VERSION);
             return $version[0].'.'.$version[1];
         else :

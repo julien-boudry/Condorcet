@@ -139,14 +139,15 @@
   static: true
   description: |
     Get the library version.
+  name: getObjectVersion
   input:
     type:
-      type: string
-      default: 'FULL'
+      type: bool
+      default: false
       required: false
       text: |
-        * 'MAJOR' will return : '1.7'
-        * 'FULL' will return : '1.7.0'
+        * true will return : '2.0'
+        * false will return : '2.0.0'
   return: |
     *(string)* Condorcet PHP version.
   related:
@@ -589,12 +590,12 @@
     Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
   input:
     type:
-      type: string
-      default: 'FULL'
+      type: bool
+      default: false
       required: false
       text: |
-        * 'MAJOR' will return : '1.7'
-        * 'FULL' will return : '1.7.0'
+        * true will return : '2.0'
+        * false will return : '2.0.0'
   return: |
     *(string)* Condorcet PHP version.
   related:
