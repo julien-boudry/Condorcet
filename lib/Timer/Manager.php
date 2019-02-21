@@ -24,7 +24,7 @@ class Manager
     protected $_startDeclare = null;
     protected $_history = [];
 
-    public function addTime ( Chrono $chrono )
+    public function addTime ( Chrono $chrono ) : void
     {
         if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
             return;
@@ -68,7 +68,7 @@ class Manager
         return $this->_history;
     }
 
-    public function startDeclare (Chrono $chrono)
+    public function startDeclare (Chrono $chrono) : void
     {
         if ($this->_startDeclare === null) {
             $this->_startDeclare = $chrono->getStart();

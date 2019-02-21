@@ -49,8 +49,8 @@ class Chrono
         return $this->_role;
     }
 
-    public function setRole ($role) : void {
-        $this->_role = ($role !== null) ? (string) $role : $role;
+    public function setRole (?string $role) : void {
+        $this->_role = $role;
     }
 
     protected function managerStartDeclare () : void {
