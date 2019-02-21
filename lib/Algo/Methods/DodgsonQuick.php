@@ -43,7 +43,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected function compute () : void
     {
-        $pairwise = $this->_selfElection->getPairwise(false);
+        $pairwise = $this->_selfElection->getPairwise();
         $HeadToHead = [];
 
         foreach ($pairwise as $candidateId => $CandidateStats) :

@@ -137,7 +137,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function tieBreaking (array $candidatesKeys): array
     {
-        $pairwise = $this->_selfElection->getPairwise(false);
+        $pairwise = $this->_selfElection->getPairwise();
         $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
         $tooKeep = [];
 

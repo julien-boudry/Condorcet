@@ -204,7 +204,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $pairs = [];  
 
         $i = 0;
-        foreach ($this->_selfElection->getPairwise(false) as $candidate_key => $candidate_value) :
+        foreach ($this->_selfElection->getPairwise() as $candidate_key => $candidate_value) :
             foreach ($candidate_value['win'] as $challenger_key => $challenger_value) :
 
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) :

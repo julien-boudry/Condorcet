@@ -113,12 +113,17 @@ trait ResultsProcess
         endif;
     }
 
-    public function getPairwise (bool $explicit = true)
+    public function getPairwise () : Pairwise
     {
         $this->prepareResult();
-
-        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getExplicitPairwise();
+        return $this->_Pairwise;
     }
+
+    public function getExplicitPairwise () : array
+    {
+        return $this->getPairwise()->getExplicitPairwise();
+    }
+
 
 
 /////////// MAKE RESULTS ///////////

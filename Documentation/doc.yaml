@@ -504,6 +504,21 @@
   class: Election
   type: method
   visibility: public
+  name: getExplicitPairwise
+  static: false
+  description: |
+    Return the Pairwise.
+  return: |
+    Pairwise as an explicit array .
+  related:
+    - 'Election::getPairwise'
+    - 'Election::getResult'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getGlobalTimer
   static: false
   description: |
@@ -598,15 +613,10 @@
   static: false
   description: |
     Return the Pairwise.
-  input:
-    explicit:
-      type: bool
-      default: true
-      required: false
-      text: Get an explicit array with candidates names as keys.
   return: |
-    Pairwise object. Or an explicit array if _explicit_ argument == true.
+    Pairwise object.
   related:
+    - 'Election::getExplicitPairwise'
     - 'Election::getResult'
 
   examples:
