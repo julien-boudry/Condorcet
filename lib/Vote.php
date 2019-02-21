@@ -26,7 +26,7 @@ class Vote implements \Iterator
             $this->position = 1;
         }
 
-        public function current() {
+        public function current() : array {
             return $this->getRanking()[$this->position];
         }
 
