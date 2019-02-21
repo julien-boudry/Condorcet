@@ -3,20 +3,15 @@
 ### Description    
 
 ```php
-public $Election -> getLastTimer ( [ bool floatNumber = false] )
+public $Election -> getLastTimer ( )
 ```
 
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.    
 
 
-##### **floatNumber:** *bool*   
-If true, return float. else, a string with 5 decimals.    
-
-
-
 ### Return value:   
 
-Int or string (look param).
+(Float) Timer
 
 
 ---------------------------------------

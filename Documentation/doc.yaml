@@ -139,14 +139,15 @@
   static: true
   description: |
     Get the library version.
+  name: getObjectVersion
   input:
     type:
-      type: string
-      default: 'FULL'
+      type: bool
+      default: false
       required: false
       text: |
-        * 'MAJOR' will return : '1.7'
-        * 'FULL' will return : '1.7.0'
+        * true will return : '2.0'
+        * false will return : '2.0.0'
   return: |
     *(string)* Condorcet PHP version.
   related:
@@ -503,18 +504,27 @@
   class: Election
   type: method
   visibility: public
+  name: getExplicitPairwise
+  static: false
+  description: |
+    Return the Pairwise.
+  return: |
+    Pairwise as an explicit array .
+  related:
+    - 'Election::getPairwise'
+    - 'Election::getResult'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getGlobalTimer
   static: false
   description: |
     Returns the cumulated computation runtime of this object. Include only computation related methods.
-  input:
-    floatNumber:
-      type: bool
-      default: false
-      required: false
-      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    Int or string (look param).
+    (Float) Timer
   related:
     - 'Election::getLastTimer'
 
@@ -530,14 +540,8 @@
   static: false
   description: |
     Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
-  input:
-    floatNumber:
-      type: bool
-      default: false
-      required: false
-      text: 'If true, return float. else, a string with 5 decimals.'
   return: |
-    Int or string (look param).
+    (Float) Timer
   related:
     - 'Election::getGlobalTimer'
 
@@ -589,12 +593,12 @@
     Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
   input:
     type:
-      type: string
-      default: 'FULL'
+      type: bool
+      default: false
       required: false
       text: |
-        * 'MAJOR' will return : '1.7'
-        * 'FULL' will return : '1.7.0'
+        * true will return : '2.0'
+        * false will return : '2.0.0'
   return: |
     *(string)* Condorcet PHP version.
   related:
@@ -609,15 +613,10 @@
   static: false
   description: |
     Return the Pairwise.
-  input:
-    explicit:
-      type: bool
-      default: true
-      required: false
-      text: Get an explicit array with candidates names as keys.
   return: |
-    Pairwise object. Or an explicit array if _explicit_ argument == true.
+    Pairwise object.
   related:
+    - 'Election::getExplicitPairwise'
     - 'Election::getResult'
 
   examples:
@@ -651,11 +650,11 @@
     *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
   input:
     method:
-      type: mixed
-      default: true
+      type: string
+      default: null
       required: false
       text: |
-      Set to True for use object default method. Set the string name of the algorithm for use an specific one.
+      Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
     options:
       type: array
       default: '[]'
@@ -666,6 +665,7 @@
   related:
     - 'Election::getWinner'
     - 'Election::getResult'
+    - 'Condorcet::getDefaultMethod'
   examples:
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods'
   publish: true
@@ -796,29 +796,6 @@
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: ignoreMaxVote
-  static: false
-  description: |
-    Goes beyond the class static limit for this election object only, if static limitation enabled.
-  input:
-    ignore:
-      type: bool
-      default: true
-      required: false
-  return: |
-    *(bool)* True if static limitation is ovveride for this election, false if it's not.
-  related:
-    - 'static Election::setMaxVoteNumber'
-    - 'static Election::setMaxParseIteration'
-
-  examples:
-    '[Manual - Vote management]': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
 - 
@@ -1365,14 +1342,30 @@
       type: CondorcetPHP\Condorcet\Election
       required: true
       text: An election is already linked to Vote.
-    stringMode:
-      type: bool
-      default: false
-      required: false
-      text: If true. Will return string name instead of Candidate object.
   return: |
     *(array)* Contextual full ranking.
   related:
+    - 'Vote::getContextualRankingAsString'
+    - 'Vote::getRanking'
+  publish: true
+
+  - 
+  class: Vote
+  type: method
+  visibility: public
+  name: getContextualRankingAsString
+  static: false
+  description: |
+    Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
+  input:
+    election:
+      type: CondorcetPHP\Condorcet\Election
+      required: true
+      text: An election is already linked to Vote.
+  return: |
+    *(array)* Contextual full ranking, with string instead Candidate object.
+  related:
+    - 'Vote::getContextualRanking'
     - 'Vote::getRanking'
   publish: true
 

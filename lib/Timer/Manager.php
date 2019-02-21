@@ -24,13 +24,13 @@ class Manager
     protected ?float $_startDeclare = null;
     protected array $_history = [];
 
-    public function addTime ( Chrono $chrono )
+    public function addTime ( Chrono $chrono ) : void
     {
-        if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
-            return;
-        endif;
-
         if ($chrono->getTimerManager() === $this) :
+            if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
+                return;
+            endif;
+            
             $m = microtime(true);
 
             if ( $this->_lastChronoTimestamp > $chrono->getStart() ) :
@@ -53,14 +53,14 @@ class Manager
         endif;
     }
 
-    public function getGlobalTimer (bool $float = false)
+    public function getGlobalTimer () : float
     {
-        return ($float) ? $this->_globalTimer : number_format($this->_globalTimer, 5);
+        return $this->_globalTimer;
     }
 
-    public function getLastTimer (bool $float = false)
+    public function getLastTimer () : float
     {
-        return ($float || $this->_lastTimer === null) ? $this->_lastTimer : number_format($this->_lastTimer, 5);
+        return $this->_lastTimer;
     }
 
     public function getHistory () : array
@@ -68,7 +68,7 @@ class Manager
         return $this->_history;
     }
 
-    public function startDeclare (Chrono $chrono)
+    public function startDeclare (Chrono $chrono) : void
     {
         if ($this->_startDeclare === null) {
             $this->_startDeclare = $chrono->getStart();

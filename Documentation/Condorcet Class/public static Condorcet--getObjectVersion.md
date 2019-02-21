@@ -1,17 +1,17 @@
-## public static Condorcet::getVersion
+## public static Condorcet::getObjectVersion
 
 ### Description    
 
 ```php
-public static Condorcet::getVersion ( [ string type = FULL] )
+public static Condorcet::getObjectVersion ( [ bool type = false] )
 ```
 
 Get the library version.    
 
 
-##### **type:** *string*   
-* 'MAJOR' will return : '1.7'
-* 'FULL' will return : '1.7.0'    
+##### **type:** *bool*   
+* true will return : '2.0'
+* false will return : '2.0.0'    
 
 
 

@@ -19,6 +19,6 @@ class SchulzeMargin extends Schulze_Core
     public const METHOD_NAME = ['Schulze Margin','SchulzeMargin','Schulze_Margin'];
 
     protected function schulzeVariant (int &$i, int &$j) : int {
-        return $this->_selfElection->getPairwise(false)[$i]['win'][$j] - $this->_selfElection->getPairwise(false)[$j]['win'][$i];
+        return $this->_selfElection->getPairwise()[$i]['win'][$j] - $this->_selfElection->getPairwise()[$j]['win'][$i];
     }
 }

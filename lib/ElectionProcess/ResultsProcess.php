@@ -33,7 +33,7 @@ trait ResultsProcess
 /////////// GET RESULTS ///////////
 
     // Generic function for default result with ability to change default object method
-    public function getResult ($method = true, array $options = []) : Result
+    public function getResult (?string $method = null, array $options = []) : Result
     {
         $options = self::formatResultOptions($options);
 
@@ -65,7 +65,7 @@ trait ResultsProcess
 
         $chrono = new Timer_Chrono ($this->_timer);
 
-        if ($method === true) :
+        if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
         elseif ($method = Condorcet::isAuthMethod((string) $method)) :
@@ -116,17 +116,22 @@ trait ResultsProcess
         endif;
     }
 
-    public function getPairwise (bool $explicit = true)
+    public function getPairwise () : Pairwise
     {
         $this->prepareResult();
-
-        return (!$explicit) ? $this->_Pairwise : $this->_Pairwise->getExplicitPairwise();
+        return $this->_Pairwise;
     }
+
+    public function getExplicitPairwise () : array
+    {
+        return $this->getPairwise()->getExplicitPairwise();
+    }
+
 
 
 /////////// MAKE RESULTS ///////////
 
-    public function computeResult ($method = true) : void
+    public function computeResult (?string $method = null) : void
     {
         $this->getResult($method);
     }

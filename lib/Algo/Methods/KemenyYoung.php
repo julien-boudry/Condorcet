@@ -142,7 +142,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected function calcRankingScore () : void
     {
         $this->_RankingScore = [];
-        $pairwise = $this->_selfElection->getPairwise(false);
+        $pairwise = $this->_selfElection->getPairwise();
 
         foreach ($this->_PossibleRanking as $keyScore => $ranking) :
             $this->_RankingScore[$keyScore] = 0;

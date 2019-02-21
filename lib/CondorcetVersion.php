@@ -17,15 +17,13 @@ trait CondorcetVersion
     // Build by Version
     protected string $_objectVersion = Condorcet::VERSION;
 
-    public function getObjectVersion (string $options = null) : string
+    public function getObjectVersion (bool $major = false) : string
     {
-        switch ($options) :
-            case 'MAJOR':
-                $version = explode('.', $this->_objectVersion);
-                return $version[0].'.'.$version[1];
-
-            default:
-                return $this->_objectVersion;
-        endswitch;
+        if ($major === true) :
+            $version = explode('.', $this->_objectVersion);
+            return $version[0].'.'.$version[1];
+        else :
+            return $this->_objectVersion;
+        endif;
     }
 }

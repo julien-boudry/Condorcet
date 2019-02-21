@@ -119,7 +119,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $r;
     }
 
-    public function getResultAsString ()
+    public function getResultAsString () : string
     {
         return VoteUtil::getRankingAsString($this->getResultAsArray(true));
     }
@@ -189,7 +189,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return true;
     }
 
-    public function getWarning ($type = null) : array
+    public function getWarning (?int $type = null) : array
     {
         if ($type === null) :
             return $this->_warning;
@@ -197,7 +197,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
             $r = [];
 
             foreach ($this->_warning as $oneWarning) :
-                if ($oneWarning['type'] === (int) $type) :
+                if ($oneWarning['type'] === $type) :
                     $r[] = $oneWarning;
                 endif;
             endforeach;

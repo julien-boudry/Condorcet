@@ -26,7 +26,7 @@ class Vote implements \Iterator
             $this->position = 1;
         }
 
-        public function current() {
+        public function current() : array {
             return $this->getRanking()[$this->position];
         }
 
@@ -169,7 +169,7 @@ class Vote implements \Iterator
         return $list;
     }
 
-    public function getContextualRanking (Election $election, bool $string = false) : array
+    public function getContextualRanking (Election $election) : array
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -178,7 +178,7 @@ class Vote implements \Iterator
         $ranking = $this->getRanking();
         $present = $this->getAllCandidates();
         $newRanking = [];
-        $candidates_list = $election->getCandidatesList(false);
+        $candidates_list = $election->getCandidatesList();
 
         $nextRank = 1;
         $countContextualCandidate = 0;
@@ -207,15 +207,12 @@ class Vote implements \Iterator
             $newRanking[] = $last_rank;
         endif;
 
-        if ($string) :
-            foreach ($newRanking as &$rank) :
-                foreach ($rank as &$oneCandidate) :
-                    $oneCandidate = (string) $oneCandidate;
-                endforeach;
-            endforeach;
-        endif;
-
         return $newRanking;
+    }
+
+    public function getContextualRankingAsString (Election $election) : array
+    {
+        return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
     public function getSimpleRanking (?Election $context = null) : string

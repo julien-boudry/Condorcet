@@ -445,8 +445,8 @@ C > B > A * 1',
 
         self::assertSame($this->election1->getCandidatesList(),$cloneElection->getCandidatesList());
 
-        self::assertNotSame($this->election1->getPairwise(false),$cloneElection->getPairwise(false));
-        self::assertEquals($this->election1->getPairwise(true),$cloneElection->getPairwise(true));
+        self::assertNotSame($this->election1->getPairwise(),$cloneElection->getPairwise());
+        self::assertEquals($this->election1->getExplicitPairwise(),$cloneElection->getExplicitPairwise());
 
         self::assertNotSame($this->election1->getTimerManager(),$cloneElection->getTimerManager());
 

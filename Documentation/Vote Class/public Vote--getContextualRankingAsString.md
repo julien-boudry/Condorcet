@@ -1,9 +1,9 @@
-## public Vote::getContextualRanking
+## public Vote::getContextualRankingAsString
 
 ### Description    
 
 ```php
-public $Vote -> getContextualRanking ( CondorcetPHP\Condorcet\Election election [, bool stringMode = false] )
+public $Vote -> getContextualRankingAsString ( CondorcetPHP\Condorcet\Election election )
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.    
@@ -14,18 +14,14 @@ An election is already linked to Vote.
 
 
 
-##### **stringMode:** *bool*   
-If true. Will return string name instead of Candidate object.    
-
-
-
 ### Return value:   
 
-*(array)* Contextual full ranking.
+*(array)* Contextual full ranking, with string instead Candidate object.
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
+* [Vote::getContextualRanking](../Vote%20Class/public%20Vote--getContextualRanking.md)    
 * [Vote::getRanking](../Vote%20Class/public%20Vote--getRanking.md)    

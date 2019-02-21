@@ -3,26 +3,22 @@
 ### Description    
 
 ```php
-public $Election -> getPairwise ( [ bool explicit = true] )
+public $Election -> getPairwise ( )
 ```
 
 Return the Pairwise.    
 
 
-##### **explicit:** *bool*   
-Get an explicit array with candidates names as keys.    
-
-
-
 ### Return value:   
 
-Pairwise object. Or an explicit array if _explicit_ argument == true.
+Pairwise object.
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
+* [Election::getExplicitPairwise](../Election%20Class/public%20Election--getExplicitPairwise.md)    
 * [Election::getResult](../Election%20Class/public%20Election--getResult.md)    
 
 ---------------------------------------

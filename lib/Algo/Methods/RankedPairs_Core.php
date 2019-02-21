@@ -202,7 +202,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $pairs = [];  
 
         $i = 0;
-        foreach ($this->_selfElection->getPairwise(false) as $candidate_key => $candidate_value) :
+        foreach ($this->_selfElection->getPairwise() as $candidate_key => $candidate_value) :
             foreach ($candidate_value['win'] as $challenger_key => $challenger_value) :
 
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) :
@@ -223,19 +223,13 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        usort($pairs, function ($a, $b) : int {
+        usort($pairs, function (array $a, array $b) : int {
             if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) :
                 return 1;
             elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) :
                 return -1;
             else : // Equal
-                if ($a['minority'] > $b['minority']) :
-                    return 1;
-                elseif ($a['minority'] < $b['minority']) :
-                    return -1;
-                else : // Equal
-                    return 0;
-                endif;
+                return $a['minority'] <=> $b['minority'];
             endif;
         });
 

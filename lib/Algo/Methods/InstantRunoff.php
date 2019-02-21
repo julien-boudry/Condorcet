@@ -112,12 +112,7 @@ class InstantRunoff extends Method implements MethodInterface
             endif;
         endforeach;
 
-        foreach ($this->_selfElection->getVotesManager() as $oneVote) :
-
-            // Ignore vote who don't respect election constraints
-            if(!$this->_selfElection->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
-                continue;
-            endif;
+        foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
             $weight = ($this->_selfElection->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
 
@@ -142,7 +137,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function tieBreaking (array $candidatesKeys): array
     {
-        $pairwise = $this->_selfElection->getPairwise(false);
+        $pairwise = $this->_selfElection->getPairwise();
         $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
         $tooKeep = [];
 

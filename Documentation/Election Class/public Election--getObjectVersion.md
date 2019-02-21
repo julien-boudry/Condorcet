@@ -3,15 +3,15 @@
 ### Description    
 
 ```php
-public $Election -> getObjectVersion ( [ string type = FULL] )
+public $Election -> getObjectVersion ( [ bool type = false] )
 ```
 
 Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.    
 
 
-##### **type:** *string*   
-* 'MAJOR' will return : '1.7'
-* 'FULL' will return : '1.7.0'    
+##### **type:** *bool*   
+* true will return : '2.0'
+* false will return : '2.0.0'    
 
 
 

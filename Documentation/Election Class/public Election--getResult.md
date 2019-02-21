@@ -3,14 +3,14 @@
 ### Description    
 
 ```php
-public $Election -> getResult ( [ mixed method = true, array options = []] )
+public $Election -> getResult ( [ string method, array options = []] )
 ```
 
 Get a full ranking from an advanced Condorcet method.
 *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*    
 
 
-##### **method:** *mixed*   
+##### **method:** *string*   
     
 
 
@@ -30,6 +30,7 @@ An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use li
 ### Related method(s)      
 
 * [Election::getWinner](../Election%20Class/public%20Election--getWinner.md)    
+* [Condorcet::getDefaultMethod](../Condorcet%20Class/public%20Condorcet--getDefaultMethod.md)    
 
 ---------------------------------------
 

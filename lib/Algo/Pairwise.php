@@ -110,12 +110,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->formatNewpairwise();
 
         // Win && Null
-        foreach ( $this->_Election->getVotesManager() as $vote_id => $oneVote ) :
-
-            // Ignore vote who don't respect election constraints
-            if(!$this->_Election->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
-                continue;
-            endif;
+        foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
 
             $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
@@ -178,11 +173,11 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function formatNewpairwise () : void
     {
-        foreach ( $this->_Election->getCandidatesList(false) as $candidate_key => $candidate_id ) :
+        foreach ( $this->_Election->getCandidatesList() as $candidate_key => $candidate_id ) :
 
             $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
-            foreach ( $this->_Election->getCandidatesList(false) as $candidate_key_r => $candidate_id_r ) :
+            foreach ( $this->_Election->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
 
                 if ($candidate_key_r !== $candidate_key) :
                     $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;

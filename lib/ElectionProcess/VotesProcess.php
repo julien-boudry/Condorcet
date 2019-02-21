@@ -23,13 +23,6 @@ trait VotesProcess
 
     // Data and global options
     protected VotesManager $_Votes; // Votes list
-    protected bool $_ignoreStaticMaxVote = false;
-
-
-    public function ignoreMaxVote (bool $state = true) : bool
-    {
-        return $this->_ignoreStaticMaxVote = $state;
-    }
 
 
 /////////// VOTES LIST ///////////
@@ -94,7 +87,7 @@ trait VotesProcess
         $this->prepareVoteInput($vote, $tag);
 
         // Check Max Vote Count
-        if ( self::$_maxVoteNumber !== null && !$this->_ignoreStaticMaxVote && $this->countVotes() >= self::$_maxVoteNumber ) :
+        if ( self::$_maxVoteNumber !== null && $this->countVotes() >= self::$_maxVoteNumber ) :
             throw new CondorcetException(16, self::$_maxVoteNumber);
         endif;
 

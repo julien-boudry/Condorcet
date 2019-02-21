@@ -21,7 +21,7 @@ class Chrono
     protected float $_start;
     protected ?string $_role = null;
 
-    public function __construct (Manager $timer, $role = null)
+    public function __construct (Manager $timer, ?string $role = null)
     {
         $this->_manager = $timer;
         $this->setRole($role);        
