@@ -85,7 +85,6 @@ class Election
             '_i_CandidateId',
             '_State',
             '_objectVersion',
-            '_ignoreStaticMaxVote',
 
             '_ImplicitRanking',
             '_VoteWeightRule',

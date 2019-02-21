@@ -802,29 +802,6 @@
   class: Election
   type: method
   visibility: public
-  name: ignoreMaxVote
-  static: false
-  description: |
-    Goes beyond the class static limit for this election object only, if static limitation enabled.
-  input:
-    ignore:
-      type: bool
-      default: true
-      required: false
-  return: |
-    *(bool)* True if static limitation is ovveride for this election, false if it's not.
-  related:
-    - 'static Election::setMaxVoteNumber'
-    - 'static Election::setMaxParseIteration'
-
-  examples:
-    '[Manual - Vote management]': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
   name: jsonCandidates
   static: false
   description: |
