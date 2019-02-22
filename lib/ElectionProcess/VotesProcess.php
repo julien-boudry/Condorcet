@@ -224,11 +224,17 @@ trait VotesProcess
             $tags = (!isset($record['tag'])) ? null : $record['tag'];
             $multi = (!isset($record['multi'])) ? 1 : $record['multi'];
 
-            for ($i = 0; $i < $multi; $i++) :
-                if (self::$_maxParseIteration !== null && $this->countVotes() >= self::$_maxParseIteration) :
-                    throw new CondorcetException(12, self::$_maxParseIteration);
-                endif;
+            $adding_predicted_count = count($adding) + $multi;
 
+            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
+                throw new CondorcetException(16, self::$_maxParseIteration);
+            endif;
+
+            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
+                throw new CondorcetException(12, self::$_maxParseIteration);
+            endif;
+
+            for ($i = 0; $i < $multi; $i++) :
                 $adding[] = new Vote ($record['vote'], $tags);
             endfor;
         endforeach;
@@ -270,12 +276,18 @@ trait VotesProcess
                 $tags = null;
             endif;
 
+            $adding_predicted_count = count($adding) + $multiple;
+
+            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
+                throw new CondorcetException(16, self::$_maxParseIteration);
+            endif;
+
+            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
+                throw new CondorcetException(12, self::$_maxParseIteration);
+            endif;
+
             // addVote
             for ($i = 0; $i < $multiple; $i++) :
-                if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                    throw new CondorcetException(12, self::$_maxParseIteration);
-                endif;
-
                 $newVote = new Vote ($vote, $tags);
                 $newVote->setWeight($weight);
 

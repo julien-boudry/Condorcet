@@ -4,6 +4,7 @@ namespace CondorcetPHP\Condorcet;
 
 
 use PHPUnit\Framework\TestCase;
+use CondorcetPHP\Condorcet\CondorcetException;
 
 
 class ElectionTest extends TestCase
@@ -157,23 +158,39 @@ class ElectionTest extends TestCase
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(16);
 
+        $election = new Election;
+        self::assertCount(3,$election->parseCandidates('candidate1;candidate2;candidate3'));
+
         self::assertSame(42,Election::setMaxVoteNumber(42));
 
-        self::assertCount(17,$this->election1->parseVotes('candidate1>candidate2 * 17'));
+        self::assertCount(21,$election->parseVotes('candidate1>candidate2 * 21'));
 
-        self::assertCount(21,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+        try {
+            $election->parseVotes('candidate1>candidate2 * 42');
+            self::assertSame(true,false);
+        } catch (CondorcetException $e) {
+            self::assertSame(16,$e->getCode());
+        }
 
-        self::assertSame(42,$this->election1->countVotes());
+        self::assertSame(21,$election->countVotes());
 
-        $this->election1->ignoreMaxVote(true);
+        $election->parseVotes('candidate1 * 21');
 
-        $this->election1->addVote('candidate1');
+        self::assertSame(42,$election->countVotes());
 
-        self::assertSame(43,$this->election1->countVotes());
+        self::assertSame(null,Election::setMaxVoteNumber(null));
 
-        $this->election1->ignoreMaxVote(false);
+        $election->addVote('candidate3');
 
-        $this->election1->addVote('candidate3');
+        self::assertSame(42,Election::setMaxVoteNumber(42));
+
+        try {
+            $election->addVote('candidate3');
+        } catch (CondorcetException $e) {}
+
+        self::assertSame(null,Election::setMaxVoteNumber(null));
+
+        throw $e;
     }
 
     public function testGetVotesListAsString ()
