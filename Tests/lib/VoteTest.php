@@ -425,6 +425,11 @@ class VoteTest extends TestCase
         self::assertsame(42,$vote->getWeight());
         self::assertsame(2,$vote->setWeight(2));
         self::assertsame(2,$vote->getWeight());
+
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(13);
+
+        $vote = new Vote ('A>B>C^a');
     }
 
     public function testCustomTimestamp()

@@ -504,5 +504,33 @@ C > B > A * 1',
         $this->election1->addVote($this->vote1);
     }
 
+    public function testState1 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(20);
+
+        $election = new Election;
+        $election->setStateTovote();
+    }
+
+    public function testState2 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(6);
+
+        $election = new Election;
+        $election->getResult();
+    }
+
+    public function testDestroy ()
+    {
+        $this->candidate1 = null;
+        $this->candidate2 = null;
+        $this->candidate3 = null;
+
+        $this->election1 = null;
+
+        self::assertTrue(true);
+    }
 
 }

@@ -34,6 +34,26 @@ class ResultTest extends TestCase
         );
     }
 
+    public function testGetResultAsInternalKey ()
+    {
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('C');
+
+        $this->election1->parseVotes('
+            B > A > C * 7
+            A > B > C * 7
+            C > A > B * 2
+            C > B > A * 2
+        ');
+
+
+        self::assertSame(
+            [1 => [0,1], 2 => [2]],
+            $this->election1->getResult('Ranked Pairs')->getResultAsInternalKey()
+        );
+    }
+
     public function testgetCondorcetElectionGeneratorVersion ()
     {
         $this->election1->addCandidate('B');

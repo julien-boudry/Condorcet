@@ -61,13 +61,17 @@ class Vote implements \Iterator
         if (is_string($ranking)) :
             $is_voteWeight = mb_strpos($ranking, '^');
             if ($is_voteWeight !== false) :
-                $weight = intval( trim( substr($ranking, $is_voteWeight + 1) ) );
-                $ranking = substr($ranking, 0,$is_voteWeight);
+                $weight = trim( substr($ranking, $is_voteWeight + 1) );
 
                 // Errors
                 if ( !is_numeric($weight) ) :
                     throw new CondorcetException(13, null);
                 endif;
+
+                $weight = intval($weight);
+
+                $ranking = substr($ranking, 0,$is_voteWeight);
+
             endif;
 
             $is_voteTags = mb_strpos($ranking, '||');
