@@ -23,20 +23,26 @@ abstract class VoteUtil
             return null;
         endif;
 
-        // Make Array
-        if (!is_array($tags)) :
+        if (is_string($tags)) :
             $tags = explode(',', $tags);
+        elseif (is_array($tags)) :
+            foreach ($tags as $key => &$oneTag) :
+                if (!is_string($oneTag)) :
+                    throw new CondorcetException(17);
+                endif;
+            endforeach;
+        else :
+            throw new CondorcetException(17);
         endif;
 
-        // Trim tags
-        foreach ($tags as $key => &$oneTag) :
-            if (empty($oneTag) || is_object($oneTag) || is_bool($oneTag)) :
-                unset($tags[$key]);
-                continue;
-            endif;
+        $tags = array_map('trim', $tags);
 
-            $oneTag = (!ctype_digit($oneTag)) ? trim($oneTag) : intval($oneTag);
-        endforeach;
+        $tags = array_filter(
+            $tags, 
+            function (string $oneTag) : bool {
+                return !empty($oneTag);
+            }
+        );
 
         return $tags;
     }

@@ -340,7 +340,7 @@ class VoteTest extends TestCase
             self::assertTrue($vote1->removeAllTags());
 
         self::assertTrue($vote1->addTags(
-            ['tag1 ',' tag2',' tag3 ','',null,false]
+            ['tag1 ',' tag2',' tag3 ',' ']
         ));
 
             self::assertSame(
@@ -481,5 +481,35 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C');
 
         self::assertsame(3,$vote->countRankingCandidates());
+    }
+
+    public function testInvalidWeight()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(26);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->setWeight(0);
+    }
+
+    public function testInvalidTag1()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(17);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->addTags(true);
+    }
+
+    public function testInvalidTag2()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(17);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->addTags(42);
     }
 }

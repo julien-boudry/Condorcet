@@ -365,16 +365,11 @@ class Vote implements \Iterator
 
     public function addTags ($tags) : bool
     {
-        if (is_object($tags) || is_bool($tags)) :
-            throw new CondorcetException(17);
-        endif;
-
         $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return false;
         endif;
-
 
         foreach ($tags as $key => $tag) :
             if (is_numeric($tag)) :
@@ -395,16 +390,11 @@ class Vote implements \Iterator
 
     public function removeTags ($tags) : array
     {
-        if (is_object($tags) || is_bool($tags)) :
-            throw new CondorcetException(17);
-        endif;
-
         $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return [];
         endif;
-
 
         $rm = [];
         foreach ($tags as $key => $tag) :
