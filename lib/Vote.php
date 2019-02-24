@@ -323,31 +323,27 @@ class Vote implements \Iterator
         }
 
 
-    public function removeCandidates (array $candidatesList) : bool
+    public function removeCandidate ($candidate) : bool
     {
-        $ranking = $this->getRanking();
-
-        if ($ranking === null) :
-            return false;
+        if ($candidate instanceof Candidate) :
+            $strict = true;
+        elseif (is_string($candidate)) :
+            $strict = false;
+        else :
+            throw new CondorcetException (32);
         endif;
+
+        $ranking = $this->getRanking();
 
         $rankingCandidate = $this->getAllCandidates();
 
-        $canRemove = false;
-        foreach ($candidatesList as $oneCandidate) :
-            if (in_array($oneCandidate, $rankingCandidate, false)) :
-                $canRemove = true;
-                break;
-            endif;
-        endforeach;
-
-        if (!$canRemove) :
-            return false;
+        if (!in_array($candidate, $rankingCandidate, $strict)) :
+            throw new CondorcetException (32);
         endif;
 
         foreach ($ranking as $rankingKey => &$rank) :
             foreach ($rank as $oneRankKey => $oneRankValue) :
-                if (in_array($oneRankValue, $candidatesList, false)) :
+                if (($strict) ? $oneRankValue === $candidate : $oneRankValue == $candidate) :
                     unset($rank[$oneRankKey]);
                 endif;
             endforeach;

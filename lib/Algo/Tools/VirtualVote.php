@@ -16,7 +16,11 @@ class VirtualVote
 {
     public static function removeCandidates (Vote $vote, array $candidatesList) : Vote
     {
-        ($virtualVote = clone $vote)->removeCandidates($candidatesList);
+        $virtualVote = clone $vote;
+
+        foreach ($candidatesList as $oneCandidate) :
+            $virtualVote->removeCandidate ($oneCandidate);
+        endforeach;
 
         return $virtualVote;
     }
