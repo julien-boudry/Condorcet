@@ -199,7 +199,7 @@ class Election
     public function setImplicitRanking (bool $rule = true) : bool
     {
         $this->_ImplicitRanking = $rule;
-        $this->cleanupResult();
+        $this->cleanupCompute();
         return $this->getImplicitRankingRule();
     }
 
@@ -211,7 +211,7 @@ class Election
     public function allowVoteWeight (bool $rule = true) : bool
     {
         $this->_VoteWeightRule = $rule;
-        $this->cleanupResult();
+        $this->cleanupCompute();
         return $this->isVoteWeightIsAllowed();
     }
 
@@ -229,7 +229,7 @@ class Election
         endif;
 
         if ( $this->_State > 2) :
-            $this->cleanupResult();;
+            $this->cleanupCompute();;
         endif;
 
         $this->_Constraints[] = $class;
@@ -247,7 +247,7 @@ class Election
         $this->_Constraints = [];
 
         if ( $this->_State > 2) :
-            $this->cleanupResult();;
+            $this->cleanupCompute();;
         endif;
 
         return true;
@@ -290,6 +290,11 @@ class Election
 
 /////////// STATE ///////////
 
+    public function getState () : int
+    {
+        return $this->_State;
+    }
+
     // Close the candidate config, be ready for voting (optional)
     public function setStateToVote () : bool
     {
@@ -302,7 +307,7 @@ class Election
 
         // If voting continues after a first set of results
         elseif ( $this->_State > 2 ) :
-                $this->cleanupResult();
+                $this->cleanupCompute();
         endif;
 
         return true;
@@ -314,7 +319,7 @@ class Election
         if ($this->_State > 2) :
             return false;
         elseif ($this->_State === 2) :
-            $this->cleanupResult();
+            $this->cleanupCompute();
 
             // Do Pairewise
             $this->makePairwise();

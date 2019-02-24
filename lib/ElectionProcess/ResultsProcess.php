@@ -146,19 +146,28 @@ trait ResultsProcess
     }
 
     // Cleanup results to compute again with new votes
-    protected function cleanupResult () : void
+    protected function cleanupCompute () : void
+    {
+        // Clean pairwise
+        $this->cleanupPairwise();
+
+        // Algos
+        $this->cleanupCalculator();
+    }
+
+    public function cleanupPairwise () : void
     {
         // Reset state
         if ($this->_State > 2) : 
             $this->_State = 2;
         endif;
 
-            //////
-
-        // Clean pairwise
         $this->_Pairwise = null;
+        $this->cleanupCalculator();
+    }
 
-        // Algos
+    public function cleanupCalculator () : void
+    {
         $this->_Calculator = null;
     }
 
