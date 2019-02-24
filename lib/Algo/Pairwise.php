@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
 class Pairwise implements \ArrayAccess, \Iterator
@@ -102,75 +103,6 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $explicit_pairwise;
     }
 
-    protected function doPairwise () : void
-    {
-        // Chrono
-        new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
-
-        $this->formatNewpairwise();
-
-        // Win && Null
-        foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
-
-            $vote_ranking = $oneVote->getContextualRanking($this->_Election);
-
-            $voteWeight = ($this->_Election->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
-
-            $vote_candidate_list = (function (array $r) : array { $list = [];
-                    foreach ($r as $rank) :
-                        foreach ($rank as $oneCandidate) :
-                            $list[] = $oneCandidate;
-                        endforeach;
-                    endforeach;
-
-                    return $list;})($vote_ranking);
-
-            $done_Candidates = [];
-
-            foreach ($vote_ranking as $candidates_in_rank) :
-
-                $candidates_in_rank_keys = [];
-
-                foreach ($candidates_in_rank as $candidate) :
-                    $candidates_in_rank_keys[] = $this->_Election->getCandidateKey($candidate);
-                endforeach;
-
-                foreach ($candidates_in_rank as $candidate) :
-
-                    $candidate_key = $this->_Election->getCandidateKey($candidate);
-
-                    // Process
-                    foreach ( $vote_candidate_list as $g_Candidate ) :
-
-                        $g_candidate_key = $this->_Election->getCandidateKey($g_Candidate);
-
-                        if ($candidate_key === $g_candidate_key) :
-                            continue;
-                        endif;
-
-                        // Win & Lose
-                        if (    !in_array($g_candidate_key, $done_Candidates, true) && 
-                                !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
-
-                            $this->_Pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
-                            $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
-
-                            $done_Candidates[] = $candidate_key;
-
-                        // Null
-                        elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
-                            $this->_Pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
-                        endif;
-
-                    endforeach;
-
-                endforeach;
-
-            endforeach;
-
-        endforeach;
-    }
-
     protected function formatNewpairwise () : void
     {
         foreach ( $this->_Election->getCandidatesList() as $candidate_key => $candidate_id ) :
@@ -189,4 +121,75 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         endforeach;
     }
+
+    protected function doPairwise () : void
+    {
+        // Chrono
+        new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
+
+        $this->formatNewpairwise();
+
+        foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
+            $this->computeOneVote($oneVote);
+        endforeach;
+    }
+
+    protected function computeOneVote (Vote $oneVote) : void
+    {
+        $vote_ranking = $oneVote->getContextualRanking($this->_Election);
+
+        $voteWeight = ($this->_Election->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+
+        $vote_candidate_list = [];
+
+        foreach ($vote_ranking as $rank) :
+            foreach ($rank as $oneCandidate) :
+                $vote_candidate_list[] = $oneCandidate;
+            endforeach;
+        endforeach;
+
+        $done_Candidates = [];
+
+        foreach ($vote_ranking as $candidates_in_rank) :
+
+            $candidates_in_rank_keys = [];
+
+            foreach ($candidates_in_rank as $candidate) :
+                $candidates_in_rank_keys[] = $this->_Election->getCandidateKey($candidate);
+            endforeach;
+
+            foreach ($candidates_in_rank as $candidate) :
+
+                $candidate_key = $this->_Election->getCandidateKey($candidate);
+
+                // Process
+                foreach ( $vote_candidate_list as $g_Candidate ) :
+
+                    $g_candidate_key = $this->_Election->getCandidateKey($g_Candidate);
+
+                    if ($candidate_key === $g_candidate_key) :
+                        continue;
+                    endif;
+
+                    // Win & Lose
+                    if (    !in_array($g_candidate_key, $done_Candidates, true) && 
+                            !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
+
+                        $this->_Pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
+                        $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
+
+                        $done_Candidates[] = $candidate_key;
+
+                    // Null
+                    elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
+                        $this->_Pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
+                    endif;
+
+                endforeach;
+
+            endforeach;
+
+        endforeach;
+    }
+
 }
