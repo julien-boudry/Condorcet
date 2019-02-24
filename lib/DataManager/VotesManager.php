@@ -95,8 +95,8 @@ class VotesManager extends ArrayManager
 
     protected function setStateToVote () : void
     {
-        foreach ($this->_link as $element) :
-            $element->setStateToVote();
+        foreach ($this->_link as $election) :
+            $election->setStateToVote();
         endforeach;
     }
 

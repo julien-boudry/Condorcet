@@ -328,27 +328,42 @@ class VoteTest extends TestCase
 
             self::assertTrue($vote1->removeAllTags());
 
-        self::assertTrue($vote1->addTags(
-            ' tag1,tag2 , tag3 ,'
-        ));
+        $badInput = false;
 
+        try {
+            $vote1->addTags(
+                ' tag1,tag2 , tag3 ,'
+            );
+        } catch (CondorcetException $e) {
+            $badInput = $e;
+        }
             self::assertSame(
-                $targetTags,
+                [],
                 array_values($vote1->getTags())
             );
 
             self::assertTrue($vote1->removeAllTags());
 
-        self::assertTrue($vote1->addTags(
-            ['tag1 ',' tag2',' tag3 ','',null,false]
-        ));
-
-            self::assertSame(
-                $targetTags,
-                array_values($vote1->getTags())
-            );
+            try {
+                $vote1->addTags(
+                    ['tag1 ',' tag2',' tag3 ',' ']
+                );
+            } catch (CondorcetException $e) {
+                $badInput = $e;
+            }
+                self::assertSame(
+                    [],
+                    array_values($vote1->getTags())
+                );
 
             self::assertTrue($vote1->removeAllTags());
+
+            self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+            self::expectExceptionCode(17);
+
+            if ($badInput !== false) :
+                throw $badInput;
+            endif;
     }
 
     public function testAddRemoveTags ()
@@ -425,6 +440,11 @@ class VoteTest extends TestCase
         self::assertsame(42,$vote->getWeight());
         self::assertsame(2,$vote->setWeight(2));
         self::assertsame(2,$vote->getWeight());
+
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(13);
+
+        $vote = new Vote ('A>B>C^a');
     }
 
     public function testCustomTimestamp()
@@ -476,5 +496,67 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C');
 
         self::assertsame(3,$vote->countRankingCandidates());
+    }
+
+    public function testInvalidWeight()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(26);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->setWeight(0);
+    }
+
+    public function testInvalidTag1()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(17);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->addTags(true);
+    }
+
+    public function testInvalidTag2()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(17);
+
+        $vote = new Vote ('A>B>C');
+
+        $vote->addTags(42);
+    }
+
+    public function testRemoveCandidate ()
+    {
+        $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
+
+        $this->election1->addVote($vote1);
+
+        self::assertSame('candidate1 > candidate2 > candidate3',$this->election1->getResult()->getResultAsString());
+
+        $vote1->removeCandidate('candidate2');
+
+        self::assertSame('candidate1 > candidate3 > candidate2',$this->election1->getResult()->getResultAsString());
+
+        $vote1->removeCandidate($this->candidate3);
+
+        self::assertSame('candidate1 > candidate2 = candidate3',$this->election1->getResult()->getResultAsString());
+
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(32);
+
+        $vote1->removeCandidate($this->candidate4);
+    }
+
+    public function testRemoveCandidateInvalidInput ()
+    {
+        $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
+
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(32);
+
+        $vote1->removeCandidate([]);
     }
 }

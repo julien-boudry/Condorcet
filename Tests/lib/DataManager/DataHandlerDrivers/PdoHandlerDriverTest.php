@@ -130,7 +130,12 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
 
-        return $handlerDriver;
+        self::assertTrue($electionWithDb->removeExternalDataHandler());
+
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(23);
+
+        $electionWithDb->removeExternalDataHandler();
     }
 
     public function testVotePreserveTag()
@@ -246,6 +251,16 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes('A>B>C * 463');
 
         self::assertSame(463,$electionWithDb->countVotes());
+    }
+
+    public function testMultipleHandler ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(24);
+
+        $electionWithDb = new Election;
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
+        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
     }
 
 }

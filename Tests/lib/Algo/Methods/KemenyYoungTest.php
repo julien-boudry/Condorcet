@@ -118,6 +118,15 @@ class KemenyYoungTest extends TestCase
             $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung::CONFLICT_WARNING_CODE)
         );
 
+        self::assertEquals(
+            [ 0 => [
+                'type' => 42,
+                'msg' => '3;5'
+              ]
+            ],
+            $result->getWarning()
+        );
+
         $this->election->addVote('A>B>C');
 
         $result = $this->election->getResult( 'KemenyYoung' ) ;

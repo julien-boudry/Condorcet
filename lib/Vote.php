@@ -61,13 +61,17 @@ class Vote implements \Iterator
         if (is_string($ranking)) :
             $is_voteWeight = mb_strpos($ranking, '^');
             if ($is_voteWeight !== false) :
-                $weight = intval( trim( substr($ranking, $is_voteWeight + 1) ) );
-                $ranking = substr($ranking, 0,$is_voteWeight);
+                $weight = trim( substr($ranking, $is_voteWeight + 1) );
 
                 // Errors
                 if ( !is_numeric($weight) ) :
                     throw new CondorcetException(13, null);
                 endif;
+
+                $weight = intval($weight);
+
+                $ranking = substr($ranking, 0,$is_voteWeight);
+
             endif;
 
             $is_voteTags = mb_strpos($ranking, '||');
@@ -319,31 +323,27 @@ class Vote implements \Iterator
         }
 
 
-    public function removeCandidates (array $candidatesList) : bool
+    public function removeCandidate ($candidate) : bool
     {
-        $ranking = $this->getRanking();
-
-        if ($ranking === null) :
-            return false;
+        if ($candidate instanceof Candidate) :
+            $strict = true;
+        elseif (is_string($candidate)) :
+            $strict = false;
+        else :
+            throw new CondorcetException (32);
         endif;
+
+        $ranking = $this->getRanking();
 
         $rankingCandidate = $this->getAllCandidates();
 
-        $canRemove = false;
-        foreach ($candidatesList as $oneCandidate) :
-            if (in_array($oneCandidate, $rankingCandidate, false)) :
-                $canRemove = true;
-                break;
-            endif;
-        endforeach;
-
-        if (!$canRemove) :
-            return false;
+        if (!in_array($candidate, $rankingCandidate, $strict)) :
+            throw new CondorcetException (32);
         endif;
 
         foreach ($ranking as $rankingKey => &$rank) :
             foreach ($rank as $oneRankKey => $oneRankValue) :
-                if (in_array($oneRankValue, $candidatesList, false)) :
+                if (($strict) ? $oneRankValue === $candidate : $oneRankValue == $candidate) :
                     unset($rank[$oneRankKey]);
                 endif;
             endforeach;
@@ -361,16 +361,11 @@ class Vote implements \Iterator
 
     public function addTags ($tags) : bool
     {
-        if (is_object($tags) || is_bool($tags)) :
-            throw new CondorcetException(17);
-        endif;
-
         $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return false;
         endif;
-
 
         foreach ($tags as $key => $tag) :
             if (is_numeric($tag)) :
@@ -391,16 +386,11 @@ class Vote implements \Iterator
 
     public function removeTags ($tags) : array
     {
-        if (is_object($tags) || is_bool($tags)) :
-            throw new CondorcetException(17);
-        endif;
-
         $tags = VoteUtil::tagsConvert($tags);
 
         if (empty($tags)) :
             return [];
         endif;
-
 
         $rm = [];
         foreach ($tags as $key => $tag) :
