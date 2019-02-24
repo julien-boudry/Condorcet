@@ -65,6 +65,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected $_Election;
     protected $_Pairwise = [];
+    protected $_lastComputeKey;
 
     public function __construct (Election &$link)
     {
@@ -80,6 +81,13 @@ class Pairwise implements \ArrayAccess, \Iterator
     public function setElection (Election $election) : void
     {
         $this->_Election = $election;
+    }
+
+    public function addNewVote (int $key) : void
+    {
+        // new Timer_Chrono ( $this->_Election->getTimerManager(), 'Add Vote To Pairwise' );
+
+        $this->computeOneVote($this->_Election->getVotesManager()[$key]);
     }
 
     public function getExplicitPairwise () : array
@@ -131,6 +139,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
             $this->computeOneVote($oneVote);
+            $this->_lastComputeKey = $vote_id;
         endforeach;
     }
 
