@@ -37,10 +37,12 @@ abstract class VoteUtil
 
         $tags = array_map('trim', $tags);
 
-        $tags = array_filter(
+        array_walk(
             $tags, 
-            function (string $oneTag) : bool {
-                return !empty($oneTag);
+            function (string $oneTag) : void {
+               if (empty($oneTag)) :
+                    throw new CondorcetException(17);
+                endif;
             }
         );
 

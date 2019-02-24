@@ -328,27 +328,42 @@ class VoteTest extends TestCase
 
             self::assertTrue($vote1->removeAllTags());
 
-        self::assertTrue($vote1->addTags(
-            ' tag1,tag2 , tag3 ,'
-        ));
+        $badInput = false;
 
+        try {
+            $vote1->addTags(
+                ' tag1,tag2 , tag3 ,'
+            );
+        } catch (CondorcetException $e) {
+            $badInput = $e;
+        }
             self::assertSame(
-                $targetTags,
+                [],
                 array_values($vote1->getTags())
             );
 
             self::assertTrue($vote1->removeAllTags());
 
-        self::assertTrue($vote1->addTags(
-            ['tag1 ',' tag2',' tag3 ',' ']
-        ));
-
-            self::assertSame(
-                $targetTags,
-                array_values($vote1->getTags())
-            );
+            try {
+                $vote1->addTags(
+                    ['tag1 ',' tag2',' tag3 ',' ']
+                );
+            } catch (CondorcetException $e) {
+                $badInput = $e;
+            }
+                self::assertSame(
+                    [],
+                    array_values($vote1->getTags())
+                );
 
             self::assertTrue($vote1->removeAllTags());
+
+            self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+            self::expectExceptionCode(17);
+
+            if ($badInput !== false) :
+                throw $badInput;
+            endif;
     }
 
     public function testAddRemoveTags ()
