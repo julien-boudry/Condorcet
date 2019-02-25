@@ -15,7 +15,6 @@
     "require": {
         "php": ">=7.1.0",
         "ext-mbstring": "*",
-        "ext-ctype": "*",
         "ext-json": "*"
     },
     "require-dev": {
