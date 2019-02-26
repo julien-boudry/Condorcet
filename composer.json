@@ -15,15 +15,15 @@
     "require": {
         "php": ">=7.1.0",
         "ext-mbstring": "*",
-        "ext-ctype": "*",
         "ext-json": "*"
     },
     "require-dev": {
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
-        "phpunit/phpunit": "^8 || ^7",
-        "codacy/coverage": "dev-master"
+        "codacy/coverage": "dev-master",
+        "phpbench/phpbench": "^0.15.0",
+        "phpunit/phpunit": "^8 || ^7"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
