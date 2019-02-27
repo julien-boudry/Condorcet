@@ -316,7 +316,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function resetCounter () : int
     {
-        return $this->_counter = $this->getContainerSize() + ( ($this->isUsingHandler()) ? $this->_DataHandler->countEntitys() : 0 );
+        return $this->_counter = $this->getContainerSize() + ( $this->isUsingHandler() ? $this->_DataHandler->countEntitys() : 0 );
     }
 
     public function resetMaxKey () : ?int
@@ -327,8 +327,8 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->_maxKey = -1;
             return null;
         else :
-            $maxContainerKey = (empty($this->_Container)) ? null : max(array_keys($this->_Container));
-            $maxHandlerKey = ($this->_DataHandler !== null) ? $this->_DataHandler->selectMaxKey() : null;
+            $maxContainerKey = empty($this->_Container) ? null : max(array_keys($this->_Container));
+            $maxHandlerKey = $this->_DataHandler !== null ? $this->_DataHandler->selectMaxKey() : null;
 
             return $this->_maxKey = max( $maxContainerKey,$maxHandlerKey );
         endif;

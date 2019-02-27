@@ -71,7 +71,7 @@ trait CandidatesProcess
 
     public function isRegisteredCandidate ($candidate_id, bool $strict = true) : bool
     {
-        return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
+        return $strict ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $s) : ?Candidate

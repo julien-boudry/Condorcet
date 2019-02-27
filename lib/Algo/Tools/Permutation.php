@@ -30,13 +30,13 @@ class Permutation
     public function __construct ($arr)
     {
         $this->_exec(
-            $this->_permute( (is_int($arr)) ? $this->createCandidates($arr) : $arr )
+            $this->_permute( is_int($arr) ? $this->createCandidates($arr) : $arr )
         );
     }
 
     public function getResults (bool $serialize = false)
     {
-        return ($serialize) ? serialize($this->results) : $this->results;
+        return $serialize ? serialize($this->results) : $this->results;
     }
 
     public function writeResults (string $path) : void {

@@ -276,7 +276,7 @@ class VotesManager extends ArrayManager
 
         foreach ($this as $oneVote) :
             if ( !$constraint || $this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote) ) :
-                $sum += ($this->getElection()->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+                $sum += $this->getElection()->isVoteWeightIsAllowed() ? $oneVote->getWeight() : 1;
             endif;
         endforeach;
 

@@ -147,7 +147,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     {
         $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
-        $voteWeight = ($this->_Election->isVoteWeightIsAllowed()) ? $oneVote->getWeight() : 1;
+        $voteWeight = $this->_Election->isVoteWeightIsAllowed() ? $oneVote->getWeight() : 1;
 
         $vote_candidate_list = [];
 

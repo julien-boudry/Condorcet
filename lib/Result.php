@@ -37,7 +37,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function valid () : bool {
-        return (key($this->_UserResult) === null) ? false : true;
+        return key($this->_UserResult) !== null;
     }
 
     // Implement ArrayAccess
@@ -108,7 +108,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
         foreach ($r as &$rank) :
             if (count($rank) === 1) :
-                $rank = ($convertToString) ? (string) $rank[0] : $rank[0];
+                $rank = $convertToString ? (string) $rank[0] : $rank[0];
             elseif ($convertToString) :
                 foreach ($rank as &$subRank) :
                     $subRank = (string) $subRank;

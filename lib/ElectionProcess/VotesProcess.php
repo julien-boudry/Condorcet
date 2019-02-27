@@ -221,8 +221,8 @@ trait VotesProcess
                 continue;
             endif;
 
-            $tags = (!isset($record['tag'])) ? null : $record['tag'];
-            $multi = (!isset($record['multi'])) ? 1 : $record['multi'];
+            $tags = !isset($record['tag']) ? null : $record['tag'];
+            $multi = !isset($record['multi']) ? 1 : $record['multi'];
 
             $adding_predicted_count = count($adding) + $multi;
 

@@ -32,7 +32,7 @@ trait Linkable
 
     public function getLinks () : ?array
     {
-        return (!empty($this->_link)) ? $this->_link : null;
+        return !empty($this->_link) ? $this->_link : null;
     }
 
     // Internal
