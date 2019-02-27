@@ -65,7 +65,6 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected $_Election;
     protected $_Pairwise = [];
-    protected $_lastComputeKey;
 
     public function __construct (Election $link)
     {
@@ -139,7 +138,6 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
             $this->computeOneVote($oneVote);
-            $this->_lastComputeKey = $vote_id;
         endforeach;
     }
 
