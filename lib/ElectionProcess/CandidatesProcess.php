@@ -114,7 +114,7 @@ trait CandidatesProcess
             $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) ) :
-                throw new CondorcetException(3,$candidate_id);
+                throw new CondorcetException(3,(string) $candidate_id);
             endif;
         endif;
 
@@ -210,7 +210,7 @@ trait CandidatesProcess
 
             // addCandidate
             if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, self::$_maxParseIteration);
+                throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 
             if (!$this->canAddCandidate($line)) :

@@ -65,7 +65,7 @@ class Vote implements \Iterator
 
                 // Errors
                 if ( !is_numeric($weight) ) :
-                    throw new CondorcetException(13, null);
+                    throw new CondorcetException(13);
                 endif;
 
                 $weight = intval($weight);

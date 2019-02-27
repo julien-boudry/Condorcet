@@ -9,9 +9,12 @@ class CondorcetExceptionTest extends TestCase
 {
     public function testBuild ()
     {
-        $ce = new CondorcetException(0,null);
+        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectExceptionCode(0);
 
-        self::assertNotFalse(strpos((string) $ce, 'Mysterious Error'));
+        $ce = new CondorcetException;
+
+        throw $ce;;
     }
 
 }
