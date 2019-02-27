@@ -71,7 +71,7 @@ trait CandidatesProcess
 
     public function isRegisteredCandidate ($candidate_id, bool $strict = true) : bool
     {
-        return ($strict) ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
+        return $strict ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $s) : ?Candidate
@@ -114,7 +114,7 @@ trait CandidatesProcess
             $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
 
             if ( !$this->canAddCandidate($newCandidate) ) :
-                throw new CondorcetException(3,$candidate_id);
+                throw new CondorcetException(3,(string) $candidate_id);
             endif;
         endif;
 
@@ -210,7 +210,7 @@ trait CandidatesProcess
 
             // addCandidate
             if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, self::$_maxParseIteration);
+                throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 
             if (!$this->canAddCandidate($line)) :

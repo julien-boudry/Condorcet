@@ -65,7 +65,7 @@ class Vote implements \Iterator
 
                 // Errors
                 if ( !is_numeric($weight) ) :
-                    throw new CondorcetException(13, null);
+                    throw new CondorcetException(13);
                 endif;
 
                 $weight = intval($weight);
@@ -221,7 +221,7 @@ class Vote implements \Iterator
 
     public function getSimpleRanking (?Election $context = null) : string
     {
-        $ranking = ($context) ? $this->getContextualRanking($context) : $this->getRanking();
+        $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
@@ -343,7 +343,7 @@ class Vote implements \Iterator
 
         foreach ($ranking as $rankingKey => &$rank) :
             foreach ($rank as $oneRankKey => $oneRankValue) :
-                if (($strict) ? $oneRankValue === $candidate : $oneRankValue == $candidate) :
+                if ( $strict ? $oneRankValue === $candidate : $oneRankValue == $candidate ) :
                     unset($rank[$oneRankKey]);
                 endif;
             endforeach;
@@ -443,7 +443,7 @@ class Vote implements \Iterator
     private function archiveRanking ($ranking, int $counter, ?float $ownTimestamp) : void
     {
         $this->_ranking[] = [   'ranking' => $ranking,
-                                'timestamp' => ($ownTimestamp !== null) ? $ownTimestamp : microtime(true),
+                                'timestamp' => $ownTimestamp ?? microtime(true),
                                 'counter' => $counter   ];
 
         $this->rewind();

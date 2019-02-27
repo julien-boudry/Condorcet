@@ -1,5 +1,6 @@
 * text=auto eol=lf
 
+/Benchmarks                 export-ignore
 /Dev                        export-ignore
 /Documentation              export-ignore
 /Examples                   export-ignore
@@ -7,8 +8,9 @@
 /.gitattributes             export-ignore
 /.gitignore                 export-ignore
 /.travis.yml                export-ignore
-/phpunit.xml                export-ignore
-/phpunit.xml.dist           export-ignore
 /condorcet-logo.psd         export-ignore
 /condorcet-logo.jpg         export-ignore
 /update-documentation.php   export-ignore
+/phpbench.json.dist         export-ignore
+/phpunit.xml                export-ignore
+/phpunit.xml.dist           export-ignore

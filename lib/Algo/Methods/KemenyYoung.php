@@ -110,7 +110,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         // But ... where are the data ?! Okay, old way now...
         if (!self::$useCache || !file_exists($path)) :
-            $compute = $this->doPossibleRanking( (self::$devWriteCache) ? $path : null );
+            $compute = $this->doPossibleRanking( self::$devWriteCache ? $path : null );
         else :
             $compute = file_get_contents($path);
         endif;
