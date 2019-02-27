@@ -66,7 +66,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected $_Election;
     protected $_Pairwise = [];
 
-    public function __construct (Election &$link)
+    public function __construct (Election $link)
     {
         $this->setElection($link);
         $this->doPairwise();
