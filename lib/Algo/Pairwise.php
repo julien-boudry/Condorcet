@@ -64,11 +64,13 @@ class Pairwise implements \ArrayAccess, \Iterator
     // Pairwise
 
     protected $_Election;
-    protected $_Pairwise = [];
+    protected $_Pairwise_Model;
+    protected $_Pairwise;
 
     public function __construct (Election $link)
     {
         $this->setElection($link);
+        $this->formatNewpairwise();
         $this->doPairwise();
     }
 
@@ -84,9 +86,26 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function addNewVote (int $key) : void
     {
-        // new Timer_Chrono ( $this->_Election->getTimerManager(), 'Add Vote To Pairwise' );
+        new Timer_Chrono ( $this->_Election->getTimerManager(), 'Add Vote To Pairwise' );
 
-        $this->computeOneVote($this->_Election->getVotesManager()[$key]);
+        $this->computeOneVote($this->_Pairwise,$this->_Election->getVotesManager()[$key]);
+    }
+
+    public function removeVote (int $key) : void
+    {
+        new Timer_Chrono ( $this->_Election->getTimerManager(), 'Remove Vote To Pairwise' );
+
+        $diff = $this->_Pairwise_Model;
+
+        $this->computeOneVote($diff,$this->_Election->getVotesManager()[$key]);
+
+        foreach ($diff as $candidate_key => $candidate_details) :
+            foreach ($candidate_details as $type => $opponent) :
+                foreach ($opponent as $opponent_key => $score) :
+                    $this->_Pairwise[$candidate_key][$type][$opponent_key] -= $score;
+                endforeach;
+            endforeach;
+        endforeach;
     }
 
     public function getExplicitPairwise () : array
@@ -96,7 +115,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         foreach ($this->_Pairwise as $candidate_key => $candidate_value) :
 
             $candidate_name = $this->_Election->getCandidateObjectFromKey($candidate_key)->getName();
-            
+
             foreach ($candidate_value as $mode => $mode_value) :
 
                 foreach ($mode_value as $candidate_list_key => $candidate_list_value) :
@@ -112,16 +131,18 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function formatNewpairwise () : void
     {
+        $this->_Pairwise_Model = [];
+
         foreach ( $this->_Election->getCandidatesList() as $candidate_key => $candidate_id ) :
 
-            $this->_Pairwise[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
+            $this->_Pairwise_Model[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
 
             foreach ( $this->_Election->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
 
                 if ($candidate_key_r !== $candidate_key) :
-                    $this->_Pairwise[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->_Pairwise[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->_Pairwise[$candidate_key]['lose'][$candidate_key_r]  = 0;
+                    $this->_Pairwise_Model[$candidate_key]['win'][$candidate_key_r]   = 0;
+                    $this->_Pairwise_Model[$candidate_key]['null'][$candidate_key_r]  = 0;
+                    $this->_Pairwise_Model[$candidate_key]['lose'][$candidate_key_r]  = 0;
                 endif;
 
             endforeach;
@@ -134,14 +155,14 @@ class Pairwise implements \ArrayAccess, \Iterator
         // Chrono
         new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
 
-        $this->formatNewpairwise();
+        $this->_Pairwise = $this->_Pairwise_Model;
 
         foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
-            $this->computeOneVote($oneVote);
+            $this->computeOneVote($this->_Pairwise, $oneVote);
         endforeach;
     }
 
-    protected function computeOneVote (Vote $oneVote) : void
+    protected function computeOneVote (array &$pairwise, Vote $oneVote) : void
     {
         $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 
@@ -182,14 +203,14 @@ class Pairwise implements \ArrayAccess, \Iterator
                     if (    !in_array($g_candidate_key, $done_Candidates, true) && 
                             !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
-                        $this->_Pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
-                        $this->_Pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
+                        $pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
+                        $pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
 
                         $done_Candidates[] = $candidate_key;
 
                     // Null
                     elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
-                        $this->_Pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
+                        $pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
                     endif;
 
                 endforeach;

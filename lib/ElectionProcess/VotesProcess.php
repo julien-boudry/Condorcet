@@ -168,11 +168,12 @@ trait VotesProcess
         if ($in instanceof Vote) :
             $key = $this->getVoteKey($in);
             if ($key !== false) :
-                $this->_Votes[$key]->destroyLink($this);
-
-                $rem[] = $this->_Votes[$key];
+                $deletedVote = $this->_Votes[$key];
+                $rem[] = $deletedVote;
 
                 unset($this->_Votes[$key]);
+
+                 $deletedVote->destroyLink($this);
             endif;
         else :
             // Prepare Tags
@@ -180,11 +181,12 @@ trait VotesProcess
 
             // Deleting
             foreach ($this->getVotesList($tag, $with) as $key => $value) :
-                $this->_Votes[$key]->destroyLink($this);
-
-                $rem[] = $this->_Votes[$key];
+                $deletedVote = $this->_Votes[$key];
+                $rem[] = $deletedVote;
 
                 unset($this->_Votes[$key]);
+
+                $deletedVote->destroyLink($this);
             endforeach;
 
         endif;
