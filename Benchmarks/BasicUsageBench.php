@@ -90,9 +90,9 @@ class BasicUsageBench
 
         $vote = $election->addVote('A>B>C');
 
-        $election->getWinner();
-
         $election->removeVote($vote);
+
+        $vote->setRanking('C>B>A');
 
         $election->getWinner();
     }
