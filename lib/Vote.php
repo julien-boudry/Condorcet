@@ -247,20 +247,33 @@ class Vote implements \Iterator
         // Ranking
         $candidateCounter = $this->formatRanking($rankingCandidate);
 
+        if (!empty($this->_link)) :
+            foreach ($this->_link as $link) :
+                $link->prepareUpdateVote($this);
+            endforeach;
+        endif;
+
         $this->archiveRanking($rankingCandidate, $candidateCounter, $ownTimestamp);
 
         if (!empty($this->_link)) :
+            
             try {
-                foreach ($this->_link as &$link) :
-                    $link->prepareModifyVote($this);
+                foreach ($this->_link as $link) :
+                    if (!$link->checkVoteCandidate($this)) :
+                        throw new CondorcetException(18);
+                    endif;
                 endforeach;
-            }
-            catch (CondorcetException $e)
-            {                
-                array_pop($this->_ranking);
+            } catch (CondorcetException $e) {
+                foreach ($this->_link as $link) :
+                    $link->setStateToVote();
+                endforeach;
 
-                throw new CondorcetException(18);
+                throw $e;
             }
+
+            foreach ($this->_link as $link) :
+                $link->finishUpdateVote($this);
+            endforeach;
         endif;
 
         $this->setHashCode();

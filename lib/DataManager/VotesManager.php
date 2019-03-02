@@ -94,7 +94,7 @@ class VotesManager extends ArrayManager
 
 /////////// Internal Election related methods ///////////
 
-    protected function UpdateAndResetComputing (int $key, int $type) : void
+    public function UpdateAndResetComputing (int $key, int $type) : void
     {
         foreach ($this->_link as $election) :
             if ($election->getState() === 3) :

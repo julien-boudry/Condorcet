@@ -96,20 +96,18 @@ trait VotesProcess
         return $this->registerVote($vote, $tag); // Return the vote object
     }
 
-    // return True or throw an Exception
-    public function prepareModifyVote (Vote $existVote) : void
+    public function prepareUpdateVote (Vote $existVote) : void
     {
-        try {
-            $this->prepareVoteInput($existVote);
-            $this->setStateToVote();
+        $this->_Votes->UpdateAndResetComputing($this->getVoteKey($existVote),2);
+    }
 
-            if ($this->_Votes->isUsingHandler()) : 
-                $this->_Votes[$this->getVoteKey($existVote)] = $existVote;
-            endif;
-        }
-        catch (\Exception $e) {
-            throw $e;
-        }
+    public function finishUpdateVote (Vote $existVote) : void
+    {
+        $this->_Votes->UpdateAndResetComputing($this->getVoteKey($existVote),1);
+
+        if ($this->_Votes->isUsingHandler()) :
+            $this->_Votes[$this->getVoteKey($existVote)] = $existVote;
+        endif;
     }
 
     public function checkVoteCandidate (Vote $vote) : bool

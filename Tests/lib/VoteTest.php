@@ -538,6 +538,8 @@ class VoteTest extends TestCase
 
         $vote1->removeCandidate('candidate2');
 
+        self::assertSame('candidate1 > candidate3 ^42',$vote1->getSimpleRanking());
+
         self::assertSame('candidate1 > candidate3 > candidate2',$this->election1->getResult()->getResultAsString());
 
         $vote1->removeCandidate($this->candidate3);
