@@ -88,7 +88,11 @@ class BasicUsageBench
 
         $election->getWinner();
 
-        $election->addVote('A>B>C');
+        $vote = $election->addVote('A>B>C');
+
+        $election->removeVote($vote);
+
+        $vote->setRanking('C>B>A');
 
         $election->getWinner();
     }

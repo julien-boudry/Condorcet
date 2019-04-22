@@ -79,7 +79,7 @@ class VotesManager extends ArrayManager
     {
         if ($value instanceof Vote) :
             parent::offsetSet($offset,$value);
-            $this->updateOrResetComputing($this->_maxKey);
+            $this->UpdateAndResetComputing($this->_maxKey,1);
         else :
             throw new CondorcetException (0,'Value must be an instanceof CondorcetPHP\\Vote');
         endif;
@@ -87,17 +87,24 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset($offset) : void
     {
+        // $this->setStateToVote();
+        $this->UpdateAndResetComputing($offset,2);
         parent::offsetUnset($offset);
-        $this->setStateToVote();
     }
 
 /////////// Internal Election related methods ///////////
 
-    protected function updateOrResetComputing (int $key) : void
+    public function UpdateAndResetComputing (int $key, int $type) : void
     {
         foreach ($this->_link as $election) :
             if ($election->getState() === 3) :
-                $election->getPairwise()->addNewVote($key);
+
+                if ($type === 1) :
+                    $election->getPairwise()->addNewVote($key);
+                elseif ($type === 2) :
+                    $election->getPairwise()->removeVote($key);
+                endif;
+
                 $election->cleanupCalculator();
             else :
                 $election->setStateToVote();
