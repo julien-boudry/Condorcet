@@ -22,7 +22,7 @@
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "codacy/coverage": "dev-master",
-        "phpbench/phpbench": "^0.15.0",
+        "phpbench/phpbench": "^0.16",
         "phpunit/phpunit": "^8 || ^7"
     },
     "suggest": {
