@@ -24,7 +24,7 @@ The new candidate name (your or automatic one). Throw an exception on error (exi
 ### Related method(s)      
 
 * [Election::parseCandidates](../Election%20Class/public%20Election--parseCandidates.md)    
-* [Election::jsonCandidates](../Election%20Class/public%20Election--jsonCandidates.md)    
+* [Election::addCandidatesFromJson](../Election%20Class/public%20Election--addCandidatesFromJson.md)    
 * [Election::removeCandidate](../Election%20Class/public%20Election--removeCandidate.md)    
 * [Election::getCandidatesList](../Election%20Class/public%20Election--getCandidatesList.md)    
 * [Election::canAddCandidate](../Election%20Class/public%20Election--canAddCandidate.md)    

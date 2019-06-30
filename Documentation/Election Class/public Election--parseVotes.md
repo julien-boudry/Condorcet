@@ -30,7 +30,7 @@ If true, the input is evalatued as path to text file.
 
 * [Election::addVote](../Election%20Class/public%20Election--addVote.md)    
 * [Election::parseCandidates](../Election%20Class/public%20Election--parseCandidates.md)    
-* [Election::jsonVotes](../Election%20Class/public%20Election--jsonVotes.md)    
+* [Election::addVotesFromJson](../Election%20Class/public%20Election--addVotesFromJson.md)    
 
 ---------------------------------------
 

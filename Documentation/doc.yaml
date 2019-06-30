@@ -225,7 +225,7 @@
     The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
   related:
     - 'Election::parseCandidates'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
     - 'Election::removeCandidate'
     - 'Election::getCandidatesList'
     - 'Election::canAddCandidate'
@@ -279,7 +279,7 @@
     The vote object.
   related:
     - 'Election::parseVotes'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
     - 'Election::removeVote'
     - 'Election::getVotesList'
 
@@ -802,7 +802,7 @@
   class: Election
   type: method
   visibility: public
-  name: jsonCandidates
+  name: addCandidatesFromJson
   static: false
   description: |
     Import candidate from a Json source.
@@ -816,7 +816,7 @@
   related:
     - 'Election::addCandidate'
     - 'Election::parseCandidates'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
@@ -825,7 +825,7 @@
   class: Election
   type: method
   visibility: public
-  name: jsonVotes
+  name: addVotesFromJson
   static: false
   description: |
     Import votes from a Json source.
@@ -839,7 +839,7 @@
   related:
     - 'Election::addVote'
     - 'Election::parseVotes'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -865,7 +865,7 @@
     *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
     - 'Election::addCandidate'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
     - 'Election::parseVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
@@ -893,7 +893,7 @@
   related:
     - 'Election::addVote'
     - 'Election::parseCandidates'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true

@@ -172,7 +172,7 @@ trait CandidatesProcess
 
 /////////// PARSE CANDIDATES ///////////
 
-    public function jsonCandidates (string $input) : array
+    public function addCandidatesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
 

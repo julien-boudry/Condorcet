@@ -29,7 +29,7 @@ If true, the input is evalatued as path to text file.
 ### Related method(s)      
 
 * [Election::addCandidate](../Election%20Class/public%20Election--addCandidate.md)    
-* [Election::jsonCandidates](../Election%20Class/public%20Election--jsonCandidates.md)    
+* [Election::addCandidatesFromJson](../Election%20Class/public%20Election--addCandidatesFromJson.md)    
 * [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
 
 ---------------------------------------

@@ -208,7 +208,7 @@ trait VotesProcess
         endif;
     }
 
-    public function jsonVotes (string $input) : array
+    public function addVotesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
 
