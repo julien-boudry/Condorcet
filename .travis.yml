@@ -11,7 +11,7 @@ install:
   - composer update
 
 script:
-  - vendor/bin/phpunit --coverage-clover build/coverage/xml
+  -  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ; then vendor/bin/phpunit --coverage-clover build/coverage/xml ; fi
 
 after_script:
-  - php vendor/bin/codacycoverage clover build/coverage/xml
+  -  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ; then vendor/bin/codacycoverage clover build/coverage/xml ; fi
