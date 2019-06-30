@@ -207,10 +207,10 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	 </pre>
 <div style="clear:both;"></div>
 
-	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVote('custom_tag_One', false) ) ?>
+	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVotesByTags('custom_tag_One', false) ) ?>
 
 	<?php 
-		$election->removeVote(array('custom_tag_One', 'custom_tag_Two')) ;
+		$election->removeVotesByTags(array('custom_tag_One', 'custom_tag_Two')) ;
 	?>
 
 

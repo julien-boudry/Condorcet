@@ -191,7 +191,7 @@ $election1 = new Election ();
             $election1->removeVote( $myVote3 );
 
             // Delete all vote with tag "strangeVote" or "frenchies"
-            $election1->removeVote( ['strangeVote','chauvinismVote'] );
+            $election1->removeVotesByTags( ['strangeVote','chauvinismVote'] );
 
             // Count vote
             $election1->countVotes(); // Return 98

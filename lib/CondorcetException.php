@@ -51,6 +51,7 @@ class CondorcetException extends \Exception
         30 => 'You can\'t add constraint after starting to record votes ',
         31 => 'Vote object already registred',
         32 => 'Invalid Input',
+        33 => 'This vote is not in this election',
 
         // DataManager
         50 => 'This entity does not exist.',

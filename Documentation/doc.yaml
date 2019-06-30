@@ -960,7 +960,36 @@
     $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
     ```
   input:
-    in:
+    vote:
+      type: CondorcetPHP\Condorcet\Vote
+      required: true         
+  return: |
+    *(array)* List of removed CondorcetPHP\Condorcet\Vote object.
+  related:
+    - 'Election::addVote'
+    - 'Election::getVotesList'
+    - 'Election::removeVotesByTags'
+  examples:
+    'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: removeVotesByTags
+  static: false
+  description: |
+    Remove Vote from an election using tags.   
+
+    ```php
+    $condorcet->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+    $condorcet->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+    $condorcet->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $condorcet->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    ```
+  input:
+    tags:
       type: mixed
       required: true         
     with:
@@ -972,6 +1001,7 @@
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
+    - 'Election::removeVote'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true

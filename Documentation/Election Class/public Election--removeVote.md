@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> removeVote ( mixed in [, mixed with = true] )
+public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote )
 ```
 
 Remove Vote from an election.
@@ -17,12 +17,7 @@ $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 ```    
 
 
-##### **in:** *mixed*   
-    
-
-
-
-##### **with:** *mixed*   
+##### **vote:** *CondorcetPHP\Condorcet\Vote*   
     
 
 
@@ -38,6 +33,7 @@ $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
 
 * [Election::addVote](../Election%20Class/public%20Election--addVote.md)    
 * [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
+* [Election::removeVotesByTags](../Election%20Class/public%20Election--removeVotesByTags.md)    
 
 ---------------------------------------
 
