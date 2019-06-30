@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [v2.0.0] - Unreleased
 ### Description
-Jump to PHP 7.4 as minimal requirement and change vendor namespace.
+Some small API changes (renaming, rationalization), sometimes on main methods. And many internal optimizations. Also use a new namespace!
 
 ### Added
 
@@ -15,8 +15,8 @@ Jump to PHP 7.4 as minimal requirement and change vendor namespace.
 - Change de default $method input value for getResult method from true to null. Bool can not be used anymore.
 - Adding vote or candidate from Json, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
 - Many methods have been renamed for greater consistency and intelligibility. 
+- Divided Election::getCandidateList($type) in two methods : Election::getCandidateList() and Election::getCandidateListAsString()
 - Various fix
-- Support only PHP 7.4
 
 ### Removed
 - Removes the slightly twisted method Election::ignoreMaxVote 
