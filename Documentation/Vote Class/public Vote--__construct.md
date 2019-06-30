@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> __construct ( mixed ranking [, mixed tags, numeric timestamp] )
+public $Vote -> __construct ( mixed ranking [, mixed tags = null, numeric timestamp = null] )
 ```
 
 Build a vote object.    

@@ -272,7 +272,7 @@
       text: 'String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
     tags:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
   return: |
@@ -371,7 +371,7 @@
   input:
     tag:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: 'Tag into string separated by commas, or an Array.'
     with:
@@ -560,7 +560,7 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
       required: false
       text: |
         *Only if not null :*
@@ -651,7 +651,7 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
       required: false
       text: |
       Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
@@ -775,7 +775,7 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
       required: false
       text: |
         *Only if not null :*
@@ -1227,12 +1227,12 @@
       text: Equivalent to Vote::setRanking method.
     tags:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: Equivalent to Vote::addTags method.
     timestamp:
       type: numeric
-      default: null
+      default: 'null'
       required: false
       text: Set your own timestamp metadata on Ranking.
   return: |
@@ -1485,7 +1485,7 @@
 
     timestamp:
       type: numeric
-      default: null
+      default: 'null'
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
   return: |

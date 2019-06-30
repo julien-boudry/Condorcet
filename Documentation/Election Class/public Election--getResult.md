@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getResult ( [ string method, array options = []] )
+public $Election -> getResult ( [ string method = null, array options = []] )
 ```
 
 Get a full ranking from an advanced Condorcet method.
