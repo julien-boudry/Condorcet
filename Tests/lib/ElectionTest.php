@@ -33,7 +33,7 @@ class ElectionTest extends TestCase
 
     public function testRemoveVote ()
     {
-        self::assertSame([$this->vote2],$this->election1->removeVote($this->vote2));
+        self::assertTrue($this->election1->removeVote($this->vote2));
 
         self::assertCount(3,$this->election1->getVotesList());
     }
@@ -335,7 +335,7 @@ D > C > B > A * 1',
 
     }
 
-    public function testJsonVotes ()
+    public function testaddVotesFromJson ()
     {
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(15);
@@ -352,7 +352,7 @@ D > C > B > A * 1',
         $votes[]['vote'] = new \stdClass(); // Invalid Vote
         $votes[]['vote'] = ['C','B','A'];
 
-        $election->jsonVotes(json_encode($votes));
+        $election->addVotesFromJson(json_encode($votes));
 
         self::assertSame(
 'B > C > A * 1
@@ -366,7 +366,7 @@ C > B > A * 1',
         $votes[0]['multi'] = 5;
         $votes[0]['tag'] = 'tag1';
 
-        $election->jsonVotes(json_encode($votes));
+        $election->addVotesFromJson(json_encode($votes));
 
         self::assertSame(
 'A > B > C * 5
@@ -376,10 +376,10 @@ C > B > A * 1',
         );
         self::assertSame(5,$election->countVotes('tag1'));
 
-        $election->jsonVotes(json_encode($votes).'{42');
+        $election->addVotesFromJson(json_encode($votes).'{42');
     }
 
-    public function testJsonCandidates ()
+    public function testaddCandidatesFromJson ()
     {
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(15);
@@ -388,28 +388,28 @@ C > B > A * 1',
 
         $candidates = ['candidate1 ','candidate2'];
 
-        $election->jsonCandidates(json_encode($candidates));
+        $election->addCandidatesFromJson(json_encode($candidates));
 
         self::assertSame(2,$election->countCandidates());
 
         self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
 
-        $election->jsonCandidates(json_encode(['candidate3']).'{42');
+        $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
     }
 
-    public function testJsonVotesWithInvalidJson ()
+    public function testaddVotesFromJsonWithInvalidJson ()
     {
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(15);
 
-        self::assertFalse($this->election1->jsonVotes("42"));
-        self::assertFalse($this->election1->jsonVotes(42));
-        self::assertFalse($this->election1->jsonVotes(false));
-        self::assertFalse($this->election1->jsonVotes(true));
-        self::assertFalse($$this->election1->jsonVotes(""));
-        self::assertFalse($$this->election1->jsonVotes(" "));
-        self::assertFalse($$this->election1->jsonVotes([]));
-        self::assertFalse($$this->election1->jsonVotes(json_encode(new \stdClass())));
+        self::assertFalse($this->election1->addVotesFromJson("42"));
+        self::assertFalse($this->election1->addVotesFromJson(42));
+        self::assertFalse($this->election1->addVotesFromJson(false));
+        self::assertFalse($this->election1->addVotesFromJson(true));
+        self::assertFalse($$this->election1->addVotesFromJson(""));
+        self::assertFalse($$this->election1->addVotesFromJson(" "));
+        self::assertFalse($$this->election1->addVotesFromJson([]));
+        self::assertFalse($$this->election1->addVotesFromJson(json_encode(new \stdClass())));
     }
 
     public function testCachingResult()

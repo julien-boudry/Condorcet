@@ -159,35 +159,40 @@ trait VotesProcess
         return $vote;
     }
 
-    public function removeVote ($in, bool $with = true) : array
+    public function removeVote (Vote $vote) : bool
+    {    
+        $key = $this->getVoteKey($vote);
+        if ($key !== false) :
+            $deletedVote = $this->_Votes[$key];
+            $rem[] = $deletedVote;
+
+            unset($this->_Votes[$key]);
+
+            $deletedVote->destroyLink($this);
+
+            return true;
+        else :
+            throw new CondorcetException(33);
+        endif;
+
+    }
+
+    public function removeVotesByTags ($tags, bool $with = true) : array
     {    
         $rem = [];
 
-        if ($in instanceof Vote) :
-            $key = $this->getVoteKey($in);
-            if ($key !== false) :
-                $deletedVote = $this->_Votes[$key];
-                $rem[] = $deletedVote;
+        // Prepare Tags
+        $tags = VoteUtil::tagsConvert($tags);
 
-                unset($this->_Votes[$key]);
+        // Deleting
+        foreach ($this->getVotesList($tags, $with) as $key => $value) :
+            $deletedVote = $this->_Votes[$key];
+            $rem[] = $deletedVote;
 
-                 $deletedVote->destroyLink($this);
-            endif;
-        else :
-            // Prepare Tags
-            $tag = VoteUtil::tagsConvert($in);
+            unset($this->_Votes[$key]);
 
-            // Deleting
-            foreach ($this->getVotesList($tag, $with) as $key => $value) :
-                $deletedVote = $this->_Votes[$key];
-                $rem[] = $deletedVote;
-
-                unset($this->_Votes[$key]);
-
-                $deletedVote->destroyLink($this);
-            endforeach;
-
-        endif;
+            $deletedVote->destroyLink($this);
+        endforeach;
 
         return $rem;
     }
@@ -208,7 +213,7 @@ trait VotesProcess
         endif;
     }
 
-    public function jsonVotes (string $input) : array
+    public function addVotesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
 

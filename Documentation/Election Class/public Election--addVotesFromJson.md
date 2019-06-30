@@ -1,9 +1,9 @@
-## public Election::jsonVotes
+## public Election::addVotesFromJson
 
 ### Description    
 
 ```php
-public $Election -> jsonVotes ( string input )
+public $Election -> addVotesFromJson ( string input )
 ```
 
 Import votes from a Json source.    
@@ -25,7 +25,7 @@ Json string input.
 
 * [Election::addVote](../Election%20Class/public%20Election--addVote.md)    
 * [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
-* [Election::jsonCandidates](../Election%20Class/public%20Election--jsonCandidates.md)    
+* [Election::addCandidatesFromJson](../Election%20Class/public%20Election--addCandidatesFromJson.md)    
 
 ---------------------------------------
 

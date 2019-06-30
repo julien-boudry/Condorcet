@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> setRanking ( mixed ranking [, numeric timestamp] )
+public $Vote -> setRanking ( mixed ranking [, numeric timestamp = null] )
 ```
 
 Set a new ranking for this vote.

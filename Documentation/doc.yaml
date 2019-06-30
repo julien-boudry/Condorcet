@@ -225,7 +225,7 @@
     The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
   related:
     - 'Election::parseCandidates'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
     - 'Election::removeCandidate'
     - 'Election::getCandidatesList'
     - 'Election::canAddCandidate'
@@ -272,14 +272,14 @@
       text: 'String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
     tags:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
   return: |
     The vote object.
   related:
     - 'Election::parseVotes'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
     - 'Election::removeVote'
     - 'Election::getVotesList'
 
@@ -371,7 +371,7 @@
   input:
     tag:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: 'Tag into string separated by commas, or an Array.'
     with:
@@ -560,7 +560,8 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
+      nullable: true
       required: false
       text: |
         *Only if not null :*
@@ -651,7 +652,8 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
+      nullable: true
       required: false
       text: |
       Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
@@ -775,7 +777,8 @@
   input:
     method:
       type: string
-      default: null
+      default: 'null'
+      nullable: true
       required: false
       text: |
         *Only if not null :*
@@ -802,7 +805,7 @@
   class: Election
   type: method
   visibility: public
-  name: jsonCandidates
+  name: addCandidatesFromJson
   static: false
   description: |
     Import candidate from a Json source.
@@ -816,7 +819,7 @@
   related:
     - 'Election::addCandidate'
     - 'Election::parseCandidates'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
@@ -825,7 +828,7 @@
   class: Election
   type: method
   visibility: public
-  name: jsonVotes
+  name: addVotesFromJson
   static: false
   description: |
     Import votes from a Json source.
@@ -839,7 +842,7 @@
   related:
     - 'Election::addVote'
     - 'Election::parseVotes'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -865,7 +868,7 @@
     *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
     - 'Election::addCandidate'
-    - 'Election::jsonCandidates'
+    - 'Election::addCandidatesFromJson'
     - 'Election::parseVotes'
   examples:
     - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
@@ -893,7 +896,7 @@
   related:
     - 'Election::addVote'
     - 'Election::parseCandidates'
-    - 'Election::jsonVotes'
+    - 'Election::addVotesFromJson'
   examples:
     - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
@@ -957,7 +960,36 @@
     $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
     ```
   input:
-    in:
+    vote:
+      type: CondorcetPHP\Condorcet\Vote
+      required: true         
+  return: |
+    *(array)* List of removed CondorcetPHP\Condorcet\Vote object.
+  related:
+    - 'Election::addVote'
+    - 'Election::getVotesList'
+    - 'Election::removeVotesByTags'
+  examples:
+    'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: removeVotesByTags
+  static: false
+  description: |
+    Remove Vote from an election using tags.   
+
+    ```php
+    $condorcet->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+    $condorcet->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+    $condorcet->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $condorcet->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    ```
+  input:
+    tags:
       type: mixed
       required: true         
     with:
@@ -969,6 +1001,7 @@
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
+    - 'Election::removeVote'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
@@ -1227,12 +1260,12 @@
       text: Equivalent to Vote::setRanking method.
     tags:
       type: mixed
-      default: null
+      default: 'null'
       required: false
       text: Equivalent to Vote::addTags method.
     timestamp:
       type: numeric
-      default: null
+      default: 'null'
       required: false
       text: Set your own timestamp metadata on Ranking.
   return: |
@@ -1485,7 +1518,7 @@
 
     timestamp:
       type: numeric
-      default: null
+      default: 'null'
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
   return: |

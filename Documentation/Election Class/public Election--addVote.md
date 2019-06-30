@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> addVote ( mixed vote [, mixed tags] )
+public $Election -> addVote ( mixed vote [, mixed tags = null] )
 ```
 
 Add a vote to an election.    
@@ -29,7 +29,7 @@ The vote object.
 ### Related method(s)      
 
 * [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
-* [Election::jsonVotes](../Election%20Class/public%20Election--jsonVotes.md)    
+* [Election::addVotesFromJson](../Election%20Class/public%20Election--addVotesFromJson.md)    
 * [Election::removeVote](../Election%20Class/public%20Election--removeVote.md)    
 * [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
 

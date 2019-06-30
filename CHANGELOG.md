@@ -4,18 +4,30 @@ All notable changes to this project will be documented in this file.
 
 ## [v2.0.0] - Unreleased
 ### Description
-Jump to PHP 7.4 as minimal requirement and change vendor namespace.
+Some small API changes (renaming, rationalization), sometimes on main methods. And many internal optimizations. Also use a new namespace!
 
 ### Added
 
 
 ### Changed
 - Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one. The new base namespace is \CondorcetPHP\Condorcet\
-- Support only PHP 7.4
+- Changes and simplifies the functioning of getVetsion && getObjectVersion methods.
+- Change de default $method input value for getResult method from true to null. Bool can not be used anymore.
+- Adding vote or candidate from Json, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
+- Many methods have been renamed for greater consistency and intelligibility. 
+- Divided Election::getCandidateList($type) in two methods : Election::getCandidateList() and Election::getCandidateListAsString()
+- Various fix
+
+### Removed
+- Removes the slightly twisted method Election::ignoreMaxVote 
+
+
 
 ### Internal changes
 - Use PHP 7.4 type for class property
+- Various performance micro-optimizations
 - Voting Method extending PairwiseStatsBased_Core must use static constant COUNT_TYPE instead of $\_countType property property.
+- Performance optimization for adding vote, updating vote and removing vote. In some cases, the pairwise is updated rather than completely recalculated.
 
 ## [v1.8.2] - 2019-02-16
 ### Description
