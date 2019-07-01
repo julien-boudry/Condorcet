@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static CondorcetUtil::format ( mixed input [, bool out = true, bool convertObject = true] )
+public static CondorcetUtil::format ( mixed input [, bool out = true, bool convertObject = true] ) : ?mixed
 ```
 
 Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.

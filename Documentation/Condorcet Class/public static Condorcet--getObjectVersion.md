@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::getObjectVersion ( [ bool type = false] )
+public static Condorcet::getObjectVersion ( [ bool type = false] ) : string
 ```
 
 Get the library version.    

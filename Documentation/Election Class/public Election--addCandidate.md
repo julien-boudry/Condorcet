@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> addCandidate ( [ mixed candidate = automatic] )
+public $Election -> addCandidate ( [ mixed candidate = automatic] ) : CondorcetPHP\Condorcet\Candidate
 ```
 
 Add one Candidate to an election.    
@@ -16,7 +16,7 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate na
 
 ### Return value:   
 
-The new candidate name (your or automatic one). Throw an exception on error (existing candidate...).
+The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
 
 
 ---------------------------------------

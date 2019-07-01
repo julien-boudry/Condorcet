@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Timer\Manager -> getHistory ( )
+public $Timer\Manager -> getHistory ( ) : array
 ```
 
 Return benchmarked actions history.    

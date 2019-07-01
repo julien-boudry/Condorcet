@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getConfig ( )
+public $Election -> getConfig ( ) : array
 ```
 
 Get some config summary for this object    

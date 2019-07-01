@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getMethod ( )
+public $Result -> getMethod ( ) : string
 ```
 
 Get the The algorithmic method used for this result.    

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getWinner ( [ ?string method = null] )
+public $Election -> getWinner ( [ ?string method = null] ) : ?mixed
 ```
 
 Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.    

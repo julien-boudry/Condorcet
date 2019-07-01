@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getStats ( )
+public $Result -> getStats ( ) : ?mixed
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.    

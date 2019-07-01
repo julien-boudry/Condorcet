@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote )
+public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote ) : array
 ```
 
 Remove Vote from an election.

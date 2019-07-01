@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getCandidateObjectFromName ( string candidate )
+public $Election -> getCandidateObjectFromName ( string candidate ) : ?\CondorcetPHP\Condorcet\Candidate
 ```
 
 Find candidate object by his string and return the candidate object.    
@@ -16,5 +16,5 @@ Candidate name.
 
 ### Return value:   
 
-Candidate object (CondorcetPHP\Condorcet\Candidate)
+Candidate object
 

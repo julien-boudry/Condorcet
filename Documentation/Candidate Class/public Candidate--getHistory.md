@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> getHistory ( )
+public $Candidate -> getHistory ( ) : array
 ```
 
 Return an history of each namming change, with timestamp.    
