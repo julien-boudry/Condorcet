@@ -38,6 +38,34 @@ class ElectionTest extends TestCase
         self::assertCount(3,$this->election1->getVotesList());
     }
 
+    public function testRemoveVotesByTags ()
+    {
+        $this->vote1->addtags('tag1,tag2,tag3');
+        $this->vote2->addtags('tag3,tag4');
+        $this->vote3->addtags('tag3,tag4,tag5');
+        $this->vote4->addtags('tag1,tag4');
+
+        self::assertCount(3,$r = $this->election1->removeVotesByTags(['tag1','tag5']));
+
+        self::assertSame([$this->vote1,$this->vote3,$this->vote4],$r);
+
+        self::assertSame([1 => $this->vote2],$this->election1->getVotesList());
+
+        $this->setUp();
+
+        $this->vote1->addtags('tag1,tag2,tag3');
+        $this->vote2->addtags('tag3,tag4');
+        $this->vote3->addtags('tag3,tag4,tag5');
+        $this->vote4->addtags('tag1,tag4');
+
+        self::assertCount(1,$r = $this->election1->removeVotesByTags('tag1,tag5', false));
+
+        self::assertSame([$this->vote2],$r);
+
+        self::assertSame([0 => $this->vote1, 2=> $this->vote3, 3 => $this->vote4],$this->election1->getVotesList());
+    }
+
+
     public function testTagsFilter ()
     {
         $this->vote1->addtags('tag1,tag2,tag3');
