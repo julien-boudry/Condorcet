@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> countLinks ( )
+public $Candidate -> countLinks ( ) : int
 ```
 
 Count number of linked election to this object.    

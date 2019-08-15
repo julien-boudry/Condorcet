@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::isAuthMethod ( string method )
+public static Condorcet::isAuthMethod ( string method ) : bool
 ```
 
 Test if a method is in the result set of Condorcet::getAuthMethods.    
@@ -16,7 +16,7 @@ Test if a method is in the result set of Condorcet::getAuthMethods.
 
 ### Return value:   
 
-*(bool)* Yes or no.
+*(bool)* True False
 
 
 ---------------------------------------

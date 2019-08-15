@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getImplicitRankingRule ( )
+public $Election -> getImplicitRankingRule ( ) : bool
 ```
 
 Returns the corresponding setting as currently set (True by default).

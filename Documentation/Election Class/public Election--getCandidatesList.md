@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getCandidatesList ( )
+public $Election -> getCandidatesList ( ) : array
 ```
 
 Return a list of registered Candidate into this election.    

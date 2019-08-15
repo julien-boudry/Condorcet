@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> removeCandidate ( mixed candidate )
+public $Election -> removeCandidate ( mixed candidate ) : array
 ```
 
 Remove Candidate from an election.

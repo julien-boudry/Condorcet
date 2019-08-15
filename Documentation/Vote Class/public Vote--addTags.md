@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> addTags ( mixed tags )
+public $Vote -> addTags ( mixed tags ) : bool
 ```
 
 Add tag(s) on this Vote.    

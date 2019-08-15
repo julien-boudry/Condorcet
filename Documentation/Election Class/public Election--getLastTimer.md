@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getLastTimer ( )
+public $Election -> getLastTimer ( ) : float
 ```
 
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.    

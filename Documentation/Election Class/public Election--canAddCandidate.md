@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> canAddCandidate ( mixed candidate )
+public $Election -> canAddCandidate ( mixed candidate ) : bool
 ```
 
 Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.    
@@ -16,7 +16,7 @@ String or Condorcet/Vote object.
 
 ### Return value:   
 
-True if your Candidate is available. or False.
+True if your Candidate is available. Or False.
 
 
 ---------------------------------------

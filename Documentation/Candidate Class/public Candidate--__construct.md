@@ -16,7 +16,7 @@ Candidate Name
 
 ### Return value:   
 
-*(string)* The new candidate name.
+
 
 
 ---------------------------------------

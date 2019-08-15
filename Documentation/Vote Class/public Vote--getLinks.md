@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getLinks ( )
+public $Vote -> getLinks ( ) : array
 ```
 
 Get elections object linked to this Vote or Candidate object.    

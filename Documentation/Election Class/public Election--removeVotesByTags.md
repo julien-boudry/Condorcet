@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> removeVotesByTags ( mixed tags [, mixed with = true] )
+public $Election -> removeVotesByTags ( mixed tags [, mixed with = true] ) : array
 ```
 
 Remove Vote from an election using tags.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> countRankingCandidates ( )
+public $Vote -> countRankingCandidates ( ) : int
 ```
 
 Count the number of candidate provide into the active Ranking set.    

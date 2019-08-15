@@ -6,9 +6,10 @@
     By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
+declare(strict_types=1);
 
 // Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function.
-spl_autoload_register(function ($class) {
+spl_autoload_register(function (string $class) : void {
 
     // project-specific namespace prefix
     $prefix = 'CondorcetPHP\\Condorcet\\';
@@ -18,7 +19,7 @@ spl_autoload_register(function ($class) {
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) :
         // no, move to the next registered autoloader
-        return false;
+        return;
     endif;
 
     // get the relative class name
@@ -32,7 +33,5 @@ spl_autoload_register(function ($class) {
     // if the file exists, require it
     if (file_exists($file)) :
         require $file;
-    else :
-        return false;
     endif;
 });

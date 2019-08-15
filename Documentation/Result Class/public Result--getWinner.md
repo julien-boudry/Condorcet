@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getWinner ( )
+public $Result -> getWinner ( ) : ?mixed
 ```
 
 Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).    

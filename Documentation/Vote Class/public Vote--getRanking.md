@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getRanking ( )
+public $Vote -> getRanking ( ) : array
 ```
 
 Get the actual Ranking of this Vote.    

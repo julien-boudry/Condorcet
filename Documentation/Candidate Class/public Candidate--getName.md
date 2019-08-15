@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> getName ( )
+public $Candidate -> getName ( ) : string
 ```
 
 Get the candidate name.    

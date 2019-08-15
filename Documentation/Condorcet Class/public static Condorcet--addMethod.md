@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::addMethod ( string algo )
+public static Condorcet::addMethod ( string algo ) : bool
 ```
 
 If you create your own Condorcet Algo. You will need it !    

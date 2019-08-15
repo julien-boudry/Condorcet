@@ -13,7 +13,7 @@
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
-> Donation: ₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://btc.com/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9) _You can also offer me a bottle of good wine._  
+> Donation: ₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9) _You can also offer me a bottle of good wine._  
 >
 > Methods provided natively: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
@@ -48,7 +48,6 @@ A PHP library implementing the Condorcet voting system and others methods like t
 * **Very Old Stable : 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
-_v0.9x series is no longer supported. But bug report are welcomes, code base can be close to v1.x series._    
 _Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider than it's a new project (api, engine)._  
 
 ## Main features

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getVotesListAsString ( )
+public $Election -> getVotesListAsString ( ) : string
 ```
 
 Get registered vote list.    

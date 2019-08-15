@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getExplicitPairwise ( )
+public $Election -> getExplicitPairwise ( ) : array
 ```
 
 Return the Pairwise.    

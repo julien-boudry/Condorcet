@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Election::setMaxVoteNumber ( mixed value )
+public static Election::setMaxVoteNumber ( mixed value ) : ?int
 ```
 
 Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.    

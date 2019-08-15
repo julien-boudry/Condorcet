@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getTags ( )
+public $Vote -> getTags ( ) : array
 ```
 
 Get the registered tags for this Vote.    

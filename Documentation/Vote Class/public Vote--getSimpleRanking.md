@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getSimpleRanking ( )
+public $Vote -> getSimpleRanking ( ) : string
 ```
 
 Get the current ranking as a string format.    

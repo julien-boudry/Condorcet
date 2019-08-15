@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getGlobalTimer ( )
+public $Election -> getGlobalTimer ( ) : float
 ```
 
 Returns the cumulated computation runtime of this object. Include only computation related methods.    

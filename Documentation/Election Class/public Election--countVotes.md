@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> countVotes ( [ mixed tag = null, bool with = true] )
+public $Election -> countVotes ( [ mixed tag = null, bool with = true] ) : int
 ```
 
 Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.    
