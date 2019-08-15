@@ -72,7 +72,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $result = [];
 
         // Calculate ranking
-        $challenge = array ();
+        $challenge = [];
         $rank = 1;
         $done = 0;
 

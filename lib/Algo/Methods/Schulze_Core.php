@@ -131,7 +131,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $result = [];
 
         // Calculate ranking
-        $done = array ();
+        $done = [];
         $rank = 1;
 
         while (count($done) < $this->_selfElection->countCandidates()) :
