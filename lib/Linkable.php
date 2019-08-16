@@ -40,10 +40,11 @@ trait Linkable
 
     public function registerLink (Election $election) : void
     {
-        if (array_search($election, $this->_link, true) === false)
-            { $this->_link[] = $election; }
-        else
-            { throw new CondorcetException; }
+        if (array_search($election, $this->_link, true) === false) :
+            $this->_link[] = $election;
+        else :
+            throw new CondorcetException;
+        endif;
     }
 
     public function destroyLink (Election $election) : bool
