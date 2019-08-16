@@ -159,7 +159,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 endif;
             endforeach;
 
-            $done = array_merge($done, $to_done);
+            array_push($done, ...$to_done);
 
             $rank++;
         endwhile;

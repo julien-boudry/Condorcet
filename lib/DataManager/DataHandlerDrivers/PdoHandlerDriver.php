@@ -200,7 +200,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                     if (count($input) > 1 && count($end) < $value) :
                         $this->sliceInput($end);
                         unset($input[key($input)]);
-                        $input = array_merge($input,$end);
+                        array_push($input, ...$end);
                     endif;
                     break;
                 endif;

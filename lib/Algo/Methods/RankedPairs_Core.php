@@ -110,7 +110,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
 
             $result[$rang++] = $winners;
-            $alreadyDone = array_merge($alreadyDone,$winners);
+            array_push($alreadyDone, ...$winners);
         endwhile;
 
         return $result;
@@ -170,13 +170,13 @@ class RankedPairs_Core extends Method implements MethodInterface
         $cycles = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            $cycles = array_merge($cycles,$this->followCycle($virtualArcs,$candidateKey,$candidateKey));
+            array_push($cycles, ...$this->followCycle($virtualArcs,$candidateKey, $candidateKey));
         endforeach;
 
         return $cycles;
     }
 
-    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = [])
+    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []) : array
     {
         $arcsInCycle = [];
 
@@ -189,7 +189,7 @@ class RankedPairs_Core extends Method implements MethodInterface
                     $arcsInCycle[] = $ArcKey;
                 else :
                     $done[] = $ArcKey;
-                    $arcsInCycle = array_merge($arcsInCycle,$this->followCycle($virtualArcs,$ArcValue['to'],$searchCandidateKey, $done));
+                    array_push($arcsInCycle, ...$this->followCycle($virtualArcs,$ArcValue['to'], $searchCandidateKey,$done));
                 endif;
             endif;
         endforeach;

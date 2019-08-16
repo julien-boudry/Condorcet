@@ -94,7 +94,7 @@ class InstantRunoff extends Method implements MethodInterface
                 endfor;
 
                 $CandidatesLoserCount += count($LosersToRegister);
-                $candidateDone = array_merge($candidateDone, $LosersToRegister);
+                array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
 
