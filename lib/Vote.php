@@ -90,11 +90,11 @@ class Vote implements \Iterator
         endif;
     }
 
-    public function __sleep () : array
+    public function __serialize () : array
     {
         $this->position = 1;
 
-        return array_keys(get_object_vars($this));
+        return get_object_vars($this);
     }
 
     public function __clone ()

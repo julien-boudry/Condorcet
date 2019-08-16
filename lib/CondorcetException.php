@@ -60,7 +60,7 @@ class CondorcetException extends \Exception
         102 => 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.'
     ];
 
-    protected $_infos;
+    protected array $_infos;
 
     public function __construct (int $code = 0, string ...$infos)
     {
