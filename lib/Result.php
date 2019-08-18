@@ -146,11 +146,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return CondorcetUtil::format($this[count($this)],false);
     }
 
-    public function getCondorcetWinner () {
+    public function getCondorcetWinner () : ?Candidate {
         return $this->_CondorcetWinner;
     }
 
-    public function getCondorcetLoser () {
+    public function getCondorcetLoser () : ?Candidate {
         return $this->_CondorcetLoser;
     }
 

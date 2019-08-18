@@ -72,7 +72,7 @@ abstract class Condorcet
 
 
     // Return the Class default method
-    public static function getDefaultMethod () {
+    public static function getDefaultMethod () : ?string {
         return self::$_defaultMethod;
     }
 
@@ -89,8 +89,8 @@ abstract class Condorcet
         if ( isset($auth[$method]) ) :
             return $method;
         else : // Alias
-            foreach ($auth as $class => &$alias) :
-                foreach ($alias as &$entry) :
+            foreach ($auth as $class => $alias) :
+                foreach ($alias as $entry) :
                     if ( strcasecmp($method,$entry) === 0 ) :
                         return $class;
                     endif;
