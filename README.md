@@ -21,6 +21,8 @@ Condorcet PHP
 ===========================
 A PHP library implementing the Condorcet voting system and others methods like the Schulze method. And also a powerful election manager.  
 
+*Read more about alternative voting methods >> https://en.wikipedia.org/wiki/Condorcet_method*  
+
 ## Summary
 1. [Project State and Specifications](#project-state-and-specifications)  
 1. [Main features](#main-features)     
@@ -69,13 +71,15 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Candidates and Votes are objects which can take part to multiples elections on the same time and change her name or ranking dynamically. That allow powerful tools to simulate elections.
   * Manage hundreds of billions votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDO driver is provided by default, an example is provided with SQLite, an interface allows you to design others drivers.
 * __Extend it! Configure it!__
-  * Modular architecture allow you to registered additional methods of Condorcet (or not Condorcet) without fork Condorcet PHP! Just make your own module on your own namespace.
-  * Candidate and Vote class are extensible.
-  * Allow you to use your own datastore driver to manage very large elections at your way.
+  * Modular architecture to extend it without fork Condorcet PHP! Just make your own module on your own namespace.
+    * Election, Candidate and Vote class are extensible.
+    * Add your own ranking algorithm.
+    * Create your own votes constraints.
+  * Allow you to use your own datastore driver to manage very large elections at your way without ram limit. A first driver for PDO (and Sqlite example) is provided.
   * Many configurations options and methods.
 
-_Condorcet PHP is not designed for high performances. But can handle virtually unlimited voting without limit or degrading performance_  
-_And has no certification or proven implementation that would guarantee a very high level of reliability._   
+_Condorcet PHP is not designed for high performances. But can handle virtually unlimited voting without limit or degrading performance, it's a linear and predictible scheme._  
+_And has no certification or proven implementation that would guarantee a very high level of reliability. However, there are many written tests for each voting methods and features. This ensures excellent level of confidence in the results._   
 
 ## Supported Methods
 ### Methods provided natively
@@ -106,7 +110,7 @@ _And has no certification or proven implementation that would guarantee a very h
     * **Schulze Ratio** Variant from Markus Schulze himself.
 
 ### Add your own method as module
-Condorcet is designed to be easily extensible with new algorithms (they don't need share the same namespace). A modular schematic is already used for all algorithms provided, so you can easily help, do not forget to make a pull request!  
+Condorcet is designed to be easily extensible with new algorithms (they don't need share the same namespace).  
 [*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
@@ -117,7 +121,7 @@ _I have undertaken and continues to undertake efforts to reform and improve the 
 ## Install
 
 #### Autoloading:   
-This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \Condorcet is used. 
+This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \CondorcetPHP is used. 
 The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
 
 > [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-1.-Installation)    
@@ -174,40 +178,41 @@ _OK: sacrifice to the local tradition of lazy._
   $candidate4 = $myElection1->addCandidate('Candidate 4');
 
   // Add some votes, by some ways
-  $myElection1->addVote( array(
+  $myElection1->addVote(  array(
                               $candidate2, // 1
                               [$candidate1, $candidate4] // 2 - Tie
-                              // Last rank is optionnal. Here it's : $candidate3
-  ));
+                              // Last rank is optionnal. By default, it will be implicitly completed in $candidate3. This behaviour can be changed by election, before, during or after the vote. The initial submission being preserved.
+                          )
+  );
 
-  $myElection1->addVote('Candidate 2 > Candidate 3 > Candidate 4 = Candidate 1'); // last rank can also be omitted
+  $myElection1->addVote('Candidate 2 > Candidate 3 > Candidate 4 = Candidate 1'); // Last rank can also be omitted
 
   $myElection1->parseVotes(
-              'tagX || Candidate 1 > Candidate 2 = Candidate 4 > Candidate 3 * 4
-              tagX, tagY || Candidate 3 > Candidate 1 * 3'
+              'Candidate 1 > Candidate 2 = Candidate 4 > Candidate 3 * 4
+              Candidate 3 > Candidate 1 * 3'
   ); // Powerfull, it add 7 votes
 
-  $myElection1->addVote( new Vote ( array(
-                                        $candidate4,
-                                        $candidate2
-                                        // You can ignore the over. They will be at the last rank in the contexte of each election.
-  )  ));
+  $myElection1->addVote( new Vote ( [   $candidate4,
+                                        $candidate2 ]
+                                        // You can ignore the over. They will be at the last rank in the contexte of each election. 
+                                  )
+  );
 
 
   // Get Result
 
     // Natural Condorcet Winner
     $myWinner = $myElection1->getWinner(); // Return a candidate object
-          echo 'My winner is ' . $myWinner->getName() . '<br>' ;
+          echo 'My winner is ' . $myWinner->getName();
 
     // Natural Condorcet Loser
     $myLoser = $myElection1->getLoser(); // Return a candidate object
-          echo 'My loser is ' . $myLoser->getName() ;
+          echo 'My loser is ' . $myLoser->getName();
 
     // Schulze Ranking
     $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
       # Echo it easily 
-      CondorcetUtil::format($myResultBySchulze);
+      var_dump( CondorcetUtil::format($myResultBySchulze) );
 
     // Get Schulze advanced computing data & stats
     $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
@@ -223,7 +228,9 @@ _OK: sacrifice to the local tradition of lazy._
 
   // SHA-2 checksum and sleep
   $myChecksum = $myElection1->getChecksum();
-  $toStore = serialize($myElection1);  // You can now unset your $candidate1 & co. On wake up, Condorcet election will build distinct with new reference.
+  $toStore = serialize($myElection1);
+  $comeBack = unserialize($toStore);
+  $comeBack->getChecksum() === $myChecksum; // True
 
 
   # And many many more than that. Read the doc. & look advanced examples.
@@ -232,7 +239,7 @@ _OK: sacrifice to the local tradition of lazy._
 ## Performance & Coding style considerations
 
 #### Coding standards:  
-The code is very close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
+The code is close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 #### Performance:  
 * Complex use case with three algorithms chained (Natural Condorcet, Schulze, Copeland), multiple elections sharing votes & candidates and hundreds of votes.
@@ -245,16 +252,17 @@ The code is very close to the respect of PSR-1 (lacks only the naming of methods
 ###### Massive election case:  
 Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
 
-If you need to manage election with more than 50 000 votes. You should consider externalize your data, Condorcet provide a simple PDO driver to store data outside RAM between processing steps, this driver store it into classical relational database system, it's support hundreds millions votes _(or more)_.
-You can too develop your own datastore driver (to store into NoSQL... all yours fantasy), the modular architecture allows you to link it easily.
+If you need to manage election with more than 50 000 votes. You should consider externalize your data, Condorcet provide a simple PDO driver to store data outside RAM between processing steps, this driver store it into classical relational database system, it's support hundreds millions votes _(or more)_. A very simple example with Sqlite is provided and very easy to activate.   
+
+You can also develop your own datastore driver (to store into NoSQL... all yours fantasy), the modular architecture allows you to link it easily.
 
 [Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
 _Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._ 
 
+
 ## Roadmap for further releases 
   
-  - Better cache system to prevent any full computing of the Pairwise on new vote / remove vote. This would remain a minor optimization that does not concern all cases of use.
   - Rebuild Exception System
   - **Research reference librarians !!**  
 

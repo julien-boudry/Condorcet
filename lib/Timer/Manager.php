@@ -70,8 +70,8 @@ class Manager
 
     public function startDeclare (Chrono $chrono) : void
     {
-        if ($this->_startDeclare === null) {
+        if ($this->_startDeclare === null) :
             $this->_startDeclare = $chrono->getStart();
-        }
+        endif;
     }
 }

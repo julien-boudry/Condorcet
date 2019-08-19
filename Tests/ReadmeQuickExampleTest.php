@@ -68,12 +68,15 @@ class ReadmeQuickExampleTest extends TestCase
             // Get Pairwise
             $myPairwise = $myElection1->getPairwise();
 
+
           // How long computation time behind us?
           $timer = $myElection1->getGlobalTimer();
 
           // SHA-2 checksum and sleep
           $myChecksum = $myElection1->getChecksum();
-          $toStore = serialize($myElection1);  // You can now unset your $candidate1 & co. On wake up, Condorcet election will build distinct with new reference.
+          $toStore = serialize($myElection1);
+          $comeBack = unserialize($toStore);
+          $this->assertEquals($comeBack->getChecksum(),$myChecksum); // True
     }
 
 }
