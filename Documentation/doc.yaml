@@ -243,29 +243,29 @@
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
-  -
-    class: Election
-    type: method
-    visibility: public
-    name: addConstraint
-    static: false
-    description: |
-      Add a constraint rules as a valid class path.
-    input:
-      class:
-        type: string
-        required: true
-        text: A valid class path. Class must implementing VoteConstraintInterface.
-    return_type: bool
-    return: |
-      True on success. Throw CondorcetException code 27/28/29 on error.
-    related:
-      - 'Election::getConstraints'
-      - 'Election::clearConstraints'
-      - 'Election::testIfVoteIsValidUnderElectionConstraints'
-    examples:
-      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-    publish: true
+-
+  class: Election
+  type: method
+  visibility: public
+  name: addConstraint
+  static: false
+  description: |
+    Add a constraint rules as a valid class path.
+  input:
+    class:
+      type: string
+      required: true
+      text: A valid class path. Class must extend VoteConstraint class.
+  return_type: bool
+  return: |
+    True on success. Throw CondorcetException code 27/28/29 on error.
+  related:
+    - 'Election::getConstraints'
+    - 'Election::clearConstraints'
+    - 'Election::testIfVoteIsValidUnderElectionConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+  publish: true
 
 
 - 
@@ -522,6 +522,25 @@
   related:
     - 'static Condorcet::isAuthMethod'
     - 'static Condorcet::getAuthMethods'
+  publish: true
+
+-
+  class: Election
+  type: method
+  visibility: public
+  name: getConstraints
+  static: false
+  description: |
+    Get active constraints list.
+  return_type: array
+  return: |
+    Array with class name of each active constraint. Empty array if there is not.
+  related:
+    - 'Election::clearConstraints'
+    - 'Election::addConstraints'
+    - 'Election::testIfVoteIsValidUnderElectionConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
   publish: true
 
 - 
