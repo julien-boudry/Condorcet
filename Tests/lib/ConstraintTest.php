@@ -66,13 +66,13 @@ class ConstraintTest extends TestCase
     {
         $constraintClass = __NAMESPACE__.'\\Constraints\\NoTie';
 
-        $this->election->allowVoteWeight();
-
         $this->election->parseVotes('
             A>B>C
             C>B=A * 3
             B^42
         ' );
+
+        $this->election->allowVoteWeight();
 
         self::assertEquals('B',$this->election->getWinner());
 
@@ -94,10 +94,13 @@ class ConstraintTest extends TestCase
         self::assertEquals(1,$this->election->countValidVoteWithConstraints());
         self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
 
+        self::assertEquals('A',$this->election->getWinner('FTPT'));
 
         self::assertFalse($this->election->setImplicitRanking(false));
 
         self::assertEquals('B',$this->election->getWinner('FTPT'));
+        self::assertEquals('A',$this->election->getWinner());
+
         self::assertEquals(43,$this->election->sumValidVotesWeightWithConstraints());
         self::assertEquals(46,$this->election->sumVotesWeight());
         self::assertEquals(5,$this->election->countVotes());
@@ -107,6 +110,7 @@ class ConstraintTest extends TestCase
         self::assertTrue($this->election->setImplicitRanking(true));
 
         self::assertEquals('A',$this->election->getWinner());
+        self::assertEquals('A',$this->election->getWinner('FTPT'));
 
         self::assertEquals(1,$this->election->sumValidVotesWeightWithConstraints());
         self::assertEquals(46,$this->election->sumVotesWeight());
