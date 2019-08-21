@@ -145,7 +145,6 @@
   static: true
   description: |
     Get the library version.
-  name: getObjectVersion
   input:
     type:
       type: bool
@@ -706,12 +705,11 @@
       nullable: true
       required: false
       text: |
-      Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
+        Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
     options:
       type: array
       default: '[]'
       required: false
-      text: *[Result options documentations]()*
   return_type: \CondorcetPHP\Condorcet\Result
   return: |
     An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
@@ -1187,29 +1185,29 @@
     - 'Election::countInvalidVoteWithConstraints'
   publish: true
 
-  -
-    class: Election
-    type: method
-    visibility: public
-    name: testIfVoteIsValidUnderElectionConstraints
-    static: false
-    description: |
-      Test if a vote is valid with these election constraints.
-    input:
-      vote:
-        type: CondorcetPHP\Condorcet\Vote
-        required: true
-        text: A vote. Not necessarily registered in this election.
-    return_type: bool
-    return: |
-      Return True if vote will pass the constraints rules, else False.
-    related:
-      - 'Election::getConstraints'
-      - 'Election::addConstraints'
-      - 'Election::clearConstraints'
-    examples:
-      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-    publish: true
+-
+  class: Election
+  type: method
+  visibility: public
+  name: testIfVoteIsValidUnderElectionConstraints
+  static: false
+  description: |
+    Test if a vote is valid with these election constraints.
+  input:
+    vote:
+      type: CondorcetPHP\Condorcet\Vote
+      required: true
+      text: A vote. Not necessarily registered in this election.
+  return_type: bool
+  return: |
+    Return True if vote will pass the constraints rules, else False.
+  related:
+    - 'Election::getConstraints'
+    - 'Election::addConstraints'
+    - 'Election::clearConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+  publish: true
 
 
 # CLASS CANDIDATE
@@ -1465,7 +1463,7 @@
     - 'Vote::getRanking'
   publish: true
 
-  - 
+- 
   class: Vote
   type: method
   visibility: public
