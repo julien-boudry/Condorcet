@@ -1,9 +1,9 @@
-## public static Condorcet::getObjectVersion
+## public static Condorcet::getVersion
 
 ### Description    
 
 ```php
-public static Condorcet::getObjectVersion ( [ bool type = false] ) : string
+public static Condorcet::getVersion ( [ bool type = false] ) : string
 ```
 
 Get the library version.    
