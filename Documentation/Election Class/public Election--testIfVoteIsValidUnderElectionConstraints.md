@@ -6,12 +6,11 @@
 public $Election -> testIfVoteIsValidUnderElectionConstraints ( CondorcetPHP\Condorcet\Vote vote ) : bool
 ```
 
-Test if a vote is valid with these election constraints.    
-
+Test if a vote is valid with these election constraints.
+    
 
 ##### **vote:** *CondorcetPHP\Condorcet\Vote*   
 A vote. Not necessarily registered in this election.    
-
 
 
 ### Return value:   

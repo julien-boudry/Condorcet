@@ -6,8 +6,8 @@
 public $Vote -> getCreateTimestamp ( ) : float
 ```
 
-Get the timestamp corresponding of the creation of this vote.    
-
+Get the timestamp corresponding of the creation of this vote.
+    
 
 ### Return value:   
 

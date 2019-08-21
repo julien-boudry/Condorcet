@@ -6,17 +6,15 @@
 public $Election -> getVotesList ( mixed tag = test, mixed with = test ) : array
 ```
 
-Get registered vote list.    
-
+Get registered vote list.
+    
 
 ##### **tag:** *mixed*   
     
 
 
-
 ##### **with:** *mixed*   
     
-
 
 
 ### Return value:   

@@ -6,12 +6,11 @@
 public $Election -> addConstraint ( string class ) : bool
 ```
 
-Add a constraint rules as a valid class path.    
-
+Add a constraint rules as a valid class path.
+    
 
 ##### **class:** *string*   
 A valid class path. Class must extend VoteConstraint class.    
-
 
 
 ### Return value:   

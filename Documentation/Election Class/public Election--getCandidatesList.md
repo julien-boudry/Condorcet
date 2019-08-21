@@ -6,8 +6,8 @@
 public $Election -> getCandidatesList ( ) : array
 ```
 
-Return a list of registered Candidate into this election.    
-
+Return a list of registered Candidate into this election.
+    
 
 ### Return value:   
 

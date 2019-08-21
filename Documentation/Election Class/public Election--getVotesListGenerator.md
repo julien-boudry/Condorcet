@@ -7,17 +7,15 @@ public $Election -> getVotesListGenerator ( mixed tag = test, mixed with = test 
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.
-Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.    
-
+Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
+    
 
 ##### **tag:** *mixed*   
     
 
 
-
 ##### **with:** *mixed*   
     
-
 
 
 ### Return value:   

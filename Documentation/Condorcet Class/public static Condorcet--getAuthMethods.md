@@ -6,12 +6,11 @@
 public static Condorcet::getAuthMethods ( [ bool basic = false] ) : array
 ```
 
-Get a list of supported algorithm.    
-
+Get a list of supported algorithm.
+    
 
 ##### **basic:** *bool*   
 Include the natural Condorcet base algorithm.    
-
 
 
 ### Return value:   

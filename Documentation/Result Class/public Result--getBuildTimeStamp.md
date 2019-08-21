@@ -6,8 +6,8 @@
 public $Result -> getBuildTimeStamp ( ) : float
 ```
 
-Get the timestamp of this result.    
-
+Get the timestamp of this result.
+    
 
 ### Return value:   
 

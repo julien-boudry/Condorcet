@@ -6,8 +6,8 @@
 public $Timer\Manager -> getHistory ( ) : array
 ```
 
-Return benchmarked actions history.    
-
+Return benchmarked actions history.
+    
 
 ### Return value:   
 

@@ -6,8 +6,8 @@
 public $Election -> getExplicitPairwise ( ) : array
 ```
 
-Return the Pairwise.    
-
+Return the Pairwise.
+    
 
 ### Return value:   
 

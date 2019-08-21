@@ -6,8 +6,8 @@
 public $Vote -> countRankingCandidates ( ) : int
 ```
 
-Count the number of candidate provide into the active Ranking set.    
-
+Count the number of candidate provide into the active Ranking set.
+    
 
 ### Return value:   
 

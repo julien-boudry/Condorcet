@@ -6,8 +6,8 @@
 public $Vote -> getAllCandidates ( ) : array
 ```
 
-Get all the candidates object set in the last ranking of this Vote.    
-
+Get all the candidates object set in the last ranking of this Vote.
+    
 
 ### Return value:   
 

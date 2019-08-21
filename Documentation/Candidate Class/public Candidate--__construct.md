@@ -6,12 +6,11 @@
 public $Candidate -> __construct ( string param1 )
 ```
 
-Build a candidate.    
-
+Build a candidate.
+    
 
 ##### **param1:** *string*   
 Candidate Name    
-
 
 
 ### Return value:   

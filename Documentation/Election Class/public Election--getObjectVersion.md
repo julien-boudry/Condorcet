@@ -6,13 +6,13 @@
 public $Election -> getObjectVersion ( [ bool type = false] ) : string
 ```
 
-Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.    
-
+Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
+    
 
 ##### **type:** *bool*   
 * true will return : '2.0'
-* false will return : '2.0.0'    
-
+* false will return : '2.0.0'
+    
 
 
 ### Return value:   

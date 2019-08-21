@@ -6,12 +6,11 @@
 public $Vote -> removeTags ( mixed tags ) : array
 ```
 
-Remove registered tag(s) on this Vote.    
-
+Remove registered tag(s) on this Vote.
+    
 
 ##### **tags:** *mixed*   
 They can be added by string separated by commas or an array.    
-
 
 
 ### Return value:   

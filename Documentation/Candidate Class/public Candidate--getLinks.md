@@ -6,8 +6,8 @@
 public $Candidate -> getLinks ( ) : array
 ```
 
-Get elections object linked to this Vote or Candidate object.    
-
+Get elections object linked to this Vote or Candidate object.
+    
 
 ### Return value:   
 

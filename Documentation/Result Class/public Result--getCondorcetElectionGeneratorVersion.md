@@ -6,8 +6,8 @@
 public $Result -> getCondorcetElectionGeneratorVersion ( ) : float
 ```
 
-Get the Condorcet PHP version that build this Result.    
-
+Get the Condorcet PHP version that build this Result.
+    
 
 ### Return value:   
 

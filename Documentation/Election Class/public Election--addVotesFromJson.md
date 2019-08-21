@@ -6,12 +6,11 @@
 public $Election -> addVotesFromJson ( string input ) : array
 ```
 
-Import votes from a Json source.    
-
+Import votes from a Json source.
+    
 
 ##### **input:** *string*   
 Json string input.    
-
 
 
 ### Return value:   
@@ -31,4 +30,4 @@ Json string input.
 
 ### Examples and explanation
 
-* **[0](Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    
+* **[Manual - Add Vote](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    

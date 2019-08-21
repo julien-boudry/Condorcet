@@ -6,8 +6,8 @@
 public $Vote -> getSimpleRanking ( ) : string
 ```
 
-Get the current ranking as a string format.    
-
+Get the current ranking as a string format.
+    
 
 ### Return value:   
 

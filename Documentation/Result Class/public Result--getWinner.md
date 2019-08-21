@@ -6,8 +6,8 @@
 public $Result -> getWinner ( ) : ?mixed
 ```
 
-Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).    
-
+Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+    
 
 ### Return value:   
 

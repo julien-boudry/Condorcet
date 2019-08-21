@@ -6,8 +6,8 @@
 public $Election -> countValidVoteWithConstraints ( ) : int
 ```
 
-Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.    
-
+Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
+    
 
 ### Return value:   
 

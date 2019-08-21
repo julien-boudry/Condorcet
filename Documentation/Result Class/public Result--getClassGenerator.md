@@ -6,8 +6,8 @@
 public $Result -> getClassGenerator ( ) : string
 ```
 
-Get the The algorithmic method used for this result.    
-
+Get the The algorithmic method used for this result.
+    
 
 ### Return value:   
 

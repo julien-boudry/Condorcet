@@ -6,22 +6,19 @@
 public $Vote -> __construct ( mixed ranking [, mixed tags = null, numeric timestamp = null] )
 ```
 
-Build a vote object.    
-
+Build a vote object.
+    
 
 ##### **ranking:** *mixed*   
 Equivalent to Vote::setRanking method.    
-
 
 
 ##### **tags:** *mixed*   
 Equivalent to Vote::addTags method.    
 
 
-
 ##### **timestamp:** *numeric*   
 Set your own timestamp metadata on Ranking.    
-
 
 
 ### Return value:   

@@ -6,8 +6,8 @@
 public $Election -> removeExternalDataHandler ( ) : bool
 ```
 
-Remove an external driver to store vote on very large election. And import his data into classical memory.    
-
+Remove an external driver to store vote on very large election. And import his data into classical memory.
+    
 
 ### Return value:   
 

@@ -6,13 +6,13 @@
 public static Condorcet::getVersion ( [ bool type = false] ) : string
 ```
 
-Get the library version.    
-
+Get the library version.
+    
 
 ##### **type:** *bool*   
 * true will return : '2.0'
-* false will return : '2.0.0'    
-
+* false will return : '2.0.0'
+    
 
 
 ### Return value:   
