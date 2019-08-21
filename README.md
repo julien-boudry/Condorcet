@@ -135,7 +135,7 @@ Living and learning examples, giving an overview but not exhaustive of the possi
 ## Class & Methods reference
 
 The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "Documentation" folder for each release.   
-* [Class & Methods documentation](Documentation/)
+* [Class & Methods documentation](Documentation/README.md)
 
 ## Examples
 
