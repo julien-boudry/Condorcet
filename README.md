@@ -17,6 +17,10 @@
 >
 > Methods provided natively: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
+
+**Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](../Tests)**  
+
+
 Condorcet PHP
 ===========================
 A PHP library implementing the Condorcet voting system and others methods like the Schulze method. And also a powerful election manager.  
