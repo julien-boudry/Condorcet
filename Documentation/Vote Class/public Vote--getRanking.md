@@ -6,8 +6,8 @@
 public $Vote -> getRanking ( ) : array
 ```
 
-Get the actual Ranking of this Vote.    
-
+Get the actual Ranking of this Vote.
+    
 
 ### Return value:   
 

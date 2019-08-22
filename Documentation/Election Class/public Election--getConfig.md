@@ -6,8 +6,8 @@
 public $Election -> getConfig ( ) : array
 ```
 
-Get some config summary for this object    
-
+Get some config summary for this object
+    
 
 ### Return value:   
 

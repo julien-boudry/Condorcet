@@ -219,7 +219,7 @@ class Election
         return $this->getImplicitRankingRule();
     }
 
-    public function isVoteWeightIsAllowed () : bool
+    public function isVoteWeightAllowed () : bool
     {
         return $this->_VoteWeightRule;
     }
@@ -228,7 +228,7 @@ class Election
     {
         $this->_VoteWeightRule = $rule;
         $this->cleanupCompute();
-        return $this->isVoteWeightIsAllowed();
+        return $this->isVoteWeightAllowed();
     }
 
 

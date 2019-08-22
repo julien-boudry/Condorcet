@@ -6,17 +6,17 @@
 public $Election -> removeCandidate ( mixed candidate ) : array
 ```
 
-Remove Candidate from an election.
+Remove Candidate from an election.   
 
-*Please note: You can't remove candidate after the first vote. Exception will be throw.*    
-
+*Please note: You can't remove candidate after the first vote. Exception will be throw.*
+    
 
 ##### **candidate:** *mixed*   
-* String matching Candidate Name
-* CondorcetPHP\Condorcet\Candidate object
-* Array populated by CondorcetPHP\Condorcet\Candidate
-* Array populated by string matching Candidate name    
-
+* String matching Candidate Name    
+* CondorcetPHP\Condorcet\Candidate object    
+* Array populated by CondorcetPHP\Condorcet\Candidate    
+* Array populated by string matching Candidate name   
+    
 
 
 ### Return value:   

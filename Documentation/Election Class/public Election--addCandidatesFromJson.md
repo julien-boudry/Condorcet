@@ -6,12 +6,11 @@
 public $Election -> addCandidatesFromJson ( string input ) : array
 ```
 
-Import candidate from a Json source.    
-
+Import candidate from a Json source.
+    
 
 ##### **input:** *string*   
 Json string input.    
-
 
 
 ### Return value:   
@@ -31,4 +30,4 @@ Json string input.
 
 ### Examples and explanation
 
-* **[0](Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    
+* **[Manual - Manage Candidates](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    

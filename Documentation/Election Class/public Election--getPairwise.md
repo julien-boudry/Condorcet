@@ -6,8 +6,8 @@
 public $Election -> getPairwise ( ) : \CondorcetPHP\Condorcet\Algo\Pairwise
 ```
 
-Return the Pairwise.    
-
+Return the Pairwise.
+    
 
 ### Return value:   
 

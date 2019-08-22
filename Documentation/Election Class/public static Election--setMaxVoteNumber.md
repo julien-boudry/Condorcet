@@ -6,12 +6,11 @@
 public static Election::setMaxVoteNumber ( mixed value ) : ?int
 ```
 
-Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.    
-
+Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
+    
 
 ##### **value:** *mixed*   
 Null will desactivate this functionnality. An interger will fix the limit.    
-
 
 
 ### Return value:   

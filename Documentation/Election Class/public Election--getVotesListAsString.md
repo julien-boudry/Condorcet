@@ -6,8 +6,8 @@
 public $Election -> getVotesListAsString ( ) : string
 ```
 
-Get registered vote list.    
-
+Get registered vote list.
+    
 
 ### Return value:   
 

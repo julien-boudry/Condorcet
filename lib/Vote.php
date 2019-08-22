@@ -225,7 +225,7 @@ class Vote implements \Iterator
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
-        if ($this->_weight > 1 && ( ($context && $context->isVoteWeightIsAllowed()) || $context === null )  ) :
+        if ($this->_weight > 1 && ( ($context && $context->isVoteWeightAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
         endif;
 

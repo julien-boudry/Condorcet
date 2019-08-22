@@ -6,17 +6,15 @@
 public $Election -> countVotes ( [ mixed tag = null, bool with = true] ) : int
 ```
 
-Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.    
-
+Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
+    
 
 ##### **tag:** *mixed*   
 Tag into string separated by commas, or an Array.    
 
 
-
 ##### **with:** *bool*   
 Count Votes with this tag ou without this tag.    
-
 
 
 ### Return value:   

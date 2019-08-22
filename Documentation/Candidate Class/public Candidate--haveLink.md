@@ -6,12 +6,11 @@
 public $Candidate -> haveLink ( object CondorcetPHP\Condorcet\Condorcet election ) : bool
 ```
 
-Check if this election is linked with this Candidate/Vote object.    
-
+Check if this election is linked with this Candidate/Vote object.
+    
 
 ##### **election:** *object CondorcetPHP\Condorcet\Condorcet*   
 Condorcet election to check.    
-
 
 
 ### Return value:   

@@ -6,8 +6,8 @@
 public $Election -> getGlobalTimer ( ) : float
 ```
 
-Returns the cumulated computation runtime of this object. Include only computation related methods.    
-
+Returns the cumulated computation runtime of this object. Include only computation related methods.
+    
 
 ### Return value:   
 

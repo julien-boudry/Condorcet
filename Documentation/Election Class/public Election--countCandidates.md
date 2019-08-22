@@ -6,8 +6,8 @@
 public $Election -> countCandidates ( ) : int
 ```
 
-Count the number of registered candidate    
-
+Count the number of registered candidate
+    
 
 ### Return value:   
 

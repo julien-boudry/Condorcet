@@ -6,8 +6,8 @@
 public $Vote -> getTags ( ) : array
 ```
 
-Get the registered tags for this Vote.    
-
+Get the registered tags for this Vote.
+    
 
 ### Return value:   
 

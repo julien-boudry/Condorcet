@@ -6,8 +6,8 @@
 public $Candidate -> getTimestamp ( ) : float
 ```
 
-Get the timestamp corresponding of the last namming change.    
-
+Get the timestamp corresponding of the last namming change.
+    
 
 ### Return value:   
 

@@ -6,8 +6,8 @@
 public $Result -> getResultAsString ( ) : string
 ```
 
-Get result as string    
-
+Get result as string
+    
 
 ### Return value:   
 

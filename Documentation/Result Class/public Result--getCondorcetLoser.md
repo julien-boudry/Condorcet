@@ -6,8 +6,8 @@
 public $Result -> getCondorcetLoser ( ) : ?\CondorcetPHP\Condorcet\Candidate
 ```
 
-Get the Condorcet loser, if exist, at the result time.    
-
+Get the Condorcet loser, if exist, at the result time.
+    
 
 ### Return value:   
 

@@ -6,8 +6,8 @@
 public $Candidate -> getHistory ( ) : array
 ```
 
-Return an history of each namming change, with timestamp.    
-
+Return an history of each namming change, with timestamp.
+    
 
 ### Return value:   
 

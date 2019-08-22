@@ -6,12 +6,11 @@
 public $Election -> addCandidate ( [ mixed candidate = automatic] ) : CondorcetPHP\Condorcet\Candidate
 ```
 
-Add one Candidate to an election.    
-
+Add one Candidate to an election.
+    
 
 ##### **candidate:** *mixed*   
 Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim().    
-
 
 
 ### Return value:   

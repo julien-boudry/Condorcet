@@ -6,8 +6,8 @@
 public $Vote -> removeAllTags ( ) : bool
 ```
 
-Remove all registered tag(s) on this Vote.    
-
+Remove all registered tag(s) on this Vote.
+    
 
 ### Return value:   
 

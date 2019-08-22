@@ -6,8 +6,8 @@
 public $Vote -> countLinks ( ) : int
 ```
 
-Count number of linked election to this object.    
-
+Count number of linked election to this object.
+    
 
 ### Return value:   
 

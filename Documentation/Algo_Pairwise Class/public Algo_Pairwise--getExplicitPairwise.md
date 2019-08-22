@@ -6,8 +6,8 @@
 public $Algo\Pairwise -> getExplicitPairwise ( ) : array
 ```
 
-Get an explicit pairwise.    
-
+Get an explicit pairwise.
+    
 
 ### Return value:   
 

@@ -1,5 +1,12 @@
 ---
 
+- header: |+
+            > **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
+
+            # Public Methods Index _(Not yet exhaustive, not yet....)*_
+            _Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._    
+
+            _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
 
 # MULTIPLE CLASS
 
@@ -73,7 +80,37 @@
     - 'Candidate::getLinks'
     - 'Vote::haveLink'
     - 'Candidate::haveLink'
+  publish: true
 
+-
+  class:
+    - Candidate
+    - Election
+    - Pairwise
+    - CondorcetException
+    - Result
+    - Vote
+    - Timer\Manager
+    - DataManager\VotesManager
+  type: method
+  visibility: public
+  name: getObjectVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
+  input:
+    type:
+      type: bool
+      default: false
+      required: false
+      text: |
+        * true will return : '2.0'
+        * false will return : '2.0.0'
+  return_type: string
+  return: |
+    *(string)* Condorcet PHP version.
+  related:
+    - 'static Condorcet::getVersion'
   publish: true
 
 
@@ -145,7 +182,6 @@
   static: true
   description: |
     Get the library version.
-  name: getObjectVersion
   input:
     type:
       type: bool
@@ -243,29 +279,29 @@
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
-  -
-    class: Election
-    type: method
-    visibility: public
-    name: addConstraint
-    static: false
-    description: |
-      Add a constraint rules as a valid class path.
-    input:
-      class:
-        type: string
-        required: true
-        text: A valid class path. Class must implementing VoteConstraintInterface.
-    return_type: bool
-    return: |
-      True on success. Throw CondorcetException code 27/28/29 on error.
-    related:
-      - 'Election::getConstraints'
-      - 'Election::clearConstraints'
-      - 'Election::testIfVoteIsValidUnderElectionConstraints'
-    examples:
-      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-    publish: true
+-
+  class: Election
+  type: method
+  visibility: public
+  name: addConstraint
+  static: false
+  description: |
+    Add a constraint rules as a valid class path.
+  input:
+    class:
+      type: string
+      required: true
+      text: A valid class path. Class must extend VoteConstraint class.
+  return_type: bool
+  return: |
+    True on success. Throw CondorcetException code 27/28/29 on error.
+  related:
+    - 'Election::getConstraints'
+    - 'Election::clearConstraints'
+    - 'Election::testIfVoteIsValidUnderElectionConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+  publish: true
 
 
 - 
@@ -319,7 +355,7 @@
   return: |
     Return True
   related:
-    - 'Election::isVoteWeightIsAllowed'
+    - 'Election::isVoteWeightAllowed'
   publish: true
 
 - 
@@ -524,6 +560,25 @@
     - 'static Condorcet::getAuthMethods'
   publish: true
 
+-
+  class: Election
+  type: method
+  visibility: public
+  name: getConstraints
+  static: false
+  description: |
+    Get active constraints list.
+  return_type: array
+  return: |
+    Array with class name of each active constraint. Empty array if there is not.
+  related:
+    - 'Election::clearConstraints'
+    - 'Election::addConstraints'
+    - 'Election::testIfVoteIsValidUnderElectionConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+  publish: true
+
 - 
   class: Election
   type: method
@@ -612,29 +667,6 @@
 
   publish: true
 
--
-  class: Election
-  type: method
-  visibility: public
-  name: getObjectVersion
-  static: false
-  description: |
-    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
-  input:
-    type:
-      type: bool
-      default: false
-      required: false
-      text: |
-        * true will return : '2.0'
-        * false will return : '2.0.0'
-  return_type: string
-  return: |
-    *(string)* Condorcet PHP version.
-  related:
-    - 'static Condorcet::getVersion'
-  publish: true
-
 - 
   class: Election
   type: method
@@ -687,12 +719,11 @@
       nullable: true
       required: false
       text: |
-      Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
+        Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
     options:
       type: array
       default: '[]'
       required: false
-      text: *[Result options documentations]()*
   return_type: \CondorcetPHP\Condorcet\Result
   return: |
     An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
@@ -791,7 +822,7 @@
   class: Election
   type: method
   visibility: public
-  name: isVoteWeightIsAllowed
+  name: isVoteWeightAllowed
   static: false
   description: |
     Returns the corresponding setting as currently set (False by default).
@@ -860,7 +891,7 @@
     - 'Election::parseCandidates'
     - 'Election::addVotesFromJson'
   examples:
-    - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+    'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
 - 
@@ -884,7 +915,7 @@
     - 'Election::parseVotes'
     - 'Election::addCandidatesFromJson'
   examples:
-    - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
 - 
@@ -912,7 +943,7 @@
     - 'Election::addCandidatesFromJson'
     - 'Election::parseVotes'
   examples:
-    - 'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+    'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
 - 
@@ -940,7 +971,7 @@
     - 'Election::parseCandidates'
     - 'Election::addVotesFromJson'
   examples:
-    - 'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
 - 
@@ -1168,29 +1199,29 @@
     - 'Election::countInvalidVoteWithConstraints'
   publish: true
 
-  -
-    class: Election
-    type: method
-    visibility: public
-    name: testIfVoteIsValidUnderElectionConstraints
-    static: false
-    description: |
-      Test if a vote is valid with these election constraints.
-    input:
-      vote:
-        type: CondorcetPHP\Condorcet\Vote
-        required: true
-        text: A vote. Not necessarily registered in this election.
-    return_type: bool
-    return: |
-      Return True if vote will pass the constraints rules, else False.
-    related:
-      - 'Election::getConstraints'
-      - 'Election::addConstraints'
-      - 'Election::clearConstraints'
-    examples:
-      'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-    publish: true
+-
+  class: Election
+  type: method
+  visibility: public
+  name: testIfVoteIsValidUnderElectionConstraints
+  static: false
+  description: |
+    Test if a vote is valid with these election constraints.
+  input:
+    vote:
+      type: CondorcetPHP\Condorcet\Vote
+      required: true
+      text: A vote. Not necessarily registered in this election.
+  return_type: bool
+  return: |
+    Return True if vote will pass the constraints rules, else False.
+  related:
+    - 'Election::getConstraints'
+    - 'Election::addConstraints'
+    - 'Election::clearConstraints'
+  examples:
+    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+  publish: true
 
 
 # CLASS CANDIDATE
@@ -1446,7 +1477,7 @@
     - 'Vote::getRanking'
   publish: true
 
-  - 
+- 
   class: Vote
   type: method
   visibility: public

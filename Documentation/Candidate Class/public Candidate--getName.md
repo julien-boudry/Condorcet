@@ -6,8 +6,8 @@
 public $Candidate -> getName ( ) : string
 ```
 
-Get the candidate name.    
-
+Get the candidate name.
+    
 
 ### Return value:   
 

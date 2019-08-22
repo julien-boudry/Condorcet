@@ -326,7 +326,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight( !$election->isVoteWeightIsAllowed() );
+        $election->allowVoteWeight( !$election->isVoteWeightAllowed() );
 
         $election->removeVote($voteWithWeight);
 

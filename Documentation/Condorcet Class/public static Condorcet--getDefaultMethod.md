@@ -6,8 +6,8 @@
 public static Condorcet::getDefaultMethod ( ) : string
 ```
 
-Return the Condorcet static default method for the new Condorcet object.    
-
+Return the Condorcet static default method for the new Condorcet object.
+    
 
 ### Return value:   
 

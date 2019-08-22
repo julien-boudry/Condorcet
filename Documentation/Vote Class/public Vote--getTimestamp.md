@@ -6,8 +6,8 @@
 public $Vote -> getTimestamp ( ) : float
 ```
 
-Get the timestamp corresponding of the last vote change.    
-
+Get the timestamp corresponding of the last vote change.
+    
 
 ### Return value:   
 

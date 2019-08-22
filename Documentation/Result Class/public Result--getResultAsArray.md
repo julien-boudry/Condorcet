@@ -6,12 +6,11 @@
 public $Result -> getResultAsArray ( [ bool convertToString = false] ) : array
 ```
 
-Get result as an array    
-
+Get result as an array
+    
 
 ##### **convertToString:** *bool*   
 Convert Candidate object to string    
-
 
 
 ### Return value:   

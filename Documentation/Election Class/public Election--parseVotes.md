@@ -6,17 +6,15 @@
 public $Election -> parseVotes ( string input, bool isFile ) : array
 ```
 
-Import votes from a text source.    
-
+Import votes from a text source.
+    
 
 ##### **input:** *string*   
 String or valid path to a text file.    
 
 
-
 ##### **isFile:** *bool*   
 If true, the input is evalatued as path to text file.    
-
 
 
 ### Return value:   
@@ -36,4 +34,4 @@ If true, the input is evalatued as path to text file.
 
 ### Examples and explanation
 
-* **[0](Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    
+* **[Manual - Add Vote](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    

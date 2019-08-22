@@ -6,8 +6,8 @@
 public $Election -> __construct ( )
 ```
 
-Build a new Election.    
-
+Build a new Election.
+    
 
 ### Return value:   
 

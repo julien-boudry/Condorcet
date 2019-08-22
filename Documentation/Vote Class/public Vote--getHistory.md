@@ -6,8 +6,8 @@
 public $Vote -> getHistory ( ) : array
 ```
 
-Return an history of each vote change, with timestamp.    
-
+Return an history of each vote change, with timestamp.
+    
 
 ### Return value:   
 
