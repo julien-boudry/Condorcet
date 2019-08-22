@@ -27,9 +27,15 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static Condorcet::getVersion()](Condorcet%20Class/public%20static%20Condorcet--getVersion.md)  
 * [public static Condorcet::isAuthMethod()](Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)  
 * [public static Condorcet::setDefaultMethod()](Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md)  
+## CondorcetPHP\Condorcet\CondorcetException Class  
+
+* [public CondorcetException->getObjectVersion()](CondorcetException%20Class/public%20CondorcetException--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\CondorcetUtil Class  
 
 * [public static CondorcetUtil::format()](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md)  
+## CondorcetPHP\Condorcet\DataManager\VotesManager Class  
+
+* [public DataManager\VotesManager->getObjectVersion()](DataManager\VotesManager%20Class/public%20DataManager\VotesManager--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Election Class  
 
 * [public static Election::setMaxParseIteration()](Election%20Class/public%20static%20Election--setMaxParseIteration.md)  
@@ -78,6 +84,9 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->sumVotesWeight()](Election%20Class/public%20Election--sumVotesWeight.md)  
 * [public Election->sumVotesWeightWithConstraints()](Election%20Class/public%20Election--sumVotesWeightWithConstraints.md)  
 * [public Election->testIfVoteIsValidUnderElectionConstraints()](Election%20Class/public%20Election--testIfVoteIsValidUnderElectionConstraints.md)  
+## CondorcetPHP\Condorcet\Pairwise Class  
+
+* [public Pairwise->getObjectVersion()](Pairwise%20Class/public%20Pairwise--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Result Class  
 
 * [public Result->getBuildTimeStamp()](Result%20Class/public%20Result--getBuildTimeStamp.md)  
@@ -87,6 +96,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getCondorcetWinner()](Result%20Class/public%20Result--getCondorcetWinner.md)  
 * [public Result->getLoser()](Result%20Class/public%20Result--getLoser.md)  
 * [public Result->getMethod()](Result%20Class/public%20Result--getMethod.md)  
+* [public Result->getObjectVersion()](Result%20Class/public%20Result--getObjectVersion.md)  
 * [public Result->getResultAsArray()](Result%20Class/public%20Result--getResultAsArray.md)  
 * [public Result->getResultAsString()](Result%20Class/public%20Result--getResultAsString.md)  
 * [public Result->getStats()](Result%20Class/public%20Result--getStats.md)  
@@ -94,6 +104,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 ## CondorcetPHP\Condorcet\Timer\Manager Class  
 
 * [public Timer\Manager->getHistory()](Timer\Manager%20Class/public%20Timer\Manager--getHistory.md)  
+* [public Timer\Manager->getObjectVersion()](Timer\Manager%20Class/public%20Timer\Manager--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Vote Class  
 
 * [public Vote->__construct()](Vote%20Class/public%20Vote--__construct.md)  

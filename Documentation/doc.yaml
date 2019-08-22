@@ -80,7 +80,35 @@
     - 'Candidate::getLinks'
     - 'Vote::haveLink'
     - 'Candidate::haveLink'
+  publish: true
 
+-
+  class:
+    - Election
+    - Pairwise
+    - CondorcetException
+    - Result
+    - Timer\Manager
+    - DataManager\VotesManager
+  type: method
+  visibility: public
+  name: getObjectVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
+  input:
+    type:
+      type: bool
+      default: false
+      required: false
+      text: |
+        * true will return : '2.0'
+        * false will return : '2.0.0'
+  return_type: string
+  return: |
+    *(string)* Condorcet PHP version.
+  related:
+    - 'static Condorcet::getVersion'
   publish: true
 
 
@@ -635,29 +663,6 @@
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
-  publish: true
-
--
-  class: Election
-  type: method
-  visibility: public
-  name: getObjectVersion
-  static: false
-  description: |
-    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
-  input:
-    type:
-      type: bool
-      default: false
-      required: false
-      text: |
-        * true will return : '2.0'
-        * false will return : '2.0.0'
-  return_type: string
-  return: |
-    *(string)* Condorcet PHP version.
-  related:
-    - 'static Condorcet::getVersion'
   publish: true
 
 - 

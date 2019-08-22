@@ -122,7 +122,8 @@ class VotesManager extends ArrayManager
 
 /////////// Get Votes Methods ///////////
 
-    public function getVoteKey (Vote $vote) {
+    public function getVoteKey (Vote $vote)
+    {
         ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
 
         return $r;
