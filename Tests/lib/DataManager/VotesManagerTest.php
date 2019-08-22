@@ -59,7 +59,7 @@ class VotesManagerTest extends TestCase
 
     public function testGetVoteKey()
     {
-        self::assertFalse($this->votes_manager->getVoteKey(new Vote([])));
+        self::assertNull($this->votes_manager->getVoteKey(new Vote([])));
     }
 
     public function testGetVotesList()

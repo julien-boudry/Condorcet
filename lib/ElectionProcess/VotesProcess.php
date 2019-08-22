@@ -65,7 +65,8 @@ trait VotesProcess
         return $this->_Votes->getVotesListAsString();
     }
 
-    public function getVotesManager () : VotesManager {
+    public function getVotesManager () : VotesManager
+    {
         return $this->_Votes;
     }
 
@@ -74,7 +75,8 @@ trait VotesProcess
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tag), $with);
     }
 
-    public function getVoteKey (Vote $vote) {
+    public function getVoteKey (Vote $vote) : ?int
+    {
         return $this->_Votes->getVoteKey($vote);
     }
 
@@ -162,7 +164,7 @@ trait VotesProcess
     public function removeVote (Vote $vote) : bool
     {    
         $key = $this->getVoteKey($vote);
-        if ($key !== false) :
+        if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
             $rem[] = $deletedVote;
 
