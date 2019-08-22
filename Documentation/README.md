@@ -1,4 +1,4 @@
-**[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
+> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
 
 # Public Methods Index _(Not yet exhaustive, not yet....)*_
 _Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._    
