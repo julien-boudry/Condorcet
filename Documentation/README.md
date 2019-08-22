@@ -7,7 +7,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ## CondorcetPHP\Condorcet\Algo\Pairwise Class  
 
-* [public Algo\Pairwise->getExplicitPairwise()](Algo\Pairwise%20Class/public%20Algo\Pairwise--getExplicitPairwise.md)  
+* [public Algo\Pairwise->getExplicitPairwise()](Algo\Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md)  
 ## CondorcetPHP\Condorcet\Candidate Class  
 
 * [public Candidate->__construct()](Candidate%20Class/public%20Candidate--__construct.md)  
@@ -16,6 +16,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Candidate->getHistory()](Candidate%20Class/public%20Candidate--getHistory.md)  
 * [public Candidate->getLinks()](Candidate%20Class/public%20Candidate--getLinks.md)  
 * [public Candidate->getName()](Candidate%20Class/public%20Candidate--getName.md)  
+* [public Candidate->getObjectVersion()](Candidate%20Class/public%20Candidate--getObjectVersion.md)  
 * [public Candidate->getTimestamp()](Candidate%20Class/public%20Candidate--getTimestamp.md)  
 * [public Candidate->haveLink()](Candidate%20Class/public%20Candidate--haveLink.md)  
 * [public Candidate->setName()](Candidate%20Class/public%20Candidate--setName.md)  
@@ -35,7 +36,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static CondorcetUtil::format()](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md)  
 ## CondorcetPHP\Condorcet\DataManager\VotesManager Class  
 
-* [public DataManager\VotesManager->getObjectVersion()](DataManager\VotesManager%20Class/public%20DataManager\VotesManager--getObjectVersion.md)  
+* [public DataManager\VotesManager->getObjectVersion()](DataManager\VotesManager%20Class/public%20DataManager_VotesManager--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Election Class  
 
 * [public static Election::setMaxParseIteration()](Election%20Class/public%20static%20Election--setMaxParseIteration.md)  
@@ -103,8 +104,8 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getWinner()](Result%20Class/public%20Result--getWinner.md)  
 ## CondorcetPHP\Condorcet\Timer\Manager Class  
 
-* [public Timer\Manager->getHistory()](Timer\Manager%20Class/public%20Timer\Manager--getHistory.md)  
-* [public Timer\Manager->getObjectVersion()](Timer\Manager%20Class/public%20Timer\Manager--getObjectVersion.md)  
+* [public Timer\Manager->getHistory()](Timer\Manager%20Class/public%20Timer_Manager--getHistory.md)  
+* [public Timer\Manager->getObjectVersion()](Timer\Manager%20Class/public%20Timer_Manager--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Vote Class  
 
 * [public Vote->__construct()](Vote%20Class/public%20Vote--__construct.md)  
@@ -117,6 +118,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->getCreateTimestamp()](Vote%20Class/public%20Vote--getCreateTimestamp.md)  
 * [public Vote->getHistory()](Vote%20Class/public%20Vote--getHistory.md)  
 * [public Vote->getLinks()](Vote%20Class/public%20Vote--getLinks.md)  
+* [public Vote->getObjectVersion()](Vote%20Class/public%20Vote--getObjectVersion.md)  
 * [public Vote->getRanking()](Vote%20Class/public%20Vote--getRanking.md)  
 * [public Vote->getSimpleRanking()](Vote%20Class/public%20Vote--getSimpleRanking.md)  
 * [public Vote->getTags()](Vote%20Class/public%20Vote--getTags.md)  
