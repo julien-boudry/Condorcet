@@ -325,7 +325,7 @@
   return: |
     Return True
   related:
-    - 'Election::isVoteWeightIsAllowed'
+    - 'Election::isVoteWeightAllowed'
   publish: true
 
 - 
@@ -815,7 +815,7 @@
   class: Election
   type: method
   visibility: public
-  name: isVoteWeightIsAllowed
+  name: isVoteWeightAllowed
   static: false
   description: |
     Returns the corresponding setting as currently set (False by default).

@@ -66,7 +66,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getVotesListAsString()](Election%20Class/public%20Election--getVotesListAsString.md)  
 * [public Election->getVotesListGenerator()](Election%20Class/public%20Election--getVotesListGenerator.md)  
 * [public Election->getWinner()](Election%20Class/public%20Election--getWinner.md)  
-* [public Election->isVoteWeightIsAllowed()](Election%20Class/public%20Election--isVoteWeightIsAllowed.md)  
+* [public Election->isVoteWeightAllowed()](Election%20Class/public%20Election--isVoteWeightAllowed.md)  
 * [public Election->parseCandidates()](Election%20Class/public%20Election--parseCandidates.md)  
 * [public Election->parseVotes()](Election%20Class/public%20Election--parseVotes.md)  
 * [public Election->removeCandidate()](Election%20Class/public%20Election--removeCandidate.md)  

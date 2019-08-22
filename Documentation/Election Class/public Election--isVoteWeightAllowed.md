@@ -1,9 +1,9 @@
-## public Election::isVoteWeightIsAllowed
+## public Election::isVoteWeightAllowed
 
 ### Description    
 
 ```php
-public $Election -> isVoteWeightIsAllowed ( ) : bool
+public $Election -> isVoteWeightAllowed ( ) : bool
 ```
 
 Returns the corresponding setting as currently set (False by default).

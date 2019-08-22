@@ -24,4 +24,4 @@ Return True
 
 ### Related method(s)      
 
-* [Election::isVoteWeightIsAllowed](../Election%20Class/public%20Election--isVoteWeightIsAllowed.md)    
+* [Election::isVoteWeightAllowed](../Election%20Class/public%20Election--isVoteWeightAllowed.md)    

@@ -52,7 +52,7 @@ class BordaCount extends Method implements MethodInterface
 
         foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $this->_selfElection->isVoteWeightIsAllowed() ? $oneVote->getWeight() : 1;
+            $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
 
             for ($i = 0 ; $i < $weight ; $i++) :
                 $CandidatesRanked = 0;
