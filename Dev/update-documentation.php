@@ -3,7 +3,7 @@ declare(strict_types=1);
 
     // Build command
 
-    $call = str_replace('/', DIRECTORY_SEPARATOR, '../vendor/bin/condorcet-doc');
+    $call = str_replace('/', DIRECTORY_SEPARATOR, __DIR__.'/../vendor/bin/condorcet-doc');
     $path = substr(__DIR__, 0, strlen(__DIR__) - 4);
     $path .= DIRECTORY_SEPARATOR.'Documentation';
 
@@ -16,10 +16,10 @@ declare(strict_types=1);
          $objects = scandir($dir);
          foreach ($objects as $object) :
            if ($object != "." && $object != ".." && $object !== 'doc.yaml') :
-             if (filetype($dir."/".$object) == "dir") :
-                rrmdir($dir."/".$object,$path);
+             if (filetype($dir.DIRECTORY_SEPARATOR.$object) == "dir") :
+                rrmdir($dir.DIRECTORY_SEPARATOR.$object,$path);
             else :
-                 unlink($dir."/".$object);
+                 unlink($dir.DIRECTORY_SEPARATOR.$object);
             endif;
            endif;
          endforeach;
