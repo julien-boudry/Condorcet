@@ -91,7 +91,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->computeOneVote($this->_Pairwise,$this->_Election->getVotesManager()[$key]);
     }
 
-    public function removeVote (int $key) : void
+    public function removeVotes (int $key) : void
     {
         new Timer_Chrono ( $this->_Election->getTimerManager(), 'Remove Vote To Pairwise' );
 

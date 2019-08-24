@@ -45,8 +45,8 @@ $election1 = new Election ();
 
     # -B- Change your mind ?
 
-        $election1->removeCandidate('A');
-        $election1->removeCandidate($myAutomaticCandidate);
+        $election1->removeCandidates('A');
+        $election1->removeCandidates($myAutomaticCandidate);
 
         // Lutoslawski change his name
         $myLutoCandidate->setName('Wiltod Lutoslawski'); # Done !
@@ -188,7 +188,7 @@ $election1 = new Election ();
         # 3- Delete Votes
 
             // Delete a specific vote object
-            $election1->removeVote( $myVote3 );
+            $election1->removeVotes( $myVote3 );
 
             // Delete all vote with tag "strangeVote" or "frenchies"
             $election1->removeVotesByTags( ['strangeVote','chauvinismVote'] );

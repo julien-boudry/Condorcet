@@ -28,9 +28,9 @@ trait VotesProcess
 /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
-    public function countVotes ($tag = null, bool $with = true) : int
+    public function countVotes ($tags = null, bool $with = true) : int
     {
-        return $this->_Votes->countVotes(VoteUtil::tagsConvert($tag),$with);
+        return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
 
     public function countInvalidVoteWithConstraints () : int
@@ -55,9 +55,9 @@ trait VotesProcess
     }
 
     // Get the votes registered list
-    public function getVotesList ($tag = null, bool $with = true) : array
+    public function getVotesList ($tags = null, bool $with = true) : array
     {
-        return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tag), $with);
+        return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
 
     public function getVotesListAsString () : string
@@ -70,9 +70,9 @@ trait VotesProcess
         return $this->_Votes;
     }
 
-    public function getVotesListGenerator ($tag = null, bool $with = true) : \Generator
+    public function getVotesListGenerator ($tags = null, bool $with = true) : \Generator
     {
-        return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tag), $with);
+        return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
 
     public function getVoteKey (Vote $vote) : ?int
@@ -84,9 +84,9 @@ trait VotesProcess
 /////////// ADD & REMOVE VOTE ///////////
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    public function addVote ($vote, $tag = null) : Vote
+    public function addVote ($vote, $tags = null) : Vote
     {
-        $this->prepareVoteInput($vote, $tag);
+        $this->prepareVoteInput($vote, $tags);
 
         // Check Max Vote Count
         if ( self::$_maxVoteNumber !== null && $this->countVotes() >= self::$_maxVoteNumber ) :
@@ -95,7 +95,7 @@ trait VotesProcess
 
 
         // Register vote
-        return $this->registerVote($vote, $tag); // Return the vote object
+        return $this->registerVote($vote, $tags); // Return the vote object
     }
 
     public function prepareUpdateVote (Vote $existVote) : void
@@ -161,9 +161,9 @@ trait VotesProcess
         return $vote;
     }
 
-    public function removeVote (Vote $vote) : bool
+    public function removeVotes (Vote $votes_input) : bool
     {    
-        $key = $this->getVoteKey($vote);
+        $key = $this->getVoteKey($votes_input);
         if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
             $rem[] = $deletedVote;

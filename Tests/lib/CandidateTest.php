@@ -124,7 +124,7 @@ class CandidateTest extends TestCase
         self::assertSame($election3,$this->candidate1->getLinks()[2]);
         self::assertCount(3,$this->candidate1->getLinks());
 
-        $election3->removeCandidate('candidate1.n1');
+        $election3->removeCandidates('candidate1.n1');
 
         self::assertCount(2,$this->candidate1->getLinks());
 

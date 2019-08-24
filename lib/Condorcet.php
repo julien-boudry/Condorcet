@@ -103,18 +103,18 @@ abstract class Condorcet
 
 
     // Add algos
-    public static function addMethod (string $algos) : bool
+    public static function addMethod (string $methodClass) : bool
     {
         // Check algos
-        if ( self::isAuthMethod($algos) || !self::testMethod($algos) ) :
+        if ( self::isAuthMethod($methodClass) || !self::testMethod($methodClass) ) :
             return false;
         endif;
 
         // Adding algo
-        self::$_authMethods[$algos] = $algos::METHOD_NAME;
+        self::$_authMethods[$methodClass] = $methodClass::METHOD_NAME;
 
         if (self::getDefaultMethod() === null) :
-            self::setDefaultMethod($algos);
+            self::setDefaultMethod($methodClass);
         endif;
 
         return true;

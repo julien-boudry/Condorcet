@@ -536,20 +536,20 @@ class VoteTest extends TestCase
 
         self::assertSame('candidate1 > candidate2 > candidate3',$this->election1->getResult()->getResultAsString());
 
-        $vote1->removeCandidate('candidate2');
+        $vote1->removeCandidates('candidate2');
 
         self::assertSame('candidate1 > candidate3 ^42',$vote1->getSimpleRanking());
 
         self::assertSame('candidate1 > candidate3 > candidate2',$this->election1->getResult()->getResultAsString());
 
-        $vote1->removeCandidate($this->candidate3);
+        $vote1->removeCandidates($this->candidate3);
 
         self::assertSame('candidate1 > candidate2 = candidate3',$this->election1->getResult()->getResultAsString());
 
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(32);
 
-        $vote1->removeCandidate($this->candidate4);
+        $vote1->removeCandidates($this->candidate4);
     }
 
     public function testRemoveCandidateInvalidInput ()
@@ -559,6 +559,6 @@ class VoteTest extends TestCase
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(32);
 
-        $vote1->removeCandidate([]);
+        $vote1->removeCandidates([]);
     }
 }

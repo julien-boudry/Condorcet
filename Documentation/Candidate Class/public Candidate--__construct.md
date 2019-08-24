@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Candidate -> __construct ( string param1 )
+public $Candidate -> __construct ( string name )
 ```
 
 Build a candidate.
     
 
-##### **param1:** *string*   
+##### **name:** *string*   
 Candidate Name    
 
 

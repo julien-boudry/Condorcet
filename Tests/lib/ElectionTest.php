@@ -31,9 +31,9 @@ class ElectionTest extends TestCase
         $this->election2 = new Election;
     }
 
-    public function testRemoveVote ()
+    public function testRemoveVotes ()
     {
-        self::assertTrue($this->election1->removeVote($this->vote2));
+        self::assertTrue($this->election1->removeVotes($this->vote2));
 
         self::assertCount(3,$this->election1->getVotesList());
     }
@@ -328,7 +328,7 @@ class ElectionTest extends TestCase
 
         $election->allowVoteWeight( !$election->isVoteWeightAllowed() );
 
-        $election->removeVote($voteWithWeight);
+        $election->removeVotes($voteWithWeight);
 
         self::assertSame(
             13,
@@ -521,7 +521,7 @@ C > B > A * 1',
         self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         self::expectExceptionCode(2);
 
-        $this->election1->removeCandidate('candidate4');
+        $this->election1->removeCandidates('candidate4');
     }
 
     public function testAddSameVote ()

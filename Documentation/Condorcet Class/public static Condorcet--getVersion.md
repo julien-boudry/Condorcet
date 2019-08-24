@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public static Condorcet::getVersion ( [ bool type = false] ) : string
+public static Condorcet::getVersion ( [ bool major = false] ) : string
 ```
 
 Get the library version.
     
 
-##### **type:** *bool*   
+##### **major:** *bool*   
 * true will return : '2.0'
 * false will return : '2.0.0'
     

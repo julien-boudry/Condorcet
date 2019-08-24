@@ -102,7 +102,7 @@ class VotesManager extends ArrayManager
                 if ($type === 1) :
                     $election->getPairwise()->addNewVote($key);
                 elseif ($type === 2) :
-                    $election->getPairwise()->removeVote($key);
+                    $election->getPairwise()->removeVotes($key);
                 endif;
 
                 $election->cleanupCalculator();

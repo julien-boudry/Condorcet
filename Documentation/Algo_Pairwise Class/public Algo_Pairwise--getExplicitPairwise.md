@@ -6,12 +6,12 @@
 public $Algo\Pairwise -> getExplicitPairwise ( ) : array
 ```
 
-Get an explicit pairwise.
+Return the Pairwise.
     
 
 ### Return value:   
 
-An explicit array with candidate name as key.
+Pairwise as an explicit array .
 
 
 ---------------------------------------
@@ -19,3 +19,4 @@ An explicit array with candidate name as key.
 ### Related method(s)      
 
 * [Election::getPairwise](../Election%20Class/public%20Election--getPairwise.md)    
+* [Election::getResult](../Election%20Class/public%20Election--getResult.md)    

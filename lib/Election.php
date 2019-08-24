@@ -34,16 +34,16 @@ class Election
 /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
-    public static function setMaxParseIteration (?int $value) : ?int
+    public static function setMaxParseIteration (?int $maxParseIterations) : ?int
     {
-        self::$_maxParseIteration = $value;
+        self::$_maxParseIteration = $maxParseIterations;
         return self::$_maxParseIteration;
     }
 
     // Change max vote number
-    public static function setMaxVoteNumber (?int $value) : ?int
+    public static function setMaxVoteNumber (?int $maxVotesNumber) : ?int
     {
-        self::$_maxVoteNumber = $value;
+        self::$_maxVoteNumber = $maxVotesNumber;
         return self::$_maxVoteNumber;
     }
 
@@ -82,7 +82,7 @@ class Election
             '_Candidates',
             '_Votes',
 
-            '_i_CandidateId',
+            '_AutomaticNewCandidateName',
             '_State',
             '_objectVersion',
 
@@ -218,13 +218,13 @@ class Election
 
     /////////// VOTE CONSTRAINT ///////////
 
-    public function addConstraint (string $class) : bool
+    public function addConstraint (string $constraintClass) : bool
     {
-        if ( !class_exists($class) ) :
+        if ( !class_exists($constraintClass) ) :
             throw new CondorcetException(27);
-        elseif ( !is_subclass_of($class, __NAMESPACE__.'\\VoteConstraint') ) :
+        elseif ( !is_subclass_of($constraintClass, __NAMESPACE__.'\\VoteConstraint') ) :
             throw new CondorcetException(28);
-        elseif (in_array($class,$this->getConstraints(), true)) :
+        elseif (in_array($constraintClass,$this->getConstraints(), true)) :
             throw new CondorcetException(29);
         endif;
 
@@ -232,7 +232,7 @@ class Election
             $this->cleanupCompute();;
         endif;
 
-        $this->_Constraints[] = $class;
+        $this->_Constraints[] = $constraintClass;
 
         return true;
     }
