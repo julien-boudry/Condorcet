@@ -22,8 +22,8 @@ trait CandidatesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected array $_Candidates = []; // Candidate list
-    protected string $_i_CandidateId = 'A';
+    protected $_Candidates = []; // Candidate list
+    protected string $_AutomaticNewCandidateName = 'A';
 
 
 /////////// GET CANDIDATES ///////////
@@ -51,13 +51,15 @@ trait CandidatesProcess
         return $result;
     }
 
-    public function getCandidateKey ($candidate_id)
+    public function getCandidateKey ($candidate) : ?int
     {
-        if ($candidate_id instanceof Candidate) :
-            return array_search($candidate_id, $this->_Candidates, true);
+        if ($candidate instanceof Candidate) :
+            $r = array_search($candidate, $this->_Candidates, true);
         else:
-            return array_search(trim((string) $candidate_id), $this->_Candidates, false);
+            $r = array_search(trim((string) $candidate), $this->_Candidates, false);
         endif;
+
+        return ($r !== false) ? $r : null;
     }
 
     public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
@@ -69,9 +71,9 @@ trait CandidatesProcess
         endif;
     }
 
-    public function isRegisteredCandidate ($candidate_id, bool $strict = true) : bool
+    public function isRegisteredCandidate ($candidate, bool $strict = true) : bool
     {
-        return $strict ? in_array($candidate_id, $this->_Candidates, true) : in_array((string) $candidate_id, $this->_Candidates);
+        return $strict ? in_array($candidate, $this->_Candidates, true) : in_array((string) $candidate, $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $s) : ?Candidate
@@ -90,7 +92,7 @@ trait CandidatesProcess
 /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
-    public function addCandidate ($candidate_id = null) : Candidate
+    public function addCandidate ($candidate = null) : Candidate
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
@@ -98,23 +100,23 @@ trait CandidatesProcess
         endif;
 
         // Filter
-        if ( is_bool($candidate_id) || is_array($candidate_id) || (is_object($candidate_id) && !($candidate_id instanceof Candidate)) ) :
+        if ( is_bool($candidate) || is_array($candidate) || (is_object($candidate) && !($candidate instanceof Candidate)) ) :
             throw new CondorcetException(1);
         endif;
 
 
         // Process
-        if ( empty($candidate_id) ) :
-            while ( !$this->canAddCandidate($this->_i_CandidateId) ) :
-                $this->_i_CandidateId++;
+        if ( empty($candidate) ) :
+            while ( !$this->canAddCandidate($this->_AutomaticNewCandidateName) ) :
+                $this->_AutomaticNewCandidateName++;
             endwhile;
 
-            $newCandidate = new Candidate($this->_i_CandidateId);
+            $newCandidate = new Candidate($this->_AutomaticNewCandidateName);
         else : // Try to add the candidate_id
-            $newCandidate = ($candidate_id instanceof Candidate) ? $candidate_id : new Candidate ((string) $candidate_id);
+            $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate ((string) $candidate);
 
             if ( !$this->canAddCandidate($newCandidate) ) :
-                throw new CondorcetException(3,(string) $candidate_id);
+                throw new CondorcetException(3,(string) $candidate);
             endif;
         endif;
 
@@ -130,35 +132,35 @@ trait CandidatesProcess
         return $newCandidate;
     }
 
-    public function canAddCandidate ($candidate_id) : bool
+    public function canAddCandidate ($candidate) : bool
     {
-        return !$this->isRegisteredCandidate($candidate_id, false);
+        return !$this->isRegisteredCandidate($candidate, false);
     }
 
     // Destroy a register vote candidate before voting
-    public function removeCandidate ($list) : array
+    public function removeCandidates ($candidates_input) : array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
             throw new CondorcetException(2);
         endif;
         
-        if ( !is_array($list) ) :
-            $list = [$list];
+        if ( !is_array($candidates_input) ) :
+            $candidates_input = [$candidates_input];
         endif;
 
-        foreach ($list as &$candidate_id) :
-            $candidate_key = $this->getCandidateKey($candidate_id);
+        foreach ($candidates_input as &$candidate) :
+            $candidate_key = $this->getCandidateKey($candidate);
 
-            if ( $candidate_key === false ) :
-                throw new CondorcetException(4,$candidate_id);
+            if ( $candidate_key === null ) :
+                throw new CondorcetException(4,$candidate);
             endif;
 
-            $candidate_id = $candidate_key;
+            $candidate = $candidate_key;
         endforeach;
 
         $rem = [];
-        foreach ($list as $candidate_key) :
+        foreach ($candidates_input as $candidate_key) :
             $this->_Candidates[$candidate_key]->destroyLink($this);
 
             $rem[] = $this->_Candidates[$candidate_key];

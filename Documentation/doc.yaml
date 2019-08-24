@@ -99,7 +99,7 @@
   description: |
     Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
   input:
-    type:
+    major:
       type: bool
       default: false
       required: false
@@ -111,6 +111,24 @@
     *(string)* Condorcet PHP version.
   related:
     - 'static Condorcet::getVersion'
+  publish: true
+
+- 
+  class: 
+    - Election
+    - Algo\Pairwise
+  type: method
+  visibility: public
+  name: getExplicitPairwise
+  static: false
+  description: |
+    Return the Pairwise.
+  return_type: array
+  return: |
+    Pairwise as an explicit array .
+  related:
+    - 'Election::getPairwise'
+    - 'Election::getResult'
   publish: true
 
 
@@ -125,7 +143,7 @@
   description: |
     If you create your own Condorcet Algo. You will need it !
   input:
-    algo:
+    methodClass:
       type: string
       required: true
       text: |
@@ -183,7 +201,7 @@
   description: |
     Get the library version.
   input:
-    type:
+    major:
       type: bool
       default: false
       required: false
@@ -288,7 +306,7 @@
   description: |
     Add a constraint rules as a valid class path.
   input:
-    class:
+    constraintClass:
       type: string
       required: true
       text: A valid class path. Class must extend VoteConstraint class.
@@ -421,7 +439,7 @@
   description: |
     Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
   input:
-    tag:
+    tags:
       type: mixed
       default: 'null'
       required: false
@@ -577,22 +595,6 @@
     - 'Election::testIfVoteIsValidUnderElectionConstraints'
   examples:
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: getExplicitPairwise
-  static: false
-  description: |
-    Return the Pairwise.
-  return_type: array
-  return: |
-    Pairwise as an explicit array .
-  related:
-    - 'Election::getPairwise'
-    - 'Election::getResult'
   publish: true
 
 - 
@@ -760,7 +762,7 @@
   description: |
     Get registered vote list.
   input:
-    tag:
+    tags:
       type: mixed
       default: test
       required: true
@@ -786,7 +788,7 @@
     Same as Election::getVotesList. But Return a PHP generator object.
     Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
   input:
-    tag:
+    tags:
       type: mixed
       default: test
       required: true
@@ -978,14 +980,14 @@
   class: Election
   type: method
   visibility: public
-  name: removeCandidate
+  name: removeCandidates
   static: false
   description: |
-    Remove Candidate from an election.   
+    Remove Candidates from an election.   
 
-    *Please note: You can't remove candidate after the first vote. Exception will be throw.*
+    *Please note: You can't remove candidates after the first vote. Exception will be throw.*
   input:
-    candidate:
+    candidates_input:
       type: mixed
       required: true
       text: |
@@ -1022,20 +1024,20 @@
   class: Election
   type: method
   visibility: public
-  name: removeVote
+  name: removeVotes
   static: false
   description: |
-    Remove Vote from an election.   
+    Remove Votes from an election.   
 
     ```php
-    $condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
-    $condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
-    $condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
-    $condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
+    $condorcet->removeVotes('Charlie') ; // Remove vote(s) with tag Charlie
+    $condorcet->removeVotes('Charlie', false) ; // Remove votes without tag Charlie
+    $condorcet->removeVotes('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $condorcet->removeVotes(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    $condorcet->removeVotes($myVoteObject) ; // Remove a specific registered Vote.
     ```
   input:
-    vote:
+    votes_input:
       type: CondorcetPHP\Condorcet\Vote
       required: true      
   return_type: array 
@@ -1078,7 +1080,7 @@
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
-    - 'Election::removeVote'
+    - 'Election::removeVotes'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
@@ -1113,8 +1115,8 @@
   description: |
     Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
   input:
-    param1:
-      type: mixed
+    $maxParseIterations:
+      type: ?int
       required: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
   return_type: ?int
@@ -1133,10 +1135,10 @@
   description: |
     Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
   input:
-    value:
-      type: mixed
+    $maxVotesNumber:
+      type: ?int
       required: true
-      text: Null will desactivate this functionnality. An interger will fix the limit.
+      text: Null will desactivate this functionnality. An integer will fix the limit.
   return_type: ?int
   return: |
     *(int or null)* The new limit.
@@ -1236,7 +1238,7 @@
   description: |
     Build a candidate.
   input:
-    param1:
+    name:
       type: string
       required: true
       text: Candidate Name
@@ -1637,24 +1639,6 @@
   publish: true
 
 
-# CLASS PAIRWISE
-
-
-- 
-  class: Algo\Pairwise
-  type: method
-  visibility: public
-  name: getExplicitPairwise
-  static: false
-  description: |
-    Get an explicit pairwise.
-  return_type: array
-  return: |
-    An explicit array with candidate name as key.
-  related:
-    - 'Election::getPairwise'
-  publish: true
-
 
 # CLASS TIMER/MANAGER
 
@@ -1871,17 +1855,12 @@
   static: true
   description: |
     Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
-    Can be use for improve var_dump, or just to get more simple data output.
+    Can be use before a var_dump, or just to get more simple data output.
   input:
     input:
       type: mixed
       required: true
       text: All datatype. Like classical var_dump
-    out:
-      type: bool
-      default: true
-      required: false
-      text: 'If true, will print the result on scrren. like var_dump() function. Else, just return it.'
     convertObject:
       type: bool
       default: true

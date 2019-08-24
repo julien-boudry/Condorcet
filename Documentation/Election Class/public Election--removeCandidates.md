@@ -1,17 +1,17 @@
-## public Election::removeCandidate
+## public Election::removeCandidates
 
 ### Description    
 
 ```php
-public $Election -> removeCandidate ( mixed candidate ) : array
+public $Election -> removeCandidates ( mixed candidates_input ) : array
 ```
 
-Remove Candidate from an election.   
+Remove Candidates from an election.   
 
-*Please note: You can't remove candidate after the first vote. Exception will be throw.*
+*Please note: You can't remove candidates after the first vote. Exception will be throw.*
     
 
-##### **candidate:** *mixed*   
+##### **candidates_input:** *mixed*   
 * String matching Candidate Name    
 * CondorcetPHP\Condorcet\Candidate object    
 * Array populated by CondorcetPHP\Condorcet\Candidate    

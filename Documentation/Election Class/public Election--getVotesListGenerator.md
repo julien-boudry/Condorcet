@@ -3,14 +3,14 @@
 ### Description    
 
 ```php
-public $Election -> getVotesListGenerator ( mixed tag = test, mixed with = test ) : \Generator
+public $Election -> getVotesListGenerator ( mixed tags = test, mixed with = test ) : \Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.
 Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
     
 
-##### **tag:** *mixed*   
+##### **tags:** *mixed*   
     
 
 

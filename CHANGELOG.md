@@ -404,7 +404,7 @@ The code will be very severely rewritten and restructured for the next major rel
 - More flexibility to register or claim tags. Use an array or a string separated by commas.
 - The countVote() method can now act on specific tags.
 - The getVoteList() method can now be used more accurate and extensive.
-- The removeVote() method can now be used more accurate and extensive.
+- The removeVotes() method can now be used more accurate and extensive.
 - The getResult() method can now be used to gain a profit on a partial selection of the votes (using tags) without requiring the prior removal of votes.
 - Added more specific error message on addVote()
 

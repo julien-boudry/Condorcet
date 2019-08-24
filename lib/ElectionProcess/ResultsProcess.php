@@ -81,9 +81,9 @@ trait ResultsProcess
     }
 
 
-    public function getWinner (?string $substitution = null)
+    public function getWinner (?string $method = null)
     {
-        $algo = Condorcet::condorcetBasicSubstitution($substitution);
+        $algo = Condorcet::condorcetBasicSubstitution($method);
 
             //////
 
@@ -99,9 +99,9 @@ trait ResultsProcess
     }
 
 
-    public function getLoser (?string $substitution = null)
+    public function getLoser (?string $method = null)
     {
-        $algo = Condorcet::condorcetBasicSubstitution($substitution);
+        $algo = Condorcet::condorcetBasicSubstitution($method);
 
             //////
 

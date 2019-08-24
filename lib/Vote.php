@@ -235,7 +235,7 @@ class Vote implements \Iterator
 
     // SETTERS
 
-    public function setRanking ($rankingCandidate, ?float $ownTimestamp = null) : bool
+    public function setRanking ($ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
         if ($ownTimestamp !== null) :
@@ -245,7 +245,7 @@ class Vote implements \Iterator
         endif;
 
         // Ranking
-        $candidateCounter = $this->formatRanking($rankingCandidate);
+        $candidateCounter = $this->formatRanking($ranking);
 
         if (!empty($this->_link)) :
             foreach ($this->_link as $link) :
@@ -253,7 +253,7 @@ class Vote implements \Iterator
             endforeach;
         endif;
 
-        $this->archiveRanking($rankingCandidate, $candidateCounter, $ownTimestamp);
+        $this->archiveRanking($ranking, $candidateCounter, $ownTimestamp);
 
         if (!empty($this->_link)) :
             
@@ -336,7 +336,7 @@ class Vote implements \Iterator
         }
 
 
-    public function removeCandidate ($candidate) : bool
+    public function removeCandidates ($candidate) : bool
     {
         if ($candidate instanceof Candidate) :
             $strict = true;

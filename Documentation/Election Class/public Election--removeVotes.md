@@ -1,23 +1,23 @@
-## public Election::removeVote
+## public Election::removeVotes
 
 ### Description    
 
 ```php
-public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote ) : array
+public $Election -> removeVotes ( CondorcetPHP\Condorcet\Vote votes_input ) : array
 ```
 
-Remove Vote from an election.   
+Remove Votes from an election.   
 
 ```php
-$condorcet->removeVote('Charlie') ; // Remove vote(s) with tag Charlie
-$condorcet->removeVote('Charlie', false) ; // Remove votes without tag Charlie
-$condorcet->removeVote('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-$condorcet->removeVote(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
-$condorcet->removeVote($myVoteObject) ; // Remove a specific registered Vote.
+$condorcet->removeVotes('Charlie') ; // Remove vote(s) with tag Charlie
+$condorcet->removeVotes('Charlie', false) ; // Remove votes without tag Charlie
+$condorcet->removeVotes('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+$condorcet->removeVotes(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+$condorcet->removeVotes($myVoteObject) ; // Remove a specific registered Vote.
 ```
     
 
-##### **vote:** *CondorcetPHP\Condorcet\Vote*   
+##### **votes_input:** *CondorcetPHP\Condorcet\Vote*   
     
 
 

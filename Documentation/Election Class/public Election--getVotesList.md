@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Election -> getVotesList ( mixed tag = test, mixed with = test ) : array
+public $Election -> getVotesList ( mixed tags = test, mixed with = test ) : array
 ```
 
 Get registered vote list.
     
 
-##### **tag:** *mixed*   
+##### **tags:** *mixed*   
     
 
 

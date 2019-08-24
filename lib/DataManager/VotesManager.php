@@ -102,7 +102,7 @@ class VotesManager extends ArrayManager
                 if ($type === 1) :
                     $election->getPairwise()->addNewVote($key);
                 elseif ($type === 2) :
-                    $election->getPairwise()->removeVote($key);
+                    $election->getPairwise()->removeVotes($key);
                 endif;
 
                 $election->cleanupCalculator();
@@ -122,11 +122,11 @@ class VotesManager extends ArrayManager
 
 /////////// Get Votes Methods ///////////
 
-    public function getVoteKey (Vote $vote)
+    public function getVoteKey (Vote $vote) : ?int
     {
         ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
 
-        return $r;
+        return ($r !== false) ? $r : null;
     }
 
     protected function getFullVotesListGenerator () : \Generator

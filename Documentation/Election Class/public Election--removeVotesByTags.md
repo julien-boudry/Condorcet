@@ -35,7 +35,7 @@ $condorcet->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with 
 
 * [Election::addVote](../Election%20Class/public%20Election--addVote.md)    
 * [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    
-* [Election::removeVote](../Election%20Class/public%20Election--removeVote.md)    
+* [Election::removeVotes](../Election%20Class/public%20Election--removeVotes.md)    
 
 ---------------------------------------
 
