@@ -33,7 +33,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 
 ### Return value:   
 
-In case of success, return TRUE
+*(bool)* In case of success, return TRUE
 
 
 ---------------------------------------

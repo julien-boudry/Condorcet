@@ -11,7 +11,7 @@ Sum total votes weight in this election. If vote weight functionality is disable
 
 ### Return value:   
 
-(Int) Total vote weight
+*(int)* (Int) Total vote weight
 
 
 ---------------------------------------

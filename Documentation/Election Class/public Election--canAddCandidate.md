@@ -15,7 +15,7 @@ String or Condorcet/Vote object.
 
 ### Return value:   
 
-True if your Candidate is available. Or False.
+*(bool)* True if your Candidate is available. Or False.
 
 
 ---------------------------------------

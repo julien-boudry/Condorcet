@@ -19,7 +19,7 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ### Return value:   
 
-The vote object.
+*(\CondorcetPHP\Condorcet\Vote)* The vote object.
 
 
 ---------------------------------------

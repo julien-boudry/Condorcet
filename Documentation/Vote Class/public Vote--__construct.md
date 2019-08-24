@@ -20,12 +20,6 @@ Equivalent to Vote::addTags method.
 ##### **timestamp:** *numeric*   
 Set your own timestamp metadata on Ranking.    
 
-
-### Return value:   
-
-_None_
-
-
 ---------------------------------------
 
 ### Related method(s)      

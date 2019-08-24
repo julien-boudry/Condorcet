@@ -11,7 +11,7 @@ Count the number of registered candidate
 
 ### Return value:   
 
-(int) Number of registered candidate for this election.
+*(int)* Number of registered candidate for this election.
 
 
 ---------------------------------------

@@ -15,7 +15,7 @@ A vote. Not necessarily registered in this election.
 
 ### Return value:   
 
-Return True if vote will pass the constraints rules, else False.
+*(bool)* Return True if vote will pass the constraints rules, else False.
 
 
 ---------------------------------------

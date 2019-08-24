@@ -15,7 +15,7 @@ Method Name.
 
 ### Return value:   
 
-(bool) In case of success, return TRUE
+*(bool)* In case of success, return TRUE
 
 
 ---------------------------------------

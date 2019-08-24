@@ -11,7 +11,7 @@ Get some config summary for this object
 
 ### Return value:   
 
-An explicit array.
+*(array)* An explicit array.
 
 
 ---------------------------------------

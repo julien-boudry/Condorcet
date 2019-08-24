@@ -11,7 +11,7 @@ Count number of linked election to this object.
 
 ### Return value:   
 
-(int) Number of linked elections.
+*(int)* Number of linked elections.
 
 
 ---------------------------------------

@@ -21,7 +21,7 @@ Not requiered for use object default method. Set the string name of the algorith
 
 ### Return value:   
 
-An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
+*(\CondorcetPHP\Condorcet\Result)* An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
 
 ---------------------------------------

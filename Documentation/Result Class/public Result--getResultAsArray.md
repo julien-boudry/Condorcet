@@ -15,7 +15,7 @@ Convert Candidate object to string
 
 ### Return value:   
 
-An ordered multidimensionnal array by rank.
+*(array)* An ordered multidimensionnal array by rank.
 
 
 ---------------------------------------
