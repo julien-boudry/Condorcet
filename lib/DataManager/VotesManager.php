@@ -126,11 +126,7 @@ class VotesManager extends ArrayManager
     {
         ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
 
-        if ($r === false) :
-            return null;
-        else :
-            return $r;
-        endif;
+        return ($r !== false) ? $r : null;
     }
 
     protected function getFullVotesListGenerator () : \Generator
