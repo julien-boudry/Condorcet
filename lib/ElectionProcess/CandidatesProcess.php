@@ -51,13 +51,15 @@ trait CandidatesProcess
         return $result;
     }
 
-    public function getCandidateKey ($candidate)
+    public function getCandidateKey ($candidate) : ?int
     {
         if ($candidate instanceof Candidate) :
-            return array_search($candidate, $this->_Candidates, true);
+            $r = array_search($candidate, $this->_Candidates, true);
         else:
-            return array_search(trim((string) $candidate), $this->_Candidates, false);
+            $r = array_search(trim((string) $candidate), $this->_Candidates, false);
         endif;
+
+        return ($r !== false) ? $r : null;
     }
 
     public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
@@ -150,7 +152,7 @@ trait CandidatesProcess
         foreach ($candidates_input as &$candidate) :
             $candidate_key = $this->getCandidateKey($candidate);
 
-            if ( $candidate_key === false ) :
+            if ( $candidate_key === null ) :
                 throw new CondorcetException(4,$candidate);
             endif;
 
