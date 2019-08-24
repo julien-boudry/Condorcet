@@ -86,7 +86,7 @@
   class:
     - Candidate
     - Election
-    - Pairwise
+    - Algo\Pairwise
     - CondorcetException
     - Result
     - Vote
@@ -469,7 +469,7 @@
   related:
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countVotes'
-    - 'Election::sumVotesWeightWithConstraints'
+    - 'Election::sumValidVotesWeightWithConstraints'
   publish: true
 
 -
@@ -486,7 +486,7 @@
   related:
     - 'Election::countInvalidVoteWithConstraints'
     - 'Election::countVotes'
-    - 'Election::sumVotesWeightWithConstraints'
+    - 'Election::sumValidVotesWeightWithConstraints'
   publish: true
 
 - 
@@ -558,22 +558,6 @@
 
   examples:
     'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: getConfig
-  static: false
-  description: |
-    Get some config summary for this object
-  return_type: array
-  return: |
-    An explicit array.
-  related:
-    - 'static Condorcet::isAuthMethod'
-    - 'static Condorcet::getAuthMethods'
   publish: true
 
 -
@@ -1186,7 +1170,7 @@
   class: Election
   type: method
   visibility: public
-  name: sumVotesWeightWithConstraints
+  name: sumValidVotesWeightWithConstraints
   static: false
   description: |
     Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
@@ -1194,7 +1178,6 @@
   return: |
     (Int) Total vote weight
   related:
-    - 'Election::sumValidVotesWeightWithConstraints'
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countInvalidVoteWithConstraints'
   publish: true

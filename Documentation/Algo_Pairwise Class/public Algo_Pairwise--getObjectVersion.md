@@ -1,9 +1,9 @@
-## public Pairwise::getObjectVersion
+## public Algo\Pairwise::getObjectVersion
 
 ### Description    
 
 ```php
-public $Pairwise -> getObjectVersion ( [ bool major = false] ) : string
+public $Algo\Pairwise -> getObjectVersion ( [ bool major = false] ) : string
 ```
 
 Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
