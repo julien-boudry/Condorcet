@@ -21,7 +21,7 @@ Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Ftpt');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\InstantRunoff');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\KemenyYoung\KemenyYoung');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Minimax\MinimaxWinning');
-Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\MiniMax\MinimaxMargin');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Minimax\MinimaxMargin');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Minimax\MinimaxOpposition');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsMargin');
 Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsWinning');
