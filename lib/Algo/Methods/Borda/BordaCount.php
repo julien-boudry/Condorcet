@@ -1,6 +1,6 @@
 <?php
 /*
-    Part of FTPT method Module - From the original Condorcet PHP
+    Part of BORDA COUNT method Module - From the original Condorcet PHP
 
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -10,26 +10,28 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Algo\Method;
 use CondorcetPHP\Condorcet\Algo\MethodInterface;
 
 use CondorcetPHP\Condorcet\Result;
 
-class Ftpt extends Method implements MethodInterface
+class BordaCount extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FTPT'];
+    public const METHOD_NAME = ['BordaCount','Borda Count','Borda','Méthode Borda'];
+
+    public static int $starting = 1;
 
     protected ?array $_Stats = null;
 
-    protected function getStats(): array
+    protected function getStats () : array
     {
         $stats = [];
 
         foreach ($this->_Stats as $candidateKey => $oneScore) :
-            $stats[(string)$this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $oneScore;
+             $stats[(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $oneScore;
         endforeach;
 
         return $stats;
@@ -38,9 +40,9 @@ class Ftpt extends Method implements MethodInterface
 
 /////////// COMPUTE ///////////
 
-    //:: FTPT Count :://
+    //:: BORDA ALGORITHM. :://
 
-    protected function compute(): void
+    protected function compute () : void
     {
         $score = [];
 
@@ -52,16 +54,24 @@ class Ftpt extends Method implements MethodInterface
 
             $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
 
-            for ($i = 0; $i < $weight; $i++) :
+            for ($i = 0 ; $i < $weight ; $i++) :
+                $CandidatesRanked = 0;
                 $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 
-                foreach ($oneRanking[1] as $oneCandidateInRank) :
-                    $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += 1 / count($oneRanking[1]);
+                foreach ($oneRanking as $oneRank) :
+                    $rankScore = 0;
+                    foreach ($oneRank as $oneCandidateInRank) :
+                        $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++);
+                    endforeach;
+
+                    foreach ($oneRank as $oneCandidateInRank) :
+                        $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += $rankScore / count($oneRank);
+                    endforeach;
                 endforeach;
             endfor;
         endforeach;
 
-        arsort($score, SORT_NUMERIC);
+        arsort($score,SORT_NUMERIC);
 
         $rank = 0;
         $lastScore = null;
@@ -77,5 +87,10 @@ class Ftpt extends Method implements MethodInterface
 
         $this->_Stats = $score;
         $this->_Result = $this->createResult($result);
+    }
+
+    protected function getScoreByCandidateRanking (int $CandidatesRanked) : float
+    {
+        return $this->_selfElection->countCandidates() + static::$starting - 1 - $CandidatesRanked;
     }
 }

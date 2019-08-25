@@ -8,6 +8,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 ## CondorcetPHP\Condorcet\Algo\Pairwise Class  
 
 * [public Algo\Pairwise->getExplicitPairwise()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md)  
+* [public Algo\Pairwise->getObjectVersion()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Candidate Class  
 
 * [public Candidate->__construct()](Candidate%20Class/public%20Candidate--__construct.md)  
@@ -58,7 +59,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getCandidatesList()](Election%20Class/public%20Election--getCandidatesList.md)  
 * [public Election->getCandidatesListAsString()](Election%20Class/public%20Election--getCandidatesListAsString.md)  
 * [public Election->getChecksum()](Election%20Class/public%20Election--getChecksum.md)  
-* [public Election->getConfig()](Election%20Class/public%20Election--getConfig.md)  
 * [public Election->getConstraints()](Election%20Class/public%20Election--getConstraints.md)  
 * [public Election->getExplicitPairwise()](Election%20Class/public%20Election--getExplicitPairwise.md)  
 * [public Election->getGlobalTimer()](Election%20Class/public%20Election--getGlobalTimer.md)  
@@ -82,12 +82,9 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->removeVotesByTags()](Election%20Class/public%20Election--removeVotesByTags.md)  
 * [public Election->setExternalDataHandler()](Election%20Class/public%20Election--setExternalDataHandler.md)  
 * [public Election->setImplicitRanking()](Election%20Class/public%20Election--setImplicitRanking.md)  
+* [public Election->sumValidVotesWeightWithConstraints()](Election%20Class/public%20Election--sumValidVotesWeightWithConstraints.md)  
 * [public Election->sumVotesWeight()](Election%20Class/public%20Election--sumVotesWeight.md)  
-* [public Election->sumVotesWeightWithConstraints()](Election%20Class/public%20Election--sumVotesWeightWithConstraints.md)  
 * [public Election->testIfVoteIsValidUnderElectionConstraints()](Election%20Class/public%20Election--testIfVoteIsValidUnderElectionConstraints.md)  
-## CondorcetPHP\Condorcet\Pairwise Class  
-
-* [public Pairwise->getObjectVersion()](Pairwise%20Class/public%20Pairwise--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Result Class  
 
 * [public Result->getBuildTimeStamp()](Result%20Class/public%20Result--getBuildTimeStamp.md)  

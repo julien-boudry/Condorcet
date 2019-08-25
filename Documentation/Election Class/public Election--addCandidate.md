@@ -15,7 +15,7 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate na
 
 ### Return value:   
 
-The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
+*(CondorcetPHP\Condorcet\Candidate)* The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
 
 
 ---------------------------------------

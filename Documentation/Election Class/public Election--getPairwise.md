@@ -11,7 +11,7 @@ Return the Pairwise.
 
 ### Return value:   
 
-Pairwise object.
+*(\CondorcetPHP\Condorcet\Algo\Pairwise)* Pairwise object.
 
 
 ---------------------------------------

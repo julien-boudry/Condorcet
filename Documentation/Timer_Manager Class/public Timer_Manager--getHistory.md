@@ -11,7 +11,7 @@ Return benchmarked actions history.
 
 ### Return value:   
 
-An explicit array with history.
+*(array)* An explicit array with history.
 
 
 ---------------------------------------

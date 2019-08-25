@@ -15,7 +15,7 @@ Condorcet election to check.
 
 ### Return value:   
 
-(bool) True or False.
+*(bool)* True or False.
 
 
 ---------------------------------------

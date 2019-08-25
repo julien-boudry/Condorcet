@@ -10,8 +10,9 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
+use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 class RankedPairsMargin extends RankedPairs_Core

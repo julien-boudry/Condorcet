@@ -17,7 +17,7 @@ New rule.
 
 ### Return value:   
 
-Return True
+*(bool)* Return True
 
 
 ---------------------------------------

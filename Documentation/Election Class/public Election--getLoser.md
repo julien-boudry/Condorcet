@@ -20,7 +20,7 @@ If null, Natural Condorcet algorithm will be use.
 
 ### Return value:   
 
-Candidate object given. Null if there are no available winner or loser.
+*(?mixed)* Candidate object given. Null if there are no available winner or loser.
 
 If you use an advanced method instead of Natural, you can get an array with multiples losers.
 

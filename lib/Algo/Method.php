@@ -20,7 +20,7 @@ abstract class Method
 {
     use CondorcetVersion;
 
-    public static ?int $_maxCandidates = null;
+    public static ?int $MaxCandidates = null;
 
     protected Election $_selfElection;
     protected ?Result $_Result= null;
@@ -29,8 +29,8 @@ abstract class Method
     {
         $this->_selfElection = $mother;
 
-        if (!is_null(static::$_maxCandidates) && $this->_selfElection->countCandidates() > static::$_maxCandidates) :
-            throw new CondorcetException(101, static::METHOD_NAME[0].' is configured to accept only '.static::$_maxCandidates.' candidates');
+        if (!is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
+            throw new CondorcetException(101, static::METHOD_NAME[0].' is configured to accept only '.static::$MaxCandidates.' candidates');
         endif;
     }
 

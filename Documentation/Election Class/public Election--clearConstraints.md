@@ -11,7 +11,7 @@ Clear all constraints rules and clear previous results.
 
 ### Return value:   
 
-Return True.
+*(bool)* Return True.
 
 
 ---------------------------------------

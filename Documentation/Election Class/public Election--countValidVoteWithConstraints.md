@@ -11,7 +11,7 @@ Count the number of actual registered and valid vote for this election. This met
 
 ### Return value:   
 
-(int) Number of valid and registered vote into this election.
+*(int)* Number of valid and registered vote into this election.
 
 
 ---------------------------------------
@@ -20,4 +20,4 @@ Count the number of actual registered and valid vote for this election. This met
 
 * [Election::countInvalidVoteWithConstraints](../Election%20Class/public%20Election--countInvalidVoteWithConstraints.md)    
 * [Election::countVotes](../Election%20Class/public%20Election--countVotes.md)    
-* [Election::sumVotesWeightWithConstraints](../Election%20Class/public%20Election--sumVotesWeightWithConstraints.md)    
+* [Election::sumValidVotesWeightWithConstraints](../Election%20Class/public%20Election--sumValidVotesWeightWithConstraints.md)    

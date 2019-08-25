@@ -12,12 +12,6 @@ Build a candidate.
 ##### **name:** *string*   
 Candidate Name    
 
-
-### Return value:   
-
-
-
-
 ---------------------------------------
 
 ### Related method(s)      

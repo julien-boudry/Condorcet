@@ -15,7 +15,7 @@ Null will desactivate this functionnality. An integer will fix the limit.
 
 ### Return value:   
 
-*(int or null)* The new limit.
+*(?int)* *(int or null)* The new limit.
 
 
 ---------------------------------------

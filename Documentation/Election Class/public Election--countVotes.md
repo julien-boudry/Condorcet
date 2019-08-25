@@ -19,7 +19,7 @@ Count Votes with this tag ou without this tag.
 
 ### Return value:   
 
-(int) Number of valid and registered vote into this election.
+*(int)* Number of valid and registered vote into this election.
 
 
 ---------------------------------------

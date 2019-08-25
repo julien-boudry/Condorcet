@@ -10,8 +10,9 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Copeland;
 
+use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 
 // Copeland is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Copeland_method
 class Copeland extends PairwiseStatsBased_Core

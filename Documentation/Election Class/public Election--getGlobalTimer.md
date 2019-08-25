@@ -11,7 +11,7 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ### Return value:   
 
-(Float) Timer
+*(float)* (Float) Timer
 
 
 ---------------------------------------

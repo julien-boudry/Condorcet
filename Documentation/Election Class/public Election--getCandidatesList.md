@@ -11,7 +11,7 @@ Return a list of registered Candidate into this election.
 
 ### Return value:   
 
-(array) List of Candidate into an array.
+*(array)* List of Candidate into an array.
 
 
 ---------------------------------------

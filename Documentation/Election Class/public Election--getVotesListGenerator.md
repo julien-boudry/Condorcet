@@ -20,7 +20,7 @@ Usefull if your work on very large election with an external DataHandler, becaus
 
 ### Return value:   
 
-*(\Generator)* Populated by each Vote object.
+*(\Generator)* *(\Generator)* Populated by each Vote object.
 
 
 ---------------------------------------

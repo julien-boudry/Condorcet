@@ -11,5 +11,5 @@ Get the Condorcet PHP version that build this Result.
 
 ### Return value:   
 
-(string) Condorcet PHP version string format.
+*(float)* Condorcet PHP version string format.
 

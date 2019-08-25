@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
 
 use CondorcetPHP\Condorcet\Result;
@@ -22,7 +22,7 @@ use CondorcetPHP\Condorcet\Algo\MethodInterface;
 class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-        public static ?int $_maxCandidates = 40;
+        public static ?int $MaxCandidates = 40;
 
     // Ranked Pairs
     protected array $_PairwiseSort;

@@ -22,7 +22,7 @@
     Count number of linked election to this object.
   return_type: int
   return: |
-    (int) Number of linked elections.
+    Number of linked elections.
   related:
     - 'Vote::countLinks'
     - 'Candidate::countLinks'
@@ -44,7 +44,7 @@
     Get elections object linked to this Vote or Candidate object.
   return_type: array
   return: |
-    (array) Populated by each elections Condorcet object.
+    Populated by each elections Condorcet object.
   related:
     - 'Vote::countLinks'
     - 'Candidate::countLinks'
@@ -71,7 +71,7 @@
       text: Condorcet election to check.
   return_type: bool
   return: |
-    (bool) True or False.
+    True or False.
   related:
   related:
     - 'Vote::countLinks'
@@ -86,7 +86,7 @@
   class:
     - Candidate
     - Election
-    - Pairwise
+    - Algo\Pairwise
     - CondorcetException
     - Result
     - Vote
@@ -108,7 +108,7 @@
         * false will return : '2.0.0'
   return_type: string
   return: |
-    *(string)* Condorcet PHP version.
+    Condorcet PHP version.
   related:
     - 'static Condorcet::getVersion'
   publish: true
@@ -171,7 +171,7 @@
       text: Include the natural Condorcet base algorithm.
   return_type: array
   return: |
-    *(array)* Populated by method string name. You can use it on getResult ... and others methods.
+    Populated by method string name. You can use it on getResult ... and others methods.
   related:
     - 'static Condorcet::isAuthMethod'
   publish: true
@@ -186,7 +186,7 @@
     Return the Condorcet static default method for the new Condorcet object.
   return_type: string
   return: |
-    *(string)* Method name.
+    Method name.
   related:
     - 'static Condorcet::getAuthMethods'
     - 'static Condorcet::setDefaultMethod'
@@ -210,7 +210,7 @@
         * false will return : '2.0.0'
   return_type: string
   return: |
-    *(string)* Condorcet PHP version.
+    Condorcet PHP version.
   related:
     - 'Election::getObjectVersion'
   publish: true
@@ -229,7 +229,7 @@
       required: true
   return_type: bool
   return: |
-    *(bool)* True False
+    True False
   related:
     - 'static Condorcet::getAuthMethods'
 
@@ -250,7 +250,7 @@
       text: Method Name.
   return_type: bool
   return: |
-    (bool) In case of success, return TRUE
+    In case of success, return TRUE
   related:
     - 'static Condorcet::getDefaultMethod'
   publish: true
@@ -266,8 +266,6 @@
   static: false
   description: |
     Build a new Election.
-  return: |
-    NULL
   publish: true
 
 - 
@@ -425,7 +423,7 @@
     Count the number of registered candidate
   return_type: int
   return: |
-    (int) Number of registered candidate for this election.
+    Number of registered candidate for this election.
   related:
     - 'Election::getCandidatesList'
   publish: true
@@ -451,7 +449,7 @@
       text: Count Votes with this tag ou without this tag.
   return_type: int
   return: |
-    (int) Number of valid and registered vote into this election.
+    Number of valid and registered vote into this election.
   related:
     - 'Election::getVotesList'
     - 'Election::countValidVoteWithConstraints'
@@ -467,11 +465,11 @@
     Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
   return_type: int
   return: |
-    (int) Number of valid and registered vote into this election.
+    Number of valid and registered vote into this election.
   related:
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countVotes'
-    - 'Election::sumVotesWeightWithConstraints'
+    - 'Election::sumValidVotesWeightWithConstraints'
   publish: true
 
 -
@@ -484,11 +482,11 @@
     Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
   return_type: int
   return: |
-    (int) Number of valid and registered vote into this election.
+    Number of valid and registered vote into this election.
   related:
     - 'Election::countInvalidVoteWithConstraints'
     - 'Election::countVotes'
-    - 'Election::sumVotesWeightWithConstraints'
+    - 'Election::sumValidVotesWeightWithConstraints'
   publish: true
 
 - 
@@ -519,7 +517,7 @@
     Return a list of registered Candidate into this election.
   return_type: array
   return: |
-    (array) List of Candidate into an array.
+    List of Candidate into an array.
   related:
     - 'Election::countCandidates'
   publish: true
@@ -534,7 +532,7 @@
     Return a list of registered Candidate into this election.
   return_type: array
   return: |
-    (array) List of Candidate into an array populated by strign instead CandidateObject.
+    List of Candidate into an array populated by strign instead CandidateObject.
   related:
     - 'Election::countCandidates'
   publish: true
@@ -556,26 +554,10 @@
 
   return_type: string
   return: |
-    (string) SHA-2 256 bits Hexadecimal
+    SHA-2 256 bits Hexadecimal
 
   examples:
     'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum'
-  publish: true
-
-- 
-  class: Election
-  type: method
-  visibility: public
-  name: getConfig
-  static: false
-  description: |
-    Get some config summary for this object
-  return_type: array
-  return: |
-    An explicit array.
-  related:
-    - 'static Condorcet::isAuthMethod'
-    - 'static Condorcet::getAuthMethods'
   publish: true
 
 -
@@ -700,7 +682,7 @@
     If it is false, then the candidates not ranked, are not taken into account at all.
   return_type: bool
   return: |
-    (bool) True / False
+    True / False
   related:
     - 'Election::setImplicitRanking'
   publish: true
@@ -772,7 +754,7 @@
       required: true
   return_type: array
   return: |
-    *(array)* Populated by each Vote object.
+    Populated by each Vote object.
   related:
     - 'Election::countVotes'
     - 'Election::getVotesListAsString'
@@ -813,7 +795,7 @@
     Get registered vote list.
   return_type: string
   return: |
-    *(string)* Return a string like :<br>
+    Return a string like :<br>
     A > B > C * 3<br>
     A = B > C * 6
   related:
@@ -831,7 +813,7 @@
     If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
   return_type: bool
   return: |
-    (bool) True / False
+    True / False
   related:
     - 'Election::allowVoteWeight'
   publish: true
@@ -887,7 +869,7 @@
       text: Json string input.
   return_type: array
   return: |
-    *(array)* List of new registered candidate object.
+    List of new registered candidate object.
   related:
     - 'Election::addCandidate'
     - 'Election::parseCandidates'
@@ -911,7 +893,7 @@
       text: Json string input.
   return_type: array
   return: |
-    *(array)* List of new registered vote object.
+    List of new registered vote object.
   related:
     - 'Election::addVote'
     - 'Election::parseVotes'
@@ -939,7 +921,7 @@
       text: If true, the input is evalatued as path to text file.
   return_type: array
   return: |
-    *(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
+    List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
   related:
     - 'Election::addCandidate'
     - 'Election::addCandidatesFromJson'
@@ -967,7 +949,7 @@
       text: If true, the input is evalatued as path to text file.
   return_type: array
   return: |
-    *(array)* List of new registered vote object. Count it for checking if all candidates have been correctly registered.
+    List of new registered vote object. Count it for checking if all candidates have been correctly registered.
   related:
     - 'Election::addVote'
     - 'Election::parseCandidates'
@@ -997,7 +979,7 @@
           * Array populated by string matching Candidate name   
   return_type: array
   return: |
-    *(array)* List of removed CondorcetPHP\Condorcet\Candidate object.
+    List of removed CondorcetPHP\Condorcet\Candidate object.
   related:
     - 'Election::addCandidate'
     - 'Election::getCandidatesList'
@@ -1015,7 +997,7 @@
     Remove an external driver to store vote on very large election. And import his data into classical memory.
   return_type: bool
   return: |
-    *(bool)* True if success. Else throw an Exception.
+    True if success. Else throw an Exception.
   related:
     - 'Election::setExternalDataHandler'
   publish: true
@@ -1042,7 +1024,7 @@
       required: true      
   return_type: array 
   return: |
-    *(array)* List of removed CondorcetPHP\Condorcet\Vote object.
+    List of removed CondorcetPHP\Condorcet\Vote object.
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
@@ -1076,7 +1058,7 @@
       default: true
   return_type: array
   return: |
-    *(array)* List of removed CondorcetPHP\Condorcet\Vote object.
+    List of removed CondorcetPHP\Condorcet\Vote object.
   related:
     - 'Election::addVote'
     - 'Election::getVotesList'
@@ -1099,7 +1081,7 @@
       required: true
   return_type: bool
   return: |
-    *(bool)* True if success. Else throw an Exception.
+    True if success. Else throw an Exception.
   related:
     - 'Election::removeExternalDataHandler'
   examples:
@@ -1188,7 +1170,7 @@
   class: Election
   type: method
   visibility: public
-  name: sumVotesWeightWithConstraints
+  name: sumValidVotesWeightWithConstraints
   static: false
   description: |
     Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
@@ -1196,7 +1178,6 @@
   return: |
     (Int) Total vote weight
   related:
-    - 'Election::sumValidVotesWeightWithConstraints'
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countInvalidVoteWithConstraints'
   publish: true
@@ -1242,8 +1223,6 @@
       type: string
       required: true
       text: Candidate Name
-  return: |
-    
   related:
     - 'Candidate::setName'
   examples:
@@ -1261,7 +1240,7 @@
     Get the timestamp corresponding of the creation of this candidate.
   return_type: float
   return: |
-    *(float)* Timestamp
+    Timestamp
   related:
     - 'Candidate::getTimestamp'
   publish: true
@@ -1276,7 +1255,7 @@
     Get the timestamp corresponding of the last namming change.
   return_type: float
   return: |
-    *(float)* Timestamp
+    Timestamp
   related:
     - 'Candidate::getCreateTimestamp'
   publish: true
@@ -1291,7 +1270,7 @@
     Return an history of each namming change, with timestamp.
   return_type: array
   return: |
-    *(array)* An explicit multi-dimenssional array.
+    An explicit multi-dimenssional array.
   related:
     - 'Candidate::getCreateTimestamp'
   publish: true
@@ -1306,7 +1285,7 @@
     Get the candidate name.
   return_type: string
   return: |
-    *(string)* Candidate name.
+    Candidate name.
   related:
     - 'Candidate::getHistory'
     - 'Candidate::setName'
@@ -1328,7 +1307,7 @@
       text: Candidate Name
   return_type: bool
   return: |
-    *(bool)* In case of success, return TRUE
+    In case of success, return TRUE
   publish: true
 
 
@@ -1359,8 +1338,6 @@
       default: 'null'
       required: false
       text: Set your own timestamp metadata on Ranking.
-  return: |
-    _None_
   related:
     - 'Vote::setRanking'
     - 'Vote::addTags'
@@ -1406,7 +1383,7 @@
       text: They can be added by string separated by commas or an array.
   return_type: array
   return: |
-    *(array)* List of deleted tags.
+    List of deleted tags.
   related:
     - 'Vote::addTags'
   examples:
@@ -1423,7 +1400,7 @@
     Remove all registered tag(s) on this Vote.
   return_type: bool
   return: |
-    *(bool)* Return True.
+    Return True.
   related:
     - 'Vote::addTags'
     - 'Vote::removeTags'
@@ -1439,7 +1416,7 @@
     Count the number of candidate provide into the active Ranking set.
   return_type: int
   return: |
-    *(int)* Number of Candidate into ranking.
+    Number of Candidate into ranking.
   publish: true
 
 - 
@@ -1452,7 +1429,7 @@
     Get all the candidates object set in the last ranking of this Vote.
   return_type: array
   return: |
-    *(array)* Candidates list.
+    Candidates list.
   related:
     - 'Vote::getRanking'
     - 'Vote::countRankingCandidates'
@@ -1473,7 +1450,7 @@
       text: An election is already linked to Vote.
   return_type: array
   return: |
-    *(array)* Contextual full ranking.
+    Contextual full ranking.
   related:
     - 'Vote::getContextualRankingAsString'
     - 'Vote::getRanking'
@@ -1494,7 +1471,7 @@
       text: An election is already linked to Vote.
   return_type: array
   return: |
-    *(array)* Contextual full ranking, with string instead Candidate object.
+    Contextual full ranking, with string instead Candidate object.
   related:
     - 'Vote::getContextualRanking'
     - 'Vote::getRanking'
@@ -1510,7 +1487,7 @@
     Get the timestamp corresponding of the creation of this vote.
   return_type: float
   return: |
-    *(float)* Timestamp
+    Timestamp
   related:
     - 'Candidate::getTimestamp'
   publish: true
@@ -1525,7 +1502,7 @@
     Get the timestamp corresponding of the last vote change.
   return_type: float
   return: |
-    *(float)* Timestamp
+    Timestamp
   related:
     - 'Vote::getCreateTimestamp'
   publish: true
@@ -1540,7 +1517,7 @@
     Return an history of each vote change, with timestamp.
   return_type: array
   return: |
-    *(array)* An explicit multi-dimenssional array.
+    An explicit multi-dimenssional array.
   related:
     - 'Vote::getCreateTimestamp'
   publish: true
@@ -1555,7 +1532,7 @@
     Get the actual Ranking of this Vote.
   return_type: array
   return: |
-    *(array)* Multidimenssionnal array populated by Candidate object.
+    Multidimenssionnal array populated by Candidate object.
   related:
     - 'Vote::setRanking'
   publish: true
@@ -1570,7 +1547,7 @@
     Get the current ranking as a string format.
   return_type: string
   return: |
-    *(string)* String like 'A>D=C>B'
+    String like 'A>D=C>B'
   related:
     - 'Vote::getRanking'
   publish: true 
@@ -1585,7 +1562,7 @@
     Get the registered tags for this Vote.
   return_type: array
   return: |
-    *(array)* List of registered tag.
+    List of registered tag.
   related:
     - 'Vote::addTags'
     - 'Vote::removeTags'
@@ -1711,7 +1688,7 @@
     Get result as string
   return_type: string
   return: |
-    (string) Result ranking as string.
+    Result ranking as string.
   related:
     - 'Election::getResult'
     - 'Result::getResultAsArray'
@@ -1795,7 +1772,7 @@
     Get the The algorithmic method used for this result.
   return_type: string
   return: |
-    (string) Method name.
+    Method name.
   related:
     - 'Result::getClassGenerator'
   publish: true
@@ -1811,7 +1788,7 @@
     Get the The algorithmic method used for this result.
   return_type: string
   return: |
-    (string) Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
+    Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
   related:
     - 'Result::getMethod'
   publish: true
@@ -1827,7 +1804,7 @@
     Get the timestamp of this result.
   return_type: float
   return: |
-    (float) Microsecond timestamp.
+    Microsecond timestamp.
   publish: true
 
 
@@ -1841,7 +1818,7 @@
     Get the Condorcet PHP version that build this Result.
   return_type: float
   return: |
-    (string) Condorcet PHP version string format.
+    Condorcet PHP version string format.
   publish: true
 
 
