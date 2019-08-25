@@ -10,12 +10,14 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
+
+use CondorcetPHP\Condorcet\Result;
 
 use CondorcetPHP\Condorcet\Algo\Method;
 use CondorcetPHP\Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount;
 
-use CondorcetPHP\Condorcet\Result;
 
 class DowdallSystem extends BordaCount
 {

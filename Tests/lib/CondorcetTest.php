@@ -36,7 +36,7 @@ class CondorcetTest extends TestCase
     public function testAuthMethod ()
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
-        self::assertSame(__NAMESPACE__.'\Algo\Methods\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
+        self::assertSame(__NAMESPACE__.'\Algo\Methods\Schulze\SchulzeWinning',Condorcet::isAuthMethod('Schulze Winning'));
     }
 
     public function testAddMethod ()
@@ -44,14 +44,14 @@ class CondorcetTest extends TestCase
         $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
         $this->expectExceptionCode(25);
 
-        $algoClassPath = __NAMESPACE__.'\\CondorcetTest_ValidAlgorithmName';
+        $algoClassPath = __NAMESPACE__.'\CondorcetTest_ValidAlgorithmName';
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
 
         self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
 
         // Try to add existing alias
-        $algoClassPath = __NAMESPACE__.'\\CondorcetTest_DuplicateAlgorithmAlias';
+        $algoClassPath = __NAMESPACE__.'\CondorcetTest_DuplicateAlgorithmAlias';
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
@@ -66,7 +66,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
 
         self::assertSame(
-            __NAMESPACE__.'\\CondorcetTest_UnvalidAlgorithmName',
+            __NAMESPACE__.'\CondorcetTest_UnvalidAlgorithmName',
             Condorcet::isAuthMethod('FirstMethodName')
         );
     }
@@ -87,12 +87,12 @@ class CondorcetTest extends TestCase
     public function testMethodAlias ()
     {
         self::assertSame(
-            __NAMESPACE__.'\\Algo\\Methods\\KemenyYoung',
+            __NAMESPACE__.'\Algo\Methods\KemenyYoung\KemenyYoung',
             Condorcet::isAuthMethod('kemeny–Young')
         );
 
         self::assertSame(
-            __NAMESPACE__.'\\Algo\\Methods\\KemenyYoung',
+            __NAMESPACE__.'\Algo\Methods\KemenyYoung\KemenyYoung',
             Condorcet::isAuthMethod('Maximum likelihood Method')
         );
     }

@@ -10,15 +10,16 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
+use CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core;
 
-class SchulzeWinning extends Schulze_Core
+class SchulzeMargin extends Schulze_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Schulze Winning','Schulze','SchulzeWinning','Schulze_Winning','Schwartz Sequential Dropping','SSD','Cloneproof Schwartz Sequential Dropping','CSSD','Beatpath','Beatpath Method','Beatpath Winner','Path Voting','Path Winner'];
+    public const METHOD_NAME = ['Schulze Margin','SchulzeMargin','Schulze_Margin'];
 
     protected function schulzeVariant (int &$i, int &$j) : int {
-        return $this->_selfElection->getPairwise()[$i]['win'][$j];
+        return $this->_selfElection->getPairwise()[$i]['win'][$j] - $this->_selfElection->getPairwise()[$j]['win'][$i];
     }
 }

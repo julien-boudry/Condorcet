@@ -10,16 +10,18 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Minimax;
+
+use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-class MinimaxMargin extends PairwiseStatsBased_Core
+class MinimaxOpposition extends PairwiseStatsBased_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Minimax Margin','MinimaxMargin','MinimaxMargin','Minimax_Margin'];
+    public const METHOD_NAME = ['Minimax Opposition','MinimaxOpposition','Minimax_Opposition'];
 
-    protected $_countType = 'worst_pairwise_defeat_margin';
+    protected $_countType = 'worst_pairwise_opposition';
 
 
 /////////// COMPUTE ///////////

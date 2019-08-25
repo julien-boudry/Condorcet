@@ -12,22 +12,22 @@ namespace CondorcetPHP\Condorcet;
 
 
 // Registering native Condorcet Methods implementation
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\BordaCount');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Copeland');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonQuick');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DodgsonTidemanApproximation');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\DowdallSystem');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\Ftpt');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\InstantRunoff');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\KemenyYoung');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxWinning');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxMargin');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\MinimaxOpposition');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairsMargin');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\RankedPairsWinning');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeWinning');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeMargin');
-Condorcet::addMethod(__NAMESPACE__.'\\Algo\\Methods\\SchulzeRatio');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Borda\BordaCount');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Copeland\Copeland');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Dodgson\DodgsonQuick');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Dodgson\DodgsonTidemanApproximation');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Borda\DowdallSystem');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Ftpt');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\InstantRunoff');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\KemenyYoung\KemenyYoung');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Minimax\MinimaxWinning');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\MiniMax\MinimaxMargin');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Minimax\MinimaxOpposition');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsMargin');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsWinning');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Schulze\SchulzeWinning');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Schulze\SchulzeMargin');
+Condorcet::addMethod(__NAMESPACE__.'\Algo\Methods\Schulze\SchulzeRatio');
 
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');
@@ -38,10 +38,10 @@ abstract class Condorcet
 /////////// CONSTANTS ///////////
     public const VERSION = '2.0.0';
 
-    public const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic';
+    public const CONDORCET_BASIC_CLASS = __NAMESPACE__.'\Algo\Methods\CondorcetBasic';
 
     protected static $_defaultMethod = null;
-    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic')::METHOD_NAME ];
+    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (__NAMESPACE__.'\Algo\Methods\CondorcetBasic')::METHOD_NAME ];
 
 
 /////////// STATICS METHODS ///////////
@@ -128,7 +128,7 @@ abstract class Condorcet
                 throw new CondorcetException(9);
             endif;
 
-            if ( !is_subclass_of($method, __NAMESPACE__.'\\Algo\\MethodInterface') || !is_subclass_of($method,__NAMESPACE__.'\\Algo\\Method') ) :
+            if ( !is_subclass_of($method, __NAMESPACE__.'\Algo\MethodInterface') || !is_subclass_of($method,__NAMESPACE__.'\Algo\Method') ) :
                 throw new CondorcetException(10);
             endif;
 
