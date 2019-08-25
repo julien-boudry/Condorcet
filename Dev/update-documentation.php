@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
+    require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/autoload.php');
+
     // Build command
 
-    $call = str_replace('/', DIRECTORY_SEPARATOR, __DIR__.'/../vendor/bin/condorcet-doc');
+    $call = str_replace('/', DIRECTORY_SEPARATOR, __DIR__.'/../vendor/condorcetphp/condorcet-doc-generator/bin/condorcet-doc-generator.php');
     $path = substr(__DIR__, 0, strlen(__DIR__) - 4);
     $path .= DIRECTORY_SEPARATOR.'Documentation';
 
@@ -34,4 +36,5 @@ declare(strict_types=1);
 
     // Execute command
 
-    shell_exec($cmd);
+    $argv[1] = $path;
+    require $call;
