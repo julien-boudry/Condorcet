@@ -32,12 +32,12 @@ class CondorcetException extends \Exception
         11 => 'You try to unserialize an object version older than your actual Class version. This is a problematic thing',
         12 => 'You have exceeded the number of votes allowed for this method.',
         13 => 'Formatting error: You must specify an integer',
-        14 => 'parseVote() must take a string (raw or path) as argument',
+
         15 => 'Input must be valid Json format',
         16 => 'You have exceeded the maximum number of votes allowed per election ({{ infos1 }}).',
         17 => 'Bad tags input format',
         18 => 'New vote can\'t match Candidate of his elections',
-        19 => 'This name is not allowed in because of a namesake in the election in which the object participates.',
+        19 => 'This name is not allowed in because of a namesake in the election in which the candidate object participates.',
         20 => 'You need to specify one or more candidates before voting',
         21 => 'Bad vote timestamp format',
         22 => 'This context is not valid',
@@ -48,7 +48,7 @@ class CondorcetException extends \Exception
         27 => 'The vote constraint class you want has not been defined',
         28 => 'The vote constraint class you want is not correct',
         29 => 'This vote constraint is already registered',
-        30 => 'You can\'t add constraint after starting to record votes ',
+
         31 => 'Vote object already registred',
         32 => 'Invalid Input',
         33 => 'This vote is not in this election',

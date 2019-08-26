@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\CondorcetInternalException;
 use CondorcetPHP\Condorcet\CondorcetUtil;
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
@@ -153,7 +154,7 @@ trait VotesProcess
         try {
             $vote->registerLink($this);
             $this->_Votes[] = $vote;
-        } catch (CondorcetException $e) {
+        } catch (CondorcetInternalException $e) {
             // Security : Check if vote object not already register
             throw new CondorcetException(31);
         }
