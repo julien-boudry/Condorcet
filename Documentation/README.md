@@ -29,9 +29,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static Condorcet::getVersion()](Condorcet%20Class/public%20static%20Condorcet--getVersion.md)  
 * [public static Condorcet::isAuthMethod()](Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)  
 * [public static Condorcet::setDefaultMethod()](Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md)  
-## CondorcetPHP\Condorcet\CondorcetException Class  
-
-* [public CondorcetException->getObjectVersion()](CondorcetException%20Class/public%20CondorcetException--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\CondorcetUtil Class  
 
 * [public static CondorcetUtil::format()](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md)  
@@ -99,6 +96,9 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getResultAsString()](Result%20Class/public%20Result--getResultAsString.md)  
 * [public Result->getStats()](Result%20Class/public%20Result--getStats.md)  
 * [public Result->getWinner()](Result%20Class/public%20Result--getWinner.md)  
+## CondorcetPHP\Condorcet\Throwable\CondorcetException Class  
+
+* [public Throwable\CondorcetException->getObjectVersion()](Throwable_CondorcetException%20Class/public%20Throwable_CondorcetException--getObjectVersion.md)  
 ## CondorcetPHP\Condorcet\Timer\Manager Class  
 
 * [public Timer\Manager->getHistory()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md)  

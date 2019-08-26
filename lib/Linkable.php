@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
 
 trait Linkable
 {

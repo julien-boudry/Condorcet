@@ -24,7 +24,7 @@ class ConstraintTest extends TestCase
 
     public function testAddConstraintAndClear ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(29);
 
         $class = Constraints\NoTie::class;
@@ -44,7 +44,7 @@ class ConstraintTest extends TestCase
 
     public function testPhantomClass ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(27);
 
         $class = Constraints\NoJuju::class;
@@ -54,7 +54,7 @@ class ConstraintTest extends TestCase
 
     public function testBadClass ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(28);
 
         $class = Vote::class;

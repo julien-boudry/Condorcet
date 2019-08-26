@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\DataManager;
 
 
-use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
 

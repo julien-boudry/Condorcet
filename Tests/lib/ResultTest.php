@@ -153,7 +153,7 @@ class ResultTest extends TestCase
 
     public function testOffsetSet ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -168,7 +168,7 @@ class ResultTest extends TestCase
 
     public function testOffUnset ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

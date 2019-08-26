@@ -8,7 +8,9 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet;
+namespace CondorcetPHP\Condorcet\Throwable;
+
+use CondorcetPHP\Condorcet\CondorcetVersion;
 
 
 // Custom Exeption

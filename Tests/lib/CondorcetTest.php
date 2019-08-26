@@ -27,7 +27,7 @@ class CondorcetTest extends TestCase
 
     public function testBadClassMethod ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(9);
 
         Condorcet::addMethod('sjskkdlkkzksh');
@@ -41,7 +41,7 @@ class CondorcetTest extends TestCase
 
     public function testAddMethod ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(25);
 
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
@@ -58,7 +58,7 @@ class CondorcetTest extends TestCase
 
     public function testAddUnvalidMethod ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(10);
 
         $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
@@ -78,7 +78,7 @@ class CondorcetTest extends TestCase
 
     public function testEmptyMethod ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(8);
 
         Condorcet::isAuthMethod('');

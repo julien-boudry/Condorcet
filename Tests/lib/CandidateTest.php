@@ -41,7 +41,7 @@ class CandidateTest extends TestCase
 
     public function testToLongName ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(1);
 
         new Candidate (
@@ -51,7 +51,7 @@ class CandidateTest extends TestCase
 
     public function testCandidateBadClass ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(1);
 
         (new Election)->addCandidate(new \stdClass );
@@ -59,7 +59,7 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate1 ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
 
         $election1 = new Election ();
@@ -72,7 +72,7 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate2 ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
 
         $election1 = new Election ();
@@ -82,7 +82,7 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate3 ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
 
         $election1 = new Election ();
@@ -106,7 +106,7 @@ class CandidateTest extends TestCase
 
     function testSameCandidateToMultipleElection ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(19);
 
         $election1 = new Election ();

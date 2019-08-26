@@ -132,7 +132,7 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertTrue($electionWithDb->removeExternalDataHandler());
 
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(23);
 
         $electionWithDb->removeExternalDataHandler();
@@ -255,7 +255,7 @@ class PdoHandlerDriverTest extends TestCase
 
     public function testMultipleHandler ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(24);
 
         $electionWithDb = new Election;

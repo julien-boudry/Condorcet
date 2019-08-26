@@ -31,7 +31,7 @@ class VotesManagerTest extends TestCase
 
     public function testOffsetSet()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
         $vote = new Vote([]);
 

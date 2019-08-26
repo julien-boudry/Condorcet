@@ -13,7 +13,7 @@ class TimerTest extends TestCase
 {
     public function testInvalidChrono ()
     {
-        self::expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(0);
         self::expectExceptionMessage('Only chrono linked to this Manager can be used');
 

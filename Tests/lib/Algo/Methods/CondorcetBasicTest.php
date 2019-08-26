@@ -126,7 +126,7 @@ class CondorcetBasicTest extends TestCase
 
     public function testNoResultObject ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(102);
 
         $this->election->addCandidate('A');

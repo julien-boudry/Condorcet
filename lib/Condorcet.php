@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+
 
 // Registering native Condorcet Methods implementation
 Condorcet::addMethod( Algo\Methods\Borda\BordaCount::class );

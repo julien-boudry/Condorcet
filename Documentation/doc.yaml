@@ -87,7 +87,7 @@
     - Candidate
     - Election
     - Algo\Pairwise
-    - CondorcetException
+    - Throwable\CondorcetException
     - Result
     - Vote
     - Timer\Manager
@@ -310,7 +310,7 @@
       text: A valid class path. Class must extend VoteConstraint class.
   return_type: bool
   return: |
-    True on success. Throw CondorcetException code 27/28/29 on error.
+    True on success. Throw Throwable\CondorcetException code 27/28/29 on error.
   related:
     - 'Election::getConstraints'
     - 'Election::clearConstraints'

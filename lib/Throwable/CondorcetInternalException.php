@@ -8,17 +8,8 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet;
+namespace CondorcetPHP\Condorcet\Throwable;
 
 
 // Custom Exeption
-class CondorcetInternalError extends \Error
-{
-    use CondorcetVersion;
-
-    public function __construct (string $message)
-    {
-        parent::__construct($message);
-    }
-
-}
+class CondorcetInternalException extends \Exception {}
