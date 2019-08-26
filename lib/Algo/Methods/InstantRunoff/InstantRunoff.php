@@ -124,7 +124,7 @@ class InstantRunoff extends Method implements MethodInterface
                         if (count($oneRank) !== 1) :
                             break;
                         elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
-                            $score[$this->_selfElection->getCandidateKey(reset($oneRank))] += 1;
+                            $score[$this->_selfElection->getCandidateKey($oneRank[array_key_first($oneRank)])] += 1;
                             break 2;
                         endif;
                     endforeach;
