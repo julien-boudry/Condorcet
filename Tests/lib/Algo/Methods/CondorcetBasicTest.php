@@ -140,7 +140,7 @@ class CondorcetBasicTest extends TestCase
             A > C > L
         ');
 
-        $this->election->getResult(__NAMESPACE__.'\\Algo\\Methods\\CondorcetBasic');
+        $this->election->getResult(Algo\Methods\CondorcetBasic::class);
     }
 
 }

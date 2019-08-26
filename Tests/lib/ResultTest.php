@@ -73,7 +73,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsMargin',$this->election1->getResult('Ranked Pairs')->getClassGenerator());
+        self::assertSame(Algo\Methods\RankedPairs\RankedPairsMargin::class,$this->election1->getResult('Ranked Pairs')->getClassGenerator());
     }
 
     public function testMethod ()
