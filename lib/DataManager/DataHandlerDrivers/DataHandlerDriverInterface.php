@@ -20,7 +20,7 @@ interface DataHandlerDriverInterface
         // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
     public function insertEntitys(array $input) : void;
 
-    // Delete Entity with this key. If justTry is true, don't throw Exception if row not exist. Else throw one Concordet/CondorcetInternalError.
+    // Delete Entity with this key. If justTry is true, don't throw Exception if row not exist. Else throw an \CondorcetPHP\Concordet\Throwable\CondorcetInternalError.
     public function deleteOneEntity (int $key, bool $justTry) : ?int;
 
     // Return (int) max register key.
