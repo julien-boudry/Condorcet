@@ -24,10 +24,10 @@ class ConstraintTest extends TestCase
 
     public function testAddConstraintAndClear ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(29);
 
-        $class = __NAMESPACE__.'\\Constraints\\NoTie';
+        $class = Constraints\NoTie::class;
 
         self::assertTrue($this->election->addConstraint($class));
 
@@ -44,27 +44,27 @@ class ConstraintTest extends TestCase
 
     public function testPhantomClass ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(27);
 
-        $class = __NAMESPACE__.'\\Constraints\\NoJuju';
+        $class = Constraints\NoJuju::class;
 
         $this->election->addConstraint($class);
     }
 
     public function testBadClass ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(28);
 
-        $class = __NAMESPACE__.'\\Vote';
+        $class = Vote::class;
 
         $this->election->addConstraint($class);
     }
 
     public function testConstraintsOnVote ()
     {
-        $constraintClass = __NAMESPACE__.'\\Constraints\\NoTie';
+        $constraintClass = Constraints\NoTie::class;
 
         $this->election->parseVotes('
             A>B>C

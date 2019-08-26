@@ -85,7 +85,7 @@ class KemenyYoungTest extends TestCase
 
     public function testMaxCandidates ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);
         $this->expectExceptionMessage('Kemeny–Young is configured to accept only 8 candidates');
 

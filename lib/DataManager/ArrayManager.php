@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\DataManager;
 
 
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator

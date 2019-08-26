@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 
 use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\Method;
 use CondorcetPHP\Condorcet\Algo\Pairwise;

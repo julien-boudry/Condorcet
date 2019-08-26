@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 use CondorcetPHP\Condorcet\Algo\Method;
 use CondorcetPHP\Condorcet\Algo\MethodInterface;
-use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Result;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser

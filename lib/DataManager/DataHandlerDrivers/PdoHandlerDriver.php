@@ -13,7 +13,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
 
-use CondorcetPHP\Condorcet\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use \CondorcetPHP\Condorcet\Throwable\CondorcetInternalError;
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\DataManager\DataContextInterface;
 
@@ -143,7 +144,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         if ($this->_transaction === true) :
             if ($this->_queryError) :
-                throw new CondorcetException;
+                throw new CondorcetInternalError ('Query Error.');
             endif;
 
             $this->_transaction = !$this->_handler->commit();
@@ -175,14 +176,14 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                 );
 
                 if ($this->_prepare['insert'.$group_count.'Entitys']->rowCount() !== $group_count) :
-                    throw new CondorcetException (0,'Tous les Entitys n\'ont pas été insérés');
+                    throw new CondorcetInternalError ('Tous les Entitys n\'ont pas été insérés');
                 endif;
 
                 $this->_prepare['insert'.$group_count.'Entitys']->closeCursor();
             endforeach;
 
             $this->closeTransaction();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->_queryError = true;
             throw $e;
         }
@@ -217,7 +218,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $deleteCount = $this->_prepare['deleteOneEntity']->rowCount();
 
             if (!$justTry && $deleteCount !== 1) :
-                throw new CondorcetException (50);
+                throw new CondorcetInternalError ('Entity deletion failure.');
             endif;
 
             $this->_prepare['deleteOneEntity']->closeCursor();

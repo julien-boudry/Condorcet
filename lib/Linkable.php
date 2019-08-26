@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
 
 trait Linkable
 {
@@ -40,10 +42,10 @@ trait Linkable
 
     public function registerLink (Election $election) : void
     {
-        if (array_search($election, $this->_link, true) === false) :
+        if ( !$this->haveLink($election) ) :
             $this->_link[] = $election;
         else :
-            throw new CondorcetException;
+            throw new CondorcetInternalException ('Link is already registered.');
         endif;
     }
 

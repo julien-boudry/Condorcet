@@ -73,7 +73,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame(__NAMESPACE__.'\Algo\Methods\RankedPairs\RankedPairsMargin',$this->election1->getResult('Ranked Pairs')->getClassGenerator());
+        self::assertSame(Algo\Methods\RankedPairs\RankedPairsMargin::class,$this->election1->getResult('Ranked Pairs')->getClassGenerator());
     }
 
     public function testMethod ()
@@ -153,7 +153,7 @@ class ResultTest extends TestCase
 
     public function testOffsetSet ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -168,7 +168,7 @@ class ResultTest extends TestCase
 
     public function testOffUnset ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\CondorcetException::class);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

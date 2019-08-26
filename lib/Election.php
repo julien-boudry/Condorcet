@@ -16,6 +16,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\ElectionProcess\CandidatesProcess;
 use CondorcetPHP\Condorcet\ElectionProcess\ResultsProcess;
 use CondorcetPHP\Condorcet\ElectionProcess\VotesProcess;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 
@@ -238,7 +239,7 @@ class Election
     {
         if ( !class_exists($constraintClass) ) :
             throw new CondorcetException(27);
-        elseif ( !is_subclass_of($constraintClass, __NAMESPACE__.'\\VoteConstraint') ) :
+        elseif ( !is_subclass_of($constraintClass, VoteConstraint::class) ) :
             throw new CondorcetException(28);
         elseif (in_array($constraintClass,$this->getConstraints(), true)) :
             throw new CondorcetException(29);
