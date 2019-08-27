@@ -10,10 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
-use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\{Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
 // Manage Results for Election class

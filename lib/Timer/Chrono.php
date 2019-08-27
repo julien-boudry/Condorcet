@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Timer;
 
-
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
 class Chrono

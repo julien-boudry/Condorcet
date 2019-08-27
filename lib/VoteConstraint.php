@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-
 abstract class VoteConstraint
 {
     public static function isVoteAllow (Election $election, Vote $vote) : bool

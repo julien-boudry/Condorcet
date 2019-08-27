@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {

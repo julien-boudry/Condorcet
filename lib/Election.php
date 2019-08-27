@@ -10,15 +10,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\ElectionProcess\CandidatesProcess;
-use CondorcetPHP\Condorcet\ElectionProcess\ResultsProcess;
-use CondorcetPHP\Condorcet\ElectionProcess\VotesProcess;
+use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
-
 
 // Base Condorcet class
 class Election
