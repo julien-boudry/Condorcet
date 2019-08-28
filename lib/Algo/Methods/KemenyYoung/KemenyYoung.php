@@ -12,11 +12,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
-use CondorcetPHP\Condorcet\Algo\Tools\Permutation;
-
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Tools\Permutation;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface

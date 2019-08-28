@@ -10,11 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
-use \CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
-use CondorcetPHP\Condorcet\CondorcetUtil;
-use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
+use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
 
 // Manage Results for Election class
 trait VotesProcess

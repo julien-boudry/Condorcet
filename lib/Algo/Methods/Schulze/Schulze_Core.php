@@ -12,10 +12,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
-
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class Schulze_Core extends Method implements MethodInterface

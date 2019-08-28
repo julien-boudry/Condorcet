@@ -12,10 +12,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
-use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 class InstantRunoff extends Method implements MethodInterface
 {

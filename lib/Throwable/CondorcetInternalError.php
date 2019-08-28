@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-
 // Custom Exeption
 class CondorcetInternalError extends \Error
 {

@@ -12,11 +12,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
-use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
-
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 // DODGSON is a Condorcet Algorithm | http://en.wikipedia.org/wiki/DODGSON_method
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface

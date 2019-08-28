@@ -8,12 +8,9 @@
 */
 declare(strict_types=1);
 
-
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\CondorcetVersion;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
 class Pairwise implements \ArrayAccess, \Iterator

@@ -12,10 +12,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Ftpt;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
-
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 class Ftpt extends Method implements MethodInterface
 {

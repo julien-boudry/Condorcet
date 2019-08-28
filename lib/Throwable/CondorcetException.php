@@ -12,7 +12,6 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
-
 // Custom Exeption
 class CondorcetException extends \Exception
 {

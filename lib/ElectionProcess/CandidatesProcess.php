@@ -10,10 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Candidate;
+use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
-use CondorcetPHP\Condorcet\CondorcetUtil;
-
 
 // Manage Candidates for Election class
 trait CandidatesProcess

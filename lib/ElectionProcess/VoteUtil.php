@@ -10,9 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
-
 
 // Base Condorcet class
 abstract class VoteUtil

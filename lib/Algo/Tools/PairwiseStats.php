@@ -8,8 +8,6 @@
 */
 declare(strict_types=1);
 
-
-
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
