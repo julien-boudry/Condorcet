@@ -51,11 +51,15 @@ class Vote implements \Iterator
 
     private $_hashCode;
 
+    private $_electionContext = null;
+
         ///
 
-    public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null)
+    public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
+        $this->_electionContext = $electionContext;
         $tagsFromString = null;
+
         // Vote Weight
         if (is_string($ranking)) :
             $is_voteWeight = mb_strpos($ranking, '^');
@@ -87,6 +91,8 @@ class Vote implements \Iterator
         if (isset($weight)) :
             $this->setWeight($weight);
         endif;
+
+        $this->_electionContext = null;
     }
 
     public function __sleep () : array
@@ -255,6 +261,10 @@ class Vote implements \Iterator
 
         // Ranking
         $candidateCounter = $this->formatRanking($ranking);
+
+        if ($this->_electionContext !== null) :
+            $this->_electionContext->convertRankingCandidates($ranking);
+        endif;
 
         foreach ($this->_link as $link) :
             $link->prepareUpdateVote($this);

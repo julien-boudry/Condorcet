@@ -13,7 +13,7 @@ use CondorcetPHP\Condorcet\Vote;
 class PairwiseUpdateOptimizationBench
 {
     /**
-     * @Iterations(2)
+     * @Iterations(4)
      * @Warmup(1)
      * @Revs(4)
      */
