@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> parseVotes ( string input, bool isFile ) : array
+public $Election -> parseVotes ( string input, bool isFile ) : int
 ```
 
 Import votes from a text source.
@@ -19,7 +19,7 @@ If true, the input is evalatued as path to text file.
 
 ### Return value:   
 
-*(array)* List of new registered vote object. Count it for checking if all candidates have been correctly registered.
+*(int)* Count of the new registered vote.
 
 
 ---------------------------------------

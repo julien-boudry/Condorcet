@@ -228,13 +228,14 @@ trait VotesProcess
         endif;
     }
 
-    public function addVotesFromJson (string $input) : array
+    public function addVotesFromJson (string $input) : int
     {
         $input = CondorcetUtil::prepareJson($input);
 
             //////
 
         $adding = [];
+        $count = 0;
 
         foreach ($input as $record) :
             if (empty($record['vote'])) :
@@ -242,9 +243,9 @@ trait VotesProcess
             endif;
 
             $tags = !isset($record['tag']) ? null : $record['tag'];
-            $multi = !isset($record['multi']) ? 1 : $record['multi'];
+            $multiple = !isset($record['multi']) ? 1 : $record['multi'];
 
-            $adding_predicted_count = count($adding) + $multi;
+            $adding_predicted_count = $count + $multiple;
 
             if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
                 throw new CondorcetException(16, self::$_maxParseIteration);
@@ -254,28 +255,37 @@ trait VotesProcess
                 throw new CondorcetException(12, self::$_maxParseIteration);
             endif;
 
-            for ($i = 0; $i < $multi; $i++) :
-                $adding[] = new Vote ($record['vote'], $tags, null, $this);
-            endfor;
+            $newVote = new Vote ($record['vote'], $tags, null, $this);
+
+            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
+
+            $count += $multiple;
         endforeach;
 
         $this->_voteFastMode = true;
 
-        foreach ($adding as $oneNewVote) :
-            $this->addVote($oneNewVote);
+        foreach ($adding as $oneLine) :
+            for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
+                if ($i !== $oneLine['multiple']) :
+                    $this->addVote(clone $oneLine['vote']);
+                else :
+                    $this->addVote($oneLine['vote']);
+                endif;
+            endfor;
         endforeach;
 
         $this->_voteFastMode = false;
 
-        return $adding;
+        return $count;
     }
 
-    public function parseVotes (string $input, bool $isFile = false) : array
+    public function parseVotes (string $input, bool $isFile = false) : int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
 
-        // Check each lines
         $adding = [];
+        $count = 0;
+
         foreach ($input as $line) :
             // Empty Line
             if (empty($line)) :
@@ -300,7 +310,7 @@ trait VotesProcess
                 $tags = null;
             endif;
 
-            $adding_predicted_count = count($adding) + $multiple;
+            $adding_predicted_count = $count + $multiple;
 
             if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
                 throw new CondorcetException(16, (string) self::$_maxParseIteration);
@@ -310,24 +320,29 @@ trait VotesProcess
                 throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 
-            // addVote
-            for ($i = 0; $i < $multiple; $i++) :
-                $newVote = new Vote ($vote, $tags, null, $this);
-                $newVote->setWeight($weight);
+            $newVote = new Vote ($vote, $tags, null, $this);
+            $newVote->setWeight($weight);
 
-                $adding[] = $newVote;
-            endfor;
+            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
+
+            $count += $multiple;
         endforeach;
 
         $this->_voteFastMode = true;
 
-        foreach ($adding as $oneNewVote) :
-            $this->addVote($oneNewVote);
+        foreach ($adding as $oneLine) :
+            for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
+                if ($i !== $oneLine['multiple']) :
+                    $this->addVote(clone $oneLine['vote']);
+                else :
+                    $this->addVote($oneLine['vote']);
+                endif;
+            endfor;
         endforeach;
 
         $this->_voteFastMode = false;
 
-        return $adding;
+        return $count;
     }
 
 }

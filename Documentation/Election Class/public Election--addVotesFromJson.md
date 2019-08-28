@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> addVotesFromJson ( string input ) : array
+public $Election -> addVotesFromJson ( string input ) : int
 ```
 
 Import votes from a Json source.
@@ -15,7 +15,7 @@ Json string input.
 
 ### Return value:   
 
-*(array)* List of new registered vote object.
+*(int)* Count of new registered vote.
 
 
 ---------------------------------------
