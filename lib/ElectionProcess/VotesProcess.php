@@ -22,6 +22,7 @@ trait VotesProcess
 
     // Data and global options
     protected VotesManager $_Votes; // Votes list
+    protected bool $_voteFastMode = false; // When parsing vote, avoid unnecessary checks 
 
 
 /////////// VOTES LIST ///////////
@@ -92,7 +93,6 @@ trait VotesProcess
             throw new CondorcetException(16, (string) self::$_maxVoteNumber);
         endif;
 
-
         // Register vote
         return $this->registerVote($vote, $tags); // Return the vote object
     }
@@ -113,33 +113,47 @@ trait VotesProcess
 
     public function checkVoteCandidate (Vote $vote) : bool
     {
-        $linkCount = $vote->countLinks();
-        $links = $vote->getLinks();
+        if (!$this->_voteFastMode) :
+            $linkCount = $vote->countLinks();
+            $links = $vote->getLinks();
+            $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) );
 
-        $mirror = $vote->getRanking();
-        $change = false;
-        foreach ($vote as $rank => $choice) :
-            foreach ($choice as $choiceKey => $candidate) :
-                if ( !$this->isRegisteredCandidate($candidate, true) ) :
-                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
-                        if ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) ) :
-                            $mirror[$rank][$choiceKey] = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
-                            $change = true;
-                        else :
-                            return false;
-                        endif;
-                    endif;
+            foreach ($vote->getAllCandidates() as $candidate) :
+                if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate($candidate, true) && $this->isRegisteredCandidate($candidate, false)) :
+                    return false;
                 endif;
             endforeach;
-        endforeach;
+        endif;
+
+        $ranking = $vote->getRanking();
+
+        $change = $this->convertRankingCandidates($ranking);
 
         if ($change) :
-            $vote->setRanking(  $mirror,
+            $vote->setRanking(  $ranking,
                                 ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
             );
         endif;
 
         return true;
+    }
+
+    public function convertRankingCandidates (array &$ranking) : bool
+    {
+        $change = false;
+
+        foreach ($ranking as $rank => &$choice) :
+            foreach ($choice as $choiceKey => &$candidate) :
+                if ( !$this->isRegisteredCandidate($candidate, true) ) :
+                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
+                            $candidate = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
+                            $change = true;
+                    endif;
+                endif;
+            endforeach;
+        endforeach;
+
+        return $change;
     }
 
     // Write a new vote
@@ -205,7 +219,7 @@ trait VotesProcess
     protected function prepareVoteInput (&$vote, $tag = null) : void
     {
         if (!($vote instanceof Vote)) :
-            $vote = new Vote ($vote, $tag);
+            $vote = new Vote ($vote, $tag, null, $this);
         endif;
 
         // Check array format && Make checkVoteCandidate
@@ -241,13 +255,17 @@ trait VotesProcess
             endif;
 
             for ($i = 0; $i < $multi; $i++) :
-                $adding[] = new Vote ($record['vote'], $tags);
+                $adding[] = new Vote ($record['vote'], $tags, null, $this);
             endfor;
         endforeach;
+
+        $this->_voteFastMode = true;
 
         foreach ($adding as $oneNewVote) :
             $this->addVote($oneNewVote);
         endforeach;
+
+        $this->_voteFastMode = false;
 
         return $adding;
     }
@@ -294,16 +312,20 @@ trait VotesProcess
 
             // addVote
             for ($i = 0; $i < $multiple; $i++) :
-                $newVote = new Vote ($vote, $tags);
+                $newVote = new Vote ($vote, $tags, null, $this);
                 $newVote->setWeight($weight);
 
                 $adding[] = $newVote;
             endfor;
         endforeach;
 
+        $this->_voteFastMode = true;
+
         foreach ($adding as $oneNewVote) :
             $this->addVote($oneNewVote);
         endforeach;
+
+        $this->_voteFastMode = false;
 
         return $adding;
     }

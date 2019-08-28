@@ -11,7 +11,7 @@
     use CondorcetPHP\Condorcet\Vote;
     use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
 
-    require_once '../../__CondorcetAutoload.php';
+    require_once __DIR__.'/../../__CondorcetAutoload.php';
 
     $start_time = microtime(TRUE);
 
@@ -66,7 +66,7 @@
 print 'Success!  
 Process in: '. round(microtime(true) - $start_time,2) . "s\n";
 
-echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024,($i=floor(log(memory_get_peak_usage(),1024)))),2).' '.['b','kb','mb','gb','tb','pb'][$i].'<br>';
+echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024,($i=floor(log(memory_get_peak_usage(),1024)))),2).' '.['b','kb','mb','gb','tb','pb'][$i]."\n\n";
 
 
 // Optionally. You can close external driver and and retrieve data into classical internal RAM memory, if there is enough space...
