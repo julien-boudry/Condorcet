@@ -891,9 +891,9 @@
       type: string
       required: true
       text: Json string input.
-  return_type: array
+  return_type: int
   return: |
-    List of new registered vote object.
+    Count of new registered vote.
   related:
     - 'Election::addVote'
     - 'Election::parseVotes'
@@ -947,9 +947,9 @@
       type: bool
       required: true
       text: If true, the input is evalatued as path to text file.
-  return_type: array
+  return_type: int
   return: |
-    List of new registered vote object. Count it for checking if all candidates have been correctly registered.
+    Count of the new registered vote.
   related:
     - 'Election::addVote'
     - 'Election::parseCandidates'

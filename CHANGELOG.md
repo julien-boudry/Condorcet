@@ -21,7 +21,8 @@ Some small API changes (renaming, rationalization), sometimes on main methods. A
 ### Removed
 - Removes the slightly twisted method Election::ignoreMaxVote 
 
-
+### Performance
+- Parse Vote (text or Json) is really faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictible, linear and as smart than other input method vote.
 
 ### Internal changes
 - Use PHP 7.4 type for class property

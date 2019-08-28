@@ -144,7 +144,7 @@ class ElectionTest extends TestCase
 
         self::assertSame(42,Election::setMaxParseIteration(42));
 
-        self::assertCount(42,$this->election1->parseVotes('
+        self::assertSame(42,$this->election1->parseVotes('
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
@@ -191,7 +191,7 @@ class ElectionTest extends TestCase
 
         self::assertSame(42,Election::setMaxVoteNumber(42));
 
-        self::assertCount(21,$election->parseVotes('candidate1>candidate2 * 21'));
+        self::assertSame(21,$election->parseVotes('candidate1>candidate2 * 21'));
 
         try {
             $election->parseVotes('candidate1>candidate2 * 42');
@@ -380,7 +380,7 @@ D > C > B > A * 1',
         $votes[]['vote'] = new \stdClass(); // Invalid Vote
         $votes[]['vote'] = ['C','B','A'];
 
-        $election->addVotesFromJson(json_encode($votes));
+        self::assertSame(2,$election->addVotesFromJson(json_encode($votes)));
 
         self::assertSame(
 'B > C > A * 1
