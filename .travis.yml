@@ -14,8 +14,12 @@ matrix:
 install:
   - composer update
 
-script:
-  -  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ; then vendor/bin/phpunit --coverage-clover build/coverage/xml ; fi
+script: | 
+  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ;
+    then vendor/bin/phpunit --coverage-clover build/coverage/xml ;
+  else
+    vendor/bin/phpunit ;
+  fi
 
 after_script:
   -  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ; then vendor/bin/codacycoverage clover build/coverage/xml ; fi
