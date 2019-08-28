@@ -178,26 +178,12 @@ class Vote implements \Iterator
             throw new CondorcetException(22);
         endif;
 
-        $ranking = $this->getRanking();
-        $present = $this->getAllCandidates();
-        $newRanking = [];
-        $candidates_list = $election->getCandidatesList();
-
-        $nextRank = 1;
         $countContextualCandidate = 0;
 
-        foreach ($ranking as $CandidatesInRanks) :
-            foreach ($CandidatesInRanks as $candidate) :
-                if ( $election->isRegisteredCandidate($candidate, true) ) :
-                    $newRanking[$nextRank][] = $candidate;
-                    $countContextualCandidate++;
-                endif;
-            endforeach;
+        $present = $this->getAllCandidates();
+        $candidates_list = $election->getCandidatesList();
 
-            if (isset($newRanking[$nextRank])) :
-                $nextRank++;
-            endif;
-        endforeach;
+        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(), $election, $countContextualCandidate);
 
         if ($election->getImplicitRankingRule() && $countContextualCandidate < $election->countCandidates()) :
             $last_rank = [];
@@ -212,6 +198,30 @@ class Vote implements \Iterator
 
         return $newRanking;
     }
+
+        protected function computeContextualRankingWithoutImplicit (array $ranking, Election $election, int &$countContextualCandidate = 0) : array
+        {
+            $newRanking = [];
+            $nextRank = 1;
+            $rankChange = false;
+
+            foreach ($ranking as $CandidatesInRanks) :
+                foreach ($CandidatesInRanks as $candidate) :
+                    if ( $election->isRegisteredCandidate($candidate, true) ) :
+                        $newRanking[$nextRank][] = $candidate;
+                        $countContextualCandidate++;
+                        $rankChange = true;
+                    endif;
+                endforeach;
+
+                if ($rankChange) :
+                    $nextRank++;
+                    $rankChange = false;
+                endif;
+            endforeach;
+
+            return $newRanking;
+        }
 
     public function getContextualRankingAsString (Election $election) : array
     {
@@ -246,16 +256,14 @@ class Vote implements \Iterator
         // Ranking
         $candidateCounter = $this->formatRanking($ranking);
 
-        if (!empty($this->_link)) :
-            foreach ($this->_link as $link) :
-                $link->prepareUpdateVote($this);
-            endforeach;
-        endif;
+        foreach ($this->_link as $link) :
+            $link->prepareUpdateVote($this);
+        endforeach;
 
         $this->archiveRanking($ranking, $candidateCounter, $ownTimestamp);
 
         if (!empty($this->_link)) :
-            
+
             try {
                 foreach ($this->_link as $link) :
                     if (!$link->checkVoteCandidate($this)) :
