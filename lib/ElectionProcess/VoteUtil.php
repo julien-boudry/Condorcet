@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
+use CondorcetPHP\Condorcet\Ranking;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Base Condorcet class
@@ -44,7 +45,7 @@ abstract class VoteUtil
         return $tags;
     }
 
-    public static function getRankingAsString (array $ranking) : string
+    public static function getRankingAsString (Ranking $ranking) : string
     {
         foreach ($ranking as &$rank) :
             if (is_array($rank)) :

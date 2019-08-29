@@ -22,23 +22,23 @@ class Vote implements \Iterator
         private $position = 1;
 
         public function rewind() : void {
-            $this->position = 1;
+            reset($this->getRanking());
         }
 
         public function current() : array {
-            return $this->getRanking()[$this->position];
+            return current($this->getRanking());
         }
 
         public function key() : int {
-            return $this->position;
+            return key($this->getRanking());
         }
 
         public function next() : void {
-            ++$this->position;
+            next($this->getRanking());
         }
 
         public function valid() : bool {
-            return isset($this->getRanking()[$this->position]);
+            return isset($this->getRanking()[$this->key()]);
         }
 
     // Vote
@@ -125,7 +125,7 @@ class Vote implements \Iterator
 
     // GETTERS
 
-    public function getRanking () : ?array
+    public function getRanking () : ?Ranking
     {
         if (!empty($this->_ranking)) :
             return end($this->_ranking)['ranking'];
@@ -260,7 +260,7 @@ class Vote implements \Iterator
         endif;
 
         // Ranking
-        $candidateCounter = $this->formatRanking($ranking);
+        $ranking = new Ranking ($ranking);
 
         if ($this->_electionContext !== null) :
             $this->_electionContext->convertRankingCandidates($ranking);
@@ -269,6 +269,8 @@ class Vote implements \Iterator
         foreach ($this->_link as $link) :
             $link->prepareUpdateVote($this);
         endforeach;
+
+        $candidateCounter = $ranking->getCandidatesCount();
 
         $this->archiveRanking($ranking, $candidateCounter, $ownTimestamp);
 

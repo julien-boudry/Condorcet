@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
+use CondorcetPHP\Condorcet\{CondorcetUtil, Ranking, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
 
@@ -138,11 +138,13 @@ trait VotesProcess
         return true;
     }
 
-    public function convertRankingCandidates (array &$ranking) : bool
+    public function convertRankingCandidates (Ranking $ranking) : bool
     {
+        $rankingArray = $ranking->getRankingArray();
+
         $change = false;
 
-        foreach ($ranking as $rank => &$choice) :
+        foreach ($rankingArray as $rank => &$choice) :
             foreach ($choice as $choiceKey => &$candidate) :
                 if ( !$this->isRegisteredCandidate($candidate, true) ) :
                     if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
@@ -152,6 +154,10 @@ trait VotesProcess
                 endif;
             endforeach;
         endforeach;
+
+        if ($change) :
+            $ranking->setRanking($rankingArray);
+        endif;
 
         return $change;
     }
