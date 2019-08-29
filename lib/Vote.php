@@ -479,8 +479,8 @@ class Vote implements \Iterator
     private function archiveRanking () : void
     {
         $this->_ranking_history[] = [   'ranking' => $this->_ranking,
-                                'timestamp' => $this->_lastTimestamp,
-                                'counter' => $this->_counter   ];
+                                        'timestamp' => $this->_lastTimestamp,
+                                        'counter' => $this->_counter   ];
 
         $this->rewind();
     }

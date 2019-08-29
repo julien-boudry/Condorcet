@@ -562,4 +562,28 @@ class VoteTest extends TestCase
 
         $vote1->removeCandidates([]);
     }
+
+    public function testVoteHistory () : void
+    {
+        $vote1 = $this->election1->addVote(['candidate1','candidate2']);
+
+        self::assertCount(1,$vote1->getHistory());
+
+        $vote2 = $this->election1->addVote('candidate1 > candidate2');
+
+        self::assertCount(1,$vote2->getHistory());
+
+        $vote3 = new Vote (['candidate1','candidate2']);
+
+        $this->election1->addVote($vote3);
+
+        self::assertCount(2,$vote3);
+
+        $this->election1->parseVotes('voterParsed || candidate1 > candidate2');
+
+        $votes_lists = $this->election1->getVotesList('voterParsed', true);
+        $vote4 = reset($votes_lists);
+
+        self::assertCount(1,$vote4->getHistory());
+    }
 }
