@@ -10,13 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetTest extends TestCase
 {
-    public function testgetVersion ()
+    public function testgetVersion () : void
     {
         self::assertSame(Condorcet::VERSION,CONDORCET::getVersion());
         self::assertRegExp('/^[1-9]+\.[0-9]+$/',CONDORCET::getVersion(true));
     }
 
-    public function testAddExistingMethod ()
+    public function testAddExistingMethod () : void
     {
         $algoClassPath = Condorcet::getDefaultMethod();
 
@@ -25,7 +25,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testBadClassMethod ()
+    public function testBadClassMethod () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(9);
@@ -33,13 +33,13 @@ class CondorcetTest extends TestCase
         Condorcet::addMethod('sjskkdlkkzksh');
     }
 
-    public function testAuthMethod ()
+    public function testAuthMethod () : void
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
         self::assertSame(Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::isAuthMethod('Schulze Winning'));
     }
 
-    public function testAddMethod ()
+    public function testAddMethod () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(25);
@@ -56,7 +56,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testAddUnvalidMethod ()
+    public function testAddUnvalidMethod () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(10);
@@ -71,12 +71,12 @@ class CondorcetTest extends TestCase
         );
     }
 
-    public function testUnvalidDefaultMethod ()
+    public function testUnvalidDefaultMethod () : void
     {
         self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
     }
 
-    public function testEmptyMethod ()
+    public function testEmptyMethod () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(8);
@@ -84,7 +84,7 @@ class CondorcetTest extends TestCase
         Condorcet::isAuthMethod('');
     }
 
-    public function testMethodAlias ()
+    public function testMethodAlias () : void
     {
         self::assertSame(
             Algo\Methods\KemenyYoung\KemenyYoung::class,

@@ -23,13 +23,13 @@ class VotesManagerTest extends TestCase
         $this->votes_manager = $this->election->getVotesManager();
     }
 
-    public function testGetDataContextObject()
+    public function testGetDataContextObject() : void
     {
         self::assertSame($this->election, $this->votes_manager->getDataContextObject()->election);
         self::assertInstanceOf(DataContextInterface::class,$this->votes_manager->getDataContextObject());
     }
 
-    public function testOffsetSet()
+    public function testOffsetSet() : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
@@ -43,7 +43,7 @@ class VotesManagerTest extends TestCase
         $this->votes_manager[] = null;
     }
 
-    public function testOffsetUnset()
+    public function testOffsetUnset() : void
     {
         $before_list = $this->votes_manager->getVotesList();
 
@@ -57,12 +57,12 @@ class VotesManagerTest extends TestCase
         self::assertEmpty($this->votes_manager->getVotesList());
     }
 
-    public function testGetVoteKey()
+    public function testGetVoteKey() : void
     {
         self::assertNull($this->votes_manager->getVoteKey(new Vote([])));
     }
 
-    public function testGetVotesList()
+    public function testGetVotesList() : void
     {
         // With Election
         self::assertEmpty($this->votes_manager->getVotesList());
@@ -74,7 +74,7 @@ class VotesManagerTest extends TestCase
         self::assertNotEmpty($this->votes_manager->getVotesList());
     }
 
-    public function testGetVotesListGenerator()
+    public function testGetVotesListGenerator() : void
     {
         $this->election->parseVotes('A>B>C * 10;tag42 || C>B>A * 42');
 

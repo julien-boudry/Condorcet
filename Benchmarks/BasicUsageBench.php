@@ -64,6 +64,8 @@ class BasicUsageBench
        foreach (Condorcet::getAuthMethods() as $method) :
          $election->getResult($method);
        endforeach;
+
+       $votes = $election->getVotesListAsString();
     }
 
 }

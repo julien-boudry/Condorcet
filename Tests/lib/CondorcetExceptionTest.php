@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetExceptionTest extends TestCase
 {
-    public function testBuild ()
+    public function testBuild () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(0);

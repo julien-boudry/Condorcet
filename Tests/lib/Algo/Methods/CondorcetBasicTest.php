@@ -15,7 +15,7 @@ class CondorcetBasicTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         $this->election->addCandidate('a');
         $this->election->addCandidate('b');
@@ -31,7 +31,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('c', $this->election->getWinner());
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         $this->election->addCandidate('X');
         $this->election->addCandidate('Y');
@@ -49,7 +49,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('X', $this->election->getWinner('Schulze'));
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -67,7 +67,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('Memphis', $this->election->getLoser());
     }
 
-    public function testResult_4 ()
+    public function testResult_4 () : void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -84,7 +84,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('Chattanooga', $this->election->getWinner());
     }
 
-    public function testResult_5 ()
+    public function testResult_5 () : void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -106,7 +106,7 @@ class CondorcetBasicTest extends TestCase
         self::assertSame(null, $this->election->getWinner());
     }
 
-    public function testResult_6 ()
+    public function testResult_6 () : void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -124,7 +124,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('L', $this->election->getLoser());
     }
 
-    public function testNoResultObject ()
+    public function testNoResultObject () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(102);

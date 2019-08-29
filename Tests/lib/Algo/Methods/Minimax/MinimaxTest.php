@@ -18,7 +18,7 @@ class MinimaxTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 
@@ -87,7 +87,7 @@ class MinimaxTest extends TestCase
         );
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 
@@ -153,7 +153,7 @@ class MinimaxTest extends TestCase
         );
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -182,7 +182,7 @@ class MinimaxTest extends TestCase
         self::assertEquals('Cora',$this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_4 ()
+    public function testResult_4 () : void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -203,7 +203,7 @@ class MinimaxTest extends TestCase
         self::assertEquals('L',$this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_5 ()
+    public function testResult_5 () : void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -257,7 +257,7 @@ class MinimaxTest extends TestCase
         self::assertNotEquals('A',$this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_6 ()
+    public function testResult_6 () : void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 

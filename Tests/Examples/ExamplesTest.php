@@ -10,7 +10,7 @@ class ExamplesTest extends TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testOverviewExample()
+    public function testOverviewExample() : void
     {
         $r = true;
 
@@ -27,7 +27,7 @@ class ExamplesTest extends TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testAdvancedObjectManagementExample()
+    public function testAdvancedObjectManagementExample() : void
     {
         $r = true;
 
@@ -44,7 +44,7 @@ class ExamplesTest extends TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testGlobalHtmlExample()
+    public function testGlobalHtmlExample() : void
     {
         $r = true;
 
@@ -64,7 +64,7 @@ class ExamplesTest extends TestCase
     /**
      * @runInSeparateProcess
      */
-    public function testRankingManipulationHtmlExample()
+    public function testRankingManipulationHtmlExample() : void
     {
         $r = true;
 

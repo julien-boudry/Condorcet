@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getVotesList ( mixed tags = test, mixed with = test ) : array
+public $Election -> getVotesList ( mixed tags = test [, bool with = test] ) : array
 ```
 
 Get registered vote list.
@@ -13,7 +13,7 @@ Get registered vote list.
     
 
 
-##### **with:** *mixed*   
+##### **with:** *bool*   
     
 
 

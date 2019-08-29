@@ -18,12 +18,12 @@ class CandidateTest extends TestCase
         $this->candidate1 = new Candidate ('candidate1.n1');
     }
 
-    public function testCreateTimestamp ()
+    public function testCreateTimestamp () : void
     {
         self::assertEquals($this->candidate1->getCreateTimestamp(), $this->candidate1->getTimestamp());
     }
 
-    public function testChangeName ()
+    public function testChangeName () : void
     {
         self::assertTrue($this->candidate1->setName('candidate1.n2'));
 
@@ -33,13 +33,13 @@ class CandidateTest extends TestCase
         self::assertCount(2,$this->candidate1->getHistory());
     }
 
-    public function testTrimName ()
+    public function testTrimName () : void
     {
         $candidate = new Candidate (' candidateName ');
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    public function testToLongName ()
+    public function testToLongName () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(1);
@@ -49,7 +49,7 @@ class CandidateTest extends TestCase
         );
     }
 
-    public function testCandidateBadClass ()
+    public function testCandidateBadClass () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(1);
@@ -57,7 +57,7 @@ class CandidateTest extends TestCase
         (new Election)->addCandidate(new \stdClass );
     }
 
-    public function testAddSameCandidate1 ()
+    public function testAddSameCandidate1 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
@@ -70,7 +70,7 @@ class CandidateTest extends TestCase
         $election1->addCandidate($candidate);
     }
 
-    public function testAddSameCandidate2 ()
+    public function testAddSameCandidate2 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
@@ -80,7 +80,7 @@ class CandidateTest extends TestCase
         $election1->parseCandidates('candidate1;candidate2;candidate1');
     }
 
-    public function testAddSameCandidate3 ()
+    public function testAddSameCandidate3 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(3);
@@ -91,7 +91,7 @@ class CandidateTest extends TestCase
         $election1->parseCandidates('candidate2;candidate1');
     }
 
-    public function testAddSameCandidate4 ()
+    public function testAddSameCandidate4 () : void
     {
         $election1 = new Election ();
 
@@ -137,7 +137,7 @@ class CandidateTest extends TestCase
         $this->candidate1->setName('Debussy'); // Throw an Exception. Code 19.
     }
 
-    public function testCloneCandidate()
+    public function testCloneCandidate() : void
     {
         ($election = new Election)->addCandidate($this->candidate1);
 

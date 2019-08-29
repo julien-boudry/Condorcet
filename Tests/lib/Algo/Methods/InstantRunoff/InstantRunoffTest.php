@@ -18,7 +18,7 @@ class InstantRunoffTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         # From https://fr.wikipedia.org/wiki/Vote_alternatif
 
@@ -68,7 +68,7 @@ class InstantRunoffTest extends TestCase
 
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         # From https://en.wikipedia.org/wiki/Instant-runoff_voting#Examples
 
@@ -93,7 +93,7 @@ class InstantRunoffTest extends TestCase
 
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         $this->election->addCandidate('bob');
         $this->election->addCandidate('sue');
@@ -117,7 +117,7 @@ class InstantRunoffTest extends TestCase
 
     }
 
-    public function testResult_4 ()
+    public function testResult_4 () : void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
