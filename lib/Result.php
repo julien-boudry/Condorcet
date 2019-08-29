@@ -13,30 +13,30 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
-class Result implements \ArrayAccess, \Countable, \Iterator 
+class Result implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
 
     // Implement Iterator
 
     public function rewind() :void {
-        reset($this->_UserResult);
+        $this->_UserResult->rewind();
     }
 
     public function current () {
-        return current($this->_UserResult);
+        return $this->_UserResult->current();
     }
 
     public function key () : int {
-        return key($this->_UserResult);
+        return $this->_UserResult->key();
     }
 
     public function next () : void {
-        next($this->_UserResult);
+        $this->_UserResult->next();
     }
 
     public function valid () : bool {
-        return key($this->_UserResult) !== null;
+        return $this->_UserResult->valid();
     }
 
     // Implement ArrayAccess
@@ -46,7 +46,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function offsetExists ($offset) : bool {
-        return isset($this->_UserResult[$offset]);
+        return isset($this->_UserResult->getRankingAsArray()[$offset]);
     }
 
     public function offsetUnset ($offset) : void {
@@ -54,13 +54,13 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function offsetGet ($offset) {
-        return $this->_UserResult[$offset] ?? null;
+        return $this->_UserResult->getRankingAsArray()[$offset] ?? null;
     }
 
     // Implement Countable
 
     public function count () : int {
-        return count($this->_UserResult);
+        return $this->_UserResult->getRanksCount();
     }
 
 
@@ -103,7 +103,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getResultAsArray (bool $convertToString = false) : array
     {
-        $r = $this->_UserResult;
+        $r = $this->_UserResult->getRankingAsArray();
 
         foreach ($r as &$rank) :
             if (count($rank) === 1) :
@@ -120,7 +120,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function getResultAsString () : string
     {
-        return VoteUtil::getRankingAsString($this->getResultAsArray(true));
+        return VoteUtil::getRankingAsString($this->_UserResult);
     }
 
     public function getOriginalArrayWithString () : array
@@ -153,7 +153,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_CondorcetLoser;
     }
 
-    protected function makeUserResult (Election $election) : array
+    protected function makeUserResult (Election $election) : Ranking
     {
         $userResult = [];
 
@@ -175,7 +175,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
             endif;
         endforeach;
 
-        return $userResult;
+        return new Ranking ($userResult);
     }
 
 

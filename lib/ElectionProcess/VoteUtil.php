@@ -47,14 +47,16 @@ abstract class VoteUtil
 
     public static function getRankingAsString (Ranking $ranking) : string
     {
-        foreach ($ranking as &$rank) :
+        $ranking_array = $ranking->getRankingAsArray();
+
+        foreach ($ranking_array as &$rank) :
             if (is_array($rank)) :
                 sort($rank);
                 $rank = implode(' = ',$rank);
             endif;
         endforeach;
 
-        return implode(' > ', $ranking);
+        return implode(' > ', $ranking_array);
     }
 
     // From a string like 'A>B=C=H>G=T>Q'

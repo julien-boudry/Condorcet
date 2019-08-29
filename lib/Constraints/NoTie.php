@@ -10,13 +10,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Constraints;
 
+use CondorcetPHP\Condorcet\Ranking;
 use CondorcetPHP\Condorcet\VoteConstraint;
 
 class NoTie extends VoteConstraint
 {
-    protected static function evaluateVote (array $vote) : bool
+    protected static function evaluateVote (Ranking $ranking) : bool
     {
-        foreach ($vote as $oneRank) :
+        foreach ($ranking as $oneRank) :
             if (count($oneRank) > 1) :
                 return false;
             endif;

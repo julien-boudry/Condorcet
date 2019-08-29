@@ -128,7 +128,7 @@ $election1 = new Election ();
 
 
         // Adding some random to this election
-        $VoteModel = $myVote2->getRanking();
+        $VoteModel = $myVote2->getRanking()->getRankingAsArray();
 
         for ($i = 0 ; $i < 95 ; $i++) {
             shuffle($VoteModel);

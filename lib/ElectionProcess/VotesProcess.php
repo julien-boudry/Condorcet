@@ -140,7 +140,7 @@ trait VotesProcess
 
     public function convertRankingCandidates (Ranking $ranking) : bool
     {
-        $rankingArray = $ranking->getRankingArray();
+        $rankingArray = $ranking->getRankingAsArray();
 
         $change = false;
 

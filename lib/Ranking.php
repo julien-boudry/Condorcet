@@ -11,8 +11,9 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
-class Ranking implements \Iterator
+class Ranking implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
 
@@ -25,7 +26,7 @@ class Ranking implements \Iterator
         }
 
         public function current() : array {
-            return $this->getRanking()[$this->position];
+            return $this->_ranking[$this->position];
         }
 
         public function key() : int {
@@ -37,7 +38,31 @@ class Ranking implements \Iterator
         }
 
         public function valid() : bool {
-            return isset($this->getRanking()[$this->position]);
+            return isset($this->_ranking[$this->position]);
+        }
+
+    // Implement ArrayAccess
+
+        public function offsetSet ($offset, $value) : void {
+            throw new CondorcetException (0,"Can't change Ranking by Array Access");
+        }
+
+        public function offsetExists ($offset) : bool {
+            return isset($this->_ranking[$offset]);
+        }
+
+        public function offsetUnset ($offset) : void {
+            throw new CondorcetException (0,"Can't change Ranking by Array Access");
+        }
+
+        public function offsetGet ($offset) {
+            return $this->_ranking[$offset] ?? null;
+        }
+
+    // Implement Countable
+
+        public function count () : int {
+            return $this->getRanksCount();
         }
 
 
@@ -49,18 +74,24 @@ class Ranking implements \Iterator
         $this->setRanking($ranking_input);
     }
 
-    public function getRankingArray () : array
+    public function getRankingAsArray () : array
     {
         return $this->_ranking;
     }
 
     public function setRanking ($ranking) : void
     {
+        
+        if ($ranking instanceof Ranking) :
+            $this->_ranking = $ranking->getRankingAsArray();
+            return;
+        endif;
+
         if (is_string($ranking)) :
             $ranking = VoteUtil::convertVoteInput($ranking);
         endif;
 
-        if (!is_array($ranking)) :
+        if ( !is_array($ranking)) :
             throw new CondorcetException(5);
         endif;
 
@@ -112,5 +143,10 @@ class Ranking implements \Iterator
     public function getCandidatesCount() : int
     {
         return $this->_CandidateCounter;
+    }
+
+    public function getRanksCount() : int
+    {
+        return count($this->_ranking);
     }
 }
