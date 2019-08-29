@@ -749,9 +749,9 @@
       default: test
       required: true
     with:
-      type: mixed
+      type: bool
       default: test
-      required: true
+      required: false
   return_type: array
   return: |
     Populated by each Vote object.
@@ -775,9 +775,9 @@
       default: test
       required: true
     with:
-      type: mixed
+      type: bool
       default: test
-      required: true
+      required: false
   return_type: \Generator
   return: |
     *(\Generator)* Populated by each Vote object.

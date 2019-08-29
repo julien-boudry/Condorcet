@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getVotesListGenerator ( mixed tags = test, mixed with = test ) : \Generator
+public $Election -> getVotesListGenerator ( mixed tags = test [, bool with = test] ) : \Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.
@@ -14,7 +14,7 @@ Usefull if your work on very large election with an external DataHandler, becaus
     
 
 
-##### **with:** *mixed*   
+##### **with:** *bool*   
     
 
 
