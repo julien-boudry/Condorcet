@@ -43,7 +43,13 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking = [];
+    private $_ranking;
+
+    private $_lastTimestamp;
+
+    private $_counter;
+
+    private $_ranking_history = [];
 
     private $_weight = 1;
 
@@ -125,18 +131,14 @@ class Vote implements \Iterator
 
     // GETTERS
 
-    public function getRanking () : ?array
+    public function getRanking () : array
     {
-        if (!empty($this->_ranking)) :
-            return end($this->_ranking)['ranking'];
-        else :
-            return null;
-        endif;
+        return $this->_ranking;
     }
 
     public function getHistory () : array
     {
-        return $this->_ranking;
+        return $this->_ranking_history;
     }
 
 
@@ -152,17 +154,17 @@ class Vote implements \Iterator
 
     public function getCreateTimestamp () : float
     {
-        return $this->_ranking[0]['timestamp'];
+        return $this->_ranking_history[0]['timestamp'];
     }
 
     public function getTimestamp () : float
     {
-        return end($this->_ranking)['timestamp'];
+        return $this->_lastTimestamp;
     }
 
     public function countRankingCandidates () : int
     {
-        return end($this->_ranking)['counter'];
+        return $this->_counter;
     }
 
     public function getAllCandidates () : array
@@ -254,7 +256,7 @@ class Vote implements \Iterator
     {
         // Timestamp
         if ($ownTimestamp !== null) :
-            if (!empty($this->_ranking) && $this->getTimestamp() >= $ownTimestamp) :
+            if (!empty($this->_ranking_history) && $this->getTimestamp() >= $ownTimestamp) :
                 throw new CondorcetException(21);
             endif;
         endif;
@@ -270,7 +272,11 @@ class Vote implements \Iterator
             $link->prepareUpdateVote($this);
         endforeach;
 
-        $this->archiveRanking($ranking, $candidateCounter, $ownTimestamp);
+        $this->_ranking = $ranking;
+        $this->_lastTimestamp = $ownTimestamp ?? microtime(true);
+        $this->_counter = $candidateCounter;
+
+        $this->archiveRanking();
 
         if (!empty($this->_link)) :
 
@@ -470,11 +476,11 @@ class Vote implements \Iterator
 
 /////////// INTERNAL ///////////
 
-    private function archiveRanking ($ranking, int $counter, ?float $ownTimestamp) : void
+    private function archiveRanking () : void
     {
-        $this->_ranking[] = [   'ranking' => $ranking,
-                                'timestamp' => $ownTimestamp ?? microtime(true),
-                                'counter' => $counter   ];
+        $this->_ranking_history[] = [   'ranking' => $this->_ranking,
+                                'timestamp' => $this->_lastTimestamp,
+                                'counter' => $this->_counter   ];
 
         $this->rewind();
     }
