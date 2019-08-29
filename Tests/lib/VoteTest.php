@@ -26,7 +26,7 @@ class VoteTest extends TestCase
         $this->candidate6 = new Candidate('candidate6');
     }
 
-    public function testTimestamp ()
+    public function testTimestamp () : void
     {
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -37,7 +37,7 @@ class VoteTest extends TestCase
         self::assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
     }
 
-    public function testDifferentRanking ()
+    public function testDifferentRanking () : void
     {
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
@@ -143,7 +143,7 @@ class VoteTest extends TestCase
             );
     }
 
-    public function testSimpleRanking ()
+    public function testSimpleRanking () : void
     {
         // Ranking 1
         $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
@@ -155,7 +155,7 @@ class VoteTest extends TestCase
         self::assertSame($vote1->getSimpleRanking($this->election1),'candidate1 > candidate2 = candidate3');
     }
 
-    public function testProvisionalCandidateObject ()
+    public function testProvisionalCandidateObject () : void
     {
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
@@ -244,7 +244,7 @@ class VoteTest extends TestCase
         );
     }
 
-    public function testDifferentElection () {
+    public function testDifferentElection () : void {
 
         $election1 = $this->election1;
 
@@ -291,7 +291,7 @@ class VoteTest extends TestCase
 
     }
 
-    public function testTags ()
+    public function testTags () : void
     {
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -367,7 +367,7 @@ class VoteTest extends TestCase
             endif;
     }
 
-    public function testAddRemoveTags ()
+    public function testAddRemoveTags () : void
     {
         $this->vote1 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -399,7 +399,7 @@ class VoteTest extends TestCase
         );
     }
 
-    public function testTagsOnConstructorByStringInput ()
+    public function testTagsOnConstructorByStringInput () : void
     {
         $vote1 = new Vote('tag1,tag2 ||A > B >C','tag3,tag4');
 
@@ -412,7 +412,7 @@ class VoteTest extends TestCase
         self::assertSame((string) $vote1,(string) $vote2);
     }
 
-    public function testCloneVote ()
+    public function testCloneVote () : void
     {
         // Ranking 1
         $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
@@ -425,7 +425,7 @@ class VoteTest extends TestCase
         self::assertSame(1,$vote1->countLinks());
     }
 
-    public function testIterator ()
+    public function testIterator () : void
     {
         $vote = new Vote ('C > B > A');
 
@@ -434,7 +434,7 @@ class VoteTest extends TestCase
         endforeach;
     }
 
-    public function testWeight()
+    public function testWeight() : void
     {
         $vote = new Vote ('A>B>C^42');
 
@@ -448,7 +448,7 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C^a');
     }
 
-    public function testCustomTimestamp()
+    public function testCustomTimestamp() : void
     {
         $vote = new Vote (
             'A>B>C',
@@ -469,7 +469,7 @@ class VoteTest extends TestCase
 
     }
 
-    public function testHashCode()
+    public function testHashCode() : void
     {
         $vote = new Vote ('A>B>C');
 
@@ -492,14 +492,14 @@ class VoteTest extends TestCase
         self::assertNotSame($hashCode[4],$hashCode[3]);
     }
 
-    public function testCountRankingCandidates()
+    public function testCountRankingCandidates() : void
     {
         $vote = new Vote ('A>B>C');
 
         self::assertsame(3,$vote->countRankingCandidates());
     }
 
-    public function testInvalidWeight()
+    public function testInvalidWeight() : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(26);
@@ -509,7 +509,7 @@ class VoteTest extends TestCase
         $vote->setWeight(0);
     }
 
-    public function testInvalidTag1()
+    public function testInvalidTag1() : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(17);
@@ -519,7 +519,7 @@ class VoteTest extends TestCase
         $vote->addTags(true);
     }
 
-    public function testInvalidTag2()
+    public function testInvalidTag2() : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(17);
@@ -529,7 +529,7 @@ class VoteTest extends TestCase
         $vote->addTags(42);
     }
 
-    public function testRemoveCandidate ()
+    public function testRemoveCandidate () : void
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -553,7 +553,7 @@ class VoteTest extends TestCase
         $vote1->removeCandidates($this->candidate4);
     }
 
-    public function testRemoveCandidateInvalidInput ()
+    public function testRemoveCandidateInvalidInput () : void
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 

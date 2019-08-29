@@ -18,7 +18,7 @@ class CopelandTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         # From https://en.wikipedia.org/wiki/Copeland%27s_method
 
@@ -46,7 +46,7 @@ class CopelandTest extends TestCase
         self::assertSame($this->election->getWinner('Copeland'),$this->election->getWinner());
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         # From https://en.wikipedia.org/wiki/Copeland%27s_method
 
@@ -75,7 +75,7 @@ class CopelandTest extends TestCase
         );
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 

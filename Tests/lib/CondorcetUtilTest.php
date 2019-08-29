@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetUtilTest extends TestCase
 {
-    public function testFormatVote ()
+    public function testFormatVote () : void
     {
         $vote = new Vote ('A>B>C');
 

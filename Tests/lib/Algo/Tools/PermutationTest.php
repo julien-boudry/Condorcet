@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class PermutationTest extends TestCase
 {
-    public function testCountPossiblePermutations ()
+    public function testCountPossiblePermutations () : void
     {
         self::assertSame(6, Permutation::countPossiblePermutations(3));
     }

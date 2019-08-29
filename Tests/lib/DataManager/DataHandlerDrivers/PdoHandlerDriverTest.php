@@ -32,7 +32,7 @@ class PdoHandlerDriverTest extends TestCase
     }
 
 
-    public function testManyVoteManipulation()
+    public function testManyVoteManipulation() : void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -138,7 +138,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->removeExternalDataHandler();
     }
 
-    public function testVotePreserveTag()
+    public function testVotePreserveTag() : void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -162,7 +162,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(6,$electionWithDb->countVotes('tag1',true));
     }
 
-    public function testVoteObjectIntoDataHandler()
+    public function testVoteObjectIntoDataHandler() : void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -184,7 +184,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
     }
 
-    public function testUpdateEntity()
+    public function testUpdateEntity() : void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -210,7 +210,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->getVotesListAsString());
     }
 
-    public function testGetVotesListGenerator()
+    public function testGetVotesListGenerator() : void
     {
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
@@ -237,7 +237,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(42,count($votesListGenerator));
     }
 
-    public function testSliceInput()
+    public function testSliceInput() : void
     {
         // Setup
         ArrayManager::$CacheSize = 462;
@@ -253,7 +253,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(463,$electionWithDb->countVotes());
     }
 
-    public function testMultipleHandler ()
+    public function testMultipleHandler () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(24);

@@ -14,7 +14,7 @@ class ResultTest extends TestCase
         $this->election1 = new Election;
     }
 
-    public function testGetResultAsString ()
+    public function testGetResultAsString () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -34,7 +34,7 @@ class ResultTest extends TestCase
         );
     }
 
-    public function testGetResultAsInternalKey ()
+    public function testGetResultAsInternalKey () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -54,7 +54,7 @@ class ResultTest extends TestCase
         );
     }
 
-    public function testgetCondorcetElectionGeneratorVersion ()
+    public function testgetCondorcetElectionGeneratorVersion () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -65,7 +65,7 @@ class ResultTest extends TestCase
         self::assertSame(Condorcet::getVersion(),$this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion());
     }
 
-    public function testResultClassgenerator ()
+    public function testResultClassgenerator () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -76,7 +76,7 @@ class ResultTest extends TestCase
         self::assertSame(Algo\Methods\RankedPairs\RankedPairsMargin::class,$this->election1->getResult('Ranked Pairs')->getClassGenerator());
     }
 
-    public function testMethod ()
+    public function testMethod () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -87,7 +87,7 @@ class ResultTest extends TestCase
         self::assertSame('Ranked Pairs Margin',$this->election1->getResult('Ranked Pairs')->getMethod());
     }
 
-    public function testGetBuildTimeStamp ()
+    public function testGetBuildTimeStamp () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -98,7 +98,7 @@ class ResultTest extends TestCase
         self::assertTrue(is_float($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp()));
     }
 
-    public function testGetWinner ()
+    public function testGetWinner () : void
     {
         $this->election1->addCandidate('a');
         $this->election1->addCandidate('b');
@@ -116,7 +116,7 @@ class ResultTest extends TestCase
 
     }
 
-    public function testGetLoser ()
+    public function testGetLoser () : void
     {
         $this->election1->addCandidate('Memphis');
         $this->election1->addCandidate('Nashville');
@@ -134,7 +134,7 @@ class ResultTest extends TestCase
         self::assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
     }
 
-    public function testgetOriginalArrayWithString ()
+    public function testgetOriginalArrayWithString () : void
     {
         $this->election1->addCandidate('a');
         $this->election1->addCandidate('b');
@@ -151,7 +151,7 @@ class ResultTest extends TestCase
         );
     }
 
-    public function testOffsetSet ()
+    public function testOffsetSet () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
@@ -166,7 +166,7 @@ class ResultTest extends TestCase
         $result[] = 42;
     }
 
-    public function testOffUnset ()
+    public function testOffUnset () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
@@ -183,7 +183,7 @@ class ResultTest extends TestCase
         unset($result[1]);
     }
 
-    public function testIterator ()
+    public function testIterator () : void
     {
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

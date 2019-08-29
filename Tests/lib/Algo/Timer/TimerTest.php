@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TimerTest extends TestCase
 {
-    public function testInvalidChrono ()
+    public function testInvalidChrono () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(0);

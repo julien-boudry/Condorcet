@@ -18,7 +18,7 @@ class RankedPairsTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Condorcet_avec_rangement_des_paires_par_ordre_d%C3%A9croissant
 
@@ -58,7 +58,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         # From https://en.wikipedia.org/wiki/Ranked_pairs
 
@@ -91,7 +91,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         # from http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -136,7 +136,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_4 ()
+    public function testResult_4 () : void
     {
         # From https://en.wikipedia.org/wiki/Ranked_pairs
 
@@ -158,7 +158,7 @@ class RankedPairsTest extends TestCase
         self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
     }
 
-    public function testResult_5 ()
+    public function testResult_5 () : void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example1/
 
@@ -190,7 +190,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_6 ()
+    public function testResult_6 () : void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example2/
 
@@ -221,7 +221,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_7 ()
+    public function testResult_7 () : void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example3/
 
@@ -250,7 +250,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_8 ()
+    public function testResult_8 () : void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example4/
 
@@ -292,7 +292,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_9 ()
+    public function testResult_9 () : void
     {
         # Test fix for rare bug
 
@@ -331,7 +331,7 @@ class RankedPairsTest extends TestCase
         self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
     }
 
-    public function testResult_10 ()
+    public function testResult_10 () : void
     {
         # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
         # Example 5
@@ -371,7 +371,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_11 ()
+    public function testResult_11 () : void
     {
         # From http://rangevoting.org/WinningVotes.htmls
 
@@ -389,7 +389,7 @@ class RankedPairsTest extends TestCase
                                 $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
     }
 
-    public function testMaxCandidates ()
+    public function testMaxCandidates () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);
@@ -404,7 +404,7 @@ class RankedPairsTest extends TestCase
         $this->election->getWinner('Ranked Pairs Winning');
     }
 
-    // public function testResult_stressTests ()
+    // public function testResult_stressTests () : void
     // {
     //     $rounds = 1;
     //     $candidates = 332;

@@ -18,7 +18,7 @@ class FtptTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 ()
+    public function testResult_1 () : void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -49,7 +49,7 @@ class FtptTest extends TestCase
         );
     }
 
-    public function testResult_2 ()
+    public function testResult_2 () : void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -82,7 +82,7 @@ class FtptTest extends TestCase
         );
     }
 
-    public function testResult_3 ()
+    public function testResult_3 () : void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
