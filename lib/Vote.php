@@ -43,13 +43,13 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking;
+    private array $_ranking;
 
-    private $_lastTimestamp;
+    private float $_lastTimestamp;
 
-    private $_counter;
+    private int $_counter;
 
-    private $_ranking_history = [];
+    private array $_ranking_history = [];
 
     private int $_weight = 1;
 
