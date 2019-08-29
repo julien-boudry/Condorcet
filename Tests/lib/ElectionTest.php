@@ -163,13 +163,13 @@ class ElectionTest extends TestCase
 
         self::assertSame(2,Election::setMaxParseIteration(2));
 
-        $this->election2->parseCandidates('candidate1;candidate2');
+        self::assertSame([0=>'candidate1',1=>'candidate2'],$this->election2->parseCandidates('candidate1;candidate2'));
 
-        $this->election2->parseCandidates('candidate3;candidate4');
+        self::assertSame([0=>'candidate3',1=>'candidate4'],$this->election2->parseCandidates('candidate3;candidate4'));
 
         self::assertSame(null,Election::setMaxParseIteration(null));
 
-        $this->election2->parseCandidates('candidate5;candidate6;candidate7');
+        self::assertSame([0=>'candidate5',1=>'candidate6',2=>'candidate7'],$this->election2->parseCandidates('candidate5;candidate6;candidate7'));
 
         self::assertSame(2,Election::setMaxParseIteration(2));
 
@@ -256,6 +256,30 @@ class ElectionTest extends TestCase
         "A = B = E * 3\n".
         "{{EMPTY_VOTE_IN_CONTEXT}} * 1",
         $this->election1->getVotesListAsString());
+    }
+
+    public function testParseVoteCandidateCoherence ()
+    {
+        $this->election1 = new Election;
+
+        $cA = $this->election1->addCandidate('A');
+        $cB = $this->election1->addCandidate('B');
+        $cC = $this->election1->addCandidate('C');
+
+        self::assertSame(2, $this->election1->parseVotes('
+            A>B>C * 2
+        '));
+
+        $votes = $this->election1->getVotesList();
+
+        foreach ($votes as $vote) :
+            $ranking = $vote->getRanking();
+
+            self::assertSame($cA, $ranking[1][0]);
+            self::assertSame($cB, $ranking[2][0]);
+            self::assertSame($cC, $ranking[3][0]);
+        endforeach;
+
     }
 
     public function testVoteWeight ()
