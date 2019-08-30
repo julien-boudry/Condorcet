@@ -565,6 +565,11 @@ class VoteTest extends TestCase
 
     public function testVoteHistory () : void
     {
+        $this->election1->addCandidate($this->candidate4);
+        $this->election1->addCandidate($this->candidate5);
+        $this->election1->addCandidate($this->candidate6);
+
+
         $vote1 = $this->election1->addVote(['candidate1','candidate2']);
 
         self::assertCount(1,$vote1->getHistory());
@@ -607,5 +612,21 @@ class VoteTest extends TestCase
         $this->election1->addVote($vote6);
 
         self::assertCount(2,$vote6->getHistory());
+
+        //
+
+        $vote7 = new Vote ( [$this->candidate6, 'candidate8'] );
+
+        $candidate8 = $vote7->getAllCandidates()[1];
+
+        self::assertsame('candidate8', $candidate8->getName());
+
+        self::assertTrue($candidate8->getProvisionalState());
+
+        $this->election1->addVote($vote7);
+
+        self::assertTrue($candidate8->getProvisionalState());
+
+        self::assertCount(1,$vote7->getHistory());
     }
 }
