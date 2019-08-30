@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::getAuthMethods ( [ bool basic = false] ) : array
+public static Condorcet::getAuthMethods ( [bool basic = false] ) : array
 ```
 
 Get a list of supported algorithm.

@@ -10,7 +10,7 @@ Return the vote actual ranking complete for the contexte of the provide election
     
 
 ##### **election:** *CondorcetPHP\Condorcet\Election*   
-An election is already linked to Vote.    
+An election already linked to the Vote.    
 
 
 ### Return value:   

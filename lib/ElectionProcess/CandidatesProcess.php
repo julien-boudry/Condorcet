@@ -74,11 +74,11 @@ trait CandidatesProcess
         return $strictMode ? in_array($candidate, $this->_Candidates, true) : in_array((string) $candidate, $this->_Candidates);
     }
 
-    public function getCandidateObjectFromName (string $s) : ?Candidate
+    public function getCandidateObjectFromName (string $candidateName) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
 
-            if ($oneCandidate->getName() === $s) :
+            if ($oneCandidate->getName() === $candidateName) :
                 return $oneCandidate;
             endif;
         endforeach;

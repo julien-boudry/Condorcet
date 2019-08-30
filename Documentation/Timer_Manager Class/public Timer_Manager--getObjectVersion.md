@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Timer\Manager -> getObjectVersion ( [ bool major = false] ) : string
+public $Timer\Manager -> getObjectVersion ( [bool major = false] ) : string
 ```
 
 Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.

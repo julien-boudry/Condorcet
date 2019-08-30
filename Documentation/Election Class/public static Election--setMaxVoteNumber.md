@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public static Election::setMaxVoteNumber ( ?int $maxVotesNumber ) : ?int
+public static Election::setMaxVoteNumber ( ?int maxVotesNumber ) : ?int
 ```
 
 Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
     
 
-##### **$maxVotesNumber:** *?int*   
+##### **maxVotesNumber:** *?int*   
 Null will desactivate this functionnality. An integer will fix the limit.    
 
 
