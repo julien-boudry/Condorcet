@@ -134,7 +134,7 @@ class ResultTest extends TestCase
         self::assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
     }
 
-    public function testgetOriginalArrayWithString () : void
+    public function testgetOriginalResultArrayWithString () : void
     {
         $this->election1->addCandidate('a');
         $this->election1->addCandidate('b');
@@ -147,7 +147,7 @@ class ResultTest extends TestCase
                 2 => 'b',
                 3 => 'c',
             ],
-            $this->election1->getResult()->getOriginalArrayWithString()
+            $this->election1->getResult()->getOriginalResultArrayWithString()
         );
     }
 

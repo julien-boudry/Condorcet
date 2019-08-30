@@ -69,9 +69,9 @@ trait CandidatesProcess
         endif;
     }
 
-    public function isRegisteredCandidate ($candidate, bool $strict = true) : bool
+    public function isRegisteredCandidate ($candidate, bool $strictMode = true) : bool
     {
-        return $strict ? in_array($candidate, $this->_Candidates, true) : in_array((string) $candidate, $this->_Candidates);
+        return $strictMode ? in_array($candidate, $this->_Candidates, true) : in_array((string) $candidate, $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $s) : ?Candidate

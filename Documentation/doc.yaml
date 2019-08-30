@@ -417,6 +417,29 @@
   class: Election
   type: method
   visibility: public
+  name: computeResult
+  static: false
+  description: |
+    Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
+  input:
+    method:
+      type: string
+      default: 'null'
+      nullable: true
+      required: false
+      text: |
+        Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
+  return_type: void
+  related:
+    - 'Election::getWinner'
+    - 'Election::getResult'
+    - 'Condorcet::getDefaultMethod'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: countCandidates
   static: false
   description: |
@@ -723,6 +746,23 @@
   class: Election
   type: method
   visibility: public
+  name: getState
+  static: false
+  description: |
+    Get the election process level.
+  return_type: int
+  return: |
+    1: Candidate registered state. No votes, no result, no cache.
+    2: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
+    3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.
+  related:
+    - 'Election::setStateToVote'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getTimerManager
   static: false
   description: |
@@ -800,6 +840,36 @@
     A = B > C * 6
   related:
     - 'Election::parseVotes'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: isRegisteredCandidate
+  static: false
+  description: |
+    Check if a candidate is already taking part in the election.
+  input:
+    candidate:
+      type: mixed
+      nullable: false
+      required: true
+      text: |
+        Candidate object or candidate string name. String name can working only if the strict mode is active.
+    strictMode:
+      type: bool
+      default: true
+      nullable: false
+      required: false
+      text: |
+        Search comparaison mode. In strict mode, candidate object are compared strictly and a string input can't match anything.
+        If strict mode is false, the comparaison will be based on name.
+  return_type: bool
+  return: |
+    True / False
+  related:
+    - 'Election::addCandidate'
   publish: true
 
 - 
@@ -1151,6 +1221,25 @@
     - 'Election::getImplicitRankingRule'
   publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: setStateToVote
+  static: false
+  description: |
+    Force the election to get back to state 2. See Election::getState.
+    It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
+
+    If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
+    If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
+  return_type: bool
+  return: |
+    Always True.
+  related:
+    - 'Election::getState'
+  publish: true
+
 -
   class: Election
   type: method
@@ -1289,6 +1378,23 @@
   related:
     - 'Candidate::getHistory'
     - 'Candidate::setName'
+  publish: true
+
+- 
+  class: Candidate
+  type: method
+  visibility: public
+  name: getProvisionalState
+  static: false
+  description: |
+    When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
+    Then, these string input will be converted to into temporary candidate objects, named "provisional". because you don't create the candidate yourself. They have a provisonal statut true.
+    When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::getHistory).
+
+    See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
+  return_type: bool
+  return: |
+    True if candidate object is in a provisional state, false else.
   publish: true
 
 - 
@@ -1564,9 +1670,61 @@
   return: |
     List of registered tag.
   related:
+    - 'Vote::getTagsAsString'
     - 'Vote::addTags'
     - 'Vote::removeTags'
+  publish: true
 
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getTagsAsString
+  static: false
+  description: |
+    Get the registered tags for this Vote.
+  return_type: string
+  return: |
+    List of registered tag as string separated by commas.
+  related:
+    - 'Vote::getTags'
+    - 'Vote::addTags'
+    - 'Vote::removeTags'
+  publish: true
+
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: getWeight
+  static: false
+  description: |
+    Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
+  return_type: int
+  return: |
+    Weight. Default weight is 1.
+  related:
+    - 'Vote::setWeight'
+  publish: true
+
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: removeCandidate
+  static: false
+  description: |
+    Remove candidate from ranking. Set a new ranking and archive the old ranking.
+  input:
+    candidate:
+      type: mixed
+      required: true
+      text: Candidate object or string.
+  return_type: bool
+  return: |
+    True on success.
+  related:
+    - 'Vote::setRanking'
   publish: true
 
 - 
@@ -1615,6 +1773,26 @@
 
   publish: true
 
+- 
+  class: Vote
+  type: method
+  visibility: public
+  name: setWeight
+  static: false
+  description: |
+    Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
+  input:
+    weight:
+      type: int
+      required: true
+      text: |
+        The new vote weight.
+  return_type: int
+  return: |
+    New weight.
+  related:
+    - 'Vote::getWeight'
+  publish: true
 
 
 # CLASS TIMER/MANAGER
@@ -1637,6 +1815,24 @@
 
 # CLASS RESULT
 
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getOriginalResultArrayWithString
+  static: false
+  description: |
+    Get result as an array
+  return_type: array
+  return: |
+    Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
+    Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
+
+    This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
+  related:
+    - 'Result::getResultAsArray'
+    - 'Result::getResultAsString'
+  publish: true
 
 - 
   class: Result
@@ -1698,23 +1894,6 @@
   class: Result
   type: method
   visibility: public
-  name: getWinner
-  static: false
-  description: |
-    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
-  return_type: ?mixed
-  return: |
-    Candidate object given. Null if there are no available winner.
-    You can get an array with multiples winners.
-  related:
-    - 'Result::getLoser'
-    - 'Election::getWinner'
-  publish: true
-
-- 
-  class: Result
-  type: method
-  visibility: public
   name: getLoser
   static: false
   description: |
@@ -1725,6 +1904,63 @@
     You can get an array with multiples losers.
   related:
     - 'Result::getWinner'
+    - 'Election::getLoser'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getBuildTimeStamp
+  static: false
+  description: |
+    Get the timestamp of this result.
+  return_type: float
+  return: |
+    Microsecond timestamp.
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetElectionGeneratorVersion
+  static: false
+  description: |
+    Get the Condorcet PHP version that build this Result.
+  return_type: float
+  return: |
+    Condorcet PHP version string format.
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getClassGenerator
+  static: false
+  description: |
+    Get the The algorithmic method used for this result.
+  return_type: string
+  return: |
+    Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
+  related:
+    - 'Result::getMethod'
+  publish: true
+
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getCondorcetLoser
+  static: false
+  description: |
+    Get the Condorcet loser, if exist, at the result time.
+  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return: |
+    Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
+  related:
+    - 'Result::getCondorcetWinner'
     - 'Election::getLoser'
   publish: true
 
@@ -1744,24 +1980,6 @@
     - 'Election::getWinner'
   publish: true
 
-
-- 
-  class: Result
-  type: method
-  visibility: public
-  name: getCondorcetLoser
-  static: false
-  description: |
-    Get the Condorcet loser, if exist, at the result time.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
-  return: |
-    Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
-  related:
-    - 'Result::getCondorcetWinner'
-    - 'Election::getLoser'
-  publish: true
-
-
 - 
   class: Result
   type: method
@@ -1777,48 +1995,40 @@
     - 'Result::getClassGenerator'
   publish: true
 
+- 
+  class: Result
+  type: method
+  visibility: public
+  name: getWarning
+  static: false
+  description: |
+    From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
+  input:
+    type:
+      type: ?int
+      default: null
+      required: false
+      text: 'Filter on a specific warning type code.'
+  return_type: array
+  return: |
+    Warnings provided by the by the method that generated the warning. Empty array if there is not.
+  publish: true
 
 - 
   class: Result
   type: method
   visibility: public
-  name: getClassGenerator
+  name: getWinner
   static: false
   description: |
-    Get the The algorithmic method used for this result.
-  return_type: string
+    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+  return_type: ?mixed
   return: |
-    Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
+    Candidate object given. Null if there are no available winner.
+    You can get an array with multiples winners.
   related:
-    - 'Result::getMethod'
-  publish: true
-
-
-- 
-  class: Result
-  type: method
-  visibility: public
-  name: getBuildTimeStamp
-  static: false
-  description: |
-    Get the timestamp of this result.
-  return_type: float
-  return: |
-    Microsecond timestamp.
-  publish: true
-
-
-- 
-  class: Result
-  type: method
-  visibility: public
-  name: getCondorcetElectionGeneratorVersion
-  static: false
-  description: |
-    Get the Condorcet PHP version that build this Result.
-  return_type: float
-  return: |
-    Condorcet PHP version string format.
+    - 'Result::getLoser'
+    - 'Election::getWinner'
   publish: true
 
 
