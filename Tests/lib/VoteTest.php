@@ -537,20 +537,20 @@ class VoteTest extends TestCase
 
         self::assertSame('candidate1 > candidate2 > candidate3',$this->election1->getResult()->getResultAsString());
 
-        $vote1->removeCandidates('candidate2');
+        $vote1->removeCandidate('candidate2');
 
         self::assertSame('candidate1 > candidate3 ^42',$vote1->getSimpleRanking());
 
         self::assertSame('candidate1 > candidate3 > candidate2',$this->election1->getResult()->getResultAsString());
 
-        $vote1->removeCandidates($this->candidate3);
+        $vote1->removeCandidate($this->candidate3);
 
         self::assertSame('candidate1 > candidate2 = candidate3',$this->election1->getResult()->getResultAsString());
 
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(32);
 
-        $vote1->removeCandidates($this->candidate4);
+        $vote1->removeCandidate($this->candidate4);
     }
 
     public function testRemoveCandidateInvalidInput () : void
@@ -560,18 +560,27 @@ class VoteTest extends TestCase
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(32);
 
-        $vote1->removeCandidates([]);
+        $vote1->removeCandidate([]);
     }
 
     public function testVoteHistory () : void
     {
+        $this->election1->addCandidate($this->candidate4);
+        $this->election1->addCandidate($this->candidate5);
+        $this->election1->addCandidate($this->candidate6);
+
+
         $vote1 = $this->election1->addVote(['candidate1','candidate2']);
 
         self::assertCount(1,$vote1->getHistory());
 
+        //
+
         $vote2 = $this->election1->addVote('candidate1 > candidate2');
 
         self::assertCount(1,$vote2->getHistory());
+
+        //
 
         $vote3 = new Vote (['candidate1','candidate2']);
 
@@ -579,11 +588,45 @@ class VoteTest extends TestCase
 
         self::assertCount(2,$vote3);
 
+        //
+
         $this->election1->parseVotes('voterParsed || candidate1 > candidate2');
 
-        $votes_lists = $this->election1->getVotesList('voterParsed', true);
-        $vote4 = reset($votes_lists);
+        $votes_lists = $this->election1->getVotesListGenerator('voterParsed', true);
+        $vote4 = $votes_lists->current();
 
         self::assertCount(1,$vote4->getHistory());
+
+        //
+
+        $vote5 = new Vote ([$this->candidate5,$this->candidate6]);
+
+        $this->election1->addVote($vote5);
+
+        self::assertCount(1,$vote5->getHistory());
+
+        //
+
+        $vote6 = new Vote ([$this->candidate5,'candidate6']);
+
+        $this->election1->addVote($vote6);
+
+        self::assertCount(2,$vote6->getHistory());
+
+        //
+
+        $vote7 = new Vote ( [$this->candidate6, 'candidate8'] );
+
+        $candidate8 = $vote7->getAllCandidates()[1];
+
+        self::assertsame('candidate8', $candidate8->getName());
+
+        self::assertTrue($candidate8->getProvisionalState());
+
+        $this->election1->addVote($vote7);
+
+        self::assertTrue($candidate8->getProvisionalState());
+
+        self::assertCount(1,$vote7->getHistory());
     }
 }

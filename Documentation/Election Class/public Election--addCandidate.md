@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> addCandidate ( [ mixed candidate = automatic] ) : CondorcetPHP\Condorcet\Candidate
+public $Election -> addCandidate ( [mixed candidate = automatic] ) : CondorcetPHP\Condorcet\Candidate
 ```
 
 Add one Candidate to an election.

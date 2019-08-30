@@ -359,7 +359,7 @@ class Vote implements \Iterator
         }
 
 
-    public function removeCandidates ($candidate) : bool
+    public function removeCandidate ($candidate) : bool
     {
         if ($candidate instanceof Candidate) :
             $strict = true;
@@ -461,12 +461,15 @@ class Vote implements \Iterator
             throw new CondorcetException(26);
         endif;
 
-        $this->_weight = $newWeight;
+        if ($newWeight !== $this->_weight) :
 
-        if (!empty($this->_link)) :
-            foreach ($this->_link as &$link) :
-                $link->setStateToVote();
-            endforeach;
+            $this->_weight = $newWeight;
+
+            if (!empty($this->_link)) :
+                foreach ($this->_link as &$link) :
+                    $link->setStateToVote();
+                endforeach;
+            endif;
         endif;
 
         $this->setHashCode();

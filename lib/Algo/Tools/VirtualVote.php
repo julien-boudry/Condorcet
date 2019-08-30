@@ -19,7 +19,7 @@ class VirtualVote
         $virtualVote = clone $vote;
 
         foreach ($candidatesList as $oneCandidate) :
-            $virtualVote->removeCandidates ($oneCandidate);
+            $virtualVote->removeCandidate($oneCandidate);
         endforeach;
 
         return $virtualVote;
