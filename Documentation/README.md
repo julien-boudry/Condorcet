@@ -5,10 +5,12 @@ _Not including technical public methods which ones are used for very advanced us
 
 _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
 
+
 ## CondorcetPHP\Condorcet\Algo\Pairwise Class  
 
 * [public Algo\Pairwise->getExplicitPairwise()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md)  
 * [public Algo\Pairwise->getObjectVersion()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md)  
+
 ## CondorcetPHP\Condorcet\Candidate Class  
 
 * [public Candidate->__construct()](Candidate%20Class/public%20Candidate--__construct.md)  
@@ -22,6 +24,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Candidate->getTimestamp()](Candidate%20Class/public%20Candidate--getTimestamp.md)  
 * [public Candidate->haveLink()](Candidate%20Class/public%20Candidate--haveLink.md)  
 * [public Candidate->setName()](Candidate%20Class/public%20Candidate--setName.md)  
+
 ## CondorcetPHP\Condorcet\Condorcet Class  
 
 * [public static Condorcet::addMethod()](Condorcet%20Class/public%20static%20Condorcet--addMethod.md)  
@@ -30,12 +33,15 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static Condorcet::getVersion()](Condorcet%20Class/public%20static%20Condorcet--getVersion.md)  
 * [public static Condorcet::isAuthMethod()](Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)  
 * [public static Condorcet::setDefaultMethod()](Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md)  
+
 ## CondorcetPHP\Condorcet\CondorcetUtil Class  
 
 * [public static CondorcetUtil::format()](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md)  
+
 ## CondorcetPHP\Condorcet\DataManager\VotesManager Class  
 
 * [public DataManager\VotesManager->getObjectVersion()](DataManager_VotesManager%20Class/public%20DataManager_VotesManager--getObjectVersion.md)  
+
 ## CondorcetPHP\Condorcet\Election Class  
 
 * [public static Election::setMaxParseIteration()](Election%20Class/public%20static%20Election--setMaxParseIteration.md)  
@@ -87,6 +93,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->sumValidVotesWeightWithConstraints()](Election%20Class/public%20Election--sumValidVotesWeightWithConstraints.md)  
 * [public Election->sumVotesWeight()](Election%20Class/public%20Election--sumVotesWeight.md)  
 * [public Election->testIfVoteIsValidUnderElectionConstraints()](Election%20Class/public%20Election--testIfVoteIsValidUnderElectionConstraints.md)  
+
 ## CondorcetPHP\Condorcet\Result Class  
 
 * [public Result->getBuildTimeStamp()](Result%20Class/public%20Result--getBuildTimeStamp.md)  
@@ -103,13 +110,16 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getStats()](Result%20Class/public%20Result--getStats.md)  
 * [public Result->getWarning()](Result%20Class/public%20Result--getWarning.md)  
 * [public Result->getWinner()](Result%20Class/public%20Result--getWinner.md)  
+
 ## CondorcetPHP\Condorcet\Throwable\CondorcetException Class  
 
 * [public Throwable\CondorcetException->getObjectVersion()](Throwable_CondorcetException%20Class/public%20Throwable_CondorcetException--getObjectVersion.md)  
+
 ## CondorcetPHP\Condorcet\Timer\Manager Class  
 
 * [public Timer\Manager->getHistory()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md)  
 * [public Timer\Manager->getObjectVersion()](Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md)  
+
 ## CondorcetPHP\Condorcet\Vote Class  
 
 * [public Vote->__construct()](Vote%20Class/public%20Vote--__construct.md)  
@@ -135,3 +145,502 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->removeTags()](Vote%20Class/public%20Vote--removeTags.md)  
 * [public Vote->setRanking()](Vote%20Class/public%20Vote--setRanking.md)  
 * [public Vote->setWeight()](Vote%20Class/public%20Vote--setWeight.md)  
+
+
+
+# Method for Internal API use && Non-public methods
+
+## Abstract CondorcetPHP\Condorcet\Algo\Method   
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected compute ()  
+* protected createResult ($result)  
+* protected getScoreByCandidateRanking ($CandidatesRanked)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected compute ()  
+* protected createResult ($result)  
+* protected getScoreByCandidateRanking ($CandidatesRanked)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getLoser ()  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* public getWinner ()  
+* protected createResult ($result)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected compute ()  
+* protected createResult ($result)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Ftpt\Ftpt extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected compute ()  
+* protected createResult ($result)  
+* protected getStats ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected compute ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected makeScore ($candidateDone)  
+* protected tieBreaking ($candidatesKeys)  
+
+## CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected calcPossibleRanking ()  
+* protected calcRankingScore ()  
+* protected conflictInfos ()  
+* protected createResult ($result)  
+* protected doPossibleRanking ($path)  
+* protected getStats ()  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected looking ($challenge)  
+* protected makeRanking ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected followCycle ($virtualArcs, $startCandidateKey, $searchCandidateKey, $done)  
+* protected getArcsInCycle ($virtualArcs)  
+* protected getStats ()  
+* protected getWinners ($alreadyDone)  
+* protected makeArcs ()  
+* protected makeResult ()  
+* protected pairwiseSort ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected followCycle ($virtualArcs, $startCandidateKey, $searchCandidateKey, $done)  
+* protected getArcsInCycle ($virtualArcs)  
+* protected getStats ()  
+* protected getWinners ($alreadyDone)  
+* protected makeArcs ()  
+* protected makeResult ()  
+* protected pairwiseSort ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected followCycle ($virtualArcs, $startCandidateKey, $searchCandidateKey, $done)  
+* protected getArcsInCycle ($virtualArcs)  
+* protected getStats ()  
+* protected getWinners ($alreadyDone)  
+* protected makeArcs ()  
+* protected makeResult ()  
+* protected pairwiseSort ()  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected makeRanking ()  
+* protected makeStrongestPaths ()  
+* protected prepareStrongestPath ()  
+* protected schulzeVariant ($i, $j)  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected makeRanking ()  
+* protected makeStrongestPaths ()  
+* protected prepareStrongestPath ()  
+* protected schulzeVariant ($i, $j)  
+
+## CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected makeRanking ()  
+* protected makeStrongestPaths ()  
+* protected prepareStrongestPath ()  
+* protected schulzeVariant ($i, $j)  
+
+## Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+* public __construct ($mother)  
+* public getObjectVersion ($major)  
+* public getResult ()  
+* protected createResult ($result)  
+* protected getStats ()  
+* protected makeRanking ()  
+* protected makeStrongestPaths ()  
+* protected prepareStrongestPath ()  
+* protected schulzeVariant ($i, $j)  
+
+## CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
+* public __clone ()  
+* public __construct ($link)  
+* public addNewVote ($key)  
+* public current ()  
+* public key ()  
+* public next ()  
+* public offsetExists ($offset)  
+* public offsetGet ($offset)  
+* public offsetSet ($offset, $value)  
+* public offsetUnset ($offset)  
+* public removeVotes ($key)  
+* public rewind ()  
+* public setElection ($election)  
+* public valid ()  
+* protected computeOneVote ($pairwise, $oneVote)  
+* protected doPairwise ()  
+* protected formatNewpairwise ()  
+
+## Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats   
+* public static PairwiseComparison ($pairwise)  
+
+## CondorcetPHP\Condorcet\Algo\Tools\Permutation   
+* public static countPossiblePermutations ($candidatesNumber)  
+* public __construct ($arr)  
+* public getResults ($serialize)  
+* public writeResults ($path)  
+* protected createCandidates ($numberOfCandidates)  
+* private _exec ($a, $i)  
+* private _permute ($arr)  
+
+## CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
+* public static removeCandidates ($vote, $candidatesList)  
+
+## CondorcetPHP\Condorcet\Candidate   
+* public __clone ()  
+* public __toString ()  
+* public destroyLink ($election)  
+* public registerLink ($election)  
+* public setProvisionalState ($provisional)  
+* protected destroyAllLink ()  
+* private checkName ($name)  
+
+## Abstract CondorcetPHP\Condorcet\Condorcet   
+* public static condorcetBasicSubstitution ($substitution)  
+* protected static testMethod ($method)  
+
+## Abstract CondorcetPHP\Condorcet\CondorcetUtil   
+* public static isJson ($string)  
+* public static prepareJson ($input)  
+* public static prepareParse ($input, $isFile)  
+
+## CondorcetPHP\Condorcet\Constraints\NoTie extends CondorcetPHP\Condorcet\VoteConstraint   
+* public static isVoteAllow ($election, $vote)  
+* protected static evaluateVote ($vote)  
+
+## Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable  
+* public __clone ()  
+* public __construct ()  
+* public __destruct ()  
+* public __sleep ()  
+* public __wakeup ()  
+* public checkRegularize ()  
+* public clearCache ()  
+* public closeHandler ()  
+* public count ()  
+* public current ()  
+* public debugGetCache ()  
+* public getCacheSize ()  
+* public getContainerSize ()  
+* public getDataContextObject ()  
+* public getFirstKey ()  
+* public getFullDataSet ()  
+* public getObjectVersion ($major)  
+* public importHandler ($handler)  
+* public isUsingHandler ()  
+* public key ()  
+* public keyExist ($offset)  
+* public next ()  
+* public offsetExists ($offset)  
+* public offsetGet ($offset)  
+* public offsetSet ($offset, $value)  
+* public offsetUnset ($offset)  
+* public regularize ()  
+* public resetCounter ()  
+* public resetMaxKey ()  
+* public rewind ()  
+* public valid ()  
+* protected populateCache ()  
+* protected preDeletedTask ($object)  
+* protected setCursorOnNextKeyInArray ($array)  
+
+## CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
+* public __construct ($bdd, $tryCreateTable, $struct)  
+* public __destruct ()  
+* public closeTransaction ()  
+* public countEntitys ()  
+* public createTable ()  
+* public deleteOneEntity ($key, $justTry)  
+* public getObjectVersion ($major)  
+* public insertEntitys ($input)  
+* public selectMaxKey ()  
+* public selectMinKey ()  
+* public selectOneEntity ($key)  
+* public selectRangeEntitys ($key, $limit)  
+* protected checkStructureTemplate ($struct)  
+* protected initPrepareQuery ()  
+* protected initTransaction ()  
+* protected sliceInput ($input)  
+
+## CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess  
+* public UpdateAndResetComputing ($key, $type)  
+* public __clone ()  
+* public __construct ($election)  
+* public __destruct ()  
+* public __sleep ()  
+* public __wakeup ()  
+* public checkRegularize ()  
+* public clearCache ()  
+* public closeHandler ()  
+* public count ()  
+* public countInvalidVoteWithConstraints ()  
+* public countVotes ($tag, $with)  
+* public current ()  
+* public debugGetCache ()  
+* public getCacheSize ()  
+* public getContainerSize ()  
+* public getDataContextObject ()  
+* public getElection ()  
+* public getFirstKey ()  
+* public getFullDataSet ()  
+* public getVoteKey ($vote)  
+* public getVotesList ($tag, $with)  
+* public getVotesListAsString ()  
+* public getVotesListGenerator ($tag, $with)  
+* public getVotesValidUnderConstraintGenerator ()  
+* public importHandler ($handler)  
+* public isUsingHandler ()  
+* public key ()  
+* public keyExist ($offset)  
+* public next ()  
+* public offsetExists ($offset)  
+* public offsetGet ($offset)  
+* public offsetSet ($offset, $value)  
+* public offsetUnset ($offset)  
+* public regularize ()  
+* public resetCounter ()  
+* public resetMaxKey ()  
+* public rewind ()  
+* public setElection ($election)  
+* public sumVotesWeight ($constraint)  
+* public valid ()  
+* protected getFullVotesListGenerator ()  
+* protected getPartialVotesListGenerator ($tag, $with)  
+* protected populateCache ()  
+* protected preDeletedTask ($object)  
+* protected setCursorOnNextKeyInArray ($array)  
+* protected setStateToVote ()  
+
+## CondorcetPHP\Condorcet\Election   
+* protected static formatResultOptions ($arg)  
+* public __clone ()  
+* public __destruct ()  
+* public __sleep ()  
+* public __wakeup ()  
+* public checkVoteCandidate ($vote)  
+* public cleanupCalculator ()  
+* public cleanupPairwise ()  
+* public convertRankingCandidates ($ranking)  
+* public finishUpdateVote ($existVote)  
+* public getCandidateKey ($candidate)  
+* public getCandidateObjectFromKey ($candidate_key)  
+* public getVoteKey ($vote)  
+* public getVotesManager ()  
+* public prepareUpdateVote ($existVote)  
+* protected cleanupCompute ()  
+* protected destroyAllLink ()  
+* protected initResult ($class)  
+* protected makePairwise ()  
+* protected prepareResult ()  
+* protected prepareVoteInput ($vote, $tag)  
+* protected registerAllLinks ()  
+* protected registerVote ($vote, $tag)  
+
+## Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
+* public static convertVoteInput ($formula)  
+* public static getRankingAsString ($ranking)  
+* public static parseAnalysingOneLine ($searchCharacter, $line)  
+* public static tagsConvert ($tags)  
+
+## CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
+* public __construct ($fromMethod, $byClass, $election, $result, $stats)  
+* public addWarning ($type, $msg)  
+* public count ()  
+* public current ()  
+* public getResultAsInternalKey ()  
+* public key ()  
+* public next ()  
+* public offsetExists ($offset)  
+* public offsetGet ($offset)  
+* public offsetSet ($offset, $value)  
+* public offsetUnset ($offset)  
+* public rewind ()  
+* public valid ()  
+* protected makeUserResult ($election)  
+
+## CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable  
+* public __construct ($code, $infos)  
+* public __toString ()  
+* public __wakeup ()  
+* public getCode ()  
+* public getFile ()  
+* public getLine ()  
+* public getMessage ()  
+* public getPrevious ()  
+* public getTrace ()  
+* public getTraceAsString ()  
+* protected correspondence ($code)  
+* private __clone ()  
+
+## CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Throwable  
+* public __construct ($message)  
+* public __toString ()  
+* public __wakeup ()  
+* public getCode ()  
+* public getFile ()  
+* public getLine ()  
+* public getMessage ()  
+* public getObjectVersion ($major)  
+* public getPrevious ()  
+* public getTrace ()  
+* public getTraceAsString ()  
+* private __clone ()  
+
+## CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Throwable  
+* public __construct ($message, $code, $previous)  
+* public __toString ()  
+* public __wakeup ()  
+* public getCode ()  
+* public getFile ()  
+* public getLine ()  
+* public getMessage ()  
+* public getPrevious ()  
+* public getTrace ()  
+* public getTraceAsString ()  
+* private __clone ()  
+
+## CondorcetPHP\Condorcet\Timer\Chrono   
+* public __construct ($timer, $role)  
+* public __destruct ()  
+* public getObjectVersion ($major)  
+* public getRole ()  
+* public getStart ()  
+* public getTimerManager ()  
+* public setRole ($role)  
+* protected managerStartDeclare ()  
+* protected resetStart ()  
+
+## CondorcetPHP\Condorcet\Timer\Manager   
+* public addTime ($chrono)  
+* public getGlobalTimer ()  
+* public getLastTimer ()  
+* public startDeclare ($chrono)  
+
+## CondorcetPHP\Condorcet\Vote implements Iterator, Traversable  
+* public __clone ()  
+* public __sleep ()  
+* public __toString ()  
+* public current ()  
+* public destroyLink ($election)  
+* public getHashCode ()  
+* public key ()  
+* public next ()  
+* public registerLink ($election)  
+* public rewind ()  
+* public valid ()  
+* protected computeContextualRankingWithoutImplicit ($ranking, $election, $countContextualCandidate)  
+* protected destroyAllLink ()  
+* private archiveRanking ()  
+* private formatRanking ($ranking)  
+* private setHashCode ()  
+
+## Abstract CondorcetPHP\Condorcet\VoteConstraint   
+* public static isVoteAllow ($election, $vote)  
+* protected static evaluateVote ($vote)  

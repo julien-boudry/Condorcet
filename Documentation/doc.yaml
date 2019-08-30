@@ -8,6 +8,9 @@
 
             _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
 
+- undocumented_prefix: '# Method for Internal API use && Non-public methods'
+
+
 # MULTIPLE CLASS
 
 - 
