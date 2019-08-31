@@ -548,15 +548,7 @@ C > B > A * 1',
         $this->election1->removeCandidates('candidate4');
     }
 
-    public function testAddSameVote () : void
-    {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(31);
-
-        $this->election1->addVote($this->vote1);
-    }
-
-    public function testState1 () : void
+    public function testElectionState3 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(20);
@@ -565,7 +557,7 @@ C > B > A * 1',
         $election->setStateTovote();
     }
 
-    public function testState2 () : void
+    public function testElectionState4 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(6);
@@ -574,14 +566,36 @@ C > B > A * 1',
         $election->getResult();
     }
 
+    public function testElectionState5 () : void
+    {
+        $this->election1->getResult();
+
+        self::assertTrue($this->election1->setStateTovote());
+
+        self::assertSame(2,$this->election1->getState());
+    }
+
+    public function testAddSameVote () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(31);
+
+        $this->election1->addVote($this->vote1);
+    }
+
     public function testDestroy () : void
     {
-        $this->candidate1 = null;
-        $this->candidate2 = null;
-        $this->candidate3 = null;
+        $election = new Election;
 
-        $this->election1 = null;
+        $election->addCandidate('candidate1');
+        $election->addCandidate('candidate2');
+        $election->addCandidate('candidate3');
 
+        $election->addVote('candidate1>candidate2');
+
+        unset($election);
+
+        // Maybe change it to WeakReference test for PHP 7.4
         self::assertTrue(true);
     }
 
