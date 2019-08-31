@@ -358,10 +358,6 @@ class SchulzeTest extends TestCase
         $this->election->parseCandidates('A;B;C;D');
         $this->election->parseVotes('A>B=C>D * 10');
 
-        var_dump($this->election->getResult('Schulze')->getStats());
-        var_dump($this->election->getResult('Schulze Ratio')->getStats());
-
-
         self::assertSame(
             [   1 => 'A',
                 2 => ['B','C'],
