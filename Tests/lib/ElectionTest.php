@@ -33,9 +33,15 @@ class ElectionTest extends TestCase
 
     public function testRemoveVotes () : void
     {
-        self::assertTrue($this->election1->removeVotes($this->vote2));
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(33);
 
+        self::assertTrue($this->election1->removeVotes($this->vote2));
         self::assertCount(3,$this->election1->getVotesList());
+
+        $badRemoveVote = new Vote('A');
+
+        $this->election1->removeVotes($badRemoveVote);
     }
 
     public function testRemoveVotesByTags () : void
@@ -105,6 +111,14 @@ class ElectionTest extends TestCase
     {
         self::assertSame($this->candidate1,$this->election1->getCandidateObjectFromName('candidate1'));
         self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
+    }
+
+    public function testParseError () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(13);
+
+        $this->election1->parseVotes('candidate1>candidate2 * text');
     }
 
     /**
@@ -597,6 +611,21 @@ C > B > A * 1',
 
         // Maybe change it to WeakReference test for PHP 7.4
         self::assertTrue(true);
+    }
+
+    public function testRemoveCandidate () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(4);
+
+        $election = new Election;
+
+        $election->addCandidate('candidate1');
+
+        $badCandidate = new Candidate('B');
+
+        $election->removeCandidates($badCandidate);
+
     }
 
 }

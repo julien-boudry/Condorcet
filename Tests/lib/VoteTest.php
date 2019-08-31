@@ -39,6 +39,9 @@ class VoteTest extends TestCase
 
     public function testDifferentRanking () : void
     {
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(22);
+
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -141,6 +144,12 @@ class VoteTest extends TestCase
                 $newRanking1,
                 $vote1->getContextualRanking($this->election1)
             );
+
+        // Contextual Ranking Fail
+
+        $unexpectedElection = new Election;
+
+        $vote1->getContextualRanking($unexpectedElection);
     }
 
     public function testSimpleRanking () : void
@@ -293,6 +302,9 @@ class VoteTest extends TestCase
 
     public function testTags () : void
     {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(17);
+
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
         $targetTags = ['tag1','tag2','tag3'];
@@ -338,33 +350,36 @@ class VoteTest extends TestCase
         } catch (CondorcetException $e) {
             $badInput = $e;
         }
+
+        self::assertSame(
+            [],
+            array_values($vote1->getTags())
+        );
+
+        self::assertTrue($vote1->removeAllTags());
+
+        try {
+            $vote1->addTags(
+                ['tag1 ',' tag2',' tag3 ',' ']
+            );
+        } catch (CondorcetException $e) {
+            $badInput = $e;
+        }
             self::assertSame(
                 [],
                 array_values($vote1->getTags())
             );
 
-            self::assertTrue($vote1->removeAllTags());
+        self::assertTrue($vote1->removeAllTags());
 
-            try {
-                $vote1->addTags(
-                    ['tag1 ',' tag2',' tag3 ',' ']
-                );
-            } catch (CondorcetException $e) {
-                $badInput = $e;
-            }
-                self::assertSame(
-                    [],
-                    array_values($vote1->getTags())
-                );
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(17);
 
-            self::assertTrue($vote1->removeAllTags());
+        if ($badInput !== false) :
+            throw $badInput;
+        endif;
 
-            self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-            self::expectExceptionCode(17);
-
-            if ($badInput !== false) :
-                throw $badInput;
-            endif;
+        $vote1->addTags(['tag1',42]);
     }
 
     public function testAddRemoveTags () : void
@@ -450,6 +465,9 @@ class VoteTest extends TestCase
 
     public function testCustomTimestamp() : void
     {
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(21);
+
         $vote = new Vote (
             'A>B>C',
             null, 
@@ -466,6 +484,8 @@ class VoteTest extends TestCase
         self::assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
 
         self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
+
+        $vote->setRanking('A', 1);
 
     }
 

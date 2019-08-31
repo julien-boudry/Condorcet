@@ -24,7 +24,7 @@ abstract class VoteUtil
         if (is_string($tags)) :
             $tags = explode(',', $tags);
         elseif (is_array($tags)) :
-            foreach ($tags as $key => &$oneTag) :
+            foreach ($tags as &$oneTag) :
                 if (!is_string($oneTag)) :
                     throw new CondorcetException(17);
                 endif;
@@ -80,7 +80,7 @@ abstract class VoteUtil
 
             // Errors
             if ( !is_numeric($value) ) :
-                throw new CondorcetException(13, null);
+                throw new CondorcetException(13);
             endif;
 
             // Reformat line

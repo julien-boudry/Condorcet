@@ -404,9 +404,7 @@ class Vote implements \Iterator
         endif;
 
         foreach ($tags as $key => $tag) :
-            if (is_numeric($tag)) :
-                throw new CondorcetException(17);
-            elseif (in_array($tag, $this->_tags, true)) :
+            if (in_array($tag, $this->_tags, true)) :
                 unset($tags[$key]);
             endif;
         endforeach;

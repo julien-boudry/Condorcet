@@ -68,7 +68,7 @@ trait ResultsProcess
             $this->initResult($method);
             $result = $this->_Calculator[$method]->getResult();
         else :
-            throw new CondorcetException(8,$method);
+            throw new CondorcetException(8);
         endif;
 
         $chrono->setRole('GetResult for '.$method);
