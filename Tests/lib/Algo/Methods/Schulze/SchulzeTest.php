@@ -241,7 +241,7 @@ class SchulzeTest extends TestCase
         # Margin
         self::assertSame($candidateA, $this->election->getWinner('Schulze Margin'));
 
-        # Margin
+        # Ratio
         self::assertSame($candidateB, $this->election->getWinner('Schulze Ratio'));
 
         # Winning
