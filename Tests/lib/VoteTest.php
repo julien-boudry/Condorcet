@@ -378,8 +378,15 @@ class VoteTest extends TestCase
         if ($badInput !== false) :
             throw $badInput;
         endif;
+    }
 
-        $vote1->addTags(['tag1',42]);
+    public function testBadTagInput1 ()
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(17);
+
+        $vote = new Vote('A');
+        $vote->addTags(['tag1',42]);
     }
 
     public function testAddRemoveTags () : void
