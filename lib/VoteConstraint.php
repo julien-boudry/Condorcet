@@ -17,8 +17,5 @@ abstract class VoteConstraint
         return static::evaluateVote($vote->getContextualRanking($election));
     }
 
-    protected static function evaluateVote (array $vote) : bool
-    {
-        // To extend, or prefer extend isVoteAllow method.
-    }
+    protected static function evaluateVote (array $vote) : bool {}
 }

@@ -64,59 +64,78 @@ class ConstraintTest extends TestCase
 
     public function testConstraintsOnVote () : void
     {
-        $constraintClass = Constraints\NoTie::class;
+        $NoTieImplementation = [Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
 
-        $this->election->parseVotes('
-            A>B>C
-            C>B=A * 3
-            B^42
-        ' );
 
-        $this->election->allowVoteWeight();
+        foreach ($NoTieImplementation as $constraintClass ) :
+            $this->setUp();
 
-        self::assertEquals('B',$this->election->getWinner());
+            $this->election->parseVotes('
+                A>B>C
+                C>B=A * 3
+                B^42
+            ' );
 
-        $this->election->addConstraint($constraintClass);
+            $this->election->allowVoteWeight();
 
-        self::assertEquals('A',$this->election->getWinner());
+            self::assertEquals('B',$this->election->getWinner());
 
-        $this->election->clearConstraints();
+            $this->election->addConstraint($constraintClass);
 
-        self::assertEquals('B',$this->election->getWinner());
+            self::assertEquals('A',$this->election->getWinner());
 
-        $this->election->addConstraint($constraintClass);
+            $this->election->clearConstraints();
 
-        self::assertEquals('A',$this->election->getWinner());
+            self::assertEquals('B',$this->election->getWinner());
 
-        self::assertEquals(1,$this->election->sumValidVotesWeightWithConstraints());
-        self::assertEquals(46,$this->election->sumVotesWeight());
-        self::assertEquals(5,$this->election->countVotes());
-        self::assertEquals(1,$this->election->countValidVoteWithConstraints());
-        self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
+            $this->election->addConstraint($constraintClass);
 
-        self::assertEquals('A',$this->election->getWinner('FTPT'));
+            self::assertEquals('A',$this->election->getWinner());
 
-        self::assertFalse($this->election->setImplicitRanking(false));
+            self::assertEquals(1,$this->election->sumValidVotesWeightWithConstraints());
+            self::assertEquals(46,$this->election->sumVotesWeight());
+            self::assertEquals(5,$this->election->countVotes());
+            self::assertEquals(1,$this->election->countValidVoteWithConstraints());
+            self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
 
-        self::assertEquals('B',$this->election->getWinner('FTPT'));
-        self::assertEquals('A',$this->election->getWinner());
+            self::assertEquals('A',$this->election->getWinner('FTPT'));
 
-        self::assertEquals(43,$this->election->sumValidVotesWeightWithConstraints());
-        self::assertEquals(46,$this->election->sumVotesWeight());
-        self::assertEquals(5,$this->election->countVotes());
-        self::assertEquals(2,$this->election->countValidVoteWithConstraints());
-        self::assertEquals(3,$this->election->countInvalidVoteWithConstraints());
+            self::assertFalse($this->election->setImplicitRanking(false));
 
-        self::assertTrue($this->election->setImplicitRanking(true));
+            self::assertEquals('B',$this->election->getWinner('FTPT'));
+            self::assertEquals('A',$this->election->getWinner());
 
-        self::assertEquals('A',$this->election->getWinner());
-        self::assertEquals('A',$this->election->getWinner('FTPT'));
+            self::assertEquals(43,$this->election->sumValidVotesWeightWithConstraints());
+            self::assertEquals(46,$this->election->sumVotesWeight());
+            self::assertEquals(5,$this->election->countVotes());
+            self::assertEquals(2,$this->election->countValidVoteWithConstraints());
+            self::assertEquals(3,$this->election->countInvalidVoteWithConstraints());
 
-        self::assertEquals(1,$this->election->sumValidVotesWeightWithConstraints());
-        self::assertEquals(46,$this->election->sumVotesWeight());
-        self::assertEquals(5,$this->election->countVotes());
-        self::assertEquals(1,$this->election->countValidVoteWithConstraints());
-        self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
+            self::assertTrue($this->election->setImplicitRanking(true));
+
+            self::assertEquals('A',$this->election->getWinner());
+            self::assertEquals('A',$this->election->getWinner('FTPT'));
+
+            self::assertEquals(1,$this->election->sumValidVotesWeightWithConstraints());
+            self::assertEquals(46,$this->election->sumVotesWeight());
+            self::assertEquals(5,$this->election->countVotes());
+            self::assertEquals(1,$this->election->countValidVoteWithConstraints());
+            self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
+        endforeach;
     }
+}
 
+
+class AlternativeNoTieConstraintClass extends VoteConstraint
+{
+    public static function isVoteAllow (Election $election, Vote $vote) : bool
+    {
+        foreach ($vote->getContextualRanking($election) as $oneRank) :
+            if (count($oneRank) > 1) :
+                return false;
+            endif;
+        endforeach;
+
+        return true;
+    }
 }
