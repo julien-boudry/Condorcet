@@ -188,7 +188,7 @@ $election1 = new Election ();
         # 3- Delete Votes
 
             // Delete a specific vote object
-            $election1->removeVotes( $myVote3 );
+            $election1->removeVote( $myVote3 );
 
             // Delete all vote with tag "strangeVote" or "frenchies"
             $election1->removeVotesByTags( ['strangeVote','chauvinismVote'] );

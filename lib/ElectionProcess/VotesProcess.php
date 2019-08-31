@@ -174,9 +174,9 @@ trait VotesProcess
         return $vote;
     }
 
-    public function removeVotes (Vote $votes_input) : bool
+    public function removeVote (Vote $vote) : bool
     {    
-        $key = $this->getVoteKey($votes_input);
+        $key = $this->getVoteKey($vote);
         if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
 

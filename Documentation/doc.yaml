@@ -1079,23 +1079,15 @@
   class: Election
   type: method
   visibility: public
-  name: removeVotes
+  name: removeVote
   static: false
   description: |
     Remove Votes from an election.   
-
-    ```php
-    $condorcet->removeVotes('Charlie') ; // Remove vote(s) with tag Charlie
-    $condorcet->removeVotes('Charlie', false) ; // Remove votes without tag Charlie
-    $condorcet->removeVotes('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $condorcet->removeVotes(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
-    $condorcet->removeVotes($myVoteObject) ; // Remove a specific registered Vote.
-    ```
   input:
-    votes_input:
+    vote:
       type: CondorcetPHP\Condorcet\Vote
       required: true      
-  return_type: array 
+  return_type: bool
   return: |
     List of removed CondorcetPHP\Condorcet\Vote object.
   related:
@@ -1116,10 +1108,10 @@
     Remove Vote from an election using tags.   
 
     ```php
-    $condorcet->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
-    $condorcet->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
-    $condorcet->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $condorcet->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    $election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+    $election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+    $election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
     ```
   input:
     tags:

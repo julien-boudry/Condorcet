@@ -36,12 +36,12 @@ class ElectionTest extends TestCase
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(33);
 
-        self::assertTrue($this->election1->removeVotes($this->vote2));
+        self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3,$this->election1->getVotesList());
 
         $badRemoveVote = new Vote('A');
 
-        $this->election1->removeVotes($badRemoveVote);
+        $this->election1->removeVote($badRemoveVote);
     }
 
     public function testRemoveVotesByTags () : void
@@ -366,7 +366,7 @@ class ElectionTest extends TestCase
 
         $election->allowVoteWeight( !$election->isVoteWeightAllowed() );
 
-        $election->removeVotes($voteWithWeight);
+        $election->removeVote($voteWithWeight);
 
         self::assertSame(
             13,
