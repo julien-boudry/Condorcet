@@ -2,6 +2,7 @@
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/16180a7ef1464fecb38985fdbe83ef40)](https://app.codacy.com/app/julien-boudry/Condorcet?utm_source=github.com&utm_medium=referral&utm_content=julien-boudry/Condorcet&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
 [![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
 [![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
