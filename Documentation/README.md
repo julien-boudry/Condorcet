@@ -65,6 +65,8 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getCandidatesList ()](Election%20Class/public%20Election--getCandidatesList.md) : array  
 * [public Election->getCandidatesListAsString ()](Election%20Class/public%20Election--getCandidatesListAsString.md) : array  
 * [public Election->getChecksum ()](Election%20Class/public%20Election--getChecksum.md) : string  
+* [public Election->getCondorcetLoser ()](Election%20Class/public%20Election--getCondorcetLoser.md) : ?CondorcetPHP\Condorcet\Candidate  
+* [public Election->getCondorcetWinner ()](Election%20Class/public%20Election--getCondorcetWinner.md) : ?CondorcetPHP\Condorcet\Candidate  
 * [public Election->getConstraints ()](Election%20Class/public%20Election--getConstraints.md) : array  
 * [public Election->getExplicitPairwise ()](Election%20Class/public%20Election--getExplicitPairwise.md) : array  
 * [public Election->getGlobalTimer ()](Election%20Class/public%20Election--getGlobalTimer.md) : float  

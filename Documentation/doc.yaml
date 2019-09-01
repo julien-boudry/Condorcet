@@ -702,6 +702,25 @@
   class: Election
   type: method
   visibility: public
+  name: getCondorcetLoser
+  static: false
+  description: |
+    Get the natural Condorcet loser if there is one.
+  return_type: ?CondorcetPHP\Condorcet\Candidate
+  return: |
+    Candidate object given. Null if there are no available loser.
+  related:
+    - 'Election::getCondorcetWinner'
+    - 'Election::getLoser'
+    - 'Election::getResult'
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getPairwise
   static: false
   description: |
@@ -940,12 +959,30 @@
 
     Throw an exception on error.
   related:
+    - 'Election::getCondorcetWinner'
     - 'Election::getLoser'
     - 'Election::getResult'
-
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+  publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: getCondorcetWinner
+  static: false
+  description: |
+    Get the natural Condorcet winner if there is one.
+  return_type: ?CondorcetPHP\Condorcet\Candidate
+  return: |
+    Candidate object given. Null if there are no available winner.
+  related:
+    - 'Election::getCondorcetLoser'
+    - 'Election::getWiner'
+    - 'Election::getResult'
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
   publish: true
 
 - 
