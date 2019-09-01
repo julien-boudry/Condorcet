@@ -16,9 +16,9 @@ interface DataHandlerDriverInterface
     // The Data Manager will set an object into this property. You should call for each Entity $_dataContextObject->dataCallBack($EntityData) before returning stored data by the two select method.
 
 
-    // Entitys to register. 
+    // Entities to register. 
         // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
-    public function insertEntitys(array $input) : void;
+    public function insertEntities(array $input) : void;
 
     // Delete Entity with this key. If justTry is true, don't throw Exception if row not exist. Else throw an \CondorcetPHP\Concordet\Throwable\CondorcetInternalError.
     public function deleteOneEntity (int $key, bool $justTry) : ?int;
@@ -33,7 +33,7 @@ interface DataHandlerDriverInterface
 
     // Return (int) :nomber of recording
         // SQL example : SELECT count(*) FROM...
-    public function countEntitys () : int;
+    public function countEntities () : int;
 
     // Return one Entity by key
     public function selectOneEntity (int $key);
@@ -41,5 +41,5 @@ interface DataHandlerDriverInterface
     // Return an array of entity where $key is the first Entity and $limit is the maximum number of entity. Must return an array, keys must be preseve into there.
         // Arg example : (42, 3)
         // Return example : [42 => Condorcet/Vote, 43 => Condorcet/Vote, 44 => Condorcet/Vote]
-    public function selectRangeEntitys (int $key, int $limit) : array;
+    public function selectRangeEntities (int $key, int $limit) : array;
 }

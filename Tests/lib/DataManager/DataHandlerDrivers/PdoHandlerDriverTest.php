@@ -61,7 +61,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionInMemory->parseVotes($votes);
 
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
 
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
@@ -79,7 +79,7 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertSame(58 % ArrayManager::$MaxContainerLength,$electionWithDb->getVotesManager()->getContainerSize());
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
 
         self::assertEquals('A',$electionWithDb->getWinner());
         self::assertEquals((string) $electionInMemory->getWinner(),(string) $electionWithDb->getWinner());
@@ -99,7 +99,7 @@ class PdoHandlerDriverTest extends TestCase
         unset($electionWithDb->getVotesManager()[102]);
 
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));

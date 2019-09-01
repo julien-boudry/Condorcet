@@ -455,18 +455,18 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected setCursorOnNextKeyInArray (array $array) : void  
 
 #### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
-* public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entitys,id,data])  
+* public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
 * public __destruct ()  
 * public closeTransaction () : void  
-* public countEntitys () : int  
+* public countEntities () : int  
 * public createTable () : void  
 * public deleteOneEntity (int $key, bool $justTry) : ?int  
 * public getObjectVersion (bool $major = false) : string  
-* public insertEntitys (array $input) : void  
+* public insertEntities (array $input) : void  
 * public selectMaxKey () : ?int  
 * public selectMinKey () : int  
 * public selectOneEntity (int $key)  
-* public selectRangeEntitys (int $key, int $limit) : array  
+* public selectRangeEntities (int $key, int $limit) : array  
 * protected checkStructureTemplate (array $struct) : bool  
 * protected initPrepareQuery () : void  
 * protected initTransaction () : void  

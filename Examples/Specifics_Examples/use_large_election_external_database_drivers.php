@@ -36,7 +36,7 @@
     endif;
 
     $pdo_object = new \PDO ('sqlite:'.__DIR__.'/bdd.sqlite');
-    $database_map = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'];
+    $database_map = ['tableName' => 'Entities', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'];
 
     $driver = new PdoHandlerDriver ($pdo_object, true, $database_map); // true = Try to create table
 

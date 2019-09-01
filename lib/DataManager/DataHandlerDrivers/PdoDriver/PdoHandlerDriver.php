@@ -34,7 +34,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public $_dataContextObject;
 
 
-    public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entitys', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
+    public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entities', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) :
             throw new CondorcetException;
@@ -100,7 +100,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
         $this->_prepare['selectMinKey'] = $this->_handler->prepare('SELECT min('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
 
-        // Insert many Entitys
+        // Insert many Entities
             $makeMany = function ($how) use (&$template) {
                 $query = $template['insert_template'];
                 
@@ -114,7 +114,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             };
 
             foreach (self::SEGMENT as $value) :
-                $this->_prepare['insert'.$value.'Entitys'] = $this->_handler->prepare($makeMany($value));
+                $this->_prepare['insert'.$value.'Entities'] = $this->_handler->prepare($makeMany($value));
             endforeach;
 
         // Delete one Entity
@@ -124,10 +124,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $this->_prepare['selectOneEntity'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
         // Get a range of Entity
-        $this->_prepare['selectRangeEntitys'] = $this->_handler->prepare($template['select_template'] . ' >= :startKey order by '.$this->_struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
+        $this->_prepare['selectRangeEntities'] = $this->_handler->prepare($template['select_template'] . ' >= :startKey order by '.$this->_struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
 
-        // Count Entitys
-        $this->_prepare['countEntitys'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
+        // Count Entities
+        $this->_prepare['countEntities'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
     }
 
     protected function initTransaction () : void
@@ -150,7 +150,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
 
     // DATA MANAGER
-    public function insertEntitys (array $input) : void
+    public function insertEntities (array $input) : void
     {
         $this->sliceInput($input);
 
@@ -168,15 +168,15 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                 endforeach;
                 unset($Entity);
 
-                $this->_prepare['insert'.$group_count.'Entitys']->execute(
+                $this->_prepare['insert'.$group_count.'Entities']->execute(
                     $param
                 );
 
-                if ($this->_prepare['insert'.$group_count.'Entitys']->rowCount() !== $group_count) :
-                    throw new CondorcetInternalError ('Tous les Entitys n\'ont pas été insérés');
+                if ($this->_prepare['insert'.$group_count.'Entities']->rowCount() !== $group_count) :
+                    throw new CondorcetInternalError ('Tous les Entities n\'ont pas été insérés');
                 endif;
 
-                $this->_prepare['insert'.$group_count.'Entitys']->closeCursor();
+                $this->_prepare['insert'.$group_count.'Entities']->closeCursor();
             endforeach;
 
             $this->closeTransaction();
@@ -229,7 +229,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     public function selectMaxKey () : ?int
     {
-        if ($this->countEntitys() === 0) :
+        if ($this->countEntities() === 0) :
             return null;
         endif;
 
@@ -257,12 +257,12 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function countEntitys () : int
+    public function countEntities () : int
     {
         try {
-            $this->_prepare['countEntitys']->execute();
-            $r = (int) $this->_prepare['countEntitys']->fetch(\PDO::FETCH_NUM)[0];
-            $this->_prepare['countEntitys']->closeCursor();
+            $this->_prepare['countEntities']->execute();
+            $r = (int) $this->_prepare['countEntities']->fetch(\PDO::FETCH_NUM)[0];
+            $this->_prepare['countEntities']->closeCursor();
 
             return $r;
         } catch (\Exception $e) {
@@ -289,15 +289,15 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         }
     }
 
-    public function selectRangeEntitys (int $key, int $limit) : array
+    public function selectRangeEntities (int $key, int $limit) : array
     {
         try {
-            $this->_prepare['selectRangeEntitys']->bindParam(':startKey', $key, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeEntitys']->bindParam(':limit', $limit, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeEntitys']->execute();
+            $this->_prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $this->_prepare['selectRangeEntities']->execute();
             
-            $r = $this->_prepare['selectRangeEntitys']->fetchAll(\PDO::FETCH_NUM);
-            $this->_prepare['selectRangeEntitys']->closeCursor();
+            $r = $this->_prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
+            $this->_prepare['selectRangeEntities']->closeCursor();
             if (!empty($r)) :
                 $result = [];
                 foreach ($r as $value) :

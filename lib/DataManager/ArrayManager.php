@@ -211,7 +211,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            return $this->_Cache = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
+            return $this->_Cache = $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1);
         else :
             return $this->_Container;
         endif;
@@ -262,7 +262,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         if (!$this->isUsingHandler() || empty($this->_Container)) :
             return false;
         else :
-            $this->_DataHandler->insertEntitys($this->_Container);
+            $this->_DataHandler->insertEntities($this->_Container);
             $this->_Container = [];
             return true;
         endif;
@@ -286,7 +286,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
             $this->clearCache();
-            $this->_Cache = $this->_DataHandler->selectRangeEntitys($currentKey, self::$CacheSize);
+            $this->_Cache = $this->_DataHandler->selectRangeEntities($currentKey, self::$CacheSize);
 
             $keys = array_keys($this->_Cache);
             $this->_CacheMaxKey = max($keys);
@@ -314,7 +314,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function resetCounter () : int
     {
-        return $this->_counter = $this->getContainerSize() + ( $this->isUsingHandler() ? $this->_DataHandler->countEntitys() : 0 );
+        return $this->_counter = $this->getContainerSize() + ( $this->isUsingHandler() ? $this->_DataHandler->countEntities() : 0 );
     }
 
     public function resetMaxKey () : ?int
@@ -334,7 +334,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function importHandler (DataHandlerDriverInterface $handler) : bool
     {
-        if ($handler->countEntitys() === 0) :
+        if ($handler->countEntities() === 0) :
             $this->_DataHandler = $handler;
             $this->_DataHandler->_dataContextObject = $this->getDataContextObject();
 
@@ -362,7 +362,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            $this->_Container = $this->_DataHandler->selectRangeEntitys(0,$this->_maxKey + 1);
+            $this->_Container = $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1);
 
             $this->_DataHandler = null;
 
