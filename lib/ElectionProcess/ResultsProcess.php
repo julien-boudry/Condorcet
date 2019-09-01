@@ -64,7 +64,7 @@ trait ResultsProcess
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::isAuthMethod((string) $method)) :
+        elseif ($method = Condorcet::getMethodClass((string) $method)) :
             $this->initResult($method);
             $result = $this->_Calculator[$method]->getResult();
         else :
