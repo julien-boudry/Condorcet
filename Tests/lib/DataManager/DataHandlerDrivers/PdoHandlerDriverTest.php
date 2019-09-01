@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
+namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver;
 
 
 use CondorcetPHP\Condorcet\Election;

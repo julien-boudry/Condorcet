@@ -454,7 +454,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
 
-#### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
+#### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entitys,id,data])  
 * public __destruct ()  
 * public closeTransaction () : void  

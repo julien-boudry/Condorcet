@@ -115,7 +115,6 @@ trait ResultsProcess
     public function getCondorcetWinner () : ?Candidate
     {
         return $this->getWinner(null);
-
     }
 
     public function getCondorcetLoser () : ?Candidate

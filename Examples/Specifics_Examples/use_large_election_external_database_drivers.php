@@ -9,7 +9,7 @@
     use CondorcetPHP\Condorcet\Election;
     use CondorcetPHP\Condorcet\Candidate;
     use CondorcetPHP\Condorcet\Vote;
-    use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoHandlerDriver;
+    use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 
     require_once __DIR__.'/../../__CondorcetAutoload.php';
 
