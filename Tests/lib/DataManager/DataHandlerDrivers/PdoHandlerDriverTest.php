@@ -263,4 +263,21 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
     }
 
+    public function testBadTableSchema1 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(0);
+        
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
+    }
+
+    public function testBadTableSchema2 () : void
+    {
+        self::expectException(\Exception::class);
+
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+    }
+
 }

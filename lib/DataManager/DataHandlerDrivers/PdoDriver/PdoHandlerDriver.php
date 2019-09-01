@@ -221,7 +221,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['deleteOneEntity']->closeCursor();
 
             return $deleteCount;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->_queryError = true;
             throw $e;
         }
