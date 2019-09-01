@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Vote -> haveLink ( CondorcetPHP\Condorcet\Condorcet election ) : bool
+public $Vote -> haveLink ( CondorcetPHP\Condorcet\Election election ) : bool
 ```
 
 Check if this election is linked with this Candidate/Vote object.
     
 
-##### **election:** *CondorcetPHP\Condorcet\Condorcet*   
+##### **election:** *CondorcetPHP\Condorcet\Election*   
 Condorcet election to check.    
 
 

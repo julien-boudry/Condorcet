@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> __construct ( mixed ranking [, mixed tags = null , numeric ownTimestamp = null , CondorcetPHP\Condorcet\Election electionContext = null] )
+public $Vote -> __construct ( mixed ranking [, mixed tags = null , ?float ownTimestamp = null , ?CondorcetPHP\Condorcet\Election electionContext = null] )
 ```
 
 Build a vote object.
@@ -17,11 +17,11 @@ Equivalent to Vote::setRanking method.
 Equivalent to Vote::addTags method.    
 
 
-##### **ownTimestamp:** *numeric*   
+##### **ownTimestamp:** *?float*   
 Set your own timestamp metadata on Ranking.    
 
 
-##### **electionContext:** *CondorcetPHP\Condorcet\Election*   
+##### **electionContext:** *?CondorcetPHP\Condorcet\Election*   
 Try to convert directly your candidates from sting input" to Candidate object of one election.    
 
 ---------------------------------------

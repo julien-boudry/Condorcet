@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> setRanking ( mixed ranking [, numeric ownTimestamp = null] ) : bool
+public $Vote -> setRanking ( mixed ranking [, ?float ownTimestamp = null] ) : bool
 ```
 
 Set a new ranking for this vote.    
@@ -27,7 +27,7 @@ Note: You can't use string candidate name if your vote is already linked to an e
     
 
 
-##### **ownTimestamp:** *numeric*   
+##### **ownTimestamp:** *?float*   
 Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.    
 
 

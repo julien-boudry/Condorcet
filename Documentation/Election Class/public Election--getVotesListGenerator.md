@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getVotesListGenerator ( mixed tags = test [, bool with = test] ) : Generator
+public $Election -> getVotesListGenerator ( [mixed tags = null , bool with = true] ) : Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.

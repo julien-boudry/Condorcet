@@ -69,7 +69,7 @@
     Check if this election is linked with this Candidate/Vote object.
   input:
     election:
-      type: CondorcetPHP\Condorcet\Condorcet
+      type: CondorcetPHP\Condorcet\Election
       required: true
       text: Condorcet election to check.
   return_type: bool
@@ -303,9 +303,9 @@
   input:
     candidate:
       type: mixed
-      default: automatic
       required: false
-      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim().
+      default: 'null'
+      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
   return_type: CondorcetPHP\Condorcet\Candidate
   return: |
     The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
@@ -810,12 +810,12 @@
   input:
     tags:
       type: mixed
-      default: test
-      required: true
+      required: false
+      default: 'null'
     with:
       type: bool
-      default: test
       required: false
+      default: true
   return_type: array
   return: |
     Populated by each Vote object.
@@ -835,13 +835,13 @@
     Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
   input:
     tags:
+      required: false
       type: mixed
-      default: test
-      required: true
+      default: 'null'
     with:
       type: bool
-      default: test
       required: false
+      default: true
   return_type: Generator
   return: |
     Populated by each Vote object.
@@ -1011,7 +1011,8 @@
       text: String or valid path to a text file.
     isFile:
       type: bool
-      required: true
+      required: false
+      default: false
       text: If true, the input is evalatued as path to text file.
   return_type: array
   return: |
@@ -1039,7 +1040,8 @@
       text: String or valid path to a text file.
     isFile:
       type: bool
-      required: true
+      required: false
+      default: false
       text: If true, the input is evalatued as path to text file.
   return_type: int
   return: |
@@ -1139,7 +1141,7 @@
       type: mixed
       required: true         
     with:
-      type: mixed
+      type: bool
       required: false
       default: true
   return_type: array
@@ -1184,8 +1186,9 @@
     Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
   input:
     maxParseIterations:
-      type: ?int
+      type: int
       required: true
+      nullable: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
   return_type: ?int
   return: |
@@ -1204,8 +1207,9 @@
     Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
   input:
     maxVotesNumber:
-      type: ?int
+      type: int
       required: true
+      nullable: true
       text: Null will desactivate this functionnality. An integer will fix the limit.
   return_type: ?int
   return: |
@@ -1456,12 +1460,14 @@
       required: false
       text: Equivalent to Vote::addTags method.
     ownTimestamp:
-      type: numeric
+      type: float
+      nullable: true
       default: 'null'
       required: false
       text: Set your own timestamp metadata on Ranking.
     electionContext:
       type: CondorcetPHP\Condorcet\Election
+      nullable: true
       default: 'null'
       required: false
       text: Try to convert directly your candidates from sting input" to Candidate object of one election.
@@ -1674,6 +1680,7 @@
   input:
     context:
       type: CondorcetPHP\Condorcet\Election
+      nullable: true
       required: false
       default: 'null'
       text: An election already linked to the Vote.
@@ -1782,7 +1789,8 @@
         Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
 
     ownTimestamp:
-      type: numeric
+      type: float
+      nullable: true
       default: 'null'
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
@@ -2031,9 +2039,10 @@
     From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
   input:
     type:
-      type: ?int
-      default: null
+      type: int
+      nullable: true
       required: false
+      default: 'null'
       text: 'Filter on a specific warning type code.'
   return_type: array
   return: |
