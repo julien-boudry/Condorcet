@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getResult ( [?string method = null , array options = []] ) : \CondorcetPHP\Condorcet\Result
+public $Election -> getResult ( [?string method = null , array options = []] ) : CondorcetPHP\Condorcet\Result
 ```
 
 Get a full ranking from an advanced Condorcet method.    
@@ -21,7 +21,7 @@ Not requiered for use object default method. Set the string name of the algorith
 
 ### Return value:   
 
-*(\CondorcetPHP\Condorcet\Result)* An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
+*(CondorcetPHP\Condorcet\Result)* An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
 
 ---------------------------------------

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getCondorcetLoser ( ) : ?\CondorcetPHP\Condorcet\Candidate
+public $Result -> getCondorcetLoser ( ) : ?CondorcetPHP\Condorcet\Candidate
 ```
 
 Get the Condorcet loser, if exist, at the result time.
@@ -11,7 +11,7 @@ Get the Condorcet loser, if exist, at the result time.
 
 ### Return value:   
 
-*(?\CondorcetPHP\Condorcet\Candidate)* Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
+*(?CondorcetPHP\Condorcet\Candidate)* Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
 
 
 ---------------------------------------

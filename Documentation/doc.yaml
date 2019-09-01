@@ -45,7 +45,7 @@
   static: false
   description: |
     Get elections object linked to this Vote or Candidate object.
-  return_type: array
+  return_type: ?array
   return: |
     Populated by each elections Condorcet object.
   related:
@@ -69,7 +69,7 @@
     Check if this election is linked with this Candidate/Vote object.
   input:
     election:
-      type: \CondorcetPHP\Condorcet\Condorcet
+      type: CondorcetPHP\Condorcet\Condorcet
       required: true
       text: Condorcet election to check.
   return_type: bool
@@ -156,6 +156,7 @@
     True on Success. False on failure.
   related:
     - 'static Condorcet::isAuthMethod'
+    - 'static Condorcet::getMethodClass'
   publish: true
 
 - 
@@ -177,6 +178,26 @@
     Populated by method string name. You can use it on getResult ... and others methods.
   related:
     - 'static Condorcet::isAuthMethod'
+    - 'static Condorcet::getMethodClass'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getMethodClass
+  static: true
+  description: |
+    Return the full class path for a method.
+  input:
+    method:
+      type: string
+      required: true
+  return_type: ?string
+  return: |
+    Return null is method not exist.
+  related:
+    - 'static Condorcet::getAuthMethods'
   publish: true
 
 - 
@@ -186,8 +207,8 @@
   name: getDefaultMethod
   static: true
   description: |
-    Return the Condorcet static default method for the new Condorcet object.
-  return_type: string
+    Return the Condorcet static default method.
+  return_type: ?string
   return: |
     Method name.
   related:
@@ -232,10 +253,10 @@
       required: true
   return_type: bool
   return: |
-    True False
+    True / False
   related:
+    - 'static Condorcet::getMethodClass'
     - 'static Condorcet::getAuthMethods'
-
   publish: true
 
 - 
@@ -341,7 +362,7 @@
       default: 'null'
       required: false
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
-  return_type: \CondorcetPHP\Condorcet\Vote
+  return_type: CondorcetPHP\Condorcet\Vote
   return: |
     The vote object.
   related:
@@ -523,7 +544,7 @@
   static: false
   description: |
     Find candidate object by his string and return the candidate object.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   input:
     candidateName:
       type: string
@@ -685,7 +706,7 @@
   static: false
   description: |
     Return the Pairwise.
-  return_type: \CondorcetPHP\Condorcet\Algo\Pairwise
+  return_type: CondorcetPHP\Condorcet\Algo\Pairwise
   return: |
     Pairwise object.
   related:
@@ -734,7 +755,7 @@
       type: array
       default: '[]'
       required: false
-  return_type: \CondorcetPHP\Condorcet\Result
+  return_type: CondorcetPHP\Condorcet\Result
   return: |
     An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
   related:
@@ -821,9 +842,9 @@
       type: bool
       default: test
       required: false
-  return_type: \Generator
+  return_type: Generator
   return: |
-    *(\Generator)* Populated by each Vote object.
+    Populated by each Vote object.
   related:
     - 'Election::getVotesList'
   publish: true
@@ -1440,7 +1461,7 @@
       required: false
       text: Set your own timestamp metadata on Ranking.
     electionContext:
-      type: \CondorcetPHP\Condorcet\Election
+      type: CondorcetPHP\Condorcet\Election
       default: 'null'
       required: false
       text: Try to convert directly your candidates from sting input" to Candidate object of one election.
@@ -1652,7 +1673,7 @@
     Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
   input:
     context:
-      type: \CondorcetPHP\Condorcet\Election
+      type: CondorcetPHP\Condorcet\Election
       required: false
       default: 'null'
       text: An election already linked to the Vote.
@@ -1933,7 +1954,7 @@
   static: false
   description: |
     Get the Condorcet PHP version that build this Result.
-  return_type: float
+  return_type: string
   return: |
     Condorcet PHP version string format.
   publish: true
@@ -1961,7 +1982,7 @@
   static: false
   description: |
     Get the Condorcet loser, if exist, at the result time.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   return: |
     Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
   related:
@@ -1977,7 +1998,7 @@
   static: false
   description: |
     Get the Condorcet winner, if exist, at the result time.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   return: |
     CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
   related:

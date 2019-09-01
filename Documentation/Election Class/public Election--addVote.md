@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> addVote ( mixed vote [, mixed tags = null] ) : \CondorcetPHP\Condorcet\Vote
+public $Election -> addVote ( mixed vote [, mixed tags = null] ) : CondorcetPHP\Condorcet\Vote
 ```
 
 Add a vote to an election.
@@ -19,7 +19,7 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ### Return value:   
 
-*(\CondorcetPHP\Condorcet\Vote)* The vote object.
+*(CondorcetPHP\Condorcet\Vote)* The vote object.
 
 
 ---------------------------------------
