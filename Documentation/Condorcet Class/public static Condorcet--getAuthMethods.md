@@ -23,3 +23,4 @@ Include the natural Condorcet base algorithm.
 ### Related method(s)      
 
 * [static Condorcet::isAuthMethod](../Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)    
+* [static Condorcet::getMethodClass](../Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md)    

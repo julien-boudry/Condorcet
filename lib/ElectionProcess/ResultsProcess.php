@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\{Condorcet, Result};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
@@ -64,11 +64,11 @@ trait ResultsProcess
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::isAuthMethod((string) $method)) :
+        elseif ($method = Condorcet::getMethodClass((string) $method)) :
             $this->initResult($method);
             $result = $this->_Calculator[$method]->getResult();
         else :
-            throw new CondorcetException(8,$method);
+            throw new CondorcetException(8);
         endif;
 
         $chrono->setRole('GetResult for '.$method);
@@ -110,6 +110,17 @@ trait ResultsProcess
         else :
             return $this->getResult($algo)->getLoser();
         endif;
+    }
+
+    public function getCondorcetWinner () : ?Candidate
+    {
+        return $this->getWinner(null);
+
+    }
+
+    public function getCondorcetLoser () : ?Candidate
+    {
+        return $this->getLoser(null);
     }
 
     public function getPairwise () : Pairwise

@@ -150,7 +150,7 @@ class KemenyYoung extends Method implements MethodInterface
             foreach ($ranking as $candidateId) :
                 $do[] = $candidateId;
 
-                foreach ($ranking as $rank => $rankCandidate) :
+                foreach ($ranking as $rankCandidate) :
                     if (!in_array($rankCandidate, $do, true)) :
                         $this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
                     endif;

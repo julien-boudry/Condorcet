@@ -79,7 +79,7 @@ abstract class Condorcet
 
 
     // Check if the method is supported
-    public static function isAuthMethod (string $method)
+    public static function getMethodClass (string $method) : ?string
     {
         $auth = self::$_authMethods;
 
@@ -99,7 +99,14 @@ abstract class Condorcet
             endforeach;
         endif;
 
-        return false;
+        return null;
+    }
+
+    public static function isAuthMethod (string $method) : bool
+    {
+        $methodClass = self::getMethodClass($method);
+
+        return $methodClass !== null ? true : false;
     }
 
 
@@ -146,7 +153,7 @@ abstract class Condorcet
     // Change default method for this class.
     public static function setDefaultMethod (string $method) : bool
     {       
-        if ( ($method = self::isAuthMethod($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
+        if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
             return true;
         else :

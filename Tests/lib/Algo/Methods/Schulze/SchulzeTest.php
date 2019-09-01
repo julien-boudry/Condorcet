@@ -241,7 +241,7 @@ class SchulzeTest extends TestCase
         # Margin
         self::assertSame($candidateA, $this->election->getWinner('Schulze Margin'));
 
-        # Margin
+        # Ratio
         self::assertSame($candidateB, $this->election->getWinner('Schulze Ratio'));
 
         # Winning
@@ -351,5 +351,21 @@ class SchulzeTest extends TestCase
                 5 => 'Cora'    ],
             $this->election->getResult('Schulze Winning')->getResultAsArray(true)
         );
+    }
+
+    public function testSchulzeRatioEquality () : void
+    {
+        $this->election->parseCandidates('A;B;C;D');
+        $this->election->parseVotes('A>B=C>D * 10');
+
+        self::assertSame(
+            [   1 => 'A',
+                2 => ['B','C'],
+                3 => 'D'
+            ],
+            $this->election->getResult('Schulze Ratio')->getResultAsArray(true)
+        );
+
+
     }
 }

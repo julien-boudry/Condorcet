@@ -37,9 +37,10 @@
     },
     "archive": {
         "exclude": [
-            "/Tests",
+            "/Benchmarks",
             "/Documentation",
             "/Examples",
+            "/Tests",
             "condorcet-logo.psd",
             "phpcs.xml.dist",
             ".travis.yml"

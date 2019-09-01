@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getPairwise ( ) : \CondorcetPHP\Condorcet\Algo\Pairwise
+public $Election -> getPairwise ( ) : CondorcetPHP\Condorcet\Algo\Pairwise
 ```
 
 Return the Pairwise.
@@ -11,7 +11,7 @@ Return the Pairwise.
 
 ### Return value:   
 
-*(\CondorcetPHP\Condorcet\Algo\Pairwise)* Pairwise object.
+*(CondorcetPHP\Condorcet\Algo\Pairwise)* Pairwise object.
 
 
 ---------------------------------------

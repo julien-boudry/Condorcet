@@ -8,7 +8,7 @@
 
             _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
 
-- undocumented_prefix: '# Method for Internal API use && Non-public methods'
+- undocumented_prefix: '# Method for internal API use && Non-public methods'
 
 
 # MULTIPLE CLASS
@@ -45,7 +45,7 @@
   static: false
   description: |
     Get elections object linked to this Vote or Candidate object.
-  return_type: array
+  return_type: ?array
   return: |
     Populated by each elections Condorcet object.
   related:
@@ -69,7 +69,7 @@
     Check if this election is linked with this Candidate/Vote object.
   input:
     election:
-      type: \CondorcetPHP\Condorcet\Condorcet
+      type: CondorcetPHP\Condorcet\Election
       required: true
       text: Condorcet election to check.
   return_type: bool
@@ -156,6 +156,7 @@
     True on Success. False on failure.
   related:
     - 'static Condorcet::isAuthMethod'
+    - 'static Condorcet::getMethodClass'
   publish: true
 
 - 
@@ -177,6 +178,26 @@
     Populated by method string name. You can use it on getResult ... and others methods.
   related:
     - 'static Condorcet::isAuthMethod'
+    - 'static Condorcet::getMethodClass'
+  publish: true
+
+- 
+  class: Condorcet
+  type: method
+  visibility: public
+  name: getMethodClass
+  static: true
+  description: |
+    Return the full class path for a method.
+  input:
+    method:
+      type: string
+      required: true
+  return_type: ?string
+  return: |
+    Return null is method not exist.
+  related:
+    - 'static Condorcet::getAuthMethods'
   publish: true
 
 - 
@@ -186,8 +207,8 @@
   name: getDefaultMethod
   static: true
   description: |
-    Return the Condorcet static default method for the new Condorcet object.
-  return_type: string
+    Return the Condorcet static default method.
+  return_type: ?string
   return: |
     Method name.
   related:
@@ -232,10 +253,10 @@
       required: true
   return_type: bool
   return: |
-    True False
+    True / False
   related:
+    - 'static Condorcet::getMethodClass'
     - 'static Condorcet::getAuthMethods'
-
   publish: true
 
 - 
@@ -282,9 +303,9 @@
   input:
     candidate:
       type: mixed
-      default: automatic
       required: false
-      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim().
+      default: 'null'
+      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
   return_type: CondorcetPHP\Condorcet\Candidate
   return: |
     The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
@@ -341,7 +362,7 @@
       default: 'null'
       required: false
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
-  return_type: \CondorcetPHP\Condorcet\Vote
+  return_type: CondorcetPHP\Condorcet\Vote
   return: |
     The vote object.
   related:
@@ -523,7 +544,7 @@
   static: false
   description: |
     Find candidate object by his string and return the candidate object.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   input:
     candidateName:
       type: string
@@ -681,11 +702,30 @@
   class: Election
   type: method
   visibility: public
+  name: getCondorcetLoser
+  static: false
+  description: |
+    Get the natural Condorcet loser if there is one.
+  return_type: ?CondorcetPHP\Condorcet\Candidate
+  return: |
+    Candidate object given. Null if there are no available loser.
+  related:
+    - 'Election::getCondorcetWinner'
+    - 'Election::getLoser'
+    - 'Election::getResult'
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+  publish: true
+
+- 
+  class: Election
+  type: method
+  visibility: public
   name: getPairwise
   static: false
   description: |
     Return the Pairwise.
-  return_type: \CondorcetPHP\Condorcet\Algo\Pairwise
+  return_type: CondorcetPHP\Condorcet\Algo\Pairwise
   return: |
     Pairwise object.
   related:
@@ -734,7 +774,7 @@
       type: array
       default: '[]'
       required: false
-  return_type: \CondorcetPHP\Condorcet\Result
+  return_type: CondorcetPHP\Condorcet\Result
   return: |
     An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
   related:
@@ -789,12 +829,12 @@
   input:
     tags:
       type: mixed
-      default: test
-      required: true
+      required: false
+      default: 'null'
     with:
       type: bool
-      default: test
       required: false
+      default: true
   return_type: array
   return: |
     Populated by each Vote object.
@@ -814,16 +854,16 @@
     Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
   input:
     tags:
+      required: false
       type: mixed
-      default: test
-      required: true
+      default: 'null'
     with:
       type: bool
-      default: test
       required: false
-  return_type: \Generator
+      default: true
+  return_type: Generator
   return: |
-    *(\Generator)* Populated by each Vote object.
+    Populated by each Vote object.
   related:
     - 'Election::getVotesList'
   publish: true
@@ -919,12 +959,30 @@
 
     Throw an exception on error.
   related:
+    - 'Election::getCondorcetWinner'
     - 'Election::getLoser'
     - 'Election::getResult'
-
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+  publish: true
 
+- 
+  class: Election
+  type: method
+  visibility: public
+  name: getCondorcetWinner
+  static: false
+  description: |
+    Get the natural Condorcet winner if there is one.
+  return_type: ?CondorcetPHP\Condorcet\Candidate
+  return: |
+    Candidate object given. Null if there are no available winner.
+  related:
+    - 'Election::getCondorcetLoser'
+    - 'Election::getWiner'
+    - 'Election::getResult'
+  examples:
+    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
   publish: true
 
 - 
@@ -990,7 +1048,8 @@
       text: String or valid path to a text file.
     isFile:
       type: bool
-      required: true
+      required: false
+      default: false
       text: If true, the input is evalatued as path to text file.
   return_type: array
   return: |
@@ -1018,7 +1077,8 @@
       text: String or valid path to a text file.
     isFile:
       type: bool
-      required: true
+      required: false
+      default: false
       text: If true, the input is evalatued as path to text file.
   return_type: int
   return: |
@@ -1079,23 +1139,15 @@
   class: Election
   type: method
   visibility: public
-  name: removeVotes
+  name: removeVote
   static: false
   description: |
     Remove Votes from an election.   
-
-    ```php
-    $condorcet->removeVotes('Charlie') ; // Remove vote(s) with tag Charlie
-    $condorcet->removeVotes('Charlie', false) ; // Remove votes without tag Charlie
-    $condorcet->removeVotes('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $condorcet->removeVotes(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
-    $condorcet->removeVotes($myVoteObject) ; // Remove a specific registered Vote.
-    ```
   input:
-    votes_input:
+    vote:
       type: CondorcetPHP\Condorcet\Vote
       required: true      
-  return_type: array 
+  return_type: bool
   return: |
     List of removed CondorcetPHP\Condorcet\Vote object.
   related:
@@ -1116,17 +1168,17 @@
     Remove Vote from an election using tags.   
 
     ```php
-    $condorcet->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
-    $condorcet->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
-    $condorcet->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $condorcet->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+    $election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+    $election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+    $election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+    $election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
     ```
   input:
     tags:
       type: mixed
       required: true         
     with:
-      type: mixed
+      type: bool
       required: false
       default: true
   return_type: array
@@ -1171,8 +1223,9 @@
     Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
   input:
     maxParseIterations:
-      type: ?int
+      type: int
       required: true
+      nullable: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
   return_type: ?int
   return: |
@@ -1191,8 +1244,9 @@
     Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
   input:
     maxVotesNumber:
-      type: ?int
+      type: int
       required: true
+      nullable: true
       text: Null will desactivate this functionnality. An integer will fix the limit.
   return_type: ?int
   return: |
@@ -1443,12 +1497,14 @@
       required: false
       text: Equivalent to Vote::addTags method.
     ownTimestamp:
-      type: numeric
+      type: float
+      nullable: true
       default: 'null'
       required: false
       text: Set your own timestamp metadata on Ranking.
     electionContext:
-      type: \CondorcetPHP\Condorcet\Election
+      type: CondorcetPHP\Condorcet\Election
+      nullable: true
       default: 'null'
       required: false
       text: Try to convert directly your candidates from sting input" to Candidate object of one election.
@@ -1660,7 +1716,8 @@
     Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
   input:
     context:
-      type: \CondorcetPHP\Condorcet\Election
+      type: CondorcetPHP\Condorcet\Election
+      nullable: true
       required: false
       default: 'null'
       text: An election already linked to the Vote.
@@ -1769,7 +1826,8 @@
         Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
 
     ownTimestamp:
-      type: numeric
+      type: float
+      nullable: true
       default: 'null'
       required: false
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
@@ -1941,7 +1999,7 @@
   static: false
   description: |
     Get the Condorcet PHP version that build this Result.
-  return_type: float
+  return_type: string
   return: |
     Condorcet PHP version string format.
   publish: true
@@ -1969,7 +2027,7 @@
   static: false
   description: |
     Get the Condorcet loser, if exist, at the result time.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   return: |
     Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
   related:
@@ -1985,7 +2043,7 @@
   static: false
   description: |
     Get the Condorcet winner, if exist, at the result time.
-  return_type: ?\CondorcetPHP\Condorcet\Candidate
+  return_type: ?CondorcetPHP\Condorcet\Candidate
   return: |
     CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
   related:
@@ -2018,9 +2076,10 @@
     From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
   input:
     type:
-      type: ?int
-      default: null
+      type: int
+      nullable: true
       required: false
+      default: 'null'
       text: 'Filter on a specific warning type code.'
   return_type: array
   return: |

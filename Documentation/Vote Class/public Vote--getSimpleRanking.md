@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Vote -> getSimpleRanking ( [\CondorcetPHP\Condorcet\Election context = null] ) : string
+public $Vote -> getSimpleRanking ( [?CondorcetPHP\Condorcet\Election context = null] ) : string
 ```
 
 Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
     
 
-##### **context:** *\CondorcetPHP\Condorcet\Election*   
+##### **context:** *?CondorcetPHP\Condorcet\Election*   
 An election already linked to the Vote.    
 
 

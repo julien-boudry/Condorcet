@@ -19,12 +19,12 @@ class SchulzeRatio extends Schulze_Core
     // Method Name
     public const METHOD_NAME = ['Schulze Ratio','SchulzeRatio','Schulze_Ratio'];
 
-    protected function schulzeVariant (int &$i, int &$j) : float
+    protected function schulzeVariant (int $i, int $j) : float
     {
         if ($this->_selfElection->getPairwise()[$j]['win'][$i] !== 0) :
-            return (float) $this->_selfElection->getPairwise()[$i]['win'][$j] / $this->_selfElection->getPairwise()[$j]['win'][$i];
+            return (float) ($this->_selfElection->getPairwise()[$i]['win'][$j] / $this->_selfElection->getPairwise()[$j]['win'][$i]);
         else :
-            return (float) 0;
+            return (float) (($this->_selfElection->getPairwise()[$i]['win'][$j] +1) / 1);
         endif;
     }
 }

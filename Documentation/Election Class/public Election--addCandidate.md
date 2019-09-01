@@ -3,14 +3,14 @@
 ### Description    
 
 ```php
-public $Election -> addCandidate ( [mixed candidate = automatic] ) : CondorcetPHP\Condorcet\Candidate
+public $Election -> addCandidate ( [mixed candidate = null] ) : CondorcetPHP\Condorcet\Candidate
 ```
 
 Add one Candidate to an election.
     
 
 ##### **candidate:** *mixed*   
-Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim().    
+Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.    
 
 
 ### Return value:   

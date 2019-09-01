@@ -19,7 +19,7 @@ class SchulzeWinning extends Schulze_Core
     // Method Name
     public const METHOD_NAME = ['Schulze Winning','Schulze','SchulzeWinning','Schulze_Winning','Schwartz Sequential Dropping','SSD','Cloneproof Schwartz Sequential Dropping','CSSD','Beatpath','Beatpath Method','Beatpath Winner','Path Voting','Path Winner'];
 
-    protected function schulzeVariant (int &$i, int &$j) : int {
+    protected function schulzeVariant (int $i, int $j) : int {
         return $this->_selfElection->getPairwise()[$i]['win'][$j];
     }
 }

@@ -120,7 +120,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
             if (!in_array($candidateKey, $alreadyDone, true)) :
                 $win = true;
-                foreach ($this->_Arcs as $ArcKey => $ArcValue) :
+                foreach ($this->_Arcs as $ArcValue) :
                     if ($ArcValue['to'] === $candidateKey) :
                         $win = false;
                     endif;

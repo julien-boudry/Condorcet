@@ -4,31 +4,34 @@ All notable changes to this project will be documented in this file.
 
 ## [v2.0.0] - Unreleased
 ### Description
-Some small API changes (renaming, rationalization), sometimes on main methods. And many internal optimizations. Also use a new namespace!
+Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!
 
 ### Added
-
+- Very significant efforts about the documentation. Still in progress.
+- Add two distincts methods Election::getCondorcetWinner() & Election::getCondorcetLoser(). the result are strictly equivalent to Election::getWinner(null) & Election::getWinner(null) but it's more explicit. And it is consistent with the homonymous methods of the result object.
 
 ### Changed
 - Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one. The new base namespace is \CondorcetPHP\Condorcet\
-- Changes and simplifies the functioning of getVetsion && getObjectVersion methods.
-- Change de default $method input value for getResult method from true to null. Bool can not be used anymore.
-- Adding vote or candidate from Json, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
-- Many methods have been renamed for greater consistency and intelligibility. 
-- Divided Election::getCandidateList($type) in two methods : Election::getCandidateList() and Election::getCandidateListAsString()
-- Various fix
+- Adding votes or candidates from Json or string parsing, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
+- Many methods have been renamed or divided for greater consistency and intelligibility. Some parameters may have changed or used more strict type. 
+- CondorcertException class moves to a new namespace Throwable\CondorcetException. Condorcet can now also throw Trowable\CondorcetInternalError error.
+- Some change on "Schulze Ratio" method computation, can affect the result of some type of election. It's still imperfect due to a case that the theory doesn't take into account. However, very small or very typical elections will have more logical results. The more common Winning & Margin methods are not affected.
+- Many other various fixes.
+- New Condorcet logo.
 
 ### Removed
-- Removes the slightly twisted method Election::ignoreMaxVote 
+- Removes the slightly twisted method Election::ignoreMaxVote
 
 ### Performance
-- Parse Vote (text or Json) is really faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictible, linear and as smart than other input method vote.
+- Adding, change or removing vote after requesting firsts Result, will prevent recomputing all the pairwise and prefer to update it. Can be a small optimization for most use case, or a very huge performances improvements if you manage a very large number of votes or use an external data handler for storing them.
+- Parse Vote (text or Json) is really faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictable, linear and as smart as other input vote methods.
+- Overall, significant savings in memory usage.
+- Many other performance optimizations.
 
 ### Internal changes
-- Use PHP 7.4 type for class property
-- Various performance micro-optimizations
-- Voting Method extending PairwiseStatsBased_Core must use static constant COUNT_TYPE instead of $\_countType property property.
-- Performance optimization for adding vote, updating vote and removing vote. In some cases, the pairwise is updated rather than completely recalculated.
+- Voting Method extending PairwiseStatsBased_Core must use static constant COUNT_TYPE instead of $\_countType property.
+- Add many tests.
+- Add benchmarks with phpbench.
 
 ## [v1.8.2] - 2019-02-16
 ### Description

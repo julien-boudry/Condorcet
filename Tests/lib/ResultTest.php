@@ -198,4 +198,18 @@ class ResultTest extends TestCase
         endforeach;
     }
 
+    public function testBadMethodName () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(8);
+
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('C');
+
+        $this->election1->parseVotes('A>B>C');
+
+        $this->election1->getResult('bad method');
+    }
+
 }

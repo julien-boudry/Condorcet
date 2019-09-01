@@ -142,8 +142,8 @@ trait VotesProcess
     {
         $change = false;
 
-        foreach ($ranking as $rank => &$choice) :
-            foreach ($choice as $choiceKey => &$candidate) :
+        foreach ($ranking as &$choice) :
+            foreach ($choice as &$candidate) :
                 if ( !$this->isRegisteredCandidate($candidate, true) ) :
                     if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
                             $candidate = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
@@ -174,12 +174,11 @@ trait VotesProcess
         return $vote;
     }
 
-    public function removeVotes (Vote $votes_input) : bool
+    public function removeVote (Vote $vote) : bool
     {    
-        $key = $this->getVoteKey($votes_input);
+        $key = $this->getVoteKey($vote);
         if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
-            $rem[] = $deletedVote;
 
             unset($this->_Votes[$key]);
 

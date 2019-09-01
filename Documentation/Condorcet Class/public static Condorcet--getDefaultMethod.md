@@ -3,15 +3,15 @@
 ### Description    
 
 ```php
-public static Condorcet::getDefaultMethod ( ) : string
+public static Condorcet::getDefaultMethod ( ) : ?string
 ```
 
-Return the Condorcet static default method for the new Condorcet object.
+Return the Condorcet static default method.
     
 
 ### Return value:   
 
-*(string)* Method name.
+*(?string)* Method name.
 
 
 ---------------------------------------

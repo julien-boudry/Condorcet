@@ -151,7 +151,7 @@ trait CandidatesProcess
             $candidate_key = $this->getCandidateKey($candidate);
 
             if ( $candidate_key === null ) :
-                throw new CondorcetException(4,$candidate);
+                throw new CondorcetException(4,$candidate->getName());
             endif;
 
             $candidate = $candidate_key;

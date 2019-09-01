@@ -88,7 +88,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->computeOneVote($this->_Pairwise,$this->_Election->getVotesManager()[$key]);
     }
 
-    public function removeVotes (int $key) : void
+    public function removeVote (int $key) : void
     {
         new Timer_Chrono ( $this->_Election->getTimerManager(), 'Remove Vote To Pairwise' );
 
@@ -154,7 +154,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         $this->_Pairwise = $this->_Pairwise_Model;
 
-        foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $vote_id => $oneVote ) :
+        foreach ( $this->_Election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote ) :
             $this->computeOneVote($this->_Pairwise, $oneVote);
         endforeach;
     }

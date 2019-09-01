@@ -20,7 +20,7 @@ class CondorcetTest extends TestCase
     {
         $algoClassPath = Condorcet::getDefaultMethod();
 
-        self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
+        self::assertEquals($algoClassPath,Condorcet::getMethodClass($algoClassPath));
 
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
@@ -36,7 +36,8 @@ class CondorcetTest extends TestCase
     public function testAuthMethod () : void
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
-        self::assertSame(Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::isAuthMethod('Schulze Winning'));
+        self::assertNull(Condorcet::getMethodClass('skzljdpmzk'));
+        self::assertSame(Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::getMethodClass('Schulze Winning'));
     }
 
     public function testAddMethod () : void
@@ -48,7 +49,7 @@ class CondorcetTest extends TestCase
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
 
-        self::assertEquals($algoClassPath,Condorcet::isAuthMethod($algoClassPath));
+        self::assertEquals($algoClassPath,Condorcet::getMethodClass($algoClassPath));
 
         // Try to add existing alias
         $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
@@ -67,7 +68,7 @@ class CondorcetTest extends TestCase
 
         self::assertSame(
             CondorcetTest_UnvalidAlgorithmName::class,
-            Condorcet::isAuthMethod('FirstMethodName')
+            Condorcet::getMethodClass('FirstMethodName')
         );
     }
 
@@ -88,12 +89,12 @@ class CondorcetTest extends TestCase
     {
         self::assertSame(
             Algo\Methods\KemenyYoung\KemenyYoung::class,
-            Condorcet::isAuthMethod('kemeny–Young')
+            Condorcet::getMethodClass('kemeny–Young')
         );
 
         self::assertSame(
             Algo\Methods\KemenyYoung\KemenyYoung::class,
-            Condorcet::isAuthMethod('Maximum likelihood Method')
+            Condorcet::getMethodClass('Maximum likelihood Method')
         );
     }
 
