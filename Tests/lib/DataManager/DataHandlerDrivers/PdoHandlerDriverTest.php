@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
+namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver;
 
 
 use CondorcetPHP\Condorcet\Election;
@@ -61,7 +61,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionInMemory->parseVotes($votes);
 
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
 
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
@@ -79,7 +79,7 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertSame(58 % ArrayManager::$MaxContainerLength,$electionWithDb->getVotesManager()->getContainerSize());
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
 
         self::assertEquals('A',$electionWithDb->getWinner());
         self::assertEquals((string) $electionInMemory->getWinner(),(string) $electionWithDb->getWinner());
@@ -99,7 +99,7 @@ class PdoHandlerDriverTest extends TestCase
         unset($electionWithDb->getVotesManager()[102]);
 
         self::assertSame(   $electionWithDb->countVotes(),
-                            $handlerDriver->countEntitys() + $electionWithDb->getVotesManager()->getContainerSize() );
+                            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize() );
         self::assertSame($electionInMemory->countVotes(),$electionWithDb->countVotes());
         self::assertSame($electionInMemory->getVotesListAsString(),$electionWithDb->getVotesListAsString());
         self::assertSame($this->hashVotesList($electionInMemory),$this->hashVotesList($electionWithDb));
@@ -261,6 +261,23 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
+    }
+
+    public function testBadTableSchema1 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(0);
+        
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
+    }
+
+    public function testBadTableSchema2 () : void
+    {
+        self::expectException(\Exception::class);
+
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
     }
 
 }
