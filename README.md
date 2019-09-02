@@ -21,7 +21,7 @@
 
 Condorcet PHP
 ===========================
-> **Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](../Tests/)**  
+> **Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](Tests/)**  
 
 A PHP library implementing the Condorcet voting system and others methods like the Schulze method. And also a powerful election manager.  
 
