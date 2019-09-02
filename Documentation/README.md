@@ -316,7 +316,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = [])  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
 * protected getArcsInCycle (array $virtualArcs) : array  
 * protected getStats () : array  
 * protected getWinners (array $alreadyDone) : array  
@@ -331,7 +331,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = [])  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
 * protected getArcsInCycle (array $virtualArcs) : array  
 * protected getStats () : array  
 * protected getWinners (array $alreadyDone) : array  
@@ -346,7 +346,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = [])  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
 * protected getArcsInCycle (array $virtualArcs) : array  
 * protected getStats () : array  
 * protected getWinners (array $alreadyDone) : array  
@@ -520,7 +520,7 @@ _Including above methods from public API_
 * public getFullDataSet () : array  
 * public getObjectVersion (bool $major = false) : string  
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
-* public isUsingHandler ()  
+* public isUsingHandler () : bool  
 * public key () : ?int  
 * public keyExist ($offset) : bool  
 * public next () : void  
@@ -587,7 +587,7 @@ _Including above methods from public API_
 * public getVotesListGenerator ($tag = null, bool $with = true) : Generator  
 * public getVotesValidUnderConstraintGenerator () : Generator  
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
-* public isUsingHandler ()  
+* public isUsingHandler () : bool  
 * public key () : ?int  
 * public keyExist ($offset) : bool  
 * public next () : void  

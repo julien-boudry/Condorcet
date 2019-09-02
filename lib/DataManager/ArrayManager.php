@@ -305,7 +305,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->_CacheMinKey = 0;
     }
 
-    public function isUsingHandler ()
+    public function isUsingHandler () : bool
     {
         return $this->_DataHandler !== null;
     }

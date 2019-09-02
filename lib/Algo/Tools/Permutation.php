@@ -17,7 +17,8 @@ class Permutation
 
     public $results = [];
 
-    public static function countPossiblePermutations (int $candidatesNumber) : int {
+    public static function countPossiblePermutations (int $candidatesNumber) : int
+    {
         $result = $candidatesNumber;
 
         for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
@@ -47,9 +48,10 @@ class Permutation
     {
         $arr = [];
 
-        for ($i = 0; $i < $numberOfCandidates; $i++) {
+        for ($i = 0; $i < $numberOfCandidates; $i++) :
             $arr[] = self::PREFIX.$i;
-        }
+        endfor;
+
         return $arr;
     }
 

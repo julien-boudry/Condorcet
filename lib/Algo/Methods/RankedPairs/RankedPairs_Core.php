@@ -175,7 +175,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         return $cycles;
     }
 
-    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = [])
+    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []) : array
     {
         $arcsInCycle = [];
 
