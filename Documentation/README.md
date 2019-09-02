@@ -1,6 +1,6 @@
 > **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
 
-# Public Methods Index _(Not yet exhaustive, not yet....)*_
+# Public API Index _(Not yet exhaustive, not yet....)*_
 _Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._    
 
 _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
@@ -151,7 +151,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 .  
 .  
 .  
-# Method for internal API use && Non-public methods
+.
+# Full Class & Methods References
+_Including above methods from public API_
+
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
@@ -410,6 +413,8 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public addNewVote (int $key) : void  
 * public current () : array  
+* public getExplicitPairwise () : array  
+* public getObjectVersion (bool $major = false) : string  
 * public key () : ?int  
 * public next () : void  
 * public offsetExists ($offset) : bool  
@@ -449,9 +454,20 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 #### CondorcetPHP\Condorcet\Candidate   
 ```php
 * public __clone ()  
+* public __construct (string $name)  
 * public __toString () : string  
+* public countLinks () : int  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
+* public getCreateTimestamp () : float  
+* public getHistory () : array  
+* public getLinks () : ?array  
+* public getName () : string  
+* public getObjectVersion (bool $major = false) : string  
+* public getProvisionalState () : bool  
+* public getTimestamp () : float  
+* public haveLink (CondorcetPHP\Condorcet\Election $election) : bool  
 * public registerLink (CondorcetPHP\Condorcet\Election $election) : void  
+* public setName (string $name) : bool  
 * public setProvisionalState (bool $provisional) : bool  
 * protected destroyAllLink () : void  
 * private checkName (string $name) : bool  
@@ -459,12 +475,20 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
 ```php
+* public static addMethod (string $methodClass) : bool  
 * public static condorcetBasicSubstitution (?string $substitution) : string  
+* public static getAuthMethods (bool $basic = false) : array  
+* public static getDefaultMethod () : ?string  
+* public static getMethodClass (string $method) : ?string  
+* public static getVersion (bool $major = false) : string  
+* public static isAuthMethod (string $method) : bool  
+* public static setDefaultMethod (string $method) : bool  
 * protected static testMethod (string $method) : bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
 ```php
+* public static format ($input, bool $convertObject = true)  
 * public static isJson (string $string) : bool  
 * public static prepareJson (string $input)  
 * public static prepareParse (string $input, bool $isFile) : array  
@@ -556,6 +580,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getElection () : CondorcetPHP\Condorcet\Election  
 * public getFirstKey () : int  
 * public getFullDataSet () : array  
+* public getObjectVersion (bool $major = false) : string  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
 * public getVotesList ($tag = null, bool $with = true) : array  
 * public getVotesListAsString () : string  
@@ -587,21 +612,72 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 #### CondorcetPHP\Condorcet\Election   
 ```php
+* public static setMaxParseIteration (?int $maxParseIterations) : ?int  
+* public static setMaxVoteNumber (?int $maxVotesNumber) : ?int  
 * protected static formatResultOptions (array $arg) : array  
 * public __clone ()  
+* public __construct ()  
 * public __destruct ()  
 * public __sleep () : array  
 * public __wakeup ()  
+* public addCandidate ($candidate = null) : CondorcetPHP\Condorcet\Candidate  
+* public addCandidatesFromJson (string $input) : array  
+* public addConstraint (string $constraintClass) : bool  
+* public addVote ($vote, $tags = null) : CondorcetPHP\Condorcet\Vote  
+* public addVotesFromJson (string $input) : int  
+* public allowVoteWeight (bool $rule = true) : bool  
+* public canAddCandidate ($candidate) : bool  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public cleanupCalculator () : void  
 * public cleanupPairwise () : void  
+* public clearConstraints () : bool  
+* public computeResult (?string $method = null) : void  
 * public convertRankingCandidates (array $ranking) : bool  
+* public countCandidates () : int  
+* public countInvalidVoteWithConstraints () : int  
+* public countValidVoteWithConstraints () : int  
+* public countVotes ($tags = null, bool $with = true) : int  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public getCandidateKey ($candidate) : ?int  
 * public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
+* public getCandidateObjectFromName (string $candidateName) : ?CondorcetPHP\Condorcet\Candidate  
+* public getCandidatesList () : array  
+* public getCandidatesListAsString () : array  
+* public getChecksum () : string  
+* public getCondorcetLoser () : ?CondorcetPHP\Condorcet\Candidate  
+* public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
+* public getConstraints () : array  
+* public getExplicitPairwise () : array  
+* public getGlobalTimer () : float  
+* public getImplicitRankingRule () : bool  
+* public getLastTimer () : float  
+* public getLoser (?string $method = null)  
+* public getObjectVersion (bool $major = false) : string  
+* public getPairwise () : CondorcetPHP\Condorcet\Algo\Pairwise  
+* public getResult (?string $method = null, array $options = []) : CondorcetPHP\Condorcet\Result  
+* public getState () : int  
+* public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
+* public getVotesList ($tags = null, bool $with = true) : array  
+* public getVotesListAsString () : string  
+* public getVotesListGenerator ($tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
+* public getWinner (?string $method = null)  
+* public isRegisteredCandidate ($candidate, bool $strictMode = true) : bool  
+* public isVoteWeightAllowed () : bool  
+* public parseCandidates (string $input, bool $isFile = false) : array  
+* public parseVotes (string $input, bool $isFile = false) : int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
+* public removeCandidates ($candidates_input) : array  
+* public removeExternalDataHandler () : bool  
+* public removeVote (CondorcetPHP\Condorcet\Vote $vote) : bool  
+* public removeVotesByTags ($tags, bool $with = true) : array  
+* public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver) : bool  
+* public setImplicitRanking (bool $rule = true) : bool  
+* public setStateToVote () : bool  
+* public sumValidVotesWeightWithConstraints () : int  
+* public sumVotesWeight () : int  
+* public testIfVoteIsValidUnderElectionConstraints (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * protected cleanupCompute () : void  
 * protected destroyAllLink () : void  
 * protected initResult (string $class) : void  
@@ -626,7 +702,21 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
 * public current ()  
+* public getBuildTimeStamp () : float  
+* public getClassGenerator () : string  
+* public getCondorcetElectionGeneratorVersion () : string  
+* public getCondorcetLoser () : ?CondorcetPHP\Condorcet\Candidate  
+* public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
+* public getLoser ()  
+* public getMethod () : string  
+* public getObjectVersion (bool $major = false) : string  
+* public getOriginalResultArrayWithString () : array  
+* public getResultAsArray (bool $convertToString = false) : array  
 * public getResultAsInternalKey () : array  
+* public getResultAsString () : string  
+* public getStats ()  
+* public getWarning (?int $type = null) : array  
+* public getWinner ()  
 * public key () : int  
 * public next () : void  
 * public offsetExists ($offset) : bool  
@@ -647,6 +737,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getFile ()  
 * public getLine ()  
 * public getMessage ()  
+* public getObjectVersion (bool $major = false) : string  
 * public getPrevious ()  
 * public getTrace ()  
 * public getTraceAsString ()  
@@ -702,22 +793,47 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 ```php
 * public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
 * public getGlobalTimer () : float  
+* public getHistory () : array  
 * public getLastTimer () : float  
+* public getObjectVersion (bool $major = false) : string  
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
 ```
 
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Traversable  
 ```php
 * public __clone ()  
+* public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
 * public __sleep () : array  
 * public __toString () : string  
+* public addTags ($tags) : bool  
+* public countLinks () : int  
+* public countRankingCandidates () : int  
 * public current () : array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
+* public getAllCandidates () : array  
+* public getContextualRanking (CondorcetPHP\Condorcet\Election $election) : array  
+* public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election) : array  
+* public getCreateTimestamp () : float  
 * public getHashCode () : string  
+* public getHistory () : array  
+* public getLinks () : ?array  
+* public getObjectVersion (bool $major = false) : string  
+* public getRanking () : array  
+* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null) : string  
+* public getTags () : array  
+* public getTagsAsString () : string  
+* public getTimestamp () : float  
+* public getWeight () : int  
+* public haveLink (CondorcetPHP\Condorcet\Election $election) : bool  
 * public key () : int  
 * public next () : void  
 * public registerLink (CondorcetPHP\Condorcet\Election $election) : void  
+* public removeAllTags () : bool  
+* public removeCandidate ($candidate) : bool  
+* public removeTags ($tags) : array  
 * public rewind () : void  
+* public setRanking ($ranking, ?float $ownTimestamp = null) : bool  
+* public setWeight (int $newWeight) : int  
 * public valid () : bool  
 * protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0) : array  
 * protected destroyAllLink () : void  
