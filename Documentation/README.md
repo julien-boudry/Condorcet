@@ -154,13 +154,16 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 # Method for internal API use && Non-public methods
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -168,8 +171,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getScoreByCandidateRanking (int $CandidatesRanked) : float  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -177,8 +182,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getScoreByCandidateRanking (int $CandidatesRanked) : float  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getLoser () : ?int  
 * public getObjectVersion (bool $major = false) : string  
@@ -186,8 +193,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getWinner () : ?int  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -195,16 +204,20 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -212,16 +225,20 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Ftpt\Ftpt extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getStats () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -230,8 +247,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected makeScore (array $candidateDone) : array  
 * protected tieBreaking (array $candidatesKeys) : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -242,8 +261,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected doPossibleRanking (?string $path = null)  
 * protected getStats () : array  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -251,8 +272,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -260,8 +283,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -269,8 +294,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -278,8 +305,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected getStats () : array  
 * protected looking (array $challenge) : int  
 * protected makeRanking () : void  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -291,8 +320,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeArcs () : void  
 * protected makeResult () : array  
 * protected pairwiseSort () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -304,8 +335,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeArcs () : void  
 * protected makeResult () : array  
 * protected pairwiseSort () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -317,8 +350,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeArcs () : void  
 * protected makeResult () : array  
 * protected pairwiseSort () : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -328,8 +363,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeStrongestPaths () : void  
 * protected prepareStrongestPath () : void  
 * protected schulzeVariant (int $i, int $j) : int  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -339,8 +376,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeStrongestPaths () : void  
 * protected prepareStrongestPath () : void  
 * protected schulzeVariant (int $i, int $j) : float  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -350,8 +389,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeStrongestPaths () : void  
 * protected prepareStrongestPath () : void  
 * protected schulzeVariant (int $i, int $j) : int  
+```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -361,8 +402,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected makeStrongestPaths () : void  
 * protected prepareStrongestPath () : void  
 * protected schulzeVariant (int $i, int $j)  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
+```php
 * public __clone ()  
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public addNewVote (int $key) : void  
@@ -380,11 +423,15 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected computeOneVote (array $pairwise, CondorcetPHP\Condorcet\Vote $oneVote) : void  
 * protected doPairwise () : void  
 * protected formatNewpairwise () : void  
+```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats   
+```php
 * public static PairwiseComparison (CondorcetPHP\Condorcet\Algo\Pairwise $pairwise) : array  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Tools\Permutation   
+```php
 * public static countPossiblePermutations (int $candidatesNumber) : int  
 * public __construct ($arr)  
 * public getResults (bool $serialize = false)  
@@ -392,11 +439,15 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected createCandidates (int $numberOfCandidates) : array  
 * private _exec ($a, array $i = []) : void  
 * private _permute (array $arr)  
+```
 
 #### CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
+```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
+```
 
 #### CondorcetPHP\Condorcet\Candidate   
+```php
 * public __clone ()  
 * public __toString () : string  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
@@ -404,21 +455,29 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public setProvisionalState (bool $provisional) : bool  
 * protected destroyAllLink () : void  
 * private checkName (string $name) : bool  
+```
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
+```php
 * public static condorcetBasicSubstitution (?string $substitution) : string  
 * protected static testMethod (string $method) : bool  
+```
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
+```php
 * public static isJson (string $string) : bool  
 * public static prepareJson (string $input)  
 * public static prepareParse (string $input, bool $isFile) : array  
+```
 
 #### CondorcetPHP\Condorcet\Constraints\NoTie extends CondorcetPHP\Condorcet\VoteConstraint   
+```php
 * public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote) : bool  
 * protected static evaluateVote (array $vote) : bool  
+```
 
 #### Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable  
+```php
 * public __clone ()  
 * public __construct ()  
 * public __destruct ()  
@@ -453,8 +512,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected populateCache () : void  
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
+```
 
 #### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
+```php
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
 * public __destruct ()  
 * public closeTransaction () : void  
@@ -471,8 +532,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected initPrepareQuery () : void  
 * protected initTransaction () : void  
 * protected sliceInput (array $input) : void  
+```
 
 #### CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess  
+```php
 * public UpdateAndResetComputing (int $key, int $type) : void  
 * public __clone ()  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
@@ -520,8 +583,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
 * protected setStateToVote () : void  
+```
 
 #### CondorcetPHP\Condorcet\Election   
+```php
 * protected static formatResultOptions (array $arg) : array  
 * public __clone ()  
 * public __destruct ()  
@@ -545,14 +610,18 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * protected prepareVoteInput ($vote, $tag = null) : void  
 * protected registerAllLinks () : void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, $tag = null) : CondorcetPHP\Condorcet\Vote  
+```
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
+```php
 * public static convertVoteInput (string $formula) : array  
 * public static getRankingAsString (array $ranking) : string  
 * public static parseAnalysingOneLine ($searchCharacter, string $line) : int  
 * public static tagsConvert ($tags) : ?array  
+```
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
+```php
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats)  
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
@@ -567,8 +636,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public rewind () : void  
 * public valid () : bool  
 * protected makeUserResult (CondorcetPHP\Condorcet\Election $election) : array  
+```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable  
+```php
 * public __construct (int $code = 0, string $infos)  
 * public __toString () : string  
 * public __wakeup ()  
@@ -581,8 +652,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getTraceAsString ()  
 * protected correspondence (int $code) : string  
 * private __clone ()  
+```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Throwable  
+```php
 * public __construct (string $message)  
 * public __toString ()  
 * public __wakeup ()  
@@ -595,8 +668,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getTrace ()  
 * public getTraceAsString ()  
 * private __clone ()  
+```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Throwable  
+```php
 * public __construct ($message, $code, $previous)  
 * public __toString ()  
 * public __wakeup ()  
@@ -608,8 +683,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public getTrace ()  
 * public getTraceAsString ()  
 * private __clone ()  
+```
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   
+```php
 * public __construct (CondorcetPHP\Condorcet\Timer\Manager $timer, ?string $role = null)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -619,14 +696,18 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * public setRole (?string $role) : void  
 * protected managerStartDeclare () : void  
 * protected resetStart () : void  
+```
 
 #### CondorcetPHP\Condorcet\Timer\Manager   
+```php
 * public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
 * public getGlobalTimer () : float  
 * public getLastTimer () : float  
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
+```
 
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Traversable  
+```php
 * public __clone ()  
 * public __sleep () : array  
 * public __toString () : string  
@@ -643,7 +724,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * private archiveRanking () : void  
 * private formatRanking ($ranking) : int  
 * private setHashCode () : string  
+```
 
 #### Abstract CondorcetPHP\Condorcet\VoteConstraint   
+```php
 * public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote) : bool  
 * protected static evaluateVote (array $vote) : bool  
+```
