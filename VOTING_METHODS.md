@@ -1,7 +1,9 @@
+> **[Presentation](README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](Tests/)**  
+
 Condorcet PHP: Voting Methods
 ===========================
 
-> *See also **[the manual](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Voting-Methods)** *  
+> _See also **[the manual](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Voting-Methods)**_  
 
 # Natively implemented methods 
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*  
@@ -15,7 +17,7 @@ Condorcet PHP: Voting Methods
     * **[Dodgson Quick](#dodgson-quick)**
     * **[Dodgson Tideman approximation](#dodgson-tideman-approximation)**
 * **[First-past-the-post](#first-past-the-post)**
-* **[Instant-runoff](#instant-runoff)** *(Alternative Vote / Preferential Voting)*
+* **[Instant-runoff](#instant-runoff-alternative-vote)** *(Alternative Vote / Preferential Voting)*
 * **[Kemeny–Young](#kemenyyoung)**
 * **Minimax Family**
     * **[Minimax Winning](#minimax-winning)**
@@ -47,6 +49,23 @@ Please read the manual [about explicit and implicit ranking](https://github.com/
 In terms of implementation, what you have to understand is that algorithms and pairwise are blind. And see votes in their implicit or explicit context, which can significantly change the results of some of them.  
 
 
+## Condorcet Basic
+
+> **Family:** Condorcet  
+> **Variant used:** *None*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Condorcet_method   
+
+### Implementation Comments
+*None*
+
+```php
+// Will return the strict natural Condorcet Winner candidate. Or Null if there is not.
+$election->getCondorcetWinner() ; 
+// Will return the strict natural Condorcet Loser candidate. Or Null if there is not.
+$election->getCondorcetLoser() ;
+```
+
+
 ## Borda Count
 
 > **Family:** Borda Count  
@@ -68,7 +87,6 @@ F: 1 point
 
 In case of explicit voting is disable. Missing rank do not earn points, but existing rank are not penalized.
 
-
 ### Code example
 ```php
 // Get Full Ranking
@@ -82,6 +100,7 @@ $election->getLoser('BordaCount') ;
 $election->getResult('BordaCount')->getStats() ;
 ```
 
+
 ## Dowdall system (Nauru)
 
 > **Family:** Borda Count  
@@ -90,10 +109,8 @@ $election->getResult('BordaCount')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "DowdallSystem","Dowdall System","Nauru", "Borda Nauru"  
 
-
 ### Implementation Comments  
  *See comments on the original Borda method above.*  
-
 
 ### Code example
 ```php
@@ -108,6 +125,7 @@ $election->getLoser('DowdallSystem') ;
 $election->getResult('DowdallSystem')->getStats() ;
 ```
 
+
 ## Copeland
 
 > **Family:** Copeland method  
@@ -116,10 +134,8 @@ $election->getResult('DowdallSystem')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Copeland"  
 
-
 ### Implementation Comments  
  *None*
-
 
 ### Code example
 
@@ -135,6 +151,7 @@ $election->getLoser('Copeland') ;
 $election->getResult('Copeland')->getStats() ;
 ```
 
+
 ## Dodgson Quick
 
 > **Family:** Dodgson method  
@@ -143,10 +160,8 @@ $election->getResult('Copeland')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Dodgson Quick" / "DodgsonQuick" / "Dodgson Quick Winner"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -161,6 +176,7 @@ $election->getLoser('Dodgson Quick') ;
 $election->getResult('Dodgson Quick')->getStats() ;
 ```
 
+
 ## Dodgson Tideman Approximation
 
 > **Family:** Dodgson method  
@@ -169,10 +185,8 @@ $election->getResult('Dodgson Quick')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Dodgson Tideman Approximation" / "DodgsonTidemanApproximation" / "Dodgson Tideman" / "DodgsonTideman"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -187,6 +201,7 @@ $election->getLoser('Dodgson Tideman') ;
 $election->getResult('Dodgson Tideman')->getStats() ;
 ```
 
+
 ## First-past-the-post
 
 > **Family:** FTPT  
@@ -195,13 +210,11 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FTPT"  
 
-
 ### Implementation Comments  
  In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
 
 For example: ```A = B > C```
 A/B earn each 0.5 points
-
 
 ### Code example
 ```php
@@ -225,12 +238,10 @@ $election->getResult('Ftpt')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
-
 ### Implementation Comments  
  In case of tie into a vote rank, rank is ignored like he never existed.  
 
 An additional tie breaking tentative is added in case of tie into preliminary result set. First, comparing candidate pairwise, in a second attempt compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory / defeat in a global Pairwise context.
-
 
 ### Code example
 
@@ -255,10 +266,8 @@ $election->getResult('Instant-runoff')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
-
 ### Implementation Comments  
  Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
-
 
 ### Code example
 ```php
@@ -282,10 +291,8 @@ $election->getResult('Kemeny-Young')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Minimax Winning" / "MinimaxWinning" / "Minimax" / "Minimax_Winning" / "Simpson" / "Simpson-Kramer" / "Simpson-Kramer Method" / "Simpson Method"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -309,10 +316,8 @@ $election->getResult('Minimax Winning')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Minimax Margin" / "MinimaxMargin" / "MinimaxMargin" / "Minimax_Margin"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -336,10 +341,8 @@ $election->getResult('Minimax Margin')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Minimax Opposition" / "MinimaxOpposition" / "Minimax_Opposition"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -363,11 +366,9 @@ $election->getResult('Minimax Opposition')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Ranked Pairs Margin" / "Tideman Margin" / "RP Margin" / "Ranked Pairs" / "RankedPairs" / "Tideman method"  
 
-
 ### Implementation Comments  
  In the event of impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
  In case of a tie in the ranking result. No advanced methods are used. It is therefore an implementation in accordance with the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can therefore come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
-
 
 ### Code example
 ```php
@@ -391,11 +392,9 @@ $election->getResult('Ranked Pairs Margin')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Ranked Pairs Winning" / "Tideman Winning" / "RP Winning"  
 
-
 ### Implementation Comments  
  In the event of impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
  In case of a tie in the ranking result. No advanced methods are used. It is therefore an implementation in accordance with the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can therefore come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
-
 
 ### Code example
 ```php
@@ -419,10 +418,8 @@ $election->getResult('Ranked Pairs Winning')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Schulze Winning" / "Schulze" / "SchulzeWinning" / "Schulze_Winning" / "Schwartz Sequential Dropping" / "SSD" / "Cloneproof Schwartz Sequential Dropping" / "CSSD" / "Beatpath" / "Beatpath Method" / "Beatpath Winner" / "Path Voting" / "Path Winner"  
 
-
 ### Implementation Comments  
  *None*  
-
 
 ### Code example
 ```php
@@ -445,7 +442,6 @@ $election->getResult('Schulze')->getStats() ;
 > **Wikipedia:** https://en.wikipedia.org/wiki/Schulze_method  
 > ***  
 > **Methods alias available (for function call)**: "Schulze Margin" / "SchulzeMargin" / "Schulze_Margin"  
-
 
 ### Implementation Comments  
  *None*  
@@ -472,12 +468,10 @@ $election->getResult('Schulze Margin')->getStats() ;
 > ***  
 > **Methods alias available (for function call)**: "Schulze Ratio" / "SchulzeRatio" / "Schulze_Ratio"  
 
-
 ### Implementation Comments  
  The original specification is incomplete. She say to compute the ratio as follow:  
 ```$candidateA_versus_CandidateB['pairwise_win'] / $candidateA_versus_CandidateB ['pairwise_lose'] = Ratio```  
 We don't know how to manage divion by zero when it's happen, wich is very unlikely on large election, but can happen. Actually, but it can change to a better solution, we add 1 on left and right, only in this case.  
-
 
 ### Code example
 ```php

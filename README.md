@@ -99,7 +99,7 @@ _And has no certification or proven implementation that would guarantee a very h
     * **[Dodgson Quick](VOTING_METHODS.md#dodgson-quick)**
     * **[Dodgson Tideman approximation](VOTING_METHODS.md#dodgson-tideman-approximation)**
 * **[First-past-the-post](VOTING_METHODS.md#first-past-the-post)**
-* **[Instant-runoff](VOTING_METHODS.md#instant-runoff)** *(Alternative Vote / Preferential Voting)*
+* **[Instant-runoff](VOTING_METHODS.md##instant-runoff-alternative-vote)** *(Alternative Vote / Preferential Voting)*
 * **[Kemeny–Young](VOTING_METHODS.md#kemenyyoung)**
 * **Minimax Family**
     * **[Minimax Winning](VOTING_METHODS.md#minimax-winning)**
