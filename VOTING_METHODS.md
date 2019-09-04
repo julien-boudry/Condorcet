@@ -8,7 +8,7 @@ Condorcet PHP: Voting Methods
 # Natively implemented methods 
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*  
 
-* **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
+* **Condorcet Basic** Give you the natural winner or loser of Condorcet if there is one.  
 * **Borda count**
     * **[Borda System](#borda-count)**
     * **[Dowdall system (Nauru)](#dowdall-system-nauru)**
@@ -36,15 +36,15 @@ Condorcet PHP: Voting Methods
 
 ## Implementation Philophy
 
-#### Result tie breaking
-Unless explicitly stated otherwise in the details below, no tie breaking is added to methods, we kept them pure.  
+#### Result tie-breaking
+Unless explicitly stated otherwise in the details below, no tie-breaking is added to methods, we kept them pure.  
 The results are therefore likely to contain ties in some ranks. Which according to the algorithms is more or less frequent, but always tends to become less likely in proportion to the size of the election. 
 
 #### Tie into a vote rank
-Unless you have prohibited ties in your own control votes or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.  
-This is more annoying for other methods like Borda, Instant-runoff or Ftpt. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can varies depending on the implementations. Some choices had to be made for each of them.
+Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.  
+This is more annoying for other methods like Borda, Instant-runoff or Ftpt. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
 
-#### Implicit vs Excplicit Ranking
+#### Implicit vs Explicit Ranking
 Please read the manual [about explicit and implicit ranking](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Ranking-mode---Implicit-versus-Partial) modes.  
 In terms of implementation, what you have to understand is that algorithms and pairwise are blind. And see votes in their implicit or explicit context, which can significantly change the results of some of them.  
 
@@ -85,7 +85,7 @@ B/C/D/E: (5+4+3+2) / 4 = 3.5 points each
 F: 1 point
 ```
 
-In case of explicit voting is disable. Missing rank do not earn points, but existing rank are not penalized.
+In case of explicit voting is disabled. Missing rank does not earn points, but the existing rank are not penalized.
 
 ### Code example
 ```php
@@ -241,7 +241,7 @@ $election->getResult('Ftpt')->getStats() ;
 ### Implementation Comments  
  In case of tie into a vote rank, rank is ignored like he never existed.  
 
-An additional tie breaking tentative is added in case of tie into preliminary result set. First, comparing candidate pairwise, in a second attempt compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory / defeat in a global Pairwise context.
+An additional tie-breaking tentative is added in case of tie into the preliminary result set. First, comparing candidate pairwise, in a second attempt compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context.
 
 ### Code example
 
@@ -267,7 +267,7 @@ $election->getResult('Instant-runoff')->getStats() ;
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
 ### Implementation Comments  
- Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
+ Kemeny-Young is currently limited to up 8 candidates. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
 
 ### Code example
 ```php
@@ -367,8 +367,8 @@ $election->getResult('Minimax Opposition')->getStats() ;
 > **Methods alias available (for function call)**: "Ranked Pairs Margin" / "Tideman Margin" / "RP Margin" / "Ranked Pairs" / "RankedPairs" / "Tideman method"  
 
 ### Implementation Comments  
- In the event of impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
- In case of a tie in the ranking result. No advanced methods are used. It is therefore an implementation in accordance with the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can therefore come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
+ In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
+ In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
 
 ### Code example
 ```php
@@ -393,8 +393,8 @@ $election->getResult('Ranked Pairs Margin')->getStats() ;
 > **Methods alias available (for function call)**: "Ranked Pairs Winning" / "Tideman Winning" / "RP Winning"  
 
 ### Implementation Comments  
- In the event of impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
- In case of a tie in the ranking result. No advanced methods are used. It is therefore an implementation in accordance with the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can therefore come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
+ In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
+ In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
 
 ### Code example
 ```php
@@ -469,9 +469,9 @@ $election->getResult('Schulze Margin')->getStats() ;
 > **Methods alias available (for function call)**: "Schulze Ratio" / "SchulzeRatio" / "Schulze_Ratio"  
 
 ### Implementation Comments  
- The original specification is incomplete. She say to compute the ratio as follow:  
+ The original specification is incomplete. She says to compute the ratio as follow:  
 ```$candidateA_versus_CandidateB['pairwise_win'] / $candidateA_versus_CandidateB ['pairwise_lose'] = Ratio```  
-We don't know how to manage divion by zero when it's happen, wich is very unlikely on large election, but can happen. Actually, but it can change to a better solution, we add 1 on left and right, only in this case.  
+We don't know how to manage division by zero when it's happened, which is very unlikely on large elections but can happen. Actually, but it can change to a better solution, we add 1 on left and right, only in this case.  
 
 ### Code example
 ```php
