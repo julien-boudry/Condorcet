@@ -88,30 +88,30 @@ _And has no certification or proven implementation that would guarantee a very h
 ## Supported Methods
 ### Methods provided natively
 
-*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)*
+**All explanations and implementation choices [on this documentation](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)**
 
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet, if there is one.  
-* **Borda count** https://en.wikipedia.org/wiki/Borda_count
-    * **Borda System** *(starting at 1)*
-    * **Dowdall system (Nauru)**
-* **Copeland** http://en.wikipedia.org/wiki/Copeland%27s_method
-* **Dodgson Approximations** *(Not the real Dodgson method, see: [Lewis Caroll, Voting and the taxicab metric](https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf))*
-    * **Dodgson Quick** *(recommended)*
-    * **Dodgson Tideman approximation**
-* **First-past-the-post** https://en.wikipedia.org/wiki/First-past-the-post_voting
-* **Instant-runoff** *(Alternative Vote / Preferential Voting)* https://en.wikipedia.org/wiki/Instant-runoff_voting
-* **Kemeny–Young** http://en.wikipedia.org/wiki/Kemeny-Young_method _Kemeny-Young is currently limited up to 8 candidats. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB._
-* **Minimax Family** http://en.wikipedia.org/wiki/Minimax_Condorcet
-    * **Minimax Winning**
-    * **Minimax Margin**
-    * **Minimax Opposition**
-* **Ranked Pairs Family** *(Tideman method)* https://en.wikipedia.org/wiki/Ranked_pairs
-    * **Ranked Pairs Margin** Margin variant is recommended by Nicolaus Tideman himself.
-    * **Ranked Pairs Winning** Widely used variant, maybe more than the original.
-* **Schulze Method** http://en.wikipedia.org/wiki/Schulze_method
-    * **Schulze Winning** Schulze Winning is recommended by Markus Schulze himself.
-    * **Schulze Margin** Variant from Markus Schulze himself.
-    * **Schulze Ratio** Variant from Markus Schulze himself.
+* **Borda count**
+    * **[Borda System](VOTING_METHODS.md#borda-count)**
+    * **[Dowdall system (Nauru)](VOTING_METHODS.md#dowdall-system-nauru)**
+* **[Copeland](VOTING_METHODS.md#copeland)**
+* **Dodgson Approximations**
+    * **[Dodgson Quick](VOTING_METHODS.md#dodgson-quick)**
+    * **[Dodgson Tideman approximation](VOTING_METHODS.md#dodgson-tideman-approximation)**
+* **[First-past-the-post](VOTING_METHODS.md#first-past-the-post)**
+* **[Instant-runoff](VOTING_METHODS.md#instant-runoff)** *(Alternative Vote / Preferential Voting)*
+* **[Kemeny–Young](VOTING_METHODS.md#kemenyyoung)**
+* **Minimax Family**
+    * **[Minimax Winning](VOTING_METHODS.md#minimax-winning)**
+    * **[Minimax Margin](VOTING_METHODS.md#minimax-margin)**
+    * **[Minimax Opposition](VOTING_METHODS.md#minimax-opposition)**
+* **Ranked Pairs Family** *(Tideman method)*
+    * **[Ranked Pairs Margin](VOTING_METHODS.md#ranked-pairs-margin)**
+    * **[Ranked Pairs Winning](VOTING_METHODS.md#ranked-pairs-winning)**
+* **Schulze Method**
+    * **[Schulze Winning](VOTING_METHODS.md#schulze-winning)** *(recommended)*
+    * **[Schulze Margin](VOTING_METHODS.md#schulze-margin)**
+    * **[Schulze Ratio](VOTING_METHODS.md#schulze-ratio)**
 
 ### Add your own method as module
 Condorcet is designed to be easily extensible with new algorithms (they don't need share the same namespace).  

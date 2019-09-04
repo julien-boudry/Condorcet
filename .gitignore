@@ -10,3 +10,6 @@ lib/Algo/Methods/KemenyYoung-Data/10.data
 
 # phpunit
 .phpunit.result.cache
+
+# coverage & others
+build/
