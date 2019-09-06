@@ -14,7 +14,7 @@ install:
   - composer update
 
 script: | 
-  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' ]] ;
+  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' && $(phpenv version-name) != '7.4snapshot' ]] ;
     then vendor/bin/phpunit --coverage-clover build/coverage/xml ;
   else
     vendor/bin/phpunit ;
