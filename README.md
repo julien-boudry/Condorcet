@@ -50,7 +50,7 @@ A PHP library implementing the Condorcet voting system and other methods like th
 * **Stable Version: 2.0.x**  
   * * *PHP Requirement:* PHP 7.1 with MB String and Json common extensions. _(tested up to PHP 7.4)_
 * **Old Stable: 1.8.x** _support provided_  
-    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
+    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.3)_
 * **Very Old Stable: 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
@@ -207,11 +207,11 @@ _OK: sacrifice to the local tradition of lazy._
 
     // Natural Condorcet Winner
     $myWinner = $myElection1->getWinner(); // Return a candidate object
-          echo 'My winner is ' . $myWinner->getName();
+          echo 'My winner is ' . $myCondorcetWinner->getName();
 
     // Natural Condorcet Loser
     $myLoser = $myElection1->getLoser(); // Return a candidate object
-          echo 'My loser is ' . $myLoser->getName();
+          echo 'My loser is ' . $myCondorcetLoser->getName();
 
     // Schulze Ranking
     $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)

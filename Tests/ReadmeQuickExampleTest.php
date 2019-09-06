@@ -47,11 +47,11 @@ class ReadmeQuickExampleTest extends TestCase
           // Get Result
 
             // Natural Condorcet Winner
-            $myWinner = $myElection1->getWinner(); // Return a candidate object
+            $myWinner = $myElection1->getCondorcetWinner(); // Return a candidate object
             $this->assertEquals('My winner is Candidate 1<br>', 'My winner is ' . $myWinner->getName() . '<br>');
 
             // Natural Condorcet Loser
-            $myLoser = $myElection1->getLoser(); // Return a candidate object
+            $myLoser = $myElection1->getCondorcetLoser(); // Return a candidate object
             $this->assertEquals('My loser is Candidate 3', 'My loser is ' . $myLoser->getName());
 
             // Schulze Ranking

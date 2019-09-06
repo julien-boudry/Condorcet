@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.0.0] - Unreleased
+## [v2.0.0] - 2019-09-07
 ### Description
 Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!
 
@@ -23,7 +23,7 @@ Small but many API changes (renaming, rationalization), sometimes on main method
 - Removes the slightly twisted method Election::ignoreMaxVote
 
 ### Performance
-- Adding, change or removing vote after requesting firsts Result, will prevent recomputing all the pairwise and prefer to update it. Can be a small optimization for most use case, or a very huge performances improvements if you manage a very large number of votes or use an external data handler for storing them.
+- Adding, changing or removing vote after requesting firsts Result, will prevent recomputing all the pairwise and prefer to update it. Can be a small optimization for most use case, or a very huge performances improvements if you manage a very large number of votes or use an external data handler for storing them.
 - Parse Vote (text or Json) is really faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictable, linear and as smart as other input vote methods.
 - Overall, significant savings in memory usage.
 - Many other performance optimizations.
