@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.1.0 <7.4",
         "ext-mbstring": "*",
         "ext-ctype": "*",
         "ext-json": "*"
@@ -23,7 +23,6 @@
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "phpunit/phpunit": "^8 || ^7",
-        "codacy/coverage": "dev-master"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
