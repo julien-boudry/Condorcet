@@ -38,10 +38,12 @@
     "archive": {
         "exclude": [
             "/Benchmarks",
+            "/Dev/",
             "/Documentation",
             "/Examples",
             "/Tests",
             "condorcet-logo.psd",
+            "phpbench.json.dist",
             "phpcs.xml.dist",
             ".travis.yml"
         ]
