@@ -23,7 +23,8 @@
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "codacy/coverage": "dev-master",
         "phpbench/phpbench": "dev-master",
-        "phpunit/phpunit": "^8"
+        "phpunit/phpunit": "^8",
+        "phploc/phploc": "^5.0"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
@@ -38,10 +39,12 @@
     "archive": {
         "exclude": [
             "/Benchmarks",
+            "/Dev/",
             "/Documentation",
             "/Examples",
             "/Tests",
             "condorcet-logo.psd",
+            "phpbench.json.dist",
             "phpcs.xml.dist",
             ".travis.yml"
         ]
