@@ -33,8 +33,8 @@ class BasicUsageBench
           D = B = E > F ^6 * 48
        ');
 
-       $election->getWinner();
-       $election->getLoser();
+       $election->getCondorcetWinner();
+       $election->getCondorcetLoser();
 
        foreach (Condorcet::getAuthMethods() as $method) :
          $election->getResult($method);
