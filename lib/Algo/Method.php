@@ -21,7 +21,7 @@ abstract class Method
     public static ?int $MaxCandidates = null;
 
     protected Election $_selfElection;
-    protected ?Result $_Result= null;
+    protected ?Result $_Result = null;
 
     public function __construct (Election $mother)
     {
