@@ -47,10 +47,10 @@ A PHP library implementing the Condorcet voting system and other methods like th
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 2.0.x**  
-  * * *PHP Requirement:* PHP 7.1 with MB String and Json common extensions. _(tested up to PHP 7.4)_
-* **Old Stable: 1.8.x** _support provided_  
-    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.3)_
+* **Stable Version: 2.1.x**  
+  * * *PHP Requirement:* PHP 7.4 with MB String and Json common extensions. _(tested up to PHP 7.4)_
+* **Old Stable: 2.0.x** _support provided_  
+    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
 * **Very Old Stable: 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
