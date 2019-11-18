@@ -37,6 +37,7 @@
     "autoload-dev": {
         "psr-4": { "CondorcetPHP\\Condorcet\\": "Tests/" }
     },
+    "bin": ["bin/condorcet"],
     "archive": {
         "exclude": [
             "/Benchmarks",

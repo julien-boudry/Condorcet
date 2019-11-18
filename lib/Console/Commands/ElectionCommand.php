@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\ConsoleCommands;
+namespace CondorcetPHP\Condorcet\Console\Commands;
 
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
