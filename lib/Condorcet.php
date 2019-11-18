@@ -104,9 +104,7 @@ abstract class Condorcet
 
     public static function isAuthMethod (string $method) : bool
     {
-        $methodClass = self::getMethodClass($method);
-
-        return $methodClass !== null ? true : false;
+        return self::getMethodClass($method) !== null ;
     }
 
 
