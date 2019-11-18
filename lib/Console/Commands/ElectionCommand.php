@@ -17,9 +17,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 
 class ElectionCommand extends Command
 {
@@ -63,8 +63,50 @@ class ElectionCommand extends Command
     {
         $election = new Election;
 
-        $election->parseCandidates($input->getOption('candidates'));
-        $election->parseVotes($input->getOption('votes'));
+        // Interractive Candidates
+        if (empty($candidates = $input->getOption('candidates'))) :
+            $helper = $this->getHelper('question');
+
+            $c = 0;
+            $registeringCandidates = [];
+
+            while (true) :
+                $question = new Question('Please registering candidate N°'.++$c.' or press enter: ', null);
+                $answer = $helper->ask($input, $output, $question);
+
+                if ($answer === null) :
+                    break;
+                else :
+                    $registeringCandidates[] = str_replace(';', ' ', $answer);
+                endif;
+            endwhile;
+
+            $candidates = implode(';', $registeringCandidates);
+        endif;
+
+        // Interractive Candidates
+        if (empty($votes = $input->getOption('votes'))) :
+            $helper = $this->getHelper('question');
+
+            $c = 0;
+            $registeringvotes = [];
+
+            while (true) :
+                $question = new Question('Please registering vote N°'.++$c.' or press enter: ', null);
+                $answer = $helper->ask($input, $output, $question);
+
+                if ($answer === null) :
+                    break;
+                else :
+                    $registeringvotes[] = str_replace(';', ' ', $answer);
+                endif;
+            endwhile;
+
+            $votes = implode(';', $registeringvotes);
+        endif;
+
+        $election->parseCandidates($candidates);
+        $election->parseVotes($votes);
 
         // Input Sum Up
         if ($output->isVerbose()) :
@@ -73,7 +115,7 @@ class ElectionCommand extends Command
         endif;
 
 
-        /// Natrual Condrocet
+        /// Natural Condrocet
         if ($input->getOption('natural-condorcet')) :
             $output->writeln('Condorcet Natural Winner: ' . ( $election->getCondorcetWinner() ?? 'NULL' ) );
             $output->writeln('Condorcet Natural Loser: ' . ( $election->getCondorcetLoser() ?? 'NULL' ) );
