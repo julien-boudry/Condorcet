@@ -47,7 +47,7 @@ abstract class Condorcet
 
 /////////// STATICS METHODS ///////////
 
-    // Return library version numer
+    // Return library version number
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :
