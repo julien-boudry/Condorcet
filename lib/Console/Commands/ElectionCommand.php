@@ -23,6 +23,10 @@ use Symfony\Component\Console\Question\Question;
 
 class ElectionCommand extends Command
 {
+    protected Election $election;
+    protected string $candidates;
+    protected string $votes;
+    
     protected function configure () : void
     {
         $this->setName('election')
@@ -33,24 +37,18 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_REQUIRED
                             , 'Candidates List file path or direct input'
             )
-
-
             ->addOption(      'votes','i'
                             , InputOption::VALUE_REQUIRED
                             , 'Votes List file path or direct input'
             )
-
-
             ->addOption(      'stats','s'
                             , InputOption::VALUE_NONE
                             , 'Get detailled stats'
             )
-
             ->addOption(      'natural-condorcet','r'
                             , InputOption::VALUE_NONE
                             , 'Print natual Condorcet Winner / Loser'
             )
-
             ->addArgument(
                              'methods'
                             , InputArgument::OPTIONAL | InputArgument::IS_ARRAY
@@ -59,11 +57,14 @@ class ElectionCommand extends Command
         ;
     }
 
-    protected function execute (InputInterface $input, OutputInterface $output) : void
+    protected function initialize (InputInterface $input, OutputInterface $output) : void
     {
-        $election = new Election;
+        $this->election = new Election;
+    }
 
-        // Interractive Candidates
+    protected function interact (InputInterface $input, OutputInterface $output) : void
+    {
+        // Interactive Candidates
         if (empty($candidates = $input->getOption('candidates'))) :
             $helper = $this->getHelper('question');
 
@@ -81,10 +82,14 @@ class ElectionCommand extends Command
                 endif;
             endwhile;
 
-            $candidates = implode(';', $registeringCandidates);
+            $this->candidates = implode(';', $registeringCandidates);
+    
+        // Non-interactive candidates
+        else :
+            $this->candidates = $candidates;
         endif;
 
-        // Interractive Candidates
+        // Interactive Votes
         if (empty($votes = $input->getOption('votes'))) :
             $helper = $this->getHelper('question');
 
@@ -102,11 +107,27 @@ class ElectionCommand extends Command
                 endif;
             endwhile;
 
-            $votes = implode(';', $registeringvotes);
+            $this->votes = implode(';', $registeringvotes);
+
+        // Non-interactive votes
+        else :
+            $this->votes = $votes;
+        endif;
+    }
+
+    protected function execute (InputInterface $input, OutputInterface $output) : void
+    {
+        if ($file = $this->getFilePath($this->candidates)) :
+            $this->election->parseCandidates($file, true);
+        else :
+            $this->election->parseCandidates($this->candidates);
         endif;
 
-        $election->parseCandidates($candidates);
-        $election->parseVotes($votes);
+        if ($file = $this->getFilePath($this->votes)) :
+            $this->election->parseVotes($file, true);
+        else :
+            $this->election->parseVotes($this->votes);
+        endif;
 
         // Input Sum Up
         if ($output->isVerbose()) :
@@ -128,7 +149,7 @@ class ElectionCommand extends Command
 
         foreach ($methods as $oneMethod) :
 
-            $result = $election->getResult();
+            $result = $this->election->getResult();
 
             $table = new Table($output);
             
@@ -188,6 +209,23 @@ class ElectionCommand extends Command
         $last_rank = max(array_keys($resultArray));
 
         return $resultArray;
+    }
+
+    protected function getFilePath (string $path)  : ?string
+    {
+        if ($this->isAbsolute($path) && \is_file($path)) :
+            return $path;
+        elseif (\is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) :
+            return $file;
+        else:
+            return null;
+        endif;
+        ;
+    }
+
+    protected function isAbsolute (string $path) : bool
+    {
+        return strspn($path, '/\\', 0, 1) || (\strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1));
     }
 
 }
