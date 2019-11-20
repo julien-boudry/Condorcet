@@ -26,6 +26,8 @@ class ElectionCommand extends Command
     protected Election $election;
     protected string $candidates;
     protected string $votes;
+
+    protected bool $implicitRanking = false;
     
     protected function configure () : void
     {
@@ -37,7 +39,7 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_REQUIRED
                             , 'Candidates List file path or direct input'
             )
-            ->addOption(      'votes','i'
+            ->addOption(      'votes','w'
                             , InputOption::VALUE_REQUIRED
                             , 'Votes List file path or direct input'
             )
@@ -47,8 +49,17 @@ class ElectionCommand extends Command
             )
             ->addOption(      'natural-condorcet','r'
                             , InputOption::VALUE_NONE
-                            , 'Print natual Condorcet Winner / Loser'
+                            , 'Print natural Condorcet Winner / Loser'
             )
+            ->addOption(      'desactivate-implicit-ranking','i'
+                            , InputOption::VALUE_NONE
+                            , 'Desactivate Implicit Ranking'
+            )
+            ->addOption(      'allows-votes-weight','g'
+                            , InputOption::VALUE_NONE
+                            , 'Allows vote weigh'
+            )
+
             ->addArgument(
                              'methods'
                             , InputArgument::OPTIONAL | InputArgument::IS_ARRAY
@@ -60,6 +71,18 @@ class ElectionCommand extends Command
     protected function initialize (InputInterface $input, OutputInterface $output) : void
     {
         $this->election = new Election;
+
+        /// Implicit Ranking
+        if ($input->getOption('desactivate-implicit-ranking')) :
+            $this->implicitRanking = true;
+            $this->election->setImplicitRanking(false);
+        endif;
+
+        if ($input->getOption('allows-votes-weight')) :
+            $this->votesWeight = true;
+            $this->election->allowsVoteWeight(true);
+        endif;
+
     }
 
     protected function interact (InputInterface $input, OutputInterface $output) : void
@@ -138,8 +161,8 @@ class ElectionCommand extends Command
 
         /// Natural Condrocet
         if ($input->getOption('natural-condorcet')) :
-            $output->writeln('Condorcet Natural Winner: ' . ( $election->getCondorcetWinner() ?? 'NULL' ) );
-            $output->writeln('Condorcet Natural Loser: ' . ( $election->getCondorcetLoser() ?? 'NULL' ) );
+            $output->writeln('Condorcet Natural Winner: ' . ( $this->election->getCondorcetWinner() ?? 'NULL' ) );
+            $output->writeln('Condorcet Natural Loser: ' . ( $this->election->getCondorcetLoser() ?? 'NULL' ) );
         endif;
 
 
@@ -174,6 +197,11 @@ class ElectionCommand extends Command
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) :
+                if ($oneMethod === "all") :
+                    $methods = Condorcet::getAuthMethods(false);
+                    break;
+                endif;
+                
                 if (Condorcet::isAuthMethod($oneMethod)) :
                     $method_name = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
 
