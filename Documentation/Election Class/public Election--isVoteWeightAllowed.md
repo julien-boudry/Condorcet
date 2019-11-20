@@ -19,4 +19,4 @@ If it is True then votes vote optionally can use weight otherwise (if false) all
 
 ### Related method(s)      
 
-* [Election::allowVoteWeight](../Election%20Class/public%20Election--allowVoteWeight.md)    
+* [Election::allowsVoteWeight](../Election%20Class/public%20Election--allowsVoteWeight.md)    
