@@ -20,7 +20,7 @@ class BasicUsageBench
     public function benchSimpleManyVotes () : void
     {
        $election = new Election;
-       $election->allowVoteWeight(true);
+       $election->allowsVoteWeight(true);
 
        $election->parseCandidates('A;B;C;D;E;F');
 
@@ -46,7 +46,7 @@ class BasicUsageBench
          $election->getResult($method);
        endforeach;
 
-       $election->allowVoteWeight(false);
+       $election->allowsVoteWeight(false);
 
        foreach (Condorcet::getAuthMethods() as $method) :
          $election->getResult($method);

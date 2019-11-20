@@ -335,7 +335,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight(true);
+        $election->allowsVoteWeight(true);
 
         self::assertSame(
             15,
@@ -352,7 +352,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight(false);
+        $election->allowsVoteWeight(false);
 
         self::assertSame(
             14,
@@ -364,7 +364,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight( !$election->isVoteWeightAllowed() );
+        $election->allowsVoteWeight( !$election->isVoteWeightAllowed() );
 
         $election->removeVote($voteWithWeight);
 

@@ -382,7 +382,7 @@
   class: Election
   type: method
   visibility: public
-  name: allowVoteWeight
+  name: allowsVoteWeight
   static: false
   description: |
     Set the setting and reset all result data.
@@ -931,7 +931,7 @@
   return: |
     True / False
   related:
-    - 'Election::allowVoteWeight'
+    - 'Election::allowsVoteWeight'
   publish: true
 
 - 
