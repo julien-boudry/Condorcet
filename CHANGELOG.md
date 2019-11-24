@@ -2,6 +2,16 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.1.0] - 2019-11-29
+### Description
+Move to PHP 7.4 version.
+
+### Changed
+- PHP 7.4 is the new minimal PHP version required.
+
+### Internal changes
+- Use PHP 7.4 new types on property. For security and performances reasons.
+
 ## [v2.0.0] - 2019-09-07
 ### Description
 Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!

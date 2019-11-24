@@ -19,7 +19,7 @@ class Vote implements \Iterator
 
     // Implement Iterator
 
-        private $position = 1;
+        private int $position = 1;
 
         public function rewind() : void {
             $this->position = 1;
@@ -43,21 +43,21 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking;
+    private array $_ranking;
 
-    private $_lastTimestamp;
+    private float $_lastTimestamp;
 
-    private $_counter;
+    private int $_counter;
 
-    private $_ranking_history = [];
+    private array $_ranking_history = [];
 
-    private $_weight = 1;
+    private int $_weight = 1;
 
-    private $_tags = [];
+    private array $_tags = [];
 
-    private $_hashCode;
+    private string $_hashCode = '';
 
-    private $_electionContext = null;
+    private ?Election $_electionContext = null;
 
         ///
 
@@ -101,11 +101,11 @@ class Vote implements \Iterator
         $this->_electionContext = null;
     }
 
-    public function __sleep () : array
+    public function __serialize () : array
     {
         $this->position = 1;
 
-        return array_keys(get_object_vars($this));
+        return get_object_vars($this);
     }
 
     public function __clone ()

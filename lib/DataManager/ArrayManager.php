@@ -20,20 +20,20 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         //////
 
-    public static $CacheSize = 2000;
-    public static $MaxContainerLength = 2000;
+    public static int $CacheSize = 2000;
+    public static int $MaxContainerLength = 2000;
 
-    protected $_Container = [];
-    protected $_DataHandler = null;
-    protected $_link = [];
+    protected array $_Container = [];
+    protected ?DataHandlerDriverInterface $_DataHandler = null;
+    protected array $_link = [];
 
-    protected $_Cache = [];
-    protected $_CacheMaxKey = 0;
-    protected $_CacheMinKey = 0;
+    protected array $_Cache = [];
+    protected int $_CacheMaxKey = 0;
+    protected int $_CacheMinKey = 0;
 
-    protected $_cursor = null;
-    protected $_counter = 0;
-    protected $_maxKey = -1;
+    protected ?int $_cursor = null;
+    protected int $_counter = 0;
+    protected int $_maxKey = -1;
 
     public function __construct () {}
 
@@ -47,17 +47,24 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->_link = [];
     }
 
-    public function __sleep () : array
+    public function __serialize () : array
     {
         $this->regularize();
         $this->clearCache();
         $this->rewind();
 
-        return ['_Container','_DataHandler','_link'];
+        return [    '_Container' => $this->_Container,
+                    '_DataHandler' => $this->_DataHandler,
+                    '_link' => $this->_link
+                ];
     }
 
-    public function __wakeup ()
+    public function __unserialize (array $data) : void
     {
+        $this->_Container = $data['_Container'];
+        $this->_DataHandler = $data['_DataHandler'];
+        $this->_link = $data['_link'];
+
         $this->resetMaxKey();
         $this->resetCounter();
     }
@@ -141,7 +148,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
 /////////// Implement Iterator ///////////
 
-    protected $valid = true;
+    protected bool $valid = true;
 
     public function rewind() : void {
         $this->_cursor = null;

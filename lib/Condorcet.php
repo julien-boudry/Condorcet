@@ -37,17 +37,17 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '2.0.0';
+    public const VERSION = '2.1.0';
 
     public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
-    protected static $_defaultMethod = null;
-    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
+    protected static ?string $_defaultMethod = null;
+    protected static array $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
 
 
 /////////// STATICS METHODS ///////////
 
-    // Return library version numer
+    // Return library version number
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :

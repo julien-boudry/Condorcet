@@ -32,7 +32,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
 
     // Implement Iterator
-    private $valid = true;
+    private bool $valid = true;
 
     public function rewind() : void {
         reset($this->_Pairwise);
@@ -60,9 +60,9 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     // Pairwise
 
-    protected $_Election;
-    protected $_Pairwise_Model;
-    protected $_Pairwise;
+    protected ?Election $_Election;
+    protected array $_Pairwise_Model;
+    protected array $_Pairwise;
 
     public function __construct (Election $link)
     {

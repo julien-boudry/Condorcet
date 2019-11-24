@@ -16,8 +16,8 @@ class Candidate
 {
     use Linkable, CondorcetVersion;
 
-    private $_name = [];
-    private $_provisional = false;
+    private array $_name = [];
+    private bool $_provisional = false;
 
         ///
 

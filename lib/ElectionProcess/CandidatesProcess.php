@@ -21,7 +21,7 @@ trait CandidatesProcess
 
     // Data and global options
     protected $_Candidates = []; // Candidate list
-    protected $_AutomaticNewCandidateName = 'A';
+    protected string $_AutomaticNewCandidateName = 'A';
 
 
 /////////// GET CANDIDATES ///////////

@@ -21,8 +21,8 @@ trait VotesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected $_Votes; // Votes list
-    protected $_voteFastMode = false; // When parsing vote, avoid unnecessary checks 
+    protected VotesManager $_Votes; // Votes list
+    protected bool $_voteFastMode = false; // When parsing vote, avoid unnecessary checks 
 
 
 /////////// VOTES LIST ///////////

@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
-    protected $_StrongestPaths;
+    protected array $_StrongestPaths = [];
 
 
 /////////// PUBLIC ///////////
@@ -77,8 +77,6 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath () : void
     {
-        $this->_StrongestPaths = [];
-
         foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id ) :
             $this->_StrongestPaths[$candidate_key] = [];
 
@@ -159,7 +157,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 endif;
             endforeach;
 
-            $done = array_merge($done, $to_done);
+            array_push($done, ...$to_done);
 
             $rank++;
         endwhile;

@@ -22,8 +22,8 @@ trait ResultsProcess
 /////////// CONSTRUCTOR ///////////
 
     // Result
-    protected $_Pairwise;
-    protected $_Calculator;
+    protected ?Pairwise $_Pairwise = null;
+    protected ?array $_Calculator = null;
 
 
 /////////// GET RESULTS ///////////

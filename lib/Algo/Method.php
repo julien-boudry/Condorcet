@@ -18,10 +18,10 @@ abstract class Method
 {
     use CondorcetVersion;
 
-    public static $MaxCandidates = null;
+    public static ?int $MaxCandidates = null;
 
-    protected $_selfElection;
-    protected $_Result;
+    protected Election $_selfElection;
+    protected ?Result $_Result = null;
 
     public function __construct (Election $mother)
     {

@@ -4,8 +4,8 @@
 
 [![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
 [![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
-[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
 ![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f34e354703514ab68248a0c995a4913a)](https://www.codacy.com/app/julien-boudry/Condorcet?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julien-boudry/Condorcet&amp;utm_campaign=Badge_Grade)
@@ -47,10 +47,10 @@ A PHP library implementing the Condorcet voting system and other methods like th
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 2.0.x**  
-  * * *PHP Requirement:* PHP 7.1 with MB String and Json common extensions. _(tested up to PHP 7.4)_
-* **Old Stable: 1.8.x** _support provided_  
-    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.3)_
+* **Stable Version: 2.1.x**  
+  * * *PHP Requirement:* PHP 7.4 with MB String and Json common extensions. _(tested up to PHP 7.4)_
+* **Old Stable: 2.0.x** _support provided_  
+    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
 * **Very Old Stable: 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 

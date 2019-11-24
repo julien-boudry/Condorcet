@@ -21,9 +21,9 @@ class InstantRunoff extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['Instant-runoff', 'InstantRunoff', 'preferential voting', 'ranked-choice voting', 'alternative vote', 'AlternativeVote', 'transferable vote', 'Vote alternatif'];
 
-    public static $starting = 1;
+    public static int $starting = 1;
 
-    protected $_Stats;
+    protected ?array $_Stats = null;
 
     protected function getStats(): array
     {
@@ -93,7 +93,7 @@ class InstantRunoff extends Method implements MethodInterface
                 endfor;
 
                 $CandidatesLoserCount += count($LosersToRegister);
-                $candidateDone = array_merge($candidateDone, $LosersToRegister);
+                array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
 
@@ -123,7 +123,7 @@ class InstantRunoff extends Method implements MethodInterface
                         if (count($oneRank) !== 1) :
                             break;
                         elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
-                            $score[$this->_selfElection->getCandidateKey(reset($oneRank))] += 1;
+                            $score[$this->_selfElection->getCandidateKey($oneRank[array_key_first($oneRank)])] += 1;
                             break 2;
                         endif;
                     endforeach;

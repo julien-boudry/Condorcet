@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.4.0",
         "ext-mbstring": "*",
         "ext-json": "*"
     },
@@ -23,7 +23,8 @@
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "codacy/coverage": "dev-master",
         "phpbench/phpbench": "dev-master",
-        "phpunit/phpunit": "^8 || ^7"
+        "phpunit/phpunit": "^8",
+        "phploc/phploc": "^5.0"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
@@ -34,6 +35,12 @@
     },
     "autoload-dev": {
         "psr-4": { "CondorcetPHP\\Condorcet\\": "Tests/" }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "scripts-descriptions": {
+        "test": "Run all tests!"
     },
     "archive": {
         "exclude": [
