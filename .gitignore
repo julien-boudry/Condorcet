@@ -13,3 +13,4 @@ lib/Algo/Methods/KemenyYoung-Data/10.data
 
 # coverage & others
 build/
+*.phar
