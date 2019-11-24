@@ -36,6 +36,12 @@
     "autoload-dev": {
         "psr-4": { "CondorcetPHP\\Condorcet\\": "Tests/" }
     },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "scripts-descriptions": {
+        "test": "Run all tests!"
+    },
     "archive": {
         "exclude": [
             "/Benchmarks",
