@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-// Thanks to Jorge Gomes @cyberkurumin 
+// Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
     private const PREFIX = 'C';

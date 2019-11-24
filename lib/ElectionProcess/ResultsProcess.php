@@ -167,7 +167,7 @@ trait ResultsProcess
     public function cleanupPairwise () : void
     {
         // Reset state
-        if ($this->_State > 2) : 
+        if ($this->_State > 2) :
             $this->_State = 2;
         endif;
 

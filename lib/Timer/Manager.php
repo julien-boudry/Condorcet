@@ -29,7 +29,7 @@ class Manager
             if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
                 return;
             endif;
-            
+
             $m = microtime(true);
 
             if ( $this->_lastChronoTimestamp > $chrono->getStart() ) :

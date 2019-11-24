@@ -135,7 +135,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                 $oneEntity = $this->_DataHandler->selectOneEntity($offset);
                 if ($oneEntity === false) :
                     return null;
-                else : 
+                else :
                     $this->_Cache[$offset] = $oneEntity;
                     return $oneEntity;
                 endif;

@@ -130,7 +130,7 @@ abstract class Condorcet
         // Check if the class Algo. exist and ready to be used
         protected static function testMethod (string $method) : bool
         {
-            if ( !class_exists($method) ) :             
+            if ( !class_exists($method) ) :
                 throw new CondorcetException(9);
             endif;
 
@@ -150,7 +150,7 @@ abstract class Condorcet
 
     // Change default method for this class.
     public static function setDefaultMethod (string $method) : bool
-    {       
+    {
         if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
             return true;

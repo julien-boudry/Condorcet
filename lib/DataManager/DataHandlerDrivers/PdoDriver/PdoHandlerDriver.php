@@ -83,7 +83,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
         } catch (\Exception $e) {
             throw $e;
-        }  
+        }
     }
 
     protected function initPrepareQuery () : void
@@ -103,7 +103,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         // Insert many Entities
             $makeMany = function ($how) use (&$template) {
                 $query = $template['insert_template'];
-                
+
                 for ($i=1; $i < $how; $i++) :
                     $query .= '(:key'.$i.', :data'.$i.'),';
                 endfor;
@@ -276,7 +276,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         try {
             $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
             $this->_prepare['selectOneEntity']->execute();
-            
+
             $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectOneEntity']->closeCursor();
             if (!empty($r)) :
@@ -295,7 +295,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             $this->_prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
             $this->_prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
             $this->_prepare['selectRangeEntities']->execute();
-            
+
             $r = $this->_prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
             $this->_prepare['selectRangeEntities']->closeCursor();
             if (!empty($r)) :

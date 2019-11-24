@@ -23,7 +23,7 @@ class Chrono
     public function __construct (Manager $timer, ?string $role = null)
     {
         $this->_manager = $timer;
-        $this->setRole($role);        
+        $this->setRole($role);
         $this->resetStart();
         $this->managerStartDeclare();
     }

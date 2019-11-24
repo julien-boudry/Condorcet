@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
-class Result implements \ArrayAccess, \Countable, \Iterator 
+class Result implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
 

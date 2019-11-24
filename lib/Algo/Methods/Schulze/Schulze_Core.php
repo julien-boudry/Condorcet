@@ -97,7 +97,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
             foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
                 if ($i !== $j) :
                     if ( $this->_selfElection->getPairwise()[$i]['win'][$j] > $this->_selfElection->getPairwise()[$j]['win'][$i] ) :
-                        $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);                      
+                        $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);
                     else :
                         $this->_StrongestPaths[$i][$j] = 0;
                     endif;
@@ -110,8 +110,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 if ($i !== $j) :
                     foreach ($this->_selfElection->getCandidatesList() as $k => $k_value) :
                         if ($i !== $k && $j !== $k) :
-                            $this->_StrongestPaths[$j][$k] = 
-                                max( $this->_StrongestPaths[$j][$k], 
+                            $this->_StrongestPaths[$j][$k] =
+                                max( $this->_StrongestPaths[$j][$k],
                                      min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k]) );
                         endif;
                     endforeach;
@@ -123,7 +123,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
     // Calculate && Format human readable ranking
     protected function makeRanking () : void
-    {       
+    {
         $result = [];
 
         // Calculate ranking

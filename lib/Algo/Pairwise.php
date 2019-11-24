@@ -55,7 +55,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function valid() : bool {
         return $this->valid;
-    }   
+    }
 
 
     // Pairwise
@@ -197,7 +197,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endif;
 
                     // Win & Lose
-                    if (    !in_array($g_candidate_key, $done_Candidates, true) && 
+                    if (    !in_array($g_candidate_key, $done_Candidates, true) &&
                             !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
                         $pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;

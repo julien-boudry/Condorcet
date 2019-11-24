@@ -122,7 +122,7 @@ class Election
     public function __clone ()
     {
         $this->_Votes = clone $this->_Votes;
-        $this->_Votes->setElection($this);      
+        $this->_Votes->setElection($this);
         $this->registerAllLinks();
 
         $this->_timer = clone $this->_timer;
