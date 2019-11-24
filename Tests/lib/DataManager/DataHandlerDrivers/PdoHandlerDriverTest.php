@@ -267,7 +267,7 @@ class PdoHandlerDriverTest extends TestCase
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(0);
-        
+
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }

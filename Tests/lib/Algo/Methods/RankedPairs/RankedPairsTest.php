@@ -296,7 +296,7 @@ class RankedPairsTest extends TestCase
     {
         # Test fix for rare bug
 
-        for ($i=0; $i < 8 ; $i++) { 
+        for ($i=0; $i < 8 ; $i++) {
             $this->election->addCandidate();
         }
 
@@ -411,10 +411,10 @@ class RankedPairsTest extends TestCase
     //     $votes = 500;
 
     //     # Test fix for rare bug
-    //     for ($j=0; $j < $rounds; $j++) { 
+    //     for ($j=0; $j < $rounds; $j++) {
     //         $this->election = new Election;
 
-    //         for ($i=0; $i < $candidates ; $i++) { 
+    //         for ($i=0; $i < $candidates ; $i++) {
     //             $this->election->addCandidate();
     //         }
 

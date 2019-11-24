@@ -369,7 +369,7 @@ class DodgsonTest extends TestCase
     public function testResult_14 () : void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
-        # Figure 4: each voters add 4 friends. 
+        # Figure 4: each voters add 4 friends.
 
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
