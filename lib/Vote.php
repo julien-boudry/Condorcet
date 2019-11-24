@@ -68,7 +68,7 @@ class Vote implements \Iterator
 
         // Vote Weight
         if (is_string($ranking)) :
-            $is_voteWeight = mb_strpos($ranking, '^');
+            $is_voteWeight = strpos($ranking, '^');
             if ($is_voteWeight !== false) :
                 $weight = trim( substr($ranking, $is_voteWeight + 1) );
 
@@ -83,7 +83,7 @@ class Vote implements \Iterator
 
             endif;
 
-            $is_voteTags = mb_strpos($ranking, '||');
+            $is_voteTags = strpos($ranking, '||');
             if ($is_voteTags !== false) :
                 $tagsFromString = explode(',', trim( substr($ranking, 0, $is_voteTags) ));
                 $ranking = substr($ranking, $is_voteTags + 2);
@@ -115,7 +115,7 @@ class Vote implements \Iterator
     }
 
     public function __toString () : string {
-        
+
         if (empty($this->getTags())) :
             return $this->getSimpleRanking();
         else :
@@ -318,7 +318,7 @@ class Vote implements \Iterator
             }, ARRAY_FILTER_USE_KEY);
 
             ksort($ranking);
-            
+
             $i = 1; $vote_r = [];
             foreach ($ranking as &$value) :
                 if ( !is_array($value) ) :
@@ -348,7 +348,7 @@ class Vote implements \Iterator
                     // Check objet reference AND check candidates name
                     if (!in_array($Candidate, $list_candidate)) :
                         $list_candidate[] = $Candidate;
-                    else : 
+                    else :
                         throw new CondorcetException(5);
                     endif;
 

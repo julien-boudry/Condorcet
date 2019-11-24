@@ -22,7 +22,7 @@ trait VotesProcess
 
     // Data and global options
     protected VotesManager $_Votes; // Votes list
-    protected bool $_voteFastMode = false; // When parsing vote, avoid unnecessary checks 
+    protected bool $_voteFastMode = false; // When parsing vote, avoid unnecessary checks
 
 
 /////////// VOTES LIST ///////////
@@ -161,7 +161,7 @@ trait VotesProcess
     {
         // Vote identifiant
         $vote->addTags($tag);
-        
+
         // Register
         try {
             $vote->registerLink($this);
@@ -175,7 +175,7 @@ trait VotesProcess
     }
 
     public function removeVote (Vote $vote) : bool
-    {    
+    {
         $key = $this->getVoteKey($vote);
         if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
@@ -192,7 +192,7 @@ trait VotesProcess
     }
 
     public function removeVotesByTags ($tags, bool $with = true) : array
-    {    
+    {
         $rem = [];
 
         // Prepare Tags
@@ -292,13 +292,13 @@ trait VotesProcess
             endif;
 
             // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '*'),$line);
+            $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'),$line);
 
             // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '^'),$line);
+            $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'),$line);
 
             // Tags + vote
-            if (mb_strpos($line, '||') !== false) :
+            if (strpos($line, '||') !== false) :
                 $data = explode('||', $line);
 
                 $vote = $data[1];

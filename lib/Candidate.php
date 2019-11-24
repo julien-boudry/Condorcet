@@ -39,7 +39,7 @@ class Candidate
     {
         $name = trim($name);
 
-        if (mb_strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
+        if (strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
             throw new CondorcetException(1, $name);
         endif;
 
