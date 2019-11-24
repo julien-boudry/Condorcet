@@ -75,6 +75,11 @@ trait VotesProcess
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
 
+    public function getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : \Generator
+    {
+        return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
+    }
+
     public function getVoteKey (Vote $vote) : ?int
     {
         return $this->_Votes->getVoteKey($vote);

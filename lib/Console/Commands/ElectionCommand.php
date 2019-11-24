@@ -31,6 +31,8 @@ class ElectionCommand extends Command
     protected Election $election;
     protected string $candidates;
     protected string $votes;
+    protected ?array $tags = null;
+    protected bool $tagsWith = true;
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
@@ -38,9 +40,9 @@ class ElectionCommand extends Command
     // Section 1 -> Sum Up
     protected ConsoleSectionOutput $section1;
     // Section 2 -> Condorcet Winner / Loser
-    protected ConsoleSectionOutput $section2;
-    // Section 3 -> Pairwise
     protected ConsoleSectionOutput $section3;
+    // Section 3 -> Pairwise
+    protected ConsoleSectionOutput $section4;
 
     // Section 4 -> Methods Result
     protected array $sections4 = [];
@@ -102,6 +104,7 @@ class ElectionCommand extends Command
         $this->section1 = $output->section();
         $this->section2 = $output->section();
         $this->section3 = $output->section();
+        $this->section4 = $output->section();
 
         // Setup Election Object
         $this->election = new Election;
@@ -197,11 +200,26 @@ class ElectionCommand extends Command
             $this->sectionSumUp($io ,$input,$output);
         endif;
 
+        if ($input->getOption('list-votes')) :
+            ($votesTable = new Table($this->section2))
+                ->setHeaderTitle('Registered Vote List')
+                ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
+            ;
+
+            foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
+                $votesTable->addRow([$voteKey,$oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election)], implode(',', $oneVote->getTags()));
+            endforeach;
+
+            $votesTable->render();
+
+            $io->newLine();
+        endif;
+
         /// Natural Condorcet
         if ($input->getOption('natural-condorcet')) :
             $io->section('Condorcet Natural Winner & Loser');
 
-            (new Table($this->section2))
+            (new Table($this->section3))
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([

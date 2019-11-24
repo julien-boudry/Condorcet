@@ -236,13 +236,13 @@ class Vote implements \Iterator
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
-    public function getSimpleRanking (?Election $context = null) : string
+    public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
-        if ($this->_weight > 1 && ( ($context && $context->isVoteWeightAllowed()) || $context === null )  ) :
+        if ($displayWeight && $this->_weight > 1 && ( ($context && $context->isVoteWeightAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
         endif;
 
@@ -448,9 +448,13 @@ class Vote implements \Iterator
         return true;
     }
 
-    public function getWeight () : int
+    public function getWeight (?Election $electionContext = null) : int
     {
-        return $this->_weight;
+        if ($electionContext !== null && !$electionContext->isVoteWeightAllowed()) :
+            return 1;
+        else :
+            return $this->_weight;
+        endif;
     }
 
     public function setWeight (int $newWeight) : int

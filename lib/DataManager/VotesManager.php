@@ -179,9 +179,11 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function getVotesValidUnderConstraintGenerator () : \Generator
+    public function getVotesValidUnderConstraintGenerator ($tag = null, bool $with = true) : \Generator
     {
-        foreach ($this as $voteKey => $oneVote) :
+        $generator = ($tag === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tag,$with);
+
+        foreach ($generator as $voteKey => $oneVote) :
             if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
                 continue;
             endif;
