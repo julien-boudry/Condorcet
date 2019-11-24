@@ -8,7 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@master
+      with:
+        php-version: '7.4'
+        extension-csv: mbstring, json, pdo, pdo_sqlite #optional, setup extensions
 
     - name: Validate composer.json and composer.lock
       run: composer validate
