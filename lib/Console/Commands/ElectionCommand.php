@@ -13,13 +13,18 @@ namespace CondorcetPHP\Condorcet\Console\Commands;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Constraints\NoTie;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use \Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Yaml\Yaml;
 
 class ElectionCommand extends Command
 {
@@ -27,8 +32,20 @@ class ElectionCommand extends Command
     protected string $candidates;
     protected string $votes;
 
-    protected bool $implicitRanking = false;
-    
+    // TableFormat
+    protected TableStyle $centerPadTypeStyle;
+
+    // Section 1 -> Sum Up
+    protected ConsoleSectionOutput $section1;
+    // Section 2 -> Condorcet Winner / Loser
+    protected ConsoleSectionOutput $section2;
+    // Section 3 -> Pairwise
+    protected ConsoleSectionOutput $section3;
+
+    // Section 4 -> Methods Result
+    protected array $sections4 = [];
+
+
     protected function configure () : void
     {
         $this->setName('election')
@@ -47,6 +64,10 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_NONE
                             , 'Get detailled stats'
             )
+            ->addOption(      'list-votes','l'
+                            , InputOption::VALUE_NONE
+                            , 'List Registered Votes'
+            )
             ->addOption(      'natural-condorcet','r'
                             , InputOption::VALUE_NONE
                             , 'Print natural Condorcet Winner / Loser'
@@ -57,7 +78,11 @@ class ElectionCommand extends Command
             )
             ->addOption(      'allows-votes-weight','g'
                             , InputOption::VALUE_NONE
-                            , 'Allows vote weigh'
+                            , 'Allows vote weight'
+            )
+            ->addOption(      'no-tie','t'
+                            , InputOption::VALUE_NONE
+                            , 'Add no-tie constraint for vote'
             )
 
             ->addArgument(
@@ -70,19 +95,31 @@ class ElectionCommand extends Command
 
     protected function initialize (InputInterface $input, OutputInterface $output) : void
     {
+        // Initialize Style
+        $this->centerPadTypeStyle = (new TableStyle())->setPadType(STR_PAD_BOTH);
+
+        // Initialize sections
+        $this->section1 = $output->section();
+        $this->section2 = $output->section();
+        $this->section3 = $output->section();
+
+        // Setup Election Object
         $this->election = new Election;
 
-        /// Implicit Ranking
-        if ($input->getOption('desactivate-implicit-ranking')) :
-            $this->implicitRanking = true;
-            $this->election->setImplicitRanking(false);
-        endif;
+            /// Implicit Ranking
+            if ($input->getOption('desactivate-implicit-ranking')) :
+                $this->election->setImplicitRanking(false);
+            endif;
 
-        if ($input->getOption('allows-votes-weight')) :
-            $this->votesWeight = true;
-            $this->election->allowsVoteWeight(true);
-        endif;
+            // Allow Votes Weight
+            if ($input->getOption('allows-votes-weight')) :
+                $this->election->allowsVoteWeight(true);
+            endif;
 
+            // NoTie Constraint
+            if ($input->getOption('no-tie')) :
+                $this->election->addConstraint(NoTie::class);
+            endif;
     }
 
     protected function interact (InputInterface $input, OutputInterface $output) : void
@@ -106,7 +143,7 @@ class ElectionCommand extends Command
             endwhile;
 
             $this->candidates = implode(';', $registeringCandidates);
-    
+
         // Non-interactive candidates
         else :
             $this->candidates = $candidates;
@@ -140,6 +177,9 @@ class ElectionCommand extends Command
 
     protected function execute (InputInterface $input, OutputInterface $output) : void
     {
+        $io = new SymfonyStyle ($input, $output);
+
+        // Parse Votes & Candidates
         if ($file = $this->getFilePath($this->candidates)) :
             $this->election->parseCandidates($file, true);
         else :
@@ -154,15 +194,25 @@ class ElectionCommand extends Command
 
         // Input Sum Up
         if ($output->isVerbose()) :
-            $output->writeln('Candidates: [ ' . implode(' , ', $election->getCandidatesList()) . ' ] --> ' . $election->countCandidates() . ' candidate(s)');
-            $output->writeln('Votes: [ ' . $election->getVotesListAsString() . ' ] --> ' . $election->countVotes() . ' vote(s)');
+            $this->sectionSumUp($io ,$input,$output);
         endif;
 
-
-        /// Natural Condrocet
+        /// Natural Condorcet
         if ($input->getOption('natural-condorcet')) :
-            $output->writeln('Condorcet Natural Winner: ' . ( $this->election->getCondorcetWinner() ?? 'NULL' ) );
-            $output->writeln('Condorcet Natural Loser: ' . ( $this->election->getCondorcetLoser() ?? 'NULL' ) );
+            $io->section('Condorcet Natural Winner & Loser');
+
+            (new Table($this->section2))
+                ->setHeaderTitle('Natural Condorcet')
+                ->setHeaders(['Type', 'Candidate'])
+                ->setRows([
+                            ['Condorcet Winner', ( $this->election->getCondorcetWinner() ?? 'NULL' )],
+                            ['Condorcet Loser', ( $this->election->getCondorcetLoser() ?? 'NULL' )]
+                ])
+
+                ->render()
+            ;
+
+            $io->newLine();
         endif;
 
 
@@ -170,23 +220,92 @@ class ElectionCommand extends Command
 
         $methods = $this->prepareMethods($input->getArgument('methods'));
 
+        $io->section('Results per Methods');
+
         foreach ($methods as $oneMethod) :
+            $this->sections4[] = $currentSection = $output->section();
 
-            $result = $this->election->getResult();
+            // Result
+            $result = $this->election->getResult($oneMethod);
 
-            $table = new Table($output);
-            
-            $table
-                ->setHeaderTitle($oneMethod)
+            (new Table($currentSection))
+                ->setHeaderTitle('Results: '.$oneMethod)
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows($this->formatResultTable($result))
 
+                ->setColumnStyle(0,$this->centerPadTypeStyle)
                 ->setColumnWidth(0, 12)
+
+                ->render()
             ;
 
-            $table->render();
+            // Stats
+            if ($input->getOption('stats')) :
+                (new Table($currentSection))
+                    ->setHeaderTitle('Stats: '.$oneMethod)
+                    ->setHeaders(['Stats'])
+                    ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($result->getStats(),100))]])
+
+                    ->setColumnWidth(0, 40)
+                    ->render()
+                ;
+            endif;
 
         endforeach;
+
+        $io->newLine();
+        $io->success('Success');
+    }
+
+    protected function sectionSumUp (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
+    {
+        $io->section('Sum Up');
+
+        // Votes Count
+            ($votesStatsTable = new Table($this->section1))
+                ->setHeaderTitle('Election Configuration')
+                ->setHeaders(['Param', 'Value'])
+                ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
+            ;
+
+            $votesStatsTable->addRow(['Is vote weight allowed?', $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE']);
+            $votesStatsTable->addRow(['Votes are evaluated according to the implicit ranking rule?', $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE']);
+            $votesStatsTable->addRow(['Is vote tie in rank allowed?', in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']);
+
+
+            $votesStatsTable->render();
+
+        // Candidate List
+            ($candidateTable = new Table($this->section1))
+                ->setHeaderTitle('Registered Candidates')
+                ->setHeaders(['Num', 'Candidate Name'])
+                ->setStyle($this->centerPadTypeStyle)
+                ->setColumnWidth(0, 14)
+            ;
+
+            $candidate_num = 1;
+            foreach ($this->election->getCandidatesListAsString() as $oneCandidate) :
+                $candidateTable->addRow([$candidate_num++, $oneCandidate]);
+            endforeach;
+
+            $candidateTable->render();
+
+        // Votes Count
+            ($votesStatsTable = new Table($this->section1))
+                ->setHeaderTitle('Stats - Votes Registration')
+                ->setHeaders(['Stats', 'Value'])
+                ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
+            ;
+
+            $votesStatsTable->addRow(['Count Registered Votes', $this->election->countValidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Count Valid Registered Votes with constraints', $this->election->countValidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Count Invalid Registered Votes with constraints', $this->election->countInvalidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Sum Vote Weight', $this->election->sumVotesWeight()]);
+            $votesStatsTable->addRow(['Sum Valid Votes Weight with constraints', $this->election->sumValidVotesWeightWithConstraints()]);
+
+            $votesStatsTable->render();
+
+        $io->newLine();
     }
 
     protected function prepareMethods (array $methodArgument) : array
@@ -197,11 +316,11 @@ class ElectionCommand extends Command
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) :
-                if ($oneMethod === "all") :
+                if (strtolower($oneMethod) === "all") :
                     $methods = Condorcet::getAuthMethods(false);
                     break;
                 endif;
-                
+
                 if (Condorcet::isAuthMethod($oneMethod)) :
                     $method_name = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
 

@@ -16,7 +16,8 @@
         "php": ">=7.4.0",
         "ext-mbstring": "*",
         "ext-json": "*",
-        "symfony/console": "*"
+        "symfony/console": "*",
+        "symfony/yaml": ">= 5.0"
     },
     "require-dev": {
         "ext-pdo": "*",
