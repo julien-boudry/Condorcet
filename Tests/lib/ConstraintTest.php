@@ -76,7 +76,7 @@ class ConstraintTest extends TestCase
                 B^42
             ' );
 
-            $this->election->allowVoteWeight();
+            $this->election->allowsVoteWeight();
 
             self::assertEquals('B',$this->election->getWinner());
 

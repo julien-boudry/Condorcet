@@ -15,7 +15,9 @@
     "require": {
         "php": ">=7.4.0",
         "ext-mbstring": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/console": "*",
+        "symfony/yaml": ">= 5.0"
     },
     "require-dev": {
         "ext-pdo": "*",
@@ -24,7 +26,7 @@
         "codacy/coverage": "dev-master",
         "phpbench/phpbench": "dev-master",
         "phpunit/phpunit": "^8",
-        "phploc/phploc": "^5.0"
+        "phploc/phploc": "dev-master"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
@@ -42,6 +44,7 @@
     "scripts-descriptions": {
         "test": "Run all tests!"
     },
+    "bin": ["bin/condorcet"],
     "archive": {
         "exclude": [
             "/Benchmarks",

@@ -53,7 +53,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->addConstraint (...)](Election%20Class/public%20Election--addConstraint.md) : bool  
 * [public Election->addVote (...)](Election%20Class/public%20Election--addVote.md) : CondorcetPHP\Condorcet\Vote  
 * [public Election->addVotesFromJson (...)](Election%20Class/public%20Election--addVotesFromJson.md) : int  
-* [public Election->allowVoteWeight (...)](Election%20Class/public%20Election--allowVoteWeight.md) : bool  
+* [public Election->allowsVoteWeight (...)](Election%20Class/public%20Election--allowsVoteWeight.md) : bool  
 * [public Election->canAddCandidate (...)](Election%20Class/public%20Election--canAddCandidate.md) : bool  
 * [public Election->clearConstraints ()](Election%20Class/public%20Election--clearConstraints.md) : bool  
 * [public Election->computeResult (...)](Election%20Class/public%20Election--computeResult.md) : void  
@@ -446,7 +446,7 @@ _Including above methods from public API_
 * private _permute (array $arr)  
 ```
 
-#### CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
+#### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
 ```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
 ```
@@ -494,6 +494,56 @@ _Including above methods from public API_
 * public static prepareParse (string $input, bool $isFile) : array  
 ```
 
+#### CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command   
+```php
+* public static getDefaultName ()  
+* public __construct (?string $name = null)  
+* public addArgument ($name, $mode = null, $description = , $default = null)  
+* public addOption ($name, $shortcut = null, $mode = null, $description = , $default = null)  
+* public addUsage ($usage)  
+* public getAliases ()  
+* public getApplication ()  
+* public getDefinition ()  
+* public getDescription ()  
+* public getHelp ()  
+* public getHelper ($name)  
+* public getHelperSet ()  
+* public getName ()  
+* public getNativeDefinition ()  
+* public getProcessedHelp ()  
+* public getSynopsis ($short = false)  
+* public getUsages ()  
+* public ignoreValidationErrors ()  
+* public isEnabled ()  
+* public isHidden ()  
+* public mergeApplicationDefinition ($mergeArgs = true)  
+* public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output)  
+* public setAliases ($aliases)  
+* public setApplication (?Symfony\Component\Console\Application $application = null)  
+* public setCode (callable $code)  
+* public setDefinition ($definition)  
+* public setDescription ($description)  
+* public setHelp ($help)  
+* public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet)  
+* public setHidden ($hidden)  
+* public setName ($name)  
+* public setProcessTitle ($title)  
+* protected configure () : void  
+* protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected formatResultTable (CondorcetPHP\Condorcet\Result $result) : array  
+* protected getFilePath (string $path) : ?string  
+* protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected isAbsolute (string $path) : bool  
+* protected prepareMethods (array $methodArgument) : array  
+* private validateName (string $name)  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication   
+```php
+* public static run () : void  
+```
+
 #### CondorcetPHP\Condorcet\Constraints\NoTie extends CondorcetPHP\Condorcet\VoteConstraint   
 ```php
 * public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote) : bool  
@@ -505,8 +555,8 @@ _Including above methods from public API_
 * public __clone ()  
 * public __construct ()  
 * public __destruct ()  
-* public __sleep () : array  
-* public __wakeup ()  
+* public __serialize () : array  
+* public __unserialize (array $data) : void  
 * public checkRegularize () : bool  
 * public clearCache () : void  
 * public closeHandler () : void  
@@ -564,8 +614,8 @@ _Including above methods from public API_
 * public __clone ()  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
 * public __destruct ()  
-* public __sleep () : array  
-* public __wakeup ()  
+* public __serialize () : array  
+* public __unserialize (array $data) : void  
 * public checkRegularize () : bool  
 * public clearCache () : void  
 * public closeHandler () : void  
@@ -618,14 +668,14 @@ _Including above methods from public API_
 * public __clone ()  
 * public __construct ()  
 * public __destruct ()  
-* public __sleep () : array  
-* public __wakeup ()  
+* public __serialize () : array  
+* public __unserialize (array $data) : void  
 * public addCandidate ($candidate = null) : CondorcetPHP\Condorcet\Candidate  
 * public addCandidatesFromJson (string $input) : array  
 * public addConstraint (string $constraintClass) : bool  
 * public addVote ($vote, $tags = null) : CondorcetPHP\Condorcet\Vote  
 * public addVotesFromJson (string $input) : int  
-* public allowVoteWeight (bool $rule = true) : bool  
+* public allowsVoteWeight (bool $rule = true) : bool  
 * public canAddCandidate ($candidate) : bool  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public cleanupCalculator () : void  
@@ -803,7 +853,7 @@ _Including above methods from public API_
 ```php
 * public __clone ()  
 * public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
-* public __sleep () : array  
+* public __serialize () : array  
 * public __toString () : string  
 * public addTags ($tags) : bool  
 * public countLinks () : int  

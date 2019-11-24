@@ -221,7 +221,7 @@ class Election
         return $this->_VoteWeightRule;
     }
 
-    public function allowVoteWeight (bool $rule = true) : bool
+    public function allowsVoteWeight (bool $rule = true) : bool
     {
         $this->_VoteWeightRule = $rule;
         $this->cleanupCompute();
