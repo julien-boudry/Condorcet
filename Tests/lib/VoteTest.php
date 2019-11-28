@@ -463,6 +463,7 @@ class VoteTest extends TestCase
         self::assertsame(42,$vote->getWeight());
         self::assertsame(2,$vote->setWeight(2));
         self::assertsame(2,$vote->getWeight());
+        self::assertsame(1,$vote->getWeight($this->election1));
 
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(13);
