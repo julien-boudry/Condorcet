@@ -1,4 +1,4 @@
-
+name: Update Coverage Infos
 on: [push, release]
 
 jobs:
