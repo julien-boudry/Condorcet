@@ -2,8 +2,8 @@ name: Update Coverage Infos
 on: [push]
     branches:
       - master
-      - dev-*
-      - VERSION/*
+      - dev-**
+      - VERSION/**
 
 jobs:
   run:
