@@ -1,5 +1,5 @@
 name: Execute All Tests
-on: [push, pull_request, release]
+on: [push, pull_request]
 
 jobs:
   run:
@@ -8,6 +8,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macOS-latest]
         php-versions: ['7.4']
+      fail-fast: false
 
     name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} - Execute All Tests Without coverage
 

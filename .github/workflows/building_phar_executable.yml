@@ -1,0 +1,44 @@
+name: Building Phar Executable on release
+on:
+  release:
+    types: [created]
+
+jobs:
+  generate:
+    name: Create release-artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@master
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.4
+          extension-csv: mbstring, json, dom, pdo, pdo_sqlite
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-dev
+
+      - name: Install Phar Composer
+        run: curl -JL -o /tmp/phar-composer.phar https://clue.engineering/phar-composer-latest.phar
+
+      - name: Cleanup repository
+        continue-on-error: true
+        run: rm -R .git .github Benchmarks Dev Documentation Examples Tests *.psd *.png *.txt *.dist .travis.yml .gitignore *.cache *.md
+
+      - name: Build Phar
+        run: php /tmp/phar-composer.phar build .
+
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: '*.phar'
