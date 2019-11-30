@@ -1,5 +1,5 @@
-
-on: [push, pull_request, release]
+name: Update Coverage Infos
+on: [push, release]
 
 jobs:
   run:
