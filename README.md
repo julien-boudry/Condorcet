@@ -2,7 +2,7 @@
   <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
 </p>
 
-[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
+[![Build Status](https://github.com/julien-boudry/Condorcet/workflows/Execute%20All%20Tests/badge.svg?branch=master)](https://github.com/julien-boudry/Condorcet/actions)
 [![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
 [![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
