@@ -20,6 +20,7 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         extension-csv: mbstring, json, pdo, pdo_sqlite, dom
+        coverage: xdebug
 
     - name: Check PHP Version
       run: php -v
