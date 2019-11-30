@@ -30,6 +30,11 @@ class VotesManager extends ArrayManager
         $this->_link[0] = $election;
     }
 
+    public function destroyElection () : void
+    {
+        $this->_link = [];
+    }
+
     public function getElection () : Election
     {
         return $this->_link[0];

@@ -9,9 +9,6 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class ElectionTest extends TestCase
 {
-    /**
-     * @var election1
-     */
     private $election1;
     private $election2;
 
@@ -97,7 +94,7 @@ class ElectionTest extends TestCase
     public function testParseCandidates () : void
     {
         self::assertSame(4,
-        count($this->election2->parseCandidates('Bruckner;   Mahler   ;   
+        count($this->election2->parseCandidates('Bruckner;   Mahler   ;
             Debussy
              Bibendum'))
         );
@@ -607,10 +604,13 @@ C > B > A * 1',
 
         $election->addVote('candidate1>candidate2');
 
+        $weakref = \WeakReference::create($election);
+
+        $election->__destruct(); // PHP circular reference can bug
+        // debug_zval_dump($election);
         unset($election);
 
-        // Maybe change it to WeakReference test for PHP 7.4
-        self::assertTrue(true);
+        self::assertNull($weakref->get());
     }
 
     public function testRemoveCandidate () : void

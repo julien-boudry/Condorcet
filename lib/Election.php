@@ -199,6 +199,8 @@ class Election
                 $value->destroyLink($this);
             endforeach;
         endif;
+
+        $this->_Votes->destroyElection();
     }
 
 
