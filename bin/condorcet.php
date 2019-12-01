@@ -12,15 +12,22 @@ use CondorcetPHP\Condorcet\Console\CondorcetApplication;
 
 $composer_autoload_path = __DIR__ . '/../vendor/autoload.php';
 
-if (is_file($composer_autoload_path)) :
-    require_once $composer_autoload_path;
-else :
-    echo 'Cannot find the vendor directory, have you executed composer install?' . PHP_EOL;
-    echo 'See https://getcomposer.org to get Composer.' . PHP_EOL;
-    exit(1);
-endif;
+$loaded = false;
+foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'] as $file) :
+    if (file_exists($file)) :
+        require $file;
+        $loaded = true;
+        break;
+    endif;
+endforeach;
 
-unset($composer_autoload_path);
+if (!$loaded) :
+    die(
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+endif;
 
 CondorcetApplication::run();
 
