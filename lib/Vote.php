@@ -448,9 +448,9 @@ class Vote implements \Iterator
         return true;
     }
 
-    public function getWeight (?Election $electionContext = null) : int
+    public function getWeight (?Election $context = null) : int
     {
-        if ($electionContext !== null && !$electionContext->isVoteWeightAllowed()) :
+        if ($context !== null && !$context->isVoteWeightAllowed()) :
             return 1;
         else :
             return $this->_weight;

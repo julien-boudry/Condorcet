@@ -4,9 +4,9 @@
             > **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
 
             # Public API Index _(Not yet exhaustive, not yet....)*_
-            _Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._    
+            _Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._
 
-            _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
+            _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 - undocumented_prefix: |
             .
@@ -16,7 +16,7 @@
 
 # MULTIPLE CLASS
 
-- 
+-
   class:
     - Vote
     - Candidate
@@ -38,7 +38,7 @@
     - 'Candidate::haveLink'
   publish: true
 
-- 
+-
   class:
     - Vote
     - Candidate
@@ -60,7 +60,7 @@
     - 'Candidate::haveLink'
   publish: true
 
-- 
+-
   class:
     - Vote
     - Candidate
@@ -119,8 +119,8 @@
     - 'static Condorcet::getVersion'
   publish: true
 
-- 
-  class: 
+-
+  class:
     - Election
     - Algo\Pairwise
   type: method
@@ -140,7 +140,7 @@
 
 # CLASS CONDORCET
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -162,7 +162,7 @@
     - 'static Condorcet::getMethodClass'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -184,7 +184,7 @@
     - 'static Condorcet::getMethodClass'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -203,7 +203,7 @@
     - 'static Condorcet::getAuthMethods'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -219,7 +219,7 @@
     - 'static Condorcet::setDefaultMethod'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -242,7 +242,7 @@
     - 'Election::getObjectVersion'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -262,7 +262,7 @@
     - 'static Condorcet::getAuthMethods'
   publish: true
 
-- 
+-
   class: Condorcet
   type: method
   visibility: public
@@ -285,7 +285,7 @@
 
 # CLASS ELECTION
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -295,7 +295,7 @@
     Build a new Election.
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -347,7 +347,7 @@
   publish: true
 
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -378,7 +378,7 @@
     'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -387,7 +387,7 @@
   description: |
     Set the setting and reset all result data.
     Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
-    By default, the voting weight is not activated and all votes are considered equal. 
+    By default, the voting weight is not activated and all votes are considered equal.
   input:
     rule:
       type: bool
@@ -401,7 +401,7 @@
     - 'Election::isVoteWeightAllowed'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -440,7 +440,7 @@
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -463,7 +463,7 @@
     - 'Condorcet::getDefaultMethod'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -478,7 +478,7 @@
     - 'Election::getCandidatesList'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -539,7 +539,7 @@
     - 'Election::sumValidVotesWeightWithConstraints'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -557,7 +557,7 @@
     Candidate object
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -572,7 +572,7 @@
     - 'Election::countCandidates'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -587,19 +587,19 @@
     - 'Election::countCandidates'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
   name: getChecksum
   static: false
   description: |
-    SHA-2 256 checksum of following internal data:        
+    SHA-2 256 checksum of following internal data:
     * Candidates
     * Votes list & tags
     * Computed data (pairwise, algorithm cache, stats)
-    * Class version (major version like 0.14)    
-    
+    * Class version (major version like 0.14)
+
     Can be powerfull to check integrity and security of an election. Or working with serialized object.
 
   return_type: string
@@ -629,7 +629,7 @@
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -647,7 +647,7 @@
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -665,7 +665,7 @@
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -701,7 +701,7 @@
 
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -720,7 +720,7 @@
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -739,7 +739,7 @@
     'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -756,14 +756,14 @@
     - 'Election::setImplicitRanking'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
   name: getResult
   static: false
   description: |
-    Get a full ranking from an advanced Condorcet method.    
+    Get a full ranking from an advanced Condorcet method.
     *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
   input:
     method:
@@ -788,7 +788,7 @@
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -805,7 +805,7 @@
     - 'Election::setStateToVote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -821,7 +821,7 @@
     - 'Election::getLastTimer'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -846,7 +846,7 @@
     - 'Election::getVotesListAsString'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -871,7 +871,7 @@
     - 'Election::getVotesList'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -888,7 +888,7 @@
     - 'Election::parseVotes'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -918,7 +918,7 @@
     - 'Election::addCandidate'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -934,7 +934,7 @@
     - 'Election::allowsVoteWeight'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -969,7 +969,7 @@
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -988,7 +988,7 @@
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1012,7 +1012,7 @@
     'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1036,7 +1036,7 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1065,7 +1065,7 @@
     'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1094,14 +1094,14 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
   name: removeCandidates
   static: false
   description: |
-    Remove Candidates from an election.   
+    Remove Candidates from an election.
 
     *Please note: You can't remove candidates after the first vote. Exception will be throw.*
   input:
@@ -1109,10 +1109,10 @@
       type: mixed
       required: true
       text: |
-          * String matching Candidate Name    
-          * CondorcetPHP\Condorcet\Candidate object    
-          * Array populated by CondorcetPHP\Condorcet\Candidate    
-          * Array populated by string matching Candidate name   
+          * String matching Candidate Name
+          * CondorcetPHP\Condorcet\Candidate object
+          * Array populated by CondorcetPHP\Condorcet\Candidate
+          * Array populated by string matching Candidate name
   return_type: array
   return: |
     List of removed CondorcetPHP\Condorcet\Candidate object.
@@ -1123,7 +1123,7 @@
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1138,18 +1138,18 @@
     - 'Election::setExternalDataHandler'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
   name: removeVote
   static: false
   description: |
-    Remove Votes from an election.   
+    Remove Votes from an election.
   input:
     vote:
       type: CondorcetPHP\Condorcet\Vote
-      required: true      
+      required: true
   return_type: bool
   return: |
     List of removed CondorcetPHP\Condorcet\Vote object.
@@ -1161,14 +1161,14 @@
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
   name: removeVotesByTags
   static: false
   description: |
-    Remove Vote from an election using tags.   
+    Remove Vote from an election using tags.
 
     ```php
     $election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
@@ -1179,7 +1179,7 @@
   input:
     tags:
       type: mixed
-      required: true         
+      required: true
     with:
       type: bool
       required: false
@@ -1195,7 +1195,7 @@
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1216,7 +1216,7 @@
     '[Manual - DataHandler]': 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1237,7 +1237,7 @@
     - 'static Election::setMaxVoteNumber'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1258,7 +1258,7 @@
     - 'static Election::setMaxParseIteration'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1281,7 +1281,7 @@
     - 'Election::getImplicitRankingRule'
   publish: true
 
-- 
+-
   class: Election
   type: method
   visibility: public
@@ -1359,7 +1359,7 @@
 # CLASS CANDIDATE
 
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1379,7 +1379,7 @@
   publish: true
 
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1394,7 +1394,7 @@
     - 'Candidate::getTimestamp'
   publish: true
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1409,7 +1409,7 @@
     - 'Candidate::getCreateTimestamp'
   publish: true
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1424,7 +1424,7 @@
     - 'Candidate::getCreateTimestamp'
   publish: true
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1440,7 +1440,7 @@
     - 'Candidate::setName'
   publish: true
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
@@ -1457,14 +1457,14 @@
     True if candidate object is in a provisional state, false else.
   publish: true
 
-- 
+-
   class: Candidate
   type: method
   visibility: public
   name: setName
   static: false
   description: |
-    Change the candidate name.   
+    Change the candidate name.
     *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
   input:
     name:
@@ -1481,7 +1481,7 @@
 # CLASS VOTE
 
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1518,7 +1518,7 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1540,7 +1540,7 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1562,7 +1562,7 @@
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1578,7 +1578,7 @@
     - 'Vote::removeTags'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1591,7 +1591,7 @@
     Number of Candidate into ranking.
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1607,7 +1607,7 @@
     - 'Vote::countRankingCandidates'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1628,7 +1628,7 @@
     - 'Vote::getRanking'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1649,7 +1649,7 @@
     - 'Vote::getRanking'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1664,7 +1664,7 @@
     - 'Candidate::getTimestamp'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1679,7 +1679,7 @@
     - 'Vote::getCreateTimestamp'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1694,7 +1694,7 @@
     - 'Vote::getCreateTimestamp'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1709,7 +1709,7 @@
     - 'Vote::setRanking'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1724,14 +1724,19 @@
       required: false
       default: 'null'
       text: An election already linked to the Vote.
+    displayWeight:
+      type: bool
+      required: false
+      default: true
+      text: Include or not the weight symbol and value.
   return_type: string
   return: |
     String like 'A>D=C>B'
   related:
     - 'Vote::getRanking'
-  publish: true 
+  publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1748,7 +1753,7 @@
     - 'Vote::removeTags'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1765,7 +1770,7 @@
     - 'Vote::removeTags'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1773,6 +1778,13 @@
   static: false
   description: |
     Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
+  input:
+    context:
+      type: CondorcetPHP\Condorcet\Election
+      nullable: true
+      required: false
+      default: 'null'
+      text: An election already linked to the Vote.
   return_type: int
   return: |
     Weight. Default weight is 1.
@@ -1780,7 +1792,7 @@
     - 'Vote::setWeight'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1800,14 +1812,14 @@
     - 'Vote::setRanking'
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
   name: setRanking
   static: false
   description: |
-    Set a new ranking for this vote.    
+    Set a new ranking for this vote.
 
     Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
   input:
@@ -1824,7 +1836,7 @@
            ```php
            array( 'candidate1Name', ['candidate2Name','candidate4Name'], 'candidate3Name' )
            ```
-        * Or combine the 2 last ways.     
+        * Or combine the 2 last ways.
 
         Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
 
@@ -1847,7 +1859,7 @@
 
   publish: true
 
-- 
+-
   class: Vote
   type: method
   visibility: public
@@ -1871,7 +1883,7 @@
 
 # CLASS TIMER/MANAGER
 
-- 
+-
   class: Timer\Manager
   type: method
   visibility: public
@@ -1889,7 +1901,7 @@
 
 # CLASS RESULT
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1908,7 +1920,7 @@
     - 'Result::getResultAsString'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1926,7 +1938,7 @@
   publish: true
 
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1948,7 +1960,7 @@
     - 'Result::getResultAsString'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1964,7 +1976,7 @@
     - 'Result::getResultAsArray'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1981,7 +1993,7 @@
     - 'Election::getLoser'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -1994,7 +2006,7 @@
     Microsecond timestamp.
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2007,7 +2019,7 @@
     Condorcet PHP version string format.
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2022,7 +2034,7 @@
     - 'Result::getMethod'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2038,7 +2050,7 @@
     - 'Election::getLoser'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2054,7 +2066,7 @@
     - 'Election::getWinner'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2069,7 +2081,7 @@
     - 'Result::getClassGenerator'
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2089,7 +2101,7 @@
     Warnings provided by the by the method that generated the warning. Empty array if there is not.
   publish: true
 
-- 
+-
   class: Result
   type: method
   visibility: public
@@ -2109,7 +2121,7 @@
 
 # CLASS CONDORCETUTIL
 
-- 
+-
   class: CondorcetUtil
   type: method
   visibility: public

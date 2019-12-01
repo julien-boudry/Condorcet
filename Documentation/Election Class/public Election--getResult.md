@@ -6,7 +6,7 @@
 public $Election -> getResult ( [?string method = null , array options = []] ) : CondorcetPHP\Condorcet\Result
 ```
 
-Get a full ranking from an advanced Condorcet method.    
+Get a full ranking from an advanced Condorcet method.
 *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
     
 

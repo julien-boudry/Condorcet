@@ -1,9 +1,9 @@
 > **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
 
 # Public API Index _(Not yet exhaustive, not yet....)*_
-_Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._    
+_Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._
 
-_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_   
+_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise Class  
@@ -141,7 +141,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->getTags ()](Vote%20Class/public%20Vote--getTags.md) : array  
 * [public Vote->getTagsAsString ()](Vote%20Class/public%20Vote--getTagsAsString.md) : string  
 * [public Vote->getTimestamp ()](Vote%20Class/public%20Vote--getTimestamp.md) : float  
-* [public Vote->getWeight ()](Vote%20Class/public%20Vote--getWeight.md) : int  
+* [public Vote->getWeight (...)](Vote%20Class/public%20Vote--getWeight.md) : int  
 * [public Vote->haveLink (...)](Vote%20Class/public%20Vote--haveLink.md) : bool  
 * [public Vote->removeAllTags ()](Vote%20Class/public%20Vote--removeAllTags.md) : bool  
 * [public Vote->removeCandidate (...)](Vote%20Class/public%20Vote--removeCandidate.md) : bool  
@@ -536,6 +536,7 @@ _Including above methods from public API_
 * protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected isAbsolute (string $path) : bool  
 * protected prepareMethods (array $methodArgument) : array  
+* protected sectionSumUp (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * private validateName (string $name)  
 ```
 
@@ -624,6 +625,7 @@ _Including above methods from public API_
 * public countVotes (?array $tag, bool $with) : int  
 * public current ()  
 * public debugGetCache () : array  
+* public destroyElection () : void  
 * public getCacheSize () : int  
 * public getContainerSize () : int  
 * public getDataContextObject () : CondorcetPHP\Condorcet\DataManager\DataContextInterface  
@@ -635,7 +637,7 @@ _Including above methods from public API_
 * public getVotesList ($tag = null, bool $with = true) : array  
 * public getVotesListAsString () : string  
 * public getVotesListGenerator ($tag = null, bool $with = true) : Generator  
-* public getVotesValidUnderConstraintGenerator () : Generator  
+* public getVotesValidUnderConstraintGenerator ($tag = null, bool $with = true) : Generator  
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
 * public isUsingHandler () : bool  
 * public key () : ?int  
@@ -712,6 +714,7 @@ _Including above methods from public API_
 * public getVotesListAsString () : string  
 * public getVotesListGenerator ($tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
+* public getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : Generator  
 * public getWinner (?string $method = null)  
 * public isRegisteredCandidate ($candidate, bool $strictMode = true) : bool  
 * public isVoteWeightAllowed () : bool  
@@ -869,11 +872,11 @@ _Including above methods from public API_
 * public getLinks () : ?array  
 * public getObjectVersion (bool $major = false) : string  
 * public getRanking () : array  
-* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null) : string  
+* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true) : string  
 * public getTags () : array  
 * public getTagsAsString () : string  
 * public getTimestamp () : float  
-* public getWeight () : int  
+* public getWeight (?CondorcetPHP\Condorcet\Election $context = null) : int  
 * public haveLink (CondorcetPHP\Condorcet\Election $election) : bool  
 * public key () : int  
 * public next () : void  

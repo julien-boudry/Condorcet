@@ -6,7 +6,7 @@
 public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote ) : bool
 ```
 
-Remove Votes from an election.   
+Remove Votes from an election.
     
 
 ##### **vote:** *CondorcetPHP\Condorcet\Vote*   

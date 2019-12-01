@@ -2,12 +2,20 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.1.0] - 2019-11-29
+## [v2.1.0] - 2019-12-XX
 ### Description
-Move to PHP 7.4 version.
+Move to PHP 7.4 version. And add console application for command line usage!
+
+### Added
+- New Condorcet Application from the command line. Easy to use for non-technical users. And faster to use for everyone for most use cases.
+- Docker file for building Condorcet image. For very easy access to the command line application.
 
 ### Changed
 - PHP 7.4 is the new minimal PHP version required.
+- MBSTRING PHP extension is not requiered anymore.
+- Election::allowVoteWeight() renamed to Election::allowsVoteWeight()
+- Vote::getSimpleRanking() allow a new optional parameter $displayWeight.
+- Vote::getWeight() allow a new optional parameter $context and if providing returning ranking in context of an election instead theorical ranking.
 
 ### Internal changes
 - Use PHP 7.4 new types on property. For security and performances reasons.

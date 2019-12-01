@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getSimpleRanking ( [?CondorcetPHP\Condorcet\Election context = null] ) : string
+public $Vote -> getSimpleRanking ( [?CondorcetPHP\Condorcet\Election context = null , bool displayWeight = true] ) : string
 ```
 
 Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
@@ -11,6 +11,10 @@ Get the current ranking as a string format. Optionally with an election context,
 
 ##### **context:** *?CondorcetPHP\Condorcet\Election*   
 An election already linked to the Vote.    
+
+
+##### **displayWeight:** *bool*   
+Include or not the weight symbol and value.    
 
 
 ### Return value:   
