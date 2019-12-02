@@ -10,12 +10,12 @@ use CondorcetPHP\Condorcet\CondorcetUtil;
 use CondorcetPHP\Condorcet\Vote;
 
 
-class BasicUsageBench
+class IntensiveUsageBench
 {
     /**
-     * @Iterations(2)
+     * @Iterations(4)
      * @Warmup(1)
-     * @Revs(4)
+     * @Revs(10)
      */
     public function benchSimpleManyVotes () : void
     {
