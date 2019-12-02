@@ -223,8 +223,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                            ['Condorcet Winner', ( $this->election->getCondorcetWinner() ?? 'NULL' )],
-                            ['Condorcet Loser', ( $this->election->getCondorcetLoser() ?? 'NULL' )]
+                            ['* Condorcet Winner', ( $this->election->getCondorcetWinner() ?? 'NULL' )],
+                            ['# Condorcet Loser', ( $this->election->getCondorcetLoser() ?? 'NULL' )]
                 ])
 
                 ->render()
@@ -252,7 +252,7 @@ class ElectionCommand extends Command
                 ->setRows($this->formatResultTable($result))
 
                 ->setColumnStyle(0,$this->centerPadTypeStyle)
-                ->setColumnWidth(0, 12)
+                ->setColumnWidth(0, 16)
 
                 ->render()
             ;
