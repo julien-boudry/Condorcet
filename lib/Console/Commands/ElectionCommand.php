@@ -207,7 +207,7 @@ class ElectionCommand extends Command
             ;
 
             foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
-                $votesTable->addRow([$voteKey,$oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election)], implode(',', $oneVote->getTags()));
+                $votesTable->addRow( [ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ] );
             endforeach;
 
             $votesTable->render();
