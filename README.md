@@ -464,9 +464,9 @@ _OK: sacrifice to the local tradition of lazy._
 The code is close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 #### Performance:  
-* Complex use case with three algorithms chained (Natural Condorcet, Schulze, Copeland), multiple elections sharing votes & candidates and hundreds of votes.
-  * _Memory usage: less than 2M_    
-  * _Execution time: less than 30ms_  
+* Complete and huge use case with all algorithms chained, 6 candidates and one thousand votes (many with implicit ranking).
+  * _Memory usage: less than 6M_    
+  * _Execution time: less than 600ms_  
 ###### Kemeny-Youg case:   
 * use Kemeny-Young 6 candidates: 5MB - 150ms    
 * use Kemeny-Young 7 candidates: 32MB - 600ms    
@@ -480,7 +480,7 @@ You can also develop your own datastore driver (to store into NoSQL... all your 
 
 [Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
-_Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._ 
+_Benchmark on a modern machine (linux - x64 - php 7.4 - cli)._ 
 
 
 ## Roadmap for further releases 
