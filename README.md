@@ -14,7 +14,8 @@
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
-> Donation: ₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9) _You can also offer me a bottle of good wine._  
+> Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
+> _You can also offer me a bottle of good wine._  
 >
 > Methods provided natively: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
@@ -23,7 +24,12 @@ Condorcet PHP
 ===========================
 > **Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](Tests/)**  
 
-A PHP library implementing the Condorcet voting system and other methods like the Schulze method. And also a powerful election manager.  
+Condorcet is an application implementing the Condorcet voting system and many other methods like the Schulze, Tideman, Borda or Alternative Voting. And also a powerful election manager allowing the logical management of a phased election, with many natives options and elections methodes included.  
+
+_Two different ways to use Condorcet:_
+* A **command line application**, for quick use of essential features without complicated technical knowledge. Allowing you to easily compute your elections results and stats.  
+* A **PHP library** that you can include in your code to take advantage of 100% of the advanced features (abstraction, control, interaction, extensions).  
+
 
 *Read more about alternative voting methods >> https://en.wikipedia.org/wiki/Condorcet_method*  
 
@@ -34,11 +40,12 @@ A PHP library implementing the Condorcet voting system and other methods like th
   a. [Methods provided natively](#methods-provided-natively)     
   b. [Add your own method](#add-your-own-method-as-module)  
 1. [How to use it?](#how-to-use-it)  
-  a. [Install](#install)  
-  b. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
-  c. [Class & Methods reference](#class--methods-reference)     
-  d. [Examples](#examples) *Have a look on Examples!*     
-  e. [Really quick and simple example](#really-quick-and-simple-example)
+  a. [Install as a command line application](#install-as-a-command-line-application)  
+  b. [Install as a PHP Library](#install-as-a-php-library)  
+  c. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
+  d. [Class & Methods reference](#class--methods-reference)     
+  e. [Examples](#examples) *Have a look on Examples!*     
+  f. [Really quick and simple example](#really-quick-and-simple-example)
 1. [Performance & Coding style considerations](#roadmap-for-further-releases)
 1. [Roadmap for further releases](#roadmap-for-further-releases)
 1. [Related projects / They use Condorcet](#related-projects--they-use-condorcet)  
@@ -122,21 +129,78 @@ Condorcet is designed to be easily extensible with new algorithms (they don't ne
 
 _I have undertaken and continues to undertake efforts to reform and improve the documentation. Thereof is not yet satisfactory and perfectly updated. Your help is welcome!_
 
-## Install
+### Install as a command line application
+
+#### Install it yourself with composer _(you must have PHP >= 7.4 and composer)_
+
+```shell
+mkdir Condorcet && cd Condorcet
+composer require julien-boudry/condorcet:*
+./vendor/bin/condorcet --help
+./vendor/bin/condorcet election
+```
+
+#### From Docker
+
+_You must install Docker first. See [installation instructions](https://hub.docker.com/search/?type=edition&offering=community)._
+
+##### From a public image
+
+_Incomming!_
+
+##### From docker file
+
+```shell
+git clone https://github.com/julien-boudry/Condorcet.git
+cd Condorcet
+docker build -t condorcet .
+docker run --hostname="condorcet" --rm -it condorcet bash
+```
+
+Then you can use de condorcet command directly. As example:  
+```shell
+root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+
+Condorcet Natural Winner & Loser
+--------------------------------
+
++----- Natural Condorcet ------+
+| Type             | Candidate |
++------------------+-----------+
+| Condorcet Winner | A         |
+| Condorcet Loser  | B         |
++------------------+-----------+
+
+Results per Methods
+-------------------
+
++- Results: Schulze Win... -+
+|     Rank     | Candidates |
++--------------+------------+
+|      1       | A*         |
+|      2       | C          |
+|      3       | B#         |
++--------------+------------+
+
+
+ [OK] Success
+```
+
+### Install as a PHP Library
 
 #### Autoloading:   
 This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \CondorcetPHP is used. 
-The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
+The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or others PSR-4 autoloader.
 
 > [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-1.-Installation)    
 
-## Condorcet Wiki Manual
+### Condorcet Wiki Manual
 
 * **[Visit the Manual](https://github.com/julien-boudry/Condorcet/wiki)**
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
-## Class & Methods reference
+### Class & Methods reference
 
 The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "Documentation" folder for each release.   
 * [Class & Methods documentation](Documentation/README.md)
