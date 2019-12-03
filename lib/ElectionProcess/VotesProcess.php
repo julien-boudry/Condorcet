@@ -22,7 +22,7 @@ trait VotesProcess
 
     // Data and global options
     protected VotesManager $_Votes; // Votes list
-    protected bool $_voteFastMode = false; // When parsing vote, avoid unnecessary checks
+    protected int $_voteFastMode = 0; // When parsing vote, avoid unnecessary checks
 
 
 /////////// VOTES LIST ///////////
@@ -118,7 +118,7 @@ trait VotesProcess
 
     public function checkVoteCandidate (Vote $vote) : bool
     {
-        if (!$this->_voteFastMode) :
+        if ($this->_voteFastMode === 0) :
             $linkCount = $vote->countLinks();
             $links = $vote->getLinks();
             $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) );
@@ -130,14 +130,16 @@ trait VotesProcess
             endforeach;
         endif;
 
-        $ranking = $vote->getRanking();
+        if ($this->_voteFastMode < 2) :
+            $ranking = $vote->getRanking();
 
-        $change = $this->convertRankingCandidates($ranking);
+            $change = $this->convertRankingCandidates($ranking);
 
-        if ($change) :
-            $vote->setRanking(  $ranking,
-                                ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
-            );
+            if ($change) :
+                $vote->setRanking(  $ranking,
+                                    ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
+                );
+            endif;
         endif;
 
         return true;
@@ -266,19 +268,7 @@ trait VotesProcess
             $count += $multiple;
         endforeach;
 
-        $this->_voteFastMode = true;
-
-        foreach ($adding as $oneLine) :
-            for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
-                if ($i !== $oneLine['multiple']) :
-                    $this->addVote(clone $oneLine['vote']);
-                else :
-                    $this->addVote($oneLine['vote']);
-                endif;
-            endfor;
-        endforeach;
-
-        $this->_voteFastMode = false;
+        $this->doAddVotesFromParse($adding);
 
         return $count;
     }
@@ -332,21 +322,27 @@ trait VotesProcess
             $count += $multiple;
         endforeach;
 
-        $this->_voteFastMode = true;
+        $this->doAddVotesFromParse($adding);
+
+        return $count;
+    }
+
+    protected function doAddVotesFromParse (array $adding) : void
+    {
+        $this->_voteFastMode = 1;
 
         foreach ($adding as $oneLine) :
             for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
-                if ($i !== $oneLine['multiple']) :
-                    $this->addVote(clone $oneLine['vote']);
-                else :
+                if ($i === 1) :
                     $this->addVote($oneLine['vote']);
+                    $this->_voteFastMode = 2;
+                else :
+                    $this->addVote(clone $oneLine['vote']);
                 endif;
             endfor;
         endforeach;
 
-        $this->_voteFastMode = false;
-
-        return $count;
+        $this->_voteFastMode = 0;
     }
 
 }
