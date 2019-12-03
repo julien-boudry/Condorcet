@@ -184,7 +184,7 @@ class ElectionCommand extends Command
 
         if ($input->getOption('list-votes')) :
             ($votesTable = new Table($output))
-                ->setHeaderTitle('Registered Vote List')
+                ->setHeaderTitle('Registered Votes List')
                 ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
             ;
 

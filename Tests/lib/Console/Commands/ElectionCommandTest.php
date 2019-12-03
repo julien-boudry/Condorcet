@@ -21,7 +21,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand = new CommandTester(CondorcetApplication::$SymfonyConsoleApplication->find('election'));
     }
 
-    public function testSimpleElection () : void
+    public function testConsoleSimpleElection () : void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -29,7 +29,8 @@ class ElectionCommandTest extends TestCase
                                             '--stats' => null,
                                             '--natural-condorcet' => null,
                                             '--allows-votes-weight' => null,
-                                            '--no-tie' => null
+                                            '--no-tie' => null,
+                                            '--list-votes' => null
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
@@ -43,10 +44,48 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Registered Candidates', $output);
         self::assertStringContainsString('Stats - Votes Registration', $output);
         self::assertStringContainsString('Stats:', $output);
+        self::assertStringContainsString('Votes List', $output);
 
         self::assertStringContainsString('Is vote weight allowed? | TRUE', $output);
         self::assertStringContainsString('Votes are evaluated according to the implicit ranking rule? | TRUE ', $output);
         self::assertStringContainsString('Is vote tie in rank allowed? | TRUE', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testConsoleAllMethodsArgument () : void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+
+                                            'methods' => ['all']
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
+
+        self::assertStringContainsString('Copeland', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testConsoleMultiplesMethods () : void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+
+                                            'methods' => ['Copeland', 'RankedPairs', 'Minimax']
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
+
+        self::assertStringContainsString('Copeland', $output);
+        self::assertStringContainsString('Ranked Pairs M', $output);
+        self::assertStringContainsString('Minimax Winning', $output);
+
 
         self::assertStringContainsString('[OK] Success', $output);
     }
