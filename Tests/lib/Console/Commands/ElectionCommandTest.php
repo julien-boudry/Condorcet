@@ -105,4 +105,18 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('A,B', $output);
         self::assertStringContainsString('C#', $output);
     }
+
+    public function testInteractiveCommand () : void
+    {
+        $this->electionCommand->setInputs(['A','B','C']);
+        $this->electionCommand->setInputs(['A','B','C']);
+
+        $this->electionCommand->execute([
+            'command' => CondorcetApplication::$SymfonyConsoleApplication->find('election')->getName()
+        ]);
+
+        var_dump($this->electionCommand->getDisplay());
+
+        self::assertTrue();
+    }
 }
