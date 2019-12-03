@@ -428,11 +428,14 @@ C > B > A * 1',
         $votes[0]['vote'] = 'A>B>C';
         $votes[0]['multi'] = 5;
         $votes[0]['tag'] = 'tag1';
+        $votes[0]['weight'] = '42';
 
         $election->addVotesFromJson(json_encode($votes));
 
+        $election->allowsVoteWeight(true);
+
         self::assertSame(
-'A > B > C * 5
+'A > B > C ^42 * 5
 B > C > A * 1
 C > B > A * 1',
             $election->getVotesListAsString()
