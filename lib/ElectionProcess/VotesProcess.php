@@ -246,8 +246,10 @@ trait VotesProcess
                 continue;
             endif;
 
+            $vote = $record['vote'];
             $tags = !isset($record['tag']) ? null : $record['tag'];
-            $multiple = !isset($record['multi']) ? 1 : $record['multi'];
+            $multiple = !isset($record['multi']) ? 1 : (int) $record['multi'];
+            $weight = !isset($record['weight']) ? 1 : (int) $record['weight'];
 
             $adding_predicted_count = $count + $multiple;
 
@@ -259,7 +261,8 @@ trait VotesProcess
                 throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 
-            $newVote = new Vote ($record['vote'], $tags, null, $this);
+            $newVote = new Vote ($vote, $tags, null, $this);
+            $newVote->setWeight($weight);
 
             $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
 

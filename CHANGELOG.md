@@ -9,6 +9,7 @@ Move to PHP 7.4 version. And add console application for command line usage!
 ### Added
 - New Condorcet Application from the command line. Easy to use for non-technical users. And faster to use for everyone for most use cases.
 - Docker file for building Condorcet image. For very easy access to the command line application.
+- Json input can include vote weight.
 
 ### Changed
 - PHP 7.4 is the new minimal PHP version required.
