@@ -20,7 +20,6 @@ use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use \Symfony\Component\Console\Style\SymfonyStyle;
@@ -36,17 +35,6 @@ class ElectionCommand extends Command
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
-
-    // Section 1 -> Sum Up
-    protected ConsoleSectionOutput $section1;
-    // Section 2 -> Condorcet Winner / Loser
-    protected ConsoleSectionOutput $section3;
-    // Section 3 -> Pairwise
-    protected ConsoleSectionOutput $section4;
-
-    // Section 4 -> Methods Result
-    protected array $sections4 = [];
-
 
     protected function configure () : void
     {
@@ -99,12 +87,6 @@ class ElectionCommand extends Command
     {
         // Initialize Style
         $this->centerPadTypeStyle = (new TableStyle())->setPadType(STR_PAD_BOTH);
-
-        // Initialize sections
-        $this->section1 = $output->section();
-        $this->section2 = $output->section();
-        $this->section3 = $output->section();
-        $this->section4 = $output->section();
 
         // Setup Election Object
         $this->election = new Election;
@@ -201,7 +183,7 @@ class ElectionCommand extends Command
         endif;
 
         if ($input->getOption('list-votes')) :
-            ($votesTable = new Table($this->section2))
+            ($votesTable = new Table($output))
                 ->setHeaderTitle('Registered Vote List')
                 ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
             ;
@@ -219,7 +201,7 @@ class ElectionCommand extends Command
         if ($input->getOption('natural-condorcet')) :
             $io->section('Condorcet Natural Winner & Loser');
 
-            (new Table($this->section3))
+            (new Table($output))
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
@@ -241,12 +223,11 @@ class ElectionCommand extends Command
         $io->section('Results per Methods');
 
         foreach ($methods as $oneMethod) :
-            $this->sections4[] = $currentSection = $output->section();
 
             // Result
             $result = $this->election->getResult($oneMethod);
 
-            (new Table($currentSection))
+            (new Table($output))
                 ->setHeaderTitle('Results: '.$oneMethod)
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows($this->formatResultTable($result))
@@ -259,7 +240,7 @@ class ElectionCommand extends Command
 
             // Stats
             if ($input->getOption('stats')) :
-                (new Table($currentSection))
+                (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod)
                     ->setHeaders(['Stats'])
                     ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($result->getStats(),100))]])
@@ -280,7 +261,7 @@ class ElectionCommand extends Command
         $io->section('Sum Up');
 
         // Votes Count
-            ($votesStatsTable = new Table($this->section1))
+            ($votesStatsTable = new Table($output))
                 ->setHeaderTitle('Election Configuration')
                 ->setHeaders(['Param', 'Value'])
                 ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
@@ -294,7 +275,7 @@ class ElectionCommand extends Command
             $votesStatsTable->render();
 
         // Candidate List
-            ($candidateTable = new Table($this->section1))
+            ($candidateTable = new Table($output))
                 ->setHeaderTitle('Registered Candidates')
                 ->setHeaders(['Num', 'Candidate Name'])
                 ->setStyle($this->centerPadTypeStyle)
@@ -309,7 +290,7 @@ class ElectionCommand extends Command
             $candidateTable->render();
 
         // Votes Count
-            ($votesStatsTable = new Table($this->section1))
+            ($votesStatsTable = new Table($output))
                 ->setHeaderTitle('Stats - Votes Registration')
                 ->setHeaders(['Stats', 'Value'])
                 ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
