@@ -313,9 +313,7 @@ class Vote implements \Iterator
                 throw new CondorcetException(5);
             endif;
 
-            $ranking = array_filter($ranking, function ($key) {
-                return is_numeric($key);
-            }, ARRAY_FILTER_USE_KEY);
+            $ranking = array_filter($ranking, fn ($key): bool => is_numeric($key), ARRAY_FILTER_USE_KEY);
 
             ksort($ranking);
 
