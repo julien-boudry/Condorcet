@@ -251,22 +251,8 @@ trait VotesProcess
             $multiple = !isset($record['multi']) ? 1 : (int) $record['multi'];
             $weight = !isset($record['weight']) ? 1 : (int) $record['weight'];
 
-            $adding_predicted_count = $count + $multiple;
+            $this->synthesisVoteFromParse ($count, $multiple, $adding, $vote, $tags, $weight);
 
-            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-                throw new CondorcetException(16, (string) self::$_maxParseIteration);
-            endif;
-
-            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, (string) self::$_maxParseIteration);
-            endif;
-
-            $newVote = new Vote ($vote, $tags, null, $this);
-            $newVote->setWeight($weight);
-
-            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
-
-            $count += $multiple;
         endforeach;
 
         $this->doAddVotesFromParse($adding);
@@ -305,27 +291,32 @@ trait VotesProcess
                 $tags = null;
             endif;
 
-            $adding_predicted_count = $count + $multiple;
-
-            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-                throw new CondorcetException(16, (string) self::$_maxParseIteration);
-            endif;
-
-            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, (string) self::$_maxParseIteration);
-            endif;
-
-            $newVote = new Vote ($vote, $tags, null, $this);
-            $newVote->setWeight($weight);
-
-            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
-
-            $count += $multiple;
+            $this->synthesisVoteFromParse ($count, $multiple, $adding, $vote, $tags, $weight);
         endforeach;
 
         $this->doAddVotesFromParse($adding);
 
         return $count;
+    }
+
+    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, $vote, $tags, int $weight) : void
+    {
+        $adding_predicted_count = $count + $multiple;
+
+        if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
+            throw new CondorcetException(16, (string) self::$_maxParseIteration);
+        endif;
+
+        if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
+            throw new CondorcetException(12, (string) self::$_maxParseIteration);
+        endif;
+
+        $newVote = new Vote ($vote, $tags, null, $this);
+        $newVote->setWeight($weight);
+
+        $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
+
+        $count += $multiple;
     }
 
     protected function doAddVotesFromParse (array $adding) : void
