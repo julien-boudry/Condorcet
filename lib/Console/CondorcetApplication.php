@@ -21,6 +21,16 @@ abstract class CondorcetApplication
 
     public static function run () : void
     {
+        if (!isset(self::$SymfonyConsoleApplication)) :
+            self::create();
+        endif;
+
+        // Run
+        self::$SymfonyConsoleApplication->run();
+    }
+
+    public static function create () : void
+    {
         // New App
         self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet',Condorcet::getVersion());
 
@@ -30,8 +40,5 @@ abstract class CondorcetApplication
             $command = new ElectionCommand;
             self::$SymfonyConsoleApplication->add($command);
             self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
-
-        // Run
-        self::$SymfonyConsoleApplication->run();
     }
 }
