@@ -238,8 +238,6 @@ trait VotesProcess
     {
         $input = CondorcetUtil::prepareJson($input);
 
-            //////
-
         $adding = [];
         $count = 0;
 
@@ -254,11 +252,11 @@ trait VotesProcess
             $adding_predicted_count = $count + $multiple;
 
             if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-                throw new CondorcetException(16, self::$_maxParseIteration);
+                throw new CondorcetException(16, (string) self::$_maxParseIteration);
             endif;
 
             if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, self::$_maxParseIteration);
+                throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 
             $newVote = new Vote ($record['vote'], $tags, null, $this);
