@@ -30,7 +30,8 @@ class ElectionCommandTest extends TestCase
                                             '--natural-condorcet' => null,
                                             '--allows-votes-weight' => null,
                                             '--no-tie' => null,
-                                            '--list-votes' => null
+                                            '--list-votes' => null,
+                                            '--desactivate-implicit-ranking' => null
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
@@ -47,7 +48,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Votes List', $output);
 
         self::assertStringContainsString('Is vote weight allowed? | TRUE', $output);
-        self::assertStringContainsString('Votes are evaluated according to the implicit ranking rule? | TRUE ', $output);
+        self::assertStringContainsString('Votes are evaluated according to the implicit ranking rule? | FALSE ', $output);
         self::assertStringContainsString('Is vote tie in rank allowed? | TRUE', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
@@ -88,5 +89,20 @@ class ElectionCommandTest extends TestCase
 
 
         self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testConsoleFileInput () : void
+    {
+        $this->electionCommand->execute([
+            '--candidates' => __DIR__.'/data.candidates',
+            '--votes' => __DIR__.'/data.votes'
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
+
+        self::assertStringContainsString('Schulze', $output);
+        self::assertStringContainsString('A,B', $output);
+        self::assertStringContainsString('C#', $output);
     }
 }
