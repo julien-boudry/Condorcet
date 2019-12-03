@@ -6,8 +6,9 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+        operating-system: [ubuntu-latest, windows-latest]
         php-versions: ['7.1','7.2','7.3']
+      fail-fast: false
 
     name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} - Execute All Tests Without coverage
 
