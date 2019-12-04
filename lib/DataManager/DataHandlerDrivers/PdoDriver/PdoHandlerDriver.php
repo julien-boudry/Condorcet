@@ -233,83 +233,63 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             return null;
         endif;
 
-        try {
-            $this->_prepare['selectMaxKey']->execute();
-            $r = (int) $this->_prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
-            $this->_prepare['selectMaxKey']->closeCursor();
+        $this->_prepare['selectMaxKey']->execute();
+        $r = (int) $this->_prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
+        $this->_prepare['selectMaxKey']->closeCursor();
 
-            return $r;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $r;
     }
 
     public function selectMinKey () : int
     {
-        try {
-            $this->_prepare['selectMinKey']->execute();
-            $r = (int) $this->_prepare['selectMinKey']->fetch(\PDO::FETCH_NUM)[0];
-            $this->_prepare['selectMinKey']->closeCursor();
+        $this->_prepare['selectMinKey']->execute();
+        $r = (int) $this->_prepare['selectMinKey']->fetch(\PDO::FETCH_NUM)[0];
+        $this->_prepare['selectMinKey']->closeCursor();
 
-            return $r;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $r;
     }
 
     public function countEntities () : int
     {
-        try {
-            $this->_prepare['countEntities']->execute();
-            $r = (int) $this->_prepare['countEntities']->fetch(\PDO::FETCH_NUM)[0];
-            $this->_prepare['countEntities']->closeCursor();
+        $this->_prepare['countEntities']->execute();
+        $r = (int) $this->_prepare['countEntities']->fetch(\PDO::FETCH_NUM)[0];
+        $this->_prepare['countEntities']->closeCursor();
 
-            return $r;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        return $r;
     }
 
     // return false if Entity does not exist.
     public function selectOneEntity (int $key)
     {
-        try {
-            $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
-            $this->_prepare['selectOneEntity']->execute();
+        $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
+        $this->_prepare['selectOneEntity']->execute();
 
-            $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
-            $this->_prepare['selectOneEntity']->closeCursor();
-            if (!empty($r)) :
-                return $this->_dataContextObject->dataCallBack( $r[0][1] );
-            else :
-                return false;
-            endif;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
+        $this->_prepare['selectOneEntity']->closeCursor();
+        if (!empty($r)) :
+            return $this->_dataContextObject->dataCallBack( $r[0][1] );
+        else :
+            return false;
+        endif;
     }
 
     public function selectRangeEntities (int $key, int $limit) : array
     {
-        try {
-            $this->_prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
-            $this->_prepare['selectRangeEntities']->execute();
+        $this->_prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
+        $this->_prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $this->_prepare['selectRangeEntities']->execute();
 
-            $r = $this->_prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
-            $this->_prepare['selectRangeEntities']->closeCursor();
-            if (!empty($r)) :
-                $result = [];
-                foreach ($r as $value) :
-                    $result[(int) $value[0]] = $this->_dataContextObject->dataCallBack( $value[1] );
-                endforeach ;
+        $r = $this->_prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
+        $this->_prepare['selectRangeEntities']->closeCursor();
+        if (!empty($r)) :
+            $result = [];
+            foreach ($r as $value) :
+                $result[(int) $value[0]] = $this->_dataContextObject->dataCallBack( $value[1] );
+            endforeach ;
 
-                return $result;
-            else :
-                return [];
-            endif;
-        } catch (\Exception $e) {
-            throw $e;
-        }
+            return $result;
+        else :
+            return [];
+        endif;
     }
 }
