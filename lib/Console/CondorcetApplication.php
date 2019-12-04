@@ -21,24 +21,23 @@ abstract class CondorcetApplication
 
     public static function run () : void
     {
-        if (!isset(self::$SymfonyConsoleApplication)) :
-            self::create();
-        endif;
-
-        // Run
-        self::$SymfonyConsoleApplication->run();
+       // Run
+       self::create();
+       self::$SymfonyConsoleApplication->run();
     }
 
     public static function create () : void
     {
-        // New App
-        self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet',Condorcet::getVersion());
+        if (!isset(self::$SymfonyConsoleApplication)) :
+            // New App
+            self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet',Condorcet::getVersion());
 
-        // ... register commands
+            // ... register commands
 
-            // Election commande
-            $command = new ElectionCommand;
-            self::$SymfonyConsoleApplication->add($command);
-            self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
+                // Election commande
+                $command = new ElectionCommand;
+                self::$SymfonyConsoleApplication->add($command);
+                self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
+        endif;
     }
 }

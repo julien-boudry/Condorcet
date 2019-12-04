@@ -363,10 +363,8 @@ class ElectionCommand extends Command
     {
         if ($this->isAbsolute($path) && \is_file($path)) :
             return $path;
-        elseif (\is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) :
-            return $file;
-        else:
-            return null;
+        else :
+            return (\is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
         endif;
         ;
     }

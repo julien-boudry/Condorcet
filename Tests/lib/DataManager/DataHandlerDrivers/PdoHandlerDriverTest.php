@@ -280,4 +280,13 @@ class PdoHandlerDriverTest extends TestCase
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
     }
 
+    public function testEmptyEntities () : void
+    {
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+
+        self::assertFalse( $handlerDriver->selectOneEntity(500));
+
+        self::assertSame([], $handlerDriver->selectRangeEntities(500,5));
+    }
 }
