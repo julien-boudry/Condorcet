@@ -12,7 +12,14 @@ class VoteTest extends TestCase
     /**
      * @var election1
      */
-    private $election1;
+    private Election $election1;
+
+    private Candidate $candidate1;
+    private Candidate $candidate2;
+    private Candidate $candidate3;
+    private Candidate $candidate4;
+    private Candidate $candidate5;
+    private Candidate $candidate6;
 
     public function setUp() : void
     {
@@ -478,7 +485,7 @@ class VoteTest extends TestCase
 
         $vote = new Vote (
             'A>B>C',
-            null, 
+            null,
             $createTimestamp = microtime(true) - (3600 * 1000));
 
         self::assertSame($createTimestamp, $vote->getTimestamp());

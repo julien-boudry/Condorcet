@@ -9,8 +9,8 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class ElectionTest extends TestCase
 {
-    private $election1;
-    private $election2;
+    private Election $election1;
+    private Election $election2;
 
     public function setUp() : void
     {

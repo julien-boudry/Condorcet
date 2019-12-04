@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
+    private Election $election1;
+
     public function setUp() : void
     {
         $this->election1 = new Election;

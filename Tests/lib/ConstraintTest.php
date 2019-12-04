@@ -11,7 +11,7 @@ class ConstraintTest extends TestCase
     /**
      * @var election
      */
-    private $election;
+    private Election $election;
 
     public function setUp() : void
     {

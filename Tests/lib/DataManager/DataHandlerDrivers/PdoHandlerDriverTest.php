@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PdoHandlerDriverTest extends TestCase
 {
-    protected function getPDO ()
+    protected function getPDO () : \PDO
     {
         return new \PDO ('sqlite::memory:','','',[\PDO::ATTR_PERSISTENT => false]);
     }

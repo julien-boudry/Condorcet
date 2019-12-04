@@ -5,15 +5,16 @@ namespace CondorcetPHP\Condorcet\DataManager;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\DataManager\VoteManager;
 
 use PHPUnit\Framework\TestCase;
 
 
 class VotesManagerTest extends TestCase
 {
-    private $election;
+    private  Election $election;
 
-    private $votes_manager;
+    private VotesManager $votes_manager;
 
     protected function setUp() : void
     {
