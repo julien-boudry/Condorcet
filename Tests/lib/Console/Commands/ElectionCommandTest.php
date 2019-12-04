@@ -87,7 +87,6 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Ranked Pairs M', $output);
         self::assertStringContainsString('Minimax Winning', $output);
 
-
         self::assertStringContainsString('[OK] Success', $output);
     }
 
@@ -108,15 +107,24 @@ class ElectionCommandTest extends TestCase
 
     public function testInteractiveCommand () : void
     {
-        $this->electionCommand->setInputs(['A','B','C']);
-        $this->electionCommand->setInputs(['A','B','C']);
+        $this->electionCommand->setInputs([
+            'A',
+            'B',
+            'C',
+            '',
+            'A>B>C',
+            'B>A>C',
+            'A>C>B',
+            ''
+            ]);
 
         $this->electionCommand->execute([
-            'command' => CondorcetApplication::$SymfonyConsoleApplication->find('election')->getName()
+            'command' => 'election'
         ]);
 
-        var_dump($this->electionCommand->getDisplay());
+        $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
 
-        self::assertTrue();
+        self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 }
