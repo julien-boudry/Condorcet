@@ -160,7 +160,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    protected function execute (InputInterface $input, OutputInterface $output) : void
+    protected function execute (InputInterface $input, OutputInterface $output) : int
     {
         $io = new SymfonyStyle ($input, $output);
 
@@ -254,6 +254,8 @@ class ElectionCommand extends Command
 
         $io->newLine();
         $io->success('Success');
+
+        return 0;
     }
 
     protected function sectionSumUp (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
