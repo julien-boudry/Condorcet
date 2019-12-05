@@ -14,7 +14,7 @@ use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalExcep
 
 trait Linkable
 {
-    private $_link = [];
+    private array $_link = [];
 
     public function __clone ()
     {

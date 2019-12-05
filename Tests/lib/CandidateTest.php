@@ -11,7 +11,7 @@ class CandidateTest extends TestCase
     /**
      * @var candidate1
      */
-    private $candidate1;
+    private Candidate $candidate1;
 
     public function setUp() : void
     {

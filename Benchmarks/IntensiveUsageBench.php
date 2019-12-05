@@ -10,17 +10,17 @@ use CondorcetPHP\Condorcet\CondorcetUtil;
 use CondorcetPHP\Condorcet\Vote;
 
 
-class BasicUsageBench
+class IntensiveUsageBench
 {
     /**
-     * @Iterations(2)
+     * @Iterations(4)
      * @Warmup(1)
-     * @Revs(4)
+     * @Revs(10)
      */
     public function benchSimpleManyVotes () : void
     {
        $election = new Election;
-       $election->allowVoteWeight(true);
+       $election->allowsVoteWeight(true);
 
        $election->parseCandidates('A;B;C;D;E;F');
 
@@ -33,8 +33,8 @@ class BasicUsageBench
           D = B = E > F ^6 * 48
        ');
 
-       $election->getWinner();
-       $election->getLoser();
+       $election->getCondorcetWinner();
+       $election->getCondorcetLoser();
 
        foreach (Condorcet::getAuthMethods() as $method) :
          $election->getResult($method);
@@ -46,7 +46,7 @@ class BasicUsageBench
          $election->getResult($method);
        endforeach;
 
-       $election->allowVoteWeight(false);
+       $election->allowsVoteWeight(false);
 
        foreach (Condorcet::getAuthMethods() as $method) :
          $election->getResult($method);

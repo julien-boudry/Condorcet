@@ -19,13 +19,13 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-        public static $MaxCandidates = 40;
+        public static ?int $MaxCandidates = 40;
 
     // Ranked Pairs
-    protected $_PairwiseSort;
-    protected $_Arcs;
-    protected $_Stats;
-    protected $_StatsDone = false;
+    protected array $_PairwiseSort;
+    protected array $_Arcs = [];
+    protected ?array $_Stats = null;
+    protected bool $_StatsDone = false;
 
 
 /////////// PUBLIC ///////////
@@ -107,7 +107,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
 
             $result[$rang++] = $winners;
-            $alreadyDone = array_merge($alreadyDone,$winners);
+            array_push($alreadyDone, ...$winners);
         endwhile;
 
         return $result;
@@ -138,8 +138,6 @@ class RankedPairs_Core extends Method implements MethodInterface
 
     protected function makeArcs () : void
     {
-        $this->_Arcs = [];
-
         foreach ($this->_PairwiseSort as $newArcsRound) :
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
@@ -169,7 +167,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $cycles = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            $cycles = array_merge($cycles,$this->followCycle($virtualArcs,$candidateKey,$candidateKey));
+            array_push($cycles, ...$this->followCycle($virtualArcs,$candidateKey, $candidateKey));
         endforeach;
 
         return $cycles;
@@ -188,7 +186,7 @@ class RankedPairs_Core extends Method implements MethodInterface
                     $arcsInCycle[] = $ArcKey;
                 else :
                     $done[] = $ArcKey;
-                    $arcsInCycle = array_merge($arcsInCycle,$this->followCycle($virtualArcs,$ArcValue['to'],$searchCandidateKey, $done));
+                    array_push($arcsInCycle, ...$this->followCycle($virtualArcs,$ArcValue['to'], $searchCandidateKey,$done));
                 endif;
             endif;
         endforeach;

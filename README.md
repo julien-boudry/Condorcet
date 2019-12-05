@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="condorcet-logo.png" alt="Condorcet Class" width="40%">
+  <img src="condorcet-logo.png" alt="Condorcet" width="40%">
 </p>
 
-[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/travis/julien-boudry/Condorcet/master.svg?style=flat-square)](https://travis-ci.org/julien-boudry/Condorcet)
+[![Build Status](https://github.com/julien-boudry/Condorcet/workflows/Execute%20All%20Tests/badge.svg?branch=master)](https://github.com/julien-boudry/Condorcet/actions)
 [![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
-[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/vpre/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
-[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/Condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
 ![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f34e354703514ab68248a0c995a4913a)](https://www.codacy.com/app/julien-boudry/Condorcet?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julien-boudry/Condorcet&amp;utm_campaign=Badge_Grade)
@@ -14,7 +14,8 @@
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
-> Donation: ₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9) _You can also offer me a bottle of good wine._  
+> Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
+> _You can also offer me a bottle of good wine._  
 >
 > Methods provided natively: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)  
 
@@ -23,7 +24,12 @@ Condorcet PHP
 ===========================
 > **Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](Tests/)**  
 
-A PHP library implementing the Condorcet voting system and other methods like the Schulze method. And also a powerful election manager.  
+Condorcet is an application implementing the Condorcet voting system and many other methods like the Schulze, Tideman, Borda or Alternative Voting. And also a powerful election manager allowing the logical management of a phased election, with many natives options and elections methodes included.  
+
+_Two different ways to use Condorcet:_
+* A **command line application**, for quick use of essential features without complicated technical knowledge. Allowing you to easily compute your elections results and stats.  
+* A **PHP library** that you can include in your code to take advantage of 100% of the advanced features (abstraction, control, interaction, extensions).  
+
 
 *Read more about alternative voting methods >> https://en.wikipedia.org/wiki/Condorcet_method*  
 
@@ -33,11 +39,15 @@ A PHP library implementing the Condorcet voting system and other methods like th
 1. [Supported Methods](#supported-methods)  
   a. [Methods provided natively](#methods-provided-natively)     
   b. [Add your own method](#add-your-own-method-as-module)  
-1. [How to use it?](#how-to-use-it)  
-  a. [Install](#install)  
+1. [Use Condorcet as a command line application](#use-condorcet-as-a-command-line-application)  
+  a. [Install as an application](#install-as-an-application)  
+  b. [Condorcet Wiki - Command Line Manual](#condorcet-wiki---command-line-manual)  
+  c. [Command Line - Examples](#command-line---examples)
+1. [Use Condorcet as a PHP Library](#use-condorcet-as-a-php-library)  
+  a. [Install / Autoloading](#install--autoloading)  
   b. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
   c. [Class & Methods reference](#class--methods-reference)     
-  d. [Examples](#examples) *Have a look on Examples!*     
+  d. [PHP Library - Examples](#php-library---examples) *Have a look on Examples!*     
   e. [Really quick and simple example](#really-quick-and-simple-example)
 1. [Performance & Coding style considerations](#roadmap-for-further-releases)
 1. [Roadmap for further releases](#roadmap-for-further-releases)
@@ -47,10 +57,10 @@ A PHP library implementing the Condorcet voting system and other methods like th
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 2.0.x**  
-  * * *PHP Requirement:* PHP 7.1 with MB String and Json common extensions. _(tested up to PHP 7.4)_
-* **Old Stable: 1.8.x** _support provided_  
-    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.3)_
+* **Stable Version: 2.1.x**  
+  * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 7.4)_
+* **Old Stable: 2.0.x** _support provided_  
+    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
 * **Very Old Stable: 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
 
@@ -118,30 +128,238 @@ Condorcet is designed to be easily extensible with new algorithms (they don't ne
 [*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
 
 ---------------------------------------
-## How to use it?
+## Use Condorcet as a command line application
 
 _I have undertaken and continues to undertake efforts to reform and improve the documentation. Thereof is not yet satisfactory and perfectly updated. Your help is welcome!_
 
-## Install
+### Install as an application
 
-#### Autoloading:   
+#### Option 1: Build it yourself with composer
+***(you must have PHP >= 7.4 and composer)***  
+
+```shell
+mkdir Condorcet && cd Condorcet
+composer require julien-boudry/condorcet
+./vendor/bin/condorcet --help
+
+# Execute a command, example:
+./vendor/bin/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+```
+
+#### Option 2: From Docker Container
+
+_You must install Docker first. See [installation instructions](https://hub.docker.com/search/?type=edition&offering=community)._
+
+##### From a public image
+```shell
+docker pull julienboudry/condorcet:latest
+docker run --hostname=condorcet -it --rm julienboudry/condorcet bash
+
+# Execute a command, example:
+root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+```
+
+##### From docker file
+```shell
+git clone https://github.com/julien-boudry/Condorcet.git
+cd Condorcet
+docker build -t condorcet .
+docker run --hostname="condorcet" --rm -it condorcet bash
+
+# Execute a command, example:
+root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+```
+
+### Condorcet Wiki - Command Line Manual
+_Incomming_
+
+### Command Line - Some Quick Examples
+
+_See your installation method upside for main call. Below from the official docker image with command condorcet._
+
+#### A simple and short election
+```shell
+condorcet election --candidates="A;B;C" --votes="A>B ; myTag1||C=B>A ; A>C ; B>C;A" -lr Schulze Borda Minimax
++-----------+- Registered Vote List --+-----------+
+| Vote Num. | Vote      | Vote Weight | Vote Tags |
++-----------+-----------+-------------+-----------+
+| 1         | A > B > C | 1           |           |
+| 2         | B = C > A | 1           | myTag1    |
+| 3         | A > C > B | 1           |           |
+| 4         | B > C > A | 1           |           |
+| 5         | A > B = C | 1           |           |
++-----------+-----------+-------------+-----------+
+
+Condorcet Natural Winner & Loser
+--------------------------------
++------ Natural Condorcet -------+
+| Type               | Candidate |
++--------------------+-----------+
+| * Condorcet Winner | A         |
+| # Condorcet Loser  | C         |
++--------------------+-----------+
+
+Results per Methods
+-------------------
++-- Results: Schulze Winning ---+
+|       Rank       | Candidates |
++------------------+------------+
+|        1         | A*         |
+|        2         | B          |
+|        3         | C#         |
++------------------+------------+
++----- Results: BordaCount -----+
+|       Rank       | Candidates |
++------------------+------------+
+|        1         | A*         |
+|        2         | B          |
+|        3         | C#         |
++------------------+------------+
++-- Results: Minimax Winning ---+
+|       Rank       | Candidates |
++------------------+------------+
+|        1         | A*         |
+|        2         | B,C        |
++------------------+------------+
+
+ [OK] Success
+```
+
+#### From Files / With Stats
+You can print stats. And load candidates or votes from file. See [Condorcet Manual](https://github.com/julien-boudry/Condorcet/wiki) for more  details.
+
+```shell
+condorcet election --stats --candidates /path/to/myCandidates.text --votes /path/to/myVotes.txt 
+
+Results per Methods
+-------------------
++---- Results: Kemeny–Young ----+
+|       Rank       | Candidates |
++------------------+------------+
+|        1         | A*         |
+|        2         | B          |
+|        3         | C#         |
++------------------+------------+
++---------- Stats: Kemeny–Young -----------+
+| Stats                                    |
++------------------------------------------+
+| bestScore: 11                            |
+| rankingScore:                            |
+|     -                                    |
+|         1: A                             |
+|         2: B                             |
+|         3: C                             |
+|         score: 11                        |
+|     -                                    |
+|         1: A                             |
+|         2: C                             |
+|         3: B                             |
+|         score: 9                         |
+|     -                                    |
+|         1: B                             |
+|         2: A                             |
+|         3: C                             |
+|         score: 9                         |
+|     -                                    |
+|         1: B                             |
+|         2: C                             |
+|         3: A                             |
+|         score: 7                         |
+|     -                                    |
+|         1: C                             |
+|         2: A                             |
+|         3: B                             |
+|         score: 7                         |
+|     -                                    |
+|         1: C                             |
+|         2: B                             |
+|         3: A                             |
+|         score: 5                         |
+|                                          |
++------------------------------------------+
+
+ [OK] Success
+```
+
+#### Votes Weight / Implicit Ranking Mode / No-Tie constraint
+```shell
+condorcet election --candidates="A;B;C" --votes="A>B ^10 ; B>A ; B>A" -lr --allows-votes-weight
++-----------+- Registered Vote List --+-----------+
+| Vote Num. | Vote      | Vote Weight | Vote Tags |
++-----------+-----------+-------------+-----------+
+| 1         | A > B > C | 10          |           |
+| 2         | B > A > C | 1           |           |
+| 3         | B > A > C | 1           |           |
++-----------+-----------+-------------+-----------+
+
+Condorcet Natural Winner & Loser
+--------------------------------
++------ Natural Condorcet -------+
+| Type               | Candidate |
++--------------------+-----------+
+| * Condorcet Winner | A         |
+| # Condorcet Loser  | C         |
++--------------------+-----------+
+```
+
+```shell
+condorcet election --candidates="A;B;C" --votes="A>B>C ; B>A ; A" -lr -i --desactivate-implicit-ranking
++-----------+- Registered Vote List --+-----------+
+| Vote Num. | Vote      | Vote Weight | Vote Tags |
++-----------+-----------+-------------+-----------+
+| 1         | A > B > C | 1           |           |
+| 2         | B > A     | 1           |           |
+| 3         | A         | 1           |           |
++-----------+-----------+-------------+-----------+
+
+Condorcet Natural Winner & Loser
+--------------------------------
++------ Natural Condorcet -------+
+| Type               | Candidate |
++--------------------+-----------+
+| * Condorcet Winner | NULL      |
+| # Condorcet Loser  | C         |
++--------------------+-----------+
+```
+
+```shell
+condorcet election --candidates="A;B;C" --votes="A>B ; B>C=A ; C=B>A ; B" -lr --no-tie
++-----------+- Registered Vote List --+-----------+
+| Vote Num. | Vote      | Vote Weight | Vote Tags |
++-----------+-----------+-------------+-----------+
+| 1         | A > B > C | 1           |           |
++-----------+-----------+-------------+-----------+
+
+Condorcet Natural Winner & Loser
+--------------------------------
++------ Natural Condorcet -------+
+| Type               | Candidate |
++--------------------+-----------+
+| * Condorcet Winner | A         |
+| # Condorcet Loser  | C         |
++--------------------+-----------+
+```
+
+## Use Condorcet as a PHP Library
+
+### Install / Autoloading  
 This project is consistent with the standard PSR-4 and can be loaded easily and without modification in most frameworks or Composer autoloader. Namespace \CondorcetPHP is used. 
-The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or PSR-4 autoloader.
+The examples also provide an easy way of implementation using an optional Condorcet autoloader. If you don't want to use composer or others PSR-4 autoloader.
 
 > [**Please visit the install section from the wiki**](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-1.-Installation)    
 
-## Condorcet Wiki Manual
+### Condorcet Wiki Manual
 
 * **[Visit the Manual](https://github.com/julien-boudry/Condorcet/wiki)**
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
-## Class & Methods reference
+### Class & Methods reference
 
 The precise documentation of methods is not a wiki. It can be found in the form of Markdown in the "Documentation" folder for each release.   
 * [Class & Methods documentation](Documentation/README.md)
 
-## Examples
+### PHP Library - Examples
 
 ### Great overview
 
@@ -246,9 +464,9 @@ _OK: sacrifice to the local tradition of lazy._
 The code is close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 #### Performance:  
-* Complex use case with three algorithms chained (Natural Condorcet, Schulze, Copeland), multiple elections sharing votes & candidates and hundreds of votes.
-  * _Memory usage: less than 2M_    
-  * _Execution time: less than 30ms_  
+* Complete and huge use case with all algorithms chained, 6 candidates and one thousand votes (many with implicit ranking).
+  * _Memory usage: less than 6M_    
+  * _Execution time: less than 600ms_  
 ###### Kemeny-Youg case:   
 * use Kemeny-Young 6 candidates: 5MB - 150ms    
 * use Kemeny-Young 7 candidates: 32MB - 600ms    
@@ -262,7 +480,7 @@ You can also develop your own datastore driver (to store into NoSQL... all your 
 
 [Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
-_Benchmark on a modern machine (linux - x64 - php 7.0 - cli)._ 
+_Benchmark on a modern machine (linux - x64 - php 7.4 - cli)._ 
 
 
 ## Roadmap for further releases 

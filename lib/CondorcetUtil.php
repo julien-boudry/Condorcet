@@ -52,7 +52,7 @@ abstract class CondorcetUtil
         // Delete comments
         foreach ($input as &$line) :
             // Delete comments
-            $is_comment = mb_strpos($line, '#');
+            $is_comment = strpos($line, '#');
             if ($is_comment !== false) :
                 $line = substr($line, 0, $is_comment);
             endif;
@@ -68,7 +68,7 @@ abstract class CondorcetUtil
     public static function format ($input, bool $convertObject = true)
     {
         if (is_object($input)) :
-            
+
             $r = $input;
 
             if ($convertObject) :
@@ -94,7 +94,7 @@ abstract class CondorcetUtil
                 $r = $input;
             endif;
         endif;
-        
+
         return $r;
     }
 }

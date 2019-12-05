@@ -32,7 +32,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
 
     // Implement Iterator
-    private $valid = true;
+    private bool $valid = true;
 
     public function rewind() : void {
         reset($this->_Pairwise);
@@ -55,14 +55,14 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function valid() : bool {
         return $this->valid;
-    }   
+    }
 
 
     // Pairwise
 
-    protected $_Election;
-    protected $_Pairwise_Model;
-    protected $_Pairwise;
+    protected ?Election $_Election;
+    protected array $_Pairwise_Model;
+    protected array $_Pairwise;
 
     public function __construct (Election $link)
     {
@@ -197,7 +197,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endif;
 
                     // Win & Lose
-                    if (    !in_array($g_candidate_key, $done_Candidates, true) && 
+                    if (    !in_array($g_candidate_key, $done_Candidates, true) &&
                             !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
                         $pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;

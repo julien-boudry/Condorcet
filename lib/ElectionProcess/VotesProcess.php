@@ -21,8 +21,8 @@ trait VotesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected $_Votes; // Votes list
-    protected $_voteFastMode = false; // When parsing vote, avoid unnecessary checks 
+    protected VotesManager $_Votes; // Votes list
+    protected int $_voteFastMode = 0; // When parsing vote, avoid unnecessary checks
 
 
 /////////// VOTES LIST ///////////
@@ -75,6 +75,11 @@ trait VotesProcess
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
 
+    public function getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : \Generator
+    {
+        return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
+    }
+
     public function getVoteKey (Vote $vote) : ?int
     {
         return $this->_Votes->getVoteKey($vote);
@@ -113,7 +118,7 @@ trait VotesProcess
 
     public function checkVoteCandidate (Vote $vote) : bool
     {
-        if (!$this->_voteFastMode) :
+        if ($this->_voteFastMode === 0) :
             $linkCount = $vote->countLinks();
             $links = $vote->getLinks();
             $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) );
@@ -125,14 +130,16 @@ trait VotesProcess
             endforeach;
         endif;
 
-        $ranking = $vote->getRanking();
+        if ($this->_voteFastMode < 2) :
+            $ranking = $vote->getRanking();
 
-        $change = $this->convertRankingCandidates($ranking);
+            $change = $this->convertRankingCandidates($ranking);
 
-        if ($change) :
-            $vote->setRanking(  $ranking,
-                                ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
-            );
+            if ($change) :
+                $vote->setRanking(  $ranking,
+                                    ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
+                );
+            endif;
         endif;
 
         return true;
@@ -161,7 +168,7 @@ trait VotesProcess
     {
         // Vote identifiant
         $vote->addTags($tag);
-        
+
         // Register
         try {
             $vote->registerLink($this);
@@ -175,7 +182,7 @@ trait VotesProcess
     }
 
     public function removeVote (Vote $vote) : bool
-    {    
+    {
         $key = $this->getVoteKey($vote);
         if ($key !== null) :
             $deletedVote = $this->_Votes[$key];
@@ -192,7 +199,7 @@ trait VotesProcess
     }
 
     public function removeVotesByTags ($tags, bool $with = true) : array
-    {    
+    {
         $rem = [];
 
         // Prepare Tags
@@ -231,8 +238,6 @@ trait VotesProcess
     {
         $input = CondorcetUtil::prepareJson($input);
 
-            //////
-
         $adding = [];
         $count = 0;
 
@@ -241,39 +246,16 @@ trait VotesProcess
                 continue;
             endif;
 
+            $vote = $record['vote'];
             $tags = !isset($record['tag']) ? null : $record['tag'];
-            $multiple = !isset($record['multi']) ? 1 : $record['multi'];
+            $multiple = !isset($record['multi']) ? 1 : (int) $record['multi'];
+            $weight = !isset($record['weight']) ? 1 : (int) $record['weight'];
 
-            $adding_predicted_count = $count + $multiple;
+            $this->synthesisVoteFromParse ($count, $multiple, $adding, $vote, $tags, $weight);
 
-            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-                throw new CondorcetException(16, self::$_maxParseIteration);
-            endif;
-
-            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, self::$_maxParseIteration);
-            endif;
-
-            $newVote = new Vote ($record['vote'], $tags, null, $this);
-
-            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
-
-            $count += $multiple;
         endforeach;
 
-        $this->_voteFastMode = true;
-
-        foreach ($adding as $oneLine) :
-            for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
-                if ($i !== $oneLine['multiple']) :
-                    $this->addVote(clone $oneLine['vote']);
-                else :
-                    $this->addVote($oneLine['vote']);
-                endif;
-            endfor;
-        endforeach;
-
-        $this->_voteFastMode = false;
+        $this->doAddVotesFromParse($adding);
 
         return $count;
     }
@@ -292,13 +274,13 @@ trait VotesProcess
             endif;
 
             // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '*'),$line);
+            $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'),$line);
 
             // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '^'),$line);
+            $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'),$line);
 
             // Tags + vote
-            if (mb_strpos($line, '||') !== false) :
+            if (strpos($line, '||') !== false) :
                 $data = explode('||', $line);
 
                 $vote = $data[1];
@@ -309,39 +291,50 @@ trait VotesProcess
                 $tags = null;
             endif;
 
-            $adding_predicted_count = $count + $multiple;
-
-            if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-                throw new CondorcetException(16, (string) self::$_maxParseIteration);
-            endif;
-
-            if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, (string) self::$_maxParseIteration);
-            endif;
-
-            $newVote = new Vote ($vote, $tags, null, $this);
-            $newVote->setWeight($weight);
-
-            $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
-
-            $count += $multiple;
+            $this->synthesisVoteFromParse ($count, $multiple, $adding, $vote, $tags, $weight);
         endforeach;
 
-        $this->_voteFastMode = true;
+        $this->doAddVotesFromParse($adding);
+
+        return $count;
+    }
+
+    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, $vote, $tags, int $weight) : void
+    {
+        $adding_predicted_count = $count + $multiple;
+
+        if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
+            throw new CondorcetException(16, (string) self::$_maxParseIteration);
+        endif;
+
+        if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
+            throw new CondorcetException(12, (string) self::$_maxParseIteration);
+        endif;
+
+        $newVote = new Vote ($vote, $tags, null, $this);
+        $newVote->setWeight($weight);
+
+        $adding[] = ['multiple' => $multiple, 'vote' => $newVote];
+
+        $count += $multiple;
+    }
+
+    protected function doAddVotesFromParse (array $adding) : void
+    {
+        $this->_voteFastMode = 1;
 
         foreach ($adding as $oneLine) :
             for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
-                if ($i !== $oneLine['multiple']) :
-                    $this->addVote(clone $oneLine['vote']);
-                else :
+                if ($i === 1) :
                     $this->addVote($oneLine['vote']);
+                    $this->_voteFastMode = 2;
+                else :
+                    $this->addVote(clone $oneLine['vote']);
                 endif;
             endfor;
         endforeach;
 
-        $this->_voteFastMode = false;
-
-        return $count;
+        $this->_voteFastMode = 0;
     }
 
 }

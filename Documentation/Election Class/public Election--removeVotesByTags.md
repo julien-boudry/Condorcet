@@ -6,7 +6,7 @@
 public $Election -> removeVotesByTags ( mixed tags [, bool with = true] ) : array
 ```
 
-Remove Vote from an election using tags.   
+Remove Vote from an election using tags.
 
 ```php
 $election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie

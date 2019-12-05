@@ -6,7 +6,7 @@
 public $Vote -> setRanking ( mixed ranking [, ?float ownTimestamp = null] ) : bool
 ```
 
-Set a new ranking for this vote.    
+Set a new ranking for this vote.
 
 Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
     
@@ -21,7 +21,7 @@ Note that if your vote is already linked to one ore more elections, your ranking
    ```php
    array( 'candidate1Name', ['candidate2Name','candidate4Name'], 'candidate3Name' )
    ```
-* Or combine the 2 last ways.     
+* Or combine the 2 last ways.
 
 Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
     

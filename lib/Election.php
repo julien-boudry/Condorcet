@@ -24,9 +24,9 @@ class Election
 
     public const MAX_LENGTH_CANDIDATE_ID = 30; // Max length for candidate identifiant string
 
-    protected static $_maxParseIteration = null;
-    protected static $_maxVoteNumber = null;
-    protected static $_checksumMode = false;
+    protected static ?int $_maxParseIteration = null;
+    protected static ?int $_maxVoteNumber = null;
+    protected static bool $_checksumMode = false;
 
 /////////// STATICS METHODS ///////////
 
@@ -50,13 +50,13 @@ class Election
     use CondorcetVersion;
 
     // Mechanics
-    protected $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
-    protected $_timer;
+    protected int $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
+    protected Timer_Manager $_timer;
 
     // Params
-    protected $_ImplicitRanking = true;
-    protected $_VoteWeightRule = false;
-    protected $_Constraints = [];
+    protected bool $_ImplicitRanking = true;
+    protected bool $_VoteWeightRule = false;
+    protected array $_Constraints = [];
 
         //////
 
@@ -72,41 +72,57 @@ class Election
         $this->destroyAllLink();
     }
 
-    public function __sleep () : array
+    public function __serialize () : array
     {
         // Don't include others data
         $include = [
-            '_Candidates',
-            '_Votes',
+            '_Candidates' => $this->_Candidates,
+            '_Votes' => $this->_Votes,
 
-            '_AutomaticNewCandidateName',
-            '_State',
-            '_objectVersion',
+            '_State' => $this->_State,
+            '_objectVersion' => $this->_objectVersion,
+            '_AutomaticNewCandidateName' => $this->_AutomaticNewCandidateName,
 
-            '_ImplicitRanking',
-            '_VoteWeightRule',
-            '_Constraints',
+            '_ImplicitRanking' => $this->_ImplicitRanking,
+            '_VoteWeightRule' => $this->_VoteWeightRule,
+            '_Constraints' => $this->_Constraints,
 
-            '_Pairwise',
-            '_Calculator',
+            '_Pairwise' => $this->_Pairwise,
+            '_Calculator' => $this->_Calculator
         ];
 
-        !self::$_checksumMode && array_push($include, '_timer');
+        !self::$_checksumMode && ($include += ['_timer' => $this->_timer]);
 
         return $include;
     }
 
-    public function __wakeup ()
+    public function __unserialize (array $data) : void
     {
         if ( version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
         endif;
+
+        $this->_Candidates = $data['_Candidates'];
+        $this->_Votes = $data['_Votes'];
+
+        $this->_AutomaticNewCandidateName = $data['_AutomaticNewCandidateName'];
+        $this->_State = $data['_State'];
+        $this->_objectVersion = $data['_objectVersion'];
+
+        $this->_ImplicitRanking = $data['_ImplicitRanking'];
+        $this->_VoteWeightRule = $data['_VoteWeightRule'];
+        $this->_Constraints = $data['_Constraints'];
+
+        $this->_Pairwise = $data['_Pairwise'];
+        $this->_Calculator = $data['_Calculator'];
+
+        $this->_timer ??= $data['_timer'];
     }
 
     public function __clone ()
     {
         $this->_Votes = clone $this->_Votes;
-        $this->_Votes->setElection($this);      
+        $this->_Votes->setElection($this);
         $this->registerAllLinks();
 
         $this->_timer = clone $this->_timer;
@@ -183,6 +199,8 @@ class Election
                 $value->destroyLink($this);
             endforeach;
         endif;
+
+        $this->_Votes->destroyElection();
     }
 
 
@@ -205,7 +223,7 @@ class Election
         return $this->_VoteWeightRule;
     }
 
-    public function allowVoteWeight (bool $rule = true) : bool
+    public function allowsVoteWeight (bool $rule = true) : bool
     {
         $this->_VoteWeightRule = $rule;
         $this->cleanupCompute();

@@ -30,6 +30,11 @@ class VotesManager extends ArrayManager
         $this->_link[0] = $election;
     }
 
+    public function destroyElection () : void
+    {
+        $this->_link = [];
+    }
+
     public function getElection () : Election
     {
         return $this->_link[0];
@@ -40,7 +45,7 @@ class VotesManager extends ArrayManager
     public function getDataContextObject () : DataContextInterface
     {
         $context = new Class implements DataContextInterface {
-            public $election;
+            public Election $election;
 
             public function dataCallBack ($data) : Vote
             {
@@ -179,9 +184,11 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function getVotesValidUnderConstraintGenerator () : \Generator
+    public function getVotesValidUnderConstraintGenerator ($tag = null, bool $with = true) : \Generator
     {
-        foreach ($this as $voteKey => $oneVote) :
+        $generator = ($tag === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tag,$with);
+
+        foreach ($generator as $voteKey => $oneVote) :
             if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
                 continue;
             endif;

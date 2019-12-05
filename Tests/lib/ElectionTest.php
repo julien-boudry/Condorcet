@@ -9,11 +9,8 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class ElectionTest extends TestCase
 {
-    /**
-     * @var election1
-     */
-    private $election1;
-    private $election2;
+    private Election $election1;
+    private Election $election2;
 
     public function setUp() : void
     {
@@ -97,7 +94,7 @@ class ElectionTest extends TestCase
     public function testParseCandidates () : void
     {
         self::assertSame(4,
-        count($this->election2->parseCandidates('Bruckner;   Mahler   ;   
+        count($this->election2->parseCandidates('Bruckner;   Mahler   ;
             Debussy
              Bibendum'))
         );
@@ -335,7 +332,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight(true);
+        $election->allowsVoteWeight(true);
 
         self::assertSame(
             15,
@@ -352,7 +349,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight(false);
+        $election->allowsVoteWeight(false);
 
         self::assertSame(
             14,
@@ -364,7 +361,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowVoteWeight( !$election->isVoteWeightAllowed() );
+        $election->allowsVoteWeight( !$election->isVoteWeightAllowed() );
 
         $election->removeVote($voteWithWeight);
 
@@ -431,11 +428,14 @@ C > B > A * 1',
         $votes[0]['vote'] = 'A>B>C';
         $votes[0]['multi'] = 5;
         $votes[0]['tag'] = 'tag1';
+        $votes[0]['weight'] = '42';
 
         $election->addVotesFromJson(json_encode($votes));
 
+        $election->allowsVoteWeight(true);
+
         self::assertSame(
-'A > B > C * 5
+'A > B > C ^42 * 5
 B > C > A * 1
 C > B > A * 1',
             $election->getVotesListAsString()
@@ -448,7 +448,7 @@ C > B > A * 1',
     public function testaddCandidatesFromJson () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(15);
+        self::expectExceptionCode(3);
 
         $election = new Election;
 
@@ -460,8 +460,19 @@ C > B > A * 1',
 
         self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
 
+        $election->addCandidatesFromJson(json_encode(['candidate2']));
+    }
+
+    public function testaddCandidatesFromInvalidJson () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(15);
+
+        $election = new Election;
+
         $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
     }
+
 
     public function testaddVotesFromJsonWithInvalidJson () : void
     {
@@ -539,6 +550,13 @@ C > B > A * 1',
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
     }
 
+    public function testPairwiseArrayAccess () : void
+    {
+        $this->election1->computeResult();
+
+        self::assertTrue($this->election1->getPairwise()->offsetExists(1));
+    }
+
     public function testGetCandidateObjectFromKey () : void
     {
         self::assertSame($this->candidate2,$this->election1->getCandidateObjectFromKey(1));
@@ -607,10 +625,13 @@ C > B > A * 1',
 
         $election->addVote('candidate1>candidate2');
 
+        $weakref = \WeakReference::create($election);
+
+        $election->__destruct(); // PHP circular reference can bug
+        // debug_zval_dump($election);
         unset($election);
 
-        // Maybe change it to WeakReference test for PHP 7.4
-        self::assertTrue(true);
+        self::assertNull($weakref->get());
     }
 
     public function testRemoveCandidate () : void
@@ -625,7 +646,45 @@ C > B > A * 1',
         $badCandidate = new Candidate('B');
 
         $election->removeCandidates($badCandidate);
-
     }
 
+    public function testAmbigousCandidatesOnElectionSide () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $vote = new Vote ('candidate1>candidate2');
+
+        $election1 = new Election;
+        $election2 = new Election;
+
+        $election1->addCandidate(new Candidate('candidate2'));
+        $election2->addCandidate(new Candidate('candidate1'));
+
+        $election1->addVote($vote);
+        $election2->addVote($vote);
+    }
+
+    public function testAmbigousCandidatesOnVoteSide () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(18);
+
+        $candidate3 = new Candidate('candidate3');
+        $vote = new Vote ('candidate3');
+
+        $election1 = new Election;
+        $election2 = new Election;
+
+        $election1->addCandidate($candidate3);
+        $election2->addCandidate($candidate3);
+
+        $election1->addCandidate(new Candidate('candidate2'));
+        $election2->addCandidate(new Candidate('candidate1'));
+
+        $election1->addVote($vote);
+        $election2->addVote($vote);
+
+        $vote->setRanking('candidate1>candidate2>candidate3');
+    }
 }

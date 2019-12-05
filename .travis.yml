@@ -1,9 +1,6 @@
 language: php
 php:
-  - '7.1'
-  - '7.2'
-  - '7.3'
-  - '7.4snapshot'
+  - '7.4'
   - nightly
 
 matrix:
@@ -13,12 +10,8 @@ matrix:
 install:
   - composer update
 
-script: | 
-  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' && $(phpenv version-name) != '7.4snapshot' ]] ;
-    then vendor/bin/phpunit --coverage-clover build/coverage/xml ;
-  else
-    vendor/bin/phpunit ;
-  fi
+script:
+  - composer run-script test --coverage-clover build/coverage/xml
 
 after_script:
-  -  if [[ $(phpenv version-name) != '7.1' && $(phpenv version-name) != '7.2' && $(phpenv version-name) != '7.4snapshot' ]] ; then vendor/bin/codacycoverage clover build/coverage/xml ; fi
+  - php vendor/bin/codacycoverage clover build/coverage/xml

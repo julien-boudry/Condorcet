@@ -40,6 +40,11 @@ class CondorcetTest extends TestCase
         self::assertSame(Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::getMethodClass('Schulze Winning'));
     }
 
+    /**
+      * @preserveGlobalState disabled
+      * @backupStaticAttributes disabled
+      * @runInSeparateProcess
+      */
     public function testAddMethod () : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
@@ -138,7 +143,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_selfElection->getPairwise();
 
@@ -191,11 +196,11 @@ class CondorcetTest_UnvalidAlgorithmName
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
-       $this->_selfElection->getPairwise();
+        $this->_selfElection->getPairwise();
 
-        $result = [0=>$CandidateX, 1=> [$CandidateY,$CandidateZ], 2=> $CandidateR]; // Candidate must be valid internal candidate key.
+        $result = [0=>0, 1=> [1,2], 2=> 3]; // Candidate must be valid internal candidate key.
 
         $this->_Result = $this->createResult($result);
     }

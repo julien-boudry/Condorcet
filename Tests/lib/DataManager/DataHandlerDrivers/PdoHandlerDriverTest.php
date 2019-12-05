@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PdoHandlerDriverTest extends TestCase
 {
-    protected function getPDO ()
+    protected function getPDO () : \PDO
     {
         return new \PDO ('sqlite::memory:','','',[\PDO::ATTR_PERSISTENT => false]);
     }
@@ -267,7 +267,7 @@ class PdoHandlerDriverTest extends TestCase
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(0);
-        
+
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }
@@ -280,4 +280,13 @@ class PdoHandlerDriverTest extends TestCase
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
     }
 
+    public function testEmptyEntities () : void
+    {
+        $pdo = $this->getPDO();
+        $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+
+        self::assertFalse( $handlerDriver->selectOneEntity(500));
+
+        self::assertSame([], $handlerDriver->selectRangeEntities(500,5));
+    }
 }

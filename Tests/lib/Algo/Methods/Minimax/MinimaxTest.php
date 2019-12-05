@@ -11,7 +11,7 @@ class MinimaxTest extends TestCase
     /**
      * @var election1
      */
-    private $election;
+    private  Election $election;
 
     public function setUp() : void
     {

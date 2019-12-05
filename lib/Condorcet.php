@@ -37,17 +37,17 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '2.0.0';
+    public const VERSION = '2.1.0';
 
     public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
-    protected static $_defaultMethod = null;
-    protected static $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
+    protected static ?string $_defaultMethod = null;
+    protected static array $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
 
 
 /////////// STATICS METHODS ///////////
 
-    // Return library version numer
+    // Return library version number
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :
@@ -104,9 +104,7 @@ abstract class Condorcet
 
     public static function isAuthMethod (string $method) : bool
     {
-        $methodClass = self::getMethodClass($method);
-
-        return $methodClass !== null ? true : false;
+        return self::getMethodClass($method) !== null ;
     }
 
 
@@ -132,7 +130,7 @@ abstract class Condorcet
         // Check if the class Algo. exist and ready to be used
         protected static function testMethod (string $method) : bool
         {
-            if ( !class_exists($method) ) :             
+            if ( !class_exists($method) ) :
                 throw new CondorcetException(9);
             endif;
 
@@ -152,7 +150,7 @@ abstract class Condorcet
 
     // Change default method for this class.
     public static function setDefaultMethod (string $method) : bool
-    {       
+    {
         if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
             return true;

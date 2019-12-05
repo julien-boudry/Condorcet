@@ -36,7 +36,7 @@ class PairwiseUpdateOptimizationBench
 
         $vote = $election->addVote('A>B>C');
 
-        $election->removeVotes($vote);
+        $election->removeVote($vote);
 
         $vote->setRanking('C>B>A');
 

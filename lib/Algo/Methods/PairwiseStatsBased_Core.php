@@ -19,8 +19,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 // DODGSON is a Condorcet Algorithm | http://en.wikipedia.org/wiki/DODGSON_method
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
-    protected $_Comparison;
-    protected $_countType;
+    protected array $_Comparison;
 
 
 /////////// PUBLIC ///////////
@@ -53,7 +52,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value) :
-            $explicit[$this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName()] = [$this->_countType => $value[$this->_countType]];
+            $explicit[$this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         endforeach;
 
         return $explicit;
@@ -75,7 +74,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $done = 0;
 
         foreach ($this->_Comparison as $candidate_key => $candidate_data) :
-            $challenge[$candidate_key] = $candidate_data[$this->_countType];
+            $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
         endforeach;
 
         while ($done < $this->_selfElection->countCandidates()) :

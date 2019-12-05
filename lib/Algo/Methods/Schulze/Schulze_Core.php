@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
-    protected $_StrongestPaths;
+    protected array $_StrongestPaths = [];
 
 
 /////////// PUBLIC ///////////
@@ -77,8 +77,6 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath () : void
     {
-        $this->_StrongestPaths = [];
-
         foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id ) :
             $this->_StrongestPaths[$candidate_key] = [];
 
@@ -99,7 +97,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
             foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
                 if ($i !== $j) :
                     if ( $this->_selfElection->getPairwise()[$i]['win'][$j] > $this->_selfElection->getPairwise()[$j]['win'][$i] ) :
-                        $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);                      
+                        $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);
                     else :
                         $this->_StrongestPaths[$i][$j] = 0;
                     endif;
@@ -112,8 +110,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 if ($i !== $j) :
                     foreach ($this->_selfElection->getCandidatesList() as $k => $k_value) :
                         if ($i !== $k && $j !== $k) :
-                            $this->_StrongestPaths[$j][$k] = 
-                                max( $this->_StrongestPaths[$j][$k], 
+                            $this->_StrongestPaths[$j][$k] =
+                                max( $this->_StrongestPaths[$j][$k],
                                      min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k]) );
                         endif;
                     endforeach;
@@ -125,7 +123,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
     // Calculate && Format human readable ranking
     protected function makeRanking () : void
-    {       
+    {
         $result = [];
 
         // Calculate ranking
@@ -159,7 +157,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 endif;
             endforeach;
 
-            $done = array_merge($done, $to_done);
+            array_push($done, ...$to_done);
 
             $rank++;
         endwhile;

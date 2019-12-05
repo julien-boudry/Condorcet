@@ -11,7 +11,7 @@ class ConstraintTest extends TestCase
     /**
      * @var election
      */
-    private $election;
+    private Election $election;
 
     public function setUp() : void
     {
@@ -71,12 +71,12 @@ class ConstraintTest extends TestCase
             $this->setUp();
 
             $this->election->parseVotes('
-                A>B>C
+                tag1 || A>B>C
                 C>B=A * 3
                 B^42
             ' );
 
-            $this->election->allowVoteWeight();
+            $this->election->allowsVoteWeight();
 
             self::assertEquals('B',$this->election->getWinner());
 
@@ -121,6 +121,8 @@ class ConstraintTest extends TestCase
             self::assertEquals(5,$this->election->countVotes());
             self::assertEquals(1,$this->election->countValidVoteWithConstraints());
             self::assertEquals(4,$this->election->countInvalidVoteWithConstraints());
+            self::assertCount(1,$this->election->getVotesValidUnderConstraintGenerator(['tag1'],true));
+            self::assertCount(0,$this->election->getVotesValidUnderConstraintGenerator(['tag1'],false));
         endforeach;
     }
 }

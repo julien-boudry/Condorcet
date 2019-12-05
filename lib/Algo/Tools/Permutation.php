@@ -10,12 +10,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-// Thanks to Jorge Gomes @cyberkurumin 
+// Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
     private const PREFIX = 'C';
 
-    public $results = [];
+    public array $results = [];
 
     public static function countPossiblePermutations (int $candidatesNumber) : int
     {
@@ -68,7 +68,8 @@ class Permutation
             $i[] = $a;
 
             // Del 0 key, first key must be 1.
-            $r = [0=>null]; $r = array_merge($r,$i); unset($r[0]);
+            $r = [...[0=>null],...$i];
+            unset($r[0]);
 
             $this->results[] = $r;
         endif;

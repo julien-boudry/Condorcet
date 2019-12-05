@@ -3,11 +3,15 @@
 ### Description    
 
 ```php
-public $Vote -> getWeight ( ) : int
+public $Vote -> getWeight ( [?CondorcetPHP\Condorcet\Election context = null] ) : int
 ```
 
 Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
     
+
+##### **context:** *?CondorcetPHP\Condorcet\Election*   
+An election already linked to the Vote.    
+
 
 ### Return value:   
 

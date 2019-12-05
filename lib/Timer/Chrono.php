@@ -16,14 +16,14 @@ class Chrono
 {
     use CondorcetVersion;
 
-    protected $_manager;
-    protected $_start;
-    protected $_role;
+    protected Manager $_manager;
+    protected float $_start;
+    protected ?string $_role = null;
 
     public function __construct (Manager $timer, ?string $role = null)
     {
         $this->_manager = $timer;
-        $this->setRole($role);        
+        $this->setRole($role);
         $this->resetStart();
         $this->managerStartDeclare();
     }

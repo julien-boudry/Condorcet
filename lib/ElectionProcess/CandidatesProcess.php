@@ -21,7 +21,7 @@ trait CandidatesProcess
 
     // Data and global options
     protected $_Candidates = []; // Candidate list
-    protected $_AutomaticNewCandidateName = 'A';
+    protected string $_AutomaticNewCandidateName = 'A';
 
 
 /////////// GET CANDIDATES ///////////
@@ -124,7 +124,7 @@ trait CandidatesProcess
         // Linking
         $newCandidate->registerLink($this);
 
-        // Disallow other candidate object name matching 
+        // Disallow other candidate object name matching
         $newCandidate->setProvisionalState(false);
 
         return $newCandidate;
@@ -142,7 +142,7 @@ trait CandidatesProcess
         if ( $this->_State > 1 ) :
             throw new CondorcetException(2);
         endif;
-        
+
         if ( !is_array($candidates_input) ) :
             $candidates_input = [$candidates_input];
         endif;

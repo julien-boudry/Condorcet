@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet;
 trait CondorcetVersion
 {
     // Build by Version
-    protected $_objectVersion = Condorcet::VERSION;
+    protected string $_objectVersion = Condorcet::VERSION;
 
     public function getObjectVersion (bool $major = false) : string
     {

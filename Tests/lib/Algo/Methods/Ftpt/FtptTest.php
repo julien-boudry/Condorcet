@@ -11,7 +11,7 @@ class FtptTest extends TestCase
     /**
      * @var election
      */
-    private $election;
+    private  Election $election;
 
     public function setUp() : void
     {
@@ -56,7 +56,7 @@ class FtptTest extends TestCase
         $this->election->addCandidate('C');
         $this->election->addCandidate('D');
 
-        $this->election->allowVoteWeight(true);
+        $this->election->allowsVoteWeight(true);
 
         $this->election->parseVotes('
             A>B>C>D ^ 42

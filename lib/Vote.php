@@ -19,7 +19,7 @@ class Vote implements \Iterator
 
     // Implement Iterator
 
-        private $position = 1;
+        private int $position = 1;
 
         public function rewind() : void {
             $this->position = 1;
@@ -43,21 +43,21 @@ class Vote implements \Iterator
 
     // Vote
 
-    private $_ranking;
+    private array $_ranking;
 
-    private $_lastTimestamp;
+    private float $_lastTimestamp;
 
-    private $_counter;
+    private int $_counter;
 
-    private $_ranking_history = [];
+    private array $_ranking_history = [];
 
-    private $_weight = 1;
+    private int $_weight = 1;
 
-    private $_tags = [];
+    private array $_tags = [];
 
-    private $_hashCode;
+    private string $_hashCode = '';
 
-    private $_electionContext = null;
+    private ?Election $_electionContext = null;
 
         ///
 
@@ -68,7 +68,7 @@ class Vote implements \Iterator
 
         // Vote Weight
         if (is_string($ranking)) :
-            $is_voteWeight = mb_strpos($ranking, '^');
+            $is_voteWeight = strpos($ranking, '^');
             if ($is_voteWeight !== false) :
                 $weight = trim( substr($ranking, $is_voteWeight + 1) );
 
@@ -83,7 +83,7 @@ class Vote implements \Iterator
 
             endif;
 
-            $is_voteTags = mb_strpos($ranking, '||');
+            $is_voteTags = strpos($ranking, '||');
             if ($is_voteTags !== false) :
                 $tagsFromString = explode(',', trim( substr($ranking, 0, $is_voteTags) ));
                 $ranking = substr($ranking, $is_voteTags + 2);
@@ -101,11 +101,11 @@ class Vote implements \Iterator
         $this->_electionContext = null;
     }
 
-    public function __sleep () : array
+    public function __serialize () : array
     {
         $this->position = 1;
 
-        return array_keys(get_object_vars($this));
+        return get_object_vars($this);
     }
 
     public function __clone ()
@@ -115,7 +115,7 @@ class Vote implements \Iterator
     }
 
     public function __toString () : string {
-        
+
         if (empty($this->getTags())) :
             return $this->getSimpleRanking();
         else :
@@ -236,13 +236,13 @@ class Vote implements \Iterator
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
-    public function getSimpleRanking (?Election $context = null) : string
+    public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
-        if ($this->_weight > 1 && ( ($context && $context->isVoteWeightAllowed()) || $context === null )  ) :
+        if ($displayWeight && $this->_weight > 1 && ( ($context && $context->isVoteWeightAllowed()) || $context === null )  ) :
             $simpleRanking .= " ^".$this->getWeight();
         endif;
 
@@ -313,12 +313,10 @@ class Vote implements \Iterator
                 throw new CondorcetException(5);
             endif;
 
-            $ranking = array_filter($ranking, function ($key) {
-                return is_numeric($key);
-            }, ARRAY_FILTER_USE_KEY);
+            $ranking = array_filter($ranking, fn ($key): bool => is_numeric($key), ARRAY_FILTER_USE_KEY);
 
             ksort($ranking);
-            
+
             $i = 1; $vote_r = [];
             foreach ($ranking as &$value) :
                 if ( !is_array($value) ) :
@@ -348,7 +346,7 @@ class Vote implements \Iterator
                     // Check objet reference AND check candidates name
                     if (!in_array($Candidate, $list_candidate)) :
                         $list_candidate[] = $Candidate;
-                    else : 
+                    else :
                         throw new CondorcetException(5);
                     endif;
 
@@ -448,9 +446,13 @@ class Vote implements \Iterator
         return true;
     }
 
-    public function getWeight () : int
+    public function getWeight (?Election $context = null) : int
     {
-        return $this->_weight;
+        if ($context !== null && !$context->isVoteWeightAllowed()) :
+            return 1;
+        else :
+            return $this->_weight;
+        endif;
     }
 
     public function setWeight (int $newWeight) : int

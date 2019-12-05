@@ -22,8 +22,8 @@ trait ResultsProcess
 /////////// CONSTRUCTOR ///////////
 
     // Result
-    protected $_Pairwise;
-    protected $_Calculator;
+    protected ?Pairwise $_Pairwise = null;
+    protected ?array $_Calculator = null;
 
 
 /////////// GET RESULTS ///////////
@@ -167,7 +167,7 @@ trait ResultsProcess
     public function cleanupPairwise () : void
     {
         // Reset state
-        if ($this->_State > 2) : 
+        if ($this->_State > 2) :
             $this->_State = 2;
         endif;
 

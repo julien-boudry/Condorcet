@@ -12,7 +12,14 @@ class VoteTest extends TestCase
     /**
      * @var election1
      */
-    private $election1;
+    private Election $election1;
+
+    private Candidate $candidate1;
+    private Candidate $candidate2;
+    private Candidate $candidate3;
+    private Candidate $candidate4;
+    private Candidate $candidate5;
+    private Candidate $candidate6;
 
     public function setUp() : void
     {
@@ -380,7 +387,7 @@ class VoteTest extends TestCase
         endif;
     }
 
-    public function testBadTagInput1 ()
+    public function testBadTagInput1 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(17);
@@ -463,6 +470,7 @@ class VoteTest extends TestCase
         self::assertsame(42,$vote->getWeight());
         self::assertsame(2,$vote->setWeight(2));
         self::assertsame(2,$vote->getWeight());
+        self::assertsame(1,$vote->getWeight($this->election1));
 
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(13);
@@ -477,7 +485,7 @@ class VoteTest extends TestCase
 
         $vote = new Vote (
             'A>B>C',
-            null, 
+            null,
             $createTimestamp = microtime(true) - (3600 * 1000));
 
         self::assertSame($createTimestamp, $vote->getTimestamp());
@@ -655,5 +663,23 @@ class VoteTest extends TestCase
         self::assertTrue($candidate8->getProvisionalState());
 
         self::assertCount(1,$vote7->getHistory());
+    }
+
+    public function testBadRankingInput1 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $vote = new Vote(42);
+    }
+
+    public function testBadRankingInput2 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $candidate = new Candidate('A');
+
+        $vote = new Vote([$candidate,$candidate]);
     }
 }
