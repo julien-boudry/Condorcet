@@ -16,6 +16,7 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,6 +33,10 @@ class ElectionCommand extends Command
     protected string $votes;
     protected ?array $tags = null;
     protected bool $tagsWith = true;
+
+    // Internal Process
+    protected bool $candidatesListIsWrite = false;
+    protected bool $votesCountIsWrite = false;
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
@@ -177,12 +182,29 @@ class ElectionCommand extends Command
             $this->election->parseVotes($this->votes);
         endif;
 
+        $io->section('Sum Up');
+
+        $output->write($this->election->countCandidates().' Candidates(s) Registered');
+        $output->write('  ||  ');
+        $output->writeln($this->election->countVotes().' Vote(s) Registered');
+        $output->writeln('<info>==========================</>');
+
+        $io->definitionList(
+            ['Is vote weight allowed?' => $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE'],
+            new TableSeparator(),
+            ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
+            new TableSeparator(),
+            ['Is vote tie in rank allowed?' => in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']
+        );
+
         // Input Sum Up
         if ($output->isVerbose()) :
-            $this->sectionSumUp($io ,$input,$output);
+            $this->sectionVerbose($io ,$input,$output);
         endif;
 
         if ($input->getOption('list-votes')) :
+            $this->displayVotesCount($input,$output);
+
             ($votesTable = new Table($output))
                 ->setHeaderTitle('Registered Votes List')
                 ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
@@ -258,25 +280,20 @@ class ElectionCommand extends Command
         return 0;
     }
 
-    protected function sectionSumUp (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
+    protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
     {
-        $io->section('Sum Up');
+        $io->section('Detailled election input');
 
-        // Votes Count
-            ($votesStatsTable = new Table($output))
-                ->setHeaderTitle('Election Configuration')
-                ->setHeaders(['Param', 'Value'])
-                ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
-            ;
+        $this->displayCandidatesList($input, $output);
+        $this->displayVotesCount($input, $output);
 
-            $votesStatsTable->addRow(['Is vote weight allowed?', $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE']);
-            $votesStatsTable->addRow(['Votes are evaluated according to the implicit ranking rule?', $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE']);
-            $votesStatsTable->addRow(['Is vote tie in rank allowed?', in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']);
+        $io->newLine();
+    }
 
-
-            $votesStatsTable->render();
-
-        // Candidate List
+    protected function displayCandidatesList (InputInterface $input, OutputInterface $output) : void
+    {
+        if (!$this->candidatesListIsWrite) :
+            // Candidate List
             ($candidateTable = new Table($output))
                 ->setHeaderTitle('Registered Candidates')
                 ->setHeaders(['Num', 'Candidate Name'])
@@ -291,7 +308,14 @@ class ElectionCommand extends Command
 
             $candidateTable->render();
 
-        // Votes Count
+            $this->candidatesListIsWrite = true;
+        endif;
+    }
+
+    public function displayVotesCount (InputInterface $input, OutputInterface $output) : void
+    {
+        if (!$this->votesCountIsWrite) :
+            // Votes Count
             ($votesStatsTable = new Table($output))
                 ->setHeaderTitle('Stats - Votes Registration')
                 ->setHeaders(['Stats', 'Value'])
@@ -306,7 +330,8 @@ class ElectionCommand extends Command
 
             $votesStatsTable->render();
 
-        $io->newLine();
+            $this->votesCountIsWrite = true;
+        endif;
     }
 
     protected function prepareMethods (array $methodArgument) : array
