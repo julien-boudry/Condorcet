@@ -387,7 +387,7 @@ class VoteTest extends TestCase
         endif;
     }
 
-    public function testBadTagInput1 ()
+    public function testBadTagInput1 () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(17);
@@ -663,5 +663,23 @@ class VoteTest extends TestCase
         self::assertTrue($candidate8->getProvisionalState());
 
         self::assertCount(1,$vote7->getHistory());
+    }
+
+    public function testBadRankingInput1 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $vote = new Vote(42);
+    }
+
+    public function testBadRankingInput2 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $candidate = new Candidate('A');
+
+        $vote = new Vote([$candidate,$candidate]);
     }
 }
