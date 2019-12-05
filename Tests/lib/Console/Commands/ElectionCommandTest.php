@@ -31,7 +31,8 @@ class ElectionCommandTest extends TestCase
                                             '--allows-votes-weight' => null,
                                             '--no-tie' => null,
                                             '--list-votes' => null,
-                                            '--desactivate-implicit-ranking' => null
+                                            '--desactivate-implicit-ranking' => null,
+                                            '--show-pairwise' => null
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]

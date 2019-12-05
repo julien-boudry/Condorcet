@@ -37,7 +37,7 @@ class ElectionCommand extends Command
     // Internal Process
     protected bool $candidatesListIsWrite = false;
     protected bool $votesCountIsWrite = false;
-    protected bool $pairwiseCountIsWrite = false;
+    protected bool $pairwiseIsWrite = false;
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
@@ -346,7 +346,7 @@ class ElectionCommand extends Command
 
     public function displayPairwise (InputInterface $input, OutputInterface $output) : void
     {
-        if (!$this->candidatesListIsWrite) :
+        if (!$this->pairwiseIsWrite) :
             (new Table($output))
                 ->setHeaderTitle('Pairwise')
                 ->setHeaders(['For each candidate, show his win, null or lose'])
@@ -355,7 +355,7 @@ class ElectionCommand extends Command
                 ->render()
             ;
 
-            $this->candidatesListIsWrite = true;
+            $this->pairwiseIsWrite= true;
         endif;
     }
 
