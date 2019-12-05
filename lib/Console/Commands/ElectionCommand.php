@@ -114,12 +114,18 @@ class ElectionCommand extends Command
             if ($input->getOption('no-tie')) :
                 $this->election->addConstraint(NoTie::class);
             endif;
+
+        // Non-interactive candidates
+        $this->candidates = $input->getOption('candidates') ?? '';
+
+        // Non-interactive votes
+        $this->votes = $input->getOption('votes') ?? '';
     }
 
     protected function interact (InputInterface $input, OutputInterface $output) : void
     {
         // Interactive Candidates
-        if (empty($candidates = $input->getOption('candidates'))) :
+        if (empty($this->candidates)) :
             $helper = $this->getHelper('question');
 
             $c = 0;
@@ -137,14 +143,10 @@ class ElectionCommand extends Command
             endwhile;
 
             $this->candidates = implode(';', $registeringCandidates);
-
-        // Non-interactive candidates
-        else :
-            $this->candidates = $candidates;
         endif;
 
         // Interactive Votes
-        if (empty($votes = $input->getOption('votes'))) :
+        if (empty($this->votes)) :
             $helper = $this->getHelper('question');
 
             $c = 0;
@@ -162,10 +164,6 @@ class ElectionCommand extends Command
             endwhile;
 
             $this->votes = implode(';', $registeringvotes);
-
-        // Non-interactive votes
-        else :
-            $this->votes = $votes;
         endif;
     }
 

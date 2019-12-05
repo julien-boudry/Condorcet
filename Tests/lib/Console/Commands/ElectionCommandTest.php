@@ -133,9 +133,12 @@ class ElectionCommandTest extends TestCase
 
     public function testNonInteractionMode () : void
     {
-        $this->electionCommand->execute(['--candidates' => 'A;B;C;D'],['interactive' => false]);
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(6);
 
-        $output = $this->electionCommand->getDisplay();
-        var_dump($output);
+        $this->electionCommand->execute([],['interactive' => false]);
+
+        // $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
     }
 }
