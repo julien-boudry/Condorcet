@@ -40,15 +40,17 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // var_dump($output);
 
+        self::assertStringContainsString('3 Candidates(s) Registered  ||  3 Vote(s) Registered', $output);
+
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered Candidates', $output);
         self::assertStringContainsString('Stats - Votes Registration', $output);
         self::assertStringContainsString('Stats:', $output);
         self::assertStringContainsString('Votes List', $output);
 
-        self::assertStringContainsString('Is vote weight allowed?                                       TRUE', $output);
-        self::assertStringContainsString('Votes are evaluated according to the implicit ranking rule?   FALSE', $output);
-        self::assertStringContainsString('Is vote tie in rank allowed?                                  TRUE', $output);
+        self::assertRegExp('/Is vote weight allowed\?( )+TRUE/', $output);
+        self::assertRegExp('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        self::assertRegExp('/Is vote tie in rank allowed\?( )+TRUE/', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
