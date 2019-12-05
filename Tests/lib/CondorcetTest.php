@@ -143,7 +143,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
         $this->_selfElection->getPairwise();
 
@@ -196,9 +196,9 @@ class CondorcetTest_UnvalidAlgorithmName
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking ()
+    protected function makeRanking () : void
     {
-       $this->_selfElection->getPairwise();
+        $this->_selfElection->getPairwise();
 
         $result = [0=>0, 1=> [1,2], 2=> 3]; // Candidate must be valid internal candidate key.
 

@@ -448,7 +448,7 @@ C > B > A * 1',
     public function testaddCandidatesFromJson () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(15);
+        self::expectExceptionCode(3);
 
         $election = new Election;
 
@@ -460,8 +460,19 @@ C > B > A * 1',
 
         self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
 
+        $election->addCandidatesFromJson(json_encode(['candidate2']));
+    }
+
+    public function testaddCandidatesFromInvalidJson () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(15);
+
+        $election = new Election;
+
         $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
     }
+
 
     public function testaddVotesFromJsonWithInvalidJson () : void
     {
@@ -537,6 +548,13 @@ C > B > A * 1',
 
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
+    }
+
+    public function testPairwiseArrayAccess () : void
+    {
+        $this->election1->computeResult();
+
+        self::assertTrue($this->election1->getPairwise()->offsetExists(1));
     }
 
     public function testGetCandidateObjectFromKey () : void
@@ -628,7 +646,24 @@ C > B > A * 1',
         $badCandidate = new Candidate('B');
 
         $election->removeCandidates($badCandidate);
+    }
 
+    public function testAmbigousCandidates () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        $candidate = new Candidate('candidate1');
+        $vote = new Vote ('candidate1>candidate2');
+
+        $election1 = new Election;
+        $election2 = new Election;
+
+        $election1->addCandidate(new Candidate('candidate2'));
+        $election2->addCandidate(new Candidate('candidate1'));
+
+        $election1->addVote($vote);
+        $election2->addVote($vote);
     }
 
 }
