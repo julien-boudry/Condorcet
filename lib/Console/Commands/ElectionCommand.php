@@ -31,7 +31,6 @@ class ElectionCommand extends Command
     protected Election $election;
     protected string $candidates;
     protected string $votes;
-    protected ?array $tags = null;
     protected bool $tagsWith = true;
 
     // Internal Process

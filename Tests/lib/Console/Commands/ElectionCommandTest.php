@@ -130,4 +130,12 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
+
+    public function testNonInteractionMode () : void
+    {
+        $this->electionCommand->execute(['--candidates' => 'A;B;C;D'],['interactive' => false]);
+
+        $output = $this->electionCommand->getDisplay();
+        var_dump($output);
+    }
 }
