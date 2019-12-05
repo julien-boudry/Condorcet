@@ -648,12 +648,11 @@ C > B > A * 1',
         $election->removeCandidates($badCandidate);
     }
 
-    public function testAmbigousCandidates () : void
+    public function testAmbigousCandidatesOnElectionSide () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         self::expectExceptionCode(5);
 
-        $candidate = new Candidate('candidate1');
         $vote = new Vote ('candidate1>candidate2');
 
         $election1 = new Election;
@@ -666,4 +665,26 @@ C > B > A * 1',
         $election2->addVote($vote);
     }
 
+    public function testAmbigousCandidatesOnVoteSide () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(18);
+
+        $candidate3 = new Candidate('candidate3');
+        $vote = new Vote ('candidate3');
+
+        $election1 = new Election;
+        $election2 = new Election;
+
+        $election1->addCandidate($candidate3);
+        $election2->addCandidate($candidate3);
+
+        $election1->addCandidate(new Candidate('candidate2'));
+        $election2->addCandidate(new Candidate('candidate1'));
+
+        $election1->addVote($vote);
+        $election2->addVote($vote);
+
+        $vote->setRanking('candidate1>candidate2>candidate3');
+    }
 }
