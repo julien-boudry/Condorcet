@@ -37,6 +37,7 @@ class ElectionCommand extends Command
     // Internal Process
     protected bool $candidatesListIsWrite = false;
     protected bool $votesCountIsWrite = false;
+    protected bool $pairwiseCountIsWrite = false;
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
@@ -58,6 +59,10 @@ class ElectionCommand extends Command
             ->addOption(      'stats','s'
                             , InputOption::VALUE_NONE
                             , 'Get detailled stats'
+            )
+            ->addOption(      'show-pairwise','p'
+                            , InputOption::VALUE_NONE
+                            , 'Get pairwise computation'
             )
             ->addOption(      'list-votes','l'
                             , InputOption::VALUE_NONE
@@ -219,7 +224,12 @@ class ElectionCommand extends Command
             $io->newLine();
         endif;
 
-        /// Natural Condorcet
+        // Pairwise
+        if ($input->getOption('show-pairwise') || $input->getOption('stats')) :
+            $this->displayPairwise($input,$output);
+        endif;
+
+        // Natural Condorcet
         if ($input->getOption('natural-condorcet')) :
             $io->section('Condorcet Natural Winner & Loser');
 
@@ -331,6 +341,21 @@ class ElectionCommand extends Command
             $votesStatsTable->render();
 
             $this->votesCountIsWrite = true;
+        endif;
+    }
+
+    public function displayPairwise (InputInterface $input, OutputInterface $output) : void
+    {
+        if (!$this->candidatesListIsWrite) :
+            (new Table($output))
+                ->setHeaderTitle('Pairwise')
+                ->setHeaders(['For each candidate, show his win, null or lose'])
+                ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(),100))]])
+
+                ->render()
+            ;
+
+            $this->candidatesListIsWrite = true;
         endif;
     }
 

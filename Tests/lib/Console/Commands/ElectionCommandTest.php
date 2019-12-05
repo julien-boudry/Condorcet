@@ -45,6 +45,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered Candidates', $output);
         self::assertStringContainsString('Stats - Votes Registration', $output);
+        self::assertStringContainsString('Pairwise', $output);
         self::assertStringContainsString('Stats:', $output);
         self::assertStringContainsString('Votes List', $output);
 
