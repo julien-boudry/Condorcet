@@ -86,6 +86,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->isVoteWeightAllowed ()](Election%20Class/public%20Election--isVoteWeightAllowed.md) : bool  
 * [public Election->parseCandidates (...)](Election%20Class/public%20Election--parseCandidates.md) : array  
 * [public Election->parseVotes (...)](Election%20Class/public%20Election--parseVotes.md) : int  
+* [public Election->parseVotesWithoutFail (...)](Election%20Class/public%20Election--parseVotesWithoutFail.md) : int  
 * [public Election->removeCandidates (...)](Election%20Class/public%20Election--removeCandidates.md) : array  
 * [public Election->removeExternalDataHandler ()](Election%20Class/public%20Election--removeExternalDataHandler.md) : bool  
 * [public Election->removeVote (...)](Election%20Class/public%20Election--removeVote.md) : bool  
@@ -470,7 +471,7 @@ _Including above methods from public API_
 * public setName (string $name) : bool  
 * public setProvisionalState (bool $provisional) : bool  
 * protected destroyAllLink () : void  
-* private checkName (string $name) : bool  
+* private checkNameInElectionContext (string $name) : bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
@@ -501,6 +502,8 @@ _Including above methods from public API_
 * public addArgument ($name, $mode = null, $description = , $default = null)  
 * public addOption ($name, $shortcut = null, $mode = null, $description = , $default = null)  
 * public addUsage ($usage)  
+* public displayPairwise (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* public displayVotesCount (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * public getAliases ()  
 * public getApplication ()  
 * public getDefinition ()  
@@ -529,19 +532,21 @@ _Including above methods from public API_
 * public setName ($name)  
 * public setProcessTitle ($title)  
 * protected configure () : void  
-* protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected displayCandidatesList (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : int  
 * protected formatResultTable (CondorcetPHP\Condorcet\Result $result) : array  
 * protected getFilePath (string $path) : ?string  
 * protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected isAbsolute (string $path) : bool  
 * protected prepareMethods (array $methodArgument) : array  
-* protected sectionSumUp (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * private validateName (string $name)  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication   
 ```php
+* public static create () : bool  
 * public static run () : void  
 ```
 
@@ -720,6 +725,7 @@ _Including above methods from public API_
 * public isVoteWeightAllowed () : bool  
 * public parseCandidates (string $input, bool $isFile = false) : array  
 * public parseVotes (string $input, bool $isFile = false) : int  
+* public parseVotesWithoutFail (string $input, bool $isFile = false) : int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public removeCandidates ($candidates_input) : array  
 * public removeExternalDataHandler () : bool  
@@ -733,12 +739,14 @@ _Including above methods from public API_
 * public testIfVoteIsValidUnderElectionConstraints (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * protected cleanupCompute () : void  
 * protected destroyAllLink () : void  
+* protected doAddVotesFromParse (array $adding) : void  
 * protected initResult (string $class) : void  
 * protected makePairwise () : void  
 * protected prepareResult () : bool  
 * protected prepareVoteInput ($vote, $tag = null) : void  
 * protected registerAllLinks () : void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, $tag = null) : CondorcetPHP\Condorcet\Vote  
+* protected synthesisVoteFromParse (int $count, int $multiple, array $adding, $vote, $tags, int $weight) : void  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   

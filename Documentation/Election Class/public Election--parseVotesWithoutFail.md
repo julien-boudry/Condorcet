@@ -1,12 +1,12 @@
-## public Election::parseVotes
+## public Election::parseVotesWithoutFail
 
 ### Description    
 
 ```php
-public $Election -> parseVotes ( string input [, bool isFile = false] ) : int
+public $Election -> parseVotesWithoutFail ( string input [, bool isFile = false] ) : int
 ```
 
-Import votes from a text source. If any invalid vote is found inside, nothing are registered.
+Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
     
 
 ##### **input:** *string*   
@@ -19,7 +19,7 @@ If true, the input is evalatued as path to text file.
 
 ### Return value:   
 
-*(int)* Count of the new registered vote.
+*(int)* Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.
 
 
 ---------------------------------------
@@ -28,7 +28,7 @@ If true, the input is evalatued as path to text file.
 
 * [Election::addVote](../Election%20Class/public%20Election--addVote.md)    
 * [Election::parseCandidates](../Election%20Class/public%20Election--parseCandidates.md)    
-* [Election::parseVotesWithoutFail](../Election%20Class/public%20Election--parseVotesWithoutFail.md)    
+* [Election::parseVotes](../Election%20Class/public%20Election--parseVotes.md)    
 * [Election::addVotesFromJson](../Election%20Class/public%20Election--addVotesFromJson.md)    
 
 ---------------------------------------

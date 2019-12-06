@@ -178,9 +178,9 @@ class ElectionCommand extends Command
         endif;
 
         if ($file = $this->getFilePath($this->votes)) :
-            $this->election->parseVotes($file, true);
+            $this->election->parseVotesWithoutFail($file, true);
         else :
-            $this->election->parseVotes($this->votes);
+            $this->election->parseVotesWithoutFail($this->votes);
         endif;
 
         $io->section('Sum Up');

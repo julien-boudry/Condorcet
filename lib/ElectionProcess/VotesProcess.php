@@ -273,6 +273,11 @@ trait VotesProcess
                 continue;
             endif;
 
+            // Disallow < and "
+            if ( preg_match('/<|"/mi', $line) === 1 ) :
+                throw new CondorcetException(14, $line);
+            endif;
+
             // Multiples
             $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'),$line);
 
@@ -297,6 +302,43 @@ trait VotesProcess
         $this->doAddVotesFromParse($adding);
 
         return $count;
+    }
+
+    public function parseVotesWithoutFail (string $input, bool $isFile = false) : int
+    {
+        $fail_count = 0;
+
+        if (!$isFile) :
+            $file = fopen("php://memory", 'r+');
+            fwrite($file, $input);
+            rewind($file);
+            unset($input); // Memory Optimization
+        else :
+            $file = fopen($input, 'r');
+        endif;
+
+        $char = '';
+        $record = '';
+
+        while ($char !== false) :
+            $char = fgetc($file);
+
+            if ($char === ";" || $char === "\n" || $char === false) :
+                try {
+                    $this->parseVotes($record);
+                } catch (CondorcetException $e) {
+                    ++$fail_count;
+                } finally {
+                    $record = '';
+                }
+            else :
+                $record .= $char;
+            endif;
+        endwhile;
+
+        fclose($file);
+
+        return $fail_count;
     }
 
     protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, $vote, $tags, int $weight) : void

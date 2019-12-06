@@ -1072,7 +1072,7 @@
   name: parseVotes
   static: false
   description: |
-    Import votes from a text source.
+    Import votes from a text source. If any invalid vote is found inside, nothing are registered.
   input:
     input:
       type: string
@@ -1089,6 +1089,37 @@
   related:
     - 'Election::addVote'
     - 'Election::parseCandidates'
+    - 'Election::parseVotesWithoutFail'
+    - 'Election::addVotesFromJson'
+  examples:
+    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+  publish: true
+
+-
+  class: Election
+  type: method
+  visibility: public
+  name: parseVotesWithoutFail
+  static: false
+  description: |
+    Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
+  input:
+    input:
+      type: string
+      required: true
+      text: String or valid path to a text file.
+    isFile:
+      type: bool
+      required: false
+      default: false
+      text: If true, the input is evalatued as path to text file.
+  return_type: int
+  return: |
+    Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.
+  related:
+    - 'Election::addVote'
+    - 'Election::parseCandidates'
+    - 'Election::parseVotes'
     - 'Election::addVotesFromJson'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'

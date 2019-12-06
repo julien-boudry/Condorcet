@@ -293,6 +293,29 @@ class ElectionTest extends TestCase
 
     }
 
+    public function testParseVotesWithoutFail () : void
+    {
+        $this->election1 = new Election;
+
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('C');
+
+        self::assertSame(2, $this->election1->parseVotesWithoutFail('
+            A > B > C
+            A > B > C * 4;tag1 || A > B > C*4 #Coucou
+            A < B < C * 10
+            D <> B
+            A > B > C
+        '));
+
+        self::assertSame(10, $this->election1->countVotes());
+
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes',true));
+
+        self::assertSame(20, $this->election1->countVotes());
+    }
+
     public function testVoteWeight () : void
     {
         $election = new Election;
