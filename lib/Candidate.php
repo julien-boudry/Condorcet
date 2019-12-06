@@ -43,7 +43,11 @@ class Candidate
             throw new CondorcetException(1, $name);
         endif;
 
-        if (!$this->checkName($name)) :
+        if ( preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/mi',$name) === 1 ) :
+            throw new CondorcetException(1, $name);
+        endif;
+
+        if (!$this->checkNameInElectionContext($name)) :
             throw new CondorcetException(19, $name);
         endif;
 
@@ -89,7 +93,7 @@ class Candidate
 
     // INTERNAL
 
-    private function checkName (string $name) : bool
+    private function checkNameInElectionContext (string $name) : bool
     {
         foreach ($this->_link as &$link) :
             if (!$link->canAddCandidate($name)) :

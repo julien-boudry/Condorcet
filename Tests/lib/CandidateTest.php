@@ -49,6 +49,14 @@ class CandidateTest extends TestCase
         );
     }
 
+    public function testBadName () : void
+    {
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(1);
+
+        new Candidate ('<$"');
+    }
+
     public function testCandidateBadClass () : void
     {
         self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);

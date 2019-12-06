@@ -20,7 +20,7 @@ class CondorcetException extends \Exception
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        1 => 'Bad candidate format',
+        1 => 'Bad candidate name',
         2 => 'The voting process has already started',
         3 => 'This candidate is already registered',
         4 => 'This candidate do not exist',
@@ -33,6 +33,7 @@ class CondorcetException extends \Exception
         11 => 'You try to unserialize an object version older than your actual Class version. This is a problematic thing',
         12 => 'You have exceeded the number of votes allowed for this method.',
         13 => 'Formatting error: You must specify an integer',
+        14 => 'Bad Input',
 
         15 => 'Input must be valid Json format',
         16 => 'You have exceeded the maximum number of votes allowed per election ({{ infos1 }}).',
