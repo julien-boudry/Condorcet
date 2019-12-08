@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
+use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -32,10 +33,13 @@ class ElectionCommand extends Command
     protected string $candidates;
     protected string $votes;
 
+    public static int $VotesPerMB = 1;
+
     // Internal Process
     protected bool $candidatesListIsWrite = false;
     protected bool $votesCountIsWrite = false;
     protected bool $pairwiseIsWrite = false;
+    public ?string $SQLitePath = null;
 
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
@@ -46,41 +50,45 @@ class ElectionCommand extends Command
             ->setDescription('Process an election')
             ->setHelp('This command takle candidates and votes in input. An output the résult of an election.')
 
-            ->addOption(      'candidates','c'
+            ->addOption(      'candidates', 'c'
                             , InputOption::VALUE_REQUIRED
                             , 'Candidates List file path or direct input'
             )
-            ->addOption(      'votes','w'
+            ->addOption(      'votes', 'w'
                             , InputOption::VALUE_REQUIRED
                             , 'Votes List file path or direct input'
             )
-            ->addOption(      'stats','s'
+            ->addOption(      'stats', 's'
                             , InputOption::VALUE_NONE
                             , 'Get detailled stats'
             )
-            ->addOption(      'show-pairwise','p'
+            ->addOption(      'show-pairwise', 'p'
                             , InputOption::VALUE_NONE
                             , 'Get pairwise computation'
             )
-            ->addOption(      'list-votes','l'
+            ->addOption(      'list-votes', 'l'
                             , InputOption::VALUE_NONE
                             , 'List Registered Votes'
             )
-            ->addOption(      'natural-condorcet','r'
+            ->addOption(      'natural-condorcet', 'r'
                             , InputOption::VALUE_NONE
                             , 'Print natural Condorcet Winner / Loser'
             )
-            ->addOption(      'desactivate-implicit-ranking','i'
+            ->addOption(      'desactivate-implicit-ranking', 'i'
                             , InputOption::VALUE_NONE
                             , 'Desactivate Implicit Ranking'
             )
-            ->addOption(      'allows-votes-weight','g'
+            ->addOption(      'allows-votes-weight', 'g'
                             , InputOption::VALUE_NONE
                             , 'Allows vote weight'
             )
-            ->addOption(      'no-tie','t'
+            ->addOption(      'no-tie', 't'
                             , InputOption::VALUE_NONE
                             , 'Add no-tie constraint for vote'
+            )
+            ->addOption(      'desactivate-file-cache', null
+                            , InputOption::VALUE_NONE
+                            , "Don't use a disk cache for very large elections. Forces to work exclusively in RAM."
             )
 
             ->addArgument(
@@ -177,12 +185,19 @@ class ElectionCommand extends Command
             $this->election->parseCandidates($this->candidates);
         endif;
 
+        // Define Callback
+        $callBack = $this->useDataHandler($input);
+
+        // Parses Votes
         if ($file = $this->getFilePath($this->votes)) :
-            $this->election->parseVotesWithoutFail($file, true);
+            $this->election->parseVotesWithoutFail($file, true, $callBack);
         else :
-            $this->election->parseVotesWithoutFail($this->votes);
+            $this->election->parseVotesWithoutFail($this->votes, false, $callBack);
         endif;
 
+        unset($callBack);
+
+        // Sum Upphp -v
         $io->section('Sum Up');
 
         $output->write($this->election->countCandidates().' Candidates(s) Registered');
@@ -204,25 +219,16 @@ class ElectionCommand extends Command
         endif;
 
         if ($input->getOption('list-votes')) :
-            $this->displayVotesCount($input,$output);
+            $this->displayVotesCount($output);
 
-            ($votesTable = new Table($output))
-                ->setHeaderTitle('Registered Votes List')
-                ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
-            ;
-
-            foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
-                $votesTable->addRow( [ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ] );
-            endforeach;
-
-            $votesTable->render();
+            $this->displayVotesList($output);
 
             $io->newLine();
         endif;
 
         // Pairwise
         if ($input->getOption('show-pairwise') || $input->getOption('stats')) :
-            $this->displayPairwise($input,$output);
+            $this->displayPairwise($output);
         endif;
 
         // Natural Condorcet
@@ -233,8 +239,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                            ['* Condorcet Winner', ( $this->election->getCondorcetWinner() ?? 'NULL' )],
-                            ['# Condorcet Loser', ( $this->election->getCondorcetLoser() ?? 'NULL' )]
+                            ['* Condorcet Winner', ( $this->election->getCondorcetWinner()->getName() ?? 'NULL' )],
+                            ['# Condorcet Loser', ( $this->election->getCondorcetLoser()->getName() ?? 'NULL' )]
                 ])
 
                 ->render()
@@ -262,7 +268,6 @@ class ElectionCommand extends Command
 
                 ->setColumnStyle(0,$this->centerPadTypeStyle)
                 ->setColumnWidth(0, 16)
-
                 ->render()
             ;
 
@@ -280,6 +285,15 @@ class ElectionCommand extends Command
 
         endforeach;
 
+        unset($result);
+
+        // RM Sqlite Database if exist
+        if ( ($SQLitePath = $this->SQLitePath) !== null) :
+            unset($this->election);
+            unlink($SQLitePath);
+        endif;
+
+        // Success
         $io->newLine();
         $io->success('Success');
 
@@ -290,13 +304,13 @@ class ElectionCommand extends Command
     {
         $io->section('Detailled election input');
 
-        $this->displayCandidatesList($input, $output);
-        $this->displayVotesCount($input, $output);
+        $this->displayCandidatesList($output);
+        $this->displayVotesCount($output);
 
         $io->newLine();
     }
 
-    protected function displayCandidatesList (InputInterface $input, OutputInterface $output) : void
+    protected function displayCandidatesList (OutputInterface $output) : void
     {
         if (!$this->candidatesListIsWrite) :
             // Candidate List
@@ -318,7 +332,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    public function displayVotesCount (InputInterface $input, OutputInterface $output) : void
+    public function displayVotesCount (OutputInterface $output) : void
     {
         if (!$this->votesCountIsWrite) :
             // Votes Count
@@ -340,7 +354,21 @@ class ElectionCommand extends Command
         endif;
     }
 
-    public function displayPairwise (InputInterface $input, OutputInterface $output) : void
+    public function displayVotesList (OutputInterface $output) : void
+    {
+        ($votesTable = new Table($output))
+            ->setHeaderTitle('Registered Votes List')
+            ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
+        ;
+
+        foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
+            $votesTable->addRow( [ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ] );
+        endforeach;
+
+        $votesTable->render();
+    }
+
+    public function displayPairwise (OutputInterface $output) : void
     {
         if (!$this->pairwiseIsWrite) :
             (new Table($output))
@@ -418,6 +446,34 @@ class ElectionCommand extends Command
     protected function isAbsolute (string $path) : bool
     {
         return strspn($path, '/\\', 0, 1) || (\strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1));
+    }
+
+    protected function useDataHandler (InputInterface $input) : ?\Closure
+    {
+        if ($input->getOption('desactivate-file-cache')) :
+            return null;
+        else :
+            $election = $this->election;
+            $SQLitePath = &$this->SQLitePath;
+            $memory_limit = (int) preg_replace('`[^0-9]`', '', ini_get('memory_limit'));
+            $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
+            $vote_in_memory_limit = 2;
+            $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath) : bool {
+                if (  $inserted_votes_count > $vote_in_memory_limit ) :
+
+                    if ( file_exists( $SQLitePath = getcwd().'/condorcet-bdd.sqlite' ) ) :
+                        unlink($SQLitePath);
+                    endif;
+
+                    $election->setExternalDataHandler( new PdoHandlerDriver (new \PDO ('sqlite:'.$SQLitePath,'','',[\PDO::ATTR_PERSISTENT => false]), true) );
+                    return false; // No, stop next iteration
+                else :
+                    return true; // Yes, continue
+                endif;
+            };
+
+            return $callBack;
+        endif;
     }
 
 }

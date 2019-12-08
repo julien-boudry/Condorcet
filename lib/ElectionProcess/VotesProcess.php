@@ -304,9 +304,11 @@ trait VotesProcess
         return $count;
     }
 
-    public function parseVotesWithoutFail (string $input, bool $isFile = false) : int
+    public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
     {
+        $inserted_votes_count = 0;
         $fail_count = 0;
+        $doCallBack = $callBack !== null;
 
         if (!$isFile) :
             $file = fopen("php://memory", 'r+');
@@ -325,7 +327,11 @@ trait VotesProcess
 
             if ($char === ";" || $char === "\n" || $char === false) :
                 try {
-                    $this->parseVotes($record);
+                    $inserted_votes_count += $this->parseVotes($record);
+
+                    if ($doCallBack) :
+                        $doCallBack = $callBack($inserted_votes_count);
+                    endif;
                 } catch (CondorcetException $e) {
                     ++$fail_count;
                 } finally {
