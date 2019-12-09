@@ -10,7 +10,6 @@ require_once __DIR__.'/../__CondorcetAutoload.php';
     $max_candidates_count = 8;
 ///
 
-
     $election = new Election;
 
     KemenyYoung::$devWriteCache = true;
