@@ -30,8 +30,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected array $_struct;
     // Prepare Query
     protected array $_prepare = [];
-    // Data CallBack function
-    public $_dataContextObject;
 
 
     public function __construct (\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entities', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
@@ -52,17 +50,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         $this->initPrepareQuery();
     }
-
-    public function __destruct ()
-    {
-        if ($this->_queryError) :
-            $this->_handler->rollback();
-            $this->_transaction = false;
-        else :
-            $this->closeTransaction();
-        endif;
-    }
-
 
     // INTERNAL
 
@@ -164,16 +151,15 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
                 foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
-                    $param['data'.$i++] = $this->_dataContextObject->dataPrepareStoringAndFormat($Entity);
+                    $param['data'.$i++] = $Entity;
                 endforeach;
-                unset($Entity);
 
                 $this->_prepare['insert'.$group_count.'Entities']->execute(
                     $param
                 );
 
                 if ($this->_prepare['insert'.$group_count.'Entities']->rowCount() !== $group_count) :
-                    throw new CondorcetInternalError ('Tous les Entities n\'ont pas été insérés');
+                    throw new CondorcetInternalError ('Not all entities have been inserted');
                 endif;
 
                 $this->_prepare['insert'.$group_count.'Entities']->closeCursor();
@@ -267,7 +253,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
         $this->_prepare['selectOneEntity']->closeCursor();
         if (!empty($r)) :
-            return $this->_dataContextObject->dataCallBack( $r[0][1] );
+            return $r[0][1];
         else :
             return false;
         endif;
@@ -284,7 +270,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         if (!empty($r)) :
             $result = [];
             foreach ($r as $value) :
-                $result[(int) $value[0]] = $this->_dataContextObject->dataCallBack( $value[1] );
+                $result[(int) $value[0]] = $value[1];
             endforeach ;
 
             return $result;

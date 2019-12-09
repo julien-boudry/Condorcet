@@ -5,6 +5,8 @@ namespace CondorcetPHP\Condorcet\DataManager;
 use PHPUnit\Framework\TestCase;
 
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Vote;
 
 class ArrayManagerTest extends TestCase
 {
@@ -14,7 +16,21 @@ class ArrayManagerTest extends TestCase
     {
         $this->ArrayManager = new class extends ArrayManager {
             protected function preDeletedTask ($object) : void {}
-            public function getDataContextObject () : DataContextInterface {}
+            protected function decodeOneEntity (string $data) : Vote
+            {
+                $vote = new Vote ($data);
+                $this->_Election->checkVoteCandidate($vote);
+                $vote->registerLink($this->_Election);
+
+                return $vote;
+            }
+
+            protected function encodeOneEntity (Vote $data) : string
+            {
+                $data->destroyLink($this->_Election);
+
+                return str_replace([' > ',' = '],['>','='],(string) $data);
+            }
         };
     }
 

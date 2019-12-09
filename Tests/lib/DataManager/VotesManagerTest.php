@@ -24,12 +24,6 @@ class VotesManagerTest extends TestCase
         $this->votes_manager = $this->election->getVotesManager();
     }
 
-    public function testGetDataContextObject() : void
-    {
-        self::assertSame($this->election, $this->votes_manager->getDataContextObject()->election);
-        self::assertInstanceOf(DataContextInterface::class,$this->votes_manager->getDataContextObject());
-    }
-
     public function testOffsetSet() : void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);

@@ -27,51 +27,40 @@ class VotesManager extends ArrayManager
 
     public function setElection (Election $election) : void
     {
-        $this->_link[0] = $election;
+        $this->_Election = $election;
     }
 
     public function destroyElection () : void
     {
-        $this->_link = [];
+        unset($this->_Election);
     }
 
     public function getElection () : Election
     {
-        return $this->_link[0];
+        return $this->_Election;
     }
 
 /////////// Data CallBack for external drivers ///////////
 
-    public function getDataContextObject () : DataContextInterface
+    protected function decodeOneEntity (string $data) : Vote
     {
-        $context = new Class implements DataContextInterface {
-            public Election $election;
+        $vote = new Vote ($data);
+        $this->_Election->checkVoteCandidate($vote);
+        $vote->registerLink($this->_Election);
 
-            public function dataCallBack ($data) : Vote
-            {
-                $vote = new Vote ($data);
-                $this->election->checkVoteCandidate($vote);
-                $vote->registerLink($this->election);
+        return $vote;
+    }
 
-                return $vote;
-            }
+    protected function encodeOneEntity (Vote $data) : string
+    {
+        $data->destroyLink($this->_Election);
 
-            public function dataPrepareStoringAndFormat (Vote $data) : string
-            {
-                $data->destroyLink($this->election);
-
-                return str_replace([' > ',' = '],['>','='],(string) $data);
-            }
-        };
-
-        $context->election = $this->_link[0] ?? null;
-
-        return $context;
+        return str_replace([' > ',' = '],['>','='],(string) $data);
     }
 
     protected function preDeletedTask ($object) : void
     {
-        $object->destroyLink($this->_link[0]);
+        $object->destroyLink($this->_Election);
     }
 
 /////////// Array Access - Specials improvements ///////////
@@ -97,28 +86,23 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing (int $key, int $type) : void
     {
-        foreach ($this->_link as $election) :
-            if ($election->getState() === 3) :
+        if ($this->_Election->getState() === 3) :
 
-                if ($type === 1) :
-                    $election->getPairwise()->addNewVote($key);
-                elseif ($type === 2) :
-                    $election->getPairwise()->removeVote($key);
-                endif;
-
-                $election->cleanupCalculator();
-            else :
-                $election->setStateToVote();
+            if ($type === 1) :
+                $this->_Election->getPairwise()->addNewVote($key);
+            elseif ($type === 2) :
+                $this->_Election->getPairwise()->removeVote($key);
             endif;
 
-        endforeach;
+            $this->_Election->cleanupCalculator();
+        else :
+            $this->_Election->setStateToVote();
+        endif;
     }
 
     protected function setStateToVote () : void
     {
-        foreach ($this->_link as $election) :
-            $election->setStateToVote();
-        endforeach;
+        $this->_Election->setStateToVote();
     }
 
 /////////// Get Votes Methods ///////////
@@ -205,7 +189,7 @@ class VotesManager extends ArrayManager
         $nb = [];
 
         foreach ($this as $oneVote) :
-            $oneVoteString = $oneVote->getSimpleRanking($this->_link[0]);
+            $oneVoteString = $oneVote->getSimpleRanking($this->_Election);
 
             if(!array_key_exists($oneVoteString, $weight)) :
                 $weight[$oneVoteString] = 0;

@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\DataManager;
 
 use CondorcetPHP\Condorcet\CondorcetVersion;
+use CondorcetPHP\Condorcet\{Election, Vote};
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -25,7 +26,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Container = [];
     protected ?DataHandlerDriverInterface $_DataHandler = null;
-    protected array $_link = [];
+    protected Election $_Election;
 
     protected array $_Cache = [];
     protected int $_CacheMaxKey = 0;
@@ -44,7 +45,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function __clone ()
     {
-        $this->_link = [];
+        unset($this->_Election);
     }
 
     public function __serialize () : array
@@ -55,7 +56,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         return [    '_Container' => $this->_Container,
                     '_DataHandler' => $this->_DataHandler,
-                    '_link' => $this->_link
+                    '_Election' => $this->_Election
                 ];
     }
 
@@ -63,7 +64,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     {
         $this->_Container = $data['_Container'];
         $this->_DataHandler = $data['_DataHandler'];
-        $this->_link = $data['_link'];
+        $this->_Election = $data['_Election'];
 
         $this->resetMaxKey();
         $this->resetCounter();
@@ -136,8 +137,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                 if ($oneEntity === false) :
                     return null;
                 else :
-                    $this->_Cache[$offset] = $oneEntity;
-                    return $oneEntity;
+                    return $this->_Cache[$offset] = $this->decodeOneEntity($oneEntity);
                 endif;
             endif;
         else :
@@ -218,7 +218,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            return $this->_Cache = $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1);
+            return $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1) );
         else :
             return $this->_Container;
         endif;
@@ -264,12 +264,38 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     abstract protected function preDeletedTask ($object) : void;
 
+    abstract protected function decodeOneEntity (string $data) : Vote;
+
+    abstract protected function encodeOneEntity (Vote $data) : string;
+
+    protected function decodeManyEntities (array $entities) : array
+    {
+        $r = [];
+
+        foreach ($entities as $key => $oneEntity) :
+            $r[(int) $key] = $this->decodeOneEntity($oneEntity);
+        endforeach;
+
+        return $r;
+    }
+
+    protected function encodeManyEntities (array $entities) : array
+    {
+        $r = [];
+
+        foreach ($entities as $key => $oneEntity) :
+            $r[(int) $key] = $this->encodeOneEntity($oneEntity);
+        endforeach;
+
+        return $r;
+    }
+
     public function regularize () : bool
     {
         if (!$this->isUsingHandler() || empty($this->_Container)) :
             return false;
         else :
-            $this->_DataHandler->insertEntities($this->_Container);
+            $this->_DataHandler->insertEntities( $this->encodeManyEntities($this->_Container) );
             $this->_Container = [];
             return true;
         endif;
@@ -293,7 +319,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
             $this->clearCache();
-            $this->_Cache = $this->_DataHandler->selectRangeEntities($currentKey, self::$CacheSize);
+            $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities($currentKey, self::$CacheSize) );
 
             $keys = array_keys($this->_Cache);
             $this->_CacheMaxKey = max($keys);
@@ -343,7 +369,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     {
         if ($handler->countEntities() === 0) :
             $this->_DataHandler = $handler;
-            $this->_DataHandler->_dataContextObject = $this->getDataContextObject();
 
             try {
                 $this->regularize();
@@ -369,7 +394,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            $this->_Container = $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1);
+            $this->_Container = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1) );
 
             $this->_DataHandler = null;
 
@@ -378,5 +403,4 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    abstract public function getDataContextObject () : DataContextInterface;
 }
