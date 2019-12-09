@@ -60,7 +60,7 @@ class VotesManager extends ArrayManager
             {
                 $data->destroyLink($this->election);
 
-                return str_replace([' > ',' = '],'<',(string) $data);
+                return str_replace([' > ',' = '],['>','='],(string) $data);
             }
         };
 
