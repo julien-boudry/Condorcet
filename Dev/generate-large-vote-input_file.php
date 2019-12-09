@@ -32,4 +32,6 @@ for ($i=0; $i < $number_of_votes; $i++) :
 
 endfor;
 
+fwrite($file,$cache);
+
 fclose($file);
