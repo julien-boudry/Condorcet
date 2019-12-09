@@ -56,11 +56,11 @@ class VotesManager extends ArrayManager
                 return $vote;
             }
 
-            public function dataPrepareStoringAndFormat ($data) : string
+            public function dataPrepareStoringAndFormat (Vote $data) : string
             {
                 $data->destroyLink($this->election);
 
-                return (string) $data;
+                return str_replace([' > ',' = '],'<',(string) $data);
             }
         };
 

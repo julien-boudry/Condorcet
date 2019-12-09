@@ -10,9 +10,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
+use CondorcetPHP\Condorcet\Vote;
+
 interface DataContextInterface
 {
     public function dataCallBack ($data);
 
-    public function dataPrepareStoringAndFormat ($data);
+    public function dataPrepareStoringAndFormat (Vote $data);
 }

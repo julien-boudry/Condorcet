@@ -20,7 +20,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
-    protected const SEGMENT = [300,100,50,10,1];
+    protected const SEGMENT = [499,50,4,1]; // Must be ordered desc.
 
     protected \PDO $_handler;
     protected bool $_transaction = false;
@@ -80,7 +80,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function createTable () : void
     {
         try {
-            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' AUTO_INCREMENT INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
         } catch (\Exception $e) {
             throw $e;
         }
@@ -101,7 +101,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $this->_prepare['selectMinKey'] = $this->_handler->prepare('SELECT min('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
 
         // Insert many Entities
-            $makeMany = function ($how) use (&$template) {
+            $makeMany = function (int $how) use (&$template) : string {
                 $query = $template['insert_template'];
 
                 for ($i=1; $i < $how; $i++) :
