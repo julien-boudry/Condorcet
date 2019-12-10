@@ -95,7 +95,7 @@ class Candidate
 
     private function checkNameInElectionContext (string $name) : bool
     {
-        foreach ($this->_link as &$link) :
+        foreach ($this->_link as $link) :
             if (!$link->canAddCandidate($name)) :
                 return false;
             endif;

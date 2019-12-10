@@ -92,6 +92,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                 ksort($this->_Container,SORT_NUMERIC);
             elseif ($this->_DataHandler !== null) :
                 $this->_DataHandler->deleteOneEntity($offset, true);
+                unset($this->_Cache[$offset]);
             endif;
 
             $this->clearCache();

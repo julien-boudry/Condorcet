@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
 class VotesManagerTest extends TestCase
 {
     private  Election $election;
-
     private VotesManager $votes_manager;
 
     protected function setUp() : void
@@ -47,7 +46,9 @@ class VotesManagerTest extends TestCase
         self::assertSame($before_list, $this->votes_manager->getVotesList());
 
         // unset existing vote
-        $this->votes_manager[] = new Vote([]);
+        $vote = new Vote ([]);
+        $vote->registerLink($this->election);
+        $this->votes_manager[] = $vote;
         unset($this->votes_manager[0]);
         self::assertEmpty($this->votes_manager->getVotesList());
     }
@@ -65,7 +66,6 @@ class VotesManagerTest extends TestCase
         $this->election->addCandidate('candidate');
         $this->election->addVote(new Vote(['candidate']));
 
-        $this->votes_manager[] = new Vote([]);
         self::assertNotEmpty($this->votes_manager->getVotesList());
     }
 

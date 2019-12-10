@@ -466,7 +466,7 @@ class Vote implements \Iterator
             $this->_weight = $newWeight;
 
             if (!empty($this->_link)) :
-                foreach ($this->_link as &$link) :
+                foreach ($this->_link as $link) :
                     $link->setStateToVote();
                 endforeach;
             endif;
