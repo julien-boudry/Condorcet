@@ -145,10 +145,10 @@ trait ResultsProcess
         $this->getResult($method);
     }
 
-    protected function makePairwise () : Pairwise
+    protected function makePairwise () : void
     {
         $this->cleanupCalculator();
-        return $this->_Pairwise = new Pairwise ($this);
+        $this->_Pairwise = new Pairwise ($this);
     }
 
     protected function initResult (string $class) : void

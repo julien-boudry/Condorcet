@@ -70,6 +70,8 @@ class Election
     public function __destruct ()
     {
         $this->destroyAllLink();
+        unset($this->_Pairwise);
+        unset($this->_Calculator);
     }
 
     public function __serialize () : array
