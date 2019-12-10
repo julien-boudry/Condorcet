@@ -77,7 +77,6 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset($offset) : void
     {
-        // $this->setStateToVote();
         $this->UpdateAndResetComputing($offset,2);
         parent::offsetUnset($offset);
     }
@@ -86,7 +85,7 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing (int $key, int $type) : void
     {
-        if ($this->_Election->getState() === 3) :
+        if ($this->_Election->getState() === 2) :
 
             if ($type === 1) :
                 $this->_Election->getPairwise()->addNewVote($key);
@@ -100,10 +99,6 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    protected function setStateToVote () : void
-    {
-        $this->_Election->setStateToVote();
-    }
 
 /////////// Get Votes Methods ///////////
 

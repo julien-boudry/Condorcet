@@ -55,7 +55,7 @@ trait ResultsProcess
             ////// Start //////
 
         // Prepare
-        $this->prepareResult();
+        $this->preparePairwiseAndCleanCompute();
 
             //////
 
@@ -124,7 +124,10 @@ trait ResultsProcess
 
     public function getPairwise () : Pairwise
     {
-        $this->prepareResult();
+        if ($this->_Pairwise === null) :
+            $this->preparePairwiseAndCleanCompute();
+        endif;
+
         return $this->_Pairwise;
     }
 
@@ -142,9 +145,10 @@ trait ResultsProcess
         $this->getResult($method);
     }
 
-    protected function makePairwise () : void
+    protected function makePairwise () : Pairwise
     {
-        $this->_Pairwise = new Pairwise ($this);
+        $this->cleanupCalculator();
+        return $this->_Pairwise = new Pairwise ($this);
     }
 
     protected function initResult (string $class) : void
@@ -157,22 +161,11 @@ trait ResultsProcess
     // Cleanup results to compute again with new votes
     protected function cleanupCompute () : void
     {
-        // Clean pairwise
-        $this->cleanupPairwise();
-
         // Algos
         $this->cleanupCalculator();
-    }
 
-    public function cleanupPairwise () : void
-    {
-        // Reset state
-        if ($this->_State > 2) :
-            $this->_State = 2;
-        endif;
-
+        // Clean pairwise
         $this->_Pairwise = null;
-        $this->cleanupCalculator();
     }
 
     public function cleanupCalculator () : void

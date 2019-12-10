@@ -50,7 +50,7 @@ class Election
     use CondorcetVersion;
 
     // Mechanics
-    protected int $_State = 1; // 1 = Add Candidates / 2 = Voting / 3 = Some result have been computing
+    protected int $_State = 1; // 1 = Add Candidates / 2 = Voting & Result
     protected Timer_Manager $_timer;
 
     // Params
@@ -243,7 +243,7 @@ class Election
             throw new CondorcetException(29);
         endif;
 
-        if ( $this->_State > 2) :
+        if ( $this->_State > 1) :
             $this->cleanupCompute();;
         endif;
 
@@ -261,7 +261,7 @@ class Election
     {
         $this->_Constraints = [];
 
-        if ( $this->_State > 2) :
+        if ( $this->_State > 1) :
             $this->cleanupCompute();;
         endif;
 
@@ -314,38 +314,32 @@ class Election
     public function setStateToVote () : bool
     {
         if ( $this->_State === 1 ) :
-                if (empty($this->_Candidates)) :
-                    throw new CondorcetException(20);
-                endif;
+            if (empty($this->_Candidates)) :
+                throw new CondorcetException(20);
+            endif;
 
-                $this->_State = 2;
-
-        // If voting continues after a first set of results
-        elseif ( $this->_State > 2 ) :
-                $this->cleanupCompute();
+            $this->_State = 2;
+            $this->preparePairwiseAndCleanCompute();
         endif;
 
         return true;
     }
 
     // Prepare to compute results & caching system
-    protected function prepareResult () : bool
+    protected function preparePairwiseAndCleanCompute () : bool
     {
-        if ($this->_State > 2) :
-            return false;
-        elseif ($this->_State === 2) :
+        if ($this->_Pairwise === null && $this->_State === 2) :
             $this->cleanupCompute();
 
             // Do Pairewise
             $this->makePairwise();
 
-            // Change state to result
-            $this->_State = 3;
-
             // Return
             return true;
-        else :
+        elseif ($this->_State === 1 || $this->countVotes() === 0) :
             throw new CondorcetException(6);
+        else :
+            return false;
         endif;
     }
 
