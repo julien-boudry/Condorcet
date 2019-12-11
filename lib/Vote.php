@@ -59,6 +59,8 @@ class Vote implements \Iterator
 
     private ?Election $_electionContext = null;
 
+    public bool $notUpdate = false;
+
         ///
 
     public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
@@ -268,9 +270,11 @@ class Vote implements \Iterator
             $this->_electionContext->convertRankingCandidates($ranking);
         endif;
 
-        foreach ($this->_link as $link) :
-            $link->prepareUpdateVote($this);
-        endforeach;
+        if(!$this->notUpdate) :
+            foreach ($this->_link as $link) :
+                $link->prepareUpdateVote($this);
+            endforeach;
+        endif;
 
         $this->_ranking = $ranking;
         $this->_lastTimestamp = $ownTimestamp ?? microtime(true);
@@ -294,9 +298,11 @@ class Vote implements \Iterator
                 throw $e;
             }
 
-            foreach ($this->_link as $link) :
-                $link->finishUpdateVote($this);
-            endforeach;
+            if(!$this->notUpdate) :
+                foreach ($this->_link as $link) :
+                    $link->finishUpdateVote($this);
+                endforeach;
+            endif;
         endif;
 
         $this->setHashCode();

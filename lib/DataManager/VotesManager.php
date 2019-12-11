@@ -45,15 +45,17 @@ class VotesManager extends ArrayManager
     protected function decodeOneEntity (string $data) : Vote
     {
         $vote = new Vote ($data);
-        $this->_Election->checkVoteCandidate($vote);
         $vote->registerLink($this->_Election);
+        $vote->notUpdate = true;
+        $this->_Election->checkVoteCandidate($vote);
+        $vote->notUpdate = false;
 
         return $vote;
     }
 
     protected function encodeOneEntity (Vote $data) : string
     {
-        $data->destroyLink($this->_Election);
+        // $data->destroyLink($this->_Election);
 
         return str_replace([' > ',' = '],['>','='],(string) $data);
     }

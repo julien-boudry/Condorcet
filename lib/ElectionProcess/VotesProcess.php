@@ -374,10 +374,11 @@ trait VotesProcess
         foreach ($adding as $oneLine) :
             for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
                 if ($i === 1) :
-                    $this->addVote($oneLine['vote']);
+                    $finalVoteModel = $this->addVote($oneLine['vote']);
                     $this->_voteFastMode = 2;
                 else :
-                    $this->addVote(clone $oneLine['vote']);
+                    $debug = $i;
+                    $debug = $this->addVote(clone $finalVoteModel);
                 endif;
             endfor;
         endforeach;
