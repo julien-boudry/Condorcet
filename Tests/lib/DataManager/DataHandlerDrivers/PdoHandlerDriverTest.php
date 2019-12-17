@@ -69,8 +69,8 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertEquals($electionInMemory->getPairwise()->getExplicitPairwise(),$electionWithDb->getPairwise()->getExplicitPairwise());
         self::assertEquals((string) $electionInMemory->getWinner('Ranked Pairs Winning'),(string) $electionWithDb->getWinner('Ranked Pairs Winning'));
-        self::assertEquals($electionInMemory->getWinner(),$electionWithDb->getWinner());
-        self::assertEquals($electionInMemory->getCondorcetWinner(),$electionWithDb->getCondorcetWinner());
+        self::assertEquals((string) $electionInMemory->getWinner(),(string) $electionWithDb->getWinner());
+        self::assertEquals((string) $electionInMemory->getCondorcetWinner(),(string) $electionWithDb->getCondorcetWinner());
 
 
         // 58 Votes

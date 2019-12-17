@@ -55,7 +55,7 @@ class VotesManager extends ArrayManager
 
     protected function encodeOneEntity (Vote $data) : string
     {
-        // $data->destroyLink($this->_Election);
+        $data->destroyLink($this->_Election);
 
         return str_replace([' > ',' = '],['>','='],(string) $data);
     }
@@ -75,6 +75,8 @@ class VotesManager extends ArrayManager
         else :
             throw new CondorcetException (0,'Value must be an instanceof CondorcetPHP\Vote');
         endif;
+
+        $this->checkRegularize();
     }
 
     public function offsetUnset($offset) : void

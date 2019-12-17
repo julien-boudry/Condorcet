@@ -98,7 +98,8 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->clearCache();
         endif;
 
-        $this->checkRegularize();
+        // Delegate this step to VoteManager. To give him time to calculate the pairwise iteratively. Without recharging the memory.
+        // $this->checkRegularize();
     }
 
     // Use by isset() function, must return false if offset value is null.
