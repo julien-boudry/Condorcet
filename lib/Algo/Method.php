@@ -32,6 +32,11 @@ abstract class Method
         endif;
     }
 
+    public function __destruct ()
+    {
+        unset($this->_selfElection, $this->_Result);
+    }
+
     public function getResult () : Result
     {
         // Cache

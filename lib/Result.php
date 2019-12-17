@@ -98,6 +98,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_BuildTimeStamp = microtime(true);
     }
 
+    public function __destruct ()
+    {
+        unset($this->_Result, $this->_UserResult, $this->_Stats, $this->_CondorcetWinner, $this->_CondorcetLoser);
+    }
+
 
 /////////// Get Result ///////////
 

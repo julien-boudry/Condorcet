@@ -71,6 +71,11 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->doPairwise();
     }
 
+    public function __destruct ()
+    {
+        unset($this->_Election);
+    }
+
     public function __clone ()
     {
         $this->_Election = null;

@@ -16,6 +16,11 @@ trait Linkable
 {
     private array $_link = [];
 
+    public function __destruct ()
+    {
+        $this->destroyAllLink();
+    }
+
     public function __clone ()
     {
         $this->destroyAllLink();
