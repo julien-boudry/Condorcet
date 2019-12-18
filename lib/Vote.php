@@ -254,6 +254,12 @@ class Vote implements \Iterator
 
     // SETTERS
 
+    public function clearRankingHistory () : void
+    {
+        $this->_ranking_history = [];
+        $this->setHashCode();
+    }
+
     public function setRanking ($ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp

@@ -33,7 +33,7 @@ class ElectionCommand extends Command
     protected string $candidates;
     protected string $votes;
 
-    public static int $VotesPerMB = 1;
+    public static int $VotesPerMB = 400;
 
     // Internal Process
     protected bool $candidatesListIsWrite = false;
@@ -456,9 +456,10 @@ class ElectionCommand extends Command
         else :
             $election = $this->election;
             $SQLitePath = &$this->SQLitePath;
+
             $memory_limit = (int) preg_replace('`[^0-9]`', '', ini_get('memory_limit'));
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
-            $vote_in_memory_limit = 2;
+
             $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath) : bool {
                 if (  $inserted_votes_count > $vote_in_memory_limit ) :
 
