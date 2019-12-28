@@ -329,8 +329,8 @@ trait VotesProcess
                 try {
                     CondorcetUtil::prepareParse($record, false);
 
-                    if ( $is_comment = strpos($record, '#') !== false ) :
-                        $record = substr($line, 0, $is_comment);
+                    if ( ($is_comment = strpos($record, '#')) !== false ) :
+                        $record = substr($record, 0, $is_comment);
                     endif;
 
                     $multiple = VoteUtil::parseAnalysingOneLine(strpos($record, '*'),$record);
