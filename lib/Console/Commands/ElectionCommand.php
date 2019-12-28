@@ -33,7 +33,7 @@ class ElectionCommand extends Command
     protected string $candidates;
     protected string $votes;
 
-    public static int $VotesPerMB = 400;
+    public static int $VotesPerMB = 100;
 
     // Internal Process
     protected bool $candidatesListIsWrite = false;

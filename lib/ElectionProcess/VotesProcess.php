@@ -327,11 +327,22 @@ trait VotesProcess
 
             if ($char === ";" || $char === "\n" || $char === false) :
                 try {
-                    $inserted_votes_count += $this->parseVotes($record);
+                    CondorcetUtil::prepareParse($record, false);
 
-                    if ($doCallBack) :
-                        $doCallBack = $callBack($inserted_votes_count);
+                    if ( $is_comment = strpos($record, '#') !== false ) :
+                        $record = substr($line, 0, $is_comment);
                     endif;
+
+                    $multiple = VoteUtil::parseAnalysingOneLine(strpos($record, '*'),$record);
+
+                    for ($i=0; $i < $multiple; $i++) :
+                        $inserted_votes_count += $this->parseVotes($record);
+
+                        if ($doCallBack) :
+                            $doCallBack = $callBack($inserted_votes_count);
+                        endif;
+                    endfor;
+
                 } catch (CondorcetException $e) {
                     ++$fail_count;
                 } finally {
