@@ -20,7 +20,7 @@ jobs:
       uses: shivammathur/setup-php@master
       with:
         php-version: ${{ matrix.php-versions }}
-        extension-csv: mbstring, json, pdo, pdo_sqlite, dom
+        extensions: mbstring, json, pdo, pdo_sqlite, dom
 
     - name: Check PHP Version
       run: php -v
