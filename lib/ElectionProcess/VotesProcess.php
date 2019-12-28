@@ -375,8 +375,6 @@ trait VotesProcess
             for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) :
                 if ($i === 1) :
                     $finalVoteModel = $this->addVote($oneLine['vote']);
-                    $finalVoteModel->clearRankingHistory();
-
                     $this->_voteFastMode = 2;
                 else :
                     $this->addVote(clone $finalVoteModel);
