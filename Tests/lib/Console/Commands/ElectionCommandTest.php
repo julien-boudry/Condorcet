@@ -141,4 +141,18 @@ class ElectionCommandTest extends TestCase
         // $output = $this->electionCommand->getDisplay();
         // var_dump($output);
     }
+
+    public function testCustomizeVotesPerMb () : void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+                                            '--votes-per-mb' => 42
+                                        ]);
+
+        self::assertSame(42, \CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB);
+
+        // $output = $this->electionCommand->getDisplay();
+        // var_dump($output);
+    }
 }

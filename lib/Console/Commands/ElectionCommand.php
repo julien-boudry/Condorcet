@@ -86,9 +86,14 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_NONE
                             , 'Add no-tie constraint for vote'
             )
+
             ->addOption(      'desactivate-file-cache', null
                             , InputOption::VALUE_NONE
                             , "Don't use a disk cache for very large elections. Forces to work exclusively in RAM."
+            )
+            ->addOption(      'votes-per-mb', null
+                            , InputOption::VALUE_REQUIRED
+                            , "Adjust memory in cas eof failure. default is 100. Try to lower it."
             )
 
             ->addArgument(
@@ -103,6 +108,11 @@ class ElectionCommand extends Command
     {
         // Initialize Style
         $this->centerPadTypeStyle = (new TableStyle())->setPadType(STR_PAD_BOTH);
+
+        // Setup Memory
+        if ($input->getOption('votes-per-mb') && ($NewVotesPerMB = (int) $input->getOption('votes-per-mb')) >= 1 ) :
+            self::$VotesPerMB = $NewVotesPerMB;
+        endif;
 
         // Setup Election Object
         $this->election = new Election;
