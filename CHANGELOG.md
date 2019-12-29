@@ -2,14 +2,16 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.1.0] - 2019-12-XX
+## [v2.1.0] - 2020-12-29
 ### Description
 Move to PHP 7.4 version. And add console application for command line usage!
 
 ### Added
 - New Condorcet Application from the command line. Easy to use for non-technical users. And faster to use for everyone for most use cases.
 - Docker file for building Condorcet image. For very easy access to the command line application.
+- Official compiled PHAR files are now available for each version on the release page.
 - Json input can include vote weight.
+- New method Election::parseVotesWithoutFail allowing to ignore bad vote, and usefull for low and constant memory usage.
 
 ### Changed
 - PHP 7.4 is the new minimal PHP version required.
@@ -19,7 +21,7 @@ Move to PHP 7.4 version. And add console application for command line usage!
 - Vote::getWeight() allow a new optional parameter $context and if providing returning ranking in context of an election instead theorical ranking.
 
 ### Internal changes
-- Use PHP 7.4 new types on property. For security and performances reasons.
+- Use PHP 7.4 new types on property. For security and performance reasons.
 
 ## [v2.0.0] - 2019-09-07
 ### Description
