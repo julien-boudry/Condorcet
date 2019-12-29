@@ -160,6 +160,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -169,6 +170,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
@@ -180,6 +182,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
@@ -191,6 +194,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getLoser () : ?int  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
@@ -202,6 +206,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -213,6 +218,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
@@ -223,6 +229,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -234,6 +241,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Ftpt\Ftpt extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
@@ -244,6 +252,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected compute () : void  
@@ -256,6 +265,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected calcPossibleRanking () : void  
@@ -270,6 +280,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -281,6 +292,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -292,6 +304,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -303,6 +316,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -314,6 +328,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -329,6 +344,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -344,6 +360,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -359,6 +376,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -372,6 +390,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -385,6 +404,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -398,6 +418,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
 * public getResult () : CondorcetPHP\Condorcet\Result  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
@@ -412,6 +433,7 @@ _Including above methods from public API_
 ```php
 * public __clone ()  
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
+* public __destruct ()  
 * public addNewVote (int $key) : void  
 * public current () : array  
 * public getExplicitPairwise () : array  
@@ -456,6 +478,7 @@ _Including above methods from public API_
 ```php
 * public __clone ()  
 * public __construct (string $name)  
+* public __destruct ()  
 * public __toString () : string  
 * public countLinks () : int  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
@@ -502,8 +525,9 @@ _Including above methods from public API_
 * public addArgument ($name, $mode = null, $description = , $default = null)  
 * public addOption ($name, $shortcut = null, $mode = null, $description = , $default = null)  
 * public addUsage ($usage)  
-* public displayPairwise (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
-* public displayVotesCount (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output) : void  
+* public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output) : void  
+* public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
 * public getAliases ()  
 * public getApplication ()  
 * public getDefinition ()  
@@ -532,7 +556,7 @@ _Including above methods from public API_
 * public setName ($name)  
 * public setProcessTitle ($title)  
 * protected configure () : void  
-* protected displayCandidatesList (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : int  
 * protected formatResultTable (CondorcetPHP\Condorcet\Result $result) : array  
 * protected getFilePath (string $path) : ?string  
@@ -541,6 +565,7 @@ _Including above methods from public API_
 * protected isAbsolute (string $path) : bool  
 * protected prepareMethods (array $methodArgument) : array  
 * protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
+* protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input) : ?Closure  
 * private validateName (string $name)  
 ```
 
@@ -571,7 +596,6 @@ _Including above methods from public API_
 * public debugGetCache () : array  
 * public getCacheSize () : int  
 * public getContainerSize () : int  
-* public getDataContextObject () : CondorcetPHP\Condorcet\DataManager\DataContextInterface  
 * public getFirstKey () : int  
 * public getFullDataSet () : array  
 * public getObjectVersion (bool $major = false) : string  
@@ -589,6 +613,10 @@ _Including above methods from public API_
 * public resetMaxKey () : ?int  
 * public rewind () : void  
 * public valid () : bool  
+* protected decodeManyEntities (array $entities) : array  
+* protected decodeOneEntity (string $data) : CondorcetPHP\Condorcet\Vote  
+* protected encodeManyEntities (array $entities) : array  
+* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data) : string  
 * protected populateCache () : void  
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
@@ -597,7 +625,6 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
 ```php
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
-* public __destruct ()  
 * public closeTransaction () : void  
 * public countEntities () : int  
 * public createTable () : void  
@@ -633,7 +660,6 @@ _Including above methods from public API_
 * public destroyElection () : void  
 * public getCacheSize () : int  
 * public getContainerSize () : int  
-* public getDataContextObject () : CondorcetPHP\Condorcet\DataManager\DataContextInterface  
 * public getElection () : CondorcetPHP\Condorcet\Election  
 * public getFirstKey () : int  
 * public getFullDataSet () : array  
@@ -659,12 +685,15 @@ _Including above methods from public API_
 * public setElection (CondorcetPHP\Condorcet\Election $election) : void  
 * public sumVotesWeight (bool $constraint = false) : int  
 * public valid () : bool  
+* protected decodeManyEntities (array $entities) : array  
+* protected decodeOneEntity (string $data) : CondorcetPHP\Condorcet\Vote  
+* protected encodeManyEntities (array $entities) : array  
+* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data) : string  
 * protected getFullVotesListGenerator () : Generator  
 * protected getPartialVotesListGenerator (array $tag, bool $with) : Generator  
 * protected populateCache () : void  
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
-* protected setStateToVote () : void  
 ```
 
 #### CondorcetPHP\Condorcet\Election   
@@ -686,7 +715,6 @@ _Including above methods from public API_
 * public canAddCandidate ($candidate) : bool  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public cleanupCalculator () : void  
-* public cleanupPairwise () : void  
 * public clearConstraints () : bool  
 * public computeResult (?string $method = null) : void  
 * public convertRankingCandidates (array $ranking) : bool  
@@ -725,7 +753,7 @@ _Including above methods from public API_
 * public isVoteWeightAllowed () : bool  
 * public parseCandidates (string $input, bool $isFile = false) : array  
 * public parseVotes (string $input, bool $isFile = false) : int  
-* public parseVotesWithoutFail (string $input, bool $isFile = false) : int  
+* public parseVotesWithoutFail (string $input, bool $isFile = false, ?Closure $callBack = null) : int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public removeCandidates ($candidates_input) : array  
 * public removeExternalDataHandler () : bool  
@@ -742,7 +770,7 @@ _Including above methods from public API_
 * protected doAddVotesFromParse (array $adding) : void  
 * protected initResult (string $class) : void  
 * protected makePairwise () : void  
-* protected prepareResult () : bool  
+* protected preparePairwiseAndCleanCompute () : bool  
 * protected prepareVoteInput ($vote, $tag = null) : void  
 * protected registerAllLinks () : void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, $tag = null) : CondorcetPHP\Condorcet\Vote  
@@ -760,6 +788,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats)  
+* public __destruct ()  
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
 * public current ()  
@@ -864,6 +893,7 @@ _Including above methods from public API_
 ```php
 * public __clone ()  
 * public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
+* public __destruct ()  
 * public __serialize () : array  
 * public __toString () : string  
 * public addTags ($tags) : bool  

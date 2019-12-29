@@ -1113,6 +1113,12 @@
       required: false
       default: false
       text: If true, the input is evalatued as path to text file.
+    callBack:
+      type: Closure
+      required: false
+      default: 'null'
+      nullable: true
+      text: Callback function to execute after each registered vote.
   return_type: int
   return: |
     Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.

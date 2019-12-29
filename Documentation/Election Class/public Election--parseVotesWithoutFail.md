@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> parseVotesWithoutFail ( string input [, bool isFile = false] ) : int
+public $Election -> parseVotesWithoutFail ( string input [, bool isFile = false , ?Closure callBack = null] ) : int
 ```
 
 Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
@@ -15,6 +15,10 @@ String or valid path to a text file.
 
 ##### **isFile:** *bool*   
 If true, the input is evalatued as path to text file.    
+
+
+##### **callBack:** *?Closure*   
+Callback function to execute after each registered vote.    
 
 
 ### Return value:   
