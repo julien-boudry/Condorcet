@@ -76,7 +76,7 @@ $election1 = new Election ();
 
         $myVote2 = new Vote ( array(
             1 => 'Debussy',
-            2 => 'Caplet', 
+            2 => 'Caplet',
             3 => 'Olivier Messiaen',
             4 => 'Koechlin',
             5 => 'Wiltod Lutoslawski',
@@ -137,8 +137,8 @@ $election1 = new Election ();
 
 
             // How Many Vote could I Have now ?
-            $election1->countVotes(); // Return 110 (int)    
-        
+            $election1->countVotes(); // Return 110 (int)
+
 
 
 
@@ -170,7 +170,7 @@ $election1 = new Election ();
         # 2- Vote objet
             $myVote3->getRanking(); // This vote specifies four candidates. Although the election comprises 6. This method return the original input.
             $myVote3->getContextualRanking($election1); // Return the full ranking in the context of election 1 (with 6 candidates). It is one that is taken into account when calculating the results of the election 1.
-            
+
 
             // Change the vote
             $myVote1->setRanking ( array(
@@ -219,5 +219,5 @@ $election1 = new Election ();
 
 
 
-print $firstPart ?? 'Success!  
+print $firstPart ?? 'Success!
 Process in: '. round(microtime(true) - $start_time,3) . 's';

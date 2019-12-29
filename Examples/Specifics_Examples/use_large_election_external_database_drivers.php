@@ -63,7 +63,7 @@
     $myElection->getResult('Schulze');
 
 
-print 'Success!  
+print 'Success!
 Process in: '. round(microtime(true) - $start_time,2) . "s\n";
 
 echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024,($i=floor(log(memory_get_peak_usage(),1024)))),2).' '.['b','kb','mb','gb','tb','pb'][$i]."\n\n";

@@ -89,5 +89,5 @@ declare(strict_types=1);
             $myNewVote->getHistory();
 
 
-print 'Success!  
+print 'Success!
 Process in: '. round(microtime(true) - $start_time,3) . 's';

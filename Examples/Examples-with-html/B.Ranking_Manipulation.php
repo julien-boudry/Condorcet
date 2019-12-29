@@ -37,11 +37,11 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	</header>
 
 	<h1><?php echo TEST_NAME ;?></h1>
-	
+
 	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo Condorcet::getVersion(); ?></em><br>
 
 	<em>
-		Number of Candidates : 
+		Number of Candidates :
 		<?php echo $election->countCandidates() ;?>
 		|
 		Number of votes :
@@ -51,9 +51,9 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<h2>Candidates list :</h2>
 
 	<ul>
-	<?php 
+	<?php
 	foreach ($election->getCandidatesList() as $candidatName)
-	{ 
+	{
 		echo '<li>'.$candidatName.'</li>' ;
 	}
 	?>
@@ -90,7 +90,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	 <pre>
 	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
-	 </pre> 
+	 </pre>
 	<br>
 	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>
 
@@ -123,7 +123,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 <h2>Some pratices about default method :</h2>
 
 	<h3>Use default method :</h3>
-	
+
 	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
@@ -209,7 +209,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVotesByTags('custom_tag_One', false) ) ?>
 
-	<?php 
+	<?php
 		$election->removeVotesByTags(array('custom_tag_One', 'custom_tag_Two')) ;
 	?>
 

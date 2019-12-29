@@ -37,11 +37,11 @@ define('TEST_NAME', 'Condorcet Global Example');
 	</header>
 
 	<h1><?php echo TEST_NAME ;?></h1>
-	
+
 	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo Condorcet::getVersion(); ?></em><br>
 
 	<em>
-		Number of Candidates : 
+		Number of Candidates :
 		<?php echo $election->countCandidates() ;?>
 		|
 		Number of votes :
@@ -51,9 +51,9 @@ define('TEST_NAME', 'Condorcet Global Example');
 	<h2>Candidates list :</h2>
 
 	<ul>
-	<?php 
+	<?php
 	foreach ($election->getCandidatesList() as $candidatName)
-	{ 
+	{
 		echo '<li>'.$candidatName.'</li>' ;
 	}
 	?>
@@ -113,13 +113,13 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 <br><br><hr>
 
-<?php 
+<?php
 	foreach (Condorcet::getAuthMethods() as $method)
 	{ ?>
 
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
-		<?php 
+		<?php
 
 			$result = $election->getResult($method) ;
 			$lastTimer = $election->getLastTimer() ;
@@ -137,7 +137,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 		</pre>
 
 		<em style="color:green;">computed in <?php echo $lastTimer ; ?> second(s).</em>
-	
+
 	<?php }
 
 ?>
@@ -146,7 +146,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 <br>
 <?php var_dump($election->getTimerManager()->getHistory()); ?>
 <br><br><hr>
- 
+
 <h2>Computing statistics :</h2>
 
 	<h3>Pairwise :</h3>
@@ -154,7 +154,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 	<pre>
 	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
 	</pre>
-	
+
 	<?php
 	foreach (Condorcet::getAuthMethods() as $method)
 	{ ?>
@@ -163,11 +163,11 @@ define('TEST_NAME', 'Condorcet Global Example');
 		<pre>
 		<?php var_dump( CondorcetUtil::format($election->getResult($method)->getStats()) ); ?>
 		</pre>
-	
+
 	<?php } ?>
 
  <br><br><hr>
- 
+
 <h2>Debug Data :</h2>
 
  <h4>Defaut method (not used explicitly before) :</h4>
