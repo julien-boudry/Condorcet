@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.1.0] - 2020-12-29
+## [v2.1.0] - 2019-12-29
 ### Description
 Move to PHP 7.4 version. And add console application for command line usage!
 
