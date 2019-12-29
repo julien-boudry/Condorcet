@@ -2,6 +2,14 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.0.1] - 2019-12-29
+### Description
+The 2.0 branch is now legacy.
+
+### Changed
+- Harmonize parseVotes & parseJson
+- Use Github Actions instead of Travis CI.
+
 ## [v2.0.0] - 2019-09-07
 ### Description
 Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!
