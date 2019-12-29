@@ -23,6 +23,14 @@ Move to PHP 7.4 version. And add console application for command line usage!
 ### Internal changes
 - Use PHP 7.4 new types on property. For security and performance reasons.
 
+## [v2.0.1] - 2019-12-29
+### Description
+The 2.0 branch is now legacy.
+
+### Changed
+- Harmonize parseVotes & parseJson
+- Use Github Actions instead of Travis CI.
+
 ## [v2.0.0] - 2019-09-07
 ### Description
 Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!
