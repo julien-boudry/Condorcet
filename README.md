@@ -5,6 +5,7 @@
 [![Build Status](https://github.com/julien-boudry/Condorcet/workflows/Execute%20All%20Tests/badge.svg?branch=master)](https://github.com/julien-boudry/Condorcet/actions)
 [![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE.txt)
 [![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
 [![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=flat-square)](https://packagist.org/packages/julien-boudry/condorcet)
 [![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=flat-square)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
 ![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=flat-square)
