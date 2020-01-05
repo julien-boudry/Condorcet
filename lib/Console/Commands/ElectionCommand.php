@@ -461,7 +461,7 @@ class ElectionCommand extends Command
 
     protected function useDataHandler (InputInterface $input) : ?\Closure
     {
-        if ($input->getOption('desactivate-file-cache')) :
+        if ( $input->getOption('desactivate-file-cache') || !class_exists('\PDO') || !in_array('sqlite', \PDO::getAvailableDrivers(), true) ) :
             return null;
         else :
             $election = $this->election;
