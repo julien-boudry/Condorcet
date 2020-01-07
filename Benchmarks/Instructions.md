@@ -1,5 +1,7 @@
 ## Instructions
 
+``` composer require --dev phpbench/phpbench ```
+
 ### Simple Suite
 
 #### Time Centric
@@ -10,7 +12,7 @@
 
 ``` ./vendor/bin/phpbench run Benchmarks/SimpleUsageBench.php --report=default --executor=memory_centric_microtime ```
 
-#### Intensive Suite
+### Intensive Suite
 
 ``` ./vendor/bin/phpbench run Benchmarks/IntensiveUsageBench.php --report=default ```
 

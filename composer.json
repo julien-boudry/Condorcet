@@ -23,7 +23,6 @@
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "codacy/coverage": "dev-master",
-        "phpbench/phpbench": "dev-master",
         "phpunit/phpunit": "^8",
         "phploc/phploc": "dev-master"
     },
