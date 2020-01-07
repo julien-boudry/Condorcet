@@ -89,7 +89,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                     $this->_maxKey = $offset;
                 endif;
 
-                \ksort($this->_Container,SORT_NUMERIC);
+                \ksort($this->_Container,\SORT_NUMERIC);
             elseif ($this->_DataHandler !== null) :
                 $this->_DataHandler->deleteOneEntity($offset, true);
                 unset($this->_Cache[$offset]);
@@ -360,7 +360,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->_maxKey = -1;
             return null;
         else :
-            $maxContainerKey = empty($this->_Container) ? null : \max(array_keys($this->_Container));
+            $maxContainerKey = empty($this->_Container) ? null : \max(\array_keys($this->_Container));
             $maxHandlerKey = $this->_DataHandler !== null ? $this->_DataHandler->selectMaxKey() : null;
 
             return $this->_maxKey = \max( $maxContainerKey,$maxHandlerKey );

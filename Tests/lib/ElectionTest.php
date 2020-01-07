@@ -438,7 +438,7 @@ D > C > B > A * 1',
         $votes[]['vote'] = new \stdClass(); // Invalid Vote
         $votes[]['vote'] = ['C','B','A'];
 
-        self::assertSame(2,$election->addVotesFromJson(json_encode($votes)));
+        self::assertSame(2,$election->addVotesFromJson(\json_encode($votes)));
 
         self::assertSame(
 'B > C > A * 1
@@ -453,7 +453,7 @@ C > B > A * 1',
         $votes[0]['tag'] = 'tag1';
         $votes[0]['weight'] = '42';
 
-        $election->addVotesFromJson(json_encode($votes));
+        $election->addVotesFromJson(\json_encode($votes));
 
         $election->allowsVoteWeight(true);
 
@@ -465,7 +465,7 @@ C > B > A * 1',
         );
         self::assertSame(5,$election->countVotes('tag1'));
 
-        $election->addVotesFromJson(json_encode($votes).'{42');
+        $election->addVotesFromJson(\json_encode($votes).'{42');
     }
 
     public function testaddCandidatesFromJson () : void
@@ -477,13 +477,13 @@ C > B > A * 1',
 
         $candidates = ['candidate1 ','candidate2'];
 
-        $election->addCandidatesFromJson(json_encode($candidates));
+        $election->addCandidatesFromJson(\json_encode($candidates));
 
         self::assertSame(2,$election->countCandidates());
 
         self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
 
-        $election->addCandidatesFromJson(json_encode(['candidate2']));
+        $election->addCandidatesFromJson(\json_encode(['candidate2']));
     }
 
     public function testaddCandidatesFromInvalidJson () : void
@@ -493,7 +493,7 @@ C > B > A * 1',
 
         $election = new Election;
 
-        $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
+        $election->addCandidatesFromJson(\json_encode(['candidate3']).'{42');
     }
 
 
@@ -509,7 +509,7 @@ C > B > A * 1',
         self::assertFalse($$this->election1->addVotesFromJson(""));
         self::assertFalse($$this->election1->addVotesFromJson(" "));
         self::assertFalse($$this->election1->addVotesFromJson([]));
-        self::assertFalse($$this->election1->addVotesFromJson(json_encode(new \stdClass())));
+        self::assertFalse($$this->election1->addVotesFromJson(\json_encode(new \stdClass())));
     }
 
     public function testCachingResult() : void
@@ -539,8 +539,8 @@ C > B > A * 1',
         $election->addVote($vote1 = new Vote ('A > C > D'));
         $result1 = $election->getResult('Schulze');
 
-        $election = serialize($election);
-        $election = unserialize($election);
+        $election = \serialize($election);
+        $election = \unserialize($election);
 
         self::assertNotSame($result1,$election->getResult('Schulze'));
         self::assertSame($result1->getResultAsString(),$election->getResult('Schulze')->getResultAsString());
@@ -651,7 +651,7 @@ C > B > A * 1',
         $weakref = \WeakReference::create($election);
 
         $election->__destruct(); // PHP circular reference can bug
-        // debug_zval_dump($election);
+        // \debug_zval_dump($election);
         unset($election);
 
         self::assertNull($weakref->get());

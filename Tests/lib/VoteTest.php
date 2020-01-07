@@ -322,7 +322,7 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $targetTags,
-                array_values($vote1->getTags())
+                \array_values($vote1->getTags())
             );
 
             self::assertTrue($vote1->removeAllTags());
@@ -337,14 +337,14 @@ class VoteTest extends TestCase
 
             self::assertSame(
                 $targetTags,
-                array_values($vote1->getTags())
+                \array_values($vote1->getTags())
             );
 
             self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
 
             self::assertEquals(
                 ['tag1','tag3'],
-                array_values($vote1->getTags()));
+                \array_values($vote1->getTags()));
 
             self::assertTrue($vote1->removeAllTags());
 
@@ -360,7 +360,7 @@ class VoteTest extends TestCase
 
         self::assertSame(
             [],
-            array_values($vote1->getTags())
+            \array_values($vote1->getTags())
         );
 
         self::assertTrue($vote1->removeAllTags());
@@ -374,7 +374,7 @@ class VoteTest extends TestCase
         }
             self::assertSame(
                 [],
-                array_values($vote1->getTags())
+                \array_values($vote1->getTags())
             );
 
         self::assertTrue($vote1->removeAllTags());
@@ -486,11 +486,11 @@ class VoteTest extends TestCase
         $vote = new Vote (
             'A>B>C',
             null,
-            $createTimestamp = microtime(true) - (3600 * 1000));
+            $createTimestamp = \microtime(true) - (3600 * 1000));
 
         self::assertSame($createTimestamp, $vote->getTimestamp());
 
-        $vote->setRanking('B>C>A',$ranking2Timestamp = microtime(true) - (60 * 1000));
+        $vote->setRanking('B>C>A',$ranking2Timestamp = \microtime(true) - (60 * 1000));
 
         self::assertSame($ranking2Timestamp, $vote->getTimestamp());
 

@@ -25,7 +25,7 @@ abstract class CondorcetUtil
         \json_decode($string);
 
         // check if error occured
-        return \json_last_error() === JSON_ERROR_NONE;
+        return \json_last_error() === \JSON_ERROR_NONE;
     }
 
     public static function prepareJson (string $input)
@@ -88,7 +88,7 @@ abstract class CondorcetUtil
                 $input[$key] = self::format($line,$convertObject);
             endforeach;
 
-            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(reset($input)) || \count(\reset($input)) === 1)):
+            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(\reset($input)) || \count(\reset($input)) === 1)):
                 $r = \reset($input);
             else:
                 $r = $input;

@@ -69,7 +69,7 @@ class BordaCount extends Method implements MethodInterface
             endfor;
         endforeach;
 
-        arsort($score,SORT_NUMERIC);
+        \arsort($score,\SORT_NUMERIC);
 
         $rank = 0;
         $lastScore = null;

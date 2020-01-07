@@ -100,7 +100,7 @@ class Election
 
     public function __unserialize (array $data) : void
     {
-        if ( version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
+        if ( \version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
         endif;
 
@@ -165,7 +165,7 @@ class Election
         endforeach;
 
         $this->_Pairwise !== null
-            && \hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+            && \hash_update($r,\serialize($this->_Pairwise->getExplicitPairwise()));
 
         \hash_update($r, $this->getObjectVersion(true));
 

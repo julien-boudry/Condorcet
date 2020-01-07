@@ -350,7 +350,7 @@ class ElectionCommand extends Command
             ($votesStatsTable = new Table($output))
                 ->setHeaderTitle('Stats - Votes Registration')
                 ->setHeaders(['Stats', 'Value'])
-                ->setColumnStyle(0,(new Tablestyle())->setPadType(STR_PAD_LEFT))
+                ->setColumnStyle(0,(new Tablestyle())->setPadType(\STR_PAD_LEFT))
             ;
 
             $votesStatsTable->addRow(['Count Registered Votes', $this->election->countValidVoteWithConstraints()]);
@@ -431,7 +431,7 @@ class ElectionCommand extends Command
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) :
                 $line = $line.'*';
-            elseif ($rank === \max(\array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[\max(\array_keys($resultArray))][0] === $result->getCondorcetLoser()) :
+            elseif ($rank === \max(\array_keys($resultArray)) && \count($result[\max(\array_keys($resultArray))]) === 1 && $result[\max(\array_keys($resultArray))][0] === $result->getCondorcetLoser()) :
                 $line = $line.'#';
             endif;
 

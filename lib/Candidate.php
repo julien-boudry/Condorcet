@@ -81,7 +81,7 @@ class Candidate
 
     public function getTimestamp () : float
     {
-        return end($this->_name)['timestamp'];
+        return \end($this->_name)['timestamp'];
     }
 
     public function getProvisionalState () : bool

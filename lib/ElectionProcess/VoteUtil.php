@@ -22,7 +22,7 @@ abstract class VoteUtil
         endif;
 
         if (\is_string($tags)) :
-            $tags = explode(',', $tags);
+            $tags = \explode(',', $tags);
         elseif (\is_array($tags)) :
             foreach ($tags as &$oneTag) :
                 if (!\is_string($oneTag)) :
@@ -76,7 +76,7 @@ abstract class VoteUtil
     public static function parseAnalysingOneLine ($searchCharacter, string &$line) : int
     {
         if ($searchCharacter !== false) :
-            $value = \trim( substr($line, $searchCharacter + 1) );
+            $value = \trim( \substr($line, $searchCharacter + 1) );
 
             // Errors
             if ( !\is_numeric($value) ) :

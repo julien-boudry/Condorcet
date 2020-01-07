@@ -178,7 +178,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
             foreach (self::SEGMENT as $value) :
                 if ($count >= $value) :
-                    $input = array_chunk($input, $value, true);
+                    $input = \array_chunk($input, $value, true);
 
                     $end = \end($input);
                     if (\count($input) > 1 && \count($end) < $value) :

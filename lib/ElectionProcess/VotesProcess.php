@@ -137,7 +137,7 @@ trait VotesProcess
 
             if ($change) :
                 $vote->setRanking(  $ranking,
-                                    ( abs($vote->getTimestamp() - \microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
+                                    ( \abs($vote->getTimestamp() - \microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
                 );
             endif;
         endif;
@@ -279,10 +279,10 @@ trait VotesProcess
             endif;
 
             // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'),$line);
+            $multiple = VoteUtil::parseAnalysingOneLine(\strpos($line, '*'),$line);
 
             // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'),$line);
+            $weight = VoteUtil::parseAnalysingOneLine(\strpos($line, '^'),$line);
 
             // Tags + vote
             if (\strpos($line, '||') !== false) :
@@ -353,7 +353,7 @@ trait VotesProcess
             endif;
         endwhile;
 
-        fclose($file);
+        \fclose($file);
 
         return $fail_count;
     }

@@ -69,7 +69,7 @@ class Vote implements \Iterator
         $tagsFromString = null;
 
         // Vote Weight
-        if (is_string($ranking)) :
+        if (\is_string($ranking)) :
             $is_voteWeight = \strpos($ranking, '^');
             if ($is_voteWeight !== false) :
                 $weight = \trim( \substr($ranking, $is_voteWeight + 1) );
@@ -87,7 +87,7 @@ class Vote implements \Iterator
 
             $is_voteTags = \strpos($ranking, '||');
             if ($is_voteTags !== false) :
-                $tagsFromString = \explode(',', trim( substr($ranking, 0, $is_voteTags) ));
+                $tagsFromString = \explode(',', \trim( \substr($ranking, 0, $is_voteTags) ));
                 $ranking = \substr($ranking, $is_voteTags + 2);
             endif;
         endif;
@@ -107,7 +107,7 @@ class Vote implements \Iterator
     {
         $this->position = 1;
 
-        return get_object_vars($this);
+        return \get_object_vars($this);
     }
 
     public function __clone ()
@@ -151,7 +151,7 @@ class Vote implements \Iterator
 
     public function getTagsAsString () : string
     {
-        return implode(',',$this->getTags());
+        return \implode(',',$this->getTags());
     }
 
     public function getCreateTimestamp () : float
@@ -319,7 +319,7 @@ class Vote implements \Iterator
                 throw new CondorcetException(5);
             endif;
 
-            $ranking = \array_filter($ranking, fn ($key): bool => is_numeric($key), ARRAY_FILTER_USE_KEY);
+            $ranking = \array_filter($ranking, fn ($key): bool => \is_numeric($key), \ARRAY_FILTER_USE_KEY);
 
             \ksort($ranking);
 
@@ -496,6 +496,6 @@ class Vote implements \Iterator
 
     private function setHashCode () : string
     {
-        return $this->_hashCode = \hash('sha224', ((string) $this) . microtime(false));
+        return $this->_hashCode = \hash('sha224', ((string) $this) . \microtime(false));
     }
 }

@@ -84,7 +84,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
     {
-        \ksort($result, SORT_NUMERIC);
+        \ksort($result, \SORT_NUMERIC);
 
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult($election);
@@ -95,7 +95,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_ElectionCondorcetVersion = $election->getObjectVersion();
         $this->_CondorcetWinner = $election->getWinner();
         $this->_CondorcetLoser = $election->getLoser();
-        $this->_BuildTimeStamp = microtime(true);
+        $this->_BuildTimeStamp = \microtime(true);
     }
 
     public function __destruct ()
@@ -163,11 +163,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $userResult = [];
 
         foreach ( $this->_Result as $key => $value ) :
-            if (is_array($value)) :
+            if (\is_array($value)) :
                 foreach ($value as $candidate_key) :
                     $userResult[$key][] = $election->getCandidateObjectFromKey($candidate_key);
                 endforeach;
-            elseif (is_null($value)) :
+            elseif (\is_null($value)) :
                 $userResult[$key] = null;
             else :
                 $userResult[$key][] = $election->getCandidateObjectFromKey($value);
@@ -175,7 +175,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         endforeach;
 
         foreach ( $userResult as $key => $value ) :
-            if (is_null($value)) :
+            if (\is_null($value)) :
                 $userResult[$key] = null;
             endif;
         endforeach;

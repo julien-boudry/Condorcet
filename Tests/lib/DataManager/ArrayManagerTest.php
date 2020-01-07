@@ -29,7 +29,7 @@ class ArrayManagerTest extends TestCase
             {
                 $data->destroyLink($this->_Election);
 
-                return str_replace([' > ',' = '],['>','='],(string) $data);
+                return \str_replace([' > ',' = '],['>','='],(string) $data);
             }
         };
     }

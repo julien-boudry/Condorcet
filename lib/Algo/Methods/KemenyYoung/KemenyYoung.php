@@ -26,7 +26,7 @@ class KemenyYoung extends Method implements MethodInterface
     public const CONFLICT_WARNING_CODE = 42;
 
     // Limits
-        /* If you need to put it on 9, You must use ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
+        /* If you need to put it on 9, You must use \ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
         public static ?int $MaxCandidates = 8;
 

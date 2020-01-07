@@ -39,7 +39,7 @@ class ElectionCommandTest extends TestCase
         );
 
         $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
 
         self::assertStringContainsString('3 Candidates(s) Registered  ||  3 Vote(s) Registered', $output);
 
@@ -67,7 +67,7 @@ class ElectionCommandTest extends TestCase
         ]);
 
         $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
 
         self::assertStringContainsString('Copeland', $output);
 
@@ -84,7 +84,7 @@ class ElectionCommandTest extends TestCase
         ]);
 
         $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
 
         self::assertStringContainsString('Copeland', $output);
         self::assertStringContainsString('Ranked Pairs M', $output);
@@ -101,7 +101,7 @@ class ElectionCommandTest extends TestCase
         ]);
 
         $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('A,B', $output);
@@ -126,7 +126,7 @@ class ElectionCommandTest extends TestCase
         ]);
 
         $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
 
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
@@ -139,7 +139,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->execute([],['interactive' => false]);
 
         // $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
     }
 
     public function testCustomizeVotesPerMb () : void
@@ -153,6 +153,6 @@ class ElectionCommandTest extends TestCase
         self::assertSame(42, \CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB);
 
         // $output = $this->electionCommand->getDisplay();
-        // var_dump($output);
+        // \var_dump($output);
     }
 }

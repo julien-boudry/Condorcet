@@ -97,7 +97,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertTrue(is_float($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp()));
+        self::assertIsFloat($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp());
     }
 
     public function testGetWinner () : void

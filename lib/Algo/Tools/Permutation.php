@@ -41,7 +41,7 @@ class Permutation
     }
 
     public function writeResults (string $path) : void {
-        file_put_contents($path, $this->getResults(true));
+        \file_put_contents($path, $this->getResults(true));
     }
 
     protected function createCandidates (int $numberOfCandidates) : array
@@ -57,7 +57,7 @@ class Permutation
 
     private function _exec ($a, array $i = []) : void
     {
-        if (is_array($a)) :
+        if (\is_array($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;
                 $i2[] = $k;
