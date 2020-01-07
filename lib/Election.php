@@ -154,24 +154,24 @@ class Election
     {
         self::$_checksumMode = true;
 
-        $r = hash_init('sha256');
+        $r = \hash_init('sha256');
 
         foreach ($this->_Candidates as $value) :
-            hash_update($r, (string) $value);
+            \hash_update($r, (string) $value);
         endforeach;
 
         foreach ($this->_Votes as $value) :
-            hash_update($r, (string) $value);
+            \hash_update($r, (string) $value);
         endforeach;
 
         $this->_Pairwise !== null
-            && hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
+            && \hash_update($r,serialize($this->_Pairwise->getExplicitPairwise()));
 
-        hash_update($r, $this->getObjectVersion(true));
+        \hash_update($r, $this->getObjectVersion(true));
 
         self::$_checksumMode = false;
 
-        return hash_final($r);
+        return \hash_final($r);
     }
 
 
@@ -237,11 +237,11 @@ class Election
 
     public function addConstraint (string $constraintClass) : bool
     {
-        if ( !class_exists($constraintClass) ) :
+        if ( !\class_exists($constraintClass) ) :
             throw new CondorcetException(27);
-        elseif ( !is_subclass_of($constraintClass, VoteConstraint::class) ) :
+        elseif ( !\is_subclass_of($constraintClass, VoteConstraint::class) ) :
             throw new CondorcetException(28);
-        elseif (in_array($constraintClass,$this->getConstraints(), true)) :
+        elseif (\in_array($constraintClass,$this->getConstraints(), true)) :
             throw new CondorcetException(29);
         endif;
 

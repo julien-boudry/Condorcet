@@ -28,12 +28,12 @@ trait Linkable
 
     public function haveLink (Election $election) : bool
     {
-        return in_array($election, $this->_link, true);
+        return \in_array($election, $this->_link, true);
     }
 
     public function countLinks () : int
     {
-        return count($this->_link);
+        return \count($this->_link);
     }
 
     public function getLinks () : ?array
@@ -55,7 +55,7 @@ trait Linkable
 
     public function destroyLink (Election $election) : bool
     {
-        $destroyKey = array_search($election, $this->_link, true);
+        $destroyKey = \array_search($election, $this->_link, true);
 
         if ($destroyKey !== false) :
             unset($this->_link[$destroyKey]);

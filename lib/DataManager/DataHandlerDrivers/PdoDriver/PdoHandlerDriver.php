@@ -56,7 +56,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected function checkStructureTemplate (array &$struct) : bool
     {
         if (    !empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
-                is_string($struct['tableName']) && is_string($struct['primaryColumnName']) && is_string($struct['dataColumnName'])
+                \is_string($struct['tableName']) && \is_string($struct['primaryColumnName']) && \is_string($struct['dataColumnName'])
          ) :
             return true;
         else :
@@ -147,7 +147,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             foreach ($input as $group) :
                 $param = [];
                 $i = 1;
-                $group_count = count($group);
+                $group_count = \count($group);
 
                 foreach ($group as $key => &$Entity) :
                     $param['key'.$i] = $key;
@@ -174,17 +174,17 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         protected function sliceInput (array &$input) : void
         {
-            $count = count($input);
+            $count = \count($input);
 
             foreach (self::SEGMENT as $value) :
                 if ($count >= $value) :
                     $input = array_chunk($input, $value, true);
 
-                    $end = end($input);
-                    if (count($input) > 1 && count($end) < $value) :
+                    $end = \end($input);
+                    if (\count($input) > 1 && \count($end) < $value) :
                         $this->sliceInput($end);
-                        unset($input[key($input)]);
-                        $input = array_merge($input,$end);
+                        unset($input[\key($input)]);
+                        $input = \array_merge($input,$end);
                     endif;
                     break;
                 endif;

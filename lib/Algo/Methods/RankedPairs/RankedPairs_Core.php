@@ -51,7 +51,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $this->_Stats['tally'] = $this->_PairwiseSort;
         $this->_Stats['arcs'] = $this->_Arcs;
 
-        // Make Result      
+        // Make Result
         return $this->_Result = $this->createResult($this->makeResult());
     }
 
@@ -95,7 +95,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $alreadyDone = [];
 
         $rang = 1;
-        while (count($alreadyDone) < $this->_selfElection->countCandidates()) :
+        while (\count($alreadyDone) < $this->_selfElection->countCandidates()) :
             $winners = $this->getWinners($alreadyDone);
 
             foreach ($this->_Arcs as $ArcKey => $Arcvalue) :
@@ -107,7 +107,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
 
             $result[$rang++] = $winners;
-            array_push($alreadyDone, ...$winners);
+            \array_push($alreadyDone, ...$winners);
         endwhile;
 
         return $result;
@@ -118,7 +118,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $winners = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            if (!in_array($candidateKey, $alreadyDone, true)) :
+            if (!\in_array($candidateKey, $alreadyDone, true)) :
                 $win = true;
                 foreach ($this->_Arcs as $ArcValue) :
                     if ($ArcValue['to'] === $candidateKey) :
@@ -142,7 +142,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
 
-            $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
+            $newKey = \max((empty($highKey = \array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) :
                 $virtualArcs[$newKey] = [ 'from' => $newArc['from'], 'to' => $newArc['to'] ];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
@@ -150,7 +150,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
 
             foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) :
-                if (array_key_exists($cycleArcKey, $testNewsArcs)) :
+                if (\array_key_exists($cycleArcKey, $testNewsArcs)) :
                     unset($testNewsArcs[$cycleArcKey]);
                 endif;
             endforeach;
@@ -167,7 +167,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         $cycles = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            array_push($cycles, ...$this->followCycle($virtualArcs,$candidateKey, $candidateKey));
+            \array_push($cycles, ...$this->followCycle($virtualArcs,$candidateKey, $candidateKey));
         endforeach;
 
         return $cycles;
@@ -179,14 +179,14 @@ class RankedPairs_Core extends Method implements MethodInterface
 
         foreach ($virtualArcs as $ArcKey => $ArcValue) :
             if ($ArcValue['from'] === $startCandidateKey) :
-                if (in_array($ArcKey, $done, true)) :
+                if (\in_array($ArcKey, $done, true)) :
                     continue;
                 elseif ($ArcValue['to'] === $searchCandidateKey) :
                     $done[] = $ArcKey;
                     $arcsInCycle[] = $ArcKey;
                 else :
                     $done[] = $ArcKey;
-                    array_push($arcsInCycle, ...$this->followCycle($virtualArcs,$ArcValue['to'], $searchCandidateKey,$done));
+                    \array_push($arcsInCycle, ...$this->followCycle($virtualArcs,$ArcValue['to'], $searchCandidateKey,$done));
                 endif;
             endif;
         endforeach;
@@ -196,7 +196,7 @@ class RankedPairs_Core extends Method implements MethodInterface
 
     protected function pairwiseSort () : array
     {
-        $pairs = [];  
+        $pairs = [];
 
         $i = 0;
         foreach ($this->_selfElection->getPairwise() as $candidate_key => $candidate_value) :
@@ -220,7 +220,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        usort($pairs, function (array $a, array $b) : int {
+        \usort($pairs, function (array $a, array $b) : int {
             if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) :
                 return 1;
             elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) :

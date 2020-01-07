@@ -31,13 +31,13 @@ class Permutation
     public function __construct ($arr)
     {
         $this->_exec(
-            $this->_permute( is_int($arr) ? $this->createCandidates($arr) : $arr )
+            $this->_permute( \is_int($arr) ? $this->createCandidates($arr) : $arr )
         );
     }
 
     public function getResults (bool $serialize = false)
     {
-        return $serialize ? serialize($this->results) : $this->results;
+        return $serialize ? \serialize($this->results) : $this->results;
     }
 
     public function writeResults (string $path) : void {
@@ -79,14 +79,14 @@ class Permutation
     {
         $out = [];
 
-        if (count($arr) > 1) :
+        if (\count($arr) > 1) :
             foreach($arr as $r => $c) :
                 $n = $arr;
                 unset($n[$r]);
                 $out[$c] = $this->_permute($n);
             endforeach;
         else :
-            return array_shift($arr);
+            return \array_shift($arr);
         endif;
 
         return $out;

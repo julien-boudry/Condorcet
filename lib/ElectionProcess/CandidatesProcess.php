@@ -29,7 +29,7 @@ trait CandidatesProcess
     // Count registered candidates
     public function countCandidates () : int
     {
-        return count($this->_Candidates);
+        return \count($this->_Candidates);
     }
 
     public function getCandidatesList () : array
@@ -52,9 +52,9 @@ trait CandidatesProcess
     public function getCandidateKey ($candidate) : ?int
     {
         if ($candidate instanceof Candidate) :
-            $r = array_search($candidate, $this->_Candidates, true);
+            $r = \array_search($candidate, $this->_Candidates, true);
         else:
-            $r = array_search(trim((string) $candidate), $this->_Candidates, false);
+            $r = \array_search(\trim((string) $candidate), $this->_Candidates, false);
         endif;
 
         return ($r !== false) ? $r : null;
@@ -62,7 +62,7 @@ trait CandidatesProcess
 
     public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
     {
-        if (!array_key_exists($candidate_key, $this->_Candidates)) :
+        if (!\array_key_exists($candidate_key, $this->_Candidates)) :
             return null;
         else :
             return $this->_Candidates[$candidate_key];
@@ -71,7 +71,7 @@ trait CandidatesProcess
 
     public function isRegisteredCandidate ($candidate, bool $strictMode = true) : bool
     {
-        return $strictMode ? in_array($candidate, $this->_Candidates, true) : in_array((string) $candidate, $this->_Candidates);
+        return $strictMode ? \in_array($candidate, $this->_Candidates, true) : \in_array((string) $candidate, $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $candidateName) : ?Candidate
@@ -98,7 +98,7 @@ trait CandidatesProcess
         endif;
 
         // Filter
-        if ( is_bool($candidate) || is_array($candidate) || (is_object($candidate) && !($candidate instanceof Candidate)) ) :
+        if ( \is_bool($candidate) || \is_array($candidate) || (\is_object($candidate) && !($candidate instanceof Candidate)) ) :
             throw new CondorcetException(1);
         endif;
 
@@ -143,7 +143,7 @@ trait CandidatesProcess
             throw new CondorcetException(2);
         endif;
 
-        if ( !is_array($candidates_input) ) :
+        if ( !\is_array($candidates_input) ) :
             $candidates_input = [$candidates_input];
         endif;
 
@@ -209,7 +209,7 @@ trait CandidatesProcess
             endif;
 
             // addCandidate
-            if (self::$_maxParseIteration !== null && count($adding) >= self::$_maxParseIteration) :
+            if (self::$_maxParseIteration !== null && \count($adding) >= self::$_maxParseIteration) :
                 throw new CondorcetException(12, (string) self::$_maxParseIteration);
             endif;
 

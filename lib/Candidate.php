@@ -37,13 +37,13 @@ class Candidate
 
     public function setName (string $name) : bool
     {
-        $name = trim($name);
+        $name = \trim($name);
 
-        if (strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
+        if (\strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
             throw new CondorcetException(1, $name);
         endif;
 
-        if ( preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/mi',$name) === 1 ) :
+        if ( \preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/mi',$name) === 1 ) :
             throw new CondorcetException(1, $name);
         endif;
 
@@ -51,7 +51,7 @@ class Candidate
             throw new CondorcetException(19, $name);
         endif;
 
-        $this->_name[] =  [ 'name' => $name, 'timestamp' => microtime(true) ];
+        $this->_name[] =  [ 'name' => $name, 'timestamp' => \microtime(true) ];
 
         return true;
     }
@@ -66,7 +66,7 @@ class Candidate
 
     public function getName () : string
     {
-        return end($this->_name)['name'];
+        return \end($this->_name)['name'];
     }
 
     public function getHistory () : array

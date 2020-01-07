@@ -182,7 +182,7 @@ trait ResultsProcess
         if (isset($arg['tags'])):
             $arg['%tagFilter'] = true;
 
-            if ( !isset($arg['withTag']) || !is_bool($arg['withTag']) ) :
+            if ( !isset($arg['withTag']) || !\is_bool($arg['withTag']) ) :
                 $arg['withTag'] = true;
             endif;
         else:

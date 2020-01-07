@@ -227,7 +227,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         endforeach;
 
-        self::assertSame(52,count($votesListGenerator));
+        self::assertCount(52,$votesListGenerator);
 
 
         $votesListGenerator = [];
@@ -236,7 +236,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         endforeach;
 
-        self::assertSame(42,count($votesListGenerator));
+        self::assertCount(42,$votesListGenerator);
     }
 
     public function testSliceInput() : void

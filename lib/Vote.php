@@ -70,25 +70,25 @@ class Vote implements \Iterator
 
         // Vote Weight
         if (is_string($ranking)) :
-            $is_voteWeight = strpos($ranking, '^');
+            $is_voteWeight = \strpos($ranking, '^');
             if ($is_voteWeight !== false) :
-                $weight = trim( substr($ranking, $is_voteWeight + 1) );
+                $weight = \trim( \substr($ranking, $is_voteWeight + 1) );
 
                 // Errors
-                if ( !is_numeric($weight) ) :
+                if ( !\is_numeric($weight) ) :
                     throw new CondorcetException(13);
                 endif;
 
-                $weight = intval($weight);
+                $weight = \intval($weight);
 
-                $ranking = substr($ranking, 0,$is_voteWeight);
+                $ranking = \substr($ranking, 0,$is_voteWeight);
 
             endif;
 
-            $is_voteTags = strpos($ranking, '||');
+            $is_voteTags = \strpos($ranking, '||');
             if ($is_voteTags !== false) :
-                $tagsFromString = explode(',', trim( substr($ranking, 0, $is_voteTags) ));
-                $ranking = substr($ranking, $is_voteTags + 2);
+                $tagsFromString = \explode(',', trim( substr($ranking, 0, $is_voteTags) ));
+                $ranking = \substr($ranking, $is_voteTags + 2);
             endif;
         endif;
 
@@ -277,7 +277,7 @@ class Vote implements \Iterator
         endif;
 
         $this->_ranking = $ranking;
-        $this->_lastTimestamp = $ownTimestamp ?? microtime(true);
+        $this->_lastTimestamp = $ownTimestamp ?? \microtime(true);
         $this->_counter = $candidateCounter;
 
         $this->archiveRanking();
@@ -311,21 +311,21 @@ class Vote implements \Iterator
 
         private function formatRanking (&$ranking) : int
         {
-            if (is_string($ranking)) :
+            if (\is_string($ranking)) :
                 $ranking = VoteUtil::convertVoteInput($ranking);
             endif;
 
-            if (!is_array($ranking)) :
+            if (!\is_array($ranking)) :
                 throw new CondorcetException(5);
             endif;
 
-            $ranking = array_filter($ranking, fn ($key): bool => is_numeric($key), ARRAY_FILTER_USE_KEY);
+            $ranking = \array_filter($ranking, fn ($key): bool => is_numeric($key), ARRAY_FILTER_USE_KEY);
 
-            ksort($ranking);
+            \ksort($ranking);
 
             $i = 1; $vote_r = [];
             foreach ($ranking as &$value) :
-                if ( !is_array($value) ) :
+                if ( !\is_array($value) ) :
                     $vote_r[$i] = [$value];
                 else :
                     $vote_r[$i] = $value;
@@ -350,7 +350,7 @@ class Vote implements \Iterator
                 // Check Duplicate
 
                     // Check objet reference AND check candidates name
-                    if (!in_array($Candidate, $list_candidate)) :
+                    if (!\in_array($Candidate, $list_candidate)) :
                         $list_candidate[] = $Candidate;
                     else :
                         throw new CondorcetException(5);
@@ -367,7 +367,7 @@ class Vote implements \Iterator
     {
         if ($candidate instanceof Candidate) :
             $strict = true;
-        elseif (is_string($candidate)) :
+        elseif (\is_string($candidate)) :
             $strict = false;
         else :
             throw new CondorcetException (32);
@@ -377,7 +377,7 @@ class Vote implements \Iterator
 
         $rankingCandidate = $this->getAllCandidates();
 
-        if (!in_array($candidate, $rankingCandidate, $strict)) :
+        if (!\in_array($candidate, $rankingCandidate, $strict)) :
             throw new CondorcetException (32);
         endif;
 
@@ -408,7 +408,7 @@ class Vote implements \Iterator
         endif;
 
         foreach ($tags as $key => $tag) :
-            if (in_array($tag, $this->_tags, true)) :
+            if (\in_array($tag, $this->_tags, true)) :
                 unset($tags[$key]);
             endif;
         endforeach;
@@ -432,7 +432,7 @@ class Vote implements \Iterator
 
         $rm = [];
         foreach ($tags as $key => $tag) :
-            $tagK = array_search($tag, $this->_tags, true);
+            $tagK = \array_search($tag, $this->_tags, true);
 
             if ($tagK === false) :
                 unset($tags[$key]);
@@ -496,6 +496,6 @@ class Vote implements \Iterator
 
     private function setHashCode () : string
     {
-        return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
+        return $this->_hashCode = \hash('sha224', ((string) $this) . microtime(false));
     }
 }

@@ -54,12 +54,12 @@ class Ftpt extends Method implements MethodInterface
                 $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 
                 foreach ($oneRanking[1] as $oneCandidateInRank) :
-                    $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += 1 / count($oneRanking[1]);
+                    $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += 1 / \count($oneRanking[1]);
                 endforeach;
             endfor;
         endforeach;
 
-        arsort($score, SORT_NUMERIC);
+        \arsort($score, SORT_NUMERIC);
 
         $rank = 0;
         $lastScore = null;

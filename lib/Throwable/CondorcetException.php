@@ -87,8 +87,8 @@ class CondorcetException extends \Exception
             return $this->_infos[0] ?? '';
         endif;
 
-        if ( array_key_exists($code, static::EXCEPTION_CODE) ) :
-            return str_replace('{{ infos1 }}', $this->_infos[0] ?? '', static::EXCEPTION_CODE[$code]);
+        if ( \array_key_exists($code, static::EXCEPTION_CODE) ) :
+            return \str_replace('{{ infos1 }}', $this->_infos[0] ?? '', static::EXCEPTION_CODE[$code]);
         else :
             return static::EXCEPTION_CODE[0] ?? 'Mysterious Error';
         endif;

@@ -133,7 +133,7 @@ class AlternativeNoTieConstraintClass extends VoteConstraint
     public static function isVoteAllow (Election $election, Vote $vote) : bool
     {
         foreach ($vote->getContextualRanking($election) as $oneRank) :
-            if (count($oneRank) > 1) :
+            if (\count($oneRank) > 1) :
                 return false;
             endif;
         endforeach;

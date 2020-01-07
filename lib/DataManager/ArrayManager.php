@@ -89,7 +89,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                     $this->_maxKey = $offset;
                 endif;
 
-                ksort($this->_Container,SORT_NUMERIC);
+                \ksort($this->_Container,SORT_NUMERIC);
             elseif ($this->_DataHandler !== null) :
                 $this->_DataHandler->deleteOneEntity($offset, true);
                 unset($this->_Cache[$offset]);
@@ -111,11 +111,11 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     public function offsetUnset($offset) : void
     {
         if ($this->keyExist($offset)) :
-            if (array_key_exists($offset, $this->_Container)) :
+            if (\array_key_exists($offset, $this->_Container)) :
                 $this->preDeletedTask($this->_Container[$offset]);
                 unset($this->_Container[$offset]);
             else :
-                if (array_key_exists($offset, $this->_Cache)) :
+                if (\array_key_exists($offset, $this->_Cache)) :
                     $this->preDeletedTask($this->_Cache[$offset]);
                     unset($this->_Cache[$offset]);
                 endif;
@@ -132,7 +132,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
         elseif ($this->_DataHandler !== null) :
-            if (array_key_exists($offset, $this->_Cache)) :
+            if (\array_key_exists($offset, $this->_Cache)) :
                 return $this->_Cache[$offset];
             else :
                 $oneEntity = $this->_DataHandler->selectOneEntity($offset);
@@ -156,8 +156,8 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->_cursor = null;
         $this->valid = true;
 
-        reset($this->_Cache);
-        reset($this->_Container);
+        \reset($this->_Cache);
+        \reset($this->_Container);
     }
 
     public function current() {
@@ -193,8 +193,8 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         protected function setCursorOnNextKeyInArray (array &$array) : void
         {
-            next($array);
-            $arrayKey = key($array);
+            \next($array);
+            $arrayKey = \key($array);
 
             if ($arrayKey > $this->key()) :
                 $this->_cursor = $arrayKey;
@@ -228,7 +228,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function keyExist ($offset) : bool
     {
-        if ( array_key_exists($offset, $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) :
+        if ( \array_key_exists($offset, $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) :
             return true;
         else  :
             return false;
@@ -237,23 +237,23 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function getFirstKey () : int
     {
-        $r = array_keys($this->_Container);
+        $r = \array_keys($this->_Container);
 
         if ($this->_DataHandler !== null) :
             $r[] = $this->_DataHandler->selectMinKey();
         endif;
 
-        return (int) min($r);
+        return (int) \min($r);
     }
 
     public function getContainerSize () : int
     {
-        return count($this->_Container);
+        return \count($this->_Container);
     }
 
     public function getCacheSize () : int
     {
-        return count($this->_Cache);
+        return \count($this->_Cache);
     }
 
     public function debugGetCache () : array
@@ -323,9 +323,9 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->clearCache();
             $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities($currentKey, self::$CacheSize) );
 
-            $keys = array_keys($this->_Cache);
-            $this->_CacheMaxKey = max($keys);
-            $this->_CacheMinKey = min($keys);
+            $keys = \array_keys($this->_Cache);
+            $this->_CacheMaxKey = \max($keys);
+            $this->_CacheMinKey = \min($keys);
         endif;
     }
 
@@ -360,10 +360,10 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->_maxKey = -1;
             return null;
         else :
-            $maxContainerKey = empty($this->_Container) ? null : max(array_keys($this->_Container));
+            $maxContainerKey = empty($this->_Container) ? null : \max(array_keys($this->_Container));
             $maxHandlerKey = $this->_DataHandler !== null ? $this->_DataHandler->selectMaxKey() : null;
 
-            return $this->_maxKey = max( $maxContainerKey,$maxHandlerKey );
+            return $this->_maxKey = \max( $maxContainerKey,$maxHandlerKey );
         endif;
     }
 

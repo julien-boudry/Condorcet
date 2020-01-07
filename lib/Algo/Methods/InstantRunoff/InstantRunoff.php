@@ -30,7 +30,7 @@ class InstantRunoff extends Method implements MethodInterface
         $stats = [];
 
         foreach ($this->_Stats as $oneIterationKey => $oneIterationData) :
-            if (count($oneIterationData) === 1) :
+            if (\count($oneIterationData) === 1) :
                 break;
             endif;
 
@@ -59,10 +59,10 @@ class InstantRunoff extends Method implements MethodInterface
 
         $iteration = 0;
 
-        while (count($candidateDone) < $candidateCount) :
+        while (\count($candidateDone) < $candidateCount) :
             $score = $this->makeScore($candidateDone);
-            $maxScore = max($score);
-            $minScore = min($score);
+            $maxScore = \max($score);
+            $minScore = \min($score);
 
             $this->_Stats[++$iteration] = $score;
 
@@ -87,12 +87,12 @@ class InstantRunoff extends Method implements MethodInterface
                 endforeach;
 
                 // Tie Breaking
-                $round = count($LosersToRegister);
+                $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++) : // A little silly. But ultimately shorter and simpler.
                     $LosersToRegister = $this->tieBreaking($LosersToRegister);
                 endfor;
 
-                $CandidatesLoserCount += count($LosersToRegister);
+                $CandidatesLoserCount += \count($LosersToRegister);
                 array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
@@ -106,7 +106,7 @@ class InstantRunoff extends Method implements MethodInterface
     {
         $score = [];
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
+            if (!\in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
                 $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
             endif;
         endforeach;
@@ -120,10 +120,10 @@ class InstantRunoff extends Method implements MethodInterface
 
                 foreach ($oneRanking as $oneRank) :
                     foreach ($oneRank as $oneCandidate) :
-                        if (count($oneRank) !== 1) :
+                        if (\count($oneRank) !== 1) :
                             break;
-                        elseif (!in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
-                            $score[$this->_selfElection->getCandidateKey($oneRank[array_key_first($oneRank)])] += 1;
+                        elseif (!\in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
+                            $score[$this->_selfElection->getCandidateKey($oneRank[\array_key_first($oneRank)])] += 1;
                             break 2;
                         endif;
                     endforeach;

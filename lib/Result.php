@@ -20,23 +20,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     // Implement Iterator
 
     public function rewind() :void {
-        reset($this->_UserResult);
+        \reset($this->_UserResult);
     }
 
     public function current () {
-        return current($this->_UserResult);
+        return \current($this->_UserResult);
     }
 
     public function key () : int {
-        return key($this->_UserResult);
+        return \key($this->_UserResult);
     }
 
     public function next () : void {
-        next($this->_UserResult);
+        \next($this->_UserResult);
     }
 
     public function valid () : bool {
-        return key($this->_UserResult) !== null;
+        return \key($this->_UserResult) !== null;
     }
 
     // Implement ArrayAccess
@@ -60,7 +60,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     // Implement Countable
 
     public function count () : int {
-        return count($this->_UserResult);
+        return \count($this->_UserResult);
     }
 
 
@@ -84,7 +84,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
     {
-        ksort($result, SORT_NUMERIC);
+        \ksort($result, SORT_NUMERIC);
 
         $this->_Result = $result;
         $this->_UserResult = $this->makeUserResult($election);
@@ -111,7 +111,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $r = $this->_UserResult;
 
         foreach ($r as &$rank) :
-            if (count($rank) === 1) :
+            if (\count($rank) === 1) :
                 $rank = $convertToString ? (string) $rank[0] : $rank[0];
             elseif ($convertToString) :
                 foreach ($rank as &$subRank) :

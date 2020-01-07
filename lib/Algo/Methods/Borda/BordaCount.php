@@ -63,7 +63,7 @@ class BordaCount extends Method implements MethodInterface
                     endforeach;
 
                     foreach ($oneRank as $oneCandidateInRank) :
-                        $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += $rankScore / count($oneRank);
+                        $score[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += $rankScore / \count($oneRank);
                     endforeach;
                 endforeach;
             endfor;

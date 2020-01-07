@@ -111,8 +111,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
                     foreach ($this->_selfElection->getCandidatesList() as $k => $k_value) :
                         if ($i !== $k && $j !== $k) :
                             $this->_StrongestPaths[$j][$k] =
-                                max( $this->_StrongestPaths[$j][$k],
-                                     min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k]) );
+                                \max( $this->_StrongestPaths[$j][$k],
+                                     \min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k]) );
                         endif;
                     endforeach;
                 endif;
@@ -130,18 +130,18 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $done = [];
         $rank = 1;
 
-        while (count($done) < $this->_selfElection->countCandidates()) :
+        while (\count($done) < $this->_selfElection->countCandidates()) :
             $to_done = [];
 
             foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key ) :
-                if ( in_array($candidate_key, $done, true) ) :
+                if ( \in_array($candidate_key, $done, true) ) :
                     continue;
                 endif;
 
                 $winner = true;
 
                 foreach ($challengers_key as $beaten_key => $beaten_value) :
-                    if ( in_array($beaten_key, $done, true) ) :
+                    if ( \in_array($beaten_key, $done, true) ) :
                         continue;
                     endif;
 
@@ -157,7 +157,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 endif;
             endforeach;
 
-            array_push($done, ...$to_done);
+            \array_push($done, ...$to_done);
 
             $rank++;
         endwhile;

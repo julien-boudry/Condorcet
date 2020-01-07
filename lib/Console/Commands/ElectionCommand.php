@@ -155,11 +155,11 @@ class ElectionCommand extends Command
                 if ($answer === null) :
                     break;
                 else :
-                    $registeringCandidates[] = str_replace(';', ' ', $answer);
+                    $registeringCandidates[] = \str_replace(';', ' ', $answer);
                 endif;
             endwhile;
 
-            $this->candidates = implode(';', $registeringCandidates);
+            $this->candidates = \implode(';', $registeringCandidates);
         endif;
 
         // Interactive Votes
@@ -176,11 +176,11 @@ class ElectionCommand extends Command
                 if ($answer === null) :
                     break;
                 else :
-                    $registeringvotes[] = str_replace(';', ' ', $answer);
+                    $registeringvotes[] = \str_replace(';', ' ', $answer);
                 endif;
             endwhile;
 
-            $this->votes = implode(';', $registeringvotes);
+            $this->votes = \implode(';', $registeringvotes);
         endif;
     }
 
@@ -220,7 +220,7 @@ class ElectionCommand extends Command
             new TableSeparator(),
             ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
             new TableSeparator(),
-            ['Is vote tie in rank allowed?' => in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']
+            ['Is vote tie in rank allowed?' => \in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']
         );
 
         // Input Sum Up
@@ -300,7 +300,7 @@ class ElectionCommand extends Command
         // RM Sqlite Database if exist
         if ( ($SQLitePath = $this->SQLitePath) !== null) :
             unset($this->election);
-            while(gc_collect_cycles()); // Circular references are not really cleaned. Need to destroy PDO object for Windows.
+            while(\gc_collect_cycles()); // Circular references are not really cleaned. Need to destroy PDO object for Windows.
             unlink($SQLitePath);
         endif;
 
@@ -373,7 +373,7 @@ class ElectionCommand extends Command
         ;
 
         foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
-            $votesTable->addRow( [ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ] );
+            $votesTable->addRow( [ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), \implode(',', $oneVote->getTags()) ] );
         endforeach;
 
         $votesTable->render();
@@ -402,7 +402,7 @@ class ElectionCommand extends Command
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) :
-                if (strtolower($oneMethod) === "all") :
+                if (\strtolower($oneMethod) === "all") :
                     $methods = Condorcet::getAuthMethods(false);
                     break;
                 endif;
@@ -425,13 +425,13 @@ class ElectionCommand extends Command
         $resultArray = $result->getResultAsArray(true);
 
         foreach ($resultArray as $rank => &$line) :
-            if (is_array($line)) :
-                $line = implode(',', $line);
+            if (\is_array($line)) :
+                $line = \implode(',', $line);
             endif;
 
-            if ($rank === 1 && count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) :
+            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) :
                 $line = $line.'*';
-            elseif ($rank === max(array_keys($resultArray)) && count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) :
+            elseif ($rank === \max(\array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[\max(\array_keys($resultArray))][0] === $result->getCondorcetLoser()) :
                 $line = $line.'#';
             endif;
 
@@ -439,7 +439,7 @@ class ElectionCommand extends Command
         endforeach;
 
 
-        $last_rank = max(array_keys($resultArray));
+        $last_rank = \max(\array_keys($resultArray));
 
         return $resultArray;
     }
@@ -449,32 +449,32 @@ class ElectionCommand extends Command
         if ($this->isAbsolute($path) && \is_file($path)) :
             return $path;
         else :
-            return (\is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
+            return (\is_file($file = \getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
         endif;
         ;
     }
 
     protected function isAbsolute (string $path) : bool
     {
-        return strspn($path, '/\\', 0, 1) || (\strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1));
+        return \strspn($path, '/\\', 0, 1) || (\strlen($path) > 3 && \ctype_alpha($path[0]) && ':' === $path[1] && \strspn($path, '/\\', 2, 1));
     }
 
     protected function useDataHandler (InputInterface $input) : ?\Closure
     {
-        if ( $input->getOption('desactivate-file-cache') || !class_exists('\PDO') || !in_array('sqlite', \PDO::getAvailableDrivers(), true) ) :
+        if ( $input->getOption('desactivate-file-cache') || !\class_exists('\PDO') || !\in_array('sqlite', \PDO::getAvailableDrivers(), true) ) :
             return null;
         else :
             $election = $this->election;
             $SQLitePath = &$this->SQLitePath;
 
-            $memory_limit = (int) preg_replace('`[^0-9]`', '', ini_get('memory_limit'));
+            $memory_limit = (int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'));
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
 
             $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath) : bool {
                 if (  $inserted_votes_count > $vote_in_memory_limit ) :
 
-                    if ( file_exists( $SQLitePath = getcwd().'/condorcet-bdd.sqlite' ) ) :
-                        unlink($SQLitePath);
+                    if ( \file_exists( $SQLitePath = \getcwd().'/condorcet-bdd.sqlite' ) ) :
+                        \unlink($SQLitePath);
                     endif;
 
                     $election->setExternalDataHandler( new PdoHandlerDriver (new \PDO ('sqlite:'.$SQLitePath,'','',[\PDO::ATTR_PERSISTENT => false]), true) );

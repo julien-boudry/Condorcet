@@ -35,7 +35,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     private bool $valid = true;
 
     public function rewind() : void {
-        reset($this->_Pairwise);
+        \reset($this->_Pairwise);
         $this->valid = true;
     }
 
@@ -44,11 +44,11 @@ class Pairwise implements \ArrayAccess, \Iterator
     }
 
     public function key() : ?int {
-        return key($this->_Pairwise);
+        return \key($this->_Pairwise);
     }
 
     public function next() : void {
-        if (next($this->_Pairwise) === false) :
+        if (\next($this->_Pairwise) === false) :
             $this->valid = false;
         endif;
     }
@@ -202,8 +202,8 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endif;
 
                     // Win & Lose
-                    if (    !in_array($g_candidate_key, $done_Candidates, true) &&
-                            !in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
+                    if (    !\in_array($g_candidate_key, $done_Candidates, true) &&
+                            !\in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
 
                         $pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
                         $pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
@@ -211,7 +211,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                         $done_Candidates[] = $candidate_key;
 
                     // Null
-                    elseif (in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
+                    elseif (\in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
                         $pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
                     endif;
 

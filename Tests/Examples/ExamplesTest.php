@@ -49,9 +49,9 @@ class ExamplesTest extends TestCase
         $r = true;
 
         try {
-            ob_start();
+            \ob_start();
                 include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
-            ob_end_clean();
+            \ob_end_clean();
 
         } catch (Exception $e) {
             throw $e;
@@ -69,9 +69,9 @@ class ExamplesTest extends TestCase
         $r = true;
 
         try {
-            ob_start();
+            \ob_start();
                 include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
-            ob_end_clean();
+            \ob_end_clean();
         } catch (Exception $e) {
             throw $e;
             $r = false;

@@ -27,7 +27,7 @@ abstract class Method
     {
         $this->_selfElection = $mother;
 
-        if (!is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
+        if (!\is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
             throw new CondorcetException(101, static::METHOD_NAME[0].' is configured to accept only '.static::$MaxCandidates.' candidates');
         endif;
     }
@@ -55,7 +55,7 @@ abstract class Method
     {
     	return new Result (
             static::METHOD_NAME[0],
-            get_class($this),
+            \get_class($this),
     		$this->_selfElection,
     		$result,
             $this->getStats()

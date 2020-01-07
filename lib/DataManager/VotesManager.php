@@ -57,7 +57,7 @@ class VotesManager extends ArrayManager
     {
         $data->destroyLink($this->_Election);
 
-        return str_replace([' > ',' = '],['>','='],(string) $data);
+        return \str_replace([' > ',' = '],['>','='],(string) $data);
     }
 
     protected function preDeletedTask ($object) : void
@@ -108,7 +108,7 @@ class VotesManager extends ArrayManager
 
     public function getVoteKey (Vote $vote) : ?int
     {
-        ($r = array_search($vote, $this->_Container, true)) !== false || ($r = array_search($vote, $this->_Cache, true));
+        ($r = \array_search($vote, $this->_Container, true)) !== false || ($r = \array_search($vote, $this->_Cache, true));
 
         return ($r !== false) ? $r : null;
     }
@@ -125,7 +125,7 @@ class VotesManager extends ArrayManager
         foreach ($this as $voteKey => $vote) :
             $noOne = true;
             foreach ($tag as $oneTag) :
-                if ( ( $oneTag === $voteKey ) || in_array($oneTag, $vote->getTags(),true) ) :
+                if ( ( $oneTag === $voteKey ) || \in_array($oneTag, $vote->getTags(),true) ) :
                     if ($with) :
                         yield $voteKey => $vote;
                         break;
@@ -206,8 +206,8 @@ class VotesManager extends ArrayManager
             $nb[$oneVoteString]++;
         endforeach;
 
-        ksort($weight);
-        arsort($weight);
+        \ksort($weight);
+        \arsort($weight);
 
         $isFirst = true;
         foreach ($weight as $key => $value) :
@@ -225,14 +225,14 @@ class VotesManager extends ArrayManager
     public function countVotes (?array $tag, bool $with) : int
     {
         if ($tag === null) :
-            return count($this);
+            return \count($this);
         else :
             $count = 0;
 
             foreach ($this as $key => $value) :
                 $noOne = true;
                 foreach ($tag as $oneTag) :
-                    if ( ( $oneTag === $key ) || in_array($oneTag, $value->getTags(),true) ) :
+                    if ( ( $oneTag === $key ) || \in_array($oneTag, $value->getTags(),true) ) :
                         if ($with) :
                             $count++;
                             break;

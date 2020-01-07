@@ -401,11 +401,11 @@ _OK: sacrifice to the local tradition of lazy._
   $candidate4 = $myElection1->addCandidate('Candidate 4');
 
   // Add some votes, by some ways
-  $myElection1->addVote(  array(
+  $myElection1->addVote(  [
                               $candidate2, // 1
                               [$candidate1, $candidate4] // 2 - Tie
                               // Last rank is optionnal. By default, it will be implicitly completed in $candidate3. This behaviour can be changed by election, before, during or after the vote. The initial submission being preserved.
-                          )
+                          ]
   );
 
   $myElection1->addVote('Candidate 2 > Candidate 3 > Candidate 4 = Candidate 1'); // Last rank can also be omitted

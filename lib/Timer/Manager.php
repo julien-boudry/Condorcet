@@ -30,7 +30,7 @@ class Manager
                 return;
             endif;
 
-            $m = microtime(true);
+            $m = \microtime(true);
 
             if ( $this->_lastChronoTimestamp > $chrono->getStart() ) :
                 $c = $this->_lastChronoTimestamp;

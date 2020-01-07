@@ -19,7 +19,7 @@ trait CondorcetVersion
     public function getObjectVersion (bool $major = false) : string
     {
         if ($major === true) :
-            $version = explode('.', $this->_objectVersion);
+            $version = \explode('.', $this->_objectVersion);
             return $version[0].'.'.$version[1];
         else :
             return $this->_objectVersion;

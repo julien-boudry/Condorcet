@@ -93,10 +93,10 @@ class ElectionTest extends TestCase
 
     public function testParseCandidates () : void
     {
-        self::assertSame(4,
-        count($this->election2->parseCandidates('Bruckner;   Mahler   ;
-            Debussy
-             Bibendum'))
+        self::assertCount(4,
+            $this->election2->parseCandidates('Bruckner;   Mahler   ;
+                Debussy
+                Bibendum')
         );
 
         self::assertSame(['Bruckner','Mahler','Debussy','Bibendum'],

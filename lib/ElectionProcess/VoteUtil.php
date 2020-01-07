@@ -21,11 +21,11 @@ abstract class VoteUtil
             return null;
         endif;
 
-        if (is_string($tags)) :
+        if (\is_string($tags)) :
             $tags = explode(',', $tags);
-        elseif (is_array($tags)) :
+        elseif (\is_array($tags)) :
             foreach ($tags as &$oneTag) :
-                if (!is_string($oneTag)) :
+                if (!\is_string($oneTag)) :
                     throw new CondorcetException(17);
                 endif;
             endforeach;
@@ -33,7 +33,7 @@ abstract class VoteUtil
             throw new CondorcetException(17);
         endif;
 
-        $tags = array_map('trim', $tags);
+        $tags = \array_map('trim', $tags);
 
         foreach ($tags as $oneTag) :
            if (empty($oneTag)) :
@@ -47,26 +47,26 @@ abstract class VoteUtil
     public static function getRankingAsString (array $ranking) : string
     {
         foreach ($ranking as &$rank) :
-            if (is_array($rank)) :
-                sort($rank);
-                $rank = implode(' = ',$rank);
+            if (\is_array($rank)) :
+                \sort($rank);
+                $rank = \implode(' = ',$rank);
             endif;
         endforeach;
 
-        return implode(' > ', $ranking);
+        return \implode(' > ', $ranking);
     }
 
     // From a string like 'A>B=C=H>G=T>Q'
     public static function convertVoteInput (string $formula) : array
     {
-        $ranking = explode('>', $formula);
+        $ranking = \explode('>', $formula);
 
         foreach ($ranking as &$rank_vote) :
-            $rank_vote = explode('=', $rank_vote);
+            $rank_vote = \explode('=', $rank_vote);
 
             // Del space at start and end
             foreach ($rank_vote as &$value) :
-                $value = trim($value);
+                $value = \trim($value);
             endforeach;
         endforeach;
 
@@ -76,17 +76,17 @@ abstract class VoteUtil
     public static function parseAnalysingOneLine ($searchCharacter, string &$line) : int
     {
         if ($searchCharacter !== false) :
-            $value = trim( substr($line, $searchCharacter + 1) );
+            $value = \trim( substr($line, $searchCharacter + 1) );
 
             // Errors
-            if ( !is_numeric($value) ) :
+            if ( !\is_numeric($value) ) :
                 throw new CondorcetException(13);
             endif;
 
             // Reformat line
-            $line = substr($line, 0, $searchCharacter);
+            $line = \substr($line, 0, $searchCharacter);
 
-            return intval($value);
+            return \intval($value);
         else :
             return 1;
         endif;

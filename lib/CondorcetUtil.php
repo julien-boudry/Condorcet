@@ -17,15 +17,15 @@ abstract class CondorcetUtil
     // Check JSON format
     public static function isJson (string $string) : bool
     {
-        if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
+        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
             return false;
         endif;
 
         // try to decode string
-        json_decode($string);
+        \json_decode($string);
 
         // check if error occured
-        return json_last_error() === JSON_ERROR_NONE;
+        return \json_last_error() === JSON_ERROR_NONE;
     }
 
     public static function prepareJson (string $input)
@@ -34,7 +34,7 @@ abstract class CondorcetUtil
             throw new CondorcetException(15);
         endif;
 
-        return json_decode($input, true);
+        return \json_decode($input, true);
     }
 
     // Generic action before parsing data from string input
@@ -42,23 +42,23 @@ abstract class CondorcetUtil
     {
         // Is string or is file ?
         if ($isFile === true) :
-            $input = file_get_contents($input);
+            $input = \file_get_contents($input);
         endif;
 
         // Line
-        $input = preg_replace("(\r\n|\n|\r)",';',$input);
-        $input = explode(';', $input);
+        $input = \preg_replace("(\r\n|\n|\r)",';',$input);
+        $input = \explode(';', $input);
 
         // Delete comments
         foreach ($input as &$line) :
             // Delete comments
-            $is_comment = strpos($line, '#');
+            $is_comment = \strpos($line, '#');
             if ($is_comment !== false) :
-                $line = substr($line, 0, $is_comment);
+                $line = \substr($line, 0, $is_comment);
             endif;
 
             // Trim
-            $line = trim($line);
+            $line = \trim($line);
         endforeach;
 
         return $input;
@@ -67,7 +67,7 @@ abstract class CondorcetUtil
     // Simplify Condorcet Var_Dump. Transform object to String.
     public static function format ($input, bool $convertObject = true)
     {
-        if (is_object($input)) :
+        if (\is_object($input)) :
 
             $r = $input;
 
@@ -81,15 +81,15 @@ abstract class CondorcetUtil
                 endif;
             endif;
 
-        elseif (!is_array($input)) :
+        elseif (!\is_array($input)) :
             $r = $input;
         else :
             foreach ($input as $key => $line) :
                 $input[$key] = self::format($line,$convertObject);
             endforeach;
 
-            if (count($input) === 1 && is_int(key($input)) && (!is_array(reset($input)) || count(reset($input)) === 1)):
-                $r = reset($input);
+            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(reset($input)) || \count(\reset($input)) === 1)):
+                $r = \reset($input);
             else:
                 $r = $input;
             endif;

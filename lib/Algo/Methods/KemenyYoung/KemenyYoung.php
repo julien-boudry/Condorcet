@@ -74,7 +74,7 @@ class KemenyYoung extends Method implements MethodInterface
         endforeach;
 
         $stats = [];
-        $stats['bestScore'] = max($this->_RankingScore);
+        $stats['bestScore'] = \max($this->_RankingScore);
         $stats['rankingScore'] = $explicit;
 
         return $stats;
@@ -82,7 +82,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         protected function conflictInfos () : void
         {
-            $max = max($this->_RankingScore);
+            $max = \max($this->_RankingScore);
 
             $conflict = -1;
             foreach ($this->_RankingScore as $value) :
@@ -92,7 +92,7 @@ class KemenyYoung extends Method implements MethodInterface
             endforeach;
 
             if ($conflict > 0)  :
-                $this->_Result->addWarning(self::CONFLICT_WARNING_CODE, ($conflict + 1).';'.max($this->_RankingScore) );
+                $this->_Result->addWarning(self::CONFLICT_WARNING_CODE, ($conflict + 1).';'.\max($this->_RankingScore) );
             endif;
         }
 
@@ -107,10 +107,10 @@ class KemenyYoung extends Method implements MethodInterface
         $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
         // But ... where are the data ?! Okay, old way now...
-        if (!self::$useCache || !file_exists($path)) :
+        if (!self::$useCache || !\file_exists($path)) :
             $compute = $this->doPossibleRanking( self::$devWriteCache ? $path : null );
         else :
-            $compute = file_get_contents($path);
+            $compute = \file_get_contents($path);
         endif;
 
         $i = 0;
@@ -122,7 +122,7 @@ class KemenyYoung extends Method implements MethodInterface
             $replace[] = 'i:'.$candidate_id;
         endforeach;
 
-        $this->_PossibleRanking = unserialize( str_replace($search, $replace, $compute) );
+        $this->_PossibleRanking = \unserialize( \str_replace($search, $replace, $compute) );
     }
 
     protected function doPossibleRanking (?string $path = null)
@@ -151,7 +151,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $do[] = $candidateId;
 
                 foreach ($ranking as $rankCandidate) :
-                    if (!in_array($rankCandidate, $do, true)) :
+                    if (!\in_array($rankCandidate, $do, true)) :
                         $this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
                     endif;
                 endforeach;
@@ -168,6 +168,6 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking () : void
     {
-        $this->_Result = $this->createResult($this->_PossibleRanking[ array_search(max($this->_RankingScore), $this->_RankingScore, true) ]);
+        $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(\max($this->_RankingScore), $this->_RankingScore, true) ]);
     }
 }

@@ -121,7 +121,7 @@ trait VotesProcess
         if ($this->_voteFastMode === 0) :
             $linkCount = $vote->countLinks();
             $links = $vote->getLinks();
-            $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && reset($links) === $this) );
+            $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && \reset($links) === $this) );
 
             foreach ($vote->getAllCandidates() as $candidate) :
                 if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate($candidate, true) && $this->isRegisteredCandidate($candidate, false)) :
@@ -137,7 +137,7 @@ trait VotesProcess
 
             if ($change) :
                 $vote->setRanking(  $ranking,
-                                    ( abs($vote->getTimestamp() - microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
+                                    ( abs($vote->getTimestamp() - \microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
                 );
             endif;
         endif;
@@ -274,7 +274,7 @@ trait VotesProcess
             endif;
 
             // Disallow < and "
-            if ( preg_match('/<|"/mi', $line) === 1 ) :
+            if ( \preg_match('/<|"/mi', $line) === 1 ) :
                 throw new CondorcetException(14, $line);
             endif;
 
@@ -285,8 +285,8 @@ trait VotesProcess
             $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'),$line);
 
             // Tags + vote
-            if (strpos($line, '||') !== false) :
-                $data = explode('||', $line);
+            if (\strpos($line, '||') !== false) :
+                $data = \explode('||', $line);
 
                 $vote = $data[1];
                 $tags = $data[0];
@@ -311,29 +311,29 @@ trait VotesProcess
         $doCallBack = $callBack !== null;
 
         if (!$isFile) :
-            $file = fopen("php://memory", 'r+');
-            fwrite($file, $input);
-            rewind($file);
+            $file = \fopen("php://memory", 'r+');
+            \fwrite($file, $input);
+            \rewind($file);
             unset($input); // Memory Optimization
         else :
-            $file = fopen($input, 'r');
+            $file = \fopen($input, 'r');
         endif;
 
         $char = '';
         $record = '';
 
         while ($char !== false) :
-            $char = fgetc($file);
+            $char = \fgetc($file);
 
             if ($char === ";" || $char === "\n" || $char === false) :
                 try {
                     CondorcetUtil::prepareParse($record, false);
 
-                    if ( ($is_comment = strpos($record, '#')) !== false ) :
-                        $record = substr($record, 0, $is_comment);
+                    if ( ($is_comment = \strpos($record, '#')) !== false ) :
+                        $record = \substr($record, 0, $is_comment);
                     endif;
 
-                    $multiple = VoteUtil::parseAnalysingOneLine(strpos($record, '*'),$record);
+                    $multiple = VoteUtil::parseAnalysingOneLine(\strpos($record, '*'),$record);
 
                     for ($i=0; $i < $multiple; $i++) :
                         $inserted_votes_count += $this->parseVotes($record);

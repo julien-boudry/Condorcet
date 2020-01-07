@@ -51,7 +51,7 @@ abstract class Condorcet
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :
-            $version = explode('.', self::VERSION);
+            $version = \explode('.', self::VERSION);
             return $version[0].'.'.$version[1];
         else :
             return self::VERSION;
@@ -68,7 +68,7 @@ abstract class Condorcet
             unset($auth[self::CONDORCET_BASIC_CLASS]);
         endif;
 
-        return array_column($auth,0);
+        return \array_column($auth,0);
     }
 
 
@@ -92,7 +92,7 @@ abstract class Condorcet
         else : // Alias
             foreach ($auth as $class => $alias) :
                 foreach ($alias as $entry) :
-                    if ( strcasecmp($method,$entry) === 0 ) :
+                    if ( \strcasecmp($method,$entry) === 0 ) :
                         return $class;
                     endif;
                 endforeach;
@@ -130,11 +130,11 @@ abstract class Condorcet
         // Check if the class Algo. exist and ready to be used
         protected static function testMethod (string $method) : bool
         {
-            if ( !class_exists($method) ) :
+            if ( !\class_exists($method) ) :
                 throw new CondorcetException(9);
             endif;
 
-            if ( !is_subclass_of($method, Algo\MethodInterface::class) || !is_subclass_of($method, Algo\Method::class) ) :
+            if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
                 throw new CondorcetException(10);
             endif;
 
