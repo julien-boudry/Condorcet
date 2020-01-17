@@ -13,9 +13,9 @@
         }
     ],
     "require": {
-        "php": ">=7.4.1",
+        "php": ">= 7.4.1",
         "ext-json": "*",
-        "symfony/console": "*",
+        "symfony/console": ">= 5.0",
         "symfony/yaml": ">= 5.0"
     },
     "require-dev": {
@@ -23,7 +23,8 @@
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
         "codacy/coverage": "dev-master",
-        "phpunit/phpunit": "^8",
+        "phpbench/phpbench": ">= 0.17",
+        "phpunit/phpunit": "^8.5 || ^9 || ^10",
         "phploc/phploc": "dev-master"
     },
     "suggest": {
