@@ -42,4 +42,4 @@ jobs:
     - name: Export to Codacy
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-      run: vendor/bin/codacycoverage clover build/coverage/xml
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh)
