@@ -204,11 +204,11 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 
 ## First-past-the-post
 
-> **Family:** FTPT  
+> **Family:** First-past-the-post voting
 > **Variant used:** *See implementation comment*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/First-past-the-post_voting  
 > ***  
-> **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FTPT"  
+> **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FPTP", "FPP", "SMP"
 
 ### Implementation Comments  
  In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
@@ -219,14 +219,14 @@ A/B earn each 0.5 points
 ### Code example
 ```php
 // Get Full Ranking
-$election->getResult('Ftpt') ;
+$election->getResult('FPTP') ;
 
 // Just get Winner or Loser
-$election->getWinner('Ftpt') ;
-$election->getLoser('Ftpt') ;
+$election->getWinner('FPTP') ;
+$election->getLoser('FPTP') ;
 
 // Get Stats
-$election->getResult('Ftpt')->getStats() ;
+$election->getResult('FPTP')->getStats() ;
 ```
 
 
