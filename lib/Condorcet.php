@@ -18,7 +18,7 @@ Condorcet::addMethod( Algo\Methods\Copeland\Copeland::class );
 Condorcet::addMethod( Algo\Methods\Dodgson\DodgsonQuick::class );
 Condorcet::addMethod( Algo\Methods\Dodgson\DodgsonTidemanApproximation::class );
 Condorcet::addMethod( Algo\Methods\Borda\DowdallSystem::class );
-Condorcet::addMethod( Algo\Methods\Ftpt\Ftpt::class );
+Condorcet::addMethod( Algo\Methods\FirstPastThePost\FirstPastThePost::class );
 Condorcet::addMethod( Algo\Methods\InstantRunoff\InstantRunoff::class );
 Condorcet::addMethod( Algo\Methods\KemenyYoung\KemenyYoung::class );
 Condorcet::addMethod( Algo\Methods\Minimax\MinimaxWinning::class );

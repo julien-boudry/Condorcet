@@ -6,7 +6,7 @@ namespace CondorcetPHP\Condorcet;
 use PHPUnit\Framework\TestCase;
 
 
-class FtptTest extends TestCase
+class FirstPastThePostTest extends TestCase
 {
     /**
      * @var election
@@ -37,7 +37,7 @@ class FtptTest extends TestCase
                 2 => 'B',
                 3 => 'D',
                 4 => 'C' ],
-            $this->election->getResult('Ftpt')->getResultAsArray(true)
+            $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
         self::assertSame( [
@@ -45,7 +45,7 @@ class FtptTest extends TestCase
             'B' => 26,
             'D' => 17,
             'C' => 15 ],
-            $this->election->getResult('Ftpt')->getStats()
+            $this->election->getResult('Fptp')->getStats()
         );
     }
 
@@ -70,7 +70,7 @@ class FtptTest extends TestCase
             1 => ['A','D'],
             2 => 'B',
             3 => 'C' ],
-            $this->election->getResult('Ftpt')->getResultAsArray(true)
+            $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
         self::assertSame( [
@@ -78,7 +78,7 @@ class FtptTest extends TestCase
             'D' => 42,
             'B' => 26,
             'C' => 15 ],
-            $this->election->getResult('Ftpt')->getStats()
+            $this->election->getResult('Fptp')->getStats()
         );
     }
 
@@ -97,14 +97,14 @@ class FtptTest extends TestCase
             1 => 'A',
             2 => 'C',
             3 => 'B' ],
-            $this->election->getResult('Ftpt')->getResultAsArray(true)
+            $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
         self::assertSame( [
             'A' => 1 + 1/2,
             'C' => 1/2,
             'B' => 0 ],
-            $this->election->getResult('Ftpt')->getStats()
+            $this->election->getResult('Fptp')->getStats()
         );
     }
 }

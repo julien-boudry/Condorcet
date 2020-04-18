@@ -10,15 +10,15 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\Ftpt;
+namespace CondorcetPHP\Condorcet\Algo\Methods\FirstPastThePost;
 
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
-class Ftpt extends Method implements MethodInterface
+class FirstPastThePost extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FTPT'];
+    public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FPTP', 'FPP', 'SMP', 'FTPT'];
 
     protected ?array $_Stats = null;
 
