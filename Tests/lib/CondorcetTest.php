@@ -13,7 +13,7 @@ class CondorcetTest extends TestCase
     public function testgetVersion () : void
     {
         self::assertSame(Condorcet::VERSION,CONDORCET::getVersion());
-        self::assertRegExp('/^[1-9]+\.[0-9]+$/',CONDORCET::getVersion(true));
+        self::assertMatchesRegularExpression('/^[1-9]+\.[0-9]+$/',CONDORCET::getVersion(true));
     }
 
     public function testAddExistingMethod () : void

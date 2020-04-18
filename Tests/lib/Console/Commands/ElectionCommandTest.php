@@ -50,9 +50,9 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Stats:', $output);
         self::assertStringContainsString('Votes List', $output);
 
-        self::assertRegExp('/Is vote weight allowed\?( )+TRUE/', $output);
-        self::assertRegExp('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
-        self::assertRegExp('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
+        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
