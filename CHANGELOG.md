@@ -2,6 +2,20 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.1.1] - 2020-04-20
+### Description
+Minor bugfix, optimizations and dependancy cleanup release. But also include a new voting method.
+
+### Added
+- Two-round voting system. Useful to compare Condorcet with traditional elections.
+
+### Changed
+- Provides the right acronyms for First-Past-The-Post voting method.
+
+### Internal changes
+- Developments dependancy upgrades.
+
+
 ## [v2.1.0] - 2019-12-29
 ### Description
 Move to PHP 7.4 version. And add console application for command line usage!
