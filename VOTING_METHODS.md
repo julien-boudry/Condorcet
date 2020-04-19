@@ -204,7 +204,7 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 
 ## First-past-the-post
 
-> **Family:** First-past-the-post voting
+> **Family:** Majority  
 > **Variant used:** *See implementation comment*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/First-past-the-post_voting  
 > ***  

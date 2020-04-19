@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\FirstPastThePost;
+namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
