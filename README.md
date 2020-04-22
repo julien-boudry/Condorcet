@@ -154,10 +154,10 @@ _You must install Docker first. See [installation instructions](https://hub.dock
 ##### From a public image
 ```shell
 docker pull julienboudry/condorcet:latest
-docker run --hostname=condorcet -it --rm julienboudry/condorcet bash
+docker run --hostname=condorcet -it --rm julienboudry/condorcet
 
-# Execute a command, example:
-root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+# With custom parameters :
+docker run --hostname=condorcet -it --rm julienboudry/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
 ```
 
 ##### From docker file
@@ -165,10 +165,10 @@ root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;
 git clone https://github.com/julien-boudry/Condorcet.git
 cd Condorcet
 docker build -t condorcet .
-docker run --hostname="condorcet" --rm -it condorcet bash
+docker run --hostname="condorcet" --rm -it condorcet
 
 # Execute a command, example:
-root@condorcet:/usr/src/condorcetapp# condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+docker run --hostname="condorcet" --rm -it condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
 ```
 
 ### Condorcet Wiki - Command Line Manual
