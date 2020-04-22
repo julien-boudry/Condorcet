@@ -10,7 +10,8 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && apt-get install --no-install-recommends --fix-missing -yqq git unzip curl \
     && curl --silent --show-error https://getcomposer.org/installer | php \
     && chmod +x /usr/src/condorcetapp/bin/* \
-    && php composer.phar install --no-dev --optimize-autoloader --ignore-platform-reqs --no-progress \
+    && rm -fR composer.lock vendor \
+    && php composer.phar install --no-dev --optimize-autoloader --no-progress \
     && apt-get clean \
     && apt-get autoremove -y \
     && rm -rf \
@@ -23,7 +24,6 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
         /usr/share/doc-base
 
 ENTRYPOINT [ "condorcet" ]
-CMD [ "election", "-c", "A;B;C", "-w", "A>B;A>C;C>B", "-r"]
 
 # Usage:
 # 1. docker build -t condorcet .

@@ -154,7 +154,7 @@ _You must install Docker first. See [installation instructions](https://hub.dock
 ##### From a public image
 ```shell
 docker pull julienboudry/condorcet:latest
-docker run --hostname=condorcet -it --rm julienboudry/condorcet
+docker run --hostname=condorcet -it --rm julienboudry/condorcet election
 
 # With custom parameters :
 docker run --hostname=condorcet -it --rm julienboudry/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
@@ -165,7 +165,7 @@ docker run --hostname=condorcet -it --rm julienboudry/condorcet election -c "A;B
 git clone https://github.com/julien-boudry/Condorcet.git
 cd Condorcet
 docker build -t condorcet .
-docker run --hostname="condorcet" --rm -it condorcet
+docker run --hostname="condorcet" --rm -it condorcet election
 
 # Execute a command, example:
 docker run --hostname="condorcet" --rm -it condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r

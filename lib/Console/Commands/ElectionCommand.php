@@ -47,6 +47,8 @@ class ElectionCommand extends Command
     protected function configure () : void
     {
         $this->setName('election')
+            ->setAliases(['condorcet'])
+
             ->setDescription('Process an election')
             ->setHelp('This command takle candidates and votes in input. An output the résult of an election.')
 
