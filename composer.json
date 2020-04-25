@@ -12,6 +12,16 @@
             "role": "Developer"
         }
     ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/julien-boudry"
+        },
+        {
+            "type": "bitcoin",
+            "url": "https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9"
+        }
+    ],
     "require": {
         "php": ">= 7.4.1",
         "ext-json": "*",
