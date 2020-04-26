@@ -14,12 +14,12 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core;
 
-class FirstPastThePost extends Majority_Core
+class TwoRoundSystem extends Majority_Core
 {
     // Method Name
-    public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FPTP', 'FPP', 'SMP', 'FTPT'];
+    public const METHOD_NAME = ['Two-round system', 'second ballot', 'runoff voting', 'ballotage', 'two round system', 'two round', 'two rounds', 'two rounds system', 'runoff voting'];
 
     // Mod
-    protected const MAX_ROUND = 1;
+    protected const MAX_ROUND = 2;
     protected const RANKS_FOR_NEXT_ROUND = 2;
 }

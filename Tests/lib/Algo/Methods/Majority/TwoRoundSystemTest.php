@@ -1,0 +1,323 @@
+<?php
+declare(strict_types=1);
+namespace CondorcetPHP\Condorcet;
+
+
+use PHPUnit\Framework\TestCase;
+
+
+class TwoRoundSystemTest extends TestCase
+{
+    /**
+     * @var election
+     */
+    private  Election $election;
+
+    public function setUp() : void
+    {
+        $this->election = new Election;
+    }
+
+    public function testResult_French2002 () : void
+    {
+        $this->election->allowsVoteWeight(true);
+        $this->election->setImplicitRanking(false);
+
+        $this->election->addCandidate('Chirac');
+        $this->election->addCandidate('Jospin');
+        $this->election->addCandidate('Le Pen');
+        $this->election->addCandidate('Bayrou');
+        $this->election->addCandidate('Laguiller');
+        $this->election->addCandidate('Chevènement');
+        $this->election->addCandidate('Mamère');
+        $this->election->addCandidate('Besancenot');
+        $this->election->addCandidate('Saint-Josse');
+        $this->election->addCandidate('Madelin');
+        $this->election->addCandidate('Robert Hue');
+        $this->election->addCandidate('Mégret');
+        $this->election->addCandidate('Taubira');
+        $this->election->addCandidate('Lepage');
+        $this->election->addCandidate('Boutin');
+        $this->election->addCandidate('Gluckstein');
+
+        $this->election->parseVotes('
+            Chirac > Bayrou = Jospin = Madelin = Chevénement = Mamère = Robert Hue = Taubira = Lepage = Boutin > Saint-Josse ^1988
+            Jospin > Chevénement = Taubira = Mamère > Bayrou > Robert Hue > Chirac = Lepage = Boutin > Madelin > Saint-Josse ^ 1618
+            Le Pen > Mégret ^1686
+            Bayrou > Chirac ^684
+            Laguiller > Besancenot = Gluckstein  > ^572
+            Chevènement > Chirac ^533
+            Mamère > Jospin > Chirac ^525
+            Besancenot > Gluckstein = Laguillier ^425
+            Saint-Josse > Chirac > Jospin ^423
+            Madelin > Chirac ^391
+            Robert Hue > Jospin > Chirac ^337
+            Mégret > Le Pen ^234
+            Taubira > Jospin > Chirac ^232
+            Lepage > Chirac ^188
+            Boutin > Chirac ^119
+            Gluckstein > Besancenot = Laguillier ^47
+        ');
+
+        self::assertSame( [
+            1 => 'Chirac',
+            2 => 'Le Pen',
+            3 => 'Jospin',
+            4 => 'Bayrou',
+            5 => 'Laguiller',
+            6 => 'Chevènement',
+            7 => 'Mamère',
+            8 => 'Besancenot',
+            9 => 'Saint-Josse',
+            10 => 'Madelin',
+            11 => 'Robert Hue',
+            12 => 'Mégret',
+            13 => 'Taubira',
+            14 => 'Lepage',
+            15 => 'Boutin',
+            16 => 'Gluckstein'
+             ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'Chirac' => 1988,
+                                    'Le Pen' => 1686,
+                                    'Jospin' => 1618,
+                                    'Bayrou' => 684,
+                                    'Laguiller' => 572,
+                                    'Chevènement' => 533,
+                                    'Mamère' => 525,
+                                    'Besancenot' => 425,
+                                    'Saint-Josse' => 423,
+                                    'Madelin' => 391,
+                                    'Robert Hue' => 337,
+                                    'Mégret' => 234,
+                                    'Taubira' => 232,
+                                    'Lepage' => 188,
+                                    'Boutin' => 119,
+                                    'Gluckstein' => 47
+                                ],
+                            2=> [
+                                'Chirac' => 7038,
+                                'Le Pen' => 1920
+                            ]
+                        ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_1 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D * 42
+            B>C>D>A * 26
+            C>D>B>A * 15
+            D>C>B>A * 17
+        ');
+
+        self::assertSame( [
+                1 => 'B',
+                2 => 'A',
+                3 => 'D',
+                4 => 'C' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 42,
+                                    'B' => 26,
+                                    'D' => 17,
+                                    'C' => 15
+                                ],
+                            2=> [
+                                'B' => 58,
+                                'A' => 42,
+                            ]
+                        ],
+                        $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_2 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            A>B>C>D ^ 42
+            B>C>D>A * 26
+            C>D>B>A ^ 15
+            D>C>B>A * 17
+            D>B=C=A ^ 25
+        ');
+
+        self::assertSame( [
+            1 => 'D',
+            2 => 'A',
+            3 => 'B',
+            4 => 'C' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 42,
+                                    'D' => 42,
+                                    'B' => 26,
+                                    'C' => 15
+                                ],
+                            2=> [
+                                'D' => 83,
+                                'A' => 42
+                            ]
+                        ],
+                        $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_3 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A>B>C
+            A=C>B
+        ');
+
+        self::assertSame( [
+            1 => 'A',
+            2 => 'C',
+            3 => 'B' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 1.5,
+                                    'C' => 0.5,
+                                    'B' => 0
+                                ]
+                        ],
+                        $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_5 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D * 51
+            B>C>D>A * 24
+            C>D>B>A * 25
+        ');
+
+        self::assertSame( [
+                1 => 'A',
+                2 => 'C',
+                3 => 'B',
+                4 => 'D' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 51,
+                                    'C' => 25,
+                                    'B' => 24,
+                                    'D' => 0
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_6 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A>B>C>D * 50
+            B>C>D>A * 50
+        ');
+
+        self::assertSame( [ 1 => ['A','B'], 2 => 'C' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 50,
+                                    'B' => 50,
+                                    'C' => 0
+                                ],
+                            2=> [
+                                    'A' => 50,
+                                    'B' => 50
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_7 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+
+        $this->election->parseVotes('
+            A>B>C>D * 50
+            B>C>D>A * 50
+        ');
+
+        self::assertSame( [ 1 => ['A','B'] ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 50,
+                                    'B' => 50
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_8 () : void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            D>E * 50
+            E>D * 50
+        ');
+
+        self::assertSame( [ 1 => ['A','B','C'] ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 0,
+                                    'B' => 0,
+                                    'C' => 0
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+}
