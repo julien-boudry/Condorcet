@@ -682,4 +682,38 @@ class VoteTest extends TestCase
 
         $vote = new Vote([$candidate,$candidate]);
     }
+
+    public function testEmptyVoteContextualInRanking () : void
+    {
+        $vote = $this->election1->addVote('candidate4 > candidate5');
+
+        self::assertSame(
+            [1 => [$this->candidate1,$this->candidate2,$this->candidate3]],
+            $vote->getContextualRanking($this->election1)
+        );
+
+        $cr = $vote->getContextualRankingAsString($this->election1);
+
+        self::assertSame(
+            [1 => ['candidate1','candidate2','candidate3']],
+            $cr
+        );
+    }
+
+    public function testNonEmptyVoteContextualInRanking () : void
+    {
+        $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
+
+        self::assertSame(
+            [1 => [$this->candidate1,$this->candidate2,$this->candidate3]],
+            $vote->getContextualRanking($this->election1)
+        );
+
+        $cr = $vote->getContextualRankingAsString($this->election1);
+
+        self::assertSame(
+            [1 => ['candidate1','candidate2','candidate3']],
+            $cr
+        );
+    }
 }

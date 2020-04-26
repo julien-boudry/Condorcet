@@ -203,7 +203,7 @@ class Vote implements \Iterator
                 endif;
             endforeach;
 
-            $newRanking[] = $last_rank;
+            $newRanking[count($newRanking) + 1] = $last_rank;
         endif;
 
         return $newRanking;
