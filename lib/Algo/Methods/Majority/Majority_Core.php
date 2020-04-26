@@ -131,10 +131,12 @@ abstract class Majority_Core extends Method implements MethodInterface
                 endif;
             endif;
 
-            foreach ($oneRanking[1] as $oneCandidateInRank) :
-                $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] ??= 0;
-                $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
-            endforeach;
+            if (isset($oneRanking[1])) :
+                foreach ($oneRanking[1] as $oneCandidateInRank) :
+                    $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] ??= 0;
+                    $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
+                endforeach;
+            endif;
         endforeach;
 
         return $roundScore;

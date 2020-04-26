@@ -311,13 +311,33 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
+        $stats = $this->election->getResult('Two Rounds')->getStats();
+        \array_walk_recursive($stats, function (float &$value) : float {
+            return $value = round($value, 10);
+        });
+
+        self::assertSame([  1=> [
+                                    'A' => \round(100/3,10),
+                                    'B' => \round(100/3,10),
+                                    'C' => \round(100/3,10)
+                                ]
+                            ],
+                        $stats
+        );
+
+        $this->election->setImplicitRanking(false);
+
+        self::assertSame( [ 1 => ['A','B','C'] ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
         self::assertSame([  1=> [
                                     'A' => 0,
                                     'B' => 0,
                                     'C' => 0
                                 ]
                             ],
-            $this->election->getResult('Two Rounds')->getStats()
+                            $this->election->getResult('Two Rounds')->getStats()
         );
     }
 }
