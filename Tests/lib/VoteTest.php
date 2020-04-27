@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests;
 
-use PHPUnit\Framework\TestCase;
-
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
 {

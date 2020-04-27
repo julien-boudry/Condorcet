@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests;
 
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use PHPUnit\Framework\TestCase;
 
 
@@ -59,7 +60,7 @@ class ReadmeQuickExampleTest extends TestCase
             // Schulze Ranking
             $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
               # Echo it easily
-            $this->assertEquals([1=>'Candidate 1',2=>'Candidate 2',3=>'Candidate 4',4=>'Candidate 3']  ,CondorcetUtil::format($myResultBySchulze));
+            $this->assertEquals([1=>'Candidate 1', 2=>'Candidate 2', 3=>'Candidate 4', 4=>'Candidate 3'] , CondorcetUtil::format($myResultBySchulze));
 
             // Get Schulze advanced computing data & stats
             $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();

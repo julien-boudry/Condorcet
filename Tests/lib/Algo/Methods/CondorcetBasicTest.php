@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests\Algo\Methods;
 
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use PHPUnit\Framework\TestCase;
-
 
 class CondorcetBasicTest extends TestCase
 {
@@ -140,7 +140,7 @@ class CondorcetBasicTest extends TestCase
             A > C > L
         ');
 
-        $this->election->getResult(Algo\Methods\CondorcetBasic::class);
+        $this->election->getResult(\CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic::class);
     }
 
 }

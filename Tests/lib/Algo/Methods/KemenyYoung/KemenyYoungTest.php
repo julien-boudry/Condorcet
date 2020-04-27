@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\KemenyYoung;
 
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use PHPUnit\Framework\TestCase;
-
 
 class KemenyYoungTest extends TestCase
 {

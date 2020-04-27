@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
+
+namespace CondorcetPHP\Condorcet\Tests\Examples;
 
 use PHPUnit\Framework\TestCase;
-
 
 class ExamplesTest extends TestCase
 {

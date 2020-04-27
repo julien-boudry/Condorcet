@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +37,7 @@ class CondorcetTest extends TestCase
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
         self::assertNull(Condorcet::getMethodClass('skzljdpmzk'));
-        self::assertSame(Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::getMethodClass('Schulze Winning'));
+        self::assertSame(\CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class,Condorcet::getMethodClass('Schulze Winning'));
     }
 
     /**
@@ -93,12 +93,12 @@ class CondorcetTest extends TestCase
     public function testMethodAlias () : void
     {
         self::assertSame(
-            Algo\Methods\KemenyYoung\KemenyYoung::class,
+            \CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class,
             Condorcet::getMethodClass('kemeny–Young')
         );
 
         self::assertSame(
-            Algo\Methods\KemenyYoung\KemenyYoung::class,
+            \CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class,
             Condorcet::getMethodClass('Maximum likelihood Method')
         );
     }

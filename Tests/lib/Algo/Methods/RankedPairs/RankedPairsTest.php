@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
 
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use PHPUnit\Framework\TestCase;
-
 
 class RankedPairsTest extends TestCase
 {

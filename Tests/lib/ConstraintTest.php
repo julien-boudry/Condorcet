@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests;
 
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use PHPUnit\Framework\TestCase;
-
 
 class ConstraintTest extends TestCase
 {
@@ -27,7 +27,7 @@ class ConstraintTest extends TestCase
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(29);
 
-        $class = Constraints\NoTie::class;
+        $class = \CondorcetPHP\Condorcet\Constraints\NoTie::class;
 
         self::assertTrue($this->election->addConstraint($class));
 
@@ -64,8 +64,7 @@ class ConstraintTest extends TestCase
 
     public function testConstraintsOnVote () : void
     {
-        $NoTieImplementation = [Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
-
+        $NoTieImplementation = [\CondorcetPHP\Condorcet\Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
 
         foreach ($NoTieImplementation as $constraintClass ) :
             $this->setUp();

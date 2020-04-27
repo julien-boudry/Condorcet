@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
+
+namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;

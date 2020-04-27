@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet\DataManager;
 
+namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
-use CondorcetPHP\Condorcet\DataManager\VoteManager;
+use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
 

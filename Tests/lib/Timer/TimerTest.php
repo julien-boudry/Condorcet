@@ -1,13 +1,10 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Timer\Manager;
-use CondorcetPHP\Condorcet\Timer\Chrono;
+namespace CondorcetPHP\Condorcet\Tests\Timer;
 
-
+use CondorcetPHP\Condorcet\Timer\{Manager, Chrono};
 use PHPUnit\Framework\TestCase;
-
 
 class TimerTest extends TestCase
 {

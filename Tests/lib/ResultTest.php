@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace CondorcetPHP\Condorcet;
 
+namespace CondorcetPHP\Condorcet\Tests;
 
-
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use PHPUnit\Framework\TestCase;
 
 
@@ -75,7 +75,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame(Algo\Methods\RankedPairs\RankedPairsMargin::class,$this->election1->getResult('Ranked Pairs')->getClassGenerator());
+        self::assertSame(\CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class,$this->election1->getResult('Ranked Pairs')->getClassGenerator());
     }
 
     public function testMethod () : void
