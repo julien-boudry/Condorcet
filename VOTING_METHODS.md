@@ -16,9 +16,11 @@ Condorcet PHP: Voting Methods
 * **Dodgson Approximations**
     * **[Dodgson Quick](#dodgson-quick)**
     * **[Dodgson Tideman approximation](#dodgson-tideman-approximation)**
-* **[First-past-the-post](#first-past-the-post)**
 * **[Instant-runoff](#instant-runoff-alternative-vote)** *(Alternative Vote / Preferential Voting)*
 * **[Kemeny–Young](#kemenyyoung)**
+* **Majority Family**
+    * **[First-past-the-post](#first-past-the-post)**
+    * **[Two-round system](#two-round-system)**
 * **Minimax Family**
     * **[Minimax Winning](#minimax-winning)**
     * **[Minimax Margin](#minimax-margin)**
@@ -202,31 +204,17 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 ```
 
 
-## First-past-the-post
-
-> **Family:** Majority  
-> **Variant used:** *See implementation comment*  
-> **Wikipedia:** https://en.wikipedia.org/wiki/First-past-the-post_voting  
-> ***  
-> **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FPTP", "FPP", "SMP"
-
-### Implementation Comments  
- In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
-
-For example: ```A = B > C```
-A/B earn each 0.5 points
-
 ### Code example
 ```php
 // Get Full Ranking
-$election->getResult('FPTP') ;
+$election->getResult('Two-round system') ;
 
 // Just get Winner or Loser
-$election->getWinner('FPTP') ;
-$election->getLoser('FPTP') ;
+$election->getWinner('Two-round system') ;
+$election->getLoser('Two-round system') ;
 
 // Get Stats
-$election->getResult('FPTP')->getStats() ;
+$election->getResult('Two-round system')->getStats() ;
 ```
 
 
@@ -281,6 +269,50 @@ $election->getLoser('Kemeny-Young') ;
 // Get Stats
 $election->getResult('Kemeny-Young')->getStats() ;
 ```
+
+
+## First-past-the-post
+
+> **Family:** Majority  
+> **Variant used:** *See implementation comment*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/First-past-the-post_voting  
+> ***  
+> **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FPTP", "FPP", "SMP"
+
+### Implementation Comments  
+ In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
+
+For example: ```A = B > C```
+A/B earn each 0.5 points
+
+### Code example
+```php
+// Get Full Ranking
+$election->getResult('FPTP') ;
+
+// Just get Winner or Loser
+$election->getWinner('FPTP') ;
+$election->getLoser('FPTP') ;
+
+// Get Stats
+$election->getResult('FPTP')->getStats() ;
+```
+
+
+## Two-round system
+
+> **Family:** Majority  
+> **Variant used:** *See implementation comment*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Two-round_system
+> ***  
+> **Methods alias available (for function call)**: "Two-round system", "second ballot", "runoff voting", "ballotage", "two round system", "two round", "two rounds", "two rounds system", "runoff voting"
+
+### Implementation Comments  
+ In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
+ For example: ```A = B > C```  
+ A/B earn each 0.5 points  
+ 
+ The two top first rank are keeped if needed for second round, can be two or more candidates.  
 
 
 ## Minimax Winning
