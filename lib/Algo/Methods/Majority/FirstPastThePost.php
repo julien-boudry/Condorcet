@@ -21,5 +21,5 @@ class FirstPastThePost extends Majority_Core
 
     // Mod
     protected const MAX_ROUND = 1;
-    protected const RANKS_FOR_NEXT_ROUND = 2;
+    protected const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
 }

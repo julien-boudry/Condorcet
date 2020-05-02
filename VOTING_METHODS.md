@@ -312,7 +312,7 @@ $election->getResult('FPTP')->getStats() ;
  For example: ```A = B > C```  
  A/B earn each 0.5 points  
  
- The two top first rank are keeped if needed for second round, can be two or more candidates.  
+Method is trying to keep only two candidates for the next round. But that may be more in the event of a perfect tie.  
 
 
 ## Minimax Winning
