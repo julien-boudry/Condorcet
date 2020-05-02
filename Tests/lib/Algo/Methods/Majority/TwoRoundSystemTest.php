@@ -420,6 +420,95 @@ class TwoRoundSystemTest extends TestCase
                                 ]
                             ],
             $this->election->getResult('Two Rounds')->getStats());
+    }
 
+    public function testResult_10 () : void
+    {
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+        $this->election->addCandidate('E');
+
+        $this->election->parseVotes('
+            A ^10
+            B ^10
+            C ^10
+            D>E ^9
+        ');
+
+        self::assertSame( [ 1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E'  ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 10,
+                                    'B' => 10,
+                                    'C' => 10,
+                                    'D' => 9,
+                                    'E' => 0
+                                ],
+                            2=> [
+                                    'A' => (float) 13,
+                                    'B' => (float) 13,
+                                    'C' => (float) 13
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+
+        $this->election->setImplicitRanking(false);
+
+        self::assertSame( [ 1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E'  ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 10,
+                                    'B' => 10,
+                                    'C' => 10,
+                                    'D' => 9,
+                                    'E' => 0
+                                ],
+                            2=> [
+                                    'A' => 10,
+                                    'B' => 10,
+                                    'C' => 10
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+    }
+
+    public function testResult_11 () : void
+    {
+        $this->election->allowsVoteWeight(true);
+        $this->election->setImplicitRanking(false);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->parseVotes('
+            A ^10
+            B ^10
+            C ^10
+            D>E ^9
+        ');
+
+        self::assertSame( [ 1 => ['A', 'B', 'C'] ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'A' => 10,
+                                    'B' => 10,
+                                    'C' => 10
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
     }
 }
