@@ -65,6 +65,8 @@ abstract class Majority_Core extends Method implements MethodInterface
                 $lastScore = null;
                 $nextRoundAddedCandidates = 0;
 
+                $this->_admittedCandidates = [];
+
                 foreach ($roundScore as $oneCandidateKey => $oneScore) :
                     if ($lastScore === null || $nextRoundAddedCandidates < static::RANKS_FOR_NEXT_ROUND || $oneScore === $lastScore ) :
                         $this->_admittedCandidates[] = $oneCandidateKey;
