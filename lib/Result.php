@@ -167,6 +167,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
                 foreach ($value as $candidate_key) :
                     $userResult[$key][] = $election->getCandidateObjectFromKey($candidate_key);
                 endforeach;
+
+                sort($userResult[$key], \SORT_STRING);
             elseif (\is_null($value)) :
                 $userResult[$key] = null;
             else :
