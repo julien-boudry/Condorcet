@@ -340,4 +340,86 @@ class TwoRoundSystemTest extends TestCase
                             $this->election->getResult('Two Rounds')->getStats()
         );
     }
+
+    public function testResult_9 () : void
+    {
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+        $this->election->addCandidate('E');
+
+        $this->election->parseVotes('
+            A>B ^10
+            B ^12
+            C ^10
+            D>E>A>B ^9
+            E>B ^5
+        ');
+
+        self::assertSame( [ 1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'B' => 12,
+                                    'A' => 10,
+                                    'C' => 10,
+                                    'D' => 9,
+                                    'E' => 5
+                                ],
+                            2=> [
+                                    'A' => 19,
+                                    'B' => 17,
+                                    'C' => 10
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+
+        $this->election->addVote('E>B ^2');
+
+        self::assertSame( [ 1 => ['A','B'], 2 => 'C', 3=> 'D', 4 => 'E' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'B' => 12,
+                                    'A' => 10,
+                                    'C' => 10,
+                                    'D' => 9,
+                                    'E' => 7
+                                ],
+                            2=> [
+                                    'A' => 19,
+                                    'B' => 19,
+                                    'C' => 10
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats()
+        );
+
+        $this->election->addVote('C');
+
+        self::assertSame( [ 1 => 'B', 2 => 'C', 3=> 'A', 4 => 'D', 5 => 'E' ],
+            $this->election->getResult('Two Rounds')->getResultAsArray(true)
+        );
+
+        self::assertSame([  1=> [
+                                    'B' => 12,
+                                    'C' => 11,
+                                    'A' => 10,
+                                    'D' => 9,
+                                    'E' => 7
+                                ],
+                            2=> [
+                                    'B' => 38,
+                                    'C' => 11
+                                ]
+                            ],
+            $this->election->getResult('Two Rounds')->getStats());
+
+    }
 }
