@@ -2,18 +2,20 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.1.1] - 2020-04-20
+## [v2.2.0] - 2020-05-05
 ### Description
-Minor bugfix, optimizations and dependancy cleanup release. But also include a new voting method.
+Include the new vote method "Two-round voting System", and some minors fix and optimizations.
 
 ### Added
 - Two-round voting system. Useful to compare Condorcet with traditional elections.
+- New Majority_Core class is the parent class for First-Past-The-Post and two-round system. It can easily be extended with variant parameters or code for creating easily many new majority voting methods (number of rounds, number of candidates retained after each round...).   
 
 ### Changed
+- Complete rewrite of First-Past-The-Post code. No user changes.
 - Provides the right acronyms for First-Past-The-Post voting method.
 
 ### Internal changes
-- Developments dependancy upgrades.
+- Developments dependency upgrades.
 
 
 ## [v2.1.0] - 2019-12-29

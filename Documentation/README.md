@@ -238,17 +238,6 @@ _Including above methods from public API_
 * protected makeRanking () : void  
 ```
 
-#### CondorcetPHP\Condorcet\Algo\Methods\Ftpt\Ftpt extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
-```php
-* public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public __destruct ()  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-```
-
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -275,6 +264,42 @@ _Including above methods from public API_
 * protected doPossibleRanking (?string $path = null)  
 * protected getStats () : array  
 * protected makeRanking () : void  
+```
+
+#### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
+* public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
+* public getObjectVersion (bool $major = false) : string  
+* public getResult () : CondorcetPHP\Condorcet\Result  
+* protected compute () : void  
+* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
+* protected doOneRound () : array  
+* protected getStats () : array  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
+* public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
+* public getObjectVersion (bool $major = false) : string  
+* public getResult () : CondorcetPHP\Condorcet\Result  
+* protected compute () : void  
+* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
+* protected doOneRound () : array  
+* protected getStats () : array  
+```
+
+#### CondorcetPHP\Condorcet\Algo\Methods\Majority\TwoRoundSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
+* public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
+* public getObjectVersion (bool $major = false) : string  
+* public getResult () : CondorcetPHP\Condorcet\Result  
+* protected compute () : void  
+* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
+* protected doOneRound () : array  
+* protected getStats () : array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -522,9 +547,9 @@ _Including above methods from public API_
 ```php
 * public static getDefaultName ()  
 * public __construct (?string $name = null)  
-* public addArgument ($name, $mode = null, $description = , $default = null)  
-* public addOption ($name, $shortcut = null, $mode = null, $description = , $default = null)  
-* public addUsage ($usage)  
+* public addArgument (string $name, ?int $mode = null, string $description = , $default = null)  
+* public addOption (string $name, $shortcut = null, ?int $mode = null, string $description = , $default = null)  
+* public addUsage (string $usage)  
 * public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output) : void  
 * public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output) : void  
 * public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
@@ -533,28 +558,28 @@ _Including above methods from public API_
 * public getDefinition ()  
 * public getDescription ()  
 * public getHelp ()  
-* public getHelper ($name)  
+* public getHelper (string $name)  
 * public getHelperSet ()  
 * public getName ()  
 * public getNativeDefinition ()  
 * public getProcessedHelp ()  
-* public getSynopsis ($short = false)  
+* public getSynopsis (bool $short = false)  
 * public getUsages ()  
 * public ignoreValidationErrors ()  
 * public isEnabled ()  
 * public isHidden ()  
-* public mergeApplicationDefinition ($mergeArgs = true)  
+* public mergeApplicationDefinition (bool $mergeArgs = true)  
 * public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output)  
-* public setAliases ($aliases)  
+* public setAliases (iterable $aliases)  
 * public setApplication (?Symfony\Component\Console\Application $application = null)  
 * public setCode (callable $code)  
 * public setDefinition ($definition)  
-* public setDescription ($description)  
-* public setHelp ($help)  
+* public setDescription (string $description)  
+* public setHelp (string $help)  
 * public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet)  
-* public setHidden ($hidden)  
-* public setName ($name)  
-* public setProcessTitle ($title)  
+* public setHidden (bool $hidden)  
+* public setName (string $name)  
+* public setProcessTitle (string $title)  
 * protected configure () : void  
 * protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : int  
