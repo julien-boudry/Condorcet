@@ -214,4 +214,18 @@ class ResultTest extends TestCase
         $this->election1->getResult('bad method');
     }
 
+    public function testResultRankOrdering () : void
+    {
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('C');
+        $this->election1->addCandidate('A');
+
+        $this->election1->addVote('C = A = B');
+
+        self::assertSame(
+            [   1 => ['A','B','C']
+            ],
+            $this->election1->getResult()->getOriginalResultArrayWithString()
+        );
+    }
 }
