@@ -20,6 +20,7 @@ class TwoRoundSystem extends Majority_Core
     public const METHOD_NAME = ['Two-round system', 'second ballot', 'runoff voting', 'ballotage', 'two round system', 'two round', 'two rounds', 'two rounds system', 'runoff voting'];
 
     // Mod
-    protected const MAX_ROUND = 2;
-    protected const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
+    public const MAX_ROUND = 2;
+    public const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
+    public const CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = 0;
 }

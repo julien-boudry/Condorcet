@@ -55,11 +55,11 @@ abstract class Majority_Core extends Method implements MethodInterface
                 endforeach;
             endif;
 
-            if ( ++$round > static::MAX_ROUND || reset($roundScore) > (array_sum($roundScore) / 2) ) :
+            if ( $round === static::MAX_ROUND || reset($roundScore) > (array_sum($roundScore) / 2) ) :
                 $resolved = true;
 
-                if ( isset($score[$round - 2]) && $score[$round - 1] === $score[$round - 2] ) :
-                    unset($score[$round - 1]);
+                if ( isset($score[$round - 1]) && $score[$round] === $score[$round - 1] ) :
+                    unset($score[$round]);
                 endif;
             else :
                 $lastScore = null;
@@ -68,13 +68,18 @@ abstract class Majority_Core extends Method implements MethodInterface
                 $this->_admittedCandidates = [];
 
                 foreach ($roundScore as $oneCandidateKey => $oneScore) :
-                    if ($lastScore === null || $nextRoundAddedCandidates < static::TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND || $oneScore === $lastScore ) :
-                        $this->_admittedCandidates[] = $oneCandidateKey;
-                        $lastScore = $oneScore;
-                        $nextRoundAddedCandidates++;
+                    if ($lastScore === null ||
+                        $nextRoundAddedCandidates < ( static::TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND + (static::CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND * ($round - 1)) ) ||
+                        $oneScore === $lastScore
+                        ) :
+                            $this->_admittedCandidates[] = $oneCandidateKey;
+                            $lastScore = $oneScore;
+                            $nextRoundAddedCandidates++;
                     endif;
                 endforeach;
             endif;
+
+            $round++;
         endwhile;
 
         // Compute Ranking

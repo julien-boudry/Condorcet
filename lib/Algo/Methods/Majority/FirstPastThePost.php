@@ -20,6 +20,7 @@ class FirstPastThePost extends Majority_Core
     public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FPTP', 'FPP', 'SMP', 'FTPT'];
 
     // Mod
-    protected const MAX_ROUND = 1;
-    protected const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
+    public const MAX_ROUND = 1;
+    public const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
+    public const CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = 0;
 }
