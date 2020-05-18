@@ -55,7 +55,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                 endforeach;
             endif;
 
-            if ( $round === static::MAX_ROUND || reset($roundScore) > (array_sum($roundScore) / 2) ) :
+            if ( $round === static::MAX_ROUND || \reset($roundScore) > (\array_sum($roundScore) / 2) ) :
                 $resolved = true;
 
                 if ( isset($score[$round - 1]) && $score[$round] === $score[$round - 1] ) :
@@ -91,7 +91,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         foreach ($score as $oneRound) :
             $lastScore = null;
             foreach ($oneRound as $candidateKey => $candidateScore) :
-                if (!in_array($candidateKey, $doneCandidates, true)) :
+                if (!\in_array($candidateKey, $doneCandidates, true)) :
                     if ($candidateScore === $lastScore) :
                         $doneCandidates[] = $result[$rank][] = $candidateKey;
                     else :
@@ -121,7 +121,7 @@ abstract class Majority_Core extends Method implements MethodInterface
             if ( !empty($this->_admittedCandidates) ) :
                 foreach ($oneRanking as $rankKey => $oneRank) :
                     foreach ($oneRank as $InRankKey => $oneCandidate) :
-                        if ( !in_array($this->_selfElection->getCandidateKey($oneCandidate), $this->_admittedCandidates, true) ) :
+                        if ( !\in_array($this->_selfElection->getCandidateKey($oneCandidate), $this->_admittedCandidates, true) ) :
                             unset($oneRanking[$rankKey][$InRankKey]);
                         endif;
                     endforeach;
@@ -131,7 +131,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                     endif;
                 endforeach;
 
-                if( ($newFirstRank = reset($oneRanking)) !== false ) :
+                if( ($newFirstRank = \reset($oneRanking)) !== false ) :
                     $oneRanking = [1 => $newFirstRank];
                 else :
                     continue;

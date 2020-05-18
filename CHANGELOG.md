@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v2.2.0] - 2020-05-05
+## [v2.2.0] - 2020-05-18
 ### Description
 Include the new vote method "Two-round voting System", and some minors fix and optimizations.
 
