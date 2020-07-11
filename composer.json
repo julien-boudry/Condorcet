@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": ">= 7.4.1",
+        "php": ">= ^8",
         "ext-json": "*",
         "symfony/console": ">= 5.0",
         "symfony/yaml": ">= 5.0"
