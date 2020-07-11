@@ -47,7 +47,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     //:: Alternative Vote ALGORITHM. :://
 
-    protected function compute (): void
+    protected function compute () : void
     {
         $candidateCount = $this->_selfElection->countCandidates();
         $majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
@@ -102,7 +102,7 @@ class InstantRunoff extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $candidateDone): array
+    protected function makeScore (array $candidateDone) : array
     {
         $score = [];
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
@@ -134,7 +134,7 @@ class InstantRunoff extends Method implements MethodInterface
         return $score;
     }
 
-    protected function tieBreaking (array $candidatesKeys): array
+    protected function tieBreaking (array $candidatesKeys) : array
     {
         $pairwise = $this->_selfElection->getPairwise();
         $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);

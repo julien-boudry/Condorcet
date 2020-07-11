@@ -67,6 +67,11 @@ class VotesManager extends ArrayManager
 
 /////////// Array Access - Specials improvements ///////////
 
+    public function offsetGet($offset) : ?Vote
+    {
+        return parent::offsetGet($offset);
+    }
+
     public function offsetSet($offset, $value) : void
     {
         if ($value instanceof Vote) :

@@ -298,7 +298,7 @@ class Vote implements \Iterator
                 throw $e;
             }
 
-            if(!$this->notUpdate) :
+            if (!$this->notUpdate) :
                 foreach ($this->_link as $link) :
                     $link->finishUpdateVote($this);
                 endforeach;
@@ -323,7 +323,8 @@ class Vote implements \Iterator
 
             \ksort($ranking);
 
-            $i = 1; $vote_r = [];
+            $i = 1;
+            $vote_r = [];
             foreach ($ranking as &$value) :
                 if ( !\is_array($value) ) :
                     $vote_r[$i] = [$value];
