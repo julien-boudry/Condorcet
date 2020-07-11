@@ -35,7 +35,7 @@ class Permutation
         );
     }
 
-    public function getResults (bool $serialize = false)
+    public function getResults (bool $serialize = false) : array|string
     {
         return $serialize ? \serialize($this->results) : $this->results;
     }
@@ -75,7 +75,7 @@ class Permutation
         endif;
     }
 
-    private function _permute (array $arr)
+    private function _permute (array $arr) : array|string
     {
         $out = [];
 

@@ -245,7 +245,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     }
 
     // return false if Entity does not exist.
-    public function selectOneEntity (int $key)
+    public function selectOneEntity (int $key) : mixed
     {
         $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
         $this->_prepare['selectOneEntity']->execute();

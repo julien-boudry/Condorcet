@@ -28,7 +28,7 @@ abstract class CondorcetUtil
         return \json_last_error() === \JSON_ERROR_NONE;
     }
 
-    public static function prepareJson (string $input)
+    public static function prepareJson (string $input) : mixed
     {
         if (!self::isJson($input)) :
             throw new CondorcetException(15);
@@ -65,7 +65,7 @@ abstract class CondorcetUtil
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, bool $convertObject = true)
+    public static function format ($input, bool $convertObject = true) : mixed
     {
         if (\is_object($input)) :
 

@@ -2,6 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.0.0] - NOT RELEASE YET
+### Description
+Use latest PHP 8.0 functionality and improvements.
+
+### Added
+
 ## [v2.2.1] - NOT RELEASE YET
 ### Added
 - Timer functionality is now deactivated by default for performance reason. Can be reactivated manuelly: ```php Condorcet:$UseTimer = true;```

@@ -127,7 +127,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset) : mixed
     {
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
@@ -160,7 +160,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         \reset($this->_Container);
     }
 
-    public function current() {
+    public function current() : mixed {
         return $this->offsetGet($this->key());
     }
 

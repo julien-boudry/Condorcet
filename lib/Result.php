@@ -53,7 +53,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         throw new CondorcetException (0,"Can't change a result");
     }
 
-    public function offsetGet ($offset) {
+    public function offsetGet ($offset) : array|Candidate|null {
         return $this->_UserResult[$offset] ?? null;
     }
 
@@ -138,15 +138,15 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_Result;
     }
 
-    public function getStats () {
+    public function getStats () : mixed {
         return $this->_Stats;
     }
 
-    public function getWinner () {
+    public function getWinner () : array|Candidate|null {
         return CondorcetUtil::format($this[1],false);
     }
 
-    public function getLoser () {
+    public function getLoser () : array|Candidate|null {
         return CondorcetUtil::format($this[count($this)],false);
     }
 

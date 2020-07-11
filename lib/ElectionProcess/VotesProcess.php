@@ -173,7 +173,7 @@ trait VotesProcess
         try {
             $vote->registerLink($this);
             $this->_Votes[] = $vote;
-        } catch (CondorcetInternalException $e) {
+        } catch (CondorcetInternalException) {
             // Security : Check if vote object not already register
             throw new CondorcetException(31);
         }
@@ -285,7 +285,7 @@ trait VotesProcess
             $weight = VoteUtil::parseAnalysingOneLine(\strpos($line, '^'),$line);
 
             // Tags + vote
-            if (\strpos($line, '||') !== false) :
+            if (\str_contains($line, '||') === true) :
                 $data = \explode('||', $line);
 
                 $vote = $data[1];
@@ -343,7 +343,7 @@ trait VotesProcess
                         endif;
                     endfor;
 
-                } catch (CondorcetException $e) {
+                } catch (CondorcetException) {
                     ++$fail_count;
                 } finally {
                     $record = '';

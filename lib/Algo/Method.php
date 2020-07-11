@@ -55,7 +55,7 @@ abstract class Method
     {
     	return new Result (
             static::METHOD_NAME[0],
-            \get_class($this),
+            $this::class,
     		$this->_selfElection,
     		$result,
             $this->getStats()

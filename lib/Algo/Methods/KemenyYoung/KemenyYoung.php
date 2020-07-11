@@ -125,7 +125,7 @@ class KemenyYoung extends Method implements MethodInterface
         $this->_PossibleRanking = \unserialize( \str_replace($search, $replace, $compute) );
     }
 
-    protected function doPossibleRanking (?string $path = null)
+    protected function doPossibleRanking (?string $path = null) : array|string
     {
         $permutation = new Permutation ($this->_selfElection->countCandidates());
 

@@ -77,7 +77,7 @@ trait ResultsProcess
     }
 
 
-    public function getWinner (?string $method = null)
+    public function getWinner (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
@@ -95,7 +95,7 @@ trait ResultsProcess
     }
 
 
-    public function getLoser (?string $method = null)
+    public function getLoser (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
