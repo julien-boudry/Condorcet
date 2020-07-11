@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\CondorcetUtil;
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
-
+Condorcet::$UseTimer = true;
 $election = new Election () ;
 
 // Inluding Data
