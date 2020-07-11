@@ -38,12 +38,14 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '2.2.0';
+    public const VERSION = '2.2.1';
 
     public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
     protected static ?string $_defaultMethod = null;
     protected static array $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
+
+    public static bool $UseTimer = false;
 
 
 /////////// STATICS METHODS ///////////

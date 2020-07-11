@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.2.1] - NOT RELEASE YET
+### Added
+- Timer functionality is now deactivated by default for performance reason. Can be reactivated manuelly: ```php Condorcet:$UseTimer = true;```
+
 ## [v2.2.0] - 2020-05-18
 ### Description
 Include the new vote method "Two-round voting System", and some minors fix and optimizations.
