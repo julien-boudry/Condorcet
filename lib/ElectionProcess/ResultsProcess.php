@@ -71,7 +71,7 @@ trait ResultsProcess
             throw new CondorcetException(8);
         endif;
 
-        ($chrono !== null) AND $chrono->setRole('GetResult for '.$method);
+        ($chrono !== null) && $chrono->setRole('GetResult for '.$method);
 
         return $result;
     }
@@ -84,7 +84,7 @@ trait ResultsProcess
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            (Condorcet::$UseTimer === true) AND new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
+            (Condorcet::$UseTimer === true) && new Timer_Chrono ($this->_timer, 'GetWinner for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getWinner();
 
@@ -102,7 +102,7 @@ trait ResultsProcess
             //////
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) :
-            (Condorcet::$UseTimer === true) AND new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
+            (Condorcet::$UseTimer === true) && new Timer_Chrono ($this->_timer, 'GetLoser for CondorcetBasic');
             $this->initResult($algo);
             $result = $this->_Calculator[$algo]->getLoser();
 
