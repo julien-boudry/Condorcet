@@ -107,7 +107,7 @@ class CandidateTest extends TestCase
 
         try {
             $election1->parseCandidates('candidate2;candidate1');
-        } catch (\Exception $e) {}
+        } catch (\Exception) {}
 
         self::assertsame([$candidate1],$election1->getCandidatesList());
     }
