@@ -225,7 +225,7 @@ trait VotesProcess
     protected function prepareVoteInput (&$vote, $tag = null) : void
     {
         if (!($vote instanceof Vote)) :
-            $vote = new Vote ($vote, $tag, null, $this);
+            $vote = new Vote (ranking: $vote, tags: $tag, ownTimestamp: null, electionContext: $this);
         endif;
 
         // Check array format && Make checkVoteCandidate
@@ -296,7 +296,7 @@ trait VotesProcess
                 $tags = null;
             endif;
 
-            $this->synthesisVoteFromParse ($count, $multiple, $adding, $vote, $tags, $weight);
+            $this->synthesisVoteFromParse (count: $count, multiple: $multiple, adding: $adding, vote: $vote, tags: $tags, weight: $weight);
         endforeach;
 
         $this->doAddVotesFromParse($adding);

@@ -167,7 +167,10 @@ class RankedPairs_Core extends Method implements MethodInterface
         $cycles = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidateKey => $candidateId) :
-            \array_push($cycles, ...$this->followCycle($virtualArcs,$candidateKey, $candidateKey));
+            \array_push($cycles, ...$this->followCycle( startCandidateKey: $candidateKey,
+                                                        searchCandidateKey: $candidateKey,
+                                                        virtualArcs: $virtualArcs
+            ));
         endforeach;
 
         return $cycles;
@@ -186,7 +189,12 @@ class RankedPairs_Core extends Method implements MethodInterface
                     $arcsInCycle[] = $ArcKey;
                 else :
                     $done[] = $ArcKey;
-                    \array_push($arcsInCycle, ...$this->followCycle($virtualArcs,$ArcValue['to'], $searchCandidateKey,$done));
+                    \array_push(    $arcsInCycle,
+                                    ...$this->followCycle(  startCandidateKey: $ArcValue['to'],
+                                                            searchCandidateKey: $searchCandidateKey,
+                                                            virtualArcs: $virtualArcs,
+                                                            done: $done )
+                    );
                 endif;
             endif;
         endforeach;

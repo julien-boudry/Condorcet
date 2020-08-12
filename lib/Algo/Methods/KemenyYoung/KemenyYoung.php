@@ -92,7 +92,10 @@ class KemenyYoung extends Method implements MethodInterface
             endforeach;
 
             if ($conflict > 0)  :
-                $this->_Result->addWarning(self::CONFLICT_WARNING_CODE, ($conflict + 1).';'.\max($this->_RankingScore) );
+                $this->_Result->addWarning(
+                    type: self::CONFLICT_WARNING_CODE,
+                    msg: ($conflict + 1).';'.\max($this->_RankingScore)
+                );
             endif;
         }
 
