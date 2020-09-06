@@ -76,7 +76,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         unset($this->_Election);
     }
 
-    public function __clone ()
+    public function __clone () : void
     {
         $this->_Election = null;
     }

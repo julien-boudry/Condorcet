@@ -21,7 +21,7 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    public function __clone ()
+    public function __clone () : void
     {
         $this->destroyAllLink();
     }

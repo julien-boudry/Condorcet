@@ -121,7 +121,7 @@ class Election
         $this->_timer ??= $data['_timer'];
     }
 
-    public function __clone ()
+    public function __clone () : void
     {
         $this->_Votes = clone $this->_Votes;
         $this->_Votes->setElection($this);

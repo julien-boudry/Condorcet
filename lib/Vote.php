@@ -110,7 +110,7 @@ class Vote implements \Iterator
         return \get_object_vars($this);
     }
 
-    public function __clone ()
+    public function __clone () : void
     {
         $this->destroyAllLink();
         $this->setHashCode();

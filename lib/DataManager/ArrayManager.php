@@ -43,7 +43,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->regularize();
     }
 
-    public function __clone ()
+    public function __clone () : void
     {
         unset($this->_Election);
     }
