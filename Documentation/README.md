@@ -37,7 +37,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ### CondorcetPHP\Condorcet\CondorcetUtil Class  
 
-* [public static CondorcetUtil::format (...)](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md)  
+* [public static CondorcetUtil::format (...)](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md) : mixed  
 
 ### CondorcetPHP\Condorcet\DataManager\VotesManager Class  
 
@@ -72,7 +72,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getGlobalTimer ()](Election%20Class/public%20Election--getGlobalTimer.md) : float  
 * [public Election->getImplicitRankingRule ()](Election%20Class/public%20Election--getImplicitRankingRule.md) : bool  
 * [public Election->getLastTimer ()](Election%20Class/public%20Election--getLastTimer.md) : float  
-* [public Election->getLoser (...)](Election%20Class/public%20Election--getLoser.md)  
+* [public Election->getLoser (...)](Election%20Class/public%20Election--getLoser.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Election->getObjectVersion (...)](Election%20Class/public%20Election--getObjectVersion.md) : string  
 * [public Election->getPairwise ()](Election%20Class/public%20Election--getPairwise.md) : CondorcetPHP\Condorcet\Algo\Pairwise  
 * [public Election->getResult (...)](Election%20Class/public%20Election--getResult.md) : CondorcetPHP\Condorcet\Result  
@@ -81,7 +81,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getVotesList (...)](Election%20Class/public%20Election--getVotesList.md) : array  
 * [public Election->getVotesListAsString ()](Election%20Class/public%20Election--getVotesListAsString.md) : string  
 * [public Election->getVotesListGenerator (...)](Election%20Class/public%20Election--getVotesListGenerator.md) : Generator  
-* [public Election->getWinner (...)](Election%20Class/public%20Election--getWinner.md)  
+* [public Election->getWinner (...)](Election%20Class/public%20Election--getWinner.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Election->isRegisteredCandidate (...)](Election%20Class/public%20Election--isRegisteredCandidate.md) : bool  
 * [public Election->isVoteWeightAllowed ()](Election%20Class/public%20Election--isVoteWeightAllowed.md) : bool  
 * [public Election->parseCandidates (...)](Election%20Class/public%20Election--parseCandidates.md) : array  
@@ -105,15 +105,15 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getCondorcetElectionGeneratorVersion ()](Result%20Class/public%20Result--getCondorcetElectionGeneratorVersion.md) : string  
 * [public Result->getCondorcetLoser ()](Result%20Class/public%20Result--getCondorcetLoser.md) : ?CondorcetPHP\Condorcet\Candidate  
 * [public Result->getCondorcetWinner ()](Result%20Class/public%20Result--getCondorcetWinner.md) : ?CondorcetPHP\Condorcet\Candidate  
-* [public Result->getLoser ()](Result%20Class/public%20Result--getLoser.md)  
+* [public Result->getLoser ()](Result%20Class/public%20Result--getLoser.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Result->getMethod ()](Result%20Class/public%20Result--getMethod.md) : string  
 * [public Result->getObjectVersion (...)](Result%20Class/public%20Result--getObjectVersion.md) : string  
 * [public Result->getOriginalResultArrayWithString ()](Result%20Class/public%20Result--getOriginalResultArrayWithString.md) : array  
 * [public Result->getResultAsArray (...)](Result%20Class/public%20Result--getResultAsArray.md) : array  
 * [public Result->getResultAsString ()](Result%20Class/public%20Result--getResultAsString.md) : string  
-* [public Result->getStats ()](Result%20Class/public%20Result--getStats.md)  
+* [public Result->getStats ()](Result%20Class/public%20Result--getStats.md) : mixed  
 * [public Result->getWarning (...)](Result%20Class/public%20Result--getWarning.md) : array  
-* [public Result->getWinner ()](Result%20Class/public%20Result--getWinner.md)  
+* [public Result->getWinner ()](Result%20Class/public%20Result--getWinner.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 
 ### CondorcetPHP\Condorcet\Throwable\CondorcetException Class  
 
@@ -261,7 +261,7 @@ _Including above methods from public API_
 * protected calcRankingScore () : void  
 * protected conflictInfos () : void  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected doPossibleRanking (?string $path = null)  
+* protected doPossibleRanking (?string $path = null) : array|string  
 * protected getStats () : array  
 * protected makeRanking () : void  
 ```
@@ -456,7 +456,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
 ```php
-* public __clone ()  
+* public __clone () : void  
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public __destruct ()  
 * public addNewVote (int $key) : void  
@@ -487,11 +487,11 @@ _Including above methods from public API_
 ```php
 * public static countPossiblePermutations (int $candidatesNumber) : int  
 * public __construct ($arr)  
-* public getResults (bool $serialize = false)  
+* public getResults (bool $serialize = false) : array|string  
 * public writeResults (string $path) : void  
 * protected createCandidates (int $numberOfCandidates) : array  
 * private _exec ($a, array $i = []) : void  
-* private _permute (array $arr)  
+* private _permute (array $arr) : array|string  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
@@ -499,9 +499,9 @@ _Including above methods from public API_
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
 ```
 
-#### CondorcetPHP\Condorcet\Candidate   
+#### CondorcetPHP\Condorcet\Candidate implements Stringable  
 ```php
-* public __clone ()  
+* public __clone () : void  
 * public __construct (string $name)  
 * public __destruct ()  
 * public __toString () : string  
@@ -537,9 +537,9 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
 ```php
-* public static format ($input, bool $convertObject = true)  
+* public static format ($input, bool $convertObject = true) : mixed  
 * public static isJson (string $string) : bool  
-* public static prepareJson (string $input)  
+* public static prepareJson (string $input) : mixed  
 * public static prepareParse (string $input, bool $isFile) : array  
 ```
 
@@ -591,7 +591,6 @@ _Including above methods from public API_
 * protected prepareMethods (array $methodArgument) : array  
 * protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input) : ?Closure  
-* private validateName (string $name)  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication   
@@ -608,7 +607,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
-* public __clone ()  
+* public __clone () : void  
 * public __construct ()  
 * public __destruct ()  
 * public __serialize () : array  
@@ -617,7 +616,7 @@ _Including above methods from public API_
 * public clearCache () : void  
 * public closeHandler () : void  
 * public count () : int  
-* public current ()  
+* public current () : mixed  
 * public debugGetCache () : array  
 * public getCacheSize () : int  
 * public getContainerSize () : int  
@@ -630,7 +629,7 @@ _Including above methods from public API_
 * public keyExist ($offset) : bool  
 * public next () : void  
 * public offsetExists ($offset) : bool  
-* public offsetGet ($offset)  
+* public offsetGet ($offset) : mixed  
 * public offsetSet ($offset, $value) : void  
 * public offsetUnset ($offset) : void  
 * public regularize () : bool  
@@ -658,7 +657,7 @@ _Including above methods from public API_
 * public insertEntities (array $input) : void  
 * public selectMaxKey () : ?int  
 * public selectMinKey () : int  
-* public selectOneEntity (int $key)  
+* public selectOneEntity (int $key) : mixed  
 * public selectRangeEntities (int $key, int $limit) : array  
 * protected checkStructureTemplate (array $struct) : bool  
 * protected initPrepareQuery () : void  
@@ -669,7 +668,7 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess  
 ```php
 * public UpdateAndResetComputing (int $key, int $type) : void  
-* public __clone ()  
+* public __clone () : void  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
 * public __destruct ()  
 * public __serialize () : array  
@@ -680,7 +679,7 @@ _Including above methods from public API_
 * public count () : int  
 * public countInvalidVoteWithConstraints () : int  
 * public countVotes (?array $tag, bool $with) : int  
-* public current ()  
+* public current () : mixed  
 * public debugGetCache () : array  
 * public destroyElection () : void  
 * public getCacheSize () : int  
@@ -700,7 +699,7 @@ _Including above methods from public API_
 * public keyExist ($offset) : bool  
 * public next () : void  
 * public offsetExists ($offset) : bool  
-* public offsetGet ($offset)  
+* public offsetGet ($offset) : ?CondorcetPHP\Condorcet\Vote  
 * public offsetSet ($offset, $value) : void  
 * public offsetUnset ($offset) : void  
 * public regularize () : bool  
@@ -726,7 +725,7 @@ _Including above methods from public API_
 * public static setMaxParseIteration (?int $maxParseIterations) : ?int  
 * public static setMaxVoteNumber (?int $maxVotesNumber) : ?int  
 * protected static formatResultOptions (array $arg) : array  
-* public __clone ()  
+* public __clone () : void  
 * public __construct ()  
 * public __destruct ()  
 * public __serialize () : array  
@@ -761,7 +760,7 @@ _Including above methods from public API_
 * public getGlobalTimer () : float  
 * public getImplicitRankingRule () : bool  
 * public getLastTimer () : float  
-* public getLoser (?string $method = null)  
+* public getLoser (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
 * public getObjectVersion (bool $major = false) : string  
 * public getPairwise () : CondorcetPHP\Condorcet\Algo\Pairwise  
 * public getResult (?string $method = null, array $options = []) : CondorcetPHP\Condorcet\Result  
@@ -773,7 +772,7 @@ _Including above methods from public API_
 * public getVotesListGenerator ($tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
 * public getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : Generator  
-* public getWinner (?string $method = null)  
+* public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
 * public isRegisteredCandidate ($candidate, bool $strictMode = true) : bool  
 * public isVoteWeightAllowed () : bool  
 * public parseCandidates (string $input, bool $isFile = false) : array  
@@ -822,20 +821,20 @@ _Including above methods from public API_
 * public getCondorcetElectionGeneratorVersion () : string  
 * public getCondorcetLoser () : ?CondorcetPHP\Condorcet\Candidate  
 * public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
-* public getLoser ()  
+* public getLoser () : CondorcetPHP\Condorcet\Candidate|array|null  
 * public getMethod () : string  
 * public getObjectVersion (bool $major = false) : string  
 * public getOriginalResultArrayWithString () : array  
 * public getResultAsArray (bool $convertToString = false) : array  
 * public getResultAsInternalKey () : array  
 * public getResultAsString () : string  
-* public getStats ()  
+* public getStats () : mixed  
 * public getWarning (?int $type = null) : array  
-* public getWinner ()  
+* public getWinner () : CondorcetPHP\Condorcet\Candidate|array|null  
 * public key () : int  
 * public next () : void  
 * public offsetExists ($offset) : bool  
-* public offsetGet ($offset)  
+* public offsetGet ($offset) : CondorcetPHP\Condorcet\Candidate|array|null  
 * public offsetSet ($offset, $value) : void  
 * public offsetUnset ($offset) : void  
 * public rewind () : void  
@@ -843,52 +842,49 @@ _Including above methods from public API_
 * protected makeUserResult (CondorcetPHP\Condorcet\Election $election) : array  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable, Stringable  
 ```php
 * public __construct (int $code = 0, string $infos)  
 * public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 * protected correspondence (int $code) : string  
-* private __clone ()  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Stringable, Throwable  
 ```php
 * public __construct (string $message)  
-* public __toString ()  
+* public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
-* private __clone ()  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Stringable, Throwable  
 ```php
-* public __construct ($message, $code, $previous)  
-* public __toString ()  
+* public __construct (string $message = , int $code = 0, ?Throwable $previous = null)  
+* public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
-* private __clone ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   
@@ -914,9 +910,9 @@ _Including above methods from public API_
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
 ```
 
-#### CondorcetPHP\Condorcet\Vote implements Iterator, Traversable  
+#### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
 ```php
-* public __clone ()  
+* public __clone () : void  
 * public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
 * public __destruct ()  
 * public __serialize () : array  

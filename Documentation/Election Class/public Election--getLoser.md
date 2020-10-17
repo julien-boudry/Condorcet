@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getLoser ( [?string method = null] ) : ?mixed
+public $Election -> getLoser ( [?string method = null] ) : CondorcetPHP\Condorcet\Candidate|array|null
 ```
 
 Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
@@ -20,7 +20,7 @@ If null, Natural Condorcet algorithm will be use.
 
 ### Return value:   
 
-*(?mixed)* Candidate object given. Null if there are no available winner or loser.
+*(CondorcetPHP\Condorcet\Candidate|array|null)* Candidate object given. Null if there are no available winner or loser.
 
 If you use an advanced method instead of Natural, you can get an array with multiples losers.
 

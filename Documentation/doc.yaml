@@ -685,7 +685,7 @@
         The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
 
         If null, Natural Condorcet algorithm will be use.
-  return_type: ?mixed
+  return_type: CondorcetPHP\Condorcet\Candidate|array|null
   return: |
     Candidate object given. Null if there are no available winner or loser.
 
@@ -954,7 +954,7 @@
         The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
 
         If null, Natural Condorcet algorithm will be use.
-  return_type: ?mixed
+  return_type: CondorcetPHP\Condorcet\Candidate|array|null
   return: |
     Candidate object given. Null if there are no available winner or loser.
 
@@ -1965,7 +1965,7 @@
   static: false
   description: |
     Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
-  return_type: ?mixed
+  return_type: mixed
   return: |
     Varying according to the algorithm used.
   related:
@@ -2021,7 +2021,7 @@
   static: false
   description: |
     Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
-  return_type: ?mixed
+  return_type: CondorcetPHP\Condorcet\Candidate|array|null
   return: |
     Candidate object given. Null if there are no available loser.
     You can get an array with multiples losers.
@@ -2146,7 +2146,7 @@
   static: false
   description: |
     Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
-  return_type: ?mixed
+  return_type: CondorcetPHP\Condorcet\Candidate|array|null
   return: |
     Candidate object given. Null if there are no available winner.
     You can get an array with multiples winners.
@@ -2177,7 +2177,7 @@
       default: true
       required: false
       text: If true. Will convert Candidate objects into string representation of their name.
-  return_type: ?mixed
+  return_type: mixed
   return: |
     New formatted data.
   publish: true

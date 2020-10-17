@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getLoser ( ) : ?mixed
+public $Result -> getLoser ( ) : CondorcetPHP\Condorcet\Candidate|array|null
 ```
 
 Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
@@ -11,7 +11,7 @@ Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public 
 
 ### Return value:   
 
-*(?mixed)* Candidate object given. Null if there are no available loser.
+*(CondorcetPHP\Condorcet\Candidate|array|null)* Candidate object given. Null if there are no available loser.
 You can get an array with multiples losers.
 
 
