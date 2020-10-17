@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
-class Candidate
+class Candidate implements \Stringable
 {
     use Linkable, CondorcetVersion;
 

@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
-class Vote implements \Iterator
+class Vote implements \Iterator, \Stringable
 {
     use Linkable, CondorcetVersion;
 
