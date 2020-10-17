@@ -499,7 +499,7 @@ _Including above methods from public API_
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
 ```
 
-#### CondorcetPHP\Condorcet\Candidate   
+#### CondorcetPHP\Condorcet\Candidate implements Stringable  
 ```php
 * public __clone ()  
 * public __construct (string $name)  
@@ -591,7 +591,6 @@ _Including above methods from public API_
 * protected prepareMethods (array $methodArgument) : array  
 * protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
 * protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input) : ?Closure  
-* private validateName (string $name)  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication   
@@ -700,7 +699,7 @@ _Including above methods from public API_
 * public keyExist ($offset) : bool  
 * public next () : void  
 * public offsetExists ($offset) : bool  
-* public offsetGet ($offset)  
+* public offsetGet ($offset) : ?CondorcetPHP\Condorcet\Vote  
 * public offsetSet ($offset, $value) : void  
 * public offsetUnset ($offset) : void  
 * public regularize () : bool  
@@ -843,52 +842,49 @@ _Including above methods from public API_
 * protected makeUserResult (CondorcetPHP\Condorcet\Election $election) : array  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetException extends Exception implements Throwable, Stringable  
 ```php
 * public __construct (int $code = 0, string $infos)  
 * public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 * protected correspondence (int $code) : string  
-* private __clone ()  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Stringable, Throwable  
 ```php
 * public __construct (string $message)  
-* public __toString ()  
+* public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
-* private __clone ()  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Stringable, Throwable  
 ```php
-* public __construct ($message, $code, $previous)  
-* public __toString ()  
+* public __construct (string $message = , int $code = 0, ?Throwable $previous = null)  
+* public __toString () : string  
 * public __wakeup ()  
 * public getCode ()  
-* public getFile ()  
-* public getLine ()  
-* public getMessage ()  
-* public getPrevious ()  
-* public getTrace ()  
-* public getTraceAsString ()  
-* private __clone ()  
+* public getFile () : string  
+* public getLine () : int  
+* public getMessage () : string  
+* public getPrevious () : ?Throwable  
+* public getTrace () : array  
+* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   
@@ -914,7 +910,7 @@ _Including above methods from public API_
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
 ```
 
-#### CondorcetPHP\Condorcet\Vote implements Iterator, Traversable  
+#### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
 ```php
 * public __clone ()  
 * public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
