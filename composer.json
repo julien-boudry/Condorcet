@@ -32,7 +32,6 @@
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "condorcetphp/condorcet-doc-generator": "dev-master",
-        "phpbench/phpbench": ">= 0.17",
         "phpunit/phpunit": "^9 || ^10",
         "phploc/phploc": "dev-master"
     },
