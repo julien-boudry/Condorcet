@@ -58,11 +58,11 @@ _Two different ways to use Condorcet:_
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 3.0.x**  
+* **Stable Version: 3.0.x**  _support provided_  
   * * *PHP Requirement:* PHP 8.0. _(tested up to PHP 8.0)_
 * **Stable Version: 2.2.x**  _support provided_  
   * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 8.0)_
-* **Old Stable: 2.0.x** _support provided_  
+* **Old Stable: 2.0.x** _support NOT provided_  
     * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
 * **Very Old Stable: 1.0.x** _Support requiring some bait._  
     * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
