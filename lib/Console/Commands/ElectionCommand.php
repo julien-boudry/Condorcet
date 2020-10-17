@@ -222,7 +222,7 @@ class ElectionCommand extends Command
             new TableSeparator(),
             ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
             new TableSeparator(),
-            ['Is vote tie in rank allowed?' => \in_array(NoTie::class, $this->election->getConstraints(), true) ? 'TRUE' : 'FALSE']
+            ['Is vote tie in rank allowed?' => \in_array(needle: NoTie::class, haystack: $this->election->getConstraints(), strict: true) ? 'TRUE' : 'FALSE']
         );
 
         // Input Sum Up
@@ -412,7 +412,7 @@ class ElectionCommand extends Command
                 if (Condorcet::isAuthMethod($oneMethod)) :
                     $method_name = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
 
-                    if (!in_array($method_name, $methods, true)) :
+                    if (!in_array(needle: $method_name, haystack: $methods, strict: true)) :
                         $methods[] = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
                     endif;
                 endif;
@@ -465,7 +465,7 @@ class ElectionCommand extends Command
 
     protected function useDataHandler (InputInterface $input) : ?\Closure
     {
-        if ( $input->getOption('desactivate-file-cache') || !\class_exists('\PDO') || !\in_array('sqlite', \PDO::getAvailableDrivers(), true) ) :
+        if ( $input->getOption('desactivate-file-cache') || !\class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true) ) :
             return null;
         else :
             $election = $this->election;

@@ -52,9 +52,9 @@ trait CandidatesProcess
     public function getCandidateKey ($candidate) : ?int
     {
         if ($candidate instanceof Candidate) :
-            $r = \array_search($candidate, $this->_Candidates, true);
+            $r = \array_search(needle: $candidate, haystack: $this->_Candidates, strict: true);
         else:
-            $r = \array_search(\trim((string) $candidate), $this->_Candidates, false);
+            $r = \array_search(needle: \trim((string) $candidate), haystack: $this->_Candidates, strict: false);
         endif;
 
         return ($r !== false) ? $r : null;
@@ -71,7 +71,7 @@ trait CandidatesProcess
 
     public function isRegisteredCandidate ($candidate, bool $strictMode = true) : bool
     {
-        return $strictMode ? \in_array($candidate, $this->_Candidates, true) : \in_array((string) $candidate, $this->_Candidates);
+        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
 
     public function getCandidateObjectFromName (string $candidateName) : ?Candidate

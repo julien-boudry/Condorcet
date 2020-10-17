@@ -106,7 +106,7 @@ class InstantRunoff extends Method implements MethodInterface
     {
         $score = [];
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!\in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
+            if (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
                 $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
             endif;
         endforeach;
@@ -122,7 +122,7 @@ class InstantRunoff extends Method implements MethodInterface
                     foreach ($oneRank as $oneCandidate) :
                         if (\count($oneRank) !== 1) :
                             break;
-                        elseif (!\in_array($this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
+                        elseif (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
                             $score[$this->_selfElection->getCandidateKey($oneRank[\array_key_first($oneRank)])] += 1;
                             break 2;
                         endif;

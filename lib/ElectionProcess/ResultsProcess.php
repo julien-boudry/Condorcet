@@ -43,7 +43,7 @@ trait ResultsProcess
                 $filter->addCandidate($candidate);
             endforeach;
 
-            foreach ($this->getVotesList($options['tags'], $options['withTag']) as $vote) :
+            foreach ($this->getVotesList(tags: $options['tags'], with: $options['withTag']) as $vote) :
                 $filter->addVote($vote);
             endforeach;
 

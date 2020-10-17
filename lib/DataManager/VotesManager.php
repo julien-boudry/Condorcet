@@ -113,7 +113,7 @@ class VotesManager extends ArrayManager
 
     public function getVoteKey (Vote $vote) : ?int
     {
-        ($r = \array_search($vote, $this->_Container, true)) !== false || ($r = \array_search($vote, $this->_Cache, true));
+        ($r = \array_search(needle: $vote, haystack: $this->_Container, strict: true)) !== false || ($r = \array_search(needle: $vote, haystack: $this->_Cache, strict: true));
 
         return ($r !== false) ? $r : null;
     }
@@ -195,10 +195,10 @@ class VotesManager extends ArrayManager
         foreach ($this as $oneVote) :
             $oneVoteString = $oneVote->getSimpleRanking($this->_Election);
 
-            if(!array_key_exists($oneVoteString, $weight)) :
+            if(!array_key_exists(key: $oneVoteString, array: $weight)) :
                 $weight[$oneVoteString] = 0;
             endif;
-            if(!array_key_exists($oneVoteString, $nb)) :
+            if(!array_key_exists(key: $oneVoteString, array: $nb)) :
                 $nb[$oneVoteString] = 0;
             endif;
 
@@ -237,7 +237,7 @@ class VotesManager extends ArrayManager
             foreach ($this as $key => $value) :
                 $noOne = true;
                 foreach ($tag as $oneTag) :
-                    if ( ( $oneTag === $key ) || \in_array($oneTag, $value->getTags(),true) ) :
+                    if ( ( $oneTag === $key ) || \in_array(needle: $oneTag, haystack: $value->getTags(), strict: true) ) :
                         if ($with) :
                             $count++;
                             break;

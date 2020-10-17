@@ -36,7 +36,7 @@ interface DataHandlerDriverInterface
     public function countEntities () : int;
 
     // Return one Entity by key
-    public function selectOneEntity (int $key);
+    public function selectOneEntity (int $key) : string|bool;
 
     // Return an array of entity where $key is the first Entity and $limit is the maximum number of entity. Must return an array, keys must be preseve into there.
         // Arg example : (42, 3)

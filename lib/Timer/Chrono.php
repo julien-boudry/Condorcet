@@ -53,6 +53,6 @@ class Chrono
     }
 
     protected function managerStartDeclare () : void {
-        $this->_manager->startDeclare( $this );
+        $this->_manager->startDeclare($this);
     }
 }

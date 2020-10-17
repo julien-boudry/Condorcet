@@ -70,7 +70,7 @@ class Vote implements \Iterator, \Stringable
 
         // Vote Weight
         if (\is_string($ranking)) :
-            $is_voteWeight = \strpos($ranking, '^');
+            $is_voteWeight = \strpos(haystack: $ranking, needle: '^');
             if ($is_voteWeight !== false) :
                 $weight = \trim( \substr($ranking, $is_voteWeight + 1) );
 
@@ -198,7 +198,7 @@ class Vote implements \Iterator, \Stringable
         if ($election->getImplicitRankingRule() && $countContextualCandidate < $election->countCandidates()) :
             $last_rank = [];
             foreach ($candidates_list as $oneCandidate) :
-                if (!in_array($oneCandidate, $present, true)) :
+                if (!\in_array(needle: $oneCandidate, haystack: $present, strict: true)) :
                     $last_rank[] = $oneCandidate;
                 endif;
             endforeach;
@@ -378,7 +378,7 @@ class Vote implements \Iterator, \Stringable
 
         $rankingCandidate = $this->getAllCandidates();
 
-        if (!\in_array($candidate, $rankingCandidate, $strict)) :
+        if (!\in_array(needle: $candidate, haystack: $rankingCandidate, strict:  $strict)) :
             throw new CondorcetException (32);
         endif;
 
@@ -409,7 +409,7 @@ class Vote implements \Iterator, \Stringable
         endif;
 
         foreach ($tags as $key => $tag) :
-            if (\in_array($tag, $this->_tags, true)) :
+            if (\in_array(needle: $tag, haystack: $this->_tags, strict: true)) :
                 unset($tags[$key]);
             endif;
         endforeach;
@@ -433,7 +433,7 @@ class Vote implements \Iterator, \Stringable
 
         $rm = [];
         foreach ($tags as $key => $tag) :
-            $tagK = \array_search($tag, $this->_tags, true);
+            $tagK = \array_search(needle: $tag, haystack: $this->_tags, strict: true);
 
             if ($tagK === false) :
                 unset($tags[$key]);

@@ -104,12 +104,12 @@ trait VotesProcess
 
     public function prepareUpdateVote (Vote $existVote) : void
     {
-        $this->_Votes->UpdateAndResetComputing($this->getVoteKey($existVote),2);
+        $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 2);
     }
 
     public function finishUpdateVote (Vote $existVote) : void
     {
-        $this->_Votes->UpdateAndResetComputing($this->getVoteKey($existVote),1);
+        $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 1);
 
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes[$this->getVoteKey($existVote)] = $existVote;
@@ -124,7 +124,7 @@ trait VotesProcess
             $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && \reset($links) === $this) );
 
             foreach ($vote->getAllCandidates() as $candidate) :
-                if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate($candidate, true) && $this->isRegisteredCandidate($candidate, false)) :
+                if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate(candidate: $candidate, strictMode: true) && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) :
                     return false;
                 endif;
             endforeach;
@@ -152,7 +152,7 @@ trait VotesProcess
         foreach ($ranking as &$choice) :
             foreach ($choice as &$candidate) :
                 if ( !$this->isRegisteredCandidate($candidate, true) ) :
-                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate($candidate, false)) :
+                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) :
                             $candidate = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
                             $change = true;
                     endif;
@@ -296,7 +296,7 @@ trait VotesProcess
                 $tags = null;
             endif;
 
-            $this->synthesisVoteFromParse (count: $count, multiple: $multiple, adding: $adding, vote: $vote, tags: $tags, weight: $weight);
+            $this->synthesisVoteFromParse(count: $count, multiple: $multiple, adding: $adding, vote: $vote, tags: $tags, weight: $weight);
         endforeach;
 
         $this->doAddVotesFromParse($adding);
@@ -333,7 +333,7 @@ trait VotesProcess
                         $record = \substr($record, 0, $is_comment);
                     endif;
 
-                    $multiple = VoteUtil::parseAnalysingOneLine(\strpos($record, '*'),$record);
+                    $multiple = VoteUtil::parseAnalysingOneLine(\strpos(haystack: $record, needle: '*'),$record);
 
                     for ($i=0; $i < $multiple; $i++) :
                         $inserted_votes_count += $this->parseVotes($record);

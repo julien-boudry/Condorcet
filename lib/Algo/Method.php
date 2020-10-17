@@ -54,11 +54,11 @@ abstract class Method
     protected function createResult (array $result) : Result
     {
     	return new Result (
-            static::METHOD_NAME[0],
-            $this::class,
-    		$this->_selfElection,
-    		$result,
-            $this->getStats()
+            fromMethod: static::METHOD_NAME[0],
+            byClass: $this::class,
+    		election: $this->_selfElection,
+    		result: $result,
+            stats: $this->getStats()
     	);
     }
 }

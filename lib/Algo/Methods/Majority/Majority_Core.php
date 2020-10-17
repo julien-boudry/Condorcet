@@ -91,7 +91,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         foreach ($score as $oneRound) :
             $lastScore = null;
             foreach ($oneRound as $candidateKey => $candidateScore) :
-                if (!\in_array($candidateKey, $doneCandidates, true)) :
+                if (!\in_array(needle: $candidateKey, haystack: $doneCandidates, strict: true)) :
                     if ($candidateScore === $lastScore) :
                         $doneCandidates[] = $result[$rank][] = $candidateKey;
                     else :
@@ -121,7 +121,7 @@ abstract class Majority_Core extends Method implements MethodInterface
             if ( !empty($this->_admittedCandidates) ) :
                 foreach ($oneRanking as $rankKey => $oneRank) :
                     foreach ($oneRank as $InRankKey => $oneCandidate) :
-                        if ( !\in_array($this->_selfElection->getCandidateKey($oneCandidate), $this->_admittedCandidates, true) ) :
+                        if ( !\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true) ) :
                             unset($oneRanking[$rankKey][$InRankKey]);
                         endif;
                     endforeach;

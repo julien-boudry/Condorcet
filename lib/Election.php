@@ -241,7 +241,7 @@ class Election
             throw new CondorcetException(27);
         elseif ( !\is_subclass_of($constraintClass, VoteConstraint::class) ) :
             throw new CondorcetException(28);
-        elseif (\in_array($constraintClass,$this->getConstraints(), true)) :
+        elseif (\in_array(needle: $constraintClass, haystack: $this->getConstraints(), strict: true)) :
             throw new CondorcetException(29);
         endif;
 

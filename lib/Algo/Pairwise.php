@@ -202,8 +202,8 @@ class Pairwise implements \ArrayAccess, \Iterator
                     endif;
 
                     // Win & Lose
-                    if (    !\in_array($g_candidate_key, $done_Candidates, true) &&
-                            !\in_array($g_candidate_key, $candidates_in_rank_keys, true) ) :
+                    if (    !\in_array(needle: $g_candidate_key, haystack: $done_Candidates, strict: true) &&
+                            !\in_array(needle: $g_candidate_key, haystack: $candidates_in_rank_keys, strict: true) ) :
 
                         $pairwise[$candidate_key]['win'][$g_candidate_key] += $voteWeight;
                         $pairwise[$g_candidate_key]['lose'][$candidate_key] += $voteWeight;
@@ -211,7 +211,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                         $done_Candidates[] = $candidate_key;
 
                     // Null
-                    elseif (\in_array($g_candidate_key, $candidates_in_rank_keys, true)) :
+                    elseif (\in_array(needle: $g_candidate_key, haystack: $candidates_in_rank_keys, strict: true)) :
                         $pairwise[$candidate_key]['null'][$g_candidate_key] += $voteWeight;
                     endif;
 

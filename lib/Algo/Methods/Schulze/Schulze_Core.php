@@ -134,14 +134,14 @@ abstract class Schulze_Core extends Method implements MethodInterface
             $to_done = [];
 
             foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key ) :
-                if ( \in_array($candidate_key, $done, true) ) :
+                if ( \in_array(needle: $candidate_key, haystack: $done, strict: true) ) :
                     continue;
                 endif;
 
                 $winner = true;
 
                 foreach ($challengers_key as $beaten_key => $beaten_value) :
-                    if ( \in_array($beaten_key, $done, true) ) :
+                    if ( \in_array(needle: $beaten_key, haystack: $done, strict: true) ) :
                         continue;
                     endif;
 

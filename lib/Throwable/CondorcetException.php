@@ -72,7 +72,7 @@ class CondorcetException extends \Exception implements \Stringable
 
         $this->_infos = $infos;
 
-        parent::__construct($this->correspondence($code), $code);
+        parent::__construct(message: $this->correspondence($code), code: $code);
     }
 
     public function __toString () : string

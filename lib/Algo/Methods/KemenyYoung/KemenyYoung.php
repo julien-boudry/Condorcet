@@ -154,7 +154,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $do[] = $candidateId;
 
                 foreach ($ranking as $rankCandidate) :
-                    if (!\in_array($rankCandidate, $do, true)) :
+                    if (!\in_array(needle: $rankCandidate, haystack: $do, strict: true)) :
                         $this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
                     endif;
                 endforeach;
@@ -171,6 +171,6 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking () : void
     {
-        $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(\max($this->_RankingScore), $this->_RankingScore, true) ]);
+        $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ]);
     }
 }

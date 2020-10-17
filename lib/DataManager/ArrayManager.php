@@ -105,17 +105,17 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     // Use by isset() function, must return false if offset value is null.
     public function offsetExists($offset) : bool
     {
-        return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) ? true : false ;
+        return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false) ) ? true : false ;
     }
 
     public function offsetUnset($offset) : void
     {
         if ($this->keyExist($offset)) :
-            if (\array_key_exists($offset, $this->_Container)) :
+            if (\array_key_exists(key: $offset, array: $this->_Container)) :
                 $this->preDeletedTask($this->_Container[$offset]);
                 unset($this->_Container[$offset]);
             else :
-                if (\array_key_exists($offset, $this->_Cache)) :
+                if (\array_key_exists(key: $offset, array: $this->_Cache)) :
                     $this->preDeletedTask($this->_Cache[$offset]);
                     unset($this->_Cache[$offset]);
                 endif;
@@ -132,10 +132,10 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
         elseif ($this->_DataHandler !== null) :
-            if (\array_key_exists($offset, $this->_Cache)) :
+            if (\array_key_exists(key: $offset, array: $this->_Cache)) :
                 return $this->_Cache[$offset];
             else :
-                $oneEntity = $this->_DataHandler->selectOneEntity($offset);
+                $oneEntity = $this->_DataHandler->selectOneEntity(key: $offset);
                 if ($oneEntity === false) :
                     return null;
                 else :
@@ -220,7 +220,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            return $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1) );
+            return $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(key: 0, limit: $this->_maxKey + 1) );
         else :
             return $this->_Container;
         endif;
@@ -228,7 +228,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function keyExist ($offset) : bool
     {
-        if ( \array_key_exists($offset, $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity($offset) !== false) ) :
+        if ( \array_key_exists(key: $offset, array: $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false) ) :
             return true;
         else  :
             return false;
@@ -321,7 +321,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         if ( empty($this->_Cache) || $currentKey >= $this->_CacheMaxKey || $currentKey < $this->_CacheMinKey ) :
             $this->clearCache();
-            $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities($currentKey, self::$CacheSize) );
+            $this->_Cache = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(key: $currentKey, limit: self::$CacheSize) );
 
             $keys = \array_keys($this->_Cache);
             $this->_CacheMaxKey = \max($keys);
@@ -396,7 +396,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             $this->regularize();
             $this->clearCache();
 
-            $this->_Container = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(0,$this->_maxKey + 1) );
+            $this->_Container = $this->decodeManyEntities( $this->_DataHandler->selectRangeEntities(key: 0, limit: $this->_maxKey + 1) );
 
             $this->_DataHandler = null;
 
