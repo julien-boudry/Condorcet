@@ -125,12 +125,12 @@ class VotesManager extends ArrayManager
         endforeach;
     }
 
-    protected function getPartialVotesListGenerator (array $tag, bool $with) : \Generator
+    protected function getPartialVotesListGenerator (array $tags, bool $with) : \Generator
     {
         foreach ($this as $voteKey => $vote) :
             $noOne = true;
-            foreach ($tag as $oneTag) :
-                if ( ( $oneTag === $voteKey ) || \in_array($oneTag, $vote->getTags(),true) ) :
+            foreach ($tags as $oneTag) :
+                if ( ( $oneTag === $voteKey ) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true) ) :
                     if ($with) :
                         yield $voteKey => $vote;
                         break;
@@ -147,14 +147,14 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list
-    public function getVotesList ($tag = null, bool $with = true) : array
+    public function getVotesList ($tags = null, bool $with = true) : array
     {
-        if ($tag === null) :
+        if ($tags === null) :
             return $this->getFullDataSet();
         else :
             $search = [];
 
-            foreach ($this->getPartialVotesListGenerator($tag,$with) as $voteKey => $vote) :
+            foreach ($this->getPartialVotesListGenerator($tags,$with) as $voteKey => $vote) :
                 $search[$voteKey] = $vote;
             endforeach;
 
@@ -163,18 +163,18 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list as a generator object
-    public function getVotesListGenerator ($tag = null, bool $with = true) : \Generator
+    public function getVotesListGenerator ($tags = null, bool $with = true) : \Generator
     {
-        if ($tag === null) :
+        if ($tags === null) :
             return $this->getFullVotesListGenerator();
         else :
-            return $this->getPartialVotesListGenerator($tag,$with);
+            return $this->getPartialVotesListGenerator($tags,$with);
         endif;
     }
 
-    public function getVotesValidUnderConstraintGenerator ($tag = null, bool $with = true) : \Generator
+    public function getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : \Generator
     {
-        $generator = ($tag === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tag,$with);
+        $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags,$with);
 
         foreach ($generator as $voteKey => $oneVote) :
             if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
