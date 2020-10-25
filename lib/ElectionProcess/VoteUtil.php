@@ -15,22 +15,18 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 // Base Condorcet class
 abstract class VoteUtil
 {
-    public static function tagsConvert ($tags) : ?array
+    public static function tagsConvert (array|string|null $tags) : ?array
     {
         if (empty($tags)) :
             return null;
-        endif;
-
-        if (\is_string($tags)) :
+        elseif (\is_string($tags)) :
             $tags = \explode(',', $tags);
-        elseif (\is_array($tags)) :
+        else :
             foreach ($tags as &$oneTag) :
                 if (!\is_string($oneTag)) :
                     throw new CondorcetException(17);
                 endif;
             endforeach;
-        else :
-            throw new CondorcetException(17);
         endif;
 
         $tags = \array_map('trim', $tags);
@@ -73,9 +69,9 @@ abstract class VoteUtil
         return $ranking;
     }
 
-    public static function parseAnalysingOneLine ($searchCharacter, string &$line) : int
+    public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line) : int
     {
-        if ($searchCharacter !== false) :
+        if (is_int($searchCharacter)) :
             $value = \trim( \substr($line, $searchCharacter + 1) );
 
             // Errors

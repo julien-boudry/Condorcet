@@ -55,7 +55,7 @@ class Permutation
         return $arr;
     }
 
-    private function _exec ($a, array $i = []) : void
+    private function _exec (array|string $a, array $i = []) : void
     {
         if (\is_array($a)) :
             foreach($a as $k => $v) :

@@ -63,7 +63,7 @@ class Vote implements \Iterator, \Stringable
 
         ///
 
-    public function __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
+    public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
         $this->_electionContext = $electionContext;
         $tagsFromString = null;
@@ -93,8 +93,8 @@ class Vote implements \Iterator, \Stringable
         endif;
 
         $this->setRanking($ranking, $ownTimestamp);
-        $this->addTags($tags);
-        $this->addTags($tagsFromString);
+        $tags === null || $this->addTags($tags);
+        $tagsFromString === null || $this->addTags($tagsFromString);
 
         if (isset($weight)) :
             $this->setWeight($weight);
@@ -254,7 +254,7 @@ class Vote implements \Iterator, \Stringable
 
     // SETTERS
 
-    public function setRanking ($ranking, ?float $ownTimestamp = null) : bool
+    public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
         if ($ownTimestamp !== null) :
@@ -309,7 +309,7 @@ class Vote implements \Iterator, \Stringable
         return true;
     }
 
-        private function formatRanking (&$ranking) : int
+        private function formatRanking (array|string &$ranking) : int
         {
             if (\is_string($ranking)) :
                 $ranking = VoteUtil::convertVoteInput($ranking);
@@ -364,14 +364,12 @@ class Vote implements \Iterator, \Stringable
         }
 
 
-    public function removeCandidate ($candidate) : bool
+    public function removeCandidate (Candidate|string $candidate) : bool
     {
         if ($candidate instanceof Candidate) :
             $strict = true;
         elseif (\is_string($candidate)) :
             $strict = false;
-        else :
-            throw new CondorcetException (32);
         endif;
 
         $ranking = $this->getRanking();
@@ -400,7 +398,7 @@ class Vote implements \Iterator, \Stringable
     }
 
 
-    public function addTags ($tags) : bool
+    public function addTags (array|string $tags) : bool
     {
         $tags = VoteUtil::tagsConvert($tags);
 
@@ -423,7 +421,7 @@ class Vote implements \Iterator, \Stringable
         return true;
     }
 
-    public function removeTags ($tags) : array
+    public function removeTags (array|string $tags) : array
     {
         $tags = VoteUtil::tagsConvert($tags);
 

@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Vote -> removeCandidate ( mixed candidate ) : bool
+public $Vote -> removeCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
 ```
 
 Remove candidate from ranking. Set a new ranking and archive the old ranking.
     
 
-##### **candidate:** *mixed*   
+##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string*   
 Candidate object or string.    
 
 

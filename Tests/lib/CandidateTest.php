@@ -59,8 +59,7 @@ class CandidateTest extends TestCase
 
     public function testCandidateBadClass () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(1);
+        self::expectException(\TypeError::class);
 
         (new Election)->addCandidate(new \stdClass );
     }

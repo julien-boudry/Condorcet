@@ -20,7 +20,7 @@ trait CandidatesProcess
 /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected $_Candidates = []; // Candidate list
+    protected array $_Candidates = []; // Candidate list
     protected string $_AutomaticNewCandidateName = 'A';
 
 
@@ -49,7 +49,7 @@ trait CandidatesProcess
         return $result;
     }
 
-    public function getCandidateKey ($candidate) : ?int
+    public function getCandidateKey (Candidate|string $candidate) : ?int
     {
         if ($candidate instanceof Candidate) :
             $r = \array_search(needle: $candidate, haystack: $this->_Candidates, strict: true);
@@ -69,7 +69,7 @@ trait CandidatesProcess
         endif;
     }
 
-    public function isRegisteredCandidate ($candidate, bool $strictMode = true) : bool
+    public function isRegisteredCandidate (Candidate|string $candidate, bool $strictMode = true) : bool
     {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
@@ -90,18 +90,12 @@ trait CandidatesProcess
 /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
-    public function addCandidate ($candidate = null) : Candidate
+    public function addCandidate (Candidate|string|null $candidate = null) : Candidate
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
             throw new CondorcetException(2);
         endif;
-
-        // Filter
-        if ( \is_bool($candidate) || \is_array($candidate) || (\is_object($candidate) && !($candidate instanceof Candidate)) ) :
-            throw new CondorcetException(1);
-        endif;
-
 
         // Process
         if ( empty($candidate) ) :
@@ -130,7 +124,7 @@ trait CandidatesProcess
         return $newCandidate;
     }
 
-    public function canAddCandidate ($candidate) : bool
+    public function canAddCandidate (Candidate|string $candidate) : bool
     {
         return !$this->isRegisteredCandidate($candidate, false);
     }

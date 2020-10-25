@@ -546,8 +546,7 @@ class VoteTest extends TestCase
 
     public function testInvalidTag1() : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(17);
+        self::expectException(\TypeError::class);
 
         $vote = new Vote ('A>B>C');
 
@@ -556,8 +555,7 @@ class VoteTest extends TestCase
 
     public function testInvalidTag2() : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(17);
+        self::expectException(\TypeError::class);
 
         $vote = new Vote ('A>B>C');
 
@@ -592,8 +590,7 @@ class VoteTest extends TestCase
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(32);
+        self::expectException(\TypeError::class);
 
         $vote1->removeCandidate([]);
     }
@@ -667,8 +664,7 @@ class VoteTest extends TestCase
 
     public function testBadRankingInput1 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(5);
+        self::expectException(\TypeError::class);
 
         $vote = new Vote(42);
     }

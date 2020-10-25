@@ -3,17 +3,17 @@
 ### Description    
 
 ```php
-public $Election -> addVote ( mixed vote [, mixed tags = null] ) : CondorcetPHP\Condorcet\Vote
+public $Election -> addVote ( CondorcetPHP\Condorcet\Vote|array|string vote [, array|string|null tags = null] ) : CondorcetPHP\Condorcet\Vote
 ```
 
 Add a vote to an election.
     
 
-##### **vote:** *mixed*   
+##### **vote:** *CondorcetPHP\Condorcet\Vote|array|string*   
 String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you.     
 
 
-##### **tags:** *mixed*   
+##### **tags:** *array|string|null*   
 String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.    
 
 

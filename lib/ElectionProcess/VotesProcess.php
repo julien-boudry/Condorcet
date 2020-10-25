@@ -89,7 +89,7 @@ trait VotesProcess
 /////////// ADD & REMOVE VOTE ///////////
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    public function addVote ($vote, $tags = null) : Vote
+    public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
     {
         $this->prepareVoteInput($vote, $tags);
 
@@ -164,10 +164,10 @@ trait VotesProcess
     }
 
     // Write a new vote
-    protected function registerVote (Vote $vote, $tag = null) : Vote
+    protected function registerVote (Vote $vote, array|string|null $tags) : Vote
     {
         // Vote identifiant
-        $vote->addTags($tag);
+        $tags === null || $vote->addTags($tags);
 
         // Register
         try {
@@ -198,7 +198,7 @@ trait VotesProcess
 
     }
 
-    public function removeVotesByTags ($tags, bool $with = true) : array
+    public function removeVotesByTags (array|string $tags, bool $with = true) : array
     {
         $rem = [];
 
@@ -222,10 +222,10 @@ trait VotesProcess
 /////////// PARSE VOTE ///////////
 
     // Return the well formated vote to use.
-    protected function prepareVoteInput (&$vote, $tag = null) : void
+    protected function prepareVoteInput (array|string|Vote &$vote, array|string $tags = null) : void
     {
         if (!($vote instanceof Vote)) :
-            $vote = new Vote (ranking: $vote, tags: $tag, ownTimestamp: null, electionContext: $this);
+            $vote = new Vote (ranking: $vote, tags: $tags, ownTimestamp: null, electionContext: $this);
         endif;
 
         // Check array format && Make checkVoteCandidate
@@ -358,7 +358,7 @@ trait VotesProcess
         return $fail_count;
     }
 
-    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, $vote, $tags, int $weight) : void
+    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight) : void
     {
         $adding_predicted_count = $count + $multiple;
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
     // Clear folder
 
-    function rrmdir($dir, $path) : void {
+    function rrmdir(string $dir, string $path) : void {
        if (is_dir($dir)) :
          $objects = scandir($dir);
          foreach ($objects as $object) :

@@ -305,7 +305,7 @@
     Add one Candidate to an election.
   input:
     candidate:
-      type: mixed
+      type: CondorcetPHP\Condorcet\Candidate|string|null
       required: false
       default: 'null'
       text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
@@ -357,11 +357,11 @@
     Add a vote to an election.
   input:
     vote:
-      type: mixed
+      type: CondorcetPHP\Condorcet\Vote|array|string
       required: true
       text: 'String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
     tags:
-      type: mixed
+      type: array|string|null
       default: 'null'
       required: false
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
@@ -411,7 +411,7 @@
     Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
   input:
     candidate:
-      type: mixed
+      type: CondorcetPHP\Condorcet\Candidate|string
       required: true
       text : String or Condorcet/Vote object.
   return_type: bool
@@ -898,7 +898,7 @@
     Check if a candidate is already taking part in the election.
   input:
     candidate:
-      type: mixed
+      type: CondorcetPHP\Condorcet\Candidate|string
       nullable: false
       required: true
       text: |
@@ -1215,7 +1215,7 @@
     ```
   input:
     tags:
-      type: mixed
+      type: array|string
       required: true
     with:
       type: bool
@@ -1528,11 +1528,11 @@
     Build a vote object.
   input:
     ranking:
-      type: mixed
+      type: array|string
       required: true
       text: Equivalent to Vote::setRanking method.
     tags:
-      type: mixed
+      type: array|string|null
       default: 'null'
       required: false
       text: Equivalent to Vote::addTags method.
@@ -1565,7 +1565,7 @@
     Add tag(s) on this Vote.
   input:
     tags:
-      type: mixed
+      type: array|string
       required: true
       text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
   return_type: bool
@@ -1587,7 +1587,7 @@
     Remove registered tag(s) on this Vote.
   input:
     tags:
-      type: mixed
+      type: array|string
       required: true
       text: They can be added by string separated by commas or an array.
   return_type: array
@@ -1839,7 +1839,7 @@
     Remove candidate from ranking. Set a new ranking and archive the old ranking.
   input:
     candidate:
-      type: mixed
+      type: CondorcetPHP\Condorcet\Candidate|string
       required: true
       text: Candidate object or string.
   return_type: bool
@@ -1861,7 +1861,7 @@
     Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
   input:
     ranking:
-      type: mixed
+      type: array|string
       required: true
       text: |
         * Ranking can be add by string like "A > B = C > D" (by candidate string name)

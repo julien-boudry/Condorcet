@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Election -> isRegisteredCandidate ( mixed candidate [, bool strictMode = true] ) : bool
+public $Election -> isRegisteredCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate [, bool strictMode = true] ) : bool
 ```
 
 Check if a candidate is already taking part in the election.
     
 
-##### **candidate:** *mixed*   
+##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string*   
 Candidate object or candidate string name. String name can working only if the strict mode is active.
     
 

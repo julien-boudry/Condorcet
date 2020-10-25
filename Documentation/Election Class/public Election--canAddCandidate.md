@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public $Election -> canAddCandidate ( mixed candidate ) : bool
+public $Election -> canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
 ```
 
 Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
     
 
-##### **candidate:** *mixed*   
+##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string*   
 String or Condorcet/Vote object.    
 
 

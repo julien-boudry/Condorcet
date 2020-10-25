@@ -490,7 +490,7 @@ _Including above methods from public API_
 * public getResults (bool $serialize = false) : array|string  
 * public writeResults (string $path) : void  
 * protected createCandidates (int $numberOfCandidates) : array  
-* private _exec ($a, array $i = []) : void  
+* private _exec (array|string $a, array $i = []) : void  
 * private _permute (array $arr) : array|string  
 ```
 
@@ -657,7 +657,7 @@ _Including above methods from public API_
 * public insertEntities (array $input) : void  
 * public selectMaxKey () : ?int  
 * public selectMinKey () : int  
-* public selectOneEntity (int $key) : mixed  
+* public selectOneEntity (int $key) : string|bool  
 * public selectRangeEntities (int $key, int $limit) : array  
 * protected checkStructureTemplate (array $struct) : bool  
 * protected initPrepareQuery () : void  
@@ -689,10 +689,10 @@ _Including above methods from public API_
 * public getFullDataSet () : array  
 * public getObjectVersion (bool $major = false) : string  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
-* public getVotesList ($tag = null, bool $with = true) : array  
+* public getVotesList (?array $tags = null, bool $with = true) : array  
 * public getVotesListAsString () : string  
-* public getVotesListGenerator ($tag = null, bool $with = true) : Generator  
-* public getVotesValidUnderConstraintGenerator ($tag = null, bool $with = true) : Generator  
+* public getVotesListGenerator (?array $tags = null, bool $with = true) : Generator  
+* public getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true) : Generator  
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
 * public isUsingHandler () : bool  
 * public key () : ?int  
@@ -714,7 +714,7 @@ _Including above methods from public API_
 * protected encodeManyEntities (array $entities) : array  
 * protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data) : string  
 * protected getFullVotesListGenerator () : Generator  
-* protected getPartialVotesListGenerator (array $tag, bool $with) : Generator  
+* protected getPartialVotesListGenerator (array $tags, bool $with) : Generator  
 * protected populateCache () : void  
 * protected preDeletedTask ($object) : void  
 * protected setCursorOnNextKeyInArray (array $array) : void  
@@ -730,13 +730,13 @@ _Including above methods from public API_
 * public __destruct ()  
 * public __serialize () : array  
 * public __unserialize (array $data) : void  
-* public addCandidate ($candidate = null) : CondorcetPHP\Condorcet\Candidate  
+* public addCandidate (CondorcetPHP\Condorcet\Candidate|string|null $candidate = null) : CondorcetPHP\Condorcet\Candidate  
 * public addCandidatesFromJson (string $input) : array  
 * public addConstraint (string $constraintClass) : bool  
-* public addVote ($vote, $tags = null) : CondorcetPHP\Condorcet\Vote  
+* public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null) : CondorcetPHP\Condorcet\Vote  
 * public addVotesFromJson (string $input) : int  
 * public allowsVoteWeight (bool $rule = true) : bool  
-* public canAddCandidate ($candidate) : bool  
+* public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate) : bool  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public cleanupCalculator () : void  
 * public clearConstraints () : bool  
@@ -747,7 +747,7 @@ _Including above methods from public API_
 * public countValidVoteWithConstraints () : int  
 * public countVotes ($tags = null, bool $with = true) : int  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
-* public getCandidateKey ($candidate) : ?int  
+* public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate) : ?int  
 * public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
 * public getCandidateObjectFromName (string $candidateName) : ?CondorcetPHP\Condorcet\Candidate  
 * public getCandidatesList () : array  
@@ -773,7 +773,7 @@ _Including above methods from public API_
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
 * public getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : Generator  
 * public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
-* public isRegisteredCandidate ($candidate, bool $strictMode = true) : bool  
+* public isRegisteredCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true) : bool  
 * public isVoteWeightAllowed () : bool  
 * public parseCandidates (string $input, bool $isFile = false) : array  
 * public parseVotes (string $input, bool $isFile = false) : int  
@@ -782,7 +782,7 @@ _Including above methods from public API_
 * public removeCandidates ($candidates_input) : array  
 * public removeExternalDataHandler () : bool  
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote) : bool  
-* public removeVotesByTags ($tags, bool $with = true) : array  
+* public removeVotesByTags (array|string $tags, bool $with = true) : array  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver) : bool  
 * public setImplicitRanking (bool $rule = true) : bool  
 * public setStateToVote () : bool  
@@ -795,18 +795,18 @@ _Including above methods from public API_
 * protected initResult (string $class) : void  
 * protected makePairwise () : void  
 * protected preparePairwiseAndCleanCompute () : bool  
-* protected prepareVoteInput ($vote, $tag = null) : void  
+* protected prepareVoteInput (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null) : void  
 * protected registerAllLinks () : void  
-* protected registerVote (CondorcetPHP\Condorcet\Vote $vote, $tag = null) : CondorcetPHP\Condorcet\Vote  
-* protected synthesisVoteFromParse (int $count, int $multiple, array $adding, $vote, $tags, int $weight) : void  
+* protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags) : CondorcetPHP\Condorcet\Vote  
+* protected synthesisVoteFromParse (int $count, int $multiple, array $adding, CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags, int $weight) : void  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
 ```php
 * public static convertVoteInput (string $formula) : array  
 * public static getRankingAsString (array $ranking) : string  
-* public static parseAnalysingOneLine ($searchCharacter, string $line) : int  
-* public static tagsConvert ($tags) : ?array  
+* public static parseAnalysingOneLine (int|bool $searchCharacter, string $line) : int  
+* public static tagsConvert (array|string|null $tags) : ?array  
 ```
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
@@ -913,11 +913,11 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
 ```php
 * public __clone () : void  
-* public __construct ($ranking, $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
+* public __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
 * public __destruct ()  
 * public __serialize () : array  
 * public __toString () : string  
-* public addTags ($tags) : bool  
+* public addTags (array|string $tags) : bool  
 * public countLinks () : int  
 * public countRankingCandidates () : int  
 * public current () : array  
@@ -941,16 +941,16 @@ _Including above methods from public API_
 * public next () : void  
 * public registerLink (CondorcetPHP\Condorcet\Election $election) : void  
 * public removeAllTags () : bool  
-* public removeCandidate ($candidate) : bool  
-* public removeTags ($tags) : array  
+* public removeCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate) : bool  
+* public removeTags (array|string $tags) : array  
 * public rewind () : void  
-* public setRanking ($ranking, ?float $ownTimestamp = null) : bool  
+* public setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool  
 * public setWeight (int $newWeight) : int  
 * public valid () : bool  
 * protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0) : array  
 * protected destroyAllLink () : void  
 * private archiveRanking () : void  
-* private formatRanking ($ranking) : int  
+* private formatRanking (array|string $ranking) : int  
 * private setHashCode () : string  
 ```
 

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> setRanking ( mixed ranking [, ?float ownTimestamp = null] ) : bool
+public $Vote -> setRanking ( array|string ranking [, ?float ownTimestamp = null] ) : bool
 ```
 
 Set a new ranking for this vote.
@@ -11,7 +11,7 @@ Set a new ranking for this vote.
 Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
     
 
-##### **ranking:** *mixed*   
+##### **ranking:** *array|string*   
 * Ranking can be add by string like "A > B = C > D" (by candidate string name)
 * Multidimensionnal array like :
    ```php

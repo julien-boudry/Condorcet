@@ -147,7 +147,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list
-    public function getVotesList ($tags = null, bool $with = true) : array
+    public function getVotesList (?array $tags = null, bool $with = true) : array
     {
         if ($tags === null) :
             return $this->getFullDataSet();
@@ -163,7 +163,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list as a generator object
-    public function getVotesListGenerator ($tags = null, bool $with = true) : \Generator
+    public function getVotesListGenerator (?array $tags = null, bool $with = true) : \Generator
     {
         if ($tags === null) :
             return $this->getFullVotesListGenerator();
@@ -172,7 +172,7 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : \Generator
+    public function getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true) : \Generator
     {
         $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags,$with);
 
