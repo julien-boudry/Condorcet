@@ -125,11 +125,13 @@ class KemenyYoung extends Method implements MethodInterface
         // Read Cache & Compute
         $f = fopen($path, 'r');
 
-        while ( ($oneResult = fgetcsv($f,50)) !== false ) :
+        while ( ($oneResult = fgets($f)) !== false ) :
+            $oneResult = explode(',', \str_replace($search, $replace, $oneResult));
+
             $resultToRegister = [];
             $rank = 1;
             foreach($oneResult as $oneCandidate) :
-                $resultToRegister[$rank++] = (int) \str_replace($search, $replace, $oneCandidate);
+                $resultToRegister[$rank++] = (int) $oneCandidate;
             endforeach;
 
             $this->_PossibleRanking[] = $resultToRegister;
