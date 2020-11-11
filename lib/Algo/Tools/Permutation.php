@@ -13,8 +13,6 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
-    private const PREFIX = 'C';
-
     public array $results = [];
 
     public static function countPossiblePermutations (int $candidatesNumber) : int
@@ -35,13 +33,19 @@ class Permutation
         );
     }
 
-    public function getResults (bool $serialize = false) : array|string
+    public function getResults (bool $serialize = false) : array
     {
-        return $serialize ? \serialize($this->results) : $this->results;
+        return $this->results;
     }
 
     public function writeResults (string $path) : void {
-        \file_put_contents($path, $this->getResults(true));
+        $f = fopen($path,'w+');
+
+        foreach ($this->results as $oneResult) :
+            fputcsv($f,$oneResult);
+        endforeach;
+
+        fclose($f);
     }
 
     protected function createCandidates (int $numberOfCandidates) : array
@@ -49,13 +53,13 @@ class Permutation
         $arr = [];
 
         for ($i = 0; $i < $numberOfCandidates; $i++) :
-            $arr[] = self::PREFIX.$i;
+            $arr[] = $i;
         endfor;
 
         return $arr;
     }
 
-    private function _exec (array|string $a, array $i = []) : void
+    private function _exec (array|int $a, array $i = []) : void
     {
         if (\is_array($a)) :
             foreach($a as $k => $v) :
@@ -75,7 +79,7 @@ class Permutation
         endif;
     }
 
-    private function _permute (array $arr) : array|string
+    private function _permute (array $arr) : array|int
     {
         $out = [];
 

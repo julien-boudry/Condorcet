@@ -31,12 +31,11 @@ class KemenyYoung extends Method implements MethodInterface
         public static ?int $MaxCandidates = 8;
 
     // Cache
-    public static bool $useCache = true;
     public static bool $devWriteCache = false;
 
     // Kemeny Young
-    protected array $_PossibleRanking;
-    protected array $_RankingScore;
+    protected array $_PossibleRanking = [];
+    protected array $_RankingScore = [];
 
 
 /////////// PUBLIC ///////////
@@ -107,42 +106,40 @@ class KemenyYoung extends Method implements MethodInterface
 
     protected function calcPossibleRanking () : void
     {
-        $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
-
-        // But ... where are the data ?! Okay, old way now...
-        if (!self::$useCache || !\file_exists($path)) :
-            $compute = $this->doPossibleRanking( self::$devWriteCache ? $path : null );
-        else :
-            $compute = \file_get_contents($path);
-        endif;
-
         $i = 0;
         $search = [];
         $replace = [];
 
         foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name) :
-            $search[] = 's:'.(($i < 10) ? "2" : "3").':"C'.$i++.'"';
-            $replace[] = 'i:'.$candidate_id;
+            $search[] = $i++;
+            $replace[] = $candidate_id;
         endforeach;
 
-        $this->_PossibleRanking = \unserialize( \str_replace($search, $replace, $compute) );
-    }
+        $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
-    protected function doPossibleRanking (?string $path = null) : array|string
-    {
-        $permutation = new Permutation ($this->_selfElection->countCandidates());
-
-        if ($path === null) :
-            return $permutation->getResults(true);
-        else :
-            $permutation->writeResults($path);
-            return $permutation->getResults(true);
+        // But ... where are the data ?! Okay, old way now...
+        if (self::$devWriteCache || !\file_exists($path)) :
+            (new Permutation ($this->_selfElection->countCandidates()))->writeResults($path);
         endif;
+
+        // Read Cache & Compute
+        $f = fopen($path, 'r');
+
+        while ( ($oneResult = fgetcsv($f,50)) !== false ) :
+            $resultToRegister = [];
+            $rank = 1;
+            foreach($oneResult as $oneCandidate) :
+                $resultToRegister[$rank++] = (int) \str_replace($search, $replace, $oneCandidate);
+            endforeach;
+
+            $this->_PossibleRanking[] = $resultToRegister;
+        endwhile;
+
+        fclose($f);
     }
 
     protected function calcRankingScore () : void
     {
-        $this->_RankingScore = [];
         $pairwise = $this->_selfElection->getPairwise();
 
         foreach ($this->_PossibleRanking as $keyScore => $ranking) :
