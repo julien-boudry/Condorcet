@@ -43,7 +43,7 @@ _Two different ways to use Condorcet:_
 1. [Use Condorcet as a command line application](#use-condorcet-as-a-command-line-application)  
   a. [Install as an application](#install-as-an-application)  
   b. [Condorcet Wiki - Command Line Manual](#condorcet-wiki---command-line-manual)  
-  c. [Command Line - Examples](#command-line---examples)
+  c. [Command Line - Examples](#command-line---some-quick-examples)
 1. [Use Condorcet as a PHP Library](#use-condorcet-as-a-php-library)  
   a. [Install / Autoloading](#install--autoloading)  
   b. [Condorcet Wiki Manual](#condorcet-wiki-manual)     
