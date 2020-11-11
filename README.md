@@ -473,9 +473,8 @@ The code is close to the respect of PSR-1 (lacks only the naming of methods), an
   * _Memory usage: less than 6M_    
   * _Execution time: less than 600ms_  
 ###### Kemeny-Youg case:   
-* use Kemeny-Young 6 candidates: 5MB - 150ms    
-* use Kemeny-Young 7 candidates: 32MB - 600ms    
-* use Kemeny-Young 8 candidates: 135MB - 2500ms    
+* use Kemeny-Young 7 candidates: 8MB - 60ms    
+* use Kemeny-Young 8 candidates: 70MB - 600ms    
 ###### Massive election case:  
 Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
 

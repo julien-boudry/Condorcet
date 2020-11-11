@@ -21,3 +21,7 @@
 #### Pairwise Optimisation on Update
 
 ``` ./vendor/bin/phpbench run Benchmarks/PairwiseUpdateOptimizationBench.php --report=default --executor=memory_centric_microtime ```
+
+#### Kemeny-Young Speed & Memory Test
+
+``` ./vendor/bin/phpbench run Benchmarks/KemenyYoungBench.php --report=default --executor=memory_centric_microtime ```
