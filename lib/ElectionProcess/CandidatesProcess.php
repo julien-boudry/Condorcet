@@ -130,7 +130,7 @@ trait CandidatesProcess
     }
 
     // Destroy a register vote candidate before voting
-    public function removeCandidates ($candidates_input) : array
+    public function removeCandidates (mixed $candidates_input) : array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :

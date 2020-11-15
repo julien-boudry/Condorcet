@@ -28,7 +28,7 @@ trait VotesProcess
 /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
-    public function countVotes ($tags = null, bool $with = true) : int
+    public function countVotes (mixed $tags = null, bool $with = true) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
@@ -55,7 +55,7 @@ trait VotesProcess
     }
 
     // Get the votes registered list
-    public function getVotesList ($tags = null, bool $with = true) : array
+    public function getVotesList (mixed $tags = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
@@ -70,7 +70,7 @@ trait VotesProcess
         return $this->_Votes;
     }
 
-    public function getVotesListGenerator ($tags = null, bool $with = true) : \Generator
+    public function getVotesListGenerator (mixed $tags = null, bool $with = true) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }

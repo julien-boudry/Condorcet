@@ -537,7 +537,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
 ```php
-* public static format ($input, bool $convertObject = true) : mixed  
+* public static format (mixed $input, bool $convertObject = true) : mixed  
 * public static isJson (string $string) : bool  
 * public static prepareJson (string $input) : mixed  
 * public static prepareParse (string $input, bool $isFile) : array  
@@ -745,7 +745,7 @@ _Including above methods from public API_
 * public countCandidates () : int  
 * public countInvalidVoteWithConstraints () : int  
 * public countValidVoteWithConstraints () : int  
-* public countVotes ($tags = null, bool $with = true) : int  
+* public countVotes (mixed $tags = null, bool $with = true) : int  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate) : ?int  
 * public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
@@ -767,9 +767,9 @@ _Including above methods from public API_
 * public getState () : int  
 * public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
-* public getVotesList ($tags = null, bool $with = true) : array  
+* public getVotesList (mixed $tags = null, bool $with = true) : array  
 * public getVotesListAsString () : string  
-* public getVotesListGenerator ($tags = null, bool $with = true) : Generator  
+* public getVotesListGenerator (mixed $tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
 * public getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : Generator  
 * public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
@@ -779,7 +779,7 @@ _Including above methods from public API_
 * public parseVotes (string $input, bool $isFile = false) : int  
 * public parseVotesWithoutFail (string $input, bool $isFile = false, ?Closure $callBack = null) : int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
-* public removeCandidates ($candidates_input) : array  
+* public removeCandidates (mixed $candidates_input) : array  
 * public removeExternalDataHandler () : bool  
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public removeVotesByTags (array|string $tags, bool $with = true) : array  

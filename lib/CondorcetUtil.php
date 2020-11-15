@@ -65,7 +65,7 @@ abstract class CondorcetUtil
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    public static function format ($input, bool $convertObject = true) : mixed
+    public static function format (mixed $input, bool $convertObject = true) : mixed
     {
         if (\is_object($input)) :
 
