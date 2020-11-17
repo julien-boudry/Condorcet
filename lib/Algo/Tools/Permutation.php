@@ -13,7 +13,8 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
-    public array $results = [];
+    protected int $arr_count;
+    protected array $results = [];
 
     public static function countPossiblePermutations (int $candidatesNumber) : int
     {
@@ -26,33 +27,37 @@ class Permutation
         return $result;
     }
 
-    public function __construct ($arr)
+    public function __construct (int $arr_count)
     {
-        $this->_exec(
-            $this->_permute( \is_int($arr) ? $this->createCandidates($arr) : $arr )
-        );
+        $this->arr_count = $arr_count;
     }
 
-    public function getResults (bool $serialize = false) : array
+    public function getResults () : array
     {
+        if (empty($this->results)) :
+            $this->_exec(
+                $this->_permute( $this->createCandidates() )
+            );
+        endif;
+
         return $this->results;
     }
 
     public function writeResults (string $path) : void {
         $f = fopen($path,'w+');
 
-        foreach ($this->results as $oneResult) :
+        foreach ($this->getResults() as $oneResult) :
             fputcsv($f,$oneResult);
         endforeach;
 
         fclose($f);
     }
 
-    protected function createCandidates (int $numberOfCandidates) : array
+    protected function createCandidates () : array
     {
         $arr = [];
 
-        for ($i = 0; $i < $numberOfCandidates; $i++) :
+        for ($i = 0; $i < $this->arr_count; $i++) :
             $arr[] = $i;
         endfor;
 
