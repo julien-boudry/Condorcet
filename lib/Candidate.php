@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class Candidate implements \Stringable
@@ -21,6 +22,7 @@ class Candidate implements \Stringable
 
         ///
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function __construct (string $name)
     {
         $this->setName($name);
@@ -35,6 +37,7 @@ class Candidate implements \Stringable
 
     // SETTERS
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function setName (string $name) : bool
     {
         $name = \trim($name);
@@ -64,26 +67,31 @@ class Candidate implements \Stringable
 
     // GETTERS
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getName () : string
     {
         return \end($this->_name)['name'];
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getHistory () : array
     {
         return $this->_name;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getCreateTimestamp () : float
     {
         return $this->_name[0]['timestamp'];
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getTimestamp () : float
     {
         return \end($this->_name)['timestamp'];
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getProvisionalState () : bool
     {
         return $this->_provisional;

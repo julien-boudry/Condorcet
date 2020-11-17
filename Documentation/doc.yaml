@@ -20,7 +20,6 @@
   class:
     - Vote
     - Candidate
-  type: method
   name: countLinks
   description: |
     Count number of linked election to this object.
@@ -39,7 +38,6 @@
   class:
     - Vote
     - Candidate
-  type: method
   name: getLinks
   description: |
     Get elections object linked to this Vote or Candidate object.
@@ -58,7 +56,6 @@
   class:
     - Vote
     - Candidate
-  type: method
   name: haveLink
   description: |
     Check if this election is linked with this Candidate/Vote object.
@@ -87,7 +84,6 @@
     - Vote
     - Timer\Manager
     - DataManager\VotesManager
-  type: method
   name: getObjectVersion
   description: |
     Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
@@ -106,7 +102,6 @@
   class:
     - Election
     - Algo\Pairwise
-  type: method
   name: getExplicitPairwise
   description: |
     Return the Pairwise.
@@ -122,7 +117,6 @@
 
 -
   class: Condorcet
-  type: method
   name: addMethod
   description: |
     If you create your own Condorcet Algo. You will need it !
@@ -139,7 +133,6 @@
 
 -
   class: Condorcet
-  type: method
   name: getAuthMethods
   description: |
     Get a list of supported algorithm.
@@ -155,7 +148,6 @@
 
 -
   class: Condorcet
-  type: method
   name: getMethodClass
   description: |
     Return the full class path for a method.
@@ -169,7 +161,6 @@
 
 -
   class: Condorcet
-  type: method
   name: getDefaultMethod
   description: |
     Return the Condorcet static default method.
@@ -182,7 +173,6 @@
 
 -
   class: Condorcet
-  type: method
   name: getVersion
   description: |
     Get the library version.
@@ -199,7 +189,6 @@
 
 -
   class: Condorcet
-  type: method
   name: isAuthMethod
   description: |
     Test if a method is in the result set of Condorcet::getAuthMethods.
@@ -214,7 +203,6 @@
 
 -
   class: Condorcet
-  type: method
   name: setDefaultMethod
   description: |
     Put a new static method by default for the news Condorcet objects.
@@ -233,7 +221,6 @@
 
 -
   class: Election
-  type: method
   name: __construct
   description: |
     Build a new Election.
@@ -241,7 +228,6 @@
 
 -
   class: Election
-  type: method
   name: addCandidate
   description: |
     Add one Candidate to an election.
@@ -262,7 +248,6 @@
 
 -
   class: Election
-  type: method
   name: addConstraint
   description: |
     Add a constraint rules as a valid class path.
@@ -282,7 +267,6 @@
 
 -
   class: Election
-  type: method
   name: addVote
   description: |
     Add a vote to an election.
@@ -305,7 +289,6 @@
 
 -
   class: Election
-  type: method
   name: allowsVoteWeight
   description: |
     Set the setting and reset all result data.
@@ -322,7 +305,6 @@
 
 -
   class: Election
-  type: method
   name: canAddCandidate
   description: |
     Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
@@ -337,7 +319,6 @@
 
 -
   class: Election
-  type: method
   name: clearConstraints
   description: |
     Clear all constraints rules and clear previous results.
@@ -353,7 +334,6 @@
 
 -
   class: Election
-  type: method
   name: computeResult
   description: |
     Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
@@ -370,7 +350,6 @@
 
 -
   class: Election
-  type: method
   name: countCandidates
   description: |
     Count the number of registered candidate
@@ -382,7 +361,6 @@
 
 -
   class: Election
-  type: method
   name: countVotes
   description: |
     Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
@@ -400,7 +378,6 @@
 
 -
   class: Election
-  type: method
   name: countInvalidVoteWithConstraints
   description: |
     Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
@@ -414,7 +391,6 @@
 
 -
   class: Election
-  type: method
   name: countValidVoteWithConstraints
   description: |
     Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
@@ -428,7 +404,6 @@
 
 -
   class: Election
-  type: method
   name: getCandidateObjectFromName
   description: |
     Find candidate object by his string and return the candidate object.
@@ -441,7 +416,6 @@
 
 -
   class: Election
-  type: method
   name: getCandidatesList
   description: |
     Return a list of registered Candidate into this election.
@@ -453,7 +427,6 @@
 
 -
   class: Election
-  type: method
   name: getCandidatesListAsString
   description: |
     Return a list of registered Candidate into this election.
@@ -465,7 +438,6 @@
 
 -
   class: Election
-  type: method
   name: getChecksum
   description: |
     SHA-2 256 checksum of following internal data:
@@ -485,7 +457,6 @@
 
 -
   class: Election
-  type: method
   name: getConstraints
   description: |
     Get active constraints list.
@@ -501,7 +472,6 @@
 
 -
   class: Election
-  type: method
   name: getGlobalTimer
   description: |
     Returns the cumulated computation runtime of this object. Include only computation related methods.
@@ -516,7 +486,6 @@
 
 -
   class: Election
-  type: method
   name: getLastTimer
   description: |
     Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
@@ -531,7 +500,6 @@
 
 -
   class: Election
-  type: method
   name: getLoser
   description: |
     Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
@@ -561,7 +529,6 @@
 
 -
   class: Election
-  type: method
   name: getCondorcetLoser
   description: |
     Get the natural Condorcet loser if there is one.
@@ -577,7 +544,6 @@
 
 -
   class: Election
-  type: method
   name: getPairwise
   description: |
     Return the Pairwise.
@@ -593,7 +559,6 @@
 
 -
   class: Election
-  type: method
   name: getImplicitRankingRule
   description: |
     Returns the corresponding setting as currently set (True by default).
@@ -607,7 +572,6 @@
 
 -
   class: Election
-  type: method
   name: getResult
   description: |
     Get a full ranking from an advanced Condorcet method.
@@ -630,7 +594,6 @@
 
 -
   class: Election
-  type: method
   name: getState
   description: |
     Get the election process level.
@@ -644,7 +607,6 @@
 
 -
   class: Election
-  type: method
   name: getTimerManager
   description: |
     Get the Timer manager object.
@@ -657,7 +619,6 @@
 
 -
   class: Election
-  type: method
   name: getVotesList
   description: |
     Get registered vote list.
@@ -673,7 +634,6 @@
 
 -
   class: Election
-  type: method
   name: getVotesListGenerator
   description: |
     Same as Election::getVotesList. But Return a PHP generator object.
@@ -690,7 +650,6 @@
 
 -
   class: Election
-  type: method
   name: getVotesListAsString
   description: |
     Get registered vote list.
@@ -704,7 +663,6 @@
 
 -
   class: Election
-  type: method
   name: isRegisteredCandidate
   description: |
     Check if a candidate is already taking part in the election.
@@ -726,7 +684,6 @@
 
 -
   class: Election
-  type: method
   name: isVoteWeightAllowed
   description: |
     Returns the corresponding setting as currently set (False by default).
@@ -739,7 +696,6 @@
 
 -
   class: Election
-  type: method
   name: getWinner
   description: |
     Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
@@ -768,7 +724,6 @@
 
 -
   class: Election
-  type: method
   name: getCondorcetWinner
   description: |
     Get the natural Condorcet winner if there is one.
@@ -784,7 +739,6 @@
 
 -
   class: Election
-  type: method
   name: addCandidatesFromJson
   description: |
     Import candidate from a Json source.
@@ -803,7 +757,6 @@
 
 -
   class: Election
-  type: method
   name: addVotesFromJson
   description: |
     Import votes from a Json source.
@@ -822,7 +775,6 @@
 
 -
   class: Election
-  type: method
   name: parseCandidates
   description: |
     Import candidate from a text source.
@@ -843,7 +795,6 @@
 
 -
   class: Election
-  type: method
   name: parseVotes
   description: |
     Import votes from a text source. If any invalid vote is found inside, nothing are registered.
@@ -865,7 +816,6 @@
 
 -
   class: Election
-  type: method
   name: parseVotesWithoutFail
   description: |
     Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
@@ -890,7 +840,6 @@
 
 -
   class: Election
-  type: method
   name: removeCandidates
   description: |
     Remove Candidates from an election.
@@ -914,7 +863,6 @@
 
 -
   class: Election
-  type: method
   name: removeExternalDataHandler
   description: |
     Remove an external driver to store vote on very large election. And import his data into classical memory.
@@ -926,7 +874,6 @@
 
 -
   class: Election
-  type: method
   name: removeVote
   description: |
     Remove Votes from an election.
@@ -944,7 +891,6 @@
 
 -
   class: Election
-  type: method
   name: removeVotesByTags
   description: |
     Remove Vote from an election using tags.
@@ -970,7 +916,6 @@
 
 -
   class: Election
-  type: method
   name: setExternalDataHandler
   description: |
     Import and enable an external driver to store vote on very large election.
@@ -986,7 +931,6 @@
 
 -
   class: Election
-  type: method
   name: setMaxParseIteration
   description: |
     Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
@@ -1002,7 +946,6 @@
 
 -
   class: Election
-  type: method
   name: setMaxVoteNumber
   description: |
     Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
@@ -1018,7 +961,6 @@
 
 -
   class: Election
-  type: method
   name: setImplicitRanking
   description: |
     Set the setting and reset all result data.
@@ -1035,7 +977,6 @@
 
 -
   class: Election
-  type: method
   name: setStateToVote
   description: |
     Force the election to get back to state 2. See Election::getState.
@@ -1051,7 +992,6 @@
 
 -
   class: Election
-  type: method
   name: sumVotesWeight
   description: |
     Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.
@@ -1063,7 +1003,6 @@
 
 -
   class: Election
-  type: method
   name: sumValidVotesWeightWithConstraints
   description: |
     Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
@@ -1076,7 +1015,6 @@
 
 -
   class: Election
-  type: method
   name: testIfVoteIsValidUnderElectionConstraints
   description: |
     Test if a vote is valid with these election constraints.
@@ -1099,7 +1037,6 @@
 
 -
   class: Candidate
-  type: method
   name: __construct
   description: |
     Build a candidate.
@@ -1115,7 +1052,6 @@
 
 -
   class: Candidate
-  type: method
   name: getCreateTimestamp
   description: |
     Get the timestamp corresponding of the creation of this candidate.
@@ -1127,7 +1063,6 @@
 
 -
   class: Candidate
-  type: method
   name: getTimestamp
   description: |
     Get the timestamp corresponding of the last namming change.
@@ -1139,7 +1074,6 @@
 
 -
   class: Candidate
-  type: method
   name: getHistory
   description: |
     Return an history of each namming change, with timestamp.
@@ -1151,7 +1085,6 @@
 
 -
   class: Candidate
-  type: method
   name: getName
   description: |
     Get the candidate name.
@@ -1164,7 +1097,6 @@
 
 -
   class: Candidate
-  type: method
   name: getProvisionalState
   description: |
     When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
@@ -1178,7 +1110,6 @@
 
 -
   class: Candidate
-  type: method
   name: setName
   description: |
     Change the candidate name.
@@ -1197,7 +1128,6 @@
 
 -
   class: Vote
-  type: method
   name: __construct
   description: |
     Build a vote object.
@@ -1221,7 +1151,6 @@
 
 -
   class: Vote
-  type: method
   name: addTags
   description: |
     Add tag(s) on this Vote.
@@ -1238,7 +1167,6 @@
 
 -
   class: Vote
-  type: method
   name: removeTags
   description: |
     Remove registered tag(s) on this Vote.
@@ -1255,7 +1183,6 @@
 
 -
   class: Vote
-  type: method
   name: removeAllTags
   description: |
     Remove all registered tag(s) on this Vote.
@@ -1268,7 +1195,6 @@
 
 -
   class: Vote
-  type: method
   name: countRankingCandidates
   description: |
     Count the number of candidate provide into the active Ranking set.
@@ -1278,7 +1204,6 @@
 
 -
   class: Vote
-  type: method
   name: getAllCandidates
   description: |
     Get all the candidates object set in the last ranking of this Vote.
@@ -1291,7 +1216,6 @@
 
 -
   class: Vote
-  type: method
   name: getContextualRanking
   description: |
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
@@ -1307,7 +1231,6 @@
 
 -
   class: Vote
-  type: method
   name: getContextualRankingAsString
   description: |
     Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
@@ -1323,7 +1246,6 @@
 
 -
   class: Vote
-  type: method
   name: getCreateTimestamp
   description: |
     Get the timestamp corresponding of the creation of this vote.
@@ -1335,7 +1257,6 @@
 
 -
   class: Vote
-  type: method
   name: getTimestamp
   description: |
     Get the timestamp corresponding of the last vote change.
@@ -1347,7 +1268,6 @@
 
 -
   class: Vote
-  type: method
   name: getHistory
   description: |
     Return an history of each vote change, with timestamp.
@@ -1359,7 +1279,6 @@
 
 -
   class: Vote
-  type: method
   name: getRanking
   description: |
     Get the actual Ranking of this Vote.
@@ -1371,7 +1290,6 @@
 
 -
   class: Vote
-  type: method
   name: getSimpleRanking
   description: |
     Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
@@ -1389,7 +1307,6 @@
 
 -
   class: Vote
-  type: method
   name: getTags
   description: |
     Get the registered tags for this Vote.
@@ -1403,7 +1320,6 @@
 
 -
   class: Vote
-  type: method
   name: getTagsAsString
   description: |
     Get the registered tags for this Vote.
@@ -1417,7 +1333,6 @@
 
 -
   class: Vote
-  type: method
   name: getWeight
   description: |
     Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
@@ -1433,7 +1348,6 @@
 
 -
   class: Vote
-  type: method
   name: removeCandidate
   description: |
     Remove candidate from ranking. Set a new ranking and archive the old ranking.
@@ -1448,7 +1362,6 @@
 
 -
   class: Vote
-  type: method
   name: setRanking
   description: |
     Set a new ranking for this vote.
@@ -1487,7 +1400,6 @@
 
 -
   class: Vote
-  type: method
   name: setWeight
   description: |
     Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
@@ -1501,12 +1413,23 @@
     - 'Vote::getWeight'
   publish: true
 
+-
+  class: Vote
+  name: getHashCode
+  description: |
+    Get Object hash (cryptographic)
+  return: |
+    SHA hash code.
+  related:
+    - 'Vote::getWeight'
+  publish: true
+
+
 
 # CLASS TIMER/MANAGER
 
 -
   class: Timer\Manager
-  type: method
   name: getHistory
   description: |
     Return benchmarked actions history.
@@ -1521,7 +1444,6 @@
 
 -
   class: Result
-  type: method
   name: getOriginalResultArrayWithString
   description: |
     Get result as an array
@@ -1537,7 +1459,6 @@
 
 -
   class: Result
-  type: method
   name: getStats
   description: |
     Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
@@ -1552,7 +1473,6 @@
 
 -
   class: Result
-  type: method
   name: getResultAsArray
   description: |
     Get result as an array
@@ -1568,7 +1488,6 @@
 
 -
   class: Result
-  type: method
   name: getResultAsString
   description: |
     Get result as string
@@ -1581,7 +1500,6 @@
 
 -
   class: Result
-  type: method
   name: getLoser
   description: |
     Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
@@ -1595,7 +1513,6 @@
 
 -
   class: Result
-  type: method
   name: getBuildTimeStamp
   description: |
     Get the timestamp of this result.
@@ -1605,7 +1522,6 @@
 
 -
   class: Result
-  type: method
   name: getCondorcetElectionGeneratorVersion
   description: |
     Get the Condorcet PHP version that build this Result.
@@ -1615,7 +1531,6 @@
 
 -
   class: Result
-  type: method
   name: getClassGenerator
   description: |
     Get the The algorithmic method used for this result.
@@ -1627,7 +1542,6 @@
 
 -
   class: Result
-  type: method
   name: getCondorcetLoser
   description: |
     Get the Condorcet loser, if exist, at the result time.
@@ -1640,7 +1554,6 @@
 
 -
   class: Result
-  type: method
   name: getCondorcetWinner
   description: |
     Get the Condorcet winner, if exist, at the result time.
@@ -1653,7 +1566,6 @@
 
 -
   class: Result
-  type: method
   name: getMethod
   description: |
     Get the The algorithmic method used for this result.
@@ -1665,7 +1577,6 @@
 
 -
   class: Result
-  type: method
   name: getWarning
   description: |
     From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
@@ -1679,7 +1590,6 @@
 
 -
   class: Result
-  type: method
   name: getWinner
   description: |
     Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
@@ -1696,7 +1606,6 @@
 
 -
   class: CondorcetUtil
-  type: method
   name: format
   description: |
     Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.

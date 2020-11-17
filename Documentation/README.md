@@ -134,6 +134,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->getContextualRanking (...)](Vote%20Class/public%20Vote--getContextualRanking.md) : array  
 * [public Vote->getContextualRankingAsString (...)](Vote%20Class/public%20Vote--getContextualRankingAsString.md) : array  
 * [public Vote->getCreateTimestamp ()](Vote%20Class/public%20Vote--getCreateTimestamp.md) : float  
+* [public Vote->getHashCode ()](Vote%20Class/public%20Vote--getHashCode.md) : string  
 * [public Vote->getHistory ()](Vote%20Class/public%20Vote--getHistory.md) : array  
 * [public Vote->getLinks ()](Vote%20Class/public%20Vote--getLinks.md) : ?array  
 * [public Vote->getObjectVersion (...)](Vote%20Class/public%20Vote--getObjectVersion.md) : string  

@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalError};

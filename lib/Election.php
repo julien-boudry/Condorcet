@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
@@ -31,6 +32,7 @@ class Election
 /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public static function setMaxParseIteration (?int $maxParseIterations) : ?int
     {
         self::$_maxParseIteration = $maxParseIterations;
@@ -38,6 +40,7 @@ class Election
     }
 
     // Change max vote number
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public static function setMaxVoteNumber (?int $maxVotesNumber) : ?int
     {
         self::$_maxVoteNumber = $maxVotesNumber;
@@ -60,6 +63,7 @@ class Election
 
         //////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function __construct ()
     {
         $this->_Candidates = [];
@@ -138,18 +142,22 @@ class Election
 
 /////////// TIMER & CHECKSUM ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getGlobalTimer () : float {
         return $this->_timer->getGlobalTimer();
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getLastTimer () : float {
         return $this->_timer->getLastTimer();
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getTimerManager () : Timer_Manager {
         return $this->_timer;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getChecksum () : string
     {
         self::$_checksumMode = true;
@@ -208,11 +216,13 @@ class Election
 
   /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getImplicitRankingRule () : bool
     {
         return $this->_ImplicitRanking;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function setImplicitRanking (bool $rule = true) : bool
     {
         $this->_ImplicitRanking = $rule;
@@ -220,11 +230,13 @@ class Election
         return $this->getImplicitRankingRule();
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function isVoteWeightAllowed () : bool
     {
         return $this->_VoteWeightRule;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function allowsVoteWeight (bool $rule = true) : bool
     {
         $this->_VoteWeightRule = $rule;
@@ -235,6 +247,7 @@ class Election
 
     /////////// VOTE CONSTRAINT ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function addConstraint (string $constraintClass) : bool
     {
         if ( !\class_exists($constraintClass) ) :
@@ -254,11 +267,13 @@ class Election
         return true;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getConstraints () : array
     {
         return $this->_Constraints;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function clearConstraints () : bool
     {
         $this->_Constraints = [];
@@ -270,6 +285,7 @@ class Election
         return true;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function testIfVoteIsValidUnderElectionConstraints (Vote $vote) : bool
     {
         foreach ($this->_Constraints as $oneConstraint) :
@@ -284,6 +300,7 @@ class Election
 
 /////////// LARGE ELECTION MODE ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function setExternalDataHandler (DataHandlerDriverInterface $driver) : bool
     {
         if (!$this->_Votes->isUsingHandler()) :
@@ -294,6 +311,7 @@ class Election
         endif;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function removeExternalDataHandler () : bool
     {
         if ($this->_Votes->isUsingHandler()) :
@@ -307,12 +325,14 @@ class Election
 
 /////////// STATE ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getState () : int
     {
         return $this->_State;
     }
 
     // Close the candidate config, be ready for voting (optional)
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function setStateToVote () : bool
     {
         if ( $this->_State === 1 ) :

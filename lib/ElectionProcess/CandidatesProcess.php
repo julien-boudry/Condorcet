@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -27,17 +28,20 @@ trait CandidatesProcess
 /////////// GET CANDIDATES ///////////
 
     // Count registered candidates
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function countCandidates () : int
     {
         return \count($this->_Candidates);
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getCandidatesList () : array
     {
         return $this->_Candidates;
     }
 
     // Get the list of registered CANDIDATES
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getCandidatesListAsString () : array
     {
         $result = [];
@@ -69,11 +73,13 @@ trait CandidatesProcess
         endif;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function isRegisteredCandidate (Candidate|string $candidate, bool $strictMode = true) : bool
     {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getCandidateObjectFromName (string $candidateName) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
@@ -90,6 +96,7 @@ trait CandidatesProcess
 /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function addCandidate (Candidate|string|null $candidate = null) : Candidate
     {
         // only if the vote has not started
@@ -124,12 +131,14 @@ trait CandidatesProcess
         return $newCandidate;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function canAddCandidate (Candidate|string $candidate) : bool
     {
         return !$this->isRegisteredCandidate($candidate, false);
     }
 
     // Destroy a register vote candidate before voting
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function removeCandidates (mixed $candidates_input) : array
     {
         // only if the vote has not started
@@ -166,6 +175,7 @@ trait CandidatesProcess
 
 /////////// PARSE CANDIDATES ///////////
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function addCandidatesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -191,6 +201,7 @@ trait CandidatesProcess
         return $adding;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function parseCandidates (string $input, bool $isFile = false) : array
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);

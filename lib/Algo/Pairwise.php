@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
@@ -110,6 +111,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         endforeach;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getExplicitPairwise () : array
     {
         $explicit_pairwise = [];

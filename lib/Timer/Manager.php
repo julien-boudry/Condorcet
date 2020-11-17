@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Timer;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -62,6 +63,7 @@ class Manager
         return $this->_lastTimer;
     }
 
+    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
     public function getHistory () : array
     {
         return $this->_history;
