@@ -261,7 +261,6 @@ _Including above methods from public API_
 * protected calcRankingScore () : void  
 * protected conflictInfos () : void  
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected doPossibleRanking (?string $path = null) : array|string  
 * protected getStats () : array  
 * protected makeRanking () : void  
 ```
@@ -486,12 +485,12 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Tools\Permutation   
 ```php
 * public static countPossiblePermutations (int $candidatesNumber) : int  
-* public __construct ($arr)  
-* public getResults (bool $serialize = false) : array|string  
+* public __construct (int $arr_count)  
+* public getResults () : array  
 * public writeResults (string $path) : void  
-* protected createCandidates (int $numberOfCandidates) : array  
-* private _exec (array|string $a, array $i = []) : void  
-* private _permute (array $arr) : array|string  
+* protected createCandidates () : array  
+* private _exec (array|int $a, array $i = []) : void  
+* private _permute (array $arr) : array|int  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
