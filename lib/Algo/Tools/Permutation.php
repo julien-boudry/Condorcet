@@ -13,9 +13,8 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
-    private const PREFIX = 'C';
-
-    public array $results = [];
+    protected int $arr_count;
+    protected array $results = [];
 
     public static function countPossiblePermutations (int $candidatesNumber) : int
     {
@@ -28,34 +27,44 @@ class Permutation
         return $result;
     }
 
-    public function __construct ($arr)
+    public function __construct (int $arr_count)
     {
-        $this->_exec(
-            $this->_permute( \is_int($arr) ? $this->createCandidates($arr) : $arr )
-        );
+        $this->arr_count = $arr_count;
     }
 
-    public function getResults (bool $serialize = false) : array|string
+    public function getResults () : array
     {
-        return $serialize ? \serialize($this->results) : $this->results;
+        if (empty($this->results)) :
+            $this->_exec(
+                $this->_permute( $this->createCandidates() )
+            );
+        endif;
+
+        return $this->results;
     }
 
     public function writeResults (string $path) : void {
-        \file_put_contents($path, $this->getResults(true));
+        $f = fopen($path,'w+');
+
+        foreach ($this->getResults() as $oneResult) :
+            fputcsv($f,$oneResult);
+        endforeach;
+
+        fclose($f);
     }
 
-    protected function createCandidates (int $numberOfCandidates) : array
+    protected function createCandidates () : array
     {
         $arr = [];
 
-        for ($i = 0; $i < $numberOfCandidates; $i++) :
-            $arr[] = self::PREFIX.$i;
+        for ($i = 0; $i < $this->arr_count; $i++) :
+            $arr[] = $i;
         endfor;
 
         return $arr;
     }
 
-    private function _exec (array|string $a, array $i = []) : void
+    private function _exec (array|int $a, array $i = []) : void
     {
         if (\is_array($a)) :
             foreach($a as $k => $v) :
@@ -75,7 +84,7 @@ class Permutation
         endif;
     }
 
-    private function _permute (array $arr) : array|string
+    private function _permute (array $arr) : array|int
     {
         $out = [];
 

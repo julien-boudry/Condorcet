@@ -54,8 +54,6 @@ class KemenyYoungTest extends TestCase
      */
     public function testResult2 () : void
     {
-        KemenyYoung::$useCache = false;
-
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
 
         $this->election->parseVotes('
@@ -78,9 +76,6 @@ class KemenyYoungTest extends TestCase
             ],
             $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
-
-        KemenyYoung::$useCache = true;
-
     }
 
     public function testMaxCandidates () : void
@@ -149,10 +144,8 @@ class KemenyYoungTest extends TestCase
             A>B');
 
         KemenyYoung::$devWriteCache = true;
-        KemenyYoung::$useCache = false;
         $this->election->getResult( 'KemenyYoung' ) ;
         KemenyYoung::$devWriteCache = false;
-        KemenyYoung::$useCache = true;
 
         self::assertSame(true,true);
     }
