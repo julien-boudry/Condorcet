@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
@@ -29,45 +29,45 @@ trait VotesProcess
 /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function countVotes (mixed $tags = null, bool $with = true) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function countInvalidVoteWithConstraints () : int
     {
         return $this->_Votes->countInvalidVoteWithConstraints();
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function countValidVoteWithConstraints () : int
     {
         return $this->countVotes() - $this->countInvalidVoteWithConstraints();
     }
 
     // Sum votes weight
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function sumVotesWeight () : int
     {
         return $this->_Votes->sumVotesWeight(false);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function sumValidVotesWeightWithConstraints () : int
     {
         return $this->_Votes->sumVotesWeight(true);
     }
 
     // Get the votes registered list
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getVotesList (mixed $tags = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getVotesListAsString () : string
     {
         return $this->_Votes->getVotesListAsString();
@@ -78,7 +78,7 @@ trait VotesProcess
         return $this->_Votes;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getVotesListGenerator (mixed $tags = null, bool $with = true) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -98,7 +98,7 @@ trait VotesProcess
 /////////// ADD & REMOVE VOTE ///////////
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
     {
         $this->prepareVoteInput($vote, $tags);
@@ -191,7 +191,7 @@ trait VotesProcess
         return $vote;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function removeVote (Vote $vote) : bool
     {
         $key = $this->getVoteKey($vote);
@@ -209,7 +209,7 @@ trait VotesProcess
 
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function removeVotesByTags (array|string $tags, bool $with = true) : array
     {
         $rem = [];
@@ -246,7 +246,7 @@ trait VotesProcess
         endif;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function addVotesFromJson (string $input) : int
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -273,7 +273,7 @@ trait VotesProcess
         return $count;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function parseVotes (string $input, bool $isFile = false) : int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
@@ -318,7 +318,7 @@ trait VotesProcess
         return $count;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
     {
         $inserted_votes_count = 0;

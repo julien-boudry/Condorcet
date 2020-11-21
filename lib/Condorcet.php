@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Registering native Condorcet Methods implementation
@@ -52,7 +52,7 @@ abstract class Condorcet
 /////////// STATICS METHODS ///////////
 
     // Return library version number
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :
@@ -64,7 +64,7 @@ abstract class Condorcet
     }
 
     // Return an array with auth methods
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function getAuthMethods (bool $basic = false) : array
     {
         $auth = self::$_authMethods;
@@ -79,14 +79,14 @@ abstract class Condorcet
 
 
     // Return the Class default method
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function getDefaultMethod () : ?string {
         return self::$_defaultMethod;
     }
 
 
     // Check if the method is supported
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function getMethodClass (string $method) : ?string
     {
         $auth = self::$_authMethods;
@@ -110,7 +110,7 @@ abstract class Condorcet
         return null;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function isAuthMethod (string $method) : bool
     {
         return self::getMethodClass($method) !== null ;
@@ -118,7 +118,7 @@ abstract class Condorcet
 
 
     // Add algos
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function addMethod (string $methodClass) : bool
     {
         // Check algos
@@ -159,7 +159,7 @@ abstract class Condorcet
 
 
     // Change default method for this class.
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function setDefaultMethod (string $method) : bool
     {
         if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :

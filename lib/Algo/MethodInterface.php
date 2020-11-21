@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\Result;
 
 // Interface with the aim of verifying the good modular implementation of algorithms.

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console\Commands;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;

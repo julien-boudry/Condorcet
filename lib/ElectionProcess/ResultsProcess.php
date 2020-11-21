@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
@@ -30,7 +30,7 @@ trait ResultsProcess
 /////////// GET RESULTS ///////////
 
     // Generic function for default result with ability to change default object method
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getResult (?string $method = null, array $options = []) : Result
     {
         $options = self::formatResultOptions($options);
@@ -79,7 +79,7 @@ trait ResultsProcess
     }
 
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getWinner (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -98,7 +98,7 @@ trait ResultsProcess
     }
 
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getLoser (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -116,19 +116,19 @@ trait ResultsProcess
         endif;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getCondorcetWinner () : ?Candidate
     {
         return $this->getWinner(null);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getCondorcetLoser () : ?Candidate
     {
         return $this->getLoser(null);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getPairwise () : Pairwise
     {
         if ($this->_Pairwise === null) :
@@ -138,7 +138,7 @@ trait ResultsProcess
         return $this->_Pairwise;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getExplicitPairwise () : array
     {
         return $this->getPairwise()->getExplicitPairwise();
@@ -148,7 +148,7 @@ trait ResultsProcess
 
 /////////// MAKE RESULTS ///////////
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function computeResult (?string $method = null) : void
     {
         $this->getResult($method);

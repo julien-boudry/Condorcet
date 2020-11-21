@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
 
 trait Linkable
@@ -27,19 +27,19 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function haveLink (Election $election) : bool
     {
         return \in_array(needle: $election, haystack: $this->_link, strict: true);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function countLinks () : int
     {
         return \count($this->_link);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getLinks () : ?array
     {
         return !empty($this->_link) ? $this->_link : null;

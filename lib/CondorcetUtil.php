@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 abstract class CondorcetUtil
@@ -66,7 +66,7 @@ abstract class CondorcetUtil
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public static function format (mixed $input, bool $convertObject = true) : mixed
     {
         if (\is_object($input)) :

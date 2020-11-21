@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{CondorcetDoc_PublishAsPublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -64,7 +64,7 @@ class Vote implements \Iterator, \Stringable
 
         ///
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
         $this->_electionContext = $electionContext;
@@ -127,7 +127,7 @@ class Vote implements \Iterator, \Stringable
         endif;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getHashCode () : string {
         return $this->_hashCode;
     }
@@ -136,50 +136,50 @@ class Vote implements \Iterator, \Stringable
 
     // GETTERS
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getRanking () : array
     {
         return $this->_ranking;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getHistory () : array
     {
         return $this->_ranking_history;
     }
 
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getTags () : array
     {
         return $this->_tags;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getTagsAsString () : string
     {
         return \implode(',',$this->getTags());
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getCreateTimestamp () : float
     {
         return $this->_ranking_history[0]['timestamp'];
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getTimestamp () : float
     {
         return $this->_lastTimestamp;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function countRankingCandidates () : int
     {
         return $this->_counter;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getAllCandidates () : array
     {
         $list = [];
@@ -193,7 +193,7 @@ class Vote implements \Iterator, \Stringable
         return $list;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getContextualRanking (Election $election) : array
     {
         if (!$this->haveLink($election)) :
@@ -245,13 +245,13 @@ class Vote implements \Iterator, \Stringable
             return $newRanking;
         }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getContextualRankingAsString (Election $election) : array
     {
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
@@ -268,7 +268,7 @@ class Vote implements \Iterator, \Stringable
 
     // SETTERS
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
@@ -379,7 +379,7 @@ class Vote implements \Iterator, \Stringable
         }
 
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function removeCandidate (Candidate|string $candidate) : bool
     {
         if ($candidate instanceof Candidate) :
@@ -414,7 +414,7 @@ class Vote implements \Iterator, \Stringable
     }
 
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function addTags (array|string $tags) : bool
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -438,7 +438,7 @@ class Vote implements \Iterator, \Stringable
         return true;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function removeTags (array|string $tags) : array
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -463,14 +463,14 @@ class Vote implements \Iterator, \Stringable
         return $rm;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function removeAllTags () : bool
     {
         $this->removeTags($this->getTags());
         return true;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function getWeight (?Election $context = null) : int
     {
         if ($context !== null && !$context->isVoteWeightAllowed()) :
@@ -480,7 +480,7 @@ class Vote implements \Iterator, \Stringable
         endif;
     }
 
-    #[CondorcetDoc_PublishAsPublicAPI(isPublicApi: true)]
+    #[PublicAPI(isPublicApi: true)]
     public function setWeight (int $newWeight) : int
     {
         if ($newWeight < 1) :
