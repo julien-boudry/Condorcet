@@ -67,6 +67,8 @@ abstract class CondorcetUtil
 
     // Simplify Condorcet Var_Dump. Transform object to String.
     #[PublicAPI]
+    #[Description("Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.\nCan be use before a var_dump, or just to get more simple data output.")]
+    #[FunctionReturn("New formatted data.")]
     public static function format (mixed $input, bool $convertObject = true) : mixed
     {
         if (\is_object($input)) :

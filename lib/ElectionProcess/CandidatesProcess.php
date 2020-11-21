@@ -29,12 +29,18 @@ trait CandidatesProcess
 
     // Count registered candidates
     #[PublicAPI]
+    #[Description("Count the number of registered candidate")]
+    #[FunctionReturn("Number of registered candidate for this election.")]
+    #[Related("Election::getCandidatesList")]
     public function countCandidates () : int
     {
         return \count($this->_Candidates);
     }
 
     #[PublicAPI]
+    #[Description("Return a list of registered Candidate into this election.")]
+    #[FunctionReturn("List of Candidate into an array.")]
+    #[Related("Election::countCandidates")]
     public function getCandidatesList () : array
     {
         return $this->_Candidates;
@@ -42,6 +48,9 @@ trait CandidatesProcess
 
     // Get the list of registered CANDIDATES
     #[PublicAPI]
+    #[Description("Return a list of registered Candidate into this election.")]
+    #[FunctionReturn("List of Candidate into an array populated by strign instead CandidateObject.")]
+    #[Related("Election::countCandidates")]
     public function getCandidatesListAsString () : array
     {
         $result = [];
@@ -74,12 +83,17 @@ trait CandidatesProcess
     }
 
     #[PublicAPI]
+    #[Description("Check if a candidate is already taking part in the election.")]
+    #[FunctionReturn("True / False")]
+    #[Related("Election::addCandidate")]
     public function isRegisteredCandidate (Candidate|string $candidate, bool $strictMode = true) : bool
     {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
 
     #[PublicAPI]
+    #[Description("Find candidate object by his string and return the candidate object.")]
+    #[FunctionReturn("Candidate object")]
     public function getCandidateObjectFromName (string $candidateName) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
@@ -97,6 +111,10 @@ trait CandidatesProcess
 
     // Add a vote candidate before voting
     #[PublicAPI]
+    #[Description("Add one Candidate to an election.")]
+    #[FunctionReturn("The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).")]
+    #[Examples("Manual - Manage Candidate||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Related("Election::parseCandidates", "Election::addCandidatesFromJson", "Election::removeCandidate", "Election::getCandidatesList", "Election::canAddCandidate")]
     public function addCandidate (Candidate|string|null $candidate = null) : Candidate
     {
         // only if the vote has not started
@@ -132,6 +150,9 @@ trait CandidatesProcess
     }
 
     #[PublicAPI]
+    #[Description("Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.")]
+    #[FunctionReturn("True if your Candidate is available. Or False.")]
+    #[Related("Election::addCandidate")]
     public function canAddCandidate (Candidate|string $candidate) : bool
     {
         return !$this->isRegisteredCandidate($candidate, false);
@@ -139,6 +160,10 @@ trait CandidatesProcess
 
     // Destroy a register vote candidate before voting
     #[PublicAPI]
+    #[Description("Remove Candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. Exception will be throw.*")]
+    #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
+    #[Examples("Manual - Manage Candidate||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Related("Election::addCandidate", "Election::getCandidatesList")]
     public function removeCandidates (mixed $candidates_input) : array
     {
         // only if the vote has not started
@@ -176,6 +201,10 @@ trait CandidatesProcess
 /////////// PARSE CANDIDATES ///////////
 
     #[PublicAPI]
+    #[Description("Import candidate from a Json source.")]
+    #[FunctionReturn("List of new registered candidate object.")]
+    #[Examples("Manual - Manage Candidates||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Related("Election::addCandidate", "Election::parseCandidates", "Election::addVotesFromJson")]
     public function addCandidatesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -202,6 +231,10 @@ trait CandidatesProcess
     }
 
     #[PublicAPI]
+    #[Description("Import candidate from a text source.")]
+    #[FunctionReturn("List of new registered candidate object. Count it for checking if all candidates have been correctly registered.")]
+    #[Examples("Manual - Manage Candidates||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Related("Election::addCandidate", "Election::addCandidatesFromJson", "Election::parseVotes")]
     public function parseCandidates (string $input, bool $isFile = false) : array
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);

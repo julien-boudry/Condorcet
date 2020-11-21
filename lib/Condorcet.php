@@ -53,6 +53,9 @@ abstract class Condorcet
 
     // Return library version number
     #[PublicAPI]
+    #[Description("Get the library version.")]
+    #[FunctionReturn("Condorcet PHP version.")]
+    #[Related("Election::getObjectVersion")]
     public static function getVersion (bool $major = false) : string
     {
         if ($major === true) :
@@ -65,6 +68,9 @@ abstract class Condorcet
 
     // Return an array with auth methods
     #[PublicAPI]
+    #[Description("Get a list of supported algorithm.")]
+    #[FunctionReturn("Populated by method string name. You can use it on getResult ... and others methods.")]
+    #[Related("static Condorcet::isAuthMethod", "static Condorcet::getMethodClass")]
     public static function getAuthMethods (bool $basic = false) : array
     {
         $auth = self::$_authMethods;
@@ -80,6 +86,9 @@ abstract class Condorcet
 
     // Return the Class default method
     #[PublicAPI]
+    #[Description("Return the Condorcet static default method.")]
+    #[FunctionReturn("Method name.")]
+    #[Related("static Condorcet::getAuthMethods", "static Condorcet::setDefaultMethod")]
     public static function getDefaultMethod () : ?string {
         return self::$_defaultMethod;
     }
@@ -87,6 +96,9 @@ abstract class Condorcet
 
     // Check if the method is supported
     #[PublicAPI]
+    #[Description("Return the full class path for a method.")]
+    #[FunctionReturn("Return null is method not exist.")]
+    #[Related("static Condorcet::getAuthMethods")]
     public static function getMethodClass (string $method) : ?string
     {
         $auth = self::$_authMethods;
@@ -111,6 +123,9 @@ abstract class Condorcet
     }
 
     #[PublicAPI]
+    #[Description("Test if a method is in the result set of Condorcet::getAuthMethods.")]
+    #[FunctionReturn("True / False")]
+    #[Related("static Condorcet::getMethodClass", "static Condorcet::getAuthMethods")]
     public static function isAuthMethod (string $method) : bool
     {
         return self::getMethodClass($method) !== null ;
@@ -119,6 +134,9 @@ abstract class Condorcet
 
     // Add algos
     #[PublicAPI]
+    #[Description("If you create your own Condorcet Algo. You will need it !")]
+    #[FunctionReturn("True on Success. False on failure.")]
+    #[Related("static Condorcet::isAuthMethod", "static Condorcet::getMethodClass")]
     public static function addMethod (string $methodClass) : bool
     {
         // Check algos
@@ -160,6 +178,9 @@ abstract class Condorcet
 
     // Change default method for this class.
     #[PublicAPI]
+    #[Description("Put a new static method by default for the news Condorcet objects.")]
+    #[FunctionReturn("In case of success, return TRUE")]
+    #[Related("static Condorcet::getDefaultMethod")]
     public static function setDefaultMethod (string $method) : bool
     {
         if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :

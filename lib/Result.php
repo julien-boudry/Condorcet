@@ -108,6 +108,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 /////////// Get Result ///////////
 
     #[PublicAPI]
+    #[Description("Get result as an array")]
+    #[FunctionReturn("An ordered multidimensionnal array by rank.")]
+    #[Related("Election::getResult", "Result::getResultAsString")]
     public function getResultAsArray (bool $convertToString = false) : array
     {
         $r = $this->_UserResult;
@@ -126,12 +129,18 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("Get result as string")]
+    #[FunctionReturn("Result ranking as string.")]
+    #[Related("Election::getResult", "Result::getResultAsArray")]
     public function getResultAsString () : string
     {
         return VoteUtil::getRankingAsString($this->getResultAsArray(true));
     }
 
     #[PublicAPI]
+    #[Description("Get result as an array")]
+    #[FunctionReturn("Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.\nCandidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.\n\nThis control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.")]
+    #[Related("Result::getResultAsArray", "Result::getResultAsString")]
     public function getOriginalResultArrayWithString () : array
     {
         return $this->_stringResult;
@@ -143,26 +152,42 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.")]
+    #[FunctionReturn("Varying according to the algorithm used.")]
+    #[Examples("Advanced Result Management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management")]
+    #[Related("Election::getResult")]
     public function getStats () : mixed {
         return $this->_Stats;
     }
 
     #[PublicAPI]
+    #[Description("Equivalent to [Condorcet/Election::getWinner(\$method)](../Election Class/public Election--getWinner.md).")]
+    #[FunctionReturn("Candidate object given. Null if there are no available winner.\nYou can get an array with multiples winners.")]
+    #[Related("Result::getLoser", "Election::getWinner")]
     public function getWinner () : array|Candidate|null {
         return CondorcetUtil::format($this[1],false);
     }
 
     #[PublicAPI]
+    #[Description("Equivalent to [Condorcet/Election::getWinner(\$method)](../Election Class/public Election--getWinner.md).")]
+    #[FunctionReturn("Candidate object given. Null if there are no available loser.\nYou can get an array with multiples losers.")]
+    #[Related("Result::getWinner", "Election::getLoser")]
     public function getLoser () : array|Candidate|null {
         return CondorcetUtil::format($this[count($this)],false);
     }
 
     #[PublicAPI]
+    #[Description("Get the Condorcet winner, if exist, at the result time.")]
+    #[FunctionReturn("CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.")]
+    #[Related("Result::getCondorcetLoser", "Election::getWinner")]
     public function getCondorcetWinner () : ?Candidate {
         return $this->_CondorcetWinner;
     }
 
     #[PublicAPI]
+    #[Description("Get the Condorcet loser, if exist, at the result time.")]
+    #[FunctionReturn("Condorcet/Candidate object if there is a Condorcet loser or NULL instead.")]
+    #[Related("Result::getCondorcetWinner", "Election::getLoser")]
     public function getCondorcetLoser () : ?Candidate {
         return $this->_CondorcetLoser;
     }
@@ -205,6 +230,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.")]
+    #[FunctionReturn("Warnings provided by the by the method that generated the warning. Empty array if there is not.")]
     public function getWarning (?int $type = null) : array
     {
         if ($type === null) :
@@ -223,21 +250,31 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("Get the The algorithmic method used for this result.")]
+    #[FunctionReturn("Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland")]
+    #[Related("Result::getMethod")]
     public function getClassGenerator () : string {
         return $this->_byClass;
     }
 
     #[PublicAPI]
+    #[Description("Get the The algorithmic method used for this result.")]
+    #[FunctionReturn("Method name.")]
+    #[Related("Result::getClassGenerator")]
     public function getMethod () : string {
         return $this->_fromMethod;
     }
 
     #[PublicAPI]
+    #[Description("Get the timestamp of this result.")]
+    #[FunctionReturn("Microsecond timestamp.")]
     public function getBuildTimeStamp () : float {
         return (float) $this->_BuildTimeStamp;
     }
 
     #[PublicAPI]
+    #[Description("Get the Condorcet PHP version that build this Result.")]
+    #[FunctionReturn("Condorcet PHP version string format.")]
     public function getCondorcetElectionGeneratorVersion () : string {
         return $this->_ElectionCondorcetVersion;
     }

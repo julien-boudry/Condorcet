@@ -64,6 +64,9 @@ class Manager
     }
 
     #[PublicAPI]
+    #[Description("Return benchmarked actions history.")]
+    #[FunctionReturn("An explicit array with history.")]
+    #[Related("Election::getTimerManager")]
     public function getHistory () : array
     {
         return $this->_history;

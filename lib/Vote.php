@@ -65,6 +65,9 @@ class Vote implements \Iterator, \Stringable
         ///
 
     #[PublicAPI]
+    #[Description("Build a vote object.")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Vote::setRanking", "Vote::addTags")]
     public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
         $this->_electionContext = $electionContext;
@@ -128,6 +131,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Get Object hash (cryptographic)")]
+    #[FunctionReturn("SHA hash code.")]
+    #[Related("Vote::getWeight")]
     public function getHashCode () : string {
         return $this->_hashCode;
     }
@@ -137,12 +143,18 @@ class Vote implements \Iterator, \Stringable
     // GETTERS
 
     #[PublicAPI]
+    #[Description("Get the actual Ranking of this Vote.")]
+    #[FunctionReturn("Multidimenssionnal array populated by Candidate object.")]
+    #[Related("Vote::setRanking")]
     public function getRanking () : array
     {
         return $this->_ranking;
     }
 
     #[PublicAPI]
+    #[Description("Return an history of each vote change, with timestamp.")]
+    #[FunctionReturn("An explicit multi-dimenssional array.")]
+    #[Related("Vote::getCreateTimestamp")]
     public function getHistory () : array
     {
         return $this->_ranking_history;
@@ -150,36 +162,53 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
+    #[Description("Get the registered tags for this Vote.")]
+    #[FunctionReturn("List of registered tag.")]
+    #[Related("Vote::getTagsAsString", "Vote::addTags", "Vote::removeTags")]
     public function getTags () : array
     {
         return $this->_tags;
     }
 
     #[PublicAPI]
+    #[Description("Get the registered tags for this Vote.")]
+    #[FunctionReturn("List of registered tag as string separated by commas.")]
+    #[Related("Vote::getTags", "Vote::addTags", "Vote::removeTags")]
     public function getTagsAsString () : string
     {
         return \implode(',',$this->getTags());
     }
 
     #[PublicAPI]
+    #[Description("Get the timestamp corresponding of the creation of this vote.")]
+    #[FunctionReturn("Timestamp")]
+    #[Related("Candidate::getTimestamp")]
     public function getCreateTimestamp () : float
     {
         return $this->_ranking_history[0]['timestamp'];
     }
 
     #[PublicAPI]
+    #[Description("Get the timestamp corresponding of the last vote change.")]
+    #[FunctionReturn("Timestamp")]
+    #[Related("Vote::getCreateTimestamp")]
     public function getTimestamp () : float
     {
         return $this->_lastTimestamp;
     }
 
     #[PublicAPI]
+    #[Description("Count the number of candidate provide into the active Ranking set.")]
+    #[FunctionReturn("Number of Candidate into ranking.")]
     public function countRankingCandidates () : int
     {
         return $this->_counter;
     }
 
     #[PublicAPI]
+    #[Description("Get all the candidates object set in the last ranking of this Vote.")]
+    #[FunctionReturn("Candidates list.")]
+    #[Related("Vote::getRanking", "Vote::countRankingCandidates")]
     public function getAllCandidates () : array
     {
         $list = [];
@@ -194,6 +223,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
+    #[FunctionReturn("Contextual full ranking.")]
+    #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (Election $election) : array
     {
         if (!$this->haveLink($election)) :
@@ -246,12 +278,18 @@ class Vote implements \Iterator, \Stringable
         }
 
     #[PublicAPI]
+    #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
+    #[FunctionReturn("Contextual full ranking, with string instead Candidate object.")]
+    #[Related("Vote::getContextualRanking", "Vote::getRanking")]
     public function getContextualRankingAsString (Election $election) : array
     {
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
     #[PublicAPI]
+    #[Description("Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()")]
+    #[FunctionReturn("String like 'A>D=C>B'")]
+    #[Related("Vote::getRanking")]
     public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
@@ -269,6 +307,10 @@ class Vote implements \Iterator, \Stringable
     // SETTERS
 
     #[PublicAPI]
+    #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
+    #[FunctionReturn("In case of success, return TRUE")]
+    #[Examples("Manual - Add a vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
     public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
@@ -380,6 +422,9 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
+    #[Description("Remove candidate from ranking. Set a new ranking and archive the old ranking.")]
+    #[FunctionReturn("True on success.")]
+    #[Related("Vote::setRanking")]
     public function removeCandidate (Candidate|string $candidate) : bool
     {
         if ($candidate instanceof Candidate) :
@@ -415,6 +460,10 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
+    #[Description("Add tag(s) on this Vote.")]
+    #[FunctionReturn("In case of success, return TRUE")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Vote::removeTags")]
     public function addTags (array|string $tags) : bool
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -439,6 +488,10 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Remove registered tag(s) on this Vote.")]
+    #[FunctionReturn("List of deleted tags.")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Vote::addTags")]
     public function removeTags (array|string $tags) : array
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -464,6 +517,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Remove all registered tag(s) on this Vote.")]
+    #[FunctionReturn("Return True.")]
+    #[Related("Vote::addTags", "Vote::removeTags")]
     public function removeAllTags () : bool
     {
         $this->removeTags($this->getTags());
@@ -471,6 +527,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
+    #[FunctionReturn("Weight. Default weight is 1.")]
+    #[Related("Vote::setWeight")]
     public function getWeight (?Election $context = null) : int
     {
         if ($context !== null && !$context->isVoteWeightAllowed()) :
@@ -481,6 +540,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description("Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
+    #[FunctionReturn("New weight.")]
+    #[Related("Vote::getWeight")]
     public function setWeight (int $newWeight) : int
     {
         if ($newWeight < 1) :

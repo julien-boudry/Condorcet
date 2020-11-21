@@ -30,18 +30,27 @@ trait VotesProcess
 
     // How many votes are registered ?
     #[PublicAPI]
+    #[Description("Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.")]
+    #[FunctionReturn("Number of valid and registered vote into this election.")]
+    #[Related("Election::getVotesList", "Election::countValidVoteWithConstraints")]
     public function countVotes (mixed $tags = null, bool $with = true) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
 
     #[PublicAPI]
+    #[Description("Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.")]
+    #[FunctionReturn("Number of valid and registered vote into this election.")]
+    #[Related("Election::countValidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
     public function countInvalidVoteWithConstraints () : int
     {
         return $this->_Votes->countInvalidVoteWithConstraints();
     }
 
     #[PublicAPI]
+    #[Description("Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.")]
+    #[FunctionReturn("Number of valid and registered vote into this election.")]
+    #[Related("Election::countInvalidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
     public function countValidVoteWithConstraints () : int
     {
         return $this->countVotes() - $this->countInvalidVoteWithConstraints();
@@ -49,12 +58,18 @@ trait VotesProcess
 
     // Sum votes weight
     #[PublicAPI]
+    #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.")]
+    #[FunctionReturn("(Int) Total vote weight")]
+    #[Related("Election::sumValidVotesWeightWithConstraints")]
     public function sumVotesWeight () : int
     {
         return $this->_Votes->sumVotesWeight(false);
     }
 
     #[PublicAPI]
+    #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.")]
+    #[FunctionReturn("(Int) Total vote weight")]
+    #[Related("Election::countValidVoteWithConstraints", "Election::countInvalidVoteWithConstraints")]
     public function sumValidVotesWeightWithConstraints () : int
     {
         return $this->_Votes->sumVotesWeight(true);
@@ -62,12 +77,18 @@ trait VotesProcess
 
     // Get the votes registered list
     #[PublicAPI]
+    #[Description("Get registered vote list.")]
+    #[FunctionReturn("Populated by each Vote object.")]
+    #[Related("Election::countVotes", "Election::getVotesListAsString")]
     public function getVotesList (mixed $tags = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
 
     #[PublicAPI]
+    #[Description("Get registered vote list.")]
+    #[FunctionReturn("Return a string like :<br>\nA > B > C * 3<br>\nA = B > C * 6")]
+    #[Related("Election::parseVotes")]
     public function getVotesListAsString () : string
     {
         return $this->_Votes->getVotesListAsString();
@@ -79,6 +100,9 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
+    #[FunctionReturn("Populated by each Vote object.")]
+    #[Related("Election::getVotesList")]
     public function getVotesListGenerator (mixed $tags = null, bool $with = true) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -99,6 +123,10 @@ trait VotesProcess
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
     #[PublicAPI]
+    #[Description("Add a vote to an election.")]
+    #[FunctionReturn("The vote object.")]
+    #[Examples("Manual - Vote Management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
     public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
     {
         $this->prepareVoteInput($vote, $tags);
@@ -192,6 +220,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Remove Votes from an election.")]
+    #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
+    #[Examples("Manual - Vote management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
+    #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotesByTags")]
     public function removeVote (Vote $vote) : bool
     {
         $key = $this->getVoteKey($vote);
@@ -210,6 +242,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Remove Vote from an election using tags.\n\n```php\n\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie\n\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie\n\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.\n\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.\n```")]
+    #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
+    #[Examples("Manual - Vote management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
+    #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotes")]
     public function removeVotesByTags (array|string $tags, bool $with = true) : array
     {
         $rem = [];
@@ -247,6 +283,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Import votes from a Json source.")]
+    #[FunctionReturn("Count of new registered vote.")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Election::addVote", "Election::parseVotes", "Election::addCandidatesFromJson")]
     public function addVotesFromJson (string $input) : int
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -274,6 +314,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Import votes from a text source. If any invalid vote is found inside, nothing are registered.")]
+    #[FunctionReturn("Count of the new registered vote.")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotesWithoutFail", "Election::addVotesFromJson")]
     public function parseVotes (string $input, bool $isFile = false) : int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
@@ -319,6 +363,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
+    #[Description("Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.")]
+    #[FunctionReturn("Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.")]
+    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
     public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
     {
         $inserted_votes_count = 0;

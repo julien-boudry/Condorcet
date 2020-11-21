@@ -112,6 +112,9 @@ class Pairwise implements \ArrayAccess, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("Return the Pairwise.")]
+    #[FunctionReturn("Pairwise as an explicit array .")]
+    #[Related("Election::getPairwise", "Election::getResult")]
     public function getExplicitPairwise () : array
     {
         $explicit_pairwise = [];

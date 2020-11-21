@@ -31,6 +31,10 @@ trait ResultsProcess
 
     // Generic function for default result with ability to change default object method
     #[PublicAPI]
+    #[Description("Get a full ranking from an advanced Condorcet method.\n*Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*")]
+    #[FunctionReturn("An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)")]
+    #[Examples("Manual - Ranking from Condorcet Method||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods")]
+    #[Related("Election::getWinner", "Election::getResult", "Condorcet::getDefaultMethod")]
     public function getResult (?string $method = null, array $options = []) : Result
     {
         $options = self::formatResultOptions($options);
@@ -80,6 +84,10 @@ trait ResultsProcess
 
 
     #[PublicAPI]
+    #[Description("Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.")]
+    #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
+    #[Examples("Manual - Natural Condorcet||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
+    #[Related("Election::getCondorcetWinner", "Election::getLoser", "Election::getResult")]
     public function getWinner (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -99,6 +107,10 @@ trait ResultsProcess
 
 
     #[PublicAPI]
+    #[Description("Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.")]
+    #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
+    #[Examples("Manual - Natural Condorcet||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
+    #[Related("Election::getWinner", "Election::getResult")]
     public function getLoser (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -117,18 +129,30 @@ trait ResultsProcess
     }
 
     #[PublicAPI]
+    #[Description("Get the natural Condorcet winner if there is one.")]
+    #[FunctionReturn("Candidate object given. Null if there are no available winner.")]
+    #[Examples("Manual - Natural Condorcet||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
+    #[Related("Election::getCondorcetLoser", "Election::getWiner", "Election::getResult")]
     public function getCondorcetWinner () : ?Candidate
     {
         return $this->getWinner(null);
     }
 
     #[PublicAPI]
+    #[Description("Get the natural Condorcet loser if there is one.")]
+    #[FunctionReturn("Candidate object given. Null if there are no available loser.")]
+    #[Examples("Manual - Natural Condorcet||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
+    #[Related("Election::getCondorcetWinner", "Election::getLoser", "Election::getResult")]
     public function getCondorcetLoser () : ?Candidate
     {
         return $this->getLoser(null);
     }
 
     #[PublicAPI]
+    #[Description("Return the Pairwise.")]
+    #[FunctionReturn("Pairwise object.")]
+    #[Examples("Manual - Advanced Results||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management")]
+    #[Related("Election::getExplicitPairwise", "Election::getResult")]
     public function getPairwise () : Pairwise
     {
         if ($this->_Pairwise === null) :
@@ -139,6 +163,9 @@ trait ResultsProcess
     }
 
     #[PublicAPI]
+    #[Description("Return the Pairwise.")]
+    #[FunctionReturn("Pairwise as an explicit array .")]
+    #[Related("Election::getPairwise", "Election::getResult")]
     public function getExplicitPairwise () : array
     {
         return $this->getPairwise()->getExplicitPairwise();
@@ -149,6 +176,8 @@ trait ResultsProcess
 /////////// MAKE RESULTS ///////////
 
     #[PublicAPI]
+    #[Description("Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.")]
+    #[Related("Election::getWinner", "Election::getResult", "Condorcet::getDefaultMethod")]
     public function computeResult (?string $method = null) : void
     {
         $this->getResult($method);

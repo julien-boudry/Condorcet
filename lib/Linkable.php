@@ -28,18 +28,27 @@ trait Linkable
     }
 
     #[PublicAPI]
+    #[Description("Check if this election is linked with this Candidate/Vote object.")]
+    #[FunctionReturn("True or False.")]
+    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
     public function haveLink (Election $election) : bool
     {
         return \in_array(needle: $election, haystack: $this->_link, strict: true);
     }
 
     #[PublicAPI]
+    #[Description("Count number of linked election to this object.")]
+    #[FunctionReturn("Number of linked elections.")]
+    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
     public function countLinks () : int
     {
         return \count($this->_link);
     }
 
     #[PublicAPI]
+    #[Description("Get elections object linked to this Vote or Candidate object.")]
+    #[FunctionReturn("Populated by each elections Condorcet object.")]
+    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
     public function getLinks () : ?array
     {
         return !empty($this->_link) ? $this->_link : null;
