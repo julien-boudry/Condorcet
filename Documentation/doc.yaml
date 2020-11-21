@@ -63,7 +63,6 @@
   return: |
     True or False.
   related:
-  related:
     - 'Vote::countLinks'
     - 'Candidate::countLinks'
     - 'Vote::getLinks'
