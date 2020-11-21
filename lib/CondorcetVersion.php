@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {
