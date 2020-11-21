@@ -21,4 +21,3 @@ If true. Will convert Candidate objects into string representation of their name
 ### Return value:   
 
 *(mixed)* New formatted data.
-

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 

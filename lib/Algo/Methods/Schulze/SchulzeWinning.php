@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core;
 
 class SchulzeWinning extends Schulze_Core

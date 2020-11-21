@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Base Condorcet class

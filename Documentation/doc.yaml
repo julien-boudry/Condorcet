@@ -32,7 +32,6 @@
     - 'Candidate::getLinks'
     - 'Vote::haveLink'
     - 'Candidate::haveLink'
-  publish: true
 
 -
   class:
@@ -50,7 +49,6 @@
     - 'Candidate::getLinks'
     - 'Vote::haveLink'
     - 'Candidate::haveLink'
-  publish: true
 
 -
   class:
@@ -72,7 +70,6 @@
     - 'Candidate::getLinks'
     - 'Vote::haveLink'
     - 'Candidate::haveLink'
-  publish: true
 
 -
   class:
@@ -96,7 +93,6 @@
     Condorcet PHP version.
   related:
     - 'static Condorcet::getVersion'
-  publish: true
 
 -
   class:
@@ -110,7 +106,6 @@
   related:
     - 'Election::getPairwise'
     - 'Election::getResult'
-  publish: true
 
 
 # CLASS CONDORCET
@@ -129,7 +124,6 @@
   related:
     - 'static Condorcet::isAuthMethod'
     - 'static Condorcet::getMethodClass'
-  publish: true
 
 -
   class: Condorcet
@@ -144,7 +138,6 @@
   related:
     - 'static Condorcet::isAuthMethod'
     - 'static Condorcet::getMethodClass'
-  publish: true
 
 -
   class: Condorcet
@@ -157,7 +150,6 @@
     Return null is method not exist.
   related:
     - 'static Condorcet::getAuthMethods'
-  publish: true
 
 -
   class: Condorcet
@@ -169,7 +161,6 @@
   related:
     - 'static Condorcet::getAuthMethods'
     - 'static Condorcet::setDefaultMethod'
-  publish: true
 
 -
   class: Condorcet
@@ -185,7 +176,6 @@
     Condorcet PHP version.
   related:
     - 'Election::getObjectVersion'
-  publish: true
 
 -
   class: Condorcet
@@ -199,7 +189,6 @@
   related:
     - 'static Condorcet::getMethodClass'
     - 'static Condorcet::getAuthMethods'
-  publish: true
 
 -
   class: Condorcet
@@ -214,7 +203,6 @@
     In case of success, return TRUE
   related:
     - 'static Condorcet::getDefaultMethod'
-  publish: true
 
 
 # CLASS ELECTION
@@ -224,7 +212,6 @@
   name: __construct
   description: |
     Build a new Election.
-  publish: true
 
 -
   class: Election
@@ -244,7 +231,6 @@
     - 'Election::canAddCandidate'
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-  publish: true
 
 -
   class: Election
@@ -262,7 +248,6 @@
     - 'Election::testIfVoteIsValidUnderElectionConstraints'
   examples:
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-  publish: true
 
 
 -
@@ -285,7 +270,6 @@
 
   examples:
     'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Election
@@ -301,7 +285,6 @@
     Return True
   related:
     - 'Election::isVoteWeightAllowed'
-  publish: true
 
 -
   class: Election
@@ -315,7 +298,6 @@
     True if your Candidate is available. Or False.
   related:
     - 'Election::addCandidate'
-  publish: true
 
 -
   class: Election
@@ -330,7 +312,6 @@
     - 'Election::testIfVoteIsValidUnderElectionConstraints'
   examples:
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-  publish: true
 
 -
   class: Election
@@ -346,7 +327,6 @@
     - 'Election::getWinner'
     - 'Election::getResult'
     - 'Condorcet::getDefaultMethod'
-  publish: true
 
 -
   class: Election
@@ -357,7 +337,6 @@
     Number of registered candidate for this election.
   related:
     - 'Election::getCandidatesList'
-  publish: true
 
 -
   class: Election
@@ -374,7 +353,6 @@
   related:
     - 'Election::getVotesList'
     - 'Election::countValidVoteWithConstraints'
-  publish: true
 
 -
   class: Election
@@ -387,7 +365,6 @@
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countVotes'
     - 'Election::sumValidVotesWeightWithConstraints'
-  publish: true
 
 -
   class: Election
@@ -400,7 +377,6 @@
     - 'Election::countInvalidVoteWithConstraints'
     - 'Election::countVotes'
     - 'Election::sumValidVotesWeightWithConstraints'
-  publish: true
 
 -
   class: Election
@@ -412,7 +388,6 @@
       text: Candidate name.
   return: |
     Candidate object
-  publish: true
 
 -
   class: Election
@@ -423,7 +398,6 @@
     List of Candidate into an array.
   related:
     - 'Election::countCandidates'
-  publish: true
 
 -
   class: Election
@@ -434,7 +408,6 @@
     List of Candidate into an array populated by strign instead CandidateObject.
   related:
     - 'Election::countCandidates'
-  publish: true
 
 -
   class: Election
@@ -453,7 +426,6 @@
 
   examples:
     'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum'
-  publish: true
 
 -
   class: Election
@@ -468,7 +440,6 @@
     - 'Election::testIfVoteIsValidUnderElectionConstraints'
   examples:
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-  publish: true
 
 -
   class: Election
@@ -482,7 +453,6 @@
 
   examples:
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
-  publish: true
 
 -
   class: Election
@@ -496,7 +466,6 @@
 
   examples:
     'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
-  publish: true
 
 -
   class: Election
@@ -525,7 +494,6 @@
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
-  publish: true
 
 -
   class: Election
@@ -540,7 +508,6 @@
     - 'Election::getResult'
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
-  publish: true
 
 -
   class: Election
@@ -555,7 +522,6 @@
 
   examples:
     'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management'
-  publish: true
 
 -
   class: Election
@@ -568,7 +534,6 @@
     True / False
   related:
     - 'Election::setImplicitRanking'
-  publish: true
 
 -
   class: Election
@@ -590,7 +555,6 @@
     - 'Condorcet::getDefaultMethod'
   examples:
     'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods'
-  publish: true
 
 -
   class: Election
@@ -603,7 +567,6 @@
     3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.
   related:
     - 'Election::setStateToVote'
-  publish: true
 
 -
   class: Election
@@ -615,7 +578,6 @@
   related:
     - 'Election::getGlobalTimer'
     - 'Election::getLastTimer'
-  publish: true
 
 -
   class: Election
@@ -630,7 +592,6 @@
   related:
     - 'Election::countVotes'
     - 'Election::getVotesListAsString'
-  publish: true
 
 -
   class: Election
@@ -646,7 +607,6 @@
     Populated by each Vote object.
   related:
     - 'Election::getVotesList'
-  publish: true
 
 -
   class: Election
@@ -659,7 +619,6 @@
     A = B > C * 6
   related:
     - 'Election::parseVotes'
-  publish: true
 
 -
   class: Election
@@ -680,7 +639,6 @@
     True / False
   related:
     - 'Election::addCandidate'
-  publish: true
 
 -
   class: Election
@@ -692,7 +650,6 @@
     True / False
   related:
     - 'Election::allowsVoteWeight'
-  publish: true
 
 -
   class: Election
@@ -720,7 +677,6 @@
     - 'Election::getResult'
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
-  publish: true
 
 -
   class: Election
@@ -735,7 +691,6 @@
     - 'Election::getResult'
   examples:
     'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
-  publish: true
 
 -
   class: Election
@@ -753,7 +708,6 @@
     - 'Election::addVotesFromJson'
   examples:
     'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-  publish: true
 
 -
   class: Election
@@ -771,7 +725,6 @@
     - 'Election::addCandidatesFromJson'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Election
@@ -791,7 +744,6 @@
     - 'Election::parseVotes'
   examples:
     'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-  publish: true
 
 -
   class: Election
@@ -812,7 +764,6 @@
     - 'Election::addVotesFromJson'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Election
@@ -836,7 +787,6 @@
     - 'Election::addVotesFromJson'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Election
@@ -859,7 +809,6 @@
     - 'Election::getCandidatesList'
   examples:
     'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-  publish: true
 
 -
   class: Election
@@ -870,7 +819,6 @@
     True if success. Else throw an Exception.
   related:
     - 'Election::setExternalDataHandler'
-  publish: true
 
 -
   class: Election
@@ -887,7 +835,6 @@
     - 'Election::removeVotesByTags'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
-  publish: true
 
 -
   class: Election
@@ -912,7 +859,6 @@
     - 'Election::removeVotes'
   examples:
     'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
-  publish: true
 
 -
   class: Election
@@ -927,7 +873,6 @@
     - 'Election::removeExternalDataHandler'
   examples:
     '[Manual - DataHandler]': 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php'
-  publish: true
 
 -
   class: Election
@@ -942,7 +887,6 @@
     *(int or null)* The new limit.
   related:
     - 'static Election::setMaxVoteNumber'
-  publish: true
 
 -
   class: Election
@@ -957,7 +901,6 @@
     *(int or null)* The new limit.
   related:
     - 'static Election::setMaxParseIteration'
-  publish: true
 
 -
   class: Election
@@ -973,7 +916,6 @@
     Return True
   related:
     - 'Election::getImplicitRankingRule'
-  publish: true
 
 -
   class: Election
@@ -988,7 +930,6 @@
     Always True.
   related:
     - 'Election::getState'
-  publish: true
 
 -
   class: Election
@@ -999,7 +940,6 @@
     (Int) Total vote weight
   related:
     - 'Election::sumValidVotesWeightWithConstraints'
-  publish: true
 
 -
   class: Election
@@ -1011,7 +951,6 @@
   related:
     - 'Election::countValidVoteWithConstraints'
     - 'Election::countInvalidVoteWithConstraints'
-  publish: true
 
 -
   class: Election
@@ -1029,7 +968,6 @@
     - 'Election::clearConstraints'
   examples:
     'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
-  publish: true
 
 
 # CLASS CANDIDATE
@@ -1047,7 +985,6 @@
     - 'Candidate::setName'
   examples:
     'Manual - Create Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
-  publish: true
 
 
 -
@@ -1059,7 +996,6 @@
     Timestamp
   related:
     - 'Candidate::getTimestamp'
-  publish: true
 
 -
   class: Candidate
@@ -1070,7 +1006,6 @@
     Timestamp
   related:
     - 'Candidate::getCreateTimestamp'
-  publish: true
 
 -
   class: Candidate
@@ -1081,7 +1016,6 @@
     An explicit multi-dimenssional array.
   related:
     - 'Candidate::getCreateTimestamp'
-  publish: true
 
 -
   class: Candidate
@@ -1093,7 +1027,6 @@
   related:
     - 'Candidate::getHistory'
     - 'Candidate::setName'
-  publish: true
 
 -
   class: Candidate
@@ -1106,7 +1039,6 @@
     See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
   return: |
     True if candidate object is in a provisional state, false else.
-  publish: true
 
 -
   class: Candidate
@@ -1119,7 +1051,6 @@
       text: Candidate Name
   return: |
     In case of success, return TRUE
-  publish: true
 
 
 
@@ -1147,7 +1078,6 @@
     - 'Vote::addTags'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Vote
@@ -1163,7 +1093,6 @@
     - 'Vote::removeTags'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Vote
@@ -1179,7 +1108,6 @@
     - 'Vote::addTags'
   examples:
     'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
-  publish: true
 
 -
   class: Vote
@@ -1191,7 +1119,6 @@
   related:
     - 'Vote::addTags'
     - 'Vote::removeTags'
-  publish: true
 
 -
   class: Vote
@@ -1200,7 +1127,6 @@
     Count the number of candidate provide into the active Ranking set.
   return: |
     Number of Candidate into ranking.
-  publish: true
 
 -
   class: Vote
@@ -1212,7 +1138,6 @@
   related:
     - 'Vote::getRanking'
     - 'Vote::countRankingCandidates'
-  publish: true
 
 -
   class: Vote
@@ -1227,7 +1152,6 @@
   related:
     - 'Vote::getContextualRankingAsString'
     - 'Vote::getRanking'
-  publish: true
 
 -
   class: Vote
@@ -1242,7 +1166,6 @@
   related:
     - 'Vote::getContextualRanking'
     - 'Vote::getRanking'
-  publish: true
 
 -
   class: Vote
@@ -1253,7 +1176,6 @@
     Timestamp
   related:
     - 'Candidate::getTimestamp'
-  publish: true
 
 -
   class: Vote
@@ -1264,7 +1186,6 @@
     Timestamp
   related:
     - 'Vote::getCreateTimestamp'
-  publish: true
 
 -
   class: Vote
@@ -1275,7 +1196,6 @@
     An explicit multi-dimenssional array.
   related:
     - 'Vote::getCreateTimestamp'
-  publish: true
 
 -
   class: Vote
@@ -1286,7 +1206,6 @@
     Multidimenssionnal array populated by Candidate object.
   related:
     - 'Vote::setRanking'
-  publish: true
 
 -
   class: Vote
@@ -1303,7 +1222,6 @@
     String like 'A>D=C>B'
   related:
     - 'Vote::getRanking'
-  publish: true
 
 -
   class: Vote
@@ -1316,7 +1234,6 @@
     - 'Vote::getTagsAsString'
     - 'Vote::addTags'
     - 'Vote::removeTags'
-  publish: true
 
 -
   class: Vote
@@ -1329,7 +1246,6 @@
     - 'Vote::getTags'
     - 'Vote::addTags'
     - 'Vote::removeTags'
-  publish: true
 
 -
   class: Vote
@@ -1344,7 +1260,6 @@
     Weight. Default weight is 1.
   related:
     - 'Vote::setWeight'
-  publish: true
 
 -
   class: Vote
@@ -1358,7 +1273,6 @@
     True on success.
   related:
     - 'Vote::setRanking'
-  publish: true
 
 -
   class: Vote
@@ -1396,7 +1310,6 @@
   examples:
     'Manual - Add a vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
 
-  publish: true
 
 -
   class: Vote
@@ -1411,7 +1324,6 @@
     New weight.
   related:
     - 'Vote::getWeight'
-  publish: true
 
 -
   class: Vote
@@ -1422,7 +1334,6 @@
     SHA hash code.
   related:
     - 'Vote::getWeight'
-  publish: true
 
 
 
@@ -1437,7 +1348,6 @@
     An explicit array with history.
   related:
     - 'Election::getTimerManager'
-  publish: true
 
 
 # CLASS RESULT
@@ -1455,7 +1365,6 @@
   related:
     - 'Result::getResultAsArray'
     - 'Result::getResultAsString'
-  publish: true
 
 -
   class: Result
@@ -1468,7 +1377,6 @@
     - 'Election::getResult'
   examples:
     'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
-  publish: true
 
 
 -
@@ -1484,7 +1392,6 @@
   related:
     - 'Election::getResult'
     - 'Result::getResultAsString'
-  publish: true
 
 -
   class: Result
@@ -1496,7 +1403,6 @@
   related:
     - 'Election::getResult'
     - 'Result::getResultAsArray'
-  publish: true
 
 -
   class: Result
@@ -1509,7 +1415,6 @@
   related:
     - 'Result::getWinner'
     - 'Election::getLoser'
-  publish: true
 
 -
   class: Result
@@ -1518,7 +1423,6 @@
     Get the timestamp of this result.
   return: |
     Microsecond timestamp.
-  publish: true
 
 -
   class: Result
@@ -1527,7 +1431,6 @@
     Get the Condorcet PHP version that build this Result.
   return: |
     Condorcet PHP version string format.
-  publish: true
 
 -
   class: Result
@@ -1538,7 +1441,6 @@
     Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
   related:
     - 'Result::getMethod'
-  publish: true
 
 -
   class: Result
@@ -1550,7 +1452,6 @@
   related:
     - 'Result::getCondorcetWinner'
     - 'Election::getLoser'
-  publish: true
 
 -
   class: Result
@@ -1562,7 +1463,6 @@
   related:
     - 'Result::getCondorcetLoser'
     - 'Election::getWinner'
-  publish: true
 
 -
   class: Result
@@ -1573,7 +1473,6 @@
     Method name.
   related:
     - 'Result::getClassGenerator'
-  publish: true
 
 -
   class: Result
@@ -1586,7 +1485,6 @@
       text: 'Filter on a specific warning type code.'
   return: |
     Warnings provided by the by the method that generated the warning. Empty array if there is not.
-  publish: true
 
 -
   class: Result
@@ -1599,7 +1497,6 @@
   related:
     - 'Result::getLoser'
     - 'Election::getWinner'
-  publish: true
 
 
 # CLASS CONDORCETUTIL
@@ -1617,4 +1514,3 @@
       text: If true. Will convert Candidate objects into string representation of their name.
   return: |
     New formatted data.
-  publish: true

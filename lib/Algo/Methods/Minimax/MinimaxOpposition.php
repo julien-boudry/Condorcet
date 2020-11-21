@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Minimax;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 
 // Minimax is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
