@@ -111,7 +111,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         endforeach;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getExplicitPairwise () : array
     {
         $explicit_pairwise = [];

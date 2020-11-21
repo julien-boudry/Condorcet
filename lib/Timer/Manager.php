@@ -63,7 +63,7 @@ class Manager
         return $this->_lastTimer;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getHistory () : array
     {
         return $this->_history;

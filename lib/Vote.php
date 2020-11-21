@@ -64,7 +64,7 @@ class Vote implements \Iterator, \Stringable
 
         ///
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
         $this->_electionContext = $electionContext;
@@ -127,7 +127,7 @@ class Vote implements \Iterator, \Stringable
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getHashCode () : string {
         return $this->_hashCode;
     }
@@ -136,50 +136,50 @@ class Vote implements \Iterator, \Stringable
 
     // GETTERS
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getRanking () : array
     {
         return $this->_ranking;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getHistory () : array
     {
         return $this->_ranking_history;
     }
 
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getTags () : array
     {
         return $this->_tags;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getTagsAsString () : string
     {
         return \implode(',',$this->getTags());
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCreateTimestamp () : float
     {
         return $this->_ranking_history[0]['timestamp'];
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getTimestamp () : float
     {
         return $this->_lastTimestamp;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countRankingCandidates () : int
     {
         return $this->_counter;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getAllCandidates () : array
     {
         $list = [];
@@ -193,7 +193,7 @@ class Vote implements \Iterator, \Stringable
         return $list;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getContextualRanking (Election $election) : array
     {
         if (!$this->haveLink($election)) :
@@ -245,13 +245,13 @@ class Vote implements \Iterator, \Stringable
             return $newRanking;
         }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getContextualRankingAsString (Election $election) : array
     {
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
@@ -268,7 +268,7 @@ class Vote implements \Iterator, \Stringable
 
     // SETTERS
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
     {
         // Timestamp
@@ -379,7 +379,7 @@ class Vote implements \Iterator, \Stringable
         }
 
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeCandidate (Candidate|string $candidate) : bool
     {
         if ($candidate instanceof Candidate) :
@@ -414,7 +414,7 @@ class Vote implements \Iterator, \Stringable
     }
 
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addTags (array|string $tags) : bool
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -438,7 +438,7 @@ class Vote implements \Iterator, \Stringable
         return true;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeTags (array|string $tags) : array
     {
         $tags = VoteUtil::tagsConvert($tags);
@@ -463,14 +463,14 @@ class Vote implements \Iterator, \Stringable
         return $rm;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeAllTags () : bool
     {
         $this->removeTags($this->getTags());
         return true;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getWeight (?Election $context = null) : int
     {
         if ($context !== null && !$context->isVoteWeightAllowed()) :
@@ -480,7 +480,7 @@ class Vote implements \Iterator, \Stringable
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setWeight (int $newWeight) : int
     {
         if ($newWeight < 1) :

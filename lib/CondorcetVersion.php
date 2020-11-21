@@ -16,7 +16,7 @@ trait CondorcetVersion
     // Build by Version
     protected string $_objectVersion = Condorcet::VERSION;
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getObjectVersion (bool $major = false) : string
     {
         if ($major === true) :

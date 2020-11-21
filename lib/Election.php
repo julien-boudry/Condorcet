@@ -32,7 +32,7 @@ class Election
 /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public static function setMaxParseIteration (?int $maxParseIterations) : ?int
     {
         self::$_maxParseIteration = $maxParseIterations;
@@ -40,7 +40,7 @@ class Election
     }
 
     // Change max vote number
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public static function setMaxVoteNumber (?int $maxVotesNumber) : ?int
     {
         self::$_maxVoteNumber = $maxVotesNumber;
@@ -63,7 +63,7 @@ class Election
 
         //////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function __construct ()
     {
         $this->_Candidates = [];
@@ -142,22 +142,22 @@ class Election
 
 /////////// TIMER & CHECKSUM ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getGlobalTimer () : float {
         return $this->_timer->getGlobalTimer();
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getLastTimer () : float {
         return $this->_timer->getLastTimer();
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getTimerManager () : Timer_Manager {
         return $this->_timer;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getChecksum () : string
     {
         self::$_checksumMode = true;
@@ -216,13 +216,13 @@ class Election
 
   /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getImplicitRankingRule () : bool
     {
         return $this->_ImplicitRanking;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setImplicitRanking (bool $rule = true) : bool
     {
         $this->_ImplicitRanking = $rule;
@@ -230,13 +230,13 @@ class Election
         return $this->getImplicitRankingRule();
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function isVoteWeightAllowed () : bool
     {
         return $this->_VoteWeightRule;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function allowsVoteWeight (bool $rule = true) : bool
     {
         $this->_VoteWeightRule = $rule;
@@ -247,7 +247,7 @@ class Election
 
     /////////// VOTE CONSTRAINT ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addConstraint (string $constraintClass) : bool
     {
         if ( !\class_exists($constraintClass) ) :
@@ -267,13 +267,13 @@ class Election
         return true;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getConstraints () : array
     {
         return $this->_Constraints;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function clearConstraints () : bool
     {
         $this->_Constraints = [];
@@ -285,7 +285,7 @@ class Election
         return true;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function testIfVoteIsValidUnderElectionConstraints (Vote $vote) : bool
     {
         foreach ($this->_Constraints as $oneConstraint) :
@@ -300,7 +300,7 @@ class Election
 
 /////////// LARGE ELECTION MODE ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setExternalDataHandler (DataHandlerDriverInterface $driver) : bool
     {
         if (!$this->_Votes->isUsingHandler()) :
@@ -311,7 +311,7 @@ class Election
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeExternalDataHandler () : bool
     {
         if ($this->_Votes->isUsingHandler()) :
@@ -325,14 +325,14 @@ class Election
 
 /////////// STATE ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getState () : int
     {
         return $this->_State;
     }
 
     // Close the candidate config, be ready for voting (optional)
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setStateToVote () : bool
     {
         if ( $this->_State === 1 ) :

@@ -66,7 +66,7 @@ abstract class CondorcetUtil
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public static function format (mixed $input, bool $convertObject = true) : mixed
     {
         if (\is_object($input)) :

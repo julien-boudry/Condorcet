@@ -29,45 +29,45 @@ trait VotesProcess
 /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countVotes (mixed $tags = null, bool $with = true) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countInvalidVoteWithConstraints () : int
     {
         return $this->_Votes->countInvalidVoteWithConstraints();
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countValidVoteWithConstraints () : int
     {
         return $this->countVotes() - $this->countInvalidVoteWithConstraints();
     }
 
     // Sum votes weight
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function sumVotesWeight () : int
     {
         return $this->_Votes->sumVotesWeight(false);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function sumValidVotesWeightWithConstraints () : int
     {
         return $this->_Votes->sumVotesWeight(true);
     }
 
     // Get the votes registered list
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getVotesList (mixed $tags = null, bool $with = true) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getVotesListAsString () : string
     {
         return $this->_Votes->getVotesListAsString();
@@ -78,7 +78,7 @@ trait VotesProcess
         return $this->_Votes;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getVotesListGenerator (mixed $tags = null, bool $with = true) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -98,7 +98,7 @@ trait VotesProcess
 /////////// ADD & REMOVE VOTE ///////////
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
     {
         $this->prepareVoteInput($vote, $tags);
@@ -191,7 +191,7 @@ trait VotesProcess
         return $vote;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeVote (Vote $vote) : bool
     {
         $key = $this->getVoteKey($vote);
@@ -209,7 +209,7 @@ trait VotesProcess
 
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeVotesByTags (array|string $tags, bool $with = true) : array
     {
         $rem = [];
@@ -246,7 +246,7 @@ trait VotesProcess
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addVotesFromJson (string $input) : int
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -273,7 +273,7 @@ trait VotesProcess
         return $count;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function parseVotes (string $input, bool $isFile = false) : int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
@@ -318,7 +318,7 @@ trait VotesProcess
         return $count;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
     {
         $inserted_votes_count = 0;

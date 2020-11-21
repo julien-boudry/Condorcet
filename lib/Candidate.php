@@ -22,7 +22,7 @@ class Candidate implements \Stringable
 
         ///
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function __construct (string $name)
     {
         $this->setName($name);
@@ -37,7 +37,7 @@ class Candidate implements \Stringable
 
     // SETTERS
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function setName (string $name) : bool
     {
         $name = \trim($name);
@@ -67,31 +67,31 @@ class Candidate implements \Stringable
 
     // GETTERS
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getName () : string
     {
         return \end($this->_name)['name'];
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getHistory () : array
     {
         return $this->_name;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCreateTimestamp () : float
     {
         return $this->_name[0]['timestamp'];
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getTimestamp () : float
     {
         return \end($this->_name)['timestamp'];
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getProvisionalState () : bool
     {
         return $this->_provisional;

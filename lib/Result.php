@@ -107,7 +107,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 /////////// Get Result ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getResultAsArray (bool $convertToString = false) : array
     {
         $r = $this->_UserResult;
@@ -125,13 +125,13 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $r;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getResultAsString () : string
     {
         return VoteUtil::getRankingAsString($this->getResultAsArray(true));
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getOriginalResultArrayWithString () : array
     {
         return $this->_stringResult;
@@ -142,27 +142,27 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->_Result;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getStats () : mixed {
         return $this->_Stats;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getWinner () : array|Candidate|null {
         return CondorcetUtil::format($this[1],false);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getLoser () : array|Candidate|null {
         return CondorcetUtil::format($this[count($this)],false);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCondorcetWinner () : ?Candidate {
         return $this->_CondorcetWinner;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCondorcetLoser () : ?Candidate {
         return $this->_CondorcetLoser;
     }
@@ -204,7 +204,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return true;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getWarning (?int $type = null) : array
     {
         if ($type === null) :
@@ -222,22 +222,22 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getClassGenerator () : string {
         return $this->_byClass;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getMethod () : string {
         return $this->_fromMethod;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getBuildTimeStamp () : float {
         return (float) $this->_BuildTimeStamp;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCondorcetElectionGeneratorVersion () : string {
         return $this->_ElectionCondorcetVersion;
     }

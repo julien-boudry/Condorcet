@@ -28,20 +28,20 @@ trait CandidatesProcess
 /////////// GET CANDIDATES ///////////
 
     // Count registered candidates
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countCandidates () : int
     {
         return \count($this->_Candidates);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCandidatesList () : array
     {
         return $this->_Candidates;
     }
 
     // Get the list of registered CANDIDATES
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCandidatesListAsString () : array
     {
         $result = [];
@@ -73,13 +73,13 @@ trait CandidatesProcess
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function isRegisteredCandidate (Candidate|string $candidate, bool $strictMode = true) : bool
     {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCandidateObjectFromName (string $candidateName) : ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
@@ -96,7 +96,7 @@ trait CandidatesProcess
 /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addCandidate (Candidate|string|null $candidate = null) : Candidate
     {
         // only if the vote has not started
@@ -131,14 +131,14 @@ trait CandidatesProcess
         return $newCandidate;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function canAddCandidate (Candidate|string $candidate) : bool
     {
         return !$this->isRegisteredCandidate($candidate, false);
     }
 
     // Destroy a register vote candidate before voting
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function removeCandidates (mixed $candidates_input) : array
     {
         // only if the vote has not started
@@ -175,7 +175,7 @@ trait CandidatesProcess
 
 /////////// PARSE CANDIDATES ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function addCandidatesFromJson (string $input) : array
     {
         $input = CondorcetUtil::prepareJson($input);
@@ -201,7 +201,7 @@ trait CandidatesProcess
         return $adding;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function parseCandidates (string $input, bool $isFile = false) : array
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);

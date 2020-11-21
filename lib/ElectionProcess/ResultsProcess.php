@@ -30,7 +30,7 @@ trait ResultsProcess
 /////////// GET RESULTS ///////////
 
     // Generic function for default result with ability to change default object method
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getResult (?string $method = null, array $options = []) : Result
     {
         $options = self::formatResultOptions($options);
@@ -79,7 +79,7 @@ trait ResultsProcess
     }
 
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getWinner (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -98,7 +98,7 @@ trait ResultsProcess
     }
 
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getLoser (?string $method = null) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -116,19 +116,19 @@ trait ResultsProcess
         endif;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCondorcetWinner () : ?Candidate
     {
         return $this->getWinner(null);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getCondorcetLoser () : ?Candidate
     {
         return $this->getLoser(null);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getPairwise () : Pairwise
     {
         if ($this->_Pairwise === null) :
@@ -138,7 +138,7 @@ trait ResultsProcess
         return $this->_Pairwise;
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getExplicitPairwise () : array
     {
         return $this->getPairwise()->getExplicitPairwise();
@@ -148,7 +148,7 @@ trait ResultsProcess
 
 /////////// MAKE RESULTS ///////////
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function computeResult (?string $method = null) : void
     {
         $this->getResult($method);

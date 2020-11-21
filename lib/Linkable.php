@@ -27,19 +27,19 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function haveLink (Election $election) : bool
     {
         return \in_array(needle: $election, haystack: $this->_link, strict: true);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function countLinks () : int
     {
         return \count($this->_link);
     }
 
-    #[PublicAPI(isPublicApi: true)]
+    #[PublicAPI]
     public function getLinks () : ?array
     {
         return !empty($this->_link) ? $this->_link : null;
