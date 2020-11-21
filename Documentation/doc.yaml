@@ -21,55 +21,21 @@
     - Vote
     - Candidate
   name: countLinks
-  description: |
-    Count number of linked election to this object.
-  return: |
-    Number of linked elections.
-  related:
-    - 'Vote::countLinks'
-    - 'Candidate::countLinks'
-    - 'Vote::getLinks'
-    - 'Candidate::getLinks'
-    - 'Vote::haveLink'
-    - 'Candidate::haveLink'
 
 -
   class:
     - Vote
     - Candidate
   name: getLinks
-  description: |
-    Get elections object linked to this Vote or Candidate object.
-  return: |
-    Populated by each elections Condorcet object.
-  related:
-    - 'Vote::countLinks'
-    - 'Candidate::countLinks'
-    - 'Vote::getLinks'
-    - 'Candidate::getLinks'
-    - 'Vote::haveLink'
-    - 'Candidate::haveLink'
 
 -
   class:
     - Vote
     - Candidate
   name: haveLink
-  description: |
-    Check if this election is linked with this Candidate/Vote object.
   input:
     election:
       text: Condorcet election to check.
-  return: |
-    True or False.
-  related:
-    - 'Vote::countLinks'
-    - 'Candidate::countLinks'
-    - 'Vote::getLinks'
-    - 'Candidate::getLinks'
-    - 'Vote::haveLink'
-    - 'Candidate::haveLink'
-
 -
   class:
     - Candidate
@@ -81,30 +47,17 @@
     - Timer\Manager
     - DataManager\VotesManager
   name: getObjectVersion
-  description: |
-    Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
   input:
     major:
       text: |
         * true will return : '2.0'
         * false will return : '2.0.0'
-  return: |
-    Condorcet PHP version.
-  related:
-    - 'static Condorcet::getVersion'
 
 -
   class:
     - Election
     - Algo\Pairwise
   name: getExplicitPairwise
-  description: |
-    Return the Pairwise.
-  return: |
-    Pairwise as an explicit array .
-  related:
-    - 'Election::getPairwise'
-    - 'Election::getResult'
 
 
 # CLASS CONDORCET
@@ -112,96 +65,50 @@
 -
   class: Condorcet
   name: addMethod
-  description: |
-    If you create your own Condorcet Algo. You will need it !
   input:
     methodClass:
       text: |
         The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
-  return: |
-    True on Success. False on failure.
-  related:
-    - 'static Condorcet::isAuthMethod'
-    - 'static Condorcet::getMethodClass'
 
 -
   class: Condorcet
   name: getAuthMethods
-  description: |
-    Get a list of supported algorithm.
   input:
     basic:
       text: Include the natural Condorcet base algorithm.
-  return: |
-    Populated by method string name. You can use it on getResult ... and others methods.
-  related:
-    - 'static Condorcet::isAuthMethod'
-    - 'static Condorcet::getMethodClass'
 
 -
   class: Condorcet
   name: getMethodClass
-  description: |
-    Return the full class path for a method.
   input:
     method:
-  return: |
-    Return null is method not exist.
-  related:
-    - 'static Condorcet::getAuthMethods'
 
 -
   class: Condorcet
   name: getDefaultMethod
-  description: |
-    Return the Condorcet static default method.
-  return: |
-    Method name.
-  related:
-    - 'static Condorcet::getAuthMethods'
-    - 'static Condorcet::setDefaultMethod'
 
 -
   class: Condorcet
   name: getVersion
-  description: |
-    Get the library version.
   input:
     major:
       text: |
         * true will return : '2.0'
         * false will return : '2.0.0'
-  return: |
-    Condorcet PHP version.
-  related:
-    - 'Election::getObjectVersion'
 
 -
   class: Condorcet
   name: isAuthMethod
-  description: |
-    Test if a method is in the result set of Condorcet::getAuthMethods.
   input:
     method:
-  return: |
-    True / False
-  related:
-    - 'static Condorcet::getMethodClass'
-    - 'static Condorcet::getAuthMethods'
 
 -
   class: Condorcet
   name: setDefaultMethod
-  description: |
-    Put a new static method by default for the news Condorcet objects.
   input:
     method:
       type: string
       text: Method Name.
-  return: |
-    In case of success, return TRUE
-  related:
-    - 'static Condorcet::getDefaultMethod'
 
 
 # CLASS ELECTION
@@ -209,268 +116,123 @@
 -
   class: Election
   name: __construct
-  description: |
-    Build a new Election.
 
 -
   class: Election
   name: addCandidate
-  description: |
-    Add one Candidate to an election.
   input:
     candidate:
       text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
-  return: |
-    The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).
-  related:
-    - 'Election::parseCandidates'
-    - 'Election::addCandidatesFromJson'
-    - 'Election::removeCandidate'
-    - 'Election::getCandidatesList'
-    - 'Election::canAddCandidate'
-  examples:
-    'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
 
 -
   class: Election
   name: addConstraint
-  description: |
-    Add a constraint rules as a valid class path.
   input:
     constraintClass:
       text: A valid class path. Class must extend VoteConstraint class.
-  return: |
-    True on success. Throw Throwable\CondorcetException code 27/28/29 on error.
-  related:
-    - 'Election::getConstraints'
-    - 'Election::clearConstraints'
-    - 'Election::testIfVoteIsValidUnderElectionConstraints'
-  examples:
-    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
 
 
 -
   class: Election
   name: addVote
-  description: |
-    Add a vote to an election.
   input:
     vote:
       text: 'String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you. '
     tags:
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
-  return: |
-    The vote object.
-  related:
-    - 'Election::parseVotes'
-    - 'Election::addVotesFromJson'
-    - 'Election::removeVote'
-    - 'Election::getVotesList'
 
-  examples:
-    'Manual - Vote Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Election
   name: allowsVoteWeight
-  description: |
-    Set the setting and reset all result data.
-    Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
-    By default, the voting weight is not activated and all votes are considered equal.
   input:
     rule:
       text: New rule.
-  return: |
-    Return True
-  related:
-    - 'Election::isVoteWeightAllowed'
 
 -
   class: Election
   name: canAddCandidate
-  description: |
-    Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
   input:
     candidate:
       text : String or Condorcet/Vote object.
-  return: |
-    True if your Candidate is available. Or False.
-  related:
-    - 'Election::addCandidate'
 
 -
   class: Election
   name: clearConstraints
-  description: |
-    Clear all constraints rules and clear previous results.
-  return: |
-    Return True.
-  related:
-    - 'Election::getConstraints'
-    - 'Election::addConstraints'
-    - 'Election::testIfVoteIsValidUnderElectionConstraints'
-  examples:
-    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+
 
 -
   class: Election
   name: computeResult
-  description: |
-    Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
   input:
     method:
       nullable: true
       text: |
         Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
-  related:
-    - 'Election::getWinner'
-    - 'Election::getResult'
-    - 'Condorcet::getDefaultMethod'
 
 -
   class: Election
   name: countCandidates
-  description: |
-    Count the number of registered candidate
-  return: |
-    Number of registered candidate for this election.
-  related:
-    - 'Election::getCandidatesList'
 
 -
   class: Election
   name: countVotes
-  description: |
-    Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
   input:
     tags:
       text: 'Tag into string separated by commas, or an Array.'
     with:
       text: Count Votes with this tag ou without this tag.
-  return: |
-    Number of valid and registered vote into this election.
-  related:
-    - 'Election::getVotesList'
-    - 'Election::countValidVoteWithConstraints'
 
 -
   class: Election
   name: countInvalidVoteWithConstraints
-  description: |
-    Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
-  return: |
-    Number of valid and registered vote into this election.
-  related:
-    - 'Election::countValidVoteWithConstraints'
-    - 'Election::countVotes'
-    - 'Election::sumValidVotesWeightWithConstraints'
 
 -
   class: Election
   name: countValidVoteWithConstraints
-  description: |
-    Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
-  return: |
-    Number of valid and registered vote into this election.
-  related:
-    - 'Election::countInvalidVoteWithConstraints'
-    - 'Election::countVotes'
-    - 'Election::sumValidVotesWeightWithConstraints'
 
 -
   class: Election
   name: getCandidateObjectFromName
-  description: |
-    Find candidate object by his string and return the candidate object.
   input:
     candidateName:
       text: Candidate name.
-  return: |
-    Candidate object
 
 -
   class: Election
   name: getCandidatesList
-  description: |
-    Return a list of registered Candidate into this election.
-  return: |
-    List of Candidate into an array.
-  related:
-    - 'Election::countCandidates'
 
 -
   class: Election
   name: getCandidatesListAsString
-  description: |
-    Return a list of registered Candidate into this election.
-  return: |
-    List of Candidate into an array populated by strign instead CandidateObject.
-  related:
-    - 'Election::countCandidates'
 
 -
   class: Election
   name: getChecksum
-  description: |
-    SHA-2 256 checksum of following internal data:
-    * Candidates
-    * Votes list & tags
-    * Computed data (pairwise, algorithm cache, stats)
-    * Class version (major version like 0.14)
 
-    Can be powerfull to check integrity and security of an election. Or working with serialized object.
-
-  return: |
-    SHA-2 256 bits Hexadecimal
-
-  examples:
-    'Manual - Cryptographic Checksum': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum'
 
 -
   class: Election
   name: getConstraints
-  description: |
-    Get active constraints list.
-  return: |
-    Array with class name of each active constraint. Empty array if there is not.
-  related:
-    - 'Election::clearConstraints'
-    - 'Election::addConstraints'
-    - 'Election::testIfVoteIsValidUnderElectionConstraints'
-  examples:
-    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+
 
 -
   class: Election
   name: getGlobalTimer
-  description: |
-    Returns the cumulated computation runtime of this object. Include only computation related methods.
-  return: |
-    (Float) Timer
-  related:
-    - 'Election::getLastTimer'
 
-  examples:
-    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
+
 
 -
   class: Election
   name: getLastTimer
-  description: |
-    Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
-  return: |
-    (Float) Timer
-  related:
-    - 'Election::getGlobalTimer'
 
-  examples:
-    'Manual - Timber benchmarking': 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking'
+
 
 -
   class: Election
   name: getLoser
-  description: |
-    Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
   input:
     method:
       nullable: true
@@ -480,150 +242,65 @@
         The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
 
         If null, Natural Condorcet algorithm will be use.
-  return: |
-    Candidate object given. Null if there are no available winner or loser.
 
-    If you use an advanced method instead of Natural, you can get an array with multiples losers.
 
-    Throw an exception on error.
-  related:
-    - 'Election::getWinner'
-    - 'Election::getResult'
-
-  examples:
-    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
 
 -
   class: Election
   name: getCondorcetLoser
-  description: |
-    Get the natural Condorcet loser if there is one.
-  return: |
-    Candidate object given. Null if there are no available loser.
-  related:
-    - 'Election::getCondorcetWinner'
-    - 'Election::getLoser'
-    - 'Election::getResult'
-  examples:
-    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
 
 -
   class: Election
   name: getPairwise
-  description: |
-    Return the Pairwise.
-  return: |
-    Pairwise object.
-  related:
-    - 'Election::getExplicitPairwise'
-    - 'Election::getResult'
 
-  examples:
-    'Manual - Advanced Results': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management'
+
 
 -
   class: Election
   name: getImplicitRankingRule
-  description: |
-    Returns the corresponding setting as currently set (True by default).
-    If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
-    If it is false, then the candidates not ranked, are not taken into account at all.
-  return: |
-    True / False
-  related:
-    - 'Election::setImplicitRanking'
 
 -
   class: Election
   name: getResult
-  description: |
-    Get a full ranking from an advanced Condorcet method.
-    *Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
   input:
     method:
       nullable: true
       text: |
         Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
     options:
-  return: |
-    An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
-  related:
-    - 'Election::getWinner'
-    - 'Election::getResult'
-    - 'Condorcet::getDefaultMethod'
-  examples:
-    'Manual - Ranking from Condorcet Method': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods'
 
 -
   class: Election
   name: getState
-  description: |
-    Get the election process level.
-  return: |
-    1: Candidate registered state. No votes, no result, no cache.
-    2: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
-    3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.
-  related:
-    - 'Election::setStateToVote'
 
 -
   class: Election
   name: getTimerManager
-  description: |
-    Get the Timer manager object.
-  return: |
-    An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
-  related:
-    - 'Election::getGlobalTimer'
-    - 'Election::getLastTimer'
 
 -
   class: Election
   name: getVotesList
-  description: |
-    Get registered vote list.
   input:
     tags:
     with:
-  return: |
-    Populated by each Vote object.
-  related:
-    - 'Election::countVotes'
-    - 'Election::getVotesListAsString'
 
 -
   class: Election
   name: getVotesListGenerator
-  description: |
-    Same as Election::getVotesList. But Return a PHP generator object.
-    Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
   input:
     tags:
       type: mixed
     with:
-  return: |
-    Populated by each Vote object.
-  related:
-    - 'Election::getVotesList'
 
 -
   class: Election
   name: getVotesListAsString
-  description: |
-    Get registered vote list.
-  return: |
-    Return a string like :<br>
-    A > B > C * 3<br>
-    A = B > C * 6
-  related:
-    - 'Election::parseVotes'
 
 -
   class: Election
   name: isRegisteredCandidate
-  description: |
-    Check if a candidate is already taking part in the election.
   input:
     candidate:
       nullable: false
@@ -634,27 +311,14 @@
       text: |
         Search comparaison mode. In strict mode, candidate object are compared strictly and a string input can't match anything.
         If strict mode is false, the comparaison will be based on name.
-  return: |
-    True / False
-  related:
-    - 'Election::addCandidate'
 
 -
   class: Election
   name: isVoteWeightAllowed
-  description: |
-    Returns the corresponding setting as currently set (False by default).
-    If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
-  return: |
-    True / False
-  related:
-    - 'Election::allowsVoteWeight'
 
 -
   class: Election
   name: getWinner
-  description: |
-    Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
   input:
     method:
       nullable: true
@@ -664,111 +328,51 @@
         The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
 
         If null, Natural Condorcet algorithm will be use.
-  return: |
-    Candidate object given. Null if there are no available winner or loser.
 
-    If you use an advanced method instead of Natural, you can get an array with multiples winners.
-
-    Throw an exception on error.
-  related:
-    - 'Election::getCondorcetWinner'
-    - 'Election::getLoser'
-    - 'Election::getResult'
-  examples:
-    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
 
 -
   class: Election
   name: getCondorcetWinner
-  description: |
-    Get the natural Condorcet winner if there is one.
-  return: |
-    Candidate object given. Null if there are no available winner.
-  related:
-    - 'Election::getCondorcetLoser'
-    - 'Election::getWiner'
-    - 'Election::getResult'
-  examples:
-    'Manual - Natural Condorcet': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet'
+
 
 -
   class: Election
   name: addCandidatesFromJson
-  description: |
-    Import candidate from a Json source.
   input:
     input:
       text: Json string input.
-  return: |
-    List of new registered candidate object.
-  related:
-    - 'Election::addCandidate'
-    - 'Election::parseCandidates'
-    - 'Election::addVotesFromJson'
-  examples:
-    'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
 
 -
   class: Election
   name: addVotesFromJson
-  description: |
-    Import votes from a Json source.
   input:
     input:
       text: Json string input.
-  return: |
-    Count of new registered vote.
-  related:
-    - 'Election::addVote'
-    - 'Election::parseVotes'
-    - 'Election::addCandidatesFromJson'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Election
   name: parseCandidates
-  description: |
-    Import candidate from a text source.
   input:
     input:
       text: String or valid path to a text file.
     isFile:
       text: If true, the input is evalatued as path to text file.
-  return: |
-    List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
-  related:
-    - 'Election::addCandidate'
-    - 'Election::addCandidatesFromJson'
-    - 'Election::parseVotes'
-  examples:
-    'Manual - Manage Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
 
 -
   class: Election
   name: parseVotes
-  description: |
-    Import votes from a text source. If any invalid vote is found inside, nothing are registered.
   input:
     input:
       text: String or valid path to a text file.
     isFile:
       text: If true, the input is evalatued as path to text file.
-  return: |
-    Count of the new registered vote.
-  related:
-    - 'Election::addVote'
-    - 'Election::parseCandidates'
-    - 'Election::parseVotesWithoutFail'
-    - 'Election::addVotesFromJson'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Election
   name: parseVotesWithoutFail
-  description: |
-    Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
   input:
     input:
       text: String or valid path to a text file.
@@ -777,23 +381,11 @@
     callBack:
       nullable: true
       text: Callback function to execute after each registered vote.
-  return: |
-    Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.
-  related:
-    - 'Election::addVote'
-    - 'Election::parseCandidates'
-    - 'Election::parseVotes'
-    - 'Election::addVotesFromJson'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Election
   name: removeCandidates
-  description: |
-    Remove Candidates from an election.
-
-    *Please note: You can't remove candidates after the first vote. Exception will be throw.*
   input:
     candidates_input:
       text: |
@@ -801,172 +393,76 @@
           * CondorcetPHP\Condorcet\Candidate object
           * Array populated by CondorcetPHP\Condorcet\Candidate
           * Array populated by string matching Candidate name
-  return: |
-    List of removed CondorcetPHP\Condorcet\Candidate object.
-  related:
-    - 'Election::addCandidate'
-    - 'Election::getCandidatesList'
-  examples:
-    'Manual - Manage Candidate': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
 
 -
   class: Election
   name: removeExternalDataHandler
-  description: |
-    Remove an external driver to store vote on very large election. And import his data into classical memory.
-  return: |
-    True if success. Else throw an Exception.
-  related:
-    - 'Election::setExternalDataHandler'
 
 -
   class: Election
   name: removeVote
-  description: |
-    Remove Votes from an election.
   input:
     vote:
-  return: |
-    List of removed CondorcetPHP\Condorcet\Vote object.
-  related:
-    - 'Election::addVote'
-    - 'Election::getVotesList'
-    - 'Election::removeVotesByTags'
-  examples:
-    'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
+
 
 -
   class: Election
   name: removeVotesByTags
-  description: |
-    Remove Vote from an election using tags.
-
-    ```php
-    $election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
-    $election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
-    $election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-    $election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
-    ```
   input:
     tags:
     with:
-  return: |
-    List of removed CondorcetPHP\Condorcet\Vote object.
-  related:
-    - 'Election::addVote'
-    - 'Election::getVotesList'
-    - 'Election::removeVotes'
-  examples:
-    'Manual - Vote management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote'
 
 -
   class: Election
   name: setExternalDataHandler
-  description: |
-    Import and enable an external driver to store vote on very large election.
   input:
     driver:
-  return: |
-    True if success. Else throw an Exception.
-  related:
-    - 'Election::removeExternalDataHandler'
-  examples:
-    '[Manual - DataHandler]': 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php'
+
 
 -
   class: Election
   name: setMaxParseIteration
-  description: |
-    Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
   input:
     maxParseIterations:
       nullable: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
-  return: |
-    *(int or null)* The new limit.
-  related:
-    - 'static Election::setMaxVoteNumber'
 
 -
   class: Election
   name: setMaxVoteNumber
-  description: |
-    Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
   input:
     maxVotesNumber:
       nullable: true
       text: Null will desactivate this functionnality. An integer will fix the limit.
-  return: |
-    *(int or null)* The new limit.
-  related:
-    - 'static Election::setMaxParseIteration'
+
 
 -
   class: Election
   name: setImplicitRanking
-  description: |
-    Set the setting and reset all result data.
-    If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
-    If it is false, then the candidates not ranked, are not taken into account at all.
   input:
     rule:
       text: New rule.
-  return: |
-    Return True
-  related:
-    - 'Election::getImplicitRankingRule'
 
 -
   class: Election
   name: setStateToVote
-  description: |
-    Force the election to get back to state 2. See Election::getState.
-    It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
-
-    If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
-    If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
-  return: |
-    Always True.
-  related:
-    - 'Election::getState'
 
 -
   class: Election
   name: sumVotesWeight
-  description: |
-    Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.
-  return: |
-    (Int) Total vote weight
-  related:
-    - 'Election::sumValidVotesWeightWithConstraints'
 
 -
   class: Election
   name: sumValidVotesWeightWithConstraints
-  description: |
-    Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
-  return: |
-    (Int) Total vote weight
-  related:
-    - 'Election::countValidVoteWithConstraints'
-    - 'Election::countInvalidVoteWithConstraints'
 
 -
   class: Election
   name: testIfVoteIsValidUnderElectionConstraints
-  description: |
-    Test if a vote is valid with these election constraints.
   input:
     vote:
       text: A vote. Not necessarily registered in this election.
-  return: |
-    Return True if vote will pass the constraints rules, else False.
-  related:
-    - 'Election::getConstraints'
-    - 'Election::addConstraints'
-    - 'Election::clearConstraints'
-  examples:
-    'Manual - Vote Constraints': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints'
+
 
 
 # CLASS CANDIDATE
@@ -975,81 +471,38 @@
 -
   class: Candidate
   name: __construct
-  description: |
-    Build a candidate.
   input:
     name:
       text: Candidate Name
-  related:
-    - 'Candidate::setName'
-  examples:
-    'Manual - Create Candidates': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates'
+
 
 
 -
   class: Candidate
   name: getCreateTimestamp
-  description: |
-    Get the timestamp corresponding of the creation of this candidate.
-  return: |
-    Timestamp
-  related:
-    - 'Candidate::getTimestamp'
 
 -
   class: Candidate
   name: getTimestamp
-  description: |
-    Get the timestamp corresponding of the last namming change.
-  return: |
-    Timestamp
-  related:
-    - 'Candidate::getCreateTimestamp'
 
 -
   class: Candidate
   name: getHistory
-  description: |
-    Return an history of each namming change, with timestamp.
-  return: |
-    An explicit multi-dimenssional array.
-  related:
-    - 'Candidate::getCreateTimestamp'
 
 -
   class: Candidate
   name: getName
-  description: |
-    Get the candidate name.
-  return: |
-    Candidate name.
-  related:
-    - 'Candidate::getHistory'
-    - 'Candidate::setName'
 
 -
   class: Candidate
   name: getProvisionalState
-  description: |
-    When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
-    Then, these string input will be converted to into temporary candidate objects, named "provisional". because you don't create the candidate yourself. They have a provisonal statut true.
-    When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::getHistory).
-
-    See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
-  return: |
-    True if candidate object is in a provisional state, false else.
 
 -
   class: Candidate
   name: setName
-  description: |
-    Change the candidate name.
-    *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
   input:
     name:
       text: Candidate Name
-  return: |
-    In case of success, return TRUE
 
 
 
@@ -1059,8 +512,6 @@
 -
   class: Vote
   name: __construct
-  description: |
-    Build a vote object.
   input:
     ranking:
       text: Equivalent to Vote::setRanking method.
@@ -1072,214 +523,101 @@
     electionContext:
       nullable: true
       text: Try to convert directly your candidates from sting input" to Candidate object of one election.
-  related:
-    - 'Vote::setRanking'
-    - 'Vote::addTags'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Vote
   name: addTags
-  description: |
-    Add tag(s) on this Vote.
   input:
     tags:
       text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
-  return: |
-    In case of success, return TRUE
-  related:
-    - 'Vote::removeTags'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Vote
   name: removeTags
-  description: |
-    Remove registered tag(s) on this Vote.
   input:
     tags:
       text: They can be added by string separated by commas or an array.
-  return: |
-    List of deleted tags.
-  related:
-    - 'Vote::addTags'
-  examples:
-    'Manual - Add Vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 -
   class: Vote
   name: removeAllTags
-  description: |
-    Remove all registered tag(s) on this Vote.
-  return: |
-    Return True.
-  related:
-    - 'Vote::addTags'
-    - 'Vote::removeTags'
 
 -
   class: Vote
   name: countRankingCandidates
-  description: |
-    Count the number of candidate provide into the active Ranking set.
-  return: |
-    Number of Candidate into ranking.
 
 -
   class: Vote
   name: getAllCandidates
-  description: |
-    Get all the candidates object set in the last ranking of this Vote.
-  return: |
-    Candidates list.
-  related:
-    - 'Vote::getRanking'
-    - 'Vote::countRankingCandidates'
 
 -
   class: Vote
   name: getContextualRanking
-  description: |
-    Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
   input:
     election:
       text: An election already linked to the Vote.
-  return: |
-    Contextual full ranking.
-  related:
-    - 'Vote::getContextualRankingAsString'
-    - 'Vote::getRanking'
 
 -
   class: Vote
   name: getContextualRankingAsString
-  description: |
-    Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
   input:
     election:
       text: An election is already linked to Vote.
-  return: |
-    Contextual full ranking, with string instead Candidate object.
-  related:
-    - 'Vote::getContextualRanking'
-    - 'Vote::getRanking'
 
 -
   class: Vote
   name: getCreateTimestamp
-  description: |
-    Get the timestamp corresponding of the creation of this vote.
-  return: |
-    Timestamp
-  related:
-    - 'Candidate::getTimestamp'
 
 -
   class: Vote
   name: getTimestamp
-  description: |
-    Get the timestamp corresponding of the last vote change.
-  return: |
-    Timestamp
-  related:
-    - 'Vote::getCreateTimestamp'
 
 -
   class: Vote
   name: getHistory
-  description: |
-    Return an history of each vote change, with timestamp.
-  return: |
-    An explicit multi-dimenssional array.
-  related:
-    - 'Vote::getCreateTimestamp'
 
 -
   class: Vote
   name: getRanking
-  description: |
-    Get the actual Ranking of this Vote.
-  return: |
-    Multidimenssionnal array populated by Candidate object.
-  related:
-    - 'Vote::setRanking'
 
 -
   class: Vote
   name: getSimpleRanking
-  description: |
-    Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
   input:
     context:
       nullable: true
       text: An election already linked to the Vote.
     displayWeight:
       text: Include or not the weight symbol and value.
-  return: |
-    String like 'A>D=C>B'
-  related:
-    - 'Vote::getRanking'
 
 -
   class: Vote
   name: getTags
-  description: |
-    Get the registered tags for this Vote.
-  return: |
-    List of registered tag.
-  related:
-    - 'Vote::getTagsAsString'
-    - 'Vote::addTags'
-    - 'Vote::removeTags'
 
 -
   class: Vote
   name: getTagsAsString
-  description: |
-    Get the registered tags for this Vote.
-  return: |
-    List of registered tag as string separated by commas.
-  related:
-    - 'Vote::getTags'
-    - 'Vote::addTags'
-    - 'Vote::removeTags'
 
 -
   class: Vote
   name: getWeight
-  description: |
-    Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
   input:
     context:
       nullable: true
       text: An election already linked to the Vote.
-  return: |
-    Weight. Default weight is 1.
-  related:
-    - 'Vote::setWeight'
-
 -
   class: Vote
   name: removeCandidate
-  description: |
-    Remove candidate from ranking. Set a new ranking and archive the old ranking.
   input:
     candidate:
       text: Candidate object or string.
-  return: |
-    True on success.
-  related:
-    - 'Vote::setRanking'
 
 -
   class: Vote
   name: setRanking
-  description: |
-    Set a new ranking for this vote.
-
-    Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
   input:
     ranking:
       text: |
@@ -1299,40 +637,21 @@
     ownTimestamp:
       nullable: true
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
-  return: |
-    In case of success, return TRUE
-  related:
-    - 'Vote::getRanking'
-    - 'Vote::getHistory'
-    - 'Vote::__construct'
 
-  examples:
-    'Manual - Add a vote': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote'
+
 
 
 -
   class: Vote
   name: setWeight
-  description: |
-    Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
   input:
     newWeight:
       text: |
         The new vote weight.
-  return: |
-    New weight.
-  related:
-    - 'Vote::getWeight'
 
 -
   class: Vote
   name: getHashCode
-  description: |
-    Get Object hash (cryptographic)
-  return: |
-    SHA hash code.
-  related:
-    - 'Vote::getWeight'
 
 
 
@@ -1341,12 +660,6 @@
 -
   class: Timer\Manager
   name: getHistory
-  description: |
-    Return benchmarked actions history.
-  return: |
-    An explicit array with history.
-  related:
-    - 'Election::getTimerManager'
 
 
 # CLASS RESULT
@@ -1354,148 +667,61 @@
 -
   class: Result
   name: getOriginalResultArrayWithString
-  description: |
-    Get result as an array
-  return: |
-    Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
-    Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
-
-    This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
-  related:
-    - 'Result::getResultAsArray'
-    - 'Result::getResultAsString'
 
 -
   class: Result
   name: getStats
-  description: |
-    Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
-  return: |
-    Varying according to the algorithm used.
-  related:
-    - 'Election::getResult'
-  examples:
-    'Advanced Result Management': 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management'
+
 
 
 -
   class: Result
   name: getResultAsArray
-  description: |
-    Get result as an array
   input:
     convertToString:
       text: 'Convert Candidate object to string'
-  return: |
-    An ordered multidimensionnal array by rank.
-  related:
-    - 'Election::getResult'
-    - 'Result::getResultAsString'
 
 -
   class: Result
   name: getResultAsString
-  description: |
-    Get result as string
-  return: |
-    Result ranking as string.
-  related:
-    - 'Election::getResult'
-    - 'Result::getResultAsArray'
-
 -
   class: Result
   name: getLoser
-  description: |
-    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
-  return: |
-    Candidate object given. Null if there are no available loser.
-    You can get an array with multiples losers.
-  related:
-    - 'Result::getWinner'
-    - 'Election::getLoser'
 
 -
   class: Result
   name: getBuildTimeStamp
-  description: |
-    Get the timestamp of this result.
-  return: |
-    Microsecond timestamp.
 
 -
   class: Result
   name: getCondorcetElectionGeneratorVersion
-  description: |
-    Get the Condorcet PHP version that build this Result.
-  return: |
-    Condorcet PHP version string format.
 
 -
   class: Result
   name: getClassGenerator
-  description: |
-    Get the The algorithmic method used for this result.
-  return: |
-    Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
-  related:
-    - 'Result::getMethod'
 
 -
   class: Result
   name: getCondorcetLoser
-  description: |
-    Get the Condorcet loser, if exist, at the result time.
-  return: |
-    Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
-  related:
-    - 'Result::getCondorcetWinner'
-    - 'Election::getLoser'
 
 -
   class: Result
   name: getCondorcetWinner
-  description: |
-    Get the Condorcet winner, if exist, at the result time.
-  return: |
-    CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
-  related:
-    - 'Result::getCondorcetLoser'
-    - 'Election::getWinner'
 
 -
   class: Result
   name: getMethod
-  description: |
-    Get the The algorithmic method used for this result.
-  return: |
-    Method name.
-  related:
-    - 'Result::getClassGenerator'
 
 -
   class: Result
   name: getWarning
-  description: |
-    From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
   input:
     type:
       nullable: true
       text: 'Filter on a specific warning type code.'
-  return: |
-    Warnings provided by the by the method that generated the warning. Empty array if there is not.
-
 -
   class: Result
   name: getWinner
-  description: |
-    Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
-  return: |
-    Candidate object given. Null if there are no available winner.
-    You can get an array with multiples winners.
-  related:
-    - 'Result::getLoser'
-    - 'Election::getWinner'
 
 
 # CLASS CONDORCETUTIL
@@ -1503,13 +729,8 @@
 -
   class: CondorcetUtil
   name: format
-  description: |
-    Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
-    Can be use before a var_dump, or just to get more simple data output.
   input:
     input:
       text: All datatype. Like classical var_dump
     convertObject:
       text: If true. Will convert Candidate objects into string representation of their name.
-  return: |
-    New formatted data.
