@@ -18,7 +18,7 @@ trait CondorcetVersion
     // Build by Version
     protected string $_objectVersion = Condorcet::VERSION;
 
-    #[PublicAPI]
+    #[PublicAPI("Candidate","Election","Result","Vote","Algo\Pairwise","DataManager\VotesManager","Timer\Manager")]
     #[Description("Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.")]
     #[FunctionReturn("Condorcet PHP version.")]
     #[Related("static Condorcet::getVersion")]

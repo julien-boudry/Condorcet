@@ -39,10 +39,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 * [public static CondorcetUtil::format (...)](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md) : mixed  
 
-### CondorcetPHP\Condorcet\DataManager\VotesManager Class  
-
-* [public DataManager\VotesManager->getObjectVersion (...)](DataManager_VotesManager%20Class/public%20DataManager_VotesManager--getObjectVersion.md) : string  
-
 ### CondorcetPHP\Condorcet\Election Class  
 
 * [public static Election::setMaxParseIteration (...)](Election%20Class/public%20static%20Election--setMaxParseIteration.md) : ?int  
@@ -114,10 +110,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getStats ()](Result%20Class/public%20Result--getStats.md) : mixed  
 * [public Result->getWarning (...)](Result%20Class/public%20Result--getWarning.md) : array  
 * [public Result->getWinner ()](Result%20Class/public%20Result--getWinner.md) : CondorcetPHP\Condorcet\Candidate|array|null  
-
-### CondorcetPHP\Condorcet\Throwable\CondorcetException Class  
-
-* [public Throwable\CondorcetException->getObjectVersion (...)](Throwable_CondorcetException%20Class/public%20Throwable_CondorcetException--getObjectVersion.md) : string  
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 

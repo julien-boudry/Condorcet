@@ -20,18 +20,6 @@
   class:
     - Vote
     - Candidate
-  name: countLinks
-
--
-  class:
-    - Vote
-    - Candidate
-  name: getLinks
-
--
-  class:
-    - Vote
-    - Candidate
   name: haveLink
   input:
     election:
@@ -53,11 +41,6 @@
         * true will return : '2.0'
         * false will return : '2.0.0'
 
--
-  class:
-    - Election
-    - Algo\Pairwise
-  name: getExplicitPairwise
 
 
 # CLASS CONDORCET
@@ -85,10 +68,6 @@
 
 -
   class: Condorcet
-  name: getDefaultMethod
-
--
-  class: Condorcet
   name: getVersion
   input:
     major:
@@ -112,10 +91,6 @@
 
 
 # CLASS ELECTION
-
--
-  class: Election
-  name: __construct
 
 -
   class: Election
@@ -158,10 +133,6 @@
     candidate:
       text : String or Condorcet/Vote object.
 
--
-  class: Election
-  name: clearConstraints
-
 
 -
   class: Election
@@ -174,10 +145,6 @@
 
 -
   class: Election
-  name: countCandidates
-
--
-  class: Election
   name: countVotes
   input:
     tags:
@@ -187,48 +154,10 @@
 
 -
   class: Election
-  name: countInvalidVoteWithConstraints
-
--
-  class: Election
-  name: countValidVoteWithConstraints
-
--
-  class: Election
   name: getCandidateObjectFromName
   input:
     candidateName:
       text: Candidate name.
-
--
-  class: Election
-  name: getCandidatesList
-
--
-  class: Election
-  name: getCandidatesListAsString
-
--
-  class: Election
-  name: getChecksum
-
-
--
-  class: Election
-  name: getConstraints
-
-
--
-  class: Election
-  name: getGlobalTimer
-
-
-
--
-  class: Election
-  name: getLastTimer
-
-
 
 -
   class: Election
@@ -243,24 +172,6 @@
 
         If null, Natural Condorcet algorithm will be use.
 
-
-
-
--
-  class: Election
-  name: getCondorcetLoser
-
-
--
-  class: Election
-  name: getPairwise
-
-
-
--
-  class: Election
-  name: getImplicitRankingRule
-
 -
   class: Election
   name: getResult
@@ -270,14 +181,6 @@
       text: |
         Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
     options:
-
--
-  class: Election
-  name: getState
-
--
-  class: Election
-  name: getTimerManager
 
 -
   class: Election
@@ -296,10 +199,6 @@
 
 -
   class: Election
-  name: getVotesListAsString
-
--
-  class: Election
   name: isRegisteredCandidate
   input:
     candidate:
@@ -314,10 +213,6 @@
 
 -
   class: Election
-  name: isVoteWeightAllowed
-
--
-  class: Election
   name: getWinner
   input:
     method:
@@ -328,11 +223,6 @@
         The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
 
         If null, Natural Condorcet algorithm will be use.
-
-
--
-  class: Election
-  name: getCondorcetWinner
 
 
 -
@@ -397,10 +287,6 @@
 
 -
   class: Election
-  name: removeExternalDataHandler
-
--
-  class: Election
   name: removeVote
   input:
     vote:
@@ -446,18 +332,6 @@
 
 -
   class: Election
-  name: setStateToVote
-
--
-  class: Election
-  name: sumVotesWeight
-
--
-  class: Election
-  name: sumValidVotesWeightWithConstraints
-
--
-  class: Election
   name: testIfVoteIsValidUnderElectionConstraints
   input:
     vote:
@@ -475,28 +349,6 @@
     name:
       text: Candidate Name
 
-
-
--
-  class: Candidate
-  name: getCreateTimestamp
-
--
-  class: Candidate
-  name: getTimestamp
-
--
-  class: Candidate
-  name: getHistory
-
--
-  class: Candidate
-  name: getName
-
--
-  class: Candidate
-  name: getProvisionalState
-
 -
   class: Candidate
   name: setName
@@ -507,7 +359,6 @@
 
 
 # CLASS VOTE
-
 
 -
   class: Vote
@@ -543,18 +394,6 @@
 
 -
   class: Vote
-  name: removeAllTags
-
--
-  class: Vote
-  name: countRankingCandidates
-
--
-  class: Vote
-  name: getAllCandidates
-
--
-  class: Vote
   name: getContextualRanking
   input:
     election:
@@ -569,22 +408,6 @@
 
 -
   class: Vote
-  name: getCreateTimestamp
-
--
-  class: Vote
-  name: getTimestamp
-
--
-  class: Vote
-  name: getHistory
-
--
-  class: Vote
-  name: getRanking
-
--
-  class: Vote
   name: getSimpleRanking
   input:
     context:
@@ -592,14 +415,6 @@
       text: An election already linked to the Vote.
     displayWeight:
       text: Include or not the weight symbol and value.
-
--
-  class: Vote
-  name: getTags
-
--
-  class: Vote
-  name: getTagsAsString
 
 -
   class: Vote
@@ -639,8 +454,6 @@
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
 
 
-
-
 -
   class: Vote
   name: setWeight
@@ -649,30 +462,8 @@
       text: |
         The new vote weight.
 
--
-  class: Vote
-  name: getHashCode
-
-
-
-# CLASS TIMER/MANAGER
-
--
-  class: Timer\Manager
-  name: getHistory
-
 
 # CLASS RESULT
-
--
-  class: Result
-  name: getOriginalResultArrayWithString
-
--
-  class: Result
-  name: getStats
-
-
 
 -
   class: Result
@@ -683,45 +474,11 @@
 
 -
   class: Result
-  name: getResultAsString
--
-  class: Result
-  name: getLoser
-
--
-  class: Result
-  name: getBuildTimeStamp
-
--
-  class: Result
-  name: getCondorcetElectionGeneratorVersion
-
--
-  class: Result
-  name: getClassGenerator
-
--
-  class: Result
-  name: getCondorcetLoser
-
--
-  class: Result
-  name: getCondorcetWinner
-
--
-  class: Result
-  name: getMethod
-
--
-  class: Result
   name: getWarning
   input:
     type:
       nullable: true
       text: 'Filter on a specific warning type code.'
--
-  class: Result
-  name: getWinner
 
 
 # CLASS CONDORCETUTIL
