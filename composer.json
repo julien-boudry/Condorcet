@@ -31,10 +31,10 @@
     "require-dev": {
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
-        "condorcetphp/condorcet-doc-generator": "dev-master",
         "phpbench/phpbench": "dev-master",
         "phpunit/phpunit": "^9 || ^10",
-        "phploc/phploc": "dev-master"
+        "phploc/phploc": "dev-master",
+        "haydenpierce/class-finder": ">= 0.4"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
@@ -48,7 +48,8 @@
     "autoload-dev": {
         "psr-4": {
             "CondorcetPHP\\Condorcet\\Tests\\": "Tests/lib/",
-            "CondorcetPHP\\Condorcet\\Tests\\Examples\\": "Tests/Examples/"
+            "CondorcetPHP\\Condorcet\\Tests\\Examples\\": "Tests/Examples/",
+            "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/"
         }
     },
     "scripts": {
