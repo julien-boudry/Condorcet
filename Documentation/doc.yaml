@@ -29,7 +29,6 @@
     - Candidate
     - Election
     - Algo\Pairwise
-    - Throwable\CondorcetException
     - Result
     - Vote
     - Timer\Manager
@@ -139,7 +138,6 @@
   name: computeResult
   input:
     method:
-      nullable: true
       text: |
         Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
 
@@ -164,7 +162,6 @@
   name: getLoser
   input:
     method:
-      nullable: true
       text: |
         *Only if not null :*
 
@@ -177,36 +174,18 @@
   name: getResult
   input:
     method:
-      nullable: true
       text: |
         Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
-    options:
 
--
-  class: Election
-  name: getVotesList
-  input:
-    tags:
-    with:
-
--
-  class: Election
-  name: getVotesListGenerator
-  input:
-    tags:
-      type: mixed
-    with:
 
 -
   class: Election
   name: isRegisteredCandidate
   input:
     candidate:
-      nullable: false
       text: |
         Candidate object or candidate string name. String name can working only if the strict mode is active.
     strictMode:
-      nullable: false
       text: |
         Search comparaison mode. In strict mode, candidate object are compared strictly and a string input can't match anything.
         If strict mode is false, the comparaison will be based on name.
@@ -216,7 +195,6 @@
   name: getWinner
   input:
     method:
-      nullable: true
       text: |
         *Only if not null :*
 
@@ -269,7 +247,6 @@
     isFile:
       text: If true, the input is evalatued as path to text file.
     callBack:
-      nullable: true
       text: Callback function to execute after each registered vote.
 
 
@@ -287,31 +264,9 @@
 
 -
   class: Election
-  name: removeVote
-  input:
-    vote:
-
-
--
-  class: Election
-  name: removeVotesByTags
-  input:
-    tags:
-    with:
-
--
-  class: Election
-  name: setExternalDataHandler
-  input:
-    driver:
-
-
--
-  class: Election
   name: setMaxParseIteration
   input:
     maxParseIterations:
-      nullable: true
       text: 'Null will desactivate this functionnality. Else, enter an integer.'
 
 -
@@ -319,7 +274,6 @@
   name: setMaxVoteNumber
   input:
     maxVotesNumber:
-      nullable: true
       text: Null will desactivate this functionnality. An integer will fix the limit.
 
 
@@ -369,10 +323,8 @@
     tags:
       text: Equivalent to Vote::addTags method.
     ownTimestamp:
-      nullable: true
       text: Set your own timestamp metadata on Ranking.
     electionContext:
-      nullable: true
       text: Try to convert directly your candidates from sting input" to Candidate object of one election.
 
 
@@ -411,7 +363,6 @@
   name: getSimpleRanking
   input:
     context:
-      nullable: true
       text: An election already linked to the Vote.
     displayWeight:
       text: Include or not the weight symbol and value.
@@ -421,7 +372,6 @@
   name: getWeight
   input:
     context:
-      nullable: true
       text: An election already linked to the Vote.
 -
   class: Vote
@@ -450,7 +400,6 @@
         Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
 
     ownTimestamp:
-      nullable: true
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
 
 
@@ -477,7 +426,6 @@
   name: getWarning
   input:
     type:
-      nullable: true
       text: 'Filter on a specific warning type code.'
 
 
