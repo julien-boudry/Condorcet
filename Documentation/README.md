@@ -142,10 +142,9 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->removeTags (...)](Vote%20Class/public%20Vote--removeTags.md) : array  
 * [public Vote->setRanking (...)](Vote%20Class/public%20Vote--setRanking.md) : bool  
 * [public Vote->setWeight (...)](Vote%20Class/public%20Vote--setWeight.md) : int  
-.  
-.  
-.  
-.
+
+
+
 # Full Class & Methods References
 _Including above methods from public API_
 

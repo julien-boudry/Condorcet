@@ -115,14 +115,6 @@ class Generate
 
         $doc = Yaml::parseFile($path.'/doc.yaml');
 
-        // Header & Prefix
-        $header = $doc[0]['header'];
-        unset($doc[0]);
-
-        $undocumented_prefix = $doc[1]['undocumented_prefix'] . "\n";
-        unset($doc[1]);
-
-
         // 
         $index  = [];
         $classList = [];
@@ -232,12 +224,24 @@ class Generate
 
         // Add Index
         uksort($index,'strnatcmp');
-        $file_content = $this->makeIndex($index, $header);
 
-        $file_content .= ".  \n.  \n.  \n";
+        $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
+
+                        "# Public API Index _(Not yet exhaustive, not yet....)*_\n".
+                        "_Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._\n\n".
+
+                        "_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+
+
+        $file_content .= $this->makeIndex($index);
+
+        $file_content .= "\n\n\n";
 
         uksort($full_methods_list,'strnatcmp');
-        $file_content .= $this->makeProfundis($full_methods_list, $undocumented_prefix);
+        $file_content .=    "# Full Class & Methods References\n".
+                            "_Including above methods from public API_\n\n";
+
+        $file_content .= $this->makeProfundis($full_methods_list);
 
 
         // Write file
@@ -313,8 +317,10 @@ class Generate
         return $md;
     }
 
-    protected function makeIndex (array $index, string $file_content ) : string
+    protected function makeIndex (array $index) : string
     {
+        $file_content = '';
+        
         foreach ($index as $class => $methods) :
 
             usort($methods, function (array $a, array $b) {
@@ -358,8 +364,10 @@ class Generate
     }
 
 
-    protected function makeProfundis (array $index, string $file_content) : string
+    protected function makeProfundis (array $index) : string
     {
+        $file_content = '';
+
         foreach ($index as $class => &$methods) :
 
             usort($methods, function (array $a, array $b) {
