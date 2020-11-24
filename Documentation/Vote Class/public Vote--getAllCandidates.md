@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getAllCandidates ( ) : array
+public Vote->getAllCandidates ( ) : array
 ```
 
 Get all the candidates object set in the last ranking of this Vote.

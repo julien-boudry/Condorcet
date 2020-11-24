@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> removeVote ( CondorcetPHP\Condorcet\Vote vote ) : bool
+public Election->removeVote ( CondorcetPHP\Condorcet\Vote vote ) : bool
 ```
 
 Remove Votes from an election.

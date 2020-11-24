@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> setStateToVote ( ) : bool
+public Election->setStateToVote ( ) : bool
 ```
 
 Force the election to get back to state 2. See Election::getState.

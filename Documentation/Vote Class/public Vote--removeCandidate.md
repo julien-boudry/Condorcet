@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> removeCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
+public Vote->removeCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
 ```
 
 Remove candidate from ranking. Set a new ranking and archive the old ranking.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> removeTags ( array|string tags ) : array
+public Vote->removeTags ( array|string tags ) : array
 ```
 
 Remove registered tag(s) on this Vote.

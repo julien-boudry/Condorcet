@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getLoser ( ) : CondorcetPHP\Condorcet\Candidate|array|null
+public Result->getLoser ( ) : CondorcetPHP\Condorcet\Candidate|array|null
 ```
 
 Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).

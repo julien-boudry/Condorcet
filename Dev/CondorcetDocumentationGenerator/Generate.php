@@ -101,7 +101,7 @@ class Generate
         $str .= " )";
 
         return  "```php\n".
-                self::getModifiersName($method).' '.(($method->isStatic())?"":'$').self::simpleClass($method->class).(($method->isStatic())?"::":' -> ').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? " : ".self::getTypeAsString($method->getReturnType()) : "" ).
+                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic())?"::":'->').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? " : ".self::getTypeAsString($method->getReturnType()) : "" ).
                 "\n```";
     }
 

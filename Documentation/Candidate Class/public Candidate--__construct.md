@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> __construct ( string name )
+public Candidate->__construct ( string name )
 ```
 
 Build a candidate.

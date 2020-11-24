@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> setRanking ( array|string ranking [, ?float ownTimestamp = null] ) : bool
+public Vote->setRanking ( array|string ranking [, ?float ownTimestamp = null] ) : bool
 ```
 
 Set a new ranking for this vote.

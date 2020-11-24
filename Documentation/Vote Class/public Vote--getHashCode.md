@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> getHashCode ( ) : string
+public Vote->getHashCode ( ) : string
 ```
 
 Get Object hash (cryptographic)

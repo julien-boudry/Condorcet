@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> getProvisionalState ( ) : bool
+public Candidate->getProvisionalState ( ) : bool
 ```
 
 When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> isVoteWeightAllowed ( ) : bool
+public Election->isVoteWeightAllowed ( ) : bool
 ```
 
 Returns the corresponding setting as currently set (False by default).

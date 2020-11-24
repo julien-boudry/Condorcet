@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Algo\Pairwise -> getExplicitPairwise ( ) : array
+public Algo\Pairwise->getExplicitPairwise ( ) : array
 ```
 
 Return the Pairwise.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getCondorcetElectionGeneratorVersion ( ) : string
+public Result->getCondorcetElectionGeneratorVersion ( ) : string
 ```
 
 Get the Condorcet PHP version that build this Result.

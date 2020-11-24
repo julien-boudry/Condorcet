@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> getConstraints ( ) : array
+public Election->getConstraints ( ) : array
 ```
 
 Get active constraints list.

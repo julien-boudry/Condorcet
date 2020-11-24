@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Vote -> __construct ( array|string ranking [, array|string|null tags = null , ?float ownTimestamp = null , ?CondorcetPHP\Condorcet\Election electionContext = null] )
+public Vote->__construct ( array|string ranking [, array|string|null tags = null , ?float ownTimestamp = null , ?CondorcetPHP\Condorcet\Election electionContext = null] )
 ```
 
 Build a vote object.

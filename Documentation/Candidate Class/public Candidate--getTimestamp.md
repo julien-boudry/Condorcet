@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Candidate -> getTimestamp ( ) : float
+public Candidate->getTimestamp ( ) : float
 ```
 
 Get the timestamp corresponding of the last namming change.

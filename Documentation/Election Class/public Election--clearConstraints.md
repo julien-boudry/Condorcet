@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> clearConstraints ( ) : bool
+public Election->clearConstraints ( ) : bool
 ```
 
 Clear all constraints rules and clear previous results.

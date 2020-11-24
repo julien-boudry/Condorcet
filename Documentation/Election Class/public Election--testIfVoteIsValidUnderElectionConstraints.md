@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> testIfVoteIsValidUnderElectionConstraints ( CondorcetPHP\Condorcet\Vote vote ) : bool
+public Election->testIfVoteIsValidUnderElectionConstraints ( CondorcetPHP\Condorcet\Vote vote ) : bool
 ```
 
 Test if a vote is valid with these election constraints.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
+public Election->canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
 ```
 
 Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.

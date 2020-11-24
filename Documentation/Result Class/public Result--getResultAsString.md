@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Result -> getResultAsString ( ) : string
+public Result->getResultAsString ( ) : string
 ```
 
 Get result as string

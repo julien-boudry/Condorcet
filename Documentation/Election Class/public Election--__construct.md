@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> __construct ( )
+public Election->__construct ( )
 ```
 
 Build a new Election.

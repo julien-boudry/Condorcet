@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> countCandidates ( ) : int
+public Election->countCandidates ( ) : int
 ```
 
 Count the number of registered candidate

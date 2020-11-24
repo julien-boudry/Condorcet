@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> sumVotesWeight ( ) : int
+public Election->sumVotesWeight ( ) : int
 ```
 
 Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.

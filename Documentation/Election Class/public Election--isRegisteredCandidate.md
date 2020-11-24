@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public $Election -> isRegisteredCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate [, bool strictMode = true] ) : bool
+public Election->isRegisteredCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate [, bool strictMode = true] ) : bool
 ```
 
 Check if a candidate is already taking part in the election.
