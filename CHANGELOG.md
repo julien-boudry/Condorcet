@@ -2,11 +2,17 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v3.0.0] - NOT RELEASE YET
+## [v3.0.0] - 2020-12-01
 ### Description
 Use latest PHP 8.0 functionality and improvements.
 
 ### Added
+- Documentation tools code is now included in this main repository instead of composer dependency. (and it's completely refactored)
+- Most of the documentation use PHP8 Attributes instead of a big Yaml base file.
+
+### Changed
+- Refactoring Kemeny–Young code and cache system.
+- PHP8 syntax and functionality.
 
 ## [v2.2.1] - 2020-10-17
 ### Changed
@@ -28,17 +34,16 @@ Include the new vote method "Two-round voting System", and some minors fix and o
 ### Internal changes
 - Developments dependency upgrades.
 
-
 ## [v2.1.0] - 2019-12-29
 ### Description
-Move to PHP 7.4 version. And add console application for command line usage!
+Move to PHP 7.4 version. And add a console application for command line usage!
 
 ### Added
 - New Condorcet Application from the command line. Easy to use for non-technical users. And faster to use for everyone for most use cases.
 - Docker file for building Condorcet image. For very easy access to the command line application.
 - Official compiled PHAR files are now available for each version on the release page.
 - Json input can include vote weight.
-- New method Election::parseVotesWithoutFail allowing to ignore bad vote, and usefull for low and constant memory usage.
+- New method Election::parseVotesWithoutFail allowing to ignore the bad vote, and useful for low and constant memory usage.
 
 ### Changed
 - PHP 7.4 is the new minimal PHP version required.
@@ -60,7 +65,7 @@ The 2.0 branch is now legacy.
 
 ## [v2.0.0] - 2019-09-07
 ### Description
-Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also use a new namespace!
+Small but many API changes (renaming, rationalization), sometimes on main methods. Very important internal optimizations. Also, use a new namespace!
 
 ### Added
 - Very significant efforts about the documentation. Still in progress.
@@ -69,7 +74,7 @@ Small but many API changes (renaming, rationalization), sometimes on main method
 ### Changed
 - Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one. The new base namespace is \CondorcetPHP\Condorcet\
 - Adding votes or candidates from Json or string parsing, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
-- Many methods have been renamed or divided for greater consistency and intelligibility. Some parameters may have changed or used more strict type. 
+- Many methods have been renamed or divided for greater consistency and intelligibility. Some parameters may have changed or used a more strict type. 
 - CondorcertException class moves to a new namespace Throwable\CondorcetException. Condorcet can now also throw Trowable\CondorcetInternalError error.
 - Some change on "Schulze Ratio" method computation, can affect the result of some type of election. It's still imperfect due to a case that the theory doesn't take into account. However, very small or very typical elections will have more logical results. The more common Winning & Margin methods are not affected.
 - Many other various fixes.
@@ -79,8 +84,8 @@ Small but many API changes (renaming, rationalization), sometimes on main method
 - Removes the slightly twisted method Election::ignoreMaxVote
 
 ### Performance
-- Adding, changing or removing vote after requesting firsts Result, will prevent recomputing all the pairwise and prefer to update it. Can be a small optimization for most use case, or a very huge performances improvements if you manage a very large number of votes or use an external data handler for storing them.
-- Parse Vote (text or Json) is really faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictable, linear and as smart as other input vote methods.
+- Adding, changing or removing vote after requesting the firsts Result, will prevent recomputing all the pairwise and prefer to update it. Can be a small optimization for most use case, or a very huge performances improvements if you manage a very large number of votes or use an external data handler for storing them.
+- Parse Vote (text or Json) is faster, save huge memory consumption on big input if you use the if use the multiplication symbol for equal votes. And memory is now predictable, linear, and as smart as other input vote methods.
 - Overall, significant savings in memory usage.
 - Many other performance optimizations.
 
@@ -107,12 +112,12 @@ Tests for PHP 7.3 and prevent PHP >=7.4 deprecations.
 
 ## [v1.8.0] - 2018-07-22
 ### Description
-You can add custom constraint to force votes to meet certain criteria.   
-Constraint are designed as free modules (external class to load into each election). A first module is officially proposed (disabled by default): Preventing votes from including ties.
+You can add a custom constraint to force votes to meet certain criteria.   
+Constraints are designed as free modules (external class to load into each election). A first module is officially proposed (disabled by default): Preventing votes from including ties.
 
 ### Added
 - Vote constraints functionality
-- First official vote constraint module: Disallow vote tie on any rank in election context.
+- First official vote constraint module: Disallow vote tie on any rank in the election context.
 - Tested with PHP 7.3.
 - Always better code!
 
@@ -127,7 +132,7 @@ Adds for the first time methods unrelated to Condorcet's criteria (Borda, Altern
 - New voting method: First-past-the-post
 
 ### Changed
-- Result object (iterator and his others methods) is now ordered by key  from first rank to last rank. However, no method officially implemented before version 1.7 was affected by this theoretical problem. This never affected the correct rank allocation, but could cause misinterpretation if carelessly repeated in a loop.
+- Result object (iterator and his other methods) is now ordered by key from the first rank to the last rank. However, no method officially implemented before version 1.7 was affected by this theoretical problem. This never affected the correct rank allocation but could cause misinterpretation if carelessly repeated in a loop.
 
 ### Internal changes
 - Code cleanup & test improvements
@@ -151,7 +156,7 @@ The second part concerns the continued improvement of the management of the very
 
 ### Internal changes
 - Cut out some classes and functions into smaller sub-groups.
-- New dev tools in new dedicated folder (update documentation, generate Kemeny–Young cache)
+- New dev tools in a new dedicated folder (update documentation, generate Kemeny–Young cache)
 - Documentation generator code move to a new repository
 - Git force Unix style line-ending (This could cause unexpected behavior in some tests related to the export of votes in string output.)
 - Various optimizations & bugfix
@@ -165,14 +170,14 @@ It more rigorously reviews the functioning of the DataHandler, which is an advan
 It adds, as an alternative and as a complement (both can be used in consort) the notion of the weight of a vote. This may be useful for elections in which voters are not equal. Or to emulate a big election (without too many possible combinations!) if you don't need to store the details of each vote at Condorcet level.
 
 ### Added
-- It is now possible to add a weight (integer >= 1) to each vote. If you enable this mode at the election level (deactivated by default) then the votes will be proportional to their weight when calculating all the algorithms. for example, if the weight is 2, then the vote will count double.
-This is an alternative and complementary to adding multiple votes. Using this mode of operation can save you (for large elections) a high cost in RAM or the configuration / development of a DataHandler, which can be complex. However, if you need to keep the information of each elector at Condorcet level, this functionality will not satisfy you, it is useful if at this level the voting information is useless or if it makes no sense.
+- It is now possible to add weight (integer >= 1) to each vote. If you enable this mode at the election level (deactivated by default) then the votes will be proportional to their weight when calculating all the algorithms. for example, if the weight is 2, then the vote will count double.
+This is an alternative and complementary to adding multiple votes. Using this mode of operation can save you (for large elections) a high cost in RAM or the configuration/development of a DataHandler, which can be complex. However, if you need to keep the information of each elector at Condorcet level, this functionality will not satisfy you, it is useful if at this level the voting information is useless or if it makes no sense.
 - Using a DataHandler to externalize vote data is now compatible with vote tags.
 
 ### Internal changes
 - More mature and tested management of external DataHandler. Your custom drivers need to be updated.
 - News tests
-- Minors clean-up, changes & optimisations
+- Minors clean-up, changes & optimizations
 
 ## [v1.4.1] - 2017-12-21
 ### Changed
@@ -183,8 +188,8 @@ This is an alternative and complementary to adding multiple votes. Using this mo
 Rewrite and extend old and experimental implementation with a new one. After a lot of reading and some exchanges with Nicolaus Tideman.
 
 ### Added
-- Ranked Pairs method is no more experimental thanks to a completely new implementation. It has also been divided into two methods :  "Ranked Pairs Margin" which is favoured by Nicolaus Tideman and Ranked Pairs Winning which is the variant most often mentioned in other documentation, including the English Wikipedia.  
-Regarding compatibility with the old version,"Ranked Pairs" or "RankedPairs" calls now use Ranked Pairs Margin. Note that the old implementation, although failing in other respects, used a Winning version. which in some very specific cases can change your results.  
+- Ranked Pairs method is no more experimental thanks to a completely new implementation. It has also been divided into two methods:  "Ranked Pairs Margin" which is favored by Nicolaus Tideman and Ranked Pairs Winning which is the variant most often mentioned in other documentation, including the English Wikipedia.  
+Regarding compatibility with the old version, "Ranked Pairs" or "RankedPairs" calls now use Ranked Pairs Margin. Note that the old implementation, although failing in other respects, used a Winning version. which in some very specific cases can change your results.  
 *[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)* 
 
 - New method: [Election::getVotesListAsString](https://github.com/julien-boudry/Condorcet/blob/master/Documentation/Election%20Class/public%20Election--getVotesListAsString.md)  
@@ -196,7 +201,7 @@ Regarding compatibility with the old version,"Ranked Pairs" or "RankedPairs" cal
 
 ## [v1.3.4] - 2017-11-29
 ### Fixed
-- Potentially backward incompatible change if you use  the rare and useless Dodgson method**
+- Potentially backward-incompatible change if you use  the rare and useless Dodgson method**
   Fix #19 (thanks to @janmotl) : Our implementation of Dodgson was wrong. Or rather: used Tideman's approximation without knowing it. This could potentially lead to false results in some cases on this method.   
   Dodgson's original will not be implemented because of the work it would represent and strong performance limitations (number of candidates, number of votes).   
 
@@ -207,8 +212,8 @@ Regarding compatibility with the old version,"Ranked Pairs" or "RankedPairs" cal
 
 ## [v1.3.3] - 2017-10-04
 ### Fixed
-- Critical bugfix : Result cache was frozen after serialize/unserialize an Election object. You can register or remove votes, but each result eventually computed before serializing stay frozen and potentially false.
-If you not store Election object by serializing it, you are not affected.
+- Critical bugfix: Result cache was frozen after serializing/unserializing an Election object. You can register or remove votes, but each result eventually computed before serializing stays frozen and potentially false.
+If you do not store the Election object by serializing it, you are not affected.
 
 ## [v1.3.2] - 2017-09-24
 ### Fixed
@@ -229,13 +234,13 @@ Also add Dodgson method.
 
 ### Added
 - Adds [Dodgson method](https://en.wikipedia.org/wiki/Dodgson%27s_method)
-- Previously, if within a ranking, you do not specify all candidates participating in an election. It was considered that you placed the missing ones implicitly on a last rank.
-This is always the default behaviour. Alternative behaviour is now added so that the missing candidates are ignored when calculating the results, which can significantly change the results. Please refer to the documentation.
+- Previously, if within a ranking, you do not specify all candidates participating in an election. It was considered that you placed the missing ones implicitly on the last rank.
+This is always the default behavior. Alternative behavior is now added so that the missing candidates are ignored when calculating the results, which can significantly change the results. Please refer to the documentation.
 - Add Kemeny-Young 'bestScore' information on Result::getStats()
 
 ### Changed
-- If you vote using Candidate object. They will no longer be converted into another Candidate object with the same name if this one exist into the target election. They will be two different candidates... with the same name. It's more strict and prevent error in this strange case. 
-However, it can strongly advised to not to mix different candidates with the same name, so that you do not mislead yourself! However, Condorcet now manages this case correctly.
+- If you vote using Candidate object. They will no longer be converted into another Candidate object with the same name if this one exists into the target election. They will be two different candidates... with the same name. It's more strict and prevents error in this strange case. 
+However, it can strongly be advised to not to mix different candidates with the same name, so that you do not mislead yourself! However, Condorcet now manages this case correctly.
 If you vote by string or Json input : Nothing changes. Either a new candidate will be created or they will be converted with the candidate object with the same name in the first election of the voting object in which they will participate.
 - Improved Condorcet::format()
 
@@ -272,7 +277,7 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 
 ## [v1.1.0] - 2016-09-11
 ### Added
-- New Result class. The results are no longer provided as array, but as an result object. Coming with many methods (get it as an array, checkmetadata, get others results infos at the generation time...). It's implement Iterator / Countable / ArrayAccess for an excellent backward compatibility.
+- New Result class. The results are no longer provided as array but as a result object. Coming with many methods (get it as an array, check metadata, get others results from infos at the generation time...). It implements Iterator / Countable / ArrayAccess for excellent backward compatibility.
 - Kemeny-Young paradox is now run more cleanly thanks to the new result object.
 
 ## Changed
@@ -285,8 +290,8 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 ## [v1.0.0] - 2016-06-05
 ### Added
 - **Experimental support for very large election**, it comes with critical internal changes. A functional driver for PDO is provided to be used with relational SQL databases, you will probably need to extend it or configure it (database structure...).      <br>
-  The modular structure allows you to develop your own implementation to get outsourced datastore, for example we can imagine a NoSQL database driver.     <br>
-  Benchmark shows that on PHP 7 + SQLite, 200 000 votes can be registered and computed in less than 60 seconds on a little server, with ~60mb RAM use. However, the speed of the driver does not change much the performance. From a certain point: slowdowns are intrinsically linked to internal processing side Condorcet engine. Major optimizations for speed can easily be done for further releases, but this would require a trade-off between speed and code complexity.     <br>
+  The modular structure allows you to develop your own implementation to get outsourced datastore, for example, we can imagine a NoSQL database driver.     <br>
+  Benchmark shows that on PHP 7 + SQLite, 200 000 votes can be registered and computed in less than 60 seconds on a little server, with ~60mb RAM use. However, the speed of the driver does not change much the performance. From a certain point: slowdowns are intrinsically linked to the internal processing side Condorcet engine. Major optimizations for speed can easily be done for further releases, but this would require a trade-off between speed and code complexity.     <br>
   _If you are interested by this feature, please have a look to the documentation. Consider that the functionality come in BETA stage._    
 - New method Vote::getSimpleRanking -> Provide vote ranking as a string in one line. (Ex: 'A>B=D>C')
 - New CondorcetPHP\Algo\Tools\VirtualVote:: removeCandidates(Condorcet/Vote $vote, array $candidateToRemove) static method clone your vote and return this clone without specified candidates.   
@@ -302,7 +307,7 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 
 ## [v0.96.0] - 2015-08-22
 ### Changed
-- Condorcet autoloader move on Condorcet/__CondorcetAutoload.php folder, outside lib folder. If you don't have your own PSR-4 autoloader, you must now explicitly include this file, 
+- Condorcet autoloader move on Condorcet/__CondorcetAutoload.php folder, outside lib folder. If you don't have your owns PSR-4 autoloader, you must now explicitly include this file, 
 - Because of dramatically random performance beyond 7 Candidates, our flawed implementation of RankedPair method is now by default limited to 7 Candiates.
   More than ever, the implementation of RankedPair should be considered experimental; it's really the only method giving me serious problems.
 - Some minor internal changes.
@@ -313,7 +318,7 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 
 ## [v0.95.0] - 2015-08-15
 ### Changed
-The new class Election replace Condorcet class and retains most of its methods, static or not.
+The new class Election replaces Condorcet class and retains most of its methods, static or not.
 The class Condorcet survives. And now takes care of core configuration, such as recording modules.     
 
 So you must now create an object Election instead of Condorcet. What is more explicit. The remaining methods related to class Condorcet are in the documentation and examples.
@@ -338,8 +343,8 @@ As the class keeps the Condorcet high static method (although specialized), code
 - Reorganization about namespacing.
 - Methods are now loaded by the normal and common autoloader.
 - Pairwise is now an independent object, distinct from Condorcet object.
-- Timer functionality now work outside of Condorcet class. With Timer\Manager and Timer\Chrono class. More improvement coming later (full log for benchmarking). You can get the timer manager by Condorcet::getTimerManager, but then know what you do!
-- And other little things and optimization (deleting code deduplication, new constants instead of harcoding...).
+- Timer functionality now works outside of Condorcet class. With Timer\Manager and Timer\Chrono class. More improvement coming later (full log for benchmarking). You can get the timer manager by Condorcet::getTimerManager, but then know what you do!
+- And other little things and optimization (deleting code deduplication, new constants instead of hardcoding...).
 
 ## [v0.93.0] - 2015-08-02
 ### Changed
@@ -356,12 +361,12 @@ As the class keeps the Condorcet high static method (although specialized), code
   This results in a simple boost, and therefore easier to understand documentation without gadgets methods.
   A slight speed increase can also be observed, the code being rid of a complex management resulting in many internal calls._
 - Support PSR-4 autoloading with composer.
-- New implementation of PSR-0 autloader. _(Automatically used if you do not go through one provided by Composer or framework or other valid autoloader. It acts only fallback of last resort)_.
+- New implementation of PSR-0 autloader. _(Automatically used if you do not go through one provided by Composer or framework or other valid autoloaders. It acts only fallback of last resort)_.
 - Some internal code cleanup (organizational change with sub-namespace, moving or rename some methods or class, better Schulze Family strategy).
 
 ## [v0.91.0] - 2015-03-28
 ### Changed
-- Condorcet now use more usual PSR-0 class loading philosophy. And each Class and Interface has now her own PHP file according to PSR-0 specifications.
+- Condorcet now use more usual PSR-0 class loading philosophy. And each Class and Interface has now her owns PHP file according to PSR-0 specifications.
   - As result, the new architecture from Condorcet 0.90 is now fully compatible with framework (composer autoloader), is case of you would to play with Candidate Class (for example) before creating first an election by Condorcet Class. It's was a serious issue from Condorcet 0.90.
   - You can too continue to include /lib/Condorcet/Condorcet.php file as loader, if there is no others compatible autoloader, Condorcet will now use a new and special PSR-0 like autoloader for himself.
 - Documentation files now use filename compatible with Windows filesystem (thanks Bill ^^)
@@ -519,7 +524,7 @@ The code will be very severely rewritten and restructured for the next major rel
 
 ## [v0.6.0] - 2014-04-14
 ### Added
-- Add new Condorcet algorithm : Minimax in its three variants (Winning, Margin, Opposition | The last one is not  Condorcet criterion compliant)
+- Add new Condorcet algorithm: Minimax in its three variants (Winning, Margin, Opposition | The last one is not  Condorcet criterion compliant)
   http://en.wikipedia.org/wiki/Minimax_Condorcet  
 - Add the ability to record a new vote by using a format string like "A>B=C>D" rather than the use of an array, read the doc!
 
@@ -539,7 +544,7 @@ The code will be very severely rewritten and restructured for the next major rel
 
 ## [v0.4.0] - 2014-04-06
 ### Description
-First version ready for production, with many API improvement and news features. And the new Condorcet Copeland method.
+First version ready for production, with many API improvements and news features. And the new Condorcet Copeland method.
 
 ## [v0.3.0] - 2014-03-16
 ### Description
@@ -550,8 +555,8 @@ The next release will be devoted to validate the apparent stability of this vers
 
 ## [v0.2.0] - 2014-03-12
 ### Description
-Second release ! Not really ready for production, please test it !
+Second release! Not really ready for production, please test it!
 
 ## [v0.1.0] - 2014-03-09
 ### Description
-First release ! Not really ready for production, please test it !
+First release! Not really ready for production, please test it !
