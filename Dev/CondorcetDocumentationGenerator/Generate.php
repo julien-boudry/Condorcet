@@ -115,7 +115,7 @@ class Generate
 
         $doc = Yaml::parseFile($path.'/doc.yaml');
 
-        // 
+        //
         $index  = [];
         $classList = [];
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
@@ -272,7 +272,7 @@ class Generate
             endforeach;
         endif;
 
-    
+
         // Return Value
 
         if (!empty($method->getAttributes(FunctionReturn::class))) :
@@ -308,7 +308,7 @@ class Generate
 
             foreach ($method->getAttributes(Examples::class)[0]->getArguments() as $value) :
                 $value = explode('||',$value);
-            
+
                 $md .= "* **[".$value[0]."](".$value[1].")**    \n";
             endforeach;
 
@@ -320,7 +320,7 @@ class Generate
     protected function makeIndex (array $index) : string
     {
         $file_content = '';
-        
+
         foreach ($index as $class => $methods) :
 
             usort($methods, function (array $a, array $b) {
