@@ -96,7 +96,7 @@ class ElectionCommand extends Command
             )
             ->addOption(      'votes-per-mb', null
                             , InputOption::VALUE_REQUIRED
-                            , "Adjust memory in cas eof failure. default is 100. Try to lower it."
+                            , "Adjust memory in case of failure. default is 100. Try to lower it."
             )
 
             ->addArgument(

@@ -51,6 +51,7 @@ class CondorcetException extends \Exception implements \Stringable
         27 => 'The vote constraint has not been defined',
         28 => 'The vote constraint class is not correct',
         29 => 'This vote constraint is already registered',
+        30 => 'Seats number must be >= 1',
 
         31 => 'Vote object already registred',
         32 => 'Invalid Input',
