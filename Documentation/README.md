@@ -69,6 +69,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getImplicitRankingRule ()](Election%20Class/public%20Election--getImplicitRankingRule.md) : bool  
 * [public Election->getLastTimer ()](Election%20Class/public%20Election--getLastTimer.md) : float  
 * [public Election->getLoser (...)](Election%20Class/public%20Election--getLoser.md) : CondorcetPHP\Condorcet\Candidate|array|null  
+* [public Election->getNumberOfSeats ()](Election%20Class/public%20Election--getNumberOfSeats.md) : int  
 * [public Election->getObjectVersion (...)](Election%20Class/public%20Election--getObjectVersion.md) : string  
 * [public Election->getPairwise ()](Election%20Class/public%20Election--getPairwise.md) : CondorcetPHP\Condorcet\Algo\Pairwise  
 * [public Election->getResult (...)](Election%20Class/public%20Election--getResult.md) : CondorcetPHP\Condorcet\Result  
@@ -89,6 +90,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->removeVotesByTags (...)](Election%20Class/public%20Election--removeVotesByTags.md) : array  
 * [public Election->setExternalDataHandler (...)](Election%20Class/public%20Election--setExternalDataHandler.md) : bool  
 * [public Election->setImplicitRanking (...)](Election%20Class/public%20Election--setImplicitRanking.md) : bool  
+* [public Election->setNumberOfSeats (...)](Election%20Class/public%20Election--setNumberOfSeats.md) : int  
 * [public Election->setStateToVote ()](Election%20Class/public%20Election--setStateToVote.md) : bool  
 * [public Election->sumValidVotesWeightWithConstraints ()](Election%20Class/public%20Election--sumValidVotesWeightWithConstraints.md) : int  
 * [public Election->sumVotesWeight ()](Election%20Class/public%20Election--sumVotesWeight.md) : int  
@@ -103,6 +105,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getCondorcetWinner ()](Result%20Class/public%20Result--getCondorcetWinner.md) : ?CondorcetPHP\Condorcet\Candidate  
 * [public Result->getLoser ()](Result%20Class/public%20Result--getLoser.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Result->getMethod ()](Result%20Class/public%20Result--getMethod.md) : string  
+* [public Result->getNumberOfSeats ()](Result%20Class/public%20Result--getNumberOfSeats.md) : ?int  
 * [public Result->getObjectVersion (...)](Result%20Class/public%20Result--getObjectVersion.md) : string  
 * [public Result->getOriginalResultArrayWithString ()](Result%20Class/public%20Result--getOriginalResultArrayWithString.md) : array  
 * [public Result->getResultAsArray (...)](Result%20Class/public%20Result--getResultAsArray.md) : array  
@@ -752,6 +755,7 @@ _Including above methods from public API_
 * public getImplicitRankingRule () : bool  
 * public getLastTimer () : float  
 * public getLoser (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
+* public getNumberOfSeats () : int  
 * public getObjectVersion (bool $major = false) : string  
 * public getPairwise () : CondorcetPHP\Condorcet\Algo\Pairwise  
 * public getResult (?string $method = null, array $options = []) : CondorcetPHP\Condorcet\Result  
@@ -776,6 +780,7 @@ _Including above methods from public API_
 * public removeVotesByTags (array|string $tags, bool $with = true) : array  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver) : bool  
 * public setImplicitRanking (bool $rule = true) : bool  
+* public setNumberOfSeats (int $seats) : int  
 * public setStateToVote () : bool  
 * public sumValidVotesWeightWithConstraints () : int  
 * public sumVotesWeight () : int  
@@ -802,7 +807,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
-* public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats)  
+* public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats, ?int $seats = null)  
 * public __destruct ()  
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
@@ -814,6 +819,7 @@ _Including above methods from public API_
 * public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
 * public getLoser () : CondorcetPHP\Condorcet\Candidate|array|null  
 * public getMethod () : string  
+* public getNumberOfSeats () : ?int  
 * public getObjectVersion (bool $major = false) : string  
 * public getOriginalResultArrayWithString () : array  
 * public getResultAsArray (bool $convertToString = false) : array  
