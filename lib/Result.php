@@ -70,6 +70,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected array $_Result;
     protected array $_UserResult;
     protected array $_stringResult;
+    protected ?int $_Seats;
     protected ?Candidate $_CondorcetWinner;
     protected ?Candidate $_CondorcetLoser;
 
@@ -83,7 +84,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected string $_ElectionCondorcetVersion;
 
 
-    public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats)
+    public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null)
     {
         \ksort($result, \SORT_NUMERIC);
 
@@ -91,6 +92,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_UserResult = $this->makeUserResult($election);
         $this->_stringResult = $this->getResultAsArray(true);
         $this->_Stats = $stats;
+        $this->_Seats = $seats;
         $this->_fromMethod = $fromMethod;
         $this->_byClass = $byClass;
         $this->_ElectionCondorcetVersion = $election->getObjectVersion();
@@ -277,5 +279,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Condorcet PHP version string format.")]
     public function getCondorcetElectionGeneratorVersion () : string {
         return $this->_ElectionCondorcetVersion;
+    }
+
+    #[PublicAPI]
+    #[Description("Get number of Seats for STV methods result.")]
+    #[FunctionReturn("Number of seats if this result is a STV method. Else NULL.")]
+    #[Related("Election::setNumberOfSeats", "Election::getNumberOfSeats")]
+    public function getNumberOfSeats () : ?int
+    {
+        return $this->_Seats;
     }
 }

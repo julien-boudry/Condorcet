@@ -348,7 +348,7 @@ class Election
     #[PublicAPI]
     #[Description("Get number of Seats for STV methods.")]
     #[FunctionReturn("Number of seats.")]
-    #[Related("Election::setNumberOfSeats")]
+    #[Related("Election::setNumberOfSeats", "Result::getNumberOfSeats")]
     public function getNumberOfSeats () : int
     {
         return $this->_Seats;
