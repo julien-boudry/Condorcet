@@ -716,4 +716,30 @@ class VoteTest extends TestCase
             $cr
         );
     }
+
+
+    // https://github.com/julien-boudry/Condorcet/issues/32
+    public function testDuplicateCandidates1 () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(5);
+
+        new Vote('Spain>Japan>France>Netherlands>Australia>France');
+    }
+
+
+    // https://github.com/julien-boudry/Condorcet/issues/32
+    public function testDuplicateCandidates2 () : void
+    {
+        $election = new Election();
+        $election->parseCandidates('Spain;Japan;France;Netherlands;Australia');
+
+        $vote = $election->addVote('Spain>Japan>France>Netherlands>Australia>france');
+
+        self::assertSame(
+                            'Spain > Japan > France > Netherlands > Australia',
+                            $vote->getSimpleRanking($election)
+                        );
+    }
+
 }
