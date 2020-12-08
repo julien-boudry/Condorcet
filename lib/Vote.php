@@ -408,7 +408,7 @@ class Vote implements \Iterator, \Stringable
                 // Check Duplicate
 
                     // Check objet reference AND check candidates name
-                    if (!\in_array($Candidate, $list_candidate)) :
+                    if (!\in_array($Candidate->getName(), $list_candidate)) :
                         $list_candidate[] = $Candidate;
                     else :
                         throw new CondorcetException(5);
