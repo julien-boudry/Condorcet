@@ -2,6 +2,11 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.0.1] - 2020-12-08
+
+### Changed
+- Bugfix Issue #32
+
 ## [v3.0.0] - 2020-12-01
 ### Description
 Use latest PHP 8.0 functionality and improvements.
