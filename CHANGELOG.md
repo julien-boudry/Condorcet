@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v2.2.3] - 2020-12-09
+### Changed
+- Bugfix Issue #32
+
 ## [v2.2.2] - 2020-12-01
 ### Description
 Legacy for 2.2 branch.
