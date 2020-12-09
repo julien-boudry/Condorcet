@@ -63,7 +63,11 @@ class ElectionCommand extends Command
             )
             ->addOption(      'stats', 's'
                             , InputOption::VALUE_NONE
-                            , 'Get detailled stats'
+                            , 'Get detailled stats (equivalent to --show-pairwise and --show-method-stats)'
+            )
+            ->addOption(      'show-method-stats', null
+                            , InputOption::VALUE_NONE
+                            , 'Get detailled stats per method'
             )
             ->addOption(      'show-pairwise', 'p'
                             , InputOption::VALUE_NONE
@@ -285,7 +289,7 @@ class ElectionCommand extends Command
             ;
 
             // Stats
-            if ($input->getOption('stats')) :
+            if ($input->getOption('show-method-stats') || $input->getOption('stats')) :
                 (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod)
                     ->setHeaders(['Stats'])
