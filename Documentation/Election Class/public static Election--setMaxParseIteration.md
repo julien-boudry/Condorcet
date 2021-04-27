@@ -10,7 +10,7 @@ Maximum input for each use of Election::parseCandidate && Election::parseVote. W
     
 
 ##### **maxParseIterations:** *?int*   
-Null will desactivate this functionnality. Else, enter an integer.    
+Null will deactivate this functionality. Else, enter an integer.    
 
 
 ### Return value:   

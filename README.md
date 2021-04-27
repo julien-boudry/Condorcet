@@ -308,7 +308,7 @@ Condorcet Natural Winner & Loser
 ```
 
 ```shell
-condorcet election --candidates="A;B;C" --votes="A>B>C ; B>A ; A" -lr -i --desactivate-implicit-ranking
+condorcet election --candidates="A;B;C" --votes="A>B>C ; B>A ; A" -lr -i --deactivate-implicit-ranking
 +-----------+- Registered Vote List --+-----------+
 | Vote Num. | Vote      | Vote Weight | Vote Tags |
 +-----------+-----------+-------------+-----------+

@@ -10,7 +10,7 @@ Add a limitation on Election::addVote and related methods. You can't add new vot
     
 
 ##### **maxVotesNumber:** *?int*   
-Null will desactivate this functionnality. An integer will fix the limit.    
+Null will deactivate this functionality. An integer will fix the limit.    
 
 
 ### Return value:   
