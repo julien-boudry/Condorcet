@@ -161,7 +161,7 @@ class VoteTest extends TestCase
                 CondorcetUtil::format( $vote->getRanking() ),
                 [
                     1 => 'candidate4',
-                    2 => ['candidate3', 'candidate1'], // Small inconsistency with the getResult which reorders it alphabetically. Fix Later.
+                    2 => ['candidate1', 'candidate3'],
                     3 => 'candidate2'
                 ]
             );
@@ -174,7 +174,7 @@ class VoteTest extends TestCase
                 CondorcetUtil::format( $vote->getContextualRanking($election) ),
                 [
                     1 => 'candidate4',
-                    2 => ['candidate3', 'candidate1'], // Small inconsistency with the getResult which reorders it alphabetically. Fix Later.
+                    2 => ['candidate1', 'candidate3'],
                     3 => 'candidate2'
                 ]
             );
