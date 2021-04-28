@@ -51,19 +51,23 @@ class ElectionCommand extends Command
             ->setAliases(['condorcet'])
 
             ->setDescription('Process an election')
-            ->setHelp('This command takle candidates and votes in input. An output the résult of an election.')
+            ->setHelp('This command takes candidates and votes as input. The output is the result of that election.')
 
             ->addOption(      'candidates', 'c'
                             , InputOption::VALUE_REQUIRED
-                            , 'Candidates List file path or direct input'
+                            , 'Candidates list file path or direct input'
             )
             ->addOption(      'votes', 'w'
                             , InputOption::VALUE_REQUIRED
-                            , 'Votes List file path or direct input'
+                            , 'Votes list file path or direct input'
             )
             ->addOption(      'stats', 's'
                             , InputOption::VALUE_NONE
-                            , 'Get detailled stats'
+                            , 'Get detailed stats (equivalent to --show-pairwise and --show-method-stats)'
+            )
+            ->addOption(      'show-method-stats', null
+                            , InputOption::VALUE_NONE
+                            , 'Get detailed stats per method'
             )
             ->addOption(      'show-pairwise', 'p'
                             , InputOption::VALUE_NONE
@@ -71,15 +75,15 @@ class ElectionCommand extends Command
             )
             ->addOption(      'list-votes', 'l'
                             , InputOption::VALUE_NONE
-                            , 'List Registered Votes'
+                            , 'List registered votes'
             )
             ->addOption(      'natural-condorcet', 'r'
                             , InputOption::VALUE_NONE
-                            , 'Print natural Condorcet Winner / Loser'
+                            , 'Print natural Condorcet winner / loser'
             )
-            ->addOption(      'desactivate-implicit-ranking', 'i'
+            ->addOption(      'deactivate-implicit-ranking', 'i'
                             , InputOption::VALUE_NONE
-                            , 'Desactivate Implicit Ranking'
+                            , 'Deactivate implicit ranking'
             )
             ->addOption(      'allows-votes-weight', 'g'
                             , InputOption::VALUE_NONE
@@ -90,19 +94,19 @@ class ElectionCommand extends Command
                             , 'Add no-tie constraint for vote'
             )
 
-            ->addOption(      'desactivate-file-cache', null
+            ->addOption(      'deactivate-file-cache', null
                             , InputOption::VALUE_NONE
                             , "Don't use a disk cache for very large elections. Forces to work exclusively in RAM."
             )
             ->addOption(      'votes-per-mb', null
                             , InputOption::VALUE_REQUIRED
-                            , "Adjust memory in cas eof failure. default is 100. Try to lower it."
+                            , "Adjust memory in case of failure. Default is 100. Try to lower it."
             )
 
             ->addArgument(
                              'methods'
                             , InputArgument::OPTIONAL | InputArgument::IS_ARRAY
-                            , 'Methods to ouput'
+                            , 'Methods to output'
             )
         ;
     }
@@ -121,7 +125,7 @@ class ElectionCommand extends Command
         $this->election = new Election;
 
             /// Implicit Ranking
-            if ($input->getOption('desactivate-implicit-ranking')) :
+            if ($input->getOption('deactivate-implicit-ranking')) :
                 $this->election->setImplicitRanking(false);
             endif;
 
@@ -152,7 +156,7 @@ class ElectionCommand extends Command
             $registeringCandidates = [];
 
             while (true) :
-                $question = new Question('Please registering candidate N°'.++$c.' or press enter: ', null);
+                $question = new Question('Please register candidate N°'.++$c.' or press enter: ', null);
                 $answer = $helper->ask($input, $output, $question);
 
                 if ($answer === null) :
@@ -173,7 +177,7 @@ class ElectionCommand extends Command
             $registeringvotes = [];
 
             while (true) :
-                $question = new Question('Please registering vote N°'.++$c.' or press enter: ', null);
+                $question = new Question('Please register vote N°'.++$c.' or press enter: ', null);
                 $answer = $helper->ask($input, $output, $question);
 
                 if ($answer === null) :
@@ -210,12 +214,12 @@ class ElectionCommand extends Command
 
         unset($callBack);
 
-        // Sum Upphp -v
-        $io->section('Sum Up');
+        // Summary
+        $io->section('Summary');
 
-        $output->write($this->election->countCandidates().' Candidates(s) Registered');
+        $output->write($this->election->countCandidates().' candidates(s) registered');
         $output->write('  ||  ');
-        $output->writeln($this->election->countVotes().' Vote(s) Registered');
+        $output->writeln($this->election->countVotes().' vote(s) registered');
         $output->writeln('<info>==========================</>');
 
         $io->definitionList(
@@ -246,14 +250,14 @@ class ElectionCommand extends Command
 
         // Natural Condorcet
         if ($input->getOption('natural-condorcet')) :
-            $io->section('Condorcet Natural Winner & Loser');
+            $io->section('Condorcet natural winner & loser');
 
             (new Table($output))
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                            ['* Condorcet Winner', ( $this->election->getCondorcetWinner()->getName() ?? 'NULL' )],
-                            ['# Condorcet Loser', ( $this->election->getCondorcetLoser()->getName() ?? 'NULL' )]
+                            ['* Condorcet winner', ( $this->election->getCondorcetWinner()->getName() ?? 'NULL' )],
+                            ['# Condorcet loser', ( $this->election->getCondorcetLoser()->getName() ?? 'NULL' )]
                 ])
 
                 ->render()
@@ -267,7 +271,7 @@ class ElectionCommand extends Command
 
         $methods = $this->prepareMethods($input->getArgument('methods'));
 
-        $io->section('Results per Methods');
+        $io->section('Results per methods');
 
         foreach ($methods as $oneMethod) :
 
@@ -285,7 +289,7 @@ class ElectionCommand extends Command
             ;
 
             // Stats
-            if ($input->getOption('stats')) :
+            if ($input->getOption('show-method-stats') || $input->getOption('stats')) :
                 (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod)
                     ->setHeaders(['Stats'])
@@ -316,7 +320,7 @@ class ElectionCommand extends Command
 
     protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
     {
-        $io->section('Detailled election input');
+        $io->section('Detailed election input');
 
         $this->displayCandidatesList($output);
         $this->displayVotesCount($output);
@@ -329,8 +333,8 @@ class ElectionCommand extends Command
         if (!$this->candidatesListIsWrite) :
             // Candidate List
             ($candidateTable = new Table($output))
-                ->setHeaderTitle('Registered Candidates')
-                ->setHeaders(['Num', 'Candidate Name'])
+                ->setHeaderTitle('Registered candidates')
+                ->setHeaders(['Num', 'Candidate name'])
                 ->setStyle($this->centerPadTypeStyle)
                 ->setColumnWidth(0, 14)
             ;
@@ -351,16 +355,16 @@ class ElectionCommand extends Command
         if (!$this->votesCountIsWrite) :
             // Votes Count
             ($votesStatsTable = new Table($output))
-                ->setHeaderTitle('Stats - Votes Registration')
+                ->setHeaderTitle('Stats - votes registration')
                 ->setHeaders(['Stats', 'Value'])
                 ->setColumnStyle(0,(new Tablestyle())->setPadType(\STR_PAD_LEFT))
             ;
 
-            $votesStatsTable->addRow(['Count Registered Votes', $this->election->countValidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Count Valid Registered Votes with constraints', $this->election->countValidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Count Invalid Registered Votes with constraints', $this->election->countInvalidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Sum Vote Weight', $this->election->sumVotesWeight()]);
-            $votesStatsTable->addRow(['Sum Valid Votes Weight with constraints', $this->election->sumValidVotesWeightWithConstraints()]);
+            $votesStatsTable->addRow(['Count registered votes', $this->election->countValidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Count valid registered votes with constraints', $this->election->countValidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Count invalid registered votes with constraints', $this->election->countInvalidVoteWithConstraints()]);
+            $votesStatsTable->addRow(['Sum vote weight', $this->election->sumVotesWeight()]);
+            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $this->election->sumValidVotesWeightWithConstraints()]);
 
             $votesStatsTable->render();
 
@@ -371,7 +375,7 @@ class ElectionCommand extends Command
     public function displayVotesList (OutputInterface $output) : void
     {
         ($votesTable = new Table($output))
-            ->setHeaderTitle('Registered Votes List')
+            ->setHeaderTitle('Registered votes list')
             ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
         ;
 
@@ -387,7 +391,7 @@ class ElectionCommand extends Command
         if (!$this->pairwiseIsWrite) :
             (new Table($output))
                 ->setHeaderTitle('Pairwise')
-                ->setHeaders(['For each candidate, show his win, null or lose'])
+                ->setHeaders(['For each candidate, show their win, null or lose'])
                 ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(),100))]])
 
                 ->render()
@@ -466,7 +470,7 @@ class ElectionCommand extends Command
 
     protected function useDataHandler (InputInterface $input) : ?\Closure
     {
-        if ( $input->getOption('desactivate-file-cache') || !\class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true) ) :
+        if ( $input->getOption('deactivate-file-cache') || !\class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true) ) :
             return null;
         else :
             $election = $this->election;

@@ -32,7 +32,7 @@ class ElectionCommandTest extends TestCase
                                             '--allows-votes-weight' => null,
                                             '--no-tie' => null,
                                             '--list-votes' => null,
-                                            '--desactivate-implicit-ranking' => null,
+                                            '--deactivate-implicit-ranking' => null,
                                             '--show-pairwise' => null
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
@@ -42,14 +42,14 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
-        self::assertStringContainsString('3 Candidates(s) Registered  ||  3 Vote(s) Registered', $output);
+        self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('Registered Candidates', $output);
-        self::assertStringContainsString('Stats - Votes Registration', $output);
+        self::assertStringContainsString('Registered candidates', $output);
+        self::assertStringContainsString('Stats - votes registration', $output);
+        self::assertStringContainsString('Registered votes list', $output);
         self::assertStringContainsString('Pairwise', $output);
         self::assertStringContainsString('Stats:', $output);
-        self::assertStringContainsString('Votes List', $output);
 
         self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
         self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);

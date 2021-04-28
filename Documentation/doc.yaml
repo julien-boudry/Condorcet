@@ -82,7 +82,7 @@
   name: addCandidate
   input:
     candidate:
-      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
+      text: Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.
 
 
 -
@@ -253,14 +253,14 @@
   name: setMaxParseIteration
   input:
     maxParseIterations:
-      text: 'Null will desactivate this functionnality. Else, enter an integer.'
+      text: 'Null will deactivate this functionality. Else, enter an integer.'
 
 -
   class: Election
   name: setMaxVoteNumber
   input:
     maxVotesNumber:
-      text: Null will desactivate this functionnality. An integer will fix the limit.
+      text: Null will deactivate this functionality. An integer will fix the limit.
 
 
 -
