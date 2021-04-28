@@ -10,7 +10,7 @@ Add one Candidate to an election.
     
 
 ##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string|null*   
-Alphanumeric string or CondorcetPHP\Condorcet\Candidate objet. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.    
+Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.    
 
 
 ### Return value:   

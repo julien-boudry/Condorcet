@@ -2,6 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.0.2] - 2021-04-28
+
+### Changed
+- Fix typos in command line options
+- Add command line option: --show-method-stats
+
 ## [v3.0.1] - 2020-12-08
 
 ### Changed
