@@ -67,7 +67,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function createTable () : void
     {
         try {
-            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' AUTO_INCREMENT INTEGER PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
+            $this->_handler->exec('CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL )');
         } catch (\Exception $e) {
             throw $e;
         }
