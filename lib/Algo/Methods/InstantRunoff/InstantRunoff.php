@@ -106,6 +106,7 @@ class InstantRunoff extends Method implements MethodInterface
     protected function makeScore (array $candidateDone) : array
     {
         $score = [];
+
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
             if (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
                 $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
@@ -116,20 +117,18 @@ class InstantRunoff extends Method implements MethodInterface
 
             $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
 
-            for ($i = 0; $i < $weight; $i++) :
-                $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
+            $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 
-                foreach ($oneRanking as $oneRank) :
-                    foreach ($oneRank as $oneCandidate) :
-                        if (\count($oneRank) !== 1) :
-                            break;
-                        elseif (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
-                            $score[$this->_selfElection->getCandidateKey($oneRank[\array_key_first($oneRank)])] += 1;
-                            break 2;
-                        endif;
-                    endforeach;
+            foreach ($oneRanking as $oneRank) :
+                foreach ($oneRank as $oneCandidate) :
+                    if (\count($oneRank) !== 1) :
+                        break;
+                    elseif (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
+                        $score[$this->_selfElection->getCandidateKey($oneRank[\array_key_first($oneRank)])] += $weight;
+                        break 2;
+                    endif;
                 endforeach;
-            endfor;
+            endforeach;
         endforeach;
 
         return $score;
