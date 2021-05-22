@@ -1,7 +1,5 @@
 <?php
 /*
-    Part of RANKED PAIRS method Module - From the original Condorcet PHP
-
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
 
@@ -17,7 +15,7 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
-// DODGSON is a Condorcet Algorithm | http://en.wikipedia.org/wiki/DODGSON_method
+
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected array $_Comparison;
