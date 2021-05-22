@@ -117,9 +117,7 @@ class InstantRunoff extends Method implements MethodInterface
 
             $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
 
-            $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
-
-            foreach ($oneRanking as $oneRank) :
+            foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1) :
                         break;
