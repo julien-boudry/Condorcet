@@ -148,7 +148,15 @@ class Vote implements \Iterator, \Stringable
     #[Related("Vote::setRanking")]
     public function getRanking () : array
     {
-        return $this->_ranking;
+        $r = $this->_ranking;
+
+        foreach ($r as &$oneRank) :
+            if (count($oneRank) > 1) :
+                sort($oneRank, \SORT_STRING);
+            endif;
+        endforeach;
+        
+        return $r;
     }
 
     #[PublicAPI]
@@ -246,6 +254,8 @@ class Vote implements \Iterator, \Stringable
                     $last_rank[] = $oneCandidate;
                 endif;
             endforeach;
+
+            sort($last_rank, \SORT_STRING);
 
             $newRanking[count($newRanking) + 1] = $last_rank;
         endif;

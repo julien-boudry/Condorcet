@@ -152,6 +152,42 @@ class VoteTest extends TestCase
                 $vote1->getContextualRanking($this->election1)
             );
 
+
+        // Ranking 9
+
+            $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
+
+            self::assertSame(
+                CondorcetUtil::format( $vote->getRanking() ),
+                [
+                    1 => 'candidate4',
+                    2 => ['candidate1', 'candidate3'],
+                    3 => 'candidate2'
+                ]
+            );
+
+            $election = new Election;
+            $election->parseCandidates('candidate2;candidate3;candidate4;candidate1');
+            $election->addVote($vote);
+
+            self::assertSame(
+                CondorcetUtil::format( $vote->getContextualRanking($election) ),
+                [
+                    1 => 'candidate4',
+                    2 => ['candidate1', 'candidate3'],
+                    3 => 'candidate2'
+                ]
+            );
+
+            self::assertSame(
+                $election->getResult()->getResultAsArray(true),
+                [
+                    1 => 'candidate4',
+                    2 => ['candidate1', 'candidate3'],
+                    3 => 'candidate2'
+                ]
+            );
+
         // Contextual Ranking Fail
 
         $unexpectedElection = new Election;
