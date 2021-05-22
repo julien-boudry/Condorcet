@@ -111,7 +111,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
+            $weight = $oneVote->getWeight($this->_selfElection);
 
             $bonusVote = 0;
 
