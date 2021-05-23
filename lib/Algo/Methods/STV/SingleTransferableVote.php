@@ -26,19 +26,6 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected function getStats(): array
-    {
-        $stats = [];
-
-        foreach ($this->_Stats as $roundNumber => $roundData) :
-            foreach ($roundData as $candidateKey => $candidateValue) :
-                $stats[$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
-            endforeach;
-        endforeach;
-
-        return $stats;
-    }
-
 
 /////////// COMPUTE ///////////
 
@@ -53,17 +40,18 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $votesNeededToWin = floor(($v / (self::$seats + 1)) + 1);
 
-        $candidateDone = [];
+        $candidateElected = [];
+        $candidateEliminated = [];
 
         $end = false;
         $round = 0;
 
+        $surplusToTransfer = [];
+
         while (!$end) :
 
-            $scoreTable = $this->makeScore($candidateDone, $surplusToTransfer ?? []);
+            $scoreTable = $this->makeScore($surplusToTransfer, $candidateElected, $candidateEliminated);
             arsort($scoreTable, \SORT_NUMERIC);
-
-            $surplusToTransfer = [];
 
             $successOnRank = false;
 
@@ -71,8 +59,8 @@ class SingleTransferableVote extends Method implements MethodInterface
                 $surplus = $oneScore - $votesNeededToWin;
 
                 if ($surplus >= 0) :
-                    $candidateDone[] = $candidateKey;
                     $result[++$rank] = [$candidateKey];
+                    $candidateElected[] = $candidateKey;
 
                     $surplusToTransfer[$candidateKey] ?? $surplusToTransfer[$candidateKey] = ['surplus' => 0, 'total' => 0];
                     $surplusToTransfer[$candidateKey]['surplus'] += $surplus;
@@ -83,7 +71,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
             if (!$successOnRank && !empty($scoreTable)) :
                 \array_key_last($scoreTable);
-                $candidateDone[] = \array_key_last($scoreTable);
+                $candidateEliminated[] = \array_key_last($scoreTable);
             elseif (empty($scoreTable) || $rank >= self::$seats) :
                 $end = true;
             endif;
@@ -95,37 +83,53 @@ class SingleTransferableVote extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $candidateDone, array $surplus) : array
+    protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated) : array
     {
         $scoreTable = [];
-        $bonusCount = [];
+
+        $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
-                $candidateKey = $this->_selfElection->getCandidateKey($oneCandidate);
-
+            if (!\in_array($candidateKey = $this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
                 $scoreTable[$candidateKey] = 0;
-                $bonusCount[$candidateKey] = 0;
             endif;
         endforeach;
+
+        var_dump($scoreTable);
 
         foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
             $weight = $oneVote->getWeight($this->_selfElection);
 
-            $bonusVote = 0;
+            $winnerBonusWeight = 0;
+            $winnerBonusKey = null;
+            $LoserBonusWeight = 0;
 
+            $firstRank = true;
             foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
-                    if (\count($oneRank) !== 1) :
-                        break;
-                    elseif (isset($surplus[$candidateKey = $this->_selfElection->getCandidateKey($oneCandidate)])) :
-                        $bonusVote = $weight;
-                        $sourceBonus = $candidateKey;
-                        break;
-                    elseif ( !\in_array($candidateKey = $this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true) ) :
-                        if ($bonusVote > 0) :
-                            $scoreTable[$candidateKey] += $bonusVote / $surplus[$sourceBonus]['total']  * $surplus[$sourceBonus]['surplus'];
+                    if (\count($oneRank) !== 1) : break; endif;
+
+                    $candidateKey = $this->_selfElection->getCandidateKey($oneCandidate);
+
+                    if ($firstRank) :
+                        if (isset($surplus[$candidateKey])) :
+                            $winnerBonusWeight = $weight;
+                            $winnerBonusKey = $candidateKey;
+                            $firstRank = false;
+                            break;
+                        elseif (\in_array($candidateKey, $candidateEliminated, true)) :
+                            $LoserBonusWeight = $weight;
+                            $firstRank = false;
+                            break;
+                        endif;
+                    endif;
+
+                    if (isset($scoreTable[$candidateKey])) :
+                        if ($winnerBonusKey !== null) :
+                            $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total']  * $surplus[$winnerBonusKey]['surplus'];
+                        elseif ($LoserBonusWeight > 0) :
+                            $scoreTable[$candidateKey] += $LoserBonusWeight;
                         else :
                             $scoreTable[$candidateKey] += $weight;
                         endif;
@@ -167,4 +171,18 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         return $tooKeep;
     }
+
+    protected function getStats(): array
+    {
+        $stats = [];
+
+        foreach ($this->_Stats as $roundNumber => $roundData) :
+            foreach ($roundData as $candidateKey => $candidateValue) :
+                $stats[$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
+            endforeach;
+        endforeach;
+
+        return $stats;
+    }
+
 }
