@@ -15,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
+use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
 class InstantRunoff extends Method implements MethodInterface
 {
@@ -90,7 +90,7 @@ class InstantRunoff extends Method implements MethodInterface
                 // Tie Breaking
                 $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++) : // A little silly. But ultimately shorter and simpler.
-                    $LosersToRegister = $this->tieBreaking($LosersToRegister);
+                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection ,$LosersToRegister);
                 endfor;
 
                 $CandidatesLoserCount += \count($LosersToRegister);
@@ -130,34 +130,5 @@ class InstantRunoff extends Method implements MethodInterface
         endforeach;
 
         return $score;
-    }
-
-    protected function tieBreaking (array $candidatesKeys) : array
-    {
-        $pairwise = $this->_selfElection->getPairwise();
-        $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
-        $tooKeep = [];
-
-        foreach ($candidatesKeys as $oneCandidateKeyTotest) :
-            $select = true;
-            foreach ($candidatesKeys as $oneChallengerKey) :
-                if ($oneCandidateKeyTotest === $oneChallengerKey) :
-                    continue;
-                endif;
-
-                if (    $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['balance'] > $pairwiseStats[$oneChallengerKey]['balance'] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['win'] > $pairwiseStats[$oneChallengerKey]['win']
-                ) :
-                    $select = false;
-                endif;
-            endforeach;
-
-            if ($select) :
-                $tooKeep[] = $oneCandidateKeyTotest;
-            endif;
-        endforeach;
-
-        return $tooKeep;
     }
 }
