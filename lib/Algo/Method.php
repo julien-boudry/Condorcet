@@ -19,6 +19,8 @@ abstract class Method
 {
     use CondorcetVersion;
 
+    public const IS_PROPORTIONAL = false;
+
     public static ?int $MaxCandidates = null;
 
     protected Election $_selfElection;
@@ -59,7 +61,8 @@ abstract class Method
             byClass: $this::class,
     		election: $this->_selfElection,
     		result: $result,
-            stats: $this->getStats()
+            stats: $this->getStats(),
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null
     	);
     }
 }

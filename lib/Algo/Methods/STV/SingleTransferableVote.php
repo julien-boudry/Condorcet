@@ -19,10 +19,10 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 // Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
 class SingleTransferableVote extends Method implements MethodInterface
 {
+    public const IS_PROPORTIONAL = true;
+
     // Method Name
     public const METHOD_NAME = ['STV','Single Transferable Vote','SingleTransferableVote'];
-
-    public static int $seats = 2;
 
     protected ?array $_Stats = null;
 
@@ -38,7 +38,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $v = $this->_selfElection->sumValidVotesWeightWithConstraints();
 
-        $votesNeededToWin = floor(($v / (self::$seats + 1)) + 1);
+        $votesNeededToWin = floor(($v / ($this->_selfElection->getNumberOfSeats() + 1)) + 1);
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -71,7 +71,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
             if (!$successOnRank && !empty($scoreTable)) :
                 $candidateEliminated[] = \array_key_last($scoreTable);
-            elseif (empty($scoreTable) || $rank >= self::$seats) :
+            elseif (empty($scoreTable) || $rank >= $this->_selfElection->getNumberOfSeats()) :
                 $end = true;
             endif;
 
@@ -79,7 +79,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         endwhile;
 
-        while ($rank < self::$seats && !empty($candidateEliminated)) :
+        while ($rank < $this->_selfElection->getNumberOfSeats() && !empty($candidateEliminated)) :
             $rescueCandidateKey = \array_key_last($candidateEliminated);
             $result[++$rank] = $candidateEliminated[$rescueCandidateKey];
             unset($candidateEliminated[$rescueCandidateKey]);
@@ -144,35 +144,6 @@ class SingleTransferableVote extends Method implements MethodInterface
         endforeach;
 
         return $scoreTable;
-    }
-
-    protected function tieBreaking (array $candidatesKeys) : array
-    {
-        $pairwise = $this->_selfElection->getPairwise();
-        $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
-        $tooKeep = [];
-
-        foreach ($candidatesKeys as $oneCandidateKeyTotest) :
-            $select = true;
-            foreach ($candidatesKeys as $oneChallengerKey) :
-                if ($oneCandidateKeyTotest === $oneChallengerKey) :
-                    continue;
-                endif;
-
-                if (    $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['balance'] > $pairwiseStats[$oneChallengerKey]['balance'] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['win'] > $pairwiseStats[$oneChallengerKey]['win']
-                ) :
-                    $select = false;
-                endif;
-            endforeach;
-
-            if ($select) :
-                $tooKeep[] = $oneCandidateKeyTotest;
-            endif;
-        endforeach;
-
-        return $tooKeep;
     }
 
     protected function getStats(): array

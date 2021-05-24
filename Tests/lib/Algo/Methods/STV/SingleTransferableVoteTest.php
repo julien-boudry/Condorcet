@@ -28,7 +28,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->addCandidate('C');
         $this->election->addCandidate('A');
 
-        $this->election->allowsVoteWeight();
+        $this->election->allowsVoteWeight(true);
 
         $this->election->parseVotes('
             A>B>C>D ^ 28
@@ -38,7 +38,8 @@ class SingleTransferableVoteTest extends TestCase
             D>B>C>A ^ 26
         ');
 
-        SingleTransferableVote::$seats = 2;
+        $this->election->setNumberOfSeats(2);
+
 
         self::assertSame(
             [
@@ -83,9 +84,10 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->addCandidate('Hamburger');
 
         $this->election->setImplicitRanking(false);
-        $this->election->allowsVoteWeight();
+        $this->election->allowsVoteWeight(true);
 
-        SingleTransferableVote::$seats = 3;
+        $this->election->setNumberOfSeats(3);
+
 
         $this->election->parseVotes('
             Orange ^ 4
@@ -149,9 +151,9 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->addCandidate('Carter');
 
         $this->election->setImplicitRanking(false);
-        $this->election->allowsVoteWeight();
+        $this->election->allowsVoteWeight(true);
 
-        SingleTransferableVote::$seats = 2;
+        $this->election->setNumberOfSeats(2);
 
         $this->election->parseVotes('
             Andrea > Brad > Carter ^ 12
@@ -181,6 +183,36 @@ class SingleTransferableVoteTest extends TestCase
         self::assertSame( [
                 1 => 'Andrea',
                 2 => 'Brad'
+             ],
+            $this->election->getResult('STV')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_4 () : void
+    {
+        # From https://it.wikipedia.org/wiki/Voto_singolo_trasferibile
+
+        $this->election->addCandidate('D');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('A');
+
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            A>D ^ 40
+            B>A ^ 10
+            B>C ^ 5
+            C>B ^ 25
+            D>B ^ 20
+        ');
+
+        $this->election->setNumberOfSeats(3);
+
+        self::assertSame( [
+                1 => 'A',
+                2 => 'D',
+                3 => 'C'
              ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
