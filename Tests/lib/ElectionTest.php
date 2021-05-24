@@ -710,4 +710,21 @@ C > B > A * 1',
 
         $vote->setRanking('candidate1>candidate2>candidate3');
     }
+
+    public function testInvalidSeats () : void
+    {
+        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        self::expectExceptionCode(30);
+
+        $this->election1->setNumberOfSeats(0);
+    }
+
+    public function testSeats () : void
+    {
+        self::assertSame(100, $this->election1->getNumberOfSeats());
+
+        $this->election1->setNumberOfSeats(5);
+
+        self::assertSame(5, $this->election1->getNumberOfSeats());
+    }
 }
