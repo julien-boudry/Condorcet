@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
@@ -125,7 +125,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Add a vote to an election.")]
     #[FunctionReturn("The vote object.")]
-    #[Examples("Manual - Vote Management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Vote Management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
     public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
     {
@@ -222,7 +222,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Remove Votes from an election.")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Examples("Manual - Vote management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
+    #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotesByTags")]
     public function removeVote (Vote $vote) : bool
     {
@@ -244,7 +244,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Remove Vote from an election using tags.\n\n```php\n\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie\n\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie\n\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.\n\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.\n```")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Examples("Manual - Vote management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
+    #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotes")]
     public function removeVotesByTags (array|string $tags, bool $with = true) : array
     {
@@ -285,7 +285,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Import votes from a Json source.")]
     #[FunctionReturn("Count of new registered vote.")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseVotes", "Election::addCandidatesFromJson")]
     public function addVotesFromJson (string $input) : int
     {
@@ -316,7 +316,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Import votes from a text source. If any invalid vote is found inside, nothing are registered.")]
     #[FunctionReturn("Count of the new registered vote.")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotesWithoutFail", "Election::addVotesFromJson")]
     public function parseVotes (string $input, bool $isFile = false) : int
     {
@@ -365,7 +365,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.")]
     #[FunctionReturn("Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
     public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
     {

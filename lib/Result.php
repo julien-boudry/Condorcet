@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -154,7 +154,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     #[Description("Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.")]
     #[FunctionReturn("Varying according to the algorithm used.")]
-    #[Examples("Advanced Result Management||https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management")]
+    #[Example("Advanced Result Management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management")]
     #[Related("Election::getResult")]
     public function getStats () : mixed {
         return $this->_Stats;

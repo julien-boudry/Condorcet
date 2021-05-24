@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use HaydenPierce\ClassFinder\ClassFinder;
 use Symfony\Component\Yaml\Yaml;
 
@@ -289,27 +289,29 @@ class Generate
                     "---------------------------------------\n\n".
                     "### Related method(s)      \n\n";
 
-            foreach ($method->getAttributes(Related::class)[0]->getArguments() as $value) :
+            foreach ($method->getAttributes(Related::class) as $RelatedAttribute) :
+                foreach ($RelatedAttribute->newInstance()->relatedList as $value) :
 
-                if ($value === self::simpleClass($method->class).'::'.$method->name) :
-                    continue;
-                endif;
+                    if ($value === self::simpleClass($method->class).'::'.$method->name) :
+                        continue;
+                    endif;
 
-                $md .= "* ".self::cleverRelated($value)."    \n";
+                    $md .= "* ".self::cleverRelated($value)."    \n";
+                endforeach;
             endforeach;
 
         endif;
 
-        if(!empty($method->getAttributes(Examples::class))) :
+        if(!empty($method->getAttributes(Example::class))) :
 
             $md .=  "\n".
                     "---------------------------------------\n\n".
                     "### Examples and explanation\n\n";
 
-            foreach ($method->getAttributes(Examples::class)[0]->getArguments() as $value) :
-                $value = explode('||',$value);
+            foreach ($method->getAttributes(Example::class) as $ExampleAttribute) :
+                $ExampleAttribute = $ExampleAttribute->newInstance();
 
-                $md .= "* **[".$value[0]."](".$value[1].")**    \n";
+                $md .= "* **[".$ExampleAttribute->name."](".$ExampleAttribute->link.")**    \n";
             endforeach;
 
         endif;

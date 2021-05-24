@@ -12,13 +12,13 @@ namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
 
 use Attribute;
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_METHOD)]
 class Related
 {
-    public array $texts;
+    public array $relatedList;
 
-    public function __construct(string ...$texts)
+    public function __construct(string ...$relatedList)
     {
-        $this->texts = $texts;
+        $this->relatedList = $relatedList;
     }
 }

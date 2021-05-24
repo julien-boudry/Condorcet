@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -66,7 +66,7 @@ class Vote implements \Iterator, \Stringable
 
     #[PublicAPI]
     #[Description("Build a vote object.")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::setRanking", "Vote::addTags")]
     public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
     {
@@ -319,7 +319,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
     #[FunctionReturn("In case of success, return TRUE")]
-    #[Examples("Manual - Add a vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add a vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
     public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
     {
@@ -472,7 +472,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Add tag(s) on this Vote.")]
     #[FunctionReturn("In case of success, return TRUE")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::removeTags")]
     public function addTags (array|string $tags) : bool
     {
@@ -500,7 +500,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Remove registered tag(s) on this Vote.")]
     #[FunctionReturn("List of deleted tags.")]
-    #[Examples("Manual - Add Vote||https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
+    #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::addTags")]
     public function removeTags (array|string $tags) : array
     {

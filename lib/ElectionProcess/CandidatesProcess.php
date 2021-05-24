@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -113,7 +113,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Add one Candidate to an election.")]
     #[FunctionReturn("The new candidate object (your or automatic one). Throw an exception on error (existing candidate...).")]
-    #[Examples("Manual - Manage Candidate||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::parseCandidates", "Election::addCandidatesFromJson", "Election::removeCandidate", "Election::getCandidatesList", "Election::canAddCandidate")]
     public function addCandidate (Candidate|string|null $candidate = null) : Candidate
     {
@@ -162,7 +162,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Remove Candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. Exception will be throw.*")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
-    #[Examples("Manual - Manage Candidate||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::getCandidatesList")]
     public function removeCandidates (mixed $candidates_input) : array
     {
@@ -203,7 +203,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Import candidate from a Json source.")]
     #[FunctionReturn("List of new registered candidate object.")]
-    #[Examples("Manual - Manage Candidates||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Example("Manual - Manage Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::parseCandidates", "Election::addVotesFromJson")]
     public function addCandidatesFromJson (string $input) : array
     {
@@ -233,7 +233,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Import candidate from a text source.")]
     #[FunctionReturn("List of new registered candidate object. Count it for checking if all candidates have been correctly registered.")]
-    #[Examples("Manual - Manage Candidates||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Example("Manual - Manage Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::addCandidatesFromJson", "Election::parseVotes")]
     public function parseCandidates (string $input, bool $isFile = false) : array
     {

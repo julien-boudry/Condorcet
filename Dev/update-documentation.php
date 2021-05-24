@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\Generate as GenerateCondorcetDocumentationGenerator;
 
-  require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/autoload.php');
+require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/autoload.php');
 
   // Build command
 

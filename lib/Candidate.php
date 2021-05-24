@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class Candidate implements \Stringable
@@ -24,7 +24,7 @@ class Candidate implements \Stringable
 
     #[PublicAPI]
     #[Description("Build a candidate.")]
-    #[Examples("Manual - Create Candidates||https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
+    #[Example("Manual - Create Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Candidate::setName")]
     public function __construct (string $name)
     {

@@ -389,6 +389,18 @@ _Including above methods from public API_
 * protected pairwiseSort () : array  
 ```
 
+#### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
+* public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __destruct ()  
+* public getObjectVersion (bool $major = false) : string  
+* public getResult () : CondorcetPHP\Condorcet\Result  
+* protected compute () : void  
+* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
+* protected getStats () : array  
+* protected makeScore (array $surplus, array $candidateElected, array $candidateEliminated) : array  
+```
+
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -524,6 +536,26 @@ _Including above methods from public API_
 * public static isAuthMethod (string $method) : bool  
 * public static setDefaultMethod (string $method) : bool  
 * protected static testMethod (string $method) : bool  
+```
+
+#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Description   
+```php
+* public __construct (string $text)  
+```
+
+#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Example   
+```php
+* public __construct (string $name, string $link)  
+```
+
+#### CondorcetPHP\Condorcet\CondorcetDocAttributes\FunctionReturn   
+```php
+* public __construct (string $text)  
+```
+
+#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Related   
+```php
+* public __construct (string $relatedList)  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   

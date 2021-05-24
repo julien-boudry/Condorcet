@@ -12,13 +12,15 @@ namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
 
 use Attribute;
 
-#[Attribute]
-class Examples
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
+class Example
 {
-    public string $text;
+    public string $name;
+    public string $link;
 
-    public function __construct(string $text)
+    public function __construct(string $name, string $link)
     {
-        $this->text = $text;
+        $this->name = $name;
+        $this->link = $link;
     }
 }

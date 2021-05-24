@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
 
 use Attribute;
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_METHOD)]
 class Description
 {
     public string $text;
