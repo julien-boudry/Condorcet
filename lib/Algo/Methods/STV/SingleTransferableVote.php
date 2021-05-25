@@ -26,6 +26,8 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
+    protected float $votesNeededToWin;
+
 
 /////////// COMPUTE ///////////
 
@@ -36,9 +38,12 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $v = $this->_selfElection->sumValidVotesWeightWithConstraints();
-
-        $votesNeededToWin = floor(($v / ($this->_selfElection->getNumberOfSeats() + 1)) + 1);
+        $this->votesNeededToWin = floor(  (   $this->_selfElection->sumValidVotesWeightWithConstraints()
+                                        /
+                                        ($this->_selfElection->getNumberOfSeats() + 1)
+                                    )
+                                    + 1
+                                );
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -56,7 +61,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             $successOnRank = false;
 
             foreach($scoreTable as $candidateKey => $oneScore) :
-                $surplus = $oneScore - $votesNeededToWin;
+                $surplus = $oneScore - $this->votesNeededToWin;
 
                 if ($surplus >= 0) :
                     $result[++$rank] = [$candidateKey];
@@ -148,11 +153,14 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected function getStats(): array
     {
-        $stats = [];
+        $stats = [
+            'votes_needed_to_win' => $this->votesNeededToWin,
+            'rounds' => []
+        ];
 
         foreach ($this->_Stats as $roundNumber => $roundData) :
             foreach ($roundData as $candidateKey => $candidateValue) :
-                $stats[$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = \round($candidateValue, 12, \PHP_ROUND_HALF_DOWN);
+                $stats['rounds'][$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = \round($candidateValue, 12, \PHP_ROUND_HALF_DOWN);
             endforeach;
         endforeach;
 

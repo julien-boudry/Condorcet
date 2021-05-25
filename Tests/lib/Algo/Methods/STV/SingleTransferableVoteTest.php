@@ -62,7 +62,12 @@ class SingleTransferableVoteTest extends TestCase
                     'D' => 28.666666666667,
                     ],
             ],
-            $this->election->getResult('STV')->getStats()
+            $this->election->getResult('STV')->getStats()['rounds']
+        );
+
+        self::assertSame(
+            (float) 34,
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
         );
 
         self::assertSame( [
@@ -99,6 +104,11 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         self::assertSame(
+            (float) 6,
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertSame(
             [
                 1 =>
                 [
@@ -131,7 +141,8 @@ class SingleTransferableVoteTest extends TestCase
                 'Strawberry' => 5.0,
                 ],
             ]
-        , $this->election->getResult('STV')->getStats());
+        , $this->election->getResult('STV')->getStats()['rounds']
+        );
 
         self::assertSame( [
                 1 => 'Chocolate',
@@ -164,6 +175,11 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         self::assertSame(
+            (float) 31,
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertSame(
             [
                 1 =>
                     [
@@ -177,7 +193,7 @@ class SingleTransferableVoteTest extends TestCase
                     'Carter' => 27.44
                     ]
             ],
-            $this->election->getResult('STV')->getStats()
+            $this->election->getResult('STV')->getStats()['rounds']
         );
 
         self::assertSame( [
@@ -208,6 +224,11 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         $this->election->setNumberOfSeats(3);
+
+        self::assertSame(
+            (float) 26,
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
 
         self::assertSame( [
                 1 => 'A',
