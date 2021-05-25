@@ -32,6 +32,8 @@ Condorcet::addMethod( Algo\Methods\Schulze\SchulzeWinning::class );
 Condorcet::addMethod( Algo\Methods\Schulze\SchulzeMargin::class );
 Condorcet::addMethod( Algo\Methods\Schulze\SchulzeRatio::class );
 
+Condorcet::addMethod( Algo\Methods\STV\SingleTransferableVote::class );
+
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');
 

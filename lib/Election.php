@@ -66,6 +66,7 @@ class Election
     protected bool $_ImplicitRanking = true;
     protected bool $_VoteWeightRule = false;
     protected array $_Constraints = [];
+    protected int $_Seats = 100;
 
         //////
 
@@ -295,9 +296,7 @@ class Election
             throw new CondorcetException(29);
         endif;
 
-        if ( $this->_State > 1) :
-            $this->cleanupCompute();;
-        endif;
+        $this->cleanupCompute();;
 
         $this->_Constraints[] = $constraintClass;
 
@@ -323,10 +322,7 @@ class Election
     {
         $this->_Constraints = [];
 
-        if ( $this->_State > 1) :
-            $this->cleanupCompute();;
-        endif;
-
+        $this->cleanupCompute();;
         return true;
     }
 
@@ -344,6 +340,35 @@ class Election
         endforeach;
 
         return true;
+    }
+
+
+    /////////// STV SEATS ///////////
+
+    #[PublicAPI]
+    #[Description("Get number of Seats for STV methods.")]
+    #[FunctionReturn("Number of seats.")]
+    #[Related("Election::setNumberOfSeats", "Result::getNumberOfSeats")]
+    public function getNumberOfSeats () : int
+    {
+        return $this->_Seats;
+    }
+
+    #[PublicAPI]
+    #[Description("Set number of Seats for STV methods.")]
+    #[FunctionReturn("Number of seats.")]
+    #[Related("Election::getNumberOfSeats")]
+    public function setNumberOfSeats (int $seats) : int
+    {
+        if ($seats > 0) :
+            $this->cleanupCompute();
+
+            $this->_Seats = $seats;
+        else :
+            throw new CondorcetException(30);
+        endif;
+
+        return $this->_Seats;
     }
 
 

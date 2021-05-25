@@ -228,4 +228,38 @@ class ResultTest extends TestCase
             $this->election1->getResult()->getOriginalResultArrayWithString()
         );
     }
+
+    public function testProportional () : void
+    {
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('C');
+
+        $this->election1->addVote('A');
+
+        $this->election1->setNumberOfSeats(2);
+
+        $result = $this->election1->getResult('STV');
+
+        self::assertSame(
+            2,
+            $result->getNumberOfSeats()
+        );
+
+        self::assertTrue(
+            $result->getClassGenerator()::IS_PROPORTIONAL
+        );
+
+        $result = $this->election1->getResult('Schulze');
+
+        self::assertNull(
+            $result->getNumberOfSeats()
+        );
+
+        self::assertFalse(
+            $result->getClassGenerator()::IS_PROPORTIONAL
+        );
+
+
+    }
 }

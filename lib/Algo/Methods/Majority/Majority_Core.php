@@ -115,7 +115,7 @@ abstract class Majority_Core extends Method implements MethodInterface
 
         foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
+            $weight = $oneVote->getWeight($this->_selfElection);
 
             $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
 

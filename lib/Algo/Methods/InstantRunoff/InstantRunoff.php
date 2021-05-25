@@ -15,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
+use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
 class InstantRunoff extends Method implements MethodInterface
 {
@@ -90,7 +90,7 @@ class InstantRunoff extends Method implements MethodInterface
                 // Tie Breaking
                 $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++) : // A little silly. But ultimately shorter and simpler.
-                    $LosersToRegister = $this->tieBreaking($LosersToRegister);
+                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection ,$LosersToRegister);
                 endfor;
 
                 $CandidatesLoserCount += \count($LosersToRegister);
@@ -106,6 +106,7 @@ class InstantRunoff extends Method implements MethodInterface
     protected function makeScore (array $candidateDone) : array
     {
         $score = [];
+
         foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
             if (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
                 $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
@@ -114,53 +115,20 @@ class InstantRunoff extends Method implements MethodInterface
 
         foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $this->_selfElection->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
+            $weight = $oneVote->getWeight($this->_selfElection);
 
-            for ($i = 0; $i < $weight; $i++) :
-                $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
-
-                foreach ($oneRanking as $oneRank) :
-                    foreach ($oneRank as $oneCandidate) :
-                        if (\count($oneRank) !== 1) :
-                            break;
-                        elseif (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
-                            $score[$this->_selfElection->getCandidateKey($oneRank[\array_key_first($oneRank)])] += 1;
-                            break 2;
-                        endif;
-                    endforeach;
+            foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
+                foreach ($oneRank as $oneCandidate) :
+                    if (\count($oneRank) !== 1) :
+                        break;
+                    elseif (!\in_array(needle: ($candidateKey = $this->_selfElection->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) :
+                        $score[$candidateKey] += $weight;
+                        break 2;
+                    endif;
                 endforeach;
-            endfor;
+            endforeach;
         endforeach;
 
         return $score;
-    }
-
-    protected function tieBreaking (array $candidatesKeys) : array
-    {
-        $pairwise = $this->_selfElection->getPairwise();
-        $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
-        $tooKeep = [];
-
-        foreach ($candidatesKeys as $oneCandidateKeyTotest) :
-            $select = true;
-            foreach ($candidatesKeys as $oneChallengerKey) :
-                if ($oneCandidateKeyTotest === $oneChallengerKey) :
-                    continue;
-                endif;
-
-                if (    $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['balance'] > $pairwiseStats[$oneChallengerKey]['balance'] ||
-                        $pairwiseStats[$oneCandidateKeyTotest]['win'] > $pairwiseStats[$oneChallengerKey]['win']
-                ) :
-                    $select = false;
-                endif;
-            endforeach;
-
-            if ($select) :
-                $tooKeep[] = $oneCandidateKeyTotest;
-            endif;
-        endforeach;
-
-        return $tooKeep;
     }
 }
