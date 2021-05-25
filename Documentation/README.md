@@ -243,7 +243,6 @@ _Including above methods from public API_
 * protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
 * protected getStats () : array  
 * protected makeScore (array $candidateDone) : array  
-* protected tieBreaking (array $candidatesKeys) : array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -500,6 +499,11 @@ _Including above methods from public API_
 * private _permute (array $arr) : array|int  
 ```
 
+#### Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection   
+```php
+* public static tieBreaker_1 (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys) : array  
+```
+
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
 ```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
@@ -539,26 +543,6 @@ _Including above methods from public API_
 * public static isAuthMethod (string $method) : bool  
 * public static setDefaultMethod (string $method) : bool  
 * protected static testMethod (string $method) : bool  
-```
-
-#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Description   
-```php
-* public __construct (string $text)  
-```
-
-#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Example   
-```php
-* public __construct (string $name, string $link)  
-```
-
-#### CondorcetPHP\Condorcet\CondorcetDocAttributes\FunctionReturn   
-```php
-* public __construct (string $text)  
-```
-
-#### CondorcetPHP\Condorcet\CondorcetDocAttributes\Related   
-```php
-* public __construct (string $relatedList)  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   

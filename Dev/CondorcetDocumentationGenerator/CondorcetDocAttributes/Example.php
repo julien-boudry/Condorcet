@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
+namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes;
 
 use Attribute;
 

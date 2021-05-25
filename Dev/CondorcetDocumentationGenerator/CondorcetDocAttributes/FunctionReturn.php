@@ -8,11 +8,17 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
+namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes;
 
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-class PublicAPI
+class FunctionReturn
 {
+    public string $text;
+
+    public function __construct(string $text)
+    {
+        $this->text = $text;
+    }
 }

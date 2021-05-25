@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{PublicAPI};
 use Symfony\Component\Yaml\Yaml;
 
 require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/autoload.php');
@@ -17,7 +17,7 @@ $undocumented_prefix = $doc[1]['undocumented_prefix'] . "\n";
 unset($doc[1]);
 
 
-// 
+//
 $index  = [];
 
 foreach ($doc as &$entry) :
@@ -118,7 +118,7 @@ foreach ($index as $ClassName => $ClassData) :
 
             $pattern = '/(#\[PublicAPI\])(\n)(.*)(public.*function '.$MethodName.' *\()/';
             $replacement = '$1$2'.$attributes.'$3$4';
-            
+
             $file_contents = preg_replace(
                     $pattern
                 ,   $replacement

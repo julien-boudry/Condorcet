@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
 
 // Generic for Algorithms

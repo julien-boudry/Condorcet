@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\Generate as GenerateCondorcetDocumentationGenerator;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\Generate;
 
 require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/autoload.php');
 
@@ -25,9 +25,9 @@ require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/a
           endif;
         endforeach;
         reset($objects);
-      if ($dir !== $path) :
-          rmdir($dir);
-      endif;
+        if ($dir !== $path) :
+            rmdir($dir);
+        endif;
       endif;
   }
 
@@ -35,4 +35,4 @@ require_once __DIR__.str_replace('/',DIRECTORY_SEPARATOR,'/../vendor/../vendor/a
 
   // Execute command
 
-  new GenerateCondorcetDocumentationGenerator($path);
+  new Generate($path);

@@ -8,17 +8,17 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\CondorcetDocAttributes;
+namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes;
 
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-class Related
+class Description
 {
-    public array $relatedList;
+    public string $text;
 
-    public function __construct(string ...$relatedList)
+    public function __construct(string $text)
     {
-        $this->relatedList = $relatedList;
+        $this->text = $text;
     }
 }
