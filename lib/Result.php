@@ -289,4 +289,12 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         return $this->_Seats;
     }
+
+    #[PublicAPI]
+    #[Description("Does the result come from a proportional method")]
+    #[Related("Result::getNumberOfSeats")]
+    public function isProportional () : bool
+    {
+        return $this->_Seats !== null;
+    }
 }

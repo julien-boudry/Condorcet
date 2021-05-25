@@ -250,6 +250,10 @@ class ResultTest extends TestCase
             $result->getClassGenerator()::IS_PROPORTIONAL
         );
 
+        self::assertTrue(
+            $result->isProportional()
+        );
+
         $result = $this->election1->getResult('Schulze');
 
         self::assertNull(
@@ -260,6 +264,8 @@ class ResultTest extends TestCase
             $result->getClassGenerator()::IS_PROPORTIONAL
         );
 
-
+        self::assertFalse(
+            $result->isProportional()
+        );
     }
 }

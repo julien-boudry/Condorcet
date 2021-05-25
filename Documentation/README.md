@@ -113,6 +113,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getStats ()](Result%20Class/public%20Result--getStats.md) : mixed  
 * [public Result->getWarning (...)](Result%20Class/public%20Result--getWarning.md) : array  
 * [public Result->getWinner ()](Result%20Class/public%20Result--getWinner.md) : CondorcetPHP\Condorcet\Candidate|array|null  
+* [public Result->isProportional ()](Result%20Class/public%20Result--isProportional.md) : bool  
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 
@@ -844,6 +845,7 @@ _Including above methods from public API_
 * public getStats () : mixed  
 * public getWarning (?int $type = null) : array  
 * public getWinner () : CondorcetPHP\Condorcet\Candidate|array|null  
+* public isProportional () : bool  
 * public key () : int  
 * public next () : void  
 * public offsetExists ($offset) : bool  
