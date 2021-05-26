@@ -59,15 +59,15 @@ class CandidateTest extends TestCase
 
     public function testCandidateBadClass () : void
     {
-        self::expectException(\TypeError::class);
+        $this->expectException(\TypeError::class);
 
         (new Election)->addCandidate(new \stdClass );
     }
 
     public function testAddSameCandidate1 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(3);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(3);
 
         $election1 = new Election ();
 
@@ -79,8 +79,8 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate2 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(3);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(3);
 
         $election1 = new Election ();
 
@@ -89,8 +89,8 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate3 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(3);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(3);
 
         $election1 = new Election ();
 

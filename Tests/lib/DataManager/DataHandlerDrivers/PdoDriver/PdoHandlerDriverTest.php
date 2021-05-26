@@ -133,8 +133,8 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertTrue($electionWithDb->removeExternalDataHandler());
 
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(23);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(23);
 
         $electionWithDb->removeExternalDataHandler();
     }
@@ -256,8 +256,8 @@ class PdoHandlerDriverTest extends TestCase
 
     public function testMultipleHandler () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(24);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(24);
 
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
@@ -266,8 +266,8 @@ class PdoHandlerDriverTest extends TestCase
 
     public function testBadTableSchema1 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(0);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(0);
 
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
@@ -275,7 +275,7 @@ class PdoHandlerDriverTest extends TestCase
 
     public function testBadTableSchema2 () : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);

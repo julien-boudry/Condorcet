@@ -202,8 +202,8 @@ class ResultTest extends TestCase
 
     public function testBadMethodName () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(8);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(8);
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

@@ -10,8 +10,8 @@ class CondorcetExceptionTest extends TestCase
 {
     public function testBuild () : void
     {
-        self::expectException(CondorcetException::class);
-        self::expectExceptionCode(0);
+        $this->expectException(CondorcetException::class);
+        $this->expectExceptionCode(0);
 
         $ce = new CondorcetException;
 
@@ -24,17 +24,17 @@ class CondorcetExceptionTest extends TestCase
 
     public function testMaxCodeRange () : void
     {
-        self::expectException(CondorcetException::class);
-        self::expectExceptionCode(0);
+        $this->expectException(CondorcetException::class);
+        $this->expectExceptionCode(0);
 
         new CondorcetException (\max(CondorcetException::CODE_RANGE) + 1);
     }
 
     public function testMysteriousError () : void
     {
-        self::expectException(CondorcetException::class);
-        self::expectExceptionCode(\max(CondorcetException::CODE_RANGE) - 1);
-        self::expectExceptionMessage('Mysterious Error');
+        $this->expectException(CondorcetException::class);
+        $this->expectExceptionCode(\max(CondorcetException::CODE_RANGE) - 1);
+        $this->expectExceptionMessage('Mysterious Error');
 
         throw new CondorcetException (\max(CondorcetException::CODE_RANGE) - 1);
     }

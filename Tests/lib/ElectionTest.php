@@ -30,8 +30,8 @@ class ElectionTest extends TestCase
 
     public function testRemoveVotes () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(33);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(33);
 
         self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3,$this->election1->getVotesList());
@@ -112,8 +112,8 @@ class ElectionTest extends TestCase
 
     public function testParseError () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(13);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(13);
 
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }
@@ -150,8 +150,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration2 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(12);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(12);
 
         self::assertSame(42,Election::setMaxParseIteration(42));
 
@@ -169,8 +169,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration3 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(12);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(12);
 
         self::assertSame(2,Election::setMaxParseIteration(2));
 
@@ -423,8 +423,8 @@ D > C > B > A * 1',
 
     public function testaddVotesFromJson () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(15);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(15);
 
         $election = new Election;
 
@@ -470,8 +470,8 @@ C > B > A * 1',
 
     public function testaddCandidatesFromJson () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(3);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(3);
 
         $election = new Election;
 
@@ -488,8 +488,8 @@ C > B > A * 1',
 
     public function testaddCandidatesFromInvalidJson () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(15);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(15);
 
         $election = new Election;
 
@@ -589,24 +589,24 @@ C > B > A * 1',
 
     public function testElectionState1 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(2);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(2);
 
         $this->election1->addCandidate('candidate4');
     }
 
     public function testElectionState2 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(2);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(2);
 
         $this->election1->removeCandidates('candidate4');
     }
 
     public function testElectionState3 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(20);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(20);
 
         $election = new Election;
         $election->setStateTovote();
@@ -614,8 +614,8 @@ C > B > A * 1',
 
     public function testElectionState4 () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(6);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(6);
 
         $election = new Election;
         $election->getResult();
@@ -632,8 +632,8 @@ C > B > A * 1',
 
     public function testAddSameVote () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(31);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(31);
 
         $this->election1->addVote($this->vote1);
     }
@@ -659,8 +659,8 @@ C > B > A * 1',
 
     public function testRemoveCandidate () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(4);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(4);
 
         $election = new Election;
 
@@ -673,8 +673,8 @@ C > B > A * 1',
 
     public function testAmbigousCandidatesOnElectionSide () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(5);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(5);
 
         $vote = new Vote ('candidate1>candidate2');
 
@@ -690,8 +690,8 @@ C > B > A * 1',
 
     public function testAmbigousCandidatesOnVoteSide () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(18);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(18);
 
         $candidate3 = new Candidate('candidate3');
         $vote = new Vote ('candidate3');
@@ -713,8 +713,8 @@ C > B > A * 1',
 
     public function testInvalidSeats () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(30);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(30);
 
         $this->election1->setNumberOfSeats(0);
     }

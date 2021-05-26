@@ -10,9 +10,9 @@ class TimerTest extends TestCase
 {
     public function testInvalidChrono () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(0);
-        self::expectExceptionMessage('Only chrono linked to this Manager can be used');
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(0);
+        $this->expectExceptionMessage('Only chrono linked to this Manager can be used');
 
         $manager1 = new Manager;
         $manager2 = new Manager;

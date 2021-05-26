@@ -163,8 +163,8 @@ class ElectionCommandTest extends TestCase
 
     public function testNonInteractionMode () : void
     {
-        self::expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        self::expectExceptionCode(6);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectExceptionCode(6);
 
         $this->electionCommand->execute([],['interactive' => false]);
 
