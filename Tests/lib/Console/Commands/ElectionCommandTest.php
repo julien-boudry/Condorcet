@@ -40,7 +40,6 @@ class ElectionCommandTest extends TestCase
         );
 
         $output = $this->electionCommand->getDisplay();
-        // \var_dump($output);
 
         self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
 
@@ -54,6 +53,36 @@ class ElectionCommandTest extends TestCase
         self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
         self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
         self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testConsoleSeats () : void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+                                            '--stats' => null,
+                                            '--natural-condorcet' => null,
+                                            '--allows-votes-weight' => null,
+                                            '--no-tie' => null,
+                                            '--list-votes' => null,
+                                            '--deactivate-implicit-ranking' => null,
+                                            '--show-pairwise' => null,
+
+                                            '--seats' => 42,
+                                            'methods' => ['STV']
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
+
+        self::assertStringContainsString('Number of seats:', $output);
+        self::assertStringContainsString('42', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
