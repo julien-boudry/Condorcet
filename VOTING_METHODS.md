@@ -32,6 +32,7 @@ Condorcet PHP: Voting Methods
     * **[Schulze Winning](#schulze-winning)** *(recommended)*
     * **[Schulze Margin](#schulze-margin)**
     * **[Schulze Ratio](#schulze-ratio)**
+* **[Single Transferable Vote](#single-transferable-vote)** *(STV)*
 
 
 # Methods Details & Implementation
@@ -227,7 +228,7 @@ $election->getResult('Two-round system')->getStats() ;
 > **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
 ### Implementation Comments  
- In case of tie into a vote rank, rank is ignored like he never existed.  
+In case of tie into a vote rank, rank is ignored like he never existed.  
 
 An additional tie-breaking tentative is added in case of tie into the preliminary result set. First, comparing candidate pairwise, in a second attempt compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context.
 
@@ -255,7 +256,7 @@ $election->getResult('Instant-runoff')->getStats() ;
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
 ### Implementation Comments  
- Kemeny-Young is currently limited to up 8 candidates. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
+Kemeny-Young is currently limited to up 8 candidates. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
 
 ### Code example
 ```php
@@ -280,7 +281,7 @@ $election->getResult('Kemeny-Young')->getStats() ;
 > **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FPTP", "FPP", "SMP"
 
 ### Implementation Comments  
- In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
+In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
 
 For example: ```A = B > C```
 A/B earn each 0.5 points
@@ -308,9 +309,9 @@ $election->getResult('FPTP')->getStats() ;
 > **Methods alias available (for function call)**: "Two-round system", "second ballot", "runoff voting", "ballotage", "two round system", "two round", "two rounds", "two rounds system", "runoff voting"
 
 ### Implementation Comments  
- In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
- For example: ```A = B > C```  
- A/B earn each 0.5 points  
+In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
+For example: ```A = B > C```  
+A/B earn each 0.5 points  
  
 Method is trying to keep only two candidates for the next round. But that may be more in the event of a perfect tie.  
 
@@ -399,8 +400,8 @@ $election->getResult('Minimax Opposition')->getStats() ;
 > **Methods alias available (for function call)**: "Ranked Pairs Margin" / "Tideman Margin" / "RP Margin" / "Ranked Pairs" / "RankedPairs" / "Tideman method"  
 
 ### Implementation Comments  
- In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
- In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
+In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
+In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
 
 ### Code example
 ```php
@@ -425,8 +426,8 @@ $election->getResult('Ranked Pairs Margin')->getStats() ;
 > **Methods alias available (for function call)**: "Ranked Pairs Winning" / "Tideman Winning" / "RP Winning"  
 
 ### Implementation Comments  
- In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
- In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
+In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
+In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
 
 ### Code example
 ```php
@@ -501,7 +502,7 @@ $election->getResult('Schulze Margin')->getStats() ;
 > **Methods alias available (for function call)**: "Schulze Ratio" / "SchulzeRatio" / "Schulze_Ratio"  
 
 ### Implementation Comments  
- The original specification is incomplete. She says to compute the ratio as follow:  
+The original specification is incomplete. She says to compute the ratio as follow:  
 ```$candidateA_versus_CandidateB['pairwise_win'] / $candidateA_versus_CandidateB ['pairwise_lose'] = Ratio```  
 We don't know how to manage division by zero when it's happened, which is very unlikely on large elections but can happen. Actually, but it can change to a better solution, we add 1 on left and right, only in this case.  
 
@@ -516,4 +517,34 @@ $election->getLoser('Schulze Ratio') ;
 
 // Get Stats
 $election->getResult('Schulze Ratio')->getStats() ;
+```
+
+
+## Single Transferable Vote
+
+> **Family:** Single Transferable Vote  
+> **Variant used:** *None*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Single_transferable_vote  
+> ***  
+> **Methods alias available (for function call)**: "STV", "Single Transferable Vote", "SingleTransferableVote"  
+
+### Implementation Comments  
+In case of tie into a vote rank, rank is ignored like he never existed.  
+The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
+Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+
+### Code example
+
+```php
+// Change the number of seats
+$election->setNumberOfSeats(42); # Default is 100
+
+// Get the elected candidates with ranking
+$election->getResult('STV');
+
+// Check the number of seats
+$election->getResult('STV')->getNumberOfSeats();
+
+// Get Stats (votes needed to win, rounds detailsd)
+$election->getResult('STV')->getStats();
 ```

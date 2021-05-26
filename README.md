@@ -127,10 +127,11 @@ _And has no certification or proven implementation that would guarantee a very h
     * **[Schulze Winning](VOTING_METHODS.md#schulze-winning)** *(recommended)*
     * **[Schulze Margin](VOTING_METHODS.md#schulze-margin)**
     * **[Schulze Ratio](VOTING_METHODS.md#schulze-ratio)**
+* **[Single Transferable Vote](VOTING_METHODS.md#single-transferable-vote)** *(STV)*
 
 ### Add your own method as module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).  
-[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)      
+[*More explanations in the documentation below*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm)  
 
 ---------------------------------------
 ## Use Condorcet as a command line application
