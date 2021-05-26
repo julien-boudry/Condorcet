@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Registering native Condorcet Methods implementation
+    // Classic Methods
 Condorcet::addMethod( Algo\Methods\Borda\BordaCount::class );
 Condorcet::addMethod( Algo\Methods\Copeland\Copeland::class );
 Condorcet::addMethod( Algo\Methods\Dodgson\DodgsonQuick::class );
@@ -32,6 +33,7 @@ Condorcet::addMethod( Algo\Methods\Schulze\SchulzeWinning::class );
 Condorcet::addMethod( Algo\Methods\Schulze\SchulzeMargin::class );
 Condorcet::addMethod( Algo\Methods\Schulze\SchulzeRatio::class );
 
+    // Proportional Methods
 Condorcet::addMethod( Algo\Methods\STV\SingleTransferableVote::class );
 
 // Set the default Condorcet Class algorithm
@@ -41,7 +43,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '3.0.2';
+    public const VERSION = '3.1.0';
 
     public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 

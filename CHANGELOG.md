@@ -2,6 +2,24 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.1.0] - 2021-??-??
+### Description
+Introduces support for proportional methods. And adds some.
+
+### Added
+ - Minimal support for proportional methods
+ - New Single Transferable Vote (STV) method, a proportional one.
+
+### Changed
+- getResult() Fix arbitrary candidate ordering on a rank. Now have consistency with getRanking and others.
+
+### Internal changes
+- Small optimizations for InstantRunoff
+- Static class for tie-breaking. Used by InstantRunoff but can be useful for further uses.
+
+### Dev changes
+- Add class for PHP8 attributes. And use them on the documentation generator.
+
 ## [v3.0.2] - 2021-04-28
 
 ### Changed
@@ -35,7 +53,7 @@ Use latest PHP 8.0 functionality and improvements.
 Include the new vote method "Two-round voting System", and some minors fix and optimizations.
 
 ### Added
-- Two-round voting system. Useful to compare Condorcet with traditional elections.
+- Two-round voting system. Useful to compare Condorcet with traditional lections.
 - New Majority_Core class is the parent class for First-Past-The-Post and two-round system. It can easily be extended with variant parameters or code for creating easily many new majority voting methods (number of rounds, number of candidates retained after each round...).   
 
 ### Changed
