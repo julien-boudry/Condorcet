@@ -93,6 +93,10 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_NONE
                             , 'Add no-tie constraint for vote'
             )
+            ->addOption(      'seats', null
+                            , InputOption::VALUE_REQUIRED
+                            , 'Specify the number of seats for proportional methods'
+            )
 
             ->addOption(      'deactivate-file-cache', null
                             , InputOption::VALUE_NONE
@@ -137,6 +141,10 @@ class ElectionCommand extends Command
             // NoTie Constraint
             if ($input->getOption('no-tie')) :
                 $this->election->addConstraint(NoTie::class);
+            endif;
+
+            if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1 ) :
+                $this->election->setNumberOfSeats($seats);
             endif;
 
         // Non-interactive candidates
@@ -277,6 +285,18 @@ class ElectionCommand extends Command
 
             // Result
             $result = $this->election->getResult($oneMethod);
+
+            if ($result->isProportional()) :
+                (new Table($output))
+                    ->setHeaderTitle('Configuration: '.$oneMethod)
+                    ->setHeaders(['Variable', 'Value'])
+                    ->setRows([['Number of seats:', $result->getNumberOfSeats()]])
+
+                    ->setColumnStyle(0,$this->centerPadTypeStyle)
+                    ->setColumnWidth(0, 20)
+                    ->render()
+                ;
+            endif;
 
             (new Table($output))
                 ->setHeaderTitle('Results: '.$oneMethod)
