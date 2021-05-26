@@ -223,7 +223,7 @@ class ElectionCommand extends Command
         unset($callBack);
 
         // Summary
-        $io->section('Summary');
+        $io->title('Summary');
 
         $output->write($this->election->countCandidates().' candidates(s) registered');
         $output->write('  ||  ');
@@ -279,9 +279,12 @@ class ElectionCommand extends Command
 
         $methods = $this->prepareMethods($input->getArgument('methods'));
 
-        $io->section('Results per methods');
+        $io->title('Results per methods');
 
         foreach ($methods as $oneMethod) :
+
+            $io->newLine();
+            $io->section($oneMethod.' Method:');
 
             // Result
             $result = $this->election->getResult($oneMethod);
@@ -304,7 +307,8 @@ class ElectionCommand extends Command
                 ->setRows($this->formatResultTable($result))
 
                 ->setColumnStyle(0,$this->centerPadTypeStyle)
-                ->setColumnWidth(0, 16)
+                ->setColumnWidth(0, 20)
+                ->setColumnWidth(1, 20)
                 ->render()
             ;
 
@@ -315,7 +319,7 @@ class ElectionCommand extends Command
                     ->setHeaders(['Stats'])
                     ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($result->getStats(),100))]])
 
-                    ->setColumnWidth(0, 40)
+                    ->setColumnWidth(0, 43)
                     ->render()
                 ;
             endif;
@@ -340,7 +344,7 @@ class ElectionCommand extends Command
 
     protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
     {
-        $io->section('Detailed election input');
+        $io->title('Detailed election input');
 
         $this->displayCandidatesList($output);
         $this->displayVotesCount($output);
@@ -355,6 +359,7 @@ class ElectionCommand extends Command
             ($candidateTable = new Table($output))
                 ->setHeaderTitle('Registered candidates')
                 ->setHeaders(['Num', 'Candidate name'])
+
                 ->setStyle($this->centerPadTypeStyle)
                 ->setColumnWidth(0, 14)
             ;
