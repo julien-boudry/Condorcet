@@ -26,6 +26,19 @@ abstract class Method
     protected Election $_selfElection;
     protected ?Result $_Result = null;
 
+    // Static
+
+    final public static function setOption (string $optionName, mixed $optionValue) : bool
+    {
+        $optionVar = 'option'.ucfirst($optionName);
+
+        static::$$optionVar = $optionValue;
+
+        return true;
+    }
+
+    //
+
     public function __construct (Election $mother)
     {
         $this->_selfElection = $mother;
@@ -56,13 +69,25 @@ abstract class Method
 
     protected function createResult (array $result) : Result
     {
-    	return new Result (
+    	$optionsList = \array_keys((new \ReflectionClass(static::class))->getStaticProperties());
+        $optionsList = \array_filter($optionsList, function (string $name) : bool {
+            return \str_starts_with($name ,'option');
+        });
+
+        $methodOptions = [];
+
+        foreach ($optionsList as $oneOption) :
+            $methodOptions[substr($oneOption,6)] = static::$$oneOption;
+        endforeach;
+
+        return new Result (
             fromMethod: static::METHOD_NAME[0],
             byClass: $this::class,
     		election: $this->_selfElection,
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
+            methodOptions: $methodOptions
     	);
     }
 }
