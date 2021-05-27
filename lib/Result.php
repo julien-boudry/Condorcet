@@ -71,6 +71,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected array $_UserResult;
     protected array $_stringResult;
     protected ?int $_Seats;
+    protected array $_methodOptions;
     protected ?Candidate $_CondorcetWinner;
     protected ?Candidate $_CondorcetLoser;
 
@@ -84,7 +85,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected string $_ElectionCondorcetVersion;
 
 
-    public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null)
+    public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])
     {
         \ksort($result, \SORT_NUMERIC);
 
@@ -99,6 +100,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_CondorcetWinner = $election->getWinner();
         $this->_CondorcetLoser = $election->getLoser();
         $this->_BuildTimeStamp = \microtime(true);
+        $this->_methodOptions = $methodOptions;
     }
 
     public function __destruct ()
@@ -268,6 +270,20 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
+    #[Description("Return the method options.")]
+    #[FunctionReturn("Array of options. Can be empty for most of the methods.")]
+    #[Related("Result::getClassGenerator")]
+    public function getMethodOptions () : array {
+        $r = $this->_methodOptions;
+
+        if($this->isProportional()) :
+            $r['Seats'] = $this->getNumberOfSeats();
+        endif;
+
+        return $r;
+    }
+
+    #[PublicAPI]
     #[Description("Get the timestamp of this result.")]
     #[FunctionReturn("Microsecond timestamp.")]
     public function getBuildTimeStamp () : float {
@@ -285,16 +301,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Description("Get number of Seats for STV methods result.")]
     #[FunctionReturn("Number of seats if this result is a STV method. Else NULL.")]
     #[Related("Election::setNumberOfSeats", "Election::getNumberOfSeats")]
-    public function getNumberOfSeats () : ?int
-    {
+    public function getNumberOfSeats () : ?int {
         return $this->_Seats;
     }
 
     #[PublicAPI]
     #[Description("Does the result come from a proportional method")]
     #[Related("Result::getNumberOfSeats")]
-    public function isProportional () : bool
-    {
+    public function isProportional () : bool {
         return $this->_Seats !== null;
     }
 }

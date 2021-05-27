@@ -289,11 +289,17 @@ class ElectionCommand extends Command
             // Result
             $result = $this->election->getResult($oneMethod);
 
-            if ($result->isProportional()) :
+            if (!empty($options = $result->getMethodOptions())) :
+                
+                $rows = [];
+                foreach ($options as $key => $value) :
+                    $rows[] = [$key.':', $value];
+                endforeach;
+
                 (new Table($output))
                     ->setHeaderTitle('Configuration: '.$oneMethod)
                     ->setHeaders(['Variable', 'Value'])
-                    ->setRows([['Number of seats:', $result->getNumberOfSeats()]])
+                    ->setRows($rows)
 
                     ->setColumnStyle(0,$this->centerPadTypeStyle)
                     ->setColumnWidth(0, 20)

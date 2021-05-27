@@ -81,7 +81,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
 
-        self::assertStringContainsString('Number of seats:', $output);
+        self::assertStringContainsString('Seats:', $output);
         self::assertStringContainsString('42', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
