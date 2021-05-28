@@ -58,7 +58,7 @@ _Two different ways to use Condorcet:_
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 3.0.x**  _support provided_  
+* **Stable Version: 3.1.x**  _support provided_  
   * * *PHP Requirement:* PHP 8.0. _(tested up to PHP 8.0)_
 * **Stable Version: 2.2.x**  _support provided_  
   * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 8.0)_
@@ -115,7 +115,7 @@ _And has no certification or proven implementation that would guarantee a very h
 * **[Kemeny–Young](VOTING_METHODS.md#kemenyyoung)**
 * **Majority Family**
     * **[First-past-the-post](VOTING_METHODS.md#first-past-the-post)**
-    * **[Two-round system](VOTING_METHODS.md#two-round-system)**
+    * **[Multiple Rounds system](VOTING_METHODS.md#multiple-rounds-system)**
 * **Minimax Family**
     * **[Minimax Winning](VOTING_METHODS.md#minimax-winning)**
     * **[Minimax Margin](VOTING_METHODS.md#minimax-margin)**
