@@ -174,7 +174,7 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        $this->election::setMethodOption('Borda Count', 'Starting', 0);
+        $this->election->setMethodOption('Borda Count', 'Starting', 0);
 
         self::assertSame( [
                 1 => 'B',
@@ -191,5 +191,7 @@ class BordaCountTest extends TestCase
             'D' => 207 - 100 ],
             $this->election->getResult('Borda Count')->getStats()
         );
+
+        $this->election->setMethodOption('Borda Count', 'Starting', 1);
     }
 }

@@ -268,4 +268,35 @@ class ResultTest extends TestCase
             $result->isProportional()
         );
     }
+
+    public function testMethodOption () : void
+    {
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('C');
+
+        $this->election1->addVote('A>B>C');
+
+        $class = Condorcet::getMethodClass('Borda');
+
+        self::assertSame(1, $class::$optionStarting);
+
+        $b1 = $this->election1->getResult('Borda');
+        $c1 = $this->election1->getResult('Copeland');
+
+        self::assertSame(1, $b1->getMethodOptions()['Starting']);
+
+        self::assertTrue($this->election1->setMethodOption('Borda Count', 'Starting', 0));
+        self::assertSame(0, $class::$optionStarting);
+
+        self::assertSame(1, $b1->getMethodOptions()['Starting']);
+
+        $b2 = $this->election1->getResult('Borda');
+        $c2 = $this->election1->getResult('Copeland');
+
+        self::assertNotSame($b1, $b2);
+        self::assertSame($c1, $c2);
+
+        self::assertSame(0, $b2->getMethodOptions()['Starting']);
+    }
 }

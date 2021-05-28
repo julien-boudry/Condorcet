@@ -171,6 +171,23 @@ trait ResultsProcess
         return $this->getPairwise()->getExplicitPairwise();
     }
 
+    // Generic function for default result with ability to change default object method
+    #[PublicAPI]
+    #[Description("Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.")]
+    #[FunctionReturn("True on success. Else False.")]
+    #[Related("Result::getMethodOptions")]
+    public function setMethodOption (string $method, string $optionName, mixed $optionValue) : bool
+    {
+        if ($method = Condorcet::getMethodClass($method)) :
+            $method::setOption($optionName, $optionValue);
+            unset($this->_Calculator[$method]);
+
+            return true;
+        else :
+            return false;
+        endif;
+    }
+
 
 
 /////////// MAKE RESULTS ///////////
