@@ -90,6 +90,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->removeVotesByTags (...)](Election%20Class/public%20Election--removeVotesByTags.md) : array  
 * [public Election->setExternalDataHandler (...)](Election%20Class/public%20Election--setExternalDataHandler.md) : bool  
 * [public Election->setImplicitRanking (...)](Election%20Class/public%20Election--setImplicitRanking.md) : bool  
+* [public Election->setMethodOption (...)](Election%20Class/public%20Election--setMethodOption.md) : bool  
 * [public Election->setNumberOfSeats (...)](Election%20Class/public%20Election--setNumberOfSeats.md) : int  
 * [public Election->setStateToVote ()](Election%20Class/public%20Election--setStateToVote.md) : bool  
 * [public Election->sumValidVotesWeightWithConstraints ()](Election%20Class/public%20Election--sumValidVotesWeightWithConstraints.md) : int  
@@ -105,6 +106,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getCondorcetWinner ()](Result%20Class/public%20Result--getCondorcetWinner.md) : ?CondorcetPHP\Condorcet\Candidate  
 * [public Result->getLoser ()](Result%20Class/public%20Result--getLoser.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Result->getMethod ()](Result%20Class/public%20Result--getMethod.md) : string  
+* [public Result->getMethodOptions ()](Result%20Class/public%20Result--getMethodOptions.md) : array  
 * [public Result->getNumberOfSeats ()](Result%20Class/public%20Result--getNumberOfSeats.md) : ?int  
 * [public Result->getObjectVersion (...)](Result%20Class/public%20Result--getObjectVersion.md) : string  
 * [public Result->getOriginalResultArrayWithString ()](Result%20Class/public%20Result--getOriginalResultArrayWithString.md) : array  
@@ -155,6 +157,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -165,6 +168,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -177,6 +181,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -189,6 +194,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getLoser () : ?int  
@@ -201,6 +207,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -213,6 +220,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -224,6 +232,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -236,6 +245,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -248,6 +258,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -262,6 +273,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -274,6 +286,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -284,8 +297,9 @@ _Including above methods from public API_
 * protected getStats () : array  
 ```
 
-#### CondorcetPHP\Condorcet\Algo\Methods\Majority\TwoRoundSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+#### CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -298,6 +312,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -310,6 +325,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -322,6 +338,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -334,6 +351,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -346,6 +364,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -362,6 +381,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -378,6 +398,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -394,6 +415,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -406,6 +428,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -420,6 +443,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -434,6 +458,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -448,6 +473,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public static setOption (string $optionName, mixed $optionValue) : bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __destruct ()  
 * public getObjectVersion (bool $major = false) : string  
@@ -797,6 +823,7 @@ _Including above methods from public API_
 * public removeVotesByTags (array|string $tags, bool $with = true) : array  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver) : bool  
 * public setImplicitRanking (bool $rule = true) : bool  
+* public setMethodOption (string $method, string $optionName, mixed $optionValue) : bool  
 * public setNumberOfSeats (int $seats) : int  
 * public setStateToVote () : bool  
 * public sumValidVotesWeightWithConstraints () : int  
@@ -824,7 +851,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
-* public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats, ?int $seats = null)  
+* public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])  
 * public __destruct ()  
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
@@ -836,6 +863,7 @@ _Including above methods from public API_
 * public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
 * public getLoser () : CondorcetPHP\Condorcet\Candidate|array|null  
 * public getMethod () : string  
+* public getMethodOptions () : array  
 * public getNumberOfSeats () : ?int  
 * public getObjectVersion (bool $major = false) : string  
 * public getOriginalResultArrayWithString () : array  
