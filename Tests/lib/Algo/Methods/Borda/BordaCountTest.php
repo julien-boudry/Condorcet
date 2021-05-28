@@ -124,4 +124,72 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getStats()
         );
     }
+
+    public function testResult_4 () : void
+    {
+        # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D * 42
+            B>C>D>A * 26
+            C>D>B>A * 15
+            D>C>B>A * 17
+        ');
+
+        self::assertSame( [
+                1 => 'B',
+                2 => 'C',
+                3 => 'A',
+                4 => 'D' ],
+            $this->election->getResult('Borda Count')->getResultAsArray(true)
+        );
+
+        self::assertEquals( [
+            'B' => 294,
+            'C' => 273,
+            'A' => 226,
+            'D' => 207 ],
+            $this->election->getResult('Borda Count')->getStats()
+        );
+    }
+
+    public function testResult_variant () : void
+    {
+        # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A>B>C>D * 42
+            B>C>D>A * 26
+            C>D>B>A * 15
+            D>C>B>A * 17
+        ');
+
+        $this->election::setMethodOption('Borda Count', 'Starting', 0);
+
+        self::assertSame( [
+                1 => 'B',
+                2 => 'C',
+                3 => 'A',
+                4 => 'D' ],
+            $this->election->getResult('Borda Count')->getResultAsArray(true)
+        );
+
+        self::assertEquals( [
+            'B' => 294 - 100,
+            'C' => 273 - 100,
+            'A' => 226 - 100,
+            'D' => 207 - 100 ],
+            $this->election->getResult('Borda Count')->getStats()
+        );
+    }
 }

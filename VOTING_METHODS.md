@@ -78,7 +78,7 @@ $election->getCondorcetLoser() ;
 > **Methods alias available (for function call)**: "BordaCount","Borda Count","Borda","Méthode Borda"  
 
 ### Implementation Comments
-Count start at 1.  
+By default the option is to start the count at n - 1. You can change it with BordaCount::setOption(), see below.  
 
 In case of tie into a vote rank, follow this example:  
 ```
@@ -101,6 +101,10 @@ $election->getLoser('BordaCount') ;
 
 // Get Stats
 $election->getResult('BordaCount')->getStats() ;
+
+// Chante the staring point to n - 0
+$election->setMethodOption('BordaCount', 'Starting', 0) ;
+$election->getResult('BordaCount') ;
 ```
 
 

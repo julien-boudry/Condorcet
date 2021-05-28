@@ -21,7 +21,7 @@ class BordaCount extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['BordaCount','Borda Count','Borda','Méthode Borda'];
 
-    public static int $starting = 1;
+    public static int $optionStarting = 1;
 
     protected ?array $_Stats = null;
 
@@ -90,6 +90,6 @@ class BordaCount extends Method implements MethodInterface
 
     protected function getScoreByCandidateRanking (int $CandidatesRanked) : float
     {
-        return $this->_selfElection->countCandidates() + static::$starting - 1 - $CandidatesRanked;
+        return (float) ($this->_selfElection->countCandidates() + static::$optionStarting - 1 - $CandidatesRanked);
     }
 }
