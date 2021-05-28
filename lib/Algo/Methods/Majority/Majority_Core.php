@@ -18,6 +18,10 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 abstract class Majority_Core extends Method implements MethodInterface
 {
+    protected int $_maxRound;
+    protected int $_targetNumberOfCandidatesForTheNextRound;
+    protected int $_numberOfTargetedCandidatesAfterEachRound;
+    
     protected array $_admittedCandidates = [];
     protected ?array $_Stats = null;
 
@@ -56,7 +60,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                 endforeach;
             endif;
 
-            if ( $round === static::MAX_ROUND || \reset($roundScore) > (\array_sum($roundScore) / 2) ) :
+            if ( $round === $this->_maxRound || \reset($roundScore) > (\array_sum($roundScore) / 2) ) :
                 $resolved = true;
 
                 if ( isset($score[$round - 1]) && $score[$round] === $score[$round - 1] ) :
@@ -70,7 +74,7 @@ abstract class Majority_Core extends Method implements MethodInterface
 
                 foreach ($roundScore as $oneCandidateKey => $oneScore) :
                     if ($lastScore === null ||
-                        $nextRoundAddedCandidates < ( static::TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND + (static::CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND * ($round - 1)) ) ||
+                        $nextRoundAddedCandidates < ( $this->_targetNumberOfCandidatesForTheNextRound + ($this->_numberOfTargetedCandidatesAfterEachRound * ($round - 1)) ) ||
                         $oneScore === $lastScore
                         ) :
                             $this->_admittedCandidates[] = $oneCandidateKey;

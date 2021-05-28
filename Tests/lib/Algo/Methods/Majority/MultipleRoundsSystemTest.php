@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Resul
 use CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core;
 use PHPUnit\Framework\TestCase;
 
-class MajorityCoreTest extends TestCase
+class MultipleRoundsSystemTest extends TestCase
 {
     /**
      * @var election
@@ -19,10 +19,17 @@ class MajorityCoreTest extends TestCase
         $this->election = new Election;
     }
 
+    protected function resetOptions () : void
+    {
+        $methodClass = Condorcet::getMethodClass('runoff voting');
+
+        $this->election->setMethodOption($methodClass, 'MAX_ROUND', 2);
+        $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 2);
+        $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
+    }
+
     public function testResult_MajorityTest_systematic_triangular () : void
     {
-        self::assertTrue(Condorcet::addMethod(MajorityTest_systematic_triangular::class));
-
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');
@@ -35,12 +42,18 @@ class MajorityCoreTest extends TestCase
             D>C>B>A * 17
         ');
 
+        $methodClass = Condorcet::getMethodClass('Multiple Rounds System');
+
+        $this->election->setMethodOption($methodClass, 'MAX_ROUND', 2);
+        $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 3);
+        $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
+
         self::assertSame( [
                 1 => 'A',
                 2 => 'D',
                 3 => 'B',
                 4 => 'C' ],
-            $this->election->getResult('MajorityTest_systematic_triangular')->getResultAsArray(true)
+            $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
         self::assertSame([  1=> [
@@ -55,14 +68,15 @@ class MajorityCoreTest extends TestCase
                                 'B' => 26,
                             ]
                         ],
-                        $this->election->getResult('MajorityTest_systematic_triangular')->getStats()
+                        $this->election->getResult('Multiple Rounds System')->getStats()
         );
+
+        $this->resetOptions();
     }
 
 
     public function testResult_MajorityTest_three_round () : void
     {
-        self::assertTrue(Condorcet::addMethod(MajorityTest_three_round::class));
         $this->election->allowsVoteWeight(true);
 
         $this->election->addCandidate('A');
@@ -79,8 +93,15 @@ class MajorityCoreTest extends TestCase
             E>B ^5
         ');
 
+        $methodClass = Condorcet::getMethodClass('runoff voting');
+
+        $this->election->setMethodOption($methodClass, 'MAX_ROUND', 3);
+        $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 2);
+        $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
+
+
         self::assertSame( [ 1 => 'B', 2 => 'A', 3 => 'C', 4=> 'D', 5=> 'E' ],
-            $this->election->getResult('MajorityTest_three_round')->getResultAsArray(true)
+            $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
         self::assertSame([  1=> [
@@ -100,14 +121,14 @@ class MajorityCoreTest extends TestCase
                                 'A' => 19
                             ]
                         ],
-            $this->election->getResult('MajorityTest_three_round')->getStats()
+            $this->election->getResult('runoff voting')->getStats()
         );
 
+        $this->resetOptions();
     }
 
     public function testResult_MajorityTest_Many_Round () : void
     {
-        self::assertTrue(Condorcet::addMethod(MajorityTest_Many_Round::class));
         $this->election->allowsVoteWeight(true);
 
         $this->election->addCandidate('A');
@@ -126,8 +147,14 @@ class MajorityCoreTest extends TestCase
             F>A>B>C>D>E ^95
         ');
 
+        $methodClass = Condorcet::getMethodClass('Multiple Rounds System');
+
+        $this->election->setMethodOption($methodClass, 'MAX_ROUND', 100);
+        $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 5);
+        $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', -1);
+
         self::assertSame( [ 1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E', 6 => 'F' ],
-            $this->election->getResult('MajorityTest_Many_Round')->getResultAsArray(true)
+            $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
         self::assertSame([  1=> [
@@ -161,39 +188,10 @@ class MajorityCoreTest extends TestCase
                                 'B' => 99 + 96 + (97/2),
                             ]
                         ],
-            $this->election->getResult('MajorityTest_Many_Round')->getStats()
+            $this->election->getResult('runoff voting')->getStats()
         );
 
+        $this->resetOptions();
     }
 
-}
-
-class MajorityTest_systematic_triangular extends Majority_Core {
-    // Method Name
-    public const METHOD_NAME = ['MajorityTest_systematic_triangular'];
-
-    // Mod
-    public const MAX_ROUND = 2;
-    public const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 3;
-    public const CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = 0;
-}
-
-class MajorityTest_three_round extends Majority_Core {
-    // Method Name
-    public const METHOD_NAME = ['MajorityTest_three_round'];
-
-    // Mod
-    public const MAX_ROUND = 3;
-    public const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
-    public const CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = 0;
-}
-
-class MajorityTest_Many_Round extends Majority_Core {
-    // Method Name
-    public const METHOD_NAME = ['MajorityTest_Many_Round'];
-
-    // Mod
-    public const MAX_ROUND = 100;
-    public const TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 5;
-    public const CHANGING_THE_NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = -1;
 }

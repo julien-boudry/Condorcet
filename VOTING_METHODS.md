@@ -20,7 +20,7 @@ Condorcet PHP: Voting Methods
 * **[Kemeny–Young](#kemenyyoung)**
 * **Majority Family**
     * **[First-past-the-post](#first-past-the-post)**
-    * **[Two-round system](#two-round-system)**
+    * **[Multiple Rounds system](#multiple-rounds-system)**
 * **Minimax Family**
     * **[Minimax Winning](#minimax-winning)**
     * **[Minimax Margin](#minimax-margin)**
@@ -209,20 +209,6 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 ```
 
 
-### Code example
-```php
-// Get Full Ranking
-$election->getResult('Two-round system') ;
-
-// Just get Winner or Loser
-$election->getWinner('Two-round system') ;
-$election->getLoser('Two-round system') ;
-
-// Get Stats
-$election->getResult('Two-round system')->getStats() ;
-```
-
-
 ## Instant-runoff (Alternative Vote)
 
 > **Family:** Instant-runoff  
@@ -304,13 +290,13 @@ $election->getResult('FPTP')->getStats() ;
 ```
 
 
-## Two-round system
+## Multiple Rounds system
 
 > **Family:** Majority  
 > **Variant used:** *See implementation comment*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Two-round_system
 > ***  
-> **Methods alias available (for function call)**: "Two-round system", "second ballot", "runoff voting", "ballotage", "two round system", "two round", "two rounds", "two rounds system", "runoff voting"
+> **Methods alias available (for function call)**: "Multiple Rounds System", "MultipleRoundsSystem", "Multiple Rounds", "Majority", "Majority System", "Two-round system", "second ballot", "runoff voting", "ballotage", "two round system", "two round", "two rounds", "two rounds system", "runoff voting"
 
 ### Implementation Comments  
 In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).  
@@ -318,6 +304,19 @@ For example: ```A = B > C```
 A/B earn each 0.5 points  
  
 Method is trying to keep only two candidates for the next round. But that may be more in the event of a perfect tie.  
+
+### Code example
+```php
+// Get Full Ranking
+$election->getResult('Multiple Rounds System') ;
+
+// Just get Winner or Loser
+$election->getWinner('Multiple Rounds System') ;
+$election->getLoser('Multiple Rounds System') ;
+
+// Get Stats
+$election->getResult('Multiple Rounds System')->getStats() ;
+```
 
 
 ## Minimax Winning
