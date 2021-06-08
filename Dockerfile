@@ -1,4 +1,4 @@
-FROM php:8.0-rc-cli-buster
+FROM php:8.0-cli-buster
 
 COPY . /usr/src/condorcetapp
 WORKDIR /usr/src/condorcetapp
