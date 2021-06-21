@@ -38,12 +38,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $this->votesNeededToWin = floor(  (   $this->_selfElection->sumValidVotesWeightWithConstraints()
-                                        /
-                                        ($this->_selfElection->getNumberOfSeats() + 1)
-                                    )
-                                    + 1
-                                );
+        $this->votesNeededToWin = floor(( $this->_selfElection->sumValidVotesWeightWithConstraints() / ($this->_selfElection->getNumberOfSeats() + 1) ) + 1);
 
         $candidateElected = [];
         $candidateEliminated = [];
