@@ -20,7 +20,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 class InstantRunoff extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Instant-runoff', 'InstantRunoff', 'preferential voting', 'ranked-choice voting', 'alternative vote', 'AlternativeVote', 'transferable vote', 'Vote alternatif'];
+    public const METHOD_NAME = ['Instant-runoff', 'InstantRunoff', 'IRV', 'preferential voting', 'ranked-choice voting', 'alternative vote', 'AlternativeVote', 'transferable vote', 'Vote alternatif'];
 
     protected ?array $_Stats = null;
 
