@@ -17,14 +17,14 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 // Generic for Algorithms
 abstract class StvQuotas
 {
-    public static function getQuota (string $quota, int $weight, int $seats) : float
+    public static function getQuota (string $quota, int $votesWeight, int $seats) : float
     {
         try {
             return match (strtolower($quota)) {
-                'droop quota', 'droop' => floor(( $weight / ($seats + 1) ) + 1),
-                'hare quota', 'hare' => $weight / $seats,
-                'hagenbach-bischoff quota', 'hagenbach-bischoff' => $weight / ($seats + 1),
-                'imperiali quota', 'imperiali' => $weight / ($seats+ 2),
+                'droop quota', 'droop' => floor(( $votesWeight / ($seats + 1) ) + 1),
+                'hare quota', 'hare' => $votesWeight / $seats,
+                'hagenbach-bischoff quota', 'hagenbach-bischoff' => $votesWeight / ($seats + 1),
+                'imperiali quota', 'imperiali' => $votesWeight / ($seats+ 2),
             };
         } catch (\UnhandledMatchError $e) {
             throw new CondorcetException(103);
