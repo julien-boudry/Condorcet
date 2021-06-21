@@ -19,6 +19,11 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election = new Election;
     }
 
+    public function tearDown() : void
+    {
+        $this->resetOptions();
+    }
+
     protected function resetOptions () : void
     {
         $methodClass = Condorcet::getMethodClass('runoff voting');
@@ -70,8 +75,6 @@ class MultipleRoundsSystemTest extends TestCase
                         ],
                         $this->election->getResult('Multiple Rounds System')->getStats()
         );
-
-        $this->resetOptions();
     }
 
 
@@ -123,8 +126,6 @@ class MultipleRoundsSystemTest extends TestCase
                         ],
             $this->election->getResult('runoff voting')->getStats()
         );
-
-        $this->resetOptions();
     }
 
     public function testResult_MajorityTest_Many_Round () : void
@@ -190,8 +191,6 @@ class MultipleRoundsSystemTest extends TestCase
                         ],
             $this->election->getResult('runoff voting')->getStats()
         );
-
-        $this->resetOptions();
     }
 
 }
