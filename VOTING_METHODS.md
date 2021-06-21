@@ -215,7 +215,7 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Instant-runoff_voting  
 > ***  
-> **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
+> **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "IRV", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
 ### Implementation Comments  
 In case of tie into a vote rank, rank is ignored like he never existed.  
@@ -536,6 +536,8 @@ In case of tie into a vote rank, rank is ignored like he never existed.
 The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
 Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
 
+Default quota is the Droop quota. three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, Imperiali.
+
 ### Code example
 
 ```php
@@ -550,4 +552,14 @@ $election->getResult('STV')->getNumberOfSeats();
 
 // Get Stats (votes needed to win, rounds detailsd)
 $election->getResult('STV')->getStats();
+
+// Change the Quota
+$election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff') ;
+$election->getResult('STV') ;
+$election->setMethodOption('STV', 'Quota', 'Imperiali') ;
+$election->getResult('STV') ;
+$election->setMethodOption('STV', 'Quota', 'Hare') ;
+$election->getResult('STV') ;
+$election->setMethodOption('STV', 'Quota', 'Droop') ;
+$election->getResult('STV') ;
 ```
