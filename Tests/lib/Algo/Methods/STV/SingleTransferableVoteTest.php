@@ -421,4 +421,68 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hare quota');
     }
 
+    public function testResult_AlternativeQuotas4 () : void
+    {
+        # From https://en.wikipedia.org/wiki/CPO-STV
+
+        $this->election->addCandidate('Andrea');
+        $this->election->addCandidate('Carter');
+        $this->election->addCandidate('Brad');
+        $this->election->addCandidate('Delilah');
+        $this->election->addCandidate('Scott');
+
+        $this->election->setImplicitRanking(false);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            Andrea ^25
+            Carter > Brad > Delilah ^34
+            Brad > Delilah ^7
+            Delilah > Brad ^8
+            Delilah > Scott ^5
+            Scott > Delilah ^21
+        ');
+
+        $this->election->setNumberOfSeats(3);
+        $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff');
+
+        self::assertSame(
+            (float) 25,
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertSame(
+            [
+                1 =>
+                    [
+                    'Carter' => 34.0,
+                    'Andrea' => 25.0,
+                    'Scott' => 21.0,
+                    'Delilah' => 13.0,
+                    'Brad' => 7.0,
+                    ],
+                2 =>
+                    [
+                    'Scott' => 21.0,
+                    'Brad' => 16.0,
+                    'Delilah' => 13.0,
+                    ],
+                3 =>
+                    [
+                    'Scott' => 26.0,
+                    'Brad' => 24.0,
+                    ],
+            ],
+            $this->election->getResult('STV')->getStats()['rounds']
+        );
+
+        self::assertSame( [
+                1 => 'Carter',
+                2 => 'Andrea',
+                3 => 'Scott'
+             ],
+            $this->election->getResult('STV')->getResultAsArray(true)
+        );
+    }
+
 }
