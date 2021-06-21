@@ -1,7 +1,7 @@
 | Q                   | A
 | --------------------| ---------------
 | Type                | Bug / Support / Suggestion / Other
-| Concorcet version   | x.y.z
+| Condorcet version   | x.y.z
 | PHP version         | x.y.z
 | Installation Method | Composer / __CondorcetAutoload.php / Custom
 
