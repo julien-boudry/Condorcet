@@ -61,7 +61,8 @@ class CondorcetException extends \Exception implements \Stringable
         50 => 'This entity does not exist.',
 
         // Algo.
-        102 => 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.'
+        102 => 'Marquis of Condorcet algortihm can\'t provide a full ranking. But only Winner and Loser.',
+        103 => 'This quota is not implemented.',
     ];
 
     protected array $_infos;

@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use \CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote;
+use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use PHPUnit\Framework\TestCase;
 
 class SingleTransferableVoteTest extends TestCase
@@ -17,6 +18,28 @@ class SingleTransferableVoteTest extends TestCase
     public function setUp() : void
     {
         $this->election = new Election;
+    }
+
+    public function tearDown() : void
+    {
+        $this->election->setMethodOption('STV', 'Quota', 'droop quota');
+    }
+
+    public function testQuotaOption () : void
+    {
+        self::assertTrue(
+            $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff')
+        );
+
+        $this->expectException(CondorcetException::class);
+        $this->expectExceptionCode(103);
+        $this->expectExceptionMessage('This quota is not implemented.');
+
+        $this->election->setMethodOption('STV', 'Quota', 'another quota');
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addVote('A');
+        $this->election->getResult('STV');
     }
 
     public function testResult_1 () : void
@@ -237,6 +260,165 @@ class SingleTransferableVoteTest extends TestCase
              ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
+    }
+
+
+    public function testResult_AlternativeQuotas1 () : void
+    {
+        # From https://en.wikipedia.org/wiki/Hagenbach-Bischoff_quota
+
+        $this->election->addCandidate('Andrea');
+        $this->election->addCandidate('Carter');
+        $this->election->addCandidate('Brad');
+
+        $this->election->setImplicitRanking(false);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            Andrea > Carter ^45
+            Carter ^25
+            Brad ^30
+        ');
+
+        $this->election->setNumberOfSeats(2);
+        $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff');
+
+        self::assertSame(
+            (float) (33 + 1/3),
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertEqualsWithDelta(
+            [
+                1 =>
+                    [
+                    'Andrea' => 45.0,
+                    'Brad' => 30.0,
+                    'Carter' => 25.0
+                    ],
+                2 =>
+                    [
+                    'Carter' => 36.0 + 2/3,
+                    'Brad' => 30.0
+                    ]
+            ],
+            $this->election->getResult('STV')->getStats()['rounds'],
+            delta: 0.000000000001
+        );
+
+        self::assertSame( [
+                1 => 'Andrea',
+                2 => 'Carter',
+             ],
+            $this->election->getResult('STV')->getResultAsArray(true)
+        );
+
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hagenbach-Bischoff');
+    }
+
+    public function testResult_AlternativeQuotas2 () : void
+    {
+        # From https://en.wikipedia.org/wiki/Imperiali_quota
+
+        $this->election->addCandidate('Andrea');
+        $this->election->addCandidate('Carter');
+        $this->election->addCandidate('Brad');
+
+        $this->election->setImplicitRanking(false);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            Andrea > Carter ^65
+            Carter ^15
+            Brad ^20
+        ');
+
+        $this->election->setNumberOfSeats(2);
+        $this->election->setMethodOption('STV', 'Quota', 'Imperiali quota');
+
+        self::assertSame(
+            (float) (100 / (2 + 2)),
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertSame(
+            [
+                1 =>
+                    [
+                    'Andrea' => 65.0,
+                    'Brad' => 20.0,
+                    'Carter' => 15.0
+                    ],
+                2 =>
+                    [
+                    'Carter' => 55.0,
+                    'Brad' => 20.0
+                    ]
+            ],
+            $this->election->getResult('STV')->getStats()['rounds']
+        );
+
+        self::assertSame( [
+                1 => 'Andrea',
+                2 => 'Carter',
+             ],
+            $this->election->getResult('STV')->getResultAsArray(true)
+        );
+
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Imperiali quota');
+    }
+
+    public function testResult_AlternativeQuotas3 () : void
+    {
+        # From https://en.wikipedia.org/wiki/Hare_quota
+
+        $this->election->addCandidate('Andrea');
+        $this->election->addCandidate('Carter');
+        $this->election->addCandidate('Brad');
+
+        $this->election->setImplicitRanking(false);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('
+            Andrea > Carter ^60
+            Carter ^14
+            Brad ^26
+        ');
+
+        $this->election->setNumberOfSeats(2);
+        $this->election->setMethodOption('STV', 'Quota', 'Hare quota');
+
+        self::assertSame(
+            (float) (100 / 2),
+            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+        );
+
+        self::assertSame(
+            [
+                1 =>
+                    [
+                    'Andrea' => 60.0,
+                    'Brad' => 26.0,
+                    'Carter' => 14.0
+                    ],
+                2 =>
+                    [
+                    'Brad' => 26.0,
+                    'Carter' => 24.0
+                    ],
+                3 => ['Brad' => 26.0]
+            ],
+            $this->election->getResult('STV')->getStats()['rounds']
+        );
+
+        self::assertSame( [
+                1 => 'Andrea',
+                2 => 'Brad',
+             ],
+            $this->election->getResult('STV')->getResultAsArray(true)
+        );
+
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hare quota');
     }
 
 }
