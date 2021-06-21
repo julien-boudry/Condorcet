@@ -15,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
 // Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
 class SingleTransferableVote extends Method implements MethodInterface
@@ -41,7 +41,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $this->votesNeededToWin = $this->getQuota();
+        $this->votesNeededToWin = StvQuotas::getQuota(self::$optionQuota, $this->_selfElection->sumValidVotesWeightWithConstraints(), $this->_selfElection->getNumberOfSeats());
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -89,20 +89,6 @@ class SingleTransferableVote extends Method implements MethodInterface
         endwhile;
 
         $this->_Result = $this->createResult($result);
-    }
-
-    protected function getQuota () : float
-    {
-        try {
-            return match (strtolower(self::$optionQuota)) {
-                'droop quota', 'droop' => floor(( $this->_selfElection->sumValidVotesWeightWithConstraints() / ($this->_selfElection->getNumberOfSeats() + 1) ) + 1),
-                'hare quota', 'hare' => $this->_selfElection->sumValidVotesWeightWithConstraints() / $this->_selfElection->getNumberOfSeats(),
-                'hagenbach-bischoff quota', 'hagenbach-bischoff' => $this->_selfElection->sumValidVotesWeightWithConstraints() / ($this->_selfElection->getNumberOfSeats() + 1),
-                'imperiali quota', 'imperiali' => $this->_selfElection->sumValidVotesWeightWithConstraints() / ($this->_selfElection->getNumberOfSeats() + 2),
-            };
-        } catch (\UnhandledMatchError $e) {
-            throw new CondorcetException(103);
-        }
     }
 
     protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated) : array
