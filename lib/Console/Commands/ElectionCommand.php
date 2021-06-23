@@ -93,9 +93,14 @@ class ElectionCommand extends Command
                             , InputOption::VALUE_NONE
                             , 'Add no-tie constraint for vote'
             )
+
             ->addOption(      'seats', null
                             , InputOption::VALUE_REQUIRED
                             , 'Specify the number of seats for proportional methods'
+            )
+            ->addOption(      'quota', null
+                            , InputOption::VALUE_REQUIRED
+                            , 'Quota to be used for STV compatible methods'
             )
 
             ->addOption(      'deactivate-file-cache', null
@@ -284,20 +289,23 @@ class ElectionCommand extends Command
         foreach ($methods as $oneMethod) :
 
             $io->newLine();
-            $io->section($oneMethod.' Method:');
+            $io->section($oneMethod['name'].' Method:');
+
+            if ( isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null ) :
+                $this->election->setMethodOption($oneMethod['class'], 'Quota', $input->getOption('quota'));
+            endif;
 
             // Result
-            $result = $this->election->getResult($oneMethod);
+            $result = $this->election->getResult($oneMethod['name']);
 
             if (!empty($options = $result->getMethodOptions())) :
-                
                 $rows = [];
                 foreach ($options as $key => $value) :
                     $rows[] = [$key.':', $value];
                 endforeach;
 
                 (new Table($output))
-                    ->setHeaderTitle('Configuration: '.$oneMethod)
+                    ->setHeaderTitle('Configuration: '.$oneMethod['name'])
                     ->setHeaders(['Variable', 'Value'])
                     ->setRows($rows)
 
@@ -308,7 +316,7 @@ class ElectionCommand extends Command
             endif;
 
             (new Table($output))
-                ->setHeaderTitle('Results: '.$oneMethod)
+                ->setHeaderTitle('Results: '.$oneMethod['name'])
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows($this->formatResultTable($result))
 
@@ -321,7 +329,7 @@ class ElectionCommand extends Command
             // Stats
             if ($input->getOption('method-stats') || $input->getOption('stats')) :
                 (new Table($output))
-                    ->setHeaderTitle('Stats: '.$oneMethod)
+                    ->setHeaderTitle('Stats: '.$oneMethod['name'])
                     ->setHeaders(['Stats'])
                     ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($result->getStats(),100))]])
 
@@ -435,21 +443,23 @@ class ElectionCommand extends Command
     protected function prepareMethods (array $methodArgument) : array
     {
         if (empty($methodArgument)) :
-            return [Condorcet::getDefaultMethod()::METHOD_NAME[0]];
+            return [['name' => Condorcet::getDefaultMethod()::METHOD_NAME[0], 'class' => Condorcet::getDefaultMethod()]];
         else :
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) :
                 if (\strtolower($oneMethod) === "all") :
                     $methods = Condorcet::getAuthMethods(false);
+                    $methods = array_map(fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
                     break;
                 endif;
 
                 if (Condorcet::isAuthMethod($oneMethod)) :
-                    $method_name = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
+                    $method_class = Condorcet::getMethodClass($oneMethod);
+                    $method_name = $method_class::METHOD_NAME[0];
 
                     if (!in_array(needle: $method_name, haystack: $methods, strict: true)) :
-                        $methods[] = Condorcet::getMethodClass($oneMethod)::METHOD_NAME[0];
+                        $methods[] = ['name' => $method_name, 'class' => $method_class];
                     endif;
                 endif;
             endforeach;

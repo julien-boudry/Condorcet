@@ -87,6 +87,32 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
+    public function testQuotas () : void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+
+                                            'methods' => ['STV'],
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('droop quota', $output);
+
+        $this->electionCommand->execute([
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A>B>C;C>B>A;B>A>C',
+
+            'methods' => ['STV'],
+            '--quota' => 'imperiali'
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('imperiali', $output);
+    }
+
     public function testConsoleAllMethodsArgument () : void
     {
         $this->electionCommand->execute([
