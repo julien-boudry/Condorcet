@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
@@ -80,7 +80,10 @@ trait VotesProcess
     #[Description("Get registered vote list.")]
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::countVotes", "Election::getVotesListAsString")]
-    public function getVotesList (mixed $tags = null, bool $with = true) : array
+    public function getVotesList (
+        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+    ) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }

@@ -10,11 +10,11 @@ Get registered vote list.
     
 
 ##### **tags:** *mixed*   
-    
+Tags list as a string separated by commas or array.    
 
 
 ##### **with:** *bool*   
-    
+Get votes with these tags or without.    
 
 
 ### Return value:   

@@ -4,14 +4,6 @@
 
 -
   class:
-    - Vote
-    - Candidate
-  name: haveLink
-  input:
-    election:
-      text: Condorcet election to check.
--
-  class:
     - Candidate
     - Election
     - Algo\Pairwise

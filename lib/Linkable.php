@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter, Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
 
 trait Linkable
@@ -31,7 +31,10 @@ trait Linkable
     #[Description("Check if this election is linked with this Candidate/Vote object.")]
     #[FunctionReturn("True or False.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function haveLink (Election $election) : bool
+    public function haveLink (
+        #[FunctionParameter('Condorcet election to check')]
+        Election $election
+    ) : bool
     {
         return \in_array(needle: $election, haystack: $this->_link, strict: true);
     }

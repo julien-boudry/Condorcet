@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
@@ -358,7 +358,9 @@ class Election
     #[Description("Set number of Seats for STV methods.")]
     #[FunctionReturn("Number of seats.")]
     #[Related("Election::getNumberOfSeats")]
-    public function setNumberOfSeats (int $seats) : int
+    public function setNumberOfSeats (
+        #[FunctionParameter('The number of seats for proportional methods.')] int $seats
+    ) : int
     {
         if ($seats > 0) :
             $this->cleanupCompute();

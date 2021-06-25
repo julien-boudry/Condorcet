@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use HaydenPierce\ClassFinder\ClassFinder;
 use Symfony\Component\Yaml\Yaml;
 
@@ -266,9 +266,18 @@ class Generate
         // Input
         if ($method->getNumberOfParameters() > 0) :
             foreach ($method->getParameters() as $key => $value ) :
+                
+                if (!empty($attributes = $value->getAttributes(FunctionParameter::class))) :
+                    $pt = $attributes[0]->newInstance()->text;
+                elseif (isset($entry['input'][$value->getName()]['text'])) :
+                     $pt = $entry['input'][$value->getName()]['text'];
+                else :
+                    $pt = "";
+                endif;
+
                 $md .=  "\n\n".
                         "##### **".$value->getName().":** *".self::getTypeAsString($value->getType())."*   \n".
-                        ((isset($entry['input'][$value->getName()]['text'])) ? $entry['input'][$value->getName()]['text'] : "")."    \n";
+                        $pt."    \n";
             endforeach;
         endif;
 

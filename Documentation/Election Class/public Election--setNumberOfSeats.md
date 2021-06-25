@@ -10,7 +10,7 @@ Set number of Seats for STV methods.
     
 
 ##### **seats:** *int*   
-    
+The number of seats for proportional methods.    
 
 
 ### Return value:   
