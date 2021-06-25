@@ -526,6 +526,11 @@ _Including above methods from public API_
 * private _permute (array $arr) : array|int  
 ```
 
+#### Abstract CondorcetPHP\Condorcet\Algo\Tools\StvQuotas   
+```php
+* public static getQuota (string $quota, int $votesWeight, int $seats) : float  
+```
+
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection   
 ```php
 * public static tieBreaker_1 (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys) : array  
@@ -582,6 +587,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command   
 ```php
+* public static getDefaultDescription () : ?string  
 * public static getDefaultName ()  
 * public __construct (?string $name = null)  
 * public addArgument (string $name, ?int $mode = null, string $description = , $default = null)  
