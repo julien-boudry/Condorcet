@@ -10,15 +10,15 @@ Set an option to a method module and reset his cache for this election object. B
     
 
 ##### **method:** *string*   
-    
+Method name or class path.    
 
 
 ##### **optionName:** *string*   
-    
+Option name.    
 
 
 ##### **optionValue:** *mixed*   
-    
+Option Value.    
 
 
 ### Return value:   

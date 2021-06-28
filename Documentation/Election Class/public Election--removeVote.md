@@ -10,7 +10,7 @@ Remove Votes from an election.
     
 
 ##### **vote:** *CondorcetPHP\Condorcet\Vote*   
-    
+Vote object.    
 
 
 ### Return value:   

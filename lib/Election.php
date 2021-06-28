@@ -381,7 +381,10 @@ class Election
     #[FunctionReturn("True if success. Else throw an Exception.")]
     #[Example("[Manual - DataHandler]","https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php")]
     #[Related("Election::removeExternalDataHandler")]
-    public function setExternalDataHandler (DataHandlerDriverInterface $driver) : bool
+    public function setExternalDataHandler (
+        #[FunctionParameter('Driver object')]
+        DataHandlerDriverInterface $driver
+    ) : bool
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);

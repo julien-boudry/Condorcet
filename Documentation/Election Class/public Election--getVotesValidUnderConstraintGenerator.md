@@ -1,9 +1,9 @@
-## public Election::getVotesListGenerator
+## public Election::getVotesValidUnderConstraintGenerator
 
 ### Description    
 
 ```php
-public Election->getVotesListGenerator ( [mixed tags = null , bool with = true] ) : Generator
+public Election->getVotesValidUnderConstraintGenerator ( [mixed tags = null , bool with = true] ) : Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.
@@ -27,4 +27,5 @@ Get votes with these tags or without.
 
 ### Related method(s)      
 
+* [Election::getVotesListGenerator](../Election%20Class/public%20Election--getVotesListGenerator.md)    
 * [Election::getVotesList](../Election%20Class/public%20Election--getVotesList.md)    

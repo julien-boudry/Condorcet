@@ -106,12 +106,22 @@ trait VotesProcess
     #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::getVotesList")]
-    public function getVotesListGenerator (mixed $tags = null, bool $with = true) : \Generator
+    public function getVotesListGenerator (
+        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+    ) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
 
-    public function getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : \Generator
+    #[PublicAPI]
+    #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
+    #[FunctionReturn("Populated by each Vote object.")]
+    #[Related("Election::getVotesListGenerator","Election::getVotesList")]
+    public function getVotesValidUnderConstraintGenerator (
+        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+    ) : \Generator
     {
         return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
     }
@@ -227,7 +237,9 @@ trait VotesProcess
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
     #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotesByTags")]
-    public function removeVote (Vote $vote) : bool
+    public function removeVote (
+    #[FunctionParameter('Vote object')] Vote $vote
+    ) : bool
     {
         $key = $this->getVoteKey($vote);
         if ($key !== null) :
@@ -249,7 +261,10 @@ trait VotesProcess
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
     #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotes")]
-    public function removeVotesByTags (array|string $tags, bool $with = true) : array
+    public function removeVotesByTags (
+        #[FunctionParameter('Tags as string separated by commas or array')] array|string $tags,
+        #[FunctionParameter('Votes with these tags or without')] bool $with = true
+    ) : array
     {
         $rem = [];
 

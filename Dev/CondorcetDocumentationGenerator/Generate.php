@@ -153,8 +153,12 @@ class Generate
                 if ( !isset($index[$shortClass][$oneMethod->name]) && !$oneMethod->isInternal()) :
                     $non_inDoc++;
 
-                    if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getNumberOfParameters() > 0 && (empty($apiAttribute[0]->getArguments()) || in_array(self::simpleClass($oneMethod->class),$apiAttribute[0]->getArguments(), true))) :
-                        var_dump('Method Has Public API attribute and parameters, but not in doc.yaml file: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
+                    if (!empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getNumberOfParameters() > 0) :
+                        foreach ($oneMethod->getParameters() as $oneParameter) :
+                            if (empty($oneParameter->getAttributes(FunctionParameter::class))) :
+                                var_dump('Method Has Public API attribute but parameter $'.$oneParameter->getName().' is undocumented '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
+                            endif;
+                        endforeach;
                     endif;
 
                     $index[$shortClass][$oneMethod->name]['inDoc'] = false;

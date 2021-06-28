@@ -1,25 +1,5 @@
 ---
 
-# MULTIPLE CLASS
-
--
-  class:
-    - Candidate
-    - Election
-    - Algo\Pairwise
-    - Result
-    - Vote
-    - Timer\Manager
-    - DataManager\VotesManager
-  name: getObjectVersion
-  input:
-    major:
-      text: |
-        * true will return : '2.0'
-        * false will return : '2.0.0'
-
-
-
 # CLASS CONDORCET
 
 -

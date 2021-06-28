@@ -78,6 +78,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getVotesList (...)](Election%20Class/public%20Election--getVotesList.md) : array  
 * [public Election->getVotesListAsString ()](Election%20Class/public%20Election--getVotesListAsString.md) : string  
 * [public Election->getVotesListGenerator (...)](Election%20Class/public%20Election--getVotesListGenerator.md) : Generator  
+* [public Election->getVotesValidUnderConstraintGenerator (...)](Election%20Class/public%20Election--getVotesValidUnderConstraintGenerator.md) : Generator  
 * [public Election->getWinner (...)](Election%20Class/public%20Election--getWinner.md) : CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Election->isRegisteredCandidate (...)](Election%20Class/public%20Election--isRegisteredCandidate.md) : bool  
 * [public Election->isVoteWeightAllowed ()](Election%20Class/public%20Election--isVoteWeightAllowed.md) : bool  
@@ -815,7 +816,7 @@ _Including above methods from public API_
 * public getVotesListAsString () : string  
 * public getVotesListGenerator (mixed $tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
-* public getVotesValidUnderConstraintGenerator ($tags = null, bool $with = true) : Generator  
+* public getVotesValidUnderConstraintGenerator (mixed $tags = null, bool $with = true) : Generator  
 * public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
 * public isRegisteredCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true) : bool  
 * public isVoteWeightAllowed () : bool  

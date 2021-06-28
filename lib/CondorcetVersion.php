@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 
 // Generic for many Condorcet Class
 trait CondorcetVersion
@@ -22,7 +22,10 @@ trait CondorcetVersion
     #[Description("Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.")]
     #[FunctionReturn("Condorcet PHP version.")]
     #[Related("static Condorcet::getVersion")]
-    public function getObjectVersion (bool $major = false) : string
+    public function getObjectVersion (
+        #[FunctionParameter("true will return : '2.0' and false will return : '2.0.0'")]
+        bool $major = false
+    ) : string
     {
         if ($major === true) :
             $version = \explode('.', $this->_objectVersion);

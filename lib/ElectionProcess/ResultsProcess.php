@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
@@ -176,7 +176,13 @@ trait ResultsProcess
     #[Description("Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.")]
     #[FunctionReturn("True on success. Else False.")]
     #[Related("Result::getMethodOptions")]
-    public function setMethodOption (string $method, string $optionName, mixed $optionValue) : bool
+    public function setMethodOption (
+        #[FunctionParameter('Method name or class path')]
+        string $method,
+        #[FunctionParameter('Option name')]
+        string $optionName,
+        #[FunctionParameter('Option Value')]
+        mixed $optionValue) : bool
     {
         if ($method = Condorcet::getMethodClass($method)) :
             $method::setOption($optionName, $optionValue);

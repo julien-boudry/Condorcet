@@ -10,7 +10,7 @@ Import and enable an external driver to store vote on very large election.
     
 
 ##### **driver:** *CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface*   
-    
+Driver object.    
 
 
 ### Return value:   

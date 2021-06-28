@@ -10,9 +10,7 @@ Get the Condorcet PHP version who built this Election object. Usefull pour seria
     
 
 ##### **major:** *bool*   
-* true will return : '2.0'
-* false will return : '2.0.0'
-    
+true will return : '2.0' and false will return : '2.0.0'.    
 
 
 ### Return value:   
