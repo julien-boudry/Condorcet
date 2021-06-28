@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 class Candidate implements \Stringable
@@ -26,7 +26,9 @@ class Candidate implements \Stringable
     #[Description("Build a candidate.")]
     #[Example("Manual - Create Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Candidate::setName")]
-    public function __construct (string $name)
+    public function __construct (
+        #[FunctionParameter('Candidate Name')] string $name
+    )
     {
         $this->setName($name);
     }
@@ -43,7 +45,9 @@ class Candidate implements \Stringable
     #[PublicAPI]
     #[Description("Change the candidate name.\n*If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*")]
     #[FunctionReturn("In case of success, return TRUE")]
-    public function setName (string $name) : bool
+    public function setName (
+        #[FunctionParameter('Candidate Name')] string $name
+    ) : bool
     {
         $name = \trim($name);
 

@@ -11,7 +11,7 @@ Can be use before a var_dump, or just to get more simple data output.
     
 
 ##### **input:** *mixed*   
-All datatype. Like classical var_dump    
+Input to convert.    
 
 
 ##### **convertObject:** *bool*   

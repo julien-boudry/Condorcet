@@ -10,7 +10,7 @@ Build a candidate.
     
 
 ##### **name:** *string*   
-Candidate Name    
+Candidate Name.    
 
 ---------------------------------------
 

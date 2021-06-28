@@ -11,7 +11,7 @@ Change the candidate name.
     
 
 ##### **name:** *string*   
-Candidate Name    
+Candidate Name.    
 
 
 ### Return value:   

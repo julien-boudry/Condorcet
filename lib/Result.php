@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -115,7 +115,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Description("Get result as an array")]
     #[FunctionReturn("An ordered multidimensionnal array by rank.")]
     #[Related("Election::getResult", "Result::getResultAsString")]
-    public function getResultAsArray (bool $convertToString = false) : array
+    public function getResultAsArray (
+        #[FunctionParameter('Convert Candidate object to string')] bool $convertToString = false
+    ) : array
     {
         $r = $this->_UserResult;
 
@@ -236,7 +238,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     #[Description("From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.")]
     #[FunctionReturn("Warnings provided by the by the method that generated the warning. Empty array if there is not.")]
-    public function getWarning (?int $type = null) : array
+    public function getWarning (
+    #[FunctionParameter('Filter on a specific warning type code')] ?int $type = null
+    ) : array
     {
         if ($type === null) :
             return $this->_warning;

@@ -251,25 +251,6 @@
 
 
 
-# CLASS CANDIDATE
-
-
--
-  class: Candidate
-  name: __construct
-  input:
-    name:
-      text: Candidate Name
-
--
-  class: Candidate
-  name: setName
-  input:
-    name:
-      text: Candidate Name
-
-
-
 # CLASS VOTE
 
 -
@@ -301,20 +282,6 @@
     tags:
       text: They can be added by string separated by commas or an array.
 
-
--
-  class: Vote
-  name: getContextualRanking
-  input:
-    election:
-      text: An election already linked to the Vote.
-
--
-  class: Vote
-  name: getContextualRankingAsString
-  input:
-    election:
-      text: An election is already linked to Vote.
 
 -
   class: Vote
@@ -361,39 +328,3 @@
       text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
 
 
--
-  class: Vote
-  name: setWeight
-  input:
-    newWeight:
-      text: |
-        The new vote weight.
-
-
-# CLASS RESULT
-
--
-  class: Result
-  name: getResultAsArray
-  input:
-    convertToString:
-      text: 'Convert Candidate object to string'
-
--
-  class: Result
-  name: getWarning
-  input:
-    type:
-      text: 'Filter on a specific warning type code.'
-
-
-# CLASS CONDORCETUTIL
-
--
-  class: CondorcetUtil
-  name: format
-  input:
-    input:
-      text: All datatype. Like classical var_dump
-    convertObject:
-      text: If true. Will convert Candidate objects into string representation of their name.

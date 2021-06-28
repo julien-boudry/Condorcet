@@ -10,7 +10,7 @@ Get the vote weight. The vote weight capacity must be active at the election lev
     
 
 ##### **context:** *?CondorcetPHP\Condorcet\Election*   
-An election already linked to the Vote.    
+In the context of wich election? (optional).    
 
 
 ### Return value:   

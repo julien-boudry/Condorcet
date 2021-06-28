@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
@@ -234,7 +234,9 @@ class Vote implements \Iterator, \Stringable
     #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
     #[FunctionReturn("Contextual full ranking.")]
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
-    public function getContextualRanking (Election $election) : array
+    public function getContextualRanking (
+        #[FunctionParameter('An election already linked to the Vote')] Election $election
+    ) : array
     {
         if (!$this->haveLink($election)) :
             throw new CondorcetException(22);
@@ -291,7 +293,9 @@ class Vote implements \Iterator, \Stringable
     #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
     #[FunctionReturn("Contextual full ranking, with string instead Candidate object.")]
     #[Related("Vote::getContextualRanking", "Vote::getRanking")]
-    public function getContextualRankingAsString (Election $election) : array
+    public function getContextualRankingAsString (
+        #[FunctionParameter('An election already linked to the Vote')] Election $election
+    ) : array
     {
         return CondorcetUtil::format($this->getContextualRanking($election),true);
     }
@@ -540,7 +544,9 @@ class Vote implements \Iterator, \Stringable
     #[Description("Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
     #[FunctionReturn("Weight. Default weight is 1.")]
     #[Related("Vote::setWeight")]
-    public function getWeight (?Election $context = null) : int
+    public function getWeight (
+        #[FunctionParameter('In the context of wich election? (optional)')] ?Election $context = null
+    ) : int
     {
         if ($context !== null && !$context->isVoteWeightAllowed()) :
             return 1;
@@ -553,7 +559,9 @@ class Vote implements \Iterator, \Stringable
     #[Description("Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
     #[FunctionReturn("New weight.")]
     #[Related("Vote::getWeight")]
-    public function setWeight (int $newWeight) : int
+    public function setWeight (
+        #[FunctionParameter('The new vote weight.')] int $newWeight
+    ) : int
     {
         if ($newWeight < 1) :
             throw new CondorcetException(26);

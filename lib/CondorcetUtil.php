@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 abstract class CondorcetUtil
@@ -69,7 +69,10 @@ abstract class CondorcetUtil
     #[PublicAPI]
     #[Description("Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.\nCan be use before a var_dump, or just to get more simple data output.")]
     #[FunctionReturn("New formatted data.")]
-    public static function format (mixed $input, bool $convertObject = true) : mixed
+    public static function format (
+        #[FunctionParameter('Input to convert')] mixed $input,
+        #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')] bool $convertObject = true
+    ) : mixed
     {
         if (\is_object($input)) :
 

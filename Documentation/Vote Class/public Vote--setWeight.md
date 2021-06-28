@@ -10,8 +10,7 @@ Set a vote weight. The vote weight capacity must be active at the election level
     
 
 ##### **newWeight:** *int*   
-The new vote weight.
-    
+The new vote weight.    
 
 
 ### Return value:   
