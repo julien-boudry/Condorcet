@@ -33,7 +33,7 @@ trait VotesProcess
     #[Description("Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn("Number of valid and registered vote into this election.")]
     #[Related("Election::getVotesList", "Election::countValidVoteWithConstraints")]
-    public function countVotes (mixed $tags = null, bool $with = true) : int
+    public function countVotes (array|null|string $tags = null, bool $with = true) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
@@ -81,7 +81,7 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::countVotes", "Election::getVotesListAsString")]
     public function getVotesList (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')] bool $with = true
     ) : array
     {
@@ -107,7 +107,7 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::getVotesList")]
     public function getVotesListGenerator (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')] bool $with = true
     ) : \Generator
     {
@@ -119,7 +119,7 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::getVotesListGenerator","Election::getVotesList")]
     public function getVotesValidUnderConstraintGenerator (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] mixed $tags = null,
+        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')] bool $with = true
     ) : \Generator
     {

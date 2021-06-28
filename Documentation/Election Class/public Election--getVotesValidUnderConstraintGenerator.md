@@ -3,14 +3,14 @@
 ### Description    
 
 ```php
-public Election->getVotesValidUnderConstraintGenerator ( [mixed tags = null , bool with = true] ) : Generator
+public Election->getVotesValidUnderConstraintGenerator ( [array|string|null tags = null , bool with = true] ) : Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.
 Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
     
 
-##### **tags:** *mixed*   
+##### **tags:** *array|string|null*   
 Tags list as a string separated by commas or array.    
 
 

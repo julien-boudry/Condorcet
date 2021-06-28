@@ -789,7 +789,7 @@ _Including above methods from public API_
 * public countCandidates () : int  
 * public countInvalidVoteWithConstraints () : int  
 * public countValidVoteWithConstraints () : int  
-* public countVotes (mixed $tags = null, bool $with = true) : int  
+* public countVotes (array|string|null $tags = null, bool $with = true) : int  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate) : ?int  
 * public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
@@ -812,11 +812,11 @@ _Including above methods from public API_
 * public getState () : int  
 * public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
-* public getVotesList (mixed $tags = null, bool $with = true) : array  
+* public getVotesList (array|string|null $tags = null, bool $with = true) : array  
 * public getVotesListAsString () : string  
-* public getVotesListGenerator (mixed $tags = null, bool $with = true) : Generator  
+* public getVotesListGenerator (array|string|null $tags = null, bool $with = true) : Generator  
 * public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
-* public getVotesValidUnderConstraintGenerator (mixed $tags = null, bool $with = true) : Generator  
+* public getVotesValidUnderConstraintGenerator (array|string|null $tags = null, bool $with = true) : Generator  
 * public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
 * public isRegisteredCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true) : bool  
 * public isVoteWeightAllowed () : bool  
@@ -824,7 +824,7 @@ _Including above methods from public API_
 * public parseVotes (string $input, bool $isFile = false) : int  
 * public parseVotesWithoutFail (string $input, bool $isFile = false, ?Closure $callBack = null) : int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
-* public removeCandidates (mixed $candidates_input) : array  
+* public removeCandidates (CondorcetPHP\Condorcet\Candidate|array|string $candidates_input) : array  
 * public removeExternalDataHandler () : bool  
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote) : bool  
 * public removeVotesByTags (array|string $tags, bool $with = true) : array  

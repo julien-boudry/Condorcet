@@ -3,13 +3,13 @@
 ### Description    
 
 ```php
-public Election->getVotesList ( [mixed tags = null , bool with = true] ) : array
+public Election->getVotesList ( [array|string|null tags = null , bool with = true] ) : array
 ```
 
 Get registered vote list.
     
 
-##### **tags:** *mixed*   
+##### **tags:** *array|string|null*   
 Tags list as a string separated by commas or array.    
 
 

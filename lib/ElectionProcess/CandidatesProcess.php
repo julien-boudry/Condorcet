@@ -164,7 +164,7 @@ trait CandidatesProcess
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
     #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::getCandidatesList")]
-    public function removeCandidates (mixed $candidates_input) : array
+    public function removeCandidates (array|Candidate|string $candidates_input) : array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
