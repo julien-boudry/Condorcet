@@ -10,7 +10,7 @@ Test if a method is in the result set of Condorcet::getAuthMethods.
     
 
 ##### **method:** *string*   
-    
+A valid method name or class.    
 
 
 ### Return value:   

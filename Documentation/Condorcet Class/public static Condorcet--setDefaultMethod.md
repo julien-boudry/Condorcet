@@ -10,7 +10,7 @@ Put a new static method by default for the news Condorcet objects.
     
 
 ##### **method:** *string*   
-Method Name.    
+A valid method name or class.    
 
 
 ### Return value:   

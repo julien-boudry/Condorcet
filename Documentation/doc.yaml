@@ -1,50 +1,5 @@
 ---
 
-# CLASS CONDORCET
-
--
-  class: Condorcet
-  name: addMethod
-  input:
-    methodClass:
-      text: |
-        The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
-
--
-  class: Condorcet
-  name: getAuthMethods
-  input:
-    basic:
-      text: Include the natural Condorcet base algorithm.
-
--
-  class: Condorcet
-  name: getMethodClass
-  input:
-    method:
-
--
-  class: Condorcet
-  name: getVersion
-  input:
-    major:
-      text: |
-        * true will return : '2.0'
-        * false will return : '2.0.0'
-
--
-  class: Condorcet
-  name: isAuthMethod
-  input:
-    method:
-
--
-  class: Condorcet
-  name: setDefaultMethod
-  input:
-    method:
-      type: string
-      text: Method Name.
 
 
 # CLASS ELECTION
@@ -59,14 +14,6 @@
 
 -
   class: Election
-  name: addConstraint
-  input:
-    constraintClass:
-      text: A valid class path. Class must extend VoteConstraint class.
-
-
--
-  class: Election
   name: addVote
   input:
     vote:
@@ -74,14 +21,6 @@
     tags:
       text: String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
 
-
-
--
-  class: Election
-  name: allowsVoteWeight
-  input:
-    rule:
-      text: New rule.
 
 -
   class: Election
@@ -219,29 +158,6 @@
           * Array populated by CondorcetPHP\Condorcet\Candidate
           * Array populated by string matching Candidate name
 
-
--
-  class: Election
-  name: setMaxParseIteration
-  input:
-    maxParseIterations:
-      text: 'Null will deactivate this functionality. Else, enter an integer.'
-
--
-  class: Election
-  name: setMaxVoteNumber
-  input:
-    maxVotesNumber:
-      text: Null will deactivate this functionality. An integer will fix the limit.
-
-
--
-  class: Election
-  name: setImplicitRanking
-  input:
-    rule:
-      text: New rule.
-
 -
   class: Election
   name: testIfVoteIsValidUnderElectionConstraints
@@ -252,58 +168,6 @@
 
 
 # CLASS VOTE
-
--
-  class: Vote
-  name: __construct
-  input:
-    ranking:
-      text: Equivalent to Vote::setRanking method.
-    tags:
-      text: Equivalent to Vote::addTags method.
-    ownTimestamp:
-      text: Set your own timestamp metadata on Ranking.
-    electionContext:
-      text: Try to convert directly your candidates from sting input" to Candidate object of one election.
-
-
--
-  class: Vote
-  name: addTags
-  input:
-    tags:
-      text: Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.
-
-
--
-  class: Vote
-  name: removeTags
-  input:
-    tags:
-      text: They can be added by string separated by commas or an array.
-
-
--
-  class: Vote
-  name: getSimpleRanking
-  input:
-    context:
-      text: An election already linked to the Vote.
-    displayWeight:
-      text: Include or not the weight symbol and value.
-
--
-  class: Vote
-  name: getWeight
-  input:
-    context:
-      text: An election already linked to the Vote.
--
-  class: Vote
-  name: removeCandidate
-  input:
-    candidate:
-      text: Candidate object or string.
 
 -
   class: Vote
@@ -323,8 +187,5 @@
         * Or combine the 2 last ways.
 
         Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
-
-    ownTimestamp:
-      text: 'Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.'
 
 

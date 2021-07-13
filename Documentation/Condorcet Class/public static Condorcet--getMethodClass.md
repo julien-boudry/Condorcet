@@ -10,7 +10,7 @@ Return the full class path for a method.
     
 
 ##### **method:** *string*   
-    
+A valid method name.    
 
 
 ### Return value:   

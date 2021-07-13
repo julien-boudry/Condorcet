@@ -116,7 +116,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("An ordered multidimensionnal array by rank.")]
     #[Related("Election::getResult", "Result::getResultAsString")]
     public function getResultAsArray (
-        #[FunctionParameter('Convert Candidate object to string')] bool $convertToString = false
+        #[FunctionParameter('Convert Candidate object to string')]
+        bool $convertToString = false
     ) : array
     {
         $r = $this->_UserResult;
@@ -239,7 +240,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Description("From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.")]
     #[FunctionReturn("Warnings provided by the by the method that generated the warning. Empty array if there is not.")]
     public function getWarning (
-    #[FunctionParameter('Filter on a specific warning type code')] ?int $type = null
+        #[FunctionParameter('Filter on a specific warning type code')]
+        ?int $type = null
     ) : array
     {
         if ($type === null) :

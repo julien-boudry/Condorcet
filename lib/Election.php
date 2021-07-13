@@ -36,7 +36,10 @@ class Election
     #[Description("Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.")]
     #[FunctionReturn("*(int or null)* The new limit.")]
     #[Related("static Election::setMaxVoteNumber")]
-    public static function setMaxParseIteration (?int $maxParseIterations) : ?int
+    public static function setMaxParseIteration (
+        #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
+        ?int $maxParseIterations
+    ) : ?int
     {
         self::$_maxParseIteration = $maxParseIterations;
         return self::$_maxParseIteration;
@@ -47,7 +50,10 @@ class Election
     #[Description("Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.")]
     #[FunctionReturn("*(int or null)* The new limit.")]
     #[Related("static Election::setMaxParseIteration")]
-    public static function setMaxVoteNumber (?int $maxVotesNumber) : ?int
+    public static function setMaxVoteNumber (
+        #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
+        ?int $maxVotesNumber
+    ) : ?int
     {
         self::$_maxVoteNumber = $maxVotesNumber;
         return self::$_maxVoteNumber;
@@ -251,7 +257,10 @@ class Election
     #[Description("Set the setting and reset all result data.\nIf it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.\nIf it is false, then the candidates not ranked, are not taken into account at all.")]
     #[FunctionReturn("Return True")]
     #[Related("Election::getImplicitRankingRule")]
-    public function setImplicitRanking (bool $rule = true) : bool
+    public function setImplicitRanking (
+        #[FunctionParameter('New rule')]
+        bool $rule = true
+    ) : bool
     {
         $this->_ImplicitRanking = $rule;
         $this->cleanupCompute();
@@ -271,7 +280,10 @@ class Election
     #[Description("Set the setting and reset all result data.\nThen the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.\nBy default, the voting weight is not activated and all votes are considered equal.")]
     #[FunctionReturn("Return True")]
     #[Related("Election::isVoteWeightAllowed")]
-    public function allowsVoteWeight (bool $rule = true) : bool
+    public function allowsVoteWeight (
+        #[FunctionParameter('New rule')]
+        bool $rule = true
+    ) : bool
     {
         $this->_VoteWeightRule = $rule;
         $this->cleanupCompute();
@@ -286,7 +298,10 @@ class Election
     #[FunctionReturn("True on success. Throw Throwable\CondorcetException code 27/28/29 on error.")]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::getConstraints", "Election::clearConstraints", "Election::testIfVoteIsValidUnderElectionConstraints")]
-    public function addConstraint (string $constraintClass) : bool
+    public function addConstraint (
+        #[FunctionParameter('A valid class path. Class must extend VoteConstraint class')]
+        string $constraintClass
+    ) : bool
     {
         if ( !\class_exists($constraintClass) ) :
             throw new CondorcetException(27);
@@ -359,7 +374,8 @@ class Election
     #[FunctionReturn("Number of seats.")]
     #[Related("Election::getNumberOfSeats")]
     public function setNumberOfSeats (
-        #[FunctionParameter('The number of seats for proportional methods.')] int $seats
+        #[FunctionParameter('The number of seats for proportional methods.')]
+        int $seats
     ) : int
     {
         if ($seats > 0) :

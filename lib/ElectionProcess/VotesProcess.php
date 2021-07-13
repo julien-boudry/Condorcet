@@ -81,8 +81,10 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::countVotes", "Election::getVotesListAsString")]
     public function getVotesList (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+        #[FunctionParameter('Tags list as a string separated by commas or array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')]
+        bool $with = true
     ) : array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
@@ -107,8 +109,10 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::getVotesList")]
     public function getVotesListGenerator (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+        #[FunctionParameter('Tags list as a string separated by commas or array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')]
+        bool $with = true
     ) : \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -119,8 +123,10 @@ trait VotesProcess
     #[FunctionReturn("Populated by each Vote object.")]
     #[Related("Election::getVotesListGenerator","Election::getVotesList")]
     public function getVotesValidUnderConstraintGenerator (
-        #[FunctionParameter('Tags list as a string separated by commas or array')] array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')] bool $with = true
+        #[FunctionParameter('Tags list as a string separated by commas or array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Get votes with these tags or without')]
+        bool $with = true
     ) : \Generator
     {
         return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
@@ -238,7 +244,8 @@ trait VotesProcess
     #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotesByTags")]
     public function removeVote (
-    #[FunctionParameter('Vote object')] Vote $vote
+        #[FunctionParameter('Vote object')]
+        Vote $vote
     ) : bool
     {
         $key = $this->getVoteKey($vote);
@@ -262,8 +269,10 @@ trait VotesProcess
     #[Example("Manual - Vote management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
     #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotes")]
     public function removeVotesByTags (
-        #[FunctionParameter('Tags as string separated by commas or array')] array|string $tags,
-        #[FunctionParameter('Votes with these tags or without')] bool $with = true
+        #[FunctionParameter('Tags as string separated by commas or array')]
+        array|string $tags,
+        #[FunctionParameter('Votes with these tags or without')]
+        bool $with = true
     ) : array
     {
         $rem = [];

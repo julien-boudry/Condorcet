@@ -68,7 +68,16 @@ class Vote implements \Iterator, \Stringable
     #[Description("Build a vote object.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::setRanking", "Vote::addTags")]
-    public function __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?Election $electionContext = null)
+    public function __construct (
+        #[FunctionParameter('Equivalent to Vote::setRanking method')]
+        array|string $ranking,
+        #[FunctionParameter('Equivalent to Vote::addTags method')]
+        array|string|null $tags = null,
+        #[FunctionParameter('Set your own timestamp metadata on Ranking')]
+        ?float $ownTimestamp = null,
+        #[FunctionParameter('Try to convert directly your candidates from sting input" to Candidate object of one election')]
+        ?Election $electionContext = null
+    )
     {
         $this->_electionContext = $electionContext;
         $tagsFromString = null;
@@ -235,7 +244,8 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("Contextual full ranking.")]
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (
-        #[FunctionParameter('An election already linked to the Vote')] Election $election
+        #[FunctionParameter('An election already linked to the Vote')]
+        Election $election
     ) : array
     {
         if (!$this->haveLink($election)) :
@@ -294,7 +304,8 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("Contextual full ranking, with string instead Candidate object.")]
     #[Related("Vote::getContextualRanking", "Vote::getRanking")]
     public function getContextualRankingAsString (
-        #[FunctionParameter('An election already linked to the Vote')] Election $election
+        #[FunctionParameter('An election already linked to the Vote')]
+        Election $election
     ) : array
     {
         return CondorcetUtil::format($this->getContextualRanking($election),true);
@@ -304,7 +315,12 @@ class Vote implements \Iterator, \Stringable
     #[Description("Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()")]
     #[FunctionReturn("String like 'A>D=C>B'")]
     #[Related("Vote::getRanking")]
-    public function getSimpleRanking (?Election $context = null, bool $displayWeight = true) : string
+    public function getSimpleRanking (
+        #[FunctionParameter('An election already linked to the Vote')]
+        ?Election $context = null,
+        #[FunctionParameter('Include or not the weight symbol and value')]
+        bool $displayWeight = true
+    ) : string
     {
         $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
 
@@ -325,7 +341,11 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("In case of success, return TRUE")]
     #[Example("Manual - Add a vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
-    public function setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool
+    public function setRanking (
+        array|string $ranking,
+        #[FunctionParameter('Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.')]
+        ?float $ownTimestamp = null
+    ) : bool
     {
         // Timestamp
         if ($ownTimestamp !== null) :
@@ -439,7 +459,10 @@ class Vote implements \Iterator, \Stringable
     #[Description("Remove candidate from ranking. Set a new ranking and archive the old ranking.")]
     #[FunctionReturn("True on success.")]
     #[Related("Vote::setRanking")]
-    public function removeCandidate (Candidate|string $candidate) : bool
+    public function removeCandidate (
+        #[FunctionParameter('Candidate object or string')]
+        Candidate|string $candidate
+    ) : bool
     {
         if ($candidate instanceof Candidate) :
             $strict = true;
@@ -478,7 +501,10 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("In case of success, return TRUE")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::removeTags")]
-    public function addTags (array|string $tags) : bool
+    public function addTags (
+        #[FunctionParameter('Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.')]
+        array|string $tags
+    ) : bool
     {
         $tags = VoteUtil::tagsConvert($tags);
 
@@ -506,7 +532,10 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("List of deleted tags.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::addTags")]
-    public function removeTags (array|string $tags) : array
+    public function removeTags (
+        #[FunctionParameter('They can be added by string separated by commas or an array.')]
+        array|string $tags
+    ) : array
     {
         $tags = VoteUtil::tagsConvert($tags);
 
@@ -545,7 +574,8 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("Weight. Default weight is 1.")]
     #[Related("Vote::setWeight")]
     public function getWeight (
-        #[FunctionParameter('In the context of wich election? (optional)')] ?Election $context = null
+        #[FunctionParameter('In the context of wich election? (optional)')]
+        ?Election $context = null
     ) : int
     {
         if ($context !== null && !$context->isVoteWeightAllowed()) :
@@ -560,7 +590,8 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn("New weight.")]
     #[Related("Vote::getWeight")]
     public function setWeight (
-        #[FunctionParameter('The new vote weight.')] int $newWeight
+        #[FunctionParameter('The new vote weight.')]
+        int $newWeight
     ) : int
     {
         if ($newWeight < 1) :

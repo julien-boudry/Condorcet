@@ -70,8 +70,10 @@ abstract class CondorcetUtil
     #[Description("Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.\nCan be use before a var_dump, or just to get more simple data output.")]
     #[FunctionReturn("New formatted data.")]
     public static function format (
-        #[FunctionParameter('Input to convert')] mixed $input,
-        #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')] bool $convertObject = true
+        #[FunctionParameter('Input to convert')]
+        mixed $input,
+        #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')]
+        bool $convertObject = true
     ) : mixed
     {
         if (\is_object($input)) :

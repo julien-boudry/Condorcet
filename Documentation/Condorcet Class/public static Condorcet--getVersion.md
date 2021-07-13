@@ -11,8 +11,7 @@ Get the library version.
 
 ##### **major:** *bool*   
 * true will return : '2.0'
-* false will return : '2.0.0'
-    
+* false will return : '2.0.0'.    
 
 
 ### Return value:   

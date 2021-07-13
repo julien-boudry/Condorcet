@@ -10,7 +10,7 @@ Get a list of supported algorithm.
     
 
 ##### **basic:** *bool*   
-Include the natural Condorcet base algorithm.    
+Include or not the natural Condorcet base algorithm.    
 
 
 ### Return value:   
