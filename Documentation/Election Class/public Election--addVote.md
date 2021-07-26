@@ -10,7 +10,7 @@ Add a vote to an election.
     
 
 ##### **vote:** *CondorcetPHP\Condorcet\Vote|array|string*   
-String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you.     
+String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you.    
 
 
 ##### **tags:** *array|string|null*   

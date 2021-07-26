@@ -342,6 +342,7 @@ class Vote implements \Iterator, \Stringable
     #[Example("Manual - Add a vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
     public function setRanking (
+        #[FunctionParameter('A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.')]
         array|string $ranking,
         #[FunctionParameter('Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.')]
         ?float $ownTimestamp = null

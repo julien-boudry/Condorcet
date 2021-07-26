@@ -14,7 +14,7 @@ Tag into string separated by commas, or an Array.
 
 
 ##### **with:** *bool*   
-Count Votes with this tag ou without this tag.    
+Count Votes with this tag ou without this tag-.    
 
 
 ### Return value:   

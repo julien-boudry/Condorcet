@@ -35,7 +35,12 @@ trait ResultsProcess
     #[FunctionReturn("An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)")]
     #[Example("Manual - Ranking from Condorcet Method","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods")]
     #[Related("Election::getWinner", "Election::getResult", "Condorcet::getDefaultMethod")]
-    public function getResult (?string $method = null, array $options = []) : Result
+    public function getResult (
+        #[FunctionParameter('Not required for use election default method. Set the string name of the algorithm for use of a specific one.')]
+        ?string $method = null,
+        #[FunctionParameter('Array of option for some methods. Look at each method documentation.')]
+        array $options = []
+    ) : Result
     {
         $options = self::formatResultOptions($options);
 
@@ -88,7 +93,10 @@ trait ResultsProcess
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
     #[Example("Manual - Natural Condorcet","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
     #[Related("Election::getCondorcetWinner", "Election::getLoser", "Election::getResult")]
-    public function getWinner (?string $method = null) : array|Candidate|null
+    public function getWinner (
+        #[FunctionParameter("*Only if not null:    *\n\nThe winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\nIf null, Natural Condorcet algorithm will be use.")]
+        ?string $method = null
+    ) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
@@ -111,7 +119,10 @@ trait ResultsProcess
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
     #[Example("Manual - Natural Condorcet","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
     #[Related("Election::getWinner", "Election::getResult")]
-    public function getLoser (?string $method = null) : array|Candidate|null
+    public function getLoser (
+        #[FunctionParameter("*Only if not nulle:*    \n\nThe loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\n        If null, Natural Condorcet algorithm will be use.")]
+        ?string $method = null
+    ) : array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
@@ -201,7 +212,10 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description("Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.")]
     #[Related("Election::getWinner", "Election::getResult", "Condorcet::getDefaultMethod")]
-    public function computeResult (?string $method = null) : void
+    public function computeResult (
+        #[FunctionParameter('Not requiered for use object default method. Set the string name of the algorithm for use an specific one')]
+        ?string $method = null
+    ) : void
     {
         $this->getResult($method);
     }

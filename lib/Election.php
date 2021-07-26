@@ -346,7 +346,10 @@ class Election
     #[FunctionReturn("Return True if vote will pass the constraints rules, else False.")]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::getConstraints", "Election::addConstraints", "Election::clearConstraints")]
-    public function testIfVoteIsValidUnderElectionConstraints (Vote $vote) : bool
+    public function testIfVoteIsValidUnderElectionConstraints (
+        #[FunctionParameter('A vote. Not necessarily registered in this election')]
+        Vote $vote
+    ) : bool
     {
         foreach ($this->_Constraints as $oneConstraint) :
             if ($oneConstraint::isVoteAllow($this,$vote) === false) :

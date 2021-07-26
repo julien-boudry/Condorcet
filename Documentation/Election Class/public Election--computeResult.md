@@ -10,8 +10,7 @@ Really similar to Election::getResult() but not return anything. Just calculates
     
 
 ##### **method:** *?string*   
-Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
-    
+Not requiered for use object default method. Set the string name of the algorithm for use an specific one.    
 
 ---------------------------------------
 

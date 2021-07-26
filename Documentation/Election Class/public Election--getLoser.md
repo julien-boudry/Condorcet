@@ -10,12 +10,11 @@ Get the natural Condorcet loser if there is one. Alternatively you can get the l
     
 
 ##### **method:** *?string*   
-*Only if not null :*
+*Only if not nulle:*    
 
-The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.
+The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    
 
-If null, Natural Condorcet algorithm will be use.
-    
+        If null, Natural Condorcet algorithm will be use.    
 
 
 ### Return value:   

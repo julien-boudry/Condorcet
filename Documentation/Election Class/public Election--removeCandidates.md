@@ -15,8 +15,7 @@ Remove Candidates from an election.
 * String matching Candidate Name
 * CondorcetPHP\Condorcet\Candidate object
 * Array populated by CondorcetPHP\Condorcet\Candidate
-* Array populated by string matching Candidate name
-    
+* Array populated by string matching Candidate name.    
 
 
 ### Return value:   

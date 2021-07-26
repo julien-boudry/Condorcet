@@ -11,12 +11,11 @@ Get a full ranking from an advanced Condorcet method.
     
 
 ##### **method:** *?string*   
-Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
-    
+Not required for use election default method. Set the string name of the algorithm for use of a specific one.    
 
 
 ##### **options:** *array*   
-    
+Array of option for some methods. Look at each method documentation.    
 
 
 ### Return value:   

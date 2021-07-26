@@ -12,19 +12,7 @@ Note that if your vote is already linked to one ore more elections, your ranking
     
 
 ##### **ranking:** *array|string*   
-* Ranking can be add by string like "A > B = C > D" (by candidate string name)
-* Multidimensionnal array like :
-   ```php
-   array( $candidate1, [$candidate2,$candidate4], $candidate 3 )
-   ```
-* Multidimensionnal array with string :
-   ```php
-   array( 'candidate1Name', ['candidate2Name','candidate4Name'], 'candidate3Name' )
-   ```
-* Or combine the 2 last ways.
-
-Note: You can't use string candidate name if your vote is already linked to an election (by Election::addVote).
-    
+A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.    
 
 
 ##### **ownTimestamp:** *?float*   

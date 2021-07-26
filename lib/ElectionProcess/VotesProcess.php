@@ -33,7 +33,12 @@ trait VotesProcess
     #[Description("Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn("Number of valid and registered vote into this election.")]
     #[Related("Election::getVotesList", "Election::countValidVoteWithConstraints")]
-    public function countVotes (array|null|string $tags = null, bool $with = true) : int
+    public function countVotes (
+        #[FunctionParameter('Tag into string separated by commas, or an Array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
+        bool $with = true
+    ) : int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
@@ -146,7 +151,12 @@ trait VotesProcess
     #[FunctionReturn("The vote object.")]
     #[Example("Manual - Vote Management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
-    public function addVote (array|string|Vote $vote, array|string|null $tags = null) : Vote
+    public function addVote (
+        #[FunctionParameter('String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you')]
+        array|string|Vote $vote,
+        #[FunctionParameter('String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object')]
+        array|string|null $tags = null
+    ) : Vote
     {
         $this->prepareVoteInput($vote, $tags);
 
@@ -314,7 +324,10 @@ trait VotesProcess
     #[FunctionReturn("Count of new registered vote.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseVotes", "Election::addCandidatesFromJson")]
-    public function addVotesFromJson (string $input) : int
+    public function addVotesFromJson (
+        #[FunctionParameter('Json string input')]
+        string $input
+    ) : int
     {
         $input = CondorcetUtil::prepareJson($input);
 
@@ -345,7 +358,12 @@ trait VotesProcess
     #[FunctionReturn("Count of the new registered vote.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotesWithoutFail", "Election::addVotesFromJson")]
-    public function parseVotes (string $input, bool $isFile = false) : int
+    public function parseVotes (
+        #[FunctionParameter('String or valid path to a text file')]
+        string $input,
+        #[FunctionParameter('If true, the input is evalatued as path to text file')]
+        bool $isFile = false
+    ) : int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
 
@@ -394,7 +412,14 @@ trait VotesProcess
     #[FunctionReturn("Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
-    public function parseVotesWithoutFail (string $input, bool $isFile = false, ?\Closure $callBack = null) : int
+    public function parseVotesWithoutFail (
+        #[FunctionParameter('String or valid path to a text file')]
+        string $input,
+        #[FunctionParameter('If true, the input is evalatued as path to text file')]
+        bool $isFile = false,
+        #[FunctionParameter('Callback function to execute after each registered vote')]
+        ?\Closure $callBack = null
+    ) : int
     {
         $inserted_votes_count = 0;
         $fail_count = 0;

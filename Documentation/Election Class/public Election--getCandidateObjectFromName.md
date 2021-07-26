@@ -10,7 +10,7 @@ Find candidate object by his string and return the candidate object.
     
 
 ##### **candidateName:** *string*   
-Candidate name.    
+Candidate Name.    
 
 
 ### Return value:   
