@@ -5,7 +5,6 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use HaydenPierce\ClassFinder\ClassFinder;
-use Symfony\Component\Yaml\Yaml;
 
 class Generate
 {
@@ -113,34 +112,11 @@ class Generate
 
         $pathDirectory = $path.\DIRECTORY_SEPARATOR;
 
-        $doc = Yaml::parseFile($path.'/doc.yaml');
-
         //
         $index  = [];
         $classList = [];
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = \array_filter($FullClassList, function (string $value) { return (strpos($value, 'Condorcet\Test') === FALSE) && (strpos($value, 'Condorcet\Dev') === FALSE); });
-
-        foreach ($doc as &$entry) :
-
-        if (!is_array($entry['class'])) :
-            $entry['class'] = [$entry['class']];
-        endif;
-
-        foreach ($entry['class'] as $class) :
-            $oneEntry = $entry ;
-            $oneEntry['class'] = $class;
-            $oneEntry['inDoc'] = true;
-
-            if(!method_exists('CondorcetPHP\Condorcet\\'.$oneEntry['class'], $oneEntry['name'])) :
-                print "The method does not exist >> ".$oneEntry['class']." >> ".$oneEntry['name']."\n";
-            else :
-                $oneEntry['ReflectionMethod'] = new \ReflectionMethod ('CondorcetPHP\Condorcet\\'.$oneEntry['class'],$oneEntry['name']);
-            endif;
-
-            $index[$oneEntry['class']][$oneEntry['name']] = $oneEntry;
-        endforeach;
-        endforeach;
 
         $inDoc = 0;
         $non_inDoc = 0;
