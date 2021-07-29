@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
@@ -20,11 +21,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement Iterator
 
-    public function rewind() :void {
+    public function rewind() : void {
         \reset($this->_UserResult);
     }
 
-    public function current () {
+    public function current () : Array|Candidate {
         return \current($this->_UserResult);
     }
 
