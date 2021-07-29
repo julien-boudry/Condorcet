@@ -59,7 +59,7 @@ _Two different ways to use Condorcet:_
 > [**Releases Notes**](CHANGELOG.md)
 
 * **Stable Version: 3.1.x**  _support provided_  
-  * * *PHP Requirement:* PHP 8.0. _(tested up to PHP 8.0)_
+  * * *PHP Requirement:* PHP 8.0. _(tested up to PHP 8.1)_
 * **Stable Version: 2.2.x**  _support provided_  
   * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 8.0)_
 * **Old Stable: 2.0.x** _support NOT provided_  
@@ -79,7 +79,9 @@ _Some support and fix can be done for 0.14 version on demand. Since v0.90, you s
   * Some methods can be used nearly front final user (anti-spam check, parsing input, human-friendly results and stats, vote constraints...)
 * __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
-  * Get full ranking from advanced methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
+  * Get full ranking from advanced Condorcet-like methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
+  * Get full ranking from others methods like Alternative Vote
+  * Get full ranking from proportional methods (STV...)
   * Get some additional stats from these methods
   * Force ranking all candidate implicitly _(default)_ or allow voters to not rank all candidates.
   * Put weight for each vote, give more importance to certain voters.

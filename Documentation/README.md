@@ -862,7 +862,7 @@ _Including above methods from public API_
 * public __destruct ()  
 * public addWarning (int $type, ?string $msg = null) : bool  
 * public count () : int  
-* public current ()  
+* public current () : CondorcetPHP\Condorcet\Candidate|array  
 * public getBuildTimeStamp () : float  
 * public getClassGenerator () : string  
 * public getCondorcetElectionGeneratorVersion () : string  

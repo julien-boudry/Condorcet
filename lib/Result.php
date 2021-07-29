@@ -25,7 +25,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         \reset($this->_UserResult);
     }
 
-    public function current () : Array|Candidate {
+    public function current () : array|Candidate {
         return \current($this->_UserResult);
     }
 

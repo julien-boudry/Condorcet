@@ -13,11 +13,11 @@ Introduces support for proportional methods. And adds some.
 - New methods Multiple Round system replace Two-round system and takes advantage of the method options. This change is backward compatible.
 -  Add IRV as an alias for Instant Runoff #48
 
-
 ### Changed
 - getResult() Fix arbitrary candidate ordering on a rank. Now have consistency with getRanking and others.
 - Some console improvements in style.
 - Console: Shorten show-method-stats to method-stats #49 
+- Compatibility with PHP 8.1
 
 ### Internal changes
 - Small optimizations for InstantRunoff
