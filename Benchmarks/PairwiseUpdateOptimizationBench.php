@@ -3,20 +3,15 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
-use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\CondorcetUtil;
-use CondorcetPHP\Condorcet\Vote;
+use PhpBench\Attributes as Bench;
 
 
 class PairwiseUpdateOptimizationBench
 {
-    /**
-     * @Iterations(2)
-     * @Warmup(1)
-     * @Revs(4)
-     */
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(2)]
+    #[Bench\Revs(4)]
     public function benchPairwiseOptimization () : void
     {
        $election = new Election;

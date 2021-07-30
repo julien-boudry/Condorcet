@@ -3,21 +3,17 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
-use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\CondorcetUtil;
-use CondorcetPHP\Condorcet\Vote;
+use PhpBench\Attributes as Bench;
+
 
 // Must use --executor=memory_centric_microtime
 
 class KemenyYoungBench
 {
-    /**
-     * @Iterations(10)
-     * @Warmup(1)
-     * @Revs(10)
-     */
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(10)]
+    #[Bench\Revs(10)]
     public function benchKemenyYoung8 () : void
     {
        $election = new Election;
