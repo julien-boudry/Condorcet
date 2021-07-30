@@ -57,7 +57,7 @@ class IntensiveUsageBench
           C=A=B ^2 * 200
           B>C
           A > C >E ^80 *50
-          G > B > G > H > F* 250
+          G > B > H > F* 250
           C = B = E > A ^6 * 48
        ');
 
