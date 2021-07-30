@@ -5,7 +5,7 @@ namespace CondorcetPHP\Condorcet\Benchmarks;
 
 use CondorcetPHP\Condorcet\Election;
 use PhpBench\Attributes as Bench;
-
+ini_set('memory_limit','51200M');
 
 // Must use --executor=memory_centric_microtime
 

@@ -474,10 +474,10 @@ The code is close to the respect of PSR-1 (lacks only the naming of methods), an
 #### Performance:  
 * Complete and huge use case with all algorithms chained, 6 candidates and one thousand votes (many with implicit ranking).
   * _Memory usage: less than 6M_    
-  * _Execution time: less than 600ms_  
+  * _Execution time: less than 180ms_  
 ###### Kemeny-Youg case:   
-* use Kemeny-Young 7 candidates: 8MB - 60ms    
-* use Kemeny-Young 8 candidates: 70MB - 600ms    
+* use Kemeny-Young 7 candidates: ~8MB - 25ms    
+* use Kemeny-Young 8 candidates: ~80MB - 230ms    
 ###### Massive election case:  
 Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
 
@@ -487,7 +487,7 @@ You can also develop your own datastore driver (to store into NoSQL... all your 
 
 [Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes)     
 
-_Benchmark on a modern machine (linux - x64 - php 7.4 - cli)._ 
+_Benchmark on a modern machine (linux - x64 - php 8.0 - cli)._ 
 
 
 ## Roadmap for further releases 
