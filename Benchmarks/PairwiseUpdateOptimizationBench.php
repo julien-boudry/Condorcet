@@ -12,7 +12,7 @@ class PairwiseUpdateOptimizationBench
     #[Bench\Warmup(1)]
     #[Bench\Iterations(2)]
     #[Bench\Revs(4)]
-    public function benchPairwiseOptimization () : void
+    public function benchPairwiseOptimization (): void
     {
        $election = new Election;
 

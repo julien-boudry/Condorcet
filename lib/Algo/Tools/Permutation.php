@@ -16,7 +16,7 @@ class Permutation
     protected int $arr_count;
     protected array $results = [];
 
-    public static function countPossiblePermutations (int $candidatesNumber) : int
+    public static function countPossiblePermutations (int $candidatesNumber): int
     {
         $result = $candidatesNumber;
 
@@ -32,7 +32,7 @@ class Permutation
         $this->arr_count = $arr_count;
     }
 
-    public function getResults () : array
+    public function getResults (): array
     {
         if (empty($this->results)) :
             $this->_exec(
@@ -43,7 +43,7 @@ class Permutation
         return $this->results;
     }
 
-    public function writeResults (string $path) : void {
+    public function writeResults (string $path): void {
         $f = fopen($path,'w+');
 
         foreach ($this->getResults() as $oneResult) :
@@ -53,7 +53,7 @@ class Permutation
         fclose($f);
     }
 
-    protected function createCandidates () : array
+    protected function createCandidates (): array
     {
         $arr = [];
 
@@ -64,7 +64,7 @@ class Permutation
         return $arr;
     }
 
-    private function _exec (array|int $a, array $i = []) : void
+    private function _exec (array|int $a, array $i = []): void
     {
         if (\is_array($a)) :
             foreach($a as $k => $v) :
@@ -84,7 +84,7 @@ class Permutation
         endif;
     }
 
-    private function _permute (array $arr) : array|int
+    private function _permute (array $arr): array|int
     {
         $out = [];
 

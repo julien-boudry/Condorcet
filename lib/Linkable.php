@@ -22,7 +22,7 @@ trait Linkable
         $this->destroyAllLink();
     }
 
-    public function __clone () : void
+    public function __clone (): void
     {
         $this->destroyAllLink();
     }
@@ -34,7 +34,7 @@ trait Linkable
     public function haveLink (
         #[FunctionParameter('Condorcet election to check')]
         Election $election
-    ) : bool
+    ): bool
     {
         return \in_array(needle: $election, haystack: $this->_link, strict: true);
     }
@@ -43,7 +43,7 @@ trait Linkable
     #[Description("Count number of linked election to this object.")]
     #[FunctionReturn("Number of linked elections.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function countLinks () : int
+    public function countLinks (): int
     {
         return \count($this->_link);
     }
@@ -52,7 +52,7 @@ trait Linkable
     #[Description("Get elections object linked to this Vote or Candidate object.")]
     #[FunctionReturn("Populated by each elections Condorcet object.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function getLinks () : ?array
+    public function getLinks (): ?array
     {
         return !empty($this->_link) ? $this->_link : null;
     }
@@ -60,7 +60,7 @@ trait Linkable
     // Internal
         # Dot not Overloading ! Do not Use !
 
-    public function registerLink (Election $election) : void
+    public function registerLink (Election $election): void
     {
         if ( !$this->haveLink($election) ) :
             $this->_link[] = $election;
@@ -69,7 +69,7 @@ trait Linkable
         endif;
     }
 
-    public function destroyLink (Election $election) : bool
+    public function destroyLink (Election $election): bool
     {
         $destroyKey = \array_search(needle: $election, haystack: $this->_link, strict: true);
 
@@ -81,7 +81,7 @@ trait Linkable
         endif;
     }
 
-    protected function destroyAllLink () : void
+    protected function destroyAllLink (): void
     {
         $this->_link = [];
     }

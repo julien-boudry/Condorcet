@@ -12,11 +12,11 @@ class ArrayManagerTest extends TestCase
 {
     private ArrayManager $ArrayManager;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->ArrayManager = new class extends ArrayManager {
-            protected function preDeletedTask ($object) : void {}
-            protected function decodeOneEntity (string $data) : Vote
+            protected function preDeletedTask ($object): void {}
+            protected function decodeOneEntity (string $data): Vote
             {
                 $vote = new Vote ($data);
                 $this->_Election->checkVoteCandidate($vote);
@@ -25,7 +25,7 @@ class ArrayManagerTest extends TestCase
                 return $vote;
             }
 
-            protected function encodeOneEntity (Vote $data) : string
+            protected function encodeOneEntity (Vote $data): string
             {
                 $data->destroyLink($this->_Election);
 
@@ -34,7 +34,7 @@ class ArrayManagerTest extends TestCase
         };
     }
 
-    public function testOffsetSetAndOffetsetGet () : void
+    public function testOffsetSetAndOffetsetGet (): void
     {
         self::assertNull($this->ArrayManager->key());
 

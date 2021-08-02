@@ -29,16 +29,16 @@ class CondorcetBasic extends Method implements MethodInterface
 /////////// PUBLIC ///////////
 
 
-    public function getResult () : Result {
+    public function getResult (): Result {
         throw new CondorcetException (102);
     }
 
 
-    protected function getStats () : array { return []; }
+    protected function getStats (): array { return []; }
 
 
     // Get a Condorcet certified winner. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-    public function getWinner () : ?int
+    public function getWinner (): ?int
     {
         // Cache
         if ( $this->_CondorcetWinner !== null ) :
@@ -68,7 +68,7 @@ class CondorcetBasic extends Method implements MethodInterface
     }
 
     // Get a Condorcet certified loser. If there is none = null. You can force a winner choice with alternative supported methods ($substitution)
-    public function getLoser () : ?int
+    public function getLoser (): ?int
     {
         // Cache
         if ( $this->_CondorcetLoser !== null ) :

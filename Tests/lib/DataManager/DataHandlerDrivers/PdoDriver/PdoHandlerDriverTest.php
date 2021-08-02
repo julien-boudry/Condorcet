@@ -14,12 +14,12 @@ use PHPUnit\Framework\TestCase;
  */
 class PdoHandlerDriverTest extends TestCase
 {
-    protected function getPDO () : \PDO
+    protected function getPDO (): \PDO
     {
         return new \PDO ('sqlite::memory:','','',[\PDO::ATTR_PERSISTENT => false]);
     }
 
-    protected function hashVotesList (Election $elec) : string {
+    protected function hashVotesList (Election $elec): string {
             $c = 0;
             $voteCompil = '';
             foreach ($elec->getVotesManager() as $oneVote) :
@@ -31,7 +31,7 @@ class PdoHandlerDriverTest extends TestCase
     }
 
 
-    public function testManyVoteManipulation() : void
+    public function testManyVoteManipulation(): void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -139,7 +139,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->removeExternalDataHandler();
     }
 
-    public function testVotePreserveTag() : void
+    public function testVotePreserveTag(): void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -163,7 +163,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(6,$electionWithDb->countVotes('tag1',true));
     }
 
-    public function testVoteObjectIntoDataHandler() : void
+    public function testVoteObjectIntoDataHandler(): void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -185,7 +185,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
     }
 
-    public function testUpdateEntity() : void
+    public function testUpdateEntity(): void
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -211,7 +211,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->getVotesListAsString());
     }
 
-    public function testGetVotesListGenerator() : void
+    public function testGetVotesListGenerator(): void
     {
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
@@ -238,7 +238,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertCount(42,$votesListGenerator);
     }
 
-    public function testSliceInput() : void
+    public function testSliceInput(): void
     {
         // Setup
         ArrayManager::$CacheSize = 462;
@@ -254,7 +254,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(463,$electionWithDb->countVotes());
     }
 
-    public function testMultipleHandler () : void
+    public function testMultipleHandler (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(24);
@@ -264,7 +264,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
     }
 
-    public function testBadTableSchema1 () : void
+    public function testBadTableSchema1 (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(0);
@@ -273,7 +273,7 @@ class PdoHandlerDriverTest extends TestCase
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }
 
-    public function testBadTableSchema2 () : void
+    public function testBadTableSchema2 (): void
     {
         $this->expectException(\Exception::class);
 
@@ -281,7 +281,7 @@ class PdoHandlerDriverTest extends TestCase
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
     }
 
-    public function testEmptyEntities () : void
+    public function testEmptyEntities (): void
     {
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);

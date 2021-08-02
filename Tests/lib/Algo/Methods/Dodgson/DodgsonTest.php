@@ -13,12 +13,12 @@ class DodgsonTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -57,7 +57,7 @@ class DodgsonTest extends TestCase
     }
 
     # Require real Dodgson method. This test fail with both approximations.
-    // public function testResult_2 () : void
+    // public function testResult_2 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
            # Table 1
@@ -81,7 +81,7 @@ class DodgsonTest extends TestCase
     //         'A', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_3 () : void
+    public function testResult_3 (): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 2
@@ -106,7 +106,7 @@ class DodgsonTest extends TestCase
     }
 
     # Require real Dodgson method. This test fail with both approximations.
-    // public function testResult_4 () : void
+    // public function testResult_4 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
            # Table 3
@@ -128,7 +128,7 @@ class DodgsonTest extends TestCase
     //         'A', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_5 () : void
+    public function testResult_5 (): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 4
@@ -150,7 +150,7 @@ class DodgsonTest extends TestCase
             'C', $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_6 () : void
+    public function testResult_6 (): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 5
@@ -171,7 +171,7 @@ class DodgsonTest extends TestCase
             'D', $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_7 () : void
+    public function testResult_7 (): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 6
@@ -192,7 +192,7 @@ class DodgsonTest extends TestCase
             'D', $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_8 () : void
+    public function testResult_8 (): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 7
@@ -212,7 +212,7 @@ class DodgsonTest extends TestCase
     }
 
     # Require real Dodgson method. This test fail with both approximations.
-    // public function testResult_9 () : void
+    // public function testResult_9 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
            # Table 8
@@ -232,7 +232,7 @@ class DodgsonTest extends TestCase
     //         'B', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_10 () : void
+    public function testResult_10 (): void
     {
         # From https://link.springer.com/article/10.1007/s003550000060
 
@@ -255,7 +255,7 @@ class DodgsonTest extends TestCase
             'B', $this->election->getWinner('DodgsonTideman'));
     }
 
-    public function testResult_11 () : void
+    public function testResult_11 (): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 2 with Tideman Approximation
@@ -287,7 +287,7 @@ class DodgsonTest extends TestCase
         );
     }
 
-    public function testResult_12 () : void
+    public function testResult_12 (): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 3 with Tideman Approximation
@@ -330,7 +330,7 @@ class DodgsonTest extends TestCase
         );
     }
 
-    public function testResult_13 () : void
+    public function testResult_13 (): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 4
@@ -366,7 +366,7 @@ class DodgsonTest extends TestCase
             'A', $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_14 () : void
+    public function testResult_14 (): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 4: each voters add 4 friends.
@@ -402,7 +402,7 @@ class DodgsonTest extends TestCase
             'B', $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_15 () : void
+    public function testResult_15 (): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');

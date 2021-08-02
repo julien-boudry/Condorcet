@@ -38,7 +38,7 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool $with = true
-    ) : int
+    ): int
     {
         return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags),$with);
     }
@@ -47,7 +47,7 @@ trait VotesProcess
     #[Description("Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.")]
     #[FunctionReturn("Number of valid and registered vote into this election.")]
     #[Related("Election::countValidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
-    public function countInvalidVoteWithConstraints () : int
+    public function countInvalidVoteWithConstraints (): int
     {
         return $this->_Votes->countInvalidVoteWithConstraints();
     }
@@ -56,7 +56,7 @@ trait VotesProcess
     #[Description("Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn("Number of valid and registered vote into this election.")]
     #[Related("Election::countInvalidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
-    public function countValidVoteWithConstraints () : int
+    public function countValidVoteWithConstraints (): int
     {
         return $this->countVotes() - $this->countInvalidVoteWithConstraints();
     }
@@ -66,7 +66,7 @@ trait VotesProcess
     #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.")]
     #[FunctionReturn("(Int) Total vote weight")]
     #[Related("Election::sumValidVotesWeightWithConstraints")]
-    public function sumVotesWeight () : int
+    public function sumVotesWeight (): int
     {
         return $this->_Votes->sumVotesWeight(false);
     }
@@ -75,7 +75,7 @@ trait VotesProcess
     #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn("(Int) Total vote weight")]
     #[Related("Election::countValidVoteWithConstraints", "Election::countInvalidVoteWithConstraints")]
-    public function sumValidVotesWeightWithConstraints () : int
+    public function sumValidVotesWeightWithConstraints (): int
     {
         return $this->_Votes->sumVotesWeight(true);
     }
@@ -90,7 +90,7 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
-    ) : array
+    ): array
     {
         return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
@@ -99,12 +99,12 @@ trait VotesProcess
     #[Description("Get registered vote list.")]
     #[FunctionReturn("Return a string like :<br>\nA > B > C * 3<br>\nA = B > C * 6")]
     #[Related("Election::parseVotes")]
-    public function getVotesListAsString () : string
+    public function getVotesListAsString (): string
     {
         return $this->_Votes->getVotesListAsString();
     }
 
-    public function getVotesManager () : VotesManager
+    public function getVotesManager (): VotesManager
     {
         return $this->_Votes;
     }
@@ -118,7 +118,7 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
-    ) : \Generator
+    ): \Generator
     {
         return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
@@ -132,12 +132,12 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
-    ) : \Generator
+    ): \Generator
     {
         return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
     }
 
-    public function getVoteKey (Vote $vote) : ?int
+    public function getVoteKey (Vote $vote): ?int
     {
         return $this->_Votes->getVoteKey($vote);
     }
@@ -156,7 +156,7 @@ trait VotesProcess
         array|string|Vote $vote,
         #[FunctionParameter('String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object')]
         array|string|null $tags = null
-    ) : Vote
+    ): Vote
     {
         $this->prepareVoteInput($vote, $tags);
 
@@ -169,12 +169,12 @@ trait VotesProcess
         return $this->registerVote($vote, $tags); // Return the vote object
     }
 
-    public function prepareUpdateVote (Vote $existVote) : void
+    public function prepareUpdateVote (Vote $existVote): void
     {
         $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 2);
     }
 
-    public function finishUpdateVote (Vote $existVote) : void
+    public function finishUpdateVote (Vote $existVote): void
     {
         $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 1);
 
@@ -183,7 +183,7 @@ trait VotesProcess
         endif;
     }
 
-    public function checkVoteCandidate (Vote $vote) : bool
+    public function checkVoteCandidate (Vote $vote): bool
     {
         if ($this->_voteFastMode === 0) :
             $linkCount = $vote->countLinks();
@@ -204,7 +204,7 @@ trait VotesProcess
 
             if ($change) :
                 $vote->setRanking(  $ranking,
-                                    ( \abs($vote->getTimestamp() - \microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001) : null
+                                    ( \abs($vote->getTimestamp() - \microtime(true)) > 0.5 ) ? ($vote->getTimestamp() + 0.001): null
                 );
             endif;
         endif;
@@ -212,7 +212,7 @@ trait VotesProcess
         return true;
     }
 
-    public function convertRankingCandidates (array &$ranking) : bool
+    public function convertRankingCandidates (array &$ranking): bool
     {
         $change = false;
 
@@ -231,7 +231,7 @@ trait VotesProcess
     }
 
     // Write a new vote
-    protected function registerVote (Vote $vote, array|string|null $tags) : Vote
+    protected function registerVote (Vote $vote, array|string|null $tags): Vote
     {
         // Vote identifiant
         $tags === null || $vote->addTags($tags);
@@ -256,7 +256,7 @@ trait VotesProcess
     public function removeVote (
         #[FunctionParameter('Vote object')]
         Vote $vote
-    ) : bool
+    ): bool
     {
         $key = $this->getVoteKey($vote);
         if ($key !== null) :
@@ -283,7 +283,7 @@ trait VotesProcess
         array|string $tags,
         #[FunctionParameter('Votes with these tags or without')]
         bool $with = true
-    ) : array
+    ): array
     {
         $rem = [];
 
@@ -307,7 +307,7 @@ trait VotesProcess
 /////////// PARSE VOTE ///////////
 
     // Return the well formated vote to use.
-    protected function prepareVoteInput (array|string|Vote &$vote, array|string $tags = null) : void
+    protected function prepareVoteInput (array|string|Vote &$vote, array|string $tags = null): void
     {
         if (!($vote instanceof Vote)) :
             $vote = new Vote (ranking: $vote, tags: $tags, ownTimestamp: null, electionContext: $this);
@@ -327,7 +327,7 @@ trait VotesProcess
     public function addVotesFromJson (
         #[FunctionParameter('Json string input')]
         string $input
-    ) : int
+    ): int
     {
         $input = CondorcetUtil::prepareJson($input);
 
@@ -363,7 +363,7 @@ trait VotesProcess
         string $input,
         #[FunctionParameter('If true, the input is evalatued as path to text file')]
         bool $isFile = false
-    ) : int
+    ): int
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
 
@@ -419,7 +419,7 @@ trait VotesProcess
         bool $isFile = false,
         #[FunctionParameter('Callback function to execute after each registered vote')]
         ?\Closure $callBack = null
-    ) : int
+    ): int
     {
         $inserted_votes_count = 0;
         $fail_count = 0;
@@ -473,7 +473,7 @@ trait VotesProcess
         return $fail_count;
     }
 
-    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight) : void
+    protected function synthesisVoteFromParse (int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight): void
     {
         $adding_predicted_count = $count + $multiple;
 
@@ -493,7 +493,7 @@ trait VotesProcess
         $count += $multiple;
     }
 
-    protected function doAddVotesFromParse (array $adding) : void
+    protected function doAddVotesFromParse (array $adding): void
     {
         $this->_voteFastMode = 1;
 

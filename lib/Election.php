@@ -39,7 +39,7 @@ class Election
     public static function setMaxParseIteration (
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
         ?int $maxParseIterations
-    ) : ?int
+    ): ?int
     {
         self::$_maxParseIteration = $maxParseIterations;
         return self::$_maxParseIteration;
@@ -53,7 +53,7 @@ class Election
     public static function setMaxVoteNumber (
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
         ?int $maxVotesNumber
-    ) : ?int
+    ): ?int
     {
         self::$_maxVoteNumber = $maxVotesNumber;
         return self::$_maxVoteNumber;
@@ -92,7 +92,7 @@ class Election
         unset($this->_Calculator);
     }
 
-    public function __serialize () : array
+    public function __serialize (): array
     {
         // Don't include others data
         $include = [
@@ -116,7 +116,7 @@ class Election
         return $include;
     }
 
-    public function __unserialize (array $data) : void
+    public function __unserialize (array $data): void
     {
         if ( \version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
             throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
@@ -139,7 +139,7 @@ class Election
         $this->_timer ??= $data['_timer'];
     }
 
-    public function __clone () : void
+    public function __clone (): void
     {
         $this->_Votes = clone $this->_Votes;
         $this->_Votes->setElection($this);
@@ -161,7 +161,7 @@ class Election
     #[FunctionReturn("(Float) Timer")]
     #[Example("Manual - Timber benchmarking","https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking")]
     #[Related("Election::getLastTimer")]
-    public function getGlobalTimer () : float {
+    public function getGlobalTimer (): float {
         return $this->_timer->getGlobalTimer();
     }
 
@@ -170,7 +170,7 @@ class Election
     #[FunctionReturn("(Float) Timer")]
     #[Example("Manual - Timber benchmarking","https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking")]
     #[Related("Election::getGlobalTimer")]
-    public function getLastTimer () : float {
+    public function getLastTimer (): float {
         return $this->_timer->getLastTimer();
     }
 
@@ -178,7 +178,7 @@ class Election
     #[Description("Get the Timer manager object.")]
     #[FunctionReturn("An CondorcetPHP\Condorcet\Timer\Manager object using by this election.")]
     #[Related("Election::getGlobalTimer", "Election::getLastTimer")]
-    public function getTimerManager () : Timer_Manager {
+    public function getTimerManager (): Timer_Manager {
         return $this->_timer;
     }
 
@@ -186,7 +186,7 @@ class Election
     #[Description("SHA-2 256 checksum of following internal data:\n* Candidates\n* Votes list & tags\n* Computed data (pairwise, algorithm cache, stats)\n* Class version (major version like 0.14)\n\nCan be powerfull to check integrity and security of an election. Or working with serialized object.")]
     #[FunctionReturn("SHA-2 256 bits Hexadecimal")]
     #[Example("Manual - Cryptographic Checksum","https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum")]
-    public function getChecksum () : string
+    public function getChecksum (): string
     {
         self::$_checksumMode = true;
 
@@ -213,7 +213,7 @@ class Election
 
 /////////// LINKS REGULATION ///////////
 
-    protected function registerAllLinks () : void
+    protected function registerAllLinks (): void
     {
         foreach ($this->_Candidates as $value) :
             $value->registerLink($this);
@@ -226,7 +226,7 @@ class Election
         endif;
     }
 
-    protected function destroyAllLink () : void
+    protected function destroyAllLink (): void
     {
         foreach ($this->_Candidates as $value) :
             $value->destroyLink($this);
@@ -248,7 +248,7 @@ class Election
     #[Description("Returns the corresponding setting as currently set (True by default).\nIf it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.\nIf it is false, then the candidates not ranked, are not taken into account at all.")]
     #[FunctionReturn("True / False")]
     #[Related("Election::setImplicitRanking")]
-    public function getImplicitRankingRule () : bool
+    public function getImplicitRankingRule (): bool
     {
         return $this->_ImplicitRanking;
     }
@@ -260,7 +260,7 @@ class Election
     public function setImplicitRanking (
         #[FunctionParameter('New rule')]
         bool $rule = true
-    ) : bool
+    ): bool
     {
         $this->_ImplicitRanking = $rule;
         $this->cleanupCompute();
@@ -271,7 +271,7 @@ class Election
     #[Description("Returns the corresponding setting as currently set (False by default).\nIf it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.")]
     #[FunctionReturn("True / False")]
     #[Related("Election::allowsVoteWeight")]
-    public function isVoteWeightAllowed () : bool
+    public function isVoteWeightAllowed (): bool
     {
         return $this->_VoteWeightRule;
     }
@@ -283,7 +283,7 @@ class Election
     public function allowsVoteWeight (
         #[FunctionParameter('New rule')]
         bool $rule = true
-    ) : bool
+    ): bool
     {
         $this->_VoteWeightRule = $rule;
         $this->cleanupCompute();
@@ -301,7 +301,7 @@ class Election
     public function addConstraint (
         #[FunctionParameter('A valid class path. Class must extend VoteConstraint class')]
         string $constraintClass
-    ) : bool
+    ): bool
     {
         if ( !\class_exists($constraintClass) ) :
             throw new CondorcetException(27);
@@ -323,7 +323,7 @@ class Election
     #[FunctionReturn("Array with class name of each active constraint. Empty array if there is not.")]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::clearConstraints", "Election::addConstraints", "Election::testIfVoteIsValidUnderElectionConstraints")]
-    public function getConstraints () : array
+    public function getConstraints (): array
     {
         return $this->_Constraints;
     }
@@ -333,7 +333,7 @@ class Election
     #[FunctionReturn("Return True.")]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::getConstraints", "Election::addConstraints", "Election::testIfVoteIsValidUnderElectionConstraints")]
-    public function clearConstraints () : bool
+    public function clearConstraints (): bool
     {
         $this->_Constraints = [];
 
@@ -349,7 +349,7 @@ class Election
     public function testIfVoteIsValidUnderElectionConstraints (
         #[FunctionParameter('A vote. Not necessarily registered in this election')]
         Vote $vote
-    ) : bool
+    ): bool
     {
         foreach ($this->_Constraints as $oneConstraint) :
             if ($oneConstraint::isVoteAllow($this,$vote) === false) :
@@ -367,7 +367,7 @@ class Election
     #[Description("Get number of Seats for STV methods.")]
     #[FunctionReturn("Number of seats.")]
     #[Related("Election::setNumberOfSeats", "Result::getNumberOfSeats")]
-    public function getNumberOfSeats () : int
+    public function getNumberOfSeats (): int
     {
         return $this->_Seats;
     }
@@ -379,7 +379,7 @@ class Election
     public function setNumberOfSeats (
         #[FunctionParameter('The number of seats for proportional methods.')]
         int $seats
-    ) : int
+    ): int
     {
         if ($seats > 0) :
             $this->cleanupCompute();
@@ -403,7 +403,7 @@ class Election
     public function setExternalDataHandler (
         #[FunctionParameter('Driver object')]
         DataHandlerDriverInterface $driver
-    ) : bool
+    ): bool
     {
         if (!$this->_Votes->isUsingHandler()) :
             $this->_Votes->importHandler($driver);
@@ -417,7 +417,7 @@ class Election
     #[Description("Remove an external driver to store vote on very large election. And import his data into classical memory.")]
     #[FunctionReturn("True if success. Else throw an Exception.")]
     #[Related("Election::setExternalDataHandler")]
-    public function removeExternalDataHandler () : bool
+    public function removeExternalDataHandler (): bool
     {
         if ($this->_Votes->isUsingHandler()) :
             $this->_Votes->closeHandler();
@@ -434,7 +434,7 @@ class Election
     #[Description("Get the election process level.")]
     #[FunctionReturn("1: Candidate registered state. No votes, no result, no cache.\n2: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.\n3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.")]
     #[Related("Election::setStateToVote")]
-    public function getState () : int
+    public function getState (): int
     {
         return $this->_State;
     }
@@ -444,7 +444,7 @@ class Election
     #[Description("Force the election to get back to state 2. See Election::getState.\nIt is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.\n\nIf you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.\nIf you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.")]
     #[FunctionReturn("Always True.")]
     #[Related("Election::getState")]
-    public function setStateToVote () : bool
+    public function setStateToVote (): bool
     {
         if ( $this->_State === 1 ) :
             if (empty($this->_Candidates)) :
@@ -459,7 +459,7 @@ class Election
     }
 
     // Prepare to compute results & caching system
-    protected function preparePairwiseAndCleanCompute () : bool
+    protected function preparePairwiseAndCleanCompute (): bool
     {
         if ($this->_Pairwise === null && $this->_State === 2) :
             $this->cleanupCompute();

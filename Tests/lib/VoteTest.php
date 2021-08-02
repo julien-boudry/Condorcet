@@ -21,7 +21,7 @@ class VoteTest extends TestCase
     private Candidate $candidate5;
     private Candidate $candidate6;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election1 = new Election;
 
@@ -33,7 +33,7 @@ class VoteTest extends TestCase
         $this->candidate6 = new Candidate('candidate6');
     }
 
-    public function testTimestamp () : void
+    public function testTimestamp (): void
     {
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -44,7 +44,7 @@ class VoteTest extends TestCase
         self::assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
     }
 
-    public function testDifferentRanking () : void
+    public function testDifferentRanking (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(22);
@@ -195,7 +195,7 @@ class VoteTest extends TestCase
         $vote1->getContextualRanking($unexpectedElection);
     }
 
-    public function testSimpleRanking () : void
+    public function testSimpleRanking (): void
     {
         // Ranking 1
         $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
@@ -207,7 +207,7 @@ class VoteTest extends TestCase
         self::assertSame($vote1->getSimpleRanking($this->election1),'candidate1 > candidate2 = candidate3');
     }
 
-    public function testProvisionalCandidateObject () : void
+    public function testProvisionalCandidateObject (): void
     {
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
@@ -296,7 +296,7 @@ class VoteTest extends TestCase
         );
     }
 
-    public function testDifferentElection () : void {
+    public function testDifferentElection (): void {
 
         $election1 = $this->election1;
 
@@ -343,7 +343,7 @@ class VoteTest extends TestCase
 
     }
 
-    public function testTags () : void
+    public function testTags (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(17);
@@ -423,7 +423,7 @@ class VoteTest extends TestCase
         endif;
     }
 
-    public function testBadTagInput1 () : void
+    public function testBadTagInput1 (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(17);
@@ -432,7 +432,7 @@ class VoteTest extends TestCase
         $vote->addTags(['tag1',42]);
     }
 
-    public function testAddRemoveTags () : void
+    public function testAddRemoveTags (): void
     {
         $this->vote1 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]);
 
@@ -464,7 +464,7 @@ class VoteTest extends TestCase
         );
     }
 
-    public function testTagsOnConstructorByStringInput () : void
+    public function testTagsOnConstructorByStringInput (): void
     {
         $vote1 = new Vote('tag1,tag2 ||A > B >C','tag3,tag4');
 
@@ -477,7 +477,7 @@ class VoteTest extends TestCase
         self::assertSame((string) $vote1,(string) $vote2);
     }
 
-    public function testCloneVote () : void
+    public function testCloneVote (): void
     {
         // Ranking 1
         $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
@@ -490,7 +490,7 @@ class VoteTest extends TestCase
         self::assertSame(1,$vote1->countLinks());
     }
 
-    public function testIterator () : void
+    public function testIterator (): void
     {
         $vote = new Vote ('C > B > A');
 
@@ -499,7 +499,7 @@ class VoteTest extends TestCase
         endforeach;
     }
 
-    public function testWeight() : void
+    public function testWeight(): void
     {
         $vote = new Vote ('A>B>C^42');
 
@@ -514,7 +514,7 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C^a');
     }
 
-    public function testCustomTimestamp() : void
+    public function testCustomTimestamp(): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(21);
@@ -540,7 +540,7 @@ class VoteTest extends TestCase
 
     }
 
-    public function testHashCode() : void
+    public function testHashCode(): void
     {
         $vote = new Vote ('A>B>C');
 
@@ -563,14 +563,14 @@ class VoteTest extends TestCase
         self::assertNotSame($hashCode[4],$hashCode[3]);
     }
 
-    public function testCountRankingCandidates() : void
+    public function testCountRankingCandidates(): void
     {
         $vote = new Vote ('A>B>C');
 
         self::assertsame(3,$vote->countRankingCandidates());
     }
 
-    public function testInvalidWeight() : void
+    public function testInvalidWeight(): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(26);
@@ -580,7 +580,7 @@ class VoteTest extends TestCase
         $vote->setWeight(0);
     }
 
-    public function testInvalidTag1() : void
+    public function testInvalidTag1(): void
     {
         $this->expectException(\TypeError::class);
 
@@ -589,7 +589,7 @@ class VoteTest extends TestCase
         $vote->addTags(true);
     }
 
-    public function testInvalidTag2() : void
+    public function testInvalidTag2(): void
     {
         $this->expectException(\TypeError::class);
 
@@ -598,7 +598,7 @@ class VoteTest extends TestCase
         $vote->addTags(42);
     }
 
-    public function testRemoveCandidate () : void
+    public function testRemoveCandidate (): void
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -622,7 +622,7 @@ class VoteTest extends TestCase
         $vote1->removeCandidate($this->candidate4);
     }
 
-    public function testRemoveCandidateInvalidInput () : void
+    public function testRemoveCandidateInvalidInput (): void
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -631,7 +631,7 @@ class VoteTest extends TestCase
         $vote1->removeCandidate([]);
     }
 
-    public function testVoteHistory () : void
+    public function testVoteHistory (): void
     {
         $this->election1->addCandidate($this->candidate4);
         $this->election1->addCandidate($this->candidate5);
@@ -698,14 +698,14 @@ class VoteTest extends TestCase
         self::assertCount(1,$vote7->getHistory());
     }
 
-    public function testBadRankingInput1 () : void
+    public function testBadRankingInput1 (): void
     {
         $this->expectException(\TypeError::class);
 
         $vote = new Vote(42);
     }
 
-    public function testBadRankingInput2 () : void
+    public function testBadRankingInput2 (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(5);
@@ -715,7 +715,7 @@ class VoteTest extends TestCase
         $vote = new Vote([$candidate,$candidate]);
     }
 
-    public function testEmptyVoteContextualInRanking () : void
+    public function testEmptyVoteContextualInRanking (): void
     {
         $vote = $this->election1->addVote('candidate4 > candidate5');
 
@@ -732,7 +732,7 @@ class VoteTest extends TestCase
         );
     }
 
-    public function testNonEmptyVoteContextualInRanking () : void
+    public function testNonEmptyVoteContextualInRanking (): void
     {
         $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
 
@@ -751,7 +751,7 @@ class VoteTest extends TestCase
 
 
     // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates1 () : void
+    public function testDuplicateCandidates1 (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(5);
@@ -761,7 +761,7 @@ class VoteTest extends TestCase
 
 
     // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates2 () : void
+    public function testDuplicateCandidates2 (): void
     {
         $election = new Election();
         $election->parseCandidates('Spain;Japan;France;Netherlands;Australia');

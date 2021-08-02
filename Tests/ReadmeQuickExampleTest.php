@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReadmeQuickExampleTest extends TestCase
 {
-    public function testReadmeQuickExample() : void
+    public function testReadmeQuickExample(): void
     {
           $myElection1 = new Election () ;
 

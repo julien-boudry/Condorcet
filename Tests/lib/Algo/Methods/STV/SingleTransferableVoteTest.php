@@ -15,17 +15,17 @@ class SingleTransferableVoteTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         $this->election->setMethodOption('STV', 'Quota', 'droop quota');
     }
 
-    public function testQuotaOption () : void
+    public function testQuotaOption (): void
     {
         self::assertTrue(
             $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff')
@@ -42,7 +42,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->getResult('STV');
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         # From https://fr.wikipedia.org/wiki/Scrutin_%C3%A0_vote_unique_transf%C3%A9rable
 
@@ -101,7 +101,7 @@ class SingleTransferableVoteTest extends TestCase
         );
     }
 
-    public function testResult_2 () : void
+    public function testResult_2 (): void
     {
         # From https://en.wikipedia.org/wiki/Single_transferable_vote
 
@@ -176,7 +176,7 @@ class SingleTransferableVoteTest extends TestCase
         );
     }
 
-    public function testResult_3 () : void
+    public function testResult_3 (): void
     {
         # From https://en.wikipedia.org/wiki/Schulze_STV
 
@@ -227,7 +227,7 @@ class SingleTransferableVoteTest extends TestCase
         );
     }
 
-    public function testResult_4 () : void
+    public function testResult_4 (): void
     {
         # From https://it.wikipedia.org/wiki/Voto_singolo_trasferibile
 
@@ -263,7 +263,7 @@ class SingleTransferableVoteTest extends TestCase
     }
 
 
-    public function testResult_AlternativeQuotas1 () : void
+    public function testResult_AlternativeQuotas1 (): void
     {
         # From https://en.wikipedia.org/wiki/Hagenbach-Bischoff_quota
 
@@ -316,7 +316,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hagenbach-Bischoff');
     }
 
-    public function testResult_AlternativeQuotas2 () : void
+    public function testResult_AlternativeQuotas2 (): void
     {
         # From https://en.wikipedia.org/wiki/Imperiali_quota
 
@@ -368,7 +368,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Imperiali quota');
     }
 
-    public function testResult_AlternativeQuotas3 () : void
+    public function testResult_AlternativeQuotas3 (): void
     {
         # From https://en.wikipedia.org/wiki/Hare_quota
 
@@ -421,7 +421,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hare quota');
     }
 
-    public function testResult_AlternativeQuotas4 () : void
+    public function testResult_AlternativeQuotas4 (): void
     {
         # From https://en.wikipedia.org/wiki/CPO-STV
 

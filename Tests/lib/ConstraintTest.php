@@ -13,7 +13,7 @@ class ConstraintTest extends TestCase
      */
     private Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
 
@@ -22,7 +22,7 @@ class ConstraintTest extends TestCase
         $this->election->addCandidate('C');
     }
 
-    public function testAddConstraintAndClear () : void
+    public function testAddConstraintAndClear (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(29);
@@ -42,7 +42,7 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testPhantomClass () : void
+    public function testPhantomClass (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(27);
@@ -52,7 +52,7 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testBadClass () : void
+    public function testBadClass (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(28);
@@ -62,7 +62,7 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testConstraintsOnVote () : void
+    public function testConstraintsOnVote (): void
     {
         $NoTieImplementation = [\CondorcetPHP\Condorcet\Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
 
@@ -129,7 +129,7 @@ class ConstraintTest extends TestCase
 
 class AlternativeNoTieConstraintClass extends VoteConstraint
 {
-    public static function isVoteAllow (Election $election, Vote $vote) : bool
+    public static function isVoteAllow (Election $election, Vote $vote): bool
     {
         foreach ($vote->getContextualRanking($election) as $oneRank) :
             if (\count($oneRank) > 1) :

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetVersionTest extends TestCase
 {
-    public function testObjectVersion () : void
+    public function testObjectVersion (): void
     {
         $election = new Election;
 

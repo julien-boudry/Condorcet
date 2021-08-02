@@ -46,7 +46,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     //:: Alternative Vote ALGORITHM. :://
 
-    protected function compute () : void
+    protected function compute (): void
     {
         $candidateCount = $this->_selfElection->countCandidates();
         $majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
@@ -87,7 +87,7 @@ class InstantRunoff extends Method implements MethodInterface
 
                 // Tie Breaking
                 $round = \count($LosersToRegister);
-                for ($i = 1 ; $i < $round ; $i++) : // A little silly. But ultimately shorter and simpler.
+                for ($i = 1 ; $i < $round ; $i++): // A little silly. But ultimately shorter and simpler.
                     $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection ,$LosersToRegister);
                 endfor;
 
@@ -101,7 +101,7 @@ class InstantRunoff extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $candidateDone) : array
+    protected function makeScore (array $candidateDone): array
     {
         $score = [];
 

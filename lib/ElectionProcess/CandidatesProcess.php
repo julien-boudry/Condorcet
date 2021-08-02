@@ -32,7 +32,7 @@ trait CandidatesProcess
     #[Description("Count the number of registered candidate")]
     #[FunctionReturn("Number of registered candidate for this election.")]
     #[Related("Election::getCandidatesList")]
-    public function countCandidates () : int
+    public function countCandidates (): int
     {
         return \count($this->_Candidates);
     }
@@ -41,7 +41,7 @@ trait CandidatesProcess
     #[Description("Return a list of registered Candidate into this election.")]
     #[FunctionReturn("List of Candidate into an array.")]
     #[Related("Election::countCandidates")]
-    public function getCandidatesList () : array
+    public function getCandidatesList (): array
     {
         return $this->_Candidates;
     }
@@ -51,7 +51,7 @@ trait CandidatesProcess
     #[Description("Return a list of registered Candidate into this election.")]
     #[FunctionReturn("List of Candidate into an array populated by strign instead CandidateObject.")]
     #[Related("Election::countCandidates")]
-    public function getCandidatesListAsString () : array
+    public function getCandidatesListAsString (): array
     {
         $result = [];
 
@@ -62,7 +62,7 @@ trait CandidatesProcess
         return $result;
     }
 
-    public function getCandidateKey (Candidate|string $candidate) : ?int
+    public function getCandidateKey (Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) :
             $r = \array_search(needle: $candidate, haystack: $this->_Candidates, strict: true);
@@ -73,7 +73,7 @@ trait CandidatesProcess
         return ($r !== false) ? $r : null;
     }
 
-    public function getCandidateObjectFromKey (int $candidate_key) : ?Candidate
+    public function getCandidateObjectFromKey (int $candidate_key): ?Candidate
     {
         if (!\array_key_exists($candidate_key, $this->_Candidates)) :
             return null;
@@ -91,9 +91,9 @@ trait CandidatesProcess
         Candidate|string $candidate,
         #[FunctionParameter("Search comparaison mode. In strict mode, candidate object are compared strictly and a string input can't match anything.\nIf strict mode is false, the comparaison will be based on name")]
         bool $strictMode = true
-    ) : bool
+    ): bool
     {
-        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
+        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true): \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
     }
 
     #[PublicAPI]
@@ -102,7 +102,7 @@ trait CandidatesProcess
     public function getCandidateObjectFromName (
         #[FunctionParameter('Candidate Name')]
         string $candidateName
-    ) : ?Candidate
+    ): ?Candidate
     {
         foreach ($this->_Candidates as $oneCandidate) :
 
@@ -126,7 +126,7 @@ trait CandidatesProcess
     public function addCandidate (
         #[FunctionParameter('Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. Your candidate name will be trim(). If null, will create for you a new candidate with an automatic name.')]
         Candidate|string|null $candidate = null
-    ) : Candidate
+    ): Candidate
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
@@ -167,7 +167,7 @@ trait CandidatesProcess
     public function canAddCandidate (
         #[FunctionParameter('String or Condorcet/Vote object')]
         Candidate|string $candidate
-    ) : bool
+    ): bool
     {
         return !$this->isRegisteredCandidate($candidate, false);
     }
@@ -181,7 +181,7 @@ trait CandidatesProcess
     public function removeCandidates (
         #[FunctionParameter("* String matching Candidate Name\n* CondorcetPHP\Condorcet\Candidate object\n* Array populated by CondorcetPHP\Condorcet\Candidate\n* Array populated by string matching Candidate name")]
         array|Candidate|string $candidates_input
-    ) : array
+    ): array
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
@@ -225,7 +225,7 @@ trait CandidatesProcess
     public function addCandidatesFromJson (
         #[FunctionParameter('Json string input')]
         string $input
-    ) : array
+    ): array
     {
         $input = CondorcetUtil::prepareJson($input);
 
@@ -260,7 +260,7 @@ trait CandidatesProcess
         string $input,
         #[FunctionParameter('If true, the input is evalatued as path to text file')]
         bool $isFile = false
-    ) : array
+    ): array
     {
         $input = CondorcetUtil::prepareParse($input, $isFile);
 

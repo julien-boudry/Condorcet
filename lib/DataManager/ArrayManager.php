@@ -44,12 +44,12 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->regularize();
     }
 
-    public function __clone () : void
+    public function __clone (): void
     {
         unset($this->_Election);
     }
 
-    public function __serialize () : array
+    public function __serialize (): array
     {
         $this->regularize();
         $this->clearCache();
@@ -61,7 +61,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
                 ];
     }
 
-    public function __unserialize (array $data) : void
+    public function __unserialize (array $data): void
     {
         $this->_Container = $data['_Container'];
         $this->_DataHandler = $data['_DataHandler'];
@@ -74,7 +74,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
 /////////// Implement ArrayAccess ///////////
 
-    public function offsetSet($offset, $value) : void
+    public function offsetSet($offset, $value): void
     {
         if ($offset === null) :
             $this->_Container[++$this->_maxKey] = $value;
@@ -104,12 +104,12 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     }
 
     // Use by isset() function, must return false if offset value is null.
-    public function offsetExists($offset) : bool
+    public function offsetExists($offset): bool
     {
         return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false) ) ? true : false ;
     }
 
-    public function offsetUnset($offset) : void
+    public function offsetUnset($offset): void
     {
         if ($this->keyExist($offset)) :
             if (\array_key_exists(key: $offset, array: $this->_Container)) :
@@ -128,7 +128,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function offsetGet($offset) : mixed
+    public function offsetGet($offset): mixed
     {
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];
@@ -153,7 +153,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected bool $valid = true;
 
-    public function rewind() : void {
+    public function rewind(): void {
         $this->_cursor = null;
         $this->valid = true;
 
@@ -161,11 +161,11 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         \reset($this->_Container);
     }
 
-    public function current() : mixed {
+    public function current(): mixed {
         return $this->offsetGet($this->key());
     }
 
-    public function key() : ?int
+    public function key(): ?int
     {
         if ($this->_counter === 0) :
             return null;
@@ -174,7 +174,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function next() : void
+    public function next(): void
     {
         $oldCursor = $this->_cursor;
 
@@ -192,7 +192,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-        protected function setCursorOnNextKeyInArray (array &$array) : void
+        protected function setCursorOnNextKeyInArray (array &$array): void
         {
             \next($array);
             $arrayKey = \key($array);
@@ -202,20 +202,20 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             endif;
         }
 
-    public function valid() : bool {
+    public function valid(): bool {
         return ($this->_counter !== 0) ? $this->valid : false;
     }
 
 
 /////////// Implement Countable ///////////
 
-    public function count () : int {
+    public function count (): int {
         return $this->_counter;
     }
 
 /////////// Array Methods ///////////
 
-    public function getFullDataSet () : array
+    public function getFullDataSet (): array
     {
         if ($this->isUsingHandler()) :
             $this->regularize();
@@ -227,7 +227,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function keyExist ($offset) : bool
+    public function keyExist ($offset): bool
     {
         if ( \array_key_exists(key: $offset, array: $this->_Container) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false) ) :
             return true;
@@ -236,7 +236,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function getFirstKey () : int
+    public function getFirstKey (): int
     {
         $r = \array_keys($this->_Container);
 
@@ -247,17 +247,17 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         return (int) \min($r);
     }
 
-    public function getContainerSize () : int
+    public function getContainerSize (): int
     {
         return \count($this->_Container);
     }
 
-    public function getCacheSize () : int
+    public function getCacheSize (): int
     {
         return \count($this->_Cache);
     }
 
-    public function debugGetCache () : array
+    public function debugGetCache (): array
     {
         return $this->_Cache;
     }
@@ -265,13 +265,13 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
 /////////// HANDLER API ///////////
 
-    abstract protected function preDeletedTask ($object) : void;
+    abstract protected function preDeletedTask ($object): void;
 
-    abstract protected function decodeOneEntity (string $data) : Vote;
+    abstract protected function decodeOneEntity (string $data): Vote;
 
-    abstract protected function encodeOneEntity (Vote $data) : string;
+    abstract protected function encodeOneEntity (Vote $data): string;
 
-    protected function decodeManyEntities (array $entities) : array
+    protected function decodeManyEntities (array $entities): array
     {
         $r = [];
 
@@ -282,7 +282,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         return $r;
     }
 
-    protected function encodeManyEntities (array $entities) : array
+    protected function encodeManyEntities (array $entities): array
     {
         $r = [];
 
@@ -293,7 +293,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         return $r;
     }
 
-    public function regularize () : bool
+    public function regularize (): bool
     {
         if (!$this->isUsingHandler() || empty($this->_Container)) :
             return false;
@@ -304,7 +304,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function checkRegularize () : bool
+    public function checkRegularize (): bool
     {
         if ( $this->_DataHandler !== null && self::$MaxContainerLength <= $this->getContainerSize() ) :
             $this->regularize();
@@ -314,7 +314,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    protected function populateCache () : void
+    protected function populateCache (): void
     {
         $this->regularize();
 
@@ -330,7 +330,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function clearCache () : void
+    public function clearCache (): void
     {
         foreach ($this->_Cache as $e) :
             $this->preDeletedTask($e);
@@ -341,19 +341,19 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->_CacheMinKey = 0;
     }
 
-    public function isUsingHandler () : bool
+    public function isUsingHandler (): bool
     {
         return $this->_DataHandler !== null;
     }
 
 /////////// HANDLER INTERRACTION ///////////
 
-    public function resetCounter () : int
+    public function resetCounter (): int
     {
-        return $this->_counter = $this->getContainerSize() + ( $this->isUsingHandler() ? $this->_DataHandler->countEntities() : 0 );
+        return $this->_counter = $this->getContainerSize() + ( $this->isUsingHandler() ? $this->_DataHandler->countEntities(): 0 );
     }
 
-    public function resetMaxKey () : ?int
+    public function resetMaxKey (): ?int
     {
         $this->resetCounter();
 
@@ -362,13 +362,13 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             return null;
         else :
             $maxContainerKey = empty($this->_Container) ? null : \max(\array_keys($this->_Container));
-            $maxHandlerKey = $this->_DataHandler !== null ? $this->_DataHandler->selectMaxKey() : null;
+            $maxHandlerKey = $this->_DataHandler !== null ? $this->_DataHandler->selectMaxKey(): null;
 
             return $this->_maxKey = \max( $maxContainerKey, $maxHandlerKey );
         endif;
     }
 
-    public function importHandler (DataHandlerDriverInterface $handler) : bool
+    public function importHandler (DataHandlerDriverInterface $handler): bool
     {
         if ($handler->countEntities() === 0) :
             $this->_DataHandler = $handler;
@@ -391,7 +391,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function closeHandler () : void
+    public function closeHandler (): void
     {
         if ($this->_DataHandler !== null) :
             $this->regularize();

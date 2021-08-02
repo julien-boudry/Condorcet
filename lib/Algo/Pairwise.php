@@ -19,15 +19,15 @@ class Pairwise implements \ArrayAccess, \Iterator
     use CondorcetVersion;
 
     // Implement ArrayAccess
-    public function offsetSet($offset, $value) : void {}
+    public function offsetSet($offset, $value): void {}
 
-    public function offsetExists($offset) : bool {
+    public function offsetExists($offset): bool {
         return isset($this->_Pairwise[$offset]);
     }
 
-    public function offsetUnset($offset) : void {}
+    public function offsetUnset($offset): void {}
 
-    public function offsetGet($offset) : ?array {
+    public function offsetGet($offset): ?array {
         return $this->_Pairwise[$offset] ?? null;
     }
 
@@ -35,26 +35,26 @@ class Pairwise implements \ArrayAccess, \Iterator
     // Implement Iterator
     private bool $valid = true;
 
-    public function rewind() : void {
+    public function rewind(): void {
         \reset($this->_Pairwise);
         $this->valid = true;
     }
 
-    public function current() : array {
+    public function current(): array {
         return $this->_Pairwise[$this->key()];
     }
 
-    public function key() : ?int {
+    public function key(): ?int {
         return \key($this->_Pairwise);
     }
 
-    public function next() : void {
+    public function next(): void {
         if (\next($this->_Pairwise) === false) :
             $this->valid = false;
         endif;
     }
 
-    public function valid() : bool {
+    public function valid(): bool {
         return $this->valid;
     }
 
@@ -77,24 +77,24 @@ class Pairwise implements \ArrayAccess, \Iterator
         unset($this->_Election);
     }
 
-    public function __clone () : void
+    public function __clone (): void
     {
         $this->_Election = null;
     }
 
-    public function setElection (Election $election) : void
+    public function setElection (Election $election): void
     {
         $this->_Election = $election;
     }
 
-    public function addNewVote (int $key) : void
+    public function addNewVote (int $key): void
     {
         (Condorcet::$UseTimer === true) && new Timer_Chrono ( $this->_Election->getTimerManager(), 'Add Vote To Pairwise' );
 
         $this->computeOneVote($this->_Pairwise,$this->_Election->getVotesManager()[$key]);
     }
 
-    public function removeVote (int $key) : void
+    public function removeVote (int $key): void
     {
         (Condorcet::$UseTimer === true) && new Timer_Chrono ( $this->_Election->getTimerManager(), 'Remove Vote To Pairwise' );
 
@@ -115,7 +115,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     #[Description("Return the Pairwise.")]
     #[FunctionReturn("Pairwise as an explicit array .")]
     #[Related("Election::getPairwise", "Election::getResult")]
-    public function getExplicitPairwise () : array
+    public function getExplicitPairwise (): array
     {
         $explicit_pairwise = [];
 
@@ -136,7 +136,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $explicit_pairwise;
     }
 
-    protected function formatNewpairwise () : void
+    protected function formatNewpairwise (): void
     {
         $this->_Pairwise_Model = [];
 
@@ -157,7 +157,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         endforeach;
     }
 
-    protected function doPairwise () : void
+    protected function doPairwise (): void
     {
         // Chrono
         (Condorcet::$UseTimer === true) && new Timer_Chrono ( $this->_Election->getTimerManager(), 'Do Pairwise' );
@@ -169,7 +169,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         endforeach;
     }
 
-    protected function computeOneVote (array &$pairwise, Vote $oneVote) : void
+    protected function computeOneVote (array &$pairwise, Vote $oneVote): void
     {
         $vote_ranking = $oneVote->getContextualRanking($this->_Election);
 

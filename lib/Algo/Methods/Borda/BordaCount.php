@@ -25,7 +25,7 @@ class BordaCount extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected function getStats () : array
+    protected function getStats (): array
     {
         $stats = [];
 
@@ -41,7 +41,7 @@ class BordaCount extends Method implements MethodInterface
 
     //:: BORDA ALGORITHM. :://
 
-    protected function compute () : void
+    protected function compute (): void
     {
         $score = [];
 
@@ -88,7 +88,7 @@ class BordaCount extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function getScoreByCandidateRanking (int $CandidatesRanked) : float
+    protected function getScoreByCandidateRanking (int $CandidatesRanked): float
     {
         return (float) ($this->_selfElection->countCandidates() + static::$optionStarting - 1 - $CandidatesRanked);
     }

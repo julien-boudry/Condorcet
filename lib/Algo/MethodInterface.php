@@ -16,5 +16,5 @@ use CondorcetPHP\Condorcet\Result;
 // Interface with the aim of verifying the good modular implementation of algorithms.
 interface MethodInterface
 {
-    public function getResult() : Result;
+    public function getResult(): Result;
 }

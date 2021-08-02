@@ -13,13 +13,13 @@ class FirstPastThePostTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
 
-    public function testResult_French2002 () : void
+    public function testResult_French2002 (): void
     {
         $this->election->allowsVoteWeight(true);
 
@@ -102,7 +102,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -134,7 +134,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_2 () : void
+    public function testResult_2 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -168,7 +168,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_3 () : void
+    public function testResult_3 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');

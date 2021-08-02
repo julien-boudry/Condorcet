@@ -25,7 +25,7 @@ trait CondorcetVersion
     public function getObjectVersion (
         #[FunctionParameter("true will return : '2.0' and false will return : '2.0.0'")]
         bool $major = false
-    ) : string
+    ): string
     {
         if ($major === true) :
             $version = \explode('.', $this->_objectVersion);

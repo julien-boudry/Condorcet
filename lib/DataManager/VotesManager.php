@@ -26,24 +26,24 @@ class VotesManager extends ArrayManager
         parent::__construct();
     }
 
-    public function setElection (Election $election) : void
+    public function setElection (Election $election): void
     {
         $this->_Election = $election;
     }
 
-    public function destroyElection () : void
+    public function destroyElection (): void
     {
         unset($this->_Election);
     }
 
-    public function getElection () : Election
+    public function getElection (): Election
     {
         return $this->_Election;
     }
 
 /////////// Data CallBack for external drivers ///////////
 
-    protected function decodeOneEntity (string $data) : Vote
+    protected function decodeOneEntity (string $data): Vote
     {
         $vote = new Vote ($data);
         $vote->registerLink($this->_Election);
@@ -54,26 +54,26 @@ class VotesManager extends ArrayManager
         return $vote;
     }
 
-    protected function encodeOneEntity (Vote $data) : string
+    protected function encodeOneEntity (Vote $data): string
     {
         $data->destroyLink($this->_Election);
 
         return \str_replace([' > ',' = '],['>','='],(string) $data);
     }
 
-    protected function preDeletedTask ($object) : void
+    protected function preDeletedTask ($object): void
     {
         $object->destroyLink($this->_Election);
     }
 
 /////////// Array Access - Specials improvements ///////////
 
-    public function offsetGet($offset) : ?Vote
+    public function offsetGet($offset): ?Vote
     {
         return parent::offsetGet($offset);
     }
 
-    public function offsetSet($offset, $value) : void
+    public function offsetSet($offset, $value): void
     {
         if ($value instanceof Vote) :
             parent::offsetSet($offset,$value);
@@ -85,7 +85,7 @@ class VotesManager extends ArrayManager
         $this->checkRegularize();
     }
 
-    public function offsetUnset($offset) : void
+    public function offsetUnset($offset): void
     {
         $this->UpdateAndResetComputing(key: $offset, type: 2);
         parent::offsetUnset($offset);
@@ -93,7 +93,7 @@ class VotesManager extends ArrayManager
 
 /////////// Internal Election related methods ///////////
 
-    public function UpdateAndResetComputing (int $key, int $type) : void
+    public function UpdateAndResetComputing (int $key, int $type): void
     {
         if ($this->_Election->getState() === 2) :
 
@@ -112,21 +112,21 @@ class VotesManager extends ArrayManager
 
 /////////// Get Votes Methods ///////////
 
-    public function getVoteKey (Vote $vote) : ?int
+    public function getVoteKey (Vote $vote): ?int
     {
         ($r = \array_search(needle: $vote, haystack: $this->_Container, strict: true)) !== false || ($r = \array_search(needle: $vote, haystack: $this->_Cache, strict: true));
 
         return ($r !== false) ? $r : null;
     }
 
-    protected function getFullVotesListGenerator () : \Generator
+    protected function getFullVotesListGenerator (): \Generator
     {
         foreach ($this as $voteKey => $vote) :
             yield $voteKey => $vote;
         endforeach;
     }
 
-    protected function getPartialVotesListGenerator (array $tags, bool $with) : \Generator
+    protected function getPartialVotesListGenerator (array $tags, bool $with): \Generator
     {
         foreach ($this as $voteKey => $vote) :
             $noOne = true;
@@ -148,7 +148,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list
-    public function getVotesList (?array $tags = null, bool $with = true) : array
+    public function getVotesList (?array $tags = null, bool $with = true): array
     {
         if ($tags === null) :
             return $this->getFullDataSet();
@@ -164,7 +164,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list as a generator object
-    public function getVotesListGenerator (?array $tags = null, bool $with = true) : \Generator
+    public function getVotesListGenerator (?array $tags = null, bool $with = true): \Generator
     {
         if ($tags === null) :
             return $this->getFullVotesListGenerator();
@@ -173,9 +173,9 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true) : \Generator
+    public function getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true): \Generator
     {
-        $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags,$with);
+        $generator = ($tags === null) ? $this->getFullVotesListGenerator(): $this->getPartialVotesListGenerator($tags,$with);
 
         foreach ($generator as $voteKey => $oneVote) :
             if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
@@ -186,7 +186,7 @@ class VotesManager extends ArrayManager
         endforeach;
     }
 
-    public function getVotesListAsString () : string
+    public function getVotesListAsString (): string
     {
         $simpleList = '';
 
@@ -228,7 +228,7 @@ class VotesManager extends ArrayManager
         return $simpleList;
     }
 
-    public function countVotes (?array $tag, bool $with) : int
+    public function countVotes (?array $tag, bool $with): int
     {
         if ($tag === null) :
             return \count($this);
@@ -257,7 +257,7 @@ class VotesManager extends ArrayManager
         endif;
     }
 
-    public function countInvalidVoteWithConstraints () : int
+    public function countInvalidVoteWithConstraints (): int
     {
         $count = 0;
 
@@ -270,13 +270,13 @@ class VotesManager extends ArrayManager
         return $count;
     }
 
-    public function sumVotesWeight (bool $constraint = false) : int
+    public function sumVotesWeight (bool $constraint = false): int
     {
         $sum = 0;
 
         foreach ($this as $oneVote) :
             if ( !$constraint || $this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote) ) :
-                $sum += $this->getElection()->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
+                $sum += $this->getElection()->isVoteWeightAllowed() ? $oneVote->getWeight(): 1;
             endif;
         endforeach;
 

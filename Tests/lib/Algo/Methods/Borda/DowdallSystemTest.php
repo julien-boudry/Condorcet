@@ -13,12 +13,12 @@ class DowdallSystemTest extends TestCase
      */
     private Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         # From https://en.wikipedia.org/wiki/Borda_count
 

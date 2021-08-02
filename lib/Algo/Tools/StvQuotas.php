@@ -17,7 +17,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 // Generic for Algorithms
 abstract class StvQuotas
 {
-    public static function getQuota (string $quota, int $votesWeight, int $seats) : float
+    public static function getQuota (string $quota, int $votesWeight, int $seats): float
     {
         try {
             return match (strtolower($quota)) {

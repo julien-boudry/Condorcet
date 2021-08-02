@@ -27,7 +27,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
     abstract protected function schulzeVariant (int $i,int $j);
 
-    public function getResult () : Result
+    public function getResult (): Result
     {
         // Cache
         if ( $this->_Result !== null ) :
@@ -52,7 +52,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    protected function getStats () : array
+    protected function getStats (): array
     {
         $explicit = [];
 
@@ -76,7 +76,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Calculate the strongest Paths for Schulze Method
-    protected function prepareStrongestPath () : void
+    protected function prepareStrongestPath (): void
     {
         foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id ) :
             $this->_StrongestPaths[$candidate_key] = [];
@@ -92,7 +92,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Calculate the Strongest Paths
-    protected function makeStrongestPaths () : void
+    protected function makeStrongestPaths (): void
     {
         foreach ($this->_selfElection->getCandidatesList() as $i => $i_value) :
             foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
@@ -123,7 +123,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Calculate && Format human readable ranking
-    protected function makeRanking () : void
+    protected function makeRanking (): void
     {
         $result = [];
 

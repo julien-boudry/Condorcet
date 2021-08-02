@@ -78,12 +78,12 @@ class CondorcetException extends \Exception implements \Stringable
         parent::__construct(message: $this->correspondence($code), code: $code);
     }
 
-    public function __toString () : string
+    public function __toString (): string
     {
            return static::class . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 
-    protected function correspondence (int $code) : string
+    protected function correspondence (int $code): string
     {
         // Algorithms
         if ($code === 0 || $code === 101) :

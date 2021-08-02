@@ -13,7 +13,7 @@ class IntensiveUsageBench
     #[Bench\Warmup(1)]
     #[Bench\Iterations(4)]
     #[Bench\Revs(10)]
-    public function benchSimpleManyVotes () : void
+    public function benchSimpleManyVotes (): void
     {
        $election = new Election;
        $election->allowsVoteWeight(true);

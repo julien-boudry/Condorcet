@@ -113,7 +113,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function doOneRound () : array
+    protected function doOneRound (): array
     {
         $roundScore = [];
 

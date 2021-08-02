@@ -36,7 +36,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     //:: Alternative Vote ALGORITHM. :://
 
-    protected function compute () : void
+    protected function compute (): void
     {
         $result = [];
         $rank = 0;
@@ -91,7 +91,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated) : array
+    protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated): array
     {
         $scoreTable = [];
 
@@ -114,7 +114,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             $firstRank = true;
             foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
-                    if (\count($oneRank) !== 1) : break; endif;
+                    if (\count($oneRank) !== 1): break; endif;
 
                     $candidateKey = $this->_selfElection->getCandidateKey($oneCandidate);
 

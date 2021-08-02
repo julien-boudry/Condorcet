@@ -14,17 +14,17 @@ class MultipleRoundsSystemTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         $this->resetOptions();
     }
 
-    protected function resetOptions () : void
+    protected function resetOptions (): void
     {
         $methodClass = Condorcet::getMethodClass('runoff voting');
 
@@ -33,7 +33,7 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
     }
 
-    public function testResult_MajorityTest_systematic_triangular () : void
+    public function testResult_MajorityTest_systematic_triangular (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -78,7 +78,7 @@ class MultipleRoundsSystemTest extends TestCase
     }
 
 
-    public function testResult_MajorityTest_three_round () : void
+    public function testResult_MajorityTest_three_round (): void
     {
         $this->election->allowsVoteWeight(true);
 
@@ -128,7 +128,7 @@ class MultipleRoundsSystemTest extends TestCase
         );
     }
 
-    public function testResult_MajorityTest_Many_Round () : void
+    public function testResult_MajorityTest_Many_Round (): void
     {
         $this->election->allowsVoteWeight(true);
 

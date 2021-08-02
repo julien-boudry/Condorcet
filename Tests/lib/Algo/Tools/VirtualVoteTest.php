@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class VirtualVoteTest extends TestCase
 {
-    public function testVirtualVote () : void
+    public function testVirtualVote (): void
     {
         $election = new Election;
         $election->parseCandidates("A;B;C");

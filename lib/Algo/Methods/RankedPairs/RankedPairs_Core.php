@@ -33,7 +33,7 @@ class RankedPairs_Core extends Method implements MethodInterface
 
 
     // Get the Ranked Pairs ranking
-    public function getResult () : Result
+    public function getResult (): Result
     {
         // Cache
         if ( $this->_Result !== null ) :
@@ -57,7 +57,7 @@ class RankedPairs_Core extends Method implements MethodInterface
     }
 
     // Get the Ranked Pair ranking
-    protected function getStats () : array
+    protected function getStats (): array
     {
         if (!$this->_StatsDone) :
             foreach ($this->_Stats['tally'] as &$Roundvalue) :
@@ -90,7 +90,7 @@ class RankedPairs_Core extends Method implements MethodInterface
 
     //:: RANKED PAIRS ALGORITHM. :://
 
-    protected function makeResult () : array
+    protected function makeResult (): array
     {
         $result = [];
         $alreadyDone = [];
@@ -114,7 +114,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         return $result;
     }
 
-    protected function getWinners (array $alreadyDone) : array
+    protected function getWinners (array $alreadyDone): array
     {
         $winners = [];
 
@@ -137,7 +137,7 @@ class RankedPairs_Core extends Method implements MethodInterface
     }
 
 
-    protected function makeArcs () : void
+    protected function makeArcs (): void
     {
         foreach ($this->_PairwiseSort as $newArcsRound) :
             $virtualArcs = $this->_Arcs;
@@ -163,7 +163,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         endforeach;
     }
 
-    protected function getArcsInCycle (array $virtualArcs) : array
+    protected function getArcsInCycle (array $virtualArcs): array
     {
         $cycles = [];
 
@@ -177,7 +177,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         return $cycles;
     }
 
-    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []) : array
+    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []): array
     {
         $arcsInCycle = [];
 
@@ -203,7 +203,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         return $arcsInCycle;
     }
 
-    protected function pairwiseSort () : array
+    protected function pairwiseSort (): array
     {
         $pairs = [];
 
@@ -229,7 +229,7 @@ class RankedPairs_Core extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        \usort($pairs, function (array $a, array $b) : int {
+        \usort($pairs, function (array $a, array $b): int {
             if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) :
                 return 1;
             elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) :

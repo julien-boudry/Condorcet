@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 // Generic for Algorithms
 abstract class TieBreakersCollection
 {
-    public static function tieBreaker_1 (Election $election, array $candidatesKeys) : array
+    public static function tieBreaker_1 (Election $election, array $candidatesKeys): array
     {
         $pairwise = $election->getPairwise();
         $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);

@@ -63,7 +63,7 @@ abstract class Condorcet
     public static function getVersion (
         #[FunctionParameter("* true will return : '2.0'\n* false will return : '2.0.0'")]
         bool $major = false
-    ) : string
+    ): string
     {
         if ($major === true) :
             $version = \explode('.', self::VERSION);
@@ -81,7 +81,7 @@ abstract class Condorcet
     public static function getAuthMethods (
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
         bool $basic = false
-    ) : array
+    ): array
     {
         $auth = self::$_authMethods;
 
@@ -99,7 +99,7 @@ abstract class Condorcet
     #[Description("Return the Condorcet static default method.")]
     #[FunctionReturn("Method name.")]
     #[Related("static Condorcet::getAuthMethods", "static Condorcet::setDefaultMethod")]
-    public static function getDefaultMethod () : ?string {
+    public static function getDefaultMethod (): ?string {
         return self::$_defaultMethod;
     }
 
@@ -112,7 +112,7 @@ abstract class Condorcet
     public static function getMethodClass (
         #[FunctionParameter('A valid method name')]
         string $method
-    ) : ?string
+    ): ?string
     {
         $auth = self::$_authMethods;
 
@@ -142,7 +142,7 @@ abstract class Condorcet
     public static function isAuthMethod (
         #[FunctionParameter('A valid method name or class')]
         string $method
-    ) : bool
+    ): bool
     {
         return self::getMethodClass($method) !== null ;
     }
@@ -156,7 +156,7 @@ abstract class Condorcet
     public static function addMethod (
         #[FunctionParameter('The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).')]
         string $methodClass
-    ) : bool
+    ): bool
     {
         // Check algos
         if ( self::isAuthMethod($methodClass) || !self::testMethod($methodClass) ) :
@@ -175,7 +175,7 @@ abstract class Condorcet
 
 
         // Check if the class Algo. exist and ready to be used
-        protected static function testMethod (string $method) : bool
+        protected static function testMethod (string $method): bool
         {
             if ( !\class_exists($method) ) :
                 throw new CondorcetException(9);
@@ -203,7 +203,7 @@ abstract class Condorcet
     public static function setDefaultMethod (
         #[FunctionParameter('A valid method name or class')]
         string $method
-    ) : bool
+    ): bool
     {
         if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
             self::$_defaultMethod = $method;
@@ -213,7 +213,7 @@ abstract class Condorcet
         endif;
     }
 
-    public static function condorcetBasicSubstitution (?string $substitution) : string
+    public static function condorcetBasicSubstitution (?string $substitution): string
     {
         if ( $substitution !== null ) :
             if ( Condorcet::isAuthMethod($substitution) ) :

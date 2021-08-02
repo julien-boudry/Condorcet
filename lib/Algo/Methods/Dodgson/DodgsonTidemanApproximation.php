@@ -29,7 +29,7 @@ class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements Met
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function looking (array $challenge) : int
+    protected function looking (array $challenge): int
     {
         return \min($challenge);
     }

@@ -40,13 +40,13 @@ trait ResultsProcess
         ?string $method = null,
         #[FunctionParameter('Array of option for some methods. Look at each method documentation.')]
         array $options = []
-    ) : Result
+    ): Result
     {
         $options = self::formatResultOptions($options);
 
         // Filter if tag is provided & return
         if ($options['%tagFilter']) :
-            $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono ($this->_timer, 'GetResult with filter') : null;
+            $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono ($this->_timer, 'GetResult with filter'): null;
 
             $filter = new self;
 
@@ -70,7 +70,7 @@ trait ResultsProcess
 
             //////
 
-        $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono ($this->_timer) : null;
+        $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono ($this->_timer): null;
 
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
@@ -96,7 +96,7 @@ trait ResultsProcess
     public function getWinner (
         #[FunctionParameter("*Only if not null:    *\n\nThe winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\nIf null, Natural Condorcet algorithm will be use.")]
         ?string $method = null
-    ) : array|Candidate|null
+    ): array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
@@ -122,7 +122,7 @@ trait ResultsProcess
     public function getLoser (
         #[FunctionParameter("*Only if not nulle:*    \n\nThe loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\n        If null, Natural Condorcet algorithm will be use.")]
         ?string $method = null
-    ) : array|Candidate|null
+    ): array|Candidate|null
     {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
@@ -144,7 +144,7 @@ trait ResultsProcess
     #[FunctionReturn("Candidate object given. Null if there are no available winner.")]
     #[Example("Manual - Natural Condorcet","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
     #[Related("Election::getCondorcetLoser", "Election::getWiner", "Election::getResult")]
-    public function getCondorcetWinner () : ?Candidate
+    public function getCondorcetWinner (): ?Candidate
     {
         return $this->getWinner(null);
     }
@@ -154,7 +154,7 @@ trait ResultsProcess
     #[FunctionReturn("Candidate object given. Null if there are no available loser.")]
     #[Example("Manual - Natural Condorcet","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet")]
     #[Related("Election::getCondorcetWinner", "Election::getLoser", "Election::getResult")]
-    public function getCondorcetLoser () : ?Candidate
+    public function getCondorcetLoser (): ?Candidate
     {
         return $this->getLoser(null);
     }
@@ -164,7 +164,7 @@ trait ResultsProcess
     #[FunctionReturn("Pairwise object.")]
     #[Example("Manual - Advanced Results","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management")]
     #[Related("Election::getExplicitPairwise", "Election::getResult")]
-    public function getPairwise () : Pairwise
+    public function getPairwise (): Pairwise
     {
         if ($this->_Pairwise === null) :
             $this->preparePairwiseAndCleanCompute();
@@ -177,7 +177,7 @@ trait ResultsProcess
     #[Description("Return the Pairwise.")]
     #[FunctionReturn("Pairwise as an explicit array .")]
     #[Related("Election::getPairwise", "Election::getResult")]
-    public function getExplicitPairwise () : array
+    public function getExplicitPairwise (): array
     {
         return $this->getPairwise()->getExplicitPairwise();
     }
@@ -193,7 +193,7 @@ trait ResultsProcess
         #[FunctionParameter('Option name')]
         string $optionName,
         #[FunctionParameter('Option Value')]
-        mixed $optionValue) : bool
+        mixed $optionValue): bool
     {
         if ($method = Condorcet::getMethodClass($method)) :
             $method::setOption($optionName, $optionValue);
@@ -215,18 +215,18 @@ trait ResultsProcess
     public function computeResult (
         #[FunctionParameter('Not requiered for use object default method. Set the string name of the algorithm for use an specific one')]
         ?string $method = null
-    ) : void
+    ): void
     {
         $this->getResult($method);
     }
 
-    protected function makePairwise () : void
+    protected function makePairwise (): void
     {
         $this->cleanupCalculator();
         $this->_Pairwise = new Pairwise ($this);
     }
 
-    protected function initResult (string $class) : void
+    protected function initResult (string $class): void
     {
         if ( !isset($this->_Calculator[$class]) ) :
             $this->_Calculator[$class] = new $class($this);
@@ -234,7 +234,7 @@ trait ResultsProcess
     }
 
     // Cleanup results to compute again with new votes
-    protected function cleanupCompute () : void
+    protected function cleanupCompute (): void
     {
         // Algos
         $this->cleanupCalculator();
@@ -243,7 +243,7 @@ trait ResultsProcess
         $this->_Pairwise = null;
     }
 
-    public function cleanupCalculator () : void
+    public function cleanupCalculator (): void
     {
         $this->_Calculator = null;
     }
@@ -251,7 +251,7 @@ trait ResultsProcess
 
 /////////// UTILS ///////////
 
-    protected static function formatResultOptions (array $arg) : array
+    protected static function formatResultOptions (array $arg): array
     {
         // About tag filter
         if (isset($arg['tags'])):

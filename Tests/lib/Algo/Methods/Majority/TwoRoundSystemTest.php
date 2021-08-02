@@ -13,12 +13,12 @@ class TwoRoundSystemTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function testResult_French2002 () : void
+    public function testResult_French2002 (): void
     {
         $this->election->allowsVoteWeight(true);
         $this->election->setImplicitRanking(false);
@@ -107,7 +107,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -144,7 +144,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_2 () : void
+    public function testResult_2 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -184,7 +184,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_3 () : void
+    public function testResult_3 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -212,7 +212,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_5 () : void
+    public function testResult_5 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -244,7 +244,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_6 () : void
+    public function testResult_6 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -273,7 +273,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_7 () : void
+    public function testResult_7 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -296,7 +296,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_8 () : void
+    public function testResult_8 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -312,7 +312,7 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $stats = $this->election->getResult('Two Rounds')->getStats();
-        \array_walk_recursive($stats, function (float &$value) : float {
+        \array_walk_recursive($stats, function (float &$value): float {
             return $value = round($value, 10);
         });
 
@@ -341,7 +341,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_9 () : void
+    public function testResult_9 (): void
     {
         $this->election->allowsVoteWeight(true);
 
@@ -422,7 +422,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getStats());
     }
 
-    public function testResult_10 () : void
+    public function testResult_10 (): void
     {
         $this->election->allowsVoteWeight(true);
 
@@ -482,7 +482,7 @@ class TwoRoundSystemTest extends TestCase
         );
     }
 
-    public function testResult_11 () : void
+    public function testResult_11 (): void
     {
         $this->election->allowsVoteWeight(true);
         $this->election->setImplicitRanking(false);

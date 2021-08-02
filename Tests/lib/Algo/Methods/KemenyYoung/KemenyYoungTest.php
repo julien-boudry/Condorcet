@@ -14,12 +14,12 @@ class KemenyYoungTest extends TestCase
      */
     private  Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -52,7 +52,7 @@ class KemenyYoungTest extends TestCase
     /**
      * @preserveGlobalState disabled
      */
-    public function testResult2 () : void
+    public function testResult2 (): void
     {
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
 
@@ -78,7 +78,7 @@ class KemenyYoungTest extends TestCase
         );
     }
 
-    public function testMaxCandidates () : void
+    public function testMaxCandidates (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);
@@ -93,7 +93,7 @@ class KemenyYoungTest extends TestCase
         $this->election->getWinner('KemenyYoung');
     }
 
-    public function testConflicts () : void
+    public function testConflicts (): void
     {
         $this->election->parseCandidates('A;B;C');
 
@@ -134,7 +134,7 @@ class KemenyYoungTest extends TestCase
         self::assertEquals('A',$this->election->getWinner('KemenyYoung'));
     }
 
-    public function testWritePermutation () : void
+    public function testWritePermutation (): void
     {
         $this->election->parseCandidates('A;B');
 

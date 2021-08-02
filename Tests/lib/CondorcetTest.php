@@ -10,13 +10,13 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetTest extends TestCase
 {
-    public function testgetVersion () : void
+    public function testgetVersion (): void
     {
         self::assertSame(Condorcet::VERSION,CONDORCET::getVersion());
         self::assertMatchesRegularExpression('/^[1-9]+\.[0-9]+$/',CONDORCET::getVersion(true));
     }
 
-    public function testAddExistingMethod () : void
+    public function testAddExistingMethod (): void
     {
         $algoClassPath = Condorcet::getDefaultMethod();
 
@@ -25,7 +25,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testBadClassMethod () : void
+    public function testBadClassMethod (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(9);
@@ -33,7 +33,7 @@ class CondorcetTest extends TestCase
         Condorcet::addMethod('sjskkdlkkzksh');
     }
 
-    public function testAuthMethod () : void
+    public function testAuthMethod (): void
     {
         self::assertFalse(Condorcet::isAuthMethod('skzljdpmzk'));
         self::assertNull(Condorcet::getMethodClass('skzljdpmzk'));
@@ -45,7 +45,7 @@ class CondorcetTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testAddMethod () : void
+    public function testAddMethod (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(25);
@@ -62,7 +62,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testAddUnvalidMethod () : void
+    public function testAddUnvalidMethod (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(10);
@@ -77,12 +77,12 @@ class CondorcetTest extends TestCase
         );
     }
 
-    public function testUnvalidDefaultMethod () : void
+    public function testUnvalidDefaultMethod (): void
     {
         self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
     }
 
-    public function testEmptyMethod () : void
+    public function testEmptyMethod (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(8);
@@ -90,7 +90,7 @@ class CondorcetTest extends TestCase
         Condorcet::isAuthMethod('');
     }
 
-    public function testMethodAlias () : void
+    public function testMethodAlias (): void
     {
         self::assertSame(
             \CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class,
@@ -112,7 +112,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 
     // Get the Result object
-    public function getResult ($options = null) : Result
+    public function getResult ($options = null): Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -131,7 +131,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 
     // Compute the Stats
-    protected function getStats () : array
+    protected function getStats (): array
     {
         return []; // You are free to do all you wants. Must be an array.;
     }
@@ -143,7 +143,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking () : void
+    protected function makeRanking (): void
     {
         $this->_selfElection->getPairwise();
 
@@ -165,7 +165,7 @@ class CondorcetTest_UnvalidAlgorithmName
 
 
     // Get the Result object
-    public function getResult ($options = null) : Result
+    public function getResult ($options = null): Result
     {
         // Cache
         if ( $this->_Result !== null )
@@ -184,7 +184,7 @@ class CondorcetTest_UnvalidAlgorithmName
 
 
     // Compute the Stats
-    protected function getStats () : array
+    protected function getStats (): array
     {
         return []; // You are free to do all you wants. Must be an array.;
     }
@@ -196,7 +196,7 @@ class CondorcetTest_UnvalidAlgorithmName
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking () : void
+    protected function makeRanking (): void
     {
         $this->_selfElection->getPairwise();
 

@@ -45,7 +45,7 @@ class ElectionCommand extends Command
     // TableFormat
     protected TableStyle $centerPadTypeStyle;
 
-    protected function configure () : void
+    protected function configure (): void
     {
         $this->setName('election')
             ->setAliases(['condorcet'])
@@ -120,7 +120,7 @@ class ElectionCommand extends Command
         ;
     }
 
-    protected function initialize (InputInterface $input, OutputInterface $output) : void
+    protected function initialize (InputInterface $input, OutputInterface $output): void
     {
         // Initialize Style
         $this->centerPadTypeStyle = (new TableStyle())->setPadType(STR_PAD_BOTH);
@@ -159,7 +159,7 @@ class ElectionCommand extends Command
         $this->votes = $input->getOption('votes') ?? '';
     }
 
-    protected function interact (InputInterface $input, OutputInterface $output) : void
+    protected function interact (InputInterface $input, OutputInterface $output): void
     {
         // Interactive Candidates
         if (empty($this->candidates)) :
@@ -204,7 +204,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    protected function execute (InputInterface $input, OutputInterface $output) : int
+    protected function execute (InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle ($input, $output);
 
@@ -356,7 +356,7 @@ class ElectionCommand extends Command
         return 0;
     }
 
-    protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output) : void
+    protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output): void
     {
         $io->title('Detailed election input');
 
@@ -366,7 +366,7 @@ class ElectionCommand extends Command
         $io->newLine();
     }
 
-    protected function displayCandidatesList (OutputInterface $output) : void
+    protected function displayCandidatesList (OutputInterface $output): void
     {
         if (!$this->candidatesListIsWrite) :
             // Candidate List
@@ -389,7 +389,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    public function displayVotesCount (OutputInterface $output) : void
+    public function displayVotesCount (OutputInterface $output): void
     {
         if (!$this->votesCountIsWrite) :
             // Votes Count
@@ -411,7 +411,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    public function displayVotesList (OutputInterface $output) : void
+    public function displayVotesList (OutputInterface $output): void
     {
         ($votesTable = new Table($output))
             ->setHeaderTitle('Registered votes list')
@@ -425,7 +425,7 @@ class ElectionCommand extends Command
         $votesTable->render();
     }
 
-    public function displayPairwise (OutputInterface $output) : void
+    public function displayPairwise (OutputInterface $output): void
     {
         if (!$this->pairwiseIsWrite) :
             (new Table($output))
@@ -440,7 +440,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    protected function prepareMethods (array $methodArgument) : array
+    protected function prepareMethods (array $methodArgument): array
     {
         if (empty($methodArgument)) :
             return [['name' => Condorcet::getDefaultMethod()::METHOD_NAME[0], 'class' => Condorcet::getDefaultMethod()]];
@@ -468,7 +468,7 @@ class ElectionCommand extends Command
         endif;
     }
 
-    protected function formatResultTable (Result $result) : array
+    protected function formatResultTable (Result $result): array
     {
         $resultArray = $result->getResultAsArray(true);
 
@@ -502,14 +502,14 @@ class ElectionCommand extends Command
         ;
     }
 
-    protected function isAbsolute (string $path) : bool
+    protected function isAbsolute (string $path): bool
     {
         return empty($path) ? false :   (   \strspn($path, '/\\', 0, 1) ||
                                             ( \strlen($path) > 3 && \ctype_alpha($path[0]) && ':' === $path[1] && \strspn($path, '/\\', 2, 1) )
                                         );
     }
 
-    protected function useDataHandler (InputInterface $input) : ?\Closure
+    protected function useDataHandler (InputInterface $input): ?\Closure
     {
         if ( $input->getOption('deactivate-file-cache') || !\class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true) ) :
             return null;
@@ -520,7 +520,7 @@ class ElectionCommand extends Command
             $memory_limit = (int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'));
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
 
-            $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath) : bool {
+            $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
                 if (  $inserted_votes_count > $vote_in_memory_limit ) :
 
                     if ( \file_exists( $SQLitePath = \getcwd().'/condorcet-bdd.sqlite' ) ) :

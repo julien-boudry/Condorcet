@@ -28,7 +28,7 @@ abstract class Method
 
     // Static
 
-    final public static function setOption (string $optionName, mixed $optionValue) : bool
+    final public static function setOption (string $optionName, mixed $optionValue): bool
     {
         $optionVar = 'option'.ucfirst($optionName);
 
@@ -53,7 +53,7 @@ abstract class Method
         unset($this->_selfElection, $this->_Result);
     }
 
-    public function getResult () : Result
+    public function getResult (): Result
     {
         // Cache
         if ( $this->_Result !== null ) :
@@ -65,12 +65,12 @@ abstract class Method
         return $this->_Result;
     }
 
-    abstract protected function getStats () : array;
+    abstract protected function getStats (): array;
 
-    protected function createResult (array $result) : Result
+    protected function createResult (array $result): Result
     {
     	$optionsList = \array_keys((new \ReflectionClass(static::class))->getStaticProperties());
-        $optionsList = \array_filter($optionsList, function (string $name) : bool {
+        $optionsList = \array_filter($optionsList, function (string $name): bool {
             return \str_starts_with($name ,'option');
         });
 
@@ -86,7 +86,7 @@ abstract class Method
     		election: $this->_selfElection,
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats(): null,
             methodOptions: $methodOptions
     	);
     }

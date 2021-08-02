@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 abstract class CondorcetUtil
 {
     // Check JSON format
-    public static function isJson (string $string) : bool
+    public static function isJson (string $string): bool
     {
         if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
             return false;
@@ -29,7 +29,7 @@ abstract class CondorcetUtil
         return \json_last_error() === \JSON_ERROR_NONE;
     }
 
-    public static function prepareJson (string $input) : mixed
+    public static function prepareJson (string $input): mixed
     {
         if (!self::isJson($input)) :
             throw new CondorcetException(15);
@@ -39,7 +39,7 @@ abstract class CondorcetUtil
     }
 
     // Generic action before parsing data from string input
-    public static function prepareParse (string $input, bool $isFile) : array
+    public static function prepareParse (string $input, bool $isFile): array
     {
         // Is string or is file ?
         if ($isFile === true) :
@@ -74,7 +74,7 @@ abstract class CondorcetUtil
         mixed $input,
         #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')]
         bool $convertObject = true
-    ) : mixed
+    ): mixed
     {
         if (\is_object($input)) :
 

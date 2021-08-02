@@ -14,7 +14,7 @@ class KemenyYoungBench
     #[Bench\Warmup(1)]
     #[Bench\Iterations(10)]
     #[Bench\Revs(10)]
-    public function benchKemenyYoung8 () : void
+    public function benchKemenyYoung8 (): void
     {
        $election = new Election;
        $election->allowsVoteWeight(true);

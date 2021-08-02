@@ -13,17 +13,17 @@ class BordaCountTest extends TestCase
      */
     private Election $election;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown() : void
+    public function tearDown(): void
     {
         $this->election->setMethodOption('Borda Count', 'Starting', 1);
     }
 
-    public function testResult_1 () : void
+    public function testResult_1 (): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -56,7 +56,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_2 () : void
+    public function testResult_2 (): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -91,7 +91,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_3 () : void
+    public function testResult_3 (): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -130,7 +130,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_4 () : void
+    public function testResult_4 (): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -163,7 +163,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_variant () : void
+    public function testResult_variant (): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 

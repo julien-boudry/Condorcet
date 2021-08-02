@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 // Base Condorcet class
 abstract class VoteUtil
 {
-    public static function tagsConvert (array|string|null $tags) : ?array
+    public static function tagsConvert (array|string|null $tags): ?array
     {
         if (empty($tags)) :
             return null;
@@ -41,7 +41,7 @@ abstract class VoteUtil
         return $tags;
     }
 
-    public static function getRankingAsString (array $ranking) : string
+    public static function getRankingAsString (array $ranking): string
     {
         foreach ($ranking as &$rank) :
             if (\is_array($rank)) :
@@ -54,7 +54,7 @@ abstract class VoteUtil
     }
 
     // From a string like 'A>B=C=H>G=T>Q'
-    public static function convertVoteInput (string $formula) : array
+    public static function convertVoteInput (string $formula): array
     {
         $ranking = \explode('>', $formula);
 
@@ -70,7 +70,7 @@ abstract class VoteUtil
         return $ranking;
     }
 
-    public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line) : int
+    public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line): int
     {
         if (is_int($searchCharacter)) :
             $value = \trim( \substr($line, $searchCharacter + 1) );

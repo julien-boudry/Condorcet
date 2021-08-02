@@ -33,27 +33,27 @@ class Chrono
         $this->_manager->addTime($this);
     }
 
-    public function getStart () : float {
+    public function getStart (): float {
         return $this->_start;
     }
 
-    public function getTimerManager () : Manager {
+    public function getTimerManager (): Manager {
         return $this->_manager;
     }
 
-    protected function resetStart () : void {
+    protected function resetStart (): void {
         $this->_start = \microtime(true);
     }
 
-    public function getRole () : ?string {
+    public function getRole (): ?string {
         return $this->_role;
     }
 
-    public function setRole (?string $role) : void {
+    public function setRole (?string $role): void {
         $this->_role = $role;
     }
 
-    protected function managerStartDeclare () : void {
+    protected function managerStartDeclare (): void {
         $this->_manager->startDeclare($this);
     }
 }

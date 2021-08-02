@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetExceptionTest extends TestCase
 {
-    public function testBuild () : void
+    public function testBuild (): void
     {
         $this->expectException(CondorcetException::class);
         $this->expectExceptionCode(0);
@@ -22,7 +22,7 @@ class CondorcetExceptionTest extends TestCase
         throw $ce;
     }
 
-    public function testMaxCodeRange () : void
+    public function testMaxCodeRange (): void
     {
         $this->expectException(CondorcetException::class);
         $this->expectExceptionCode(0);
@@ -30,7 +30,7 @@ class CondorcetExceptionTest extends TestCase
         new CondorcetException (\max(CondorcetException::CODE_RANGE) + 1);
     }
 
-    public function testMysteriousError () : void
+    public function testMysteriousError (): void
     {
         $this->expectException(CondorcetException::class);
         $this->expectExceptionCode(\max(CondorcetException::CODE_RANGE) - 1);

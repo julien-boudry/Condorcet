@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Algo\Pairwise;
 // Generic for Algorithms
 abstract class PairwiseStats
 {
-    public static function PairwiseComparison (Pairwise $pairwise) : array
+    public static function PairwiseComparison (Pairwise $pairwise): array
     {
         $comparison = [];
 

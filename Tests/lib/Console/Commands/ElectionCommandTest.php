@@ -15,14 +15,14 @@ class ElectionCommandTest extends TestCase
 {
     private CommandTester $electionCommand;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         CondorcetApplication::create();
 
         $this->electionCommand = new CommandTester(CondorcetApplication::$SymfonyConsoleApplication->find('election'));
     }
 
-    public function testConsoleSimpleElection () : void
+    public function testConsoleSimpleElection (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -57,7 +57,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleSeats () : void
+    public function testConsoleSeats (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -87,7 +87,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testQuotas () : void
+    public function testQuotas (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -113,7 +113,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('imperiali', $output);
     }
 
-    public function testConsoleAllMethodsArgument () : void
+    public function testConsoleAllMethodsArgument (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -130,7 +130,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleMultiplesMethods () : void
+    public function testConsoleMultiplesMethods (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -149,7 +149,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleFileInput () : void
+    public function testConsoleFileInput (): void
     {
         $this->electionCommand->execute([
             '--candidates' => __DIR__.'/data.candidates',
@@ -164,7 +164,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('C#', $output);
     }
 
-    public function testInteractiveCommand () : void
+    public function testInteractiveCommand (): void
     {
         $this->electionCommand->setInputs([
             'A',
@@ -187,7 +187,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 
-    public function testNonInteractionMode () : void
+    public function testNonInteractionMode (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(6);
@@ -198,7 +198,7 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
     }
 
-    public function testCustomizeVotesPerMb () : void
+    public function testCustomizeVotesPerMb (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',

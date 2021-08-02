@@ -43,7 +43,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
-    public function getResult () : Result
+    public function getResult (): Result
     {
         // Cache
         if ( $this->_Result === null ) :
@@ -58,7 +58,7 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    protected function getStats () : array
+    protected function getStats (): array
     {
         $explicit = [];
 
@@ -80,7 +80,7 @@ class KemenyYoung extends Method implements MethodInterface
         return $stats;
     }
 
-        protected function conflictInfos () : void
+        protected function conflictInfos (): void
         {
             $max = \max($this->_RankingScore);
 
@@ -105,7 +105,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     //:: Kemeny-Young ALGORITHM. :://
 
-    protected function calcPossibleRanking () : void
+    protected function calcPossibleRanking (): void
     {
         $i = 0;
         $search = [];
@@ -141,7 +141,7 @@ class KemenyYoung extends Method implements MethodInterface
         fclose($f);
     }
 
-    protected function calcRankingScore () : void
+    protected function calcRankingScore (): void
     {
         $pairwise = $this->_selfElection->getPairwise();
 
@@ -169,7 +169,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     See issue on Github : https://github.com/julien-boudry/Condorcet/issues/6
     */
-    protected function makeRanking () : void
+    protected function makeRanking (): void
     {
         $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ]);
     }

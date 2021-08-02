@@ -24,7 +24,7 @@ class Manager
     protected ?float $_startDeclare = null;
     protected array $_history = [];
 
-    public function addTime ( Chrono $chrono ) : void
+    public function addTime ( Chrono $chrono ): void
     {
         if ($chrono->getTimerManager() === $this) :
             if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
@@ -53,12 +53,12 @@ class Manager
         endif;
     }
 
-    public function getGlobalTimer () : float
+    public function getGlobalTimer (): float
     {
         return $this->_globalTimer;
     }
 
-    public function getLastTimer () : float
+    public function getLastTimer (): float
     {
         return $this->_lastTimer;
     }
@@ -67,12 +67,12 @@ class Manager
     #[Description("Return benchmarked actions history.")]
     #[FunctionReturn("An explicit array with history.")]
     #[Related("Election::getTimerManager")]
-    public function getHistory () : array
+    public function getHistory (): array
     {
         return $this->_history;
     }
 
-    public function startDeclare (Chrono $chrono) : void
+    public function startDeclare (Chrono $chrono): void
     {
         if ($this->_startDeclare === null) :
             $this->_startDeclare = $chrono->getStart();

@@ -28,7 +28,7 @@ class MinimaxWinning extends PairwiseStatsBased_Core
 
     //:: SIMPSON ALGORITHM. :://
 
-    protected function looking (array $challenge) : int
+    protected function looking (array $challenge): int
     {
         return \min($challenge);
     }

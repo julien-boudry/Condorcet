@@ -25,7 +25,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the ranking
-    public function getResult () : Result
+    public function getResult (): Result
     {
         // Cache
         if ( $this->_Result !== null ) :
@@ -46,7 +46,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the stats
-    protected function getStats () : array
+    protected function getStats (): array
     {
         $explicit = [];
 
@@ -63,7 +63,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking () : void
+    protected function makeRanking (): void
     {
         $result = [];
 
@@ -94,5 +94,5 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    abstract protected function looking (array $challenge) : int;
+    abstract protected function looking (array $challenge): int;
 }

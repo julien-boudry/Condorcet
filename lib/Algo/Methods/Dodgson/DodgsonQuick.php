@@ -24,7 +24,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected function getStats () : array
+    protected function getStats (): array
     {
         $stats = [];
 
@@ -40,7 +40,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function compute () : void
+    protected function compute (): void
     {
         $pairwise = $this->_selfElection->getPairwise();
         $HeadToHead = [];
