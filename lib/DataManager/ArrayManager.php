@@ -106,7 +106,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     // Use by isset() function, must return false if offset value is null.
     public function offsetExists($offset): bool
     {
-        return ( isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false) ) ? true : false ;
+        return isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false);
     }
 
     public function offsetUnset($offset): void
