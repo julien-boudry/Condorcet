@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v3.1.0] - 2021-??-??
+## [v3.1.0] - 2021-08-03
 ### Description
 Introduces support for proportional methods. And adds some.
 
@@ -11,7 +11,7 @@ Introduces support for proportional methods. And adds some.
 - New Single Transferable Vote (STV) method, a proportional one.
 - New Options system for methods with parameters. Easier to use that extend and register class. Include new API methods.
 - New methods Multiple Round system replace Two-round system and takes advantage of the method options. This change is backward compatible.
--  Add IRV as an alias for Instant Runoff #48
+- Add IRV as an alias for Instant Runoff #48
 
 ### Changed
 - getResult() Fix arbitrary candidate ordering on a rank. Now have consistency with getRanking and others.
@@ -24,7 +24,7 @@ Introduces support for proportional methods. And adds some.
 - Static class for tie-breaking. Used by InstantRunoff but can be useful for further uses.
 
 ### Dev changes
-- Add class for PHP8 attributes. And use them on the documentation generator.
+- CondorcetDocumentator now using PHP8 attribtues.
 
 ## [v3.0.2] - 2021-04-28
 
