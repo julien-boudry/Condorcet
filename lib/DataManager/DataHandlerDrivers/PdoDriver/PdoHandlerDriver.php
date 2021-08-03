@@ -93,7 +93,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $this->_prepare['selectMinKey'] = $this->_handler->prepare('SELECT min('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
 
         // Insert many Entities
-            $makeMany = function (int $how) use (&$template): string {
+            $makeMany = static function (int $how) use (&$template): string {
                 $query = $template['insert_template'];
 
                 for ($i=1; $i < $how; $i++) :

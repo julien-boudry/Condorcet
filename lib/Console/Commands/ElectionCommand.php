@@ -520,7 +520,7 @@ class ElectionCommand extends Command
             $memory_limit = (int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'));
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
 
-            $callBack = function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
+            $callBack = static function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
                 if (  $inserted_votes_count > $vote_in_memory_limit ) :
 
                     if ( \file_exists( $SQLitePath = \getcwd().'/condorcet-bdd.sqlite' ) ) :
