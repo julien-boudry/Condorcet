@@ -389,7 +389,7 @@ class RankedPairsTest extends TestCase
                                 $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
     }
 
-    public function testMaxCandidates (): void
+    public function testMaxCandidates (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);

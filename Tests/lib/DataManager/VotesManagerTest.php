@@ -23,7 +23,7 @@ class VotesManagerTest extends TestCase
         $this->votes_manager = $this->election->getVotesManager();
     }
 
-    public function testOffsetSet(): void
+    public function testOffsetSet(): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 

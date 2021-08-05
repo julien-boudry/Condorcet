@@ -25,7 +25,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setMethodOption('STV', 'Quota', 'droop quota');
     }
 
-    public function testQuotaOption (): void
+    public function testQuotaOption (): never
     {
         self::assertTrue(
             $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff')

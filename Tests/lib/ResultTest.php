@@ -153,7 +153,7 @@ class ResultTest extends TestCase
         );
     }
 
-    public function testOffsetSet (): void
+    public function testOffsetSet (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
@@ -168,7 +168,7 @@ class ResultTest extends TestCase
         $result[] = 42;
     }
 
-    public function testOffUnset (): void
+    public function testOffUnset (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
 
@@ -200,7 +200,7 @@ class ResultTest extends TestCase
         endforeach;
     }
 
-    public function testBadMethodName (): void
+    public function testBadMethodName (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(8);

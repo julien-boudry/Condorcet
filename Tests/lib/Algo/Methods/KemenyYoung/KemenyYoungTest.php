@@ -78,7 +78,7 @@ class KemenyYoungTest extends TestCase
         );
     }
 
-    public function testMaxCandidates (): void
+    public function testMaxCandidates (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);

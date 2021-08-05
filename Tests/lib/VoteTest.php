@@ -44,7 +44,7 @@ class VoteTest extends TestCase
         self::assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
     }
 
-    public function testDifferentRanking (): void
+    public function testDifferentRanking (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(22);
@@ -343,7 +343,7 @@ class VoteTest extends TestCase
 
     }
 
-    public function testTags (): void
+    public function testTags (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(17);
@@ -423,7 +423,7 @@ class VoteTest extends TestCase
         endif;
     }
 
-    public function testBadTagInput1 (): void
+    public function testBadTagInput1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(17);
@@ -499,7 +499,7 @@ class VoteTest extends TestCase
         endforeach;
     }
 
-    public function testWeight(): void
+    public function testWeight(): never
     {
         $vote = new Vote ('A>B>C^42');
 
@@ -514,7 +514,7 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C^a');
     }
 
-    public function testCustomTimestamp(): void
+    public function testCustomTimestamp(): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(21);
@@ -570,7 +570,7 @@ class VoteTest extends TestCase
         self::assertsame(3,$vote->countRankingCandidates());
     }
 
-    public function testInvalidWeight(): void
+    public function testInvalidWeight(): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(26);
@@ -580,7 +580,7 @@ class VoteTest extends TestCase
         $vote->setWeight(0);
     }
 
-    public function testInvalidTag1(): void
+    public function testInvalidTag1(): never
     {
         $this->expectException(\TypeError::class);
 
@@ -589,7 +589,7 @@ class VoteTest extends TestCase
         $vote->addTags(true);
     }
 
-    public function testInvalidTag2(): void
+    public function testInvalidTag2(): never
     {
         $this->expectException(\TypeError::class);
 
@@ -598,7 +598,7 @@ class VoteTest extends TestCase
         $vote->addTags(42);
     }
 
-    public function testRemoveCandidate (): void
+    public function testRemoveCandidate (): never
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -622,7 +622,7 @@ class VoteTest extends TestCase
         $vote1->removeCandidate($this->candidate4);
     }
 
-    public function testRemoveCandidateInvalidInput (): void
+    public function testRemoveCandidateInvalidInput (): never
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -698,14 +698,14 @@ class VoteTest extends TestCase
         self::assertCount(1,$vote7->getHistory());
     }
 
-    public function testBadRankingInput1 (): void
+    public function testBadRankingInput1 (): never
     {
         $this->expectException(\TypeError::class);
 
         $vote = new Vote(42);
     }
 
-    public function testBadRankingInput2 (): void
+    public function testBadRankingInput2 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(5);
@@ -751,7 +751,7 @@ class VoteTest extends TestCase
 
 
     // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates1 (): void
+    public function testDuplicateCandidates1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(5);
