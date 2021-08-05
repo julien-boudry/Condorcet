@@ -34,7 +34,8 @@
         "phpbench/phpbench": "*",
         "phpunit/phpunit": "^9 || ^10",
         "phploc/phploc": "dev-master",
-        "haydenpierce/class-finder": ">= 0.4"
+        "haydenpierce/class-finder": ">= 0.4",
+        "infection/infection": "*"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",

@@ -1,0 +1,19 @@
+{
+    "source": {
+        "directories": [
+            "lib"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    },
+    "logs": {
+        "text": "infection.log",
+        "summary": "summary.log",
+        "json": "infection-log.json",
+        "perMutator": "per-mutator.md",
+        "badge": {
+            "branch": "/^release-.*$/"
+        }
+    }
+}
