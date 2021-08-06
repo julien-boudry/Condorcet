@@ -8,9 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConstraintTest extends TestCase
 {
-    /**
-     * @var election
-     */
     private Election $election;
 
     public function setUp(): void

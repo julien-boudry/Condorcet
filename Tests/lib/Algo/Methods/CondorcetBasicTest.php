@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetBasicTest extends TestCase
 {
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {

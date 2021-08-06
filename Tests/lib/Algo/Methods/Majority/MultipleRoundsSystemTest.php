@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class MultipleRoundsSystemTest extends TestCase
 {
-    /**
-     * @var election
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {

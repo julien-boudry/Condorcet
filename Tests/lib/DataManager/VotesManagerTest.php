@@ -12,8 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 class VotesManagerTest extends TestCase
 {
-    private  Election $election;
-    private VotesManager $votes_manager;
+    private readonly Election $election;
+    private readonly VotesManager $votes_manager;
 
     protected function setUp(): void
     {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
-    private Election $election1;
+    private readonly Election $election1;
 
     public function setUp(): void
     {

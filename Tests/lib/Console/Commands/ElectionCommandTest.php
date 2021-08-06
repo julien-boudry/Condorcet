@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ElectionCommandTest extends TestCase
 {
-    private CommandTester $electionCommand;
+    private readonly CommandTester $electionCommand;
 
     public function setUp(): void
     {

@@ -8,10 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase
 {
-    /**
-     * @var candidate1
-     */
-    private Candidate $candidate1;
+    private readonly Candidate $candidate1;
 
     public function setUp(): void
     {

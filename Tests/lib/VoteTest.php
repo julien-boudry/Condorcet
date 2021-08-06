@@ -9,17 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
 {
-    /**
-     * @var election1
-     */
-    private Election $election1;
+    private readonly Election $election1;
 
-    private Candidate $candidate1;
-    private Candidate $candidate2;
-    private Candidate $candidate3;
-    private Candidate $candidate4;
-    private Candidate $candidate5;
-    private Candidate $candidate6;
+    private readonly Candidate $candidate1;
+    private readonly Candidate $candidate2;
+    private readonly Candidate $candidate3;
+    private readonly Candidate $candidate4;
+    private readonly Candidate $candidate5;
+    private readonly Candidate $candidate6;
 
     public function setUp(): void
     {
