@@ -225,7 +225,7 @@ class Generate
 
 
         // Write file
-        file_put_contents($pathDirectory."\\README.md", $file_content);
+        file_put_contents($pathDirectory."README.md", $file_content);
 
 
         echo 'YAH ! <br>' . (microtime(true) - $start_time) .'s';
