@@ -15,7 +15,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Related
 {
-    public array $relatedList;
+    public readonly array $relatedList;
 
     public function __construct(string ...$relatedList)
     {
