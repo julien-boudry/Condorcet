@@ -18,9 +18,9 @@ class CondorcetException extends \Exception implements \Stringable
 {
     use CondorcetVersion;
 
-    public const CODE_RANGE = [0,1000];
+    final public const CODE_RANGE = [0,1000];
 
-    public const EXCEPTION_CODE = [
+    final public const EXCEPTION_CODE = [
         1 => 'Bad candidate name',
         2 => 'The voting process has already started',
         3 => 'This candidate is already registered',
