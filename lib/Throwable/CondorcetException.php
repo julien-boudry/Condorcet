@@ -22,7 +22,6 @@ class CondorcetException extends \Exception implements \Stringable
 
     public const EXCEPTION_CODE = [
         1 => 'Bad candidate name',
-        2 => 'The voting process has already started',
         3 => 'This candidate is already registered',
         4 => 'This candidate do not exist',
         5 => 'Bad vote format | {{ infos1 }}',

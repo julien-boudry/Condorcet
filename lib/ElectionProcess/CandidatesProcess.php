@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 
 // Manage Candidates for Election class
 trait CandidatesProcess
@@ -121,6 +122,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Add one candidate to an election.")]
     #[FunctionReturn("The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).")]
+    #[Throws(VotingHasStartedException::class)]
     #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::parseCandidates", "Election::addCandidatesFromJson", "Election::removeCandidate", "Election::getCandidatesList", "Election::canAddCandidate")]
     public function addCandidate (
@@ -130,7 +132,7 @@ trait CandidatesProcess
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
-            throw new CondorcetException(2);
+            throw new VotingHasStartedException();
         endif;
 
         // Process
@@ -176,6 +178,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Remove candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. An exception will be thrown.*")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
+    #[Throws(VotingHasStartedException::class)]
     #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::getCandidatesList")]
     public function removeCandidates (
@@ -185,7 +188,7 @@ trait CandidatesProcess
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
-            throw new CondorcetException(2);
+            throw new VotingHasStartedException();
         endif;
 
         if ( !\is_array($candidates_input) ) :
