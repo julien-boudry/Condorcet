@@ -6,12 +6,12 @@
 public Election->countCandidates ( ) : int
 ```
 
-Count the number of registered candidate
+Count the number of registered candidates
     
 
 ### Return value:   
 
-*(int)* Number of registered candidate for this election.
+*(int)* Number of registered candidates for this election.
 
 
 ---------------------------------------
