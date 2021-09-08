@@ -6,17 +6,15 @@ namespace CondorcetPHP\Condorcet\Tests\Throwable;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use PHPUnit\Framework\TestCase;
 
-class VotingHasStartedTest extends TestCase
+class VotingHasStartedExceptionTest extends TestCase
 {
-    public function testBuild (): void
+    public function testExceptionCanBeThrown (): void
     {
         $this->expectException(VotingHasStartedException::class);
 
         $e = new VotingHasStartedException();
 
-        self::assertStringStartsWith("CondorcetPHP\Condorcet\Throwable\VotingHasStartedException in",
-            (string) $e
-        );
+        $this->assertInstanceOf(VotingHasStartedException::class, $e);
 
         throw $e;
     }
