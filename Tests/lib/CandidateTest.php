@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException;
 use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase
@@ -41,8 +42,7 @@ class CandidateTest extends TestCase
 
     public function testToLongName (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(1);
+        $this->expectException(CandidateInvalidNameException::class);
 
         new Candidate (
             bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42))
@@ -51,8 +51,7 @@ class CandidateTest extends TestCase
 
     public function testBadName (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(1);
+        $this->expectException(CandidateInvalidNameException::class);
 
         new Candidate ('<$"');
     }
