@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -339,6 +340,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
     #[FunctionReturn("In case of success, return TRUE")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add a vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
     public function setRanking (
@@ -408,7 +410,7 @@ class Vote implements \Iterator, \Stringable
             endif;
 
             if (!\is_array($ranking)) :
-                throw new CondorcetException(5);
+                throw new VoteInvalidFormatException();
             endif;
 
             $ranking = \array_filter($ranking, fn ($key): bool => \is_numeric($key), \ARRAY_FILTER_USE_KEY);
@@ -446,7 +448,7 @@ class Vote implements \Iterator, \Stringable
                     if (!\in_array($Candidate->getName(), $list_candidate)) :
                         $list_candidate[] = $Candidate;
                     else :
-                        throw new CondorcetException(5);
+                        throw new VoteInvalidFormatException();
                     endif;
 
                 endforeach;

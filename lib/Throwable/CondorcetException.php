@@ -21,7 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        5 => 'Bad vote format | {{ infos1 }}',
         6 => 'You need to specify votes before results',
         7 => 'Your Candidate name is too long > {{ infos1 }}',
         8 => 'The method does not exist.',

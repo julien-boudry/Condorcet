@@ -10,10 +10,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
 // Manage Results for Election class
 trait VotesProcess
@@ -306,7 +307,8 @@ trait VotesProcess
 
 /////////// PARSE VOTE ///////////
 
-    // Return the well formated vote to use.
+    // Return the well formatted vote to use.
+    #[Throws(VoteInvalidFormatException::class)]
     protected function prepareVoteInput (array|string|Vote &$vote, array|string $tags = null): void
     {
         if (!($vote instanceof Vote)) :
@@ -315,7 +317,7 @@ trait VotesProcess
 
         // Check array format && Make checkVoteCandidate
         if ( !$this->checkVoteCandidate($vote) ) :
-            throw new CondorcetException(5);
+            throw new VoteInvalidFormatException();
         endif;
     }
 

@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
@@ -707,8 +708,7 @@ class VoteTest extends TestCase
 
     public function testBadRankingInput2 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(5);
+        $this->expectException(VoteInvalidFormatException::class);
 
         $candidate = new Candidate('A');
 
@@ -753,8 +753,7 @@ class VoteTest extends TestCase
     // https://github.com/julien-boudry/Condorcet/issues/32
     public function testDuplicateCandidates1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(5);
+        $this->expectException(VoteInvalidFormatException::class);
 
         new Vote('Spain>Japan>France>Netherlands>Australia>France');
     }
