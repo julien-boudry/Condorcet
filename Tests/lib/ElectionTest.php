@@ -589,16 +589,14 @@ C > B > A * 1',
 
     public function testElectionState1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(2);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\VotingHasStartedException::class);
 
         $this->election1->addCandidate('candidate4');
     }
 
     public function testElectionState2 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(2);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\VotingHasStartedException::class);
 
         $this->election1->removeCandidates('candidate4');
     }
