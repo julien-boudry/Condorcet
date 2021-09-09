@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
+use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil, Throwable\CandidateDoesNotExistException};
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
@@ -179,7 +179,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Remove candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. An exception will be thrown.*")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
-    #[Throws(VotingHasStartedException::class)]
+    #[Throws(CandidateDoesNotExistException::class, VotingHasStartedException::class)]
     #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::getCandidatesList")]
     public function removeCandidates (
@@ -200,7 +200,7 @@ trait CandidatesProcess
             $candidate_key = $this->getCandidateKey($candidate);
 
             if ( $candidate_key === null ) :
-                throw new CondorcetException(4,$candidate->getName());
+                throw new CandidateDoesNotExistException($candidate->getName());
             endif;
 
             $candidate = $candidate_key;

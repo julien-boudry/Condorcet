@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Throwable;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
-// Custom Exeption
+// Custom Exception
 class CondorcetException extends \Exception implements \Stringable
 {
     use CondorcetVersion;
@@ -22,7 +22,6 @@ class CondorcetException extends \Exception implements \Stringable
 
     public const EXCEPTION_CODE = [
         1 => 'Bad candidate name',
-        4 => 'This candidate do not exist',
         5 => 'Bad vote format | {{ infos1 }}',
         6 => 'You need to specify votes before results',
         7 => 'Your Candidate name is too long > {{ infos1 }}',
