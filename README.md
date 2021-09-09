@@ -58,6 +58,8 @@ _Two different ways to use Condorcet:_
 
 > [**Releases Notes**](CHANGELOG.md)
 
+* **Stable Version: 3.2.x**  _support provided_  
+  * * *PHP Requirement:* PHP 8.1
 * **Stable Version: 3.1.x**  _support provided_  
   * * *PHP Requirement:* PHP 8.0. _(tested up to PHP 8.1)_
 * **Stable Version: 2.2.x**  _support provided_  
