@@ -12,6 +12,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
+use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 
@@ -122,7 +123,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Add one candidate to an election.")]
     #[FunctionReturn("The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).")]
-    #[Throws(VotingHasStartedException::class)]
+    #[Throws(CandidateExistsException::class, VotingHasStartedException::class)]
     #[Example("Manual - Manage Candidate","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::parseCandidates", "Election::addCandidatesFromJson", "Election::removeCandidate", "Election::getCandidatesList", "Election::canAddCandidate")]
     public function addCandidate (
@@ -146,7 +147,7 @@ trait CandidatesProcess
             $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate ((string) $candidate);
 
             if ( !$this->canAddCandidate($newCandidate) ) :
-                throw new CondorcetException(3,(string) $candidate);
+                throw new CandidateExistsException((string) $candidate);
             endif;
         endif;
 
@@ -223,6 +224,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Import candidate from a JSON source.")]
     #[FunctionReturn("List of newly registered candidate object.")]
+    #[Throws(CandidateExistsException::class)]
     #[Example("Manual - Manage Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::parseCandidates", "Election::addVotesFromJson")]
     public function addCandidatesFromJson (
@@ -239,7 +241,7 @@ trait CandidatesProcess
             $candidate = new Candidate ($candidate);
 
             if (!$this->canAddCandidate($candidate)) :
-                throw new CondorcetException(3);
+                throw new CandidateExistsException((string) $candidate);
             endif;
 
             $adding[] = $candidate;
@@ -256,6 +258,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Import candidate from a text source.")]
     #[FunctionReturn("List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.")]
+    #[Throws(CandidateExistsException::class)]
     #[Example("Manual - Manage Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::addCandidatesFromJson", "Election::parseVotes")]
     public function parseCandidates (
@@ -280,7 +283,7 @@ trait CandidatesProcess
             endif;
 
             if (!$this->canAddCandidate($line)) :
-                throw new CondorcetException(3);
+                throw new CandidateExistsException($line);
             endif;
 
             $adding[] = $line;

@@ -470,8 +470,7 @@ C > B > A * 1',
 
     public function testaddCandidatesFromJson (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(3);
+        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CandidateExistsException::class);
 
         $election = new Election;
 
