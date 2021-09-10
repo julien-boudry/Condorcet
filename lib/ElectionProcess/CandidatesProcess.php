@@ -11,10 +11,9 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil, Throwable\CandidateDoesNotExistException};
-use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
+use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
-use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 
 // Manage Candidates for Election class
 trait CandidatesProcess
