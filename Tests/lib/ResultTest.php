@@ -3,7 +3,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\{Candidate,
+    Condorcet,
+    CondorcetUtil,
+    Election,
+    Result,
+    Throwable\AlgorithmException,
+    Vote,
+    VoteConstraint};
 use PHPUnit\Framework\TestCase;
 
 
@@ -202,8 +209,8 @@ class ResultTest extends TestCase
 
     public function testBadMethodName (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(8);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("Method does not exist");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

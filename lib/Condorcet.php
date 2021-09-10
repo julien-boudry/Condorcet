@@ -10,7 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Registering native Condorcet Methods implementation
@@ -108,6 +109,7 @@ abstract class Condorcet
     #[PublicAPI]
     #[Description("Return the full class path for a method.")]
     #[FunctionReturn("Return null is method not exist.")]
+    #[Throws(AlgorithmException::class)]
     #[Related("static Condorcet::getAuthMethods")]
     public static function getMethodClass (
         #[FunctionParameter('A valid method name')]
@@ -117,7 +119,7 @@ abstract class Condorcet
         $auth = self::$_authMethods;
 
         if (empty($method)) :
-            throw new CondorcetException (8);
+            throw new AlgorithmException("No method name given");
         endif;
 
         if ( isset($auth[$method]) ) :
@@ -178,11 +180,11 @@ abstract class Condorcet
         protected static function testMethod (string $method): bool
         {
             if ( !\class_exists($method) ) :
-                throw new CondorcetException(9);
+                throw new AlgorithmException("No class found for method '$method'");
             endif;
 
             if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
-                throw new CondorcetException(10);
+                throw new AlgorithmException("The given class is not correct");
             endif;
 
             foreach ($method::METHOD_NAME as $alias) :
@@ -219,7 +221,7 @@ abstract class Condorcet
             if ( Condorcet::isAuthMethod($substitution) ) :
                 $algo = $substitution;
             else :
-                throw new CondorcetException(9,$substitution);
+                throw new AlgorithmException("No class found for method '$substitution'");
             endif;
         else :
             $algo = Condorcet::CONDORCET_BASIC_CLASS;

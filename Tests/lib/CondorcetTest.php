@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -27,8 +28,8 @@ class CondorcetTest extends TestCase
 
     public function testBadClassMethod (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(9);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("No class found for method 'sjskkdlkkzksh'");
 
         Condorcet::addMethod('sjskkdlkkzksh');
     }
@@ -64,8 +65,8 @@ class CondorcetTest extends TestCase
 
     public function testAddUnvalidMethod (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(10);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The given class is not correct");
 
         $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
@@ -84,8 +85,8 @@ class CondorcetTest extends TestCase
 
     public function testEmptyMethod (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(8);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("No method name given");
 
         Condorcet::isAuthMethod('');
     }

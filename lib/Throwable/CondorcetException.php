@@ -21,9 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        8 => 'The method does not exist.',
-        9 => 'The method class has not been defined',
-        10 => 'The algo class you want is not correct',
         11 => 'You try to unserialize an object version older than your actual Class version. This is a problematic thing',
         12 => 'You have exceeded the number of votes allowed for this method.',
         13 => 'Formatting error: You must specify an integer',
