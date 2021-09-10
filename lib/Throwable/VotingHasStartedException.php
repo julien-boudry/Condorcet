@@ -10,4 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class VotingHasStartedException extends \Exception {}
+use CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException;
+
+
+class VotingHasStartedException extends CondorcetPublicApiException {}

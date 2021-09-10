@@ -10,7 +10,15 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-use CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException;
+use CondorcetPHP\Condorcet\CondorcetVersion;
 
+// Custom Exception
+class CondorcetPublicApiException extends \Exception implements \Stringable
+{
+    use CondorcetVersion;
 
-class VoteInvalidFormatException extends CondorcetPublicApiException {}
+    public function __toString (): string
+    {
+           return static::class . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
+    }
+}
