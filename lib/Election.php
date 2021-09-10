@@ -10,11 +10,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 // Base Condorcet class
@@ -443,6 +444,7 @@ class Election
     #[PublicAPI]
     #[Description("Force the election to get back to state 2. See Election::getState.\nIt is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.\n\nIf you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.\nIf you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.")]
     #[FunctionReturn("Always True.")]
+    #[Throws(ResultRequestedWithoutVotesException::class)]
     #[Related("Election::getState")]
     public function setStateToVote (): bool
     {
@@ -464,13 +466,13 @@ class Election
         if ($this->_Pairwise === null && $this->_State === 2) :
             $this->cleanupCompute();
 
-            // Do Pairewise
+            // Do Pairwise
             $this->makePairwise();
 
             // Return
             return true;
         elseif ($this->_State === 1 || $this->countVotes() === 0) :
-            throw new CondorcetException(6);
+            throw new ResultRequestedWithoutVotesException();
         else :
             return false;
         endif;

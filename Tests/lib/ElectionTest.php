@@ -7,6 +7,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Resul
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
+use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
@@ -614,8 +615,7 @@ C > B > A * 1',
 
     public function testElectionState4 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(6);
+        $this->expectException(ResultRequestedWithoutVotesException::class);
 
         $election = new Election;
         $election->getResult();
