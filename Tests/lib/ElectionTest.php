@@ -660,6 +660,7 @@ C > B > A * 1',
     public function testRemoveCandidate (): void
     {
         $this->expectException(CandidateDoesNotExistException::class);
+        $this->expectExceptionMessage('This candidate does not exist: B');
 
         $election = new Election;
 
