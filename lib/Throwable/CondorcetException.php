@@ -21,7 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        7 => 'Your Candidate name is too long > {{ infos1 }}',
         8 => 'The method does not exist.',
         9 => 'The method class has not been defined',
         10 => 'The algo class you want is not correct',
