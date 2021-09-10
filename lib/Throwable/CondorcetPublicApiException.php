@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Throwable;
 use CondorcetPHP\Condorcet\CondorcetVersion;
 
 // Custom Exception
-class CondorcetPublicApiException extends \Exception implements \Stringable
+abstract class CondorcetPublicApiException extends \Exception implements \Stringable
 {
     use CondorcetVersion;
 
