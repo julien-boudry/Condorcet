@@ -86,7 +86,7 @@ abstract class Method
     		election: $this->_selfElection,
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats(): null,
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
             methodOptions: $methodOptions
     	);
     }
