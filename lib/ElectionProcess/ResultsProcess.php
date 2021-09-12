@@ -76,11 +76,11 @@ trait ResultsProcess
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::getMethodClass($method)) :
-            $this->initResult($method);
-            $result = $this->_Calculator[$method]->getResult();
+        elseif ($wanted_method = Condorcet::getMethodClass($method)) :
+            $this->initResult($wanted_method);
+            $result = $this->_Calculator[$wanted_method]->getResult();
         else :
-            throw new AlgorithmException();
+            throw new AlgorithmException($method);
         endif;
 
         ($chrono !== null) && $chrono->setRole('GetResult for '.$method);

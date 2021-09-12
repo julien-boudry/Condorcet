@@ -3,14 +3,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate,
-    Condorcet,
-    CondorcetUtil,
-    Election,
-    Result,
-    Throwable\AlgorithmException,
-    Vote,
-    VoteConstraint};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use PHPUnit\Framework\TestCase;
 
 
@@ -210,7 +204,7 @@ class ResultTest extends TestCase
     public function testBadMethodName (): void
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available");
+        $this->expectExceptionMessage("The voting algorithm is not available: bad method");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
