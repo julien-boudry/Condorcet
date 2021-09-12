@@ -709,6 +709,7 @@ class VoteTest extends TestCase
     public function testBadRankingInput2 (): void
     {
         $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid");
 
         $candidate = new Candidate('A');
 
@@ -754,6 +755,7 @@ class VoteTest extends TestCase
     public function testDuplicateCandidates1 (): void
     {
         $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid");
 
         new Vote('Spain>Japan>France>Netherlands>Australia>France');
     }

@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class CandidateDoesNotExistException extends CondorcetPublicApiException
 {
-    protected $message = 'This candidate does not exist: ';
+    protected $message = 'This candidate does not exist';
 }

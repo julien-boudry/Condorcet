@@ -10,4 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class CandidateInvalidNameException extends CondorcetPublicApiException {}
+class CandidateInvalidNameException extends CondorcetPublicApiException
+{
+    protected $message = 'This name is not valid';
+}

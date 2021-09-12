@@ -29,7 +29,7 @@ class CondorcetTest extends TestCase
     public function testBadClassMethod (): void
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("No class found for method 'sjskkdlkkzksh'");
+        $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
 
         Condorcet::addMethod('sjskkdlkkzksh');
     }
@@ -66,7 +66,7 @@ class CondorcetTest extends TestCase
     public function testAddUnvalidMethod (): void
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The given class is not correct");
+        $this->expectExceptionMessage("The voting algorithm is not available: the given class is not correct");
 
         $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
@@ -86,7 +86,7 @@ class CondorcetTest extends TestCase
     public function testEmptyMethod (): void
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("No method name given");
+        $this->expectExceptionMessage("The voting algorithm is not available: no method name given");
 
         Condorcet::isAuthMethod('');
     }

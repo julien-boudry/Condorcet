@@ -76,11 +76,11 @@ trait ResultsProcess
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::getMethodClass((string) $method)) :
+        elseif ($method = Condorcet::getMethodClass($method)) :
             $this->initResult($method);
             $result = $this->_Calculator[$method]->getResult();
         else :
-            throw new AlgorithmException("Method does not exist");
+            throw new AlgorithmException();
         endif;
 
         ($chrono !== null) && $chrono->setRole('GetResult for '.$method);

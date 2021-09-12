@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException;
+use CondorcetPHP\Condorcet\Throwable\{CandidateInvalidNameException, CandidateExistsException};
 use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase
@@ -40,18 +40,20 @@ class CandidateTest extends TestCase
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    public function testToLongName (): void
+    public function testTooLongName (): void
     {
-        $this->expectException(CandidateInvalidNameException::class);
+        $name = bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42));
 
-        new Candidate (
-            bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42))
-        );
+        $this->expectException(CandidateInvalidNameException::class);
+        $this->expectExceptionMessage("This name is not valid: $name");
+
+        new Candidate($name);
     }
 
     public function testBadName (): void
     {
         $this->expectException(CandidateInvalidNameException::class);
+        $this->expectExceptionMessage("This name is not valid");
 
         new Candidate ('<$"');
     }
@@ -65,7 +67,8 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CandidateExistsException::class);
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage("This candidate already exists: Schizophrenic");
 
         $election1 = new Election ();
 
@@ -77,7 +80,8 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate2 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CandidateExistsException::class);
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage("This candidate already exists: candidate1");
 
         $election1 = new Election ();
 
@@ -86,7 +90,8 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate3 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CandidateExistsException::class);
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage("This candidate already exists: candidate1");
 
         $election1 = new Election ();
 

@@ -132,7 +132,7 @@ trait CandidatesProcess
     {
         // only if the vote has not started
         if ( $this->_State > 1 ) :
-            throw new VotingHasStartedException();
+            throw new VotingHasStartedException("cannot add '$candidate'");
         endif;
 
         // Process

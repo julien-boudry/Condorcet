@@ -8,6 +8,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
@@ -475,6 +476,7 @@ C > B > A * 1',
     public function testaddCandidatesFromJson (): void
     {
         $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage('This candidate already exists: candidate2');
 
         $election = new Election;
 
@@ -592,14 +594,16 @@ C > B > A * 1',
 
     public function testElectionState1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\VotingHasStartedException::class);
+        $this->expectException(VotingHasStartedException::class);
+        $this->expectExceptionMessage("The voting has started: cannot add 'candidate4'");
 
         $this->election1->addCandidate('candidate4');
     }
 
     public function testElectionState2 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\VotingHasStartedException::class);
+        $this->expectException(VotingHasStartedException::class);
+        $this->expectExceptionMessage("The voting has started");
 
         $this->election1->removeCandidates('candidate4');
     }
@@ -616,6 +620,7 @@ C > B > A * 1',
     public function testElectionState4 (): void
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
+        $this->expectExceptionMessage("The result cannot be requested without votes");
 
         $election = new Election;
         $election->getResult();
@@ -671,9 +676,10 @@ C > B > A * 1',
         $election->removeCandidates($badCandidate);
     }
 
-    public function testAmbigousCandidatesOnElectionSide (): void
+    public function testAmbiguousCandidatesOnElectionSide (): void
     {
         $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid");
 
         $vote = new Vote ('candidate1>candidate2');
 

@@ -19,11 +19,15 @@ abstract class CondorcetPublicApiException extends \Exception implements \String
 
     public function __construct (string $message = '')
     {
-        parent::__construct($this->message . $message);
+        // If there is a custom message, append it.
+        if (!empty($message)) :
+            $this->message .= ': ' . $message;
+        endif;
+        parent::__construct($this->message);
     }
 
     public function __toString (): string
     {
-           return static::class . ": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
+        return static::class.": [{$this->code}]: {$this->message} (line: {$this->file}:{$this->line})\n";
     }
 }

@@ -119,7 +119,7 @@ abstract class Condorcet
         $auth = self::$_authMethods;
 
         if (empty($method)) :
-            throw new AlgorithmException("No method name given");
+            throw new AlgorithmException("no method name given");
         endif;
 
         if ( isset($auth[$method]) ) :
@@ -180,11 +180,11 @@ abstract class Condorcet
         protected static function testMethod (string $method): bool
         {
             if ( !\class_exists($method) ) :
-                throw new AlgorithmException("No class found for method '$method'");
+                throw new AlgorithmException("no class found for '$method'");
             endif;
 
             if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
-                throw new AlgorithmException("The given class is not correct");
+                throw new AlgorithmException("the given class is not correct");
             endif;
 
             foreach ($method::METHOD_NAME as $alias) :

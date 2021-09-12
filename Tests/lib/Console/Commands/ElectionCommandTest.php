@@ -191,6 +191,7 @@ class ElectionCommandTest extends TestCase
     public function testNonInteractionMode (): void
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
+        $this->expectExceptionMessage("The result cannot be requested without votes");
 
         $this->electionCommand->execute([],['interactive' => false]);
 

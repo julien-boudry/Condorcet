@@ -10,4 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class VoteInvalidFormatException extends CondorcetPublicApiException {}
+class VoteInvalidFormatException extends CondorcetPublicApiException
+{
+    protected $message = "The format of the vote is invalid";
+}

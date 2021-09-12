@@ -210,7 +210,7 @@ class ResultTest extends TestCase
     public function testBadMethodName (): void
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("Method does not exist");
+        $this->expectExceptionMessage("The voting algorithm is not available");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

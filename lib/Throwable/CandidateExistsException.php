@@ -10,4 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class CandidateExistsException extends CondorcetPublicApiException {}
+class CandidateExistsException extends CondorcetPublicApiException
+{
+    protected $message = 'This candidate already exists';
+}
