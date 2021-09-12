@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VotingHasStartedException};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Manage Candidates for Election class
@@ -257,7 +257,7 @@ trait CandidatesProcess
     #[PublicAPI]
     #[Description("Import candidate from a text source.")]
     #[FunctionReturn("List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.")]
-    #[Throws(CandidateExistsException::class)]
+    #[Throws(CandidateExistsException::class, VoteMaxNumberReachedException::class)]
     #[Example("Manual - Manage Candidates","https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates")]
     #[Related("Election::addCandidate", "Election::addCandidatesFromJson", "Election::parseVotes")]
     public function parseCandidates (
@@ -278,7 +278,7 @@ trait CandidatesProcess
 
             // addCandidate
             if (self::$_maxParseIteration !== null && \count($adding) >= self::$_maxParseIteration) :
-                throw new CondorcetException(12, (string) self::$_maxParseIteration);
+                throw new VoteMaxNumberReachedException((string) self::$_maxParseIteration);
             endif;
 
             if (!$this->canAddCandidate($line)) :

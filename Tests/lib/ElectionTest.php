@@ -10,6 +10,7 @@ use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
 use PHPUnit\Framework\TestCase;
 
 class ElectionTest extends TestCase
@@ -130,8 +131,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(12);
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
 
         self::assertSame(42,Election::setMaxParseIteration(42));
 
@@ -155,8 +156,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration2 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(12);
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
 
         self::assertSame(42,Election::setMaxParseIteration(42));
 
@@ -174,8 +175,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxParseIteration3 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(12);
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 2");
 
         self::assertSame(2,Election::setMaxParseIteration(2));
 

@@ -13,8 +13,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
-use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException};
 
 // Manage Results for Election class
 trait VotesProcess
@@ -484,7 +483,7 @@ trait VotesProcess
         endif;
 
         if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-            throw new CondorcetException(12, (string) self::$_maxParseIteration);
+            throw new VoteMaxNumberReachedException((string) self::$_maxParseIteration);
         endif;
 
         $newVote = new Vote ($vote, $tags, null, $this);
