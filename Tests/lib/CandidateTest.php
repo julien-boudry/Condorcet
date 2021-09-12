@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class CandidateTest extends TestCase
 {
     /**
-     * @var candidate1
+     * @var Candidate candidate1
      */
     private Candidate $candidate1;
 
