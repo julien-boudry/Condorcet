@@ -201,8 +201,8 @@ class ElectionTest extends TestCase
       */
     public function testMaxVoteNumber (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(16);
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage("The maximal number of votes for the method is reached");
 
         $election = new Election;
         self::assertCount(3,$election->parseCandidates('candidate1;candidate2;candidate3'));
@@ -214,8 +214,8 @@ class ElectionTest extends TestCase
         try {
             $election->parseVotes('candidate1>candidate2 * 42');
             self::assertSame(true,false);
-        } catch (CondorcetException $e) {
-            self::assertSame(16,$e->getCode());
+        } catch (VoteMaxNumberReachedException $e) {
+            $this->assertEquals("The maximal number of votes for the method is reached", $e->getMessage());
         }
 
         self::assertSame(21,$election->countVotes());

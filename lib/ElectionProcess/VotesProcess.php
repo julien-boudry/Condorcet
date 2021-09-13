@@ -149,6 +149,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Add a vote to an election.")]
     #[FunctionReturn("The vote object.")]
+    #[Throws(VoteMaxNumberReachedException::class)]
     #[Example("Manual - Vote Management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
     public function addVote (
@@ -162,7 +163,7 @@ trait VotesProcess
 
         // Check Max Vote Count
         if ( self::$_maxVoteNumber !== null && $this->countVotes() >= self::$_maxVoteNumber ) :
-            throw new CondorcetException(16, (string) self::$_maxVoteNumber);
+            throw new VoteMaxNumberReachedException((string) self::$_maxVoteNumber);
         endif;
 
         // Register vote
@@ -479,7 +480,7 @@ trait VotesProcess
         $adding_predicted_count = $count + $multiple;
 
         if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-            throw new CondorcetException(16, (string) self::$_maxParseIteration);
+            throw new VoteMaxNumberReachedException((string) self::$_maxParseIteration);
         endif;
 
         if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
