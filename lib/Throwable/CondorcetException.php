@@ -23,7 +23,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const EXCEPTION_CODE = [
         11 => 'You try to unserialize an object version older than your actual Class version. This is a problematic thing',
 
-        18 => 'New vote can\'t match Candidate of his elections',
         20 => 'You need to specify one or more candidates before voting',
         23 => 'No Data Handler in use',
         24 => 'A Data Handler is already in use',

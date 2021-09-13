@@ -695,10 +695,10 @@ C > B > A * 1',
         $election2->addVote($vote);
     }
 
-    public function testAmbigousCandidatesOnVoteSide (): void
+    public function testAmbiguousCandidatesOnVoteSide (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(18);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: vote does not match candidate in this election");
 
         $candidate3 = new Candidate('candidate3');
         $vote = new Vote ('candidate3');
