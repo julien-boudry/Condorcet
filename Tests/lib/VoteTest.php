@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
@@ -617,8 +618,8 @@ class VoteTest extends TestCase
 
         self::assertSame('candidate1 > candidate2 = candidate3',$this->election1->getResult()->getResultAsString());
 
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(32);
+        $this->expectException(CandidateDoesNotExistException::class);
+        $this->expectExceptionMessage("This candidate does not exist: candidate4");
 
         $vote1->removeCandidate($this->candidate4);
     }

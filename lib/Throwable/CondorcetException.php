@@ -38,7 +38,6 @@ class CondorcetException extends \Exception implements \Stringable
         30 => 'Seats number must be >= 1',
 
         31 => 'Vote object already registred',
-        32 => 'Invalid Input',
         33 => 'This vote is not in this election',
 
         // DataManager

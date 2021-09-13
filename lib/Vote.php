@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
 class Vote implements \Iterator, \Stringable
@@ -461,6 +462,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Remove candidate from ranking. Set a new ranking and archive the old ranking.")]
     #[FunctionReturn("True on success.")]
+    #[Throws(CandidateDoesNotExistException::class)]
     #[Related("Vote::setRanking")]
     public function removeCandidate (
         #[FunctionParameter('Candidate object or string')]
@@ -478,7 +480,7 @@ class Vote implements \Iterator, \Stringable
         $rankingCandidate = $this->getAllCandidates();
 
         if (!\in_array(needle: $candidate, haystack: $rankingCandidate, strict:  $strict)) :
-            throw new CondorcetException (32);
+            throw new CandidateDoesNotExistException((string) $candidate);
         endif;
 
         foreach ($ranking as $rankingKey => &$rank) :
