@@ -14,12 +14,12 @@ String or valid path to a text file.
 
 
 ##### **isFile:** *bool*   
-If true, the input is evalatued as path to text file.    
+If true, the input is evaluated as path to a text file.    
 
 
 ### Return value:   
 
-*(array)* List of new registered candidate object. Count it for checking if all candidates have been correctly registered.
+*(array)* List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.
 
 
 ---------------------------------------

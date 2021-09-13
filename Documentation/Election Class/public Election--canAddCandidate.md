@@ -6,7 +6,7 @@
 public Election->canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string candidate ) : bool
 ```
 
-Check if a Candidate is alredeay register. User strict Vote object comparaison, but also string namming comparaison into the election.
+Check if a candidate is already registered. Uses strict Vote object comparison, but also string naming comparison in the election.
     
 
 ##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string*   
@@ -15,7 +15,7 @@ String or Condorcet/Vote object.
 
 ### Return value:   
 
-*(bool)* True if your Candidate is available. Or False.
+*(bool)* True if your candidate is available, false otherwise.
 
 
 ---------------------------------------

@@ -6,12 +6,12 @@
 public Election->getCandidatesListAsString ( ) : array
 ```
 
-Return a list of registered Candidate into this election.
+Return a list of registered candidates for this election.
     
 
 ### Return value:   
 
-*(array)* List of Candidate into an array populated by strign instead CandidateObject.
+*(array)* List of candidates in an array populated with strings instead of CandidateObjects.
 
 
 ---------------------------------------
