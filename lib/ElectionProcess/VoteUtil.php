@@ -72,6 +72,7 @@ abstract class VoteUtil
         return $ranking;
     }
 
+    #[Throws(VoteInvalidFormatException::class)]
     public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line): int
     {
         if (is_int($searchCharacter)) :
@@ -79,7 +80,7 @@ abstract class VoteUtil
 
             // Errors
             if ( !\is_numeric($value) ) :
-                throw new CondorcetException(13);
+                throw new VoteInvalidFormatException("the value '$value' is not numeric");
             endif;
 
             // Reformat line

@@ -505,8 +505,8 @@ class VoteTest extends TestCase
         self::assertsame(2,$vote->getWeight());
         self::assertsame(1,$vote->getWeight($this->election1));
 
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(13);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: you must specify an integer for the vote weight");
 
         $vote = new Vote ('A>B>C^a');
     }

@@ -119,8 +119,8 @@ class ElectionTest extends TestCase
 
     public function testParseError (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(13);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: the value 'text' is not numeric");
 
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }

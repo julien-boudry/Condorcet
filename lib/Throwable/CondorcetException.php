@@ -22,8 +22,6 @@ class CondorcetException extends \Exception implements \Stringable
 
     public const EXCEPTION_CODE = [
         11 => 'You try to unserialize an object version older than your actual Class version. This is a problematic thing',
-        13 => 'Formatting error: You must specify an integer',
-        14 => 'Bad Input',
 
         16 => 'You have exceeded the maximum number of votes allowed per election ({{ infos1 }}).',
         18 => 'New vote can\'t match Candidate of his elections',

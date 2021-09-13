@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use phpDocumentor\Reflection\Types\Void_;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -68,6 +69,7 @@ class Vote implements \Iterator, \Stringable
 
     #[PublicAPI]
     #[Description("Build a vote object.")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::setRanking", "Vote::addTags")]
     public function __construct (
@@ -92,7 +94,7 @@ class Vote implements \Iterator, \Stringable
 
                 // Errors
                 if ( !\is_numeric($weight) ) :
-                    throw new CondorcetException(13);
+                    throw new VoteInvalidFormatException("you must specify an integer for the vote weight");
                 endif;
 
                 $weight = \intval($weight);

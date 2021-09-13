@@ -379,7 +379,7 @@ trait VotesProcess
 
             // Disallow < and "
             if ( \preg_match('/<|"/mi', $line) === 1 ) :
-                throw new CondorcetException(14, $line);
+                throw new VoteInvalidFormatException("found '<' or '|' in this line: " . $line);
             endif;
 
             // Multiples
@@ -459,7 +459,7 @@ trait VotesProcess
                         endif;
                     endfor;
 
-                } catch (CondorcetException) {
+                } catch (VoteInvalidFormatException) {
                     ++$fail_count;
                 } finally {
                     $record = '';
