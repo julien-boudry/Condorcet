@@ -25,7 +25,6 @@ class CondorcetException extends \Exception implements \Stringable
         13 => 'Formatting error: You must specify an integer',
         14 => 'Bad Input',
 
-        15 => 'Input must be valid Json format',
         16 => 'You have exceeded the maximum number of votes allowed per election ({{ infos1 }}).',
         17 => 'Bad tags input format',
         18 => 'New vote can\'t match Candidate of his elections',

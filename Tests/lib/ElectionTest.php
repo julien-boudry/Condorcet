@@ -7,6 +7,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Resul
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
+use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
@@ -429,8 +430,8 @@ D > C > B > A * 1',
 
     public function testaddVotesFromJson (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(15);
+        $this->expectException(JsonFormatException::class);
+        $this->expectExceptionMessage('Input is an invalid JSON format');
 
         $election = new Election;
 
@@ -494,8 +495,8 @@ C > B > A * 1',
 
     public function testaddCandidatesFromInvalidJson (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(15);
+        $this->expectException(JsonFormatException::class);
+        $this->expectExceptionMessage('Input is an invalid JSON format');
 
         $election = new Election;
 
@@ -505,8 +506,8 @@ C > B > A * 1',
 
     public function testaddVotesFromJsonWithInvalidJson (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(15);
+        $this->expectException(JsonFormatException::class);
+        $this->expectExceptionMessage('Input is an invalid JSON format');
 
         self::assertFalse($this->election1->addVotesFromJson("42"));
         self::assertFalse($this->election1->addVotesFromJson(42));
