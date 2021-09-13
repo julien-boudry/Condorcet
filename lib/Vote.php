@@ -504,6 +504,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Add tag(s) on this Vote.")]
     #[FunctionReturn("In case of success, return TRUE")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::removeTags")]
     public function addTags (

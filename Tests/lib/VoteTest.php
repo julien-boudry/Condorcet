@@ -345,11 +345,8 @@ class VoteTest extends TestCase
 
     }
 
-    public function testTags (): void
+    public function testValidTags (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
-
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
         $targetTags = ['tag1','tag2','tag3'];
@@ -358,80 +355,78 @@ class VoteTest extends TestCase
             'tag1,tag2,tag3'
         ));
 
-            self::assertSame(
-                $targetTags,
-                \array_values($vote1->getTags())
-            );
+        self::assertSame(
+            $targetTags,
+            \array_values($vote1->getTags())
+        );
 
-            self::assertTrue($vote1->removeAllTags());
-            self::assertSame(
-                [],
-                $vote1->getTags()
-            );
+        self::assertTrue($vote1->removeAllTags());
+        self::assertSame(
+            [],
+            $vote1->getTags()
+        );
 
         self::assertTrue($vote1->addTags(
             ['tag1','tag2','tag3']
         ));
 
-            self::assertSame(
-                $targetTags,
-                \array_values($vote1->getTags())
-            );
-
-            self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
-
-            self::assertEquals(
-                ['tag1','tag3'],
-                \array_values($vote1->getTags()));
-
-            self::assertTrue($vote1->removeAllTags());
-
-        $badInput = false;
-
-        try {
-            $vote1->addTags(
-                ' tag1,tag2 , tag3 ,'
-            );
-        } catch (CondorcetException $e) {
-            $badInput = $e;
-        }
-
         self::assertSame(
-            [],
+            $targetTags,
             \array_values($vote1->getTags())
         );
 
-        self::assertTrue($vote1->removeAllTags());
+        self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
 
-        try {
-            $vote1->addTags(
-                ['tag1 ',' tag2',' tag3 ',' ']
-            );
-        } catch (CondorcetException $e) {
-            $badInput = $e;
-        }
-            self::assertSame(
-                [],
-                \array_values($vote1->getTags())
-            );
+        self::assertEquals(
+            ['tag1','tag3'],
+            \array_values($vote1->getTags()));
 
         self::assertTrue($vote1->removeAllTags());
-
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
-
-        if ($badInput !== false) :
-            throw $badInput;
-        endif;
     }
 
     public function testBadTagInput1 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: every tag must be of type string, integer given");
 
         $vote = new Vote('A');
         $vote->addTags(['tag1',42]);
+    }
+
+    public function testBadTagInput2 (): void
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
+
+        $vote = new Vote('A');
+        $vote->addTags(
+            ['tag1 ',' tag2',' tag3 ',' ']
+        );
+
+        self::assertSame(
+            [],
+            \array_values($vote->getTags())
+        );
+
+        self::assertTrue($vote->removeAllTags());
+    }
+
+    public function testBadTagInput3 (): void
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
+
+        $vote = new Vote('A');
+        $vote->addTags(
+            ' tag1,tag2 , tag3 ,'
+        );
+
+        self::assertSame(
+            [],
+            \array_values($vote->getTags())
+        );
+
+        self::assertTrue($vote->removeAllTags());
     }
 
     public function testAddRemoveTags (): void
