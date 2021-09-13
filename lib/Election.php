@@ -17,6 +17,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, V
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
+use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 // Base Condorcet class
@@ -121,7 +122,7 @@ class Election
     public function __unserialize (array $data): void
     {
         if ( \version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
-            throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
+            throw new ElectionObjectVersionMismatchException($this->getObjectVersion());
         endif;
 
         $this->_Candidates = $data['_Candidates'];
