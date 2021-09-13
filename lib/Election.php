@@ -121,8 +121,12 @@ class Election
 
     public function __unserialize (array $data): void
     {
-        if ( \version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
-            throw new ElectionObjectVersionMismatchException($this->getObjectVersion());
+        // Only compare major and minor version numbers, not patch level
+        // e.g. 2.0 and 3.2
+        $objectVersion = explode(".", $data['_objectVersion']);
+        $objectVersion = $objectVersion[0] . "." . $objectVersion[1];
+        if ( \version_compare($objectVersion, Condorcet::getVersion(true),'!=') ) :
+            throw new ElectionObjectVersionMismatchException($objectVersion);
         endif;
 
         $this->_Candidates = $data['_Candidates'];

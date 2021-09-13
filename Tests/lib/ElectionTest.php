@@ -7,6 +7,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Resul
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
+use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
@@ -556,6 +557,19 @@ C > B > A * 1',
         self::assertSame($vote1->getSimpleRanking(),$election->getVotesList()[0]->getSimpleRanking());
         self::assertTrue($election->getVotesList()[0]->haveLink($election));
         self::assertFalse($vote1->haveLink($election));
+    }
+
+    public function testElectionUnserializing (): void
+    {
+        $this->expectException(ElectionObjectVersionMismatchException::class);
+        $this->expectExceptionMessage(
+            "Version mismatch: The election object has version '2.2' " .
+            "which is different from the current class version '3.2'"
+        );
+
+        \unserialize(
+            file_get_contents("Tests/lib/ElectionData/serialized_election_v2.2.3.txt")
+        );
     }
 
     public function testCloneElection (): void
