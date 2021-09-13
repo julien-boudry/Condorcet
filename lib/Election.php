@@ -16,6 +16,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 // Base Condorcet class
@@ -305,11 +306,11 @@ class Election
     ): bool
     {
         if ( !\class_exists($constraintClass) ) :
-            throw new CondorcetException(27);
+            throw new VoteConstraintException("class is not defined");
         elseif ( !\is_subclass_of($constraintClass, VoteConstraint::class) ) :
-            throw new CondorcetException(28);
+            throw new VoteConstraintException("class is not a valid subclass");
         elseif (\in_array(needle: $constraintClass, haystack: $this->getConstraints(), strict: true)) :
-            throw new CondorcetException(29);
+            throw new VoteConstraintException("class is already registered");
         endif;
 
         $this->cleanupCompute();;
