@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException;
@@ -64,7 +65,7 @@ class Candidate implements \Stringable
         endif;
 
         if (!$this->checkNameInElectionContext($name)) :
-            throw new CondorcetException(19, $name);
+            throw new CandidateExistsException("the name '$name' is taken by another candidate");
         endif;
 
         $this->_name[] =  [ 'name' => $name, 'timestamp' => \microtime(true) ];

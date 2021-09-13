@@ -28,7 +28,6 @@ class CondorcetException extends \Exception implements \Stringable
         16 => 'You have exceeded the maximum number of votes allowed per election ({{ infos1 }}).',
         17 => 'Bad tags input format',
         18 => 'New vote can\'t match Candidate of his elections',
-        19 => 'This name is not allowed in because of a namesake in the election in which the candidate object participates.',
         20 => 'You need to specify one or more candidates before voting',
         21 => 'Bad vote timestamp format',
         22 => 'This context is not valid',

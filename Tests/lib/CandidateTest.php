@@ -114,8 +114,8 @@ class CandidateTest extends TestCase
 
     function testSameCandidateToMultipleElection ()
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(19);
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
 
         $election1 = new Election ();
         $election2 = new Election ();
@@ -142,7 +142,7 @@ class CandidateTest extends TestCase
         self::assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
 
         $election2->addCandidate('Debussy');
-        $this->candidate1->setName('Debussy'); // Throw an Exception. Code 19.
+        $this->candidate1->setName('Debussy');
     }
 
     public function testCloneCandidate(): void
