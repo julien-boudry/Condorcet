@@ -22,23 +22,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     // Implement Iterator
 
     public function rewind(): void {
-        \reset($this->_UserResult);
+        \reset($this->_ResultIterator);
     }
 
     public function current (): array|Candidate {
-        return \current($this->_UserResult);
+        return \current($this->_ResultIterator);
     }
 
     public function key (): int {
-        return \key($this->_UserResult);
+        return \key($this->_ResultIterator);
     }
 
     public function next (): void {
-        \next($this->_UserResult);
+        \next($this->_ResultIterator);
     }
 
     public function valid (): bool {
-        return \key($this->_UserResult) !== null;
+        return \key($this->_ResultIterator) !== null;
     }
 
     // Implement ArrayAccess
@@ -68,22 +68,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 /////////// CONSTRUCTOR ///////////
 
-    protected array $_Result;
-    protected array $_UserResult;
-    protected array $_stringResult;
-    protected ?int $_Seats;
-    protected array $_methodOptions;
-    protected ?Candidate $_CondorcetWinner;
-    protected ?Candidate $_CondorcetLoser;
+    protected readonly array $_Result;
+    protected array $_ResultIterator;
+    public readonly array $_UserResult;
+    public readonly array $_stringResult;
+    public readonly ?int $_Seats;
+    public readonly array $_methodOptions;
+    public readonly ?Candidate $_CondorcetWinner;
+    public readonly ?Candidate $_CondorcetLoser;
 
     protected $_Stats;
 
     protected array $_warning = [];
 
-    protected float $_BuildTimeStamp;
-    protected string $_fromMethod;
-    protected string $_byClass;
-    protected string $_ElectionCondorcetVersion;
+    public readonly float $_BuildTimeStamp;
+    public readonly string $_fromMethod;
+    public readonly string $_byClass;
+    public readonly string $_ElectionCondorcetVersion;
 
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])
@@ -91,7 +92,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         \ksort($result, \SORT_NUMERIC);
 
         $this->_Result = $result;
-        $this->_UserResult = $this->makeUserResult($election);
+        $this->_ResultIterator = $this->_UserResult = $this->makeUserResult($election);
         $this->_stringResult = $this->getResultAsArray(true);
         $this->_Stats = $stats;
         $this->_Seats = $seats;
@@ -102,11 +103,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->_CondorcetLoser = $election->getLoser();
         $this->_BuildTimeStamp = \microtime(true);
         $this->_methodOptions = $methodOptions;
-    }
-
-    public function __destruct ()
-    {
-        unset($this->_Result, $this->_UserResult, $this->_Stats, $this->_CondorcetWinner, $this->_CondorcetLoser);
     }
 
 
