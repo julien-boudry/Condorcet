@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
 use phpDocumentor\Reflection\Types\Void_;
 
 class Vote implements \Iterator, \Stringable
@@ -246,6 +247,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
     #[FunctionReturn("Contextual full ranking.")]
+    #[Throws(VoteNotLinkedException::class)]
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
@@ -253,7 +255,7 @@ class Vote implements \Iterator, \Stringable
     ): array
     {
         if (!$this->haveLink($election)) :
-            throw new CondorcetException(22);
+            throw new VoteNotLinkedException();
         endif;
 
         $countContextualCandidate = 0;

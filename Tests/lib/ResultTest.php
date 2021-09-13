@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
 use PHPUnit\Framework\TestCase;
 
 

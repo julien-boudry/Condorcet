@@ -3,7 +3,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\{Candidate,
+    Condorcet,
+    CondorcetUtil,
+    Election,
+    Result,
+    Throwable\VoteNotLinkedException,
+    Vote,
+    VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
@@ -48,8 +55,8 @@ class VoteTest extends TestCase
 
     public function testDifferentRanking (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(22);
+        $this->expectException(VoteNotLinkedException::class);
+        $this->expectExceptionMessage("The vote is not linked to an election");
 
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
