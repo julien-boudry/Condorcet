@@ -48,7 +48,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function offsetExists ($offset): bool {
-        return isset($this->_UserResult[$offset]);
+        return isset($this->ranking[$offset]);
     }
 
     public function offsetUnset ($offset): void {
@@ -56,13 +56,13 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     public function offsetGet ($offset): array|Candidate|null {
-        return $this->_UserResult[$offset] ?? null;
+        return $this->ranking[$offset] ?? null;
     }
 
     // Implement Countable
 
     public function count (): int {
-        return \count($this->_UserResult);
+        return \count($this->ranking);
     }
 
 
@@ -70,21 +70,19 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected readonly array $_Result;
     protected array $_ResultIterator;
-    public readonly array $_UserResult;
-    public readonly array $_stringResult;
-    public readonly ?int $_Seats;
-    public readonly array $_methodOptions;
-    public readonly ?Candidate $_CondorcetWinner;
-    public readonly ?Candidate $_CondorcetLoser;
-
     protected $_Stats;
-
     protected array $_warning = [];
 
-    public readonly float $_BuildTimeStamp;
-    public readonly string $_fromMethod;
-    public readonly string $_byClass;
-    public readonly string $_ElectionCondorcetVersion;
+    public readonly array $ranking;
+    public readonly array $rankingAsString;
+    public readonly ?int $seats;
+    public readonly array $methodOptions;
+    public readonly ?Candidate $CondorcetWinner;
+    public readonly ?Candidate $CondorcetLoser;
+    public readonly float $buildTimestamp;
+    public readonly string $fromMethod;
+    public readonly string $byClass;
+    public readonly string $electionCondorcetVersion;
 
 
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])
@@ -92,17 +90,17 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         \ksort($result, \SORT_NUMERIC);
 
         $this->_Result = $result;
-        $this->_ResultIterator = $this->_UserResult = $this->makeUserResult($election);
-        $this->_stringResult = $this->getResultAsArray(true);
+        $this->_ResultIterator = $this->ranking = $this->makeUserResult($election);
+        $this->rankingAsString = $this->getResultAsArray(true);
         $this->_Stats = $stats;
-        $this->_Seats = $seats;
-        $this->_fromMethod = $fromMethod;
-        $this->_byClass = $byClass;
-        $this->_ElectionCondorcetVersion = $election->getObjectVersion();
-        $this->_CondorcetWinner = $election->getWinner();
-        $this->_CondorcetLoser = $election->getLoser();
-        $this->_BuildTimeStamp = \microtime(true);
-        $this->_methodOptions = $methodOptions;
+        $this->seats = $seats;
+        $this->fromMethod = $fromMethod;
+        $this->byClass = $byClass;
+        $this->electionCondorcetVersion = $election->getObjectVersion();
+        $this->CondorcetWinner = $election->getWinner();
+        $this->CondorcetLoser = $election->getLoser();
+        $this->buildTimestamp = \microtime(true);
+        $this->methodOptions = $methodOptions;
     }
 
 
@@ -117,7 +115,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         bool $convertToString = false
     ): array
     {
-        $r = $this->_UserResult;
+        $r = $this->ranking;
 
         foreach ($r as &$rank) :
             if (\count($rank) === 1) :
@@ -147,7 +145,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Related("Result::getResultAsArray", "Result::getResultAsString")]
     public function getOriginalResultArrayWithString (): array
     {
-        return $this->_stringResult;
+        return $this->rankingAsString;
     }
 
     public function getResultAsInternalKey (): array
@@ -185,7 +183,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.")]
     #[Related("Result::getCondorcetLoser", "Election::getWinner")]
     public function getCondorcetWinner (): ?Candidate {
-        return $this->_CondorcetWinner;
+        return $this->CondorcetWinner;
     }
 
     #[PublicAPI]
@@ -193,7 +191,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Condorcet/Candidate object if there is a Condorcet loser or NULL instead.")]
     #[Related("Result::getCondorcetWinner", "Election::getLoser")]
     public function getCondorcetLoser (): ?Candidate {
-        return $this->_CondorcetLoser;
+        return $this->CondorcetLoser;
     }
 
     protected function makeUserResult (Election $election): array
@@ -261,7 +259,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland")]
     #[Related("Result::getMethod")]
     public function getClassGenerator (): string {
-        return $this->_byClass;
+        return $this->byClass;
     }
 
     #[PublicAPI]
@@ -269,7 +267,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Method name.")]
     #[Related("Result::getClassGenerator")]
     public function getMethod (): string {
-        return $this->_fromMethod;
+        return $this->fromMethod;
     }
 
     #[PublicAPI]
@@ -277,7 +275,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Array of options. Can be empty for most of the methods.")]
     #[Related("Result::getClassGenerator")]
     public function getMethodOptions (): array {
-        $r = $this->_methodOptions;
+        $r = $this->methodOptions;
 
         if($this->isProportional()) :
             $r['Seats'] = $this->getNumberOfSeats();
@@ -290,14 +288,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Description("Get the timestamp of this result.")]
     #[FunctionReturn("Microsecond timestamp.")]
     public function getBuildTimeStamp (): float {
-        return (float) $this->_BuildTimeStamp;
+        return (float) $this->buildTimestamp;
     }
 
     #[PublicAPI]
     #[Description("Get the Condorcet PHP version that build this Result.")]
     #[FunctionReturn("Condorcet PHP version string format.")]
     public function getCondorcetElectionGeneratorVersion (): string {
-        return $this->_ElectionCondorcetVersion;
+        return $this->electionCondorcetVersion;
     }
 
     #[PublicAPI]
@@ -305,13 +303,13 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[FunctionReturn("Number of seats if this result is a STV method. Else NULL.")]
     #[Related("Election::setNumberOfSeats", "Election::getNumberOfSeats")]
     public function getNumberOfSeats (): ?int {
-        return $this->_Seats;
+        return $this->seats;
     }
 
     #[PublicAPI]
     #[Description("Does the result come from a proportional method")]
     #[Related("Result::getNumberOfSeats")]
     public function isProportional (): bool {
-        return $this->_Seats !== null;
+        return $this->seats !== null;
     }
 }
