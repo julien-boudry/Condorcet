@@ -25,7 +25,6 @@ class CondorcetException extends \Exception implements \Stringable
 
         18 => 'New vote can\'t match Candidate of his elections',
         20 => 'You need to specify one or more candidates before voting',
-        21 => 'Bad vote timestamp format',
         23 => 'No Data Handler in use',
         24 => 'A Data Handler is already in use',
         25 => 'Algo class try to use existing alias',

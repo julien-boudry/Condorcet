@@ -520,8 +520,8 @@ class VoteTest extends TestCase
 
     public function testCustomTimestamp(): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(21);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: Timestamp format of vote is not correct");
 
         $vote = new Vote (
             'A>B>C',

@@ -358,7 +358,7 @@ class Vote implements \Iterator, \Stringable
         // Timestamp
         if ($ownTimestamp !== null) :
             if (!empty($this->_ranking_history) && $this->getTimestamp() >= $ownTimestamp) :
-                throw new CondorcetException(21);
+                throw new VoteInvalidFormatException("Timestamp format of vote is not correct");
             endif;
         endif;
 
