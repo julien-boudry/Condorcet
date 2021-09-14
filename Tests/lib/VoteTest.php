@@ -576,8 +576,8 @@ class VoteTest extends TestCase
 
     public function testInvalidWeight(): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(26);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: the vote weight can not be less than 1");
 
         $vote = new Vote ('A>B>C');
 

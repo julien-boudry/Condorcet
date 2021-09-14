@@ -598,6 +598,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
     #[FunctionReturn("New weight.")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Related("Vote::getWeight")]
     public function setWeight (
         #[FunctionParameter('The new vote weight.')]
@@ -605,7 +606,7 @@ class Vote implements \Iterator, \Stringable
     ): int
     {
         if ($newWeight < 1) :
-            throw new CondorcetException(26);
+            throw new VoteInvalidFormatException("the vote weight can not be less than 1");
         endif;
 
         if ($newWeight !== $this->_weight) :

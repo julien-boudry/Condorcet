@@ -21,7 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        26 => 'Weight can not be < 1',
         30 => 'Seats number must be >= 1',
 
         31 => 'Vote object already registred',
