@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\{Election, Vote};
+use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
@@ -367,6 +368,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
+    #[Throws(DataHandlerException::class)]
     public function importHandler (DataHandlerDriverInterface $handler): bool
     {
         if ($handler->countEntities() === 0) :
@@ -386,7 +388,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
             return true;
         else :
-            throw new CondorcetException;
+            throw new DataHandlerException();
         endif;
     }
 

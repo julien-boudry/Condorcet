@@ -388,7 +388,7 @@ class Vote implements \Iterator, \Stringable
                         throw new VoteInvalidFormatException("vote does not match candidate in this election");
                     endif;
                 endforeach;
-            } catch (CondorcetException $e) {
+            } catch (VoteInvalidFormatException $e) {
                 foreach ($this->_link as $link) :
                     $link->setStateToVote();
                 endforeach;
