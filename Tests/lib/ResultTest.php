@@ -6,6 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use CondorcetPHP\Condorcet\Throwable\ResultException;
 use PHPUnit\Framework\TestCase;
 
 
@@ -157,7 +158,8 @@ class ResultTest extends TestCase
 
     public function testOffsetSet (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectException(ResultException::class);
+        $this->expectExceptionMessage("Result cannot be changed");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -172,7 +174,8 @@ class ResultTest extends TestCase
 
     public function testOffUnset (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectException(ResultException::class);
+        $this->expectExceptionMessage("Result cannot be changed");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
