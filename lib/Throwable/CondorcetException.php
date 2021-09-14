@@ -23,9 +23,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const EXCEPTION_CODE = [
         30 => 'Seats number must be >= 1',
 
-        31 => 'Vote object already registred',
-        33 => 'This vote is not in this election',
-
         // DataManager
         50 => 'This entity does not exist.',
     ];

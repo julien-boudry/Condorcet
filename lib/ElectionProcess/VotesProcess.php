@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException};
+use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
 
 // Manage Results for Election class
 trait VotesProcess
@@ -241,9 +241,9 @@ trait VotesProcess
         try {
             $vote->registerLink($this);
             $this->_Votes[] = $vote;
-        } catch (CondorcetInternalException) {
-            // Security : Check if vote object not already register
-            throw new CondorcetException(31);
+        } catch (CondorcetInternalException $e) {
+            // Security : Check if vote object is not already registered
+            throw new VoteException("seats are already registered");
         }
 
         return $vote;
@@ -269,7 +269,7 @@ trait VotesProcess
 
             return true;
         else :
-            throw new CondorcetException(33);
+            throw new VoteException("cannot remove vote, is not registered in this election");
         endif;
 
     }

@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
+use CondorcetPHP\Condorcet\Throwable\VoteException;
 use PHPUnit\Framework\TestCase;
 
 class ElectionTest extends TestCase
@@ -39,8 +40,8 @@ class ElectionTest extends TestCase
 
     public function testRemoveVotes (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(33);
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage("Problem handling vote: cannot remove vote, is not registered in this election");
 
         self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3,$this->election1->getVotesList());
@@ -654,8 +655,8 @@ C > B > A * 1',
 
     public function testAddSameVote (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(31);
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage("Problem handling vote: seats are already registered");
 
         $this->election1->addVote($this->vote1);
     }
