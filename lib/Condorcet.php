@@ -176,25 +176,25 @@ abstract class Condorcet
     }
 
 
-        // Check if the class Algo. exist and ready to be used
-        protected static function testMethod (string $method): bool
-        {
-            if ( !\class_exists($method) ) :
-                throw new AlgorithmException("no class found for '$method'");
+    // Check if the class Algo. exist and ready to be used
+    protected static function testMethod (string $method): bool
+    {
+        if ( !\class_exists($method) ) :
+            throw new AlgorithmException("no class found for '$method'");
+        endif;
+
+        if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
+            throw new AlgorithmException("the given class is not correct");
+        endif;
+
+        foreach ($method::METHOD_NAME as $alias) :
+            if (self::isAuthMethod($alias)) :
+                throw new AlgorithmException("the given class is using an existing alias");
             endif;
+        endforeach;
 
-            if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
-                throw new AlgorithmException("the given class is not correct");
-            endif;
-
-            foreach ($method::METHOD_NAME as $alias) :
-                if (self::isAuthMethod($alias)) :
-                    throw new CondorcetException(25);
-                endif;
-            endforeach;
-
-            return true;
-        }
+        return true;
+    }
 
 
     // Change default method for this class.

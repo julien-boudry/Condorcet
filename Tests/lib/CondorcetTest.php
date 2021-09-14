@@ -48,8 +48,8 @@ class CondorcetTest extends TestCase
       */
     public function testAddMethod (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(25);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: the given class is using an existing alias");
 
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
