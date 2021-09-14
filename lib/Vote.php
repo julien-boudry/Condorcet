@@ -12,7 +12,6 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;

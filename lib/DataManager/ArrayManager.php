@@ -14,7 +14,6 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\{Election, Vote};
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {

@@ -10,14 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description,
-    Example,
-    FunctionReturn,
-    PublicAPI,
-    Related,
-    Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 
 // Generic for Algorithms
