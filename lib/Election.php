@@ -17,6 +17,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, V
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
+use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
@@ -450,13 +451,13 @@ class Election
     #[PublicAPI]
     #[Description("Force the election to get back to state 2. See Election::getState.\nIt is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.\n\nIf you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.\nIf you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.")]
     #[FunctionReturn("Always True.")]
-    #[Throws(ResultRequestedWithoutVotesException::class)]
+    #[Throws(NoCandidatesException::class,ResultRequestedWithoutVotesException::class)]
     #[Related("Election::getState")]
     public function setStateToVote (): bool
     {
         if ( $this->_State === 1 ) :
             if (empty($this->_Candidates)) :
-                throw new CondorcetException(20);
+                throw new NoCandidatesException();
             endif;
 
             $this->_State = 2;

@@ -21,7 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        20 => 'You need to specify one or more candidates before voting',
         23 => 'No Data Handler in use',
         24 => 'A Data Handler is already in use',
         25 => 'Algo class try to use existing alias',

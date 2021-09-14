@@ -7,6 +7,7 @@ use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Resul
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
+use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
@@ -626,8 +627,8 @@ C > B > A * 1',
 
     public function testElectionState3 (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(20);
+        $this->expectException(NoCandidatesException::class);
+        $this->expectExceptionMessage("You need to specify one or more candidates before voting");
 
         $election = new Election;
         $election->setStateTovote();
