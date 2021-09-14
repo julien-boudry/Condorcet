@@ -13,7 +13,6 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VoteMaxNumberReachedException, VotingHasStartedException};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Manage Candidates for Election class
 trait CandidatesProcess
@@ -278,7 +277,7 @@ trait CandidatesProcess
 
             // addCandidate
             if (self::$_maxParseIteration !== null && \count($adding) >= self::$_maxParseIteration) :
-                throw new VoteMaxNumberReachedException((string) self::$_maxParseIteration);
+                throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
             endif;
 
             if (!$this->canAddCandidate($line)) :
