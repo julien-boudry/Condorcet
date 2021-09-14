@@ -267,8 +267,8 @@ class PdoHandlerDriverTest extends TestCase
 
     public function testBadTableSchema1 (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(0);
+        $this->expectException(DataHandlerException::class);
+        $this->expectExceptionMessage("Problem with data handler: invalid structure template for PdoHandler");
 
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
