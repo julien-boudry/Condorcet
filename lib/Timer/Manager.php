@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Timer;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\CondorcetVersion;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\TimerException;
 
 class Manager
 {
@@ -24,6 +24,7 @@ class Manager
     protected ?float $_startDeclare = null;
     protected array $_history = [];
 
+    #[Throws(TimerException::class)]
     public function addTime ( Chrono $chrono ): void
     {
         if ($chrono->getTimerManager() === $this) :
@@ -49,7 +50,7 @@ class Manager
             $this->_lastTimer = ($m - $chrono->getStart());
             $this->_lastChronoTimestamp = $m;
         else :
-            throw new CondorcetException (0, 'Only chrono linked to this Manager can be used');
+            throw new TimerException();
         endif;
     }
 
