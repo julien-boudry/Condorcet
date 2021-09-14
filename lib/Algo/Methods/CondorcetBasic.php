@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeature;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface
@@ -30,7 +30,7 @@ class CondorcetBasic extends Method implements MethodInterface
 
 
     public function getResult (): Result {
-        throw new CondorcetException (102);
+        throw new AlgorithmWithoutRankingFeature(self::METHOD_NAME[0]);
     }
 
 
