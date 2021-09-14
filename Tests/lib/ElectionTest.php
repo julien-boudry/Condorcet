@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
@@ -236,11 +235,13 @@ class ElectionTest extends TestCase
 
         try {
             $election->addVote('candidate3');
-        } catch (CondorcetException $e) {}
+        } catch (VoteMaxNumberReachedException $e) {
+            $reserveException = $e;
+        }
 
         self::assertSame(null,Election::setMaxVoteNumber(null));
 
-        throw $e;
+        throw $reserveException;
     }
 
     public function testGetVotesListAsString (): void

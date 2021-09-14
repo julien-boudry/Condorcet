@@ -11,7 +11,6 @@ use CondorcetPHP\Condorcet\{Candidate,
     Throwable\VoteNotLinkedException,
     Vote,
     VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
