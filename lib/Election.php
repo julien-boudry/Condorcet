@@ -14,7 +14,6 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
@@ -305,7 +304,8 @@ class Election
 
     #[PublicAPI]
     #[Description("Add a constraint rules as a valid class path.")]
-    #[FunctionReturn("True on success. Throw Throwable\CondorcetException code 27/28/29 on error.")]
+    #[FunctionReturn("True on success.")]
+    #[Throws(VoteConstraintException::class)]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::getConstraints", "Election::clearConstraints", "Election::testIfVoteIsValidUnderElectionConstraints")]
     public function addConstraint (

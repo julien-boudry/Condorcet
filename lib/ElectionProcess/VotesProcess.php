@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
+use CondorcetPHP\Condorcet\Throwable\{CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
 
 // Manage Results for Election class
 trait VotesProcess

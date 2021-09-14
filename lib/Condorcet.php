@@ -12,7 +12,6 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 
 // Registering native Condorcet Methods implementation
     // Classic Methods

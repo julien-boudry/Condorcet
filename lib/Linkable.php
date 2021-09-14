@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter, Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
+use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
 
 trait Linkable
 {
