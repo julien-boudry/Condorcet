@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase
 {
-    /**
-     * @var election
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {
@@ -78,7 +75,7 @@ class KemenyYoungTest extends TestCase
         );
     }
 
-    public function testMaxCandidates (): void
+    public function testMaxCandidates (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(101);

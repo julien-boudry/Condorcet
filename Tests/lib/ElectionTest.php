@@ -28,7 +28,7 @@ class ElectionTest extends TestCase
         $this->election2 = new Election;
     }
 
-    public function testRemoveVotes (): void
+    public function testRemoveVotes (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(33);
@@ -110,7 +110,7 @@ class ElectionTest extends TestCase
         self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
     }
 
-    public function testParseError (): void
+    public function testParseError (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(13);
@@ -123,7 +123,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration1 (): void
+    public function testMaxParseIteration1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(12);
@@ -148,7 +148,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration2 (): void
+    public function testMaxParseIteration2 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(12);
@@ -167,7 +167,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration3 (): void
+    public function testMaxParseIteration3 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(12);
@@ -192,7 +192,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxVoteNumber (): void
+    public function testMaxVoteNumber (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(16);
@@ -421,7 +421,7 @@ D > C > B > A * 1',
 
     }
 
-    public function testaddVotesFromJson (): void
+    public function testaddVotesFromJson (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(15);
@@ -468,7 +468,7 @@ C > B > A * 1',
         $election->addVotesFromJson(\json_encode($votes).'{42');
     }
 
-    public function testaddCandidatesFromJson (): void
+    public function testaddCandidatesFromJson (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(3);
@@ -486,7 +486,7 @@ C > B > A * 1',
         $election->addCandidatesFromJson(\json_encode(['candidate2']));
     }
 
-    public function testaddCandidatesFromInvalidJson (): void
+    public function testaddCandidatesFromInvalidJson (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(15);
@@ -497,7 +497,7 @@ C > B > A * 1',
     }
 
 
-    public function testaddVotesFromJsonWithInvalidJson (): void
+    public function testaddVotesFromJsonWithInvalidJson (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(15);
@@ -587,7 +587,7 @@ C > B > A * 1',
         self::assertSame(null,$this->election1->getCandidateObjectFromKey(42));
     }
 
-    public function testElectionState1 (): void
+    public function testElectionState1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(2);
@@ -595,7 +595,7 @@ C > B > A * 1',
         $this->election1->addCandidate('candidate4');
     }
 
-    public function testElectionState2 (): void
+    public function testElectionState2 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(2);
@@ -603,7 +603,7 @@ C > B > A * 1',
         $this->election1->removeCandidates('candidate4');
     }
 
-    public function testElectionState3 (): void
+    public function testElectionState3 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(20);
@@ -612,7 +612,7 @@ C > B > A * 1',
         $election->setStateTovote();
     }
 
-    public function testElectionState4 (): void
+    public function testElectionState4 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(6);
@@ -630,7 +630,7 @@ C > B > A * 1',
         self::assertSame(2,$this->election1->getState());
     }
 
-    public function testAddSameVote (): void
+    public function testAddSameVote (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(31);
@@ -657,7 +657,7 @@ C > B > A * 1',
         self::assertNull($weakref->get());
     }
 
-    public function testRemoveCandidate (): void
+    public function testRemoveCandidate (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(4);
@@ -671,7 +671,7 @@ C > B > A * 1',
         $election->removeCandidates($badCandidate);
     }
 
-    public function testAmbigousCandidatesOnElectionSide (): void
+    public function testAmbigousCandidatesOnElectionSide (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(5);
@@ -688,7 +688,7 @@ C > B > A * 1',
         $election2->addVote($vote);
     }
 
-    public function testAmbigousCandidatesOnVoteSide (): void
+    public function testAmbigousCandidatesOnVoteSide (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(18);
@@ -711,7 +711,7 @@ C > B > A * 1',
         $vote->setRanking('candidate1>candidate2>candidate3');
     }
 
-    public function testInvalidSeats (): void
+    public function testInvalidSeats (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(30);

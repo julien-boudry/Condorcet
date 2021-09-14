@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CondorcetBasicTest extends TestCase
 {
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {
@@ -124,7 +124,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('L', $this->election->getCondorcetLoser());
     }
 
-    public function testNoResultObject (): void
+    public function testNoResultObject (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(102);

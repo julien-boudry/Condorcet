@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ElectionCommandTest extends TestCase
 {
-    private CommandTester $electionCommand;
+    private readonly CommandTester $electionCommand;
 
     public function setUp(): void
     {
@@ -187,7 +187,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 
-    public function testNonInteractionMode (): void
+    public function testNonInteractionMode (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(6);

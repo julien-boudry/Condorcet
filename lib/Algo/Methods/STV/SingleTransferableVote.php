@@ -20,7 +20,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 // Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
 class SingleTransferableVote extends Method implements MethodInterface
 {
-    public const IS_PROPORTIONAL = true;
+    final public const IS_PROPORTIONAL = true;
 
     // Method Name
     public const METHOD_NAME = ['STV','Single Transferable Vote','SingleTransferableVote'];
@@ -29,7 +29,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected float $votesNeededToWin;
+    protected readonly float $votesNeededToWin;
 
 
 /////////// COMPUTE ///////////

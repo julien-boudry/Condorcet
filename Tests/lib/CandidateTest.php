@@ -8,10 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase
 {
-    /**
-     * @var candidate1
-     */
-    private Candidate $candidate1;
+    private readonly Candidate $candidate1;
 
     public function setUp(): void
     {
@@ -39,7 +36,7 @@ class CandidateTest extends TestCase
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    public function testToLongName (): void
+    public function testToLongName (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(1);
@@ -49,7 +46,7 @@ class CandidateTest extends TestCase
         );
     }
 
-    public function testBadName (): void
+    public function testBadName (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(1);
@@ -57,14 +54,14 @@ class CandidateTest extends TestCase
         new Candidate ('<$"');
     }
 
-    public function testCandidateBadClass (): void
+    public function testCandidateBadClass (): never
     {
         $this->expectException(\TypeError::class);
 
         (new Election)->addCandidate(new \stdClass );
     }
 
-    public function testAddSameCandidate1 (): void
+    public function testAddSameCandidate1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(3);
@@ -77,7 +74,7 @@ class CandidateTest extends TestCase
         $election1->addCandidate($candidate);
     }
 
-    public function testAddSameCandidate2 (): void
+    public function testAddSameCandidate2 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(3);
@@ -87,7 +84,7 @@ class CandidateTest extends TestCase
         $election1->parseCandidates('candidate1;candidate2;candidate1');
     }
 
-    public function testAddSameCandidate3 (): void
+    public function testAddSameCandidate3 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(3);

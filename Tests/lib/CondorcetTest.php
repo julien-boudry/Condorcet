@@ -25,7 +25,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testBadClassMethod (): void
+    public function testBadClassMethod (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(9);
@@ -45,7 +45,7 @@ class CondorcetTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testAddMethod (): void
+    public function testAddMethod (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(25);
@@ -62,7 +62,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testAddUnvalidMethod (): void
+    public function testAddUnvalidMethod (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(10);
@@ -82,7 +82,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
     }
 
-    public function testEmptyMethod (): void
+    public function testEmptyMethod (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(8);

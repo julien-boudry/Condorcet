@@ -31,7 +31,7 @@ class PdoHandlerDriverTest extends TestCase
     }
 
 
-    public function testManyVoteManipulation(): void
+    public function testManyVoteManipulation(): never
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -254,7 +254,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(463,$electionWithDb->countVotes());
     }
 
-    public function testMultipleHandler (): void
+    public function testMultipleHandler (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(24);
@@ -264,7 +264,7 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
     }
 
-    public function testBadTableSchema1 (): void
+    public function testBadTableSchema1 (): never
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
         $this->expectExceptionCode(0);
@@ -273,7 +273,7 @@ class PdoHandlerDriverTest extends TestCase
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }
 
-    public function testBadTableSchema2 (): void
+    public function testBadTableSchema2 (): never
     {
         $this->expectException(\Exception::class);
 
