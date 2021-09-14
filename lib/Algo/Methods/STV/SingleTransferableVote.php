@@ -25,7 +25,7 @@ class SingleTransferableVote extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['STV','Single Transferable Vote','SingleTransferableVote'];
 
-    public static string $optionQuota = 'droop quota';
+    public static StvQuotas $optionQuota = StvQuotas::DROOP;
 
     protected ?array $_Stats = null;
 
@@ -41,7 +41,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $this->votesNeededToWin = StvQuotas::getQuota(self::$optionQuota, $this->_selfElection->sumValidVotesWeightWithConstraints(), $this->_selfElection->getNumberOfSeats());
+        $this->votesNeededToWin = self::$optionQuota->getQuota($this->_selfElection->sumValidVotesWeightWithConstraints(), $this->_selfElection->getNumberOfSeats());
 
         $candidateElected = [];
         $candidateEliminated = [];

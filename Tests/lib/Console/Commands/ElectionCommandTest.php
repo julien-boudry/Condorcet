@@ -98,7 +98,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('droop quota', $output);
+        self::assertStringContainsString('Droop Quota', $output);
 
         $this->electionCommand->execute([
             '--candidates' => 'A;B;C',
@@ -110,7 +110,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('imperiali', $output);
+        self::assertStringContainsString('Imperiali', $output);
     }
 
     public function testConsoleAllMethodsArgument (): void

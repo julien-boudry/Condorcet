@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use Symfony\Component\Console\Command\Command;
@@ -292,7 +293,7 @@ class ElectionCommand extends Command
             $io->section($oneMethod['name'].' Method:');
 
             if ( isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null ) :
-                $this->election->setMethodOption($oneMethod['class'], 'Quota', $input->getOption('quota'));
+                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota')));
             endif;
 
             // Result
@@ -301,6 +302,10 @@ class ElectionCommand extends Command
             if (!empty($options = $result->getMethodOptions())) :
                 $rows = [];
                 foreach ($options as $key => $value) :
+                    if ($value instanceof \BackedEnum) :
+                        $value = $value->value;
+                    endif;
+
                     $rows[] = [$key.':', $value];
                 endforeach;
 
