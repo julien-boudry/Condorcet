@@ -21,8 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        // DataManager
-        50 => 'This entity does not exist.',
     ];
 
     protected array $_infos;
