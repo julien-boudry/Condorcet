@@ -18,6 +18,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
+use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
@@ -406,6 +407,7 @@ class Election
     #[PublicAPI]
     #[Description("Import and enable an external driver to store vote on very large election.")]
     #[FunctionReturn("True if success. Else throw an Exception.")]
+    #[Throws(DataHandlerException::class)]
     #[Example("[Manual - DataHandler]","https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php")]
     #[Related("Election::removeExternalDataHandler")]
     public function setExternalDataHandler (
@@ -417,13 +419,14 @@ class Election
             $this->_Votes->importHandler($driver);
             return true;
         else :
-            throw new CondorcetException(24);
+            throw new DataHandlerException("external data handler cannot be imported");
         endif;
     }
 
     #[PublicAPI]
     #[Description("Remove an external driver to store vote on very large election. And import his data into classical memory.")]
     #[FunctionReturn("True if success. Else throw an Exception.")]
+    #[Throws(DataHandlerException::class)]
     #[Related("Election::setExternalDataHandler")]
     public function removeExternalDataHandler (): bool
     {
@@ -431,7 +434,7 @@ class Election
             $this->_Votes->closeHandler();
             return true;
         else :
-            throw new CondorcetException(23);
+            throw new DataHandlerException("external data handler cannot be removed, is already in use");
         endif;
     }
 
