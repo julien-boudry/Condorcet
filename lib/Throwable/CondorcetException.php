@@ -21,8 +21,6 @@ class CondorcetException extends \Exception implements \Stringable
     public const CODE_RANGE = [0,1000];
 
     public const EXCEPTION_CODE = [
-        30 => 'Seats number must be >= 1',
-
         // DataManager
         50 => 'This entity does not exist.',
     ];

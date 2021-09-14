@@ -19,6 +19,7 @@ use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
+use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
@@ -384,6 +385,7 @@ class Election
     #[PublicAPI]
     #[Description("Set number of Seats for STV methods.")]
     #[FunctionReturn("Number of seats.")]
+    #[Throws(NoSeatsException::class)]
     #[Related("Election::getNumberOfSeats")]
     public function setNumberOfSeats (
         #[FunctionParameter('The number of seats for proportional methods.')]
@@ -395,7 +397,7 @@ class Election
 
             $this->_Seats = $seats;
         else :
-            throw new CondorcetException(30);
+            throw new NoSeatsException();
         endif;
 
         return $this->_Seats;

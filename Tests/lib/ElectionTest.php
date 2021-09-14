@@ -11,6 +11,7 @@ use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
@@ -736,8 +737,8 @@ C > B > A * 1',
 
     public function testInvalidSeats (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(30);
+        $this->expectException(NoSeatsException::class);
+        $this->expectExceptionMessage("No seats defined");
 
         $this->election1->setNumberOfSeats(0);
     }
