@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
 abstract class StvQuotas
@@ -27,7 +28,7 @@ abstract class StvQuotas
                 'imperiali quota', 'imperiali' => $votesWeight / ($seats+ 2),
             };
         } catch (\UnhandledMatchError $e) {
-            throw new CondorcetException(103);
+            throw new StvQuotaNotImplementedException('"'.$quota.'"');
         }
     }
 }

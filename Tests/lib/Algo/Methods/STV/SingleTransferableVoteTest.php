@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use \CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 use PHPUnit\Framework\TestCase;
 
 class SingleTransferableVoteTest extends TestCase
@@ -31,9 +30,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff')
         );
 
-        $this->expectException(CondorcetException::class);
-        $this->expectExceptionCode(103);
-        $this->expectExceptionMessage('This quota is not implemented.');
+        $this->expectException(StvQuotaNotImplementedException::class);
+        $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
 
         $this->election->setMethodOption('STV', 'Quota', 'another quota');
         $this->election->addCandidate('A');

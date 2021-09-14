@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class AlgorithmWithoutRankingFeature extends CondorcetPublicApiException
+class AlgorithmWithoutRankingFeatureException extends CondorcetPublicApiException
 {
     protected $message = "This algortihm can't provide a full ranking (but only Winner and Loser)";
 }
