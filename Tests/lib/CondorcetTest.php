@@ -26,7 +26,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testBadClassMethod (): void
+    public function testBadClassMethod (): never
     {
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
@@ -46,7 +46,7 @@ class CondorcetTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testAddMethod (): void
+    public function testAddMethod (): never
     {
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage("The voting algorithm is not available: the given class is using an existing alias");
@@ -63,7 +63,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::addMethod($algoClassPath));
     }
 
-    public function testAddUnvalidMethod (): void
+    public function testAddUnvalidMethod (): never
     {
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage("The voting algorithm is not available: the given class is not correct");
@@ -83,7 +83,7 @@ class CondorcetTest extends TestCase
         self::assertFalse(Condorcet::setDefaultMethod('dgfbdwcd'));
     }
 
-    public function testEmptyMethod (): void
+    public function testEmptyMethod (): never
     {
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage("The voting algorithm is not available: no method name given");

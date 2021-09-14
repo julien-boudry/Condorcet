@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 // Thanks to Jorge Gomes @cyberkurumin
 class Permutation
 {
-    protected int $arr_count;
+    protected readonly int $arr_count;
     protected array $results = [];
 
     public static function countPossiblePermutations (int $candidatesNumber): int

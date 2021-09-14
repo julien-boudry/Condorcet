@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayManagerTest extends TestCase
 {
-    private ArrayManager $ArrayManager;
+    private readonly ArrayManager $ArrayManager;
 
     protected function setUp(): void
     {

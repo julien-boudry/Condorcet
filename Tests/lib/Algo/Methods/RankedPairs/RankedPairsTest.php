@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class RankedPairsTest extends TestCase
 {
-    /**
-     * @var election
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {
@@ -390,7 +387,7 @@ class RankedPairsTest extends TestCase
                                 $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
     }
 
-    public function testMaxCandidates (): void
+    public function testMaxCandidates (): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
         $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 40 candidates");

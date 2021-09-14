@@ -5,14 +5,13 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
+use CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote;
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use PHPUnit\Framework\TestCase;
 
 class SingleTransferableVoteTest extends TestCase
 {
-    /**
-     * @var election
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {
@@ -21,19 +20,19 @@ class SingleTransferableVoteTest extends TestCase
 
     public function tearDown(): void
     {
-        $this->election->setMethodOption('STV', 'Quota', 'droop quota');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::DROOP);
     }
 
-    public function testQuotaOption (): void
+    public function testQuotaOption (): never
     {
         self::assertTrue(
-            $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff')
+            $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'))
         );
 
         $this->expectException(StvQuotaNotImplementedException::class);
         $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
 
-        $this->election->setMethodOption('STV', 'Quota', 'another quota');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('another quota'));
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addVote('A');
@@ -279,7 +278,7 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         $this->election->setNumberOfSeats(2);
-        $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
         self::assertSame(
             (float) (33 + 1/3),
@@ -311,7 +310,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hagenbach-Bischoff');
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Hagenbach-Bischoff'));
     }
 
     public function testResult_AlternativeQuotas2 (): void
@@ -332,7 +331,7 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         $this->election->setNumberOfSeats(2);
-        $this->election->setMethodOption('STV', 'Quota', 'Imperiali quota');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::IMPERIALI);
 
         self::assertSame(
             (float) (100 / (2 + 2)),
@@ -363,7 +362,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Imperiali quota');
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Imperiali quota'));
     }
 
     public function testResult_AlternativeQuotas3 (): void
@@ -384,7 +383,7 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         $this->election->setNumberOfSeats(2);
-        $this->election->setMethodOption('STV', 'Quota', 'Hare quota');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hare quota'));
 
         self::assertSame(
             (float) (100 / 2),
@@ -416,7 +415,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], 'Hare quota');
+        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::HARE);
     }
 
     public function testResult_AlternativeQuotas4 (): void
@@ -442,7 +441,7 @@ class SingleTransferableVoteTest extends TestCase
         ');
 
         $this->election->setNumberOfSeats(3);
-        $this->election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff');
+        $this->election->setMethodOption('STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
 
         self::assertSame(
             (float) 25,

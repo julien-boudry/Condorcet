@@ -18,12 +18,12 @@ class CondorcetException extends \Exception implements \Stringable
 {
     use CondorcetVersion;
 
-    public const CODE_RANGE = [0,1000];
+    final public const CODE_RANGE = [0,1000];
 
-    public const EXCEPTION_CODE = [
+    final public const EXCEPTION_CODE = [
     ];
 
-    protected array $_infos;
+    public readonly array $infos;
 
     public function __construct (int $code = 0, string ...$infos)
     {
@@ -31,7 +31,7 @@ class CondorcetException extends \Exception implements \Stringable
             throw new self (0,'Exception class error');
         endif;
 
-        $this->_infos = $infos;
+        $this->infos = $infos;
 
         parent::__construct(message: $this->correspondence($code), code: $code);
     }
@@ -45,11 +45,11 @@ class CondorcetException extends \Exception implements \Stringable
     {
         // Algorithms
         if ($code === 0 || $code === 101) :
-            return $this->_infos[0] ?? '';
+            return $this->infos[0] ?? '';
         endif;
 
         if ( \array_key_exists($code, static::EXCEPTION_CODE) ) :
-            return \str_replace('{{ infos1 }}', $this->_infos[0] ?? '', static::EXCEPTION_CODE[$code]);
+            return \str_replace('{{ infos1 }}', $this->infos[0] ?? '', static::EXCEPTION_CODE[$code]);
         else :
             return static::EXCEPTION_CODE[0] ?? 'Mysterious Error';
         endif;

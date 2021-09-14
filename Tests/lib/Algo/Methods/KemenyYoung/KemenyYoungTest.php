@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase
 {
-    /**
-     * @var election
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {
@@ -79,7 +76,7 @@ class KemenyYoungTest extends TestCase
         );
     }
 
-    public function testMaxCandidates (): void
+    public function testMaxCandidates (): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
         $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only 8 candidates");

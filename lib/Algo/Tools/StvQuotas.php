@@ -16,19 +16,35 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetException;
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
-abstract class StvQuotas
+Enum StvQuotas: string
 {
-    public static function getQuota (string $quota, int $votesWeight, int $seats): float
+    case DROOP = 'Droop Quota';
+    case HARE = 'Hare Quota';
+    case HAGENBACH_BISCHOFF = 'Hagenbach-Bischoff Quota';
+    case IMPERIALI = 'Imperiali Quota';
+
+
+    public static function make (string $quota): self
     {
         try {
             return match (strtolower($quota)) {
-                'droop quota', 'droop' => floor(( $votesWeight / ($seats + 1) ) + 1),
-                'hare quota', 'hare' => $votesWeight / $seats,
-                'hagenbach-bischoff quota', 'hagenbach-bischoff' => $votesWeight / ($seats + 1),
-                'imperiali quota', 'imperiali' => $votesWeight / ($seats+ 2),
+                'droop quota', 'droop' => self::DROOP,
+                'hare quota', 'hare' => self::HARE,
+                'hagenbach-bischoff quota', 'hagenbach-bischoff' => self::HAGENBACH_BISCHOFF,
+                'imperiali quota', 'imperiali' => self::IMPERIALI,
             };
         } catch (\UnhandledMatchError $e) {
             throw new StvQuotaNotImplementedException('"'.$quota.'"');
         }
+    }
+
+    public function getQuota (int $votesWeight, int $seats): float
+    {
+        return match ($this) {
+            self::DROOP => floor(( $votesWeight / ($seats + 1) ) + 1),
+            self::HARE => $votesWeight / $seats,
+            self::HAGENBACH_BISCHOFF => $votesWeight / ($seats + 1),
+            self::IMPERIALI, => $votesWeight / ($seats+ 2),
+        };
     }
 }

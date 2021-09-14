@@ -15,7 +15,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Description
 {
-    public string $text;
+    public readonly string $text;
 
     public function __construct(string $text)
     {

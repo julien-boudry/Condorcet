@@ -39,7 +39,7 @@ class ElectionTest extends TestCase
         $this->election2 = new Election;
     }
 
-    public function testRemoveVotes (): void
+    public function testRemoveVotes (): never
     {
         $this->expectException(VoteException::class);
         $this->expectExceptionMessage("Problem handling vote: cannot remove vote, is not registered in this election");
@@ -121,7 +121,7 @@ class ElectionTest extends TestCase
         self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
     }
 
-    public function testParseError (): void
+    public function testParseError (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: the value 'text' is not numeric");
@@ -134,7 +134,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration1 (): void
+    public function testMaxParseIteration1 (): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
@@ -159,7 +159,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration2 (): void
+    public function testMaxParseIteration2 (): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
@@ -178,7 +178,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration3 (): void
+    public function testMaxParseIteration3 (): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 2");
@@ -203,7 +203,7 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxVoteNumber (): void
+    public function testMaxVoteNumber (): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached");
@@ -432,7 +432,7 @@ D > C > B > A * 1',
 
     }
 
-    public function testaddVotesFromJson (): void
+    public function testaddVotesFromJson (): never
     {
         $this->expectException(JsonFormatException::class);
         $this->expectExceptionMessage('Input is an invalid JSON format');
@@ -479,7 +479,7 @@ C > B > A * 1',
         $election->addVotesFromJson(\json_encode($votes).'{42');
     }
 
-    public function testaddCandidatesFromJson (): void
+    public function testaddCandidatesFromJson (): never
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage('This candidate already exists: candidate2');
@@ -497,7 +497,7 @@ C > B > A * 1',
         $election->addCandidatesFromJson(\json_encode(['candidate2']));
     }
 
-    public function testaddCandidatesFromInvalidJson (): void
+    public function testaddCandidatesFromInvalidJson (): never
     {
         $this->expectException(JsonFormatException::class);
         $this->expectExceptionMessage('Input is an invalid JSON format');
@@ -508,7 +508,7 @@ C > B > A * 1',
     }
 
 
-    public function testaddVotesFromJsonWithInvalidJson (): void
+    public function testaddVotesFromJsonWithInvalidJson (): never
     {
         $this->expectException(JsonFormatException::class);
         $this->expectExceptionMessage('Input is an invalid JSON format');
@@ -611,7 +611,7 @@ C > B > A * 1',
         self::assertSame(null,$this->election1->getCandidateObjectFromKey(42));
     }
 
-    public function testElectionState1 (): void
+    public function testElectionState1 (): never
     {
         $this->expectException(VotingHasStartedException::class);
         $this->expectExceptionMessage("The voting has started: cannot add 'candidate4'");
@@ -619,7 +619,7 @@ C > B > A * 1',
         $this->election1->addCandidate('candidate4');
     }
 
-    public function testElectionState2 (): void
+    public function testElectionState2 (): never
     {
         $this->expectException(VotingHasStartedException::class);
         $this->expectExceptionMessage("The voting has started");
@@ -627,7 +627,7 @@ C > B > A * 1',
         $this->election1->removeCandidates('candidate4');
     }
 
-    public function testElectionState3 (): void
+    public function testElectionState3 (): never
     {
         $this->expectException(NoCandidatesException::class);
         $this->expectExceptionMessage("You need to specify one or more candidates before voting");
@@ -636,7 +636,7 @@ C > B > A * 1',
         $election->setStateTovote();
     }
 
-    public function testElectionState4 (): void
+    public function testElectionState4 (): never
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
         $this->expectExceptionMessage("The result cannot be requested without votes");
@@ -654,7 +654,7 @@ C > B > A * 1',
         self::assertSame(2,$this->election1->getState());
     }
 
-    public function testAddSameVote (): void
+    public function testAddSameVote (): never
     {
         $this->expectException(VoteException::class);
         $this->expectExceptionMessage("Problem handling vote: seats are already registered");
@@ -681,7 +681,7 @@ C > B > A * 1',
         self::assertNull($weakref->get());
     }
 
-    public function testRemoveCandidate (): void
+    public function testRemoveCandidate (): never
     {
         $this->expectException(CandidateDoesNotExistException::class);
         $this->expectExceptionMessage('This candidate does not exist: B');
@@ -695,7 +695,7 @@ C > B > A * 1',
         $election->removeCandidates($badCandidate);
     }
 
-    public function testAmbiguousCandidatesOnElectionSide (): void
+    public function testAmbiguousCandidatesOnElectionSide (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid");
@@ -712,7 +712,7 @@ C > B > A * 1',
         $election2->addVote($vote);
     }
 
-    public function testAmbiguousCandidatesOnVoteSide (): void
+    public function testAmbiguousCandidatesOnVoteSide (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: vote does not match candidate in this election");
@@ -735,7 +735,7 @@ C > B > A * 1',
         $vote->setRanking('candidate1>candidate2>candidate3');
     }
 
-    public function testInvalidSeats (): void
+    public function testInvalidSeats (): never
     {
         $this->expectException(NoSeatsException::class);
         $this->expectExceptionMessage("No seats defined");

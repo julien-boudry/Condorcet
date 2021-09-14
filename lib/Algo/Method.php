@@ -29,7 +29,7 @@ abstract class Method
 
     public static ?int $MaxCandidates = null;
 
-    protected Election $_selfElection;
+    protected readonly Election $_selfElection;
     protected ?Result $_Result = null;
 
     // Static
@@ -53,11 +53,6 @@ abstract class Method
         if (!\is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
             throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         endif;
-    }
-
-    public function __destruct ()
-    {
-        unset($this->_selfElection, $this->_Result);
     }
 
     public function getResult (): Result
@@ -93,7 +88,7 @@ abstract class Method
     		election: $this->_selfElection,
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats(): null,
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
             methodOptions: $methodOptions
     	);
     }

@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class VotesManagerTest extends TestCase
 {
-    private  Election $election;
-    private VotesManager $votes_manager;
+    private readonly Election $election;
+    private readonly VotesManager $votes_manager;
 
     protected function setUp(): void
     {
@@ -24,7 +24,7 @@ class VotesManagerTest extends TestCase
         $this->votes_manager = $this->election->getVotesManager();
     }
 
-    public function testOffsetSet(): void
+    public function testOffsetSet(): never
     {
         $this->expectException(VoteNotLinkedException::class);
         $this->expectExceptionMessage("The vote is not linked to an election");

@@ -8,10 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class MinimaxTest extends TestCase
 {
-    /**
-     * @var election1
-     */
-    private  Election $election;
+    private readonly Election $election;
 
     public function setUp(): void
     {

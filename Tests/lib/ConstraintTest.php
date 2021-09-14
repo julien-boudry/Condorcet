@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConstraintTest extends TestCase
 {
-    /**
-     * @var election
-     */
     private Election $election;
 
     public function setUp(): void
@@ -24,7 +21,7 @@ class ConstraintTest extends TestCase
         $this->election->addCandidate('C');
     }
 
-    public function testAddConstraintAndClear (): void
+    public function testAddConstraintAndClear (): never
     {
         $this->expectException(VoteConstraintException::class);
         $this->expectExceptionMessage("The vote constraint could not be set up: class is already registered");
@@ -44,7 +41,7 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testPhantomClass (): void
+    public function testPhantomClass (): never
     {
         $this->expectException(VoteConstraintException::class);
         $this->expectExceptionMessage("The vote constraint could not be set up: class is not defined");
@@ -54,7 +51,7 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testBadClass (): void
+    public function testBadClass (): never
     {
         $this->expectException(VoteConstraintException::class);
         $this->expectExceptionMessage("The vote constraint could not be set up: class is not a valid subclass");

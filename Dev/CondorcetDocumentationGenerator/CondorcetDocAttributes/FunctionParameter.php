@@ -15,7 +15,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_PARAMETER)]
 class FunctionParameter
 {
-    public string $text;
+    public readonly string $text;
 
     public function __construct(string $text)
     {

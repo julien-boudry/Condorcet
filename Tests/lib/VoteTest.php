@@ -18,17 +18,14 @@ use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
 {
-    /**
-     * @var election1
-     */
-    private Election $election1;
+    private readonly Election $election1;
 
-    private Candidate $candidate1;
-    private Candidate $candidate2;
-    private Candidate $candidate3;
-    private Candidate $candidate4;
-    private Candidate $candidate5;
-    private Candidate $candidate6;
+    private readonly Candidate $candidate1;
+    private readonly Candidate $candidate2;
+    private readonly Candidate $candidate3;
+    private readonly Candidate $candidate4;
+    private readonly Candidate $candidate5;
+    private readonly Candidate $candidate6;
 
     public function setUp(): void
     {
@@ -53,7 +50,7 @@ class VoteTest extends TestCase
         self::assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
     }
 
-    public function testDifferentRanking (): void
+    public function testDifferentRanking (): never
     {
         $this->expectException(VoteNotLinkedException::class);
         $this->expectExceptionMessage("The vote is not linked to an election");
@@ -391,7 +388,7 @@ class VoteTest extends TestCase
         self::assertTrue($vote1->removeAllTags());
     }
 
-    public function testBadTagInput1 (): void
+    public function testBadTagInput1 (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: every tag must be of type string, integer given");
@@ -400,7 +397,7 @@ class VoteTest extends TestCase
         $vote->addTags(['tag1',42]);
     }
 
-    public function testBadTagInput2 (): void
+    public function testBadTagInput2 (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
@@ -418,7 +415,7 @@ class VoteTest extends TestCase
         self::assertTrue($vote->removeAllTags());
     }
 
-    public function testBadTagInput3 (): void
+    public function testBadTagInput3 (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
@@ -503,7 +500,7 @@ class VoteTest extends TestCase
         endforeach;
     }
 
-    public function testWeight(): void
+    public function testWeight(): never
     {
         $vote = new Vote ('A>B>C^42');
 
@@ -518,7 +515,7 @@ class VoteTest extends TestCase
         $vote = new Vote ('A>B>C^a');
     }
 
-    public function testCustomTimestamp(): void
+    public function testCustomTimestamp(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: Timestamp format of vote is not correct");
@@ -574,7 +571,7 @@ class VoteTest extends TestCase
         self::assertsame(3,$vote->countRankingCandidates());
     }
 
-    public function testInvalidWeight(): void
+    public function testInvalidWeight(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: the vote weight can not be less than 1");
@@ -584,7 +581,7 @@ class VoteTest extends TestCase
         $vote->setWeight(0);
     }
 
-    public function testInvalidTag1(): void
+    public function testInvalidTag1(): never
     {
         $this->expectException(\TypeError::class);
 
@@ -593,7 +590,7 @@ class VoteTest extends TestCase
         $vote->addTags(true);
     }
 
-    public function testInvalidTag2(): void
+    public function testInvalidTag2(): never
     {
         $this->expectException(\TypeError::class);
 
@@ -602,7 +599,7 @@ class VoteTest extends TestCase
         $vote->addTags(42);
     }
 
-    public function testRemoveCandidate (): void
+    public function testRemoveCandidate (): never
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -626,7 +623,7 @@ class VoteTest extends TestCase
         $vote1->removeCandidate($this->candidate4);
     }
 
-    public function testRemoveCandidateInvalidInput (): void
+    public function testRemoveCandidateInvalidInput (): never
     {
         $vote1 = new Vote ('candidate1 > candidate2 > candidate3 ^ 42');
 
@@ -702,14 +699,14 @@ class VoteTest extends TestCase
         self::assertCount(1,$vote7->getHistory());
     }
 
-    public function testBadRankingInput1 (): void
+    public function testBadRankingInput1 (): never
     {
         $this->expectException(\TypeError::class);
 
         $vote = new Vote(42);
     }
 
-    public function testBadRankingInput2 (): void
+    public function testBadRankingInput2 (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid");
@@ -755,7 +752,7 @@ class VoteTest extends TestCase
 
 
     // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates1 (): void
+    public function testDuplicateCandidates1 (): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid");

@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase
 {
-    /**
-     * @var Candidate candidate1
-     */
-    private Candidate $candidate1;
+    private readonly Candidate $candidate1;
 
     public function setUp(): void
     {
@@ -40,7 +37,7 @@ class CandidateTest extends TestCase
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    public function testTooLongName (): void
+    public function testTooLongName (): never
     {
         $name = bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42));
 
@@ -50,7 +47,7 @@ class CandidateTest extends TestCase
         new Candidate($name);
     }
 
-    public function testBadName (): void
+    public function testBadName (): never
     {
         $this->expectException(CandidateInvalidNameException::class);
         $this->expectExceptionMessage("This name is not valid");
@@ -58,14 +55,14 @@ class CandidateTest extends TestCase
         new Candidate ('<$"');
     }
 
-    public function testCandidateBadClass (): void
+    public function testCandidateBadClass (): never
     {
         $this->expectException(\TypeError::class);
 
         (new Election)->addCandidate(new \stdClass );
     }
 
-    public function testAddSameCandidate1 (): void
+    public function testAddSameCandidate1 (): never
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage("This candidate already exists: Schizophrenic");
@@ -78,7 +75,7 @@ class CandidateTest extends TestCase
         $election1->addCandidate($candidate);
     }
 
-    public function testAddSameCandidate2 (): void
+    public function testAddSameCandidate2 (): never
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage("This candidate already exists: candidate1");
@@ -88,7 +85,7 @@ class CandidateTest extends TestCase
         $election1->parseCandidates('candidate1;candidate2;candidate1');
     }
 
-    public function testAddSameCandidate3 (): void
+    public function testAddSameCandidate3 (): never
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage("This candidate already exists: candidate1");
