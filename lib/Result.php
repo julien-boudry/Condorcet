@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\ResultException;
 
 class Result implements \ArrayAccess, \Countable, \Iterator
 {
@@ -43,16 +43,18 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     // Implement ArrayAccess
 
+    #[Throws(ResultException::class)]
     public function offsetSet ($offset, $value): void {
-        throw new CondorcetException (0,"Can't change a result");
+        throw new ResultException();
     }
 
     public function offsetExists ($offset): bool {
         return isset($this->ranking[$offset]);
     }
 
+    #[Throws(ResultException::class)]
     public function offsetUnset ($offset): void {
-        throw new CondorcetException (0,"Can't change a result");
+        throw new ResultException();
     }
 
     public function offsetGet ($offset): array|Candidate|null {
