@@ -564,7 +564,7 @@ C > B > A * 1',
         $this->expectException(ElectionObjectVersionMismatchException::class);
         $this->expectExceptionMessage(
             "Version mismatch: The election object has version '2.2' " .
-            "which is different from the current class version '3.2'"
+            "which is different from the current class version '".Condorcet::getVersion(true)."'"
         );
 
         \unserialize(
