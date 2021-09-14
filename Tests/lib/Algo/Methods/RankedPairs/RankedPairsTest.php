@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use PHPUnit\Framework\TestCase;
 
 class RankedPairsTest extends TestCase
@@ -391,9 +392,8 @@ class RankedPairsTest extends TestCase
 
     public function testMaxCandidates (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(101);
-        $this->expectExceptionMessage('Ranked Pairs Winning is configured to accept only 40 candidates');
+        $this->expectException(CandidatesMaxNumberReachedException::class);
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 40 candidates");
 
         for ($i=0; $i < 41; $i++) :
             $this->election->addCandidate();
