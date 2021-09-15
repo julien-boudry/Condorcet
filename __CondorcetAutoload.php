@@ -8,6 +8,13 @@
 */
 declare(strict_types=1);
 
+if (version_compare( $condorcet_minimal_php_version = str_replace('^', '', json_decode(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'composer.json'), true)['require']['php']), \PHP_VERSION, '>') ) :
+    trigger_error(
+        'Condorcet PHP requires a PHP version greater than or equal to '.$condorcet_minimal_php_version.'. Your current version is '.\PHP_VERSION.'.',
+        E_USER_ERROR
+    );
+endif;
+
 // Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function.
 spl_autoload_register(function (string $class) : void {
 

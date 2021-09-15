@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Constraints\NoTie;
+use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use PHPUnit\Framework\TestCase;
 
 class ConstraintTest extends TestCase
 {
-    /**
-     * @var election
-     */
     private Election $election;
 
     public function setUp(): void
@@ -22,12 +21,12 @@ class ConstraintTest extends TestCase
         $this->election->addCandidate('C');
     }
 
-    public function testAddConstraintAndClear (): void
+    public function testAddConstraintAndClear (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(29);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is already registered");
 
-        $class = \CondorcetPHP\Condorcet\Constraints\NoTie::class;
+        $class = NoTie::class;
 
         self::assertTrue($this->election->addConstraint($class));
 
@@ -42,20 +41,20 @@ class ConstraintTest extends TestCase
         $this->election->addConstraint($class);
     }
 
-    public function testPhantomClass (): void
+    public function testPhantomClass (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(27);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is not defined");
 
         $class = Constraints\NoJuju::class;
 
         $this->election->addConstraint($class);
     }
 
-    public function testBadClass (): void
+    public function testBadClass (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(28);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is not a valid subclass");
 
         $class = Vote::class;
 
@@ -64,7 +63,7 @@ class ConstraintTest extends TestCase
 
     public function testConstraintsOnVote (): void
     {
-        $NoTieImplementation = [\CondorcetPHP\Condorcet\Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
+        $NoTieImplementation = [NoTie::class, AlternativeNoTieConstraintClass::class];
 
         foreach ($NoTieImplementation as $constraintClass ) :
             $this->setUp();

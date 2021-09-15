@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
 
 class VotesManager extends ArrayManager
 {
@@ -73,13 +73,14 @@ class VotesManager extends ArrayManager
         return parent::offsetGet($offset);
     }
 
+    #[Throws(VoteManagerException::class)]
     public function offsetSet($offset, $value): void
     {
         if ($value instanceof Vote) :
             parent::offsetSet($offset,$value);
             $this->UpdateAndResetComputing(key: $this->_maxKey, type: 1);
         else :
-            throw new CondorcetException (0,'Value must be an instanceof CondorcetPHP\Vote');
+            throw new VoteManagerException();
         endif;
 
         $this->checkRegularize();

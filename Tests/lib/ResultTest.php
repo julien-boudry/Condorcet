@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use CondorcetPHP\Condorcet\Throwable\ResultException;
 use PHPUnit\Framework\TestCase;
 
 
 class ResultTest extends TestCase
 {
-    private Election $election1;
+    private readonly Election $election1;
 
     public function setUp(): void
     {
@@ -153,9 +156,10 @@ class ResultTest extends TestCase
         );
     }
 
-    public function testOffsetSet (): void
+    public function testOffsetSet (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectException(ResultException::class);
+        $this->expectExceptionMessage("Result cannot be changed");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -168,9 +172,10 @@ class ResultTest extends TestCase
         $result[] = 42;
     }
 
-    public function testOffUnset (): void
+    public function testOffUnset (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectException(ResultException::class);
+        $this->expectExceptionMessage("Result cannot be changed");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -200,10 +205,10 @@ class ResultTest extends TestCase
         endforeach;
     }
 
-    public function testBadMethodName (): void
+    public function testBadMethodName (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(8);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: bad method");
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

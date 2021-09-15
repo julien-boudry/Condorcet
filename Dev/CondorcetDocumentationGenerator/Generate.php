@@ -146,10 +146,10 @@ class Generate
 
 
                     if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
-                        var_dump('Method not has API attribute, but is in doc.yaml file: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
+                        var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     endif;
 
-                    if ( empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
+                    if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
                         var_dump('Description Attribute is empty: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     endif;
                 endif;
@@ -225,7 +225,7 @@ class Generate
 
 
         // Write file
-        file_put_contents($pathDirectory."\\README.md", $file_content);
+        file_put_contents($pathDirectory."README.md", $file_content);
 
 
         echo 'YAH ! <br>' . (microtime(true) - $start_time) .'s';
@@ -246,7 +246,7 @@ class Generate
         // Input
         if ($method->getNumberOfParameters() > 0) :
             foreach ($method->getParameters() as $key => $value ) :
-                
+
                 if (!empty($attributes = $value->getAttributes(FunctionParameter::class))) :
                     $pt = $attributes[0]->newInstance()->text;
                 elseif (isset($entry['input'][$value->getName()]['text'])) :

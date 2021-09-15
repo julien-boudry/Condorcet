@@ -6,12 +6,12 @@
 public Election->getCandidatesList ( ) : array
 ```
 
-Return a list of registered Candidate into this election.
+Return a list of registered candidates for this election.
     
 
 ### Return value:   
 
-*(array)* List of Candidate into an array.
+*(array)* List of candidates in an array.
 
 
 ---------------------------------------

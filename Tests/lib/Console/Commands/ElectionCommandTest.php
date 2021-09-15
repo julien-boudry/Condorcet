@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
+use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -13,7 +14,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ElectionCommandTest extends TestCase
 {
-    private CommandTester $electionCommand;
+    private readonly CommandTester $electionCommand;
 
     public function setUp(): void
     {
@@ -98,7 +99,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('droop quota', $output);
+        self::assertStringContainsString('Droop Quota', $output);
 
         $this->electionCommand->execute([
             '--candidates' => 'A;B;C',
@@ -110,7 +111,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('imperiali', $output);
+        self::assertStringContainsString('Imperiali', $output);
     }
 
     public function testConsoleAllMethodsArgument (): void
@@ -187,10 +188,10 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 
-    public function testNonInteractionMode (): void
+    public function testNonInteractionMode (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(6);
+        $this->expectException(ResultRequestedWithoutVotesException::class);
+        $this->expectExceptionMessage("The result cannot be requested without votes");
 
         $this->electionCommand->execute([],['interactive' => false]);
 

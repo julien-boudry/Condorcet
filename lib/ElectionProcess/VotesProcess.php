@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{CondorcetException, CondorcetInternalException};
+use CondorcetPHP\Condorcet\Throwable\{CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
 
 // Manage Results for Election class
 trait VotesProcess
@@ -149,6 +149,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Add a vote to an election.")]
     #[FunctionReturn("The vote object.")]
+    #[Throws(VoteMaxNumberReachedException::class)]
     #[Example("Manual - Vote Management","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
     public function addVote (
@@ -162,7 +163,7 @@ trait VotesProcess
 
         // Check Max Vote Count
         if ( self::$_maxVoteNumber !== null && $this->countVotes() >= self::$_maxVoteNumber ) :
-            throw new CondorcetException(16, (string) self::$_maxVoteNumber);
+            throw new VoteMaxNumberReachedException(self::$_maxVoteNumber);
         endif;
 
         // Register vote
@@ -240,9 +241,9 @@ trait VotesProcess
         try {
             $vote->registerLink($this);
             $this->_Votes[] = $vote;
-        } catch (CondorcetInternalException) {
-            // Security : Check if vote object not already register
-            throw new CondorcetException(31);
+        } catch (CondorcetInternalException $e) {
+            // Security : Check if vote object is not already registered
+            throw new VoteException("seats are already registered");
         }
 
         return $vote;
@@ -268,7 +269,7 @@ trait VotesProcess
 
             return true;
         else :
-            throw new CondorcetException(33);
+            throw new VoteException("cannot remove vote, is not registered in this election");
         endif;
 
     }
@@ -306,7 +307,8 @@ trait VotesProcess
 
 /////////// PARSE VOTE ///////////
 
-    // Return the well formated vote to use.
+    // Return the well formatted vote to use.
+    #[Throws(VoteInvalidFormatException::class)]
     protected function prepareVoteInput (array|string|Vote &$vote, array|string $tags = null): void
     {
         if (!($vote instanceof Vote)) :
@@ -315,7 +317,7 @@ trait VotesProcess
 
         // Check array format && Make checkVoteCandidate
         if ( !$this->checkVoteCandidate($vote) ) :
-            throw new CondorcetException(5);
+            throw new VoteInvalidFormatException();
         endif;
     }
 
@@ -378,7 +380,7 @@ trait VotesProcess
 
             // Disallow < and "
             if ( \preg_match('/<|"/mi', $line) === 1 ) :
-                throw new CondorcetException(14, $line);
+                throw new VoteInvalidFormatException("found '<' or '|' in this line: " . $line);
             endif;
 
             // Multiples
@@ -458,7 +460,7 @@ trait VotesProcess
                         endif;
                     endfor;
 
-                } catch (CondorcetException) {
+                } catch (VoteInvalidFormatException) {
                     ++$fail_count;
                 } finally {
                     $record = '';
@@ -478,11 +480,11 @@ trait VotesProcess
         $adding_predicted_count = $count + $multiple;
 
         if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) :
-            throw new CondorcetException(16, (string) self::$_maxParseIteration);
+            throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
         endif;
 
         if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) :
-            throw new CondorcetException(12, (string) self::$_maxParseIteration);
+            throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
         endif;
 
         $newVote = new Vote ($vote, $tags, null, $this);

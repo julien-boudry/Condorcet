@@ -10,12 +10,12 @@ Check if a candidate is already taking part in the election.
     
 
 ##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string*   
-Candidate object or candidate string name. String name can working only if the strict mode is active.    
+Candidate object or candidate string name. String name works only if the strict mode is active.    
 
 
 ##### **strictMode:** *bool*   
-Search comparaison mode. In strict mode, candidate object are compared strictly and a string input can't match anything.
-If strict mode is false, the comparaison will be based on name.    
+Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.
+If strict mode is false, the comparison will be based on name.    
 
 
 ### Return value:   

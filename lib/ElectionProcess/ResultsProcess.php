@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\Pairwise;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
 // Manage Results for Election class
@@ -33,6 +33,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description("Get a full ranking from an advanced Condorcet method.\n*Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*")]
     #[FunctionReturn("An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)")]
+    #[Throws(AlgorithmException::class)]
     #[Example("Manual - Ranking from Condorcet Method","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods")]
     #[Related("Election::getWinner", "Election::getResult", "Condorcet::getDefaultMethod")]
     public function getResult (
@@ -75,11 +76,11 @@ trait ResultsProcess
         if ($method === null) :
             $this->initResult(Condorcet::getDefaultMethod());
             $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
-        elseif ($method = Condorcet::getMethodClass((string) $method)) :
-            $this->initResult($method);
-            $result = $this->_Calculator[$method]->getResult();
+        elseif ($wanted_method = Condorcet::getMethodClass($method)) :
+            $this->initResult($wanted_method);
+            $result = $this->_Calculator[$wanted_method]->getResult();
         else :
-            throw new CondorcetException(8);
+            throw new AlgorithmException($method);
         endif;
 
         ($chrono !== null) && $chrono->setRole('GetResult for '.$method);
@@ -193,7 +194,7 @@ trait ResultsProcess
         #[FunctionParameter('Option name')]
         string $optionName,
         #[FunctionParameter('Option Value')]
-        mixed $optionValue): bool
+        \BackedEnum|int $optionValue): bool
     {
         if ($method = Condorcet::getMethodClass($method)) :
             $method::setOption($optionName, $optionValue);

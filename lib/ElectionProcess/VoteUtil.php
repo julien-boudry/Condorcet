@@ -10,12 +10,13 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
 // Base Condorcet class
 abstract class VoteUtil
 {
+    #[Throws(VoteInvalidFormatException::class)]
     public static function tagsConvert (array|string|null $tags): ?array
     {
         if (empty($tags)) :
@@ -23,18 +24,18 @@ abstract class VoteUtil
         elseif (\is_string($tags)) :
             $tags = \explode(',', $tags);
         else :
-            foreach ($tags as &$oneTag) :
-                if (!\is_string($oneTag)) :
-                    throw new CondorcetException(17);
+            foreach ($tags as $tag) :
+                if (!\is_string($tag)) :
+                    throw new VoteInvalidFormatException("every tag must be of type string, " . gettype($tag) . " given");
                 endif;
             endforeach;
         endif;
 
         $tags = \array_map('trim', $tags);
 
-        foreach ($tags as $oneTag) :
-           if (empty($oneTag)) :
-                throw new CondorcetException(17);
+        foreach ($tags as $tag) :
+           if (empty($tag)) :
+                throw new VoteInvalidFormatException("found empty tag");
             endif;
         endforeach;
 
@@ -70,6 +71,7 @@ abstract class VoteUtil
         return $ranking;
     }
 
+    #[Throws(VoteInvalidFormatException::class)]
     public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line): int
     {
         if (is_int($searchCharacter)) :
@@ -77,7 +79,7 @@ abstract class VoteUtil
 
             // Errors
             if ( !\is_numeric($value) ) :
-                throw new CondorcetException(13);
+                throw new VoteInvalidFormatException("the value '$value' is not numeric");
             endif;
 
             // Reformat line

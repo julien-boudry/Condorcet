@@ -6,16 +6,16 @@
 public Election->removeCandidates ( CondorcetPHP\Condorcet\Candidate|array|string candidates_input ) : array
 ```
 
-Remove Candidates from an election.
+Remove candidates from an election.
 
-*Please note: You can't remove candidates after the first vote. Exception will be throw.*
+*Please note: You can't remove candidates after the first vote. An exception will be thrown.*
     
 
 ##### **candidates_input:** *CondorcetPHP\Condorcet\Candidate|array|string*   
-* String matching Candidate Name
+* String matching candidate name
 * CondorcetPHP\Condorcet\Candidate object
 * Array populated by CondorcetPHP\Condorcet\Candidate
-* Array populated by string matching Candidate name.    
+* Array populated by string matching candidate name.    
 
 
 ### Return value:   

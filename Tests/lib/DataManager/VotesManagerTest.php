@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
@@ -12,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class VotesManagerTest extends TestCase
 {
-    private  Election $election;
-    private VotesManager $votes_manager;
+    private readonly Election $election;
+    private readonly VotesManager $votes_manager;
 
     protected function setUp(): void
     {
@@ -23,9 +24,10 @@ class VotesManagerTest extends TestCase
         $this->votes_manager = $this->election->getVotesManager();
     }
 
-    public function testOffsetSet(): void
+    public function testOffsetSet(): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
+        $this->expectException(VoteNotLinkedException::class);
+        $this->expectExceptionMessage("The vote is not linked to an election");
 
         $vote = new Vote([]);
 

@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 
 // Generic for Algorithms
 abstract class Method
@@ -23,12 +23,12 @@ abstract class Method
 
     public static ?int $MaxCandidates = null;
 
-    protected Election $_selfElection;
+    protected readonly Election $_selfElection;
     protected ?Result $_Result = null;
 
     // Static
 
-    final public static function setOption (string $optionName, mixed $optionValue): bool
+    final public static function setOption (string $optionName, \BackedEnum|int $optionValue): bool
     {
         $optionVar = 'option'.ucfirst($optionName);
 
@@ -39,18 +39,14 @@ abstract class Method
 
     //
 
+    #[Throws(CandidatesMaxNumberReachedException::class)]
     public function __construct (Election $mother)
     {
         $this->_selfElection = $mother;
 
         if (!\is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
-            throw new CondorcetException(101, static::METHOD_NAME[0].' is configured to accept only '.static::$MaxCandidates.' candidates');
+            throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         endif;
-    }
-
-    public function __destruct ()
-    {
-        unset($this->_selfElection, $this->_Result);
     }
 
     public function getResult (): Result
@@ -86,7 +82,7 @@ abstract class Method
     		election: $this->_selfElection,
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats(): null,
+            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
             methodOptions: $methodOptions
     	);
     }

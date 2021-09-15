@@ -23,7 +23,7 @@ class RankedPairs_Core extends Method implements MethodInterface
         public static ?int $MaxCandidates = 40;
 
     // Ranked Pairs
-    protected array $_PairwiseSort;
+    protected readonly array $_PairwiseSort;
     protected array $_Arcs = [];
     protected ?array $_Stats = null;
     protected bool $_StatsDone = false;

@@ -6,6 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests\DataManager\DataHandlerDrivers\PdoDriver;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
+use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,7 +32,7 @@ class PdoHandlerDriverTest extends TestCase
     }
 
 
-    public function testManyVoteManipulation(): void
+    public function testManyVoteManipulation(): never
     {
         // Setup
         ArrayManager::$CacheSize = 10;
@@ -133,8 +134,8 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertTrue($electionWithDb->removeExternalDataHandler());
 
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(23);
+        $this->expectException(DataHandlerException::class);
+        $this->expectExceptionMessage("Problem with data handler: external data handler cannot be removed, is already in use");
 
         $electionWithDb->removeExternalDataHandler();
     }
@@ -254,26 +255,26 @@ class PdoHandlerDriverTest extends TestCase
         self::assertSame(463,$electionWithDb->countVotes());
     }
 
-    public function testMultipleHandler (): void
+    public function testMultipleHandler (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(24);
+        $this->expectException(DataHandlerException::class);
+        $this->expectExceptionMessage("external data handler cannot be imported");
 
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver ($this->getPDO(),true));
     }
 
-    public function testBadTableSchema1 (): void
+    public function testBadTableSchema1 (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(0);
+        $this->expectException(DataHandlerException::class);
+        $this->expectExceptionMessage("Problem with data handler: invalid structure template for PdoHandler");
 
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver ($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }
 
-    public function testBadTableSchema2 (): void
+    public function testBadTableSchema2 (): never
     {
         $this->expectException(\Exception::class);
 

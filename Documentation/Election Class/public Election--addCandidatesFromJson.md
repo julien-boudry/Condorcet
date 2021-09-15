@@ -6,16 +6,16 @@
 public Election->addCandidatesFromJson ( string input ) : array
 ```
 
-Import candidate from a Json source.
+Import candidate from a JSON source.
     
 
 ##### **input:** *string*   
-Json string input.    
+JSON string input.    
 
 
 ### Return value:   
 
-*(array)* List of new registered candidate object.
+*(array)* List of newly registered candidate object.
 
 
 ---------------------------------------

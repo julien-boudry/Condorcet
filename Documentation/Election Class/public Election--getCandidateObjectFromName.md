@@ -6,11 +6,11 @@
 public Election->getCandidateObjectFromName ( string candidateName ) : ?CondorcetPHP\Condorcet\Candidate
 ```
 
-Find candidate object by his string and return the candidate object.
+Find candidate object by string and return the candidate object.
     
 
 ##### **candidateName:** *string*   
-Candidate Name.    
+Candidate name.    
 
 
 ### Return value:   
