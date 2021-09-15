@@ -740,8 +740,8 @@ C > B > A * 1',
             $vote->setRanking('candidate1>candidate2>candidate3');
         } catch (\Exception $e) {}
 
-        self::assertSame(2, $election1->getState());
-        self::assertSame(2, $election2->getState());
+        self::assertEmpty($election1->debugGetCalculator());
+        self::assertEmpty($election2->debugGetCalculator());
 
         throw $e;
     }
