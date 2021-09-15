@@ -168,7 +168,7 @@ class Vote implements \Iterator, \Stringable
                 sort($oneRank, \SORT_STRING);
             endif;
         endforeach;
-        
+
         return $r;
     }
 

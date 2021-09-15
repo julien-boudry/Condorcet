@@ -718,22 +718,32 @@ C > B > A * 1',
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: vote does not match candidate in this election");
 
-        $candidate3 = new Candidate('candidate3');
-        $vote = new Vote ('candidate3');
-
         $election1 = new Election;
         $election2 = new Election;
 
+        $election1->addCandidate(new Candidate('candidate1'));
+        $election2->addCandidate(new Candidate('candidate2'));
+
+        $candidate3 = new Candidate('candidate3');
         $election1->addCandidate($candidate3);
         $election2->addCandidate($candidate3);
 
-        $election1->addCandidate(new Candidate('candidate2'));
-        $election2->addCandidate(new Candidate('candidate1'));
+        $vote = new Vote ('candidate3');
 
         $election1->addVote($vote);
         $election2->addVote($vote);
 
-        $vote->setRanking('candidate1>candidate2>candidate3');
+        $election1->getResult();
+        $election2->getResult();
+
+        try {
+            $vote->setRanking('candidate1>candidate2>candidate3');
+        } catch (\Exception $e) {}
+
+        self::assertSame(2, $election1->getState());
+        self::assertSame(2, $election2->getState());
+
+        throw $e;
     }
 
     public function testInvalidSeats (): never
