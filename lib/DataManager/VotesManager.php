@@ -12,6 +12,7 @@ namespace CondorcetPHP\Condorcet\DataManager;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Election, Vote};
+use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
 
 class VotesManager extends ArrayManager
@@ -96,7 +97,7 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing (int $key, int $type): void
     {
-        if ($this->_Election->getState() === 2) :
+        if ($this->_Election->getState() === ElectionState::VOTES_REGISTRATION) :
 
             if ($type === 1) :
                 $this->_Election->getPairwise()->addNewVote($key);

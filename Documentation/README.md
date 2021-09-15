@@ -73,7 +73,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Election->getObjectVersion (...)](Election%20Class/public%20Election--getObjectVersion.md): string  
 * [public Election->getPairwise ()](Election%20Class/public%20Election--getPairwise.md): CondorcetPHP\Condorcet\Algo\Pairwise  
 * [public Election->getResult (...)](Election%20Class/public%20Election--getResult.md): CondorcetPHP\Condorcet\Result  
-* [public Election->getState ()](Election%20Class/public%20Election--getState.md): int  
+* [public Election->getState ()](Election%20Class/public%20Election--getState.md): CondorcetPHP\Condorcet\ElectionProcess\ElectionState  
 * [public Election->getTimerManager ()](Election%20Class/public%20Election--getTimerManager.md): CondorcetPHP\Condorcet\Timer\Manager  
 * [public Election->getVotesList (...)](Election%20Class/public%20Election--getVotesList.md): array  
 * [public Election->getVotesListAsString ()](Election%20Class/public%20Election--getVotesListAsString.md): string  
@@ -770,6 +770,7 @@ _Including above methods from public API_
 * public countInvalidVoteWithConstraints () : int  
 * public countValidVoteWithConstraints () : int  
 * public countVotes (array|string|null $tags = null, bool $with = true) : int  
+* public debugGetCalculator () : ?array  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
 * public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate) : ?int  
 * public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
@@ -789,7 +790,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false) : string  
 * public getPairwise () : CondorcetPHP\Condorcet\Algo\Pairwise  
 * public getResult (?string $method = null, array $options = []) : CondorcetPHP\Condorcet\Result  
-* public getState () : int  
+* public getState () : CondorcetPHP\Condorcet\ElectionProcess\ElectionState  
 * public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
 * public getVotesList (array|string|null $tags = null, bool $with = true) : array  
@@ -826,6 +827,13 @@ _Including above methods from public API_
 * protected registerAllLinks () : void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags) : CondorcetPHP\Condorcet\Vote  
 * protected synthesisVoteFromParse (int $count, int $multiple, array $adding, CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags, int $weight) : void  
+```
+
+#### CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum  
+```php
+* public static cases () : array  
+* public static from (string|int $value) : static  
+* public static tryFrom (string|int $value) : ?static  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   

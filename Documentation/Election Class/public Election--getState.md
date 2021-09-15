@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getState ( ): int
+public Election->getState ( ): CondorcetPHP\Condorcet\ElectionProcess\ElectionState
 ```
 
 Get the election process level.
@@ -11,8 +11,8 @@ Get the election process level.
 
 ### Return value:   
 
-*(int)* 1: Candidate registered state. No votes, no result, no cache.
-2: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
+*(CondorcetPHP\Condorcet\ElectionProcess\ElectionState)* ElectionState::CANDIDATES_REGISTRATION: Candidate registered state. No votes, no result, no cache.
+ElectionState::VOTES_REGISTRATION: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
 3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.
 
 

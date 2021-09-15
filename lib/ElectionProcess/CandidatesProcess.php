@@ -12,6 +12,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
+use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VoteMaxNumberReachedException, VotingHasStartedException};
 
 // Manage Candidates for Election class
@@ -130,7 +131,7 @@ trait CandidatesProcess
     ): Candidate
     {
         // only if the vote has not started
-        if ( $this->_State > 1 ) :
+        if ( $this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value ) :
             throw new VotingHasStartedException("cannot add '$candidate'");
         endif;
 
@@ -186,7 +187,7 @@ trait CandidatesProcess
     ): array
     {
         // only if the vote has not started
-        if ( $this->_State > 1 ) :
+        if ( $this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value ) :
             throw new VotingHasStartedException();
         endif;
 

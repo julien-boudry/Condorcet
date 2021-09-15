@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
+use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ElectionState, ResultsProcess, VotesProcess};
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
@@ -70,7 +70,7 @@ class Election
     use CondorcetVersion;
 
     // Mechanics
-    protected int $_State = 1; // 1 = Add Candidates / 2 = Voting & Result
+    protected ElectionState $_State = ElectionState::CANDIDATES_REGISTRATION;
     protected Timer_Manager $_timer;
 
     // Params
@@ -228,7 +228,7 @@ class Election
             $value->registerLink($this);
         endforeach;
 
-        if ($this->_State > 1) :
+        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
             foreach ($this->_Votes as $value) :
                 $value->registerLink($this);
             endforeach;
@@ -241,7 +241,7 @@ class Election
             $value->destroyLink($this);
         endforeach;
 
-        if ($this->_State > 1) :
+        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
             foreach ($this->_Votes as $value) :
                 $value->destroyLink($this);
             endforeach;
@@ -445,9 +445,9 @@ class Election
 
     #[PublicAPI]
     #[Description("Get the election process level.")]
-    #[FunctionReturn("1: Candidate registered state. No votes, no result, no cache.\n2: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.\n3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.")]
+    #[FunctionReturn("ElectionState::CANDIDATES_REGISTRATION: Candidate registered state. No votes, no result, no cache.\nElectionState::VOTES_REGISTRATION: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.\n3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.")]
     #[Related("Election::setStateToVote")]
-    public function getState (): int
+    public function getState (): ElectionState
     {
         return $this->_State;
     }
@@ -460,12 +460,12 @@ class Election
     #[Related("Election::getState")]
     public function setStateToVote (): bool
     {
-        if ( $this->_State === 1 ) :
+        if ( $this->_State === ElectionState::CANDIDATES_REGISTRATION ) :
             if (empty($this->_Candidates)) :
                 throw new NoCandidatesException();
             endif;
 
-            $this->_State = 2;
+            $this->_State = ElectionState::VOTES_REGISTRATION;
             $this->preparePairwiseAndCleanCompute();
         endif;
 
@@ -475,7 +475,7 @@ class Election
     // Prepare to compute results & caching system
     protected function preparePairwiseAndCleanCompute (): bool
     {
-        if ($this->_Pairwise === null && $this->_State === 2) :
+        if ($this->_Pairwise === null && $this->_State === ElectionState::VOTES_REGISTRATION) :
             $this->cleanupCompute();
 
             // Do Pairwise
@@ -483,7 +483,7 @@ class Election
 
             // Return
             return true;
-        elseif ($this->_State === 1 || $this->countVotes() === 0) :
+        elseif ($this->_State === ElectionState::CANDIDATES_REGISTRATION || $this->countVotes() === 0) :
             throw new ResultRequestedWithoutVotesException();
         else :
             return false;

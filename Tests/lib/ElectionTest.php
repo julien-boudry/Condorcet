@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
@@ -652,7 +653,7 @@ C > B > A * 1',
 
         self::assertTrue($this->election1->setStateTovote());
 
-        self::assertSame(2,$this->election1->getState());
+        self::assertSame(ElectionState::VOTES_REGISTRATION, $this->election1->getState());
     }
 
     public function testAddSameVote (): never
