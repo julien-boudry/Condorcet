@@ -100,7 +100,7 @@ class Generate
         $str .= " )";
 
         return  "```php\n".
-                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic())?"::":'->').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? " : ".self::getTypeAsString($method->getReturnType()) : "" ).
+                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic())?"::":'->').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? ": ".self::getTypeAsString($method->getReturnType()) : "" ).
                 "\n```";
     }
 
@@ -341,7 +341,7 @@ class Generate
                     $file_content .= "* [".self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod'])."](".$url.")";
 
                     if (isset($oneMethod['ReflectionMethod']) && $oneMethod['ReflectionMethod']->hasReturnType()) :
-                        $file_content .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                        $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
 
 

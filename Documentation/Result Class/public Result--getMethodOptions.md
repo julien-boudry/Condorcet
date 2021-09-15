@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getMethodOptions ( ) : array
+public Result->getMethodOptions ( ): array
 ```
 
 Return the method options.

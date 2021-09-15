@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getTimerManager ( ) : CondorcetPHP\Condorcet\Timer\Manager
+public Election->getTimerManager ( ): CondorcetPHP\Condorcet\Timer\Manager
 ```
 
 Get the Timer manager object.

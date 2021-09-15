@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->setExternalDataHandler ( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface driver ) : bool
+public Election->setExternalDataHandler ( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface driver ): bool
 ```
 
 Import and enable an external driver to store vote on very large election.

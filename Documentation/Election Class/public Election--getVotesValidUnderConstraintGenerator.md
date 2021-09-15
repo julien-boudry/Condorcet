@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getVotesValidUnderConstraintGenerator ( [array|string|null tags = null , bool with = true] ) : Generator
+public Election->getVotesValidUnderConstraintGenerator ( [array|string|null tags = null , bool with = true] ): Generator
 ```
 
 Same as Election::getVotesList. But Return a PHP generator object.

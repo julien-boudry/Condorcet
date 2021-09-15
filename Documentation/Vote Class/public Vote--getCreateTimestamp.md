@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getCreateTimestamp ( ) : float
+public Vote->getCreateTimestamp ( ): float
 ```
 
 Get the timestamp corresponding of the creation of this vote.

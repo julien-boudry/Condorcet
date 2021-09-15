@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getOriginalResultArrayWithString ( ) : array
+public Result->getOriginalResultArrayWithString ( ): array
 ```
 
 Get result as an array

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->addConstraint ( string constraintClass ) : bool
+public Election->addConstraint ( string constraintClass ): bool
 ```
 
 Add a constraint rules as a valid class path.

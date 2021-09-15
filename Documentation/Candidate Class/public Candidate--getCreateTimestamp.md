@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Candidate->getCreateTimestamp ( ) : float
+public Candidate->getCreateTimestamp ( ): float
 ```
 
 Get the timestamp corresponding of the creation of this candidate.

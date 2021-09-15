@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Candidate->haveLink ( CondorcetPHP\Condorcet\Election election ) : bool
+public Candidate->haveLink ( CondorcetPHP\Condorcet\Election election ): bool
 ```
 
 Check if this election is linked with this Candidate/Vote object.

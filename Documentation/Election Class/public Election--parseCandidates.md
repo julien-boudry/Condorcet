@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->parseCandidates ( string input [, bool isFile = false] ) : array
+public Election->parseCandidates ( string input [, bool isFile = false] ): array
 ```
 
 Import candidate from a text source.

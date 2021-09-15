@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->addVotesFromJson ( string input ) : int
+public Election->addVotesFromJson ( string input ): int
 ```
 
 Import votes from a Json source.

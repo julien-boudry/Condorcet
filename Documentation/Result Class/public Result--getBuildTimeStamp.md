@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getBuildTimeStamp ( ) : float
+public Result->getBuildTimeStamp ( ): float
 ```
 
 Get the timestamp of this result.

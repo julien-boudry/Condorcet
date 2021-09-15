@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getState ( ) : int
+public Election->getState ( ): int
 ```
 
 Get the election process level.

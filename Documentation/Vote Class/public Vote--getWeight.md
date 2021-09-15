@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getWeight ( [?CondorcetPHP\Condorcet\Election context = null] ) : int
+public Vote->getWeight ( [?CondorcetPHP\Condorcet\Election context = null] ): int
 ```
 
 Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.

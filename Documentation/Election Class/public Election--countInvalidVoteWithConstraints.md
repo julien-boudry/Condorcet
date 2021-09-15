@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->countInvalidVoteWithConstraints ( ) : int
+public Election->countInvalidVoteWithConstraints ( ): int
 ```
 
 Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.

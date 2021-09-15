@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::getDefaultMethod ( ) : ?string
+public static Condorcet::getDefaultMethod ( ): ?string
 ```
 
 Return the Condorcet static default method.
