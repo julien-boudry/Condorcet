@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use phpDocumentor\Reflection\Types\Void_;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -66,6 +69,7 @@ class Vote implements \Iterator, \Stringable
 
     #[PublicAPI]
     #[Description("Build a vote object.")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::setRanking", "Vote::addTags")]
     public function __construct (
@@ -90,7 +94,7 @@ class Vote implements \Iterator, \Stringable
 
                 // Errors
                 if ( !\is_numeric($weight) ) :
-                    throw new CondorcetException(13);
+                    throw new VoteInvalidFormatException("you must specify an integer for the vote weight");
                 endif;
 
                 $weight = \intval($weight);
@@ -164,7 +168,7 @@ class Vote implements \Iterator, \Stringable
                 sort($oneRank, \SORT_STRING);
             endif;
         endforeach;
-        
+
         return $r;
     }
 
@@ -242,6 +246,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
     #[FunctionReturn("Contextual full ranking.")]
+    #[Throws(VoteNotLinkedException::class)]
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
@@ -249,7 +254,7 @@ class Vote implements \Iterator, \Stringable
     ): array
     {
         if (!$this->haveLink($election)) :
-            throw new CondorcetException(22);
+            throw new VoteNotLinkedException();
         endif;
 
         $countContextualCandidate = 0;
@@ -339,6 +344,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
     #[FunctionReturn("In case of success, return TRUE")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add a vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
     public function setRanking (
@@ -351,7 +357,7 @@ class Vote implements \Iterator, \Stringable
         // Timestamp
         if ($ownTimestamp !== null) :
             if (!empty($this->_ranking_history) && $this->getTimestamp() >= $ownTimestamp) :
-                throw new CondorcetException(21);
+                throw new VoteInvalidFormatException("Timestamp format of vote is not correct");
             endif;
         endif;
 
@@ -379,10 +385,10 @@ class Vote implements \Iterator, \Stringable
             try {
                 foreach ($this->_link as $link) :
                     if (!$link->checkVoteCandidate($this)) :
-                        throw new CondorcetException(18);
+                        throw new VoteInvalidFormatException("vote does not match candidate in this election");
                     endif;
                 endforeach;
-            } catch (CondorcetException $e) {
+            } catch (VoteInvalidFormatException $e) {
                 foreach ($this->_link as $link) :
                     $link->setStateToVote();
                 endforeach;
@@ -408,7 +414,7 @@ class Vote implements \Iterator, \Stringable
             endif;
 
             if (!\is_array($ranking)) :
-                throw new CondorcetException(5);
+                throw new VoteInvalidFormatException();
             endif;
 
             $ranking = \array_filter($ranking, fn ($key): bool => \is_numeric($key), \ARRAY_FILTER_USE_KEY);
@@ -446,7 +452,7 @@ class Vote implements \Iterator, \Stringable
                     if (!\in_array($Candidate->getName(), $list_candidate)) :
                         $list_candidate[] = $Candidate;
                     else :
-                        throw new CondorcetException(5);
+                        throw new VoteInvalidFormatException();
                     endif;
 
                 endforeach;
@@ -459,6 +465,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Remove candidate from ranking. Set a new ranking and archive the old ranking.")]
     #[FunctionReturn("True on success.")]
+    #[Throws(CandidateDoesNotExistException::class)]
     #[Related("Vote::setRanking")]
     public function removeCandidate (
         #[FunctionParameter('Candidate object or string')]
@@ -476,7 +483,7 @@ class Vote implements \Iterator, \Stringable
         $rankingCandidate = $this->getAllCandidates();
 
         if (!\in_array(needle: $candidate, haystack: $rankingCandidate, strict:  $strict)) :
-            throw new CondorcetException (32);
+            throw new CandidateDoesNotExistException((string) $candidate);
         endif;
 
         foreach ($ranking as $rankingKey => &$rank) :
@@ -500,6 +507,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Add tag(s) on this Vote.")]
     #[FunctionReturn("In case of success, return TRUE")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Vote::removeTags")]
     public function addTags (
@@ -589,6 +597,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description("Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
     #[FunctionReturn("New weight.")]
+    #[Throws(VoteInvalidFormatException::class)]
     #[Related("Vote::getWeight")]
     public function setWeight (
         #[FunctionParameter('The new vote weight.')]
@@ -596,7 +605,7 @@ class Vote implements \Iterator, \Stringable
     ): int
     {
         if ($newWeight < 1) :
-            throw new CondorcetException(26);
+            throw new VoteInvalidFormatException("the vote weight can not be less than 1");
         endif;
 
         if ($newWeight !== $this->_weight) :

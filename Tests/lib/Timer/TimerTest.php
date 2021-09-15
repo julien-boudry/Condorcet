@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Timer;
 
+use CondorcetPHP\Condorcet\Throwable\TimerException;
 use CondorcetPHP\Condorcet\Timer\{Manager, Chrono};
 use PHPUnit\Framework\TestCase;
 
@@ -10,9 +11,8 @@ class TimerTest extends TestCase
 {
     public function testInvalidChrono (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(0);
-        $this->expectExceptionMessage('Only chrono linked to this Manager can be used');
+        $this->expectException(TimerException::class);
+        $this->expectExceptionMessage("Only a chrono linked to this manager can be used");
 
         $manager1 = new Manager;
         $manager2 = new Manager;

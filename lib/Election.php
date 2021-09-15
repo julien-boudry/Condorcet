@@ -10,11 +10,16 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ResultsProcess, VotesProcess};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
+use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
+use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
+use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
+use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 // Base Condorcet class
@@ -118,8 +123,12 @@ class Election
 
     public function __unserialize (array $data): void
     {
-        if ( \version_compare($this->getObjectVersion(true),Condorcet::getVersion(true),'!=') ) :
-            throw new CondorcetException(11, 'Your object version is '.$this->getObjectVersion().' but the class engine version is '.Condorcet::getVersion());
+        // Only compare major and minor version numbers, not patch level
+        // e.g. 2.0 and 3.2
+        $objectVersion = explode(".", $data['_objectVersion']);
+        $objectVersion = $objectVersion[0] . "." . $objectVersion[1];
+        if ( \version_compare($objectVersion, Condorcet::getVersion(true),'!=') ) :
+            throw new ElectionObjectVersionMismatchException($objectVersion);
         endif;
 
         $this->_Candidates = $data['_Candidates'];
@@ -295,7 +304,8 @@ class Election
 
     #[PublicAPI]
     #[Description("Add a constraint rules as a valid class path.")]
-    #[FunctionReturn("True on success. Throw Throwable\CondorcetException code 27/28/29 on error.")]
+    #[FunctionReturn("True on success.")]
+    #[Throws(VoteConstraintException::class)]
     #[Example("Manual - Vote Constraints","https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints")]
     #[Related("Election::getConstraints", "Election::clearConstraints", "Election::testIfVoteIsValidUnderElectionConstraints")]
     public function addConstraint (
@@ -304,11 +314,11 @@ class Election
     ): bool
     {
         if ( !\class_exists($constraintClass) ) :
-            throw new CondorcetException(27);
+            throw new VoteConstraintException("class is not defined");
         elseif ( !\is_subclass_of($constraintClass, VoteConstraint::class) ) :
-            throw new CondorcetException(28);
+            throw new VoteConstraintException("class is not a valid subclass");
         elseif (\in_array(needle: $constraintClass, haystack: $this->getConstraints(), strict: true)) :
-            throw new CondorcetException(29);
+            throw new VoteConstraintException("class is already registered");
         endif;
 
         $this->cleanupCompute();;
@@ -375,6 +385,7 @@ class Election
     #[PublicAPI]
     #[Description("Set number of Seats for STV methods.")]
     #[FunctionReturn("Number of seats.")]
+    #[Throws(NoSeatsException::class)]
     #[Related("Election::getNumberOfSeats")]
     public function setNumberOfSeats (
         #[FunctionParameter('The number of seats for proportional methods.')]
@@ -386,7 +397,7 @@ class Election
 
             $this->_Seats = $seats;
         else :
-            throw new CondorcetException(30);
+            throw new NoSeatsException();
         endif;
 
         return $this->_Seats;
@@ -398,6 +409,7 @@ class Election
     #[PublicAPI]
     #[Description("Import and enable an external driver to store vote on very large election.")]
     #[FunctionReturn("True if success. Else throw an Exception.")]
+    #[Throws(DataHandlerException::class)]
     #[Example("[Manual - DataHandler]","https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php")]
     #[Related("Election::removeExternalDataHandler")]
     public function setExternalDataHandler (
@@ -409,13 +421,14 @@ class Election
             $this->_Votes->importHandler($driver);
             return true;
         else :
-            throw new CondorcetException(24);
+            throw new DataHandlerException("external data handler cannot be imported");
         endif;
     }
 
     #[PublicAPI]
     #[Description("Remove an external driver to store vote on very large election. And import his data into classical memory.")]
     #[FunctionReturn("True if success. Else throw an Exception.")]
+    #[Throws(DataHandlerException::class)]
     #[Related("Election::setExternalDataHandler")]
     public function removeExternalDataHandler (): bool
     {
@@ -423,7 +436,7 @@ class Election
             $this->_Votes->closeHandler();
             return true;
         else :
-            throw new CondorcetException(23);
+            throw new DataHandlerException("external data handler cannot be removed, is already in use");
         endif;
     }
 
@@ -443,12 +456,13 @@ class Election
     #[PublicAPI]
     #[Description("Force the election to get back to state 2. See Election::getState.\nIt is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.\n\nIf you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.\nIf you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.")]
     #[FunctionReturn("Always True.")]
+    #[Throws(NoCandidatesException::class,ResultRequestedWithoutVotesException::class)]
     #[Related("Election::getState")]
     public function setStateToVote (): bool
     {
         if ( $this->_State === 1 ) :
             if (empty($this->_Candidates)) :
-                throw new CondorcetException(20);
+                throw new NoCandidatesException();
             endif;
 
             $this->_State = 2;
@@ -464,13 +478,13 @@ class Election
         if ($this->_Pairwise === null && $this->_State === 2) :
             $this->cleanupCompute();
 
-            // Do Pairewise
+            // Do Pairwise
             $this->makePairwise();
 
             // Return
             return true;
         elseif ($this->_State === 1 || $this->countVotes() === 0) :
-            throw new CondorcetException(6);
+            throw new ResultRequestedWithoutVotesException();
         else :
             return false;
         endif;

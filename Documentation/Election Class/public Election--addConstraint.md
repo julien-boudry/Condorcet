@@ -15,7 +15,7 @@ A valid class path. Class must extend VoteConstraint class.
 
 ### Return value:   
 
-*(bool)* True on success. Throw Throwable\CondorcetException code 27/28/29 on error.
+*(bool)* True on success.
 
 
 ---------------------------------------

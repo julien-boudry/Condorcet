@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -27,8 +28,8 @@ class CondorcetTest extends TestCase
 
     public function testBadClassMethod (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(9);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
 
         Condorcet::addMethod('sjskkdlkkzksh');
     }
@@ -47,8 +48,8 @@ class CondorcetTest extends TestCase
       */
     public function testAddMethod (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(25);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: the given class is using an existing alias");
 
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
@@ -64,8 +65,8 @@ class CondorcetTest extends TestCase
 
     public function testAddUnvalidMethod (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(10);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: the given class is not correct");
 
         $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
@@ -84,8 +85,8 @@ class CondorcetTest extends TestCase
 
     public function testEmptyMethod (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(8);
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage("The voting algorithm is not available: no method name given");
 
         Condorcet::isAuthMethod('');
     }

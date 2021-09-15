@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Constraints\NoTie;
+use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use PHPUnit\Framework\TestCase;
 
 class ConstraintTest extends TestCase
@@ -21,10 +23,10 @@ class ConstraintTest extends TestCase
 
     public function testAddConstraintAndClear (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(29);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is already registered");
 
-        $class = \CondorcetPHP\Condorcet\Constraints\NoTie::class;
+        $class = NoTie::class;
 
         self::assertTrue($this->election->addConstraint($class));
 
@@ -41,8 +43,8 @@ class ConstraintTest extends TestCase
 
     public function testPhantomClass (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(27);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is not defined");
 
         $class = Constraints\NoJuju::class;
 
@@ -51,8 +53,8 @@ class ConstraintTest extends TestCase
 
     public function testBadClass (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(28);
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage("The vote constraint could not be set up: class is not a valid subclass");
 
         $class = Vote::class;
 
@@ -61,7 +63,7 @@ class ConstraintTest extends TestCase
 
     public function testConstraintsOnVote (): void
     {
-        $NoTieImplementation = [\CondorcetPHP\Condorcet\Constraints\NoTie::class, AlternativeNoTieConstraintClass::class];
+        $NoTieImplementation = [NoTie::class, AlternativeNoTieConstraintClass::class];
 
         foreach ($NoTieImplementation as $constraintClass ) :
             $this->setUp();

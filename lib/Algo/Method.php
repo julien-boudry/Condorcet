@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 
 // Generic for Algorithms
 abstract class Method
@@ -39,12 +39,13 @@ abstract class Method
 
     //
 
+    #[Throws(CandidatesMaxNumberReachedException::class)]
     public function __construct (Election $mother)
     {
         $this->_selfElection = $mother;
 
         if (!\is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
-            throw new CondorcetException(101, static::METHOD_NAME[0].' is configured to accept only '.static::$MaxCandidates.' candidates');
+            throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         endif;
     }
 

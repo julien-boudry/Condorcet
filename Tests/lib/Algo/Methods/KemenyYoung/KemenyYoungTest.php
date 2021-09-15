@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\KemenyYoung;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
+use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase
@@ -77,9 +78,8 @@ class KemenyYoungTest extends TestCase
 
     public function testMaxCandidates (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(101);
-        $this->expectExceptionMessage('Kemeny–Young is configured to accept only 8 candidates');
+        $this->expectException(CandidatesMaxNumberReachedException::class);
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only 8 candidates");
 
         for ($i=0; $i < 10; $i++) :
             $this->election->addCandidate();

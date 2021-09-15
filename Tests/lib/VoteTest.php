@@ -3,8 +3,16 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\CondorcetException;
+use CondorcetPHP\Condorcet\{Candidate,
+    Condorcet,
+    CondorcetUtil,
+    Election,
+    Result,
+    Throwable\VoteNotLinkedException,
+    Vote,
+    VoteConstraint};
+use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
+use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
@@ -43,8 +51,8 @@ class VoteTest extends TestCase
 
     public function testDifferentRanking (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(22);
+        $this->expectException(VoteNotLinkedException::class);
+        $this->expectExceptionMessage("The vote is not linked to an election");
 
         // Ranking 1
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
@@ -340,11 +348,8 @@ class VoteTest extends TestCase
 
     }
 
-    public function testTags (): never
+    public function testValidTags (): void
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
-
         $vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]);
 
         $targetTags = ['tag1','tag2','tag3'];
@@ -353,80 +358,78 @@ class VoteTest extends TestCase
             'tag1,tag2,tag3'
         ));
 
-            self::assertSame(
-                $targetTags,
-                \array_values($vote1->getTags())
-            );
+        self::assertSame(
+            $targetTags,
+            \array_values($vote1->getTags())
+        );
 
-            self::assertTrue($vote1->removeAllTags());
-            self::assertSame(
-                [],
-                $vote1->getTags()
-            );
+        self::assertTrue($vote1->removeAllTags());
+        self::assertSame(
+            [],
+            $vote1->getTags()
+        );
 
         self::assertTrue($vote1->addTags(
             ['tag1','tag2','tag3']
         ));
 
-            self::assertSame(
-                $targetTags,
-                \array_values($vote1->getTags())
-            );
-
-            self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
-
-            self::assertEquals(
-                ['tag1','tag3'],
-                \array_values($vote1->getTags()));
-
-            self::assertTrue($vote1->removeAllTags());
-
-        $badInput = false;
-
-        try {
-            $vote1->addTags(
-                ' tag1,tag2 , tag3 ,'
-            );
-        } catch (CondorcetException $e) {
-            $badInput = $e;
-        }
-
         self::assertSame(
-            [],
+            $targetTags,
             \array_values($vote1->getTags())
         );
 
-        self::assertTrue($vote1->removeAllTags());
+        self::assertEquals(['tag2'],$vote1->removeTags('tag2'));
 
-        try {
-            $vote1->addTags(
-                ['tag1 ',' tag2',' tag3 ',' ']
-            );
-        } catch (CondorcetException $e) {
-            $badInput = $e;
-        }
-            self::assertSame(
-                [],
-                \array_values($vote1->getTags())
-            );
+        self::assertEquals(
+            ['tag1','tag3'],
+            \array_values($vote1->getTags()));
 
         self::assertTrue($vote1->removeAllTags());
-
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
-
-        if ($badInput !== false) :
-            throw $badInput;
-        endif;
     }
 
     public function testBadTagInput1 (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(17);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: every tag must be of type string, integer given");
 
         $vote = new Vote('A');
         $vote->addTags(['tag1',42]);
+    }
+
+    public function testBadTagInput2 (): never
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
+
+        $vote = new Vote('A');
+        $vote->addTags(
+            ['tag1 ',' tag2',' tag3 ',' ']
+        );
+
+        self::assertSame(
+            [],
+            \array_values($vote->getTags())
+        );
+
+        self::assertTrue($vote->removeAllTags());
+    }
+
+    public function testBadTagInput3 (): never
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
+
+        $vote = new Vote('A');
+        $vote->addTags(
+            ' tag1,tag2 , tag3 ,'
+        );
+
+        self::assertSame(
+            [],
+            \array_values($vote->getTags())
+        );
+
+        self::assertTrue($vote->removeAllTags());
     }
 
     public function testAddRemoveTags (): void
@@ -505,16 +508,16 @@ class VoteTest extends TestCase
         self::assertsame(2,$vote->getWeight());
         self::assertsame(1,$vote->getWeight($this->election1));
 
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(13);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: you must specify an integer for the vote weight");
 
         $vote = new Vote ('A>B>C^a');
     }
 
     public function testCustomTimestamp(): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(21);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: Timestamp format of vote is not correct");
 
         $vote = new Vote (
             'A>B>C',
@@ -569,8 +572,8 @@ class VoteTest extends TestCase
 
     public function testInvalidWeight(): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(26);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: the vote weight can not be less than 1");
 
         $vote = new Vote ('A>B>C');
 
@@ -613,8 +616,8 @@ class VoteTest extends TestCase
 
         self::assertSame('candidate1 > candidate2 = candidate3',$this->election1->getResult()->getResultAsString());
 
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(32);
+        $this->expectException(CandidateDoesNotExistException::class);
+        $this->expectExceptionMessage("This candidate does not exist: candidate4");
 
         $vote1->removeCandidate($this->candidate4);
     }
@@ -704,8 +707,8 @@ class VoteTest extends TestCase
 
     public function testBadRankingInput2 (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(5);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid");
 
         $candidate = new Candidate('A');
 
@@ -750,8 +753,8 @@ class VoteTest extends TestCase
     // https://github.com/julien-boudry/Condorcet/issues/32
     public function testDuplicateCandidates1 (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(5);
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid");
 
         new Vote('Spain>Japan>France>Netherlands>Australia>France');
     }

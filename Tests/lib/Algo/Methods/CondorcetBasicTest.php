@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic;
+use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetBasicTest extends TestCase
@@ -126,8 +128,8 @@ class CondorcetBasicTest extends TestCase
 
     public function testNoResultObject (): never
     {
-        $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
-        $this->expectExceptionCode(102);
+        $this->expectException(AlgorithmWithoutRankingFeatureException::class);
+        $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): ".CondorcetBasic::METHOD_NAME[0]);
 
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -140,7 +142,7 @@ class CondorcetBasicTest extends TestCase
             A > C > L
         ');
 
-        $this->election->getResult(\CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic::class);
+        $this->election->getResult(CondorcetBasic::class);
     }
 
 }
