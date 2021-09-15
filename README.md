@@ -494,7 +494,6 @@ _Benchmark on a modern machine (linux - x64 - php 8.0 - cli)._
 
 ## Roadmap for further releases 
   
-  - Rebuild Exception System
   - **Research reference librarians !!**  
 
 
