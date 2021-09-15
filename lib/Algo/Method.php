@@ -28,7 +28,7 @@ abstract class Method
 
     // Static
 
-    final public static function setOption (string $optionName, mixed $optionValue): bool
+    final public static function setOption (string $optionName, \BackedEnum|int $optionValue): bool
     {
         $optionVar = 'option'.ucfirst($optionName);
 

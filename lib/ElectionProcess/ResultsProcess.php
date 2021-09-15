@@ -194,7 +194,7 @@ trait ResultsProcess
         #[FunctionParameter('Option name')]
         string $optionName,
         #[FunctionParameter('Option Value')]
-        mixed $optionValue): bool
+        \BackedEnum|int $optionValue): bool
     {
         if ($method = Condorcet::getMethodClass($method)) :
             $method::setOption($optionName, $optionValue);
