@@ -1,0 +1,25 @@
+condorcet-logo*
+
+# git
+.git
+
+# Large Votes Data
+lib/Algo/Methods/KemenyYoung-Data/9.data
+lib/Algo/Methods/KemenyYoung-Data/10.data
+Dev/large.votes
+*.sqlite
+
+# composer
+vendor
+composer.lock
+*.phar
+
+# phpunit
+.phpunit.result.cache
+
+# coverage & others
+build
+*.clover
+
+# phpstorm
+.idea
