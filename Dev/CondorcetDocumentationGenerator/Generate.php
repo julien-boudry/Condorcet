@@ -114,7 +114,6 @@ class Generate
 
         //
         $index  = [];
-        $classList = [];
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = \array_filter($FullClassList, function (string $value) { return (strpos($value, 'Condorcet\Test') === FALSE) && (strpos($value, 'Condorcet\Dev') === FALSE); });
 
@@ -126,7 +125,7 @@ class Generate
             $shortClass = self::simpleClass($FullClass);
 
             foreach ($methods as $oneMethod) :
-                if ( !isset($index[$shortClass][$oneMethod->name]) && !$oneMethod->isInternal()) :
+                if ( !isset($index[$shortClass][$oneMethod->name]) && !$oneMethod->isInternal() ) :
                     $non_inDoc++;
 
                     if (!empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getNumberOfParameters() > 0) :
@@ -137,13 +136,11 @@ class Generate
                         endforeach;
                     endif;
 
-                    $index[$shortClass][$oneMethod->name]['inDoc'] = false;
                     $index[$shortClass][$oneMethod->name]['ReflectionMethod'] = $oneMethod;
                     $index[$shortClass][$oneMethod->name]['class'][] = $shortClass;
 
                 else :
                     $inDoc++;
-
 
                     if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
                         var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
@@ -177,18 +174,17 @@ class Generate
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
             foreach ($methods as $oneMethod) :
-                if ( true /*!isset($index[$shortClass][$oneMethod->name])*/ ) :
-                    $full_methods_list[$shortClass][] = [   'FullClass' => $FullClass,
-                                                            'shortClass' => $shortClass,
-                                                            'name' => $oneMethod->name,
-                                                            'static' => $oneMethod->isStatic(),
-                                                            'visibility_public' => $oneMethod->isPublic(),
-                                                            'visibility_protected' => $oneMethod->isProtected(),
-                                                            'visibility_private' => $oneMethod->isPrivate(),
-                                                            'ReflectionMethod' => $oneMethod,
-                                                            'ReflectionClass' => $oneMethod->getDeclaringClass(),
-                                                        ];
-                endif;
+
+                $full_methods_list[$shortClass][] = [   'FullClass' => $FullClass,
+                                                        'shortClass' => $shortClass,
+                                                        'name' => $oneMethod->name,
+                                                        'static' => $oneMethod->isStatic(),
+                                                        'visibility_public' => $oneMethod->isPublic(),
+                                                        'visibility_protected' => $oneMethod->isProtected(),
+                                                        'visibility_private' => $oneMethod->isPrivate(),
+                                                        'ReflectionMethod' => $oneMethod,
+                                                        'ReflectionClass' => $oneMethod->getDeclaringClass(),
+                                                    ];
 
                 $total_methods++;
 
@@ -312,6 +308,10 @@ class Generate
     {
         $file_content = '';
 
+        $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
+            return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($reflectionMethod->class),$apiAttribute[0]->getArguments(), true)));
+        };
+
         foreach ($index as $class => $methods) :
 
             usort($methods, function (array $a, array $b) {
@@ -324,17 +324,37 @@ class Generate
                 endif;
             });
 
-            $i = 0;
+            $ReflectionClass = new \ReflectionClass('CondorcetPHP\Condorcet\\'.$class);
+            $classWillBePublic = false;
+
+            if ($ReflectionClass->getAttributes(PublicAPI::class)) :
+                $classWillBePublic = true;
+            else :
+                foreach ($methods as $oneMethod) :
+                    if ($testPublicAttribute($oneMethod['ReflectionMethod'])) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
+            endif;
+
+            if ($classWillBePublic) :
+                $isEnum = \enum_exists(($enumCases = $ReflectionClass)->name);
+
+                $file_content .= "\n";
+                $file_content .= '### CondorcetPHP\Condorcet\\'.$class." ".((!$isEnum) ? "Class" : "Enum")."  \n\n";
+
+                if  ($isEnum) :
+                    $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
+                    $file_content .= "\n";
+                endif;
+            endif;
+
+
             foreach ($methods as $oneMethod) :
-                if (empty($apiAttribute = $oneMethod['ReflectionMethod']->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($oneMethod['ReflectionMethod']->class),$apiAttribute[0]->getArguments(), true))) :
+                if (!$testPublicAttribute($oneMethod['ReflectionMethod'])) :
                     continue;
                 else :
-                    if (++$i === 1) :
-                        $file_content .= "\n";
-                        $file_content .= '### CondorcetPHP\Condorcet\\'.$class." Class  \n\n";
-                    endif;
-
-
                     $url = str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod'])." ". str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)."--". $oneMethod['ReflectionMethod']->name) . '.md' ;
                     $url = str_replace(' ', '%20', $url);
 
@@ -354,6 +374,19 @@ class Generate
         return $file_content;
     }
 
+    protected function makeEnumeCases (\ReflectionEnum $enumReflection, bool $shortName = false): string
+    {
+        $cases = $enumReflection->getCases();
+
+        $r = '';
+
+        foreach ($cases as $oneCase) :
+            $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
+            $r .= '* '.$name.'::'.$oneCase->getName()."\n";
+        endforeach;
+
+        return $r;
+    }
 
     protected function makeProfundis (array $index) : string
     {
@@ -397,6 +430,13 @@ class Generate
 
             $file_content .= "  \n";
             $file_content .= "```php\n";
+
+            $isEnum = \enum_exists(($enumCases = $ReflectionClass)->name);
+
+            if  ($isEnum) :
+                $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
+                $file_content .= "\n";
+            endif;
 
 
             foreach ($methods as $oneMethod) :

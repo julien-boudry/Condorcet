@@ -11,7 +11,12 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Algo\Pairwise->getExplicitPairwise ()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md): array  
 * [public Algo\Pairwise->getObjectVersion (...)](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md): string  
 
-### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Class  
+### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
+
+* Algo\Tools\StvQuotas::DROOP
+* Algo\Tools\StvQuotas::HARE
+* Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
+* Algo\Tools\StvQuotas::IMPERIALI
 
 * [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
 
@@ -509,6 +514,11 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum  
 ```php
+* StvQuotas::DROOP
+* StvQuotas::HARE
+* StvQuotas::HAGENBACH_BISCHOFF
+* StvQuotas::IMPERIALI
+
 * public static cases () : array  
 * public static from (string|int $value) : static  
 * public static make (string $quota) : self  
@@ -835,6 +845,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum  
 ```php
+* ElectionState::CANDIDATES_REGISTRATION
+* ElectionState::VOTES_REGISTRATION
+
 * public static cases () : array  
 * public static from (string|int $value) : static  
 * public static tryFrom (string|int $value) : ?static  
