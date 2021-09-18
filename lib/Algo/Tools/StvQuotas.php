@@ -12,9 +12,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
+#[PublicAPI]
 Enum StvQuotas: string
 {
     case DROOP = 'Droop Quota';
@@ -22,8 +24,14 @@ Enum StvQuotas: string
     case HAGENBACH_BISCHOFF = 'Hagenbach-Bischoff Quota';
     case IMPERIALI = 'Imperiali Quota';
 
-
-    public static function make (string $quota): self
+    #[PublicAPI]
+    #[Description("Build the Enum Quotas option for STV methods")]
+    #[FunctionReturn("The Quota option")]
+    #[Example("Manual - STV method", "https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote")]
+    public static function make (
+        #[FunctionParameter('Quota name')]
+        string $quota
+    ): self
     {
         try {
             return match (strtolower($quota)) {

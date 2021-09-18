@@ -11,6 +11,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Algo\Pairwise->getExplicitPairwise ()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md): array  
 * [public Algo\Pairwise->getObjectVersion (...)](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md): string  
 
+### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Class  
+
+* [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
+
 ### CondorcetPHP\Condorcet\Candidate Class  
 
 * [public Candidate->__construct (...)](Candidate%20Class/public%20Candidate--__construct.md)  
