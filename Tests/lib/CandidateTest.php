@@ -37,9 +37,20 @@ class CandidateTest extends TestCase
         self::assertSame('candidateName',(string) $candidate);
     }
 
-    public function testTooLongName (): never
+    public function testMatchingAndTooLongName (): never
     {
-        $name = bin2hex(random_bytes(Election::MAX_LENGTH_CANDIDATE_ID + 42));
+        $name = "";
+        while (strlen($name) < Election::MAX_LENGTH_CANDIDATE_ID):
+            $name .= uniqid();
+        endwhile;
+        $name = substr($name, 0, Election::MAX_LENGTH_CANDIDATE_ID);
+
+        // The name is exactly as long as allowed.
+        $candidate = new Candidate($name);
+        $this->assertEquals($name, (string) $candidate);
+
+        // Now the name is one character too long.
+        $name .= "A";
 
         $this->expectException(CandidateInvalidNameException::class);
         $this->expectExceptionMessage("This name is not valid: $name");
@@ -53,6 +64,14 @@ class CandidateTest extends TestCase
         $this->expectExceptionMessage("This name is not valid");
 
         new Candidate ('<$"');
+    }
+
+    public function testBadNameWithNewline (): never
+    {
+        $this->expectException(CandidateInvalidNameException::class);
+        $this->expectExceptionMessage("This name is not valid");
+
+        new Candidate ("A name with\n a newline");
     }
 
     public function testCandidateBadClass (): never
