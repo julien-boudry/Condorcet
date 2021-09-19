@@ -59,7 +59,7 @@ class Candidate implements \Stringable
             throw new CandidateInvalidNameException($name);
         endif;
 
-        if ( \preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/mi',$name) === 1 ) :
+        if ( \preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/',$name) === 1 ) :
             throw new CandidateInvalidNameException($name);
         endif;
 
@@ -72,10 +72,9 @@ class Candidate implements \Stringable
         return true;
     }
 
-    public function setProvisionalState (bool $provisional): bool
+    public function setProvisionalState (bool $provisional): void
     {
         $this->_provisional = $provisional;
-        return true;
     }
 
     // GETTERS
