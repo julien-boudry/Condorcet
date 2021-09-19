@@ -157,12 +157,20 @@ class Generate
 
         // generate .md
         foreach ($FullClassList as $FullClass) :
-            $methods = (new \ReflectionClass($FullClass))->getMethods();
+            $reflectionClass = new \ReflectionClass($FullClass);
+            $methods = ($reflectionClass)->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
+
+            $full_methods_list[$shortClass] = [
+                'FullClass' => $FullClass,
+                'shortClass' => $shortClass,
+                'ReflectionClass' => $reflectionClass,
+                'methods' => []
+            ];
 
             foreach ($methods as $oneMethod) :
 
-                $method_array = $full_methods_list[$shortClass][] = [
+                $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
                                                         'FullClass' => $FullClass,
                                                         'shortClass' => $shortClass,
                                                         'name' => $oneMethod->name,
@@ -309,9 +317,8 @@ class Generate
             return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($reflectionMethod->class),$apiAttribute[0]->getArguments(), true)));
         };
 
-        foreach ($index as $class => $methods) :
-
-            usort($methods, function (array $a, array $b) {
+        foreach ($index as $class => &$classMeta) :
+            usort($classMeta['methods'], function (array $a, array $b): int {
                 if ($a['ReflectionMethod']->isStatic() === $b['ReflectionMethod']->isStatic()) :
                     return strnatcmp($a['ReflectionMethod']->name,$b['ReflectionMethod']->name);
                 elseif ($a['ReflectionMethod']->isStatic() && !$b['ReflectionMethod']->isStatic()) :
@@ -321,13 +328,12 @@ class Generate
                 endif;
             });
 
-            $ReflectionClass = new \ReflectionClass('CondorcetPHP\Condorcet\\'.$class);
             $classWillBePublic = false;
 
-            if ($ReflectionClass->getAttributes(PublicAPI::class)) :
+            if ($classMeta['ReflectionClass']->getAttributes(PublicAPI::class)) :
                 $classWillBePublic = true;
             else :
-                foreach ($methods as $oneMethod) :
+                foreach ($classMeta['methods'] as $oneMethod) :
                     if ($testPublicAttribute($oneMethod['ReflectionMethod'])) :
                         $classWillBePublic = true;
                         break;
@@ -336,7 +342,7 @@ class Generate
             endif;
 
             if ($classWillBePublic) :
-                $isEnum = \enum_exists(($enumCases = $ReflectionClass)->name);
+                $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
 
                 $file_content .= "\n";
                 $file_content .= '### CondorcetPHP\Condorcet\\'.$class." ".((!$isEnum) ? "Class" : "Enum")."  \n\n";
@@ -348,7 +354,7 @@ class Generate
             endif;
 
 
-            foreach ($methods as $oneMethod) :
+            foreach ($classMeta['methods'] as $oneMethod) :
                 if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) :
                     continue;
                 else :
@@ -365,7 +371,6 @@ class Generate
                     $file_content .= "  \n";
                 endif;
             endforeach;
-
         endforeach;
 
         return $file_content;
@@ -389,9 +394,8 @@ class Generate
     {
         $file_content = '';
 
-        foreach ($index as $class => &$methods) :
-
-            usort($methods, function (array $a, array $b) {
+        foreach ($index as $class => &$classMeta) :
+            usort($classMeta['methods'], function (array $a, array $b): int {
                 if ($a['static'] === $b['static']) :
                     if ( $a['visibility_public'] && !$b['visibility_public'] )  :
                         return -1;
@@ -413,30 +417,27 @@ class Generate
                 endif;
             });
 
-            $ReflectionClass = new \ReflectionClass('CondorcetPHP\Condorcet\\'.$class);
-
             $file_content .= "\n";
             $file_content .= '#### ';
-            $file_content .= ($ReflectionClass->isAbstract()) ? 'Abstract ' : '';
+            $file_content .= ($classMeta['ReflectionClass']->isAbstract()) ? 'Abstract ' : '';
             $file_content .= 'CondorcetPHP\Condorcet\\'.$class.' ';
 
-            $file_content .= ($p = $ReflectionClass->getParentClass()) ? 'extends '.$p->name.' ' : '';
+            $file_content .= ($p = $classMeta['ReflectionClass']->getParentClass()) ? 'extends '.$p->name.' ' : '';
 
-            $interfaces = implode(', ', $ReflectionClass->getInterfaceNames());
+            $interfaces = implode(', ', $classMeta['ReflectionClass']->getInterfaceNames());
             $file_content .= (!empty($interfaces)) ? 'implements '.$interfaces : '';
 
             $file_content .= "  \n";
             $file_content .= "```php\n";
 
-            $isEnum = \enum_exists(($enumCases = $ReflectionClass)->name);
+            $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
 
-            if  ($isEnum) :
+            if ($isEnum) :
                 $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
                 $file_content .= "\n";
             endif;
 
-
-            foreach ($methods as $oneMethod) :
+            foreach ($classMeta['methods'] as $oneMethod) :
                 if ($oneMethod['ReflectionMethod']->isUserDefined()) :
                     $parameters = $oneMethod['ReflectionMethod']->getParameters();
                     $parameters_string = '';
@@ -470,8 +471,7 @@ class Generate
                 endif;
             endforeach;
 
-                $file_content .= "```\n";
-
+            $file_content .= "```\n";
         endforeach;
 
         return $file_content;
