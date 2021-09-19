@@ -113,22 +113,24 @@ class Generate
         $pathDirectory = $path.\DIRECTORY_SEPARATOR;
 
         //
-        $index  = [];
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = \array_filter($FullClassList, function (string $value) { return (strpos($value, 'Condorcet\Test') === FALSE) && (strpos($value, 'Condorcet\Dev') === FALSE); });
 
         $inDoc = 0;
         $non_inDoc = 0;
+        $total_methods = 0;
+        $total_nonInternal_methods = 0;
 
+        // Warnings
         foreach ($FullClassList as $FullClass) :
             $methods = (new \ReflectionClass($FullClass))->getMethods(\ReflectionMethod::IS_PUBLIC);
-            $shortClass = self::simpleClass($FullClass);
 
             foreach ($methods as $oneMethod) :
-                if ( !isset($index[$shortClass][$oneMethod->name]) && !$oneMethod->isInternal() ) :
-                    $non_inDoc++;
+                if ($oneMethod->isInternal()) :
+                elseif ( !empty($oneMethod->getAttributes(PublicAPI::class)) ) :
+                    $inDoc++;
 
-                    if (!empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getNumberOfParameters() > 0) :
+                    if ( $oneMethod->getNumberOfParameters() > 0) :
                         foreach ($oneMethod->getParameters() as $oneParameter) :
                             if (empty($oneParameter->getAttributes(FunctionParameter::class))) :
                                 var_dump('Method Has Public API attribute but parameter $'.$oneParameter->getName().' is undocumented '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
@@ -136,46 +138,32 @@ class Generate
                         endforeach;
                     endif;
 
-                    $index[$shortClass][$oneMethod->name]['ReflectionMethod'] = $oneMethod;
-                    $index[$shortClass][$oneMethod->name]['class'][] = $shortClass;
-
-                else :
-                    $inDoc++;
-
-                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
-                        var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
-                    endif;
-
                     if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
                         var_dump('Description Attribute is empty: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     endif;
-                endif;
 
-                // Write Markdown
-                if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && (empty($apiAttribute[0]->getArguments()) || in_array(self::simpleClass($oneMethod->class),$apiAttribute[0]->getArguments(), true)) ) :
-                    $path = $pathDirectory . str_replace("\\", "_", self::simpleClass($oneMethod->class)) . " Class/";
+                else :
+                    $non_inDoc++;
 
-                    if (!is_dir($path)) :
-                        mkdir($path);
+                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
+                        // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     endif;
-
-                    file_put_contents($path.self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $index[$shortClass][$oneMethod->name] ?? null));
                 endif;
+
             endforeach;
         endforeach;
 
         $full_methods_list = [];
 
-        $total_methods = 0;
-        $total_nonInternal_methods = 0;
-
+        // generate .md
         foreach ($FullClassList as $FullClass) :
             $methods = (new \ReflectionClass($FullClass))->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
             foreach ($methods as $oneMethod) :
 
-                $full_methods_list[$shortClass][] = [   'FullClass' => $FullClass,
+                $method_array = $full_methods_list[$shortClass][] = [
+                                                        'FullClass' => $FullClass,
                                                         'shortClass' => $shortClass,
                                                         'name' => $oneMethod->name,
                                                         'static' => $oneMethod->isStatic(),
@@ -192,6 +180,17 @@ class Generate
                     $total_nonInternal_methods++;
                 endif;
 
+                // Write Markdown
+                if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && (empty($apiAttribute[0]->getArguments()) || in_array(self::simpleClass($oneMethod->class),$apiAttribute[0]->getArguments(), true)) ) :
+                    $path = $pathDirectory . str_replace("\\", "_", self::simpleClass($oneMethod->class)) . " Class/";
+
+                    if (!is_dir($path)) :
+                        mkdir($path);
+                    endif;
+
+                    file_put_contents($path.self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $method_array));
+                endif;
+
             endforeach;
         endforeach;
 
@@ -199,8 +198,6 @@ class Generate
         print "Public methods in doc: ".$inDoc." / ".($inDoc + $non_inDoc)." | Total non-internal methods count: ".$total_nonInternal_methods." | Number of Class: ".count($FullClassList)." | Number of Methods including internals: ".$total_methods."\n";
 
         // Add Index
-        uksort($index,'strnatcmp');
-
         $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
 
                         "# Public API Index _(Not yet exhaustive, not yet....)*_\n".
@@ -209,7 +206,7 @@ class Generate
                         "_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
-        $file_content .= $this->makeIndex($index);
+        $file_content .= $this->makeIndex($full_methods_list);
 
         $file_content .= "\n\n\n";
 

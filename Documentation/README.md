@@ -6,20 +6,6 @@ _Not including technical public methods which ones are used for very advanced us
 _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
-### CondorcetPHP\Condorcet\Algo\Pairwise Class  
-
-* [public Algo\Pairwise->getExplicitPairwise ()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md): array  
-* [public Algo\Pairwise->getObjectVersion (...)](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md): string  
-
-### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
-
-* case Algo\Tools\StvQuotas::DROOP
-* case Algo\Tools\StvQuotas::HARE
-* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
-* case Algo\Tools\StvQuotas::IMPERIALI
-
-* [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
-
 ### CondorcetPHP\Condorcet\Candidate Class  
 
 * [public Candidate->__construct (...)](Candidate%20Class/public%20Candidate--__construct.md)  
@@ -127,11 +113,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Result->getWinner ()](Result%20Class/public%20Result--getWinner.md): CondorcetPHP\Condorcet\Candidate|array|null  
 * [public Result->isProportional ()](Result%20Class/public%20Result--isProportional.md): bool  
 
-### CondorcetPHP\Condorcet\Timer\Manager Class  
-
-* [public Timer\Manager->getHistory ()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md): array  
-* [public Timer\Manager->getObjectVersion (...)](Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md): string  
-
 ### CondorcetPHP\Condorcet\Vote Class  
 
 * [public Vote->__construct (...)](Vote%20Class/public%20Vote--__construct.md)  
@@ -158,6 +139,25 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->removeTags (...)](Vote%20Class/public%20Vote--removeTags.md): array  
 * [public Vote->setRanking (...)](Vote%20Class/public%20Vote--setRanking.md): bool  
 * [public Vote->setWeight (...)](Vote%20Class/public%20Vote--setWeight.md): int  
+
+### CondorcetPHP\Condorcet\Algo\Pairwise Class  
+
+* [public Algo\Pairwise->getExplicitPairwise ()](Algo_Pairwise%20Class/public%20Algo_Pairwise--getExplicitPairwise.md): array  
+* [public Algo\Pairwise->getObjectVersion (...)](Algo_Pairwise%20Class/public%20Algo_Pairwise--getObjectVersion.md): string  
+
+### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
+
+* case Algo\Tools\StvQuotas::DROOP
+* case Algo\Tools\StvQuotas::HARE
+* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
+* case Algo\Tools\StvQuotas::IMPERIALI
+
+* [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
+
+### CondorcetPHP\Condorcet\Timer\Manager Class  
+
+* [public Timer\Manager->getHistory ()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md): array  
+* [public Timer\Manager->getObjectVersion (...)](Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md): string  
 
 
 
