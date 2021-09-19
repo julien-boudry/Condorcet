@@ -35,7 +35,7 @@
         "phpunit/phpunit": "^9 || ^10",
         "phploc/phploc": "dev-master",
         "haydenpierce/class-finder": ">= 0.4",
-        "infection/infection": "*"
+        "infection/infection": "^0.25.2"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
