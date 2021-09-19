@@ -13,10 +13,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
 
-* Algo\Tools\StvQuotas::DROOP
-* Algo\Tools\StvQuotas::HARE
-* Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
-* Algo\Tools\StvQuotas::IMPERIALI
+* case Algo\Tools\StvQuotas::DROOP
+* case Algo\Tools\StvQuotas::HARE
+* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
+* case Algo\Tools\StvQuotas::IMPERIALI
 
 * [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
 
@@ -514,15 +514,12 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum  
 ```php
-* StvQuotas::DROOP
-* StvQuotas::HARE
-* StvQuotas::HAGENBACH_BISCHOFF
-* StvQuotas::IMPERIALI
+* case StvQuotas::DROOP
+* case StvQuotas::HARE
+* case StvQuotas::HAGENBACH_BISCHOFF
+* case StvQuotas::IMPERIALI
 
-* public static cases () : array  
-* public static from (string|int $value) : static  
 * public static make (string $quota) : self  
-* public static tryFrom (string|int $value) : ?static  
 * public getQuota (int $votesWeight, int $seats) : float  
 ```
 
@@ -845,12 +842,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum  
 ```php
-* ElectionState::CANDIDATES_REGISTRATION
-* ElectionState::VOTES_REGISTRATION
+* case ElectionState::CANDIDATES_REGISTRATION
+* case ElectionState::VOTES_REGISTRATION
 
-* public static cases () : array  
-* public static from (string|int $value) : static  
-* public static tryFrom (string|int $value) : ?static  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
@@ -900,374 +894,171 @@ _Including above methods from public API_
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateExistsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string $method = , int $maxCandidates = 0)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Stringable, Throwable  
 ```php
 * public __construct (string $message)  
-* public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Stringable, Throwable  
 ```php
-* public __construct (string $message = , int $code = 0, ?Throwable $previous = null)  
-* public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Throwable, Stringable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string $message = )  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\JsonFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
 * public __toString () : string  
-* public __wakeup ()  
-* public getCode ()  
-* public getFile () : string  
-* public getLine () : int  
-* public getMessage () : string  
 * public getObjectVersion (bool $major = false) : string  
-* public getPrevious () : ?Throwable  
-* public getTrace () : array  
-* public getTraceAsString () : string  
 ```
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   

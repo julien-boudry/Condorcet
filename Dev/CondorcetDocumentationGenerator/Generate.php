@@ -352,7 +352,7 @@ class Generate
 
 
             foreach ($methods as $oneMethod) :
-                if (!$testPublicAttribute($oneMethod['ReflectionMethod'])) :
+                if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) :
                     continue;
                 else :
                     $url = str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod'])." ". str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)."--". $oneMethod['ReflectionMethod']->name) . '.md' ;
@@ -382,7 +382,7 @@ class Generate
 
         foreach ($cases as $oneCase) :
             $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
-            $r .= '* '.$name.'::'.$oneCase->getName()."\n";
+            $r .= '* case '.$name.'::'.$oneCase->getName()."\n";
         endforeach;
 
         return $r;
@@ -440,38 +440,40 @@ class Generate
 
 
             foreach ($methods as $oneMethod) :
-                $parameters = $oneMethod['ReflectionMethod']->getParameters();
-                $parameters_string = '';
+                if ($oneMethod['ReflectionMethod']->isUserDefined()) :
+                    $parameters = $oneMethod['ReflectionMethod']->getParameters();
+                    $parameters_string = '';
 
-                $i = 0;
-                foreach ($parameters as $oneP) :
-                    $parameters_string .= (++$i > 1) ? ', ' : '';
+                    $i = 0;
+                    foreach ($parameters as $oneP) :
+                        $parameters_string .= (++$i > 1) ? ', ' : '';
 
-                    if ($oneP->getType() !== null) :
-                        $parameters_string .= self::getTypeAsString($oneP->getType()) . ' ';
+                        if ($oneP->getType() !== null) :
+                            $parameters_string .= self::getTypeAsString($oneP->getType()) . ' ';
+                        endif;
+                        $parameters_string .= '$'.$oneP->name;
+
+                        if ($oneP->isDefaultValueAvailable()) :
+                            $parameters_string .= ' = '.self::speakBool($oneP->getDefaultValue());
+                        endif;
+                    endforeach;
+
+                    $representation = ($oneMethod['visibility_public']) ? 'public ' : '';
+                    $representation .= ($oneMethod['visibility_protected']) ? 'protected ' : '';
+                    $representation .= ($oneMethod['visibility_private']) ? 'private ' : '';
+
+                    $representation .=  ($oneMethod['static']) ? 'static ' : '';
+                    $representation .=  $oneMethod['name'] . ' ('.$parameters_string.')';
+
+                    if ($oneMethod['ReflectionMethod']->hasReturnType()) :
+                        $representation .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
-                    $parameters_string .= '$'.$oneP->name;
 
-                    if ($oneP->isDefaultValueAvailable()) :
-                        $parameters_string .= ' = '.self::speakBool($oneP->getDefaultValue());
-                    endif;
-                endforeach;
-
-                $representation = ($oneMethod['visibility_public']) ? 'public ' : '';
-                $representation .= ($oneMethod['visibility_protected']) ? 'protected ' : '';
-                $representation .= ($oneMethod['visibility_private']) ? 'private ' : '';
-
-                $representation .=  ($oneMethod['static']) ? 'static ' : '';
-                $representation .=  $oneMethod['name'] . ' ('.$parameters_string.')';
-
-                if ($oneMethod['ReflectionMethod']->hasReturnType()) :
-                    $representation .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                    $file_content .= "* ".$representation."  \n";
                 endif;
-
-                $file_content .= "* ".$representation."  \n";
             endforeach;
 
-            $file_content .= "```\n";
+                $file_content .= "```\n";
 
         endforeach;
 
