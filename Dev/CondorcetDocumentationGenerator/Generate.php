@@ -466,7 +466,7 @@ class Generate
                     $representation .=  $oneMethod['name'] . ' ('.$parameters_string.')';
 
                     if ($oneMethod['ReflectionMethod']->hasReturnType()) :
-                        $representation .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                        $representation .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
 
                     $file_content .= "* ".$representation."  \n";

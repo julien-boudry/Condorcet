@@ -167,349 +167,349 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getScoreByCandidateRanking (int $CandidatesRanked) : float  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getScoreByCandidateRanking (int $CandidatesRanked): float  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getScoreByCandidateRanking (int $CandidatesRanked) : float  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getScoreByCandidateRanking (int $CandidatesRanked): float  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getLoser () : ?int  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : never  
-* public getWinner () : ?int  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
+* public getLoser (): ?int  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): never  
+* public getWinner (): ?int  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeScore (array $candidateDone) : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeScore (array $candidateDone): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected calcPossibleRanking () : void  
-* protected calcRankingScore () : void  
-* protected conflictInfos () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected calcPossibleRanking (): void  
+* protected calcRankingScore (): void  
+* protected conflictInfos (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected doOneRound () : array  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected doOneRound (): array  
+* protected getStats (): array  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected doOneRound () : array  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected doOneRound (): array  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected doOneRound () : array  
-* protected getStats () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected doOneRound (): array  
+* protected getStats (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected looking (array $challenge) : int  
-* protected makeRanking () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected looking (array $challenge): int  
+* protected makeRanking (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
-* protected getArcsInCycle (array $virtualArcs) : array  
-* protected getStats () : array  
-* protected getWinners (array $alreadyDone) : array  
-* protected makeArcs () : void  
-* protected makeResult () : array  
-* protected pairwiseSort () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
+* protected getArcsInCycle (array $virtualArcs): array  
+* protected getStats (): array  
+* protected getWinners (array $alreadyDone): array  
+* protected makeArcs (): void  
+* protected makeResult (): array  
+* protected pairwiseSort (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
-* protected getArcsInCycle (array $virtualArcs) : array  
-* protected getStats () : array  
-* protected getWinners (array $alreadyDone) : array  
-* protected makeArcs () : void  
-* protected makeResult () : array  
-* protected pairwiseSort () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
+* protected getArcsInCycle (array $virtualArcs): array  
+* protected getStats (): array  
+* protected getWinners (array $alreadyDone): array  
+* protected makeArcs (): void  
+* protected makeResult (): array  
+* protected pairwiseSort (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []) : array  
-* protected getArcsInCycle (array $virtualArcs) : array  
-* protected getStats () : array  
-* protected getWinners (array $alreadyDone) : array  
-* protected makeArcs () : void  
-* protected makeResult () : array  
-* protected pairwiseSort () : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
+* protected getArcsInCycle (array $virtualArcs): array  
+* protected getStats (): array  
+* protected getWinners (array $alreadyDone): array  
+* protected makeArcs (): void  
+* protected makeResult (): array  
+* protected pairwiseSort (): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected compute () : void  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeScore (array $surplus, array $candidateElected, array $candidateEliminated) : array  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeScore (array $surplus, array $candidateElected, array $candidateEliminated): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeRanking () : void  
-* protected makeStrongestPaths () : void  
-* protected prepareStrongestPath () : void  
-* protected schulzeVariant (int $i, int $j) : int  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeRanking (): void  
+* protected makeStrongestPaths (): void  
+* protected prepareStrongestPath (): void  
+* protected schulzeVariant (int $i, int $j): int  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeRanking () : void  
-* protected makeStrongestPaths () : void  
-* protected prepareStrongestPath () : void  
-* protected schulzeVariant (int $i, int $j) : float  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeRanking (): void  
+* protected makeStrongestPaths (): void  
+* protected prepareStrongestPath (): void  
+* protected schulzeVariant (int $i, int $j): float  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeRanking () : void  
-* protected makeStrongestPaths () : void  
-* protected prepareStrongestPath () : void  
-* protected schulzeVariant (int $i, int $j) : int  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeRanking (): void  
+* protected makeStrongestPaths (): void  
+* protected prepareStrongestPath (): void  
+* protected schulzeVariant (int $i, int $j): int  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
-* public static setOption (string $optionName, BackedEnum|int $optionValue) : bool  
+* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
-* public getObjectVersion (bool $major = false) : string  
-* public getResult () : CondorcetPHP\Condorcet\Result  
-* protected createResult (array $result) : CondorcetPHP\Condorcet\Result  
-* protected getStats () : array  
-* protected makeRanking () : void  
-* protected makeStrongestPaths () : void  
-* protected prepareStrongestPath () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getStats (): array  
+* protected makeRanking (): void  
+* protected makeStrongestPaths (): void  
+* protected prepareStrongestPath (): void  
 * protected schulzeVariant (int $i, int $j)  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
 ```php
-* public __clone () : void  
+* public __clone (): void  
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public __destruct ()  
-* public addNewVote (int $key) : void  
-* public current () : array  
-* public getExplicitPairwise () : array  
-* public getObjectVersion (bool $major = false) : string  
-* public key () : ?int  
-* public next () : void  
-* public offsetExists ($offset) : bool  
-* public offsetGet ($offset) : ?array  
-* public offsetSet ($offset, $value) : void  
-* public offsetUnset ($offset) : void  
-* public removeVote (int $key) : void  
-* public rewind () : void  
-* public setElection (CondorcetPHP\Condorcet\Election $election) : void  
-* public valid () : bool  
-* protected computeOneVote (array $pairwise, CondorcetPHP\Condorcet\Vote $oneVote) : void  
-* protected doPairwise () : void  
-* protected formatNewpairwise () : void  
+* public addNewVote (int $key): void  
+* public current (): array  
+* public getExplicitPairwise (): array  
+* public getObjectVersion (bool $major = false): string  
+* public key (): ?int  
+* public next (): void  
+* public offsetExists ($offset): bool  
+* public offsetGet ($offset): ?array  
+* public offsetSet ($offset, $value): void  
+* public offsetUnset ($offset): void  
+* public removeVote (int $key): void  
+* public rewind (): void  
+* public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* public valid (): bool  
+* protected computeOneVote (array $pairwise, CondorcetPHP\Condorcet\Vote $oneVote): void  
+* protected doPairwise (): void  
+* protected formatNewpairwise (): void  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats   
 ```php
-* public static PairwiseComparison (CondorcetPHP\Condorcet\Algo\Pairwise $pairwise) : array  
+* public static PairwiseComparison (CondorcetPHP\Condorcet\Algo\Pairwise $pairwise): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Tools\Permutation   
 ```php
-* public static countPossiblePermutations (int $candidatesNumber) : int  
+* public static countPossiblePermutations (int $candidatesNumber): int  
 * public __construct (int $arr_count)  
-* public getResults () : array  
-* public writeResults (string $path) : void  
-* protected createCandidates () : array  
-* private _exec (array|int $a, array $i = []) : void  
-* private _permute (array $arr) : array|int  
+* public getResults (): array  
+* public writeResults (string $path): void  
+* protected createCandidates (): array  
+* private _exec (array|int $a, array $i = []): void  
+* private _permute (array $arr): array|int  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum  
@@ -519,75 +519,75 @@ _Including above methods from public API_
 * case StvQuotas::HAGENBACH_BISCHOFF
 * case StvQuotas::IMPERIALI
 
-* public static make (string $quota) : self  
-* public getQuota (int $votesWeight, int $seats) : float  
+* public static make (string $quota): self  
+* public getQuota (int $votesWeight, int $seats): float  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection   
 ```php
-* public static tieBreaker_1 (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys) : array  
+* public static tieBreaker_1 (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys): array  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
 ```php
-* public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList) : CondorcetPHP\Condorcet\Vote  
+* public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList): CondorcetPHP\Condorcet\Vote  
 ```
 
 #### CondorcetPHP\Condorcet\Candidate implements Stringable  
 ```php
-* public __clone () : void  
+* public __clone (): void  
 * public __construct (string $name)  
 * public __destruct ()  
-* public __toString () : string  
-* public countLinks () : int  
-* public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
-* public getCreateTimestamp () : float  
-* public getHistory () : array  
-* public getLinks () : ?array  
-* public getName () : string  
-* public getObjectVersion (bool $major = false) : string  
-* public getProvisionalState () : bool  
-* public getTimestamp () : float  
-* public haveLink (CondorcetPHP\Condorcet\Election $election) : bool  
-* public registerLink (CondorcetPHP\Condorcet\Election $election) : void  
-* public setName (string $name) : bool  
-* public setProvisionalState (bool $provisional) : bool  
-* protected destroyAllLink () : void  
-* private checkNameInElectionContext (string $name) : bool  
+* public __toString (): string  
+* public countLinks (): int  
+* public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
+* public getCreateTimestamp (): float  
+* public getHistory (): array  
+* public getLinks (): ?array  
+* public getName (): string  
+* public getObjectVersion (bool $major = false): string  
+* public getProvisionalState (): bool  
+* public getTimestamp (): float  
+* public haveLink (CondorcetPHP\Condorcet\Election $election): bool  
+* public registerLink (CondorcetPHP\Condorcet\Election $election): void  
+* public setName (string $name): bool  
+* public setProvisionalState (bool $provisional): bool  
+* protected destroyAllLink (): void  
+* private checkNameInElectionContext (string $name): bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
 ```php
-* public static addMethod (string $methodClass) : bool  
-* public static condorcetBasicSubstitution (?string $substitution) : string  
-* public static getAuthMethods (bool $basic = false) : array  
-* public static getDefaultMethod () : ?string  
-* public static getMethodClass (string $method) : ?string  
-* public static getVersion (bool $major = false) : string  
-* public static isAuthMethod (string $method) : bool  
-* public static setDefaultMethod (string $method) : bool  
-* protected static testMethod (string $method) : bool  
+* public static addMethod (string $methodClass): bool  
+* public static condorcetBasicSubstitution (?string $substitution): string  
+* public static getAuthMethods (bool $basic = false): array  
+* public static getDefaultMethod (): ?string  
+* public static getMethodClass (string $method): ?string  
+* public static getVersion (bool $major = false): string  
+* public static isAuthMethod (string $method): bool  
+* public static setDefaultMethod (string $method): bool  
+* protected static testMethod (string $method): bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
 ```php
-* public static format (mixed $input, bool $convertObject = true) : mixed  
-* public static isJson (string $string) : bool  
-* public static prepareJson (string $input) : mixed  
-* public static prepareParse (string $input, bool $isFile) : array  
+* public static format (mixed $input, bool $convertObject = true): mixed  
+* public static isJson (string $string): bool  
+* public static prepareJson (string $input): mixed  
+* public static prepareParse (string $input, bool $isFile): array  
 ```
 
 #### CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command   
 ```php
-* public static getDefaultDescription () : ?string  
+* public static getDefaultDescription (): ?string  
 * public static getDefaultName ()  
 * public __construct (?string $name = null)  
 * public addArgument (string $name, ?int $mode = null, string $description = , $default = null)  
 * public addOption (string $name, $shortcut = null, ?int $mode = null, string $description = , $default = null)  
 * public addUsage (string $usage)  
-* public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output) : void  
-* public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output) : void  
-* public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
+* public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output): void  
+* public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output): void  
+* public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public getAliases ()  
 * public getApplication ()  
 * public getDefinition ()  
@@ -615,229 +615,229 @@ _Including above methods from public API_
 * public setHidden (bool $hidden)  
 * public setName (string $name)  
 * public setProcessTitle (string $title)  
-* protected configure () : void  
-* protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output) : void  
-* protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : int  
-* protected formatResultTable (CondorcetPHP\Condorcet\Result $result) : array  
-* protected getFilePath (string $path) : ?string  
-* protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
-* protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
-* protected isAbsolute (string $path) : bool  
-* protected prepareMethods (array $methodArgument) : array  
-* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output) : void  
-* protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input) : ?Closure  
+* protected configure (): void  
+* protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
+* protected formatResultTable (CondorcetPHP\Condorcet\Result $result): array  
+* protected getFilePath (string $path): ?string  
+* protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected isAbsolute (string $path): bool  
+* protected prepareMethods (array $methodArgument): array  
+* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input): ?Closure  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication   
 ```php
-* public static create () : bool  
-* public static run () : void  
+* public static create (): bool  
+* public static run (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Constraints\NoTie extends CondorcetPHP\Condorcet\VoteConstraint   
 ```php
-* public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote) : bool  
-* protected static evaluateVote (array $vote) : bool  
+* public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote): bool  
+* protected static evaluateVote (array $vote): bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
-* public __clone () : void  
+* public __clone (): void  
 * public __construct ()  
 * public __destruct ()  
-* public __serialize () : array  
-* public __unserialize (array $data) : void  
-* public checkRegularize () : bool  
-* public clearCache () : void  
-* public closeHandler () : void  
-* public count () : int  
-* public current () : mixed  
-* public debugGetCache () : array  
-* public getCacheSize () : int  
-* public getContainerSize () : int  
-* public getFirstKey () : int  
-* public getFullDataSet () : array  
-* public getObjectVersion (bool $major = false) : string  
-* public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
-* public isUsingHandler () : bool  
-* public key () : ?int  
-* public keyExist ($offset) : bool  
-* public next () : void  
-* public offsetExists ($offset) : bool  
-* public offsetGet ($offset) : mixed  
-* public offsetSet ($offset, $value) : void  
-* public offsetUnset ($offset) : void  
-* public regularize () : bool  
-* public resetCounter () : int  
-* public resetMaxKey () : ?int  
-* public rewind () : void  
-* public valid () : bool  
-* protected decodeManyEntities (array $entities) : array  
-* protected decodeOneEntity (string $data) : CondorcetPHP\Condorcet\Vote  
-* protected encodeManyEntities (array $entities) : array  
-* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data) : string  
-* protected populateCache () : void  
-* protected preDeletedTask ($object) : void  
-* protected setCursorOnNextKeyInArray (array $array) : void  
+* public __serialize (): array  
+* public __unserialize (array $data): void  
+* public checkRegularize (): bool  
+* public clearCache (): void  
+* public closeHandler (): void  
+* public count (): int  
+* public current (): mixed  
+* public debugGetCache (): array  
+* public getCacheSize (): int  
+* public getContainerSize (): int  
+* public getFirstKey (): int  
+* public getFullDataSet (): array  
+* public getObjectVersion (bool $major = false): string  
+* public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler): bool  
+* public isUsingHandler (): bool  
+* public key (): ?int  
+* public keyExist ($offset): bool  
+* public next (): void  
+* public offsetExists ($offset): bool  
+* public offsetGet ($offset): mixed  
+* public offsetSet ($offset, $value): void  
+* public offsetUnset ($offset): void  
+* public regularize (): bool  
+* public resetCounter (): int  
+* public resetMaxKey (): ?int  
+* public rewind (): void  
+* public valid (): bool  
+* protected decodeManyEntities (array $entities): array  
+* protected decodeOneEntity (string $data): CondorcetPHP\Condorcet\Vote  
+* protected encodeManyEntities (array $entities): array  
+* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data): string  
+* protected populateCache (): void  
+* protected preDeletedTask ($object): void  
+* protected setCursorOnNextKeyInArray (array $array): void  
 ```
 
 #### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
 ```php
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
-* public closeTransaction () : void  
-* public countEntities () : int  
-* public createTable () : void  
-* public deleteOneEntity (int $key, bool $justTry) : ?int  
-* public getObjectVersion (bool $major = false) : string  
-* public insertEntities (array $input) : void  
-* public selectMaxKey () : ?int  
-* public selectMinKey () : int  
-* public selectOneEntity (int $key) : string|bool  
-* public selectRangeEntities (int $key, int $limit) : array  
-* protected checkStructureTemplate (array $struct) : bool  
-* protected initPrepareQuery () : void  
-* protected initTransaction () : void  
-* protected sliceInput (array $input) : void  
+* public closeTransaction (): void  
+* public countEntities (): int  
+* public createTable (): void  
+* public deleteOneEntity (int $key, bool $justTry): ?int  
+* public getObjectVersion (bool $major = false): string  
+* public insertEntities (array $input): void  
+* public selectMaxKey (): ?int  
+* public selectMinKey (): int  
+* public selectOneEntity (int $key): string|bool  
+* public selectRangeEntities (int $key, int $limit): array  
+* protected checkStructureTemplate (array $struct): bool  
+* protected initPrepareQuery (): void  
+* protected initTransaction (): void  
+* protected sliceInput (array $input): void  
 ```
 
 #### CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess  
 ```php
-* public UpdateAndResetComputing (int $key, int $type) : void  
-* public __clone () : void  
+* public UpdateAndResetComputing (int $key, int $type): void  
+* public __clone (): void  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
 * public __destruct ()  
-* public __serialize () : array  
-* public __unserialize (array $data) : void  
-* public checkRegularize () : bool  
-* public clearCache () : void  
-* public closeHandler () : void  
-* public count () : int  
-* public countInvalidVoteWithConstraints () : int  
-* public countVotes (?array $tag, bool $with) : int  
-* public current () : mixed  
-* public debugGetCache () : array  
-* public destroyElection () : void  
-* public getCacheSize () : int  
-* public getContainerSize () : int  
-* public getElection () : CondorcetPHP\Condorcet\Election  
-* public getFirstKey () : int  
-* public getFullDataSet () : array  
-* public getObjectVersion (bool $major = false) : string  
-* public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
-* public getVotesList (?array $tags = null, bool $with = true) : array  
-* public getVotesListAsString () : string  
-* public getVotesListGenerator (?array $tags = null, bool $with = true) : Generator  
-* public getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true) : Generator  
-* public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler) : bool  
-* public isUsingHandler () : bool  
-* public key () : ?int  
-* public keyExist ($offset) : bool  
-* public next () : void  
-* public offsetExists ($offset) : bool  
-* public offsetGet ($offset) : ?CondorcetPHP\Condorcet\Vote  
-* public offsetSet ($offset, $value) : void  
-* public offsetUnset ($offset) : void  
-* public regularize () : bool  
-* public resetCounter () : int  
-* public resetMaxKey () : ?int  
-* public rewind () : void  
-* public setElection (CondorcetPHP\Condorcet\Election $election) : void  
-* public sumVotesWeight (bool $constraint = false) : int  
-* public valid () : bool  
-* protected decodeManyEntities (array $entities) : array  
-* protected decodeOneEntity (string $data) : CondorcetPHP\Condorcet\Vote  
-* protected encodeManyEntities (array $entities) : array  
-* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data) : string  
-* protected getFullVotesListGenerator () : Generator  
-* protected getPartialVotesListGenerator (array $tags, bool $with) : Generator  
-* protected populateCache () : void  
-* protected preDeletedTask ($object) : void  
-* protected setCursorOnNextKeyInArray (array $array) : void  
+* public __serialize (): array  
+* public __unserialize (array $data): void  
+* public checkRegularize (): bool  
+* public clearCache (): void  
+* public closeHandler (): void  
+* public count (): int  
+* public countInvalidVoteWithConstraints (): int  
+* public countVotes (?array $tag, bool $with): int  
+* public current (): mixed  
+* public debugGetCache (): array  
+* public destroyElection (): void  
+* public getCacheSize (): int  
+* public getContainerSize (): int  
+* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getFirstKey (): int  
+* public getFullDataSet (): array  
+* public getObjectVersion (bool $major = false): string  
+* public getVoteKey (CondorcetPHP\Condorcet\Vote $vote): ?int  
+* public getVotesList (?array $tags = null, bool $with = true): array  
+* public getVotesListAsString (): string  
+* public getVotesListGenerator (?array $tags = null, bool $with = true): Generator  
+* public getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true): Generator  
+* public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler): bool  
+* public isUsingHandler (): bool  
+* public key (): ?int  
+* public keyExist ($offset): bool  
+* public next (): void  
+* public offsetExists ($offset): bool  
+* public offsetGet ($offset): ?CondorcetPHP\Condorcet\Vote  
+* public offsetSet ($offset, $value): void  
+* public offsetUnset ($offset): void  
+* public regularize (): bool  
+* public resetCounter (): int  
+* public resetMaxKey (): ?int  
+* public rewind (): void  
+* public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* public sumVotesWeight (bool $constraint = false): int  
+* public valid (): bool  
+* protected decodeManyEntities (array $entities): array  
+* protected decodeOneEntity (string $data): CondorcetPHP\Condorcet\Vote  
+* protected encodeManyEntities (array $entities): array  
+* protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data): string  
+* protected getFullVotesListGenerator (): Generator  
+* protected getPartialVotesListGenerator (array $tags, bool $with): Generator  
+* protected populateCache (): void  
+* protected preDeletedTask ($object): void  
+* protected setCursorOnNextKeyInArray (array $array): void  
 ```
 
 #### CondorcetPHP\Condorcet\Election   
 ```php
-* public static setMaxParseIteration (?int $maxParseIterations) : ?int  
-* public static setMaxVoteNumber (?int $maxVotesNumber) : ?int  
-* protected static formatResultOptions (array $arg) : array  
-* public __clone () : void  
+* public static setMaxParseIteration (?int $maxParseIterations): ?int  
+* public static setMaxVoteNumber (?int $maxVotesNumber): ?int  
+* protected static formatResultOptions (array $arg): array  
+* public __clone (): void  
 * public __construct ()  
 * public __destruct ()  
-* public __serialize () : array  
-* public __unserialize (array $data) : void  
-* public addCandidate (CondorcetPHP\Condorcet\Candidate|string|null $candidate = null) : CondorcetPHP\Condorcet\Candidate  
-* public addCandidatesFromJson (string $input) : array  
-* public addConstraint (string $constraintClass) : bool  
-* public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null) : CondorcetPHP\Condorcet\Vote  
-* public addVotesFromJson (string $input) : int  
-* public allowsVoteWeight (bool $rule = true) : bool  
-* public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate) : bool  
-* public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote) : bool  
-* public cleanupCalculator () : void  
-* public clearConstraints () : bool  
-* public computeResult (?string $method = null) : void  
-* public convertRankingCandidates (array $ranking) : bool  
-* public countCandidates () : int  
-* public countInvalidVoteWithConstraints () : int  
-* public countValidVoteWithConstraints () : int  
-* public countVotes (array|string|null $tags = null, bool $with = true) : int  
-* public debugGetCalculator () : ?array  
-* public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
-* public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate) : ?int  
-* public getCandidateObjectFromKey (int $candidate_key) : ?CondorcetPHP\Condorcet\Candidate  
-* public getCandidateObjectFromName (string $candidateName) : ?CondorcetPHP\Condorcet\Candidate  
-* public getCandidatesList () : array  
-* public getCandidatesListAsString () : array  
-* public getChecksum () : string  
-* public getCondorcetLoser () : ?CondorcetPHP\Condorcet\Candidate  
-* public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
-* public getConstraints () : array  
-* public getExplicitPairwise () : array  
-* public getGlobalTimer () : float  
-* public getImplicitRankingRule () : bool  
-* public getLastTimer () : float  
-* public getLoser (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
-* public getNumberOfSeats () : int  
-* public getObjectVersion (bool $major = false) : string  
-* public getPairwise () : CondorcetPHP\Condorcet\Algo\Pairwise  
-* public getResult (?string $method = null, array $options = []) : CondorcetPHP\Condorcet\Result  
-* public getState () : CondorcetPHP\Condorcet\ElectionProcess\ElectionState  
-* public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
-* public getVoteKey (CondorcetPHP\Condorcet\Vote $vote) : ?int  
-* public getVotesList (array|string|null $tags = null, bool $with = true) : array  
-* public getVotesListAsString () : string  
-* public getVotesListGenerator (array|string|null $tags = null, bool $with = true) : Generator  
-* public getVotesManager () : CondorcetPHP\Condorcet\DataManager\VotesManager  
-* public getVotesValidUnderConstraintGenerator (array|string|null $tags = null, bool $with = true) : Generator  
-* public getWinner (?string $method = null) : CondorcetPHP\Condorcet\Candidate|array|null  
-* public isRegisteredCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true) : bool  
-* public isVoteWeightAllowed () : bool  
-* public parseCandidates (string $input, bool $isFile = false) : array  
-* public parseVotes (string $input, bool $isFile = false) : int  
-* public parseVotesWithoutFail (string $input, bool $isFile = false, ?Closure $callBack = null) : int  
-* public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote) : void  
-* public removeCandidates (CondorcetPHP\Condorcet\Candidate|array|string $candidates_input) : array  
-* public removeExternalDataHandler () : bool  
-* public removeVote (CondorcetPHP\Condorcet\Vote $vote) : bool  
-* public removeVotesByTags (array|string $tags, bool $with = true) : array  
-* public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver) : bool  
-* public setImplicitRanking (bool $rule = true) : bool  
-* public setMethodOption (string $method, string $optionName, BackedEnum|int $optionValue) : bool  
-* public setNumberOfSeats (int $seats) : int  
-* public setStateToVote () : bool  
-* public sumValidVotesWeightWithConstraints () : int  
-* public sumVotesWeight () : int  
-* public testIfVoteIsValidUnderElectionConstraints (CondorcetPHP\Condorcet\Vote $vote) : bool  
-* protected cleanupCompute () : void  
-* protected destroyAllLink () : void  
-* protected doAddVotesFromParse (array $adding) : void  
-* protected initResult (string $class) : void  
-* protected makePairwise () : void  
-* protected preparePairwiseAndCleanCompute () : bool  
-* protected prepareVoteInput (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null) : void  
-* protected registerAllLinks () : void  
-* protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags) : CondorcetPHP\Condorcet\Vote  
-* protected synthesisVoteFromParse (int $count, int $multiple, array $adding, CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags, int $weight) : void  
+* public __serialize (): array  
+* public __unserialize (array $data): void  
+* public addCandidate (CondorcetPHP\Condorcet\Candidate|string|null $candidate = null): CondorcetPHP\Condorcet\Candidate  
+* public addCandidatesFromJson (string $input): array  
+* public addConstraint (string $constraintClass): bool  
+* public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): CondorcetPHP\Condorcet\Vote  
+* public addVotesFromJson (string $input): int  
+* public allowsVoteWeight (bool $rule = true): bool  
+* public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): bool  
+* public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote): bool  
+* public cleanupCalculator (): void  
+* public clearConstraints (): bool  
+* public computeResult (?string $method = null): void  
+* public convertRankingCandidates (array $ranking): bool  
+* public countCandidates (): int  
+* public countInvalidVoteWithConstraints (): int  
+* public countValidVoteWithConstraints (): int  
+* public countVotes (array|string|null $tags = null, bool $with = true): int  
+* public debugGetCalculator (): ?array  
+* public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote): void  
+* public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate): ?int  
+* public getCandidateObjectFromKey (int $candidate_key): ?CondorcetPHP\Condorcet\Candidate  
+* public getCandidateObjectFromName (string $candidateName): ?CondorcetPHP\Condorcet\Candidate  
+* public getCandidatesList (): array  
+* public getCandidatesListAsString (): array  
+* public getChecksum (): string  
+* public getCondorcetLoser (): ?CondorcetPHP\Condorcet\Candidate  
+* public getCondorcetWinner (): ?CondorcetPHP\Condorcet\Candidate  
+* public getConstraints (): array  
+* public getExplicitPairwise (): array  
+* public getGlobalTimer (): float  
+* public getImplicitRankingRule (): bool  
+* public getLastTimer (): float  
+* public getLoser (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
+* public getNumberOfSeats (): int  
+* public getObjectVersion (bool $major = false): string  
+* public getPairwise (): CondorcetPHP\Condorcet\Algo\Pairwise  
+* public getResult (?string $method = null, array $options = []): CondorcetPHP\Condorcet\Result  
+* public getState (): CondorcetPHP\Condorcet\ElectionProcess\ElectionState  
+* public getTimerManager (): CondorcetPHP\Condorcet\Timer\Manager  
+* public getVoteKey (CondorcetPHP\Condorcet\Vote $vote): ?int  
+* public getVotesList (array|string|null $tags = null, bool $with = true): array  
+* public getVotesListAsString (): string  
+* public getVotesListGenerator (array|string|null $tags = null, bool $with = true): Generator  
+* public getVotesManager (): CondorcetPHP\Condorcet\DataManager\VotesManager  
+* public getVotesValidUnderConstraintGenerator (array|string|null $tags = null, bool $with = true): Generator  
+* public getWinner (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
+* public isRegisteredCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true): bool  
+* public isVoteWeightAllowed (): bool  
+* public parseCandidates (string $input, bool $isFile = false): array  
+* public parseVotes (string $input, bool $isFile = false): int  
+* public parseVotesWithoutFail (string $input, bool $isFile = false, ?Closure $callBack = null): int  
+* public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote): void  
+* public removeCandidates (CondorcetPHP\Condorcet\Candidate|array|string $candidates_input): array  
+* public removeExternalDataHandler (): bool  
+* public removeVote (CondorcetPHP\Condorcet\Vote $vote): bool  
+* public removeVotesByTags (array|string $tags, bool $with = true): array  
+* public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): bool  
+* public setImplicitRanking (bool $rule = true): bool  
+* public setMethodOption (string $method, string $optionName, BackedEnum|int $optionValue): bool  
+* public setNumberOfSeats (int $seats): int  
+* public setStateToVote (): bool  
+* public sumValidVotesWeightWithConstraints (): int  
+* public sumVotesWeight (): int  
+* public testIfVoteIsValidUnderElectionConstraints (CondorcetPHP\Condorcet\Vote $vote): bool  
+* protected cleanupCompute (): void  
+* protected destroyAllLink (): void  
+* protected doAddVotesFromParse (array $adding): void  
+* protected initResult (string $class): void  
+* protected makePairwise (): void  
+* protected preparePairwiseAndCleanCompute (): bool  
+* protected prepareVoteInput (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): void  
+* protected registerAllLinks (): void  
+* protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags): CondorcetPHP\Condorcet\Vote  
+* protected synthesisVoteFromParse (int $count, int $multiple, array $adding, CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags, int $weight): void  
 ```
 
 #### CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum  
@@ -849,93 +849,93 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
 ```php
-* public static convertVoteInput (string $formula) : array  
-* public static getRankingAsString (array $ranking) : string  
-* public static parseAnalysingOneLine (int|bool $searchCharacter, string $line) : int  
-* public static tagsConvert (array|string|null $tags) : ?array  
+* public static convertVoteInput (string $formula): array  
+* public static getRankingAsString (array $ranking): string  
+* public static parseAnalysingOneLine (int|bool $searchCharacter, string $line): int  
+* public static tagsConvert (array|string|null $tags): ?array  
 ```
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])  
-* public addWarning (int $type, ?string $msg = null) : bool  
-* public count () : int  
-* public current () : CondorcetPHP\Condorcet\Candidate|array  
-* public getBuildTimeStamp () : float  
-* public getClassGenerator () : string  
-* public getCondorcetElectionGeneratorVersion () : string  
-* public getCondorcetLoser () : ?CondorcetPHP\Condorcet\Candidate  
-* public getCondorcetWinner () : ?CondorcetPHP\Condorcet\Candidate  
-* public getLoser () : CondorcetPHP\Condorcet\Candidate|array|null  
-* public getMethod () : string  
-* public getMethodOptions () : array  
-* public getNumberOfSeats () : ?int  
-* public getObjectVersion (bool $major = false) : string  
-* public getOriginalResultArrayWithString () : array  
-* public getResultAsArray (bool $convertToString = false) : array  
-* public getResultAsInternalKey () : array  
-* public getResultAsString () : string  
-* public getStats () : mixed  
-* public getWarning (?int $type = null) : array  
-* public getWinner () : CondorcetPHP\Condorcet\Candidate|array|null  
-* public isProportional () : bool  
-* public key () : int  
-* public next () : void  
-* public offsetExists ($offset) : bool  
-* public offsetGet ($offset) : CondorcetPHP\Condorcet\Candidate|array|null  
-* public offsetSet ($offset, $value) : void  
-* public offsetUnset ($offset) : void  
-* public rewind () : void  
-* public valid () : bool  
-* protected makeUserResult (CondorcetPHP\Condorcet\Election $election) : array  
+* public addWarning (int $type, ?string $msg = null): bool  
+* public count (): int  
+* public current (): CondorcetPHP\Condorcet\Candidate|array  
+* public getBuildTimeStamp (): float  
+* public getClassGenerator (): string  
+* public getCondorcetElectionGeneratorVersion (): string  
+* public getCondorcetLoser (): ?CondorcetPHP\Condorcet\Candidate  
+* public getCondorcetWinner (): ?CondorcetPHP\Condorcet\Candidate  
+* public getLoser (): CondorcetPHP\Condorcet\Candidate|array|null  
+* public getMethod (): string  
+* public getMethodOptions (): array  
+* public getNumberOfSeats (): ?int  
+* public getObjectVersion (bool $major = false): string  
+* public getOriginalResultArrayWithString (): array  
+* public getResultAsArray (bool $convertToString = false): array  
+* public getResultAsInternalKey (): array  
+* public getResultAsString (): string  
+* public getStats (): mixed  
+* public getWarning (?int $type = null): array  
+* public getWinner (): CondorcetPHP\Condorcet\Candidate|array|null  
+* public isProportional (): bool  
+* public key (): int  
+* public next (): void  
+* public offsetExists ($offset): bool  
+* public offsetGet ($offset): CondorcetPHP\Condorcet\Candidate|array|null  
+* public offsetSet ($offset, $value): void  
+* public offsetUnset ($offset): void  
+* public rewind (): void  
+* public valid (): bool  
+* protected makeUserResult (CondorcetPHP\Condorcet\Election $election): array  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\AlgorithmException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateExistsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string $method = , int $maxCandidates = 0)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Stringable, Throwable  
 ```php
 * public __construct (string $message)  
-* public getObjectVersion (bool $major = false) : string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Stringable, Throwable  
@@ -945,191 +945,191 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Throwable, Stringable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string $message = )  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\JsonFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
 ```php
 * public __construct (string|int|null $message = null)  
-* public __toString () : string  
-* public getObjectVersion (bool $major = false) : string  
+* public __toString (): string  
+* public getObjectVersion (bool $major = false): string  
 ```
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   
 ```php
 * public __construct (CondorcetPHP\Condorcet\Timer\Manager $timer, ?string $role = null)  
 * public __destruct ()  
-* public getObjectVersion (bool $major = false) : string  
-* public getRole () : ?string  
-* public getStart () : float  
-* public getTimerManager () : CondorcetPHP\Condorcet\Timer\Manager  
-* public setRole (?string $role) : void  
-* protected managerStartDeclare () : void  
-* protected resetStart () : void  
+* public getObjectVersion (bool $major = false): string  
+* public getRole (): ?string  
+* public getStart (): float  
+* public getTimerManager (): CondorcetPHP\Condorcet\Timer\Manager  
+* public setRole (?string $role): void  
+* protected managerStartDeclare (): void  
+* protected resetStart (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Timer\Manager   
 ```php
-* public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
-* public getGlobalTimer () : float  
-* public getHistory () : array  
-* public getLastTimer () : float  
-* public getObjectVersion (bool $major = false) : string  
-* public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono) : void  
+* public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
+* public getGlobalTimer (): float  
+* public getHistory (): array  
+* public getLastTimer (): float  
+* public getObjectVersion (bool $major = false): string  
+* public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
 ```
 
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
 ```php
-* public __clone () : void  
+* public __clone (): void  
 * public __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
 * public __destruct ()  
-* public __serialize () : array  
-* public __toString () : string  
-* public addTags (array|string $tags) : bool  
-* public countLinks () : int  
-* public countRankingCandidates () : int  
-* public current () : array  
-* public destroyLink (CondorcetPHP\Condorcet\Election $election) : bool  
-* public getAllCandidates () : array  
-* public getContextualRanking (CondorcetPHP\Condorcet\Election $election) : array  
-* public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election) : array  
-* public getCreateTimestamp () : float  
-* public getHashCode () : string  
-* public getHistory () : array  
-* public getLinks () : ?array  
-* public getObjectVersion (bool $major = false) : string  
-* public getRanking () : array  
-* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true) : string  
-* public getTags () : array  
-* public getTagsAsString () : string  
-* public getTimestamp () : float  
-* public getWeight (?CondorcetPHP\Condorcet\Election $context = null) : int  
-* public haveLink (CondorcetPHP\Condorcet\Election $election) : bool  
-* public key () : int  
-* public next () : void  
-* public registerLink (CondorcetPHP\Condorcet\Election $election) : void  
-* public removeAllTags () : bool  
-* public removeCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate) : bool  
-* public removeTags (array|string $tags) : array  
-* public rewind () : void  
-* public setRanking (array|string $ranking, ?float $ownTimestamp = null) : bool  
-* public setWeight (int $newWeight) : int  
-* public valid () : bool  
-* protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0) : array  
-* protected destroyAllLink () : void  
-* private archiveRanking () : void  
-* private formatRanking (array|string $ranking) : int  
-* private setHashCode () : string  
+* public __serialize (): array  
+* public __toString (): string  
+* public addTags (array|string $tags): bool  
+* public countLinks (): int  
+* public countRankingCandidates (): int  
+* public current (): array  
+* public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
+* public getAllCandidates (): array  
+* public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
+* public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
+* public getCreateTimestamp (): float  
+* public getHashCode (): string  
+* public getHistory (): array  
+* public getLinks (): ?array  
+* public getObjectVersion (bool $major = false): string  
+* public getRanking (): array  
+* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
+* public getTags (): array  
+* public getTagsAsString (): string  
+* public getTimestamp (): float  
+* public getWeight (?CondorcetPHP\Condorcet\Election $context = null): int  
+* public haveLink (CondorcetPHP\Condorcet\Election $election): bool  
+* public key (): int  
+* public next (): void  
+* public registerLink (CondorcetPHP\Condorcet\Election $election): void  
+* public removeAllTags (): bool  
+* public removeCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): bool  
+* public removeTags (array|string $tags): array  
+* public rewind (): void  
+* public setRanking (array|string $ranking, ?float $ownTimestamp = null): bool  
+* public setWeight (int $newWeight): int  
+* public valid (): bool  
+* protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0): array  
+* protected destroyAllLink (): void  
+* private archiveRanking (): void  
+* private formatRanking (array|string $ranking): int  
+* private setHashCode (): string  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\VoteConstraint   
 ```php
-* public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote) : bool  
-* protected static evaluateVote (array $vote) : bool  
+* public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote): bool  
+* protected static evaluateVote (array $vote): bool  
 ```
