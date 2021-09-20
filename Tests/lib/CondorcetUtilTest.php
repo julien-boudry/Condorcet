@@ -14,6 +14,13 @@ class CondorcetUtilTest extends TestCase
     {
         $vote = new Vote ('A>B>C');
 
-        self::assertSame('A > B > C',CondorcetUtil::format($vote,true));
+        $this->assertSame('A > B > C', CondorcetUtil::format($vote,true));
+    }
+
+    public function testDeleteComments(): void
+    {
+        $result = CondorcetUtil::prepareParse("A > B # This is a comment", false);
+
+        $this->assertSame(['A > B'], $result);
     }
 }
