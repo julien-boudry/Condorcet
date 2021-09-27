@@ -22,6 +22,9 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ### CondorcetPHP\Condorcet\Condorcet Class  
 
+* final public const VERSION:(string)  
+* final public const CONDORCET_BASIC_CLASS:(string)  
+
 * [public static Condorcet::addMethod (...)](Condorcet%20Class/public%20static%20Condorcet--addMethod.md): bool  
 * [public static Condorcet::getAuthMethods (...)](Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md): array  
 * [public static Condorcet::getDefaultMethod ()](Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md): ?string  
@@ -35,6 +38,8 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static CondorcetUtil::format (...)](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md): mixed  
 
 ### CondorcetPHP\Condorcet\Election Class  
+
+* public const MAX_LENGTH_CANDIDATE_ID:(integer)  
 
 * [public static Election::setMaxParseIteration (...)](Election%20Class/public%20static%20Election--setMaxParseIteration.md): ?int  
 * [public static Election::setMaxVoteNumber (...)](Election%20Class/public%20static%20Election--setMaxVoteNumber.md): ?int  
@@ -147,10 +152,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
 
-* case Algo\Tools\StvQuotas::DROOP
-* case Algo\Tools\StvQuotas::HARE
-* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF
-* case Algo\Tools\StvQuotas::IMPERIALI
+* case Algo\Tools\StvQuotas::DROOP  
+* case Algo\Tools\StvQuotas::HARE  
+* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF  
+* case Algo\Tools\StvQuotas::IMPERIALI  
 
 * [public static Algo\Tools\StvQuotas::make (...)](Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--make.md): self  
 
@@ -167,6 +172,8 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -177,6 +184,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -189,6 +199,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -201,6 +214,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getLoser (): ?int  
@@ -213,6 +229,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const COUNT_TYPE:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -225,6 +245,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -236,6 +259,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const COUNT_TYPE:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -248,6 +275,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -260,6 +290,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* final public const CONFLICT_WARNING_CODE:(integer)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -274,6 +308,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -286,6 +323,8 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -298,6 +337,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -310,6 +352,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const COUNT_TYPE:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -322,6 +368,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const COUNT_TYPE:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -334,6 +384,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const COUNT_TYPE:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -346,6 +400,8 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -358,6 +414,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const RP_VARIANT_1:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -374,6 +434,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* protected const RP_VARIANT_1:(string)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -390,6 +454,8 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -406,6 +472,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* final public const IS_PROPORTIONAL:(boolean)  
+* public const METHOD_NAME:(array)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -418,6 +487,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -432,6 +504,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -446,6 +521,9 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const METHOD_NAME:(array)  
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -460,6 +538,8 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* public const IS_PROPORTIONAL:(boolean)  
+
 * public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public getObjectVersion (bool $major = false): string  
@@ -514,10 +594,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum  
 ```php
-* case StvQuotas::DROOP
-* case StvQuotas::HARE
-* case StvQuotas::HAGENBACH_BISCHOFF
-* case StvQuotas::IMPERIALI
+* case StvQuotas::DROOP  
+* case StvQuotas::HARE  
+* case StvQuotas::HAGENBACH_BISCHOFF  
+* case StvQuotas::IMPERIALI  
 
 * public static make (string $quota): self  
 * public getQuota (int $votesWeight, int $seats): float  
@@ -558,6 +638,9 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
 ```php
+* final public const VERSION:(string)  
+* final public const CONDORCET_BASIC_CLASS:(string)  
+
 * public static addMethod (string $methodClass): bool  
 * public static condorcetBasicSubstitution (?string $substitution): string  
 * public static getAuthMethods (bool $basic = false): array  
@@ -579,6 +662,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command   
 ```php
+* public const SUCCESS:(integer)  
+* public const FAILURE:(integer)  
+* public const INVALID:(integer)  
+
 * public static getDefaultDescription (): ?string  
 * public static getDefaultName ()  
 * public __construct (?string $name = null)  
@@ -683,6 +770,8 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface  
 ```php
+* protected const SEGMENT:(array)  
+
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
 * public closeTransaction (): void  
 * public countEntities (): int  
@@ -757,6 +846,8 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Election   
 ```php
+* public const MAX_LENGTH_CANDIDATE_ID:(integer)  
+
 * public static setMaxParseIteration (?int $maxParseIterations): ?int  
 * public static setMaxVoteNumber (?int $maxVotesNumber): ?int  
 * protected static formatResultOptions (array $arg): array  
@@ -842,8 +933,8 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum  
 ```php
-* case ElectionState::CANDIDATES_REGISTRATION
-* case ElectionState::VOTES_REGISTRATION
+* case ElectionState::CANDIDATES_REGISTRATION  
+* case ElectionState::VOTES_REGISTRATION  
 
 ```
 

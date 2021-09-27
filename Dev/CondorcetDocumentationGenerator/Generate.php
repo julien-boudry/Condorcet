@@ -339,6 +339,13 @@ class Generate
                         break;
                     endif;
                 endforeach;
+
+                foreach ($classMeta['ReflectionClass']->getReflectionConstants() as $oneConstant) :
+                    if (!empty($oneConstant->getAttributes(PublicAPI::class))) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
             endif;
 
             if ($classWillBePublic) :
@@ -347,9 +354,11 @@ class Generate
                 $file_content .= "\n";
                 $file_content .= '### CondorcetPHP\Condorcet\\'.$class." ".((!$isEnum) ? "Class" : "Enum")."  \n\n";
 
-                if  ($isEnum) :
+                if ($isEnum) :
                     $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
                     $file_content .= "\n";
+                else :
+                    $file_content .= $this->makeConstant($classMeta['ReflectionClass'], \ReflectionClassConstant::IS_PUBLIC, true);
                 endif;
             endif;
 
@@ -367,7 +376,6 @@ class Generate
                         $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
 
-
                     $file_content .= "  \n";
                 endif;
             endforeach;
@@ -384,10 +392,39 @@ class Generate
 
         foreach ($cases as $oneCase) :
             $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
-            $r .= '* case '.$name.'::'.$oneCase->getName()."\n";
+            $r .= '* case '.$name.'::'.$oneCase->getName()."  \n";
         endforeach;
 
         return $r;
+    }
+
+    protected function makeConstant (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    {
+        $file_content = '';
+
+        $hasConstants = false;
+
+        foreach ($class->getReflectionConstants($type) as $constant) :
+            if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) :
+                $file_content .= '* ';
+
+                $file_content .= $constant->isFinal() ? 'final ' : '';
+
+                $file_content .= $constant->isPublic() ? 'public' : '';
+                $file_content .= $constant->isProtected() ? 'protected' : '';
+                $file_content .= $constant->isPrivate() ? 'private' : '';
+
+                $file_content .= ' const '.$constant->getName().':('.\gettype($constant->getValue()).')';
+                $file_content .= "  \n";
+                $hasConstants = true;
+            endif;
+        endforeach;
+
+        if ($hasConstants) :
+            $file_content .= "\n";
+        endif;
+
+        return $file_content;
     }
 
     protected function makeProfundis (array $index) : string
@@ -435,6 +472,8 @@ class Generate
             if ($isEnum) :
                 $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
                 $file_content .= "\n";
+            else :
+                $file_content .= $this->makeConstant($classMeta['ReflectionClass']);
             endif;
 
             foreach ($classMeta['methods'] as $oneMethod) :
