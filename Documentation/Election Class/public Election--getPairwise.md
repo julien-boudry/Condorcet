@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getPairwise ( ) : CondorcetPHP\Condorcet\Algo\Pairwise
+public Election->getPairwise ( ): CondorcetPHP\Condorcet\Algo\Pairwise
 ```
 
 Return the Pairwise.

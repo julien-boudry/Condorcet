@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getHistory ( ) : array
+public Vote->getHistory ( ): array
 ```
 
 Return an history of each vote change, with timestamp.

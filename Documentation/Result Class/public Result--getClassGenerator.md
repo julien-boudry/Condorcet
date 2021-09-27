@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getClassGenerator ( ) : string
+public Result->getClassGenerator ( ): string
 ```
 
 Get the The algorithmic method used for this result.

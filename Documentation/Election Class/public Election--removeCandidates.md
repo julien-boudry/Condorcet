@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->removeCandidates ( CondorcetPHP\Condorcet\Candidate|array|string candidates_input ) : array
+public Election->removeCandidates ( CondorcetPHP\Condorcet\Candidate|array|string candidates_input ): array
 ```
 
 Remove candidates from an election.

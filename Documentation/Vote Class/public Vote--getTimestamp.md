@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getTimestamp ( ) : float
+public Vote->getTimestamp ( ): float
 ```
 
 Get the timestamp corresponding of the last vote change.

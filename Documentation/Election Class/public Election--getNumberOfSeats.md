@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getNumberOfSeats ( ) : int
+public Election->getNumberOfSeats ( ): int
 ```
 
 Get number of Seats for STV methods.

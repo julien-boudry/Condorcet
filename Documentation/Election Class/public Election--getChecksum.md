@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getChecksum ( ) : string
+public Election->getChecksum ( ): string
 ```
 
 SHA-2 256 checksum of following internal data:

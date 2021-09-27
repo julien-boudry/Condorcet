@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->addVote ( CondorcetPHP\Condorcet\Vote|array|string vote [, array|string|null tags = null] ) : CondorcetPHP\Condorcet\Vote
+public Election->addVote ( CondorcetPHP\Condorcet\Vote|array|string vote [, array|string|null tags = null] ): CondorcetPHP\Condorcet\Vote
 ```
 
 Add a vote to an election.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->setImplicitRanking ( [bool rule = true] ) : bool
+public Election->setImplicitRanking ( [bool rule = true] ): bool
 ```
 
 Set the setting and reset all result data.

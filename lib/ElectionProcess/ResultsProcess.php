@@ -234,6 +234,10 @@ trait ResultsProcess
         endif;
     }
 
+    public function debugGetCalculator (): ?array {
+        return $this->_Calculator;
+    }
+
     // Cleanup results to compute again with new votes
     protected function cleanupCompute (): void
     {

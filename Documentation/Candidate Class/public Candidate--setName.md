@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Candidate->setName ( string name ) : bool
+public Candidate->setName ( string name ): bool
 ```
 
 Change the candidate name.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->setNumberOfSeats ( int seats ) : int
+public Election->setNumberOfSeats ( int seats ): int
 ```
 
 Set number of Seats for STV methods.

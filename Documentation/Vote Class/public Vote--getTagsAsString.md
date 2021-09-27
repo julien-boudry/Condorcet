@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getTagsAsString ( ) : string
+public Vote->getTagsAsString ( ): string
 ```
 
 Get the registered tags for this Vote.

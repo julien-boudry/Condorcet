@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->isProportional ( ) : bool
+public Result->isProportional ( ): bool
 ```
 
 Does the result come from a proportional method

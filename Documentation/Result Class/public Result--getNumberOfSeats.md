@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getNumberOfSeats ( ) : ?int
+public Result->getNumberOfSeats ( ): ?int
 ```
 
 Get number of Seats for STV methods result.

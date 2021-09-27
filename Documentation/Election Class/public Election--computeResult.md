@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->computeResult ( [?string method = null] ) : void
+public Election->computeResult ( [?string method = null] ): void
 ```
 
 Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.

@@ -100,7 +100,7 @@ class Generate
         $str .= " )";
 
         return  "```php\n".
-                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic())?"::":'->').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? " : ".self::getTypeAsString($method->getReturnType()) : "" ).
+                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic())?"::":'->').$method->name." ".$str. ( (self::getTypeAsString($method->getReturnType()) !== null) ? ": ".self::getTypeAsString($method->getReturnType()) : "" ).
                 "\n```";
     }
 
@@ -113,23 +113,24 @@ class Generate
         $pathDirectory = $path.\DIRECTORY_SEPARATOR;
 
         //
-        $index  = [];
-        $classList = [];
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = \array_filter($FullClassList, function (string $value) { return (strpos($value, 'Condorcet\Test') === FALSE) && (strpos($value, 'Condorcet\Dev') === FALSE); });
 
         $inDoc = 0;
         $non_inDoc = 0;
+        $total_methods = 0;
+        $total_nonInternal_methods = 0;
 
+        // Warnings
         foreach ($FullClassList as $FullClass) :
             $methods = (new \ReflectionClass($FullClass))->getMethods(\ReflectionMethod::IS_PUBLIC);
-            $shortClass = self::simpleClass($FullClass);
 
             foreach ($methods as $oneMethod) :
-                if ( !isset($index[$shortClass][$oneMethod->name]) && !$oneMethod->isInternal()) :
-                    $non_inDoc++;
+                if ($oneMethod->isInternal()) :
+                elseif ( !empty($oneMethod->getAttributes(PublicAPI::class)) ) :
+                    $inDoc++;
 
-                    if (!empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getNumberOfParameters() > 0) :
+                    if ( $oneMethod->getNumberOfParameters() > 0) :
                         foreach ($oneMethod->getParameters() as $oneParameter) :
                             if (empty($oneParameter->getAttributes(FunctionParameter::class))) :
                                 var_dump('Method Has Public API attribute but parameter $'.$oneParameter->getName().' is undocumented '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
@@ -137,21 +138,54 @@ class Generate
                         endforeach;
                     endif;
 
-                    $index[$shortClass][$oneMethod->name]['inDoc'] = false;
-                    $index[$shortClass][$oneMethod->name]['ReflectionMethod'] = $oneMethod;
-                    $index[$shortClass][$oneMethod->name]['class'][] = $shortClass;
-
-                else :
-                    $inDoc++;
-
-
-                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
-                        var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
-                    endif;
-
                     if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
                         var_dump('Description Attribute is empty: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     endif;
+
+                else :
+                    $non_inDoc++;
+
+                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") :
+                        // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
+                    endif;
+                endif;
+
+            endforeach;
+        endforeach;
+
+        $full_methods_list = [];
+
+        // generate .md
+        foreach ($FullClassList as $FullClass) :
+            $reflectionClass = new \ReflectionClass($FullClass);
+            $methods = ($reflectionClass)->getMethods();
+            $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
+
+            $full_methods_list[$shortClass] = [
+                'FullClass' => $FullClass,
+                'shortClass' => $shortClass,
+                'ReflectionClass' => $reflectionClass,
+                'methods' => []
+            ];
+
+            foreach ($methods as $oneMethod) :
+
+                $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
+                                                        'FullClass' => $FullClass,
+                                                        'shortClass' => $shortClass,
+                                                        'name' => $oneMethod->name,
+                                                        'static' => $oneMethod->isStatic(),
+                                                        'visibility_public' => $oneMethod->isPublic(),
+                                                        'visibility_protected' => $oneMethod->isProtected(),
+                                                        'visibility_private' => $oneMethod->isPrivate(),
+                                                        'ReflectionMethod' => $oneMethod,
+                                                        'ReflectionClass' => $oneMethod->getDeclaringClass(),
+                                                    ];
+
+                $total_methods++;
+
+                if (!$oneMethod->isInternal()) :
+                    $total_nonInternal_methods++;
                 endif;
 
                 // Write Markdown
@@ -162,38 +196,7 @@ class Generate
                         mkdir($path);
                     endif;
 
-                    file_put_contents($path.self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $index[$shortClass][$oneMethod->name] ?? null));
-                endif;
-            endforeach;
-        endforeach;
-
-        $full_methods_list = [];
-
-        $total_methods = 0;
-        $total_nonInternal_methods = 0;
-
-        foreach ($FullClassList as $FullClass) :
-            $methods = (new \ReflectionClass($FullClass))->getMethods();
-            $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
-
-            foreach ($methods as $oneMethod) :
-                if ( true /*!isset($index[$shortClass][$oneMethod->name])*/ ) :
-                    $full_methods_list[$shortClass][] = [   'FullClass' => $FullClass,
-                                                            'shortClass' => $shortClass,
-                                                            'name' => $oneMethod->name,
-                                                            'static' => $oneMethod->isStatic(),
-                                                            'visibility_public' => $oneMethod->isPublic(),
-                                                            'visibility_protected' => $oneMethod->isProtected(),
-                                                            'visibility_private' => $oneMethod->isPrivate(),
-                                                            'ReflectionMethod' => $oneMethod,
-                                                            'ReflectionClass' => $oneMethod->getDeclaringClass(),
-                                                        ];
-                endif;
-
-                $total_methods++;
-
-                if (!$oneMethod->isInternal()) :
-                    $total_nonInternal_methods++;
+                    file_put_contents($path.self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $method_array));
                 endif;
 
             endforeach;
@@ -203,8 +206,6 @@ class Generate
         print "Public methods in doc: ".$inDoc." / ".($inDoc + $non_inDoc)." | Total non-internal methods count: ".$total_nonInternal_methods." | Number of Class: ".count($FullClassList)." | Number of Methods including internals: ".$total_methods."\n";
 
         // Add Index
-        uksort($index,'strnatcmp');
-
         $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
 
                         "# Public API Index _(Not yet exhaustive, not yet....)*_\n".
@@ -213,7 +214,7 @@ class Generate
                         "_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
-        $file_content .= $this->makeIndex($index);
+        $file_content .= $this->makeIndex($full_methods_list);
 
         $file_content .= "\n\n\n";
 
@@ -312,9 +313,12 @@ class Generate
     {
         $file_content = '';
 
-        foreach ($index as $class => $methods) :
+        $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
+            return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($reflectionMethod->class),$apiAttribute[0]->getArguments(), true)));
+        };
 
-            usort($methods, function (array $a, array $b) {
+        foreach ($index as $class => &$classMeta) :
+            usort($classMeta['methods'], function (array $a, array $b): int {
                 if ($a['ReflectionMethod']->isStatic() === $b['ReflectionMethod']->isStatic()) :
                     return strnatcmp($a['ReflectionMethod']->name,$b['ReflectionMethod']->name);
                 elseif ($a['ReflectionMethod']->isStatic() && !$b['ReflectionMethod']->isStatic()) :
@@ -324,44 +328,149 @@ class Generate
                 endif;
             });
 
-            $i = 0;
-            foreach ($methods as $oneMethod) :
-                if (empty($apiAttribute = $oneMethod['ReflectionMethod']->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($oneMethod['ReflectionMethod']->class),$apiAttribute[0]->getArguments(), true))) :
+            $classWillBePublic = false;
+
+            if ($classMeta['ReflectionClass']->getAttributes(PublicAPI::class)) :
+                $classWillBePublic = true;
+            else :
+                foreach ($classMeta['methods'] as $oneMethod) :
+                    if ($testPublicAttribute($oneMethod['ReflectionMethod'])) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
+
+                foreach ($classMeta['ReflectionClass']->getReflectionConstants() as $oneConstant) :
+                    if (!empty($oneConstant->getAttributes(PublicAPI::class))) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
+
+                foreach ($classMeta['ReflectionClass']->getProperties() as $onePropertie) :
+                    if (!empty($onePropertie->getAttributes(PublicAPI::class))) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
+            endif;
+
+            if ($classWillBePublic) :
+                $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
+
+                $file_content .= "\n";
+                $file_content .= '### CondorcetPHP\Condorcet\\'.$class." ".((!$isEnum) ? "Class" : "Enum")."  \n\n";
+
+                if ($isEnum) :
+                    $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
+                    $file_content .= "\n";
+                else :
+                    $file_content .= $this->makeConstants($classMeta['ReflectionClass'], \ReflectionClassConstant::IS_PUBLIC, true);
+                endif;
+
+                $file_content .= $this->makeProperties($classMeta['ReflectionClass'], null, true);
+            endif;
+
+
+            foreach ($classMeta['methods'] as $oneMethod) :
+                if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) :
                     continue;
                 else :
-                    if (++$i === 1) :
-                        $file_content .= "\n";
-                        $file_content .= '### CondorcetPHP\Condorcet\\'.$class." Class  \n\n";
-                    endif;
-
-
                     $url = str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod'])." ". str_replace("\\","_",self::simpleClass($oneMethod['ReflectionMethod']->class)."--". $oneMethod['ReflectionMethod']->name) . '.md' ;
                     $url = str_replace(' ', '%20', $url);
 
                     $file_content .= "* [".self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod'])."](".$url.")";
 
                     if (isset($oneMethod['ReflectionMethod']) && $oneMethod['ReflectionMethod']->hasReturnType()) :
-                        $file_content .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                        $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
-
 
                     $file_content .= "  \n";
                 endif;
             endforeach;
-
         endforeach;
 
         return $file_content;
     }
 
+    protected function makeEnumeCases (\ReflectionEnum $enumReflection, bool $shortName = false): string
+    {
+        $cases = $enumReflection->getCases();
+
+        $r = '';
+
+        foreach ($cases as $oneCase) :
+            $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
+            $r .= '* case '.$name.'::'.$oneCase->getName()."  \n";
+        endforeach;
+
+        return $r;
+    }
+
+    protected function makeConstants (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    {
+        $file_content = '';
+
+        $hasConstants = false;
+
+        foreach ($class->getReflectionConstants($type) as $constant) :
+            if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) :
+                $file_content .= '* ';
+
+                $file_content .= $constant->isFinal() ? 'final ' : '';
+
+                $file_content .= $constant->isPublic() ? 'public' : '';
+                $file_content .= $constant->isProtected() ? 'protected' : '';
+                $file_content .= $constant->isPrivate() ? 'private' : '';
+
+                $file_content .= ' const '.$constant->getName().':('.\gettype($constant->getValue()).')';
+                $file_content .= "  \n";
+                $hasConstants = true;
+            endif;
+        endforeach;
+
+        if ($hasConstants) :
+            $file_content .= "\n";
+        endif;
+
+        return $file_content;
+    }
+
+    protected function makeProperties (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    {
+        $file_content = '';
+
+        $hasConstants = false;
+
+        foreach ($class->getProperties($type) as $propertie) :
+            if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) :
+                $file_content .= '* ';
+
+                $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
+
+                $file_content .= $propertie->isPublic() ? 'public' : '';
+                $file_content .= $propertie->isProtected() ? 'protected' : '';
+                $file_content .= $propertie->isPrivate() ? 'private' : '';
+
+                $file_content .= ' '.((string) $propertie->getType()).' $'.$propertie->getName();
+                $file_content .= "  \n";
+                $hasConstants = true;
+            endif;
+        endforeach;
+
+        if ($hasConstants) :
+            $file_content .= "\n";
+        endif;
+
+        return $file_content;
+    }
 
     protected function makeProfundis (array $index) : string
     {
         $file_content = '';
 
-        foreach ($index as $class => &$methods) :
-
-            usort($methods, function (array $a, array $b) {
+        foreach ($index as $class => &$classMeta) :
+            usort($classMeta['methods'], function (array $a, array $b): int {
                 if ($a['static'] === $b['static']) :
                     if ( $a['visibility_public'] && !$b['visibility_public'] )  :
                         return -1;
@@ -383,56 +492,65 @@ class Generate
                 endif;
             });
 
-            $ReflectionClass = new \ReflectionClass('CondorcetPHP\Condorcet\\'.$class);
-
             $file_content .= "\n";
             $file_content .= '#### ';
-            $file_content .= ($ReflectionClass->isAbstract()) ? 'Abstract ' : '';
+            $file_content .= ($classMeta['ReflectionClass']->isAbstract()) ? 'Abstract ' : '';
             $file_content .= 'CondorcetPHP\Condorcet\\'.$class.' ';
 
-            $file_content .= ($p = $ReflectionClass->getParentClass()) ? 'extends '.$p->name.' ' : '';
+            $file_content .= ($p = $classMeta['ReflectionClass']->getParentClass()) ? 'extends '.$p->name.' ' : '';
 
-            $interfaces = implode(', ', $ReflectionClass->getInterfaceNames());
+            $interfaces = implode(', ', $classMeta['ReflectionClass']->getInterfaceNames());
             $file_content .= (!empty($interfaces)) ? 'implements '.$interfaces : '';
 
             $file_content .= "  \n";
             $file_content .= "```php\n";
 
+            $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
 
-            foreach ($methods as $oneMethod) :
-                $parameters = $oneMethod['ReflectionMethod']->getParameters();
-                $parameters_string = '';
+            if ($isEnum) :
+                $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
+                $file_content .= "\n";
+            else :
+                $file_content .= $this->makeConstants($classMeta['ReflectionClass']);
+            endif;
 
-                $i = 0;
-                foreach ($parameters as $oneP) :
-                    $parameters_string .= (++$i > 1) ? ', ' : '';
+            $file_content .= $this->makeProperties($classMeta['ReflectionClass']);
 
-                    if ($oneP->getType() !== null) :
-                        $parameters_string .= self::getTypeAsString($oneP->getType()) . ' ';
+            foreach ($classMeta['methods'] as $oneMethod) :
+                if ($oneMethod['ReflectionMethod']->isUserDefined()) :
+                    $parameters = $oneMethod['ReflectionMethod']->getParameters();
+                    $parameters_string = '';
+
+                    $i = 0;
+                    foreach ($parameters as $oneP) :
+                        $parameters_string .= (++$i > 1) ? ', ' : '';
+
+                        if ($oneP->getType() !== null) :
+                            $parameters_string .= self::getTypeAsString($oneP->getType()) . ' ';
+                        endif;
+                        $parameters_string .= '$'.$oneP->name;
+
+                        if ($oneP->isDefaultValueAvailable()) :
+                            $parameters_string .= ' = '.self::speakBool($oneP->getDefaultValue());
+                        endif;
+                    endforeach;
+
+                    $representation = ($oneMethod['visibility_public']) ? 'public ' : '';
+                    $representation .= ($oneMethod['visibility_protected']) ? 'protected ' : '';
+                    $representation .= ($oneMethod['visibility_private']) ? 'private ' : '';
+
+                    $representation .=  ($oneMethod['static']) ? 'static ' : '';
+                    $representation .=  $oneMethod['name'] . ' ('.$parameters_string.')';
+
+                    if ($oneMethod['ReflectionMethod']->hasReturnType()) :
+                        $representation .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     endif;
-                    $parameters_string .= '$'.$oneP->name;
 
-                    if ($oneP->isDefaultValueAvailable()) :
-                        $parameters_string .= ' = '.self::speakBool($oneP->getDefaultValue());
-                    endif;
-                endforeach;
-
-                $representation = ($oneMethod['visibility_public']) ? 'public ' : '';
-                $representation .= ($oneMethod['visibility_protected']) ? 'protected ' : '';
-                $representation .= ($oneMethod['visibility_private']) ? 'private ' : '';
-
-                $representation .=  ($oneMethod['static']) ? 'static ' : '';
-                $representation .=  $oneMethod['name'] . ' ('.$parameters_string.')';
-
-                if ($oneMethod['ReflectionMethod']->hasReturnType()) :
-                    $representation .= ' : '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                    $file_content .= "* ".$representation."  \n";
                 endif;
-
-                $file_content .= "* ".$representation."  \n";
             endforeach;
 
             $file_content .= "```\n";
-
         endforeach;
 
         return $file_content;
