@@ -346,6 +346,13 @@ class Generate
                         break;
                     endif;
                 endforeach;
+
+                foreach ($classMeta['ReflectionClass']->getProperties() as $onePropertie) :
+                    if (!empty($onePropertie->getAttributes(PublicAPI::class))) :
+                        $classWillBePublic = true;
+                        break;
+                    endif;
+                endforeach;
             endif;
 
             if ($classWillBePublic) :
@@ -358,8 +365,10 @@ class Generate
                     $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
                     $file_content .= "\n";
                 else :
-                    $file_content .= $this->makeConstant($classMeta['ReflectionClass'], \ReflectionClassConstant::IS_PUBLIC, true);
+                    $file_content .= $this->makeConstants($classMeta['ReflectionClass'], \ReflectionClassConstant::IS_PUBLIC, true);
                 endif;
+
+                $file_content .= $this->makeProperties($classMeta['ReflectionClass'], null, true);
             endif;
 
 
@@ -398,7 +407,7 @@ class Generate
         return $r;
     }
 
-    protected function makeConstant (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    protected function makeConstants (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
     {
         $file_content = '';
 
@@ -415,6 +424,35 @@ class Generate
                 $file_content .= $constant->isPrivate() ? 'private' : '';
 
                 $file_content .= ' const '.$constant->getName().':('.\gettype($constant->getValue()).')';
+                $file_content .= "  \n";
+                $hasConstants = true;
+            endif;
+        endforeach;
+
+        if ($hasConstants) :
+            $file_content .= "\n";
+        endif;
+
+        return $file_content;
+    }
+
+    protected function makeProperties (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    {
+        $file_content = '';
+
+        $hasConstants = false;
+
+        foreach ($class->getProperties($type) as $propertie) :
+            if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) :
+                $file_content .= '* ';
+
+                $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
+
+                $file_content .= $propertie->isPublic() ? 'public' : '';
+                $file_content .= $propertie->isProtected() ? 'protected' : '';
+                $file_content .= $propertie->isPrivate() ? 'private' : '';
+
+                $file_content .= ' '.((string) $propertie->getType()).' $'.$propertie->getName();
                 $file_content .= "  \n";
                 $hasConstants = true;
             endif;
@@ -473,8 +511,10 @@ class Generate
                 $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
                 $file_content .= "\n";
             else :
-                $file_content .= $this->makeConstant($classMeta['ReflectionClass']);
+                $file_content .= $this->makeConstants($classMeta['ReflectionClass']);
             endif;
+
+            $file_content .= $this->makeProperties($classMeta['ReflectionClass']);
 
             foreach ($classMeta['methods'] as $oneMethod) :
                 if ($oneMethod['ReflectionMethod']->isUserDefined()) :

@@ -21,7 +21,8 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
-    protected const SEGMENT = [499,50,4,1]; // Must be ordered desc.
+    #[PublicAPI]
+    public const SEGMENT = [499,50,4,1]; // Must be ordered desc.
 
     protected \PDO $_handler;
     protected bool $_transaction = false;

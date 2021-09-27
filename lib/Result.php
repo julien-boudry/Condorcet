@@ -75,15 +75,25 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected $_Stats;
     protected array $_warning = [];
 
+    #[PublicAPI]
     public readonly array $ranking;
+    #[PublicAPI]
     public readonly array $rankingAsString;
+    #[PublicAPI]
     public readonly ?int $seats;
+    #[PublicAPI]
     public readonly array $methodOptions;
+    #[PublicAPI]
     public readonly ?Candidate $CondorcetWinner;
+    #[PublicAPI]
     public readonly ?Candidate $CondorcetLoser;
+    #[PublicAPI]
     public readonly float $buildTimestamp;
+    #[PublicAPI]
     public readonly string $fromMethod;
+    #[PublicAPI]
     public readonly string $byClass;
+    #[PublicAPI]
     public readonly string $electionCondorcetVersion;
 
 
