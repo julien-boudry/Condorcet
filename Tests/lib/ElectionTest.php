@@ -671,6 +671,57 @@ C > B > A * 1',
         $election->removeCandidates($badCandidate);
     }
 
+    /**
+     * @dataProvider MethodsListProvider
+     */
+    public function testRemoveCandidateResult (string $method): void
+    {
+        $votes = '  Memphis * 4
+                    Nashville * 3
+                    Chattanooga * 2
+                    Knoxville * 1';
+
+        // Ref
+        $electionRef = new Election;
+
+        $electionRef->addCandidate('Memphis');
+        $electionRef->addCandidate('Nashville');
+        $electionRef->addCandidate('Knoxville');
+        $electionRef->addCandidate('Chattanooga');
+
+        $electionRef->parseVotes($votes);
+
+        // Test
+        $electionTest = new Election;
+
+        $electionTest->addCandidate('Memphis');
+        $electionTest->addCandidate('BadCandidate');
+        $electionTest->addCandidate('Nashville');
+        $electionTest->addCandidate('Knoxville');
+        $electionTest->addCandidate('Chattanooga');
+
+        $electionTest->removeCandidates('BadCandidate');
+
+        $electionTest->parseVotes($votes);
+
+
+        self::assertSame(
+            $electionRef->getResult($method)->getResultAsArray(true),
+            $electionTest->getResult($method)->getResultAsArray(true)
+        );
+    }
+
+        public function MethodsListProvider (): array
+        {
+            $r = [];
+
+            foreach (Condorcet::getAuthMethods() as $method) :
+                $r[] = [$method];
+            endforeach;
+
+            return $r;
+        }
+
     public function testAmbigousCandidatesOnElectionSide (): void
     {
         $this->expectException(\CondorcetPHP\Condorcet\Throwable\CondorcetException::class);
