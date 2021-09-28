@@ -24,9 +24,11 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
+    public readonly float $majority;
+
     protected function getStats(): array
     {
-        $stats = [];
+        $stats = ['majority' => $this->majority];
 
         foreach ($this->_Stats as $oneIterationKey => $oneIterationData) :
             if (\count($oneIterationData) === 1) :
@@ -34,7 +36,7 @@ class InstantRunoff extends Method implements MethodInterface
             endif;
 
             foreach ($oneIterationData as $candidateKey => $candidateValue) :
-                $stats[$oneIterationKey][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
+                $stats['rounds'][$oneIterationKey][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
             endforeach;
         endforeach;
 
@@ -49,7 +51,7 @@ class InstantRunoff extends Method implements MethodInterface
     protected function compute (): void
     {
         $candidateCount = $this->_selfElection->countCandidates();
-        $majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
+        $this->majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
 
         $candidateDone = [];
         $result = [];
@@ -65,7 +67,7 @@ class InstantRunoff extends Method implements MethodInterface
 
             $this->_Stats[++$iteration] = $score;
 
-            if ( $maxScore > $majority ) :
+            if ( $maxScore > $this->majority ) :
                 foreach ($score as $candidateKey => $candidateScore) :
                     if ($candidateScore !== $maxScore) :
                         continue;

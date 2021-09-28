@@ -41,24 +41,27 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                    [
-                        "A" => 42,
-                        "B" => 26,
-                        "C" => 15,
-                        "D" => 17
-                    ],
-                2 =>
-                    [
-                        "A" => 42,
-                        "B" => 26,
-                        "D" => 32
-                    ],
-                3 =>
-                    [
-                        "A" => 42,
-                        "D" => 58
-                    ]
+                'majority' => 50.0,
+                'rounds' => [
+                    1 =>
+                        [
+                            "A" => 42,
+                            "B" => 26,
+                            "C" => 15,
+                            "D" => 17
+                        ],
+                    2 =>
+                        [
+                            "A" => 42,
+                            "B" => 26,
+                            "D" => 32
+                        ],
+                    3 =>
+                        [
+                            "A" => 42,
+                            "D" => 58
+                        ]
+                ]
             ],
             $this->election->getResult('InstantRunoff')->getStats()
         );
@@ -87,7 +90,6 @@ class InstantRunoffTest extends TestCase
             3 => 'bill' ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
-
     }
 
     public function testResult_3 (): void
@@ -111,7 +113,6 @@ class InstantRunoffTest extends TestCase
             3 => 'sue' ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
-
     }
 
     public function testResult_4 (): void
@@ -128,7 +129,45 @@ class InstantRunoffTest extends TestCase
             1 => ['A','B','C'] ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
+    }
 
+    public function testResult_Equality (): void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+
+        $this->election->parseVotes('
+            A
+            B
+        ');
+
+        self::assertSame( [
+            1 => ['A','B'] ],
+            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
+        );
+    }
+
+    public function testResult_TieBreaking (): void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A * 4
+            B * 4
+            C>A * 2
+            D>C>B * 2
+        ');
+
+        self::assertSame( [
+            1 => ['A','B'],
+            3 => 'C',
+            4 => 'D'
+            ],
+            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
+        );
     }
 
 }
