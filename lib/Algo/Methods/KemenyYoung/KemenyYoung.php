@@ -116,10 +116,11 @@ class KemenyYoung extends Method implements MethodInterface
             $replace[] = $candidate_id;
         endforeach;
 
+        /** @infection-ignore-all */
         $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
 
         // But ... where are the data ?! Okay, old way now...
-        if (self::$devWriteCache || !\file_exists($path)) :
+        if (self::$devWriteCache || (!\file_exists($path) && $this->_selfElection->countCandidates() < 10)) :
             (new Permutation ($this->_selfElection->countCandidates()))->writeResults($path);
         endif;
 
