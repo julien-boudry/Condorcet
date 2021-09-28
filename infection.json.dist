@@ -8,10 +8,10 @@
         "@default": true
     },
     "logs": {
-        "text": "infection.log",
-        "summary": "summary.log",
-        "json": "infection-log.json",
-        "perMutator": "per-mutator.md",
+        "text": "Dev/infection_logs/infection.log",
+        "summary": "Dev/infection_logs/summary.log",
+        "json": "Dev/infection_logs/infection-log.json",
+        "perMutator": "Dev/infection_logs/per-mutator.md",
         "badge": {
             "branch": "/^release-.*$/"
         }
