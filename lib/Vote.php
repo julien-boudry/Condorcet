@@ -413,10 +413,6 @@ class Vote implements \Iterator, \Stringable
                 $ranking = VoteUtil::convertVoteInput($ranking);
             endif;
 
-            if (!\is_array($ranking)) :
-                throw new VoteInvalidFormatException();
-            endif;
-
             $ranking = \array_filter($ranking, fn ($key): bool => \is_numeric($key), \ARRAY_FILTER_USE_KEY);
 
             \ksort($ranking);
@@ -516,10 +512,6 @@ class Vote implements \Iterator, \Stringable
     ): bool
     {
         $tags = VoteUtil::tagsConvert($tags);
-
-        if (empty($tags)) :
-            return false;
-        endif;
 
         foreach ($tags as $key => $tag) :
             if (\in_array(needle: $tag, haystack: $this->_tags, strict: true)) :

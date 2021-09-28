@@ -20,6 +20,9 @@ abstract class CondorcetApplication
 {
     public static SymfonyConsoleApplication $SymfonyConsoleApplication;
 
+    /**
+     * @infection-ignore-all
+     */
     public static function run (): void
     {
        // Run

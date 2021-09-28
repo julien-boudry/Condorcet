@@ -65,7 +65,7 @@ class ConstraintTest extends TestCase
     {
         $NoTieImplementation = [NoTie::class, AlternativeNoTieConstraintClass::class];
 
-        foreach ($NoTieImplementation as $constraintClass ) :
+        foreach ($NoTieImplementation as $constraintClass) :
             $this->setUp();
 
             $this->election->parseVotes('

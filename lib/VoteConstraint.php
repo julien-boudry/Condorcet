@@ -17,5 +17,8 @@ abstract class VoteConstraint
         return static::evaluateVote($vote->getContextualRanking($election));
     }
 
+    /**
+     * @infection-ignore-all
+     */
     protected static function evaluateVote (array $vote): bool { return false; }
 }

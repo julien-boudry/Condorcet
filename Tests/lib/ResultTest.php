@@ -303,5 +303,7 @@ class ResultTest extends TestCase
         self::assertSame($c1, $c2);
 
         self::assertSame(0, $b2->getMethodOptions()['Starting']);
+
+        self::assertFalse($this->election1->setMethodOption('Unregistered method', 'Starting', 0));
     }
 }

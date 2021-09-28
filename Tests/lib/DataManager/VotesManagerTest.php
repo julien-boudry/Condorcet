@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use CondorcetPHP\Condorcet\Throwable\{VoteManagerException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
-
+use stdClass;
 
 class VotesManagerTest extends TestCase
 {
@@ -37,6 +37,14 @@ class VotesManagerTest extends TestCase
 
         // add invalid vote
         $this->votes_manager[] = null;
+    }
+
+    public function testOffsetSetArgumentType(): never
+    {
+        $this->expectException(VoteManagerException::class);
+
+        // add invalid vote
+        $this->votes_manager[] = new \stdClass;
     }
 
     public function testOffsetUnset(): void

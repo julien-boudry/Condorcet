@@ -134,6 +134,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function closeTransaction (): void
     {
         if ($this->_transaction === true) :
+
+            /**
+             * @infection-ignore-all
+             */
             if ($this->_queryError) :
                 throw new CondorcetInternalError ('Query Error.');
             endif;
@@ -165,6 +169,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                     $param
                 );
 
+                /**
+                 * @infection-ignore-all
+                 */
                 if ($this->_prepare['insert'.$group_count.'Entities']->rowCount() !== $group_count) :
                     throw new CondorcetInternalError ('Not all entities have been inserted');
                 endif;
@@ -207,6 +214,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
             $deleteCount = $this->_prepare['deleteOneEntity']->rowCount();
 
+            /**
+             * @infection-ignore-all
+             */
             if (!$justTry && $deleteCount !== 1) :
                 throw new CondorcetInternalError ('Entity deletion failure.');
             endif;

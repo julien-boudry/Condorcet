@@ -348,6 +348,9 @@ class ElectionCommand extends Command
         unset($result);
 
         // RM Sqlite Database if exist
+        /**
+         * @infection-ignore-all
+         */
         if ( ($SQLitePath = $this->SQLitePath) !== null) :
             unset($this->election);
             while(\gc_collect_cycles()); // Circular references are not really cleaned. Need to destroy PDO object for Windows.
@@ -528,11 +531,18 @@ class ElectionCommand extends Command
             $callBack = static function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
                 if (  $inserted_votes_count > $vote_in_memory_limit ) :
 
+                    /**
+                     * @infection-ignore-all
+                     */
                     if ( \file_exists( $SQLitePath = \getcwd().'/condorcet-bdd.sqlite' ) ) :
                         \unlink($SQLitePath);
                     endif;
 
+                    /**
+                     * @infection-ignore-all
+                     */
                     $election->setExternalDataHandler( new PdoHandlerDriver (new \PDO ('sqlite:'.$SQLitePath,'','',[\PDO::ATTR_PERSISTENT => false]), true) );
+
                     return false; // No, stop next iteration
                 else :
                     return true; // Yes, continue
