@@ -128,7 +128,11 @@ class KemenyYoung extends Method implements MethodInterface
         $f = fopen($path, 'r');
 
         while ( ($oneResult = fgets($f)) !== false ) :
-            $oneResult = explode(',', \str_replace($search, $replace, $oneResult));
+            $oneResult = explode(',', trim($oneResult));
+
+            foreach ($oneResult as &$oneCandidateId) :
+                $oneCandidateId = $replace[(int) $oneCandidateId];
+            endforeach;
 
             $resultToRegister = [];
             $rank = 1;
