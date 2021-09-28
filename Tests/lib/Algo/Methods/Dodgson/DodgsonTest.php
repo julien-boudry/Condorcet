@@ -100,6 +100,15 @@ class DodgsonTest extends TestCase
 
         self::assertEquals(
             'D', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [
+                'D' => 3.0,
+                'A' => 6.0,
+                'B' => 6.0,
+                'C' => 6.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     # Require real Dodgson method. This test fail with both approximations.
@@ -145,6 +154,14 @@ class DodgsonTest extends TestCase
 
         self::assertEquals(
             'C', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [   'C' => 2.0,
+                'A' => 3.0,
+                'B' => 13.0,
+                'D' => 24.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     public function testResult_6 (): void
@@ -166,6 +183,14 @@ class DodgsonTest extends TestCase
 
         self::assertEquals(
             'D', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [   'D' => 3.0,
+                'C' => 4.0,
+                'A' => 5.0,
+                'B' => 7.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     public function testResult_7 (): void
@@ -187,6 +212,13 @@ class DodgsonTest extends TestCase
 
         self::assertEquals(
             'D', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [   'B' => 5.0,
+                'C' => 6.0,
+                'A' => 8.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     public function testResult_8 (): void
@@ -206,6 +238,13 @@ class DodgsonTest extends TestCase
 
         self::assertEquals(
             'A', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [   'A' => 1.0,
+                'B' => 2.0,
+                'C' => 3.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     # Require real Dodgson method. This test fail with both approximations.
@@ -354,13 +393,17 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            3, $this->election->getResult('DodgsonQuick')->getStats()['A']);
-
-        self::assertEquals(
-            4, $this->election->getResult('DodgsonQuick')->getStats()['B']);
-
-        self::assertEquals(
             'A', $this->election->getWinner('DodgsonQuick'));
+
+        self::assertSame(
+            [   'A' => 3.0,
+                'B' => 4.0,
+                'C' => 20.0,
+                'D' => 20.0,
+                'E' => 30.0,
+                'F' => 30.0
+            ],
+            $this->election->getResult('DodgsonQuick')->getStats());
     }
 
     public function testResult_14 (): void
