@@ -416,4 +416,25 @@ class DodgsonTest extends TestCase
         self::assertSame($this->election->getWinner(null),$this->election->getWinner('DodgsonQuick'));
     }
 
+    public function testResult_16 (): void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->parseVotes('
+            A
+            B
+        ');
+
+        self::assertSame(
+            [
+                1 => ['A','B'],
+                2 => ['C','D']
+            ],
+            $this->election->getResult('DodgsonQuick')->getResultAsArray(true)
+        );
+    }
+
 }

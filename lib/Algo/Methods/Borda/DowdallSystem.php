@@ -24,6 +24,6 @@ class DowdallSystem extends BordaCount
 
     protected function getScoreByCandidateRanking (int $CandidatesRanked): float
     {
-        return (float) 1 / ($CandidatesRanked + 1);
+        return (float) (1 / ($CandidatesRanked + 1));
     }
 }
