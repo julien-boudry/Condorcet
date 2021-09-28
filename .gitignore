@@ -1,5 +1,4 @@
-lib/Algo/Methods/KemenyYoung-Data/9.data
-lib/Algo/Methods/KemenyYoung-Data/10.data
+lib/Algo/Methods/KemenyYoung/KemenyYoung-Data/9.data
 
 *.sqlite
 *.clover
@@ -10,6 +9,9 @@ lib/Algo/Methods/KemenyYoung-Data/10.data
 
 # phpunit
 .phpunit.result.cache
+
+# infection
+Dev/infection_logs/
 
 # coverage & others
 build/
