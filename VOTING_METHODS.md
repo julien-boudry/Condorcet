@@ -541,6 +541,8 @@ Default quota is the Droop quota. three others are available using the method op
 ### Code example
 
 ```php
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
+
 // Change the number of seats
 $election->setNumberOfSeats(42); # Default is 100
 
@@ -554,12 +556,12 @@ $election->getResult('STV')->getNumberOfSeats();
 $election->getResult('STV')->getStats();
 
 // Change the Quota
-$election->setMethodOption('STV', 'Quota', 'Hagenbach-Bischoff') ;
+$election->setMethodOption('STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF) ;
 $election->getResult('STV') ;
-$election->setMethodOption('STV', 'Quota', 'Imperiali') ;
+$election->setMethodOption('STV', 'Quota', StvQuotas::IMPERIALI) ;
 $election->getResult('STV') ;
-$election->setMethodOption('STV', 'Quota', 'Hare') ;
+$election->setMethodOption('STV', 'Quota', StvQuotas::HARE) ;
 $election->getResult('STV') ;
-$election->setMethodOption('STV', 'Quota', 'Droop') ;
+$election->setMethodOption('STV', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('STV') ;
 ```
