@@ -51,6 +51,28 @@ class DodgsonTest extends TestCase
                 5 => 'Erin'   ],
             $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
         );
+
+        self::assertSame(
+            [
+                'Cora' => array (
+                  'sum_defeat_margin' => 4,
+                ),
+                'Abby' => array (
+                  'sum_defeat_margin' => 5,
+                ),
+                'Brad' => array (
+                  'sum_defeat_margin' => 297,
+                ),
+                'Dave' => array (
+                  'sum_defeat_margin' => 348,
+                ),
+                'Erin' => array (
+                  'sum_defeat_margin' => 426,
+                ),
+            ]
+            ,
+            $this->election->getResult('DodgsonTideman')->getStats()
+        );
     }
 
     # Require real Dodgson method. This test fail with both approximations.

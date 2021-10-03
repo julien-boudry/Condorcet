@@ -41,6 +41,28 @@ class CopelandTest extends TestCase
         );
 
         self::assertSame($this->election->getWinner('Copeland'),$this->election->getWinner());
+
+        self::assertSame(
+            [
+                'Memphis' =>
+                [
+                  'balance' => -3,
+                ],
+                'Nashville' =>
+                [
+                  'balance' => 3,
+                ],
+                'Knoxville' =>
+                [
+                  'balance' => -1,
+                ],
+                'Chattanooga' =>
+                [
+                  'balance' => 1,
+                ],
+            ],
+            $this->election->getResult('Copeland')->getStats()
+        );
     }
 
     public function testResult_2 (): void
