@@ -5,7 +5,10 @@
         ]
     },
     "mutators": {
-        "@default": true
+        "@default": true,
+        "ProtectedVisibility": {
+            "ignore": ["*"]
+        }
     },
     "logs": {
         "text": "Dev/infection_logs/infection.log",
