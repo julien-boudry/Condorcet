@@ -25,8 +25,8 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
-        "symfony/console": ">= 5.1",
-        "symfony/yaml": ">= 5.1"
+        "symfony/console": "^5.4-beta || ^6.0",
+        "symfony/yaml": "^5.4-beta || ^6.0"
     },
     "require-dev": {
         "ext-pdo": "*",
@@ -35,7 +35,7 @@
         "phpunit/phpunit": "^9 || ^10",
         "phploc/phploc": "dev-master",
         "haydenpierce/class-finder": ">= 0.4",
-        "infection/infection": "^0.25.2"
+        "infection/infection": "^0.25.3"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
