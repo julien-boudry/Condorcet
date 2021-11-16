@@ -23,10 +23,10 @@
         }
     ],
     "require": {
-        "php": "^8",
+        "php": "8.0.* || 8.1.*",
         "ext-json": "*",
-        "symfony/console": ">= 5.1",
-        "symfony/yaml": ">= 5.1"
+        "symfony/console": "^5.1 || ^6",
+        "symfony/yaml": "^5.1 || ^6"
     },
     "require-dev": {
         "ext-pdo": "*",
