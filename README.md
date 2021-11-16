@@ -145,7 +145,7 @@ _I have undertaken and continues to undertake efforts to reform and improve the 
 ### Install as an application
 
 #### Option 1: Build it yourself with composer
-***(you must have PHP >= 7.4 and composer)***  
+***(you must have PHP >= 8.1 and composer)***  
 
 ```shell
 mkdir Condorcet && cd Condorcet
@@ -163,6 +163,8 @@ _You must install Docker first. See [installation instructions](https://hub.dock
 ##### From a public image
 ```shell
 docker pull julienboudry/condorcet:latest
+
+# Interactive mod
 docker run --hostname=condorcet -it --rm julienboudry/condorcet election
 
 # With custom parameters :
@@ -174,10 +176,24 @@ docker run --hostname=condorcet -it --rm julienboudry/condorcet election -c "A;B
 git clone https://github.com/julien-boudry/Condorcet.git
 cd Condorcet
 docker build -t condorcet .
+
+# Interactive mod
 docker run --hostname="condorcet" --rm -it condorcet election
 
-# Execute a command, example:
+# Or execute a command, example:
 docker run --hostname="condorcet" --rm -it condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+```
+
+#### Option 3: From PHAR file
+
+Download the PHAR file from [releases section](https://github.com/julien-boudry/Condorcet/releases).
+
+```shell
+# Interactive mod
+php condorcet.phar
+
+# Or execute a command, example:
+php condorcet.phar election -c "A;B;C" -w "A>B;A>C;C>B" -r
 ```
 
 ### Condorcet Wiki - Command Line Manual
