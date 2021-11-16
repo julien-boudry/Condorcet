@@ -339,6 +339,7 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL:(boolean)  
 
 * protected ?array $_Stats  
+* readonly public float $majority  
 * public ?int $MaxCandidates  
 * readonly protected CondorcetPHP\Condorcet\Election $_selfElection  
 * protected ?CondorcetPHP\Condorcet\Result $_Result  
@@ -838,7 +839,7 @@ _Including above methods from public API_
 * public haveLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public registerLink (CondorcetPHP\Condorcet\Election $election): void  
 * public setName (string $name): bool  
-* public setProvisionalState (bool $provisional): bool  
+* public setProvisionalState (bool $provisional): void  
 * protected destroyAllLink (): void  
 * private checkNameInElectionContext (string $name): bool  
 ```
@@ -895,6 +896,7 @@ _Including above methods from public API_
 * public addArgument (string $name, ?int $mode = null, string $description = , $default = null)  
 * public addOption (string $name, $shortcut = null, ?int $mode = null, string $description = , $default = null)  
 * public addUsage (string $usage)  
+* public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
 * public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output): void  
@@ -1277,7 +1279,7 @@ _Including above methods from public API_
 * protected makeUserResult (CondorcetPHP\Condorcet\Election $election): array  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\AlgorithmException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\AlgorithmException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1286,11 +1288,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1299,11 +1300,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1312,11 +1312,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CandidateExistsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CandidateExistsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1325,11 +1324,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1338,11 +1336,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1351,11 +1348,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string $method = , int $maxCandidates = 0)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalError extends Error implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1367,7 +1363,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\CondorcetInternalException extends Exception implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1376,20 +1372,7 @@ _Including above methods from public API_
 
 ```
 
-#### Abstract CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Throwable, Stringable  
-```php
-* protected  $message  
-* protected  $code  
-* protected string $file  
-* protected int $line  
-* protected string $_objectVersion  
-
-* public __construct (string|int|null $message = null)  
-* public __toString (): string  
-* public getObjectVersion (bool $major = false): string  
-```
-
-#### CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### Abstract CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Stringable, Throwable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1398,11 +1381,22 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
+```php
+* protected  $message  
+* protected  $code  
+* protected string $file  
+* protected int $line  
+* protected string $_objectVersion  
+
+* public __construct (string|int|null $message = null)  
+* public getObjectVersion (bool $major = false): string  
+```
+
+#### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1411,11 +1405,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string $message = )  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\JsonFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\JsonFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1424,11 +1417,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1437,11 +1429,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1450,11 +1441,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1463,11 +1453,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1476,11 +1465,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1489,11 +1477,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1502,11 +1489,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1515,11 +1501,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1528,11 +1513,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1541,11 +1525,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1554,11 +1537,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1567,11 +1549,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1580,11 +1561,10 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
-#### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Stringable, Throwable  
+#### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable  
 ```php
 * protected  $message  
 * protected  $code  
@@ -1593,7 +1573,6 @@ _Including above methods from public API_
 * protected string $_objectVersion  
 
 * public __construct (string|int|null $message = null)  
-* public __toString (): string  
 * public getObjectVersion (bool $major = false): string  
 ```
 
