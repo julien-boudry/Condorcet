@@ -269,8 +269,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                            ['* Condorcet winner', ( $this->election->getCondorcetWinner()->getName() ?? 'NULL' )],
-                            ['# Condorcet loser', ( $this->election->getCondorcetLoser()->getName() ?? 'NULL' )]
+                            ['* Condorcet winner', (string) ( $this->election->getCondorcetWinner() ?? 'NULL' )],
+                            ['# Condorcet loser', (string) ( $this->election->getCondorcetLoser() ?? 'NULL' )]
                 ])
 
                 ->render()
