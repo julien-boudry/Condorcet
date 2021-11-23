@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.1.2] - 2021-11-23
+### Changed
+Bug fix: Command-line fatal error on NULL natural Condorcet winner / loser #72
+
 ## [v3.1.1] - 2021-08-03
 ### Added
 - __CondorcetAutoloader check for the minimal PHP version #56
