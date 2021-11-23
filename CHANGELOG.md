@@ -2,6 +2,20 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.1.2] - 2021-11-23
+### Changed
+Bug fix: Command-line fatal error on NULL natural Condorcet winner / loser #72
+
+## [v3.1.1] - 2021-08-03
+### Added
+- __CondorcetAutoloader check for the minimal PHP version #56
+### Changed
+- Bugfix: KemenyYoung wrong results when using Election::removeCandidates()
+- Various documentation fixes and improvements
+
+### Internal changes
+- Docker: Upgrade Debian base image to Bullseye
+
 ## [v3.1.0] - 2021-08-03
 ### Description
 Introduces support for proportional methods. And adds some.
