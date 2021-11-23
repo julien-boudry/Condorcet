@@ -212,4 +212,18 @@ class ElectionCommandTest extends TestCase
         // $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
     }
+
+    public function testNaturalCondorcet (): void
+    {
+        $this->electionCommand->execute([
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A=B=C',
+            '--natural-condorcet' => true,
+        ]);
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('* Condorcet winner | NULL', $output);
+        self::assertStringContainsString('# Condorcet loser  | NULL', $output);
+    }
 }
