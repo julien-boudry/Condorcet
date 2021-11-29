@@ -2,6 +2,25 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.2.0] - 2021-12-01
+### Description
+An important technical upgrade without many notable users changes.
+
+### Added
+- Use PHP 8.1 new features (and minimal requirements). Resulting in more modern code & performances improvements.
+- Result class now offers some publics (PHP 8.1) readonly properties in addition to getter methods.
+
+### Changed
+- New Exceptions class and Exceptions hierarchies. Users must review all usage with exceptions captures. All new Exceptions extend the old CondorcetException class. But exceptions codes are no more used. (thanks @toddy15 for help and initiative)
+- Improved documentation.
+- Method::setOption() now only accept BackEnum or int parameter.
+- StvQuotas parameters is now an Enum instead of a string.
+
+### Internal changes
+- Improved and refactored documentation generator tool.
+- Add some dev & quality tools like Infection resulting in code quality improvements and news tests (thanks @toddy15 for help and initiative).
+- Reduce Docker image size
+
 ## [v3.1.2] - 2021-11-23
 ### Changed
 Bug fix: Command-line fatal error on NULL natural Condorcet winner / loser #72
