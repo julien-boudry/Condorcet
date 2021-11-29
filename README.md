@@ -150,7 +150,6 @@ _I have undertaken and continues to undertake efforts to reform and improve the 
 ```shell
 mkdir Condorcet && cd Condorcet
 composer require julien-boudry/condorcet
-./vendor/bin/condorcet --help
 
 # Execute a command, example:
 ./vendor/bin/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
@@ -165,10 +164,10 @@ _You must install Docker first. See [installation instructions](https://hub.dock
 docker pull julienboudry/condorcet:latest
 
 # Interactive mod
-docker run --hostname=condorcet -it --rm julienboudry/condorcet election
+docker run -it --rm julienboudry/condorcet election
 
 # With custom parameters :
-docker run --hostname=condorcet -it --rm julienboudry/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+docker run -it --rm julienboudry/condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
 ```
 
 ##### From docker file
@@ -178,10 +177,10 @@ cd Condorcet
 docker build -t condorcet .
 
 # Interactive mod
-docker run --hostname="condorcet" --rm -it condorcet election
+docker run --rm -it condorcet election
 
 # Or execute a command, example:
-docker run --hostname="condorcet" --rm -it condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
+docker run --rm -it condorcet election -c "A;B;C" -w "A>B;A>C;C>B" -r
 ```
 
 #### Option 3: From PHAR file
