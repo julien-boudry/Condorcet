@@ -3,7 +3,7 @@
 Condorcet PHP: Voting Methods
 ===========================
 
-> _See also **[the manual](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Voting-Methods)**_  
+> _See also **[the manual](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Voting-Methods-%28library%29)**_  
 
 # Natively implemented methods 
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*  
