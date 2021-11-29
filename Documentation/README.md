@@ -1,8 +1,6 @@
 > **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
 
-# Public API Index _(Not yet exhaustive, not yet....)*_
-_Not including technical public methods which ones are used for very advanced use between components (typically if you extend Coondorcet or build your own modules)._
-
+# Public API Index*_
 _*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
