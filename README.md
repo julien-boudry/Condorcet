@@ -198,8 +198,8 @@ php condorcet.phar election -c "A;B;C" -w "A>B;A>C;C>B" -r
 
 ### Condorcet Wiki - Command Line Manual
 
-* **[Examples](https://github.com/julien-boudry/Condorcet/wiki/III-%23-Usage-%28command-line%29)
-* **[Man Page](https://github.com/julien-boudry/Condorcet/wiki/II-%23-Man-Page-%28command-line%29)
+* [**Examples**](https://github.com/julien-boudry/Condorcet/wiki/III-%23-Usage-%28command-line%29)
+* [**Man Page**](https://github.com/julien-boudry/Condorcet/wiki/II-%23-Man-Page-%28command-line%29)
 
 ## Use Condorcet as a PHP Library
 
@@ -222,9 +222,10 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 
 ### PHP Library - Examples
 
-### Great overview
+### Overview
 
-* [Non-visual quick tour of opportunities without interface](Examples/1.%20Overview.php) (not exhaustive and partial, but just a great tour.)
+* [General Overview](Examples/1.%20Overview.php) _(not exhaustive and partial, but just a great tour.)_
+* [Advanced Object Management](Examples/1.%20AdvancedObjectManagement.php)
 
 ### With Html output basics examples
 
@@ -235,89 +236,6 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 * [Condorcet Wiki Manual](https://github.com/julien-boudry/Condorcet/wiki) provides many code example
 * [Manage millions of votes with an external database drive](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
 
-
-### Really quick and simple example
-
-_OK: sacrifice to the local tradition of lazy._    
-
-```php
-  use CondorcetPHP\Condorcet\Condorcet;
-  use CondorcetPHP\Condorcet\Election;
-  use CondorcetPHP\Condorcet\Candidate;
-  use CondorcetPHP\Condorcet\CondorcetUtil;
-  use CondorcetPHP\Condorcet\Vote;
-
-  $myElection1 = new Election () ;
-
-  // Create your own candidate object
-  $candidate1 = new Candidate ('Candidate 1'); 
-  $candidate2 = new Candidate ('Candidate 2');
-  $candidate3 = new Candidate ('Candidate 3');
-
-  // Register your candidates
-  $myElection1->addCandidate($candidate1);
-  $myElection1->addCandidate($candidate2);
-  $myElection1->addCandidate($candidate3);
-  $candidate4 = $myElection1->addCandidate('Candidate 4');
-
-  // Add some votes, by some ways
-  $myElection1->addVote(  [
-                              $candidate2, // 1
-                              [$candidate1, $candidate4] // 2 - Tie
-                              // Last rank is optionnal. By default, it will be implicitly completed in $candidate3. This behaviour can be changed by election, before, during or after the vote. The initial submission being preserved.
-                          ]
-  );
-
-  $myElection1->addVote('Candidate 2 > Candidate 3 > Candidate 4 = Candidate 1'); // Last rank can also be omitted
-
-  $myElection1->parseVotes(
-              'Candidate 1 > Candidate 2 = Candidate 4 > Candidate 3 * 4
-              Candidate 3 > Candidate 1 * 3'
-  ); // Powerfull, it add 7 votes
-
-  $myElection1->addVote( new Vote ( [   $candidate4,
-                                        $candidate2 ]
-                                        // You can ignore the over. They will be at the last rank in the contexte of each election. 
-                                  )
-  );
-
-
-  // Get Result
-
-    // Natural Condorcet Winner
-    $myWinner = $myElection1->getWinner(); // Return a candidate object
-          echo 'My winner is ' . $myCondorcetWinner->getName();
-
-    // Natural Condorcet Loser
-    $myLoser = $myElection1->getLoser(); // Return a candidate object
-          echo 'My loser is ' . $myCondorcetLoser->getName();
-
-    // Schulze Ranking
-    $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
-      # Echo it easily 
-      var_dump( CondorcetUtil::format($myResultBySchulze) );
-
-    // Get Schulze advanced computing data & stats
-    $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
-
-    // Get Copeland Ranking
-    $myResultByCopeland = $myElection1->getResult('Copeland');
-
-    // Get Pairwise
-    $myPairwise = $myElection1->getPairwise();
-
-  // How long computation time behind us?
-  $timer = $myElection1->getGlobalTimer();
-
-  // SHA-2 checksum and sleep
-  $myChecksum = $myElection1->getChecksum();
-  $toStore = serialize($myElection1);
-  $comeBack = unserialize($toStore);
-  $comeBack->getChecksum() === $myChecksum; // True
-
-
-  # And many many more than that. Read the doc. & look at advanced examples.
-```
 
 ## Performance & Coding style considerations
 
