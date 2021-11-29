@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
 
 class Generate
@@ -269,6 +269,16 @@ class Generate
             $md .= "\n\n".
                     "### Return value:   \n\n".
                     "*(".self::getTypeAsString($method->getReturnType()).")* ".$method->getAttributes(FunctionReturn::class)[0]->getArguments()[0]."\n\n";
+        endif;
+
+        // Throw
+        if (!empty($method->getAttributes(Throws::class))) :
+            $md .=  "\n\n".
+                    "### Throws:   \n\n";
+
+            foreach ($method->getAttributes(Throws::class)[0]->getArguments() as $arg) :
+               $md .= "* ".$arg."\n";
+            endforeach;
         endif;
 
         // Related methods

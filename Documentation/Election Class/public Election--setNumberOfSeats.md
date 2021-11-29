@@ -18,6 +18,11 @@ The number of seats for proportional methods.
 *(int)* Number of seats.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\NoSeatsException
+
 ---------------------------------------
 
 ### Related method(s)      

@@ -18,6 +18,11 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 *(bool)* In case of success, return TRUE
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+
 ---------------------------------------
 
 ### Related method(s)      

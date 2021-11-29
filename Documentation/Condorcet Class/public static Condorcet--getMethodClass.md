@@ -18,6 +18,11 @@ A valid method name.
 *(?string)* Return null is method not exist.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\AlgorithmException
+
 ---------------------------------------
 
 ### Related method(s)      

@@ -23,6 +23,11 @@ Array of option for some methods. Look at each method documentation.
 *(CondorcetPHP\Condorcet\Result)* An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\AlgorithmException
+
 ---------------------------------------
 
 ### Related method(s)      

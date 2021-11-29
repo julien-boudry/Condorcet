@@ -18,6 +18,11 @@ An election already linked to the Vote.
 *(array)* Contextual full ranking.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException
+
 ---------------------------------------
 
 ### Related method(s)      

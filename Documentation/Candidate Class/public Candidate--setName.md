@@ -18,3 +18,8 @@ Candidate Name.
 
 *(bool)* In case of success, return TRUE
 
+
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException

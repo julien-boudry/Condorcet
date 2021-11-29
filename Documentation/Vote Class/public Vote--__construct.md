@@ -24,6 +24,11 @@ Set your own timestamp metadata on Ranking.
 ##### **electionContext:** *?CondorcetPHP\Condorcet\Election*   
 Try to convert directly your candidates from sting input" to Candidate object of one election.    
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+
 ---------------------------------------
 
 ### Related method(s)      

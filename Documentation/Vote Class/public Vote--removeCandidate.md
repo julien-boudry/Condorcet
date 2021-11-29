@@ -18,6 +18,11 @@ Candidate object or string.
 *(bool)* True on success.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException
+
 ---------------------------------------
 
 ### Related method(s)      

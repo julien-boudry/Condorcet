@@ -22,6 +22,12 @@ If true, the input is evaluated as path to a text file.
 *(array)* List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateExistsException
+* CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException
+
 ---------------------------------------
 
 ### Related method(s)      

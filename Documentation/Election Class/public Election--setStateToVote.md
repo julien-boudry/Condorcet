@@ -18,6 +18,12 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 *(bool)* Always True.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\NoCandidatesException
+* CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException
+
 ---------------------------------------
 
 ### Related method(s)      

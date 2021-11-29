@@ -22,6 +22,11 @@ String separated by commas or an array. Will add tags to the vote object for you
 *(CondorcetPHP\Condorcet\Vote)* The vote object.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException
+
 ---------------------------------------
 
 ### Related method(s)      

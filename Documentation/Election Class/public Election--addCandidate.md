@@ -18,6 +18,12 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace o
 *(CondorcetPHP\Condorcet\Candidate)* The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateExistsException
+* CondorcetPHP\Condorcet\Throwable\VotingHasStartedException
+
 ---------------------------------------
 
 ### Related method(s)      

@@ -23,6 +23,12 @@ Remove candidates from an election.
 *(array)* List of removed CondorcetPHP\Condorcet\Candidate object.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException
+* CondorcetPHP\Condorcet\Throwable\VotingHasStartedException
+
 ---------------------------------------
 
 ### Related method(s)      

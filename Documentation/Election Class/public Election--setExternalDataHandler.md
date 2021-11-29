@@ -18,6 +18,11 @@ Driver object.
 *(bool)* True if success. Else throw an Exception.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\DataHandlerException
+
 ---------------------------------------
 
 ### Related method(s)      

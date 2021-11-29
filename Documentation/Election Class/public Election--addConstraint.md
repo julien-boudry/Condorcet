@@ -18,6 +18,11 @@ A valid class path. Class must extend VoteConstraint class.
 *(bool)* True on success.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteConstraintException
+
 ---------------------------------------
 
 ### Related method(s)      

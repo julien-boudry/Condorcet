@@ -18,6 +18,11 @@ JSON string input.
 *(array)* List of newly registered candidate object.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\CandidateExistsException
+
 ---------------------------------------
 
 ### Related method(s)      

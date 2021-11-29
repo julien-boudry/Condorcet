@@ -18,6 +18,11 @@ The new vote weight.
 *(int)* New weight.
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+
 ---------------------------------------
 
 ### Related method(s)      

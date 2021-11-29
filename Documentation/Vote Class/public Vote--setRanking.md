@@ -24,6 +24,11 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 *(bool)* In case of success, return TRUE
 
 
+
+### Throws:   
+
+* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+
 ---------------------------------------
 
 ### Related method(s)      
