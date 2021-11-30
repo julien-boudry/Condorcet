@@ -12,7 +12,7 @@ If it is True then votes vote optionally can use weight otherwise (if false) all
 
 ### Return value:   
 
-*(bool)* True / False
+*(```bool```)* True / False
 
 
 ---------------------------------------

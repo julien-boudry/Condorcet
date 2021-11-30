@@ -11,7 +11,7 @@ Get the timestamp corresponding of the last namming change.
 
 ### Return value:   
 
-*(float)* Timestamp
+*(```float```)* Timestamp
 
 
 ---------------------------------------

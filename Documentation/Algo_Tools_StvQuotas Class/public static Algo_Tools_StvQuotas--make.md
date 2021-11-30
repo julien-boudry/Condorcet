@@ -9,13 +9,13 @@ public static Algo\Tools\StvQuotas::make ( string quota ): self
 Build the Enum Quotas option for STV methods
     
 
-##### **quota:** *string*   
+##### **quota:** *```string```*   
 Quota name.    
 
 
 ### Return value:   
 
-*(self)* The Quota option
+*(```self```)* The Quota option
 
 
 ---------------------------------------

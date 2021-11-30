@@ -9,19 +9,19 @@ public Vote->addTags ( array|string tags ): bool
 Add tag(s) on this Vote.
     
 
-##### **tags:** *array|string*   
+##### **tags:** *```array|string```*   
 Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.    
 
 
 ### Return value:   
 
-*(bool)* In case of success, return TRUE
+*(```bool```)* In case of success, return TRUE
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
 
 ---------------------------------------
 

@@ -9,17 +9,17 @@ public Election->getVotesList ( [array|string|null tags = null , bool with = tru
 Get registered vote list.
     
 
-##### **tags:** *array|string|null*   
+##### **tags:** *```array|string|null```*   
 Tags list as a string separated by commas or array.    
 
 
-##### **with:** *bool*   
+##### **with:** *```bool```*   
 Get votes with these tags or without.    
 
 
 ### Return value:   
 
-*(array)* Populated by each Vote object.
+*(```array```)* Populated by each Vote object.
 
 
 ---------------------------------------

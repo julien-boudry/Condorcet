@@ -9,13 +9,13 @@ public Vote->getWeight ( [?CondorcetPHP\Condorcet\Election context = null] ): in
 Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
     
 
-##### **context:** *?CondorcetPHP\Condorcet\Election*   
+##### **context:** *```?CondorcetPHP\Condorcet\Election```*   
 In the context of wich election? (optional).    
 
 
 ### Return value:   
 
-*(int)* Weight. Default weight is 1.
+*(```int```)* Weight. Default weight is 1.
 
 
 ---------------------------------------

@@ -9,7 +9,7 @@ public Candidate->__construct ( string name )
 Build a candidate.
     
 
-##### **name:** *string*   
+##### **name:** *```string```*   
 Candidate Name.    
 
 ---------------------------------------

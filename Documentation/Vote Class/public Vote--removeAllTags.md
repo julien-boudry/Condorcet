@@ -11,7 +11,7 @@ Remove all registered tag(s) on this Vote.
 
 ### Return value:   
 
-*(bool)* Return True.
+*(```bool```)* Return True.
 
 
 ---------------------------------------

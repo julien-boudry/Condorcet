@@ -34,10 +34,14 @@ class Generate
     return (string) $c;
     }
 
-    public static function getTypeAsString (?\ReflectionType $rf_rt) : ?string
+    public static function getTypeAsString (?\ReflectionType $rf_rt, bool $codeBlock = false) : ?string
     {
         if ( $rf_rt !== null ) :
-            return (string) $rf_rt;
+            if ($codeBlock) :
+                return '```'.((string) $rf_rt).'```';
+            else :
+                return (string) $rf_rt;
+            endif;
         endif;
 
         return $rf_rt;
@@ -256,7 +260,7 @@ class Generate
                 endif;
 
                 $md .=  "\n\n".
-                        "##### **".$value->getName().":** *".self::getTypeAsString($value->getType())."*   \n".
+                        "##### **".$value->getName().":** *".self::getTypeAsString($value->getType(), true)."*   \n".
                         $pt."    \n";
             endforeach;
         endif;
@@ -267,7 +271,7 @@ class Generate
         if (!empty($method->getAttributes(FunctionReturn::class))) :
             $md .= "\n\n".
                     "### Return value:   \n\n".
-                    "*(".self::getTypeAsString($method->getReturnType()).")* ".$method->getAttributes(FunctionReturn::class)[0]->getArguments()[0]."\n\n";
+                    "*(".self::getTypeAsString($method->getReturnType(), true).")* ".$method->getAttributes(FunctionReturn::class)[0]->getArguments()[0]."\n\n";
         endif;
 
         // Throw
@@ -276,7 +280,7 @@ class Generate
                     "### Throws:   \n\n";
 
             foreach ($method->getAttributes(Throws::class)[0]->getArguments() as $arg) :
-               $md .= "* ".$arg."\n";
+               $md .= "* ```".$arg."```\n";
             endforeach;
         endif;
 
@@ -391,7 +395,7 @@ class Generate
                     $file_content .= "* [".self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod'])."](".$url.")";
 
                     if (isset($oneMethod['ReflectionMethod']) && $oneMethod['ReflectionMethod']->hasReturnType()) :
-                        $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                        $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType(), true);
                     endif;
 
                     $file_content .= "  \n";
@@ -410,7 +414,7 @@ class Generate
 
         foreach ($cases as $oneCase) :
             $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
-            $r .= '* case '.$name.'::'.$oneCase->getName()."  \n";
+            $r .= '* ```case '.$name.'::'.$oneCase->getName()."```  \n";
         endforeach;
 
         return $r;
@@ -424,7 +428,7 @@ class Generate
 
         foreach ($class->getReflectionConstants($type) as $constant) :
             if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) :
-                $file_content .= '* ';
+                $file_content .= '* ```';
 
                 $file_content .= $constant->isFinal() ? 'final ' : '';
 
@@ -432,8 +436,8 @@ class Generate
                 $file_content .= $constant->isProtected() ? 'protected' : '';
                 $file_content .= $constant->isPrivate() ? 'private' : '';
 
-                $file_content .= ' const '.$constant->getName().':('.\gettype($constant->getValue()).')';
-                $file_content .= "  \n";
+                $file_content .= ' const '.$constant->getName().': ('.\gettype($constant->getValue()).')';
+                $file_content .= "```  \n";
                 $hasConstants = true;
             endif;
         endforeach;
@@ -453,7 +457,7 @@ class Generate
 
         foreach ($class->getProperties($type) as $propertie) :
             if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) :
-                $file_content .= '* ';
+                $file_content .= '* ```';
 
                 $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
 
@@ -461,8 +465,8 @@ class Generate
                 $file_content .= $propertie->isProtected() ? 'protected' : '';
                 $file_content .= $propertie->isPrivate() ? 'private' : '';
 
-                $file_content .= ' '.((string) $propertie->getType()).' $'.$propertie->getName();
-                $file_content .= "  \n";
+                $file_content .= ((string) $propertie->getType()).' $'.$propertie->getName();
+                $file_content .= "```  \n";
                 $hasConstants = true;
             endif;
         endforeach;

@@ -11,7 +11,7 @@ Return the last computation runtime (typically after a getResult() call.). Inclu
 
 ### Return value:   
 
-*(float)* (Float) Timer
+*(```float```)* (Float) Timer
 
 
 ---------------------------------------

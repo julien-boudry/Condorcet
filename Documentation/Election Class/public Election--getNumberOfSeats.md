@@ -11,7 +11,7 @@ Get number of Seats for STV methods.
 
 ### Return value:   
 
-*(int)* Number of seats.
+*(```int```)* Number of seats.
 
 
 ---------------------------------------

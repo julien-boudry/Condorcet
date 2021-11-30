@@ -11,13 +11,13 @@ Then the weight of votes (if specified) will be taken into account when calculat
 By default, the voting weight is not activated and all votes are considered equal.
     
 
-##### **rule:** *bool*   
+##### **rule:** *```bool```*   
 New rule.    
 
 
 ### Return value:   
 
-*(bool)* Return True
+*(```bool```)* Return True
 
 
 ---------------------------------------

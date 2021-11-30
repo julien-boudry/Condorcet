@@ -9,13 +9,13 @@ public Election->removeVote ( CondorcetPHP\Condorcet\Vote vote ): bool
 Remove Votes from an election.
     
 
-##### **vote:** *CondorcetPHP\Condorcet\Vote*   
+##### **vote:** *```CondorcetPHP\Condorcet\Vote```*   
 Vote object.    
 
 
 ### Return value:   
 
-*(bool)* List of removed CondorcetPHP\Condorcet\Vote object.
+*(```bool```)* List of removed CondorcetPHP\Condorcet\Vote object.
 
 
 ---------------------------------------

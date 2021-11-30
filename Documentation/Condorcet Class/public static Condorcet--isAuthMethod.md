@@ -9,13 +9,13 @@ public static Condorcet::isAuthMethod ( string method ): bool
 Test if a method is in the result set of Condorcet::getAuthMethods.
     
 
-##### **method:** *string*   
+##### **method:** *```string```*   
 A valid method name or class.    
 
 
 ### Return value:   
 
-*(bool)* True / False
+*(```bool```)* True / False
 
 
 ---------------------------------------

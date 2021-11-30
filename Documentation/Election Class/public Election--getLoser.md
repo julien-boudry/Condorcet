@@ -9,7 +9,7 @@ public Election->getLoser ( [?string method = null] ): CondorcetPHP\Condorcet\Ca
 Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
     
 
-##### **method:** *?string*   
+##### **method:** *```?string```*   
 *Only if not nulle:*    
 
 The loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    
@@ -19,7 +19,7 @@ The loser will be provided by an advanced algorithm of an available advanced Con
 
 ### Return value:   
 
-*(CondorcetPHP\Condorcet\Candidate|array|null)* Candidate object given. Null if there are no available winner or loser.
+*(```CondorcetPHP\Condorcet\Candidate|array|null```)* Candidate object given. Null if there are no available winner or loser.
 
 If you use an advanced method instead of Natural, you can get an array with multiples losers.
 

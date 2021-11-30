@@ -11,13 +11,13 @@ Remove an external driver to store vote on very large election. And import his d
 
 ### Return value:   
 
-*(bool)* True if success. Else throw an Exception.
+*(```bool```)* True if success. Else throw an Exception.
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\DataHandlerException
+* ```CondorcetPHP\Condorcet\Throwable\DataHandlerException```
 
 ---------------------------------------
 

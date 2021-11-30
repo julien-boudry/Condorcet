@@ -13,7 +13,7 @@ If it is false, then the candidates not ranked, are not taken into account at al
 
 ### Return value:   
 
-*(bool)* True / False
+*(```bool```)* True / False
 
 
 ---------------------------------------

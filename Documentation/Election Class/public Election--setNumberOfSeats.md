@@ -9,19 +9,19 @@ public Election->setNumberOfSeats ( int seats ): int
 Set number of Seats for STV methods.
     
 
-##### **seats:** *int*   
+##### **seats:** *```int```*   
 The number of seats for proportional methods.    
 
 
 ### Return value:   
 
-*(int)* Number of seats.
+*(```int```)* Number of seats.
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\NoSeatsException
+* ```CondorcetPHP\Condorcet\Throwable\NoSeatsException```
 
 ---------------------------------------
 

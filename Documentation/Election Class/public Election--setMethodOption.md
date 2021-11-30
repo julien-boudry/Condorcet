@@ -9,21 +9,21 @@ public Election->setMethodOption ( string method , string optionName , BackedEnu
 Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
     
 
-##### **method:** *string*   
+##### **method:** *```string```*   
 Method name or class path.    
 
 
-##### **optionName:** *string*   
+##### **optionName:** *```string```*   
 Option name.    
 
 
-##### **optionValue:** *BackedEnum|int*   
+##### **optionValue:** *```BackedEnum|int```*   
 Option Value.    
 
 
 ### Return value:   
 
-*(bool)* True on success. Else False.
+*(```bool```)* True on success. Else False.
 
 
 ---------------------------------------

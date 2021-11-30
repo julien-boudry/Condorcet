@@ -11,7 +11,7 @@ Get the timestamp corresponding of the creation of this vote.
 
 ### Return value:   
 
-*(float)* Timestamp
+*(```float```)* Timestamp
 
 
 ---------------------------------------

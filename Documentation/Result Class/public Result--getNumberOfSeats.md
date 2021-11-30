@@ -11,7 +11,7 @@ Get number of Seats for STV methods result.
 
 ### Return value:   
 
-*(?int)* Number of seats if this result is a STV method. Else NULL.
+*(```?int```)* Number of seats if this result is a STV method. Else NULL.
 
 
 ---------------------------------------

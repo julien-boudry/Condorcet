@@ -11,7 +11,7 @@ Get the registered tags for this Vote.
 
 ### Return value:   
 
-*(array)* List of registered tag.
+*(```array```)* List of registered tag.
 
 
 ---------------------------------------

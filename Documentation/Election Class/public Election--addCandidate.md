@@ -9,20 +9,20 @@ public Election->addCandidate ( [CondorcetPHP\Condorcet\Candidate|string|null ca
 Add one candidate to an election.
     
 
-##### **candidate:** *CondorcetPHP\Condorcet\Candidate|string|null*   
+##### **candidate:** *```CondorcetPHP\Condorcet\Candidate|string|null```*   
 Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.    
 
 
 ### Return value:   
 
-*(CondorcetPHP\Condorcet\Candidate)* The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).
+*(```CondorcetPHP\Condorcet\Candidate```)* The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\CandidateExistsException
-* CondorcetPHP\Condorcet\Throwable\VotingHasStartedException
+* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException```
+* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException```
 
 ---------------------------------------
 

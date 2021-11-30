@@ -15,14 +15,14 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Return value:   
 
-*(bool)* Always True.
+*(```bool```)* Always True.
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\NoCandidatesException
-* CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException
+* ```CondorcetPHP\Condorcet\Throwable\NoCandidatesException```
+* ```CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException```
 
 ---------------------------------------
 

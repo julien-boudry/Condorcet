@@ -11,7 +11,7 @@ Return a list of registered candidates for this election.
 
 ### Return value:   
 
-*(array)* List of candidates in an array populated with strings instead of CandidateObjects.
+*(```array```)* List of candidates in an array populated with strings instead of CandidateObjects.
 
 
 ---------------------------------------

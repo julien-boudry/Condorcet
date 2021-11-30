@@ -9,11 +9,11 @@ public Election->getCandidateObjectFromName ( string candidateName ): ?Condorcet
 Find candidate object by string and return the candidate object.
     
 
-##### **candidateName:** *string*   
+##### **candidateName:** *```string```*   
 Candidate name.    
 
 
 ### Return value:   
 
-*(?CondorcetPHP\Condorcet\Candidate)* Candidate object
+*(```?CondorcetPHP\Condorcet\Candidate```)* Candidate object
 

@@ -11,7 +11,7 @@ Get elections object linked to this Vote or Candidate object.
 
 ### Return value:   
 
-*(?array)* Populated by each elections Condorcet object.
+*(```?array```)* Populated by each elections Condorcet object.
 
 
 ---------------------------------------

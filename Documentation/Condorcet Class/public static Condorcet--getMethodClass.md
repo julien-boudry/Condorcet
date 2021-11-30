@@ -9,19 +9,19 @@ public static Condorcet::getMethodClass ( string method ): ?string
 Return the full class path for a method.
     
 
-##### **method:** *string*   
+##### **method:** *```string```*   
 A valid method name.    
 
 
 ### Return value:   
 
-*(?string)* Return null is method not exist.
+*(```?string```)* Return null is method not exist.
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\AlgorithmException
+* ```CondorcetPHP\Condorcet\Throwable\AlgorithmException```
 
 ---------------------------------------
 

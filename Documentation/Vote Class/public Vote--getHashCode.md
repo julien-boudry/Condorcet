@@ -11,7 +11,7 @@ Get Object hash (cryptographic)
 
 ### Return value:   
 
-*(string)* SHA hash code.
+*(```string```)* SHA hash code.
 
 
 ---------------------------------------

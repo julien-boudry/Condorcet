@@ -11,7 +11,7 @@ Return the method options.
 
 ### Return value:   
 
-*(array)* Array of options. Can be empty for most of the methods.
+*(```array```)* Array of options. Can be empty for most of the methods.
 
 
 ---------------------------------------

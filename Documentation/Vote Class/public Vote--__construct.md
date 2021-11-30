@@ -9,25 +9,25 @@ public Vote->__construct ( array|string ranking [, array|string|null tags = null
 Build a vote object.
     
 
-##### **ranking:** *array|string*   
+##### **ranking:** *```array|string```*   
 Equivalent to Vote::setRanking method.    
 
 
-##### **tags:** *array|string|null*   
+##### **tags:** *```array|string|null```*   
 Equivalent to Vote::addTags method.    
 
 
-##### **ownTimestamp:** *?float*   
+##### **ownTimestamp:** *```?float```*   
 Set your own timestamp metadata on Ranking.    
 
 
-##### **electionContext:** *?CondorcetPHP\Condorcet\Election*   
+##### **electionContext:** *```?CondorcetPHP\Condorcet\Election```*   
 Try to convert directly your candidates from sting input" to Candidate object of one election.    
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
 
 ---------------------------------------
 

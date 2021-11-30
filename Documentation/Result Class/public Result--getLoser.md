@@ -11,7 +11,7 @@ Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public 
 
 ### Return value:   
 
-*(CondorcetPHP\Condorcet\Candidate|array|null)* Candidate object given. Null if there are no available loser.
+*(```CondorcetPHP\Condorcet\Candidate|array|null```)* Candidate object given. Null if there are no available loser.
 You can get an array with multiples losers.
 
 

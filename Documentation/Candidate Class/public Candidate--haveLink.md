@@ -9,13 +9,13 @@ public Candidate->haveLink ( CondorcetPHP\Condorcet\Election election ): bool
 Check if this election is linked with this Candidate/Vote object.
     
 
-##### **election:** *CondorcetPHP\Condorcet\Election*   
+##### **election:** *```CondorcetPHP\Condorcet\Election```*   
 Condorcet election to check.    
 
 
 ### Return value:   
 
-*(bool)* True or False.
+*(```bool```)* True or False.
 
 
 ---------------------------------------

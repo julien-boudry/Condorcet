@@ -11,7 +11,7 @@ Get the actual Ranking of this Vote.
 
 ### Return value:   
 
-*(array)* Multidimenssionnal array populated by Candidate object.
+*(```array```)* Multidimenssionnal array populated by Candidate object.
 
 
 ---------------------------------------

@@ -9,19 +9,19 @@ public Election->addConstraint ( string constraintClass ): bool
 Add a constraint rules as a valid class path.
     
 
-##### **constraintClass:** *string*   
+##### **constraintClass:** *```string```*   
 A valid class path. Class must extend VoteConstraint class.    
 
 
 ### Return value:   
 
-*(bool)* True on success.
+*(```bool```)* True on success.
 
 
 
 ### Throws:   
 
-* CondorcetPHP\Condorcet\Throwable\VoteConstraintException
+* ```CondorcetPHP\Condorcet\Throwable\VoteConstraintException```
 
 ---------------------------------------
 

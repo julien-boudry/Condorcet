@@ -11,7 +11,7 @@ Get the registered tags for this Vote.
 
 ### Return value:   
 
-*(string)* List of registered tag as string separated by commas.
+*(```string```)* List of registered tag as string separated by commas.
 
 
 ---------------------------------------

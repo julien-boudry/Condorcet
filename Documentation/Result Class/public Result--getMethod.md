@@ -11,7 +11,7 @@ Get the The algorithmic method used for this result.
 
 ### Return value:   
 
-*(string)* Method name.
+*(```string```)* Method name.
 
 
 ---------------------------------------
