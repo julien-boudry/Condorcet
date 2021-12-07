@@ -2,6 +2,9 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.2.1] - 2021-12-07
+### Changed
+Console: Improve column width, prevent most of table cuts depending on the width of the terminal.
 ## [v3.2.0] - 2021-12-01
 ### Description
 An important technical upgrade without many notable users changes.
