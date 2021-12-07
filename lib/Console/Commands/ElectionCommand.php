@@ -27,6 +27,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use \Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Terminal;
 use Symfony\Component\Yaml\Yaml;
 
 class ElectionCommand extends Command
@@ -43,8 +44,9 @@ class ElectionCommand extends Command
     protected bool $pairwiseIsWrite = false;
     public ?string $SQLitePath = null;
 
-    // TableFormat
+    // TableFormat & Terminal
     protected TableStyle $centerPadTypeStyle;
+    protected Terminal $terminal;
 
     protected function configure (): void
     {
@@ -123,8 +125,9 @@ class ElectionCommand extends Command
 
     protected function initialize (InputInterface $input, OutputInterface $output): void
     {
-        // Initialize Style
+        // Initialize Style & Terminal
         $this->centerPadTypeStyle = (new TableStyle())->setPadType(STR_PAD_BOTH);
+        $this->terminal = new Terminal;
 
         // Setup Memory
         if ($input->getOption('votes-per-mb') && ($NewVotesPerMB = (int) $input->getOption('votes-per-mb')) >= 1 ) :
@@ -326,8 +329,11 @@ class ElectionCommand extends Command
                 ->setRows($this->formatResultTable($result))
 
                 ->setColumnStyle(0,$this->centerPadTypeStyle)
-                ->setColumnWidth(0, 20)
+
+                ->setColumnWidth(0, 10)
                 ->setColumnWidth(1, 20)
+                ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 20))
+
                 ->render()
             ;
 
@@ -424,6 +430,8 @@ class ElectionCommand extends Command
         ($votesTable = new Table($output))
             ->setHeaderTitle('Registered votes list')
             ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
+
+            ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 50))
         ;
 
         foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) :
