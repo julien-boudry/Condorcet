@@ -43,7 +43,7 @@ abstract class Condorcet
 {
 
 /////////// CONSTANTS ///////////
-    public const VERSION = '3.1.2';
+    public const VERSION = '3.1.3';
 
     public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 

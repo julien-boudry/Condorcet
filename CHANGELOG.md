@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.1.3] - 2021-12-07
+### Changed
+Console: Improve column width, prevent most of table cuts depending on the width of the terminal.
+
 ## [v3.1.2] - 2021-11-23
 ### Changed
 Bug fix: Command-line fatal error on NULL natural Condorcet winner / loser #72
