@@ -511,7 +511,7 @@ class Vote implements \Iterator, \Stringable
         array|string $tags
     ): bool
     {
-        $tags = VoteUtil::tagsConvert($tags);
+        $tags = VoteUtil::tagsConvert($tags) ?? [];
 
         foreach ($tags as $key => $tag) :
             if (\in_array(needle: $tag, haystack: $this->_tags, strict: true)) :

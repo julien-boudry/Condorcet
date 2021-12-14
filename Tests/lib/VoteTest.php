@@ -452,6 +452,19 @@ class VoteTest extends TestCase
         );
     }
 
+    public function testBadTagInput5 (): void
+    {
+        $vote = new Vote('A');
+        $vote->addTags(
+            []
+        );
+
+        self::assertSame(
+            [],
+            $vote->getTags()
+        );
+    }
+
     public function testAddRemoveTags (): void
     {
         $this->vote1 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]);
