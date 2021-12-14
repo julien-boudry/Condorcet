@@ -385,6 +385,10 @@ class VoteTest extends TestCase
             \array_values($vote1->getTags()));
 
         self::assertTrue($vote1->removeAllTags());
+
+        self::assertSame(
+            [],
+            $vote1->getTags());
     }
 
     public function testBadTagInput1 (): never
@@ -408,7 +412,7 @@ class VoteTest extends TestCase
 
         self::assertSame(
             [],
-            \array_values($vote->getTags())
+            $vote->getTags()
         );
 
         self::assertTrue($vote->removeAllTags());
@@ -426,10 +430,26 @@ class VoteTest extends TestCase
 
         self::assertSame(
             [],
-            \array_values($vote->getTags())
+            $vote->getTags()
         );
 
         self::assertTrue($vote->removeAllTags());
+    }
+
+    public function testBadTagInput4 (): never
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage("The format of the vote is invalid: every tag must be of type string, NULL given");
+
+        $vote = new Vote('A');
+        $vote->addTags(
+            [null]
+        );
+
+        self::assertSame(
+            [],
+            $vote->getTags()
+        );
     }
 
     public function testAddRemoveTags (): void
