@@ -758,10 +758,10 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public key (): ?int  
 * public next (): void  
-* public offsetExists ($offset): bool  
-* public offsetGet ($offset): ?array  
-* public offsetSet ($offset, $value): void  
-* public offsetUnset ($offset): void  
+* public offsetExists (mixed $offset): bool  
+* public offsetGet (mixed $offset): ?array  
+* public offsetSet (mixed $offset, mixed $value): void  
+* public offsetUnset (mixed $offset): void  
 * public removeVote (int $key): void  
 * public rewind (): void  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -885,46 +885,47 @@ _Including above methods from public API_
 * ```protectedbool $pairwiseIsWrite```  
 * ```public?string $SQLitePath```  
 * ```protectedSymfony\Component\Console\Helper\TableStyle $centerPadTypeStyle```  
+* ```protectedSymfony\Component\Console\Terminal $terminal```  
 * ```protected $defaultName```  
 * ```protected $defaultDescription```  
 
 * public static getDefaultDescription (): ?string  
-* public static getDefaultName ()  
+* public static getDefaultName (): ?string  
 * public __construct (?string $name = null)  
-* public addArgument (string $name, ?int $mode = null, string $description = , $default = null)  
-* public addOption (string $name, $shortcut = null, ?int $mode = null, string $description = , $default = null)  
-* public addUsage (string $usage)  
+* public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null): static  
+* public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null): static  
+* public addUsage (string $usage): static  
 * public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
 * public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output): void  
-* public getAliases ()  
-* public getApplication ()  
-* public getDefinition ()  
-* public getDescription ()  
-* public getHelp ()  
-* public getHelper (string $name)  
-* public getHelperSet ()  
-* public getName ()  
-* public getNativeDefinition ()  
-* public getProcessedHelp ()  
-* public getSynopsis (bool $short = false)  
-* public getUsages ()  
+* public getAliases (): array  
+* public getApplication (): ?Symfony\Component\Console\Application  
+* public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
+* public getDescription (): string  
+* public getHelp (): string  
+* public getHelper (string $name): mixed  
+* public getHelperSet (): ?Symfony\Component\Console\Helper\HelperSet  
+* public getName (): ?string  
+* public getNativeDefinition (): Symfony\Component\Console\Input\InputDefinition  
+* public getProcessedHelp (): string  
+* public getSynopsis (bool $short = false): string  
+* public getUsages (): array  
 * public ignoreValidationErrors ()  
 * public isEnabled ()  
-* public isHidden ()  
+* public isHidden (): bool  
 * public mergeApplicationDefinition (bool $mergeArgs = true)  
-* public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output)  
-* public setAliases (iterable $aliases)  
+* public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
+* public setAliases (iterable $aliases): static  
 * public setApplication (?Symfony\Component\Console\Application $application = null)  
-* public setCode (callable $code)  
-* public setDefinition ($definition)  
-* public setDescription (string $description)  
-* public setHelp (string $help)  
+* public setCode (callable $code): static  
+* public setDefinition (Symfony\Component\Console\Input\InputDefinition|array $definition): static  
+* public setDescription (string $description): static  
+* public setHelp (string $help): static  
 * public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet)  
-* public setHidden (bool $hidden)  
-* public setName (string $name)  
-* public setProcessTitle (string $title)  
+* public setHidden (bool $hidden = true): static  
+* public setName (string $name): static  
+* public setProcessTitle (string $title): static  
 * protected configure (): void  
 * protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
@@ -989,10 +990,10 @@ _Including above methods from public API_
 * public key (): ?int  
 * public keyExist ($offset): bool  
 * public next (): void  
-* public offsetExists ($offset): bool  
-* public offsetGet ($offset): mixed  
-* public offsetSet ($offset, $value): void  
-* public offsetUnset ($offset): void  
+* public offsetExists (mixed $offset): bool  
+* public offsetGet (mixed $offset): mixed  
+* public offsetSet (mixed $offset, mixed $value): void  
+* public offsetUnset (mixed $offset): void  
 * public regularize (): bool  
 * public resetCounter (): int  
 * public resetMaxKey (): ?int  
@@ -1082,10 +1083,10 @@ _Including above methods from public API_
 * public key (): ?int  
 * public keyExist ($offset): bool  
 * public next (): void  
-* public offsetExists ($offset): bool  
-* public offsetGet ($offset): ?CondorcetPHP\Condorcet\Vote  
-* public offsetSet ($offset, $value): void  
-* public offsetUnset ($offset): void  
+* public offsetExists (mixed $offset): bool  
+* public offsetGet (mixed $offset): CondorcetPHP\Condorcet\Vote  
+* public offsetSet (mixed $offset, mixed $value): void  
+* public offsetUnset (mixed $offset): void  
 * public regularize (): bool  
 * public resetCounter (): int  
 * public resetMaxKey (): ?int  
@@ -1268,10 +1269,10 @@ _Including above methods from public API_
 * public isProportional (): bool  
 * public key (): int  
 * public next (): void  
-* public offsetExists ($offset): bool  
-* public offsetGet ($offset): CondorcetPHP\Condorcet\Candidate|array|null  
-* public offsetSet ($offset, $value): void  
-* public offsetUnset ($offset): void  
+* public offsetExists (mixed $offset): bool  
+* public offsetGet (mixed $offset): CondorcetPHP\Condorcet\Candidate|array|null  
+* public offsetSet (mixed $offset, mixed $value): void  
+* public offsetUnset (mixed $offset): void  
 * public rewind (): void  
 * public valid (): bool  
 * protected makeUserResult (CondorcetPHP\Condorcet\Election $election): array  

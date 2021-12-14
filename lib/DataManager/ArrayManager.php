@@ -74,7 +74,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
 /////////// Implement ArrayAccess ///////////
 
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($offset === null) :
             $this->_Container[++$this->_maxKey] = $value;
@@ -104,12 +104,12 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     }
 
     // Use by isset() function, must return false if offset value is null.
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->_Container[$offset]) || ($this->_DataHandler !== null && $this->_DataHandler->selectOneEntity(key: $offset) !== false);
     }
 
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         if ($this->keyExist($offset)) :
             if (\array_key_exists(key: $offset, array: $this->_Container)) :
@@ -128,7 +128,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         endif;
     }
 
-    public function offsetGet($offset): mixed
+    public function offsetGet(mixed $offset): mixed
     {
         if (isset($this->_Container[$offset])) :
             return $this->_Container[$offset];

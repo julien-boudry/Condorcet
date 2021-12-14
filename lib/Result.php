@@ -44,20 +44,20 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     // Implement ArrayAccess
 
     #[Throws(ResultException::class)]
-    public function offsetSet ($offset, $value): void {
+    public function offsetSet (mixed $offset, mixed $value): void {
         throw new ResultException();
     }
 
-    public function offsetExists ($offset): bool {
+    public function offsetExists (mixed $offset): bool {
         return isset($this->ranking[$offset]);
     }
 
     #[Throws(ResultException::class)]
-    public function offsetUnset ($offset): void {
+    public function offsetUnset (mixed $offset): void {
         throw new ResultException();
     }
 
-    public function offsetGet ($offset): array|Candidate|null {
+    public function offsetGet (mixed $offset): array|Candidate|null {
         return $this->ranking[$offset] ?? null;
     }
 

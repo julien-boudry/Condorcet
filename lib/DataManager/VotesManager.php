@@ -69,16 +69,16 @@ class VotesManager extends ArrayManager
 
 /////////// Array Access - Specials improvements ///////////
 
-    public function offsetGet($offset): ?Vote
+    public function offsetGet(mixed $offset): Vote
     {
         return parent::offsetGet($offset);
     }
 
     #[Throws(VoteManagerException::class)]
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($value instanceof Vote) :
-            parent::offsetSet($offset,$value);
+            parent::offsetSet((is_int($offset) ? $offset : null),$value);
             $this->UpdateAndResetComputing(key: $this->_maxKey, type: 1);
         else :
             throw new VoteManagerException();
@@ -87,7 +87,7 @@ class VotesManager extends ArrayManager
         $this->checkRegularize();
     }
 
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         $this->UpdateAndResetComputing(key: $offset, type: 2);
         parent::offsetUnset($offset);
