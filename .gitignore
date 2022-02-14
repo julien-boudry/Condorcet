@@ -18,5 +18,6 @@ build/
 *.phar
 Dev/large.votes
 
-# phpstorm
-.idea
+# IDE
+*.idea
+*.code-workspace
