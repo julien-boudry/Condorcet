@@ -17,6 +17,7 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
@@ -30,6 +31,12 @@ use \Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symfony\Component\Yaml\Yaml;
 
+#[AsCommand(
+    name: 'election',
+    description: 'Process an election',
+    hidden: false,
+    aliases: ['condorcet']
+)]
 class ElectionCommand extends Command
 {
     protected Election $election;
@@ -50,11 +57,7 @@ class ElectionCommand extends Command
 
     protected function configure (): void
     {
-        $this->setName('election')
-            ->setAliases(['condorcet'])
-
-            ->setDescription('Process an election')
-            ->setHelp('This command takes candidates and votes as input. The output is the result of that election.')
+        $this->setHelp('This command takes candidates and votes as input. The output is the result of that election.')
 
             ->addOption(      'candidates', 'c'
                             , InputOption::VALUE_REQUIRED
@@ -367,7 +370,7 @@ class ElectionCommand extends Command
         $io->newLine();
         $io->success('Success');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output): void
