@@ -15,8 +15,8 @@
         "summary": "Dev/infection_logs/summary.log",
         "json": "Dev/infection_logs/infection-log.json",
         "perMutator": "Dev/infection_logs/per-mutator.md",
-        "badge": {
-            "branch": "/^release-.*$/"
+        "stryker": {
+            "badge": "/^release-.*$/"
         }
     }
 }
