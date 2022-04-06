@@ -2,6 +2,15 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.3.0] - 2022-??-??
+### Description
+
+### Added
+
+### Changed
+
+### Internal changes
+
 
 ## [v3.2.2] - 2021-12-14
 ### Changed
