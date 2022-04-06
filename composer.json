@@ -72,5 +72,10 @@
             "phpcs.xml.dist",
             ".travis.yml"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": false
+        }
     }
 }
