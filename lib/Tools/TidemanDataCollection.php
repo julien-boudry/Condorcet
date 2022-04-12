@@ -58,7 +58,9 @@ class TidemanDataCollection
     // Internal
     protected function readCandidatesNames (): void
     {
-        $last_line = explode(' ', end($this->lines));
+        $last_line = end($this->lines);
+        $last_line = ltrim($last_line, '"');
+        $last_line = explode('" "', $last_line);
 
         // Remove Election Name
         array_pop($last_line);
