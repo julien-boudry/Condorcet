@@ -178,6 +178,11 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Timer\Manager->getHistory ()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md): ```array```  
 * [public Timer\Manager->getObjectVersion (...)](Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md): ```string```  
 
+### CondorcetPHP\Condorcet\Tools\TidemanDataCollection Class  
+
+* [public Tools\TidemanDataCollection->__construct (...)](Tools_TidemanDataCollection%20Class/public%20Tools_TidemanDataCollection--__construct.md)  
+* [public Tools\TidemanDataCollection->setDataToAnElection (...)](Tools_TidemanDataCollection%20Class/public%20Tools_TidemanDataCollection--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
+
 
 
 # Full Class & Methods References
@@ -1608,6 +1613,17 @@ _Including above methods from public API_
 * public getLastTimer (): float  
 * public getObjectVersion (bool $major = false): string  
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
+```
+
+#### CondorcetPHP\Condorcet\Tools\TidemanDataCollection   
+```php
+* ```protectedarray $lines```  
+* ```protectedarray $candidates```  
+
+* public __construct (string $filePath)  
+* public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
+* protected readCandidatesNames (): void  
+* protected readVotes (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
