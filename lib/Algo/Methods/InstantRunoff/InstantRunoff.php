@@ -90,14 +90,13 @@ class InstantRunoff extends Method implements MethodInterface
                 // Tie Breaking
                 $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++): // A little silly. But ultimately shorter and simpler.
-                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection ,$LosersToRegister);
+                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection, $LosersToRegister);
                 endfor;
 
                 $CandidatesLoserCount += \count($LosersToRegister);
                 \array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             endif;
-
         endwhile;
 
         $this->_Result = $this->createResult($result);

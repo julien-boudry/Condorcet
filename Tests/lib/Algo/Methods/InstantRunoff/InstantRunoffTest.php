@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Tools\TidemanDataCollection;
 use PHPUnit\Framework\TestCase;
 
 class InstantRunoffTest extends TestCase
@@ -168,6 +169,16 @@ class InstantRunoffTest extends TestCase
             ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
+    }
+
+    public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking ():void
+    {
+        $election = (new TidemanDataCollection(__DIR__.'/../../../Tools/TidemanData/A3.HIL'))->setDataToAnElection();
+
+        $election->setImplicitRanking(false);
+
+        self::assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
+
     }
 
 }
