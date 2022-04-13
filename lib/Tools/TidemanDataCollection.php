@@ -17,7 +17,9 @@ use CondorcetPHP\Condorcet\Election;
 class TidemanDataCollection
 {
     protected array $lines;
-    protected array $candidates;
+
+    public readonly array $candidates;
+    public readonly int $NumberOfSeats;
 
     #[PublicAPI]
     #[Description("Read a Tideman format file")]
@@ -28,6 +30,7 @@ class TidemanDataCollection
     {
         $this->lines = \file($filePath , \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
 
+        $this->readNumberOfSeats();
         $this->readCandidatesNames();
         $this->readVotes();
     }
@@ -44,6 +47,8 @@ class TidemanDataCollection
             $election = new Election;
         endif;
 
+        $election->setNumberOfSeats($this->NumberOfSeats);
+
         foreach ($this->candidates as $oneCandidate) :
             $election->addCandidate($oneCandidate);
         endforeach;
@@ -56,6 +61,13 @@ class TidemanDataCollection
     }
 
     // Internal
+    protected function readNumberOfSeats (): void
+    {
+        $first_line = reset($this->lines);
+
+        $this->NumberOfSeats = (int) explode(' ', $first_line)[1];
+    }
+
     protected function readCandidatesNames (): void
     {
         $last_line = end($this->lines);

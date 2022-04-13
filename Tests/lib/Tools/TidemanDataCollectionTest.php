@@ -21,6 +21,7 @@ class TidemanDataCollectionTest extends TestCase
         $election = self::$tidemanA77->setDataToAnElection();
 
         self::assertSame(213,$election->countVotes());
+        self::assertSame(1,$election->getNumberOfSeats());
 
         self::assertSame(<<<EOD
             3 > 1 = 2 * 39
@@ -66,6 +67,7 @@ class TidemanDataCollectionTest extends TestCase
         $election = (new TidemanDataCollection(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
 
         self::assertSame(380,$election->countVotes());
+        self::assertSame(3,$election->getNumberOfSeats());
 
         self::assertSame(<<<EOD
             Candidate  3 > Candidate  1 > Candidate  2 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  7 = Candidate  8 = Candidate  9 = Candidate 10 * 13
@@ -323,5 +325,7 @@ class TidemanDataCollectionTest extends TestCase
             EOD,
             $election->getVotesListAsString()
         );
+
+        self::assertSame('Candidate  1 > Candidate  9 > Candidate  8', $election->getResult('STV')->getResultAsString());
     }
 }

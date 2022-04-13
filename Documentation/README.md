@@ -1618,11 +1618,13 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Tools\TidemanDataCollection   
 ```php
 * ```protectedarray $lines```  
-* ```protectedarray $candidates```  
+* ```readonly publicarray $candidates```  
+* ```readonly publicint $NumberOfSeats```  
 
 * public __construct (string $filePath)  
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
 * protected readCandidatesNames (): void  
+* protected readNumberOfSeats (): void  
 * protected readVotes (): void  
 ```
 
