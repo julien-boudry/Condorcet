@@ -29,6 +29,7 @@
         "symfony/yaml": "^6.0"
     },
     "require-dev": {
+        "ext-mbstring": "*",
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "phpbench/phpbench": "*",
@@ -38,6 +39,7 @@
         "infection/infection": "^0.26"
     },
     "suggest": {
+        "ext-mbstring": "If you need to deal with Debian vote format",
         "ext-pdo": "Allow to use database for very large elections.",
         "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
     },
