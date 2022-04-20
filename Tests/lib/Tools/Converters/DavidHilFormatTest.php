@@ -16,7 +16,7 @@ class DavidHilFormatTest extends TestCase
         self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHilFormat(__DIR__.'/TidemanData/A77.HIL'));
     }
 
-    public function testA77_Without_Implicit (): void
+    public function testA77_With_Implicit (): void
     {
         $election = self::$tidemanA77->setDataToAnElection();
 
@@ -38,7 +38,7 @@ class DavidHilFormatTest extends TestCase
         );
     }
 
-    public function testA77_With_Implicit (): void
+    public function testA77_With_Explicit (): void
     {
         $election = new Election;
         $election->setImplicitRanking(false);
