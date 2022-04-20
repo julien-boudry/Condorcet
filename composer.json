@@ -34,7 +34,7 @@
         "condorcetphp/condorcet-doc-generator": "dev-condorcet2",
         "phpbench/phpbench": "dev-master",
         "phpunit/phpunit": "^9 || ^10",
-        "phploc/phploc": "dev-master"
+        "phploc/phploc": "dev-main"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
