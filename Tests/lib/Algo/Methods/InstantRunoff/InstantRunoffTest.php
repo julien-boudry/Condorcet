@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Tools\TidemanDataCollection;
+use CondorcetPHP\Condorcet\Tools\Converters\DavidHilFormat;
 use PHPUnit\Framework\TestCase;
 
 class InstantRunoffTest extends TestCase
@@ -173,7 +173,7 @@ class InstantRunoffTest extends TestCase
 
     public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking ():void
     {
-        $election = (new TidemanDataCollection(__DIR__.'/../../../Tools/TidemanData/A3.HIL'))->setDataToAnElection();
+        $election = (new DavidHilFormat(__DIR__.'/../../../Tools/TidemanData/A3.HIL'))->setDataToAnElection();
 
         $election->setImplicitRanking(false);
 

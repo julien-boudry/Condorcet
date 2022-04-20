@@ -8,13 +8,13 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tools;
+namespace CondorcetPHP\Condorcet\Tools\Converters;
 
 use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Election;
 
-class TidemanDataCollection
+class DavidHilFormat implements ConverterInterface
 {
     protected array $lines;
 
