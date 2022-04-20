@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHilFormat;
 use PHPUnit\Framework\TestCase;
 
-class TidemanDataCollectionTest extends TestCase
+class DavidHilFormatTest extends TestCase
 {
     private static DavidHilFormat $tidemanA77;
 

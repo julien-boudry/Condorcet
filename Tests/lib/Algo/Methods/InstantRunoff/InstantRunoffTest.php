@@ -173,7 +173,7 @@ class InstantRunoffTest extends TestCase
 
     public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking ():void
     {
-        $election = (new DavidHilFormat(__DIR__.'/../../../Tools/TidemanData/A3.HIL'))->setDataToAnElection();
+        $election = (new DavidHilFormat(__DIR__.'/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
 
         $election->setImplicitRanking(false);
 
