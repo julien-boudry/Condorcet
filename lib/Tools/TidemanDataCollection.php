@@ -29,6 +29,7 @@ class TidemanDataCollection
     )
     {
         $this->lines = \file($filePath , \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        (end($this->lines) === '') ? array_pop($this->lines):null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
         $this->readNumberOfSeats();
         $this->readCandidatesNames();
