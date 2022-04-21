@@ -9,6 +9,8 @@ use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
+use CondorcetPHP\Condorcet\Throwable\FileDoesNotExist;
+use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
@@ -306,6 +308,19 @@ class ElectionTest extends TestCase
 
     }
 
+    public function testParseVotesInvalidPath (): void
+    {
+        $this->expectException(FileDoesNotExistException::class);
+        $this->expectExceptionMessageMatches('/bad_file.txt$/');
+
+        $this->election1 = new Election;
+
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+
+        $this->election1->parseVotes('bad_file.txt', true);
+    }
+
     public function testParseVotesWithoutFail (): void
     {
         $this->election1 = new Election;
@@ -327,6 +342,19 @@ class ElectionTest extends TestCase
         self::assertSame(2, $this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes',true));
 
         self::assertSame(20, $this->election1->countVotes());
+    }
+
+    public function testParseVotesWithoutFailInvalidPath (): void
+    {
+        $this->expectException(FileDoesNotExistException::class);
+        $this->expectExceptionMessageMatches('/bad_file.txt$/');
+
+        $this->election1 = new Election;
+
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+
+        $this->election1->parseVotesWithoutFail('bad_file.txt', true);
     }
 
     public function testVoteWeight (): void

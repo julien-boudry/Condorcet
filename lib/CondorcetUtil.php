@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 
 abstract class CondorcetUtil
@@ -43,6 +44,10 @@ abstract class CondorcetUtil
     {
         // Is string or is file ?
         if ($isFile === true) :
+            if (!\is_file($input)) :
+                throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
+            endif;
+
             $input = \file_get_contents($input);
         endif;
 

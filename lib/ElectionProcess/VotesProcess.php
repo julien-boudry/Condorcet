@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{CondorcetInternalException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
+use CondorcetPHP\Condorcet\Throwable\{CondorcetInternalException, FileDoesNotExistException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
 
 // Manage Results for Election class
 trait VotesProcess
@@ -432,6 +432,8 @@ trait VotesProcess
             \fwrite($file, $input);
             \rewind($file);
             unset($input); // Memory Optimization
+        elseif (!\is_file($input)) :
+            throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
         else :
             $file = \fopen($input, 'r');
         endif;
