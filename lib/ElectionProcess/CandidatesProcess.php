@@ -271,11 +271,6 @@ trait CandidatesProcess
 
         $adding = [];
         foreach ($input as $line) :
-            // Empty Line
-            if (empty($line)) :
-                continue;
-            endif;
-
             // addCandidate
             if (self::$_maxParseIteration !== null && \count($adding) >= self::$_maxParseIteration) :
                 throw new VoteMaxNumberReachedException(self::$_maxParseIteration);

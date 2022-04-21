@@ -373,11 +373,6 @@ trait VotesProcess
         $count = 0;
 
         foreach ($input as $line) :
-            // Empty Line
-            if (empty($line)) :
-                continue;
-            endif;
-
             // Disallow < and "
             if ( \preg_match('/<|"/mi', $line) === 1 ) :
                 throw new VoteInvalidFormatException("found '<' or '|' in this line: " . $line);
@@ -411,7 +406,7 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description("Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.")]
-    #[FunctionReturn("Number of invalid records into input (except empty lines). It's not invalid votes count. Check Election::countVotes if you want to be sure.")]
+    #[FunctionReturn("Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.")]
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
     public function parseVotesWithoutFail (
@@ -430,18 +425,21 @@ trait VotesProcess
         if (!$isFile && !($input instanceof \SplFileInfo)) :
             $file = new \SplTempFileObject(256 * 1024 * 1024);
             $file->fwrite($input);
-            $file->rewind();
-            unset($input); // Memory Optimization
+        elseif ($input instanceof \SplFileObject) :
+            $file = $input;
         else :
             $file = ($input instanceof \SplFileInfo) ? $input : new \SplFileInfo($input);
 
             if ($file->isFile() && $file->isReadable()) :
                 $file = ($file instanceof \SplFileObject) ? $file : $file->openFile('r');
-                $file->rewind();
             else :
                 throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
             endif;
         endif;
+
+        unset($input); // Memory Optimization
+        $file->setFlags($file->getFlags() | \SplFileObject::SKIP_EMPTY);
+        $file->rewind();
 
         $char = '';
         $record = '';
@@ -449,13 +447,9 @@ trait VotesProcess
         while ($char !== false) :
             $char = $file->fgetc();
 
-            if ($char === ";" || $char === "\n" || $char === false) :
+            if ($char === ";" || $char === "\n" || $char === "#" || $char === false) :
                 try {
                     CondorcetUtil::prepareParse($record, false);
-
-                    if ( ($is_comment = \strpos($record, '#')) !== false ) :
-                        $record = \substr($record, 0, $is_comment);
-                    endif;
 
                     $multiple = VoteUtil::parseAnalysingOneLine(\strpos(haystack: $record, needle: '*'),$record);
 
@@ -472,6 +466,15 @@ trait VotesProcess
                 } finally {
                     $record = '';
                 }
+
+                if ($char === '#') :
+                    $newLine = false;  // Can not use $file->current() then $file->next(): in case of very big election on one lince, can lead to memory limit.
+                    while (!$newLine && ($char = $file->fgetc()) !== false) :
+                        if ($char === "\n") :
+                            $newLine = true;
+                        endif;
+                    endwhile;
+                endif;
             else :
                 $record .= $char;
             endif;

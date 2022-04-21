@@ -56,7 +56,7 @@ abstract class CondorcetUtil
         $input = \explode(';', $input);
 
         // Delete comments
-        foreach ($input as &$line) :
+        foreach ($input as $key => &$line) :
             // Delete comments
             $is_comment = \strpos($line, '#');
             if ($is_comment !== false) :
@@ -65,6 +65,9 @@ abstract class CondorcetUtil
 
             // Trim
             $line = \trim($line);
+
+            // Remove empty
+            if (empty($line)) : unset($input[$key]); endif;
         endforeach;
 
         return $input;
