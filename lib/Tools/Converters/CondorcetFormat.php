@@ -28,7 +28,7 @@ class CondorcetFormat implements ConverterInterface
 
     public readonly array $candidates;
     public int $numberOfSeats;
-    public bool $implicitRanking = true;
+    public bool $implicitRanking;
 
     public readonly int $invalidBlocksCount;
 
@@ -74,6 +74,8 @@ class CondorcetFormat implements ConverterInterface
             ($this->numberOfSeats ?? false) && $election->setNumberOfSeats($this->numberOfSeats);
 
             // Set explicit pairwise mode if specified in file
+            $this->implicitRanking ??= $election->getImplicitRankingRule();
+
             $election->setImplicitRanking($this->implicitRanking);
 
 
