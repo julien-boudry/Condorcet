@@ -44,13 +44,11 @@ class Permutation
     }
 
     public function writeResults (string $path): void {
-        $f = fopen($path,'w+');
+        $f = new \SplFileObject($path,'w+');
 
         foreach ($this->getResults() as $oneResult) :
-            fputcsv($f,$oneResult);
+            $f->fputcsv($oneResult);
         endforeach;
-
-        fclose($f);
     }
 
     protected function createCandidates (): array

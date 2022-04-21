@@ -415,9 +415,9 @@ trait VotesProcess
     #[Example("Manual - Add Vote","https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
     #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
     public function parseVotesWithoutFail (
-        #[FunctionParameter('String or valid path to a text file')]
-        string $input,
-        #[FunctionParameter('If true, the input is evalatued as path to text file')]
+        #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
+        \SplFileInfo|string $input,
+        #[FunctionParameter('If true, the string input is evalatued as path to text file')]
         bool $isFile = false,
         #[FunctionParameter('Callback function to execute after each registered vote')]
         ?\Closure $callBack = null
@@ -427,22 +427,27 @@ trait VotesProcess
         $fail_count = 0;
         $doCallBack = $callBack !== null;
 
-        if (!$isFile) :
-            $file = \fopen("php://memory", 'r+');
-            \fwrite($file, $input);
-            \rewind($file);
+        if (!$isFile && !($input instanceof \SplFileInfo)) :
+            $file = new \SplTempFileObject(256 * 1024 * 1024);
+            $file->fwrite($input);
+            $file->rewind();
             unset($input); // Memory Optimization
-        elseif (!\is_file($input)) :
-            throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
         else :
-            $file = \fopen($input, 'r');
+            $file = ($input instanceof \SplFileInfo) ? $input : new \SplFileInfo($input);
+
+            if ($file->isFile() && $file->isReadable()) :
+                $file = ($file instanceof \SplFileObject) ? $file : $file->openFile('r');
+                $file->rewind();
+            else :
+                throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
+            endif;
         endif;
 
         $char = '';
         $record = '';
 
         while ($char !== false) :
-            $char = \fgetc($file);
+            $char = $file->fgetc();
 
             if ($char === ";" || $char === "\n" || $char === false) :
                 try {
@@ -471,8 +476,6 @@ trait VotesProcess
                 $record .= $char;
             endif;
         endwhile;
-
-        \fclose($file);
 
         return $fail_count;
     }

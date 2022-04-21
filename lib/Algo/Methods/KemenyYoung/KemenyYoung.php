@@ -16,6 +16,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutation;
+use SplFileObject;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
@@ -125,10 +126,10 @@ class KemenyYoung extends Method implements MethodInterface
         endif;
 
         // Read Cache & Compute
-        $f = fopen($path, 'r');
+        $f = new \SplFileObject($path, 'r');
 
-        while ( ($oneResult = fgets($f)) !== false ) :
-            $oneResult = explode(',', trim($oneResult));
+        while (!$f->eof()) :
+            $oneResult = explode(',', trim($f->fgets()));
 
             foreach ($oneResult as &$oneCandidateId) :
                 $oneCandidateId = $replace[(int) $oneCandidateId];
@@ -142,8 +143,6 @@ class KemenyYoung extends Method implements MethodInterface
 
             $this->_PossibleRanking[] = $resultToRegister;
         endwhile;
-
-        fclose($f);
     }
 
     protected function calcRankingScore (): void

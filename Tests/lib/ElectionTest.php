@@ -342,7 +342,14 @@ class ElectionTest extends TestCase
         self::assertSame(2, $this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes',true));
 
         self::assertSame(20, $this->election1->countVotes());
-    }
+
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileObject(__DIR__.'/../LargeElectionData/smallVote1.votes'),true));
+
+        self::assertSame(30, $this->election1->countVotes());
+
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileInfo(__DIR__.'/../LargeElectionData/smallVote1.votes'),true));
+
+        self::assertSame(40, $this->election1->countVotes());    }
 
     public function testParseVotesWithoutFailInvalidPath (): void
     {
