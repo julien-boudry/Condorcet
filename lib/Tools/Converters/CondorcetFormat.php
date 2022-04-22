@@ -22,6 +22,8 @@ class CondorcetFormat implements ConverterInterface
     protected const CANDIDATES_PATTERN  = '/^#\/Candidates:(?<candidates>.+)$/mi';
     protected const SEATS_PATTERN       = '/^#\/Number of Seats: *(?<seats>[0-9]+) *$/mi';
     protected const IMPLICIT_PATTERN    = '/^#\/Implicit Ranking: *(?<implicitRanking>(true|false)) *$/mi';
+    protected const WEIGHT_PATTERN      = '/^#\/Weight allowed: *(?<weight>(true|false)) *$/mi';
+
 
     // Properties
     protected \SplFileObject $file;
@@ -29,6 +31,7 @@ class CondorcetFormat implements ConverterInterface
     public readonly array $candidates;
     public int $numberOfSeats;
     public bool $implicitRanking;
+    public bool $voteWeight;
 
     public readonly int $invalidBlocksCount;
 
@@ -75,8 +78,11 @@ class CondorcetFormat implements ConverterInterface
 
             // Set explicit pairwise mode if specified in file
             $this->implicitRanking ??= $election->getImplicitRankingRule();
-
             $election->setImplicitRanking($this->implicitRanking);
+
+            // Set Vote weight (Condorcet disable it by default)
+            $this->voteWeight ??= $election->isVoteWeightAllowed();
+            $election->allowsVoteWeight($this->voteWeight);
 
 
         // Candidates
@@ -114,14 +120,21 @@ class CondorcetFormat implements ConverterInterface
                 $this->numberOfSeats = (int) $matches['seats'];
             elseif (preg_match(self::IMPLICIT_PATTERN, $line, $matches)) :
                 $parse = strtolower($matches['implicitRanking']);
-
-                 $this->implicitRanking = match ($parse) {
-                    'true' => true,
-                    'false' => false,
-                 };
+                 $this->implicitRanking =  $this->boolParser($parse);
+            elseif (preg_match(self::WEIGHT_PATTERN, $line, $matches)) :
+                $parse = strtolower($matches['weight']);
+                $this->voteWeight = $this->boolParser($parse);
             elseif(!empty($line) && !\str_starts_with($line, '#')) :
                 break;
             endif;
         endwhile;
+    }
+
+    protected function boolParser (string $parse): bool
+    {
+        return match ($parse) {
+            'true' => true,
+            'false' => false,
+        };
     }
 }

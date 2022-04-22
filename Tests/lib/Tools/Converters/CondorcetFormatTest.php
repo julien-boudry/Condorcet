@@ -104,6 +104,7 @@ class CondorcetFormatTest extends TestCase
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
                             #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+                            #/Weight allowed: true
                             Richard Boháč>Petr Němec ^42
                             CVOTES);
 
@@ -112,9 +113,12 @@ class CondorcetFormatTest extends TestCase
         $election = new Election;
         $election->setImplicitRanking(false);
         $election->setNumberOfSeats(66);
-        $election->allowsVoteWeight(true);
+        $election->allowsVoteWeight(false);
 
         $condorcetFormat->setDataToAnElection($election);
+
+        $election->allowsVoteWeight(true); // Must be forced by parameter
+
 
         self::assertSame(['Richard Boháč','Petr Němec','Simona Slaná'], $election->getCandidatesListAsString());
 
@@ -126,4 +130,36 @@ class CondorcetFormatTest extends TestCase
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
 
+    public function testCondorcetFormat5_UnknowParametersAndEmptyLinesAndCase (): void
+    {
+        $file = new \SplTempFileObject();
+        $file->fwrite(      <<<'CVOTES'
+                            #/Candidates: Richard Boháč ; 郝文彦  ; Simona Slaná
+
+                            #/AnewParameters: 7
+                            #/numBer of Seats: 42
+                            #/implicit ranking: true
+
+
+
+                                 Richard Boháč>郝文彦 ^42
+                            CVOTES);
+
+        $condorcetFormat = new CondorcetFormat($file);
+
+        $election = new Election;
+        $election->setImplicitRanking(false);
+        $election->setNumberOfSeats(66);
+
+        $condorcetFormat->setDataToAnElection($election);
+
+        self::assertSame(['Richard Boháč','郝文彦','Simona Slaná'], $election->getCandidatesListAsString());
+
+        self::assertSame(42, $election->getNumberOfSeats());
+        self::assertTrue($election->getImplicitRankingRule());
+
+        self::assertSame(1, $election->countVotes());
+        self::assertSame('Richard Boháč > 郝文彦 > Simona Slaná', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
+        self::assertSame(0, $condorcetFormat->invalidBlocksCount);
+    }
 }
