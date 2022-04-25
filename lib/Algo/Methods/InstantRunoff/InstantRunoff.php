@@ -36,7 +36,7 @@ class InstantRunoff extends Method implements MethodInterface
             endif;
 
             foreach ($oneIterationData as $candidateKey => $candidateValue) :
-                $stats['rounds'][$oneIterationKey][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
+                $stats['rounds'][$oneIterationKey][(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
             endforeach;
         endforeach;
 
@@ -50,8 +50,8 @@ class InstantRunoff extends Method implements MethodInterface
 
     protected function compute (): void
     {
-        $candidateCount = $this->_selfElection->countCandidates();
-        $this->majority = $this->_selfElection->sumValidVotesWeightWithConstraints() / 2;
+        $candidateCount = $this->getElection()->countCandidates();
+        $this->majority = $this->getElection()->sumValidVotesWeightWithConstraints() / 2;
 
         $candidateDone = [];
         $result = [];
@@ -90,7 +90,7 @@ class InstantRunoff extends Method implements MethodInterface
                 // Tie Breaking
                 $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++): // A little silly. But ultimately shorter and simpler.
-                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->_selfElection, $LosersToRegister);
+                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($this->getElection(), $LosersToRegister);
                 endfor;
 
                 $CandidatesLoserCount += \count($LosersToRegister);
@@ -106,21 +106,21 @@ class InstantRunoff extends Method implements MethodInterface
     {
         $score = [];
 
-        foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
-                $score[$this->_selfElection->getCandidateKey($oneCandidate)] = 0;
+        foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
+            if (!\in_array(needle: $this->getElection()->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
+                $score[$this->getElection()->getCandidateKey($oneCandidate)] = 0;
             endif;
         endforeach;
 
-        foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->_selfElection);
+            $weight = $oneVote->getWeight($this->getElection());
 
-            foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($this->getElection()) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1) :
                         break;
-                    elseif (!\in_array(needle: ($candidateKey = $this->_selfElection->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) :
+                    elseif (!\in_array(needle: ($candidateKey = $this->getElection()->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) :
                         $score[$candidateKey] += $weight;
                         break 2;
                     endif;

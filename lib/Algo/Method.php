@@ -23,7 +23,7 @@ abstract class Method
 
     public static ?int $MaxCandidates = null;
 
-    protected readonly Election $_selfElection;
+    protected readonly \WeakReference $_selfElection;
     protected ?Result $_Result = null;
 
     // Static
@@ -42,11 +42,29 @@ abstract class Method
     #[Throws(CandidatesMaxNumberReachedException::class)]
     public function __construct (Election $mother)
     {
-        $this->_selfElection = $mother;
+        $this->setElection($mother);
 
-        if (!\is_null(static::$MaxCandidates) && $this->_selfElection->countCandidates() > static::$MaxCandidates) :
+        if (!\is_null(static::$MaxCandidates) && $mother->countCandidates() > static::$MaxCandidates) :
             throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         endif;
+    }
+
+    public function __serialize (): array
+    {
+        $r = \get_object_vars($this);
+        unset($r['_selfElection']);
+
+        return $r;
+    }
+
+    public function setElection (Election $election): void
+    {
+        $this->_selfElection = \WeakReference::create($election);
+    }
+
+    public function getElection (): Election
+    {
+        return $this->_selfElection->get();
     }
 
     public function getResult (): Result
@@ -79,10 +97,10 @@ abstract class Method
         return new Result (
             fromMethod: static::METHOD_NAME[0],
             byClass: $this::class,
-    		election: $this->_selfElection,
+    		election: $this->getElection(),
     		result: $result,
             stats: $this->getStats(),
-            seats: (static::IS_PROPORTIONAL) ? $this->_selfElection->getNumberOfSeats() : null,
+            seats: (static::IS_PROPORTIONAL) ? $this->getElection()->getNumberOfSeats() : null,
             methodOptions: $methodOptions
     	);
     }

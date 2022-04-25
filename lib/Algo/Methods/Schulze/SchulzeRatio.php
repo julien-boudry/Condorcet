@@ -22,10 +22,10 @@ class SchulzeRatio extends Schulze_Core
 
     protected function schulzeVariant (int $i, int $j): float
     {
-        if ($this->_selfElection->getPairwise()[$j]['win'][$i] !== 0) :
-            return (float) ($this->_selfElection->getPairwise()[$i]['win'][$j] / $this->_selfElection->getPairwise()[$j]['win'][$i]);
+        if ($this->getElection()->getPairwise()[$j]['win'][$i] !== 0) :
+            return (float) ($this->getElection()->getPairwise()[$i]['win'][$j] / $this->getElection()->getPairwise()[$j]['win'][$i]);
         else :
-            return (float) (($this->_selfElection->getPairwise()[$i]['win'][$j] +1) / 1);
+            return (float) (($this->getElection()->getPairwise()[$i]['win'][$j] +1) / 1);
         endif;
     }
 }

@@ -57,10 +57,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_StrongestPaths as $candidate_key => $candidate_value) :
-            $candidate_key = $this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName();
+            $candidate_key = $this->getElection()->getCandidateObjectFromKey($candidate_key)->getName();
 
             foreach ($candidate_value as $challenger_key => $challenger_value) :
-                $explicit[$candidate_key][$this->_selfElection->getCandidateObjectFromKey($challenger_key)->getName()] = $challenger_value;
+                $explicit[$candidate_key][$this->getElection()->getCandidateObjectFromKey($challenger_key)->getName()] = $challenger_value;
             endforeach;
         endforeach;
 
@@ -78,11 +78,11 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate the strongest Paths for Schulze Method
     protected function prepareStrongestPath (): void
     {
-        foreach ( $this->_selfElection->getCandidatesList() as $candidate_key => $candidate_id ) :
+        foreach ( $this->getElection()->getCandidatesList() as $candidate_key => $candidate_id ) :
             $this->_StrongestPaths[$candidate_key] = [];
 
             // Format array for the strongest path
-            foreach ( $this->_selfElection->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
+            foreach ( $this->getElection()->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
                 if ($candidate_key_r != $candidate_key) :
                     $this->_StrongestPaths[$candidate_key][$candidate_key_r] = 0;
                 endif;
@@ -94,10 +94,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
     // Calculate the Strongest Paths
     protected function makeStrongestPaths (): void
     {
-        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value) :
-            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
+        foreach ($this->getElection()->getCandidatesList() as $i => $i_value) :
+            foreach ($this->getElection()->getCandidatesList() as $j => $j_value) :
                 if ($i !== $j) :
-                    if ( $this->_selfElection->getPairwise()[$i]['win'][$j] > $this->_selfElection->getPairwise()[$j]['win'][$i] ) :
+                    if ( $this->getElection()->getPairwise()[$i]['win'][$j] > $this->getElection()->getPairwise()[$j]['win'][$i] ) :
                         $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j);
                     else :
                         $this->_StrongestPaths[$i][$j] = 0;
@@ -106,10 +106,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        foreach ($this->_selfElection->getCandidatesList() as $i => $i_value) :
-            foreach ($this->_selfElection->getCandidatesList() as $j => $j_value) :
+        foreach ($this->getElection()->getCandidatesList() as $i => $i_value) :
+            foreach ($this->getElection()->getCandidatesList() as $j => $j_value) :
                 if ($i !== $j) :
-                    foreach ($this->_selfElection->getCandidatesList() as $k => $k_value) :
+                    foreach ($this->getElection()->getCandidatesList() as $k => $k_value) :
                         if ($i !== $k && $j !== $k) :
                             $this->_StrongestPaths[$j][$k] =
                                 \max( $this->_StrongestPaths[$j][$k],
@@ -131,7 +131,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $done = [];
         $rank = 1;
 
-        while (\count($done) < $this->_selfElection->countCandidates()) :
+        while (\count($done) < $this->getElection()->countCandidates()) :
             $to_done = [];
 
             foreach ( $this->_StrongestPaths as $candidate_key => $challengers_key ) :

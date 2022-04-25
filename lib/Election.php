@@ -149,6 +149,9 @@ class Election
         $this->_Pairwise->setElection($this);
 
         $this->_Calculator = $data['_Calculator'];
+        foreach ($this->_Calculator as $methodObject) :
+            $methodObject->setElection($this);
+        endforeach;
 
         $this->_timer ??= $data['_timer'];
     }
