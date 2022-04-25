@@ -14,20 +14,20 @@ class ArrayManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ArrayManager = new class extends ArrayManager {
+        $this->ArrayManager = new class(new Election) extends ArrayManager {
             protected function preDeletedTask ($object): void {}
             protected function decodeOneEntity (string $data): Vote
             {
                 $vote = new Vote ($data);
                 $this->_Election->checkVoteCandidate($vote);
-                $vote->registerLink($this->_Election);
+                $vote->registerLink($this->_Election->get());
 
                 return $vote;
             }
 
             protected function encodeOneEntity (Vote $data): string
             {
-                $data->destroyLink($this->_Election);
+                $data->destroyLink($this->_Election->get());
 
                 return \str_replace([' > ',' = '],['>','='],(string) $data);
             }

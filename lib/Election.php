@@ -134,6 +134,7 @@ class Election
 
         $this->_Candidates = $data['_Candidates'];
         $this->_Votes = $data['_Votes'];
+        $this->_Votes->setElection($this);
         $this->registerAllLinks();
 
         $this->_AutomaticNewCandidateName = $data['_AutomaticNewCandidateName'];
