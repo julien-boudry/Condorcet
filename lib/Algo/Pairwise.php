@@ -86,12 +86,6 @@ class Pairwise implements \ArrayAccess, \Iterator
         ];
     }
 
-    public function __unserialize (array $data): void
-    {
-        $this->_Pairwise_Model = $data['_Pairwise_Model'];
-        $this->_Pairwise = $data['_Pairwise'];
-    }
-
     public function getElection (): Election
     {
         return $this->_Election->get();

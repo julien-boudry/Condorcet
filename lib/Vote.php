@@ -83,8 +83,6 @@ class Vote implements \Iterator, \Stringable
         ?Election $electionContext = null
     )
     {
-        $this->initWeakMap();
-
         $this->_electionContext = $electionContext;
         $tagsFromString = null;
 

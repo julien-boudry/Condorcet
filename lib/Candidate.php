@@ -32,8 +32,6 @@ class Candidate implements \Stringable
         string $name
     )
     {
-        $this->initWeakMap();
-
         $this->setName($name);
     }
 
@@ -46,7 +44,10 @@ class Candidate implements \Stringable
     {
         $this->_link = null;
 
-        return \get_object_vars($this);
+        $r = \get_object_vars($this);
+        unset($r['_link']);
+
+        return $r;
     }
 
         ///
