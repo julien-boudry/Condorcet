@@ -35,6 +35,7 @@ class CondorcetFormat implements ConverterInterface
 
     public readonly int $invalidBlocksCount;
 
+    // Read
 
     #[PublicAPI]
     #[Description("Read a Condorcet format file, usually using .cvotes file extension")]
@@ -130,11 +131,11 @@ class CondorcetFormat implements ConverterInterface
         endwhile;
     }
 
-    protected function boolParser (string $parse): bool
-    {
-        return match ($parse) {
-            'true' => true,
-            'false' => false,
-        };
-    }
+        protected function boolParser (string $parse): bool
+        {
+            return match ($parse) {
+                'true' => true,
+                'false' => false,
+            };
+        }
 }

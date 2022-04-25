@@ -134,6 +134,7 @@ class Election
 
         $this->_Candidates = $data['_Candidates'];
         $this->_Votes = $data['_Votes'];
+        $this->registerAllLinks();
 
         $this->_AutomaticNewCandidateName = $data['_AutomaticNewCandidateName'];
         $this->_State = $data['_State'];
@@ -229,11 +230,9 @@ class Election
             $value->registerLink($this);
         endforeach;
 
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
-            foreach ($this->_Votes as $value) :
-                $value->registerLink($this);
-            endforeach;
-        endif;
+        foreach ($this->_Votes as $value) :
+            $value->registerLink($this);
+        endforeach;
     }
 
     protected function destroyAllLink (): void
@@ -242,11 +241,9 @@ class Election
             $value->destroyLink($this);
         endforeach;
 
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
-            foreach ($this->_Votes as $value) :
-                $value->destroyLink($this);
-            endforeach;
-        endif;
+        foreach ($this->_Votes as $value) :
+            $value->destroyLink($this);
+        endforeach;
 
         $this->_Votes->destroyElection();
     }

@@ -588,6 +588,7 @@ C > B > A * 1',
         $result1 = $election->getResult('Schulze');
 
         $election = \serialize($election);
+        // file_put_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt",$election); # For next test
         $election = \unserialize($election);
 
         self::assertNotSame($result1,$election->getResult('Schulze'));
@@ -603,12 +604,12 @@ C > B > A * 1',
     {
         $this->expectException(ElectionObjectVersionMismatchException::class);
         $this->expectExceptionMessage(
-            "Version mismatch: The election object has version '2.2' " .
+            "Version mismatch: The election object has version '3.2' " .
             "which is different from the current class version '".Condorcet::getVersion(true)."'"
         );
 
         \unserialize(
-            file_get_contents("Tests/lib/ElectionData/serialized_election_v2.2.3.txt")
+            file_get_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt")
         );
     }
 

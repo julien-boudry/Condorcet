@@ -188,8 +188,7 @@ trait VotesProcess
     {
         if ($this->_voteFastMode === 0) :
             $linkCount = $vote->countLinks();
-            $links = $vote->getLinks();
-            $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && \reset($links) === $this) );
+            $linkCheck = ( $linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)) );
 
             foreach ($vote->getAllCandidates() as $candidate) :
                 if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate(candidate: $candidate, strictMode: true) && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) :

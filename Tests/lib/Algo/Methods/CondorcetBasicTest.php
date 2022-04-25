@@ -17,6 +17,19 @@ class CondorcetBasicTest extends TestCase
         $this->election = new Election;
     }
 
+    public function testResult_Basic (): void
+    {
+        $this->election->addCandidate('a');
+        $this->election->addCandidate('b');
+        $this->election->addCandidate('c');
+
+        $vote = new Vote ('a');
+
+        $this->election->addVote($vote);
+
+        self::assertEquals('a', $this->election->getCondorcetWinner());
+    }
+
     public function testResult_1 (): void
     {
         $this->election->addCandidate('a');
