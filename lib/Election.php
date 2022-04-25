@@ -146,6 +146,8 @@ class Election
         $this->_Constraints = $data['_Constraints'];
 
         $this->_Pairwise = $data['_Pairwise'];
+        $this->_Pairwise->setElection($this);
+
         $this->_Calculator = $data['_Calculator'];
 
         $this->_timer ??= $data['_timer'];
