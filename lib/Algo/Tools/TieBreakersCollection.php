@@ -45,6 +45,6 @@ abstract class TieBreakersCollection
             endif;
         endforeach;
 
-        return $tooKeep;
+        return (\count($tooKeep) > 0) ? $tooKeep : $candidatesKeys;
     }
 }
