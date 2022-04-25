@@ -33,7 +33,7 @@
         "ext-pdo_sqlite": "*",
         "phpbench/phpbench": "*",
         "phpunit/phpunit": "^9 || ^10",
-        "phploc/phploc": "dev-master",
+        "phploc/phploc": "dev-main",
         "haydenpierce/class-finder": ">= 0.4",
         "infection/infection": "^0.26"
     },
