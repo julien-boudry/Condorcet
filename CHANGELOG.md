@@ -2,7 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-
+## [v3.2.3] - 2022-04-25
+### Changed
+- Update the dev. dependencies and in particular phploc (broken)
+- Use Symfony Console attribute 'AsCommand' (before deprecation)
 ## [v3.2.2] - 2021-12-14
 ### Changed
 - Fix crash on ```Vote::addTags([])``` and add tests. 
