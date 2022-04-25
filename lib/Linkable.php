@@ -17,11 +17,6 @@ trait Linkable
 {
     private ?\WeakMap $_link;
 
-    public function __destruct ()
-    {
-        $this->destroyAllLink();
-    }
-
     public function __clone (): void
     {
         $this->destroyAllLink();

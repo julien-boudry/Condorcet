@@ -91,13 +91,6 @@ class Election
         $this->_timer = new Timer_Manager;
     }
 
-    public function __destruct ()
-    {
-        $this->destroyAllLink();
-        unset($this->_Pairwise);
-        unset($this->_Calculator);
-    }
-
     public function __serialize (): array
     {
         // Don't include others data

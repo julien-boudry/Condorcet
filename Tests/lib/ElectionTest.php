@@ -712,7 +712,7 @@ C > B > A * 1',
 
         $weakref = \WeakReference::create($election);
 
-        $election->__destruct(); // PHP circular reference can bug
+        // PHP circular reference can bug
         // \debug_zval_dump($election);
         unset($election);
 
