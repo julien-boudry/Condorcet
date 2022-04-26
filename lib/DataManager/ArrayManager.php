@@ -27,7 +27,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Container = [];
     protected ?DataHandlerDriverInterface $_DataHandler = null;
-    protected ?\WeakReference $_Election;
+    protected \WeakReference $_Election;
 
     protected array $_Cache = [];
     protected int $_CacheMaxKey = 0;
@@ -46,11 +46,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->regularize();
     }
 
-    public function __clone (): void
-    {
-        $this->_Election = null;
-    }
-
     public function __serialize (): array
     {
         $this->regularize();
@@ -59,7 +54,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         return [    '_Container' => $this->_Container,
                     '_DataHandler' => $this->_DataHandler,
-                    // '_Election' => null
                 ];
     }
 

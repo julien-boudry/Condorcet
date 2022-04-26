@@ -61,7 +61,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     // Pairwise
 
-    protected ?\WeakReference $_Election;
+    protected \WeakReference $_Election;
     protected array $_Pairwise_Model;
     protected array $_Pairwise;
 
@@ -72,15 +72,9 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->doPairwise();
     }
 
-    public function __clone (): void
-    {
-        $this->_Election = null;
-    }
-
     public function __serialize (): array
     {
         return [
-            '_Election' => null,
             '_Pairwise_Model' => $this->_Pairwise_Model,
             '_Pairwise' => $this->_Pairwise,
         ];
