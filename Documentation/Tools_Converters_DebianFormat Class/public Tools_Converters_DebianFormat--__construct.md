@@ -1,9 +1,9 @@
-## public Tools\TidemanDataCollection::__construct
+## public Tools\Converters\DebianFormat::__construct
 
 ### Description    
 
 ```php
-public Tools\TidemanDataCollection->__construct ( string filePath )
+public Tools\Converters\DebianFormat->__construct ( string filePath )
 ```
 
 Read a Tideman format file

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Candidate->getLinks ( ): ?array
+public Candidate->getLinks ( ): WeakMap
 ```
 
 Get elections object linked to this Vote or Candidate object.
@@ -11,7 +11,7 @@ Get elections object linked to this Vote or Candidate object.
 
 ### Return value:   
 
-*(```?array```)* Populated by each elections Condorcet object.
+*(```WeakMap```)* Populated by each elections Condorcet object.
 
 
 ---------------------------------------

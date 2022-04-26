@@ -11,7 +11,7 @@ class Generate
 
     // Static - Translators
 
-    public static function makeFilename (\ReflectionMethod $method) : string
+    public static function makeFilename (\ReflectionMethod $method): string
     {
         return  self::getModifiersName($method).
                 " ".
@@ -19,7 +19,7 @@ class Generate
                 ".md";
     }
 
-    public static function simpleClass (string $fullClassName) : string
+    public static function simpleClass (string $fullClassName): string
     {
         return str_replace('CondorcetPHP\\Condorcet\\','',$fullClassName);
     }
@@ -34,7 +34,7 @@ class Generate
     return (string) $c;
     }
 
-    public static function getTypeAsString (?\ReflectionType $rf_rt, bool $codeBlock = false) : ?string
+    public static function getTypeAsString (?\ReflectionType $rf_rt, bool $codeBlock = false): ?string
     {
         if ( $rf_rt !== null ) :
             if ($codeBlock) :
@@ -47,7 +47,7 @@ class Generate
         return $rf_rt;
     }
 
-    public static function getModifiersName (\ReflectionMethod $method) : string
+    public static function getModifiersName (\ReflectionMethod $method): string
     {
         return implode(' ', \Reflection::getModifierNames($method->getModifiers()));
     }
@@ -65,7 +65,7 @@ class Generate
     return "[".$name."](".$url.")";
     }
 
-    public static function computeRepresentationAsForIndex (\ReflectionMethod $method) : string
+    public static function computeRepresentationAsForIndex (\ReflectionMethod $method): string
     {
         return  self::getModifiersName($method).
                 " ".
@@ -75,7 +75,7 @@ class Generate
                 " (".( ($method->getNumberOfParameters() > 0) ? '...' : '').")";
     }
 
-    public static function computeRepresentationAsPHP (\ReflectionMethod $method) : string
+    public static function computeRepresentationAsPHP (\ReflectionMethod $method): string
     {
         $option = false;
         $str = '(';
@@ -239,7 +239,7 @@ class Generate
 
     // Build Methods
 
-    protected function createMarkdownContent (\ReflectionMethod $method, array $entry) : string
+    protected function createMarkdownContent (\ReflectionMethod $method, array $entry): string
     {
         // Header
         $md =   "## ".self::getModifiersName($method)." ". self::simpleClass($method->class)."::".$method->name."\n\n".
@@ -322,7 +322,7 @@ class Generate
         return $md;
     }
 
-    protected function makeIndex (array $index) : string
+    protected function makeIndex (array $index): string
     {
         $file_content = '';
 
@@ -420,7 +420,7 @@ class Generate
         return $r;
     }
 
-    protected function makeConstants (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    protected function makeConstants (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
     {
         $file_content = '';
 
@@ -428,7 +428,8 @@ class Generate
 
         foreach ($class->getReflectionConstants($type) as $constant) :
             if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) :
-                $file_content .= '* ```';
+                $file_content .= '* ';
+                $file_content .=  $addMdCodeTag ? '```' : '';
 
                 $file_content .= $constant->isFinal() ? 'final ' : '';
 
@@ -437,7 +438,8 @@ class Generate
                 $file_content .= $constant->isPrivate() ? 'private' : '';
 
                 $file_content .= ' const '.$constant->getName().': ('.\gettype($constant->getValue()).')';
-                $file_content .= "```  \n";
+                $file_content .= $addMdCodeTag ? '```  ' : '';
+                $file_content .= "\n";
                 $hasConstants = true;
             endif;
         endforeach;
@@ -449,7 +451,7 @@ class Generate
         return $file_content;
     }
 
-    protected function makeProperties (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false): string
+    protected function makeProperties (\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
     {
         $file_content = '';
 
@@ -457,16 +459,18 @@ class Generate
 
         foreach ($class->getProperties($type) as $propertie) :
             if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) :
-                $file_content .= '* ```';
+                $file_content .= '* ';
+                $file_content .=  $addMdCodeTag ? '```' : '';
 
                 $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
 
-                $file_content .= $propertie->isPublic() ? 'public' : '';
-                $file_content .= $propertie->isProtected() ? 'protected' : '';
-                $file_content .= $propertie->isPrivate() ? 'private' : '';
+                $file_content .= $propertie->isPublic() ? 'public ' : '';
+                $file_content .= $propertie->isProtected() ? 'protected ' : '';
+                $file_content .= $propertie->isPrivate() ? 'private ' : '';
 
                 $file_content .= ((string) $propertie->getType()).' $'.$propertie->getName();
-                $file_content .= "```  \n";
+                $file_content .= $addMdCodeTag ? '```  ' : '';
+                $file_content .= "\n";
                 $hasConstants = true;
             endif;
         endforeach;
@@ -478,7 +482,7 @@ class Generate
         return $file_content;
     }
 
-    protected function makeProfundis (array $index) : string
+    protected function makeProfundis (array $index): string
     {
         $file_content = '';
 
@@ -524,10 +528,10 @@ class Generate
                 $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
                 $file_content .= "\n";
             else :
-                $file_content .= $this->makeConstants($classMeta['ReflectionClass']);
+                $file_content .= $this->makeConstants(class: $classMeta['ReflectionClass'], addMdCodeTag: false);
             endif;
 
-            $file_content .= $this->makeProperties($classMeta['ReflectionClass']);
+            $file_content .= $this->makeProperties(class: $classMeta['ReflectionClass'], addMdCodeTag: false);
 
             foreach ($classMeta['methods'] as $oneMethod) :
                 if ($oneMethod['ReflectionMethod']->isUserDefined()) :
