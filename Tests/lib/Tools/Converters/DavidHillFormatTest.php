@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Tools\Converters\DavidHilFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
 use PHPUnit\Framework\TestCase;
 
-class DavidHilFormatTest extends TestCase
+class DavidHillFormatTest extends TestCase
 {
-    private static DavidHilFormat $tidemanA77;
+    private static DavidHillFormat $tidemanA77;
 
     public function setUp(): void
     {
-        self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHilFormat(__DIR__.'/TidemanData/A77.HIL'));
+        self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHillFormat(__DIR__.'/TidemanData/A77.HIL'));
     }
 
     public function testA77_With_Implicit (): void
@@ -64,7 +64,7 @@ class DavidHilFormatTest extends TestCase
 
     public function testA1_ForCandidatesNames (): void
     {
-        $election = (new DavidHilFormat(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
+        $election = (new DavidHillFormat(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
 
         self::assertSame(380,$election->countVotes());
         self::assertSame(3,$election->getNumberOfSeats());

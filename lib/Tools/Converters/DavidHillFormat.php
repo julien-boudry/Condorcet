@@ -14,7 +14,7 @@ use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Election;
 
-class DavidHilFormat implements ConverterInterface
+class DavidHillFormat implements ConverterInterface
 {
     protected array $lines;
 
