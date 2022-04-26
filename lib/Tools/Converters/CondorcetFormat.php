@@ -18,6 +18,59 @@ use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 
 class CondorcetFormat implements ConverterInterface
 {
+
+    ////// # Static Export Method //////
+
+    #[PublicAPI]
+    #[Description("Create a CondorcetFormat file from an Election object.\n")]
+    #[FunctionReturn("If the file is not provided, it's return a CondorcetFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
+    public static function exportElectionToCondorcetFormat (
+        #[FunctionParameter('Election with data')]
+        Election $election,
+        #[FunctionParameter('If true, will try to reduce number of lines, with quantifier for identical votes')]
+        bool $aggregateVotes = true,
+        #[FunctionParameter('Add the Number Of Seats parameters to the output')]
+        bool $includeNumberOfSeats = true,
+        #[FunctionParameter('Add the vote tags information if any. Don\'t work if $aggregateVotes is true')]
+        bool $includeTags = true,
+        ?\SplFileObject $file = null
+    ): ?string
+    {
+        $r = '';
+        $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString())         . "\n";
+        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats()   . "\n"  : null;
+        $r .= '#/Implicit Ranking: ' . ($election->getImplicitRankingRule() ? 'true' : 'false') . "\n";
+        $r .= '#/Weight allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false')      . "\n";
+        // $r .= "\n";
+
+        if ($file) :
+            $file->fwrite($r);
+            $r = '';
+        endif;
+
+        if ($aggregateVotes) :
+            $r .= "\n" . $election->getVotesListAsString(false);
+            if ($file) : $file->fwrite($r); endif;
+        else :
+            foreach ($election->getVotesListGenerator() as $vote) :
+                $line = "\n" . (($includeTags) ? ((string) $vote) : $vote->getSimpleRanking(null));
+
+                if ($file) :
+                    $file->fwrite($line);
+                else :
+                    $r .= $line;
+                endif;
+            endforeach;
+        endif;
+
+        return ($file) ? null : $r;
+    }
+
+
+    ////// # Reader Object //////
+
+    # Reader Object
+
     // Const
     protected const CANDIDATES_PATTERN  = '/^#\/Candidates:(?<candidates>.+)$/mi';
     protected const SEATS_PATTERN       = '/^#\/Number of Seats: *(?<seats>[0-9]+) *$/mi';
@@ -63,6 +116,7 @@ class CondorcetFormat implements ConverterInterface
     #[PublicAPI]
     #[Description("Add the data to an election object")]
     #[FunctionReturn("The election object")]
+    #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
     public function setDataToAnElection (
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         ?Election $election = null

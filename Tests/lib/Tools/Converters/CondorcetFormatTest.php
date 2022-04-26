@@ -162,4 +162,111 @@ class CondorcetFormatTest extends TestCase
         self::assertSame('Richard Boháč > 郝文彦 > Simona Slaná', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
+
+    public function testexportElectionToCondorcetFormat (): void
+    {
+        $input = new \SplTempFileObject();
+        $input->fwrite(      <<<'CVOTES'
+                            #/Weight allowed: true
+                            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+                            #/Number of Seats: 42
+                            #/Implicit Ranking: true
+
+                            Richard Boháč>Petr Němec ^7
+                            Richard Boháč>Petr Němec
+                            tag1 || Richard Boháč>Petr Němec
+                            Simona Slaná * 2
+                            Petr Němec *1
+                            CVOTES);
+
+        $election = (new CondorcetFormat($input))->setDataToAnElection();
+
+        self::assertSame(
+            $assertion1 =
+            <<<CVOTES
+            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: true
+            #/Weight allowed: true
+
+            Richard Boháč > Petr Němec ^7 * 1
+            Richard Boháč > Petr Němec * 2
+            Simona Slaná * 2
+            Petr Němec * 1
+            CVOTES,
+            CondorcetFormat::exportElectionToCondorcetFormat(election: $election)
+        );
+
+        self::assertStringNotContainsString('Number of Seats: 42', CondorcetFormat::exportElectionToCondorcetFormat(election: $election, includeNumberOfSeats: false));
+
+        $election->setImplicitRanking(false);
+        self::assertSame(
+            <<<CVOTES
+            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: false
+            #/Weight allowed: true
+
+            Richard Boháč > Petr Němec ^7 * 1
+            Richard Boháč > Petr Němec * 2
+            Simona Slaná * 2
+            Petr Němec * 1
+            CVOTES,
+            CondorcetFormat::exportElectionToCondorcetFormat(election: $election)
+        );
+
+        self::assertSame(
+            <<<CVOTES
+            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: false
+            #/Weight allowed: true
+
+            Richard Boháč > Petr Němec ^7
+            Richard Boháč > Petr Němec
+            tag1 || Richard Boháč > Petr Němec
+            Simona Slaná
+            Simona Slaná
+            Petr Němec
+            CVOTES,
+            CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false)
+        );
+
+        self::assertSame(
+            $assertion5 =
+            <<<CVOTES
+            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: false
+            #/Weight allowed: true
+
+            Richard Boháč > Petr Němec ^7
+            Richard Boháč > Petr Němec
+            Richard Boháč > Petr Němec
+            Simona Slaná
+            Simona Slaná
+            Petr Němec
+            CVOTES,
+            CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false, includeTags: false)
+        );
+
+        $election->setImplicitRanking(true);
+        $output = new \SplTempFileObject();
+        self::assertNull(CondorcetFormat::exportElectionToCondorcetFormat(election: $election, file: $output));
+        $output->rewind();
+
+        self::assertSame(
+            $assertion1,
+            $output->fread(2048)
+        );
+
+        $election->setImplicitRanking(false);
+        $output = new \SplTempFileObject();
+        self::assertNull(CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false, includeTags: false, file: $output));
+        $output->rewind();
+        self::assertSame(
+            $assertion5,
+            $output->fread(2048)
+        );
+    }
 }
