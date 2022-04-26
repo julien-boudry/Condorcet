@@ -188,7 +188,7 @@ class VotesManager extends ArrayManager
         endforeach;
     }
 
-    public function getVotesListAsString (): string
+    public function getVotesListAsString (bool $withContext): string
     {
         $simpleList = '';
 
@@ -196,7 +196,7 @@ class VotesManager extends ArrayManager
         $nb = [];
 
         foreach ($this as $oneVote) :
-            $oneVoteString = $oneVote->getSimpleRanking($this->_Election);
+            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $this->_Election : null);
 
             if(!array_key_exists(key: $oneVoteString, array: $weight)) :
                 $weight[$oneVoteString] = 0;

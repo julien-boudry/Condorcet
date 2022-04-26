@@ -282,6 +282,16 @@ class ElectionTest extends TestCase
         "A = B = E * 3\n".
         "{{EMPTY_VOTE_IN_CONTEXT}} * 1",
         $this->election1->getVotesListAsString());
+
+        self::assertSame(
+            <<<VOTES
+            A * 6
+            D * 6
+            A > B = C > E * 5
+            A = B = E * 3
+            Y > Z * 1
+            VOTES,
+            $this->election1->getVotesListAsString(false));
     }
 
     public function testParseVoteCandidateCoherence (): void
@@ -458,12 +468,14 @@ class ElectionTest extends TestCase
         $election->addVote('D > C > B');
 
         self::assertSame(
-'A > C > D > B * 6
-C > B > D > A * 3
-D > B > A > C * 3
-D > C > B > A ^2 * 1
-B > A > D > C * 1
-D > C > B > A * 1',
+            <<<VOTES
+            A > C > D > B * 6
+            C > B > D > A * 3
+            D > B > A > C * 3
+            D > C > B > A ^2 * 1
+            B > A > D > C * 1
+            D > C > B > A * 1
+            VOTES,
             $election->getVotesListAsString()
         );
 
@@ -489,8 +501,10 @@ D > C > B > A * 1',
         self::assertSame(2,$election->addVotesFromJson(\json_encode($votes)));
 
         self::assertSame(
-'B > C > A * 1
-C > B > A * 1',
+            <<<VOTES
+            B > C > A * 1
+            C > B > A * 1
+            VOTES,
             $election->getVotesListAsString()
         );
 
@@ -506,9 +520,11 @@ C > B > A * 1',
         $election->allowsVoteWeight(true);
 
         self::assertSame(
-'A > B > C ^42 * 5
-B > C > A * 1
-C > B > A * 1',
+            <<<VOTES
+            A > B > C ^42 * 5
+            B > C > A * 1
+            C > B > A * 1
+            VOTES,
             $election->getVotesListAsString()
         );
         self::assertSame(5,$election->countVotes('tag1'));
