@@ -91,13 +91,6 @@ class Election
         $this->_timer = new Timer_Manager;
     }
 
-    public function __destruct ()
-    {
-        $this->destroyAllLink();
-        unset($this->_Pairwise);
-        unset($this->_Calculator);
-    }
-
     public function __serialize (): array
     {
         // Don't include others data
@@ -134,6 +127,8 @@ class Election
 
         $this->_Candidates = $data['_Candidates'];
         $this->_Votes = $data['_Votes'];
+        $this->_Votes->setElection($this);
+        $this->registerAllLinks();
 
         $this->_AutomaticNewCandidateName = $data['_AutomaticNewCandidateName'];
         $this->_State = $data['_State'];
@@ -144,7 +139,12 @@ class Election
         $this->_Constraints = $data['_Constraints'];
 
         $this->_Pairwise = $data['_Pairwise'];
+        $this->_Pairwise->setElection($this);
+
         $this->_Calculator = $data['_Calculator'];
+        foreach ($this->_Calculator as $methodObject) :
+            $methodObject->setElection($this);
+        endforeach;
 
         $this->_timer ??= $data['_timer'];
     }
@@ -229,11 +229,9 @@ class Election
             $value->registerLink($this);
         endforeach;
 
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
-            foreach ($this->_Votes as $value) :
-                $value->registerLink($this);
-            endforeach;
-        endif;
+        foreach ($this->_Votes as $value) :
+            $value->registerLink($this);
+        endforeach;
     }
 
     protected function destroyAllLink (): void
@@ -242,11 +240,9 @@ class Election
             $value->destroyLink($this);
         endforeach;
 
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) :
-            foreach ($this->_Votes as $value) :
-                $value->destroyLink($this);
-            endforeach;
-        endif;
+        foreach ($this->_Votes as $value) :
+            $value->destroyLink($this);
+        endforeach;
 
         $this->_Votes->destroyElection();
     }

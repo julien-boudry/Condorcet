@@ -18,38 +18,16 @@ use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
 class VotesManager extends ArrayManager
 {
 
-/////////// Magic ///////////
 
-    public function __construct (Election $election)
-    {
-        $this->setElection($election);
-
-        parent::__construct();
-    }
-
-    public function setElection (Election $election): void
-    {
-        $this->_Election = $election;
-    }
-
-    public function destroyElection (): void
-    {
-        unset($this->_Election);
-    }
-
-    public function getElection (): Election
-    {
-        return $this->_Election;
-    }
 
 /////////// Data CallBack for external drivers ///////////
 
     protected function decodeOneEntity (string $data): Vote
     {
         $vote = new Vote ($data);
-        $vote->registerLink($this->_Election);
+        $vote->registerLink($this->getElection());
         $vote->notUpdate = true;
-        $this->_Election->checkVoteCandidate($vote);
+        $this->getElection()->checkVoteCandidate($vote);
         $vote->notUpdate = false;
 
         return $vote;
@@ -57,14 +35,14 @@ class VotesManager extends ArrayManager
 
     protected function encodeOneEntity (Vote $data): string
     {
-        $data->destroyLink($this->_Election);
+        $data->destroyLink($this->getElection());
 
         return \str_replace([' > ',' = '],['>','='],(string) $data);
     }
 
     protected function preDeletedTask ($object): void
     {
-        $object->destroyLink($this->_Election);
+        $object->destroyLink($this->getElection());
     }
 
 /////////// Array Access - Specials improvements ///////////
@@ -97,17 +75,17 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing (int $key, int $type): void
     {
-        if ($this->_Election->getState() === ElectionState::VOTES_REGISTRATION) :
+        if ($this->getElection()->getState() === ElectionState::VOTES_REGISTRATION) :
 
             if ($type === 1) :
-                $this->_Election->getPairwise()->addNewVote($key);
+                $this->getElection()->getPairwise()->addNewVote($key);
             elseif ($type === 2) :
-                $this->_Election->getPairwise()->removeVote($key);
+                $this->getElection()->getPairwise()->removeVote($key);
             endif;
 
-            $this->_Election->cleanupCalculator();
+            $this->getElection()->cleanupCalculator();
         else :
-            $this->_Election->setStateToVote();
+            $this->getElection()->setStateToVote();
         endif;
     }
 
@@ -196,7 +174,7 @@ class VotesManager extends ArrayManager
         $nb = [];
 
         foreach ($this as $oneVote) :
-            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $this->_Election : null);
+            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $this->getElection() : null);
 
             if(!array_key_exists(key: $oneVoteString, array: $weight)) :
                 $weight[$oneVoteString] = 0;

@@ -41,7 +41,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $this->votesNeededToWin = self::$optionQuota->getQuota($this->_selfElection->sumValidVotesWeightWithConstraints(), $this->_selfElection->getNumberOfSeats());
+        $this->votesNeededToWin = self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats());
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -74,7 +74,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
             if (!$successOnRank && !empty($scoreTable)) :
                 $candidateEliminated[] = \array_key_last($scoreTable);
-            elseif (empty($scoreTable) || $rank >= $this->_selfElection->getNumberOfSeats()) :
+            elseif (empty($scoreTable) || $rank >= $this->getElection()->getNumberOfSeats()) :
                 $end = true;
             endif;
 
@@ -82,7 +82,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         endwhile;
 
-        while ($rank < $this->_selfElection->getNumberOfSeats() && !empty($candidateEliminated)) :
+        while ($rank < $this->getElection()->getNumberOfSeats() && !empty($candidateEliminated)) :
             $rescueCandidateKey = \array_key_last($candidateEliminated);
             $result[++$rank] = $candidateEliminated[$rescueCandidateKey];
             unset($candidateEliminated[$rescueCandidateKey]);
@@ -97,26 +97,26 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
-        foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-            if (!\in_array($candidateKey = $this->_selfElection->getCandidateKey($oneCandidate), $candidateDone, true)) :
+        foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
+            if (!\in_array($candidateKey = $this->getElection()->getCandidateKey($oneCandidate), $candidateDone, true)) :
                 $scoreTable[$candidateKey] = 0;
             endif;
         endforeach;
 
-        foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->_selfElection);
+            $weight = $oneVote->getWeight($this->getElection());
 
             $winnerBonusWeight = 0;
             $winnerBonusKey = null;
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRanking($this->_selfElection) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($this->getElection()) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1): break; endif;
 
-                    $candidateKey = $this->_selfElection->getCandidateKey($oneCandidate);
+                    $candidateKey = $this->getElection()->getCandidateKey($oneCandidate);
 
                     if ($firstRank) :
                         if (isset($surplus[$candidateKey])) :
@@ -158,7 +158,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($this->_Stats as $roundNumber => $roundData) :
             foreach ($roundData as $candidateKey => $candidateValue) :
-                $stats['rounds'][$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = \round($candidateValue, 12, \PHP_ROUND_HALF_DOWN);
+                $stats['rounds'][$roundNumber][(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = \round($candidateValue, 12, \PHP_ROUND_HALF_DOWN);
             endforeach;
         endforeach;
 

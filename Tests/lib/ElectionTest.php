@@ -604,6 +604,7 @@ class ElectionTest extends TestCase
         $result1 = $election->getResult('Schulze');
 
         $election = \serialize($election);
+        // file_put_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt",$election); # For next test
         $election = \unserialize($election);
 
         self::assertNotSame($result1,$election->getResult('Schulze'));
@@ -619,12 +620,12 @@ class ElectionTest extends TestCase
     {
         $this->expectException(ElectionObjectVersionMismatchException::class);
         $this->expectExceptionMessage(
-            "Version mismatch: The election object has version '2.2' " .
+            "Version mismatch: The election object has version '3.2' " .
             "which is different from the current class version '".Condorcet::getVersion(true)."'"
         );
 
         \unserialize(
-            file_get_contents("Tests/lib/ElectionData/serialized_election_v2.2.3.txt")
+            file_get_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt")
         );
     }
 
@@ -727,7 +728,7 @@ class ElectionTest extends TestCase
 
         $weakref = \WeakReference::create($election);
 
-        $election->__destruct(); // PHP circular reference can bug
+        // PHP circular reference can bug
         // \debug_zval_dump($election);
         unset($election);
 

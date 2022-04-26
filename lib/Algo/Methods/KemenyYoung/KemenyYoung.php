@@ -68,7 +68,7 @@ class KemenyYoung extends Method implements MethodInterface
 
             // Human readable
             foreach ($explicit[$key] as &$candidate_key) :
-                $candidate_key = $this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName();
+                $candidate_key = $this->getElection()->getCandidateObjectFromKey($candidate_key)->getName();
             endforeach;
 
             $explicit[$key]['score'] = $this->_RankingScore[$key];
@@ -112,17 +112,17 @@ class KemenyYoung extends Method implements MethodInterface
         $search = [];
         $replace = [];
 
-        foreach ($this->_selfElection->getCandidatesList() as $candidate_id => $candidate_name) :
+        foreach ($this->getElection()->getCandidatesList() as $candidate_id => $candidate_name) :
             $search[] = $i++;
             $replace[] = $candidate_id;
         endforeach;
 
         /** @infection-ignore-all */
-        $path = __DIR__ . '/KemenyYoung-Data/'.$this->_selfElection->countCandidates().'.data';
+        $path = __DIR__ . '/KemenyYoung-Data/'.$this->getElection()->countCandidates().'.data';
 
         // But ... where are the data ?! Okay, old way now...
-        if (self::$devWriteCache || (!\file_exists($path) && $this->_selfElection->countCandidates() < 10)) :
-            (new Permutation ($this->_selfElection->countCandidates()))->writeResults($path);
+        if (self::$devWriteCache || (!\file_exists($path) && $this->getElection()->countCandidates() < 10)) :
+            (new Permutation ($this->getElection()->countCandidates()))->writeResults($path);
         endif;
 
         // Read Cache & Compute
@@ -147,7 +147,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     protected function calcRankingScore (): void
     {
-        $pairwise = $this->_selfElection->getPairwise();
+        $pairwise = $this->getElection()->getPairwise();
 
         foreach ($this->_PossibleRanking as $keyScore => $ranking) :
             $this->_RankingScore[$keyScore] = 0;

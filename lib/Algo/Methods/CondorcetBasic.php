@@ -48,7 +48,7 @@ class CondorcetBasic extends Method implements MethodInterface
             //////
 
         // Basic Condorcet calculation
-        foreach ( $this->_selfElection->getPairwise() as $candidate_key => $candidat_detail ) :
+        foreach ( $this->getElection()->getPairwise() as $candidate_key => $candidat_detail ) :
             $winner = true;
 
             foreach ($candidat_detail['win'] as $challenger_key => $win_count ) :
@@ -78,7 +78,7 @@ class CondorcetBasic extends Method implements MethodInterface
             //////
 
         // Basic Condorcet calculation
-        foreach ( $this->_selfElection->getPairwise() as $candidate_key => $candidat_detail ) :
+        foreach ( $this->getElection()->getPairwise() as $candidate_key => $candidat_detail ) :
             $loser = true;
 
             foreach ( $candidat_detail['lose'] as $challenger_key => $lose_count ) :

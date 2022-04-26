@@ -35,7 +35,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
             //////
 
         // Comparison calculation
-        $this->_Comparison = PairwiseStats::PairwiseComparison($this->_selfElection->getPairwise());
+        $this->_Comparison = PairwiseStats::PairwiseComparison($this->getElection()->getPairwise());
 
         // Ranking calculation
         $this->makeRanking();
@@ -51,7 +51,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value) :
-            $explicit[$this->_selfElection->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
+            $explicit[$this->getElection()->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         endforeach;
 
         return $explicit;
@@ -76,7 +76,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
             $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
         endforeach;
 
-        while ($done < $this->_selfElection->countCandidates()) :
+        while ($done < $this->getElection()->countCandidates()) :
             $looking = $this->looking($challenge);
 
             foreach ($challenge as $candidate => $value) :

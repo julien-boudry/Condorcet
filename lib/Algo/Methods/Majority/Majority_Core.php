@@ -31,7 +31,7 @@ abstract class Majority_Core extends Method implements MethodInterface
 
         foreach ($this->_Stats as $roundNumber => $roundScore) :
             foreach ($roundScore as $candidateKey => $oneScore) :
-                $stats[$roundNumber][(string) $this->_selfElection->getCandidateObjectFromKey($candidateKey)] = $oneScore;
+                $stats[$roundNumber][(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $oneScore;
             endforeach;
         endforeach;
 
@@ -55,8 +55,8 @@ abstract class Majority_Core extends Method implements MethodInterface
             $score[$round] = $roundScore;
 
             if ($round === 1) :
-                foreach ($this->_selfElection->getCandidatesList() as $oneCandidate) :
-                    $score[$round][$this->_selfElection->getCandidateKey($oneCandidate)] ??= 0;
+                foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
+                    $score[$round][$this->getElection()->getCandidateKey($oneCandidate)] ??= 0;
                 endforeach;
             endif;
 
@@ -117,16 +117,16 @@ abstract class Majority_Core extends Method implements MethodInterface
     {
         $roundScore = [];
 
-        foreach ($this->_selfElection->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->_selfElection);
+            $weight = $oneVote->getWeight($this->getElection());
 
-            $oneRanking = $oneVote->getContextualRanking($this->_selfElection);
+            $oneRanking = $oneVote->getContextualRanking($this->getElection());
 
             if ( !empty($this->_admittedCandidates) ) :
                 foreach ($oneRanking as $rankKey => $oneRank) :
                     foreach ($oneRank as $InRankKey => $oneCandidate) :
-                        if ( !\in_array(needle: $this->_selfElection->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true) ) :
+                        if ( !\in_array(needle: $this->getElection()->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true) ) :
                             unset($oneRanking[$rankKey][$InRankKey]);
                         endif;
                     endforeach;
@@ -145,8 +145,8 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             if (isset($oneRanking[1])) :
                 foreach ($oneRanking[1] as $oneCandidateInRank) :
-                    $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] ??= 0;
-                    $roundScore[$this->_selfElection->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
+                    $roundScore[$this->getElection()->getCandidateKey($oneCandidateInRank)] ??= 0;
+                    $roundScore[$this->getElection()->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
                 endforeach;
             endif;
         endforeach;

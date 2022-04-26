@@ -40,6 +40,16 @@ class Candidate implements \Stringable
         return $this->getName();
     }
 
+    public function __serialize (): array
+    {
+        $this->_link = null;
+
+        $r = \get_object_vars($this);
+        unset($r['_link']);
+
+        return $r;
+    }
+
         ///
 
     // SETTERS
@@ -129,7 +139,7 @@ class Candidate implements \Stringable
 
     private function checkNameInElectionContext (string $name): bool
     {
-        foreach ($this->_link as $link) :
+        foreach ($this->getLinks() as $link => $value) :
             if (!$link->canAddCandidate($name)) :
                 return false;
             endif;

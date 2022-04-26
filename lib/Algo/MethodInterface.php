@@ -11,10 +11,14 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
 interface MethodInterface
 {
+    public function __construct(Election $election);
+
+    public function setElection(Election $election): void;
     public function getResult(): Result;
 }

@@ -15,12 +15,7 @@ use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
 
 trait Linkable
 {
-    private array $_link = [];
-
-    public function __destruct ()
-    {
-        $this->destroyAllLink();
-    }
+    private ?\WeakMap $_link;
 
     public function __clone (): void
     {
@@ -36,7 +31,9 @@ trait Linkable
         Election $election
     ): bool
     {
-        return \in_array(needle: $election, haystack: $this->_link, strict: true);
+        $this->initWeakMap();
+
+        return $this->_link->offsetExists($election);
     }
 
     #[PublicAPI]
@@ -45,6 +42,8 @@ trait Linkable
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
     public function countLinks (): int
     {
+        $this->initWeakMap();
+
         return \count($this->_link);
     }
 
@@ -52,18 +51,26 @@ trait Linkable
     #[Description("Get elections object linked to this Vote or Candidate object.")]
     #[FunctionReturn("Populated by each elections Condorcet object.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function getLinks (): ?array
+    public function getLinks (): \WeakMap
     {
-        return !empty($this->_link) ? $this->_link : null;
+        $this->initWeakMap();
+
+        return $this->_link;
     }
 
     // Internal
         # Dot not Overloading ! Do not Use !
 
+    protected function initWeakMap (): void
+    {
+        $this->_link ??= new \WeakMap;
+    }
+
     public function registerLink (Election $election): void
     {
-        if ( !$this->haveLink($election) ) :
-            $this->_link[] = $election;
+        if ( !$this->haveLink($election) ) : // haveLink will initWeakmap if necessary
+            $this->_link->offsetSet($election, true);
+            true;
         else :
             throw new CondorcetInternalException ('Link is already registered.');
         endif;
@@ -71,10 +78,8 @@ trait Linkable
 
     public function destroyLink (Election $election): bool
     {
-        $destroyKey = \array_search(needle: $election, haystack: $this->_link, strict: true);
-
-        if ($destroyKey !== false) :
-            unset($this->_link[$destroyKey]);
+        if ($this->haveLink($election)) : // haveLink will initWeakmap if necessary
+            $this->_link->offsetUnset($election);
             return true;
         else :
             return false;
@@ -83,6 +88,7 @@ trait Linkable
 
     protected function destroyAllLink (): void
     {
-        $this->_link = [];
+        $this->_link = null;
+        $this->initWeakMap();
     }
 }

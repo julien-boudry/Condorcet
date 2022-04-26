@@ -27,7 +27,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Container = [];
     protected ?DataHandlerDriverInterface $_DataHandler = null;
-    protected Election $_Election;
+    protected \WeakReference $_Election;
 
     protected array $_Cache = [];
     protected int $_CacheMaxKey = 0;
@@ -37,16 +37,13 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     protected int $_counter = 0;
     protected int $_maxKey = -1;
 
-    public function __construct () {}
+    public function __construct (Election $election) {
+        $this->setElection($election);
+    }
 
     public function __destruct ()
     {
         $this->regularize();
-    }
-
-    public function __clone (): void
-    {
-        unset($this->_Election);
     }
 
     public function __serialize (): array
@@ -57,7 +54,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         return [    '_Container' => $this->_Container,
                     '_DataHandler' => $this->_DataHandler,
-                    '_Election' => $this->_Election
                 ];
     }
 
@@ -65,10 +61,24 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     {
         $this->_Container = $data['_Container'];
         $this->_DataHandler = $data['_DataHandler'];
-        $this->_Election = $data['_Election'];
 
         $this->resetMaxKey();
         $this->resetCounter();
+    }
+
+    public function getElection (): Election
+    {
+        return $this->_Election->get();
+    }
+
+    public function setElection (Election $election): void
+    {
+        $this->_Election = \WeakReference::create($election);
+    }
+
+    public function destroyElection (): void
+    {
+        $this->_Election = null;
     }
 
 

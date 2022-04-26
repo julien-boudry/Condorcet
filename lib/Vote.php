@@ -124,6 +124,7 @@ class Vote implements \Iterator, \Stringable
     public function __serialize (): array
     {
         $this->position = 1;
+        $this->_link = null;
 
         return \get_object_vars($this);
     }
@@ -369,7 +370,7 @@ class Vote implements \Iterator, \Stringable
         endif;
 
         if(!$this->notUpdate) :
-            foreach ($this->_link as $link) :
+            foreach ($this->getLinks() as $link => $value) :
                 $link->prepareUpdateVote($this);
             endforeach;
         endif;
@@ -380,16 +381,16 @@ class Vote implements \Iterator, \Stringable
 
         $this->archiveRanking();
 
-        if (!empty($this->_link)) :
+        if (count($this->_link) > 0) :
 
             try {
-                foreach ($this->_link as $link) :
+                foreach ($this->getLinks() as $link => $value) :
                     if (!$link->checkVoteCandidate($this)) :
                         throw new VoteInvalidFormatException("vote does not match candidate in this election");
                     endif;
                 endforeach;
             } catch (VoteInvalidFormatException $e) {
-                foreach ($this->_link as $link) :
+                foreach ($this->getLinks() as $link => $value) :
                     $link->setStateToVote();
                 endforeach;
 
@@ -397,7 +398,7 @@ class Vote implements \Iterator, \Stringable
             }
 
             if (!$this->notUpdate) :
-                foreach ($this->_link as $link) :
+                foreach ($this->getLinks() as $link => $value) :
                     $link->finishUpdateVote($this);
                 endforeach;
             endif;
@@ -604,8 +605,8 @@ class Vote implements \Iterator, \Stringable
 
             $this->_weight = $newWeight;
 
-            if (!empty($this->_link)) :
-                foreach ($this->_link as $link) :
+            if (\count($this->_link) > 0) :
+                foreach ($this->getLinks() as $link => $value) :
                     $link->setStateToVote();
                 endforeach;
             endif;
