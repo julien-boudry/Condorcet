@@ -178,11 +178,11 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Timer\Manager->getHistory ()](Timer_Manager%20Class/public%20Timer_Manager--getHistory.md): ```array```  
 * [public Timer\Manager->getObjectVersion (...)](Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md): ```string```  
 
-### CondorcetPHP\Condorcet\Tools\Converters\CondorcetFormat Class  
+### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat Class  
 
-* [public static Tools\Converters\CondorcetFormat::exportElectionToCondorcetFormat (...)](Tools_Converters_CondorcetFormat%20Class/public%20static%20Tools_Converters_CondorcetFormat--exportElectionToCondorcetFormat.md): ```?string```  
-* [public Tools\Converters\CondorcetFormat->__construct (...)](Tools_Converters_CondorcetFormat%20Class/public%20Tools_Converters_CondorcetFormat--__construct.md)  
-* [public Tools\Converters\CondorcetFormat->setDataToAnElection (...)](Tools_Converters_CondorcetFormat%20Class/public%20Tools_Converters_CondorcetFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
+* [public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CondorcetElectionFormat--exportElectionToCondorcetElectionFormat.md): ```?string```  
+* [public Tools\Converters\CondorcetElectionFormat->__construct (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--__construct.md)  
+* [public Tools\Converters\CondorcetElectionFormat->setDataToAnElection (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
@@ -1711,7 +1711,7 @@ _Including above methods from public API_
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
 ```
 
-#### CondorcetPHP\Condorcet\Tools\Converters\CondorcetFormat implements CondorcetPHP\Condorcet\Tools\Converters\ConverterInterface  
+#### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\ConverterInterface  
 ```php
 * protected const CANDIDATES_PATTERN: (string)
 * protected const SEATS_PATTERN: (string)
@@ -1725,7 +1725,7 @@ _Including above methods from public API_
 * public bool $voteWeight
 * readonly public int $invalidBlocksCount
 
-* public static exportElectionToCondorcetFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, ?SplFileObject $file = null): ?string  
+* public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
 * protected boolParser (string $parse): bool  

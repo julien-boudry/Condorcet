@@ -22,5 +22,5 @@ Add an existing election, useful if you want to set up some parameters or add ex
 
 ### Related method(s)      
 
-* [Tools\CondorcetFormat::setDataToAnElection](../Tools\CondorcetFormat%20Class/public%20Tools\CondorcetFormat--setDataToAnElection.md)    
+* [Tools\CondorcetElectionFormat::setDataToAnElection](../Tools\CondorcetElectionFormat%20Class/public%20Tools\CondorcetElectionFormat--setDataToAnElection.md)    
 * [Tools\DavidHillFormat::setDataToAnElection](../Tools\DavidHillFormat%20Class/public%20Tools\DavidHillFormat--setDataToAnElection.md)    

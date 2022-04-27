@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
-class CondorcetFormatTest extends TestCase
+class CondorcetElectionFormatTest extends TestCase
 {
-    public function testCondorcetFormat1_Simple (): void
+    public function testCondorcetElectionFormat1_Simple (): void
     {
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
@@ -17,7 +17,7 @@ class CondorcetFormatTest extends TestCase
                             Richard Boháč>Petr Němec ^42
                             CVOTES);
 
-        $condorcetFormat = new CondorcetFormat($file);
+        $condorcetFormat = new CondorcetElectionFormat($file);
 
         $election = $condorcetFormat->setDataToAnElection();
 
@@ -37,7 +37,7 @@ class CondorcetFormatTest extends TestCase
     }
 
 
-    public function testCondorcetFormat2_MultiplesErrorsAndComplications (): void
+    public function testCondorcetElectionFormat2_MultiplesErrorsAndComplications (): void
     {
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
@@ -54,7 +54,7 @@ class CondorcetFormatTest extends TestCase
                                         A > B > C
                             CVOTES);
 
-        $condorcetFormat = new CondorcetFormat($file);
+        $condorcetFormat = new CondorcetElectionFormat($file);
 
         $election = $condorcetFormat->setDataToAnElection();
 
@@ -71,7 +71,7 @@ class CondorcetFormatTest extends TestCase
         self::assertSame(['tag1'] ,$election->getVotesList()[5]->getTags());
     }
 
-    public function testCondorcetFormat3_CustomElection1 (): void
+    public function testCondorcetElectionFormat3_CustomElection1 (): void
     {
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
@@ -81,7 +81,7 @@ class CondorcetFormatTest extends TestCase
                             Richard Boháč>Petr Němec ^42
                             CVOTES);
 
-        $condorcetFormat = new CondorcetFormat($file);
+        $condorcetFormat = new CondorcetElectionFormat($file);
 
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -99,7 +99,7 @@ class CondorcetFormatTest extends TestCase
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
 
-    public function testCondorcetFormat4_CustomElection2 (): void
+    public function testCondorcetElectionFormat4_CustomElection2 (): void
     {
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
@@ -108,7 +108,7 @@ class CondorcetFormatTest extends TestCase
                             Richard Boháč>Petr Němec ^42
                             CVOTES);
 
-        $condorcetFormat = new CondorcetFormat($file);
+        $condorcetFormat = new CondorcetElectionFormat($file);
 
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -130,7 +130,7 @@ class CondorcetFormatTest extends TestCase
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
 
-    public function testCondorcetFormat5_UnknowParametersAndEmptyLinesAndCase (): void
+    public function testCondorcetElectionFormat5_UnknowParametersAndEmptyLinesAndCase (): void
     {
         $file = new \SplTempFileObject();
         $file->fwrite(      <<<'CVOTES'
@@ -145,7 +145,7 @@ class CondorcetFormatTest extends TestCase
                                  Richard Boháč>郝文彦 ^42
                             CVOTES);
 
-        $condorcetFormat = new CondorcetFormat($file);
+        $condorcetFormat = new CondorcetElectionFormat($file);
 
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -163,7 +163,7 @@ class CondorcetFormatTest extends TestCase
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
 
-    public function testexportElectionToCondorcetFormat (): void
+    public function testexportElectionToCondorcetElectionFormat (): void
     {
         $input = new \SplTempFileObject();
         $input->fwrite(      <<<'CVOTES'
@@ -179,7 +179,7 @@ class CondorcetFormatTest extends TestCase
                             Petr Němec *1
                             CVOTES);
 
-        $election = (new CondorcetFormat($input))->setDataToAnElection();
+        $election = (new CondorcetElectionFormat($input))->setDataToAnElection();
 
         self::assertSame(
             $assertion1 =
@@ -194,10 +194,10 @@ class CondorcetFormatTest extends TestCase
             Simona Slaná * 2
             Petr Němec * 1
             CVOTES,
-            CondorcetFormat::exportElectionToCondorcetFormat(election: $election)
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election)
         );
 
-        self::assertStringNotContainsString('Number of Seats: 42', CondorcetFormat::exportElectionToCondorcetFormat(election: $election, includeNumberOfSeats: false));
+        self::assertStringNotContainsString('Number of Seats: 42', CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election, includeNumberOfSeats: false));
 
         $election->setImplicitRanking(false);
         self::assertSame(
@@ -212,7 +212,7 @@ class CondorcetFormatTest extends TestCase
             Simona Slaná * 2
             Petr Němec * 1
             CVOTES,
-            CondorcetFormat::exportElectionToCondorcetFormat(election: $election)
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election)
         );
 
         self::assertSame(
@@ -229,7 +229,7 @@ class CondorcetFormatTest extends TestCase
             Simona Slaná
             Petr Němec
             CVOTES,
-            CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false)
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election, aggregateVotes: false)
         );
 
         self::assertSame(
@@ -247,12 +247,12 @@ class CondorcetFormatTest extends TestCase
             Simona Slaná
             Petr Němec
             CVOTES,
-            CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false, includeTags: false)
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election, aggregateVotes: false, includeTags: false)
         );
 
         $election->setImplicitRanking(true);
         $output = new \SplTempFileObject();
-        self::assertNull(CondorcetFormat::exportElectionToCondorcetFormat(election: $election, file: $output));
+        self::assertNull(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election, file: $output));
         $output->rewind();
 
         self::assertSame(
@@ -262,7 +262,7 @@ class CondorcetFormatTest extends TestCase
 
         $election->setImplicitRanking(false);
         $output = new \SplTempFileObject();
-        self::assertNull(CondorcetFormat::exportElectionToCondorcetFormat(election: $election, aggregateVotes: false, includeTags: false, file: $output));
+        self::assertNull(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $election, aggregateVotes: false, includeTags: false, file: $output));
         $output->rewind();
         self::assertSame(
             $assertion5,

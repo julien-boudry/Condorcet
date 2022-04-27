@@ -1,9 +1,9 @@
-## public Tools\Converters\CondorcetFormat::setDataToAnElection
+## public Tools\Converters\CondorcetElectionFormat::setDataToAnElection
 
 ### Description    
 
 ```php
-public Tools\Converters\CondorcetFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election election = null] ): CondorcetPHP\Condorcet\Election
+public Tools\Converters\CondorcetElectionFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election election = null] ): CondorcetPHP\Condorcet\Election
 ```
 
 Add the data to an election object

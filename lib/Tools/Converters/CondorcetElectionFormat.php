@@ -16,15 +16,15 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 
-class CondorcetFormat implements ConverterInterface
+class CondorcetElectionFormat implements ConverterInterface
 {
 
     ////// # Static Export Method //////
 
     #[PublicAPI]
-    #[Description("Create a CondorcetFormat file from an Election object.\n")]
-    #[FunctionReturn("If the file is not provided, it's return a CondorcetFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
-    public static function exportElectionToCondorcetFormat (
+    #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]
+    #[FunctionReturn("If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
+    public static function exportElectionToCondorcetElectionFormat (
         #[FunctionParameter('Election with data')]
         Election $election,
         #[FunctionParameter('If true, will try to reduce number of lines, with quantifier for identical votes')]
