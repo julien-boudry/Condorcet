@@ -370,7 +370,6 @@ class ElectionCommand extends Command
          */
         if ( ($SQLitePath = $this->SQLitePath) !== null) :
             unset($this->election);
-            while(\gc_collect_cycles()); // Circular references are not really cleaned. Need to destroy PDO object for Windows.
             unlink($SQLitePath);
         endif;
 
