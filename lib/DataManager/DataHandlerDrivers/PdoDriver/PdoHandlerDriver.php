@@ -29,6 +29,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected bool $_queryError = false;
 
     // Database structure
+    public bool $preferBlobInsteadVarchar = true;
     protected array $_struct;
     // Prepare Query
     protected array $_prepare = [];
@@ -69,8 +70,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     public function createTable (): void
     {
+        $dataType = ($this->preferBlobInsteadVarchar) ? 'BLOB' : 'VARCHAR';
+
         $tableCreationQuery = match ($this->_handler->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
-            default => 'CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' BLOB NOT NULL );'
+            default => 'CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' '.$dataType.' NOT NULL );'
         };
 
         try {
