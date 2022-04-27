@@ -213,6 +213,24 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
     }
 
+    public function testVoteWithDb (): void
+    {
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--votes' => 'A>B>C * 10000;',
+                                            '--votes-per-mb' => 1
+                                        ], [
+                                            'verbosity' => OutputInterface::VERBOSITY_DEBUG
+                                        ]);
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
+        self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+
+        # And absence of this error: unlink(path): Resource temporarily unavailable
+    }
+
     public function testNaturalCondorcet (): void
     {
         $this->electionCommand->execute([
