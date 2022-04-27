@@ -40,7 +40,7 @@ class CondorcetFormat implements ConverterInterface
         $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString())         . "\n";
         $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats()   . "\n"  : null;
         $r .= '#/Implicit Ranking: ' . ($election->getImplicitRankingRule() ? 'true' : 'false') . "\n";
-        $r .= '#/Weight allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false')      . "\n";
+        $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false')      . "\n";
         // $r .= "\n";
 
         if ($file) :
@@ -75,7 +75,7 @@ class CondorcetFormat implements ConverterInterface
     protected const CANDIDATES_PATTERN  = '/^#\/Candidates:(?<candidates>.+)$/mi';
     protected const SEATS_PATTERN       = '/^#\/Number of Seats: *(?<seats>[0-9]+) *$/mi';
     protected const IMPLICIT_PATTERN    = '/^#\/Implicit Ranking: *(?<implicitRanking>(true|false)) *$/mi';
-    protected const WEIGHT_PATTERN      = '/^#\/Weight allowed: *(?<weight>(true|false)) *$/mi';
+    protected const WEIGHT_PATTERN      = '/^#\/Weight Allowed: *(?<weight>(true|false)) *$/mi';
 
 
     // Properties

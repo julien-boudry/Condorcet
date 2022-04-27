@@ -174,7 +174,7 @@ class CondorcetFormatTest extends TestCase
 
                             Richard Boháč>Petr Němec ^7
                             Richard Boháč>Petr Němec
-                            tag1 || Richard Boháč>Petr Němec
+                            tag1 ,  tag b || Richard Boháč>Petr Němec
                             Simona Slaná * 2
                             Petr Němec *1
                             CVOTES);
@@ -187,7 +187,7 @@ class CondorcetFormatTest extends TestCase
             #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: true
-            #/Weight allowed: true
+            #/Weight Allowed: true
 
             Richard Boháč > Petr Němec ^7 * 1
             Richard Boháč > Petr Němec * 2
@@ -205,7 +205,7 @@ class CondorcetFormatTest extends TestCase
             #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
-            #/Weight allowed: true
+            #/Weight Allowed: true
 
             Richard Boháč > Petr Němec ^7 * 1
             Richard Boháč > Petr Němec * 2
@@ -220,11 +220,11 @@ class CondorcetFormatTest extends TestCase
             #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
-            #/Weight allowed: true
+            #/Weight Allowed: true
 
             Richard Boháč > Petr Němec ^7
             Richard Boháč > Petr Němec
-            tag1 || Richard Boháč > Petr Němec
+            tag1,tag b || Richard Boháč > Petr Němec
             Simona Slaná
             Simona Slaná
             Petr Němec
@@ -238,7 +238,7 @@ class CondorcetFormatTest extends TestCase
             #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
-            #/Weight allowed: true
+            #/Weight Allowed: true
 
             Richard Boháč > Petr Němec ^7
             Richard Boháč > Petr Němec
