@@ -163,6 +163,73 @@ class CondorcetElectionFormatTest extends TestCase
         self::assertSame(0, $condorcetFormat->invalidBlocksCount);
     }
 
+    public function testOfficialSpecificationValidExamples (): void
+    {
+        # Example with tags and implicit ranking
+        $file = new \SplTempFileObject();
+        $file->fwrite(      <<<'CVOTES'
+                            # My beautiful election
+                            #/Candidates: Candidate A;Candidate B;Candidate C
+                            #/Implicit Ranking: true
+                            #/Weight allowed: true
+
+                            # Here the votes datas:
+                            Candidate A > Candidate B > Candidate C * 42
+                            julien@condorcet.vote , signature:55073db57b0a859911 || Candidate A > Candidate B > Candidate C # Same as above, so there will be 43 votes with this ranking. And tags are registered by the software if able.
+                            Candidate C > Candidate A = Candidate B ^7 * 8 # 8 votes with a weight of 7.
+                            Candidate B = Candidate A > Candidate C
+                            Candidate C # Interpreted as Candidate C > Candidate A = Candidate B, because implicit ranking is true (wich is also default, but it's better to say it)
+                            Candidate B > Candidate C # Interpreted as Candidate B > Candidate C
+                            CVOTES);
+
+        $condorcetFormat = new CondorcetElectionFormat($file);
+        $election = $condorcetFormat->setDataToAnElection();
+
+        self::assertSame(54, $election->countVotes());
+
+        self::assertSame(   <<<VOTES
+                            Candidate C > Candidate A = Candidate B ^7 * 8
+                            Candidate A > Candidate B > Candidate C * 43
+                            Candidate A = Candidate B > Candidate C * 1
+                            Candidate B > Candidate C > Candidate A * 1
+                            Candidate C > Candidate A = Candidate B * 1
+                            VOTES
+                            , $election->getVotesListAsString());
+
+
+        self::assertCount(1, $election->getVotesList(tags: 'signature:55073db57b0a859911', with: true));
+        self::assertCount(1, $election->getVotesList(tags: 'julien@condorcet.vote', with: true));
+        self::assertCount(0, $election->getVotesList(tags: 'otherTag', with: true));
+        self::assertSame('Candidate A > Candidate B > Candidate C', current($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->getSimpleRanking());
+
+
+        # Example without implicit ranking as weight
+        $file = new \SplTempFileObject();
+        $file->fwrite(      <<<'CVOTES'
+                            # My beautiful election
+                            #/Candidates: Candidate A ; Candidate B ; Candidate C
+                            #/Implicit Ranking: false
+                            #/Weight allowed: false
+
+                            # Here the votes datas:
+                            Candidate A > Candidate B > Candidate C ^7 *2 # Vote weight is disable, so ^7 is ignored. Two vote with weight of 1.
+                            Candidate C>Candidate B # Vote is untouched. When compute pairwise, Candidate C win again Candidate B, no one beats the candidate or achieves a draw.
+                            Candidate B # Vote is valid, but not have any effect on most election method, especially Condorcet methods.
+                            CVOTES);
+
+        $condorcetFormat = new CondorcetElectionFormat($file);
+        $election = $condorcetFormat->setDataToAnElection();
+
+        self::assertSame(4, $election->countVotes());
+
+        self::assertSame(   <<<VOTES
+                            Candidate A > Candidate B > Candidate C * 2
+                            Candidate B * 1
+                            Candidate C > Candidate B * 1
+                            VOTES
+                            , $election->getVotesListAsString());
+    }
+
     public function testexportElectionToCondorcetElectionFormat (): void
     {
         $input = new \SplTempFileObject();
