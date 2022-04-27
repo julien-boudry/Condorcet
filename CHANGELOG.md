@@ -2,15 +2,28 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v3.3.0] - 2022-??-??
+## [v3.3.0] - 2022-04-27
 ### Description
+This release adds Converters classes able to parse and convert to a Condorcet Election object, the textual votes file (synthetic, with all votes) from David Hill format, Debian format, and a new (and better) Condorcet format. An Election can also be exported to this new Condorcet format.  
+
+Internally, circular references have been eliminated in favor of PHP8 weak references. It improve memory consumption before garbage collector call, prevents memory leaks from the PHP engine or Condorcet itself and removes some ugly code that was previously necessary to prevent them.
 
 ### Added
-
-### Changed
+#### Converters classes
+- New Condorcet Format (specifications, converter to an Election, converter to a file)
+- David Hill format (converter to an Election)
+- Debian Format (converter to an Election)
+#### Others
+- ```Election::getVotesListAsString($withContext = true)``` get this new optional parameter, to ignore election context (restituate vote as they are submited, without any interpretation).
 
 ### Internal changes
+#### Structure
+- Migration from circular references to PHP8 weak references. Improving memory consumption before garbage collector, and preventing memory leaks in the engine without any call (and sometimes successive call) to ```gc_collect_cycles()```. _Only complex users, creating simulations with many election objects and vote/candidates sharing between elections, in the same run, will experience factually the improvement. Or those who use some external data handler as Sqlite and needed to close connexion before the end of the script._
 
+#### Internal API for methods modules or extended classes
+- ```getLinks()``` internal API will now return a ```\Weakmap```
+- About methods module extending the abstract class ```Algo\Method```, the ```$_selfElection``` property is now a ```\WeakReference```. And must to exclude it from serialization.
+- ```Algo\MethodInterface``` now required the ```setElection(Election $election)``` method because she is a part of unserialize from Condorcet unserialize process.
 
 =======
 ## [v3.2.3] - 2022-04-25
