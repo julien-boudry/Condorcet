@@ -6,8 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -217,8 +216,8 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C * 10000;',
-                                            '--votes-per-mb' => 1
+                                            '--votes-per-mb' => 1,
+                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'))) + 1), # Must be superior to memory limit in MB
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);
