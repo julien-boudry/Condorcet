@@ -240,6 +240,14 @@ class ElectionCommand extends Command
         $output->write($this->election->countCandidates().' candidates(s) registered');
         $output->write('  ||  ');
         $output->writeln($this->election->countVotes().' vote(s) registered');
+
+        if ($output->isDebug()) :
+            $io->info('Votes per Mb: '.self::$VotesPerMB);
+            $io->info('Db is used: '.((empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath));
+
+            $output->writeln($this->election->countVotes().' vote(s) registered');
+        endif;
+
         $output->writeln('<info>==========================</>');
 
         $io->definitionList(
