@@ -31,7 +31,7 @@ abstract class VoteUtil
             endforeach;
         endif;
 
-        $tags = \array_map('trim', $tags);
+        $tags = \array_map( fn(string $x):string => trim($x) , $tags);
 
         foreach ($tags as $tag) :
            if (empty($tag)) :
