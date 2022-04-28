@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console\Commands;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Result;
@@ -59,69 +58,80 @@ class ElectionCommand extends Command
     {
         $this->setHelp('This command takes candidates and votes as input. The output is the result of that election.')
 
-            ->addOption(      'candidates', 'c'
-                            , InputOption::VALUE_REQUIRED
-                            , 'Candidates list file path or direct input'
+            ->addOption(    name: 'candidates',
+                            shortcut: 'c',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'Candidates list file path or direct input',
             )
-            ->addOption(      'votes', 'w'
-                            , InputOption::VALUE_REQUIRED
-                            , 'Votes list file path or direct input'
-            )
-            ->addOption(      'stats', 's'
-                            , InputOption::VALUE_NONE
-                            , 'Get detailed stats (equivalent to --show-pairwise and --method-stats)'
-            )
-            ->addOption(      'method-stats', null
-                            , InputOption::VALUE_NONE
-                            , 'Get detailed stats per method'
-            )
-            ->addOption(      'show-pairwise', 'p'
-                            , InputOption::VALUE_NONE
-                            , 'Get pairwise computation'
-            )
-            ->addOption(      'list-votes', 'l'
-                            , InputOption::VALUE_NONE
-                            , 'List registered votes'
-            )
-            ->addOption(      'natural-condorcet', 'r'
-                            , InputOption::VALUE_NONE
-                            , 'Print natural Condorcet winner / loser'
-            )
-            ->addOption(      'deactivate-implicit-ranking', 'i'
-                            , InputOption::VALUE_NONE
-                            , 'Deactivate implicit ranking'
-            )
-            ->addOption(      'allows-votes-weight', 'g'
-                            , InputOption::VALUE_NONE
-                            , 'Allows vote weight'
-            )
-            ->addOption(      'no-tie', 't'
-                            , InputOption::VALUE_NONE
-                            , 'Add no-tie constraint for vote'
+            ->addOption(    name: 'votes',
+                            shortcut: 'w',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'Votes list file path or direct input',
             )
 
-            ->addOption(      'seats', null
-                            , InputOption::VALUE_REQUIRED
-                            , 'Specify the number of seats for proportional methods'
+
+            ->addOption(    name: 'stats',
+                            shortcut: 's',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Get detailed stats (equivalent to --show-pairwise and --method-stats)',
             )
-            ->addOption(      'quota', null
-                            , InputOption::VALUE_REQUIRED
-                            , 'Quota to be used for STV compatible methods'
+            ->addOption(    name: 'method-stats',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Get detailed stats per method',
+            )
+            ->addOption(    name: 'show-pairwise',
+                            shortcut: 'p',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Get pairwise computation',
+            )
+            ->addOption(    name: 'list-votes',
+                            shortcut: 'l',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'List registered votes',
+            )
+            ->addOption(    name: 'natural-condorcet',
+                            shortcut: 'r',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Print natural Condorcet winner / loser',
+            )
+            ->addOption(    name: 'deactivate-implicit-ranking',
+                            shortcut: 'i',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Deactivate implicit ranking',
+            )
+            ->addOption(    name: 'allows-votes-weight',
+                            shortcut: 'g',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Allows vote weight',
+            )
+            ->addOption(    name: 'no-tie',
+                            shortcut: 't',
+                            mode: InputOption::VALUE_NONE,
+                            description: 'Add no-tie constraint for vote',
             )
 
-            ->addOption(      'deactivate-file-cache', null
-                            , InputOption::VALUE_NONE
-                            , "Don't use a disk cache for very large elections. Forces to work exclusively in RAM."
+            ->addOption(    name: 'seats',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'Specify the number of seats for proportional methods',
             )
-            ->addOption(      'votes-per-mb', null
-                            , InputOption::VALUE_REQUIRED
-                            , "Adjust memory in case of failure. Default is 100. Try to lower it."
+            ->addOption(    name: 'quota',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'Quota to be used for STV compatible methods',
+            )
+
+            ->addOption(    name: 'deactivate-file-cache',
+                            mode: InputOption::VALUE_NONE,
+                            description: "Don't use a disk cache for very large elections. Forces to work exclusively in RAM.",
+            )
+            ->addOption(    name: 'votes-per-mb',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: "Adjust memory in case of failure. Default is 100. Try to lower it.",
             )
 
             ->addArgument(
-                             'methods'
-                            , InputArgument::OPTIONAL | InputArgument::IS_ARRAY
-                            , 'Methods to output'
+                            name: 'methods',
+                            mode: InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
+                            description: 'Methods to output',
             )
         ;
     }
@@ -260,7 +270,7 @@ class ElectionCommand extends Command
 
         // Input Sum Up
         if ($output->isVerbose()) :
-            $this->sectionVerbose($io ,$input,$output);
+            $this->sectionVerbose($io, $output);
         endif;
 
         if ($input->getOption('list-votes')) :
@@ -380,7 +390,7 @@ class ElectionCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function sectionVerbose (SymfonyStyle $io, InputInterface $input, OutputInterface $output): void
+    protected function sectionVerbose (SymfonyStyle $io, OutputInterface $output): void
     {
         $io->title('Detailed election input');
 
