@@ -1106,6 +1106,7 @@ _Including above methods from public API_
 * protected PDO $_handler
 * protected bool $_transaction
 * protected bool $_queryError
+* public bool $preferBlobInsteadVarchar
 * protected array $_struct
 * protected array $_prepare
 * protected string $_objectVersion
