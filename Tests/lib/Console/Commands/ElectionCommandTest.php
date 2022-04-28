@@ -52,7 +52,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
         self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
@@ -98,6 +98,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
         self::assertStringContainsString('Droop Quota', $output);
 
         $this->electionCommand->execute([

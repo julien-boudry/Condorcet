@@ -265,7 +265,7 @@ class ElectionCommand extends Command
             new TableSeparator(),
             ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
             new TableSeparator(),
-            ['Is vote tie in rank allowed?' => \in_array(needle: NoTie::class, haystack: $this->election->getConstraints(), strict: true) ? 'TRUE' : 'FALSE']
+            ['Is vote tie in rank allowed?' => \in_array(needle: NoTie::class, haystack: $this->election->getConstraints(), strict: true) ? 'FALSE' : 'TRUE']
         );
 
         // Input Sum Up
