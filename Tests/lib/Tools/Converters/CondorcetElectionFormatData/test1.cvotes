@@ -1,0 +1,5 @@
+#/Candidates:A;B;C
+#/Implicit Ranking: true
+#/Weight Allowed: false
+
+A>B ^2

@@ -1,0 +1,7 @@
+#/Candidates:A;B;C
+#/Implicit Ranking: false
+#/Weight Allowed: false
+#Number of Seats: 42
+
+B>A ^2
+B>C

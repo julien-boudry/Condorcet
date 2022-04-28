@@ -120,7 +120,8 @@ class CondorcetElectionFormat implements ConverterInterface
     #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
     public function setDataToAnElection (
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
-        ?Election $election = null
+        ?Election $election = null,
+        ?\Closure $callBack = null
     ): Election
     {
         if ($election === null) :
@@ -147,7 +148,7 @@ class CondorcetElectionFormat implements ConverterInterface
 
         // Votes
         $this->file->rewind();
-        $this->invalidBlocksCount = $election->parseVotesWithoutFail($this->file);
+        $this->invalidBlocksCount = $election->parseVotesWithoutFail(input: $this->file, callBack: $callBack);
 
         return $election;
     }

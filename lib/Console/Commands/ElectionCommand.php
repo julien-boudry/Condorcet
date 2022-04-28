@@ -16,6 +16,9 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
+use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
+use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -41,6 +44,7 @@ class ElectionCommand extends Command
     protected Election $election;
     protected string $candidates;
     protected string $votes;
+    protected string $CondorcetElectionFormatPath;
 
     public static int $VotesPerMB = 100;
 
@@ -67,6 +71,10 @@ class ElectionCommand extends Command
                             shortcut: 'w',
                             mode: InputOption::VALUE_REQUIRED,
                             description: 'Votes list file path or direct input',
+            )
+            ->addOption(    name: 'importCondorcetElectionFormat',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'File path. Setup an election and his data from a Condorcet Election file as defined as standard on https://github.com/CondorcetPHP/CondorcetElectionFormat . Other parameters from the command line argument have the priority if set. Other votes can be added with the --vote argument, other candidates can\'t be added.',
             )
 
 
@@ -150,101 +158,85 @@ class ElectionCommand extends Command
         // Setup Election Object
         $this->election = new Election;
 
-            /// Implicit Ranking
-            if ($input->getOption('deactivate-implicit-ranking')) :
-                $this->election->setImplicitRanking(false);
-            endif;
-
-            // Allow Votes Weight
-            if ($input->getOption('allows-votes-weight')) :
-                $this->election->allowsVoteWeight(true);
-            endif;
-
-            // NoTie Constraint
-            if ($input->getOption('no-tie')) :
-                $this->election->addConstraint(NoTie::class);
-            endif;
-
-            if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1 ) :
-                $this->election->setNumberOfSeats($seats);
-            endif;
+        // Parameters
+        $this->setUpParameters($input);
 
         // Non-interactive candidates
         $this->candidates = $input->getOption('candidates') ?? '';
 
         // Non-interactive votes
         $this->votes = $input->getOption('votes') ?? '';
+
+        // Non-interactive votes
+        $this->CondorcetElectionFormatPath = $input->getOption('importCondorcetElectionFormat') ?? '';
     }
 
     protected function interact (InputInterface $input, OutputInterface $output): void
     {
-        // Interactive Candidates
-        if (empty($this->candidates)) :
-            $helper = $this->getHelper('question');
+        if (empty($this->CondorcetElectionFormatPath)) :
+            // Interactive Candidates
+            if (empty($this->candidates)) :
+                $helper = $this->getHelper('question');
 
-            $c = 0;
-            $registeringCandidates = [];
+                $c = 0;
+                $registeringCandidates = [];
 
-            while (true) :
-                $question = new Question('Please register candidate N°'.++$c.' or press enter: ', null);
-                $answer = $helper->ask($input, $output, $question);
+                while (true) :
+                    $question = new Question('Please register candidate N°'.++$c.' or press enter: ', null);
+                    $answer = $helper->ask($input, $output, $question);
 
-                if ($answer === null) :
-                    break;
-                else :
-                    $registeringCandidates[] = \str_replace(';', ' ', $answer);
-                endif;
-            endwhile;
+                    if ($answer === null) :
+                        break;
+                    else :
+                        $registeringCandidates[] = \str_replace(';', ' ', $answer);
+                    endif;
+                endwhile;
 
-            $this->candidates = \implode(';', $registeringCandidates);
-        endif;
+                $this->candidates = \implode(';', $registeringCandidates);
+            endif;
 
-        // Interactive Votes
-        if (empty($this->votes)) :
-            $helper = $this->getHelper('question');
+            // Interactive Votes
+            if (empty($this->votes)) :
+                $helper = $this->getHelper('question');
 
-            $c = 0;
-            $registeringvotes = [];
+                $c = 0;
+                $registeringvotes = [];
 
-            while (true) :
-                $question = new Question('Please register vote N°'.++$c.' or press enter: ', null);
-                $answer = $helper->ask($input, $output, $question);
+                while (true) :
+                    $question = new Question('Please register vote N°'.++$c.' or press enter: ', null);
+                    $answer = $helper->ask($input, $output, $question);
 
-                if ($answer === null) :
-                    break;
-                else :
-                    $registeringvotes[] = \str_replace(';', ' ', $answer);
-                endif;
-            endwhile;
+                    if ($answer === null) :
+                        break;
+                    else :
+                        $registeringvotes[] = \str_replace(';', ' ', $answer);
+                    endif;
+                endwhile;
 
-            $this->votes = \implode(';', $registeringvotes);
+                $this->votes = \implode(';', $registeringvotes);
+            endif;
         endif;
     }
 
     protected function execute (InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle ($input, $output);
-
-        // Parse Votes & Candidates
-        if ($file = $this->getFilePath($this->candidates)) :
-            $this->election->parseCandidates($file, true);
-        else :
-            $this->election->parseCandidates($this->candidates);
-        endif;
-
         // Define Callback
         $callBack = $this->useDataHandler($input);
 
-        // Parses Votes
-        if ($file = $this->getFilePath($this->votes)) :
-            $this->election->parseVotesWithoutFail($file, true, $callBack);
-        else :
-            $this->election->parseVotesWithoutFail($this->votes, false, $callBack);
+        // Setup Elections, candidates and votes from Condorcet Election Format
+        if ($input->getOption('importCondorcetElectionFormat')) :
+            $this->parseFromCondorcetElectionFormat($callBack);
+            $this->setUpParameters($input); # Do it again, because command line parameters have priority
         endif;
+
+        // Parse Votes & Candidates from classicals inputs
+        $this->parseFromCandidatesAndVotesArguments($callBack);
 
         unset($callBack);
 
         // Summary
+        $io = new SymfonyStyle ($input, $output);
+
         $io->title('Summary');
 
         $output->write($this->election->countCandidates().' candidates(s) registered');
@@ -476,6 +468,8 @@ class ElectionCommand extends Command
         endif;
     }
 
+    # Processing
+
     protected function prepareMethods (array $methodArgument): array
     {
         if (empty($methodArgument)) :
@@ -501,6 +495,58 @@ class ElectionCommand extends Command
             endforeach;
 
             return $methods;
+        endif;
+    }
+
+    protected function setUpParameters (InputInterface $input): void
+    {
+        /// Implicit Ranking
+        if ($input->getOption('deactivate-implicit-ranking')) :
+            $this->election->setImplicitRanking(false);
+        endif;
+
+        // Allow Votes Weight
+        if ($input->getOption('allows-votes-weight')) :
+            $this->election->allowsVoteWeight(true);
+        endif;
+
+        if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1 ) :
+            $this->election->setNumberOfSeats($seats);
+        endif;
+
+        try {
+            if ($input->getOption('no-tie')) :
+                $this->election->addConstraint(NoTie::class);
+            endif;
+        } catch (VoteConstraintException $e) {
+            str_contains($e->getMessage(), 'class is already registered') || throw $e;
+        }
+    }
+
+    protected function parseFromCandidatesAndVotesArguments (\Closure $callBack): void
+    {
+        if ($file = $this->getFilePath($this->candidates)) :
+            $this->election->parseCandidates($file, true);
+        else :
+            $this->election->parseCandidates($this->candidates);
+        endif;
+
+        // Parses Votes
+        if ($file = $this->getFilePath($this->votes)) :
+            $this->election->parseVotesWithoutFail(input: $file, isFile: true, callBack: $callBack);
+        else :
+            $this->election->parseVotesWithoutFail(input: $this->votes, isFile: false, callBack: $callBack);
+        endif;
+    }
+
+    protected function parseFromCondorcetElectionFormat (\Closure $callBack): void
+    {
+        $file = $this->getFilePath($this->CondorcetElectionFormatPath);
+
+        if ($file !== null) :
+            (new CondorcetElectionFormat($file))->setDataToAnElection($this->election, $callBack);
+        else:
+            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
         endif;
     }
 

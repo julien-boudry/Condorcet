@@ -6,7 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
-use CondorcetPHP\Condorcet\DataManager\ArrayManager;
+use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -243,5 +243,76 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('* Condorcet winner | NULL', $output);
         self::assertStringContainsString('# Condorcet loser  | NULL', $output);
+    }
+
+    public function testFromCondorcetElectionFormat_DoubleCandidates (): void
+    {
+        $this->expectException(CandidateExistsException::class);
+
+        $this->electionCommand->execute([
+                                            '--candidates' => 'A;B;C',
+                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+    }
+
+    public function testFromCondorcetElectionFormat_ArgumentpriorityAndDoubleVoteArgument (): void
+    {
+        $this->electionCommand->execute([
+                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                                            '--votes' => 'C>A',
+                                            '--deactivate-implicit-ranking' => null,
+                                            '--no-tie' => null,
+                                            '--allows-votes-weight' => null,
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('3 candidates(s) registered  ||  2 vote(s) registered', $output);
+
+        self::assertStringContainsString('Schulze', $output);
+        self::assertStringContainsString('Registered candidates', $output);
+        self::assertStringContainsString('Stats - votes registration', $output);
+
+        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
+        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
+
+        self::assertStringContainsString('Sum vote weight | 3', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testFromCondorcetElectionFormat_Arguments (): void
+    {
+        $this->electionCommand->execute([
+                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('3 candidates(s) registered  ||  2 vote(s) registered', $output);
+
+        self::assertStringContainsString('Schulze', $output);
+        self::assertStringContainsString('Registered candidates', $output);
+        self::assertStringContainsString('Stats - votes registration', $output);
+
+        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+
+        self::assertStringContainsString('Sum vote weight | 2', $output);
+
+        self::assertStringContainsString('B*', $output); # Condorcet Winner
+
+        self::assertStringContainsString('[OK] Success', $output);
     }
 }
