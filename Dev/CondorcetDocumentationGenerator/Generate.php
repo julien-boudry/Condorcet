@@ -468,6 +468,8 @@ class Generate
                 $file_content .= $propertie->isProtected() ? 'protected ' : '';
                 $file_content .= $propertie->isPrivate() ? 'private ' : '';
 
+                $file_content .= $propertie->isStatic() ? 'static ' : '';
+
                 $file_content .= ((string) $propertie->getType()).' $'.$propertie->getName();
                 $file_content .= $addMdCodeTag ? '```  ' : '';
                 $file_content .= "\n";
