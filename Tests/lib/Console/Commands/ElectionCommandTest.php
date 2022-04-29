@@ -213,7 +213,7 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
     }
 
-    public function testVoteWithDb (): void
+    public function testVoteWithDb1 (): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -230,6 +230,7 @@ class ElectionCommandTest extends TestCase
 
         # And absence of this error: unlink(path): Resource temporarily unavailable
     }
+
 
     public function testNaturalCondorcet (): void
     {
@@ -314,5 +315,22 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('B*', $output); # Condorcet Winner
 
         self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testVoteWithDb_CondorcetElectionFormat (): void
+    {
+        $this->electionCommand->execute([
+                                            '--votes-per-mb' => 1,
+                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
+                                        ], [
+                                            'verbosity' => OutputInterface::VERBOSITY_DEBUG
+                                        ]);
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
+        self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+
+        # And absence of this error: unlink(path): Resource temporarily unavailable
     }
 }
