@@ -19,6 +19,8 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDr
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\DebianFormat;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -42,9 +44,12 @@ use Symfony\Component\Yaml\Yaml;
 class ElectionCommand extends Command
 {
     protected Election $election;
-    protected string $candidates;
-    protected string $votes;
-    protected string $CondorcetElectionFormatPath;
+    protected ?string $candidates;
+    protected ?string $votes;
+
+    protected ?string $CondorcetElectionFormatPath;
+    protected ?string $DebianFormatPath;
+    protected ?string $DavidHillFormatPath;
 
     public static int $VotesPerMB = 100;
 
@@ -72,9 +77,17 @@ class ElectionCommand extends Command
                             mode: InputOption::VALUE_REQUIRED,
                             description: 'Votes list file path or direct input',
             )
-            ->addOption(    name: 'importCondorcetElectionFormat',
+            ->addOption(    name: 'import-condorcet-election-format',
                             mode: InputOption::VALUE_REQUIRED,
                             description: 'File path. Setup an election and his data from a Condorcet Election file as defined as standard on https://github.com/CondorcetPHP/CondorcetElectionFormat . Other parameters from the command line argument have the priority if set. Other votes can be added with the --vote argument, other candidates can\'t be added.',
+            )
+            ->addOption(    name: 'import-debian-format',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'File path. Setup an election and his data from a Debian tally file. Other votes can be added with the --vote argument, other candidates can\'t be added.',
+            )
+            ->addOption(    name: 'import-david-hill-format',
+                            mode: InputOption::VALUE_REQUIRED,
+                            description: 'File path. Setup an election and his data from a Debian tally file. Other votes can be added with the --vote argument, other candidates can\'t be added.',
             )
 
 
@@ -162,18 +175,19 @@ class ElectionCommand extends Command
         $this->setUpParameters($input);
 
         // Non-interactive candidates
-        $this->candidates = $input->getOption('candidates') ?? '';
+        $this->candidates = $input->getOption('candidates') ?? null;
 
         // Non-interactive votes
-        $this->votes = $input->getOption('votes') ?? '';
+        $this->votes = $input->getOption('votes') ?? null;
 
-        // Non-interactive votes
-        $this->CondorcetElectionFormatPath = $input->getOption('importCondorcetElectionFormat') ?? '';
+        $this->CondorcetElectionFormatPath = $input->getOption('import-condorcet-election-format') ?? null;
+        $this->DebianFormatPath = $input->getOption('import-debian-format') ?? null;
+        $this->DavidHillFormatPath = $input->getOption('import-david-hill-format') ?? null;
     }
 
     protected function interact (InputInterface $input, OutputInterface $output): void
     {
-        if (empty($this->CondorcetElectionFormatPath)) :
+        if (empty($this->CondorcetElectionFormatPath) && empty($this->DebianFormatPath) && empty($this->DavidHillFormatPath)) :
             // Interactive Candidates
             if (empty($this->candidates)) :
                 $helper = $this->getHelper('question');
@@ -224,13 +238,26 @@ class ElectionCommand extends Command
         $callBack = $this->useDataHandler($input);
 
         // Setup Elections, candidates and votes from Condorcet Election Format
-        if ($input->getOption('importCondorcetElectionFormat')) :
+        if ($input->getOption('import-condorcet-election-format')) :
             $this->parseFromCondorcetElectionFormat($callBack);
             $this->setUpParameters($input); # Do it again, because command line parameters have priority
         endif;
 
+        if ($input->getOption('import-debian-format')) :
+            $this->election->setNumberOfSeats(1); # Debian must be 1
+            $this->parseFromDebianFormat();
+            $this->setUpParameters($input); # Do it again, because command line parameters have priority
+
+        endif;
+
+        if ($input->getOption('import-david-hill-format')) :
+            $this->parseFromDavidHillFormat();
+            $this->setUpParameters($input); # Do it again, because command line parameters have priority
+        endif;
+
         // Parse Votes & Candidates from classicals inputs
-        $this->parseFromCandidatesAndVotesArguments($callBack);
+        !empty($this->candidates) && $this->parseFromCandidatesArguments();
+        !empty($this->votes) && $this->parseFromVotesArguments($callBack);
 
         unset($callBack);
 
@@ -510,7 +537,7 @@ class ElectionCommand extends Command
             $this->election->allowsVoteWeight(true);
         endif;
 
-        if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1 ) :
+        if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1) :
             $this->election->setNumberOfSeats($seats);
         endif;
 
@@ -523,14 +550,17 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function parseFromCandidatesAndVotesArguments (\Closure $callBack): void
+    protected function parseFromCandidatesArguments (): void
     {
         if ($file = $this->getFilePath($this->candidates)) :
             $this->election->parseCandidates($file, true);
         else :
             $this->election->parseCandidates($this->candidates);
         endif;
+    }
 
+    protected function parseFromVotesArguments (\Closure $callBack): void
+    {
         // Parses Votes
         if ($file = $this->getFilePath($this->votes)) :
             $this->election->parseVotesWithoutFail(input: $file, isFile: true, callBack: $callBack);
@@ -545,6 +575,28 @@ class ElectionCommand extends Command
 
         if ($file !== null) :
             (new CondorcetElectionFormat($file))->setDataToAnElection($this->election, $callBack);
+        else:
+            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
+        endif;
+    }
+
+    protected function parseFromDebianFormat (): void
+    {
+        $file = $this->getFilePath($this->DebianFormatPath);
+
+        if ($file !== null) :
+            (new DebianFormat($file))->setDataToAnElection($this->election);
+        else:
+            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
+        endif;
+    }
+
+    protected function parseFromDavidHillFormat (): void
+    {
+        $file = $this->getFilePath($this->DavidHillFormatPath);
+
+        if ($file !== null) :
+            (new DavidHillFormat($file))->setDataToAnElection($this->election);
         else:
             throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
         endif;

@@ -252,7 +252,7 @@ class ElectionCommandTest extends TestCase
 
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
-                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
@@ -262,7 +262,7 @@ class ElectionCommandTest extends TestCase
     public function testFromCondorcetElectionFormat_ArgumentpriorityAndDoubleVoteArgument (): void
     {
         $this->electionCommand->execute([
-                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
                                             '--votes' => 'C>A',
                                             '--deactivate-implicit-ranking' => null,
                                             '--no-tie' => null,
@@ -292,7 +292,7 @@ class ElectionCommandTest extends TestCase
     public function testFromCondorcetElectionFormat_Arguments (): void
     {
         $this->electionCommand->execute([
-                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
+                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
                                         ],[
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
@@ -321,7 +321,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute([
                                             '--votes-per-mb' => 1,
-                                            '--importCondorcetElectionFormat' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
+                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);
@@ -332,5 +332,65 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
 
         # And absence of this error: unlink(path): Resource temporarily unavailable
+    }
+
+    public function testFromDebianFormat (): void
+    {
+        $this->electionCommand->execute([
+                                            '--import-debian-format' => __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt',
+                                            'methods' => ['STV'],
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('4 candidates(s) registered  ||  339 vote(s) registered', $output);
+
+        self::assertStringContainsString('STV', $output);
+        self::assertStringContainsString('Registered candidates', $output);
+        self::assertStringContainsString('Stats - votes registration', $output);
+
+        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+
+        self::assertStringContainsString('Sum vote weight | 339', $output);
+
+        self::assertStringContainsString('Jonathan Carter*', $output); # Condorcet Winner
+        self::assertStringContainsString('Seats:        | 1', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
+    }
+
+    public function testFromDavidHillFormat (): void
+    {
+        $this->electionCommand->execute([
+                                            '--import-david-hill-format' => __DIR__.'/../../Tools/Converters/TidemanData/A1.HIL',
+                                            'methods' => ['STV'],
+                                        ],[
+                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
+                                        ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('10 candidates(s) registered  ||  380 vote(s) registered', $output);
+
+        self::assertStringContainsString('STV', $output);
+        self::assertStringContainsString('Registered candidates', $output);
+        self::assertStringContainsString('Stats - votes registration', $output);
+
+        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
+        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+
+        self::assertStringContainsString('Sum vote weight | 380', $output);
+
+        self::assertStringContainsString('Candidate  1*', $output); # Condorcet Winner
+        self::assertStringContainsString('Seats:        | 3', $output);
+
+        self::assertStringContainsString('[OK] Success', $output);
     }
 }
