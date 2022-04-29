@@ -76,6 +76,30 @@ class KemenyYoungTest extends TestCase
         );
     }
 
+    public function testStats_1 (): void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+
+        $this->election->parseVotes($r = 'A > B');
+
+        self::assertSame(
+            $r,
+            $this->election->getResult('KemenyYoung')->getResultAsString()
+        );
+
+        self::assertSame(
+            [
+                'bestScore' => 1,
+                'rankingScore' => [
+                    [1 => 'A', 2 => 'B', 'score' => 1],
+                    [1 => 'B', 2 => 'A', 'score' => 0],
+                ]
+            ],
+            $this->election->getResult('KemenyYoung')->getStats()
+        );
+    }
+
     public function testMaxCandidates (): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);

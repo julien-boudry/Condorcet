@@ -129,7 +129,11 @@ class KemenyYoung extends Method implements MethodInterface
         $f = new \SplFileObject($path, 'r');
 
         while (!$f->eof()) :
-            $oneResult = explode(',', trim($f->fgets()));
+            $l = trim($f->fgets());
+
+            if (empty($l)) : continue; endif;
+
+            $oneResult = explode(',', $l);
 
             foreach ($oneResult as &$oneCandidateId) :
                 $oneCandidateId = $replace[(int) $oneCandidateId];
