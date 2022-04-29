@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v3.3.0] - 2022-04-27
+## [v3.3.0] - 2022-04-29
 ### Description
 This release adds Converters classes able to parse and convert to a Condorcet Election object, the textual votes file (synthetic, with all votes) from David Hill format, Debian format, and a new (and better) Condorcet format. An Election can also be exported to this new Condorcet format.  
 
@@ -13,6 +13,11 @@ Internally, circular references have been eliminated in favor of PHP8 weak refer
 - New Condorcet Format (specifications, converter to an Election, converter to a file)
 - David Hill format (converter to an Election)
 - Debian Format (converter to an Election)
+
+#### Console
+- Options to import from Condorcet, David Hill, Debian formats.
+- Bugfix: (display only) Wrong value for implicit voting
+
 #### Others
 - ```Election::getVotesListAsString($withContext = true)``` get this new optional parameter, to ignore election context (restituate vote as they are submited, without any interpretation).
 

@@ -27,7 +27,7 @@ Add the vote tags information if any. Don't work if $aggregateVotes is true.
 
 
 ##### **file:** *```?SplFileObject```*   
-    
+If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    
 
 
 ### Return value:   

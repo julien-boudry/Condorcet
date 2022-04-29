@@ -966,8 +966,11 @@ _Including above methods from public API_
 * public const INVALID: (integer)
 
 * protected CondorcetPHP\Condorcet\Election $election
-* protected string $candidates
-* protected string $votes
+* protected ?string $candidates
+* protected ?string $votes
+* protected ?string $CondorcetElectionFormatPath
+* protected ?string $DebianFormatPath
+* protected ?string $DavidHillFormatPath
 * public static int $VotesPerMB
 * protected bool $candidatesListIsWrite
 * protected bool $votesCountIsWrite
@@ -1023,8 +1026,14 @@ _Including above methods from public API_
 * protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected isAbsolute (string $path): bool  
+* protected parseFromCandidatesArguments (): void  
+* protected parseFromCondorcetElectionFormat (Closure $callBack): void  
+* protected parseFromDavidHillFormat (): void  
+* protected parseFromDebianFormat (): void  
+* protected parseFromVotesArguments (Closure $callBack): void  
 * protected prepareMethods (array $methodArgument): array  
-* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected setUpParameters (Symfony\Component\Console\Input\InputInterface $input): void  
 * protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input): ?Closure  
 ```
 
@@ -1728,7 +1737,7 @@ _Including above methods from public API_
 
 * public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
-* public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
+* public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * protected boolParser (string $parse): bool  
 * protected readParameters (): void  
 ```
