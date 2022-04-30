@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.3.1] - 2022-04-30
+### Changed
+- Fix a regression on Kemmeny-Young stats since v3.3.0 (should not affect the final ranking, but still dangerous and incorrect).
+
 ## [v3.3.0] - 2022-04-29
 ### Description
 This release adds Converters classes able to parse and convert to a Condorcet Election object, the textual votes file (synthetic, with all votes) from David Hill format, Debian format, and a new (and better) Condorcet format. An Election can also be exported to this new Condorcet format.  
