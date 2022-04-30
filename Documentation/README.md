@@ -1723,6 +1723,7 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\ConverterInterface  
 ```php
+* public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
 * protected const CANDIDATES_PATTERN: (string)
 * protected const SEATS_PATTERN: (string)
 * protected const IMPLICIT_PATTERN: (string)
@@ -1735,7 +1736,7 @@ _Including above methods from public API_
 * public bool $voteWeight
 * readonly public int $invalidBlocksCount
 
-* public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, ?SplFileObject $file = null): ?string  
+* public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * protected boolParser (string $parse): bool  

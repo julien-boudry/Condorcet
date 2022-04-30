@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat ( CondorcetPHP\Condorcet\Election election [, bool aggregateVotes = true , bool includeNumberOfSeats = true , bool includeTags = true , ?SplFileObject file = null] ): ?string
+public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat ( CondorcetPHP\Condorcet\Election election [, bool aggregateVotes = true , bool includeNumberOfSeats = true , bool includeTags = true , bool inContext = false , ?SplFileObject file = null] ): ?string
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
@@ -24,6 +24,10 @@ Add the Number Of Seats parameters to the output.
 
 ##### **includeTags:** *```bool```*   
 Add the vote tags information if any. Don't work if $aggregateVotes is true.    
+
+
+##### **inContext:** *```bool```*   
+Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.    
 
 
 ##### **file:** *```?SplFileObject```*   

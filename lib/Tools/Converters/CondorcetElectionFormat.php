@@ -35,6 +35,8 @@ class CondorcetElectionFormat implements ConverterInterface
         bool $includeNumberOfSeats = true,
         #[FunctionParameter('Add the vote tags information if any. Don\'t work if $aggregateVotes is true')]
         bool $includeTags = true,
+        #[FunctionParameter('Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.')]
+        bool $inContext = false,
         #[FunctionParameter('If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_')]
         ?\SplFileObject $file = null
     ): ?string
@@ -52,13 +54,15 @@ class CondorcetElectionFormat implements ConverterInterface
         endif;
 
         if ($aggregateVotes) :
-            $r .= "\n" . $election->getVotesListAsString(false);
+            $r .= "\n" . $election->getVotesListAsString($inContext);
             if ($file) : $file->fwrite($r); endif;
         else :
             foreach ($election->getVotesListGenerator() as $vote) :
                 $line = "\n";
                 $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString().' || ' : '';
-                $line .= !empty($voteString = $vote->getSimpleRanking(null)) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
+
+                $voteString = $vote->getSimpleRanking($inContext ? $election : null);
+                $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
 
                 if ($file) :
                     $file->fwrite($line);

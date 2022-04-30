@@ -305,7 +305,7 @@ class ElectionTest extends TestCase
         self::assertSame('/EMPTY_RANKING/ * 2', $this->election2->getVotesListAsString(true));
         self::assertSame('/EMPTY_RANKING/ * 1'. "\n" .'D > E * 1', $this->election2->getVotesListAsString(false));
 
-        self::assertSame(   $cvotes =
+        self::assertSame(   $cvotes_explicit_without_context =
                             <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: false
@@ -314,12 +314,88 @@ class ElectionTest extends TestCase
                             /EMPTY_RANKING/ * 1
                             D > E * 1
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false)
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
                         );
 
-        self::assertSame(str_replace(' * 1', '', $cvotes), CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false));
+        self::assertSame    (   str_replace(' * 1', '', $cvotes_explicit_without_context),
+                                CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+                            );
 
-    }
+        self::assertSame(   <<<CVOTES
+                            #/Candidates: A ; B ; C
+                            #/Implicit Ranking: false
+                            #/Weight Allowed: false
+
+                            /EMPTY_RANKING/ * 2
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+                        );
+
+        self::assertSame(   <<<CVOTES
+                            #/Candidates: A ; B ; C
+                            #/Implicit Ranking: false
+                            #/Weight Allowed: false
+
+                            /EMPTY_RANKING/
+                            /EMPTY_RANKING/
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+                        );
+
+        $this->election2->setImplicitRanking(true);
+
+        self::assertSame(   <<<CVOTES
+                            #/Candidates: A ; B ; C
+                            #/Implicit Ranking: true
+                            #/Weight Allowed: false
+
+                            A = B = C * 2
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+                        );
+
+        self::assertSame(   <<<CVOTES
+                            #/Candidates: A ; B ; C
+                            #/Implicit Ranking: true
+                            #/Weight Allowed: false
+
+                            A = B = C
+                            A = B = C
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+                        );
+
+        $this->election2 = new Election;
+        $this->election2->parseCandidates('A;B;C;D');
+        $this->election2->setImplicitRanking(true);
+
+        $this->election2->addVote(new Vote('A>B'));
+
+        self::assertSame(   <<<CVOTES
+                            #/Candidates: A ; B ; C ; D
+                            #/Implicit Ranking: true
+                            #/Weight Allowed: false
+
+                            A > B > C = D * 1
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+                        );
+
+        self::assertSame(   $cvotes_implicit_without_context =
+                            <<<CVOTES
+                            #/Candidates: A ; B ; C ; D
+                            #/Implicit Ranking: true
+                            #/Weight Allowed: false
+
+                            A > B * 1
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
+                        );
+
+        self::assertSame(   str_replace(' * 1', '', $cvotes_implicit_without_context),
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+                        );
+}
 
     public function testParseVoteCandidateCoherence (): void
     {
