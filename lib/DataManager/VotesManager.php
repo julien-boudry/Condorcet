@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\{Election, Vote};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 
 class VotesManager extends ArrayManager
 {
@@ -200,7 +201,7 @@ class VotesManager extends ArrayManager
             if (!$isFirst) :
                 $simpleList .= "\n";
             endif;
-            $voteString = ($key === '') ? '{{EMPTY_VOTE_IN_CONTEXT}}' : $key;
+            $voteString = ($key === '') ? CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING : $key;
             $simpleList .= $voteString.' * '.$nb[$key];
             $isFirst = false;
         endforeach;

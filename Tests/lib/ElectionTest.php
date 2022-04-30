@@ -9,7 +9,6 @@ use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
-use CondorcetPHP\Condorcet\Throwable\FileDoesNotExist;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
@@ -18,6 +17,7 @@ use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Throwable\VoteException;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
 class ElectionTest extends TestCase
@@ -280,7 +280,7 @@ class ElectionTest extends TestCase
         "D * 6\n".
         "A > B = C > E * 5\n".
         "A = B = E * 3\n".
-        "{{EMPTY_VOTE_IN_CONTEXT}} * 1",
+        "/EMPTY_RANKING/ * 1",
         $this->election1->getVotesListAsString());
 
         self::assertSame(
@@ -292,6 +292,33 @@ class ElectionTest extends TestCase
             Y > Z * 1
             VOTES,
             $this->election1->getVotesListAsString(false));
+    }
+
+    public function testEmptyRankingExport (): void
+    {
+        $this->election2->parseCandidates('A;B;C');
+        $this->election2->setImplicitRanking(false);
+
+        $this->election2->addVote(new Vote(''));
+        $this->election2->addVote(new Vote('D>E'));
+
+        self::assertSame('/EMPTY_RANKING/ * 2', $this->election2->getVotesListAsString(true));
+        self::assertSame('/EMPTY_RANKING/ * 1'. "\n" .'D > E * 1', $this->election2->getVotesListAsString(false));
+
+        self::assertSame(   $cvotes =
+                            <<<CVOTES
+                            #/Candidates: A ; B ; C
+                            #/Implicit Ranking: false
+                            #/Weight Allowed: false
+
+                            /EMPTY_RANKING/ * 1
+                            D > E * 1
+                            CVOTES,
+                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false)
+                        );
+
+        self::assertSame(str_replace(' * 1', '', $cvotes), CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false));
+
     }
 
     public function testParseVoteCandidateCoherence (): void

@@ -21,6 +21,8 @@ class CondorcetElectionFormat implements ConverterInterface
 
     ////// # Static Export Method //////
 
+    public const SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
+
     #[PublicAPI]
     #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]
     #[FunctionReturn("If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
@@ -54,7 +56,9 @@ class CondorcetElectionFormat implements ConverterInterface
             if ($file) : $file->fwrite($r); endif;
         else :
             foreach ($election->getVotesListGenerator() as $vote) :
-                $line = "\n" . (($includeTags) ? ((string) $vote) : $vote->getSimpleRanking(null));
+                $line = "\n";
+                $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString().' || ' : '';
+                $line .= !empty($voteString = $vote->getSimpleRanking(null)) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
 
                 if ($file) :
                     $file->fwrite($line);
