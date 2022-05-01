@@ -2,6 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.3.2] - 2022-05-01
+### Added
+- Condorcet Election Format: Compatibility with specification of ```/EMPTY_RANKING/``` keyword. (import and export)
+### Changed
+- Vote ranking from string input, cannot have empty rank (will be skipped silently instead of "" as candidate name)
+
 ## [v3.3.1] - 2022-04-30
 ### Changed
 - Fix a regression on Kemmeny-Young stats since v3.3.0 (should not affect the final ranking, but still dangerous and incorrect).
