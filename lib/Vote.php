@@ -15,7 +15,6 @@ use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
-use phpDocumentor\Reflection\Types\Void_;
 
 class Vote implements \Iterator, \Stringable
 {

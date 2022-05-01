@@ -13,6 +13,7 @@ use CondorcetPHP\Condorcet\{Candidate,
     VoteConstraint};
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase
@@ -805,6 +806,15 @@ class VoteTest extends TestCase
                             'Spain > Japan > France > Netherlands > Australia',
                             $vote->getSimpleRanking($election)
                         );
+    }
+
+    public function testEmptySpecialKeyWord (): void
+    {
+        $vote1 = new Vote(CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING);
+        $vote2 = new Vote('  '.CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING.'  ');
+
+        self::assertSame([], $vote1->getRanking());
+        self::assertSame([], $vote2->getRanking());
     }
 
 }

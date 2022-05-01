@@ -50,10 +50,18 @@ class VoteUtilTest extends TestCase
     {
         // Empty vote
         $this->assertEquals(
-            [
-                [""]
-            ],
+            [],
             VoteUtil::convertVoteInput("")
+        );
+
+        $this->assertEquals(
+            [],
+            VoteUtil::convertVoteInput("")
+        );
+
+        $this->assertEquals(
+            [],
+            VoteUtil::convertVoteInput("  >  ")
         );
 
         // Normal vote

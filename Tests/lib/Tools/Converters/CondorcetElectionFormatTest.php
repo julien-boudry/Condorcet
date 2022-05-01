@@ -336,4 +336,26 @@ class CondorcetElectionFormatTest extends TestCase
             $output->fread(2048)
         );
     }
+
+    public function testEmptyRankingImport (): void
+    {
+        $file = new \SplTempFileObject();
+        $file->fwrite($input =  <<<CVOTES
+                                #/Candidates: A ; B ; C
+                                #/Number of Seats: 42
+                                #/Implicit Ranking: false
+                                #/Weight Allowed: false
+
+                                /EMPTY_RANKING/ * 1
+                                D > E * 1
+                                CVOTES);
+
+        $cef = new CondorcetElectionFormat ($file);
+
+        $election = $cef->setDataToAnElection();
+
+        self::assertSame("/EMPTY_RANKING/ * 2", $election->getVotesListAsString());
+        self::assertSame([], $election->getVotesList()[0]->getRanking());
+        self::assertSame($input, CondorcetElectionFormat::exportElectionToCondorcetElectionFormat($election));
+    }
 }
