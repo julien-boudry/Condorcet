@@ -70,6 +70,7 @@ class BordaCount extends Method implements MethodInterface
             endfor;
         endforeach;
 
+        \ksort($score, \SORT_NATURAL);
         \arsort($score,\SORT_NUMERIC);
 
         $rank = 0;

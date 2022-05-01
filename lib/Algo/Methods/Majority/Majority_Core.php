@@ -21,7 +21,7 @@ abstract class Majority_Core extends Method implements MethodInterface
     protected int $_maxRound;
     protected int $_targetNumberOfCandidatesForTheNextRound;
     protected int $_numberOfTargetedCandidatesAfterEachRound;
-    
+
     protected array $_admittedCandidates = [];
     protected ?array $_Stats = null;
 
@@ -50,6 +50,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         // Start a round
         while ($resolved === false) :
             $roundScore = $this->doOneRound();
+            \ksort($roundScore, \SORT_NATURAL);
             \arsort($roundScore, \SORT_NUMERIC);
 
             $score[$round] = $roundScore;

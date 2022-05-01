@@ -54,7 +54,8 @@ class SingleTransferableVote extends Method implements MethodInterface
         while (!$end) :
 
             $scoreTable = $this->makeScore($surplusToTransfer, $candidateElected, $candidateEliminated);
-            arsort($scoreTable, \SORT_NUMERIC);
+            \ksort($scoreTable, \SORT_NATURAL);
+            \arsort($scoreTable, \SORT_NUMERIC);
 
             $successOnRank = false;
 
