@@ -193,7 +193,7 @@ class VotesManager extends ArrayManager
             $nb[$oneVoteString]++;
         endforeach;
 
-        \ksort($weight);
+        \ksort($weight, \SORT_NATURAL);
         \arsort($weight);
 
         $isFirst = true;
