@@ -16,11 +16,11 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
-// Ranker Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairs_Core extends Method implements MethodInterface
+// Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
+abstract class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-        public static ?int $MaxCandidates = 40;
+    public static ?int $MaxCandidates = 40;
 
     // Ranked Pairs
     protected readonly array $_PairwiseSort;
