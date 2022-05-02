@@ -2,6 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.3.3] - 2022-05-02
+
+### Changed
+- Election::getVotesListAsString() will be ordered in a strict and predictable manner.
+- Some methods (based on Borda, Majority, STV) they now work with a lower level of decimal precision. This avoids the accumulation of rounding differences, leading in some cases to tiny differences in statistics and extremely rarely, in differences in results (in case of extremely close elections with ties on ballot allowed) depending on the order in which the votes were entered in the election. This can result in unpredictable behavior that is uncomfortable for testing or accurate reproducibility. However, the behavior in these extreme cases can not be guaranteed 100%, even if it becomes even more rare and impractical. Pairwise methods (typically Condorcet methods) are not affected by this change. 
+
 ## [v3.3.2] - 2022-05-01
 ### Added
 - Condorcet Election Format: Compatibility with specification of ```/EMPTY_RANKING/``` keyword. (import and export)

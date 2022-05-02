@@ -203,6 +203,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
 * readonly protected WeakReference $_selfElection
@@ -224,6 +225,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
 * protected ?array $_Stats
@@ -249,6 +251,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
 * protected ?array $_Stats
@@ -274,6 +277,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected ?int $_CondorcetWinner
 * protected ?int $_CondorcetLoser
@@ -300,6 +304,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -324,6 +329,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected ?array $_Stats
 * public static ?int $MaxCandidates
@@ -348,6 +354,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -372,6 +379,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected ?array $_Stats
 * readonly public float $majority
@@ -398,6 +406,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * final public const CONFLICT_WARNING_CODE: (integer)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
 * public static bool $devWriteCache
@@ -426,6 +435,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected int $_maxRound
 * protected int $_targetNumberOfCandidatesForTheNextRound
@@ -453,6 +463,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected int $_maxRound
 * protected int $_targetNumberOfCandidatesForTheNextRound
@@ -481,6 +492,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected static int $optionMAX_ROUND
 * protected static int $optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND
@@ -513,6 +525,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -538,6 +551,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -563,6 +577,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -586,6 +601,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * readonly protected array $_Comparison
 * public static ?int $MaxCandidates
@@ -611,6 +627,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const RP_VARIANT_1: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
 * readonly protected array $_PairwiseSort
@@ -643,6 +660,7 @@ _Including above methods from public API_
 * public const METHOD_NAME: (array)
 * protected const RP_VARIANT_1: (string)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
 * readonly protected array $_PairwiseSort
@@ -670,9 +688,10 @@ _Including above methods from public API_
 * protected pairwiseSort (): array  
 ```
 
-#### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+#### Abstract CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
 * readonly protected array $_PairwiseSort
@@ -704,6 +723,7 @@ _Including above methods from public API_
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
 * public const METHOD_NAME: (array)
+* public const DECIMAL_PRECISION: (integer)
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * protected ?array $_Stats
@@ -730,6 +750,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected array $_StrongestPaths
 * public static ?int $MaxCandidates
@@ -756,6 +777,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected array $_StrongestPaths
 * public static ?int $MaxCandidates
@@ -782,6 +804,7 @@ _Including above methods from public API_
 ```php
 * public const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected array $_StrongestPaths
 * public static ?int $MaxCandidates
@@ -807,6 +830,7 @@ _Including above methods from public API_
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
 
 * protected array $_StrongestPaths
 * public static ?int $MaxCandidates
