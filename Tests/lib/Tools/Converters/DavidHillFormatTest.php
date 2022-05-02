@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
+use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
+use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
 use PHPUnit\Framework\TestCase;
 
@@ -327,5 +330,51 @@ class DavidHillFormatTest extends TestCase
         );
 
         self::assertSame('Candidate  1 > Candidate  9 > Candidate  8', $election->getResult('STV')->getResultAsString());
+    }
+
+    public function testBugDavidHillRandomOrderAndStatsRound (): void
+    {
+        $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
+
+        self::assertEquals([0=>"1",1=>"2",2=>"3",3=>"4",4=>"5",5=>"6"], $hil->candidates); # Candidates are object, AssertEquals compare __toString
+
+        $implicitElectionFromHill = $hil->setDataToAnElection();
+
+        // Without aggregate vote
+        $file = new \SplTempFileObject();
+        $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes:false));
+        $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
+
+        self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
+
+        foreach (Condorcet::getAuthMethods() as $method) :
+            // Stats
+            self::assertSame($implicitElectionFromHill->getResult($method)->getStats(), $implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method);
+
+            // Result
+            self::assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
+        endforeach;
+
+
+        // With aggregate vote
+        $file = new \SplTempFileObject();
+        $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes:true));
+        $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
+
+        self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
+
+        foreach (Condorcet::getAuthMethods() as $method) :
+            // Stats
+            self::assertEqualsWithDelta(
+                $implicitElectionFromHill->getResult($method)->getStats(),
+                $implicitElectionFromCondorcetElection->getResult($method)->getStats(),
+                1 / (0.1 ** Condorcet::getMethodClass($method)::DECIMAL_PRECISION),
+                'Method: '.$method
+            );
+
+            // Result
+            self::assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
+        endforeach;
+
     }
 }

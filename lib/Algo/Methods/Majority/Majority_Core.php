@@ -57,7 +57,7 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             if ($round === 1) :
                 foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
-                    $score[$round][$this->getElection()->getCandidateKey($oneCandidate)] ??= 0;
+                    $score[$round][$this->getElection()->getCandidateKey($oneCandidate)] ??= 0.0;
                 endforeach;
             endif;
 
@@ -146,11 +146,13 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             if (isset($oneRanking[1])) :
                 foreach ($oneRanking[1] as $oneCandidateInRank) :
-                    $roundScore[$this->getElection()->getCandidateKey($oneCandidateInRank)] ??= 0;
+                    $roundScore[$this->getElection()->getCandidateKey($oneCandidateInRank)] ??= (float) 0;
                     $roundScore[$this->getElection()->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
                 endforeach;
             endif;
         endforeach;
+
+        \array_walk($roundScore, fn(float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
 
         return $roundScore;
     }

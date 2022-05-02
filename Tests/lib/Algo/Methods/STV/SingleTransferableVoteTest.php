@@ -61,7 +61,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
 
 
-        self::assertSame(
+        self::assertEqualsWithDelta(
             [
                 1 =>
                     [
@@ -73,16 +73,17 @@ class SingleTransferableVoteTest extends TestCase
                 2 =>
                     [
                     'D' => 26.0,
-                    'B' => 20.333333333333,
-                    'C' => 19.666666666667,
+                    'B' => 20.33333333333,
+                    'C' => 19.66666666667,
                     ],
                 3 =>
                     [
-                    'B' => 37.333333333333,
-                    'D' => 28.666666666667,
+                    'B' => 37.33333333333,
+                    'D' => 28.66666666667,
                     ],
             ],
-            $this->election->getResult('STV')->getStats()['rounds']
+            $this->election->getResult('STV')->getStats()['rounds'],
+            1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
         self::assertSame(
@@ -281,7 +282,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
         self::assertSame(
-            (float) (33 + 1/3),
+            round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
             $this->election->getResult('STV')->getStats()['votes_needed_to_win']
         );
 
@@ -300,7 +301,7 @@ class SingleTransferableVoteTest extends TestCase
                     ]
             ],
             $this->election->getResult('STV')->getStats()['rounds'],
-            delta: 0.000000000001
+            delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
         self::assertSame( [

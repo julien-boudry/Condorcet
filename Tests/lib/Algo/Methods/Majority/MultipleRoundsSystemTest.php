@@ -58,7 +58,7 @@ class MultipleRoundsSystemTest extends TestCase
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 42,
                                     'B' => 26,
                                     'D' => 17,
@@ -104,7 +104,7 @@ class MultipleRoundsSystemTest extends TestCase
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'B' => 12,
                                     'A' => 10,
                                     'C' => 10,
@@ -155,7 +155,7 @@ class MultipleRoundsSystemTest extends TestCase
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 100,
                                     'B' => 99,
                                     'C' => 98,

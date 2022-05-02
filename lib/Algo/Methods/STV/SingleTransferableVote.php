@@ -41,7 +41,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $result = [];
         $rank = 0;
 
-        $this->votesNeededToWin = self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats());
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -52,7 +52,6 @@ class SingleTransferableVote extends Method implements MethodInterface
         $surplusToTransfer = [];
 
         while (!$end) :
-
             $scoreTable = $this->makeScore($surplusToTransfer, $candidateElected, $candidateEliminated);
             \ksort($scoreTable, \SORT_NATURAL);
             \arsort($scoreTable, \SORT_NUMERIC);
@@ -100,7 +99,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
             if (!\in_array($candidateKey = $this->getElection()->getCandidateKey($oneCandidate), $candidateDone, true)) :
-                $scoreTable[$candidateKey] = 0;
+                $scoreTable[$candidateKey] = 0.0;
             endif;
         endforeach;
 
@@ -141,6 +140,8 @@ class SingleTransferableVote extends Method implements MethodInterface
                             $scoreTable[$candidateKey] += $weight;
                         endif;
 
+                        $scoreTable[$candidateKey] = round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
+
                         break 2;
                     endif;
                 endforeach;
@@ -159,7 +160,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($this->_Stats as $roundNumber => $roundData) :
             foreach ($roundData as $candidateKey => $candidateValue) :
-                $stats['rounds'][$roundNumber][(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = \round($candidateValue, 12, \PHP_ROUND_HALF_DOWN);
+                $stats['rounds'][$roundNumber][(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
             endforeach;
         endforeach;
 

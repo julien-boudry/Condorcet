@@ -26,6 +26,9 @@ abstract class Method
     protected readonly \WeakReference $_selfElection;
     protected ?Result $_Result = null;
 
+    // Internal precision
+    public const DECIMAL_PRECISION = 9;
+
     // Static
 
     final public static function setOption (string $optionName, \BackedEnum|int $optionValue): bool

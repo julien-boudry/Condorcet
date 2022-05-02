@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 class BordaCount extends Method implements MethodInterface
@@ -58,7 +57,7 @@ class BordaCount extends Method implements MethodInterface
                 $oneRanking = $oneVote->getContextualRanking($this->getElection());
 
                 foreach ($oneRanking as $oneRank) :
-                    $rankScore = 0;
+                    $rankScore = 0.0;
                     foreach ($oneRank as $oneCandidateInRank) :
                         $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++);
                     endforeach;
@@ -70,6 +69,7 @@ class BordaCount extends Method implements MethodInterface
             endfor;
         endforeach;
 
+        \array_walk($score, fn(float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
         \ksort($score, \SORT_NATURAL);
         \arsort($score,\SORT_NUMERIC);
 

@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Methods\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem;
 use PHPUnit\Framework\TestCase;
 
 class TwoRoundSystemTest extends TestCase
@@ -77,7 +78,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'Chirac' => 1988,
                                     'Le Pen' => 1686,
                                     'Jospin' => 1618,
@@ -126,7 +127,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 42,
                                     'B' => 26,
                                     'D' => 17,
@@ -166,7 +167,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 42,
                                     'D' => 42,
                                     'B' => 26,
@@ -199,7 +200,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 1.5,
                                     'C' => 0.5,
                                     'B' => 0
@@ -230,7 +231,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 51,
                                     'C' => 25,
                                     'B' => 24,
@@ -256,7 +257,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 50,
                                     'B' => 50,
                                     'C' => 0
@@ -284,7 +285,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 50,
                                     'B' => 50
                                 ]
@@ -309,14 +310,14 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $stats = $this->election->getResult('Two Rounds')->getStats();
-        \array_walk_recursive($stats, function (float &$value): float {
-            return $value = round($value, 10);
-        });
+        // \array_walk_recursive($stats, function (float &$value): float {
+        //     return $value = round($value, 10);
+        // });
 
         self::assertSame([  1=> [
-                                    'A' => \round(100/3,10),
-                                    'B' => \round(100/3,10),
-                                    'C' => \round(100/3,10)
+                                    'A' => \round(100/3,MultipleRoundsSystem::DECIMAL_PRECISION),
+                                    'B' => \round(100/3,MultipleRoundsSystem::DECIMAL_PRECISION),
+                                    'C' => \round(100/3,MultipleRoundsSystem::DECIMAL_PRECISION)
                                 ]
                             ],
                         $stats
@@ -329,9 +330,9 @@ class TwoRoundSystemTest extends TestCase
         );
 
         self::assertSame([  1=> [
-                                    'A' => 0,
-                                    'B' => 0,
-                                    'C' => 0
+                                    'A' => 0.0,
+                                    'B' => 0.0,
+                                    'C' => 0.0
                                 ]
                             ],
                             $this->election->getResult('Two Rounds')->getStats()
@@ -360,7 +361,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'B' => 12,
                                     'A' => 10,
                                     'C' => 10,
@@ -382,7 +383,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'B' => 12,
                                     'A' => 10,
                                     'C' => 10,
@@ -404,7 +405,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'B' => 12,
                                     'C' => 11,
                                     'A' => 10,
@@ -440,18 +441,18 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
-                                    'A' => 10,
-                                    'B' => 10,
-                                    'C' => 10,
-                                    'D' => 9,
-                                    'E' => 0
+        self::assertSame([    1=> [
+                                    'A' => (float) 10,
+                                    'B' => (float) 10,
+                                    'C' => (float) 10,
+                                    'D' => (float) 9,
+                                    'E' => (float) 0
                                 ],
-                            2=> [
-                                    'A' => (float) 13,
-                                    'B' => (float) 13,
-                                    'C' => (float) 13
-                                ]
+                                2=> [
+                                        'A' => (float) 13,
+                                        'B' => (float) 13,
+                                        'C' => (float) 13
+                                    ]
                             ],
             $this->election->getResult('Two Rounds')->getStats()
         );
@@ -462,7 +463,7 @@ class TwoRoundSystemTest extends TestCase
             $this->election->getResult('Two Rounds')->getResultAsArray(true)
         );
 
-        self::assertSame([  1=> [
+        self::assertEquals([  1=> [
                                     'A' => 10,
                                     'B' => 10,
                                     'C' => 10,
@@ -500,9 +501,9 @@ class TwoRoundSystemTest extends TestCase
         );
 
         self::assertSame([  1=> [
-                                    'A' => 10,
-                                    'B' => 10,
-                                    'C' => 10
+                                    'A' => (float) 10,
+                                    'B' => (float) 10,
+                                    'C' => (float) 10
                                 ]
                             ],
             $this->election->getResult('Two Rounds')->getStats()

@@ -77,7 +77,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertSame( [ 1 => [
+        self::assertEquals( [ 1 => [
             'Chirac' => 1988,
             'Le Pen' => 1686,
             'Jospin' => 1618,
@@ -121,7 +121,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertSame( [ 1 => [
+        self::assertEquals( [ 1 => [
                 'A' => 42,
                 'B' => 26,
                 'D' => 17,
@@ -156,10 +156,10 @@ class FirstPastThePostTest extends TestCase
         );
 
         self::assertSame( [ 1 => [
-            'A' => 42,
-            'D' => 42,
-            'B' => 26,
-            'C' => 15
+            'A' => (float) 42,
+            'D' => (float) 42,
+            'B' => (float) 26,
+            'C' => (float) 15
         ]],
             $this->election->getResult('Fptp')->getStats()
         );
@@ -183,7 +183,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertSame( [ 1 => [
+        self::assertEquals( [ 1 => [
             'A' => 1 + 1/2,
             'C' => 1/2,
             'B' => 0
