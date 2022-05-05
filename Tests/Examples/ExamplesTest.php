@@ -72,9 +72,9 @@ class ExamplesTest extends TestCase
             \ob_start();
                 include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
             \ob_end_clean();
-        } catch (Exception $e) {
-            throw $e;
+        } catch (\Exception $e) {
             $r = false;
+            throw $e;
         }
 
         self::assertTrue($r);
