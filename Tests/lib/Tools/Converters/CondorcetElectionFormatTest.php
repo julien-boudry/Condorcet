@@ -26,7 +26,7 @@ class CondorcetElectionFormatTest extends TestCase
         self::assertTrue($election->isVoteWeightAllowed());
 
 
-        self::assertSame(['Richard Boháč','Petr Němec','Simona Slaná'], $election->getCandidatesListAsString());
+        self::assertSame(['Petr Němec','Richard Boháč','Simona Slaná'], $election->getCandidatesListAsString());
 
         self::assertSame(100, $election->getNumberOfSeats());
         self::assertTrue($election->getImplicitRankingRule());
@@ -89,7 +89,7 @@ class CondorcetElectionFormatTest extends TestCase
 
         $condorcetFormat->setDataToAnElection($election);
 
-        self::assertSame(['Richard Boháč','Petr Němec','Simona Slaná'], $election->getCandidatesListAsString());
+        self::assertSame(['Petr Němec','Richard Boháč','Simona Slaná'], $election->getCandidatesListAsString());
 
         self::assertSame(42, $election->getNumberOfSeats());
         self::assertTrue($election->getImplicitRankingRule());
@@ -120,7 +120,7 @@ class CondorcetElectionFormatTest extends TestCase
         $election->allowsVoteWeight(true); // Must be forced by parameter
 
 
-        self::assertSame(['Richard Boháč','Petr Němec','Simona Slaná'], $election->getCandidatesListAsString());
+        self::assertSame(['Petr Němec','Richard Boháč','Simona Slaná'], $election->getCandidatesListAsString());
 
         self::assertSame(66, $election->getNumberOfSeats());
         self::assertFalse($election->getImplicitRankingRule());
@@ -153,7 +153,7 @@ class CondorcetElectionFormatTest extends TestCase
 
         $condorcetFormat->setDataToAnElection($election);
 
-        self::assertSame(['Richard Boháč','郝文彦','Simona Slaná'], $election->getCandidatesListAsString());
+        self::assertSame(['Richard Boháč','Simona Slaná','郝文彦'], $election->getCandidatesListAsString());
 
         self::assertSame(42, $election->getNumberOfSeats());
         self::assertTrue($election->getImplicitRankingRule());
@@ -251,7 +251,7 @@ class CondorcetElectionFormatTest extends TestCase
         self::assertSame(
             $assertion1 =
             <<<CVOTES
-            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: true
             #/Weight Allowed: true
@@ -269,7 +269,7 @@ class CondorcetElectionFormatTest extends TestCase
         $election->setImplicitRanking(false);
         self::assertSame(
             <<<CVOTES
-            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
             #/Weight Allowed: true
@@ -284,7 +284,7 @@ class CondorcetElectionFormatTest extends TestCase
 
         self::assertSame(
             <<<CVOTES
-            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
             #/Weight Allowed: true
@@ -302,7 +302,7 @@ class CondorcetElectionFormatTest extends TestCase
         self::assertSame(
             $assertion5 =
             <<<CVOTES
-            #/Candidates: Richard Boháč ; Petr Němec ; Simona Slaná
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
             #/Number of Seats: 42
             #/Implicit Ranking: false
             #/Weight Allowed: true
@@ -357,5 +357,34 @@ class CondorcetElectionFormatTest extends TestCase
         self::assertSame("/EMPTY_RANKING/ * 2", $election->getVotesListAsString());
         self::assertSame([], $election->getVotesList()[0]->getRanking());
         self::assertSame($input, CondorcetElectionFormat::exportElectionToCondorcetElectionFormat($election));
+    }
+
+    public function testCandidatesFromVotes (): void
+    {
+        $file = new \SplTempFileObject();
+        $file->fwrite($input =  <<<CVOTES
+                                #/Number of Seats: 42
+                                #/Implicit Ranking: false
+                                #/Weight Allowed: false
+
+                                /EMPTY_RANKING/ * 1
+                                D > E^7 * 2 # Comment
+
+                                tag1, tag2 ||A= B > C = D > F
+                                D > F = A
+                                D>A>B>C>E>F
+                                CVOTES);
+
+        $cef = new CondorcetElectionFormat ($file);
+
+        self::assertSame(['A', 'B', 'C', 'D', 'E', 'F'] ,$cef->candidates);
+
+        $election = $cef->setDataToAnElection();
+
+        self::assertSame(false, $election->getImplicitRankingRule());
+        self::assertSame(42, $election->getNumberOfSeats());
+
+        self::assertEquals(['A', 'B', 'C', 'D', 'E', 'F'] ,$election->getCandidatesList());
+        self::assertSame('D > A > B > C > E > F' ,$election->getResult()->getResultAsString());
     }
 }

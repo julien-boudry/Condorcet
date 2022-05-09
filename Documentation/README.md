@@ -1763,7 +1763,9 @@ _Including above methods from public API_
 * public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
+* protected addCandidates (array $candidates): void  
 * protected boolParser (string $parse): bool  
+* protected parseCandidatesFromVotes (): void  
 * protected readParameters (): void  
 ```
 

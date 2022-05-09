@@ -121,6 +121,11 @@ class CondorcetElectionFormat implements ConverterInterface
         $this->file->setFlags(\SplFileObject::SKIP_EMPTY | \SplFileObject::DROP_NEW_LINE);
 
         $this->readParameters();
+
+        // Parse candidate directly from votes
+        if (empty($this->candidates)) :
+            $this->parseCandidatesFromVotes();
+        endif;
     }
 
     #[PublicAPI]
@@ -165,6 +170,12 @@ class CondorcetElectionFormat implements ConverterInterface
 
     // Internal
 
+    protected function addCandidates (array $candidates): void
+    {
+        sort($candidates, \SORT_NATURAL);
+        $this->candidates = $candidates;
+    }
+
     protected function readParameters (): void
     {
         $this->file->rewind();
@@ -181,7 +192,7 @@ class CondorcetElectionFormat implements ConverterInterface
                     $oneCandidate = new Candidate($oneCandidate);
                 endforeach;
 
-                $this->candidates = $parse;
+                $this->addCandidates($parse);
             elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) :
                 $this->numberOfSeats = (int) $matches['seats'];
             elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) :
@@ -194,6 +205,46 @@ class CondorcetElectionFormat implements ConverterInterface
                 break;
             endif;
         endwhile;
+    }
+
+    protected function parseCandidatesFromVotes (): void
+    {
+        $this->file->rewind();
+
+        $candidates = [];
+
+        while (!$this->file->eof()) :
+            $line = $this->file->fgets();
+
+            if(!empty($line) && !\str_starts_with($line, '#')) :
+                if ( ($pos = \strpos($line,'||')) !== false ) :
+                    $line = \substr($line, ($pos + 2));
+                endif;
+
+                if ( ($pos = \strpos($line,'||')) !== false ) :
+                    $line = \substr($line, ($pos + 2));
+                endif;
+
+                foreach (['#', '*', '^'] as $c) :
+                    if ( ($pos = \strpos($line, $c)) !== false ) :
+                        $line = \substr($line, 0, $pos);
+                    endif;
+                endforeach;
+
+                $line = str_replace('>', '=', $line);
+                $line = explode('=', $line);
+
+                foreach ($line as $oneCandidate) :
+                    $oneCandidate = trim($oneCandidate);
+
+                    if ($oneCandidate !== self::SPECIAL_KEYWORD_EMPTY_RANKING) :
+                        $candidates[$oneCandidate] = null;
+                    endif;
+                endforeach;
+            endif;
+        endwhile;
+
+        $this->addCandidates(array_keys($candidates));
     }
 
         protected function boolParser (string $parse): bool
