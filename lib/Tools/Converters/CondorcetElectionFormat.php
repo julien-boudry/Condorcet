@@ -173,7 +173,7 @@ class CondorcetElectionFormat implements ConverterInterface
             $line = $this->file->fgets();
             $matches = [];
 
-            if (preg_match(self::CANDIDATES_PATTERN, $line, $matches)) :
+            if (!isset($this->candidates) && preg_match(self::CANDIDATES_PATTERN, $line, $matches)) :
                 $parse = $matches['candidates'];
                 $parse = CondorcetUtil::prepareParse($parse, false);
 
@@ -182,12 +182,12 @@ class CondorcetElectionFormat implements ConverterInterface
                 endforeach;
 
                 $this->candidates = $parse;
-            elseif (preg_match(self::SEATS_PATTERN, $line, $matches)) :
+            elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) :
                 $this->numberOfSeats = (int) $matches['seats'];
-            elseif (preg_match(self::IMPLICIT_PATTERN, $line, $matches)) :
+            elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) :
                 $parse = strtolower($matches['implicitRanking']);
-                 $this->implicitRanking =  $this->boolParser($parse);
-            elseif (preg_match(self::WEIGHT_PATTERN, $line, $matches)) :
+                 $this->implicitRanking = $this->boolParser($parse);
+            elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) :
                 $parse = strtolower($matches['weight']);
                 $this->voteWeight = $this->boolParser($parse);
             elseif(!empty($line) && !\str_starts_with($line, '#')) :
