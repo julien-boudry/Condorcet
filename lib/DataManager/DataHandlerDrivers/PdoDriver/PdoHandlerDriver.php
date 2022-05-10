@@ -29,7 +29,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected bool $_queryError = false;
 
     // Database structure
+    #[PublicAPI]
     public static bool $preferBlobInsteadVarchar = true;
+
     protected array $_struct;
     // Prepare Query
     protected array $_prepare = [];

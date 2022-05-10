@@ -172,6 +172,8 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 * ```public const SEGMENT: (array)```  
 
+* ```public static bool $preferBlobInsteadVarchar```  
+
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 
@@ -180,16 +182,29 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat Class  
 
+* ```readonly public array $candidates```  
+* ```readonly public int $numberOfSeats```  
+* ```readonly public bool $implicitRanking```  
+* ```readonly public bool $voteWeight```  
+* ```readonly public bool $CandidatesParsedFromVotes```  
+* ```readonly public int $invalidBlocksCount```  
+
 * [public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CondorcetElectionFormat--exportElectionToCondorcetElectionFormat.md): ```?string```  
 * [public Tools\Converters\CondorcetElectionFormat->__construct (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--__construct.md)  
 * [public Tools\Converters\CondorcetElectionFormat->setDataToAnElection (...)](Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
+* ```readonly public array $candidates```  
+* ```readonly public int $NumberOfSeats```  
+
 * [public Tools\Converters\DavidHillFormat->__construct (...)](Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--__construct.md)  
 * [public Tools\Converters\DavidHillFormat->setDataToAnElection (...)](Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DebianFormat Class  
+
+* ```readonly public array $candidates```  
+* ```readonly public array $votes```  
 
 * [public Tools\Converters\DebianFormat->__construct (...)](Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
@@ -1755,9 +1770,10 @@ _Including above methods from public API_
 
 * protected SplFileObject $file
 * readonly public array $candidates
-* public int $numberOfSeats
-* public bool $implicitRanking
-* public bool $voteWeight
+* readonly public int $numberOfSeats
+* readonly public bool $implicitRanking
+* readonly public bool $voteWeight
+* readonly public bool $CandidatesParsedFromVotes
 * readonly public int $invalidBlocksCount
 
 * public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  

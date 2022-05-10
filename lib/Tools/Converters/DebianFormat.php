@@ -19,7 +19,9 @@ class DebianFormat implements ConverterInterface
 {
     protected array $lines;
 
+    #[PublicAPI]
     public readonly array $candidates;
+    #[PublicAPI]
     public readonly array $votes;
 
     #[PublicAPI]

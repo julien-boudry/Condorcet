@@ -18,7 +18,9 @@ class DavidHillFormat implements ConverterInterface
 {
     protected array $lines;
 
+    #[PublicAPI]
     public readonly array $candidates;
+    #[PublicAPI]
     public readonly int $NumberOfSeats;
 
     #[PublicAPI]
