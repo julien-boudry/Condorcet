@@ -18,6 +18,8 @@ class CondorcetElectionFormatTest extends TestCase
                             CVOTES);
 
         $condorcetFormat = new CondorcetElectionFormat($file);
+        self::assertSame(false, $condorcetFormat->CandidatesParsedFromVotes);
+
 
         $election = $condorcetFormat->setDataToAnElection();
 
@@ -378,6 +380,7 @@ class CondorcetElectionFormatTest extends TestCase
         $cef = new CondorcetElectionFormat ($file);
 
         self::assertSame(['A', 'B', 'C', 'D', 'E', 'F'] ,$cef->candidates);
+        self::assertSame(true, $cef->CandidatesParsedFromVotes);
 
         $election = $cef->setDataToAnElection();
 

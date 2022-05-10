@@ -90,11 +90,18 @@ class CondorcetElectionFormat implements ConverterInterface
     // Properties
     protected \SplFileObject $file;
 
+    #[PublicAPI]
     public readonly array $candidates;
-    public int $numberOfSeats;
-    public bool $implicitRanking;
-    public bool $voteWeight;
+    #[PublicAPI]
+    public readonly int $numberOfSeats;
+    #[PublicAPI]
+    public readonly bool $implicitRanking;
+    #[PublicAPI]
+    public readonly bool $voteWeight;
 
+    #[PublicAPI]
+    public readonly bool $CandidatesParsedFromVotes;
+    #[PublicAPI]
     public readonly int $invalidBlocksCount;
 
     // Read
@@ -125,6 +132,9 @@ class CondorcetElectionFormat implements ConverterInterface
         // Parse candidate directly from votes
         if (empty($this->candidates)) :
             $this->parseCandidatesFromVotes();
+            $this->CandidatesParsedFromVotes = true;
+        else :
+            $this->CandidatesParsedFromVotes = false;
         endif;
     }
 
