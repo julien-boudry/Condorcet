@@ -70,7 +70,6 @@ trait Linkable
     {
         if ( !$this->haveLink($election) ) : // haveLink will initWeakmap if necessary
             $this->_link->offsetSet($election, true);
-            true;
         else :
             throw new CondorcetInternalException ('Link is already registered.');
         endif;

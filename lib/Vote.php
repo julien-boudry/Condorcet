@@ -470,7 +470,7 @@ class Vote implements \Iterator, \Stringable
     {
         if ($candidate instanceof Candidate) :
             $strict = true;
-        elseif (\is_string($candidate)) :
+        else :
             $strict = false;
         endif;
 
@@ -478,7 +478,7 @@ class Vote implements \Iterator, \Stringable
 
         $rankingCandidate = $this->getAllCandidates();
 
-        if (!\in_array(needle: $candidate, haystack: $rankingCandidate, strict:  $strict)) :
+        if (!\in_array(needle: $candidate, haystack: $rankingCandidate, strict: $strict)) :
             throw new CandidateDoesNotExistException((string) $candidate);
         endif;
 

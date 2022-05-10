@@ -46,9 +46,7 @@ class ConstraintTest extends TestCase
         $this->expectException(VoteConstraintException::class);
         $this->expectExceptionMessage("The vote constraint could not be set up: class is not defined");
 
-        $class = Constraints\NoJuju::class;
-
-        $this->election->addConstraint($class);
+        $this->election->addConstraint('WrongNamespace\AndWrongClass');
     }
 
     public function testBadClass (): never

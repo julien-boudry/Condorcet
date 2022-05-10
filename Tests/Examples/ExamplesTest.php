@@ -16,9 +16,9 @@ class ExamplesTest extends TestCase
 
         try {
             include __DIR__.'/../../Examples/1. Overview.php';
-        } catch (Exception $e) {
-            throw $e;
+        } catch (\Exception $e) {
             $r = false;
+            throw $e;
         }
 
         self::assertTrue($r);
@@ -33,7 +33,7 @@ class ExamplesTest extends TestCase
 
         try {
             include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
             $r = false;
         }
@@ -53,7 +53,7 @@ class ExamplesTest extends TestCase
                 include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
             \ob_end_clean();
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
             $r = false;
         }

@@ -108,6 +108,7 @@ class DavidHillFormat implements ConverterInterface
             array_pop($oneVote);
 
             foreach ($oneVote as &$oneRank) :
+                $oneRank = (int) $oneRank;
                 $oneRank = $this->candidates[$oneRank - 1];
             endforeach;
         endforeach;

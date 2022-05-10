@@ -27,7 +27,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Container = [];
     protected ?DataHandlerDriverInterface $_DataHandler = null;
-    protected \WeakReference $_Election;
+    protected ?\WeakReference $_Election;
 
     protected array $_Cache = [];
     protected int $_CacheMaxKey = 0;

@@ -148,7 +148,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
     {
         $this->_selfElection->get()->getPairwise();
 
-        $result = [0=>$CandidateX, 1=> [$CandidateY,$CandidateZ], 2=> $CandidateR]; // Candidate must be valid internal candidate key.
+        $result = [0=>1, 1=>2, 2=>3]; // Candidate must be valid candidates
 
         $this->_Result = $this->createResult($result);
     }
@@ -203,6 +203,6 @@ class CondorcetTest_UnvalidAlgorithmName
 
         $result = [0=>0, 1=> [1,2], 2=> 3]; // Candidate must be valid internal candidate key.
 
-        $this->_Result = $this->createResult($result);
+        $this->_Result = $result;
     }
 }

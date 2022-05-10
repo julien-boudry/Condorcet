@@ -12,7 +12,8 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDo
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS_CONSTANT | Attribute::TARGET_CLASS)]
 class PublicAPI
 {
+    public function __construct (string ...$class) {}
 }

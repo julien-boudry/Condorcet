@@ -82,6 +82,8 @@ abstract class Method
         return $this->_Result;
     }
 
+    protected function compute (): void {}
+
     abstract protected function getStats (): array;
 
     protected function createResult (array $result): Result
