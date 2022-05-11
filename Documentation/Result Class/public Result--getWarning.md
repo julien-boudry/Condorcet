@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Result->getWarning ( [?int type = null] ): array
+public Result->getWarning ( [?int $type = null] ): array
 ```
 
 From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.

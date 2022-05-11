@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Algo\Tools\StvQuotas::make ( string quota ): self
+public static Algo\Tools\StvQuotas::make ( string $quota ): self
 ```
 
 Build the Enum Quotas option for STV methods

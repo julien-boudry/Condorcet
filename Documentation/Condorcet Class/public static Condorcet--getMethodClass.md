@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::getMethodClass ( string method ): ?string
+public static Condorcet::getMethodClass ( string $method ): ?string
 ```
 
 Return the full class path for a method.

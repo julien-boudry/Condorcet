@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\DavidHillFormat->__construct ( string filePath )
+public Tools\Converters\DavidHillFormat->__construct ( string $filePath )
 ```
 
 Read a Tideman format file

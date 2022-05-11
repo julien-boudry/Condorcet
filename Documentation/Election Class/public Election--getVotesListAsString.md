@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getVotesListAsString ( [bool withContext = true] ): string
+public Election->getVotesListAsString ( [bool $withContext = true] ): string
 ```
 
 Get registered vote list.

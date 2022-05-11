@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\CondorcetElectionFormat->setDataToAnElection ( [CondorcetPHP\Condorcet\Election election = new CondorcetPHP\Condorcet\Election , ?Closure callBack = null] ): CondorcetPHP\Condorcet\Election
+public Tools\Converters\CondorcetElectionFormat->setDataToAnElection ( [CondorcetPHP\Condorcet\Election $election = new CondorcetPHP\Condorcet\Election , ?Closure $callBack = null] ): CondorcetPHP\Condorcet\Election
 ```
 
 Add the data to an election object

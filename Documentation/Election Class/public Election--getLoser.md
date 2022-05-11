@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getLoser ( [?string method = null] ): CondorcetPHP\Condorcet\Candidate|array|null
+public Election->getLoser ( [?string $method = null] ): CondorcetPHP\Condorcet\Candidate|array|null
 ```
 
 Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.

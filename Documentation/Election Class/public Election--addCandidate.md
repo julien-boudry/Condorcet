@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->addCandidate ( [CondorcetPHP\Condorcet\Candidate|string|null candidate = null] ): CondorcetPHP\Condorcet\Candidate
+public Election->addCandidate ( [CondorcetPHP\Condorcet\Candidate|string|null $candidate = null] ): CondorcetPHP\Condorcet\Candidate
 ```
 
 Add one candidate to an election.

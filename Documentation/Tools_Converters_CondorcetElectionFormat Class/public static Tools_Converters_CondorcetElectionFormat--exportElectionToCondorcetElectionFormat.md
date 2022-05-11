@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat ( CondorcetPHP\Condorcet\Election election [, bool aggregateVotes = true , bool includeNumberOfSeats = true , bool includeTags = true , bool inContext = false , ?SplFileObject file = null] ): ?string
+public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeNumberOfSeats = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
 ```
 
 Create a CondorcetElectionFormat file from an Election object.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->allowsVoteWeight ( [bool rule = true] ): bool
+public Election->allowsVoteWeight ( [bool $rule = true] ): bool
 ```
 
 Set the setting and reset all result data.

@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getContextualRanking ( CondorcetPHP\Condorcet\Election election ): array
+public Vote->getContextualRanking ( CondorcetPHP\Condorcet\Election $election ): array
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.

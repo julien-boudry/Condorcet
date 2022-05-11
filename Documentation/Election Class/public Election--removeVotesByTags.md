@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->removeVotesByTags ( array|string tags [, bool with = true] ): array
+public Election->removeVotesByTags ( array|string $tags [, bool $with = true] ): array
 ```
 
 Remove Vote from an election using tags.

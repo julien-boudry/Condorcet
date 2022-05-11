@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getVotesList ( [array|string|null tags = null , bool with = true] ): array
+public Election->getVotesList ( [array|string|null $tags = null , bool $with = true] ): array
 ```
 
 Get registered vote list.

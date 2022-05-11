@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Election::setMaxParseIteration ( ?int maxParseIterations ): ?int
+public static Election::setMaxParseIteration ( ?int $maxParseIterations ): ?int
 ```
 
 Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.

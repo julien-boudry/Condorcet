@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\DavidHillFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election election = null] ): CondorcetPHP\Condorcet\Election
+public Tools\Converters\DavidHillFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election $election = null] ): CondorcetPHP\Condorcet\Election
 ```
 
 Add the data to an election object

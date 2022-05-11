@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->countVotes ( [array|string|null tags = null , bool with = true] ): int
+public Election->countVotes ( [array|string|null $tags = null , bool $with = true] ): int
 ```
 
 Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.

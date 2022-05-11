@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\DebianFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election election = null] ): CondorcetPHP\Condorcet\Election
+public Tools\Converters\DebianFormat->setDataToAnElection ( [?CondorcetPHP\Condorcet\Election $election = null] ): CondorcetPHP\Condorcet\Election
 ```
 
 Add the Debian data to an election object

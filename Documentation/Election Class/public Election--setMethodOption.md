@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->setMethodOption ( string method , string optionName , BackedEnum|int optionValue ): bool
+public Election->setMethodOption ( string $method , string $optionName , BackedEnum|int $optionValue ): bool
 ```
 
 Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.

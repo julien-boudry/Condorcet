@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\DebianFormat->__construct ( string filePath )
+public Tools\Converters\DebianFormat->__construct ( string $filePath )
 ```
 
 Read a Tideman format file

@@ -91,7 +91,7 @@ class Generate
                 $str .= self::getTypeAsString($value->getType());
                 $str .= " ";
                 $str .= $value->isPassedByReference() ?  '&' : '';
-                $str .= $value->getName();
+                $str .= '$'.$value->getName();
                 $str .= $value->isDefaultValueAvailable() ? " = ".self::speakBool($value->getDefaultValue()) : "";
 
                 ($value->isOptional() && !$option) ? $option = true : null;

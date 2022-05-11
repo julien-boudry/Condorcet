@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->addTags ( array|string tags ): bool
+public Vote->addTags ( array|string $tags ): bool
 ```
 
 Add tag(s) on this Vote.

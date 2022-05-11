@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->setWeight ( int newWeight ): int
+public Vote->setWeight ( int $newWeight ): int
 ```
 
 Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.

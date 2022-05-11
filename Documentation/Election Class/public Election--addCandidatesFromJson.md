@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->addCandidatesFromJson ( string input ): array
+public Election->addCandidatesFromJson ( string $input ): array
 ```
 
 Import candidate from a JSON source.

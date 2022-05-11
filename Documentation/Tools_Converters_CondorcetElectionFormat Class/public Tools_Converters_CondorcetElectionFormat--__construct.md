@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Tools\Converters\CondorcetElectionFormat->__construct ( SplFileInfo|string input )
+public Tools\Converters\CondorcetElectionFormat->__construct ( SplFileInfo|string $input )
 ```
 
 Read a Condorcet format file, usually using .cvotes file extension

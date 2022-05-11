@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public static Condorcet::setDefaultMethod ( string method ): bool
+public static Condorcet::setDefaultMethod ( string $method ): bool
 ```
 
 Put a new static method by default for the news Condorcet objects.
