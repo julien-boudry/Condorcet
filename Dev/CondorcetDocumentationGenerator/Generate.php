@@ -26,12 +26,13 @@ class Generate
 
     public static function speakBool ($c) : string
     {
-    if ($c === true || $c === 'true') : return 'true'; endif;
-    if ($c === false || $c === 'false') : return 'false'; endif;
-    if ($c === null || $c === 'null') : return 'null'; endif;
-    if (is_array($c)) : return '['.implode(',', $c).']'; endif;
+        if ($c === true || $c === 'true') : return 'true'; endif;
+        if ($c === false || $c === 'false') : return 'false'; endif;
+        if ($c === null || $c === 'null') : return 'null'; endif;
+        if (\is_array($c)) : return '['.\implode(',', $c).']'; endif;
+        if (\is_object($c)) : return 'new '.\get_class($c); endif;
 
-    return (string) $c;
+        return (string) $c;
     }
 
     public static function getTypeAsString (?\ReflectionType $rf_rt, bool $codeBlock = false): ?string

@@ -232,6 +232,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 ```
@@ -310,6 +311,7 @@ _Including above methods from public API_
 * public getResult (): never  
 * public getWinner (): ?int  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 ```
@@ -334,6 +336,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -384,6 +387,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -440,6 +444,7 @@ _Including above methods from public API_
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected calcPossibleRanking (): void  
 * protected calcRankingScore (): void  
+* protected compute (): void  
 * protected conflictInfos (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
@@ -555,6 +560,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -581,6 +587,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -607,6 +614,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -631,6 +639,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected looking (array $challenge): int  
@@ -660,6 +669,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
 * protected getArcsInCycle (array $virtualArcs): array  
@@ -693,6 +703,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
 * protected getArcsInCycle (array $virtualArcs): array  
@@ -724,6 +735,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array $done = []): array  
 * protected getArcsInCycle (array $virtualArcs): array  
@@ -780,6 +792,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected makeRanking (): void  
@@ -807,6 +820,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected makeRanking (): void  
@@ -834,6 +848,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected makeRanking (): void  
@@ -860,6 +875,7 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
 * protected makeRanking (): void  
@@ -1096,7 +1112,7 @@ _Including above methods from public API_
 * public static int $MaxContainerLength
 * protected array $_Container
 * protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected WeakReference $_Election
+* protected ?WeakReference $_Election
 * protected array $_Cache
 * protected int $_CacheMaxKey
 * protected int $_CacheMinKey
@@ -1182,7 +1198,7 @@ _Including above methods from public API_
 * public static int $MaxContainerLength
 * protected array $_Container
 * protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected WeakReference $_Election
+* protected ?WeakReference $_Election
 * protected array $_Cache
 * protected int $_CacheMaxKey
 * protected int $_CacheMinKey
@@ -1778,7 +1794,7 @@ _Including above methods from public API_
 
 * public static exportElectionToCondorcetElectionFormat (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
-* public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
+* public setDataToAnElection (CondorcetPHP\Condorcet\Election $election = new CondorcetPHP\Condorcet\Election, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * protected addCandidates (array $candidates): void  
 * protected boolParser (string $parse): bool  
 * protected parseCandidatesFromVotes (): void  

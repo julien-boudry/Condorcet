@@ -144,15 +144,11 @@ class CondorcetElectionFormat implements ConverterInterface
     #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
     public function setDataToAnElection (
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
-        ?Election $election = null,
+        Election $election = new Election,
         #[FunctionParameter('Callback function to execute after each registered vote.')]
         ?\Closure $callBack = null
     ): Election
     {
-        if ($election === null) :
-            $election = new Election;
-        endif;
-
         // Parameters
             // Set number of seats if specified in file
             ($this->numberOfSeats ?? false) && $election->setNumberOfSeats($this->numberOfSeats);
