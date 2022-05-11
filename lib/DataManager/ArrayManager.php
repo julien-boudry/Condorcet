@@ -27,7 +27,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $_Container = [];
     protected ?DataHandlerDriverInterface $_DataHandler = null;
-    protected ?\WeakReference $_Election;
+    protected \WeakReference $_Election;
 
     protected array $_Cache = [];
     protected int $_CacheMaxKey = 0;
@@ -74,11 +74,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     public function setElection (Election $election): void
     {
         $this->_Election = \WeakReference::create($election);
-    }
-
-    public function destroyElection (): void
-    {
-        $this->_Election = null;
     }
 
 

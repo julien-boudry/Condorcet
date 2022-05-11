@@ -234,19 +234,6 @@ class Election
         endforeach;
     }
 
-    protected function destroyAllLink (): void
-    {
-        foreach ($this->_Candidates as $value) :
-            $value->destroyLink($this);
-        endforeach;
-
-        foreach ($this->_Votes as $value) :
-            $value->destroyLink($this);
-        endforeach;
-
-        $this->_Votes->destroyElection();
-    }
-
 
   /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
 

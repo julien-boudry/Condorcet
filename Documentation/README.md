@@ -1112,7 +1112,7 @@ _Including above methods from public API_
 * public static int $MaxContainerLength
 * protected array $_Container
 * protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected ?WeakReference $_Election
+* protected WeakReference $_Election
 * protected array $_Cache
 * protected int $_CacheMaxKey
 * protected int $_CacheMinKey
@@ -1132,7 +1132,6 @@ _Including above methods from public API_
 * public count (): int  
 * public current (): mixed  
 * public debugGetCache (): array  
-* public destroyElection (): void  
 * public getCacheSize (): int  
 * public getContainerSize (): int  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -1198,7 +1197,7 @@ _Including above methods from public API_
 * public static int $MaxContainerLength
 * protected array $_Container
 * protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected ?WeakReference $_Election
+* protected WeakReference $_Election
 * protected array $_Cache
 * protected int $_CacheMaxKey
 * protected int $_CacheMinKey
@@ -1221,7 +1220,6 @@ _Including above methods from public API_
 * public countVotes (?array $tag, bool $with): int  
 * public current (): mixed  
 * public debugGetCache (): array  
-* public destroyElection (): void  
 * public getCacheSize (): int  
 * public getContainerSize (): int  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -1352,7 +1350,6 @@ _Including above methods from public API_
 * public sumVotesWeight (): int  
 * public testIfVoteIsValidUnderElectionConstraints (CondorcetPHP\Condorcet\Vote $vote): bool  
 * protected cleanupCompute (): void  
-* protected destroyAllLink (): void  
 * protected doAddVotesFromParse (array $adding): void  
 * protected initResult (string $class): void  
 * protected makePairwise (): void  
