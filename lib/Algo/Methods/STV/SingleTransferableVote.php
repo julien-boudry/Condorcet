@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
@@ -97,8 +96,8 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
-        foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
-            if (!\in_array($candidateKey = $this->getElection()->getCandidateKey($oneCandidate), $candidateDone, true)) :
+        foreach ($this->getElection()->getCandidatesList() as $oneCandidateKey => $oneCandidate) :
+            if (!\in_array($candidateKey = $oneCandidateKey, $candidateDone, true)) :
                 $scoreTable[$candidateKey] = 0.0;
             endif;
         endforeach;
@@ -119,7 +118,7 @@ class SingleTransferableVote extends Method implements MethodInterface
                     $candidateKey = $this->getElection()->getCandidateKey($oneCandidate);
 
                     if ($firstRank) :
-                        if (isset($surplus[$candidateKey])) :
+                        if (\array_key_exists($candidateKey, $surplus)) :
                             $winnerBonusWeight = $weight;
                             $winnerBonusKey = $candidateKey;
                             $firstRank = false;
@@ -131,16 +130,16 @@ class SingleTransferableVote extends Method implements MethodInterface
                         endif;
                     endif;
 
-                    if (isset($scoreTable[$candidateKey])) :
+                    if (\array_key_exists($candidateKey, $scoreTable)) :
                         if ($winnerBonusKey !== null) :
-                            $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total']  * $surplus[$winnerBonusKey]['surplus'];
+                            $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total'] * $surplus[$winnerBonusKey]['surplus'];
                         elseif ($LoserBonusWeight > 0) :
                             $scoreTable[$candidateKey] += $LoserBonusWeight;
                         else :
                             $scoreTable[$candidateKey] += $weight;
                         endif;
 
-                        $scoreTable[$candidateKey] = round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
+                        $scoreTable[$candidateKey] = \round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
                         break 2;
                     endif;
