@@ -136,7 +136,7 @@ trait CandidatesProcess
         endif;
 
         // Process
-        if ( empty($candidate) ) :
+        if ( empty($candidate) && $candidate !== '0' ) :
             while ( !$this->canAddCandidate($this->_AutomaticNewCandidateName) ) :
                 $this->_AutomaticNewCandidateName++;
             endwhile;
