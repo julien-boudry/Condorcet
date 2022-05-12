@@ -28,7 +28,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected readonly float $votesNeededToWin;
+    protected float $votesNeededToWin;
 
 
 /////////// COMPUTE ///////////
