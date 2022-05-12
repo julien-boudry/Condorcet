@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 // Thanks to Jorge Gomes @cyberkurumin
-class Permutation
+class Permutations
 {
     protected readonly int $arr_count;
     protected array $results = [];

@@ -15,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Tools\Permutation;
+use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 use SplFileObject;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
@@ -28,7 +28,7 @@ class KemenyYoung extends Method implements MethodInterface
     final public const CONFLICT_WARNING_CODE = 42;
 
     // Limits
-        /* If you need to put it on 9, You must use \ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
+        /* If you need to put it on 9, You must use \ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutationss.
         Do not try to go to 10, it is not viable! */
         public static ?int $MaxCandidates = 8;
 
@@ -122,7 +122,7 @@ class KemenyYoung extends Method implements MethodInterface
 
         // But ... where are the data ?! Okay, old way now...
         if (self::$devWriteCache || (!\file_exists($path) && $this->getElection()->countCandidates() < 10)) :
-            (new Permutation ($this->getElection()->countCandidates()))->writeResults($path);
+            (new Permutations ($this->getElection()->countCandidates()))->writeResults($path);
         endif;
 
         // Read Cache & Compute
