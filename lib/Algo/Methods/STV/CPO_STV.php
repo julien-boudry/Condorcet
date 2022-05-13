@@ -31,7 +31,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected ?array $_Stats = null;
 
-    protected readonly array $outcomes;
+    protected array $outcomes = [];
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
     protected readonly array $candidatesEliminatedFromFirstRound;
@@ -62,111 +62,116 @@ class CPO_STV extends SingleTransferableVote
             endif;
         endforeach;
 
-        $numberOfCandidatesNeeded = $this->getElection()->getNumberOfSeats() - count($this->candidatesElectedFromFirstRound);
+        $numberOfCandidatesNeededToComplete = $this->getElection()->getNumberOfSeats() - \count($this->candidatesElectedFromFirstRound);
         $this->candidatesEliminatedFromFirstRound = \array_diff($candidatesList, $this->candidatesElectedFromFirstRound);
 
-        // Compute all possible Ranking
-        $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeeded, $this->candidatesElectedFromFirstRound);
+        if ($numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
+            // Compute all possible Ranking
+            $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
 
-        foreach ($this->outcomes as $MainOutcomeKey => $MainOutcomeR) :
-            foreach ($this->outcomes as $ComparedOutcomeKey => $ComparedOutcomeR) :
-                $outcomeComparisonKey = $this->getOutcomesComparisonKey($MainOutcomeKey, $ComparedOutcomeKey);
+            foreach ($this->outcomes as $MainOutcomeKey => $MainOutcomeR) :
+                foreach ($this->outcomes as $ComparedOutcomeKey => $ComparedOutcomeR) :
+                    $outcomeComparisonKey = $this->getOutcomesComparisonKey($MainOutcomeKey, $ComparedOutcomeKey);
 
-                if ( $MainOutcomeKey === $ComparedOutcomeKey || \array_key_exists($outcomeComparisonKey, $this->outcomeComparisonTable) ) :
-                    continue;
-                endif;
-
-                $this->outcomeComparisonTable[$outcomeComparisonKey] = [];
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'] = [];
-
-                // Eliminate Candidates from Outcome
-                foreach ($candidatesList as $candidateKey) :
-                    if (!\in_array($candidateKey, $MainOutcomeR, true) && !\in_array($candidateKey, $ComparedOutcomeR, true)) :
-                        $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'][] = $candidateKey;
+                    if ( $MainOutcomeKey === $ComparedOutcomeKey || \array_key_exists($outcomeComparisonKey, $this->outcomeComparisonTable) ) :
+                        continue;
                     endif;
+
+                    $this->outcomeComparisonTable[$outcomeComparisonKey] = [];
+                    $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'] = [];
+
+                    // Eliminate Candidates from Outcome
+                    foreach ($candidatesList as $candidateKey) :
+                        if (!\in_array($candidateKey, $MainOutcomeR, true) && !\in_array($candidateKey, $ComparedOutcomeR, true)) :
+                            $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'][] = $candidateKey;
+                        endif;
+                    endforeach;
+
+                    // Make score again
+                    $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] = $this->makeScore([], [], $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
+
+                    $surplusToTransfer = [];
+                    $winnerToJoin = [];
+                    foreach($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] as $candidateKey => $oneScore) :
+                        $surplus = $oneScore - $this->votesNeededToWin;
+
+                        if ($surplus >= 0 && \in_array($candidateKey, $MainOutcomeR, true) && \in_array($candidateKey,$ComparedOutcomeR, true)) :
+                            $surplusToTransfer[$candidateKey] ?? $surplusToTransfer[$candidateKey] = ['surplus' => 0, 'total' => 0];
+                            $surplusToTransfer[$candidateKey]['surplus'] += $surplus;
+                            $surplusToTransfer[$candidateKey]['total'] += $oneScore;
+                            $winnerToJoin[$candidateKey] = $this->votesNeededToWin;
+                        endif;
+                    endforeach;
+
+                    $winnerFromFirstRound = \array_keys($winnerToJoin);
+
+                    $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'], 2);
+
+                    // Outcome Score
+                    $MainOutcomeScore = 0;
+                    $ComparedOutcomeScore = 0;
+
+                    foreach ($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] as $candidateKey => $candidateScore) :
+                        if (in_array($candidateKey, $MainOutcomeR, true)) :
+                            $MainOutcomeScore += $candidateScore;
+                        endif;
+
+                        if (in_array($candidateKey, $ComparedOutcomeR, true)) :
+                            $ComparedOutcomeScore += $candidateScore;
+                        endif;
+                    endforeach;
+
+                    $this->outcomeComparisonTable[$outcomeComparisonKey]['outcomes_scores'] = [$MainOutcomeKey => $MainOutcomeScore, $ComparedOutcomeKey => $ComparedOutcomeScore];
+
                 endforeach;
-
-                // Make score again
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] = $this->makeScore([], [], $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
-
-                $surplusToTransfer = [];
-                $winnerToJoin = [];
-                foreach($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] as $candidateKey => $oneScore) :
-                    $surplus = $oneScore - $this->votesNeededToWin;
-
-                    if ($surplus >= 0 && \in_array($candidateKey, $MainOutcomeR, true) && \in_array($candidateKey,$ComparedOutcomeR, true)) :
-                        $surplusToTransfer[$candidateKey] ?? $surplusToTransfer[$candidateKey] = ['surplus' => 0, 'total' => 0];
-                        $surplusToTransfer[$candidateKey]['surplus'] += $surplus;
-                        $surplusToTransfer[$candidateKey]['total'] += $oneScore;
-                        $winnerToJoin[$candidateKey] = $this->votesNeededToWin;
-                    endif;
-                endforeach;
-
-                $winnerFromFirstRound = \array_keys($winnerToJoin);
-
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'], 2);
-
-                // Outcome Score
-                $MainOutcomeScore = 0;
-                $ComparedOutcomeScore = 0;
-
-                foreach ($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] as $candidateKey => $candidateScore) :
-                    if (in_array($candidateKey, $MainOutcomeR, true)) :
-                        $MainOutcomeScore += $candidateScore;
-                    endif;
-
-                    if (in_array($candidateKey, $ComparedOutcomeR, true)) :
-                        $ComparedOutcomeScore += $candidateScore;
-                    endif;
-                endforeach;
-
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['outcomes_scores'] = [$MainOutcomeKey => $MainOutcomeScore, $ComparedOutcomeKey => $ComparedOutcomeScore];
-
-            endforeach;
-        endforeach;
-
-        // Chose Outcome with Condorcet
-        $winnerOutcomeElection = new Election;
-        $winnerOutcomeElection->setImplicitRanking(false);
-        $winnerOutcomeElection->allowsVoteWeight(true);
-
-            // Candidates
-            foreach (\array_keys($this->outcomes) as $oneOutcomeKey) :
-                $winnerOutcomeElection->addCandidate((string) $oneOutcomeKey);
             endforeach;
 
-            // Votes
-            $coef = Method::DECIMAL_PRECISION ** 10 ; # Actually, vote weight does not support float
-            foreach ($this->outcomeComparisonTable as $comparison) :
-                ($vote1 = new Vote([
-                    (string) $key = \array_key_first($comparison['outcomes_scores']),
-                    (string) \array_key_last($comparison['outcomes_scores'])
-                ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
+            // Chose Outcome with Condorcet
+            $winnerOutcomeElection = new Election;
+            $winnerOutcomeElection->setImplicitRanking(false);
+            $winnerOutcomeElection->allowsVoteWeight(true);
 
-                ($vote2 = new Vote([
-                    (string) $key = \array_key_last($comparison['outcomes_scores']),
-                    (string) \array_key_first($comparison['outcomes_scores'])
-                ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
+                // Candidates
+                foreach (\array_keys($this->outcomes) as $oneOutcomeKey) :
+                    $winnerOutcomeElection->addCandidate((string) $oneOutcomeKey);
+                endforeach;
 
-                $winnerOutcomeElection->addVote($vote1);
-                $winnerOutcomeElection->addVote($vote2);
-            endforeach;
+                // Votes
+                $coef = Method::DECIMAL_PRECISION ** 10 ; # Actually, vote weight does not support float
+                foreach ($this->outcomeComparisonTable as $comparison) :
+                    ($vote1 = new Vote([
+                        (string) $key = \array_key_first($comparison['outcomes_scores']),
+                        (string) \array_key_last($comparison['outcomes_scores'])
+                    ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
-        // Chose Outcome
-        $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod);
-        $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
-        $this->completionMethodStats = $completionMethodResult->getStats();
+                    ($vote2 = new Vote([
+                        (string) $key = \array_key_last($comparison['outcomes_scores']),
+                        (string) \array_key_first($comparison['outcomes_scores'])
+                    ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
-        $this->condorcetWinnerOutcome = (int) $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod)->getName();
-        $winnerOutcome = $this->outcomes[$this->condorcetWinnerOutcome];
+                    $winnerOutcomeElection->addVote($vote1);
+                    $winnerOutcomeElection->addVote($vote2);
+                endforeach;
+
+            // Chose Outcome
+            $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod);
+            $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
+            $this->completionMethodStats = $completionMethodResult->getStats();
+            $this->condorcetWinnerOutcome = (int) $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod)->getName();
+
+            $result = $this->outcomes[$this->condorcetWinnerOutcome];
+
+        else :
+            $result = \array_keys($this->initialScoreTable);
+        endif;
 
         // Sort Outcome using originals scores
-        \usort($winnerOutcome, fn (float $a, float $b): int => $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a]);
+        \usort($result, fn (float $a, float $b): int => $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a]);
 
         // Results: Format Ranks
         $rank = 1;
         $r = [];
-        foreach ($winnerOutcome as $candidateKey) :
+        foreach ($result as $candidateKey) :
             $r[$rank++] = $candidateKey;
         endforeach;
 
@@ -232,10 +237,12 @@ class CPO_STV extends SingleTransferableVote
         endforeach;
 
         // Completion method Stats
-        $stats['Condorcet Completion Method Stats'] = [
-            'Pairwise' => $this->completionMethodPairwise,
-            'Stats' => $this->completionMethodStats,
-        ];
+        if (isset($this->completionMethodPairwise)) :
+            $stats['Condorcet Completion Method Stats'] = [
+                'Pairwise' => $this->completionMethodPairwise,
+                'Stats' => $this->completionMethodStats,
+            ];
+        endif;
 
         // Return
         return $stats;

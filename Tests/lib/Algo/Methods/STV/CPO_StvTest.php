@@ -57,4 +57,33 @@ class CPO_StvTest extends TestCase
         // var_dump($this->election->getResult('CPO STV')->getStats());
     }
 
+    public function testLessOrEqualCandidatesThanSeats (): void
+    {
+        $expectedRanking = [
+            1 => 'Memphis',
+            2 => 'Nashville',
+            3 => 'Chattanooga',
+            4 => 'Knoxville',
+        ];
+
+        // Ref
+        $this->election->setNumberOfSeats(4);
+
+        $this->election->addCandidate('Memphis');
+        $this->election->addCandidate('Nashville');
+        $this->election->addCandidate('Knoxville');
+        $this->election->addCandidate('Chattanooga');
+
+        $this->election->parseVotes(' Memphis * 4
+                                    Nashville * 3
+                                    Chattanooga * 2
+                                    Knoxville * 1');
+
+        self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+
+        $this->election->setNumberOfSeats(5);
+
+        self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+    }
+
 }
