@@ -24,7 +24,7 @@ use CondorcetPHP\Condorcet\Vote;
 class CPO_STV extends SingleTransferableVote
 {
     // Method Name
-    public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
+    public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
     public static string $optionCondorcetCompletionMethod = RankedPairsMargin::class;
@@ -34,6 +34,7 @@ class CPO_STV extends SingleTransferableVote
     protected readonly array $outcomes;
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
+    protected readonly array $candidatesEliminatedFromFirstRound;
     protected array $outcomeComparisonTable = [];
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
@@ -46,7 +47,6 @@ class CPO_STV extends SingleTransferableVote
 
     protected function compute (): void
     {
-        $result = [];
         $rank = 0;
 
         $candidatesList = \array_keys($this->getElection()->getCandidatesList());
@@ -63,19 +63,16 @@ class CPO_STV extends SingleTransferableVote
         endforeach;
 
         $numberOfCandidatesNeeded = $this->getElection()->getNumberOfSeats() - count($this->candidatesElectedFromFirstRound);
-
-        $firstRoundEliminatedCandidates = \array_diff($candidatesList, $this->candidatesElectedFromFirstRound);
+        $this->candidatesEliminatedFromFirstRound = \array_diff($candidatesList, $this->candidatesElectedFromFirstRound);
 
         // Compute all possible Ranking
-        $this->outcomes = Combinations::compute($firstRoundEliminatedCandidates, $numberOfCandidatesNeeded, $this->candidatesElectedFromFirstRound);
+        $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeeded, $this->candidatesElectedFromFirstRound);
 
         foreach ($this->outcomes as $MainOutcomeKey => $MainOutcomeR) :
             foreach ($this->outcomes as $ComparedOutcomeKey => $ComparedOutcomeR) :
                 $outcomeComparisonKey = $this->getOutcomesComparisonKey($MainOutcomeKey, $ComparedOutcomeKey);
 
-                if (    $MainOutcomeKey === $ComparedOutcomeKey ||
-                        \array_key_exists($outcomeComparisonKey, $this->outcomeComparisonTable)
-                    ) :
+                if ( $MainOutcomeKey === $ComparedOutcomeKey || \array_key_exists($outcomeComparisonKey, $this->outcomeComparisonTable) ) :
                     continue;
                 endif;
 
@@ -187,22 +184,22 @@ class CPO_STV extends SingleTransferableVote
 
     protected function getStats(): array
     {
-        $stats = [];
+        $stats = ['votes_needed_to_win' => $this->votesNeededToWin];
 
-        $changeKeyToCandidateAndSortByName = function (array $arr, Election $election): array {
+        $changeKeyToCandidateAndSortByName = function (array $arr): array {
             $r = [];
             foreach ($arr as $candidateKey => $value) :
-                $r[(string) $election->getCandidateObjectFromKey($candidateKey)] = $value;
+                $r[(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $value;
             endforeach;
 
             \ksort($r, \SORT_NATURAL);
             return $r;
         };
 
-        $changeValueToCandidateandSortByName = function (array $arr, Election $election): array {
+        $changeValueToCandidateAndSortByName = function (array $arr): array {
             $r = [];
             foreach ($arr as $candidateKey) :
-                $r[] = (string) $election->getCandidateObjectFromKey($candidateKey);
+                $r[] = (string) $this->getElection()->getCandidateObjectFromKey($candidateKey);
             endforeach;
 
             \sort($r, \SORT_NATURAL);
@@ -210,20 +207,26 @@ class CPO_STV extends SingleTransferableVote
         };
 
         // Initial Scores Table
-        $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable, $this->getElection());
+        $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable);
+
+        // Candidates Elected from first round
+        $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound);
+
+        // Candidates Eliminated from first round
+        $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound);
 
         // Outcome
         foreach ($this->outcomes as $outcomeKey => $outcomeValue) :
-            $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateandSortByName($outcomeValue, $this->getElection());
+            $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue);
         endforeach;
 
         // Outcomes Comparison
         foreach ($this->outcomeComparisonTable as $octKey => $octValue) :
             foreach ($octValue as $octDetailsKey => $octDetailsValue) :
                 if ($octDetailsKey === 'candidates_excluded') :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeValueToCandidateandSortByName($octDetailsValue, $this->getElection());
+                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue);
                 else :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $this->getElection());
+                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue);
                 endif;
             endforeach;
         endforeach;
