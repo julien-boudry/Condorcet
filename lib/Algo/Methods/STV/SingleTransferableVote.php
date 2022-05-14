@@ -90,7 +90,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated): array
+    protected function makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array
     {
         $scoreTable = [];
 

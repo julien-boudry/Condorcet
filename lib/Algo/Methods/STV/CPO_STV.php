@@ -52,7 +52,7 @@ class CPO_STV extends SingleTransferableVote
         $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
         // Compute Initial Score
-        $this->initialScoreTable = $this->makeScore([],[],[]);
+        $this->initialScoreTable = $this->makeScore();
 
         // Candidates elected from first round
         foreach ($this->initialScoreTable as $candidateKey => $oneScore) :
@@ -114,7 +114,7 @@ class CPO_STV extends SingleTransferableVote
                 endforeach;
 
                 // Make score again
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] = $this->makeScore([], [], $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
+                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] = $this->makeScore(candidateEliminated: $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
 
                 $surplusToTransfer = [];
                 $winnerToJoin = [];
@@ -131,7 +131,7 @@ class CPO_STV extends SingleTransferableVote
 
                 $winnerFromFirstRound = \array_keys($winnerToJoin);
 
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'], 2);
+                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
 
                 // Outcome Score
                 $MainOutcomeScore = 0;
@@ -193,7 +193,9 @@ class CPO_STV extends SingleTransferableVote
             $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod);
             $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
             $this->completionMethodStats = $completionMethodResult->getStats();
-            $this->condorcetWinnerOutcome = (int) $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod)->getName();
+
+            $condorcetWinnerOutcome = $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod);
+            $this->condorcetWinnerOutcome = (int) (!\is_array($condorcetWinnerOutcome) ? $condorcetWinnerOutcome->getName() : reset($condorcetWinnerOutcome)->getName());
     }
 
     protected function getStats(): array
