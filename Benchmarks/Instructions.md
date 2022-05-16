@@ -22,6 +22,10 @@
 
 ``` ./vendor/bin/phpbench run Benchmarks/PairwiseUpdateOptimizationBench.php --report=default --executor=memory_centric_microtime ```
 
+#### Methods speed test by Candidates numbers
+
+``` ./vendor/bin/phpbench run Benchmarks/MethodsBench.php --report=default ```
+
 #### Kemeny-Young Speed & Memory Test
 
 ``` ./vendor/bin/phpbench run Benchmarks/KemenyYoungBench.php --report=default --executor=memory_centric_microtime ```
