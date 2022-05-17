@@ -26,10 +26,11 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected function getStats (): array
     {
+        $election = $this->getElection();
         $stats = [];
 
         foreach ($this->_Stats as $candidateKey => $dodgsonQuickValue) :
-             $stats[(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
+             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
         endforeach;
 
         return $stats;
@@ -42,7 +43,9 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected function compute (): void
     {
-        $pairwise = $this->getElection()->getPairwise();
+        $election = $this->getElection();
+
+        $pairwise = $election->getPairwise();
         $HeadToHead = [];
 
         foreach ($pairwise as $candidateId => $CandidateStats) :
@@ -67,8 +70,8 @@ class DodgsonQuick extends Method implements MethodInterface
         $rank = 0;
         $result = [];
 
-        if($basicCondorcetWinner = $this->getElection()->getWinner(null)) :
-            $result[++$rank][] = $this->getElection()->getCandidateKey($basicCondorcetWinner);
+        if($basicCondorcetWinner = $election->getWinner(null)) :
+            $result[++$rank][] = $election->getCandidateKey($basicCondorcetWinner);
         endif;
 
         $lastDodgsonQuickValue = null;

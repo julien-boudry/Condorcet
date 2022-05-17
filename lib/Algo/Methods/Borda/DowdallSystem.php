@@ -13,16 +13,15 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount;
+use CondorcetPHP\Condorcet\Election;
 
 class DowdallSystem extends BordaCount
 {
     // Method Name
     public const METHOD_NAME = ['DowdallSystem','Dowdall System','Nauru', 'Borda Nauru'];
 
-    protected function getScoreByCandidateRanking (int $CandidatesRanked): float
+    protected function getScoreByCandidateRanking (int $CandidatesRanked, Election $election): float
     {
         return (float) (1 / ($CandidatesRanked + 1));
     }

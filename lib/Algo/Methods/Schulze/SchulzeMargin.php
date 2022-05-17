@@ -14,13 +14,14 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core;
+use CondorcetPHP\Condorcet\Election;
 
 class SchulzeMargin extends Schulze_Core
 {
     // Method Name
     public const METHOD_NAME = ['Schulze Margin','SchulzeMargin','Schulze_Margin'];
 
-    protected function schulzeVariant (int $i, int $j): int {
-        return $this->getElection()->getPairwise()[$i]['win'][$j] - $this->getElection()->getPairwise()[$j]['win'][$i];
+    protected function schulzeVariant (int $i, int $j, Election $election): int {
+        return $election->getPairwise()[$i]['win'][$j] - $election->getPairwise()[$j]['win'][$i];
     }
 }

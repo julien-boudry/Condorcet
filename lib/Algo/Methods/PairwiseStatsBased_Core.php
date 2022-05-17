@@ -48,10 +48,11 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
     // Get the stats
     protected function getStats (): array
     {
+        $election = $this->getElection();
         $explicit = [];
 
         foreach ($this->_Comparison as $candidate_key => $value) :
-            $explicit[$this->getElection()->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
+            $explicit[$election->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         endforeach;
 
         return $explicit;
