@@ -95,6 +95,8 @@ class CPO_STV extends SingleTransferableVote
 
     protected function compareOutcomes (): void
     {
+        $election = $this->getElection();
+
         foreach ($this->outcomes as $MainOutcomeKey => $MainOutcomeR) :
             foreach ($this->outcomes as $ComparedOutcomeKey => $ComparedOutcomeR) :
                 $outcomeComparisonKey = $this->getOutcomesComparisonKey($MainOutcomeKey, $ComparedOutcomeKey);
@@ -107,7 +109,7 @@ class CPO_STV extends SingleTransferableVote
                 $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'] = [];
 
                 // Eliminate Candidates from Outcome
-                foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
+                foreach (\array_keys($election->getCandidatesList()) as $candidateKey) :
                     if (!\in_array($candidateKey, $MainOutcomeR, true) && !\in_array($candidateKey, $ComparedOutcomeR, true)) :
                         $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'][] = $candidateKey;
                     endif;
@@ -200,22 +202,24 @@ class CPO_STV extends SingleTransferableVote
 
     protected function getStats(): array
     {
+        $election = $this->getElection();
+
         $stats = ['votes_needed_to_win' => $this->votesNeededToWin];
 
-        $changeKeyToCandidateAndSortByName = function (array $arr): array {
+        $changeKeyToCandidateAndSortByName = function (array $arr, Election $election): array {
             $r = [];
             foreach ($arr as $candidateKey => $value) :
-                $r[(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $value;
+                $r[(string) $election->getCandidateObjectFromKey($candidateKey)] = $value;
             endforeach;
 
             \ksort($r, \SORT_NATURAL);
             return $r;
         };
 
-        $changeValueToCandidateAndSortByName = function (array $arr): array {
+        $changeValueToCandidateAndSortByName = function (array $arr, Election $election): array {
             $r = [];
             foreach ($arr as $candidateKey) :
-                $r[] = (string) $this->getElection()->getCandidateObjectFromKey($candidateKey);
+                $r[] = (string) $election->getCandidateObjectFromKey($candidateKey);
             endforeach;
 
             \sort($r, \SORT_NATURAL);
@@ -223,26 +227,26 @@ class CPO_STV extends SingleTransferableVote
         };
 
         // Initial Scores Table
-        $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable);
+        $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable, $election);
 
         // Candidates Elected from first round
-        $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound);
+        $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound, $election);
 
         // Candidates Eliminated from first round
-        $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound);
+        $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
 
         // Outcome
         foreach ($this->outcomes as $outcomeKey => $outcomeValue) :
-            $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue);
+            $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue, $election);
         endforeach;
 
         // Outcomes Comparison
         foreach ($this->outcomeComparisonTable as $octKey => $octValue) :
             foreach ($octValue as $octDetailsKey => $octDetailsValue) :
                 if ($octDetailsKey === 'candidates_excluded') :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue);
+                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
                 else :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue);
+                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
                 endif;
             endforeach;
         endforeach;

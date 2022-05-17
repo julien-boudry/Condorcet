@@ -107,14 +107,14 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->getElection());
+            $weight = $oneVote->getWeight($election);
 
             $winnerBonusWeight = 0;
             $winnerBonusKey = null;
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRanking($this->getElection()) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($election) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1): break; endif;
 
