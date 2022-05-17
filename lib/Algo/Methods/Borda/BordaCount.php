@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Election;
 
 class BordaCount extends Method implements MethodInterface
 {
@@ -26,10 +27,11 @@ class BordaCount extends Method implements MethodInterface
 
     protected function getStats (): array
     {
+        $election = $this->getElection();
         $stats = [];
 
         foreach ($this->_Stats as $candidateKey => $oneScore) :
-             $stats[(string) $this->getElection()->getCandidateObjectFromKey($candidateKey)] = $oneScore;
+             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
         endforeach;
 
         return $stats;
@@ -42,28 +44,29 @@ class BordaCount extends Method implements MethodInterface
 
     protected function compute (): void
     {
+        $election = $this->getElection();
         $score = [];
 
-        foreach ($this->getElection()->getCandidatesList() as $oneCandidate) :
-            $score[$this->getElection()->getCandidateKey($oneCandidate)] = 0;
+        foreach ($election->getCandidatesList() as $oneCandidate) :
+            $score[$election->getCandidateKey($oneCandidate)] = 0;
         endforeach;
 
-        foreach ($this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->getElection());
+            $weight = $oneVote->getWeight($election);
 
             for ($i = 0 ; $i < $weight ; $i++) :
                 $CandidatesRanked = 0;
-                $oneRanking = $oneVote->getContextualRanking($this->getElection());
+                $oneRanking = $oneVote->getContextualRanking($election);
 
                 foreach ($oneRanking as $oneRank) :
                     $rankScore = 0.0;
                     foreach ($oneRank as $oneCandidateInRank) :
-                        $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++);
+                        $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++, $election);
                     endforeach;
 
                     foreach ($oneRank as $oneCandidateInRank) :
-                        $score[$this->getElection()->getCandidateKey($oneCandidateInRank)] += $rankScore / \count($oneRank);
+                        $score[$election->getCandidateKey($oneCandidateInRank)] += $rankScore / \count($oneRank);
                     endforeach;
                 endforeach;
             endfor;
@@ -89,8 +92,8 @@ class BordaCount extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function getScoreByCandidateRanking (int $CandidatesRanked): float
+    protected function getScoreByCandidateRanking (int $CandidatesRanked, Election $election): float
     {
-        return (float) ($this->getElection()->countCandidates() + static::$optionStarting - 1 - $CandidatesRanked);
+        return (float) ($election->countCandidates() + static::$optionStarting - 1 - $CandidatesRanked);
     }
 }

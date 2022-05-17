@@ -59,12 +59,14 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     // Get the Ranked Pair ranking
     protected function getStats (): array
     {
+        $election = $this->getElection();
+
         if (!$this->_StatsDone) :
             foreach ($this->_Stats['tally'] as &$Roundvalue) :
                 foreach ($Roundvalue as $ArcKey => &$Arcvalue) :
                     foreach ($Arcvalue as $key => &$value) :
                         if ($key === 'from' || $key === 'to') :
-                            $value = $this->getElection()->getCandidateObjectFromKey($value)->getName();
+                            $value = $election->getCandidateObjectFromKey($value)->getName();
                         endif;
                     endforeach;
                 endforeach;
@@ -73,7 +75,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             foreach ($this->_Stats['arcs'] as $ArcKey => &$Arcvalue) :
                 foreach ($Arcvalue as $key => &$value) :
                     if ($key === 'from' || $key === 'to') :
-                        $value = $this->getElection()->getCandidateObjectFromKey($value)->getName();
+                        $value = $election->getCandidateObjectFromKey($value)->getName();
                     endif;
                 endforeach;
             endforeach;
@@ -92,11 +94,13 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
 
     protected function makeResult (): array
     {
+        $election = $this->getElection();
+
         $result = [];
         $alreadyDone = [];
 
         $rang = 1;
-        while (\count($alreadyDone) < $this->getElection()->countCandidates()) :
+        while (\count($alreadyDone) < $election->countCandidates()) :
             $winners = $this->getWinners($alreadyDone);
 
             foreach ($this->_Arcs as $ArcKey => $Arcvalue) :

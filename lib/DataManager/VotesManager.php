@@ -76,17 +76,20 @@ class VotesManager extends ArrayManager
 
     public function UpdateAndResetComputing (int $key, int $type): void
     {
-        if ($this->getElection()->getState() === ElectionState::VOTES_REGISTRATION) :
+        $election = $this->getElection();
+
+
+        if ($election->getState() === ElectionState::VOTES_REGISTRATION) :
 
             if ($type === 1) :
-                $this->getElection()->getPairwise()->addNewVote($key);
+                $election->getPairwise()->addNewVote($key);
             elseif ($type === 2) :
-                $this->getElection()->getPairwise()->removeVote($key);
+                $election->getPairwise()->removeVote($key);
             endif;
 
-            $this->getElection()->cleanupCalculator();
+            $election->cleanupCalculator();
         else :
-            $this->getElection()->setStateToVote();
+            $election->setStateToVote();
         endif;
     }
 
@@ -156,10 +159,11 @@ class VotesManager extends ArrayManager
 
     public function getVotesValidUnderConstraintGenerator (?array $tags = null, bool $with = true): \Generator
     {
+        $election = $this->getElection();
         $generator = ($tags === null) ? $this->getFullVotesListGenerator(): $this->getPartialVotesListGenerator($tags,$with);
 
         foreach ($generator as $voteKey => $oneVote) :
-            if (!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+            if (!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
                 continue;
             endif;
 
@@ -169,13 +173,15 @@ class VotesManager extends ArrayManager
 
     public function getVotesListAsString (bool $withContext): string
     {
+        $election = $this->getElection();
+
         $simpleList = '';
 
         $weight = [];
         $nb = [];
 
         foreach ($this as $oneVote) :
-            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $this->getElection() : null);
+            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $election : null);
 
             if(!array_key_exists(key: $oneVoteString, array: $weight)) :
                 $weight[$oneVoteString] = 0;
@@ -184,7 +190,7 @@ class VotesManager extends ArrayManager
                 $nb[$oneVoteString] = 0;
             endif;
 
-            if ($this->getElection()->isVoteWeightAllowed()) :
+            if ($election->isVoteWeightAllowed()) :
                 $weight[$oneVoteString] += $oneVote->getWeight();
             else :
                 $weight[$oneVoteString]++;
@@ -240,10 +246,11 @@ class VotesManager extends ArrayManager
 
     public function countInvalidVoteWithConstraints (): int
     {
+        $election = $this->getElection();
         $count = 0;
 
         foreach ($this as $oneVote) :
-            if(!$this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
+            if(!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) :
                 $count++;
             endif;
         endforeach;
@@ -253,11 +260,12 @@ class VotesManager extends ArrayManager
 
     public function sumVotesWeight (bool $constraint = false): int
     {
+        $election = $this->getElection();
         $sum = 0;
 
         foreach ($this as $oneVote) :
-            if ( !$constraint || $this->getElection()->testIfVoteIsValidUnderElectionConstraints($oneVote) ) :
-                $sum += $this->getElection()->isVoteWeightAllowed() ? $oneVote->getWeight(): 1;
+            if ( !$constraint || $election->testIfVoteIsValidUnderElectionConstraints($oneVote) ) :
+                $sum += $election->isVoteWeightAllowed() ? $oneVote->getWeight(): 1;
             endif;
         endforeach;
 
