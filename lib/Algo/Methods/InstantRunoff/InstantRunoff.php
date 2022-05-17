@@ -110,9 +110,9 @@ class InstantRunoff extends Method implements MethodInterface
         $election = $this->getElection();
         $score = [];
 
-        foreach ($election->getCandidatesList() as $oneCandidate) :
-            if (!\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $candidateDone, strict: true)) :
-                $score[$election->getCandidateKey($oneCandidate)] = 0;
+        foreach ($election->getCandidatesList() as $candidateKey => $oneCandidate) :
+            if (!\in_array(needle: $candidateKey, haystack: $candidateDone, strict: true)) :
+                $score[$candidateKey] = 0;
             endif;
         endforeach;
 
