@@ -18,9 +18,13 @@
 
 ### Run Specifics developement benchmarks
 
-#### Pairwise Optimisation on Update
+#### Pairwise Optimisation on Update (between commits)
 
 ``` ./vendor/bin/phpbench run Benchmarks/PairwiseUpdateOptimizationBench.php --report=default --executor=memory_centric_microtime ```
+
+#### Pairwse and addVote performance related to election number of candidates
+
+``` ./vendor/bin/phpbench run Benchmarks/PairwiseNumberOfCandidatesBench.php --report=default ```
 
 #### Methods speed test by Candidates numbers
 
