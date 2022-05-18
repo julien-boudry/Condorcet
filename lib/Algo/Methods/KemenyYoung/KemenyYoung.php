@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
-use SplFileObject;
+use SplFixedArray;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
@@ -36,7 +36,7 @@ class KemenyYoung extends Method implements MethodInterface
     public static bool $devWriteCache = false;
 
     // Kemeny Young
-    protected array $_PossibleRanking = [];
+    protected SplFixedArray $_PossibleRanking;
     protected array $_RankingScore = [];
 
 
@@ -110,7 +110,8 @@ class KemenyYoung extends Method implements MethodInterface
     protected function calcPossibleRanking (): void
     {
         $election = $this->getElection();
-        
+        $this->_PossibleRanking = new SplFixedArray(Permutations::countPossiblePermutations($election->countCandidates()));
+
         $i = 0;
         $search = [];
         $replace = [];
@@ -131,6 +132,7 @@ class KemenyYoung extends Method implements MethodInterface
         // Read Cache & Compute
         $f = new \SplFileObject($path, 'r');
 
+        $arrKey = 0;
         while (!$f->eof()) :
             $l = trim($f->fgets());
 
@@ -148,7 +150,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $resultToRegister[$rank++] = (int) $oneCandidate;
             endforeach;
 
-            $this->_PossibleRanking[] = $resultToRegister;
+            $this->_PossibleRanking[$arrKey++] = $resultToRegister;
         endwhile;
     }
 
