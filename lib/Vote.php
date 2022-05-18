@@ -250,7 +250,9 @@ class Vote implements \Iterator, \Stringable
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
-        Election $election
+        Election $election,
+        #[FunctionParameter('If false, performance can be increased for Implicit Ranking election.')]
+        bool $sortLastRankByName = true
     ): array
     {
         if (!$this->haveLink($election)) :
@@ -261,18 +263,27 @@ class Vote implements \Iterator, \Stringable
 
         $present = $this->getAllCandidates();
         $candidates_list = $election->getCandidatesList();
+        $candidates_count = $election->countCandidates();
 
         $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(), $election, $countContextualCandidate);
 
-        if ($election->getImplicitRankingRule() && $countContextualCandidate < $election->countCandidates()) :
+        if ($election->getImplicitRankingRule() && $countContextualCandidate < $candidates_count) :
             $last_rank = [];
+            $needed = $candidates_count - $countContextualCandidate;
+
             foreach ($candidates_list as $oneCandidate) :
                 if (!\in_array(needle: $oneCandidate, haystack: $present, strict: true)) :
                     $last_rank[] = $oneCandidate;
                 endif;
+
+                if (\count($last_rank) === $needed) :
+                    break;
+                endif;
             endforeach;
 
-            sort($last_rank, \SORT_STRING);
+            if ($sortLastRankByName) :
+                sort($last_rank, \SORT_STRING);
+            endif;
 
             $newRanking[count($newRanking) + 1] = $last_rank;
         endif;

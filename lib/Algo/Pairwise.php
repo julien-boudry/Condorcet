@@ -180,7 +180,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     {
         $election = $this->getElection();
 
-        $vote_ranking = $oneVote->getContextualRanking($election);
+        $vote_ranking = $oneVote->getContextualRanking($election, false);
         $voteWeight = $oneVote->getWeight($election);
 
         $vote_candidate_list = [];

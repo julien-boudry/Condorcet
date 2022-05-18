@@ -114,7 +114,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRanking($election) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($election, false) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1): break; endif;
 

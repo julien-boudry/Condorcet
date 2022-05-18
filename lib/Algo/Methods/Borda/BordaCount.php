@@ -57,7 +57,7 @@ class BordaCount extends Method implements MethodInterface
 
             for ($i = 0 ; $i < $weight ; $i++) :
                 $CandidatesRanked = 0;
-                $oneRanking = $oneVote->getContextualRanking($election);
+                $oneRanking = $oneVote->getContextualRanking($election, false);
 
                 foreach ($oneRanking as $oneRank) :
                     $rankScore = 0.0;
