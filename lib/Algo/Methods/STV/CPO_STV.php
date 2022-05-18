@@ -19,6 +19,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
+use SplFixedArray;
 use stdClass;
 
 // Single transferable vote | https://en.wikipedia.org/wiki/CPO-STV
@@ -32,7 +33,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected ?array $_Stats = null;
 
-    protected array $outcomes = [];
+    protected SplFixedArray $outcomes;
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
     protected readonly array $candidatesEliminatedFromFirstRound;
@@ -44,13 +45,10 @@ class CPO_STV extends SingleTransferableVote
 
 /////////// COMPUTE ///////////
 
-    //:: Alternative Vote ALGORITHM. :://
-
     protected function compute (): void
     {
         Vote::$cacheKey = new stdClass; // Performances
-
-        $rank = 0;
+        $this->outcomes = new SplFixedArray(0);
 
         $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 

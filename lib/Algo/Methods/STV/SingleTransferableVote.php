@@ -35,8 +35,6 @@ class SingleTransferableVote extends Method implements MethodInterface
 
 /////////// COMPUTE ///////////
 
-    //:: Alternative Vote ALGORITHM. :://
-
     protected function compute (): void
     {
         $election = $this->getElection();
