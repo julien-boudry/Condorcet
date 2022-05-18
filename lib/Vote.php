@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use stdClass;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -64,6 +65,11 @@ class Vote implements \Iterator, \Stringable
 
     public bool $notUpdate = false;
 
+
+    // Performance (for internal use)
+    public static ?stdClass $cacheKey = null;
+    public ?\WeakMap $cacheMap = null;
+
         ///
 
     #[PublicAPI]
@@ -82,6 +88,8 @@ class Vote implements \Iterator, \Stringable
         ?Election $electionContext = null
     )
     {
+        $this->cacheMap = new \WeakMap;
+
         $this->_electionContext = $electionContext;
         $tagsFromString = null;
 
@@ -125,7 +133,15 @@ class Vote implements \Iterator, \Stringable
         $this->position = 1;
         $this->_link = null;
 
-        return \get_object_vars($this);
+        $var = \get_object_vars($this);
+        unset($var['cacheMap']);
+
+        return $var;
+    }
+
+    public function __wakeup(): void
+    {
+        $this->cacheMap = new \WeakMap;
     }
 
     public function __clone (): void
@@ -258,6 +274,13 @@ class Vote implements \Iterator, \Stringable
         bool $sortLastRankByName = true
     ): array
     {
+
+        // Cache for internal use
+        if (self::$cacheKey !== null && !$sortLastRankByName && $this->cacheMap->offsetExists(self::$cacheKey)) :
+            return $this->cacheMap->offsetGet(self::$cacheKey);
+        endif;
+
+        // Normal procedure
         if (!$this->haveLink($election)) :
             throw new VoteNotLinkedException();
         endif;
@@ -289,6 +312,11 @@ class Vote implements \Iterator, \Stringable
             endif;
 
             $newRanking[count($newRanking) + 1] = $last_rank;
+        endif;
+
+        // Cache for internal use
+        if (self::$cacheKey !== null && !$sortLastRankByName) :
+            $this->cacheMap->offsetSet(self::$cacheKey, $newRanking);
         endif;
 
         return $newRanking;

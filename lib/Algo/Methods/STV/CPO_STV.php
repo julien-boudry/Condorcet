@@ -19,6 +19,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
+use stdClass;
 
 // Single transferable vote | https://en.wikipedia.org/wiki/CPO-STV
 class CPO_STV extends SingleTransferableVote
@@ -47,6 +48,8 @@ class CPO_STV extends SingleTransferableVote
 
     protected function compute (): void
     {
+        Vote::$cacheKey = new stdClass; // Performances
+
         $rank = 0;
 
         $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
@@ -91,6 +94,8 @@ class CPO_STV extends SingleTransferableVote
 
         // Register result
         $this->_Result = $this->createResult($r);
+
+        Vote::$cacheKey = null; // Performances
     }
 
     protected function compareOutcomes (): void
@@ -171,7 +176,7 @@ class CPO_STV extends SingleTransferableVote
             $winnerOutcomeElection->allowsVoteWeight(true);
 
                 // Candidates
-                foreach (\array_keys($this->outcomes) as $oneOutcomeKey) :
+                foreach ($this->outcomes as $oneOutcomeKey => $outcomeValue) :
                     $winnerOutcomeElection->addCandidate((string) $oneOutcomeKey);
                 endforeach;
 
