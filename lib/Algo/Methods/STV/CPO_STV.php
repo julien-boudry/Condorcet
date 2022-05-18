@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin;
+use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
@@ -29,7 +29,7 @@ class CPO_STV extends SingleTransferableVote
     public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
-    public static string $optionCondorcetCompletionMethod = RankedPairsMargin::class;
+    public static string $optionCondorcetCompletionMethod = SchulzeMargin::class;
 
     protected ?array $_Stats = null;
 
