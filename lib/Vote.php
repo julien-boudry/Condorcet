@@ -159,12 +159,15 @@ class Vote implements \Iterator, \Stringable
     #[Description("Get the actual Ranking of this Vote.")]
     #[FunctionReturn("Multidimenssionnal array populated by Candidate object.")]
     #[Related("Vote::setRanking")]
-    public function getRanking (): array
+    public function getRanking (
+        #[FunctionParameter('Sort Candidate in a Rank by name. Useful for performant internal calls from methods.')]
+        bool $sortCandidatesInRank = true
+    ): array
     {
         $r = $this->_ranking;
 
         foreach ($r as &$oneRank) :
-            if (count($oneRank) > 1) :
+            if ($sortCandidatesInRank && count($oneRank) > 1) :
                 sort($oneRank, \SORT_STRING);
             endif;
         endforeach;
@@ -234,7 +237,7 @@ class Vote implements \Iterator, \Stringable
     {
         $list = [];
 
-        foreach ($this->getRanking() as $rank) :
+        foreach ($this->getRanking(false) as $rank) :
             foreach ($rank as $oneCandidate) :
                 $list[] = $oneCandidate;
             endforeach;
@@ -265,7 +268,7 @@ class Vote implements \Iterator, \Stringable
         $candidates_list = $election->getCandidatesList();
         $candidates_count = $election->countCandidates();
 
-        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(), $election, $countContextualCandidate);
+        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(false), $election, $countContextualCandidate);
 
         if ($election->getImplicitRankingRule() && $countContextualCandidate < $candidates_count) :
             $last_rank = [];

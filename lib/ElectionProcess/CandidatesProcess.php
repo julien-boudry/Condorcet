@@ -94,7 +94,7 @@ trait CandidatesProcess
         bool $strictMode = true
     ): bool
     {
-        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true): \in_array(needle: (string) $candidate, haystack: $this->_Candidates);
+        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates, strict: false);
     }
 
     #[PublicAPI]
