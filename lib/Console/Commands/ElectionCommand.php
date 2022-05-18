@@ -63,6 +63,9 @@ class ElectionCommand extends Command
     protected TableStyle $centerPadTypeStyle;
     protected Terminal $terminal;
 
+    // Debug
+    public static ?string $forceIniMemoryLimitTo = null;
+
     protected function configure (): void
     {
         $this->setHelp('This command takes candidates and votes as input. The output is the result of that election.')
@@ -155,6 +158,7 @@ class ElectionCommand extends Command
                             description: 'Methods to output',
             )
         ;
+
     }
 
     protected function initialize (InputInterface $input, OutputInterface $output): void
@@ -173,6 +177,7 @@ class ElectionCommand extends Command
 
         // Parameters
         $this->setUpParameters($input);
+        $this->ini_memory_limit = (self::$forceIniMemoryLimitTo === null) ? \ini_get('memory_limit') : self::$forceIniMemoryLimitTo;
 
         // Non-interactive candidates
         $this->candidates = $input->getOption('candidates') ?? null;
@@ -651,7 +656,7 @@ class ElectionCommand extends Command
             $election = $this->election;
             $SQLitePath = &$this->SQLitePath;
 
-            $memory_limit = (int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'));
+            $memory_limit = (int) \preg_replace('`[^0-9]`', '', $this->ini_memory_limit);
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
 
             $callBack = static function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
