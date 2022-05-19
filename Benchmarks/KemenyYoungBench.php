@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
+use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Election;
 use PhpBench\Attributes as Bench;
 ini_set('memory_limit','51200M');
@@ -11,19 +12,35 @@ ini_set('memory_limit','51200M');
 
 class KemenyYoungBench
 {
-    #[Bench\Warmup(1)]
-    #[Bench\Iterations(10)]
-    #[Bench\Revs(10)]
-    public function benchKemenyYoung8 (): void
+    public function __construct()
     {
-       $election = new Election;
-       $election->allowsVoteWeight(true);
+        KemenyYoung::$MaxCandidates = 9;
+    }
 
-       $election->parseCandidates('A;B;C;D;E;F;G;H');
+    public function provideCandidatesCount (): \Generator
+    {
+        for ($i = 2 ; $i <= 9 ; $i++) :
+            yield $i => ['candidatesCount' => $i];
+        endfor;
+    }
 
-       $election->parseVotes('A>B>C>D>E>F>G');
 
-       $result = $election->getResult('Kemeny–Young');
+    #[Bench\ParamProviders(['provideCandidatesCount'])]
+    #[Bench\OutputTimeUnit('milliseconds')]
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(3)]
+    #[Bench\Revs(4)]
+    public function benchKemenyYoung (array $params): void
+    {
+        $election = new Election;
+
+        for ($i = 0 ; $i < $params['candidatesCount'] ; $i++) :
+            $candidates[] = $election->addCandidate();
+        endfor;
+
+        $election->addVote($candidates);
+
+        $result = $election->getResult('Kemeny–Young');
     }
 
 }
