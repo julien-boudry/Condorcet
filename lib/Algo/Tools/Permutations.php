@@ -47,11 +47,11 @@ class Permutations
         return $this->results;
     }
 
-    public function writeResults (string $path): void {
-        $f = new \SplFileObject($path,'w+');
+    public function writeResults (\SplFileObject $file): void {
+        $file->rewind();
 
         foreach ($this->getResults() as $oneResult) :
-            $f->fputcsv($oneResult);
+            $file->fputcsv($oneResult);
         endforeach;
     }
 

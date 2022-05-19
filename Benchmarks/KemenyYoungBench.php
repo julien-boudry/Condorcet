@@ -14,12 +14,12 @@ class KemenyYoungBench
 {
     public function __construct()
     {
-        KemenyYoung::$MaxCandidates = 9;
+        KemenyYoung::$MaxCandidates = 10;
     }
 
     public function provideCandidatesCount (): \Generator
     {
-        for ($i = 1 ; $i <= 9 ; $i++) :
+        for ($i = 1 ; $i <= 10 ; $i++) :
             yield $i => ['candidatesCount' => $i];
         endfor;
     }

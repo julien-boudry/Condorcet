@@ -123,14 +123,25 @@ class KemenyYoung extends Method implements MethodInterface
 
         /** @infection-ignore-all */
         $path = __DIR__ . '/KemenyYoung-Data/'.$election->countCandidates().'.data';
+        $f = new \SplFileInfo($path);
 
-        // But ... where are the data ?! Okay, old way now...
-        if (self::$devWriteCache || (!\file_exists($path) && $election->countCandidates() < 10)) :
-            (new Permutations ($election->countCandidates()))->writeResults($path);
+        // Create cache file if not exist, or temp cache file if candidates count > 9
+        if (self::$devWriteCache || !$f->isFile()) :
+            if (!self::$devWriteCache && !$f->isFile() && $election->countCandidates() > 9) :
+                $f = new \SplTempFileObject();
+            else :
+                $f = new \SplFileObject($f->getPathname(), 'w+');
+            endif;
+
+            (new Permutations ($election->countCandidates()))->writeResults($f);
         endif;
 
         // Read Cache & Compute
-        $f = new \SplFileObject($path, 'r');
+        if (!($f instanceof \SplFileObject)) :
+            $f = $f->openFile('r');
+        endif;
+
+        $f->rewind();
 
         $arrKey = 0;
         while (!$f->eof()) :
