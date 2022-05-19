@@ -221,7 +221,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
                                             '--votes-per-mb' => 1,
-                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'))) + 1), # Must be superior to memory limit in MB
+                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);
