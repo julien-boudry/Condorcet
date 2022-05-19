@@ -352,6 +352,8 @@ class ElectionCommand extends Command
                 foreach ($options as $key => $value) :
                     if ($value instanceof \BackedEnum) :
                         $value = $value->value;
+                    elseif (\is_array($value)) :
+                        $value = implode(' / ', $value);
                     endif;
 
                     $rows[] = [$key.':', $value];
