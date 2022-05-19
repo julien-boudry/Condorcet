@@ -13,10 +13,20 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Algo\Method;
+use CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount;
+use CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland;
+use CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation;
+use CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff;
+use CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost;
+use CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin;
+use CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning;
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin;
+use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio;
+use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
+use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
 use SplFixedArray;
@@ -30,6 +40,18 @@ class CPO_STV extends SingleTransferableVote
 
     public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
     public static string $optionCondorcetCompletionMethod = SchulzeMargin::class;
+    public static array $optionTieBreakerMethods = [
+        SchulzeMargin::class,
+        SchulzeWinning::class,
+        SchulzeRatio::class,
+        BordaCount::class,
+        Copeland::class,
+        InstantRunoff::class,
+        MinimaxMargin::class,
+        MinimaxWinning::class,
+        DodgsonTidemanApproximation::class,
+        FirstPastThePost::class,
+    ];
 
     protected ?array $_Stats = null;
 
@@ -65,7 +87,7 @@ class CPO_STV extends SingleTransferableVote
         $numberOfCandidatesNeededToComplete = $this->getElection()->getNumberOfSeats() - \count($this->candidatesElectedFromFirstRound);
         $this->candidatesEliminatedFromFirstRound = \array_diff(\array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
-        if ($numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
+        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
             // Compute all possible Ranking
             $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
 
@@ -75,13 +97,26 @@ class CPO_STV extends SingleTransferableVote
             // Select the best with a Condorcet method
             $this->selectBestOutcome();
             $result = $this->outcomes[$this->condorcetWinnerOutcome];
-
         else :
             $result = \array_keys($this->initialScoreTable);
+            $result = array_slice($result, 0, $this->getElection()->getNumberOfSeats());
         endif;
 
         // Sort the best Outcome candidate list using originals scores
-        \usort($result, fn (float $a, float $b): int => $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a]);
+        \usort($result, function (int $a, int $b): int {
+            $tieBreakerFromInitialScore = $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
+
+            if ($tieBreakerFromInitialScore !== 0) :
+                return $tieBreakerFromInitialScore;
+            else :
+                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($this->getElection(), self::$optionTieBreakerMethods, [$a,$b])) === 1) :
+                    $w = \reset($tiebreaker);
+                    return ($w === $a) ? -1 : 1;
+                else:
+                    return $tieBreakerFromInitialScore;
+                endif;
+            endif;                
+        });
 
         // Results: Format Ranks from 1
         $rank = 1;
