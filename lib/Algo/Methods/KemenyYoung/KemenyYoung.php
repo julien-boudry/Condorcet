@@ -136,7 +136,7 @@ class KemenyYoung extends Method implements MethodInterface
         while (!$f->eof()) :
             $l = trim($f->fgets());
 
-            if (empty($l)) : continue; endif;
+            if (\strlen($l) < 1) : continue; endif;
 
             $oneResult = explode(',', $l);
 

@@ -19,7 +19,7 @@ class KemenyYoungBench
 
     public function provideCandidatesCount (): \Generator
     {
-        for ($i = 2 ; $i <= 9 ; $i++) :
+        for ($i = 1 ; $i <= 9 ; $i++) :
             yield $i => ['candidatesCount' => $i];
         endfor;
     }
