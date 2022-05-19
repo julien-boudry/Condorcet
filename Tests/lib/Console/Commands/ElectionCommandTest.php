@@ -368,7 +368,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Sum vote weight | 339', $output);
 
         self::assertStringContainsString('Jonathan Carter*', $output); # Condorcet Winner
-        self::assertStringContainsString('Seats:        | 1', $output);
+        self::assertStringContainsString('Seats:  | 1', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
@@ -398,7 +398,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Sum vote weight | 380', $output);
 
         self::assertStringContainsString('Candidate  1*', $output); # Condorcet Winner
-        self::assertStringContainsString('Seats:        | 3', $output);
+        self::assertStringContainsString('Seats:  | 3', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }

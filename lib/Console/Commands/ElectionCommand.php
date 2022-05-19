@@ -365,7 +365,7 @@ class ElectionCommand extends Command
                     ->setRows($rows)
 
                     ->setColumnStyle(0,$this->centerPadTypeStyle)
-                    ->setColumnWidth(0, 20)
+                    ->setColumnWidth(0, 0)
                     ->render()
                 ;
             endif;
@@ -377,9 +377,9 @@ class ElectionCommand extends Command
 
                 ->setColumnStyle(0,$this->centerPadTypeStyle)
 
-                ->setColumnWidth(0, 10)
-                ->setColumnWidth(1, 20)
-                ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 20))
+                ->setColumnWidth(0, 30)
+                ->setColumnWidth(1, 100)
+                ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 30))
 
                 ->render()
             ;

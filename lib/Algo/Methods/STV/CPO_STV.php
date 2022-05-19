@@ -39,18 +39,18 @@ class CPO_STV extends SingleTransferableVote
     public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
-    public static string $optionCondorcetCompletionMethod = SchulzeMargin::class;
+    public static string $optionCondorcetCompletionMethod = SchulzeMargin::METHOD_NAME[0];
     public static array $optionTieBreakerMethods = [
-        SchulzeMargin::class,
-        SchulzeWinning::class,
-        SchulzeRatio::class,
-        BordaCount::class,
-        Copeland::class,
-        InstantRunoff::class,
-        MinimaxMargin::class,
-        MinimaxWinning::class,
-        DodgsonTidemanApproximation::class,
-        FirstPastThePost::class,
+        SchulzeMargin::METHOD_NAME[0],
+        SchulzeWinning::METHOD_NAME[0],
+        SchulzeRatio::METHOD_NAME[0],
+        BordaCount::METHOD_NAME[0],
+        Copeland::METHOD_NAME[0],
+        InstantRunoff::METHOD_NAME[0],
+        MinimaxMargin::METHOD_NAME[0],
+        MinimaxWinning::METHOD_NAME[0],
+        DodgsonTidemanApproximation::METHOD_NAME[0],
+        FirstPastThePost::METHOD_NAME[0],
     ];
 
     protected ?array $_Stats = null;
