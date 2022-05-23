@@ -583,7 +583,7 @@ $election->getResult('STV') ;
 
 > **Family:** Single Transferable Vote  
 > **Default STV Quota:** Hagenbach-Bischoff
-> **Variant used:** *None*  
+> **Variant used:** *Completion method is Schulze Margin (default)*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/CPO-STV  
 > ***  
 > **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV" 
@@ -597,11 +597,15 @@ $election->getResult('STV') ;
 ##### Quotas
 Default quota is the Hagenbach-Bischoff. Three others are available using the method options system _(see example below)_: Droop, Hare, Imperiali.
 
+##### Completion method
+Best outcome is selected using Schulze Margin. Can be changed using optionsystem _(see example below)_.
+
+
 #### Ordering
 The ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
 Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
 This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
-Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates.
+Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.
 
 ### Code example
 
@@ -630,7 +634,11 @@ $election->getResult('CPO-STV') ;
 $election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('CPO-STV') ;
 
-// Change the tie-break method
+// Change the completion selection method
+$election->setMethodOption('CPO-STV', 'CondorcetCompletionMethod', 'Copeland') ; // Never use Ranked-Pairs or Kemeny-Young, they are too many outcomes to choose from, and their performances aren't polynomials.
+$election->getResult('CPO-STV') ;
+
+// Change the order method
 $election->setMethodOption('CPO-STV', 'TieBreakerMethods', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ;
 $election->getResult('CPO-STV') ;
 ```
