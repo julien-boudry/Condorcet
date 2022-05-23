@@ -68,13 +68,20 @@ _Two different ways to use Condorcet:_
 _Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider then it's a new project (api, engine)._  
 
 ## Supported Methods
-
-Support both ranking method (with or without Condorcet criterion) and proportional (STV) methods.
-
-### Methods provided natively
-> Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants) / STV  
+Support both single-winner methods (with or without Condorcet criterion) and proportional methods.
 
 [**Complete list of natively implemented methods and implementation choices**](VOTING_METHODS.md)
+
+### Single-Winner Methods provided natively
+Single Winner return a full ranking. But they were designed for elected one. Inputs are ordered ranking.
+
+> Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)
+
+### Proportional Methods provided natively
+Designed for electing assembly. Inputs are ordered ranking, but most of these methods, don't support tie on a rank.
+
+> Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)*
+
 ### Add your own method as module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).  
 [*More explanations in this documentation*](https://github.com/julien-boudry/Condorcet/wiki/III-%23-B.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm-%28library%29)  
@@ -187,9 +194,7 @@ _Benchmark on a modern machine (linux - x64 - php 8.0 - cli)._
 
 
 ## Roadmap for further releases 
-  
-* More STV methods (help wanted)
-
+* ...
 
 ## Related projects / They use Condorcet
 * From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including interactives and collaborative features.    
