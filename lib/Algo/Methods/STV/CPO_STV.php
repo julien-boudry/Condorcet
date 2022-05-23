@@ -109,11 +109,13 @@ class CPO_STV extends SingleTransferableVote
             if ($tieBreakerFromInitialScore !== 0) :
                 return $tieBreakerFromInitialScore;
             else :
-                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($this->getElection(), self::$optionTieBreakerMethods, [$a,$b])) === 1) :
+                $election = $this->getElection();
+                
+                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a,$b])) === 1) :
                     $w = \reset($tiebreaker);
                     return ($w === $a) ? -1 : 1;
                 else:
-                    return $tieBreakerFromInitialScore;
+                    return \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8') <=> \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8');
                 endif;
             endif;                
         });
