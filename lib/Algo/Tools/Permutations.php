@@ -10,11 +10,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use SplFixedArray;
+
 // Thanks to Jorge Gomes @cyberkurumin
 class Permutations
 {
     protected readonly int $arr_count;
-    protected array $results = [];
+    protected SplFixedArray $results;
+    protected int $arrKey = 0;
 
     public static function countPossiblePermutations (int $candidatesNumber): int
     {
@@ -30,11 +33,12 @@ class Permutations
     public function __construct (int $arr_count)
     {
         $this->arr_count = $arr_count;
+        $this->results = new SplFixedArray(self::countPossiblePermutations($this->arr_count));
     }
 
-    public function getResults (): array
+    public function getResults (): SplFixedArray
     {
-        if (empty($this->results)) :
+        if ($this->arrKey === 0) :
             $this->_exec(
                 $this->_permute( $this->createCandidates() )
             );
@@ -43,11 +47,11 @@ class Permutations
         return $this->results;
     }
 
-    public function writeResults (string $path): void {
-        $f = new \SplFileObject($path,'w+');
+    public function writeResults (\SplFileObject $file): void {
+        $file->rewind();
 
         foreach ($this->getResults() as $oneResult) :
-            $f->fputcsv($oneResult);
+            $file->fputcsv($oneResult);
         endforeach;
     }
 
@@ -78,7 +82,7 @@ class Permutations
             $r = [...[0=>null],...$i];
             unset($r[0]);
 
-            $this->results[] = $r;
+            $this->results[$this->arrKey++] = $r;
         endif;
     }
 

@@ -47,4 +47,27 @@ abstract class TieBreakersCollection
 
         return (\count($tooKeep) > 0) ? $tooKeep : $candidatesKeys;
     }
+
+    public static function tieBreakerWithAnotherMethods (Election $election, array $methods, array $candidatesKeys): array
+    {
+        foreach ($methods as $oneMethod) :
+            $tooKeep = [];
+
+            $methodResults = $election->getResult($oneMethod)->getResultAsInternalKey();
+
+            foreach ($methodResults as $rankKey => $rankValue) :
+                foreach ($rankValue as $oneCandidateKey) :
+                    if (\in_array($oneCandidateKey, $candidatesKeys, true)) :
+                        $tooKeep[] = $oneCandidateKey;
+                    endif;
+                endforeach;
+
+                if (\count($tooKeep) > 0 && \count($tooKeep) !== \count($candidatesKeys)) :
+                    return $tooKeep;
+                endif;
+            endforeach;
+        endforeach;
+
+        return $candidatesKeys;
+    }
 }

@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
-use SplFileObject;
+use SplFixedArray;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
 class KemenyYoung extends Method implements MethodInterface
@@ -28,7 +28,7 @@ class KemenyYoung extends Method implements MethodInterface
     final public const CONFLICT_WARNING_CODE = 42;
 
     // Limits
-        /* If you need to put it on 9, You must use \ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutationss.
+        /* If you need to put it on 9, You must use \ini_set('memory_limit','1024M'); before. The first use will be slower because Kemeny-Young will work without pre-calculated data of Permutations.
         Do not try to go to 10, it is not viable! */
         public static ?int $MaxCandidates = 8;
 
@@ -36,7 +36,7 @@ class KemenyYoung extends Method implements MethodInterface
     public static bool $devWriteCache = false;
 
     // Kemeny Young
-    protected array $_PossibleRanking = [];
+    protected SplFixedArray $_PossibleRanking;
     protected array $_RankingScore = [];
 
 
@@ -110,7 +110,8 @@ class KemenyYoung extends Method implements MethodInterface
     protected function calcPossibleRanking (): void
     {
         $election = $this->getElection();
-        
+        $this->_PossibleRanking = new SplFixedArray(Permutations::countPossiblePermutations($election->countCandidates()));
+
         $i = 0;
         $search = [];
         $replace = [];
@@ -122,19 +123,31 @@ class KemenyYoung extends Method implements MethodInterface
 
         /** @infection-ignore-all */
         $path = __DIR__ . '/KemenyYoung-Data/'.$election->countCandidates().'.data';
+        $f = new \SplFileInfo($path);
 
-        // But ... where are the data ?! Okay, old way now...
-        if (self::$devWriteCache || (!\file_exists($path) && $election->countCandidates() < 10)) :
-            (new Permutations ($election->countCandidates()))->writeResults($path);
+        // Create cache file if not exist, or temp cache file if candidates count > 9
+        if (self::$devWriteCache || !$f->isFile()) :
+            if (!self::$devWriteCache && !$f->isFile() && $election->countCandidates() > 9) :
+                $f = new \SplTempFileObject();
+            else :
+                $f = new \SplFileObject($f->getPathname(), 'w+');
+            endif;
+
+            (new Permutations ($election->countCandidates()))->writeResults($f);
         endif;
 
         // Read Cache & Compute
-        $f = new \SplFileObject($path, 'r');
+        if (!($f instanceof \SplFileObject)) :
+            $f = $f->openFile('r');
+        endif;
 
+        $f->rewind();
+
+        $arrKey = 0;
         while (!$f->eof()) :
             $l = trim($f->fgets());
 
-            if (empty($l)) : continue; endif;
+            if (\strlen($l) < 1) : continue; endif;
 
             $oneResult = explode(',', $l);
 
@@ -148,7 +161,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $resultToRegister[$rank++] = (int) $oneCandidate;
             endforeach;
 
-            $this->_PossibleRanking[] = $resultToRegister;
+            $this->_PossibleRanking[$arrKey++] = $resultToRegister;
         endwhile;
     }
 

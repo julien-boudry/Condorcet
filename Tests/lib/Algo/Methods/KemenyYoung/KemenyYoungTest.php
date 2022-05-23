@@ -170,4 +170,13 @@ class KemenyYoungTest extends TestCase
 
         self::assertSame(true,true);
     }
+
+    public function testKemenyWithOnly1Candidate ()
+    {
+        $candidate[] = $this->election->addCandidate();
+
+        $this->election->addVote($candidate);
+
+        self::assertSame($candidate[0],$this->election->getWinner('KemenyYoung'));
+    }
 }

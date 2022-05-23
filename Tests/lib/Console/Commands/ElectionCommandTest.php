@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
+use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
@@ -215,10 +216,12 @@ class ElectionCommandTest extends TestCase
 
     public function testVoteWithDb1 (): void
     {
+        ElectionCommand::$forceIniMemoryLimitTo = '128M';
+
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
                                             '--votes-per-mb' => 1,
-                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', \ini_get('memory_limit'))) + 1), # Must be superior to memory limit in MB
+                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);
@@ -227,6 +230,8 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
         self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+
+        ElectionCommand::$forceIniMemoryLimitTo = null;
 
         # And absence of this error: unlink(path): Resource temporarily unavailable
     }
@@ -319,6 +324,8 @@ class ElectionCommandTest extends TestCase
 
     public function testVoteWithDb_CondorcetElectionFormat (): void
     {
+        ElectionCommand::$forceIniMemoryLimitTo = '128M';
+
         $this->electionCommand->execute([
                                             '--votes-per-mb' => 1,
                                             '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
@@ -330,6 +337,8 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
         self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+
+        ElectionCommand::$forceIniMemoryLimitTo = null;
 
         # And absence of this error: unlink(path): Resource temporarily unavailable
     }
@@ -359,7 +368,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Sum vote weight | 339', $output);
 
         self::assertStringContainsString('Jonathan Carter*', $output); # Condorcet Winner
-        self::assertStringContainsString('Seats:        | 1', $output);
+        self::assertStringContainsString('Seats:  | 1', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }
@@ -389,7 +398,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Sum vote weight | 380', $output);
 
         self::assertStringContainsString('Candidate  1*', $output); # Condorcet Winner
-        self::assertStringContainsString('Seats:        | 3', $output);
+        self::assertStringContainsString('Seats:  | 3', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
     }

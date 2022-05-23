@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
+use stdClass;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -64,6 +65,11 @@ class Vote implements \Iterator, \Stringable
 
     public bool $notUpdate = false;
 
+
+    // Performance (for internal use)
+    public static ?stdClass $cacheKey = null;
+    public ?\WeakMap $cacheMap = null;
+
         ///
 
     #[PublicAPI]
@@ -82,6 +88,8 @@ class Vote implements \Iterator, \Stringable
         ?Election $electionContext = null
     )
     {
+        $this->cacheMap = new \WeakMap;
+
         $this->_electionContext = $electionContext;
         $tagsFromString = null;
 
@@ -125,7 +133,15 @@ class Vote implements \Iterator, \Stringable
         $this->position = 1;
         $this->_link = null;
 
-        return \get_object_vars($this);
+        $var = \get_object_vars($this);
+        unset($var['cacheMap']);
+
+        return $var;
+    }
+
+    public function __wakeup(): void
+    {
+        $this->cacheMap = new \WeakMap;
     }
 
     public function __clone (): void
@@ -159,12 +175,15 @@ class Vote implements \Iterator, \Stringable
     #[Description("Get the actual Ranking of this Vote.")]
     #[FunctionReturn("Multidimenssionnal array populated by Candidate object.")]
     #[Related("Vote::setRanking")]
-    public function getRanking (): array
+    public function getRanking (
+        #[FunctionParameter('Sort Candidate in a Rank by name. Useful for performant internal calls from methods.')]
+        bool $sortCandidatesInRank = true
+    ): array
     {
         $r = $this->_ranking;
 
         foreach ($r as &$oneRank) :
-            if (count($oneRank) > 1) :
+            if ($sortCandidatesInRank && count($oneRank) > 1) :
                 sort($oneRank, \SORT_STRING);
             endif;
         endforeach;
@@ -234,7 +253,7 @@ class Vote implements \Iterator, \Stringable
     {
         $list = [];
 
-        foreach ($this->getRanking() as $rank) :
+        foreach ($this->getRanking(false) as $rank) :
             foreach ($rank as $oneCandidate) :
                 $list[] = $oneCandidate;
             endforeach;
@@ -250,9 +269,18 @@ class Vote implements \Iterator, \Stringable
     #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
     public function getContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
-        Election $election
+        Election $election,
+        #[FunctionParameter('If false, performance can be increased for Implicit Ranking election.')]
+        bool $sortLastRankByName = true
     ): array
     {
+
+        // Cache for internal use
+        if (self::$cacheKey !== null && !$sortLastRankByName && $this->cacheMap->offsetExists(self::$cacheKey)) :
+            return $this->cacheMap->offsetGet(self::$cacheKey);
+        endif;
+
+        // Normal procedure
         if (!$this->haveLink($election)) :
             throw new VoteNotLinkedException();
         endif;
@@ -261,20 +289,34 @@ class Vote implements \Iterator, \Stringable
 
         $present = $this->getAllCandidates();
         $candidates_list = $election->getCandidatesList();
+        $candidates_count = $election->countCandidates();
 
-        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(), $election, $countContextualCandidate);
+        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(false), $election, $countContextualCandidate);
 
-        if ($election->getImplicitRankingRule() && $countContextualCandidate < $election->countCandidates()) :
+        if ($election->getImplicitRankingRule() && $countContextualCandidate < $candidates_count) :
             $last_rank = [];
+            $needed = $candidates_count - $countContextualCandidate;
+
             foreach ($candidates_list as $oneCandidate) :
                 if (!\in_array(needle: $oneCandidate, haystack: $present, strict: true)) :
                     $last_rank[] = $oneCandidate;
                 endif;
+
+                if (\count($last_rank) === $needed) :
+                    break;
+                endif;
             endforeach;
 
-            sort($last_rank, \SORT_STRING);
+            if ($sortLastRankByName) :
+                sort($last_rank, \SORT_STRING);
+            endif;
 
             $newRanking[count($newRanking) + 1] = $last_rank;
+        endif;
+
+        // Cache for internal use
+        if (self::$cacheKey !== null && !$sortLastRankByName) :
+            $this->cacheMap->offsetSet(self::$cacheKey, $newRanking);
         endif;
 
         return $newRanking;

@@ -15,6 +15,8 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
+use CondorcetPHP\Condorcet\Vote;
+use stdClass;
 
 // Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
 class SingleTransferableVote extends Method implements MethodInterface
@@ -28,16 +30,15 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected readonly float $votesNeededToWin;
+    protected float $votesNeededToWin;
 
 
 /////////// COMPUTE ///////////
 
-    //:: Alternative Vote ALGORITHM. :://
-
     protected function compute (): void
     {
         $election = $this->getElection();
+        Vote::$cacheKey = new stdClass; // Performances
 
         $result = [];
         $rank = 0;
@@ -90,9 +91,11 @@ class SingleTransferableVote extends Method implements MethodInterface
         endwhile;
 
         $this->_Result = $this->createResult($result);
+
+        Vote::$cacheKey = null; // Performances
     }
 
-    protected function makeScore (array $surplus, array $candidateElected, array $candidateEliminated): array
+    protected function makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array
     {
         $election = $this->getElection();
         $scoreTable = [];
@@ -107,14 +110,14 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
-            $weight = $oneVote->getWeight($this->getElection());
+            $weight = $oneVote->getWeight($election);
 
             $winnerBonusWeight = 0;
             $winnerBonusKey = null;
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRanking($this->getElection()) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($election, false) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1): break; endif;
 

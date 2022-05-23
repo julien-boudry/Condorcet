@@ -120,7 +120,7 @@ class InstantRunoff extends Method implements MethodInterface
 
             $weight = $oneVote->getWeight($election);
 
-            foreach ($oneVote->getContextualRanking($election) as $oneRank) :
+            foreach ($oneVote->getContextualRanking($election, false) as $oneRank) :
                 foreach ($oneRank as $oneCandidate) :
                     if (\count($oneRank) !== 1) :
                         break;
