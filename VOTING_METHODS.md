@@ -2,6 +2,7 @@
 
 Condorcet PHP: Voting Methods
 ===========================
+* **[Implementation philosophy](#implementation-philophy)**
 
 > _See also **[the manual](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Voting-Methods-%28library%29)**_  
 
