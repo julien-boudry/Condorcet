@@ -2,6 +2,34 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v3.4.0] - 2022-05-??
+### Description
+Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.
+
+### Added
+#### Voting Methods
+- New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
+#### TieBreaker
+- New Tie Breaker method TieBreaker::TieBreakerWithAnotherMethods, chaining method to break a tie
+- Fix and test the existing first tie-breaker method
+#### Converter
+- Condorcet Election Format: Ability to parse candidates directly from votes, if not specified with the parameters first. According to the V1 specification of the format.
+### Changed
+- A candidate's name can be equal to the string "0"
+- Methods options can technically be string or array, first use for the CPO-STV tie breaker
+
+### Internal changes
+#### Engine
+- Permutation class renamed to Permutations
+- Use of \SplFixedArray some methods, improving memory and performances in some cases and for some methods.
+- Many performance improvements, especially for some methods and elections with a lot of candidates.
+- Methods can use a Vote->getContextualRanking() cache at the vote level, with a new internal API based on a WeakMap.
+
+#### Dev
+- Add Configuration for PHPStan
+- Add and improve benchmarks
+- Fix some env bugs for console tests
+
 ## [v3.3.3] - 2022-05-02
 
 ### Changed

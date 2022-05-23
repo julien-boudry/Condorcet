@@ -56,7 +56,7 @@ _Two different ways to use Condorcet:_
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 3.3.x**  _support provided_  
+* **Stable Version: 3.4.x**  _support provided_  
   * * *PHP Requirement:* PHP 8.1
 * **Stable Version: 2.2.x**  _support provided_  
   * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 8.0)_
