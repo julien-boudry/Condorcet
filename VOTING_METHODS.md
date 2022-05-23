@@ -8,6 +8,8 @@ Condorcet PHP: Voting Methods
 # Natively implemented methods 
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*  
 
+## Single winner methods
+
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet if there is one.  
 * **Borda count**
     * **[Borda System](#borda-count)**
@@ -32,26 +34,31 @@ Condorcet PHP: Voting Methods
     * **[Schulze Winning](#schulze-winning)** *(recommended)*
     * **[Schulze Margin](#schulze-margin)**
     * **[Schulze Ratio](#schulze-ratio)**
-* **[Single Transferable Vote](#single-transferable-vote)** *(STV)*
 
+## Proportional methods
 
-# Methods Details & Implementation
+* **[Single Transferable Vote](#single-transferable-vote)** *(The classical STV method)*
+* **[CPO-STV](#cpo-stv)** *Comparison of Pairs of Outcomes by the Single Transferable Vote, by Nicolaus Tideman*
 
-## Implementation Philophy
+---------------------------------------
 
-#### Result tie-breaking
+# Implementation Philophy
+
+### Result tie-breaking
 Unless explicitly stated otherwise in the details below, no tie-breaking is added to methods, we kept them pure.  
 The results are therefore likely to contain ties in some ranks. Which according to the algorithms is more or less frequent, but always tends to become less likely in proportion to the size of the election. 
 
-#### Tie into a vote rank
+### Tie into a vote rank
 Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.  
 This is more annoying for other methods like Borda, Instant-runoff or Ftpt. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
 
-#### Implicit vs Explicit Ranking
+### Implicit vs Explicit Ranking
 Please read the manual [about explicit and implicit ranking](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Ranking-mode---Implicit-versus-Partial) modes.  
 In terms of implementation, what you have to understand is that algorithms and pairwise are blind. And see votes in their implicit or explicit context, which can significantly change the results of some of them.  
 
+---------------------------------------
 
+# Single Winner methods - Details & Implementation
 ## Condorcet Basic
 
 > **Family:** Condorcet  
@@ -523,20 +530,24 @@ $election->getResult('Schulze Ratio')->getStats() ;
 ```
 
 
+# Single Winner methods - Details & Implementation
 ## Single Transferable Vote
 
 > **Family:** Single Transferable Vote  
+> > **Default STV Quota:** Droop
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Single_transferable_vote  
 > ***  
-> **Methods alias available (for function call)**: "STV", "Single Transferable Vote", "SingleTransferableVote"  
+> **Methods alias available (for function call)**: "STV" / "Single Transferable Vote" / "SingleTransferableVote"  
 
 ### Implementation Comments  
-In case of tie into a vote rank, rank is ignored like he never existed.  
-The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
-Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+##### Fundamentals
+- In case of tie into a vote rank, rank is ignored like he never existed. But you can use ```getStats()```  to get more computations details.
+- The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
+- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
 
-Default quota is the Droop quota. three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, Imperiali.
+##### Quotas
+Default quota is the Droop quota. Three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, Imperiali.
 
 ### Code example
 
@@ -564,4 +575,61 @@ $election->setMethodOption('STV', 'Quota', StvQuotas::HARE) ;
 $election->getResult('STV') ;
 $election->setMethodOption('STV', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('STV') ;
+```
+
+
+## CPO-STV
+
+> **Family:** Single Transferable Vote  
+> **Default STV Quota:** Hagenbach-Bischoff
+> **Variant used:** *None*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/CPO-STV  
+> ***  
+> **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV" 
+
+### Implementation Comments  
+##### Fundamentals
+- In case of tie into a vote rank, rank is ignored like he never existed. But you can use ```getStats()```  to get all initial scores table and outcomes scores.
+- The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
+- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+
+##### Quotas
+Default quota is the Hagenbach-Bischoff. Three others are available using the method options system _(see example below)_: Droop, Hare, Imperiali.
+
+#### Ordering
+The ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
+Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
+This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
+Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates.
+
+### Code example
+
+```php
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
+
+// Change the number of seats
+$election->setNumberOfSeats(7); # Default is 100
+
+// Get the elected candidates with ranking
+$election->getResult('CPO-STV');
+
+// Check the number of seats
+$election->getResult('CPO-STV')->getNumberOfSeats();
+
+// Get Stats (votes needed to win, initial table score, candidate directly elected, outcomes score....)
+$election->getResult('CPO-STV')->getStats(); // Resulting array can be really fat
+
+// Change the Quota
+$election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF) ;
+$election->getResult('CPO-STV') ;
+$election->setMethodOption('CPO-STV', 'Quota', StvQuotas::IMPERIALI) ;
+$election->getResult('CPO-STV') ;
+$election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HARE) ;
+$election->getResult('CPO-STV') ;
+$election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP) ;
+$election->getResult('CPO-STV') ;
+
+// Change the tie-break method
+$election->setMethodOption('CPO-STV', 'TieBreakerMethods', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ;
+$election->getResult('CPO-STV') ;
 ```
