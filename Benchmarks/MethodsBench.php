@@ -12,7 +12,7 @@ ini_set('memory_limit','51200M');
 
 class MethodsBench
 {
-    public array $numberOfCandidates = [3,5,7,10,20,30,40,50,60,70,80,90,100];
+    public array $numberOfCandidates = [3,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100];
 
     protected Election $election;
 

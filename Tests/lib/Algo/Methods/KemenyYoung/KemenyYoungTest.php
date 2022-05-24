@@ -103,9 +103,9 @@ class KemenyYoungTest extends TestCase
     public function testMaxCandidates (): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
-        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only 8 candidates");
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only ".KemenyYoung::$MaxCandidates." candidates");
 
-        for ($i=0; $i < 10; $i++) :
+        for ($i=0; $i < (KemenyYoung::$MaxCandidates + 1); $i++) :
             $this->election->addCandidate();
         endfor;
 

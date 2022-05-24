@@ -18,6 +18,7 @@ Implement the CPO-STV method, the second official module for a proportional meth
 - A candidate's name can be equal to the string "0"
 - Methods options can technically be string or array, first use for the CPO-STV tie breaker
 - Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
+- Kemeny-Young default limit of candidates up from 8 to 9, thanks to performance optimizations, still requiring more than 700Mb of memory
 
 ### Internal changes
 #### Engine
