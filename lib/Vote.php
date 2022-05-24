@@ -70,8 +70,9 @@ class Vote implements \Iterator, \Stringable
     protected static ?stdClass $cacheKey = null;
     protected ?\WeakMap $cacheMap = null;
 
-    public static function initCache (): void {
+    public static function initCache (): \stdClass {
         self::$cacheKey = new \stdClass;
+        return self::$cacheKey;
     }
 
     public static function clearCache (): void {
