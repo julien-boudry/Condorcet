@@ -10,8 +10,10 @@ use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use PhpBench\Attributes as Bench;
 ini_set('memory_limit','51200M');
 
-class MethodsBench
+class MethodsNonProportionalBench
 {
+    public bool $IS_A_PROPORTIONAL_BENCH = false;
+
     public array $numberOfCandidates = [3,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100];
 
     protected Election $election;
@@ -44,7 +46,11 @@ class MethodsBench
     public function provideMethods (): \Generator
     {
         foreach (Condorcet::getAuthMethods() as $method) :
-            yield $method => ['method' => $method];
+            $class = Condorcet::getMethodClass($method);
+
+            if ($class::IS_PROPORTIONAL === $this->IS_A_PROPORTIONAL_BENCH) :
+                yield $method => ['method' => $method];
+            endif;
         endforeach;
     }
 
