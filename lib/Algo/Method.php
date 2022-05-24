@@ -96,7 +96,7 @@ abstract class Method
         $methodOptions = [];
 
         foreach ($optionsList as $oneOption) :
-            $methodOptions[substr($oneOption,6)] = static::$$oneOption;
+            $methodOptions[\substr($oneOption,6)] = static::$$oneOption;
         endforeach;
 
         return new Result (

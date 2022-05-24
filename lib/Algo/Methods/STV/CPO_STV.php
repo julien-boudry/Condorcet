@@ -98,23 +98,35 @@ class CPO_STV extends SingleTransferableVote
             $result = $this->outcomes[$this->condorcetWinnerOutcome];
 
             // Sort the best Outcome candidate list using originals scores
-            $this->sortResult($result);
+            \usort($result, function (int $a, int $b): int {
+                return $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
+            });
 
         else :
             $result = \array_keys($this->initialScoreTable);
 
-            // Sort the best Outcome candidate list using originals scores
-            $this->sortResult($result);
+            // Sort the best Outcome candidate list using originals scores, or using others methods
+            $this->sortResultBeforeCut($result);
 
             // Cut
             $result = \array_slice($result, 0, $this->getElection()->getNumberOfSeats());
         endif;
 
         // Results: Format Ranks from 1
-        $rank = 1;
+        $rank = 0;
+        $lastScore = null;
+        $candidatesDoneCount = 0;
         $r = [];
         foreach ($result as $candidateKey) :
-            $r[$rank++] = $candidateKey;
+            $score = $this->initialScoreTable[$candidateKey];
+
+            if ($score !== $lastScore) :
+                $rank = $candidatesDoneCount + 1;
+                $lastScore = $score;
+            endif;
+
+            $r[$rank][] = $candidateKey;
+            $candidatesDoneCount++;
         endforeach;
 
         // Register result
@@ -230,7 +242,7 @@ class CPO_STV extends SingleTransferableVote
             $this->condorcetWinnerOutcome = (int) (!\is_array($condorcetWinnerOutcome) ? $condorcetWinnerOutcome->getName() : reset($condorcetWinnerOutcome)->getName());
     }
 
-    protected function sortResult (array &$result): void
+    protected function sortResultBeforeCut (array &$result): void
     {
         \usort($result, function (int $a, int $b): int {
             $tieBreakerFromInitialScore = $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
@@ -249,6 +261,8 @@ class CPO_STV extends SingleTransferableVote
             endif;
         });
     }
+
+    // Stats
 
     protected function getStats(): array
     {

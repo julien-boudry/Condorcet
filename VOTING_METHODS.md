@@ -600,12 +600,13 @@ Default quota is the Hagenbach-Bischoff. Three others are available using the me
 ##### Completion method
 Best outcome is selected using Schulze Margin. Can be changed using optionsystem _(see example below)_.
 
-
 #### Ordering
-The ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
+If more candidates than seats fill the quotas directly before outcome comparaison, then the ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
 Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
 This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
 Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.
+However, once the list of winners is determined, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.  
+
 
 ### Code example
 

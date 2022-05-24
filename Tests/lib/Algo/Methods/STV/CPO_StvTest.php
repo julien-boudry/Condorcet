@@ -99,7 +99,11 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('B>C>A');
         $this->election->addVote('A>B>C');
 
-        self::assertSame('B > A', $this->election->getResult('CPO STV')->getResultAsString());
+        self::assertSame([1=>['A','B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+
+        $this->election->setNumberOfSeats(3);
+
+        self::assertSame([1=>['A','B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
 }
