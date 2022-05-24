@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
@@ -93,7 +92,7 @@ class InstantRunoff extends Method implements MethodInterface
                 // Tie Breaking
                 $round = \count($LosersToRegister);
                 for ($i = 1 ; $i < $round ; $i++): // A little silly. But ultimately shorter and simpler.
-                    $LosersToRegister = TieBreakersCollection::tieBreaker_1($election, $LosersToRegister);
+                    $LosersToRegister = TieBreakersCollection::electSomeLosersbasedOnPairwiseComparaison($election, $LosersToRegister);
                 endfor;
 
                 $CandidatesLoserCount += \count($LosersToRegister);
