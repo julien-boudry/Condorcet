@@ -30,7 +30,6 @@ use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Vote;
 use SplFixedArray;
-use stdClass;
 
 // Single transferable vote | https://en.wikipedia.org/wiki/CPO-STV
 class CPO_STV extends SingleTransferableVote
@@ -69,7 +68,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected function compute (): void
     {
-        Vote::$cacheKey = new stdClass; // Performances
+        Vote::initCache(); // Performances
         $this->outcomes = new SplFixedArray(0);
 
         $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
@@ -121,7 +120,7 @@ class CPO_STV extends SingleTransferableVote
         // Register result
         $this->_Result = $this->createResult($r);
 
-        Vote::$cacheKey = null; // Performances
+        Vote::clearCache(); // Performances
     }
 
     protected function compareOutcomes (): void
