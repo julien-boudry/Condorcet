@@ -97,28 +97,19 @@ class CPO_STV extends SingleTransferableVote
             // Select the best with a Condorcet method
             $this->selectBestOutcome();
             $result = $this->outcomes[$this->condorcetWinnerOutcome];
+
+            // Sort the best Outcome candidate list using originals scores
+            $this->sortResult($result);
+
         else :
             $result = \array_keys($this->initialScoreTable);
-            $result = array_slice($result, 0, $this->getElection()->getNumberOfSeats());
+
+            // Sort the best Outcome candidate list using originals scores
+            $this->sortResult($result);
+
+            // Cut
+            $result = \array_slice($result, 0, $this->getElection()->getNumberOfSeats());
         endif;
-
-        // Sort the best Outcome candidate list using originals scores
-        \usort($result, function (int $a, int $b): int {
-            $tieBreakerFromInitialScore = $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
-
-            if ($tieBreakerFromInitialScore !== 0) :
-                return $tieBreakerFromInitialScore;
-            else :
-                $election = $this->getElection();
-                
-                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a,$b])) === 1) :
-                    $w = \reset($tiebreaker);
-                    return ($w === $a) ? -1 : 1;
-                else:
-                    return \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8') <=> \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8');
-                endif;
-            endif;                
-        });
 
         // Results: Format Ranks from 1
         $rank = 1;
@@ -238,6 +229,26 @@ class CPO_STV extends SingleTransferableVote
 
             $condorcetWinnerOutcome = $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod);
             $this->condorcetWinnerOutcome = (int) (!\is_array($condorcetWinnerOutcome) ? $condorcetWinnerOutcome->getName() : reset($condorcetWinnerOutcome)->getName());
+    }
+
+    protected function sortResult (array &$result): void
+    {
+        \usort($result, function (int $a, int $b): int {
+            $tieBreakerFromInitialScore = $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
+
+            if ($tieBreakerFromInitialScore !== 0) :
+                return $tieBreakerFromInitialScore;
+            else :
+                $election = $this->getElection();
+
+                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a,$b])) === 1) :
+                    $w = \reset($tiebreaker);
+                    return ($w === $a) ? -1 : 1;
+                else:
+                    return \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8') <=> \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(),'UTF-8');
+                endif;
+            endif;
+        });
     }
 
     protected function getStats(): array
