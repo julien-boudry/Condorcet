@@ -20,7 +20,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 abstract class RankedPairs_Core extends Method implements MethodInterface
 {
     // Limits
-    public static ?int $MaxCandidates = 40;
+    public static ?int $MaxCandidates = 60;
 
     // Ranked Pairs
     protected readonly array $_PairwiseSort;
@@ -63,7 +63,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
 
         if (!$this->_StatsDone) :
             foreach ($this->_Stats['tally'] as &$Roundvalue) :
-                foreach ($Roundvalue as $ArcKey => &$Arcvalue) :
+                foreach ($Roundvalue as &$Arcvalue) :
                     foreach ($Arcvalue as $key => &$value) :
                         if ($key === 'from' || $key === 'to') :
                             $value = $election->getCandidateObjectFromKey($value)->getName();
@@ -72,7 +72,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                 endforeach;
             endforeach;
 
-            foreach ($this->_Stats['arcs'] as $ArcKey => &$Arcvalue) :
+            foreach ($this->_Stats['arcs'] as &$Arcvalue) :
                 foreach ($Arcvalue as $key => &$value) :
                     if ($key === 'from' || $key === 'to') :
                         $value = $election->getCandidateObjectFromKey($value)->getName();
@@ -122,7 +122,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     {
         $winners = [];
 
-        foreach ($this->getElection()->getCandidatesList() as $candidateKey => $candidateId) :
+        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
             if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) :
                 $win = true;
                 foreach ($this->_Arcs as $ArcValue) :
@@ -171,7 +171,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     {
         $cycles = [];
 
-        foreach ($this->getElection()->getCandidatesList() as $candidateKey => $candidateId) :
+        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
             \array_push($cycles, ...$this->followCycle( startCandidateKey: $candidateKey,
                                                         searchCandidateKey: $candidateKey,
                                                         virtualArcs: $virtualArcs
@@ -246,7 +246,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         $newArcs = [];
         $i = 0;
         $f = true;
-        foreach ($pairs as $pairsKey => $pairsValue) :
+        foreach (\array_keys($pairs) as $pairsKey) :
             if ($f === true) :
                 $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;

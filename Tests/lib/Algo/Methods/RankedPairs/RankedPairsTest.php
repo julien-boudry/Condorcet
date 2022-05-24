@@ -415,9 +415,9 @@ class RankedPairsTest extends TestCase
     public function testMaxCandidates (): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
-        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 40 candidates");
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 60 candidates");
 
-        for ($i=0; $i < 41; $i++) :
+        for ($i=0; $i < 61; $i++) :
             $this->election->addCandidate();
         endfor;
 
