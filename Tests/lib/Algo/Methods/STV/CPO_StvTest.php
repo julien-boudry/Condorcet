@@ -86,10 +86,8 @@ class CPO_StvTest extends TestCase
         self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
-    // In this example, only Borda method will break A and B
     public function testEquality1 (): void
     {
-        // Ref
         $this->election->setNumberOfSeats(2);
 
         $this->election->parseCandidates('A;B;C');
@@ -104,6 +102,19 @@ class CPO_StvTest extends TestCase
         $this->election->setNumberOfSeats(3);
 
         self::assertSame([1=>['A','B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
+    }
+
+    public function testEquality2 (): void
+    {
+        $this->election->setImplicitRanking(false);
+        $this->election->setNumberOfSeats(3);
+
+        $this->election->parseCandidates('A;B;C;D');
+
+        $this->election->addVote('A>B>C>D');
+        $this->election->addVote('A>B>D>C');
+
+        self::assertSame([1=>'A',2=>['B','D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
 }

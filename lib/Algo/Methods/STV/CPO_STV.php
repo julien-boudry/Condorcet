@@ -37,9 +37,7 @@ class CPO_STV extends SingleTransferableVote
     // Method Name
     public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
-    public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
-    public static string $optionCondorcetCompletionMethod = SchulzeMargin::METHOD_NAME[0];
-    public static array $optionTieBreakerMethods = [
+    public const DEFAULT_METHODS_CHAINING = [
         SchulzeMargin::METHOD_NAME[0],
         SchulzeWinning::METHOD_NAME[0],
         SchulzeRatio::METHOD_NAME[0],
@@ -51,6 +49,10 @@ class CPO_STV extends SingleTransferableVote
         DodgsonTidemanApproximation::METHOD_NAME[0],
         FirstPastThePost::METHOD_NAME[0],
     ];
+
+    public static StvQuotas $optionQuota = StvQuotas::HAGENBACH_BISCHOFF;
+    public static array $optionCondorcetCompletionMethod = self::DEFAULT_METHODS_CHAINING;
+    public static array $optionTieBreakerMethods = self::DEFAULT_METHODS_CHAINING;
 
     protected ?array $_Stats = null;
 
@@ -234,12 +236,29 @@ class CPO_STV extends SingleTransferableVote
                     $winnerOutcomeElection->addVote($vote2);
                 endforeach;
 
-            $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod);
-            $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
-            $this->completionMethodStats = $completionMethodResult->getStats();
+            // Selection Winner
+            $selectionSucces = false;
 
-            $condorcetWinnerOutcome = $completionMethodResult->getWinner(self::$optionCondorcetCompletionMethod);
-            $this->condorcetWinnerOutcome = (int) (!\is_array($condorcetWinnerOutcome) ? $condorcetWinnerOutcome->getName() : reset($condorcetWinnerOutcome)->getName());
+            foreach (self::$optionCondorcetCompletionMethod as $completionMethod) :
+                $completionMethodResult = $winnerOutcomeElection->getResult($completionMethod);
+                $condorcetWinnerOutcome = $completionMethodResult->getWinner();
+
+                if (!\is_array($condorcetWinnerOutcome)) :
+                    $selectionSucces = true;
+                    $this->completionMethodStats = $completionMethodResult->getStats();
+                    break;
+                endif;
+            endforeach;
+
+            if (!$selectionSucces) :
+                $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod[0]);
+                $condorcetWinnerOutcome = $completionMethodResult->getWinner();
+                $condorcetWinnerOutcome = \reset($condorcetWinnerOutcome);
+                $this->completionMethodStats = $completionMethodResult->getStats();
+            endif;
+
+            $this->condorcetWinnerOutcome = (int) $condorcetWinnerOutcome->getName();
+            $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
     }
 
     protected function sortResultBeforeCut (array &$result): void

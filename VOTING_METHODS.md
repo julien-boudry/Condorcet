@@ -583,7 +583,7 @@ $election->getResult('STV') ;
 
 > **Family:** Single Transferable Vote  
 > **Default STV Quota:** Hagenbach-Bischoff
-> **Variant used:** *Completion method is Schulze Margin (default)*  
+> **Variant used:** *Completion method is Schulze Margin (default) then chaining different others methods if necessary*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/CPO-STV  
 > ***  
 > **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV" 
@@ -593,19 +593,22 @@ $election->getResult('STV') ;
 - In case of tie into a vote rank, rank is ignored like he never existed. But you can use ```getStats()```  to get all initial scores table and outcomes scores.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
 - Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+- Ranking is sort by the initial score table, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.  
 
 ##### Quotas
 Default quota is the Hagenbach-Bischoff. Three others are available using the method options system _(see example below)_: Droop, Hare, Imperiali.
 
 ##### Completion method
-Best outcome is selected using Schulze Margin. Can be changed using optionsystem _(see example below)_.
+The best outcome is selected chaining methods in that order (first to deliver a single winner): ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
+If none of them can deliver a single winner, the first one (default: ```SchulzeMargin```) is used, and one winner is arbitrarily chosen from the first rank.
 
-#### Ordering
+This order can be changed using option system _(see example below)_.
+
+#### Sorting score before electing
 If more candidates than seats fill the quotas directly before outcome comparaison, then the ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
 Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
 This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
-Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.
-However, once the list of winners is determined, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.  
+Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.  
 
 
 ### Code example
@@ -636,10 +639,10 @@ $election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('CPO-STV') ;
 
 // Change the completion selection method
-$election->setMethodOption('CPO-STV', 'CondorcetCompletionMethod', 'Copeland') ; // Never use Ranked-Pairs or Kemeny-Young, they are too many outcomes to choose from, and their performances aren't polynomials.
+$election->setMethodOption('CPO-STV', 'CondorcetCompletionMethod', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ; // Never use Ranked-Pairs or Kemeny-Young, they are too many outcomes to choose from, and their performances aren't polynomials.
 $election->getResult('CPO-STV') ;
 
-// Change the order method
+// Change the sort method
 $election->setMethodOption('CPO-STV', 'TieBreakerMethods', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ;
 $election->getResult('CPO-STV') ;
 ```
