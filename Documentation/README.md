@@ -141,7 +141,7 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Vote->getHistory ()](Vote%20Class/public%20Vote--getHistory.md): ```array```  
 * [public Vote->getLinks ()](Vote%20Class/public%20Vote--getLinks.md): ```WeakMap```  
 * [public Vote->getObjectVersion (...)](Vote%20Class/public%20Vote--getObjectVersion.md): ```string```  
-* [public Vote->getRanking ()](Vote%20Class/public%20Vote--getRanking.md): ```array```  
+* [public Vote->getRanking (...)](Vote%20Class/public%20Vote--getRanking.md): ```array```  
 * [public Vote->getSimpleRanking (...)](Vote%20Class/public%20Vote--getSimpleRanking.md): ```string```  
 * [public Vote->getTags ()](Vote%20Class/public%20Vote--getTags.md): ```array```  
 * [public Vote->getTagsAsString ()](Vote%20Class/public%20Vote--getTagsAsString.md): ```string```  
@@ -225,7 +225,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -250,7 +250,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -259,7 +259,7 @@ _Including above methods from public API_
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
-* protected getScoreByCandidateRanking (int $CandidatesRanked): float  
+* protected getScoreByCandidateRanking (int $CandidatesRanked, CondorcetPHP\Condorcet\Election $election): float  
 * protected getStats (): array  
 ```
 
@@ -276,7 +276,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -285,7 +285,7 @@ _Including above methods from public API_
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
-* protected getScoreByCandidateRanking (int $CandidatesRanked): float  
+* protected getScoreByCandidateRanking (int $CandidatesRanked, CondorcetPHP\Condorcet\Election $election): float  
 * protected getStats (): array  
 ```
 
@@ -302,7 +302,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -329,7 +329,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -355,7 +355,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -380,7 +380,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -407,7 +407,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -429,13 +429,13 @@ _Including above methods from public API_
 
 * public static ?int $MaxCandidates
 * public static bool $devWriteCache
-* protected array $_PossibleRanking
+* protected SplFixedArray $_PossibleRanking
 * protected array $_RankingScore
 * readonly protected WeakReference $_selfElection
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -467,7 +467,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -495,7 +495,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -527,7 +527,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -553,7 +553,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -580,7 +580,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -607,7 +607,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -632,7 +632,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -662,7 +662,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -696,7 +696,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -728,7 +728,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -746,6 +746,48 @@ _Including above methods from public API_
 * protected pairwiseSort (): array  
 ```
 
+#### CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV extends CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote implements CondorcetPHP\Condorcet\Algo\MethodInterface  
+```php
+* public const METHOD_NAME: (array)
+* public const DEFAULT_METHODS_CHAINING: (array)
+* final public const IS_PROPORTIONAL: (boolean)
+* public const DECIMAL_PRECISION: (integer)
+
+* public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
+* public static array $optionCondorcetCompletionMethod
+* public static array $optionTieBreakerMethods
+* protected ?array $_Stats
+* protected SplFixedArray $outcomes
+* readonly protected array $initialScoreTable
+* protected array $candidatesElectedFromFirstRound
+* readonly protected array $candidatesEliminatedFromFirstRound
+* protected array $outcomeComparisonTable
+* readonly protected int $condorcetWinnerOutcome
+* readonly protected array $completionMethodPairwise
+* readonly protected array $completionMethodStats
+* protected float $votesNeededToWin
+* public static ?int $MaxCandidates
+* readonly protected WeakReference $_selfElection
+* protected ?CondorcetPHP\Condorcet\Result $_Result
+* protected string $_objectVersion
+
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
+* public __construct (CondorcetPHP\Condorcet\Election $mother)  
+* public __serialize (): array  
+* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getObjectVersion (bool $major = false): string  
+* public getResult (): CondorcetPHP\Condorcet\Result  
+* public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected compareOutcomes (): void  
+* protected compute (): void  
+* protected createResult (array $result): CondorcetPHP\Condorcet\Result  
+* protected getOutcomesComparisonKey (int $MainOutcomeKey, int $ComparedOutcomeKey): string  
+* protected getStats (): array  
+* protected makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array  
+* protected selectBestOutcome (): void  
+* protected sortResultBeforeCut (array $result): void  
+```
+
 #### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
@@ -754,13 +796,13 @@ _Including above methods from public API_
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * protected ?array $_Stats
-* readonly protected float $votesNeededToWin
+* protected float $votesNeededToWin
 * public static ?int $MaxCandidates
 * readonly protected WeakReference $_selfElection
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -770,7 +812,7 @@ _Including above methods from public API_
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): array  
-* protected makeScore (array $surplus, array $candidateElected, array $candidateEliminated): array  
+* protected makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -785,7 +827,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -798,7 +840,7 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j): int  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -813,7 +855,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -826,7 +868,7 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j): float  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): float  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -841,7 +883,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -854,7 +896,7 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j): int  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\Schulze_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
@@ -868,7 +910,7 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Result $_Result
 * protected string $_objectVersion
 
-* public static setOption (string $optionName, BackedEnum|int $optionValue): bool  
+* public static setOption (string $optionName, BackedEnum|string|int $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public getElection (): CondorcetPHP\Condorcet\Election  
@@ -881,7 +923,7 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j)  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election)  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
@@ -914,20 +956,26 @@ _Including above methods from public API_
 * protected formatNewpairwise (): void  
 ```
 
+#### CondorcetPHP\Condorcet\Algo\Tools\Combinations   
+```php
+* public static compute (array $values, int $length, array $append_before = []): SplFixedArray  
+```
+
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats   
 ```php
 * public static PairwiseComparison (CondorcetPHP\Condorcet\Algo\Pairwise $pairwise): array  
 ```
 
-#### CondorcetPHP\Condorcet\Algo\Tools\Permutation   
+#### CondorcetPHP\Condorcet\Algo\Tools\Permutations   
 ```php
 * readonly protected int $arr_count
-* protected array $results
+* protected SplFixedArray $results
+* protected int $arrKey
 
 * public static countPossiblePermutations (int $candidatesNumber): int  
 * public __construct (int $arr_count)  
-* public getResults (): array  
-* public writeResults (string $path): void  
+* public getResults (): SplFixedArray  
+* public writeResults (SplFileObject $file): void  
 * protected createCandidates (): array  
 * private _exec (array|int $a, array $i = []): void  
 * private _permute (array $arr): array|int  
@@ -949,12 +997,76 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection   
 ```php
-* public static tieBreaker_1 (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys): array  
+* public static electSomeLosersbasedOnPairwiseComparaison (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys): array  
+* public static tieBreakerWithAnotherMethods (CondorcetPHP\Condorcet\Election $election, array $methods, array $candidatesKeys): array  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote   
 ```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList): CondorcetPHP\Condorcet\Vote  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\IntensiveUsageBench   
+```php
+* public benchSimpleManyVotes (): void  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\KemenyYoungBench   
+```php
+* public __construct ()  
+* public benchKemenyYoung (array $params): void  
+* public provideCandidatesCount (): Generator  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\MethodsNonProportionalBench   
+```php
+* public bool $IS_A_PROPORTIONAL_BENCH
+* public array $numberOfCandidates
+* protected CondorcetPHP\Condorcet\Election $election
+
+* public __construct ()  
+* public benchByCandidates (array $params): void  
+* public provideMethods (): Generator  
+* public provideNumberOfCandidates (): Generator  
+* public setUp (array $params): void  
+* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\MethodsProportionalBench extends CondorcetPHP\Condorcet\Benchmarks\MethodsNonProportionalBench   
+```php
+* public bool $IS_A_PROPORTIONAL_BENCH
+* public array $numberOfCandidates
+* protected CondorcetPHP\Condorcet\Election $election
+
+* public __construct ()  
+* public benchByCandidates (array $params): void  
+* public provideMethods (): Generator  
+* public provideNumberOfCandidates (): Generator  
+* public setUp (array $params): void  
+* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\PairwiseNumberOfCandidatesBench   
+```php
+* public array $numberOfCandidates
+* public array $numberOfVotes
+* protected CondorcetPHP\Condorcet\Election $election
+
+* public __construct ()  
+* public benchByCandidates (array $params): void  
+* public provideNumberOfCandidates (): Generator  
+* public provideNumberOfVotes (): Generator  
+* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\PairwiseUpdateOptimizationBench   
+```php
+* public benchPairwiseOptimization (): void  
+```
+
+#### CondorcetPHP\Condorcet\Benchmarks\SimpleUsageBench   
+```php
+* public benchSimpleManyVotes (): void  
 ```
 
 #### CondorcetPHP\Condorcet\Candidate implements Stringable  
@@ -1033,6 +1145,7 @@ _Including above methods from public API_
 * public ?string $SQLitePath
 * protected Symfony\Component\Console\Helper\TableStyle $centerPadTypeStyle
 * protected Symfony\Component\Console\Terminal $terminal
+* public static ?string $forceIniMemoryLimitTo
 * protected static  $defaultName
 * protected static  $defaultDescription
 
@@ -1343,7 +1456,7 @@ _Including above methods from public API_
 * public removeVotesByTags (array|string $tags, bool $with = true): array  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): bool  
 * public setImplicitRanking (bool $rule = true): bool  
-* public setMethodOption (string $method, string $optionName, BackedEnum|int $optionValue): bool  
+* public setMethodOption (string $method, string $optionName, BackedEnum|string|int $optionValue): bool  
 * public setNumberOfSeats (int $seats): int  
 * public setStateToVote (): bool  
 * public sumValidVotesWeightWithConstraints (): int  
@@ -1835,27 +1948,32 @@ _Including above methods from public API_
 * private string $_hashCode
 * private ?CondorcetPHP\Condorcet\Election $_electionContext
 * public bool $notUpdate
+* protected static ?stdClass $cacheKey
+* protected ?WeakMap $cacheMap
 * private ?WeakMap $_link
 * protected string $_objectVersion
 
+* public static clearCache (): void  
+* public static initCache (): stdClass  
 * public __clone (): void  
 * public __construct (array|string $ranking, array|string|null $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null)  
 * public __serialize (): array  
 * public __toString (): string  
+* public __wakeup (): void  
 * public addTags (array|string $tags): bool  
 * public countLinks (): int  
 * public countRankingCandidates (): int  
 * public current (): array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public getAllCandidates (): array  
-* public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
+* public getContextualRanking (CondorcetPHP\Condorcet\Election $election, bool $sortLastRankByName = true): array  
 * public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
 * public getCreateTimestamp (): float  
 * public getHashCode (): string  
 * public getHistory (): array  
 * public getLinks (): WeakMap  
 * public getObjectVersion (bool $major = false): string  
-* public getRanking (): array  
+* public getRanking (bool $sortCandidatesInRank = true): array  
 * public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
 * public getTags (): array  
 * public getTagsAsString (): string  

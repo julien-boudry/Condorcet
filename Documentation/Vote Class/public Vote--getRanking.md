@@ -3,11 +3,15 @@
 ### Description    
 
 ```php
-public Vote->getRanking ( ): array
+public Vote->getRanking ( [bool $sortCandidatesInRank = true] ): array
 ```
 
 Get the actual Ranking of this Vote.
     
+
+##### **sortCandidatesInRank:** *```bool```*   
+Sort Candidate in a Rank by name. Useful for performant internal calls from methods.    
+
 
 ### Return value:   
 
