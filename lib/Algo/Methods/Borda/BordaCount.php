@@ -52,24 +52,19 @@ class BordaCount extends Method implements MethodInterface
         endforeach;
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+            $CandidatesRanked = 0;
+            $oneRanking = $oneVote->getContextualRanking($election, false);
 
-            $weight = $oneVote->getWeight($election);
-
-            for ($i = 0 ; $i < $weight ; $i++) :
-                $CandidatesRanked = 0;
-                $oneRanking = $oneVote->getContextualRanking($election, false);
-
-                foreach ($oneRanking as $oneRank) :
-                    $rankScore = 0.0;
-                    foreach ($oneRank as $oneCandidateInRank) :
-                        $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++, $election);
-                    endforeach;
-
-                    foreach ($oneRank as $oneCandidateInRank) :
-                        $score[$election->getCandidateKey($oneCandidateInRank)] += $rankScore / \count($oneRank);
-                    endforeach;
+            foreach ($oneRanking as $oneRank) :
+                $rankScore = 0.0;
+                foreach ($oneRank as $oneCandidateInRank) :
+                    $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++, $election);
                 endforeach;
-            endfor;
+
+                foreach ($oneRank as $oneCandidateInRank) :
+                    $score[$election->getCandidateKey($oneCandidateInRank)] += ($rankScore / \count($oneRank)) * $oneVote->getWeight($election);
+                endforeach;
+            endforeach;
         endforeach;
 
         \array_walk($score, fn(float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));

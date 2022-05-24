@@ -194,4 +194,14 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getStats()
         );
     }
+
+    public function testVeryHighVoteWeightAndPerformances (): void
+    {
+        $this->election->allowsVoteWeight(true);
+        $this->election->parseCandidates('0;1');
+
+        $this->election->parseVotes('1 > 0 ^6973568802');
+
+        self::assertSame('1', $this->election->getResult('Borda Count')->getResultAsString());
+    }
 }
