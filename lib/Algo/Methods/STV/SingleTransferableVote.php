@@ -101,7 +101,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
-        foreach ($election->getCandidatesList() as $oneCandidateKey => $oneCandidate) :
+        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
             if (!\in_array($candidateKey = $oneCandidateKey, $candidateDone, true)) :
                 $scoreTable[$candidateKey] = 0.0;
             endif;

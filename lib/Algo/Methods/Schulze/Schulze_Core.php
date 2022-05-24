@@ -81,12 +81,13 @@ abstract class Schulze_Core extends Method implements MethodInterface
     protected function prepareStrongestPath (): void
     {
         $election = $this->getElection();
+        $CandidatesKeys = \array_keys($election->getCandidatesList());
 
-        foreach ( $election->getCandidatesList() as $candidate_key => $candidate_id ) :
+        foreach ($CandidatesKeys as $candidate_key) :
             $this->_StrongestPaths[$candidate_key] = [];
 
             // Format array for the strongest path
-            foreach ( $election->getCandidatesList() as $candidate_key_r => $candidate_id_r ) :
+            foreach ($CandidatesKeys as $candidate_key_r) :
                 if ($candidate_key_r != $candidate_key) :
                     $this->_StrongestPaths[$candidate_key][$candidate_key_r] = 0;
                 endif;
@@ -99,9 +100,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
     protected function makeStrongestPaths (): void
     {
         $election = $this->getElection();
+        $CandidatesKeys = \array_keys($election->getCandidatesList());
 
-        foreach ($election->getCandidatesList() as $i => $i_value) :
-            foreach ($election->getCandidatesList() as $j => $j_value) :
+        foreach ($CandidatesKeys as $i) :
+            foreach ($CandidatesKeys as $j) :
                 if ($i !== $j) :
                     if ( $election->getPairwise()[$i]['win'][$j] > $election->getPairwise()[$j]['win'][$i] ) :
                         $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i,$j,$election);
@@ -112,10 +114,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
             endforeach;
         endforeach;
 
-        foreach ($election->getCandidatesList() as $i => $i_value) :
-            foreach ($election->getCandidatesList() as $j => $j_value) :
+        foreach ($CandidatesKeys as $i) :
+            foreach ($CandidatesKeys as $j) :
                 if ($i !== $j) :
-                    foreach ($election->getCandidatesList() as $k => $k_value) :
+                    foreach ($CandidatesKeys as $k) :
                         if ($i !== $k && $j !== $k) :
                             $this->_StrongestPaths[$j][$k] =
                                 \max( $this->_StrongestPaths[$j][$k],

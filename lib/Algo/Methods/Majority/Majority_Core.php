@@ -59,8 +59,8 @@ abstract class Majority_Core extends Method implements MethodInterface
             $score[$round] = $roundScore;
 
             if ($round === 1) :
-                foreach ($election->getCandidatesList() as $oneCandidate) :
-                    $score[$round][$election->getCandidateKey($oneCandidate)] ??= 0.0;
+                foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
+                    $score[$round][$oneCandidateKey] ??= 0.0;
                 endforeach;
             endif;
 

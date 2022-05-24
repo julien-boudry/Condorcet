@@ -47,8 +47,8 @@ class BordaCount extends Method implements MethodInterface
         $election = $this->getElection();
         $score = [];
 
-        foreach ($election->getCandidatesList() as $oneCandidate) :
-            $score[$election->getCandidateKey($oneCandidate)] = 0;
+        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
+            $score[$oneCandidateKey] = 0;
         endforeach;
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :

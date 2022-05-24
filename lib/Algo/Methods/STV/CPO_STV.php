@@ -153,7 +153,7 @@ class CPO_STV extends SingleTransferableVote
                 foreach($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] as $candidateKey => $oneScore) :
                     $surplus = $oneScore - $this->votesNeededToWin;
 
-                    if ($surplus >= 0 && \in_array($candidateKey, $MainOutcomeR, true) && \in_array($candidateKey,$ComparedOutcomeR, true)) :
+                    if ($surplus >= 0 && \in_array($candidateKey, $MainOutcomeR, true) && \in_array($candidateKey, $ComparedOutcomeR, true)) :
                         $surplusToTransfer[$candidateKey] ?? $surplusToTransfer[$candidateKey] = ['surplus' => 0, 'total' => 0];
                         $surplusToTransfer[$candidateKey]['surplus'] += $surplus;
                         $surplusToTransfer[$candidateKey]['total'] += $oneScore;
