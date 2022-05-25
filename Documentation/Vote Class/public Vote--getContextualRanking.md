@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->getContextualRanking ( CondorcetPHP\Condorcet\Election $election [, bool $sortLastRankByName = true] ): array
+public Vote->getContextualRanking ( CondorcetPHP\Condorcet\Election $election ): array
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
@@ -11,10 +11,6 @@ Return the vote actual ranking complete for the contexte of the provide election
 
 ##### **election:** *```CondorcetPHP\Condorcet\Election```*   
 An election already linked to the Vote.    
-
-
-##### **sortLastRankByName:** *```bool```*   
-If false, performance can be increased for Implicit Ranking election.    
 
 
 ### Return value:   

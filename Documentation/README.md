@@ -1961,13 +1961,15 @@ _Including above methods from public API_
 * public __toString (): string  
 * public __wakeup (): void  
 * public addTags (array|string $tags): bool  
+* public computeContextualRanking (CondorcetPHP\Condorcet\Election $election, bool $sortLastRankByName): array  
 * public countLinks (): int  
 * public countRankingCandidates (): int  
 * public current (): array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public getAllCandidates (): array  
-* public getContextualRanking (CondorcetPHP\Condorcet\Election $election, bool $sortLastRankByName = true): array  
+* public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
+* public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $election): array  
 * public getCreateTimestamp (): float  
 * public getHashCode (): string  
 * public getHistory (): array  

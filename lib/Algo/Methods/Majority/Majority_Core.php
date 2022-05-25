@@ -126,7 +126,7 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             $weight = $oneVote->getWeight($election);
 
-            $oneRanking = $oneVote->getContextualRanking($election, false);
+            $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
 
             if ( !empty($this->_admittedCandidates) ) :
                 foreach ($oneRanking as $rankKey => $oneRank) :

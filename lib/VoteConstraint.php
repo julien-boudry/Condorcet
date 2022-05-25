@@ -14,7 +14,7 @@ abstract class VoteConstraint
 {
     public static function isVoteAllow (Election $election, Vote $vote): bool
     {
-        return static::evaluateVote($vote->getContextualRanking($election));
+        return static::evaluateVote($vote->getContextualRankingWithoutSort($election));
     }
 
     /**

@@ -53,7 +53,7 @@ class BordaCount extends Method implements MethodInterface
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
             $CandidatesRanked = 0;
-            $oneRanking = $oneVote->getContextualRanking($election, false);
+            $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
 
             foreach ($oneRanking as $oneRank) :
                 $rankScore = 0.0;

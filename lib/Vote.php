@@ -279,11 +279,27 @@ class Vote implements \Iterator, \Stringable
     public function getContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
-        #[FunctionParameter('If false, performance can be increased for Implicit Ranking election.')]
-        bool $sortLastRankByName = true
     ): array
     {
+        return $this->computeContextualRanking($election, true);
+    }
 
+    // For performances
+    public function getContextualRankingWithoutSort (
+        #[FunctionParameter('An election already linked to the Vote')]
+        Election $election,
+    ): array
+    {
+        return $this->computeContextualRanking($election, false);
+    }
+
+    public function computeContextualRanking (
+        #[FunctionParameter('An election already linked to the Vote')]
+        Election $election,
+        #[FunctionParameter('If false, performance can be increased for Implicit Ranking election.')]
+        bool $sortLastRankByName
+    ): array
+    {
         // Cache for internal use
         if (self::$cacheKey !== null && !$sortLastRankByName && $this->cacheMap->offsetExists(self::$cacheKey)) :
             return $this->cacheMap->offsetGet(self::$cacheKey);

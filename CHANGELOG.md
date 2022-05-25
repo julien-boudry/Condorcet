@@ -25,7 +25,7 @@ Implement the CPO-STV method, the second official module for a proportional meth
 - Permutation class renamed to Permutations
 - Use of \SplFixedArray some methods, improving memory and performances in some cases and for some methods.
 - Many performance improvements, especially for some methods and elections with a lot of candidates.
-- Methods can use a Vote->getContextualRanking() cache at the vote level, with a new internal API based on a WeakMap.
+- Methods can use a Vote->getContextualRankingWithoutSort() cache at the vote level, with a new internal API based on a WeakMap.
 
 #### Dev
 - Add Configuration for PHPStan
