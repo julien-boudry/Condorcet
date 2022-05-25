@@ -14,13 +14,8 @@ use SplFixedArray;
 
 class Combinations
 {
-    public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
+    public static function getNumberOfCombinations (int $count, int $length): int
     {
-        $count = \count($values);
-        $size = 2 ** $count;
-        $keys = \array_keys($values);
-
-        // Number of combinations
         $a = 1;
         for ($i = $count ; $i > ($count - $length) ; $i--) :
             $a = $a * $i;
@@ -31,10 +26,17 @@ class Combinations
             $b = $b * $i;
         endfor;
 
-        $combinations_count = (int) $a / $b;
+        return (int) $a / $b;
+    }
+
+    public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
+    {
+        $count = \count($values);
+        $size = 2 ** $count;
+        $keys = \array_keys($values);
 
         // Get the combinations
-        $return = new SplFixedArray($combinations_count);
+        $return = new SplFixedArray(self::getNumberOfCombinations($count, $length));
 
         $arrKey = 0;
         for ($i = 0; $i < $size; $i++) :
