@@ -28,8 +28,8 @@
 
 #### Methods speed test by Candidates numbers
 
-``` ./vendor/bin/phpbench run Benchmarks/MethodsNonProportionalBench.php --report=default ```
-``` ./vendor/bin/phpbench run Benchmarks/MethodsProportionalBench.php --report=default ```
+``` ./vendor/bin/phpbench run Benchmarks/MethodsNonProportionalBench.php --report=aggregate ```
+``` ./vendor/bin/phpbench run Benchmarks/MethodsProportionalBench.php --report=aggregate ```
 
 #### Kemeny-Young Speed & Memory Test
 
