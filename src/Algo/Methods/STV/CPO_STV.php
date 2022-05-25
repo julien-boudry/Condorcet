@@ -37,6 +37,10 @@ class CPO_STV extends SingleTransferableVote
     // Method Name
     public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
+    // Limits
+    # Can be very slow above 9 candidate, and impraticable above 12 candidates.
+    public static ?int $MaxCandidates = 12;
+
     public const DEFAULT_METHODS_CHAINING = [
         SchulzeMargin::METHOD_NAME[0],
         SchulzeWinning::METHOD_NAME[0],
