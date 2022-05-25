@@ -64,7 +64,7 @@ class CPO_STV extends SingleTransferableVote
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
     protected readonly array $candidatesEliminatedFromFirstRound;
-    protected array $outcomeComparisonTable = [];
+    protected SplFixedArray $outcomeComparisonTable;
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
     protected readonly array $completionMethodStats;
@@ -76,6 +76,7 @@ class CPO_STV extends SingleTransferableVote
     {
         Vote::initCache(); // Performances
         $this->outcomes = new SplFixedArray(0);
+        $this->outcomeComparisonTable = new SplFixedArray(0);
 
         $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
@@ -144,31 +145,35 @@ class CPO_STV extends SingleTransferableVote
     protected function compareOutcomes (): void
     {
         $election = $this->getElection();
+        $this->outcomeComparisonTable->setSize(Combinations::getNumberOfCombinations($this->outcomes->count(), 2));
+        $index = 0;
+        $key_done = [];
 
         foreach ($this->outcomes as $MainOutcomeKey => $MainOutcomeR) :
             foreach ($this->outcomes as $ComparedOutcomeKey => $ComparedOutcomeR) :
                 $outcomeComparisonKey = $this->getOutcomesComparisonKey($MainOutcomeKey, $ComparedOutcomeKey);
 
-                if ( $MainOutcomeKey === $ComparedOutcomeKey || \array_key_exists($outcomeComparisonKey, $this->outcomeComparisonTable) ) :
+                if ( $MainOutcomeKey === $ComparedOutcomeKey || \in_array($outcomeComparisonKey, $key_done, true) ) :
                     continue;
                 endif;
 
-                $this->outcomeComparisonTable[$outcomeComparisonKey] = [];
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'] = [];
+                $entry = [  'c_key' => $outcomeComparisonKey,
+                            'candidates_excluded' => [],
+                        ];
 
                 // Eliminate Candidates from Outcome
                 foreach (\array_keys($election->getCandidatesList()) as $candidateKey) :
                     if (!\in_array($candidateKey, $MainOutcomeR, true) && !\in_array($candidateKey, $ComparedOutcomeR, true)) :
-                        $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded'][] = $candidateKey;
+                        $entry['candidates_excluded'][] = $candidateKey;
                     endif;
                 endforeach;
 
                 // Make score again
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] = $this->makeScore(candidateEliminated: $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
+                $entry['scores_after_exclusion'] = $this->makeScore(candidateEliminated: $entry['candidates_excluded']);
 
                 $surplusToTransfer = [];
                 $winnerToJoin = [];
-                foreach($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_exclusion'] as $candidateKey => $oneScore) :
+                foreach($entry['scores_after_exclusion'] as $candidateKey => $oneScore) :
                     $surplus = $oneScore - $this->votesNeededToWin;
 
                     if ($surplus >= 0 && \in_array($candidateKey, $MainOutcomeR, true) && \in_array($candidateKey, $ComparedOutcomeR, true)) :
@@ -181,13 +186,13 @@ class CPO_STV extends SingleTransferableVote
 
                 $winnerFromFirstRound = \array_keys($winnerToJoin);
 
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $this->outcomeComparisonTable[$outcomeComparisonKey]['candidates_excluded']);
+                $entry['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $entry['candidates_excluded']);
 
                 // Outcome Score
                 $MainOutcomeScore = 0;
                 $ComparedOutcomeScore = 0;
 
-                foreach ($this->outcomeComparisonTable[$outcomeComparisonKey]['scores_after_surplus'] as $candidateKey => $candidateScore) :
+                foreach ($entry['scores_after_surplus'] as $candidateKey => $candidateScore) :
                     if (in_array($candidateKey, $MainOutcomeR, true)) :
                         $MainOutcomeScore += $candidateScore;
                     endif;
@@ -197,8 +202,10 @@ class CPO_STV extends SingleTransferableVote
                     endif;
                 endforeach;
 
-                $this->outcomeComparisonTable[$outcomeComparisonKey]['outcomes_scores'] = [$MainOutcomeKey => $MainOutcomeScore, $ComparedOutcomeKey => $ComparedOutcomeScore];
+                $entry['outcomes_scores'] = [$MainOutcomeKey => $MainOutcomeScore, $ComparedOutcomeKey => $ComparedOutcomeScore];
 
+                $key_done[] = $outcomeComparisonKey;
+                $this->outcomeComparisonTable[$index++] = $entry;
             endforeach;
         endforeach;
     }
@@ -328,12 +335,12 @@ class CPO_STV extends SingleTransferableVote
         endforeach;
 
         // Outcomes Comparison
-        foreach ($this->outcomeComparisonTable as $octKey => $octValue) :
+        foreach ($this->outcomeComparisonTable as $octValue) :
             foreach ($octValue as $octDetailsKey => $octDetailsValue) :
                 if ($octDetailsKey === 'candidates_excluded') :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
-                else :
-                    $stats['Outcomes Comparison'][$octKey][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
+                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
+                elseif (\is_array($octDetailsValue)) :
+                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
                 endif;
             endforeach;
         endforeach;
