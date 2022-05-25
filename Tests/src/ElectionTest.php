@@ -728,7 +728,7 @@ class ElectionTest extends TestCase
         );
 
         \unserialize(
-            file_get_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt")
+            file_get_contents("Tests/src/ElectionData/serialized_election_v3.2.0.txt")
         );
     }
 

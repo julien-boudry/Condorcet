@@ -46,12 +46,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CondorcetPHP\\Condorcet\\": "lib/"
+            "CondorcetPHP\\Condorcet\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CondorcetPHP\\Condorcet\\Tests\\": "Tests/lib/",
+            "CondorcetPHP\\Condorcet\\Tests\\": "Tests/src/",
             "CondorcetPHP\\Condorcet\\Tests\\Examples\\": "Tests/Examples/",
             "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/",
             "CondorcetPHP\\Condorcet\\Benchmarks\\": "Benchmarks"
