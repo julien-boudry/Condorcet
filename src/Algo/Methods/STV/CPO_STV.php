@@ -339,6 +339,8 @@ class CPO_STV extends SingleTransferableVote
             foreach ($octValue as $octDetailsKey => $octDetailsValue) :
                 if ($octDetailsKey === 'candidates_excluded') :
                     $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
+                elseif ($octDetailsKey === 'outcomes_scores') :
+                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $octDetailsValue;
                 elseif (\is_array($octDetailsValue)) :
                     $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
                 endif;
