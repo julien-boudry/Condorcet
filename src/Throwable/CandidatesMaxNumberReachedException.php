@@ -10,15 +10,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class CandidatesMaxNumberReachedException extends CondorcetPublicApiException
+class CandidatesMaxNumberReachedException extends MethodLimitReachedException
 {
     protected $message = "Maximum number of candidates reached";
 
-    public function __construct (string $method = '', int $maxCandidates = 0)
-    {
-        parent::__construct(
-            "The method '$method' " .
-            "is configured to accept only " . $maxCandidates . " candidates"
-        );
+    public function __construct (string $method, int $maxCandidates)
+    {       
+        parent::__construct($method,    "$this->message: ".
+                                        "The method '$method' " .
+                                        "is configured to accept only $maxCandidates candidates");
     }
 }

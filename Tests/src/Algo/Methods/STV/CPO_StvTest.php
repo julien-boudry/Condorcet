@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
+use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use PHPUnit\Framework\TestCase;
 
 class CPO_StvTest extends TestCase
@@ -116,5 +117,19 @@ class CPO_StvTest extends TestCase
 
         self::assertSame([1=>'A',2=>['B','D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
+
+    public function testLimit1 (): void
+    {
+        $this->expectException(MethodLimitReachedException::class);
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+
+
+        $this->election->setNumberOfSeats(10);
+        $this->election->parseCandidates('1;2;3;4;5;6;7;8;9;10;11;12;13;14;15');
+        $this->election->addVote('1>2');
+        
+        $this->election->getResult('CPO STV');
+    }
+
 
 }

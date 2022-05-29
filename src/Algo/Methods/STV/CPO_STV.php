@@ -28,6 +28,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use CondorcetPHP\Condorcet\Vote;
 use SplFixedArray;
 
@@ -35,11 +36,10 @@ use SplFixedArray;
 class CPO_STV extends SingleTransferableVote
 {
     // Method Name
-    public const METHOD_NAME = ['CPO STV', 'CPO_STV', 'CPO-STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
+    public const METHOD_NAME = ['CPO STV', 'CPO-STV', 'CPO_STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     // Limits
-    # Can be very slow above 9 candidate, and impraticable above 12 candidates.
-    public static ?int $MaxCandidates = 12;
+    public static ?int $MaxOutcomeComparison = 12_000;
 
     public const DEFAULT_METHODS_CHAINING = [
         SchulzeMargin::METHOD_NAME[0],
@@ -94,10 +94,22 @@ class CPO_STV extends SingleTransferableVote
         $this->candidatesEliminatedFromFirstRound = \array_diff(\array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
+            $numberOfComparisons =
+            Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+                                                                count: \count($this->candidatesEliminatedFromFirstRound),
+                                                                length: $numberOfCandidatesNeededToComplete),
+                                                    length: 2);
+            
+            if (self::$MaxOutcomeComparison !== null && $numberOfComparisons > self::$MaxOutcomeComparison) :
+                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparison.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+            endif;
+
+
             // Compute all possible Ranking
             $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
 
             // Compare it
+            $this->outcomeComparisonTable->setSize($numberOfComparisons);
             $this->compareOutcomes();
 
             // Select the best with a Condorcet method
@@ -145,7 +157,6 @@ class CPO_STV extends SingleTransferableVote
     protected function compareOutcomes (): void
     {
         $election = $this->getElection();
-        $this->outcomeComparisonTable->setSize(Combinations::getNumberOfCombinations($this->outcomes->count(), 2));
         $index = 0;
         $key_done = [];
 
