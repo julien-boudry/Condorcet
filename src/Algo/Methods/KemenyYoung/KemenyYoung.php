@@ -65,11 +65,10 @@ class KemenyYoung extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->_PossibleRanking as $key => $value) :
-            $explicit[$key] = $value;
-
             // Human readable
-            foreach ($explicit[$key] as &$candidate_key) :
-                $candidate_key = $election->getCandidateObjectFromKey($candidate_key)->getName();
+            $i = 1;
+            foreach ($value as $candidate_key) :
+                $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
             endforeach;
 
             $explicit[$key]['score'] = $this->_RankingScore[$key];
@@ -110,30 +109,31 @@ class KemenyYoung extends Method implements MethodInterface
     protected function calcPossibleRanking (): void
     {
         $election = $this->getElection();
-        $this->_PossibleRanking = new SplFixedArray(Permutations::countPossiblePermutations($election->countCandidates()));
+        $electionCandidatesCount = $election->countCandidates();
+        $this->_PossibleRanking = new SplFixedArray(Permutations::countPossiblePermutations($electionCandidatesCount));
 
         $i = 0;
         $search = [];
         $replace = [];
 
-        foreach ($election->getCandidatesList() as $candidate_id => $candidate_name) :
+        foreach (\array_keys($election->getCandidatesList()) as $candidate_key) :
             $search[] = $i++;
-            $replace[] = $candidate_id;
+            $replace[] = $candidate_key;
         endforeach;
 
         /** @infection-ignore-all */
-        $path = self::$cachePath.$election->countCandidates().'.data';
+        $path = self::$cachePath.$electionCandidatesCount.'.data';
         $f = new \SplFileInfo($path);
 
         // Create cache file if not exist, or temp cache file if candidates count > 9
         if (self::$devWriteCache || !$f->isFile()) :
-            if (!self::$devWriteCache && !$f->isFile() && $election->countCandidates() > 9) :
+            if (!self::$devWriteCache && !$f->isFile() && $electionCandidatesCount > 9) :
                 $f = new \SplTempFileObject();
             else :
                 $f = new \SplFileObject($f->getPathname(), 'w+');
             endif;
 
-            (new Permutations ($election->countCandidates()))->writeResults($f);
+            (new Permutations ($electionCandidatesCount))->writeResults($f);
         endif;
 
         // Read Cache & Compute
@@ -155,8 +155,8 @@ class KemenyYoung extends Method implements MethodInterface
                 $oneCandidateId = $replace[(int) $oneCandidateId];
             endforeach;
 
-            $resultToRegister = [];
-            $rank = 1;
+            $resultToRegister = new SplFixedArray($electionCandidatesCount);
+            $rank = 0;
             foreach($oneResult as $oneCandidate) :
                 $resultToRegister[$rank++] = (int) $oneCandidate;
             endforeach;
@@ -195,6 +195,11 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking (): void
     {
-        $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ]);
+        $winnerRanking = $this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ];
+
+        $winnerRanking = \array_merge([0 => null], $winnerRanking->toArray());
+        unset($winnerRanking[0]);
+
+        $this->_Result = $this->createResult($winnerRanking);
     }
 }
