@@ -39,7 +39,7 @@ class CPO_STV extends SingleTransferableVote
     public const METHOD_NAME = ['CPO STV', 'CPO-STV', 'CPO_STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     // Limits
-    public static ?int $MaxOutcomeComparison = 12_000;
+    public static ?int $MaxOutcomeComparisons = 12_000;
 
     public const DEFAULT_METHODS_CHAINING = [
         SchulzeMargin::METHOD_NAME[0],
@@ -100,8 +100,8 @@ class CPO_STV extends SingleTransferableVote
                                                                 length: $numberOfCandidatesNeededToComplete),
                                                     length: 2);
             
-            if (self::$MaxOutcomeComparison !== null && $numberOfComparisons > self::$MaxOutcomeComparison) :
-                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparison.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+            if (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons) :
+                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparisons.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
             endif;
 
 
