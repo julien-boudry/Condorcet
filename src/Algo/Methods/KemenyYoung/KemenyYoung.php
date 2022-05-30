@@ -33,6 +33,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     // Cache
     public static bool $devWriteCache = false;
+    public static string $cachePath = __DIR__ . '/KemenyYoung-Data/';
 
     // Kemeny Young
     protected SplFixedArray $_PossibleRanking;
@@ -121,7 +122,7 @@ class KemenyYoung extends Method implements MethodInterface
         endforeach;
 
         /** @infection-ignore-all */
-        $path = __DIR__ . '/KemenyYoung-Data/'.$election->countCandidates().'.data';
+        $path = self::$cachePath.$election->countCandidates().'.data';
         $f = new \SplFileInfo($path);
 
         // Create cache file if not exist, or temp cache file if candidates count > 9
