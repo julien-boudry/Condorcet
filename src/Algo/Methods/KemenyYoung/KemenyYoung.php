@@ -197,7 +197,7 @@ class KemenyYoung extends Method implements MethodInterface
     {
         $winnerRanking = $this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ];
 
-        $winnerRanking = \array_merge([0 => null], $winnerRanking->toArray());
+        $winnerRanking = [null, ...$winnerRanking->toArray()];
         unset($winnerRanking[0]);
 
         $this->_Result = $this->createResult($winnerRanking);
