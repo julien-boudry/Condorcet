@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
+use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
@@ -21,6 +22,7 @@ class MethodsNonProportionalBench
     public function __construct ()
     {
         RankedPairs_Core::$MaxCandidates = null;
+        KemenyYoung::$MaxCandidates = 9;
     }
 
 
@@ -69,13 +71,15 @@ class MethodsNonProportionalBench
     #[Bench\OutputTimeUnit('seconds')]
     #[Bench\ParamProviders(['provideMethods', 'provideNumberOfCandidates'])]
     #[Bench\BeforeMethods('setUp')]
-    #[Bench\Warmup(0)]
-    #[Bench\Iterations(1)]
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(10)]
     #[Bench\Revs(1)]
     public function benchByCandidates (array $params): void
     {
         try {
             $result = $this->election->getResult($params['method']);
         } catch (CandidatesMaxNumberReachedException $e) {}
+
+        $this->election->cleanupCalculator();
     }
 }
