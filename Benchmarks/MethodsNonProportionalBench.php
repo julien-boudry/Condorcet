@@ -29,7 +29,7 @@ class MethodsNonProportionalBench
     protected function buildElection (int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;
-        $this->election->setNumberOfSeats((int) ($numberOfCandidates / 3));
+        $this->election->setNumberOfSeats(max(1, (int) ($numberOfCandidates / 3)));
 
         $candidates = [];
 
