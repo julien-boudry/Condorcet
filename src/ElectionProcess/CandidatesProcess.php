@@ -76,11 +76,7 @@ trait CandidatesProcess
 
     public function getCandidateObjectFromKey (int $candidate_key): ?Candidate
     {
-        if (!\array_key_exists($candidate_key, $this->_Candidates)) :
-            return null;
-        else :
-            return $this->_Candidates[$candidate_key];
-        endif;
+        return $this->_Candidates[$candidate_key] ?? null;
     }
 
     #[PublicAPI]
