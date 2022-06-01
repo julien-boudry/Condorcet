@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 require_once __DIR__.'/../__CondorcetAutoload.php';
 
 ///
-    $max_candidates_count = 8;
+    $max_candidates_count = KemenyYoung::$MaxCandidates;
 ///
 
     $election = new Election;
