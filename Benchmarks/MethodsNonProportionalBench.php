@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
+use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
@@ -21,6 +22,7 @@ class MethodsNonProportionalBench
     public function __construct ()
     {
         RankedPairs_Core::$MaxCandidates = null;
+        KemenyYoung::$MaxCandidates = 10;
     }
 
 
