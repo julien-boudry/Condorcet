@@ -145,7 +145,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected function getPossibleRankingIterator (): \Generator
     {
         $this->_file->rewind();
-        
+
         while (!$this->_file->eof()) :
             $key = $this->_file->key();
 
@@ -207,12 +207,14 @@ class KemenyYoung extends Method implements MethodInterface
     protected function makeRanking (): void
     {
         $this->_file->seek(\array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true));
-        
+
         $winnerRanking = $this->convertLineToRanking($this->_file->fgets());
 
         $winnerRanking = [null, ...$winnerRanking->toArray()];
         unset($winnerRanking[0]);
 
         $this->_Result = $this->createResult($winnerRanking);
+
+        $this->_file = null;
     }
 }
