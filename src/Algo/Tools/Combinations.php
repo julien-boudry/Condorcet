@@ -26,7 +26,7 @@ class Combinations
             $b = $b * $i;
         endfor;
 
-        return (int) $a / $b;
+        return (int) ($a / $b);
     }
 
     public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
