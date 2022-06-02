@@ -127,8 +127,29 @@ class CPO_StvTest extends TestCase
         $this->election->setNumberOfSeats(10);
         $this->election->parseCandidates('1;2;3;4;5;6;7;8;9;10;11;12;13;14;15');
         $this->election->addVote('1>2');
-        
+
         $this->election->getResult('CPO STV');
+    }
+
+    public function testCPO40Candidates (): void
+    {
+        $this->expectException(MethodLimitReachedException::class);
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+
+        $this->election->setImplicitRanking(false);
+        $this->election->setNumberOfSeats((int) (40 / 3));
+
+        $candidates = [];
+        for ($i=0 ; $i < 40 ; $i++) :
+            $candidates[] = $this->election->addCandidate();
+        endfor;
+
+        for ($i = 0 ; $i < 100 ; $i++):
+            \shuffle($candidates);
+            $this->election->addVote($candidates);
+        endfor;
+
+        $this->election->getResult('CPO STV')->getResultAsString();
     }
 
 

@@ -28,6 +28,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use CondorcetPHP\Condorcet\Vote;
 use SplFixedArray;
@@ -94,13 +95,17 @@ class CPO_STV extends SingleTransferableVote
         $this->candidatesEliminatedFromFirstRound = \array_diff(\array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
-            $numberOfComparisons =
-            Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
-                                                                count: \count($this->candidatesEliminatedFromFirstRound),
-                                                                length: $numberOfCandidatesNeededToComplete),
-                                                    length: 2);
-            
-            if (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons) :
+            try {
+                $numberOfComparisons =  Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+                                                                                    count: \count($this->candidatesEliminatedFromFirstRound),
+                                                                                    length: $numberOfCandidatesNeededToComplete
+                                                                                ),
+                                                                                length: 2);
+            } catch (IntegerOverflowException) {
+                $numberOfComparisons = false;
+            }
+
+            if ($numberOfComparisons === false || (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons) ) :
                 throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparisons.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
             endif;
 

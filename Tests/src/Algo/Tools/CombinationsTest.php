@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use PHPUnit\Framework\TestCase;
 
 
@@ -20,5 +21,12 @@ class CombinationsTest extends TestCase
         $this->expectException(CondorcetInternalException::class);
 
         Combinations::getNumberOfCombinations(2,3);
+    }
+
+    public function testIntegerOverflow (): void
+    {
+        $this->expectException(IntegerOverflowException::class);
+
+        Combinations::getNumberOfCombinations(\PHP_INT_MAX - 1, 2);
     }
 }

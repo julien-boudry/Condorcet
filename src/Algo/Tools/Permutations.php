@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use Brick\Math\BigInteger;
+use Brick\Math\Exception\IntegerOverflowException;
+use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
@@ -21,13 +24,17 @@ class Permutations
 
     public static function countPossiblePermutations (int $candidatesNumber): int
     {
-        $result = $candidatesNumber;
+        $result = BigInteger::of($candidatesNumber);
 
         for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
-            $result = $result * ($candidatesNumber - $iteration);
+            $result = $result->multipliedBy($candidatesNumber - $iteration);
         endfor;
 
-        return $result;
+        try {
+            return $result->toInt();
+        } catch (IntegerOverflowException $e) {
+            throw new CondorcetIntegerOverflowException($e->getMessage());
+        }
     }
 
     public function __construct (int $arr_count)

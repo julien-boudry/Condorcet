@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use Brick\Math\BigInteger;
+use Brick\Math\Exception\IntegerOverflowException;
+use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use SplFixedArray;
 
@@ -21,17 +24,21 @@ class Combinations
             throw new CondorcetInternalException('Parameters invalid');
         endif;
 
-        $a = 1;
+        $a = BigInteger::of(1);
         for ($i = $count ; $i > ($count - $length) ; $i--) :
-            $a = $a * $i;
+            $a = $a->multipliedBy($i);
         endfor;
 
-        $b = 1;
+        $b = BigInteger::of(1);
         for ($i = $length ; $i > 0 ; $i--) :
-            $b = $b * $i;
+            $b = $b->multipliedBy($i);
         endfor;
 
-        return (int) ($a / $b);
+        try {
+            return $a->dividedBy($b)->toInt();
+        } catch (IntegerOverflowException $e) {
+            throw new CondorcetIntegerOverflowException($e->getMessage());
+        }
     }
 
     public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
