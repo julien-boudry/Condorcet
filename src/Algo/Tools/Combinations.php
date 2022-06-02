@@ -10,12 +10,17 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
 use SplFixedArray;
 
 class Combinations
 {
     public static function getNumberOfCombinations (int $count, int $length): int
     {
+        if ($count < 1 || $length < 1 || $count < $length) :
+            throw new CondorcetInternalException('Parameters invalid');
+        endif;
+
         $a = 1;
         for ($i = $count ; $i > ($count - $length) ; $i--) :
             $a = $a * $i;
