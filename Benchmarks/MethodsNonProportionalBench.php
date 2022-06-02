@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
+use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use PhpBench\Attributes as Bench;
 ini_set('memory_limit','51200M');
 
@@ -78,7 +78,7 @@ class MethodsNonProportionalBench
     {
         try {
             $result = $this->election->getResult($params['method']);
-        } catch (CandidatesMaxNumberReachedException $e) {}
+        } catch (MethodLimitReachedException $e) {}
 
         $this->election->cleanupCalculator();
     }
