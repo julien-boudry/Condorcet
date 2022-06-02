@@ -35,9 +35,15 @@ class KemenyYoung extends Method implements MethodInterface
     public static bool $devWriteCache = false;
     public static string $cachePath = __DIR__ . '/KemenyYoung-Data/';
 
-    // Kemeny Young
-    protected SplFixedArray $_PossibleRanking;
+    // Kemeny Young Object
     protected array $_RankingScore = [];
+    protected ?\SplFileObject $_file;
+
+    // Cache
+    protected readonly int $countElectionCandidates;
+    protected readonly array $candidatesKey;
+    protected readonly array $candidateKeyMapping;
+    protected readonly int $countPossibleRanking;
 
 
 /////////// PUBLIC ///////////
@@ -48,10 +54,16 @@ class KemenyYoung extends Method implements MethodInterface
     {
         // Cache
         if ( $this->_Result === null ) :
-            $this->calcPossibleRanking();
+            $this->countElectionCandidates = $this->getElection()->countCandidates();
+            $this->candidatesKey = \array_keys($this->getElection()->getCandidatesList());
+            $this->candidateKeyMapping = \range(0, $this->countElectionCandidates - 1);
+            $this->countPossibleRanking = Permutations::countPossiblePermutations($this->countElectionCandidates);
+
+            $this->prepareFileCache();
             $this->calcRankingScore();
             $this->makeRanking();
             $this->conflictInfos();
+            $this->_file = null;
         endif;
 
         // Return
@@ -64,12 +76,11 @@ class KemenyYoung extends Method implements MethodInterface
         $election = $this->getElection();
         $explicit = [];
 
-        foreach ($this->_PossibleRanking as $key => $value) :
-            $explicit[$key] = $value;
-
+        foreach ($this->getPossibleRankingIterator() as $key => $value) :
             // Human readable
-            foreach ($explicit[$key] as &$candidate_key) :
-                $candidate_key = $election->getCandidateObjectFromKey($candidate_key)->getName();
+            $i = 1;
+            foreach ($value as $candidate_key) :
+                $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
             endforeach;
 
             $explicit[$key]['score'] = $this->_RankingScore[$key];
@@ -107,72 +118,72 @@ class KemenyYoung extends Method implements MethodInterface
 
     //:: Kemeny-Young ALGORITHM. :://
 
-    protected function calcPossibleRanking (): void
+    protected function prepareFileCache (): void
     {
-        $election = $this->getElection();
-        $this->_PossibleRanking = new SplFixedArray(Permutations::countPossiblePermutations($election->countCandidates()));
-
-        $i = 0;
-        $search = [];
-        $replace = [];
-
-        foreach ($election->getCandidatesList() as $candidate_id => $candidate_name) :
-            $search[] = $i++;
-            $replace[] = $candidate_id;
-        endforeach;
-
         /** @infection-ignore-all */
-        $path = self::$cachePath.$election->countCandidates().'.data';
+        $path = self::$cachePath.$this->countElectionCandidates.'.data';
         $f = new \SplFileInfo($path);
 
         // Create cache file if not exist, or temp cache file if candidates count > 9
         if (self::$devWriteCache || !$f->isFile()) :
-            if (!self::$devWriteCache && !$f->isFile() && $election->countCandidates() > 9) :
-                $f = new \SplTempFileObject();
+            if (!self::$devWriteCache && !$f->isFile() && $this->countElectionCandidates > 9) :
+                $this->_file = new \SplTempFileObject();
             else :
-                $f = new \SplFileObject($f->getPathname(), 'w+');
+                $this->_file = new \SplFileObject($f->getPathname(), 'w+');
             endif;
 
-            (new Permutations ($election->countCandidates()))->writeResults($f);
+            (new Permutations ($this->countElectionCandidates))->writeResults($this->_file);
+        else :
+            if (!($f instanceof \SplFileObject)) :
+                $this->_file = $f->openFile('r');
+            else:
+                $this->_file = $f;
+            endif;
         endif;
+    }
 
-        // Read Cache & Compute
-        if (!($f instanceof \SplFileObject)) :
-            $f = $f->openFile('r');
-        endif;
+    protected function getPossibleRankingIterator (): \Generator
+    {
+        $this->_file->rewind();
+        
+        while (!$this->_file->eof()) :
+            $key = $this->_file->key();
 
-        $f->rewind();
-
-        $arrKey = 0;
-        while (!$f->eof()) :
-            $l = trim($f->fgets());
-
+            $l = trim($this->_file->fgets());
             if (\strlen($l) < 1) : continue; endif;
 
-            $oneResult = explode(',', $l);
+            $onePossibleRanking = $this->convertLineToRanking($l);
 
-            foreach ($oneResult as &$oneCandidateId) :
-                $oneCandidateId = $replace[(int) $oneCandidateId];
-            endforeach;
-
-            $resultToRegister = [];
-            $rank = 1;
-            foreach($oneResult as $oneCandidate) :
-                $resultToRegister[$rank++] = (int) $oneCandidate;
-            endforeach;
-
-            $this->_PossibleRanking[$arrKey++] = $resultToRegister;
+            yield $key => $onePossibleRanking;
         endwhile;
+    }
+
+    protected function convertLineToRanking (string $line): SplFixedArray
+    {
+        $oneResult = explode(',', $line);
+
+        foreach ($oneResult as &$oneCandidateId) :
+            $oneCandidateId = $this->candidatesKey[(int) $oneCandidateId];
+        endforeach;
+
+        $onePossibleRanking = new SplFixedArray($this->countElectionCandidates);
+        $rank = 0;
+        foreach($oneResult as $oneCandidate) :
+            $onePossibleRanking[$rank++] = (int) $oneCandidate;
+        endforeach;
+
+        return $onePossibleRanking;
     }
 
     protected function calcRankingScore (): void
     {
         $pairwise = $this->getElection()->getPairwise();
 
-        foreach ($this->_PossibleRanking as $keyScore => $ranking) :
+        foreach ($this->getPossibleRankingIterator() as $keyScore => $onePossibleRanking) :
             $this->_RankingScore[$keyScore] = 0;
 
             $do = [];
+            $ranking = $onePossibleRanking;
 
             foreach ($ranking as $candidateId) :
                 $do[] = $candidateId;
@@ -195,6 +206,13 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking (): void
     {
-        $this->_Result = $this->createResult($this->_PossibleRanking[ \array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true) ]);
+        $this->_file->seek(\array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true));
+        
+        $winnerRanking = $this->convertLineToRanking($this->_file->fgets());
+
+        $winnerRanking = [null, ...$winnerRanking->toArray()];
+        unset($winnerRanking[0]);
+
+        $this->_Result = $this->createResult($winnerRanking);
     }
 }

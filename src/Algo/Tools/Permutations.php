@@ -79,7 +79,7 @@ class Permutations
             $i[] = $a;
 
             // Del 0 key, first key must be 1.
-            $r = [...[0=>null],...$i];
+            $r = [null,...$i];
             unset($r[0]);
 
             $this->results[$this->arrKey++] = $r;

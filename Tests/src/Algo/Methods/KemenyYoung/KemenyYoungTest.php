@@ -168,7 +168,7 @@ class KemenyYoungTest extends TestCase
         $this->election->getResult( 'KemenyYoung' ) ;
         KemenyYoung::$devWriteCache = false;
 
-        self::assertSame(true,true);
+        self::assertTrue(true);
     }
 
     public function testKemenyWithOnly1Candidate ()
@@ -178,5 +178,21 @@ class KemenyYoungTest extends TestCase
         $this->election->addVote($candidate);
 
         self::assertSame($candidate[0],$this->election->getWinner('KemenyYoung'));
+    }
+
+    public function testKemenyWith10Candidates ()
+    {
+        $original = KemenyYoung::$MaxCandidates;
+        KemenyYoung::$MaxCandidates = null;
+        
+        for ($i=0;$i<10;$i++):
+            $candidates[] = $this->election->addCandidate();
+        endfor;
+
+        $this->election->addVote($candidates);
+
+        self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+
+        KemenyYoung::$MaxCandidates = $original;
     }
 }
