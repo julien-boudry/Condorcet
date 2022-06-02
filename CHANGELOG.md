@@ -10,22 +10,22 @@ Implement the CPO-STV method, the second official module for a proportional meth
 #### Voting Methods
 - New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
 #### TieBreaker
-- New Tie Breaker method TieBreaker::TieBreakerWithAnotherMethods, chaining method to break a tie
-- Fix and test the existing first tie-breaker method
-#### Converter
+- New Tie Breaker method ```TieBreaker::TieBreakerWithAnotherMethods```, chaining method to break a tie
+
 - Condorcet Election Format: Ability to parse candidates directly from votes, if not specified with the parameters first. According to the V1 specification of the format.
 ### Changed
 - A candidate's name can be equal to the string "0"
 - Methods options can technically be string or array, first use for the CPO-STV tie breaker
 - Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
-- Kemeny-Young default limit of candidates up from 8 to 9, thanks to performance optimizations, still requiring more than 700Mb of memory
+- Extensive rewriting of the Kemeny-Young voting method engine, allowing easy use in 9-candidate and reasonable 10-candidate performances.
+- ```Throwable\CandidatesMaxNumberReachedException``` used ind Kemeny-Young and Ranked Pairs now extends ```Throwable\MethodLimitReachedException```, and you should prefer catch the second one.
 
 ### Internal changes
 #### Engine
-- Permutation class renamed to Permutations
-- Use of \SplFixedArray some methods, improving memory and performances in some cases and for some methods.
+- ```Permutation``` class renamed to ```Permutations```
+- Use of ```\SplFixedArray``` some methods, improving memory and performances in some cases and for some methods.
 - Many performance improvements, especially for some methods and elections with a lot of candidates.
-- Methods can use a Vote->getContextualRankingWithoutSort() cache at the vote level, with a new internal API based on a WeakMap.
+- Methods can use a ```Vote->getContextualRankingWithoutSort()``` cache at the vote level, with a new internal API based on a WeakMap.
 
 #### Dev
 - Add Configuration for PHPStan
@@ -35,7 +35,7 @@ Implement the CPO-STV method, the second official module for a proportional meth
 ## [v3.3.3] - 2022-05-02
 
 ### Changed
-- Election::getVotesListAsString() will be ordered in a strict and predictable manner.
+- ```Election::getVotesListAsString()``` will be ordered in a strict and predictable manner.
 - Some methods (based on Borda, Majority, STV) they now work with a lower level of decimal precision. This avoids the accumulation of rounding differences, leading in some cases to tiny differences in statistics and extremely rarely, in differences in results (in case of extremely close elections with ties on ballot allowed) depending on the order in which the votes were entered in the election. This can result in unpredictable behavior that is uncomfortable for testing or accurate reproducibility. However, the behavior in these extreme cases can not be guaranteed 100%, even if it becomes even more rare and impractical. Pairwise methods (typically Condorcet methods) are not affected by this change. 
 
 ## [v3.3.2] - 2022-05-01
@@ -197,14 +197,14 @@ Move to PHP 7.4 version. And add a console application for command line usage!
 - Docker file for building Condorcet image. For very easy access to the command line application.
 - Official compiled PHAR files are now available for each version on the release page.
 - Json input can include vote weight.
-- New method Election::parseVotesWithoutFail allowing to ignore the bad vote, and useful for low and constant memory usage.
+- New method ```Election::parseVotesWithoutFail()``` allowing to ignore the bad vote, and useful for low and constant memory usage.
 
 ### Changed
 - PHP 7.4 is the new minimal PHP version required.
 - MBSTRING PHP extension is not requiered anymore.
-- Election::allowVoteWeight() renamed to Election::allowsVoteWeight()
-- Vote::getSimpleRanking() allow a new optional parameter $displayWeight.
-- Vote::getWeight() allow a new optional parameter $context and if providing returning ranking in context of an election instead theorical ranking.
+- ```Election::allowVoteWeight()``` renamed to Election::allowsVoteWeight()
+- ```Vote::getSimpleRanking()``` allow a new optional parameter $displayWeight.
+- ```Vote::getWeight()``` allow a new optional parameter $context and if providing returning ranking in context of an election instead theorical ranking.
 
 ### Internal changes
 - Use PHP 7.4 new types on property. For security and performance reasons.
@@ -223,13 +223,13 @@ Small but many API changes (renaming, rationalization), sometimes on main method
 
 ### Added
 - Very significant efforts about the documentation. Still in progress.
-- Add two distincts methods Election::getCondorcetWinner() & Election::getCondorcetLoser(). the result are strictly equivalent to Election::getWinner(null) & Election::getWinner(null) but it's more explicit. And it is consistent with the homonymous methods of the result object.
+- Add two distincts methods Election::getCondorcetWinner() & Election::getCondorcetLoser(). the result are strictly equivalent to ```Election::getWinner(null)``` & ```Election::getLoser(null)``` but it's more explicit. And it is consistent with the homonymous methods of the result object.
 
 ### Changed
-- Use new vendor namespace \CondorcetPHP instead \Condorcet because we don't have the Github Condorcet ID for this last one. The new base namespace is \CondorcetPHP\Condorcet\
+- Use new vendor namespace ```\CondorcetPHP``` instead ```\Condorcet``` because we don't have the Github Condorcet ID for this last one. The new base namespace is ```\CondorcetPHP\Condorcet\```
 - Adding votes or candidates from Json or string parsing, will not check if all of them are valid. And only if all are valid, then they are registered. Previously, an exception was sent to the first error, but the status remained partially recorded.
 - Many methods have been renamed or divided for greater consistency and intelligibility. Some parameters may have changed or used a more strict type. 
-- CondorcertException class moves to a new namespace Throwable\CondorcetException. Condorcet can now also throw Trowable\CondorcetInternalError error.
+- CondorcertException class moves to a new namespace ```Throwable\CondorcetException```. Condorcet can now also throw Trowable\CondorcetInternalError error.
 - Some change on "Schulze Ratio" method computation, can affect the result of some type of election. It's still imperfect due to a case that the theory doesn't take into account. However, very small or very typical elections will have more logical results. The more common Winning & Margin methods are not affected.
 - Many other various fixes.
 - New Condorcet logo.
@@ -298,15 +298,15 @@ Firstly, the improvement and finishing of the internal structure, often for the 
 The second part concerns the continued improvement of the management of the very large elections.
 
 ### Added
-- Add \CondorcetPHP\Election::getVotesListGenerator and \CondorcetPHP\DataManager\VotesManager::getVotesListGenerator methods. Same as getVotesList method, but output a PHP generator instead of full array. Useful only for working on vera large election with an external DataHandler.
+- Add ```\CondorcetPHP\Election::getVotesListGenerator``` and ```\CondorcetPHP\DataManager\VotesManager::getVotesListGenerator``` methods. Same as getVotesList method, but output a PHP generator instead of full array. Useful only for working on vera large election with an external DataHandler.
 
 ### Changed
-- \CondorcetPHP\Condorcet::format() method move to \CondorcetPHP\CondorcetUtil::format()
-- \CondorcetPHP\CondorcetUtil::format() can no longer optionally produce a var_dump(). You must do it yourself.
-- Remove \CondorcetPHP\Election::getVoteByKey() method
-- Fix \CondorcetPHP\Election cloning issues
+- ```\CondorcetPHP\Condorcet::format()``` method move to \CondorcetPHP\CondorcetUtil::format()
+- ```\CondorcetPHP\CondorcetUtil::format()``` can no longer optionally produce a var_dump(). You must do it yourself.
+- Remove ```\CondorcetPHP\Election::getVoteByKey(```) method
+- Fix ```\CondorcetPHP\Election``` cloning issues
 - Simply DataHandlerDriverInterface
-- Optimize \CondorcetPHP\Election::countVotes and \CondorcetPHP\DataManager\VotesManager::countVotes methods performance and memory usage in case of using an external DataHandler.
+- Optimize ```\CondorcetPHP\Election::countVotes``` and ```\CondorcetPHP\DataManager\VotesManager::countVotes``` methods performance and memory usage in case of using an external DataHandler.
 
 ### Internal changes
 - Cut out some classes and functions into smaller sub-groups.
@@ -375,8 +375,8 @@ If you do not store the Election object by serializing it, you are not affected.
 
 ## [v1.3.1] - 2017-09-18
 ### Fixed
-- Bugfix : Vote::getSimpleVote()
-- Vote::getContextualVote() is renamed Vote::getContextualRanking()
+- Bugfix : ```Vote::getSimpleVote()```
+- ```Vote::getContextualVote()``` is renamed ```Vote::getContextualRanking()```
 
 ## [v1.3.0] - 2017-09-17
 ### Description
@@ -409,10 +409,10 @@ If you vote by string or Json input : Nothing changes. Either a new candidate wi
 
 ## [v1.2.3] - 2017-09-03
 ### Changed
-- The method Candidate::getName no longer takes an argument.
+- The method ```Candidate::getName``` no longer takes an argument.
 
 ### Fixed
-- More strict array key on Vote::getContextualVote method
+- More strict array key on ```Vote::getContextualVote``` method
 - Various bugfix
 - First PHP Unit tests
 
