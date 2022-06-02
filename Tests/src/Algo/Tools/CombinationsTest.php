@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
-use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use PHPUnit\Framework\TestCase;
 
 

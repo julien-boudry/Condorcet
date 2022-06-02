@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter, Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Throwable\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 
 trait Linkable
 {
@@ -71,7 +71,7 @@ trait Linkable
         if ( !$this->haveLink($election) ) : // haveLink will initWeakmap if necessary
             $this->_link->offsetSet($election, true);
         else :
-            throw new CondorcetInternalException ('Link is already registered.');
+            throw new CondorcetInternalException('Link is already registered.');
         endif;
     }
 

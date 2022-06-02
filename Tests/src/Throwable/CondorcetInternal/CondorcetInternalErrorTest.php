@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Throwable\CondorcetInternalError;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetInternalErrorTest extends TestCase
