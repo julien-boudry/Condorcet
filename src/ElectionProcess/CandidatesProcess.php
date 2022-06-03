@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VoteMaxNumberReachedException, VotingHasStartedException};
@@ -63,6 +63,7 @@ trait CandidatesProcess
         return $result;
     }
 
+    #[InternalModulesAPI]
     public function getCandidateKey (Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) :
@@ -74,6 +75,7 @@ trait CandidatesProcess
         return ($r !== false) ? $r : null;
     }
 
+    #[InternalModulesAPI]
     public function getCandidateObjectFromKey (int $candidate_key): ?Candidate
     {
         return $this->_Candidates[$candidate_key] ?? null;

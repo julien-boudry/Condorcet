@@ -12,11 +12,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Examples, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Examples, FunctionReturn, InternalModulesAPI, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 // Generic for Algorithms
+#[InternalModulesAPI]
 abstract class TieBreakersCollection
 {
     public static function electSomeLosersbasedOnPairwiseComparaison (Election $election, array $candidatesKeys): array

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 
@@ -65,11 +65,13 @@ abstract class Method
         $this->_selfElection = \WeakReference::create($election);
     }
 
+    #[InternalModulesAPI]
     public function getElection (): Election
     {
         return $this->_selfElection->get();
     }
 
+    #[InternalModulesAPI]
     public function getResult (): Result
     {
         // Cache

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
@@ -284,7 +284,8 @@ class Vote implements \Iterator, \Stringable
         return $this->computeContextualRanking($election, true);
     }
 
-    // For performances
+    // Performances
+    #[InternalModulesAPI]
     public function getContextualRankingWithoutSort (
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
@@ -293,7 +294,7 @@ class Vote implements \Iterator, \Stringable
         return $this->computeContextualRanking($election, false);
     }
 
-    public function computeContextualRanking (
+    protected function computeContextualRanking (
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
         #[FunctionParameter('If false, performance can be increased for Implicit Ranking election.')]

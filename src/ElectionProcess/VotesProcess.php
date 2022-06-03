@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
@@ -141,6 +141,7 @@ trait VotesProcess
         return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
     }
 
+    #[InternalModulesAPI]
     public function getVoteKey (Vote $vote): ?int
     {
         return $this->_Votes->getVoteKey($vote);

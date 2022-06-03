@@ -10,9 +10,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
+#[InternalModulesAPI]
 class Permutations
 {
     protected readonly int $arr_count;
