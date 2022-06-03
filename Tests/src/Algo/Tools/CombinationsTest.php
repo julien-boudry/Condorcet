@@ -11,7 +11,12 @@ use PHPUnit\Framework\TestCase;
 
 class CombinationsTest extends TestCase
 {
-    public function testCountPossibleCombinationsResult (): void
+    public function tearDown (): void
+    {
+        Combinations::$useBigIntegerIfAvailable = true;
+    }
+
+    public function testCountPossibleCombinationsResultWithBigInt (): void
     {
         // Usual permutation for CPO STV 11 candidates and 3 seats left
         self::assertSame(13_530,    Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
@@ -26,7 +31,24 @@ class CombinationsTest extends TestCase
         self::assertSame(212_566_476_905_162_380, Combinations::getNumberOfCombinations(78,18)); // Tarot Card Game - 4 players
 
         $this->expectException(IntegerOverflowException::class);
-        Combinations::getNumberOfCombinations(78,24); // Tarot Card Game - 3 players - Result is 79_065_487_387_985_398_300
+        Combinations::getNumberOfCombinations(78,24); // Tarot Card Game - 3 players - Result is 79_065_487_387_985_398_300, it's above PHP_MAX_INT
+    }
+
+    public function testCountPossibleCombinationsResultWithoutBigInt (): void
+    {
+        Combinations::$useBigIntegerIfAvailable = false;
+
+        // Usual permutation for CPO STV 11 candidates and 3 seats left
+        self::assertSame(13_530,    Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+                                        count: 11,
+                                        length: 3),
+                                    length: 2)
+        );
+
+        self::assertSame(2_598_960, Combinations::getNumberOfCombinations(52,5)); // Card Game - Result is - 4_367_914_309_753_280
+
+        $this->expectException(IntegerOverflowException::class);
+        Combinations::getNumberOfCombinations(78,15); // Tarot Card Game - 5 players -  - Result is 4_367_914_309_753_280, it's NOT above PHP_MAX_INT but the intermediate calculations are.
     }
 
     public function testCountPossibleCombinationsBadParameters1 (): void

@@ -10,8 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 class PermutationsTest extends TestCase
 {
+    public function tearDown (): void
+    {
+        Permutations::$useBigIntegerIfAvailable = true;
+    }
+
     public function testCountPossiblePermutations (): void
     {
+        self::assertSame(6, Permutations::countPossiblePermutations(3));
+
+        Permutations::$useBigIntegerIfAvailable = false;
         self::assertSame(6, Permutations::countPossiblePermutations(3));
     }
 

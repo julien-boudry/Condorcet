@@ -14,29 +14,51 @@ use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
 #[InternalModulesAPI]
 class Permutations
 {
+    #[PublicAPI] // Must be available with composer installation. Only appliez to countPossiblePermutations() method. PHP and memory can't do the compute() with such large numbers.
+    static bool $useBigIntegerIfAvailable = true;
+
     protected readonly int $arr_count;
     protected SplFixedArray $results;
     protected int $arrKey = 0;
 
     public static function countPossiblePermutations (int $candidatesNumber): int
     {
-        $result = BigInteger::of($candidatesNumber);
+        if ($candidatesNumber < 1) :
+            throw new CondorcetInternalException('Parameters invalid');
+        endif;
 
-        for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
-            $result = $result->multipliedBy($candidatesNumber - $iteration);
-        endfor;
+        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) :
+            $result = BigInteger::of($candidatesNumber);
 
-        try {
-            return $result->toInt();
-        } catch (IntegerOverflowException $e) {
-            throw new CondorcetIntegerOverflowException($e->getMessage());
-        }
+            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
+                $result = $result->multipliedBy($candidatesNumber - $iteration);
+            endfor;
+
+            try {
+                return $result->toInt();
+            } catch (IntegerOverflowException $e) {
+                throw new CondorcetIntegerOverflowException($e->getMessage());
+            }
+        else :
+            $result = $candidatesNumber;
+
+            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
+                $result = $result * ($candidatesNumber - $iteration);
+            endfor;
+
+            if (\is_float($result)) :
+                throw new CondorcetIntegerOverflowException;
+            else :
+                return $result;
+            endif;
+        endif;
     }
 
     public function __construct (int $arr_count)
