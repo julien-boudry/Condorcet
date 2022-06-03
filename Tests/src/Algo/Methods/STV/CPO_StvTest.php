@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
+use CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
@@ -21,6 +22,8 @@ class CPO_StvTest extends TestCase
     {
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::DROOP);
         $this->election->setMethodOption('CPO STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
+        $this->election->setMethodOption('CPO STV', 'CondorcetCompletionMethod', CPO_STV::DEFAULT_METHODS_CHAINING);
+        $this->election->setMethodOption('CPO STV', 'TieBreakerMethods', CPO_STV::DEFAULT_METHODS_CHAINING);
     }
 
     public function testCPO1 (): void
@@ -127,7 +130,7 @@ class CPO_StvTest extends TestCase
         $this->election->setNumberOfSeats(10);
         $this->election->parseCandidates('1;2;3;4;5;6;7;8;9;10;11;12;13;14;15');
         $this->election->addVote('1>2');
-        
+
         $this->election->getResult('CPO STV');
     }
 
