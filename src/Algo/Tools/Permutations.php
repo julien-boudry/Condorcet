@@ -13,9 +13,11 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
+#[InternalModulesAPI]
 class Permutations
 {
     protected readonly int $arr_count;

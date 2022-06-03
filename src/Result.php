@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
@@ -97,6 +97,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     public readonly string $electionCondorcetVersion;
 
 
+    #[InternalModulesAPI]
     public function __construct (string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])
     {
         \ksort($result, \SORT_NUMERIC);
@@ -160,6 +161,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->rankingAsString;
     }
 
+    #[InternalModulesAPI]
     public function getResultAsInternalKey (): array
     {
         return $this->_Result;
@@ -236,6 +238,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 /////////// Get & Set MetaData ///////////
 
+    #[InternalModulesAPI]
     public function addWarning (int $type, string $msg = null): bool
     {
         $this->_warning[] = ['type' => $type, 'msg' => $msg];

@@ -13,9 +13,11 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use SplFixedArray;
 
+#[InternalModulesAPI]
 class Combinations
 {
     public static function getNumberOfCombinations (int $count, int $length): int
