@@ -90,7 +90,7 @@ class Combinations
             $out = [];
 
             for ($j = 0; $j < $count; $j++) :
-                if ($b[$j] == '1') :
+                if ($b[$j] === '1') :
                     $out[$keys[$j]] = $values[$keys[$j]];
                 endif;
             endfor;
