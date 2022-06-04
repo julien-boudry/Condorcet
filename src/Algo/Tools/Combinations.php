@@ -69,13 +69,22 @@ class Combinations
     public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
     {
         $count = \count($values);
+        $r = new SplFixedArray(self::getNumberOfCombinations($count, $length));
+
+        $arrKey = 0;
+        foreach (self::computeGenerator($values, $length, $append_before) as $oneCombination) :
+            $r[$arrKey++] = $oneCombination;
+        endforeach;
+
+        return $r;
+    }
+
+    public static function computeGenerator (array $values, int $length, array $append_before = []): \Generator
+    {
+        $count = \count($values);
         $size = 2 ** $count;
         $keys = \array_keys($values);
 
-        // Get the combinations
-        $return = new SplFixedArray(self::getNumberOfCombinations($count, $length));
-
-        $arrKey = 0;
         for ($i = 0; $i < $size; $i++) :
             $b = \sprintf("%0" . $count . "b", $i);
             $out = [];
@@ -87,10 +96,8 @@ class Combinations
             endfor;
 
             if (count($out) === $length) :
-                 $return[$arrKey++] = \array_merge($append_before, $out);
+                 yield \array_values(\array_merge($append_before, $out));
             endif;
         endfor;
-
-        return $return;
     }
 }
