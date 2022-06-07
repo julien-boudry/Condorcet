@@ -12,31 +12,22 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 
 abstract class CondorcetUtil
 {
     // Check JSON format
-    public static function isJson (string $string): bool
+    public static function isValidJsonForCondorcet (string $string): void
     {
-        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || empty($string)) :
-            return false;
+        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || $string === '{}' || empty($string)) :
+            throw new \JsonException();
         endif;
-
-        // try to decode string
-        \json_decode($string);
-
-        // check if error occured
-        return \json_last_error() === \JSON_ERROR_NONE;
     }
 
     public static function prepareJson (string $input): mixed
     {
-        if (!self::isJson($input)) :
-            throw new JsonFormatException;
-        endif;
+        self::isValidJsonForCondorcet($input);
 
-        return \json_decode($input, true);
+        return \json_decode(json: $input, associative: true, flags: \JSON_THROW_ON_ERROR);
     }
 
     // Generic action before parsing data from string input

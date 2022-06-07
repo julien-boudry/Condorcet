@@ -10,7 +10,6 @@ use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
 use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\JsonFormatException;
 use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
 use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
 use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
@@ -586,8 +585,7 @@ class ElectionTest extends TestCase
 
     public function testaddVotesFromJson (): never
     {
-        $this->expectException(JsonFormatException::class);
-        $this->expectExceptionMessage('Input is an invalid JSON format');
+        $this->expectException(\JsonException::class);
 
         $election = new Election;
 
@@ -655,8 +653,7 @@ class ElectionTest extends TestCase
 
     public function testaddCandidatesFromInvalidJson (): never
     {
-        $this->expectException(JsonFormatException::class);
-        $this->expectExceptionMessage('Input is an invalid JSON format');
+        $this->expectException(\JsonException::class);
 
         $election = new Election;
 
@@ -664,19 +661,20 @@ class ElectionTest extends TestCase
     }
 
 
-    public function testaddVotesFromJsonWithInvalidJson (): never
+    public function testaddVotesFromJsonWithInvalidJson (): void
     {
-        $this->expectException(JsonFormatException::class);
-        $this->expectExceptionMessage('Input is an invalid JSON format');
+        $errors = ["42", 'true', 'false', 'null', "", " ", \json_encode(new \stdClass())];
 
-        self::assertFalse($this->election1->addVotesFromJson("42"));
-        self::assertFalse($this->election1->addVotesFromJson(42));
-        self::assertFalse($this->election1->addVotesFromJson(false));
-        self::assertFalse($this->election1->addVotesFromJson(true));
-        self::assertFalse($$this->election1->addVotesFromJson(""));
-        self::assertFalse($$this->election1->addVotesFromJson(" "));
-        self::assertFalse($$this->election1->addVotesFromJson([]));
-        self::assertFalse($$this->election1->addVotesFromJson(\json_encode(new \stdClass())));
+        foreach ($errors as $oneError) :
+            try {
+                $this->election2->addVotesFromJson($oneError);
+
+                // Else fail
+                $this->fail("$oneError is not a valid Json for PHP");
+            } catch (\JsonException) {}
+        endforeach;
+
+        self::assertEmpty($this->election2->getVotesList());
     }
 
     public function testCachingResult(): void
