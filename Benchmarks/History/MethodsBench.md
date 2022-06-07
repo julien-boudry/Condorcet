@@ -1,4 +1,4 @@
-# v3.4-alpha2 Branch
+# v4.0-alpha2 Branch
 
 1000 random votes different for each test, variable number of candidates (look at column "set") 
 
@@ -299,7 +299,65 @@ Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
     #[Bench\Revs(1)]
 ```
 
-# v3.4-alpha1 Branch
+Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
++--------------------------+-------------------+-------------+------+-----+-----------+-------------+---------+
+| benchmark                | subject           | set         | revs | its | mem_peak  | mode        | rstdev  |
++--------------------------+-------------------+-------------+------+-----+-----------+-------------+---------+
+| MethodsProportionalBench | benchByCandidates | STV,3       | 1    | 10  | 6.137mb   | 0.002449s   | ±19.14% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,3   | 1    | 10  | 6.149mb   | 0.007031s   | ±95.50% |
+| MethodsProportionalBench | benchByCandidates | STV,4       | 1    | 10  | 6.612mb   | 0.003383s   | ±6.70%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,4   | 1    | 10  | 6.769mb   | 0.013579s   | ±36.74% |
+| MethodsProportionalBench | benchByCandidates | STV,5       | 1    | 10  | 7.403mb   | 0.004177s   | ±6.94%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,5   | 1    | 10  | 7.664mb   | 0.017938s   | ±14.46% |
+| MethodsProportionalBench | benchByCandidates | STV,6       | 1    | 10  | 8.259mb   | 0.004500s   | ±7.50%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,6   | 1    | 10  | 10.406mb  | 0.159482s   | ±3.22%  |
+| MethodsProportionalBench | benchByCandidates | STV,7       | 1    | 10  | 9.086mb   | 0.005994s   | ±17.58% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,7   | 1    | 10  | 13.332mb  | 0.321512s   | ±1.68%  |
+| MethodsProportionalBench | benchByCandidates | STV,8       | 1    | 10  | 10.506mb  | 0.006997s   | ±5.64%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,8   | 1    | 10  | 18.033mb  | 0.585079s   | ±1.07%  |
+| MethodsProportionalBench | benchByCandidates | STV,9       | 1    | 10  | 11.445mb  | 0.007169s   | ±12.26% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,9   | 1    | 10  | 83.436mb  | 5.499526s   | ±2.81%  |
+| MethodsProportionalBench | benchByCandidates | STV,10      | 1    | 10  | 12.197mb  | 0.008060s   | ±1.94%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,10  | 1    | 10  | 155.672mb | 11.778432s  | ±0.71%  |
+| MethodsProportionalBench | benchByCandidates | STV,11      | 1    | 10  | 13.089mb  | 0.009114s   | ±6.16%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,11  | 1    | 10  | 290.936mb | 23.361840s  | ±0.66%  |
+| MethodsProportionalBench | benchByCandidates | STV,12      | 1    | 10  | 13.812mb  | 0.009330s   | ±4.66%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,12  | 1    | 10  | 2.417gb   | 278.438970s | ±1.27%  |
+| MethodsProportionalBench | benchByCandidates | STV,13      | 1    | 10  | 14.634mb  | 0.010103s   | ±55.50% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,13  | 1    | 10  | 14.665mb  | 0.004193s   | ±11.65% |
+| MethodsProportionalBench | benchByCandidates | STV,14      | 1    | 10  | 15.457mb  | 0.011156s   | ±2.91%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,14  | 1    | 10  | 15.486mb  | 0.003546s   | ±2.38%  |
+| MethodsProportionalBench | benchByCandidates | STV,15      | 1    | 10  | 16.279mb  | 0.011160s   | ±2.03%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,15  | 1    | 10  | 16.308mb  | 0.003766s   | ±11.57% |
+| MethodsProportionalBench | benchByCandidates | STV,16      | 1    | 10  | 18.382mb  | 0.012213s   | ±1.95%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,16  | 1    | 10  | 18.410mb  | 0.003982s   | ±1.89%  |
+| MethodsProportionalBench | benchByCandidates | STV,17      | 1    | 10  | 19.261mb  | 0.013268s   | ±1.49%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,17  | 1    | 10  | 19.286mb  | 0.004126s   | ±2.01%  |
+| MethodsProportionalBench | benchByCandidates | STV,18      | 1    | 10  | 20.092mb  | 0.013652s   | ±3.69%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,18  | 1    | 10  | 20.114mb  | 0.004337s   | ±1.20%  |
+| MethodsProportionalBench | benchByCandidates | STV,19      | 1    | 10  | 20.917mb  | 0.014548s   | ±1.36%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,19  | 1    | 10  | 20.939mb  | 0.004687s   | ±11.45% |
+| MethodsProportionalBench | benchByCandidates | STV,20      | 1    | 10  | 21.742mb  | 0.015501s   | ±2.47%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,20  | 1    | 10  | 21.764mb  | 0.004765s   | ±9.79%  |
+| MethodsProportionalBench | benchByCandidates | STV,30      | 1    | 10  | 30.045mb  | 0.022660s   | ±6.30%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,30  | 1    | 10  | 30.053mb  | 0.007101s   | ±7.77%  |
+| MethodsProportionalBench | benchByCandidates | STV,40      | 1    | 10  | 41.176mb  | 0.032421s   | ±3.28%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,40  | 1    | 10  | 41.130mb  | 0.009505s   | ±3.70%  |
+| MethodsProportionalBench | benchByCandidates | STV,50      | 1    | 10  | 49.537mb  | 0.040557s   | ±2.69%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,50  | 1    | 10  | 49.442mb  | 0.012355s   | ±7.42%  |
+| MethodsProportionalBench | benchByCandidates | STV,60      | 1    | 10  | 57.901mb  | 0.051543s   | ±1.95%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,60  | 1    | 10  | 57.754mb  | 0.015260s   | ±2.85%  |
+| MethodsProportionalBench | benchByCandidates | STV,70      | 1    | 10  | 79.752mb  | 0.062557s   | ±1.64%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,70  | 1    | 10  | 79.334mb  | 0.020836s   | ±2.19%  |
+| MethodsProportionalBench | benchByCandidates | STV,80      | 1    | 10  | 88.487mb  | 0.073991s   | ±2.38%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,80  | 1    | 10  | 87.928mb  | 0.023842s   | ±3.03%  |
+| MethodsProportionalBench | benchByCandidates | STV,90      | 1    | 10  | 97.215mb  | 0.083666s   | ±2.49%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,90  | 1    | 10  | 96.522mb  | 0.028949s   | ±1.49%  |
+| MethodsProportionalBench | benchByCandidates | STV,100     | 1    | 10  | 106.000mb | 0.098068s   | ±1.74%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,100 | 1    | 10  | 105.115mb | 0.033043s   | ±2.39%  |
++--------------------------+-------------------+-------------+------+-----+-----------+-------------+---------+
+
+# v4.0-alpha1 Branch
 
 1000 random votes different for each test, variable number of candidates (look at column "set") 
 
