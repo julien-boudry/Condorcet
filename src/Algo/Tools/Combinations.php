@@ -22,10 +22,10 @@ use SplFixedArray;
 class Combinations
 {
 
-    #[PublicAPI] // Must be available with composer installation. Only appliez to getNumberOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
+    #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
     static bool $useBigIntegerIfAvailable = true;
 
-    public static function getNumberOfCombinations (int $count, int $length): int
+    public static function getPossibleCountOfCombinations (int $count, int $length): int
     {
         if ($count < 1 || $length < 1 || $count < $length) :
             throw new CondorcetInternalException('Parameters invalid');
@@ -42,8 +42,10 @@ class Combinations
                 $b = $b->multipliedBy($i);
             endfor;
 
+            $r = $a->dividedBy($b);
+
             try {
-                return $a->dividedBy($b)->toInt();
+                return $r->toInt();
             } catch (IntegerOverflowException $e) {
                 throw new CondorcetIntegerOverflowException($e->getMessage());
             }
@@ -69,7 +71,7 @@ class Combinations
     public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
     {
         $count = \count($values);
-        $r = new SplFixedArray(self::getNumberOfCombinations($count, $length));
+        $r = new SplFixedArray(self::getPossibleCountOfCombinations($count, $length));
 
         $arrKey = 0;
         foreach (self::computeGenerator($values, $length, $append_before) as $oneCombination) :

@@ -19,19 +19,19 @@ class CombinationsTest extends TestCase
     public function testCountPossibleCombinationsResultWithBigInt (): void
     {
         // Usual permutation for CPO STV 11 candidates and 3 seats left
-        self::assertSame(13_530,    Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+        self::assertSame(13_530,    Combinations::getPossibleCountOfCombinations(  count: Combinations::getPossibleCountOfCombinations(
                                         count: 11,
                                         length: 3),
                                     length: 2)
         );
 
-        self::assertSame(2_598_960, Combinations::getNumberOfCombinations(52,5)); // Card Game
+        self::assertSame(2_598_960, Combinations::getPossibleCountOfCombinations(52,5)); // Card Game
 
-        self::assertSame(4_367_914_309_753_280, Combinations::getNumberOfCombinations(78,15)); // Tarot Card Game - 5 players
-        self::assertSame(212_566_476_905_162_380, Combinations::getNumberOfCombinations(78,18)); // Tarot Card Game - 4 players
+        self::assertSame(4_367_914_309_753_280, Combinations::getPossibleCountOfCombinations(78,15)); // Tarot Card Game - 5 players
+        self::assertSame(212_566_476_905_162_380, Combinations::getPossibleCountOfCombinations(78,18)); // Tarot Card Game - 4 players
 
         $this->expectException(IntegerOverflowException::class);
-        Combinations::getNumberOfCombinations(78,24); // Tarot Card Game - 3 players - Result is 79_065_487_387_985_398_300, it's above PHP_MAX_INT
+        Combinations::getPossibleCountOfCombinations(78,24); // Tarot Card Game - 3 players - Result is 79_065_487_387_985_398_300, it's above PHP_MAX_INT
     }
 
     public function testCountPossibleCombinationsResultWithoutBigInt (): void
@@ -39,29 +39,29 @@ class CombinationsTest extends TestCase
         Combinations::$useBigIntegerIfAvailable = false;
 
         // Usual permutation for CPO STV 11 candidates and 3 seats left
-        self::assertSame(13_530,    Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+        self::assertSame(13_530,    Combinations::getPossibleCountOfCombinations(  count: Combinations::getPossibleCountOfCombinations(
                                         count: 11,
                                         length: 3),
                                     length: 2)
         );
 
-        self::assertSame(2_598_960, Combinations::getNumberOfCombinations(52,5)); // Card Game - Result is - 4_367_914_309_753_280
+        self::assertSame(2_598_960, Combinations::getPossibleCountOfCombinations(52,5)); // Card Game - Result is - 4_367_914_309_753_280
 
         $this->expectException(IntegerOverflowException::class);
-        Combinations::getNumberOfCombinations(78,15); // Tarot Card Game - 5 players -  - Result is 4_367_914_309_753_280, it's NOT above PHP_MAX_INT but the intermediate calculations are.
+        Combinations::getPossibleCountOfCombinations(78,15); // Tarot Card Game - 5 players -  - Result is 4_367_914_309_753_280, it's NOT above PHP_MAX_INT but the intermediate calculations are.
     }
 
     public function testCountPossibleCombinationsBadParameters1 (): void
     {
         $this->expectException(CondorcetInternalException::class);
 
-        Combinations::getNumberOfCombinations(2,3);
+        Combinations::getPossibleCountOfCombinations(2,3);
     }
 
     public function testIntegerOverflow (): void
     {
         $this->expectException(IntegerOverflowException::class);
 
-        Combinations::getNumberOfCombinations(\PHP_INT_MAX - 1, 2);
+        Combinations::getPossibleCountOfCombinations(\PHP_INT_MAX - 1, 2);
     }
 }

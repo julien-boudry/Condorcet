@@ -96,7 +96,7 @@ class CPO_STV extends SingleTransferableVote
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) :
             try {
-                $numberOfComparisons =  Combinations::getNumberOfCombinations(  count: Combinations::getNumberOfCombinations(
+                $numberOfComparisons =  Combinations::getPossibleCountOfCombinations(  count: Combinations::getPossibleCountOfCombinations(
                                                                                     count: \count($this->candidatesEliminatedFromFirstRound),
                                                                                     length: $numberOfCandidatesNeededToComplete
                                                                                 ),

@@ -17,16 +17,16 @@ class PermutationsTest extends TestCase
 
     public function testCountPossiblePermutations (): void
     {
-        self::assertSame(6, Permutations::countPossiblePermutations(3));
+        self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
 
         Permutations::$useBigIntegerIfAvailable = false;
-        self::assertSame(6, Permutations::countPossiblePermutations(3));
+        self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
     }
 
     public function testIntegerOverflowWithBigInt (): void
     {
         $this->expectException(IntegerOverflowException::class);
-        Permutations::countPossiblePermutations(42);
+        Permutations::getPossibleCountOfPermutations(42);
     }
 
     public function testIntegerOverflowWithoutBigInt (): void
@@ -34,6 +34,6 @@ class PermutationsTest extends TestCase
         Permutations::$useBigIntegerIfAvailable = false;
 
         $this->expectException(IntegerOverflowException::class);
-        Permutations::countPossiblePermutations(42);
+        Permutations::getPossibleCountOfPermutations(42);
     }
 }

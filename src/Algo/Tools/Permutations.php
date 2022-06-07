@@ -21,14 +21,14 @@ use SplFixedArray;
 #[InternalModulesAPI]
 class Permutations
 {
-    #[PublicAPI] // Must be available with composer installation. Only appliez to countPossiblePermutations() method. PHP and memory can't do the compute() with such large numbers.
+    #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     static bool $useBigIntegerIfAvailable = true;
 
     protected readonly int $arr_count;
     protected SplFixedArray $results;
     protected int $arrKey = 0;
 
-    public static function countPossiblePermutations (int $candidatesNumber): int
+    public static function getPossibleCountOfPermutations (int $candidatesNumber): int
     {
         if ($candidatesNumber < 1) :
             throw new CondorcetInternalException('Parameters invalid');
@@ -64,7 +64,7 @@ class Permutations
     public function __construct (int $arr_count)
     {
         $this->arr_count = $arr_count;
-        $this->results = new SplFixedArray(self::countPossiblePermutations($this->arr_count));
+        $this->results = new SplFixedArray(self::getPossibleCountOfPermutations($this->arr_count));
     }
 
     public function getResults (): SplFixedArray

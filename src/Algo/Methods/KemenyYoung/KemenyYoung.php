@@ -57,7 +57,7 @@ class KemenyYoung extends Method implements MethodInterface
             $this->countElectionCandidates = $this->getElection()->countCandidates();
             $this->candidatesKey = \array_keys($this->getElection()->getCandidatesList());
             $this->candidateKeyMapping = \range(0, $this->countElectionCandidates - 1);
-            $this->countPossibleRanking = Permutations::countPossiblePermutations($this->countElectionCandidates);
+            $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
 
             $this->prepareFileCache();
             $this->calcRankingScore();
