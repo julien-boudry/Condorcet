@@ -6,10 +6,8 @@ declare(strict_types=1);
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use CondorcetPHP\Condorcet\Condorcet;
     use CondorcetPHP\Condorcet\Election;
     use CondorcetPHP\Condorcet\Candidate;
-    use CondorcetPHP\Condorcet\CondorcetUtil;
     use CondorcetPHP\Condorcet\Vote;
 
     require_once __DIR__.'/../__CondorcetAutoload.php';
