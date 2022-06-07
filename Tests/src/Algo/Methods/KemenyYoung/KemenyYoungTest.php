@@ -180,19 +180,35 @@ class KemenyYoungTest extends TestCase
         self::assertSame($candidate[0],$this->election->getWinner('KemenyYoung'));
     }
 
-    // public function testKemenyWith10Candidates ()
-    // {
-    //     $original = KemenyYoung::$MaxCandidates;
-    //     KemenyYoung::$MaxCandidates = null;
+    public function testKemenyWith9Candidates ()
+    {
+        $original = KemenyYoung::$MaxCandidates;
+        KemenyYoung::$MaxCandidates = null;
 
-    //     for ($i=0;$i<10;$i++):
-    //         $candidates[] = $this->election->addCandidate();
-    //     endfor;
+        for ($i=0;$i<9;$i++):
+            $candidates[] = $this->election->addCandidate();
+        endfor;
 
-    //     $this->election->addVote($candidates);
+        $this->election->addVote($candidates);
 
-    //     self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+        self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
 
-    //     KemenyYoung::$MaxCandidates = $original;
-    // }
+        KemenyYoung::$MaxCandidates = $original;
+    }
+
+    public function testKemenyWith10Candidates ()
+    {
+        $original = KemenyYoung::$MaxCandidates;
+        KemenyYoung::$MaxCandidates = null;
+
+        for ($i=0;$i<10;$i++):
+            $candidates[] = $this->election->addCandidate();
+        endfor;
+
+        $this->election->addVote($candidates);
+
+        self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+
+        KemenyYoung::$MaxCandidates = $original;
+    }
 }

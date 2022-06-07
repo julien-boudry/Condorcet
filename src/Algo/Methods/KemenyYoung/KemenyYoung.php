@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, Pairwise};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 use SplFixedArray;
 
@@ -31,19 +31,23 @@ class KemenyYoung extends Method implements MethodInterface
     # If you need 9 candidates, you must use \ini_set('memory_limit','1024M'); before. Do not try to go to 10, it is not viable!
     public static ?int $MaxCandidates = 9;
 
-    // Cache
+    // Cache file
     public static bool $devWriteCache = false;
     public static string $cachePath = __DIR__ . '/KemenyYoung-Data/';
 
     // Kemeny Young Object
-    protected array $_RankingScore = [];
     protected ?\SplFileObject $_file;
 
-    // Cache
+    // Cache process
     protected readonly int $countElectionCandidates;
     protected readonly array $candidatesKey;
     protected readonly array $candidateKeyMapping;
     protected readonly int $countPossibleRanking;
+
+    // processing
+    protected int $MaxScore = -1;
+    protected int $Conflits = 0;
+    protected int $bestRankingKey;
 
 
 /////////// PUBLIC ///////////
@@ -60,7 +64,7 @@ class KemenyYoung extends Method implements MethodInterface
             $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
 
             $this->prepareFileCache();
-            $this->calcRankingScore();
+            $this->computeMaxAndConflicts();
             $this->makeRanking();
             $this->conflictInfos();
             $this->_file = null;
@@ -83,11 +87,11 @@ class KemenyYoung extends Method implements MethodInterface
                 $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
             endforeach;
 
-            $explicit[$key]['score'] = $this->_RankingScore[$key];
+            $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());
         endforeach;
 
         $stats = [];
-        $stats['bestScore'] = \max($this->_RankingScore);
+        $stats['bestScore'] = $this->MaxScore;
         $stats['rankingScore'] = $explicit;
 
         return $stats;
@@ -95,19 +99,10 @@ class KemenyYoung extends Method implements MethodInterface
 
         protected function conflictInfos (): void
         {
-            $max = \max($this->_RankingScore);
-
-            $conflict = -1;
-            foreach ($this->_RankingScore as $value) :
-                if ($value === $max) :
-                    $conflict++;
-                endif;
-            endforeach;
-
-            if ($conflict > 0)  :
+            if ($this->Conflits > 0)  :
                 $this->_Result->addWarning(
                     type: self::CONFLICT_WARNING_CODE,
-                    msg: ($conflict + 1).';'.\max($this->_RankingScore)
+                    msg: ($this->Conflits + 1).';'.$this->MaxScore
                 );
             endif;
         }
@@ -175,26 +170,40 @@ class KemenyYoung extends Method implements MethodInterface
         return $onePossibleRanking;
     }
 
-    protected function calcRankingScore (): void
+    protected function computeMaxAndConflicts (): void
     {
         $pairwise = $this->getElection()->getPairwise();
 
         foreach ($this->getPossibleRankingIterator() as $keyScore => $onePossibleRanking) :
-            $this->_RankingScore[$keyScore] = 0;
+            $rankingScore = $this->computeOneScore($onePossibleRanking, $pairwise);
 
-            $do = [];
-            $ranking = $onePossibleRanking;
+            // Max Ranking Score
+            if ($rankingScore > $this->MaxScore) :
+                $this->MaxScore = $rankingScore;
+                $this->Conflits = 0;
+                $this->bestRankingKey = $keyScore;
+            elseif ($rankingScore === $this->MaxScore) :
+                $this->Conflits++;
+            endif;
+        endforeach;
+    }
 
-            foreach ($ranking as $candidateId) :
-                $do[] = $candidateId;
+    protected function computeOneScore (SplFixedArray $ranking, Pairwise $pairwise): int
+    {
+        $rankingScore = 0;
+        $do = [];
 
-                foreach ($ranking as $rankCandidate) :
-                    if (!\in_array(needle: $rankCandidate, haystack: $do, strict: true)) :
-                        $this->_RankingScore[$keyScore] += $pairwise[$candidateId]['win'][$rankCandidate];
-                    endif;
-                endforeach;
+        foreach ($ranking as $candidateId) :
+            $do[] = $candidateId;
+
+            foreach ($ranking as $rankCandidate) :
+                if (!\in_array(needle: $rankCandidate, haystack: $do, strict: true)) :
+                    $rankingScore += $pairwise[$candidateId]['win'][$rankCandidate];
+                endif;
             endforeach;
         endforeach;
+
+        return $rankingScore;
     }
 
 
@@ -206,7 +215,7 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking (): void
     {
-        $this->_file->seek(\array_search(needle: \max($this->_RankingScore), haystack: $this->_RankingScore, strict: true));
+        $this->_file->seek($this->bestRankingKey);
 
         $winnerRanking = $this->convertLineToRanking($this->_file->fgets());
 
