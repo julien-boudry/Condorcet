@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v3.4.0] - 2022-05-??
+## [v4.0] - 2022-06-??
 ### Description
 Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.
 
@@ -10,27 +10,31 @@ Implement the CPO-STV method, the second official module for a proportional meth
 #### Voting Methods
 - New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
 #### TieBreaker
-- New Tie Breaker method ```TieBreaker::TieBreakerWithAnotherMethods```, chaining method to break a tie
-
+- New Tie Breaker method `TieBreaker::TieBreakerWithAnotherMethods`, chaining method to break a tie
 - Condorcet Election Format: Ability to parse candidates directly from votes, if not specified with the parameters first. According to the V1 specification of the format.
+
 ### Changed
 - A candidate's name can be equal to the string "0"
 - Methods options can technically be string or array, first use for the CPO-STV tie breaker
 - Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
-- Extensive rewriting of the Kemeny-Young voting method engine, allowing easy use in 9-candidate and reasonable 10-candidate performances.
-- ```Throwable\CandidatesMaxNumberReachedException``` used ind Kemeny-Young and Ranked Pairs now extends ```Throwable\MethodLimitReachedException```, and you should prefer catch the second one.
+- Extensive rewriting of the Kemeny-Young voting method engine, allowing easy use 10-candidate with good performances.
+- `Throwable\CandidatesMaxNumberReachedException` used ind Kemeny-Young and Ranked Pairs now extends `Throwable\MethodLimitReachedException`, and you should prefer catch the second one.
+- Use the native `JsonException` instead of custom `JsonFormatException`.
 
 ### Internal changes
 #### Engine
-- ```Permutation``` class renamed to ```Permutations```
-- Use of ```\SplFixedArray``` some methods, improving memory and performances in some cases and for some methods.
+- `Permutation` class renamed to `Permutations`
+- Use of `\SplFixedArray` some methods, improving memory and performances in some cases and for some methods.
 - Many performance improvements, especially for some methods and elections with a lot of candidates.
-- Methods can use a ```Vote->getContextualRankingWithoutSort()``` cache at the vote level, with a new internal API based on a WeakMap.
+- Methods can use a `Vote->getContextualRankingWithoutSort()` cache at the vote level, with a new internal API based on a WeakMap.
+- New `Combinations` class.
+- `Permutation` asn the new `Combinations` class can work internally with integer bigger than `PHP_MAX_INT` if installed from composer. But will always return an interger <= `PHP_MAX_INT` or throw a new exception `CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException`
 
 #### Dev
 - Add Configuration for PHPStan
 - Add and improve benchmarks
 - Fix some env bugs for console tests
+- New `InternalModulesAPI` attribute (yet unused in doc)
 
 ## [v3.3.3] - 2022-05-02
 
