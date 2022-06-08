@@ -89,9 +89,16 @@ class Permutations
 
     public function getPermutationGenerator (): \Generator
     {
-        return $this->_exec(
-            $this->_permute( $this->createCandidates() )
-        );
+        if ($this->candidates_count === 1) :
+            return (function (): \Generator {
+                $this->arrKey = 0;
+                yield $this->arrKey++ => [1=>0];
+            })();
+        else :
+            return $this->_exec(
+                $this->_MainPermute( $this->createCandidates() )
+            );
+        endif;
     }
 
     protected function createCandidates (): array
@@ -105,9 +112,9 @@ class Permutations
         return $arr;
     }
 
-    private function _exec (array|int $a, array $i = []): \Generator
+    private function _exec (array|int|\Generator $a, array $i = []): \Generator
     {
-        if (\is_array($a)) :
+        if (\is_array($a) || is_iterable($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;
                 $i2[] = $k;
@@ -125,6 +132,16 @@ class Permutations
         endif;
     }
 
+    private function _MainPermute (array $arr): \Generator
+    {
+        foreach($arr as $r => $c) :
+            $n = $arr;
+            unset($n[$r]);
+
+            yield $c => (\count($n) > 1) ? $this->_permute($n) : \reset($n);
+        endforeach;
+    }
+
     private function _permute (array $arr): array
     {
         $out = [];
@@ -132,6 +149,7 @@ class Permutations
         foreach($arr as $r => $c) :
             $n = $arr;
             unset($n[$r]);
+
             $out[$c] = (\count($n) > 1) ? $this->_permute($n) : \reset($n);
         endforeach;
 
