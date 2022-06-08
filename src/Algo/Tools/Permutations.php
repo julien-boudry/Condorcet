@@ -125,19 +125,15 @@ class Permutations
         endif;
     }
 
-    private function _permute (array $arr): array|int
+    private function _permute (array $arr): array
     {
         $out = [];
 
-        if (\count($arr) > 1) :
-            foreach($arr as $r => $c) :
-                $n = $arr;
-                unset($n[$r]);
-                $out[$c] = $this->_permute($n);
-            endforeach;
-        else :
-            return \array_shift($arr);
-        endif;
+        foreach($arr as $r => $c) :
+            $n = $arr;
+            unset($n[$r]);
+            $out[$c] = (\count($n) > 1) ? $this->_permute($n) : \reset($n);
+        endforeach;
 
         return $out;
     }
