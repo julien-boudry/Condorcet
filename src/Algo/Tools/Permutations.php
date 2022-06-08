@@ -24,8 +24,7 @@ class Permutations
     #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     static bool $useBigIntegerIfAvailable = true;
 
-    protected readonly int $arr_count;
-    protected SplFixedArray $results;
+    protected readonly int $candidates_count;
     protected int $arrKey = 0;
 
     public static function getPossibleCountOfPermutations (int $candidatesNumber): int
@@ -49,7 +48,7 @@ class Permutations
         else :
             $result = $candidatesNumber;
 
-            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
+            for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++) :
                 $result = $result * ($candidatesNumber - $iteration);
             endfor;
 
@@ -61,50 +60,59 @@ class Permutations
         endif;
     }
 
-    public function __construct (int $arr_count)
+    public function __construct (int $candidates_count)
     {
-        $this->arr_count = $arr_count;
-        $this->results = new SplFixedArray(self::getPossibleCountOfPermutations($this->arr_count));
+        $this->candidates_count = $candidates_count;
     }
 
     public function getResults (): SplFixedArray
     {
-        if ($this->arrKey === 0) :
-            $this->_exec(
-                $this->_permute( $this->createCandidates() )
-            );
-        endif;
+        $results = new SplFixedArray(self::getPossibleCountOfPermutations($this->candidates_count));
+        $this->arrKey = 0;
 
-        return $this->results;
+        foreach ($this->getPermutationGenerator() as $arrKey => $oneResult) :
+            $results[$arrKey] = $oneResult;
+        endforeach;
+
+        return $results;
     }
 
-    public function writeResults (\SplFileObject $file): void {
+    public function writeResults (\SplFileObject $file): void
+    {
+        $this->arrKey = 0;
         $file->rewind();
 
-        foreach ($this->getResults() as $oneResult) :
+        foreach ($this->getPermutationGenerator() as $oneResult) :
             $file->fputcsv($oneResult);
         endforeach;
+    }
+
+    public function getPermutationGenerator (): \Generator
+    {
+        return $this->_exec(
+            $this->_permute( $this->createCandidates() )
+        );
     }
 
     protected function createCandidates (): array
     {
         $arr = [];
 
-        for ($i = 0; $i < $this->arr_count; $i++) :
+        for ($i = 0 ; $i < $this->candidates_count ; $i++) :
             $arr[] = $i;
         endfor;
 
         return $arr;
     }
 
-    private function _exec (array|int $a, array $i = []): void
+    private function _exec (array|int $a, array $i = []): \Generator
     {
         if (\is_array($a)) :
             foreach($a as $k => $v) :
                 $i2 = $i;
                 $i2[] = $k;
 
-                $this->_exec($v, $i2);
+                yield from $this->_exec($v, $i2);
             endforeach;
         else :
             $i[] = $a;
@@ -113,7 +121,7 @@ class Permutations
             $r = [null,...$i];
             unset($r[0]);
 
-            $this->results[$this->arrKey++] = $r;
+            yield $this->arrKey++ => $r;
         endif;
     }
 

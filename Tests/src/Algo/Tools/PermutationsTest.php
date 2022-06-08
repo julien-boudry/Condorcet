@@ -36,4 +36,23 @@ class PermutationsTest extends TestCase
         $this->expectException(IntegerOverflowException::class);
         Permutations::getPossibleCountOfPermutations(42);
     }
+
+    public function testPermutationsAllResults (): void
+    {
+        $p = new Permutations(3);
+
+        $r = $p->getResults();
+
+        self::assertInstanceOf(\SplFixedArray::class, $r);
+        self::assertSame(6, $r->getSize());
+
+        self::assertSame(   [   [1=>0,2=>1,3=>2],
+                                [1=>0,2=>2,3=>1],
+                                [1=>1,2=>0,3=>2],
+                                [1=>1,2=>2,3=>0],
+                                [1=>2,2=>0,3=>1],
+                                [1=>2,2=>1,3=>0]
+                            ],
+                            $r->toArray());
+    }
 }
