@@ -40,13 +40,13 @@ trait ResultsProcess
         #[FunctionParameter('Not required for use election default method. Set the string name of the algorithm for use of a specific one.')]
         ?string $method = null,
         #[FunctionParameter('Array of option for some methods. Look at each method documentation.')]
-        array $options = []
+        array $methodOptions = []
     ): Result
     {
-        $options = self::formatResultOptions($options);
+        $methodOptions = self::formatResultOptions($methodOptions);
 
         // Filter if tag is provided & return
-        if ($options['%tagFilter']) :
+        if ($methodOptions['%tagFilter']) :
             $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono ($this->_timer, 'GetResult with filter'): null;
 
             $filter = new self;
@@ -55,7 +55,7 @@ trait ResultsProcess
                 $filter->addCandidate($candidate);
             endforeach;
 
-            foreach ($this->getVotesList(tags: $options['tags'], with: $options['withTag']) as $vote) :
+            foreach ($this->getVotesList(tags: $methodOptions['tags'], with: $methodOptions['withTag']) as $vote) :
                 $filter->addVote($vote);
             endforeach;
 
