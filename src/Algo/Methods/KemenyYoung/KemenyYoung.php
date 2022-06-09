@@ -48,6 +48,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected int $MaxScore = -1;
     protected int $Conflits = 0;
     protected int $bestRankingKey;
+    protected SplFixedArray $bestRankingTab;
 
 
 /////////// PUBLIC ///////////
@@ -182,6 +183,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $this->MaxScore = $rankingScore;
                 $this->Conflits = 0;
                 $this->bestRankingKey = $keyScore;
+                $this->bestRankingTab = $onePossibleRanking;
             elseif ($rankingScore === $this->MaxScore) :
                 $this->Conflits++;
             endif;
@@ -215,11 +217,7 @@ class KemenyYoung extends Method implements MethodInterface
     */
     protected function makeRanking (): void
     {
-        $this->_file->seek($this->bestRankingKey);
-
-        $winnerRanking = $this->convertLineToRanking($this->_file->fgets());
-
-        $winnerRanking = [null, ...$winnerRanking->toArray()];
+        $winnerRanking = [null, ...$this->bestRankingTab->toArray()];
         unset($winnerRanking[0]);
 
         $this->_Result = $this->createResult($winnerRanking);
