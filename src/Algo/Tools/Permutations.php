@@ -14,6 +14,7 @@ use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\PublicAPI;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use SplFixedArray;
 
@@ -21,7 +22,7 @@ use SplFixedArray;
 #[InternalModulesAPI]
 class Permutations
 {
-    #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
+    #[PublicAPI] // Must be available with composer installation. Only applied to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     static bool $useBigIntegerIfAvailable = true;
 
     protected readonly array $candidates;
