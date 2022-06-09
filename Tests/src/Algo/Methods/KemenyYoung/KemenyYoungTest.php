@@ -155,22 +155,6 @@ class KemenyYoungTest extends TestCase
         self::assertEquals('A',$this->election->getWinner('KemenyYoung'));
     }
 
-    public function testWritePermutation (): void
-    {
-        $this->election->parseCandidates('A;B');
-
-        $this->election->parseVotes('
-            A>B;
-            B>A;
-            A>B');
-
-        KemenyYoung::$devWriteCache = true;
-        $this->election->getResult( 'KemenyYoung' ) ;
-        KemenyYoung::$devWriteCache = false;
-
-        self::assertTrue(true);
-    }
-
     public function testKemenyWithOnly1Candidate ()
     {
         $candidate[] = $this->election->addCandidate();

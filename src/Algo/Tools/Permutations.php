@@ -24,7 +24,7 @@ class Permutations
     #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     static bool $useBigIntegerIfAvailable = true;
 
-    protected readonly int $candidates_count;
+    protected readonly array $candidates;
 
     public static function getPossibleCountOfPermutations (int $candidatesNumber): int
     {
@@ -59,46 +59,26 @@ class Permutations
         endif;
     }
 
-    public function __construct (int $candidates_count)
+    public function __construct (array $candidates)
     {
-        $this->candidates_count = $candidates_count;
+        $this->candidates = \array_values($candidates);
     }
 
     public function getResults (): SplFixedArray
     {
-        $results = new SplFixedArray(self::getPossibleCountOfPermutations($this->candidates_count));
+        $results = new SplFixedArray(self::getPossibleCountOfPermutations(\count($this->candidates)));
         $arrKey = 0;
 
-        foreach ($this->getPermutationGenerator($this->createCandidates()) as $onePermutation) :
+        foreach ($this->getPermutationGenerator() as $onePermutation) :
             $results[$arrKey++] = $onePermutation;
         endforeach;
 
         return $results;
     }
 
-    public function writeResults (\SplFileObject $file): void
-    {
-        $file->rewind();
-
-        foreach ($this->getPermutationGenerator() as $onePermutation) :
-            $file->fputcsv($onePermutation);
-        endforeach;
-    }
-
     public function getPermutationGenerator (): \Generator
     {
-        return $this->permutationGenerator($this->createCandidates());
-    }
-
-    protected function createCandidates (): array
-    {
-        $arr = [];
-
-        for ($i = 0 ; $i < $this->candidates_count ; $i++) :
-            $arr[] = $i;
-        endfor;
-
-        return $arr;
+        return $this->permutationGenerator($this->candidates);
     }
 
     protected function permutationGenerator (array $elements) : \Generator

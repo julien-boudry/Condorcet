@@ -39,7 +39,7 @@ class PermutationsTest extends TestCase
 
     public function testPermutationsAllResultsFor3 (): void
     {
-        $p = new Permutations(3);
+        $p = new Permutations([0,1,2]);
 
         $r = $p->getResults();
 
@@ -58,13 +58,13 @@ class PermutationsTest extends TestCase
 
     public function testPermutationsAllResultsFor1 (): void
     {
-        $p = new Permutations(1);
+        $p = new Permutations([42]);
 
         $r = $p->getResults();
 
         self::assertInstanceOf(\SplFixedArray::class, $r);
         self::assertSame(1, $r->getSize());
 
-        self::assertSame([[1=>0]], $r->toArray());
+        self::assertSame([[1=>42]], $r->toArray());
     }
 }
