@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, Pairwise};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity, Pairwise};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
@@ -67,21 +67,26 @@ class KemenyYoung extends Method implements MethodInterface
     protected function getStats (): array
     {
         $election = $this->getElection();
-        $explicit = [];
+        $stats = [];
 
-        foreach ($this->getPossibleRankingIterator() as $key => $value) :
-            // Human readable
-            $i = 1;
-            foreach ($value as $candidate_key) :
-                $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
+        $stats['bestScore'] = $this->MaxScore;
+        $stats['rankingInConflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
+
+        if ($election->getStatsVerbosity()->value >= StatsVerbosity::FULL->value) :
+            $explicit = [];
+
+            foreach ($this->getPossibleRankingIterator() as $key => $value) :
+                // Human readable
+                $i = 1;
+                foreach ($value as $candidate_key) :
+                    $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
+                endforeach;
+
+                $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());
             endforeach;
 
-            $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());
-        endforeach;
-
-        $stats = [];
-        $stats['bestScore'] = $this->MaxScore;
-        $stats['rankingScore'] = $explicit;
+            $stats['rankingScores'] = $explicit;
+        endif;
 
         return $stats;
     }

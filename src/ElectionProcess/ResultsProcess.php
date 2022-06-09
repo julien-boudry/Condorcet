@@ -12,6 +12,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
@@ -25,6 +26,7 @@ trait ResultsProcess
     // Result
     protected ?Pairwise $_Pairwise = null;
     protected ?array $_Calculator = null;
+    protected StatsVerbosity $_StatsVerbosity = StatsVerbosity::STD;
 
 
 /////////// GET RESULTS ///////////
@@ -204,6 +206,20 @@ trait ResultsProcess
         else :
             return false;
         endif;
+    }
+
+    public function getStatsVerbosity (): StatsVerbosity
+    {
+        return $this->_StatsVerbosity;
+    }
+
+    public function setStatsVerbosity (StatsVerbosity $StatsVerbosity): void
+    {
+        if ($StatsVerbosity !== $this->_StatsVerbosity) :
+            $this->cleanupCalculator();
+        endif;
+
+        $this->_StatsVerbosity = $StatsVerbosity;
     }
 
 

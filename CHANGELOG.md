@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.
 
 ### Added
+#### Core
+- Adds `Election->setStatsVerbosity()` and `Election->getStatsVerbosity()` methods. Which allow to control the level of stats returned in the Result object by some methods. And to save memory and processing time if needed. Currently only KemenyYoung implements a difference at `MethodsStats::FULL` level and returns less at lower levels.
 #### Voting Methods
 - New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
 #### TieBreaker
