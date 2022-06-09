@@ -25,7 +25,6 @@ class Permutations
     static bool $useBigIntegerIfAvailable = true;
 
     protected readonly int $candidates_count;
-    protected int $arrKey = 0;
 
     public static function getPossibleCountOfPermutations (int $candidatesNumber): int
     {
@@ -68,9 +67,10 @@ class Permutations
     public function getResults (): SplFixedArray
     {
         $results = new SplFixedArray(self::getPossibleCountOfPermutations($this->candidates_count));
+        $arrKey = 0;
 
         foreach ($this->getPermutationGenerator($this->createCandidates()) as $onePermutation) :
-            $results[$this->arrKey++] = $onePermutation;
+            $results[$arrKey++] = $onePermutation;
         endforeach;
 
         return $results;
@@ -87,8 +87,6 @@ class Permutations
 
     public function getPermutationGenerator (): \Generator
     {
-        $this->arrKey = 0;
-
         return $this->permutationGenerator($this->createCandidates());
     }
 
