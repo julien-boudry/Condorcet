@@ -68,10 +68,9 @@ class Permutations
     public function getResults (): SplFixedArray
     {
         $results = new SplFixedArray(self::getPossibleCountOfPermutations($this->candidates_count));
-        $this->arrKey = 0;
 
-        foreach ($this->getPermutationGenerator() as $arrKey => $oneResult) :
-            $results[$arrKey] = $oneResult;
+        foreach ($this->getPermutationGenerator($this->createCandidates()) as $onePermutation) :
+            $results[$this->arrKey++] = $onePermutation;
         endforeach;
 
         return $results;
@@ -79,26 +78,18 @@ class Permutations
 
     public function writeResults (\SplFileObject $file): void
     {
-        $this->arrKey = 0;
         $file->rewind();
 
-        foreach ($this->getPermutationGenerator() as $oneResult) :
-            $file->fputcsv($oneResult);
+        foreach ($this->getPermutationGenerator() as $onePermutation) :
+            $file->fputcsv($onePermutation);
         endforeach;
     }
 
     public function getPermutationGenerator (): \Generator
     {
-        if ($this->candidates_count === 1) :
-            return (function (): \Generator {
-                $this->arrKey = 0;
-                yield $this->arrKey++ => [1=>0];
-            })();
-        else :
-            return $this->_exec(
-                $this->_MainPermute( $this->createCandidates() )
-            );
-        endif;
+        $this->arrKey = 0;
+
+        return $this->permutationGenerator($this->createCandidates());
     }
 
     protected function createCandidates (): array
@@ -112,47 +103,26 @@ class Permutations
         return $arr;
     }
 
-    private function _exec (array|int|\Generator $a, array $i = []): \Generator
+    protected function permutationGenerator (array $elements) : \Generator
     {
-        if (\is_array($a) || is_iterable($a)) :
-            foreach($a as $k => $v) :
-                $i2 = $i;
-                $i2[] = $k;
-
-                yield from $this->_exec($v, $i2);
-            endforeach;
+        if (count($elements) <= 1) :
+            yield [1 => \reset($elements)]; // Set the only key to index 1
         else :
-            $i[] = $a;
+            foreach ($this->permutationGenerator(\array_slice($elements, 1)) as $permutation) :
+                foreach (\range(0, \count($elements) - 1) as $i) :
+                    $r = \array_merge(
+                        \array_slice($permutation, 0, $i),
+                        [$elements[0]],
+                        \array_slice($permutation, $i)
+                    );
 
-            // Del 0 key, first key must be 1.
-            $r = [null,...$i];
-            unset($r[0]);
+                    // Set first key to 1
+                    $r = [null, ...$r];
+                    unset($r[0]);
 
-            yield $this->arrKey++ => $r;
+                    yield $r;
+                endforeach;
+            endforeach;
         endif;
-    }
-
-    private function _MainPermute (array $arr): \Generator
-    {
-        foreach($arr as $r => $c) :
-            $n = $arr;
-            unset($n[$r]);
-
-            yield $c => (\count($n) > 1) ? $this->_permute($n) : \reset($n);
-        endforeach;
-    }
-
-    private function _permute (array $arr): array
-    {
-        $out = [];
-
-        foreach($arr as $r => $c) :
-            $n = $arr;
-            unset($n[$r]);
-
-            $out[$c] = (\count($n) > 1) ? $this->_permute($n) : \reset($n);
-        endforeach;
-
-        return $out;
     }
 }
