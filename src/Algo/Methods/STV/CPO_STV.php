@@ -29,6 +29,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use CondorcetPHP\Condorcet\Vote;
@@ -69,7 +70,7 @@ class CPO_STV extends SingleTransferableVote
     protected SplFixedArray $outcomeComparisonTable;
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
-    protected readonly array $completionMethodStats;
+    protected readonly Result $completionMethodResult;
 
 
 /////////// COMPUTE ///////////
@@ -274,7 +275,7 @@ class CPO_STV extends SingleTransferableVote
 
                 if (!\is_array($condorcetWinnerOutcome)) :
                     $selectionSucces = true;
-                    $this->completionMethodStats = $completionMethodResult->getStats();
+                    $this->completionMethodResult = $completionMethodResult;
                     break;
                 endif;
             endforeach;
@@ -283,7 +284,7 @@ class CPO_STV extends SingleTransferableVote
                 $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod[0]);
                 $condorcetWinnerOutcome = $completionMethodResult->getWinner();
                 $condorcetWinnerOutcome = \reset($condorcetWinnerOutcome);
-                $this->completionMethodStats = $completionMethodResult->getStats();
+                $this->completionMethodResult = $completionMethodResult;
             endif;
 
             $this->condorcetWinnerOutcome = (int) $condorcetWinnerOutcome->getName();
@@ -338,14 +339,20 @@ class CPO_STV extends SingleTransferableVote
             return $r;
         };
 
-        // Initial Scores Table
-        $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable, $election);
+        // Stats >= STD
+        if ($election->getStatsVerbosity()->value >= StatsVerbosity::STD->value) :
+            // Initial Scores Table
+            $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable, $election);
 
-        // Candidates Elected from first round
-        $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound, $election);
+            // Candidates Elected from first round
+            $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound, $election);
 
-        // Candidates Eliminated from first round
-        $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
+            // Candidates Eliminated from first round
+            $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
+
+            // Completion Method
+            $stats['Completion Method'] = $this->completionMethodResult->fromMethod;
+        endif;
 
         // Stats >= HIGH
         if ($election->getStatsVerbosity()->value >= StatsVerbosity::HIGH->value) :
@@ -353,7 +360,7 @@ class CPO_STV extends SingleTransferableVote
             if (isset($this->completionMethodPairwise)) :
                 $stats['Condorcet Completion Method Stats'] = [
                     'Pairwise' => $this->completionMethodPairwise,
-                    'Stats' => $this->completionMethodStats,
+                    'Stats' => $this->completionMethodResult->getStats(),
                 ];
             endif;
         endif;
