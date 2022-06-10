@@ -23,6 +23,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning;
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin;
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio;
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
@@ -240,6 +241,7 @@ class CPO_STV extends SingleTransferableVote
             $winnerOutcomeElection = new Election;
             $winnerOutcomeElection->setImplicitRanking(false);
             $winnerOutcomeElection->allowsVoteWeight(true);
+            $winnerOutcomeElection->setStatsVerbosity($this->getElection()->getStatsVerbosity());
 
                 // Candidates
                 foreach ($this->outcomes as $oneOutcomeKey => $outcomeValue) :
@@ -345,30 +347,36 @@ class CPO_STV extends SingleTransferableVote
         // Candidates Eliminated from first round
         $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
 
-        // Outcome
-        foreach ($this->outcomes as $outcomeKey => $outcomeValue) :
-            $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue, $election);
-        endforeach;
+        // Stats >= HIGH
+        if ($election->getStatsVerbosity()->value >= StatsVerbosity::HIGH->value) :
+            // Completion method Stats
+            if (isset($this->completionMethodPairwise)) :
+                $stats['Condorcet Completion Method Stats'] = [
+                    'Pairwise' => $this->completionMethodPairwise,
+                    'Stats' => $this->completionMethodStats,
+                ];
+            endif;
+        endif;
 
-        // Outcomes Comparison
-        foreach ($this->outcomeComparisonTable as $octValue) :
-            foreach ($octValue as $octDetailsKey => $octDetailsValue) :
-                if ($octDetailsKey === 'candidates_excluded') :
-                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
-                elseif ($octDetailsKey === 'outcomes_scores') :
-                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $octDetailsValue;
-                elseif (\is_array($octDetailsValue)) :
-                    $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
-                endif;
+        // Stats >= FULL
+        if ($election->getStatsVerbosity()->value >= StatsVerbosity::FULL->value) :
+            // Outcome
+            foreach ($this->outcomes as $outcomeKey => $outcomeValue) :
+                $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue, $election);
             endforeach;
-        endforeach;
 
-        // Completion method Stats
-        if (isset($this->completionMethodPairwise)) :
-            $stats['Condorcet Completion Method Stats'] = [
-                'Pairwise' => $this->completionMethodPairwise,
-                'Stats' => $this->completionMethodStats,
-            ];
+            // Outcomes Comparison
+            foreach ($this->outcomeComparisonTable as $octValue) :
+                foreach ($octValue as $octDetailsKey => $octDetailsValue) :
+                    if ($octDetailsKey === 'candidates_excluded') :
+                        $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeValueToCandidateAndSortByName($octDetailsValue, $election);
+                    elseif ($octDetailsKey === 'outcomes_scores') :
+                        $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $octDetailsValue;
+                    elseif (\is_array($octDetailsValue)) :
+                        $stats['Outcomes Comparison'][$octValue['c_key']][$octDetailsKey] = $changeKeyToCandidateAndSortByName($octDetailsValue, $election);
+                    endif;
+                endforeach;
+            endforeach;
         endif;
 
         // Return
