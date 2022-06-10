@@ -317,7 +317,7 @@ class CPO_STV extends SingleTransferableVote
     {
         $election = $this->getElection();
 
-        $stats = ['votes_needed_to_win' => $this->votesNeededToWin];
+        $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 
         $changeKeyToCandidateAndSortByName = function (array $arr, Election $election): array {
             $r = [];

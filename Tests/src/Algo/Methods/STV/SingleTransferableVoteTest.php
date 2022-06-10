@@ -89,7 +89,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) 34,
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame( [
@@ -127,7 +127,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) 6,
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame(
@@ -198,7 +198,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) 31,
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame(
@@ -252,7 +252,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) 26,
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame( [
@@ -287,7 +287,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertEqualsWithDelta(
@@ -340,7 +340,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) (100 / (2 + 2)),
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame(
@@ -392,7 +392,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) (100 / 2),
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame(
@@ -450,7 +450,7 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             (float) 25,
-            $this->election->getResult('STV')->getStats()['votes_needed_to_win']
+            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
         self::assertSame(

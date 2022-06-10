@@ -62,7 +62,7 @@ class CPO_StvTest extends TestCase
 
         $stats = $this->election->getResult('CPO STV')->getStats();
 
-        self::assertSame(25.0, $stats['votes_needed_to_win']);
+        self::assertSame(25.0, $stats['Votes Needed to Win']);
         self::assertSame([  "Andrea"=> 25.0,
                             "Brad"=> 7.0,
                             "Carter"=> 34.0,
