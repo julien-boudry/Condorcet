@@ -351,13 +351,15 @@ class CPO_STV extends SingleTransferableVote
             $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
 
             // Completion Method
-            $stats['Completion Method'] = $this->completionMethodResult->fromMethod;
+            if (isset($this->completionMethodResult)) :
+                $stats['Completion Method'] = $this->completionMethodResult->fromMethod;
+            endif;
         endif;
 
         // Stats >= HIGH
         if ($election->getStatsVerbosity()->value >= StatsVerbosity::HIGH->value) :
             // Completion method Stats
-            if (isset($this->completionMethodPairwise)) :
+            if (isset($this->completionMethodResult)) :
                 $stats['Condorcet Completion Method Stats'] = [
                     'Pairwise' => $this->completionMethodPairwise,
                     'Stats' => $this->completionMethodResult->getStats(),

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 
 use CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
@@ -26,9 +27,10 @@ class CPO_StvTest extends TestCase
         $this->election->setMethodOption('CPO STV', 'TieBreakerMethods', CPO_STV::DEFAULT_METHODS_CHAINING);
     }
 
+    # From https://en.wikipedia.org/wiki/CPO-STV
     public function testCPO1 (): void
     {
-        # From https://en.wikipedia.org/wiki/CPO-STV
+        $this->election->setStatsVerbosity(StatsVerbosity::FULL);
 
         $this->election->addCandidate('Andrea'); // key 0
         $this->election->addCandidate('Brad'); // key 1
@@ -58,7 +60,110 @@ class CPO_StvTest extends TestCase
             $this->election->getResult('CPO STV')->getResultAsArray(true)
         );
 
-        // var_dump($this->election->getResult('CPO STV')->getStats());
+        $stats = $this->election->getResult('CPO STV')->getStats();
+
+        self::assertSame(25.0, $stats['votes_needed_to_win']);
+        self::assertSame([  "Andrea"=> 25.0,
+                            "Brad"=> 7.0,
+                            "Carter"=> 34.0,
+                            "Delilah"=> 13.0,
+                            "Scott"=> 21.0
+        ], $stats['Initial Score Table']);
+
+        self::assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
+        self::assertSame(['Brad', 'Delilah', 'Scott'], $stats['Candidates eliminated from first round']);
+
+        self::assertSame([
+            ['Andrea', 'Carter', 'Scott'],
+            ['Andrea', 'Carter', 'Delilah'],
+            ['Andrea', 'Brad', 'Carter']
+        ],  $stats['Outcomes']);
+
+        self::assertSame('Schulze Margin', $stats['Completion Method']);
+
+        self::assertSame(
+            [  'Outcome N° 0 compared to Outcome N° 1' =>
+                [
+                'candidates_excluded' =>
+                [
+                    0 => 'Brad',
+                ],
+                'scores_after_exclusion' =>
+                [
+                    'Andrea' => 25.0,
+                    'Carter' => 34.0,
+                    'Delilah' => 20.0,
+                    'Scott' => 21.0,
+                ],
+                'scores_after_surplus' =>
+                [
+                    'Andrea' => 25.0,
+                    'Carter' => 25.0,
+                    'Delilah' => 29.0,
+                    'Scott' => 21.0,
+                ],
+                'outcomes_scores' =>
+                [
+                    0 => 71.0,
+                    1 => 79.0,
+                ],
+                ],
+                'Outcome N° 0 compared to Outcome N° 2' =>
+                [
+                'candidates_excluded' =>
+                [
+                    0 => 'Delilah',
+                ],
+                'scores_after_exclusion' =>
+                [
+                    'Andrea' => 25.0,
+                    'Brad' => 15.0,
+                    'Carter' => 34.0,
+                    'Scott' => 26.0,
+                ],
+                'scores_after_surplus' =>
+                [
+                    'Andrea' => 25.0,
+                    'Brad' => 24.0,
+                    'Carter' => 25.0,
+                    'Scott' => 26.0,
+                ],
+                'outcomes_scores' =>
+                [
+                    0 => 76.0,
+                    2 => 74.0,
+                ],
+                ],
+                'Outcome N° 1 compared to Outcome N° 2' =>
+                [
+                'candidates_excluded' =>
+                [
+                    0 => 'Scott',
+                ],
+                'scores_after_exclusion' =>
+                [
+                    'Andrea' => 25.0,
+                    'Brad' => 7.0,
+                    'Carter' => 34.0,
+                    'Delilah' => 34.0,
+                ],
+                'scores_after_surplus' =>
+                [
+                    'Andrea' => 25.0,
+                    'Brad' => 16.0,
+                    'Carter' => 25.0,
+                    'Delilah' => 34.0,
+                ],
+                'outcomes_scores' =>
+                [
+                    1 => 84.0,
+                    2 => 66.0,
+                ],
+                ]
+            ],
+            $stats['Outcomes Comparison']);
+
+        self::assertArrayHasKey('Condorcet Completion Method Stats', $stats);
     }
 
     public function testLessOrEqualCandidatesThanSeats (): void
