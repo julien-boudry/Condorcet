@@ -205,4 +205,20 @@ class KemenyYoungTest extends TestCase
 
     //     KemenyYoung::$MaxCandidates = $original;
     // }
+
+    // public function testKemenyWith12Candidates ()
+    // {
+    //     $original = KemenyYoung::$MaxCandidates;
+    //     KemenyYoung::$MaxCandidates = null;
+
+    //     for ($i=0;$i<12;$i++):
+    //         $candidates[] = $this->election->addCandidate();
+    //     endfor;
+
+    //     $this->election->addVote($candidates);
+
+    //     self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+
+    //     KemenyYoung::$MaxCandidates = $original;
+    // }
 }

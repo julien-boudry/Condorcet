@@ -8,29 +8,35 @@ Implement the CPO-STV method, the second official module for a proportional meth
 
 ### Added
 #### Core
-- Adds `Election->setStatsVerbosity()` and `Election->getStatsVerbosity()` methods. Which allow to control the level of stats returned in the Result object by some methods. And to save memory and processing time if needed. Currently only KemenyYoung implements a difference at `MethodsStats::FULL` level and returns less at lower levels.
+- Adds `Election->setStatsVerbosity()` and `Election->getStatsVerbosity()` methods. This allows controlling the level of stats returned in the Result object by some methods. And to save memory and processing time if needed.
 #### Voting Methods
 - New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
 #### TieBreaker
-- New Tie Breaker method `TieBreaker::TieBreakerWithAnotherMethods`, chaining method to break a tie
+- New Tie Breaker method `TieBreaker::TieBreakerWithAnotherMethods`, a chaining method to break a tie
 - Condorcet Election Format: Ability to parse candidates directly from votes, if not specified with the parameters first. According to the V1 specification of the format.
 
 ### Changed
+#### General
+- Main source code moving to `src` folder instead of `lib` folder. Must change nothing if autoloaders are used. (but forks, if any, can need vigilance)
 - A candidate's name can be equal to the string "0"
 - Methods options can technically be string or array, first use for the CPO-STV tie breaker
-- Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
-- Extensive rewriting of the Kemeny-Young voting method engine, allowing easy use 10-candidate with good performances.
-- `Throwable\CandidatesMaxNumberReachedException` used ind Kemeny-Young and Ranked Pairs now extends `Throwable\MethodLimitReachedException`, and you should prefer catch the second one.
 - Use the native `JsonException` instead of custom `JsonFormatException`.
+
+#### Voting Methods
+- Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
+- Kemeny-Young now accepts 10 candidates by default thanks to performance optimizations. Up to 12 candidates without spending the night. And up to infinity without burning too much memory.
+- `Throwable\CandidatesMaxNumberReachedException` used in Kemeny-Young and Ranked Pairs now extends `Throwable\MethodLimitReachedException`, and you should prefer to catch the second one.
+- Kemeny-Young and STV methods, send fewer stats than before to the `Result->getStats()` returning an array. To get back full details, you need to specify `Election->setStatsVerbosity(StatsVerbosity::FULL)` or `Election->setStatsVerbosity(StatsVerbosity::HIGH)`
 
 ### Internal changes
 #### Engine
-- `Permutation` class renamed to `Permutations`
-- Use of `\SplFixedArray` some methods, improving memory and performances in some cases and for some methods.
+- `Permutation` class was renamed to `Permutations`
+- Use of `\SplFixedArray` in some methods, improving memory and performances in some cases and for some methods.
+- Extensive rewriting of the Kemeny-Young voting method engine, twice as fast as before, consuming 42X less memory and allowing easy use 10-candidate with good performances. Do not use any disk cache file on disk anymore. However, since it uses real-time generators, reading its complete statistics (excluding rankings) may require more memory (but less than before).
 - Many performance improvements, especially for some methods and elections with a lot of candidates.
 - Methods can use a `Vote->getContextualRankingWithoutSort()` cache at the vote level, with a new internal API based on a WeakMap.
 - New `Combinations` class.
-- `Permutation` asn the new `Combinations` class can work internally with integer bigger than `PHP_MAX_INT` if installed from composer. But will always return an interger <= `PHP_MAX_INT` or throw a new exception `CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException`
+- `Permutations` asn the new `Combinations` class can work internally with integer bigger than `PHP_MAX_INT` if installed from composer. But will always return an interger <= `PHP_MAX_INT` or throw a new exception `CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException`
 
 #### Dev
 - Add Configuration for PHPStan

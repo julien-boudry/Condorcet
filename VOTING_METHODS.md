@@ -254,7 +254,7 @@ $election->getResult('Instant-runoff')->getStats() ;
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
 ### Implementation Comments  
-Kemeny-Young is currently limited to up 8 candidates. Note that, for 8 candidates, you must provide into php.ini a memory_limit upper than 160MB.  
+Kemeny-Young is currently limited up to 10 candidates. It is very fast up to 9. At 10, this should remain under 30 seconds of processing even under a very modest system. Beyond that, it is certainly playable at least up to 12, but with a much higher processing time, but a constantly low memory. But you must not ask for the `FULL` stats verbosity.
 
 ### Code example
 ```php
@@ -266,6 +266,10 @@ $election->getWinner('Kemeny-Young'') ;
 $election->getLoser('Kemeny-Young') ;
 
 // Get Stats
+$election->getResult('Kemeny-Young')->getStats() ;
+
+// Get all the stats (can slow down and use a lot of memory starting 9 candidates)
+$election->->setStatsVerbosity(StatsVerbosity::FULL);
 $election->getResult('Kemeny-Young')->getStats() ;
 ```
 
@@ -628,6 +632,10 @@ $election->getResult('CPO-STV')->getNumberOfSeats();
 // Get Stats (votes needed to win, initial table score, candidate directly elected, outcomes score....)
 $election->getResult('CPO-STV')->getStats(); // Resulting array can be really fat
 
+// Get all the stats (can slow down and use a lot of memory in some case, often related to the number of candidate to elect)
+$election->->setStatsVerbosity(StatsVerbosity::FULL);
+$election->getResult('CPO-STV')->getStats() ;
+
 // Change the Quota
 $election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF) ;
 $election->getResult('CPO-STV') ;
@@ -645,4 +653,5 @@ $election->getResult('CPO-STV') ;
 // Change the sort method
 $election->setMethodOption('CPO-STV', 'TieBreakerMethods', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ;
 $election->getResult('CPO-STV') ;
+
 ```
