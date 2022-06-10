@@ -196,7 +196,8 @@ trait ResultsProcess
         #[FunctionParameter('Option name')]
         string $optionName,
         #[FunctionParameter('Option Value')]
-        array|\BackedEnum|int|string $optionValue): bool
+        array|\BackedEnum|int|string $optionValue
+    ): bool
     {
         if ($method = Condorcet::getMethodClass($method)) :
             $method::setOption($optionName, $optionValue);
@@ -208,12 +209,21 @@ trait ResultsProcess
         endif;
     }
 
+    #[PublicAPI]
+    #[Description("The current level of stats verbosity for this election object. Look at Election->setStatsVerbosity method for more informations.")]
+    #[FunctionReturn("The current verbosity level for this election object.")]
     public function getStatsVerbosity (): StatsVerbosity
     {
         return $this->_StatsVerbosity;
     }
 
-    public function setStatsVerbosity (StatsVerbosity $StatsVerbosity): void
+    #[PublicAPI]
+    #[Description("Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.")]
+    #[Related("Election::getVerbosity", "Result::getVerbosity")]
+    public function setStatsVerbosity (
+        #[FunctionParameter('A verbosity level')]
+        StatsVerbosity $StatsVerbosity
+    ): void
     {
         if ($StatsVerbosity !== $this->_StatsVerbosity) :
             $this->cleanupCalculator();

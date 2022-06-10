@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException;
 use CondorcetPHP\Condorcet\Throwable\ResultException;
@@ -305,5 +307,31 @@ class ResultTest extends TestCase
         self::assertSame(0, $b2->getMethodOptions()['Starting']);
 
         self::assertFalse($this->election1->setMethodOption('Unregistered method', 'Starting', 0));
+    }
+
+    public function testVerbosityLevel (): void
+    {
+        $this->election1->addCandidate('A');
+        $this->election1->addCandidate('B');
+        $this->election1->addCandidate('C');
+
+        $this->election1->addVote('A>B>C');
+
+        $r1 = $this->election1->getResult(KemenyYoung::class);
+        self::assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
+
+        $this->election1->setStatsVerbosity(StatsVerbosity::STD);
+        $r2 = $this->election1->getResult(KemenyYoung::class);
+        self::assertSame($r1, $r2);
+
+        $this->election1->setStatsVerbosity(StatsVerbosity::FULL);
+        $r3 = $this->election1->getResult(KemenyYoung::class);
+
+        self::assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
+        self::assertSame(StatsVerbosity::FULL, $r3->statsVerbosity);
+
+        self::assertNotSame($r1, $r3);
+        self::assertArrayNotHasKey('rankingScores', $r1->getStats());
+        self::assertArrayHasKey('rankingScores', $r3->getStats());
     }
 }

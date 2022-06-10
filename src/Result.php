@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
@@ -94,6 +95,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     public readonly string $byClass;
     #[PublicAPI]
+    public readonly StatsVerbosity $statsVerbosity;
+    #[PublicAPI]
     public readonly string $electionCondorcetVersion;
 
 
@@ -109,6 +112,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->seats = $seats;
         $this->fromMethod = $fromMethod;
         $this->byClass = $byClass;
+        $this->statsVerbosity = $election->getStatsVerbosity();
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getWinner();
         $this->CondorcetLoser = $election->getLoser();
