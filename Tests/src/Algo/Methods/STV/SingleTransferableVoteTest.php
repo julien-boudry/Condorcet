@@ -6,6 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 use CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use PHPUnit\Framework\TestCase;
 
@@ -223,6 +224,9 @@ class SingleTransferableVoteTest extends TestCase
              ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
+
+        $this->election->setStatsVerbosity(StatsVerbosity::LOW);
+        self::assertArrayNotHasKey('rounds', $this->election->getResult('STV')->getStats());
     }
 
     public function testResult_4 (): void

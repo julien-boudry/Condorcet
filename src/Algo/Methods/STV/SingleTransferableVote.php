@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Vote;
 
@@ -159,16 +159,17 @@ class SingleTransferableVote extends Method implements MethodInterface
     {
         $election = $this->getElection();
 
-        $stats = [
-            'votes_needed_to_win' => $this->votesNeededToWin,
-            'rounds' => []
-        ];
+        $stats = ['votes_needed_to_win' => $this->votesNeededToWin];
 
-        foreach ($this->_Stats as $roundNumber => $roundData) :
-            foreach ($roundData as $candidateKey => $candidateValue) :
-                $stats['rounds'][$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
+        if ($election->getStatsVerbosity()->value > StatsVerbosity::LOW->value) :
+            $stats['rounds'] = [];
+
+            foreach ($this->_Stats as $roundNumber => $roundData) :
+                foreach ($roundData as $candidateKey => $candidateValue) :
+                    $stats['rounds'][$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
+                endforeach;
             endforeach;
-        endforeach;
+        endif;
 
         return $stats;
     }
