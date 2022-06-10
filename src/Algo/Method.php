@@ -106,7 +106,7 @@ abstract class Method
             byClass: $this::class,
     		election: $this->getElection(),
     		result: $result,
-            stats: $this->getStats(),
+            stats: ($this->getElection()->getStatsVerbosity()->value > StatsVerbosity::NONE->value) ? $this->getStats() : null,
             seats: (static::IS_PROPORTIONAL) ? $this->getElection()->getNumberOfSeats() : null,
             methodOptions: $methodOptions
     	);
