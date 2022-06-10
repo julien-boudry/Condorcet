@@ -28,7 +28,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     // Limits
     # If you need 9 candidates, you must use \ini_set('memory_limit','1024M'); before. Do not try to go to 10, it is not viable!
-    public static ?int $MaxCandidates = 9;
+    public static ?int $MaxCandidates = 10;
 
     // Cache process
     protected readonly int $countElectionCandidates;
