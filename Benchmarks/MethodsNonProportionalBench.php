@@ -5,6 +5,7 @@ namespace CondorcetPHP\Condorcet\Benchmarks;
 
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
@@ -15,14 +16,14 @@ class MethodsNonProportionalBench
 {
     public bool $IS_A_PROPORTIONAL_BENCH = false;
 
-    public array $numberOfCandidates = [3,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100];
+    public array $numberOfCandidates = [3,5,6,7,8,9,10,11,20,30,40,50,60,70,80,90,100];
 
     protected Election $election;
 
     public function __construct ()
     {
         RankedPairs_Core::$MaxCandidates = null;
-        KemenyYoung::$MaxCandidates = 10;
+        KemenyYoung::$MaxCandidates = 11;
     }
 
 
@@ -30,6 +31,7 @@ class MethodsNonProportionalBench
     {
         $this->election = $election = new Election;
         $this->election->setNumberOfSeats(max(1, (int) ($numberOfCandidates / 3)));
+        $this->election->setStatsVerbosity(StatsVerbosity::STD);
 
         $candidates = [];
 
@@ -72,7 +74,7 @@ class MethodsNonProportionalBench
     #[Bench\ParamProviders(['provideMethods', 'provideNumberOfCandidates'])]
     #[Bench\BeforeMethods('setUp')]
     #[Bench\Warmup(1)]
-    #[Bench\Iterations(10)]
+    #[Bench\Iterations(3)]
     #[Bench\Revs(1)]
     public function benchByCandidates (array $params): void
     {
