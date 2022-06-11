@@ -50,7 +50,8 @@
         "psr-4": {
             "CondorcetPHP\\Condorcet\\Tests\\": "Tests/lib/",
             "CondorcetPHP\\Condorcet\\Tests\\Examples\\": "Tests/Examples/",
-            "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/"
+            "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/",
+            "CondorcetPHP\\Condorcet\\Benchmarks\\": "Benchmarks"
         }
     },
     "scripts": {
