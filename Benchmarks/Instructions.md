@@ -31,6 +31,9 @@
 ``` ./vendor/bin/phpbench run Benchmarks/MethodsNonProportionalBench.php --report=aggregate ```
 ``` ./vendor/bin/phpbench run Benchmarks/MethodsProportionalBench.php --report=aggregate ```
 
+#### Add Votes (1000 votes with 100 candidates)
+``` ./vendor/bin/phpbench run Benchmarks/AddVotesBench.php --report=default ```
+
 #### Kemeny-Young Speed & Memory Test
 
 ``` ./vendor/bin/phpbench run Benchmarks/KemenyYoungBench.php --report=default --executor=memory_centric_microtime ```
