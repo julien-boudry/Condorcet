@@ -1,7 +1,5 @@
 # v4.0-beta1 Branch
 
-1000 random votes different for each test, variable number of candidates (look at column "set") 
-
 * AMD Ryzen 9 5900X
 
 PHPBench (1.2.5) 
@@ -35,3 +33,13 @@ Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
 | 1    | AddVotesBench | benchVotesWithManyCandidates |     | 1    | 59,029,504b | 18.990s  | -0.36σ       | -0.25%         |
 | 2    | AddVotesBench | benchVotesWithManyCandidates |     | 1    | 59,030,016b | 19.218s  | +1.36σ       | +0.94%         |
 +------+---------------+------------------------------+-----+------+-------------+----------+--------------+----------------+
+
+# v3.2
+
++------+---------------+------------------------------+-----+------+--------------+----------+--------------+----------------+
+| iter | benchmark     | subject                      | set | revs | mem_peak     | time_avg | comp_z_value | comp_deviation |
++------+---------------+------------------------------+-----+------+--------------+----------+--------------+----------------+
+| 0    | AddVotesBench | benchVotesWithManyCandidates |     | 1    | 117,355,360b | 18.869s  | +0.96σ       | +0.84%         |
+| 1    | AddVotesBench | benchVotesWithManyCandidates |     | 1    | 117,023,280b | 18.488s  | -1.38σ       | -1.20%         |
+| 2    | AddVotesBench | benchVotesWithManyCandidates |     | 1    | 117,023,280b | 18.780s  | +0.42σ       | +0.36%         |
++------+---------------+------------------------------+-----+------+--------------+----------+--------------+----------------+

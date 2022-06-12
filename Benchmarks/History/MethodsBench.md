@@ -1069,3 +1069,315 @@ Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
 | MethodsProportionalBench | benchByCandidates | STV,90  | 1    | 3   | 54.599mb | 1.660393s | ±2.53%  |
 | MethodsProportionalBench | benchByCandidates | STV,100 | 1    | 3   | 59.679mb | 2.057089s | ±1.32%  |
 +--------------------------+-------------------+---------+------+-----+----------+-----------+---------+
+
+# v3.2 Branch
+
+1000 random votes different for each test, variable number of candidates (look at column "set") 
+
+* AMD Ryzen 9 5900X
+
+PHPBench (1.2.5) 
+with PHP version 8.1.6, xdebug ❌, opcache ✔ (with JIT Tracing)
+
+```php
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(3)]
+    #[Bench\Revs(1)]
+```
+
+### Non-Proportional
+
+Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
++-----------------------------+-------------------+-----------------------------------+------+-----+-----------+------------+----------+
+| benchmark                   | subject           | set                               | revs | its | mem_peak  | mode       | rstdev   |
++-----------------------------+-------------------+-----------------------------------+------+-----+-----------+------------+----------+
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,3                      | 1    | 3   | 3.802mb   | 0.001524s  | ±11.42%  |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,3                        | 1    | 3   | 3.732mb   | 0.000022s  | ±2.11%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,3                   | 1    | 3   | 3.659mb   | 0.000020s  | ±2.32%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,3   | 1    | 3   | 3.660mb   | 0.000022s  | ±2.18%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,3                   | 1    | 3   | 3.721mb   | 0.001586s  | ±3.03%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,3                  | 1    | 3   | 3.729mb   | 0.004477s  | ±48.72%  |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,3                    | 1    | 3   | 3.729mb   | 0.000321s  | ±133.35% |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,3      | 1    | 3   | 3.725mb   | 0.001545s  | ±35.59%  |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,3          | 1    | 3   | 3.728mb   | 0.003228s  | ±20.81%  |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,3                 | 1    | 3   | 3.660mb   | 0.000023s  | ±3.98%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,3                  | 1    | 3   | 3.660mb   | 0.000023s  | ±2.08%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,3              | 1    | 3   | 3.660mb   | 0.000023s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,3             | 1    | 3   | 3.728mb   | 0.002659s  | ±26.81%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,3            | 1    | 3   | 3.731mb   | 0.003048s  | ±74.21%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,3                 | 1    | 3   | 3.661mb   | 0.000029s  | ±1.64%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,3                  | 1    | 3   | 3.661mb   | 0.000030s  | ±1.59%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,3                   | 1    | 3   | 3.661mb   | 0.000030s  | ±1.55%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,5                      | 1    | 3   | 4.611mb   | 0.002110s  | ±27.68%  |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,5                        | 1    | 3   | 4.551mb   | 0.000031s  | ±7.90%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,5                   | 1    | 3   | 4.550mb   | 0.000027s  | ±8.31%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,5   | 1    | 3   | 4.551mb   | 0.000030s  | ±4.88%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,5                   | 1    | 3   | 4.581mb   | 0.002234s  | ±33.60%  |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,5                  | 1    | 3   | 4.612mb   | 0.008804s  | ±29.45%  |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,5                    | 1    | 3   | 4.750mb   | 0.000333s  | ±8.48%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,5      | 1    | 3   | 4.612mb   | 0.001945s  | ±48.24%  |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,5          | 1    | 3   | 4.582mb   | 0.004119s  | ±26.82%  |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,5                 | 1    | 3   | 4.551mb   | 0.000030s  | ±9.76%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,5                  | 1    | 3   | 4.551mb   | 0.000030s  | ±3.07%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,5              | 1    | 3   | 4.551mb   | 0.000030s  | ±8.84%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,5             | 1    | 3   | 4.634mb   | 0.001457s  | ±119.79% |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,5            | 1    | 3   | 4.570mb   | 0.000072s  | ±10.25%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,5                 | 1    | 3   | 4.616mb   | 0.007621s  | ±75.79%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,5                  | 1    | 3   | 4.611mb   | 0.000134s  | ±127.63% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,5                   | 1    | 3   | 4.614mb   | 0.019109s  | ±18.08%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,6                      | 1    | 3   | 5.025mb   | 0.002424s  | ±3.93%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,6                        | 1    | 3   | 5.065mb   | 0.001195s  | ±95.20%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,6                   | 1    | 3   | 5.057mb   | 0.001578s  | ±78.29%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,6   | 1    | 3   | 5.058mb   | 0.000119s  | ±133.48% |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,6                   | 1    | 3   | 5.026mb   | 0.002764s  | ±9.60%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,6                  | 1    | 3   | 5.060mb   | 0.011146s  | ±0.61%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,6                    | 1    | 3   | 5.803mb   | 0.001708s  | ±1.08%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,6      | 1    | 3   | 5.026mb   | 0.001975s  | ±2.18%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,6          | 1    | 3   | 5.057mb   | 0.004808s  | ±13.70%  |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,6                 | 1    | 3   | 5.055mb   | 0.000117s  | ±133.46% |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,6                  | 1    | 3   | 4.997mb   | 0.000031s  | ±3.98%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,6              | 1    | 3   | 4.997mb   | 0.000030s  | ±14.21%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,6             | 1    | 3   | 5.090mb   | 0.003927s  | ±68.56%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,6            | 1    | 3   | 5.061mb   | 0.001344s  | ±63.57%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,6                 | 1    | 3   | 5.065mb   | 0.008249s  | ±42.21%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,6                  | 1    | 3   | 5.057mb   | 0.000140s  | ±127.64% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,6                   | 1    | 3   | 5.056mb   | 0.005456s  | ±58.70%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,7                      | 1    | 3   | 5.470mb   | 0.002529s  | ±0.86%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,7                        | 1    | 3   | 5.505mb   | 0.001398s  | ±80.88%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,7                   | 1    | 3   | 5.509mb   | 0.000118s  | ±133.57% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,7   | 1    | 3   | 5.511mb   | 0.001358s  | ±81.14%  |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,7                   | 1    | 3   | 5.470mb   | 0.002498s  | ±1.33%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,7                  | 1    | 3   | 5.510mb   | 0.016885s  | ±13.43%  |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,7                    | 1    | 3   | 11.313mb  | 0.014489s  | ±0.44%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,7      | 1    | 3   | 5.470mb   | 0.001977s  | ±3.64%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,7          | 1    | 3   | 5.470mb   | 0.004855s  | ±0.99%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,7                 | 1    | 3   | 5.501mb   | 0.001342s  | ±68.36%  |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,7                  | 1    | 3   | 5.442mb   | 0.000031s  | ±2.98%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,7              | 1    | 3   | 5.442mb   | 0.000033s  | ±14.72%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,7             | 1    | 3   | 5.521mb   | 0.001549s  | ±34.02%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,7            | 1    | 3   | 5.519mb   | 0.000237s  | ±106.41% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,7                 | 1    | 3   | 5.500mb   | 0.000138s  | ±126.56% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,7                  | 1    | 3   | 5.500mb   | 0.000139s  | ±126.76% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,7                   | 1    | 3   | 5.503mb   | 0.023529s  | ±47.80%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,8                      | 1    | 3   | 6.234mb   | 0.002813s  | ±1.25%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,8                        | 1    | 3   | 6.208mb   | 0.000035s  | ±2.75%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,8                   | 1    | 3   | 6.271mb   | 0.001368s  | ±68.40%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,8   | 1    | 3   | 6.263mb   | 0.000118s  | ±132.31% |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,8                   | 1    | 3   | 6.234mb   | 0.002856s  | ±2.60%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,8                  | 1    | 3   | 6.270mb   | 0.018567s  | ±3.23%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,8                    | 1    | 3   | 86.520mb  | 0.161483s  | ±0.97%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,8      | 1    | 3   | 6.235mb   | 0.002310s  | ±0.80%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,8          | 1    | 3   | 6.235mb   | 0.005669s  | ±3.64%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,8                 | 1    | 3   | 6.209mb   | 0.000035s  | ±4.95%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,8                  | 1    | 3   | 6.263mb   | 0.000134s  | ±132.55% |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,8              | 1    | 3   | 6.209mb   | 0.000038s  | ±15.96%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,8             | 1    | 3   | 6.260mb   | 0.000224s  | ±5.62%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,8            | 1    | 3   | 6.292mb   | 0.000300s  | ±97.60%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,8                 | 1    | 3   | 6.210mb   | 0.000065s  | ±1.91%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,8                  | 1    | 3   | 6.210mb   | 0.000070s  | ±0.68%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,8                   | 1    | 3   | 6.265mb   | 0.010512s  | ±58.91%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,9                      | 1    | 3   | 6.693mb   | 0.003095s  | ±0.95%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,9                        | 1    | 3   | 6.669mb   | 0.000037s  | ±1.29%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,9                   | 1    | 3   | 6.669mb   | 0.000113s  | ±132.80% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,9   | 1    | 3   | 6.669mb   | 0.000036s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,9                   | 1    | 3   | 6.737mb   | 0.003168s  | ±16.73%  |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,9                  | 1    | 3   | 6.723mb   | 0.020616s  | ±9.56%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,9                    | 1    | 3   | 684.597mb | 1.759478s  | ±0.43%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,9      | 1    | 3   | 6.693mb   | 0.002496s  | ±3.81%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,9          | 1    | 3   | 6.693mb   | 0.005934s  | ±3.85%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,9                 | 1    | 3   | 6.669mb   | 0.000036s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,9                  | 1    | 3   | 6.669mb   | 0.000036s  | ±4.54%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,9              | 1    | 3   | 6.669mb   | 0.000036s  | ±2.57%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,9             | 1    | 3   | 6.746mb   | 0.000464s  | ±80.49%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,9            | 1    | 3   | 6.754mb   | 0.000386s  | ±87.16%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,9                 | 1    | 3   | 6.724mb   | 0.000242s  | ±130.20% |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,9                  | 1    | 3   | 6.672mb   | 0.000081s  | ±1.17%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,9                   | 1    | 3   | 6.726mb   | 0.015371s  | ±29.12%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,10                     | 1    | 3   | 7.149mb   | 0.003372s  | ±1.17%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,10                       | 1    | 3   | 7.172mb   | 0.000120s  | ±131.10% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,10                  | 1    | 3   | 7.116mb   | 0.000031s  | ±3.11%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,10  | 1    | 3   | 7.118mb   | 0.000037s  | ±6.00%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,10                  | 1    | 3   | 7.149mb   | 0.003277s  | ±0.85%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,10                 | 1    | 3   | 7.155mb   | 0.024746s  | ±1.43%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,10                   | 1    | 3   | 7.166mb   | 0.000005s  | ±16.64%  |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,10     | 1    | 3   | 7.148mb   | 0.002491s  | ±0.34%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,10         | 1    | 3   | 7.148mb   | 0.006318s  | ±0.67%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,10                | 1    | 3   | 7.118mb   | 0.000038s  | ±3.31%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,10                 | 1    | 3   | 7.118mb   | 0.000037s  | ±4.51%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,10             | 1    | 3   | 7.118mb   | 0.000039s  | ±13.05%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,10            | 1    | 3   | 7.199mb   | 0.000637s  | ±15.45%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,10           | 1    | 3   | 7.195mb   | 0.000542s  | ±25.69%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,10                | 1    | 3   | 7.125mb   | 0.000096s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,10                 | 1    | 3   | 7.125mb   | 0.000102s  | ±5.28%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,10                  | 1    | 3   | 7.172mb   | 0.000817s  | ±135.94% |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,11                     | 1    | 3   | 7.594mb   | 0.003904s  | ±2.70%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,11                       | 1    | 3   | 7.565mb   | 0.000042s  | ±1.13%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,11                  | 1    | 3   | 7.564mb   | 0.000036s  | ±5.76%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,11  | 1    | 3   | 7.565mb   | 0.000038s  | ±3.63%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,11                  | 1    | 3   | 7.594mb   | 0.003622s  | ±0.45%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,11                 | 1    | 3   | 7.626mb   | 0.028215s  | ±8.72%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,11                   | 1    | 3   | 7.549mb   | 0.000006s  | ±14.14%  |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,11     | 1    | 3   | 7.594mb   | 0.002663s  | ±0.38%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,11         | 1    | 3   | 7.594mb   | 0.006780s  | ±1.90%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,11                | 1    | 3   | 7.565mb   | 0.000041s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,11                 | 1    | 3   | 7.565mb   | 0.000041s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,11             | 1    | 3   | 7.565mb   | 0.000041s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,11            | 1    | 3   | 7.654mb   | 0.000733s  | ±7.38%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,11           | 1    | 3   | 7.660mb   | 0.000896s  | ±6.96%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,11                | 1    | 3   | 7.573mb   | 0.000117s  | ±2.54%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,11                 | 1    | 3   | 7.573mb   | 0.000122s  | ±0.67%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,11                  | 1    | 3   | 7.618mb   | 0.000264s  | ±106.00% |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,20                     | 1    | 3   | 12.366mb  | 0.007824s  | ±8.70%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,20                       | 1    | 3   | 12.362mb  | 0.001393s  | ±65.94%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,20                  | 1    | 3   | 12.312mb  | 0.001167s  | ±98.99%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,20  | 1    | 3   | 12.308mb  | 0.000064s  | ±14.33%  |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,20                  | 1    | 3   | 12.315mb  | 0.006407s  | ±4.24%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,20                 | 1    | 3   | 12.335mb  | 0.081311s  | ±2.61%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,20                   | 1    | 3   | 12.289mb  | 0.000006s  | ±8.32%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,20     | 1    | 3   | 12.314mb  | 0.004337s  | ±2.07%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,20         | 1    | 3   | 12.314mb  | 0.011260s  | ±0.41%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,20                | 1    | 3   | 12.307mb  | 0.000067s  | ±14.51%  |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,20                 | 1    | 3   | 12.306mb  | 0.000064s  | ±1.49%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,20             | 1    | 3   | 12.306mb  | 0.000063s  | ±2.21%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,20            | 1    | 3   | 12.596mb  | 0.012358s  | ±11.33%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,20           | 1    | 3   | 12.591mb  | 0.013436s  | ±10.97%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,20                | 1    | 3   | 12.370mb  | 0.000541s  | ±72.09%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,20                 | 1    | 3   | 12.345mb  | 0.000470s  | ±1.76%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,20                  | 1    | 3   | 12.362mb  | 0.001062s  | ±98.11%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,30                     | 1    | 3   | 16.868mb  | 0.010368s  | ±12.04%  |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,30                       | 1    | 3   | 16.874mb  | 0.001211s  | ±87.03%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,30                  | 1    | 3   | 16.863mb  | 0.000159s  | ±122.81% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,30  | 1    | 3   | 16.811mb  | 0.000105s  | ±2.99%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,30                  | 1    | 3   | 16.806mb  | 0.009620s  | ±1.73%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,30                 | 1    | 3   | 16.872mb  | 0.187050s  | ±2.29%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,30                   | 1    | 3   | 16.788mb  | 0.000007s  | ±17.01%  |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,30     | 1    | 3   | 16.805mb  | 0.007006s  | ±1.68%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,30         | 1    | 3   | 16.841mb  | 0.021321s  | ±7.10%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,30                | 1    | 3   | 16.807mb  | 0.000101s  | ±4.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,30                 | 1    | 3   | 16.808mb  | 0.000099s  | ±4.57%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,30             | 1    | 3   | 16.807mb  | 0.000107s  | ±2.29%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,30            | 1    | 3   | 17.421mb  | 0.093493s  | ±5.52%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,30           | 1    | 3   | 17.443mb  | 0.104010s  | ±2.17%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,30                | 1    | 3   | 16.867mb  | 0.001384s  | ±5.49%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,30                 | 1    | 3   | 16.868mb  | 0.001406s  | ±2.41%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,30                  | 1    | 3   | 16.867mb  | 0.002296s  | ±2.15%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,40                     | 1    | 3   | 22.913mb  | 0.015279s  | ±13.36%  |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,40                       | 1    | 3   | 22.895mb  | 0.000435s  | ±128.97% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,40                  | 1    | 3   | 22.936mb  | 0.000189s  | ±116.58% |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,40  | 1    | 3   | 22.863mb  | 0.000158s  | ±2.90%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,40                  | 1    | 3   | 22.848mb  | 0.013507s  | ±0.93%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,40                 | 1    | 3   | 22.945mb  | 0.291114s  | ±10.19%  |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,40                   | 1    | 3   | 22.841mb  | 0.000006s  | ±8.32%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,40     | 1    | 3   | 22.853mb  | 0.009024s  | ±13.62%  |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,40         | 1    | 3   | 22.857mb  | 0.025075s  | ±2.78%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,40                | 1    | 3   | 22.853mb  | 0.000151s  | ±1.96%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,40                 | 1    | 3   | 22.853mb  | 0.000151s  | ±0.83%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,40             | 1    | 3   | 22.852mb  | 0.000150s  | ±0.83%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,40            | 1    | 3   | 23.967mb  | 0.461000s  | ±2.30%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,40           | 1    | 3   | 23.983mb  | 0.467482s  | ±6.05%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,40                | 1    | 3   | 23.039mb  | 0.003041s  | ±2.43%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,40                 | 1    | 3   | 23.039mb  | 0.003024s  | ±2.47%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,40                  | 1    | 3   | 23.040mb  | 0.005450s  | ±10.49%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,50                     | 1    | 3   | 27.429mb  | 0.019048s  | ±0.77%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,50                       | 1    | 3   | 27.429mb  | 0.000205s  | ±1.80%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,50                  | 1    | 3   | 27.481mb  | 0.000131s  | ±1.57%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,50  | 1    | 3   | 27.429mb  | 0.000211s  | ±1.48%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,50                  | 1    | 3   | 27.429mb  | 0.018321s  | ±1.88%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,50                 | 1    | 3   | 27.533mb  | 0.466429s  | ±6.92%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,50                   | 1    | 3   | 27.429mb  | 0.000007s  | ±0.00%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,50     | 1    | 3   | 27.429mb  | 0.011725s  | ±1.17%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,50         | 1    | 3   | 27.429mb  | 0.031058s  | ±0.39%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,50                | 1    | 3   | 27.429mb  | 0.000201s  | ±2.11%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,50                 | 1    | 3   | 27.429mb  | 0.000202s  | ±1.62%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,50             | 1    | 3   | 27.429mb  | 0.000209s  | ±0.82%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,50            | 1    | 3   | 29.101mb  | 1.375436s  | ±8.57%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,50           | 1    | 3   | 29.062mb  | 1.306662s  | ±10.02%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,50                | 1    | 3   | 27.650mb  | 0.005984s  | ±1.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,50                 | 1    | 3   | 27.646mb  | 0.005817s  | ±1.80%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,50                  | 1    | 3   | 27.646mb  | 0.010318s  | ±16.23%  |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,60                     | 1    | 3   | 31.984mb  | 0.024316s  | ±1.00%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,60                       | 1    | 3   | 31.991mb  | 0.000272s  | ±1.20%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,60                  | 1    | 3   | 32.058mb  | 0.000170s  | ±7.50%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,60  | 1    | 3   | 31.996mb  | 0.000272s  | ±1.30%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,60                  | 1    | 3   | 31.984mb  | 0.023471s  | ±1.97%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,60                 | 1    | 3   | 32.114mb  | 0.725998s  | ±3.91%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,60                   | 1    | 3   | 31.984mb  | 0.000005s  | ±16.64%  |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,60     | 1    | 3   | 31.984mb  | 0.014803s  | ±0.94%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,60         | 1    | 3   | 31.984mb  | 0.040944s  | ±2.69%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,60                | 1    | 3   | 31.984mb  | 0.000272s  | ±0.91%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,60                 | 1    | 3   | 31.984mb  | 0.000272s  | ±1.81%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,60             | 1    | 3   | 31.984mb  | 0.000275s  | ±1.73%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,60            | 1    | 3   | 34.517mb  | 3.339907s  | ±9.85%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,60           | 1    | 3   | 34.478mb  | 3.625151s  | ±7.60%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,60                | 1    | 3   | 32.255mb  | 0.009959s  | ±1.61%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,60                 | 1    | 3   | 32.257mb  | 0.009910s  | ±1.81%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,60                  | 1    | 3   | 32.256mb  | 0.021020s  | ±5.02%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,70                     | 1    | 3   | 44.247mb  | 0.030676s  | ±0.91%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,70                       | 1    | 3   | 44.247mb  | 0.000349s  | ±1.19%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,70                  | 1    | 3   | 44.486mb  | 0.000210s  | ±3.75%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,70  | 1    | 3   | 44.247mb  | 0.000356s  | ±0.99%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,70                  | 1    | 3   | 44.247mb  | 0.029905s  | ±0.71%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,70                 | 1    | 3   | 44.481mb  | 1.003590s  | ±7.87%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,70                   | 1    | 3   | 44.247mb  | 0.000007s  | ±7.07%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,70     | 1    | 3   | 44.247mb  | 0.018283s  | ±0.08%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,70         | 1    | 3   | 44.247mb  | 0.050120s  | ±0.75%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,70                | 1    | 3   | 44.247mb  | 0.000348s  | ±0.49%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,70                 | 1    | 3   | 44.247mb  | 0.000348s  | ±1.20%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,70             | 1    | 3   | 44.247mb  | 0.000355s  | ±12.89%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,70            | 1    | 3   | 47.505mb  | 7.590197s  | ±16.35%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,70           | 1    | 3   | 47.410mb  | 7.557485s  | ±5.37%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,70                | 1    | 3   | 45.295mb  | 0.015402s  | ±2.51%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,70                 | 1    | 3   | 45.291mb  | 0.015401s  | ±0.70%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,70                  | 1    | 3   | 45.294mb  | 0.028018s  | ±0.32%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,80                     | 1    | 3   | 49.084mb  | 0.037037s  | ±0.25%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,80                       | 1    | 3   | 49.084mb  | 0.000443s  | ±0.11%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,80                  | 1    | 3   | 49.370mb  | 0.000257s  | ±1.43%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,80  | 1    | 3   | 49.084mb  | 0.000441s  | ±2.97%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,80                  | 1    | 3   | 49.084mb  | 0.036051s  | ±0.70%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,80                 | 1    | 3   | 49.347mb  | 1.215646s  | ±3.64%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,80                   | 1    | 3   | 49.084mb  | 0.000007s  | ±7.07%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,80     | 1    | 3   | 49.084mb  | 0.021718s  | ±0.57%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,80         | 1    | 3   | 49.084mb  | 0.060641s  | ±0.71%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,80                | 1    | 3   | 49.084mb  | 0.000432s  | ±0.85%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,80                 | 1    | 3   | 49.084mb  | 0.000435s  | ±0.78%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,80             | 1    | 3   | 49.084mb  | 0.000427s  | ±0.83%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,80            | 1    | 3   | 53.274mb  | 14.873456s | ±21.68%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,80           | 1    | 3   | 53.346mb  | 15.733408s | ±16.64%  |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,80                | 1    | 3   | 50.295mb  | 0.022662s  | ±2.31%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,80                 | 1    | 3   | 50.294mb  | 0.023019s  | ±3.50%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,80                  | 1    | 3   | 50.292mb  | 0.041399s  | ±1.72%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,90                     | 1    | 3   | 53.920mb  | 0.044067s  | ±1.03%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,90                       | 1    | 3   | 53.920mb  | 0.000540s  | ±0.54%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,90                  | 1    | 3   | 54.270mb  | 0.000414s  | ±82.76%  |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,90  | 1    | 3   | 53.920mb  | 0.000546s  | ±0.60%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,90                  | 1    | 3   | 53.920mb  | 0.042732s  | ±0.28%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,90                 | 1    | 3   | 54.186mb  | 1.534839s  | ±4.49%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,90                   | 1    | 3   | 53.920mb  | 0.000008s  | ±5.66%   |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,90     | 1    | 3   | 53.920mb  | 0.025321s  | ±0.90%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,90         | 1    | 3   | 53.920mb  | 0.072044s  | ±0.53%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,90                | 1    | 3   | 53.920mb  | 0.000530s  | ±1.08%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,90                 | 1    | 3   | 53.920mb  | 0.000527s  | ±0.09%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,90             | 1    | 3   | 53.920mb  | 0.000540s  | ±4.15%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,90            | 1    | 3   | 59.325mb  | 28.542581s | ±14.47%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,90           | 1    | 3   | 59.069mb  | 28.519612s | ±8.88%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,90                | 1    | 3   | 55.295mb  | 0.032344s  | ±1.29%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,90                 | 1    | 3   | 55.296mb  | 0.031541s  | ±1.60%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,90                  | 1    | 3   | 55.291mb  | 0.057553s  | ±0.56%   |
+| MethodsNonProportionalBench | benchByCandidates | BordaCount,100                    | 1    | 3   | 58.888mb  | 0.051550s  | ±1.33%   |
+| MethodsNonProportionalBench | benchByCandidates | Copeland,100                      | 1    | 3   | 58.888mb  | 0.000641s  | ±0.96%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Quick,100                 | 1    | 3   | 59.152mb  | 0.000353s  | ±0.71%   |
+| MethodsNonProportionalBench | benchByCandidates | Dodgson Tideman Approximation,100 | 1    | 3   | 58.888mb  | 0.000646s  | ±1.07%   |
+| MethodsNonProportionalBench | benchByCandidates | DowdallSystem,100                 | 1    | 3   | 58.888mb  | 0.050364s  | ±0.64%   |
+| MethodsNonProportionalBench | benchByCandidates | Instant-runoff,100                | 1    | 3   | 59.071mb  | 1.853938s  | ±3.54%   |
+| MethodsNonProportionalBench | benchByCandidates | Kemeny–Young,100                  | 1    | 3   | 58.888mb  | 0.000008s  | ±16.27%  |
+| MethodsNonProportionalBench | benchByCandidates | First-past-the-post voting,100    | 1    | 3   | 58.888mb  | 0.029426s  | ±0.22%   |
+| MethodsNonProportionalBench | benchByCandidates | Multiple Rounds System,100        | 1    | 3   | 58.888mb  | 0.084283s  | ±0.29%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Winning,100               | 1    | 3   | 58.888mb  | 0.000627s  | ±0.98%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Margin,100                | 1    | 3   | 58.888mb  | 0.000628s  | ±0.75%   |
+| MethodsNonProportionalBench | benchByCandidates | Minimax Opposition,100            | 1    | 3   | 58.888mb  | 0.000622s  | ±0.66%   |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Margin,100           | 1    | 3   | 65.109mb  | 43.207162s | ±10.17%  |
+| MethodsNonProportionalBench | benchByCandidates | Ranked Pairs Winning,100          | 1    | 3   | 65.087mb  | 47.362454s | ±5.24%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Winning,100               | 1    | 3   | 60.295mb  | 0.044037s  | ±0.95%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Margin,100                | 1    | 3   | 60.298mb  | 0.044785s  | ±0.54%   |
+| MethodsNonProportionalBench | benchByCandidates | Schulze Ratio,100                 | 1    | 3   | 60.297mb  | 0.076305s  | ±2.64%   |
++-----------------------------+-------------------+-----------------------------------+------+-----+-----------+------------+----------+
