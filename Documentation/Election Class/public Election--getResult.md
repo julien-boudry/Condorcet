@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->getResult ( [?string $method = null , array $options = []] ): CondorcetPHP\Condorcet\Result
+public Election->getResult ( [?string $method = null , array $methodOptions = []] ): CondorcetPHP\Condorcet\Result
 ```
 
 Get a full ranking from an advanced Condorcet method.
@@ -14,7 +14,7 @@ Get a full ranking from an advanced Condorcet method.
 Not required for use election default method. Set the string name of the algorithm for use of a specific one.    
 
 
-##### **options:** *```array```*   
+##### **methodOptions:** *```array```*   
 Array of option for some methods. Look at each method documentation.    
 
 
