@@ -174,51 +174,31 @@ class KemenyYoungTest extends TestCase
         self::assertSame($candidate[0],$this->election->getWinner('KemenyYoung'));
     }
 
-    // public function testKemenyWith9Candidates ()
-    // {
-    //     $original = KemenyYoung::$MaxCandidates;
-    //     KemenyYoung::$MaxCandidates = null;
+    public function ManyCandidatesProvider (): array
+    {
+        return [
+            9  => [9],
+            10  => [10],
+        ];
+    }
 
-    //     for ($i=0;$i<9;$i++):
-    //         $candidates[] = $this->election->addCandidate();
-    //     endfor;
+    /**
+     * @group large
+     * @dataProvider  ManyCandidatesProvider
+     */
+    public function testKemenyWith9Candidates (int $candidatesCount)
+    {
+        $original = KemenyYoung::$MaxCandidates;
+        KemenyYoung::$MaxCandidates = null;
 
-    //     $this->election->addVote($candidates);
+        for ($i=0;$i<$candidatesCount;$i++):
+            $candidates[] = $this->election->addCandidate();
+        endfor;
 
-    //     self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+        $this->election->addVote($candidates);
 
-    //     KemenyYoung::$MaxCandidates = $original;
-    // }
+        self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
 
-    // public function testKemenyWith10Candidates ()
-    // {
-    //     $original = KemenyYoung::$MaxCandidates;
-    //     KemenyYoung::$MaxCandidates = null;
-
-    //     for ($i=0;$i<10;$i++):
-    //         $candidates[] = $this->election->addCandidate();
-    //     endfor;
-
-    //     $this->election->addVote($candidates);
-
-    //     self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
-
-    //     KemenyYoung::$MaxCandidates = $original;
-    // }
-
-    // public function testKemenyWith12Candidates ()
-    // {
-    //     $original = KemenyYoung::$MaxCandidates;
-    //     KemenyYoung::$MaxCandidates = null;
-
-    //     for ($i=0;$i<12;$i++):
-    //         $candidates[] = $this->election->addCandidate();
-    //     endfor;
-
-    //     $this->election->addVote($candidates);
-
-    //     self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
-
-    //     KemenyYoung::$MaxCandidates = $original;
-    // }
+        KemenyYoung::$MaxCandidates = $original;
+    }
 }

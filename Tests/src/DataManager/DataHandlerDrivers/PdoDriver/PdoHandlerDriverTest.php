@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @preserveGlobalState disabled
  * @backupStaticAttributes disabled
+ * @group DataHandlerDrivers
  */
 class PdoHandlerDriverTest extends TestCase
 {
