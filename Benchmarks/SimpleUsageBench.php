@@ -13,6 +13,7 @@ class SimpleUsageBench
     #[Bench\Warmup(1)]
     #[Bench\Iterations(10)]
     #[Bench\Revs(10)]
+    #[Bench\OutputTimeUnit('milliseconds')]
     public function benchSimpleManyVotes (): void
     {
        $election = new Election;
