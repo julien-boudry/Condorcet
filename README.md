@@ -177,12 +177,22 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 The code is close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
 
 #### Performance:  
-* Complete and huge use case with all algorithms chained, 6 candidates and one thousand votes (many with implicit ranking).
-  * _Memory usage: less than 6M_    
-  * _Execution time: less than 180ms_  
+* Complete and huge use case with all voting methods chained, 6 candidates, 2 seats and one thousand votes (many with implicit ranking).
+  * _Memory usage: less than 3M_    
+  * _Execution time (after Jit compiling): less than 160ms_  
+  * _Execution time (without JIT): less than 250ms_  
+
+But essentially because some voting methods are slow by design and others (like Schulze) are very fast. Have a look on [methods benchmarks](Benchmarks/History/MethodsBench.md).
+
 ###### Kemeny-Youg case:   
-* use Kemeny-Young 7 candidates: ~8MB - 25ms    
-* use Kemeny-Young 8 candidates: ~80MB - 230ms    
+_1 000 randoms votes. Memory consumption comes from votes more than combinations._
+
+* use Kemeny-Young 7 candidates: ~5MB - 10ms    
+* use Kemeny-Young 8 candidates: ~6MB - 10ms    
+* use Kemeny-Young 9 candidates: ~7MB - 1.1s    
+* use Kemeny-Young 10 candidates: ~7MB - 14s   
+* use Kemeny-Young 11 candidates: ~8MB - 193s   
+
 ###### Massive election case:  
 Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
 

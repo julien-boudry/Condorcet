@@ -10,14 +10,15 @@ use PhpBench\Attributes as Bench;
 
 class IntensiveUsageBench
 {
-    #[Bench\Warmup(1)]
-    #[Bench\Iterations(4)]
+    #[Bench\Warmup(3)]
+    #[Bench\Iterations(5)]
     #[Bench\Revs(10)]
     #[Bench\OutputTimeUnit('milliseconds')]
     public function benchSimpleManyVotes (): void
     {
        $election = new Election;
        $election->allowsVoteWeight(true);
+       $election->setNumberOfSeats(2);
 
        $election->parseCandidates('A;B;C;D;E;F');
 
