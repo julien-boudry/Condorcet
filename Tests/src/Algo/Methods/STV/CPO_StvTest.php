@@ -8,7 +8,9 @@ use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
+use SplTempFileObject;
 
 class CPO_StvTest extends TestCase
 {
@@ -164,6 +166,63 @@ class CPO_StvTest extends TestCase
             $stats['Outcomes Comparison']);
 
         self::assertArrayHasKey('Condorcet Completion Method Stats', $stats);
+    }
+
+
+    # From https://electowiki.org/wiki/CPO-STV
+    public function testCPO2 (): void
+    {
+        // $this->election->setStatsVerbosity(StatsVerbosity::FULL);
+        $this->election->allowsVoteWeight(true);
+
+        $file = new \SplTempFileObject(-1);
+        $file->fwrite(      <<<'CVOTES'
+                            #/Number of Seats: 3
+                            Escher ^ 100
+                            Andre>Nader>Gore ^ 110
+                            Nader>Gore ^ 18
+                            Gore>Nader ^ 21
+                            Gore>Bush ^ 6
+                            Bush>Gore ^ 45
+                            CVOTES);
+
+        $cef = new CondorcetElectionFormat ($file);
+
+        $cef->setDataToAnElection($this->election);
+
+        $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HARE);
+
+        self::assertSame('Andre > Escher > Gore', $this->election->getResult('CPO STV')->getResultAsString());
+
+        self::assertSame((float) 100, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
+    }
+
+    # From https://electowiki.org/wiki/CPO-STV
+    public function testCPO3 (): void
+    {
+        $this->election->setStatsVerbosity(StatsVerbosity::FULL);
+        $this->election->allowsVoteWeight(true);
+
+        $file = new \SplTempFileObject(-1);
+        $file->fwrite(      <<<'CVOTES'
+                            #/Number of Seats: 2
+                            A>B>C>D * 5
+                            A>C>B>D * 17
+                            D * 8
+                            CVOTES);
+
+        $cef = new CondorcetElectionFormat ($file);
+
+        $cef->setDataToAnElection($this->election);
+
+        $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP);
+
+        self::assertSame('A > C', $this->election->getResult('CPO STV')->getResultAsString());
+
+        self::assertSame((float) 11, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
+        self::assertSame([0=>19.0, 2=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores']);
+        self::assertSame([0=>19.0, 1=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores']);
+        self::assertSame([1=>19.5, 2=>13.5], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores']);
     }
 
     public function testLessOrEqualCandidatesThanSeats (): void
