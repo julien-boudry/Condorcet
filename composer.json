@@ -3,7 +3,8 @@
     "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/julien-boudry/Condorcet",
-    "description": "Complete election manager, providing natively many methods of Condorcet : Condorcet basic / Copeland / Dodgson / Kemeny–Young / Minimax / Ranked Pairs / Schulze",
+    "description": "Complete election manager, providing natively many voting methods including: Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants), Single Transferable Vote (STV) / Comparison of Pairs of Outcomes by the Single Transferable Vote (CPO-STV)",
+    "keywords": ["election", "vote", "condorcet", "schulze", "tideman", "ranked pairs", "borda", "copeland", "alternative vote", "STV"],
     "authors": [
         {
             "name": "Julien Boudry",
@@ -27,7 +28,7 @@
         "ext-json": "*",
         "symfony/console": "^6.0",
         "symfony/yaml": "^6.0",
-        "brick/math": "^0.9.3"
+        "brick/math": "^0.9"
     },
     "require-dev": {
         "ext-mbstring": "*",
