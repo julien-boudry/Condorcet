@@ -43,7 +43,7 @@ class KemenyYoungTest extends TestCase
             $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
 
-        self::assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['bestScore']);
+        self::assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['Best Score']);
 
         self::assertSame($this->election->getWinner(),$this->election->getWinner('KemenyYoung'));
     }
@@ -93,9 +93,9 @@ class KemenyYoungTest extends TestCase
 
         self::assertSame(
             [
-                'bestScore' => 1,
-                'rankingInConflicts' => 0,
-                'rankingScores' => [
+                'Best Score' => 1,
+                'Ranking In Conflicts' => 0,
+                'Ranking Scores' => [
                     [1 => 'A', 2 => 'B', 'score' => 1],
                     [1 => 'B', 2 => 'A', 'score' => 0],
                 ]
@@ -151,7 +151,7 @@ class KemenyYoungTest extends TestCase
             $result->getWarning()
         );
 
-        self::assertSame(3, $result->getStats()['rankingInConflicts']);
+        self::assertSame(3, $result->getStats()['Ranking In Conflicts']);
 
         $this->election->addVote('A>B>C');
 
@@ -186,7 +186,7 @@ class KemenyYoungTest extends TestCase
      * @group large
      * @dataProvider  ManyCandidatesProvider
      */
-    public function testKemenyWith9Candidates (int $candidatesCount)
+    public function testKemenyWithManyCandidates (int $candidatesCount)
     {
         $original = KemenyYoung::$MaxCandidates;
         KemenyYoung::$MaxCandidates = null;

@@ -69,8 +69,8 @@ class KemenyYoung extends Method implements MethodInterface
         $election = $this->getElection();
         $stats = [];
 
-        $stats['bestScore'] = $this->MaxScore;
-        $stats['rankingInConflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
+        $stats['Best Score'] = $this->MaxScore;
+        $stats['Ranking In Conflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
 
         if ($election->getStatsVerbosity()->value >= StatsVerbosity::FULL->value) :
             $explicit = [];
@@ -85,7 +85,7 @@ class KemenyYoung extends Method implements MethodInterface
                 $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());
             endforeach;
 
-            $stats['rankingScores'] = $explicit;
+            $stats['Ranking Scores'] = $explicit;
         endif;
 
         return $stats;

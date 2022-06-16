@@ -331,7 +331,7 @@ class ResultTest extends TestCase
         self::assertSame(StatsVerbosity::FULL, $r3->statsVerbosity);
 
         self::assertNotSame($r1, $r3);
-        self::assertArrayNotHasKey('rankingScores', $r1->getStats());
-        self::assertArrayHasKey('rankingScores', $r3->getStats());
+        self::assertArrayNotHasKey('Ranking Scores', $r1->getStats());
+        self::assertArrayHasKey('Ranking Scores', $r3->getStats());
     }
 }
