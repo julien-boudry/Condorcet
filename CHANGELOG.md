@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.0] - 2022-06-??
+## [v4.0] - 2022-06-17
 ### Description
 Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.
 
@@ -26,7 +26,7 @@ Implement the CPO-STV method, the second official module for a proportional meth
 - Ranked Pairs default limit of candidates up from 40 to 60, thanks to performance optimizations
 - Kemeny-Young now accepts 10 candidates by default thanks to performance optimizations. Up to 12 candidates without spending the night. And up to infinity without burning too much memory.
 - `Throwable\CandidatesMaxNumberReachedException` used in Kemeny-Young and Ranked Pairs now extends `Throwable\MethodLimitReachedException`, and you should prefer to catch the second one.
-- Kemeny-Young and STV methods, send fewer stats than before to the `Result->getStats()` returning an array. To get back full details, you need to specify `Election->setStatsVerbosity(StatsVerbosity::FULL)` or `Election->setStatsVerbosity(StatsVerbosity::HIGH)`
+- Some methods like Kemeny-Young or CPO-STV methods, send fewer stats than before to the `Result->getStats()` returning an array. To get back full details, you need to specify `Election->setStatsVerbosity(StatsVerbosity::FULL)` or `Election->setStatsVerbosity(StatsVerbosity::HIGH)`. This change speedup some methods and can use less memory.
 
 ### Internal changes
 #### Engine
