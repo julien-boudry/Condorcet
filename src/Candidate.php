@@ -69,7 +69,7 @@ class Candidate implements \Stringable
             throw new CandidateInvalidNameException($name);
         endif;
 
-        if ( \preg_match('/<|>|\n|\t|\0|\^|\$|:|;|(\|\|)|"|#/',$name) === 1 ) :
+        if ( \preg_match('/<|>|\n|\t|\0|\^|\*|\$|:|;|(\|\|)|"|#/',$name) === 1 ) :
             throw new CandidateInvalidNameException($name);
         endif;
 
