@@ -14,10 +14,18 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core;
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
 # Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
-abstract class LargestRemainder_Core extends HighestAverages_Core implements MethodInterface
+class LargestRemainder extends HighestAverages_Core implements MethodInterface
 {
+    final public const IS_PROPORTIONAL = true;
+
+    // Method Name
+    public const METHOD_NAME = ['Hare-LR'];
+
+    public static StvQuotas $optionQuota = StvQuotas::HARE;
+
     protected function makeRounds (): array
     {
         $election = $this->getElection();
@@ -47,5 +55,10 @@ abstract class LargestRemainder_Core extends HighestAverages_Core implements Met
         endwhile;
 
         return $results;
+    }
+
+    protected function computeQuotient (int $votesWeight, int $seats): float
+    {
+        return self::$optionQuota->getQuota($votesWeight, $seats);
     }
 }
