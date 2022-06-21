@@ -20,18 +20,32 @@ abstract class HighestAveragesMethod extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['SainteLague'];
 
-    protected array $_Stats = [];
+    protected array $candidatesVotes = [];
+    protected array $candidatesSeats = [];
+    protected array $rounds = [];
 
 
 /////////// COMPUTE ///////////
 
     protected function compute (): void
     {
+        $this->countVotesPerCandidates();
+
+        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
+            $this->candidatesSeats[$candidateKey] = 0;
+        endforeach;
+
+        # Rounds
+        $this->rounds = [];
+        $this->_Result = $this->createResult( $this->makeRounds() );
+    }
+
+    protected function countVotesPerCandidates (): void
+    {
         $election = $this->getElection();
-        $candidatesVotes = [];
 
         foreach (\array_keys($election->getCandidatesList()) as $candidateKey) :
-            $candidatesVotes[$candidateKey] = 0;
+            $this->candidatesVotes[$candidateKey] = 0;
         endforeach;
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
@@ -39,48 +53,40 @@ abstract class HighestAveragesMethod extends Method implements MethodInterface
 
             if (\count($voteWinnerRank) !== 1): continue; endif; // This method support only one winner per vote. Ignore bad votes.
 
-            $candidatesVotes[$election->getCandidateKey(\reset($voteWinnerRank))] += $oneVote->getWeight($election);
+            $this->candidatesVotes[$election->getCandidateKey(\reset($voteWinnerRank))] += $oneVote->getWeight($election);
         endforeach;
+    }
 
-        unset($voteWinnerRank);
-
-        # Rounds
-        $rounds = [];
-        $candidatesSeats = [];
+    protected function makeRounds (): array
+    {
+        $election = $this->getElection();
         $results = [];
 
-        foreach (\array_keys($election->getCandidatesList()) as $candidateKey) :
-            $candidatesSeats[$candidateKey] = 0;
-        endforeach;
-
-        while (\array_sum($candidatesSeats) < $election->getNumberOfSeats()) :
-            $roundNumber = \count($rounds) + 1;
+        while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) :
+            $roundNumber = \count($this->rounds) + 1;
             $maxQuotient = 0;
-            $maxQuotientCandididateKey = null;
+            $maxQuotientCandidateKey = null;
 
-            foreach ($candidatesVotes as $candidateKey => $oneCandidateVotes) :
-                $quotient = $this->computeQuotient($oneCandidateVotes, $candidatesSeats[$candidateKey]);
+            foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) :
+                $quotient = $this->computeQuotient($oneCandidateVotes, $this->candidatesSeats[$candidateKey]);
 
-                $rounds[$roundNumber][$candidateKey]['Quotient'] = $quotient;
-                $rounds[$roundNumber][$candidateKey]['NumberOfSeatsAllocatedBeforeRound'] = $candidatesSeats[$candidateKey];
+                $this->rounds[$roundNumber][$candidateKey]['Quotient'] = $quotient;
+                $this->rounds[$roundNumber][$candidateKey]['NumberOfSeatsAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
 
                 if ($quotient > $maxQuotient) :
                     $maxQuotient = $quotient;
-                    $maxQuotientCandididateKey = $candidateKey;
+                    $maxQuotientCandidateKey = $candidateKey;
                 endif;
             endforeach;
 
-            $candidatesSeats[$maxQuotientCandididateKey]++;
-            $results[$roundNumber] = $maxQuotientCandididateKey;
+            $this->candidatesSeats[$maxQuotientCandidateKey]++;
+            $results[$roundNumber] = $maxQuotientCandidateKey;
         endwhile;
 
-        $this->_Stats['Rounds'] = $rounds;
-        $this->_Stats['Seats per Candidates'] = $candidatesSeats;
-
-        $this->_Result = $this->createResult($results);
+        return $results;
     }
 
-    abstract protected function computeQuotient (int $candidateVotes, int $candidateSeats): float;
+    abstract protected function computeQuotient (int $votes, int $seats): float;
 
     protected function getStats(): array
     {
@@ -89,13 +95,13 @@ abstract class HighestAveragesMethod extends Method implements MethodInterface
         $stats = [];
 
         if ($election->getStatsVerbosity()->value > StatsVerbosity::NONE->value) :
-            foreach ($this->_Stats['Rounds'] as $roundNumber => $oneRound) :
+            foreach ($this->rounds as $roundNumber => $oneRound) :
                 foreach ($oneRound as $candidateKey => $roundCandidateStats) :
                     $stats['Rounds'][$roundNumber][$election->getCandidateObjectFromKey($candidateKey)->getName()] = $roundCandidateStats;
                 endforeach;
             endforeach;
 
-            foreach ($this->_Stats['Seats per Candidates'] as $candidateKey => $candidateSeats) :
+            foreach ($this->candidatesSeats as $candidateKey => $candidateSeats) :
                 $stats['Seats per Candidates'][$election->getCandidateObjectFromKey($candidateKey)->getName()] = $candidateSeats;
             endforeach;
         endif;

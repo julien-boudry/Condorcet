@@ -58,7 +58,82 @@ class HighestAveragesMethodTest extends TestCase
             Divers extrême droite	^6457
         ');
 
-        // self::assertSame([], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
-        // self::assertSame([], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+
+        self::assertSame([
+            'Divers extrême gauche' => 7,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 148,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 5,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 149,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 14,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 25,
+            'Rassemblement National' => 108,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
+
+        self::assertSame([
+            'Divers extrême gauche' => 6,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 150,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 4,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 150,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 13,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 24,
+            'Rassemblement National' => 109,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
+
+        self::assertSame([
+            'Divers extrême gauche' => 7,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 148,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 5,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 149,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 14,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 25,
+            'Rassemblement National' => 108,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']));
+    }
+
+    # https://www.electoral-reform.org.uk/what-is-the-difference-between-dhondt-sainte-lague-and-hare/
+    public function testResult_1 (): void
+    {
+        $this->election->parseCandidates('Con;Lab;LD;Brexit;Ash Ind;Green;Others');
+        $this->election->setNumberOfSeats(11);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('Con ^258794; Lab ^204011; LD ^33604; Brexit ^15728; Ash Ind ^13498; Green ^10375; Others ^9743');
+
+        self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
+        self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
+        self::assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('Hare-LR')->getResultAsString());
     }
 }
