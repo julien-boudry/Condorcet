@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
 # Hare Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
 class HareLR extends LargestRemainder_Core implements MethodInterface
@@ -24,6 +25,6 @@ class HareLR extends LargestRemainder_Core implements MethodInterface
 
     protected function computeQuotient (int $votesWeight, int $seats): float
     {
-        return (float) ($votesWeight / $seats);
+        return StvQuotas::HARE->getQuota($votesWeight, $seats);
     }
 }

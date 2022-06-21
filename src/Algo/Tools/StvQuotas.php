@@ -51,7 +51,7 @@ Enum StvQuotas: string
             self::DROOP => floor(( $votesWeight / ($seats + 1) ) + 1),
             self::HARE => $votesWeight / $seats,
             self::HAGENBACH_BISCHOFF => $votesWeight / ($seats + 1),
-            self::IMPERIALI, => $votesWeight / ($seats+ 2),
+            self::IMPERIALI, => $votesWeight / ($seats + 2),
         };
     }
 }
