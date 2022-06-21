@@ -22,8 +22,8 @@ class HareLR extends LargestRemainder_Core implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['Hare-LR'];
 
-    protected function computeQuotient (int $votes, int $seats): float
+    protected function computeQuotient (int $votesWeight, int $seats): float
     {
-        return (float) ($votes / $seats);
+        return (float) ($votesWeight / $seats);
     }
 }

@@ -22,8 +22,8 @@ class SainteLague extends HighestAverages_Core implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['SainteLague'];
 
-    protected function computeQuotient (int $votes, int $seats): float
+    protected function computeQuotient (int $votesWeight, int $seats): float
     {
-        return (float) ($votes / ($seats * 2 + 1));
+        return (float) ($votesWeight / ($seats * 2 + 1));
     }
 }

@@ -25,9 +25,9 @@ class Jefferson extends HighestAverages_Core implements MethodInterface
 
 /////////// COMPUTE ///////////
 
-    protected function computeQuotient (int $votes, int $seats): float
+    protected function computeQuotient (int $votesWeight, int $seats): float
     {
-        return (float) ($votes / ($seats + 1));
+        return (float) ($votesWeight / ($seats + 1));
     }
 
 }

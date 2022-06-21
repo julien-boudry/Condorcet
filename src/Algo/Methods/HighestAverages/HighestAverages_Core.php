@@ -85,7 +85,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
         return $results;
     }
 
-    abstract protected function computeQuotient (int $votes, int $seats): float;
+    abstract protected function computeQuotient (int $votesWeight, int $seats): float;
 
     protected function getStats(): array
     {
