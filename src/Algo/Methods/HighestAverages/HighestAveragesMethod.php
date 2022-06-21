@@ -10,7 +10,7 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAveragesMethod;
+namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 

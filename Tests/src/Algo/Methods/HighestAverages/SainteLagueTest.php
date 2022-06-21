@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverageMethod;
+namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 
 class SainteLagueTest extends TestCase

@@ -37,8 +37,8 @@ Condorcet::addMethod( Algo\Methods\Schulze\SchulzeRatio::class );
 Condorcet::addMethod( Algo\Methods\STV\SingleTransferableVote::class );
 Condorcet::addMethod( Algo\Methods\STV\CPO_STV::class );
 Condorcet::addMethod( Algo\Methods\LargestRemainder\HareLR::class );
-Condorcet::addMethod( Algo\Methods\HighestAveragesMethod\Jefferson::class );
-Condorcet::addMethod( Algo\Methods\HighestAveragesMethod\SainteLague::class );
+Condorcet::addMethod( Algo\Methods\HighestAverages\Jefferson::class );
+Condorcet::addMethod( Algo\Methods\HighestAverages\SainteLague::class );
 
 
 // Set the default Condorcet Class algorithm
