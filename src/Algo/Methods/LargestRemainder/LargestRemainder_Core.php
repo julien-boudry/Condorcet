@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAveragesMethod;
+use CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core;
 
 # Copeland is a proportional algorithm | https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
-abstract class LargestRemainderMethod extends HighestAveragesMethod implements MethodInterface
+abstract class LargestRemainder_Core extends HighestAverages_Core implements MethodInterface
 {
     protected function makeRounds (): array
     {

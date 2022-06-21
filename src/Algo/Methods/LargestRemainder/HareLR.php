@@ -15,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 
 # Hare Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
-class HareLR extends LargestRemainderMethod implements MethodInterface
+class HareLR extends LargestRemainder_Core implements MethodInterface
 {
     final public const IS_PROPORTIONAL = true;
 

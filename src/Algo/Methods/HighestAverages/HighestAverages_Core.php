@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 
-abstract class HighestAveragesMethod extends Method implements MethodInterface
+abstract class HighestAverages_Core extends Method implements MethodInterface
 {
     // Method Name
     public const METHOD_NAME = ['SainteLague'];
