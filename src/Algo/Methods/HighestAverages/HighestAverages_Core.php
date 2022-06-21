@@ -16,9 +16,6 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 
 abstract class HighestAverages_Core extends Method implements MethodInterface
 {
-    // Method Name
-    public const METHOD_NAME = ['SainteLague'];
-
     protected array $candidatesVotes = [];
     protected array $candidatesSeats = [];
     protected array $rounds = [];

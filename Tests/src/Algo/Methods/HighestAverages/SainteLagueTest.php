@@ -168,4 +168,5 @@ class SainteLagueTest extends TestCase
                                 )
             , $this->election->getResult('SainteLague')->getStats());
     }
+
 }

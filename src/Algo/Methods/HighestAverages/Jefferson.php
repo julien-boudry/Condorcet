@@ -20,7 +20,7 @@ class Jefferson extends HighestAverages_Core implements MethodInterface
     final public const IS_PROPORTIONAL = true;
 
     // Method Name
-    public const METHOD_NAME = ['Jefferson'];
+    public const METHOD_NAME = ['Jefferson', 'D\'Hondt'];
 
 
 /////////// COMPUTE ///////////
