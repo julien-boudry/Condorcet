@@ -48,7 +48,7 @@ abstract class HighestAveragesMethod extends Method implements MethodInterface
             $this->candidatesVotes[$candidateKey] = 0;
         endforeach;
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) :
             $voteWinnerRank = $oneVote->getContextualRankingWithoutSort($election)[1];
 
             if (\count($voteWinnerRank) !== 1): continue; endif; // This method support only one winner per vote. Ignore bad votes.

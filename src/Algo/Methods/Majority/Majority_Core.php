@@ -122,7 +122,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         $election = $this->getElection();
         $roundScore = [];
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
             $weight = $oneVote->getWeight($election);
 

@@ -107,7 +107,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             endif;
         endforeach;
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) :
 
             $weight = $oneVote->getWeight($election);
 

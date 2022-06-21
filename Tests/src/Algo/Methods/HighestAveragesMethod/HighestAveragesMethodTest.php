@@ -79,6 +79,7 @@ class HighestAveragesMethodTest extends TestCase
         ], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
 
         $this->assertSame(577, \array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('SainteLague')->getResultAsArray());
 
         self::assertSame([
             'Divers extrême gauche' => 6,
@@ -100,6 +101,7 @@ class HighestAveragesMethodTest extends TestCase
         ], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
 
         $this->assertSame(577, \array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('Jefferson')->getResultAsArray());
 
         self::assertSame([
             'Divers extrême gauche' => 7,
@@ -121,6 +123,8 @@ class HighestAveragesMethodTest extends TestCase
         ], $this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']);
 
         $this->assertSame(577, \array_sum($this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('Hare-LR')->getResultAsArray());
+
     }
 
     # https://www.electoral-reform.org.uk/what-is-the-difference-between-dhondt-sainte-lague-and-hare/
@@ -135,5 +139,23 @@ class HighestAveragesMethodTest extends TestCase
         self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
         self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
         self::assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('Hare-LR')->getResultAsString());
+    }
+
+    # https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
+    # https://en.wikipedia.org/wiki/D%27Hondt_method
+    public function testResult_2 (): void
+    {
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+        $this->election->addCandidate('D');
+
+        $this->election->setNumberOfSeats(8);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('A ^100000; B ^80000; C ^30000; D ^20000');
+
+        self::assertSame('A > B > A > C > B > A > D > B', $this->election->getResult('SainteLague')->getResultAsString());
+        self::assertSame('A > B > A > B > A > C > B > A', $this->election->getResult('Jefferson')->getResultAsString());
     }
 }

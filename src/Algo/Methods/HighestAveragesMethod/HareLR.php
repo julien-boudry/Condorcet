@@ -28,7 +28,7 @@ class HareLR extends HighestAveragesMethod implements MethodInterface
         $election = $this->getElection();
         $results = [];
 
-        $quotient = $this->computeQuotient($election->sumVotesWeight(), $election->getNumberOfSeats());
+        $quotient = $this->computeQuotient($election->sumValidVotesWeightWithConstraints(), $election->getNumberOfSeats());
 
         while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) :
             $roundNumber = \count($this->rounds) + 1;
