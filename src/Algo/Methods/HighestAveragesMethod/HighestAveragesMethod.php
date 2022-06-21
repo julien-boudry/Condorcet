@@ -14,7 +14,6 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAveragesMethod;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 
-# Copeland is a proportional algorithm | https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
 abstract class HighestAveragesMethod extends Method implements MethodInterface
 {
     // Method Name

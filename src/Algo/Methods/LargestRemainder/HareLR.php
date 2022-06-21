@@ -10,24 +10,20 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAveragesMethod;
+namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 
-# Jefferson is a proportional algorithm | https://en.wikipedia.org/wiki/D%27Hondt_method
-class Jefferson extends HighestAveragesMethod implements MethodInterface
+# Hare Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
+class HareLR extends LargestRemainderMethod implements MethodInterface
 {
     final public const IS_PROPORTIONAL = true;
 
     // Method Name
-    public const METHOD_NAME = ['Jefferson'];
-
-
-/////////// COMPUTE ///////////
+    public const METHOD_NAME = ['Hare-LR'];
 
     protected function computeQuotient (int $votes, int $seats): float
     {
-        return (float) ($votes / ($seats + 1));
+        return (float) ($votes / $seats);
     }
-
 }

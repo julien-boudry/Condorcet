@@ -10,19 +10,14 @@
 */
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAveragesMethod;
+namespace CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder;
 
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\{MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Methods\HighestAveragesMethod\HighestAveragesMethod;
 
 # Copeland is a proportional algorithm | https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
-class HareLR extends HighestAveragesMethod implements MethodInterface
+abstract class LargestRemainderMethod extends HighestAveragesMethod implements MethodInterface
 {
-    final public const IS_PROPORTIONAL = true;
-
-    // Method Name
-    public const METHOD_NAME = ['Hare-LR'];
-
-
     protected function makeRounds (): array
     {
         $election = $this->getElection();
@@ -52,10 +47,5 @@ class HareLR extends HighestAveragesMethod implements MethodInterface
         endwhile;
 
         return $results;
-    }
-
-    protected function computeQuotient (int $votes, int $seats): float
-    {
-        return (float) ($votes / $seats);
     }
 }
