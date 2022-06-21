@@ -2,6 +2,17 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.1] - 2022-??-??
+
+### Description
+Implements new proportional methods 
+
+### Added
+#### Voting Methods
+- Sainte-Laguë / Webster method from HighestAverage method class.
+- Thomas Jefferson / D'Hondt method from HighestAverage method class.
+- Largest Remainder with all STV Quotas (Hare/Droop/Hagenbach-Bischof/Imperiali) as method options (like STV or CPO-STV).
+
 ## [v4.0] - 2022-06-17
 ### Description
 Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.

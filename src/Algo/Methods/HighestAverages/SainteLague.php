@@ -20,7 +20,7 @@ class SainteLague extends HighestAverages_Core implements MethodInterface
     final public const IS_PROPORTIONAL = true;
 
     // Method Name
-    public const METHOD_NAME = ['SainteLague', 'Sainte-Laguë', 'Webster', 'Major Fractions Method'];
+    public const METHOD_NAME = ['Sainte-Laguë', 'SainteLague', 'Webster', 'Major Fractions Method'];
 
     protected function computeQuotient (int $votesWeight, int $seats): float
     {
