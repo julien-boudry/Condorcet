@@ -1,6 +1,6 @@
 <?php
 /*
-    Part of Highest Averages Methods module - From the original Condorcet PHP
+    Part of Largest Remainder Methods module - From the original Condorcet PHP
 
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -22,7 +22,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
     final public const IS_PROPORTIONAL = true;
 
     // Method Name
-    public const METHOD_NAME = ['Hare-LR'];
+    public const METHOD_NAME = ['Largest Remainder', 'LargestRemainder', 'LR', 'Hare–Niemeyer method', 'Hamilton method', 'Vinton\'s method'];
 
     public static StvQuotas $optionQuota = StvQuotas::HARE;
 
@@ -30,12 +30,14 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
     {
         $election = $this->getElection();
         $results = [];
+        $rescueCandidatesKeys = \array_keys($election->getCandidatesList());
+        \reset($rescueCandidatesKeys);
 
         $quotient = $this->computeQuotient($election->sumValidVotesWeightWithConstraints(), $election->getNumberOfSeats());
 
         while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) :
             $roundNumber = \count($this->rounds) + 1;
-            $maxVotes = 0;
+            $maxVotes = null;
             $maxVotesCandidateKey = null;
 
             foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) :
@@ -48,6 +50,12 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
                     $maxVotesCandidateKey = $candidateKey;
                 endif;
             endforeach;
+
+            if ($maxVotesCandidateKey === null) :
+                $n = \current($rescueCandidatesKeys);
+                $maxVotesCandidateKey = $n;
+                \next($rescueCandidatesKeys) !== false || \reset($rescueCandidatesKeys);
+            endif;
 
             $this->candidatesVotes[$maxVotesCandidateKey] -= $quotient;
             $this->candidatesSeats[$maxVotesCandidateKey]++;

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
 
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 
@@ -13,6 +14,11 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
     public function setUp(): void
     {
         $this->election = new Election;
+    }
+
+    public function tearDown(): void
+    {
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     }
 
     public function testFranceLegislatives2022_1erTour (): void
@@ -58,7 +64,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             Divers extrême droite	^6457
         ');
 
-
+        // SainteLeague
         self::assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
@@ -81,6 +87,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->assertSame(577, \array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('SainteLague')->getResultAsArray());
 
+        // Jefferson
         self::assertSame([
             'Divers extrême gauche' => 6,
             'Parti radical de gauche' => 3,
@@ -103,6 +110,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->assertSame(577, \array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('Jefferson')->getResultAsArray());
 
+        // Hare-LR
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
         self::assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
@@ -120,11 +129,82 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']);
+        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('Hare-LR')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('Hare-LR')->getResultAsArray());
+        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
 
+        // Droop-LR
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Droop-LR
+        self::assertSame([
+            'Divers extrême gauche' => 7,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 148,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 5,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 149,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 14,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 25,
+            'Rassemblement National' => 108,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+
+        //  Hagenbach-Bischoff-LR
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HAGENBACH_BISCHOFF); //  Hagenbach-Bischoff-LR
+        self::assertSame([
+            'Divers extrême gauche' => 7,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 148,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 5,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 149,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 14,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 25,
+            'Rassemblement National' => 108,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+
+        //  Imperiali-LR
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::IMPERIALI); //  Imperiali-LR
+        self::assertSame([
+            'Divers extrême gauche' => 7,
+            'Parti radical de gauche' => 3,
+            'Nouvelle union populaire écologique et sociale' => 149,
+            'Divers gauche' => 18,
+            'Ecologistes' => 15,
+            'Divers' => 5,
+            'Régionaliste' => 7,
+            'Ensemble ! (Majorité présidentielle)' => 149,
+            'Divers centre' => 7,
+            'Union des Démocrates et des Indépendants' => 5,
+            'Les Républicains' => 60,
+            'Divers droite' => 13,
+            'Droite souverainiste' => 6,
+            'Reconquête !' => 25,
+            'Rassemblement National' => 108,
+            'Divers extrême droite' => 0,
+        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+
+        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
     }
 
     # https://www.electoral-reform.org.uk/what-is-the-difference-between-dhondt-sainte-lague-and-hare/
@@ -138,7 +218,9 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
         self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
-        self::assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('Hare-LR')->getResultAsString());
+
+        $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
+        self::assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('LargestRemainder')->getResultAsString());
     }
 
     # https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method

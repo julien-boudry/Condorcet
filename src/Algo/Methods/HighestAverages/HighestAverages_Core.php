@@ -63,7 +63,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
         while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) :
             $roundNumber = \count($this->rounds) + 1;
-            $maxQuotient = 0;
+            $maxQuotient = null;
             $maxQuotientCandidateKey = null;
 
             foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) :
