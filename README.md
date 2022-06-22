@@ -7,11 +7,11 @@
 [![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=for-the-badge)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
 [![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=for-the-badge)](https://packagist.org/packages/julien-boudry/condorcet)
 ![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=for-the-badge)
-[![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?style=for-the-badge&logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
 
 [![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/grade/f34e354703514ab68248a0c995a4913a?style=for-the-badge)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julien-boudry/Condorcet&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/coverage/f34e354703514ab68248a0c995a4913a?style=for-the-badge)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp)
 [![Build Status](https://d3g33cz5i5omk9.cloudfront.net/github/workflow/status/julien-boudry/Condorcet/Execute%20All%20Tests?style=for-the-badge&label=Tests)](https://github.com/julien-boudry/Condorcet/actions)
+[![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?style=for-the-badge&logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
