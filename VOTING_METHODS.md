@@ -511,7 +511,7 @@ $election->getResult('Schulze Margin')->getStats() ;
 ## Schulze Ratio
 
 > **Family:** Schulze method  
-> **Variant used:** Ratio    
+> **Variant used:** Ratio  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Schulze_method  
 > ***  
 > **Methods alias available (for function call)**: "Schulze Ratio" / "SchulzeRatio" / "Schulze_Ratio"  
@@ -541,8 +541,8 @@ $election->getResult('Schulze Ratio')->getStats() ;
 ### Single Transferable Vote
 
 > **Family:** Single Transferable Vote  
-> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_
-> **Default STV Quota:** Droop
+> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_  
+> **Default STV Quota:** Droop  
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Single_transferable_vote  
 > ***  
@@ -589,12 +589,12 @@ $election->getResult('STV') ;
 ### CPO-STV
 
 > **Family:** Single Transferable Vote  
-> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_
-> **Default STV Quota:** Hagenbach-Bischoff
+> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_  
+> **Default STV Quota:** Hagenbach-Bischoff  
 > **Variant used:** *Completion method is Schulze Margin (default) then chaining different others methods if necessary*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/CPO-STV  
 > ***  
-> **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV" 
+> **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV"  
 
 #### Implementation Comments  
 ##### Fundamentals
@@ -664,12 +664,12 @@ $election->getResult('CPO-STV') ;
 
 ### Sainte-Laguë / Webster method
 
-> **Family:** Highest Averages Methods
-> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
+> **Family:** Highest Averages Methods  
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_  
 > **Variant used:** *-*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method  
 > ***  
-> **Methods alias available (for function call)**: "Sainte-Laguë", "SainteLague", "Webster", "Major Fractions Method"
+> **Methods alias available (for function call)**: "Sainte-Laguë", "SainteLague", "Webster", "Major Fractions Method"  
 
 ### Implementation Comments
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
@@ -695,12 +695,12 @@ $election->getResult('Sainte-Laguë')->getStats(); # Summarizes the number of se
 
 ### Jefferson / D'Hondt method 
 
-> **Family:** Highest Averages Methods
-> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
+> **Family:** Highest Averages Methods  
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_  
 > **Variant used:** *-*  
-> **Wikipedia:** https://en.wikipedia.org/wiki/D%27Hondt_method
+> **Wikipedia:** https://en.wikipedia.org/wiki/D%27Hondt_method  
 > ***  
-> **Methods alias available (for function call)**: "Jefferson", "D'Hondt",  "Thomas Jefferson"
+> **Methods alias available (for function call)**: "Jefferson", "D'Hondt",  "Thomas Jefferson"  
 
 ### Implementation Comments
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
@@ -728,14 +728,14 @@ $election->getResult('Jefferson')->getStats(); # Summarizes the number of seats.
 
 ### Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR
 
-> **Family:** Highest Averages Methods
-> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
-> **Also known as (when properly set):** Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR
-> **Variant used:** *-*
-> **Default Quota:** Hare
-> **Wikipedia:** https://en.wikipedia.org/wiki/Largest_remainder_method
+> **Family:** Highest Averages Methods  
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_  
+> **Also known as (when properly set):** Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR  
+> **Variant used:** *-*  
+> **Default Quota:** Hare  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Largest_remainder_method  
 > ***  
-> **Methods alias available (for function call)**: "Largest Remainder", "LargestRemainder", "LR", "Hare–Niemeyer method", "Hamilton method", "Vinton's method"
+> **Methods alias available (for function call)**: "Largest Remainder", "LargestRemainder", "LR", "Hare–Niemeyer method", "Hamilton method", "Vinton's method"  
 
 ### Implementation Comments
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
