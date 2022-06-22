@@ -535,26 +535,29 @@ $election->getResult('Schulze Ratio')->getStats() ;
 ```
 
 
-# Single Winner methods - Details & Implementation
-## Single Transferable Vote
+# Proportional Methods - Details & Implementation
+
+## Single Transferable Vote (family)
+### Single Transferable Vote
 
 > **Family:** Single Transferable Vote  
-> > **Default STV Quota:** Droop
+> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_
+> **Default STV Quota:** Droop
 > **Variant used:** *None*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Single_transferable_vote  
 > ***  
 > **Methods alias available (for function call)**: "STV" / "Single Transferable Vote" / "SingleTransferableVote"  
 
-### Implementation Comments  
-##### Fundamentals
-- In case of tie into a vote rank, rank is ignored like he never existed. But you can use ```getStats()```  to get more computations details.
+#### Implementation Comments  
+###### Fundamentals
+- In case of tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
-- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 
-##### Quotas
+###### Quotas
 Default quota is the Droop quota. Three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, Imperiali.
 
-### Code example
+#### Code example
 
 ```php
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
@@ -583,39 +586,40 @@ $election->getResult('STV') ;
 ```
 
 
-## CPO-STV
+### CPO-STV
 
 > **Family:** Single Transferable Vote  
+> **Proportional type:** Individual _(A candidate can be elected only once (1 seat). Ranking will never return many time the same candidate.)_
 > **Default STV Quota:** Hagenbach-Bischoff
 > **Variant used:** *Completion method is Schulze Margin (default) then chaining different others methods if necessary*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/CPO-STV  
 > ***  
 > **Methods alias available (for function call)**: "CPO STV" / "CPO_STV" / "CPO-STV" / "CPO" / "Comparison of Pairs of Outcomes by the Single Transferable Vote" / "Tideman STV" 
 
-### Implementation Comments  
+#### Implementation Comments  
 ##### Fundamentals
-- In case of tie into a vote rank, rank is ignored like he never existed. But you can use ```getStats()```  to get all initial scores table and outcomes scores.
+- In case of tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.  
-- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected.  
+- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 - Ranking is sort by the initial score table, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.  
 
-##### Quotas
+###### Quotas
 Default quota is the Hagenbach-Bischoff. Three others are available using the method options system _(see example below)_: Droop, Hare, Imperiali.
 
-##### Completion method
+###### Completion method
 The best outcome is selected chaining methods in that order (first to deliver a single winner): ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
 If none of them can deliver a single winner, the first one (default: ```SchulzeMargin```) is used, and one winner is arbitrarily chosen from the first rank.
 
 This order can be changed using option system _(see example below)_.
 
-#### Sorting score before electing
+###### Sorting score before electing
 If more candidates than seats fill the quotas directly before outcome comparaison, then the ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.
 Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```
 This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
 Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.  
 
 
-### Code example
+#### Code example
 
 ```php
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
@@ -654,4 +658,112 @@ $election->getResult('CPO-STV') ;
 $election->setMethodOption('CPO-STV', 'TieBreakerMethods', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ;
 $election->getResult('CPO-STV') ;
 
+```
+
+## Highest Averages Methods
+
+### Sainte-Laguë / Webster method
+
+> **Family:** Highest Averages Methods
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
+> **Variant used:** *-*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method  
+> ***  
+> **Methods alias available (for function call)**: "Sainte-Laguë", "SainteLague", "Webster", "Major Fractions Method"
+
+### Implementation Comments
+- Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
+
+
+### Code example
+
+```php
+// Change the number of seats
+$election->setNumberOfSeats(7); # Default is 100
+
+// Get the elected candidates with ranking
+$election->getResult('Sainte-Laguë'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+
+// Check the number of seats
+$election->getResult('Sainte-Laguë')->getNumberOfSeats();
+
+// Get Stats (sumup ranks)
+$election->getResult('Sainte-Laguë')->getStats(); # Summarizes the number of seats. And details about each round.
+```
+
+### Jefferson / D'Hondt method 
+
+> **Family:** Highest Averages Methods
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
+> **Variant used:** *-*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/D%27Hondt_method
+> ***  
+> **Methods alias available (for function call)**: "Jefferson", "D'Hondt",  "Thomas Jefferson"
+
+### Implementation Comments
+- Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
+
+### Code example
+
+```php
+// Change the number of seats
+$election->setNumberOfSeats(7); # Default is 100
+
+// Get the elected candidates with ranking
+$election->getResult('Jefferson'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+
+// Check the number of seats
+$election->getResult('Jefferson')->getNumberOfSeats();
+
+// Get Stats (sumup ranks)
+$election->getResult('Jefferson')->getStats(); # Summarizes the number of seats. And details about each round.
+```
+
+
+## Largest Remainder Methods
+
+### Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR
+
+> **Family:** Highest Averages Methods
+> **Proportional type:** Party _(The same candidate can appear several times in the results.)_
+> **Also known as (when properly set):** Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR
+> **Variant used:** *-*
+> **Default Quota:** Hare
+> **Wikipedia:** https://en.wikipedia.org/wiki/Largest_remainder_method
+> ***  
+> **Methods alias available (for function call)**: "Largest Remainder", "LargestRemainder", "LR", "Hare–Niemeyer method", "Hamilton method", "Vinton's method"
+
+### Implementation Comments
+- Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
+
+### Code example
+
+```php
+// Change the number of seats
+$election->setNumberOfSeats(7); # Default is 100
+
+// Get the elected candidates with ranking
+$election->getResult('Largest Remainder'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+
+// Check the number of seats
+$election->getResult('Largest Remainder')->getNumberOfSeats();
+
+// Get Stats (sumup ranks)
+$election->getResult('Largest Remainder')->getStats(); # Summarizes the number of seats. And details about each round.
+
+// Change the Quota
+$election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::HAGENBACH_BISCHOFF) ;
+$election->getResult('Largest Remainder') ;
+$election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::IMPERIALI) ;
+$election->getResult('Largest Remainder') ;
+$election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::HARE) ;
+$election->getResult('Largest Remainder') ;
+$election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::DROOP) ;
+$election->getResult('Largest Remainder') ;
 ```
