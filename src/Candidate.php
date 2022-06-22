@@ -65,7 +65,7 @@ class Candidate implements \Stringable
     {
         $name = \trim($name);
 
-        if (\strlen($name) > Election::MAX_LENGTH_CANDIDATE_ID ) :
+        if (\mb_strlen($name) > Election::MAX_CANDIDATE_NAME_LENGTH ) :
             throw new CandidateInvalidNameException($name);
         endif;
 

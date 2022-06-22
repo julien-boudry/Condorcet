@@ -29,7 +29,7 @@ class Election
 /////////// PROPERTIES ///////////
 
     #[PublicAPI]
-    public const MAX_LENGTH_CANDIDATE_ID = 100; // Max length for candidate identifiant string
+    public const MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
     protected static ?int $_maxParseIteration = null;
     protected static ?int $_maxVoteNumber = null;

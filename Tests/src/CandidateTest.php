@@ -40,10 +40,10 @@ class CandidateTest extends TestCase
     public function testMatchingAndTooLongName (): never
     {
         $name = "";
-        while (strlen($name) < Election::MAX_LENGTH_CANDIDATE_ID):
+        while (\mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH):
             $name .= uniqid();
         endwhile;
-        $name = substr($name, 0, Election::MAX_LENGTH_CANDIDATE_ID);
+        $name = substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
 
         // The name is exactly as long as allowed.
         $candidate = new Candidate($name);
