@@ -10,7 +10,7 @@ $election = new Election  ;
 
 // Inluding Data
 
-require_once 'vote_data'.DIRECTORY_SEPARATOR.'ComplexeVoteConf.php' ;
+require_once 'vote_data'.\DIRECTORY_SEPARATOR.'ComplexeVoteConf.php' ;
 
 \define('TEST_NAME', 'Condorcet Global Example');
 

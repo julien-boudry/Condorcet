@@ -8,10 +8,10 @@
 */
 declare(strict_types=1);
 
-if (version_compare($condorcet_minimal_php_version = substr(str_replace('^', '', json_decode(json: file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'composer.json'), associative: true, flags: \JSON_THROW_ON_ERROR)['require']['php']), 1, 3), \PHP_VERSION, '>')) {
+if (version_compare($condorcet_minimal_php_version = substr(str_replace('^', '', json_decode(json: file_get_contents(__DIR__.\DIRECTORY_SEPARATOR.'composer.json'), associative: true, flags: \JSON_THROW_ON_ERROR)['require']['php']), 1, 3), \PHP_VERSION, '>')) {
     trigger_error(
         'Condorcet PHP requires a PHP version greater than or equal to '.$condorcet_minimal_php_version.'. Your current version is '.\PHP_VERSION.'.',
-        E_USER_ERROR
+        \E_USER_ERROR
     );
 }
 
@@ -35,7 +35,7 @@ spl_autoload_register(function (string $class): void {
     // replace the namespace prefix with the base directory, replace namespace
     // separators with directory separators in the relative class name, append
     // with .php
-    $file = __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $relative_class) . '.php';
+    $file = __DIR__ . \DIRECTORY_SEPARATOR . 'src' . \DIRECTORY_SEPARATOR . str_replace('\\', \DIRECTORY_SEPARATOR, $relative_class) . '.php';
 
     // if the file exists, require it
     if (file_exists($file)) {

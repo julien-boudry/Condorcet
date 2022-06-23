@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\Generate;
 
-require_once __DIR__.str_replace('/', DIRECTORY_SEPARATOR, '/../vendor/../vendor/autoload.php');
+require_once __DIR__.str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendor/autoload.php');
 
   // Build command
 
   $path = substr(__DIR__, 0, \strlen(__DIR__) - 4);
-  $path .= DIRECTORY_SEPARATOR.'Documentation';
+  $path .= \DIRECTORY_SEPARATOR.'Documentation';
 
   // Clear folder
 
@@ -19,10 +19,10 @@ require_once __DIR__.str_replace('/', DIRECTORY_SEPARATOR, '/../vendor/../vendor
           $objects = scandir($dir);
           foreach ($objects as $object) {
               if ($object != '.' && $object != '..') {
-                  if (filetype($dir.DIRECTORY_SEPARATOR.$object) == 'dir') {
-                      rrmdir($dir.DIRECTORY_SEPARATOR.$object, $path);
+                  if (filetype($dir.\DIRECTORY_SEPARATOR.$object) == 'dir') {
+                      rrmdir($dir.\DIRECTORY_SEPARATOR.$object, $path);
                   } else {
-                      unlink($dir.DIRECTORY_SEPARATOR.$object);
+                      unlink($dir.\DIRECTORY_SEPARATOR.$object);
                   }
               }
           }
