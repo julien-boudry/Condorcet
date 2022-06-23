@@ -1,0 +1,10 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "array_syntax": true,
+        "group_import": true,
+        "new_with_braces": {"anonymous_class": false, "named_class": false},
+        "no_alternative_syntax": true,
+        "single_import_per_statement": false
+    }
+}
