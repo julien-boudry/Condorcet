@@ -8,7 +8,7 @@
         "function_to_constant": true,
         "is_null": true,
         "magic_constant_casing": true,
-        "native_constant_invocation": true,
+        "native_constant_invocation": {"strict": false},
         "native_function_invocation": true,
         "native_function_casing": true,
         "new_with_braces": {"anonymous_class": false, "named_class": false},

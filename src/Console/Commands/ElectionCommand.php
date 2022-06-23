@@ -171,7 +171,7 @@ class ElectionCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // Initialize Style & Terminal
-        $this->centerPadTypeStyle = (new TableStyle)->setPadType(STR_PAD_BOTH);
+        $this->centerPadTypeStyle = (new TableStyle)->setPadType(\STR_PAD_BOTH);
         $this->terminal = new Terminal;
 
         // Setup Memory
