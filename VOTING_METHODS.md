@@ -40,6 +40,11 @@ Condorcet PHP: Voting Methods
 
 * **[Single Transferable Vote](#single-transferable-vote)** *(The classical STV method)*
 * **[CPO-STV](#cpo-stv)** *Comparison of Pairs of Outcomes by the Single Transferable Vote, by Nicolaus Tideman*
+* **[Highest Average: Sainte-Laguë](#sainte-laguë--webster-method)** *Include Variants like Norway ou Sweden methods*
+* **[Highest Average: Thomas Jefferson / D'Hondt](#jefferson--dhondt-method)**
+* **[Largest Remainder: Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR](#hare-lr--droop-lr--imperiali-lr--hagenbach-bischoff-lr)**
+
+
 
 ---------------------------------------
 
