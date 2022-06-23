@@ -73,7 +73,7 @@ class CPO_STV extends SingleTransferableVote
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
-        $this->votesNeededToWin = \round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
         // Compute Initial Score
         $this->initialScoreTable = $this->makeScore();
@@ -86,7 +86,7 @@ class CPO_STV extends SingleTransferableVote
         }
 
         $numberOfCandidatesNeededToComplete = $this->getElection()->getNumberOfSeats() - \count($this->candidatesElectedFromFirstRound);
-        $this->candidatesEliminatedFromFirstRound = \array_diff(\array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
+        $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) {
             try {
@@ -118,11 +118,11 @@ class CPO_STV extends SingleTransferableVote
             $result = $this->outcomes[$this->condorcetWinnerOutcome];
 
             // Sort the best Outcome candidate list using originals scores
-            \usort($result, function (int $a, int $b): int {
+            usort($result, function (int $a, int $b): int {
                 return $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
             });
         } else {
-            $result = \array_keys($this->initialScoreTable);
+            $result = array_keys($this->initialScoreTable);
 
             // Sort the best Outcome candidate list using originals scores, or using others methods
             $this->sortResultBeforeCut($result);
@@ -173,7 +173,7 @@ class CPO_STV extends SingleTransferableVote
                         ];
 
                 // Eliminate Candidates from Outcome
-                foreach (\array_keys($election->getCandidatesList()) as $candidateKey) {
+                foreach (array_keys($election->getCandidatesList()) as $candidateKey) {
                     if (!\in_array($candidateKey, $MainOutcomeR, true) && !\in_array($candidateKey, $ComparedOutcomeR, true)) {
                         $entry['candidates_excluded'][] = $candidateKey;
                     }
@@ -195,7 +195,7 @@ class CPO_STV extends SingleTransferableVote
                     }
                 }
 
-                $winnerFromFirstRound = \array_keys($winnerToJoin);
+                $winnerFromFirstRound = array_keys($winnerToJoin);
 
                 $entry['scores_after_surplus'] = $winnerToJoin + $this->makeScore($surplusToTransfer, $winnerFromFirstRound, $entry['candidates_excluded']);
 
@@ -204,11 +204,11 @@ class CPO_STV extends SingleTransferableVote
                 $ComparedOutcomeScore = 0;
 
                 foreach ($entry['scores_after_surplus'] as $candidateKey => $candidateScore) {
-                    if (in_array($candidateKey, $MainOutcomeR, true)) {
+                    if (\in_array($candidateKey, $MainOutcomeR, true)) {
                         $MainOutcomeScore += $candidateScore;
                     }
 
-                    if (in_array($candidateKey, $ComparedOutcomeR, true)) {
+                    if (\in_array($candidateKey, $ComparedOutcomeR, true)) {
                         $ComparedOutcomeScore += $candidateScore;
                     }
                 }
@@ -223,8 +223,8 @@ class CPO_STV extends SingleTransferableVote
 
     protected function getOutcomesComparisonKey(int $MainOutcomeKey, int $ComparedOutcomeKey): string
     {
-        $minOutcome = (string) \min($MainOutcomeKey, $ComparedOutcomeKey);
-        $maxOutcome = (string) \max($MainOutcomeKey, $ComparedOutcomeKey);
+        $minOutcome = (string) min($MainOutcomeKey, $ComparedOutcomeKey);
+        $maxOutcome = (string) max($MainOutcomeKey, $ComparedOutcomeKey);
 
         return 'Outcome N° '.$minOutcome.' compared to Outcome N° '.$maxOutcome;
     }
@@ -246,13 +246,13 @@ class CPO_STV extends SingleTransferableVote
                 $coef = Method::DECIMAL_PRECISION ** 10 ; # Actually, vote weight does not support float
                 foreach ($this->outcomeComparisonTable as $comparison) {
                     ($vote1 = new Vote([
-                        (string) $key = \array_key_first($comparison['outcomes_scores']),
-                        (string) \array_key_last($comparison['outcomes_scores'])
+                        (string) $key = array_key_first($comparison['outcomes_scores']),
+                        (string) array_key_last($comparison['outcomes_scores'])
                     ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
                     ($vote2 = new Vote([
-                        (string) $key = \array_key_last($comparison['outcomes_scores']),
-                        (string) \array_key_first($comparison['outcomes_scores'])
+                        (string) $key = array_key_last($comparison['outcomes_scores']),
+                        (string) array_key_first($comparison['outcomes_scores'])
                     ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
                     $winnerOutcomeElection->addVote($vote1);
@@ -276,7 +276,7 @@ class CPO_STV extends SingleTransferableVote
         if (!$selectionSucces) {
             $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod[0]);
             $condorcetWinnerOutcome = $completionMethodResult->getWinner();
-            $condorcetWinnerOutcome = \reset($condorcetWinnerOutcome);
+            $condorcetWinnerOutcome = reset($condorcetWinnerOutcome);
             $this->completionMethodResult = $completionMethodResult;
         }
 
@@ -286,7 +286,7 @@ class CPO_STV extends SingleTransferableVote
 
     protected function sortResultBeforeCut(array &$result): void
     {
-        \usort($result, function (int $a, int $b): int {
+        usort($result, function (int $a, int $b): int {
             $tieBreakerFromInitialScore = $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
 
             if ($tieBreakerFromInitialScore !== 0) {
@@ -295,10 +295,10 @@ class CPO_STV extends SingleTransferableVote
                 $election = $this->getElection();
 
                 if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a,$b])) === 1) {
-                    $w = \reset($tiebreaker);
+                    $w = reset($tiebreaker);
                     return ($w === $a) ? -1 : 1;
                 } else {
-                    return \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8') <=> \mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8');
+                    return mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8');
                 }
             }
         });
@@ -318,7 +318,7 @@ class CPO_STV extends SingleTransferableVote
                 $r[(string) $election->getCandidateObjectFromKey($candidateKey)] = $value;
             }
 
-            \ksort($r, \SORT_NATURAL);
+            ksort($r, \SORT_NATURAL);
             return $r;
         };
 
@@ -328,7 +328,7 @@ class CPO_STV extends SingleTransferableVote
                 $r[] = (string) $election->getCandidateObjectFromKey($candidateKey);
             }
 
-            \sort($r, \SORT_NATURAL);
+            sort($r, \SORT_NATURAL);
             return $r;
         };
 

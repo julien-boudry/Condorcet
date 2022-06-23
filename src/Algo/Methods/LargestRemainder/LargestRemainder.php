@@ -30,12 +30,12 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
     {
         $election = $this->getElection();
         $results = [];
-        $rescueCandidatesKeys = \array_keys($election->getCandidatesList());
-        \reset($rescueCandidatesKeys);
+        $rescueCandidatesKeys = array_keys($election->getCandidatesList());
+        reset($rescueCandidatesKeys);
 
         $quotient = $this->computeQuotient($election->sumValidVotesWeightWithConstraints(), $election->getNumberOfSeats());
 
-        while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) {
+        while (array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) {
             $roundNumber = \count($this->rounds) + 1;
             $maxVotes = null;
             $maxVotesCandidateKey = null;
@@ -51,9 +51,9 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
             }
 
             if ($maxVotesCandidateKey === null) {
-                $n = \current($rescueCandidatesKeys);
+                $n = current($rescueCandidatesKeys);
                 $maxVotesCandidateKey = $n;
-                \next($rescueCandidatesKeys) !== false || \reset($rescueCandidatesKeys);
+                next($rescueCandidatesKeys) !== false || reset($rescueCandidatesKeys);
             }
 
             $this->candidatesVotes[$maxVotesCandidateKey] -= $quotient;

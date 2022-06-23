@@ -61,10 +61,10 @@ class DodgsonQuick extends Method implements MethodInterface
             $dodgsonQuick[$candidateId] = 0;
 
             foreach ($CandidateTidemanScores as $opponentId => $oneTidemanScore) {
-                $dodgsonQuick[$candidateId] += \ceil($oneTidemanScore / 2);
+                $dodgsonQuick[$candidateId] += ceil($oneTidemanScore / 2);
             }
         }
-        \asort($dodgsonQuick);
+        asort($dodgsonQuick);
 
         $rank = 0;
         $result = [];

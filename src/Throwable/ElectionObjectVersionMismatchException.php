@@ -14,13 +14,13 @@ use CondorcetPHP\Condorcet\Condorcet;
 
 class ElectionObjectVersionMismatchException extends CondorcetPublicApiException
 {
-    protected $message = "Version mismatch";
+    protected $message = 'Version mismatch';
 
     public function __construct(string $message = '')
     {
         parent::__construct(
             "The election object has version '$message' " .
-            "which is different from the current class " .
+            'which is different from the current class ' .
             "version '" . Condorcet::getVersion(true) . "'"
         );
     }

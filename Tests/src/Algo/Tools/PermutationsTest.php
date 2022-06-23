@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PermutationsTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Permutations::$useBigIntegerIfAvailable = true;
     }

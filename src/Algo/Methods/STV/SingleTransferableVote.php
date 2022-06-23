@@ -54,8 +54,8 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         while (!$end) {
             $scoreTable = $this->makeScore($surplusToTransfer, $candidateElected, $candidateEliminated);
-            \ksort($scoreTable, \SORT_NATURAL);
-            \arsort($scoreTable, \SORT_NUMERIC);
+            ksort($scoreTable, \SORT_NATURAL);
+            arsort($scoreTable, \SORT_NUMERIC);
 
             $successOnRank = false;
 
@@ -74,7 +74,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             }
 
             if (!$successOnRank && !empty($scoreTable)) {
-                $candidateEliminated[] = \array_key_last($scoreTable);
+                $candidateEliminated[] = array_key_last($scoreTable);
             } elseif (empty($scoreTable) || $rank >= $election->getNumberOfSeats()) {
                 $end = true;
             }
@@ -83,7 +83,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         }
 
         while ($rank < $election->getNumberOfSeats() && !empty($candidateEliminated)) {
-            $rescueCandidateKey = \array_key_last($candidateEliminated);
+            $rescueCandidateKey = array_key_last($candidateEliminated);
             $result[++$rank] = $candidateEliminated[$rescueCandidateKey];
             unset($candidateEliminated[$rescueCandidateKey]);
         }
@@ -100,7 +100,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
-        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
+        foreach (array_keys($election->getCandidatesList()) as $oneCandidateKey) {
             if (!\in_array($candidateKey = $oneCandidateKey, $candidateDone, true)) {
                 $scoreTable[$candidateKey] = 0.0;
             }
@@ -144,7 +144,7 @@ class SingleTransferableVote extends Method implements MethodInterface
                             $scoreTable[$candidateKey] += $weight;
                         }
 
-                        $scoreTable[$candidateKey] = \round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
+                        $scoreTable[$candidateKey] = round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
                         break 2;
                     }

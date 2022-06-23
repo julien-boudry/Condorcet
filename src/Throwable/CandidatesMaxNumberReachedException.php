@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class CandidatesMaxNumberReachedException extends MethodLimitReachedException
 {
-    protected $message = "Maximum number of candidates reached";
+    protected $message = 'Maximum number of candidates reached';
 
     public function __construct(string $method, int $maxCandidates)
     {

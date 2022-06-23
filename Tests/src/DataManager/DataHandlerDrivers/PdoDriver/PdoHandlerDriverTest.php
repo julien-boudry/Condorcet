@@ -144,7 +144,7 @@ class PdoHandlerDriverTest extends TestCase
         self::assertTrue($electionWithDb->removeExternalDataHandler());
 
         $this->expectException(DataHandlerException::class);
-        $this->expectExceptionMessage("Problem with data handler: external data handler cannot be removed, is already in use");
+        $this->expectExceptionMessage('Problem with data handler: external data handler cannot be removed, is already in use');
 
         $electionWithDb->removeExternalDataHandler();
     }
@@ -217,7 +217,7 @@ class PdoHandlerDriverTest extends TestCase
 
         self::assertSame(
             "A > B > C * 39\n".
-            "B > A > C * 1",
+            'B > A > C * 1',
             $electionWithDb->getVotesListAsString()
         );
     }
@@ -268,7 +268,7 @@ class PdoHandlerDriverTest extends TestCase
     public function testMultipleHandler(): never
     {
         $this->expectException(DataHandlerException::class);
-        $this->expectExceptionMessage("external data handler cannot be imported");
+        $this->expectExceptionMessage('external data handler cannot be imported');
 
         $electionWithDb = new Election;
         $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
@@ -278,7 +278,7 @@ class PdoHandlerDriverTest extends TestCase
     public function testBadTableSchema1(): never
     {
         $this->expectException(DataHandlerException::class);
-        $this->expectExceptionMessage("Problem with data handler: invalid structure template for PdoHandler");
+        $this->expectExceptionMessage('Problem with data handler: invalid structure template for PdoHandler');
 
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);

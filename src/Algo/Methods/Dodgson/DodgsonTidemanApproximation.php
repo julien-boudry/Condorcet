@@ -31,6 +31,6 @@ class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements Met
 
     protected function looking(array $challenge): int
     {
-        return \min($challenge);
+        return min($challenge);
     }
 }

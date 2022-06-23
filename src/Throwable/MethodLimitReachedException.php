@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class MethodLimitReachedException extends CondorcetPublicApiException
 {
-    protected $message = "Method limit reached";
+    protected $message = 'Method limit reached';
     public readonly string $method;
 
     public function __construct(string $method, ?string $message = null)

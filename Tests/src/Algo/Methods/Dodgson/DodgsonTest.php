@@ -11,7 +11,7 @@ class DodgsonTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }

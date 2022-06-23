@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class NoCandidatesException extends CondorcetPublicApiException
 {
-    protected $message = "You need to specify one or more candidates before voting";
+    protected $message = 'You need to specify one or more candidates before voting';
 }

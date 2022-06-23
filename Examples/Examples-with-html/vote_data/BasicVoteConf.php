@@ -14,7 +14,7 @@
     $vote[] = 'Knoxville' ;
 
     for ($i = 1 ; $i <= 42 ; $i++) {
-        $election->addVote($vote, "custom_tag_Two") ;
+        $election->addVote($vote, 'custom_tag_Two') ;
     }
     $vote = [] ;
 
@@ -24,7 +24,7 @@
     $vote[] = 'Memphis';
 
     for ($i = 1 ; $i <= 26 ; $i++) {
-        $election->addVote($vote, "custom_tag_Two") ;
+        $election->addVote($vote, 'custom_tag_Two') ;
     }
     $vote = [] ;
 
@@ -37,7 +37,7 @@
         $election->addVote($vote) ;
     }
     for ($i = 1 ; $i <= 3 ; $i++) {
-        $election->addVote($vote, "custom_tag_One") ;
+        $election->addVote($vote, 'custom_tag_One') ;
     }
     $vote = [] ;
 
@@ -47,6 +47,6 @@
     $vote[] = 'Memphis';
 
     for ($i = 1 ; $i <= 17 ; $i++) {
-        $election->addVote($vote, "custom_tag_Two") ;
+        $election->addVote($vote, 'custom_tag_Two') ;
     }
     $vote = [] ;

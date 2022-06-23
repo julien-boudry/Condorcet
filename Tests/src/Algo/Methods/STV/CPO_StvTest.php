@@ -16,12 +16,12 @@ class CPO_StvTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::DROOP);
         $this->election->setMethodOption('CPO STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
@@ -66,11 +66,11 @@ class CPO_StvTest extends TestCase
         $stats = $this->election->getResult('CPO STV')->getStats();
 
         self::assertSame(25.0, $stats['Votes Needed to Win']);
-        self::assertSame([  "Andrea"=> 25.0,
-                            "Brad"=> 7.0,
-                            "Carter"=> 34.0,
-                            "Delilah"=> 13.0,
-                            "Scott"=> 21.0
+        self::assertSame([  'Andrea'=> 25.0,
+                            'Brad'=> 7.0,
+                            'Carter'=> 34.0,
+                            'Delilah'=> 13.0,
+                            'Scott'=> 21.0
         ], $stats['Initial Score Table']);
 
         self::assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
@@ -314,7 +314,7 @@ class CPO_StvTest extends TestCase
         }
 
         for ($i = 0 ; $i < 100 ; $i++) {
-            \shuffle($candidates);
+            shuffle($candidates);
             $this->election->addVote($candidates);
         }
 

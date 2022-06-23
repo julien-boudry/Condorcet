@@ -105,7 +105,7 @@ class CondorcetElectionFormat implements ConverterInterface
     // Read
 
     #[PublicAPI]
-    #[Description("Read a Condorcet format file, usually using .cvotes file extension")]
+    #[Description('Read a Condorcet format file, usually using .cvotes file extension')]
     public function __construct(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input
@@ -136,8 +136,8 @@ class CondorcetElectionFormat implements ConverterInterface
     }
 
     #[PublicAPI]
-    #[Description("Add the data to an election object")]
-    #[FunctionReturn("The election object")]
+    #[Description('Add the data to an election object')]
+    #[FunctionReturn('The election object')]
     #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
@@ -203,7 +203,7 @@ class CondorcetElectionFormat implements ConverterInterface
             } elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) {
                 $parse = strtolower($matches['weight']);
                 $this->voteWeight = $this->boolParser($parse);
-            } elseif (!empty($line) && !\str_starts_with($line, '#')) {
+            } elseif (!empty($line) && !str_starts_with($line, '#')) {
                 break;
             }
         }
@@ -218,18 +218,18 @@ class CondorcetElectionFormat implements ConverterInterface
         while (!$this->file->eof()) {
             $line = $this->file->fgets();
 
-            if (!empty($line) && !\str_starts_with($line, '#')) {
-                if (($pos = \strpos($line, '||')) !== false) {
-                    $line = \substr($line, ($pos + 2));
+            if (!empty($line) && !str_starts_with($line, '#')) {
+                if (($pos = strpos($line, '||')) !== false) {
+                    $line = substr($line, ($pos + 2));
                 }
 
-                if (($pos = \strpos($line, '||')) !== false) {
-                    $line = \substr($line, ($pos + 2));
+                if (($pos = strpos($line, '||')) !== false) {
+                    $line = substr($line, ($pos + 2));
                 }
 
                 foreach (['#', '*', '^'] as $c) {
-                    if (($pos = \strpos($line, $c)) !== false) {
-                        $line = \substr($line, 0, $pos);
+                    if (($pos = strpos($line, $c)) !== false) {
+                        $line = substr($line, 0, $pos);
                     }
                 }
 

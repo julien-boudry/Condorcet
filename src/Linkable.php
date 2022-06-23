@@ -23,9 +23,9 @@ trait Linkable
     }
 
     #[PublicAPI]
-    #[Description("Check if this election is linked with this Candidate/Vote object.")]
-    #[FunctionReturn("True or False.")]
-    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
+    #[Description('Check if this election is linked with this Candidate/Vote object.')]
+    #[FunctionReturn('True or False.')]
+    #[Related('Vote::countLinks', 'Candidate::countLinks', 'Vote::getLinks', 'Candidate::getLinks', 'Vote::haveLink', 'Candidate::haveLink')]
     public function haveLink(
         #[FunctionParameter('Condorcet election to check')]
         Election $election
@@ -36,9 +36,9 @@ trait Linkable
     }
 
     #[PublicAPI]
-    #[Description("Count number of linked election to this object.")]
-    #[FunctionReturn("Number of linked elections.")]
-    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
+    #[Description('Count number of linked election to this object.')]
+    #[FunctionReturn('Number of linked elections.')]
+    #[Related('Vote::countLinks', 'Candidate::countLinks', 'Vote::getLinks', 'Candidate::getLinks', 'Vote::haveLink', 'Candidate::haveLink')]
     public function countLinks(): int
     {
         $this->initWeakMap();
@@ -47,9 +47,9 @@ trait Linkable
     }
 
     #[PublicAPI]
-    #[Description("Get elections object linked to this Vote or Candidate object.")]
-    #[FunctionReturn("Populated by each elections Condorcet object.")]
-    #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
+    #[Description('Get elections object linked to this Vote or Candidate object.')]
+    #[FunctionReturn('Populated by each elections Condorcet object.')]
+    #[Related('Vote::countLinks', 'Candidate::countLinks', 'Vote::getLinks', 'Candidate::getLinks', 'Vote::haveLink', 'Candidate::haveLink')]
     public function getLinks(): \WeakMap
     {
         $this->initWeakMap();

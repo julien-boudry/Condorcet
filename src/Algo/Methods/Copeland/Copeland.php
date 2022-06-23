@@ -30,6 +30,6 @@ class Copeland extends PairwiseStatsBased_Core
 
     protected function looking(array $challenge): int
     {
-        return \max($challenge);
+        return max($challenge);
     }
 }

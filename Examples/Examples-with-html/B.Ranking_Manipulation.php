@@ -12,7 +12,7 @@ $election = new Election  ;
 
 require_once 'vote_data'.DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 
-define('TEST_NAME', 'Condorcet Bonus Example');
+\define('TEST_NAME', 'Condorcet Bonus Example');
 
 // View :
 ?><!doctype html>
@@ -64,7 +64,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
         echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-        echo "<ol>";
+        echo '<ol>';
 
         foreach ($vote as $rank => $value) {
             if ($rank == 'tag') {
@@ -96,7 +96,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<strong style="color:green;">
 		<?php
-        if (!is_null($election->getWinner())) {
+        if (null !== $election->getWinner()) {
             echo $election->getWinner() ;
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
@@ -108,7 +108,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<strong style="color:green;">
 		<?php
-        if (!is_null($election->getLoser())) {
+        if (null !== $election->getLoser()) {
             echo $election->getLoser() ;
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
@@ -149,7 +149,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
         echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-        echo "<ol>";
+        echo '<ol>';
 
         foreach ($vote as $rank => $value) {
             if ($rank == 'tag') {
@@ -173,7 +173,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
         echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-        echo "<ol>";
+        echo '<ol>';
 
         foreach ($vote as $rank => $value) {
             if ($rank == 'tag') {
@@ -222,7 +222,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
         echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-        echo "<ol>";
+        echo '<ol>';
 
         foreach ($vote as $rank => $value) {
             if ($rank == 'tag') {

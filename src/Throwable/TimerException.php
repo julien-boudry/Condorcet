@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class TimerException extends CondorcetPublicApiException
 {
-    protected $message = "Only a chrono linked to this manager can be used";
+    protected $message = 'Only a chrono linked to this manager can be used';
 }

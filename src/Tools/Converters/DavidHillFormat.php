@@ -23,12 +23,12 @@ class DavidHillFormat implements ConverterInterface
     public readonly int $NumberOfSeats;
 
     #[PublicAPI]
-    #[Description("Read a Tideman format file")]
+    #[Description('Read a Tideman format file')]
     public function __construct(
         #[FunctionParameter('File absolute path')]
         string $filePath
     ) {
-        $this->lines = \file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        $this->lines = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
         (end($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
         $this->readNumberOfSeats();
@@ -37,8 +37,8 @@ class DavidHillFormat implements ConverterInterface
     }
 
     #[PublicAPI]
-    #[Description("Add the data to an election object")]
-    #[FunctionReturn("The election object")]
+    #[Description('Add the data to an election object')]
+    #[FunctionReturn('The election object')]
     #[Related("Tools\CondorcetElectionFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]

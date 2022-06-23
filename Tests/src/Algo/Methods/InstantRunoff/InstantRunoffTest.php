@@ -12,7 +12,7 @@ class InstantRunoffTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
@@ -48,21 +48,21 @@ class InstantRunoffTest extends TestCase
                 'rounds' => [
                     1 =>
                         [
-                            "A" => 42,
-                            "B" => 26,
-                            "C" => 15,
-                            "D" => 17
+                            'A' => 42,
+                            'B' => 26,
+                            'C' => 15,
+                            'D' => 17
                         ],
                     2 =>
                         [
-                            "A" => 42,
-                            "B" => 26,
-                            "D" => 32
+                            'A' => 42,
+                            'B' => 26,
+                            'D' => 32
                         ],
                     3 =>
                         [
-                            "A" => 42,
-                            "D" => 58
+                            'A' => 42,
+                            'D' => 58
                         ]
                 ]
             ],

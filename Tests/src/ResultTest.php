@@ -14,7 +14,7 @@ class ResultTest extends TestCase
 {
     private readonly Election $election1;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election1 = new Election;
     }
@@ -158,7 +158,7 @@ class ResultTest extends TestCase
     public function testOffsetSet(): never
     {
         $this->expectException(ResultException::class);
-        $this->expectExceptionMessage("Result cannot be changed");
+        $this->expectExceptionMessage('Result cannot be changed');
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -174,7 +174,7 @@ class ResultTest extends TestCase
     public function testOffUnset(): never
     {
         $this->expectException(ResultException::class);
-        $this->expectExceptionMessage("Result cannot be changed");
+        $this->expectExceptionMessage('Result cannot be changed');
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');
@@ -184,7 +184,7 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('Schulze');
 
-        self::assertSame(true, isset($result[1]));
+        self::assertTrue(isset($result[1]));
 
         unset($result[1]);
     }
@@ -207,7 +207,7 @@ class ResultTest extends TestCase
     public function testBadMethodName(): never
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available: bad method");
+        $this->expectExceptionMessage('The voting algorithm is not available: bad method');
 
         $this->election1->addCandidate('B');
         $this->election1->addCandidate('A');

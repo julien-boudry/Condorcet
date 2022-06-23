@@ -15,7 +15,7 @@ class ElectionCommandTest extends TestCase
 {
     private readonly CommandTester $electionCommand;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         CondorcetApplication::create();
 
@@ -195,7 +195,7 @@ class ElectionCommandTest extends TestCase
     public function testNonInteractionMode(): never
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
-        $this->expectExceptionMessage("The result cannot be requested without votes");
+        $this->expectExceptionMessage('The result cannot be requested without votes');
 
         $this->electionCommand->execute([], ['interactive' => false]);
 
@@ -224,7 +224,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
                                             '--votes-per-mb' => 1,
-                                            '--votes' => 'A>B>C * '.(((int) \preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
+                                            '--votes' => 'A>B>C * '.(((int) preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);

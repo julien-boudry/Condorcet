@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class DataHandlerException extends CondorcetPublicApiException
 {
-    protected $message = "Problem with data handler";
+    protected $message = 'Problem with data handler';
 }

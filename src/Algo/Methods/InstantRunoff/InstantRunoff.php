@@ -64,8 +64,8 @@ class InstantRunoff extends Method implements MethodInterface
 
         while (\count($candidateDone) < $candidateCount) {
             $score = $this->makeScore($candidateDone);
-            $maxScore = \max($score);
-            $minScore = \min($score);
+            $maxScore = max($score);
+            $minScore = min($score);
 
             $this->_Stats[++$iteration] = $score;
 
@@ -96,7 +96,7 @@ class InstantRunoff extends Method implements MethodInterface
                 }
 
                 $CandidatesLoserCount += \count($LosersToRegister);
-                \array_push($candidateDone, ...$LosersToRegister);
+                array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
             }
         }

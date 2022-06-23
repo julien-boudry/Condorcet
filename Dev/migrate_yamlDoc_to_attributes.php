@@ -22,7 +22,7 @@ unset($doc[1]);
 $index  = [];
 
 foreach ($doc as &$entry) {
-    if (!is_array($entry['class'])) {
+    if (!\is_array($entry['class'])) {
         $entry['class'] = [$entry['class']];
     }
 
@@ -61,9 +61,9 @@ foreach ($index as $ClassName => $ClassData) {
             var_dump($ClassName.'->'.$MethodName);
 
             $description = $MethodData['description'];
-            $description = str_replace("\$", "\\\\$", $description);
+            $description = str_replace('$', '\\\$', $description);
             $description = preg_replace($patternReplaceLastNewLine, '$1', $description);
-            $description = str_replace(["\n    ","\n"], "\\n", $description);
+            $description = str_replace(["\n    ","\n"], '\\n', $description);
             $description = str_replace('"', '\"', $description);
 
             $attributes =  '$3#[Description("'.$description.'")]$2';
@@ -71,7 +71,7 @@ foreach ($index as $ClassName => $ClassData) {
             if (isset($MethodData['return'])) {
                 $returnV = $MethodData['return'];
                 $returnV = preg_replace($patternReplaceLastNewLine, '$1', $returnV);
-                $returnV = str_replace(["\n    ","\n"], "\\n", $returnV);
+                $returnV = str_replace(["\n    ","\n"], '\\n', $returnV);
                 $returnV = str_replace('"', '\"', $returnV);
 
                 $attributes .= '$3#[FunctionReturn("'.$returnV.'")]$2';
@@ -81,7 +81,7 @@ foreach ($index as $ClassName => $ClassData) {
             if (isset($MethodData['examples'])) {
                 $examples = $MethodData['examples'];
                 $examples = preg_replace($patternReplaceLastNewLine, '$1', $examples);
-                $examples = str_replace(["\n    ","\n"], "\\n", $examples);
+                $examples = str_replace(["\n    ","\n"], '\\n', $examples);
                 $examples = str_replace('"', '\"', $examples);
 
                 $arg = '';

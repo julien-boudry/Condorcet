@@ -23,20 +23,20 @@ abstract class VoteUtil
         if (empty($tags)) {
             return null;
         } elseif (\is_string($tags)) {
-            $tags = \explode(',', $tags);
+            $tags = explode(',', $tags);
         } else {
             foreach ($tags as $tag) {
                 if (!\is_string($tag)) {
-                    throw new VoteInvalidFormatException("every tag must be of type string, " . gettype($tag) . " given");
+                    throw new VoteInvalidFormatException('every tag must be of type string, ' . \gettype($tag) . ' given');
                 }
             }
         }
 
-        $tags = \array_map(fn (string $x): string => trim($x), $tags);
+        $tags = array_map(fn (string $x): string => trim($x), $tags);
 
         foreach ($tags as $tag) {
             if (empty($tag)) {
-                throw new VoteInvalidFormatException("found empty tag");
+                throw new VoteInvalidFormatException('found empty tag');
             }
         }
 
@@ -47,12 +47,12 @@ abstract class VoteUtil
     {
         foreach ($ranking as &$rank) {
             if (\is_array($rank)) {
-                \sort($rank);
-                $rank = \implode(' = ', $rank);
+                sort($rank);
+                $rank = implode(' = ', $rank);
             }
         }
 
-        return \implode(' > ', $ranking);
+        return implode(' > ', $ranking);
     }
 
     // From a string like 'A>B=C=H>G=T>Q'
@@ -64,35 +64,35 @@ abstract class VoteUtil
         if (empty($formula) || $formula === CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING) {
             $ranking = [];
         } else {
-            $ranking = \explode('>', $formula);
+            $ranking = explode('>', $formula);
 
             foreach ($ranking as &$rank_vote) {
-                $rank_vote = \explode('=', $rank_vote);
+                $rank_vote = explode('=', $rank_vote);
                 $rank_vote = array_filter($rank_vote);
 
                 // Del space at start and end
                 foreach ($rank_vote as &$value) {
-                    $value = \trim($value);
+                    $value = trim($value);
                 }
             }
         }
 
-        return \array_filter($ranking);
+        return array_filter($ranking);
     }
 
     #[Throws(VoteInvalidFormatException::class)]
     public static function parseAnalysingOneLine(int|bool $searchCharacter, string &$line): int
     {
-        if (is_int($searchCharacter)) {
-            $value = \trim(\substr($line, $searchCharacter + 1));
+        if (\is_int($searchCharacter)) {
+            $value = trim(substr($line, $searchCharacter + 1));
 
             // Errors
-            if (!\is_numeric($value)) {
+            if (!is_numeric($value)) {
                 throw new VoteInvalidFormatException("the value '$value' is not numeric");
             }
 
             // Reformat line
-            $line = \substr($line, 0, $searchCharacter);
+            $line = substr($line, 0, $searchCharacter);
 
             return \intval($value);
         } else {

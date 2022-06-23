@@ -13,15 +13,15 @@ class VoteUtilTest extends TestCase
     public function testTypeMismatchTagsThrowAnException(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid: every tag must be of type string, array given");
-        VoteUtil::tagsConvert(["not", "a", "string:", []]);
+        $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, array given');
+        VoteUtil::tagsConvert(['not', 'a', 'string:', []]);
     }
 
     public function testEmptyTagsThrowAnException(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid: found empty tag");
-        VoteUtil::tagsConvert("an , empty, tag , , in, the, middle");
+        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
+        VoteUtil::tagsConvert('an , empty, tag , , in, the, middle');
     }
 
     /**
@@ -35,16 +35,16 @@ class VoteUtilTest extends TestCase
     public function testGetRankingAsString(): void
     {
         // Empty ranking
-        $this->assertEquals("", VoteUtil::getRankingAsString([]));
+        $this->assertEquals('', VoteUtil::getRankingAsString([]));
 
         // String ranking
-        $this->assertEquals("A > B > C", VoteUtil::getRankingAsString(["A", "B", "C"]));
+        $this->assertEquals('A > B > C', VoteUtil::getRankingAsString(['A', 'B', 'C']));
 
         // Array ranking
-        $this->assertEquals("A = B > C", VoteUtil::getRankingAsString([["A", "B"], "C"]));
+        $this->assertEquals('A = B > C', VoteUtil::getRankingAsString([['A', 'B'], 'C']));
 
         // Unsorted array ranking
-        $this->assertEquals("A = B > C", VoteUtil::getRankingAsString([["B", "A"], "C"]));
+        $this->assertEquals('A = B > C', VoteUtil::getRankingAsString([['B', 'A'], 'C']));
     }
 
     public function testConvertVoteInput(): void
@@ -52,55 +52,55 @@ class VoteUtilTest extends TestCase
         // Empty vote
         $this->assertEquals(
             [],
-            VoteUtil::convertVoteInput("")
+            VoteUtil::convertVoteInput('')
         );
 
         $this->assertEquals(
             [],
-            VoteUtil::convertVoteInput("")
+            VoteUtil::convertVoteInput('')
         );
 
         $this->assertEquals(
             [],
-            VoteUtil::convertVoteInput("  >  ")
+            VoteUtil::convertVoteInput('  >  ')
         );
 
         // Normal vote
         $this->assertEquals(
             [
-                ["A"],
-                ["D", "B"],
-                ["C"],
+                ['A'],
+                ['D', 'B'],
+                ['C'],
             ],
-            VoteUtil::convertVoteInput("A   > D =    B > C ")
+            VoteUtil::convertVoteInput('A   > D =    B > C ')
         );
     }
 
     public function tagsProvider(): iterable
     {
-        yield "null tags" => [
-            "tags" => null,
-            "expected" => null,
+        yield 'null tags' => [
+            'tags' => null,
+            'expected' => null,
         ];
 
-        yield "empty string" => [
-            "tags" => "",
-            "expected" => null,
+        yield 'empty string' => [
+            'tags' => '',
+            'expected' => null,
         ];
 
-        yield "empty array" => [
-            "tags" => [],
-            "expected" => null,
+        yield 'empty array' => [
+            'tags' => [],
+            'expected' => null,
         ];
 
-        yield "tags as string" => [
-            "tags" => "these, are,   some   , tags",
-            "expected" => ["these", "are", "some", "tags"],
+        yield 'tags as string' => [
+            'tags' => 'these, are,   some   , tags',
+            'expected' => ['these', 'are', 'some', 'tags'],
         ];
 
-        yield "tags as array" => [
-            "tags" => ["these", "are", "some", "more", "tags"],
-            "expected" => ["these", "are", "some", "more", "tags"],
+        yield 'tags as array' => [
+            'tags' => ['these', 'are', 'some', 'more', 'tags'],
+            'expected' => ['these', 'are', 'some', 'more', 'tags'],
         ];
     }
 }

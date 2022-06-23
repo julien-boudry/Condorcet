@@ -31,7 +31,7 @@ class Permutations
             throw new CondorcetInternalException('Parameters invalid');
         }
 
-        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) {
+        if (self::$useBigIntegerIfAvailable && class_exists('Brick\Math\BigInteger')) {
             $result = BigInteger::of($candidatesNumber);
 
             for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) {
@@ -60,7 +60,7 @@ class Permutations
 
     public function __construct(array $candidates)
     {
-        $this->candidates = \array_values($candidates);
+        $this->candidates = array_values($candidates);
     }
 
     public function getResults(): SplFixedArray
@@ -82,12 +82,12 @@ class Permutations
 
     protected function permutationGenerator(array $elements): \Generator
     {
-        if (count($elements) <= 1) {
-            yield [1 => \reset($elements)]; // Set the only key to index 1
+        if (\count($elements) <= 1) {
+            yield [1 => reset($elements)]; // Set the only key to index 1
         } else {
             foreach ($this->permutationGenerator(\array_slice($elements, 1)) as $permutation) {
-                foreach (\range(0, \count($elements) - 1) as $i) {
-                    $r = \array_merge(
+                foreach (range(0, \count($elements) - 1) as $i) {
+                    $r = array_merge(
                         \array_slice($permutation, 0, $i),
                         [$elements[0]],
                         \array_slice($permutation, $i)

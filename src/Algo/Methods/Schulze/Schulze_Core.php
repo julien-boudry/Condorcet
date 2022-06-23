@@ -80,7 +80,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
     protected function prepareStrongestPath(): void
     {
         $election = $this->getElection();
-        $CandidatesKeys = \array_keys($election->getCandidatesList());
+        $CandidatesKeys = array_keys($election->getCandidatesList());
 
         foreach ($CandidatesKeys as $candidate_key) {
             $this->_StrongestPaths[$candidate_key] = [];
@@ -99,7 +99,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
     protected function makeStrongestPaths(): void
     {
         $election = $this->getElection();
-        $CandidatesKeys = \array_keys($election->getCandidatesList());
+        $CandidatesKeys = array_keys($election->getCandidatesList());
 
         foreach ($CandidatesKeys as $i) {
             foreach ($CandidatesKeys as $j) {
@@ -119,9 +119,9 @@ abstract class Schulze_Core extends Method implements MethodInterface
                     foreach ($CandidatesKeys as $k) {
                         if ($i !== $k && $j !== $k) {
                             $this->_StrongestPaths[$j][$k] =
-                                \max(
+                                max(
                                     $this->_StrongestPaths[$j][$k],
-                                    \min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k])
+                                    min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k])
                                 );
                         }
                     }
@@ -168,7 +168,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 }
             }
 
-            \array_push($done, ...$to_done);
+            array_push($done, ...$to_done);
 
             $rank++;
         }

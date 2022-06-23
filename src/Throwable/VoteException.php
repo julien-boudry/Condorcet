@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class VoteException extends CondorcetPublicApiException
 {
-    protected $message = "Problem handling vote";
+    protected $message = 'Problem handling vote';
 }

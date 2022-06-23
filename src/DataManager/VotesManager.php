@@ -35,7 +35,7 @@ class VotesManager extends ArrayManager
     {
         $data->destroyLink($this->getElection());
 
-        return \str_replace([' > ',' = '], ['>','='], (string) $data);
+        return str_replace([' > ',' = '], ['>','='], (string) $data);
     }
 
     protected function preDeletedTask($object): void
@@ -54,7 +54,7 @@ class VotesManager extends ArrayManager
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($value instanceof Vote) {
-            parent::offsetSet((is_int($offset) ? $offset : null), $value);
+            parent::offsetSet((\is_int($offset) ? $offset : null), $value);
             $this->UpdateAndResetComputing(key: $this->_maxKey, type: 1);
         } else {
             throw new VoteManagerException;
@@ -94,7 +94,7 @@ class VotesManager extends ArrayManager
 
     public function getVoteKey(Vote $vote): ?int
     {
-        ($r = \array_search(needle: $vote, haystack: $this->_Container, strict: true)) !== false || ($r = \array_search(needle: $vote, haystack: $this->_Cache, strict: true));
+        ($r = array_search(needle: $vote, haystack: $this->_Container, strict: true)) !== false || ($r = array_search(needle: $vote, haystack: $this->_Cache, strict: true));
 
         return ($r !== false) ? $r : null;
     }
@@ -179,10 +179,10 @@ class VotesManager extends ArrayManager
         foreach ($this as $oneVote) {
             $oneVoteString = $oneVote->getSimpleRanking($withContext ? $election : null);
 
-            if (!array_key_exists(key: $oneVoteString, array: $weight)) {
+            if (!\array_key_exists(key: $oneVoteString, array: $weight)) {
                 $weight[$oneVoteString] = 0;
             }
-            if (!array_key_exists(key: $oneVoteString, array: $nb)) {
+            if (!\array_key_exists(key: $oneVoteString, array: $nb)) {
                 $nb[$oneVoteString] = 0;
             }
 
@@ -195,8 +195,8 @@ class VotesManager extends ArrayManager
             $nb[$oneVoteString]++;
         }
 
-        \ksort($weight, \SORT_NATURAL);
-        \arsort($weight);
+        ksort($weight, \SORT_NATURAL);
+        arsort($weight);
 
         $isFirst = true;
         foreach ($weight as $key => $value) {

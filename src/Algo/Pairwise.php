@@ -43,7 +43,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function rewind(): void
     {
-        \reset($this->_Pairwise);
+        reset($this->_Pairwise);
         $this->valid = true;
     }
 
@@ -54,12 +54,12 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function key(): ?int
     {
-        return \key($this->_Pairwise);
+        return key($this->_Pairwise);
     }
 
     public function next(): void
     {
-        if (\next($this->_Pairwise) === false) {
+        if (next($this->_Pairwise) === false) {
             $this->valid = false;
         }
     }
@@ -126,9 +126,9 @@ class Pairwise implements \ArrayAccess, \Iterator
     }
 
     #[PublicAPI]
-    #[Description("Return the Pairwise.")]
-    #[FunctionReturn("Pairwise as an explicit array .")]
-    #[Related("Election::getPairwise", "Election::getResult")]
+    #[Description('Return the Pairwise.')]
+    #[FunctionReturn('Pairwise as an explicit array .')]
+    #[Related('Election::getPairwise', 'Election::getResult')]
     public function getExplicitPairwise(): array
     {
         $election = $this->getElection();

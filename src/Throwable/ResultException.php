@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class ResultException extends CondorcetPublicApiException
 {
-    protected $message = "Result cannot be changed";
+    protected $message = 'Result cannot be changed';
 }

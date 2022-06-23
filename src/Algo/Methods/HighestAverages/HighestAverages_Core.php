@@ -27,7 +27,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
     {
         $this->countVotesPerCandidates();
 
-        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
             $this->candidatesSeats[$candidateKey] = 0;
         }
 
@@ -40,7 +40,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
     {
         $election = $this->getElection();
 
-        foreach (\array_keys($election->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($election->getCandidatesList()) as $candidateKey) {
             $this->candidatesVotes[$candidateKey] = 0;
         }
 
@@ -51,7 +51,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
                 continue;
             } // This method support only one winner per vote. Ignore bad votes.
 
-            $this->candidatesVotes[$election->getCandidateKey(\reset($voteWinnerRank))] += $oneVote->getWeight($election);
+            $this->candidatesVotes[$election->getCandidateKey(reset($voteWinnerRank))] += $oneVote->getWeight($election);
         }
     }
 
@@ -60,7 +60,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
         $election = $this->getElection();
         $results = [];
 
-        while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) {
+        while (array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) {
             $roundNumber = \count($this->rounds) + 1;
             $maxQuotient = null;
             $maxQuotientCandidateKey = null;

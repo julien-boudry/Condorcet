@@ -12,7 +12,7 @@ class TwoRoundSystemTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
@@ -332,9 +332,9 @@ class TwoRoundSystemTest extends TestCase
 
         self::assertSame(
             [  1=> [
-                                    'A' => \round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
-                                    'B' => \round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
-                                    'C' => \round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION)
+                                    'A' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
+                                    'B' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
+                                    'C' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION)
                                 ]
                             ],
             $stats

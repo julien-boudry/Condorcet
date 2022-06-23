@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class FileDoesNotExistException extends CondorcetPublicApiException
 {
-    protected $message = "Specified input file does not exist";
+    protected $message = 'Specified input file does not exist';
 }

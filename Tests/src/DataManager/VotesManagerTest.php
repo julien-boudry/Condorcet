@@ -26,7 +26,7 @@ class VotesManagerTest extends TestCase
     public function testOffsetSet(): never
     {
         $this->expectException(VoteNotLinkedException::class);
-        $this->expectExceptionMessage("The vote is not linked to an election");
+        $this->expectExceptionMessage('The vote is not linked to an election');
 
         $vote = new Vote([]);
 

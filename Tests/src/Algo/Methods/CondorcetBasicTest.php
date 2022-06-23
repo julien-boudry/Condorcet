@@ -13,7 +13,7 @@ class CondorcetBasicTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
@@ -59,7 +59,7 @@ class CondorcetBasicTest extends TestCase
             Z > X > Y * 22
         ');
 
-        self::assertSame(null, $this->election->getWinner());
+        self::assertNull($this->election->getWinner());
 
         // Schulze Substitution
         self::assertEquals('X', $this->election->getWinner('Schulze'));
@@ -119,7 +119,7 @@ class CondorcetBasicTest extends TestCase
         ');
 
         self::assertEquals('L', $this->election->getCondorcetLoser());
-        self::assertSame(null, $this->election->getCondorcetWinner());
+        self::assertNull($this->election->getCondorcetWinner());
     }
 
     public function testResult_6(): void

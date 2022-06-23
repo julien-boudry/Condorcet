@@ -79,8 +79,8 @@ class ReadmeQuickExampleTest extends TestCase
 
         // SHA-2 checksum and sleep
         $myChecksum = $myElection1->getChecksum();
-        $toStore = \serialize($myElection1);
-        $comeBack = \unserialize($toStore);
+        $toStore = serialize($myElection1);
+        $comeBack = unserialize($toStore);
         $this->assertEquals($comeBack->getChecksum(), $myChecksum); // True
     }
 }

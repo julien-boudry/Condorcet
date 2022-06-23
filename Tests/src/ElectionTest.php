@@ -15,7 +15,7 @@ class ElectionTest extends TestCase
     private Election $election1;
     private Election $election2;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election1 = new Election;
 
@@ -34,7 +34,7 @@ class ElectionTest extends TestCase
     public function testRemoveVotes(): never
     {
         $this->expectException(VoteException::class);
-        $this->expectExceptionMessage("Problem handling vote: cannot remove vote, is not registered in this election");
+        $this->expectExceptionMessage('Problem handling vote: cannot remove vote, is not registered in this election');
 
         self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3, $this->election1->getVotesList());
@@ -131,7 +131,7 @@ class ElectionTest extends TestCase
     public function testMaxParseIteration1(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
@@ -139,7 +139,7 @@ class ElectionTest extends TestCase
 
         self::assertCount(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
 
-        self::assertSame(null, Election::setMaxParseIteration(null));
+        self::assertNull(Election::setMaxParseIteration(null));
 
         self::assertCount(43, $this->election1->parseVotes('candidate1>candidate2 * 43'));
 
@@ -156,7 +156,7 @@ class ElectionTest extends TestCase
     public function testMaxParseIteration2(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
@@ -175,7 +175,7 @@ class ElectionTest extends TestCase
     public function testMaxParseIteration3(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage("The maximal number of votes for the method is reached: 2");
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 2');
 
         self::assertSame(2, Election::setMaxParseIteration(2));
 
@@ -183,7 +183,7 @@ class ElectionTest extends TestCase
 
         self::assertSame([0=>'candidate3',1=>'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
 
-        self::assertSame(null, Election::setMaxParseIteration(null));
+        self::assertNull(Election::setMaxParseIteration(null));
 
         self::assertSame([0=>'candidate5',1=>'candidate6',2=>'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
 
@@ -200,7 +200,7 @@ class ElectionTest extends TestCase
     public function testMaxVoteNumber(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage("The maximal number of votes for the method is reached");
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached');
 
         $election = new Election;
         self::assertCount(3, $election->parseCandidates('candidate1;candidate2;candidate3'));
@@ -211,9 +211,9 @@ class ElectionTest extends TestCase
 
         try {
             $election->parseVotes('candidate1>candidate2 * 42');
-            self::assertSame(true, false);
+            self::assertTrue(false);
         } catch (VoteMaxNumberReachedException $e) {
-            $this->assertEquals("The maximal number of votes for the method is reached", $e->getMessage());
+            $this->assertEquals('The maximal number of votes for the method is reached', $e->getMessage());
         }
 
         self::assertSame(21, $election->countVotes());
@@ -222,7 +222,7 @@ class ElectionTest extends TestCase
 
         self::assertSame(42, $election->countVotes());
 
-        self::assertSame(null, Election::setMaxVoteNumber(null));
+        self::assertNull(Election::setMaxVoteNumber(null));
 
         $election->addVote('candidate3');
 
@@ -234,7 +234,7 @@ class ElectionTest extends TestCase
             $reserveException = $e;
         }
 
-        self::assertSame(null, Election::setMaxVoteNumber(null));
+        self::assertNull(Election::setMaxVoteNumber(null));
 
         throw $reserveException;
     }
@@ -262,7 +262,7 @@ class ElectionTest extends TestCase
         "D > A = B = C = E * 6\n".
         "A > B = C > E > D * 5\n".
         "A = B = E > C = D * 3\n".
-        "A = B = C = D = E * 1",
+        'A = B = C = D = E * 1',
             $this->election1->getVotesListAsString()
         );
 
@@ -273,7 +273,7 @@ class ElectionTest extends TestCase
         "D * 6\n".
         "A > B = C > E * 5\n".
         "A = B = E * 3\n".
-        "/EMPTY_RANKING/ * 1",
+        '/EMPTY_RANKING/ * 1',
             $this->election1->getVotesListAsString()
         );
 
@@ -603,7 +603,7 @@ class ElectionTest extends TestCase
         $votes[]['vote'] = new \stdClass; // Invalid Vote
         $votes[]['vote'] = ['C','B','A'];
 
-        self::assertSame(2, $election->addVotesFromJson(\json_encode($votes)));
+        self::assertSame(2, $election->addVotesFromJson(json_encode($votes)));
 
         self::assertSame(
             <<<VOTES
@@ -620,7 +620,7 @@ class ElectionTest extends TestCase
         $votes[0]['tag'] = 'tag1';
         $votes[0]['weight'] = '42';
 
-        $election->addVotesFromJson(\json_encode($votes));
+        $election->addVotesFromJson(json_encode($votes));
 
         $election->allowsVoteWeight(true);
 
@@ -634,7 +634,7 @@ class ElectionTest extends TestCase
         );
         self::assertSame(5, $election->countVotes('tag1'));
 
-        $election->addVotesFromJson(\json_encode($votes).'{42');
+        $election->addVotesFromJson(json_encode($votes).'{42');
     }
 
     public function testaddCandidatesFromJson(): never
@@ -646,13 +646,13 @@ class ElectionTest extends TestCase
 
         $candidates = ['candidate1 ','candidate2'];
 
-        $election->addCandidatesFromJson(\json_encode($candidates));
+        $election->addCandidatesFromJson(json_encode($candidates));
 
         self::assertSame(2, $election->countCandidates());
 
         self::assertEquals(['candidate1','candidate2'], $election->getCandidatesListAsString());
 
-        $election->addCandidatesFromJson(\json_encode(['candidate2']));
+        $election->addCandidatesFromJson(json_encode(['candidate2']));
     }
 
     public function testaddCandidatesFromInvalidJson(): never
@@ -661,13 +661,13 @@ class ElectionTest extends TestCase
 
         $election = new Election;
 
-        $election->addCandidatesFromJson(\json_encode(['candidate3']).'{42');
+        $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
     }
 
 
     public function testaddVotesFromJsonWithInvalidJson(): void
     {
-        $errors = ["42", 'true', 'false', 'null', "", " ", \json_encode(new \stdClass)];
+        $errors = ['42', 'true', 'false', 'null', '', ' ', json_encode(new \stdClass)];
 
         foreach ($errors as $oneError) {
             try {
@@ -709,9 +709,9 @@ class ElectionTest extends TestCase
         $election->addVote($vote1 = new Vote('A > C > D'));
         $result1 = $election->getResult('Schulze');
 
-        $election = \serialize($election);
+        $election = serialize($election);
         // file_put_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt",$election); # For next test
-        $election = \unserialize($election);
+        $election = unserialize($election);
 
         self::assertNotSame($result1, $election->getResult('Schulze'));
         self::assertSame($result1->getResultAsString(), $election->getResult('Schulze')->getResultAsString());
@@ -730,8 +730,8 @@ class ElectionTest extends TestCase
             "which is different from the current class version '".Condorcet::getVersion(true)."'"
         );
 
-        \unserialize(
-            file_get_contents("Tests/src/ElectionData/serialized_election_v3.2.0.txt")
+        unserialize(
+            file_get_contents('Tests/src/ElectionData/serialized_election_v3.2.0.txt')
         );
     }
 
@@ -768,7 +768,7 @@ class ElectionTest extends TestCase
     {
         self::assertSame($this->candidate2, $this->election1->getCandidateObjectFromKey(1));
 
-        self::assertSame(null, $this->election1->getCandidateObjectFromKey(42));
+        self::assertNull($this->election1->getCandidateObjectFromKey(42));
     }
 
     public function testElectionState1(): never
@@ -782,7 +782,7 @@ class ElectionTest extends TestCase
     public function testElectionState2(): never
     {
         $this->expectException(VotingHasStartedException::class);
-        $this->expectExceptionMessage("The voting has started");
+        $this->expectExceptionMessage('The voting has started');
 
         $this->election1->removeCandidates('candidate4');
     }
@@ -790,7 +790,7 @@ class ElectionTest extends TestCase
     public function testElectionState3(): never
     {
         $this->expectException(NoCandidatesException::class);
-        $this->expectExceptionMessage("You need to specify one or more candidates before voting");
+        $this->expectExceptionMessage('You need to specify one or more candidates before voting');
 
         $election = new Election;
         $election->setStateTovote();
@@ -799,7 +799,7 @@ class ElectionTest extends TestCase
     public function testElectionState4(): never
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
-        $this->expectExceptionMessage("The result cannot be requested without votes");
+        $this->expectExceptionMessage('The result cannot be requested without votes');
 
         $election = new Election;
         $election->getResult();
@@ -817,7 +817,7 @@ class ElectionTest extends TestCase
     public function testAddSameVote(): never
     {
         $this->expectException(VoteException::class);
-        $this->expectExceptionMessage("Problem handling vote: seats are already registered");
+        $this->expectExceptionMessage('Problem handling vote: seats are already registered');
 
         $this->election1->addVote($this->vote1);
     }
@@ -909,7 +909,7 @@ class ElectionTest extends TestCase
     public function testAmbiguousCandidatesOnElectionSide(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid");
+        $this->expectExceptionMessage('The format of the vote is invalid');
 
         $vote = new Vote('candidate1>candidate2');
 
@@ -926,7 +926,7 @@ class ElectionTest extends TestCase
     public function testAmbiguousCandidatesOnVoteSide(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid: vote does not match candidate in this election");
+        $this->expectExceptionMessage('The format of the vote is invalid: vote does not match candidate in this election');
 
         $election1 = new Election;
         $election2 = new Election;
@@ -960,7 +960,7 @@ class ElectionTest extends TestCase
     public function testInvalidSeats(): never
     {
         $this->expectException(NoSeatsException::class);
-        $this->expectExceptionMessage("No seats defined");
+        $this->expectExceptionMessage('No seats defined');
 
         $this->election1->setNumberOfSeats(0);
     }

@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class NoSeatsException extends CondorcetPublicApiException
 {
-    protected $message = "No seats defined";
+    protected $message = 'No seats defined';
 }

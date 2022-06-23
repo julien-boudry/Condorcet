@@ -47,7 +47,7 @@ class BordaCount extends Method implements MethodInterface
         $election = $this->getElection();
         $score = [];
 
-        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
+        foreach (array_keys($election->getCandidatesList()) as $oneCandidateKey) {
             $score[$oneCandidateKey] = 0;
         }
 
@@ -67,9 +67,9 @@ class BordaCount extends Method implements MethodInterface
             }
         }
 
-        \array_walk($score, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
-        \ksort($score, \SORT_NATURAL);
-        \arsort($score, \SORT_NUMERIC);
+        array_walk($score, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        ksort($score, \SORT_NATURAL);
+        arsort($score, \SORT_NUMERIC);
 
         $rank = 0;
         $lastScore = null;

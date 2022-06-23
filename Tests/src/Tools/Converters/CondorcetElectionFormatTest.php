@@ -19,7 +19,7 @@ class CondorcetElectionFormatTest extends TestCase
                             CVOTES);
 
         $condorcetFormat = new CondorcetElectionFormat($file);
-        self::assertSame(false, $condorcetFormat->CandidatesParsedFromVotes);
+        self::assertFalse($condorcetFormat->CandidatesParsedFromVotes);
 
 
         $election = $condorcetFormat->setDataToAnElection();
@@ -357,7 +357,7 @@ class CondorcetElectionFormatTest extends TestCase
 
         $election = $cef->setDataToAnElection();
 
-        self::assertSame("/EMPTY_RANKING/ * 2", $election->getVotesListAsString());
+        self::assertSame('/EMPTY_RANKING/ * 2', $election->getVotesListAsString());
         self::assertSame([], $election->getVotesList()[0]->getRanking());
         self::assertSame($input, CondorcetElectionFormat::exportElectionToCondorcetElectionFormat($election));
     }
@@ -381,11 +381,11 @@ class CondorcetElectionFormatTest extends TestCase
         $cef = new CondorcetElectionFormat($file);
 
         self::assertSame(['A', 'B', 'C', 'D', 'E', 'F'], $cef->candidates);
-        self::assertSame(true, $cef->CandidatesParsedFromVotes);
+        self::assertTrue($cef->CandidatesParsedFromVotes);
 
         $election = $cef->setDataToAnElection();
 
-        self::assertSame(false, $election->getImplicitRankingRule());
+        self::assertFalse($election->getImplicitRankingRule());
         self::assertSame(42, $election->getNumberOfSeats());
 
         self::assertEquals(['A', 'B', 'C', 'D', 'E', 'F'], $election->getCandidatesList());

@@ -18,7 +18,7 @@ class CondorcetUtilTest extends TestCase
 
     public function testDeleteComments(): void
     {
-        $result = CondorcetUtil::prepareParse("A > B # This is a comment", false);
+        $result = CondorcetUtil::prepareParse('A > B # This is a comment', false);
 
         $this->assertSame(['A > B'], $result);
     }

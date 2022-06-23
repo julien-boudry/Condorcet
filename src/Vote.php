@@ -88,10 +88,10 @@ class Vote implements \Iterator, \Stringable
     ///
 
     #[PublicAPI]
-    #[Description("Build a vote object.")]
+    #[Description('Build a vote object.')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Vote::setRanking", "Vote::addTags")]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Vote::setRanking', 'Vote::addTags')]
     public function __construct(
         #[FunctionParameter('Equivalent to Vote::setRanking method')]
         array|string $ranking,
@@ -109,24 +109,24 @@ class Vote implements \Iterator, \Stringable
 
         // Vote Weight
         if (\is_string($ranking)) {
-            $is_voteWeight = \strpos(haystack: $ranking, needle: '^');
+            $is_voteWeight = strpos(haystack: $ranking, needle: '^');
             if ($is_voteWeight !== false) {
-                $weight = \trim(\substr($ranking, $is_voteWeight + 1));
+                $weight = trim(substr($ranking, $is_voteWeight + 1));
 
                 // Errors
-                if (!\is_numeric($weight)) {
-                    throw new VoteInvalidFormatException("you must specify an integer for the vote weight");
+                if (!is_numeric($weight)) {
+                    throw new VoteInvalidFormatException('you must specify an integer for the vote weight');
                 }
 
                 $weight = \intval($weight);
 
-                $ranking = \substr($ranking, 0, $is_voteWeight);
+                $ranking = substr($ranking, 0, $is_voteWeight);
             }
 
-            $is_voteTags = \strpos($ranking, '||');
+            $is_voteTags = strpos($ranking, '||');
             if ($is_voteTags !== false) {
-                $tagsFromString = \explode(',', \trim(\substr($ranking, 0, $is_voteTags)));
-                $ranking = \substr($ranking, $is_voteTags + 2);
+                $tagsFromString = explode(',', trim(substr($ranking, 0, $is_voteTags)));
+                $ranking = substr($ranking, $is_voteTags + 2);
             }
         }
 
@@ -146,7 +146,7 @@ class Vote implements \Iterator, \Stringable
         $this->position = 1;
         $this->_link = null;
 
-        $var = \get_object_vars($this);
+        $var = get_object_vars($this);
         unset($var['cacheMap']);
 
         return $var;
@@ -173,9 +173,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Get Object hash (cryptographic)")]
-    #[FunctionReturn("SHA hash code.")]
-    #[Related("Vote::getWeight")]
+    #[Description('Get Object hash (cryptographic)')]
+    #[FunctionReturn('SHA hash code.')]
+    #[Related('Vote::getWeight')]
     public function getHashCode(): string
     {
         return $this->_hashCode;
@@ -186,9 +186,9 @@ class Vote implements \Iterator, \Stringable
     // GETTERS
 
     #[PublicAPI]
-    #[Description("Get the actual Ranking of this Vote.")]
-    #[FunctionReturn("Multidimenssionnal array populated by Candidate object.")]
-    #[Related("Vote::setRanking")]
+    #[Description('Get the actual Ranking of this Vote.')]
+    #[FunctionReturn('Multidimenssionnal array populated by Candidate object.')]
+    #[Related('Vote::setRanking')]
     public function getRanking(
         #[FunctionParameter('Sort Candidate in a Rank by name. Useful for performant internal calls from methods.')]
         bool $sortCandidatesInRank = true
@@ -196,7 +196,7 @@ class Vote implements \Iterator, \Stringable
         $r = $this->_ranking;
 
         foreach ($r as &$oneRank) {
-            if ($sortCandidatesInRank && count($oneRank) > 1) {
+            if ($sortCandidatesInRank && \count($oneRank) > 1) {
                 sort($oneRank, \SORT_STRING);
             }
         }
@@ -205,9 +205,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Return an history of each vote change, with timestamp.")]
-    #[FunctionReturn("An explicit multi-dimenssional array.")]
-    #[Related("Vote::getCreateTimestamp")]
+    #[Description('Return an history of each vote change, with timestamp.')]
+    #[FunctionReturn('An explicit multi-dimenssional array.')]
+    #[Related('Vote::getCreateTimestamp')]
     public function getHistory(): array
     {
         return $this->_ranking_history;
@@ -215,53 +215,53 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
-    #[Description("Get the registered tags for this Vote.")]
-    #[FunctionReturn("List of registered tag.")]
-    #[Related("Vote::getTagsAsString", "Vote::addTags", "Vote::removeTags")]
+    #[Description('Get the registered tags for this Vote.')]
+    #[FunctionReturn('List of registered tag.')]
+    #[Related('Vote::getTagsAsString', 'Vote::addTags', 'Vote::removeTags')]
     public function getTags(): array
     {
         return $this->_tags;
     }
 
     #[PublicAPI]
-    #[Description("Get the registered tags for this Vote.")]
-    #[FunctionReturn("List of registered tag as string separated by commas.")]
-    #[Related("Vote::getTags", "Vote::addTags", "Vote::removeTags")]
+    #[Description('Get the registered tags for this Vote.')]
+    #[FunctionReturn('List of registered tag as string separated by commas.')]
+    #[Related('Vote::getTags', 'Vote::addTags', 'Vote::removeTags')]
     public function getTagsAsString(): string
     {
-        return \implode(',', $this->getTags());
+        return implode(',', $this->getTags());
     }
 
     #[PublicAPI]
-    #[Description("Get the timestamp corresponding of the creation of this vote.")]
-    #[FunctionReturn("Timestamp")]
-    #[Related("Candidate::getTimestamp")]
+    #[Description('Get the timestamp corresponding of the creation of this vote.')]
+    #[FunctionReturn('Timestamp')]
+    #[Related('Candidate::getTimestamp')]
     public function getCreateTimestamp(): float
     {
         return $this->_ranking_history[0]['timestamp'];
     }
 
     #[PublicAPI]
-    #[Description("Get the timestamp corresponding of the last vote change.")]
-    #[FunctionReturn("Timestamp")]
-    #[Related("Vote::getCreateTimestamp")]
+    #[Description('Get the timestamp corresponding of the last vote change.')]
+    #[FunctionReturn('Timestamp')]
+    #[Related('Vote::getCreateTimestamp')]
     public function getTimestamp(): float
     {
         return $this->_lastTimestamp;
     }
 
     #[PublicAPI]
-    #[Description("Count the number of candidate provide into the active Ranking set.")]
-    #[FunctionReturn("Number of Candidate into ranking.")]
+    #[Description('Count the number of candidate provide into the active Ranking set.')]
+    #[FunctionReturn('Number of Candidate into ranking.')]
     public function countRankingCandidates(): int
     {
         return $this->_counter;
     }
 
     #[PublicAPI]
-    #[Description("Get all the candidates object set in the last ranking of this Vote.")]
-    #[FunctionReturn("Candidates list.")]
-    #[Related("Vote::getRanking", "Vote::countRankingCandidates")]
+    #[Description('Get all the candidates object set in the last ranking of this Vote.')]
+    #[FunctionReturn('Candidates list.')]
+    #[Related('Vote::getRanking', 'Vote::countRankingCandidates')]
     public function getAllCandidates(): array
     {
         $list = [];
@@ -276,10 +276,10 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
-    #[FunctionReturn("Contextual full ranking.")]
+    #[Description('Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.')]
+    #[FunctionReturn('Contextual full ranking.')]
     #[Throws(VoteNotLinkedException::class)]
-    #[Related("Vote::getContextualRankingAsString", "Vote::getRanking")]
+    #[Related('Vote::getContextualRankingAsString', 'Vote::getRanking')]
     public function getContextualRanking(
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
@@ -338,7 +338,7 @@ class Vote implements \Iterator, \Stringable
                 sort($last_rank, \SORT_STRING);
             }
 
-            $newRanking[count($newRanking) + 1] = $last_rank;
+            $newRanking[\count($newRanking) + 1] = $last_rank;
         }
 
         // Cache for internal use
@@ -374,9 +374,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.")]
-    #[FunctionReturn("Contextual full ranking, with string instead Candidate object.")]
-    #[Related("Vote::getContextualRanking", "Vote::getRanking")]
+    #[Description('Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.')]
+    #[FunctionReturn('Contextual full ranking, with string instead Candidate object.')]
+    #[Related('Vote::getContextualRanking', 'Vote::getRanking')]
     public function getContextualRankingAsString(
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election
@@ -385,9 +385,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()")]
+    #[Description('Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()')]
     #[FunctionReturn("String like 'A>D=C>B'")]
-    #[Related("Vote::getRanking")]
+    #[Related('Vote::getRanking')]
     public function getSimpleRanking(
         #[FunctionParameter('An election already linked to the Vote')]
         ?Election $context = null,
@@ -399,7 +399,7 @@ class Vote implements \Iterator, \Stringable
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
         if ($displayWeight && $this->_weight > 1 && (($context && $context->isVoteWeightAllowed()) || $context === null)) {
-            $simpleRanking .= " ^".$this->getWeight();
+            $simpleRanking .= ' ^'.$this->getWeight();
         }
 
         return $simpleRanking;
@@ -410,10 +410,10 @@ class Vote implements \Iterator, \Stringable
 
     #[PublicAPI]
     #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
-    #[FunctionReturn("In case of success, return TRUE")]
+    #[FunctionReturn('In case of success, return TRUE')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example("Manual - Add a vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Vote::getRanking", "Vote::getHistory", "Vote::__construct")]
+    #[Example('Manual - Add a vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Vote::getRanking', 'Vote::getHistory', 'Vote::__construct')]
     public function setRanking(
         #[FunctionParameter('A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.')]
         array|string $ranking,
@@ -423,7 +423,7 @@ class Vote implements \Iterator, \Stringable
         // Timestamp
         if ($ownTimestamp !== null) {
             if (!empty($this->_ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
-                throw new VoteInvalidFormatException("Timestamp format of vote is not correct");
+                throw new VoteInvalidFormatException('Timestamp format of vote is not correct');
             }
         }
 
@@ -441,16 +441,16 @@ class Vote implements \Iterator, \Stringable
         }
 
         $this->_ranking = $ranking;
-        $this->_lastTimestamp = $ownTimestamp ?? \microtime(true);
+        $this->_lastTimestamp = $ownTimestamp ?? microtime(true);
         $this->_counter = $candidateCounter;
 
         $this->archiveRanking();
 
-        if (count($this->_link) > 0) {
+        if (\count($this->_link) > 0) {
             try {
                 foreach ($this->getLinks() as $link => $value) {
                     if (!$link->checkVoteCandidate($this)) {
-                        throw new VoteInvalidFormatException("vote does not match candidate in this election");
+                        throw new VoteInvalidFormatException('vote does not match candidate in this election');
                     }
                 }
             } catch (VoteInvalidFormatException $e) {
@@ -478,9 +478,9 @@ class Vote implements \Iterator, \Stringable
             $ranking = VoteUtil::convertVoteInput($ranking);
         }
 
-        $ranking = \array_filter($ranking, fn ($key): bool => \is_numeric($key), \ARRAY_FILTER_USE_KEY);
+        $ranking = array_filter($ranking, fn ($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
 
-        \ksort($ranking);
+        ksort($ranking);
 
         $i = 1;
         $vote_r = [];
@@ -523,10 +523,10 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
-    #[Description("Remove candidate from ranking. Set a new ranking and archive the old ranking.")]
-    #[FunctionReturn("True on success.")]
+    #[Description('Remove candidate from ranking. Set a new ranking and archive the old ranking.')]
+    #[FunctionReturn('True on success.')]
     #[Throws(CandidateDoesNotExistException::class)]
-    #[Related("Vote::setRanking")]
+    #[Related('Vote::setRanking')]
     public function removeCandidate(
         #[FunctionParameter('Candidate object or string')]
         Candidate|string $candidate
@@ -564,11 +564,11 @@ class Vote implements \Iterator, \Stringable
 
 
     #[PublicAPI]
-    #[Description("Add tag(s) on this Vote.")]
-    #[FunctionReturn("In case of success, return TRUE")]
+    #[Description('Add tag(s) on this Vote.')]
+    #[FunctionReturn('In case of success, return TRUE')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Vote::removeTags")]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Vote::removeTags')]
     public function addTags(
         #[FunctionParameter('Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.')]
         array|string $tags
@@ -591,10 +591,10 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Remove registered tag(s) on this Vote.")]
-    #[FunctionReturn("List of deleted tags.")]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Vote::addTags")]
+    #[Description('Remove registered tag(s) on this Vote.')]
+    #[FunctionReturn('List of deleted tags.')]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Vote::addTags')]
     public function removeTags(
         #[FunctionParameter('They can be added by string separated by commas or an array.')]
         array|string $tags
@@ -607,7 +607,7 @@ class Vote implements \Iterator, \Stringable
 
         $rm = [];
         foreach ($tags as $key => $tag) {
-            $tagK = \array_search(needle: $tag, haystack: $this->_tags, strict: true);
+            $tagK = array_search(needle: $tag, haystack: $this->_tags, strict: true);
 
             if ($tagK === false) {
                 unset($tags[$key]);
@@ -622,9 +622,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Remove all registered tag(s) on this Vote.")]
-    #[FunctionReturn("Return True.")]
-    #[Related("Vote::addTags", "Vote::removeTags")]
+    #[Description('Remove all registered tag(s) on this Vote.')]
+    #[FunctionReturn('Return True.')]
+    #[Related('Vote::addTags', 'Vote::removeTags')]
     public function removeAllTags(): bool
     {
         $this->removeTags($this->getTags());
@@ -632,9 +632,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
-    #[FunctionReturn("Weight. Default weight is 1.")]
-    #[Related("Vote::setWeight")]
+    #[Description('Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.')]
+    #[FunctionReturn('Weight. Default weight is 1.')]
+    #[Related('Vote::setWeight')]
     public function getWeight(
         #[FunctionParameter('In the context of wich election? (optional)')]
         ?Election $context = null
@@ -647,16 +647,16 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
-    #[Description("Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.")]
-    #[FunctionReturn("New weight.")]
+    #[Description('Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.')]
+    #[FunctionReturn('New weight.')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Related("Vote::getWeight")]
+    #[Related('Vote::getWeight')]
     public function setWeight(
         #[FunctionParameter('The new vote weight.')]
         int $newWeight
     ): int {
         if ($newWeight < 1) {
-            throw new VoteInvalidFormatException("the vote weight can not be less than 1");
+            throw new VoteInvalidFormatException('the vote weight can not be less than 1');
         }
 
         if ($newWeight !== $this->_weight) {
@@ -687,6 +687,6 @@ class Vote implements \Iterator, \Stringable
 
     private function setHashCode(): string
     {
-        return $this->_hashCode = \hash('sha224', ((string) $this) . \microtime(false));
+        return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
     }
 }

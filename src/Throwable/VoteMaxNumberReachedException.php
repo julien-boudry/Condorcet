@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class VoteMaxNumberReachedException extends CondorcetPublicApiException
 {
-    protected $message = "The maximal number of votes for the method is reached";
+    protected $message = 'The maximal number of votes for the method is reached';
 }

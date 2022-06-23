@@ -12,7 +12,7 @@ class DowdallSystemTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
@@ -37,8 +37,8 @@ class DowdallSystemTest extends TestCase
                 1 => 'A',
                 2 => 'B',
                 3 => 'C',
-                4 => "D",
-                5 => "E",
+                4 => 'D',
+                5 => 'E',
                 6 => 'F' ],
             $this->election->getResult('DowdallSystem')->getResultAsArray(true)
         );

@@ -50,7 +50,7 @@ class CondorcetTest extends TestCase
     public function testAddMethod(): never
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available: the given class is using an existing alias");
+        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
 
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
@@ -67,7 +67,7 @@ class CondorcetTest extends TestCase
     public function testAddUnvalidMethod(): never
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available: the given class is not correct");
+        $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
 
         $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
@@ -87,7 +87,7 @@ class CondorcetTest extends TestCase
     public function testEmptyMethod(): never
     {
         $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available: no method name given");
+        $this->expectExceptionMessage('The voting algorithm is not available: no method name given');
 
         Condorcet::isAuthMethod('');
     }

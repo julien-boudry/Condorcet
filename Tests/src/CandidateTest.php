@@ -12,7 +12,7 @@ class CandidateTest extends TestCase
 {
     private readonly Candidate $candidate1;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->candidate1 = new Candidate('candidate1.n1');
     }
@@ -40,8 +40,8 @@ class CandidateTest extends TestCase
 
     public function testMatchingAndTooLongName(): never
     {
-        $name = "";
-        while (\mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH) {
+        $name = '';
+        while (mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH) {
             $name .= uniqid();
         }
         $name = substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
@@ -51,7 +51,7 @@ class CandidateTest extends TestCase
         $this->assertEquals($name, (string) $candidate);
 
         // Now the name is one character too long.
-        $name .= "A";
+        $name .= 'A';
 
         $this->expectException(CandidateInvalidNameException::class);
         $this->expectExceptionMessage("This name is not valid: $name");
@@ -62,7 +62,7 @@ class CandidateTest extends TestCase
     public function testBadName(): never
     {
         $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage("This name is not valid");
+        $this->expectExceptionMessage('This name is not valid');
 
         new Candidate('<$"');
     }
@@ -70,7 +70,7 @@ class CandidateTest extends TestCase
     public function testBadNameWithNewline(): never
     {
         $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage("This name is not valid");
+        $this->expectExceptionMessage('This name is not valid');
 
         new Candidate("A name with\n a newline");
     }
@@ -85,7 +85,7 @@ class CandidateTest extends TestCase
     public function testAddSameCandidate1(): never
     {
         $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage("This candidate already exists: Schizophrenic");
+        $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
 
         $election1 = new Election ;
 
@@ -98,7 +98,7 @@ class CandidateTest extends TestCase
     public function testAddSameCandidate2(): never
     {
         $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage("This candidate already exists: candidate1");
+        $this->expectExceptionMessage('This candidate already exists: candidate1');
 
         $election1 = new Election ;
 
@@ -108,7 +108,7 @@ class CandidateTest extends TestCase
     public function testAddSameCandidate3(): never
     {
         $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage("This candidate already exists: candidate1");
+        $this->expectExceptionMessage('This candidate already exists: candidate1');
 
         $election1 = new Election ;
 

@@ -25,9 +25,9 @@ enum StvQuotas: string
     case IMPERIALI = 'Imperiali Quota';
 
     #[PublicAPI]
-    #[Description("Build the Enum Quotas option for STV methods")]
-    #[FunctionReturn("The Quota option")]
-    #[Example("Manual - STV method", "https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote")]
+    #[Description('Build the Enum Quotas option for STV methods')]
+    #[FunctionReturn('The Quota option')]
+    #[Example('Manual - STV method', 'https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote')]
     public static function make(
         #[FunctionParameter('Quota name')]
         string $quota

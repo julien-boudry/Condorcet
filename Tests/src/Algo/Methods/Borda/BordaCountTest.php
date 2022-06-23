@@ -11,12 +11,12 @@ class BordaCountTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->election->setMethodOption('Borda Count', 'Starting', 1);
     }

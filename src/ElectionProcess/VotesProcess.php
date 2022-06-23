@@ -30,9 +30,9 @@ trait VotesProcess
 
     // How many votes are registered ?
     #[PublicAPI]
-    #[Description("Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.")]
-    #[FunctionReturn("Number of valid and registered vote into this election.")]
-    #[Related("Election::getVotesList", "Election::countValidVoteWithConstraints")]
+    #[Description('Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.')]
+    #[FunctionReturn('Number of valid and registered vote into this election.')]
+    #[Related('Election::getVotesList', 'Election::countValidVoteWithConstraints')]
     public function countVotes(
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
@@ -43,9 +43,9 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.")]
-    #[FunctionReturn("Number of valid and registered vote into this election.")]
-    #[Related("Election::countValidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
+    #[Description('Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.')]
+    #[FunctionReturn('Number of valid and registered vote into this election.')]
+    #[Related('Election::countValidVoteWithConstraints', 'Election::countVotes', 'Election::sumValidVotesWeightWithConstraints')]
     public function countInvalidVoteWithConstraints(): int
     {
         return $this->_Votes->countInvalidVoteWithConstraints();
@@ -53,8 +53,8 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description("Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.")]
-    #[FunctionReturn("Number of valid and registered vote into this election.")]
-    #[Related("Election::countInvalidVoteWithConstraints", "Election::countVotes", "Election::sumValidVotesWeightWithConstraints")]
+    #[FunctionReturn('Number of valid and registered vote into this election.')]
+    #[Related('Election::countInvalidVoteWithConstraints', 'Election::countVotes', 'Election::sumValidVotesWeightWithConstraints')]
     public function countValidVoteWithConstraints(): int
     {
         return $this->countVotes() - $this->countInvalidVoteWithConstraints();
@@ -62,9 +62,9 @@ trait VotesProcess
 
     // Sum votes weight
     #[PublicAPI]
-    #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.")]
-    #[FunctionReturn("(Int) Total vote weight")]
-    #[Related("Election::sumValidVotesWeightWithConstraints")]
+    #[Description('Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.')]
+    #[FunctionReturn('(Int) Total vote weight')]
+    #[Related('Election::sumValidVotesWeightWithConstraints')]
     public function sumVotesWeight(): int
     {
         return $this->_Votes->sumVotesWeight(false);
@@ -72,8 +72,8 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.")]
-    #[FunctionReturn("(Int) Total vote weight")]
-    #[Related("Election::countValidVoteWithConstraints", "Election::countInvalidVoteWithConstraints")]
+    #[FunctionReturn('(Int) Total vote weight')]
+    #[Related('Election::countValidVoteWithConstraints', 'Election::countInvalidVoteWithConstraints')]
     public function sumValidVotesWeightWithConstraints(): int
     {
         return $this->_Votes->sumVotesWeight(true);
@@ -81,9 +81,9 @@ trait VotesProcess
 
     // Get the votes registered list
     #[PublicAPI]
-    #[Description("Get registered vote list.")]
-    #[FunctionReturn("Populated by each Vote object.")]
-    #[Related("Election::countVotes", "Election::getVotesListAsString")]
+    #[Description('Get registered vote list.')]
+    #[FunctionReturn('Populated by each Vote object.')]
+    #[Related('Election::countVotes', 'Election::getVotesListAsString')]
     public function getVotesList(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -94,9 +94,9 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Get registered vote list.")]
+    #[Description('Get registered vote list.')]
     #[FunctionReturn("Return a string like :<br>\nA > B > C * 3<br>\nA = B > C * 6")]
-    #[Related("Election::parseVotes")]
+    #[Related('Election::parseVotes')]
     public function getVotesListAsString(
         #[FunctionParameter('Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.')]
         bool $withContext = true
@@ -111,8 +111,8 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
-    #[FunctionReturn("Populated by each Vote object.")]
-    #[Related("Election::getVotesList")]
+    #[FunctionReturn('Populated by each Vote object.')]
+    #[Related('Election::getVotesList')]
     public function getVotesListGenerator(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -124,8 +124,8 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
-    #[FunctionReturn("Populated by each Vote object.")]
-    #[Related("Election::getVotesListGenerator", "Election::getVotesList")]
+    #[FunctionReturn('Populated by each Vote object.')]
+    #[Related('Election::getVotesListGenerator', 'Election::getVotesList')]
     public function getVotesValidUnderConstraintGenerator(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -146,11 +146,11 @@ trait VotesProcess
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
     #[PublicAPI]
-    #[Description("Add a vote to an election.")]
-    #[FunctionReturn("The vote object.")]
+    #[Description('Add a vote to an election.')]
+    #[FunctionReturn('The vote object.')]
     #[Throws(VoteMaxNumberReachedException::class)]
-    #[Example("Manual - Vote Management", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Election::parseVotes", "Election::addVotesFromJson", "Election::removeVote", "Election::getVotesList")]
+    #[Example('Manual - Vote Management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Election::parseVotes', 'Election::addVotesFromJson', 'Election::removeVote', 'Election::getVotesList')]
     public function addVote(
         #[FunctionParameter('String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you')]
         array|string|Vote $vote,
@@ -203,7 +203,7 @@ trait VotesProcess
             if ($change) {
                 $vote->setRanking(
                     $ranking,
-                    (\abs($vote->getTimestamp() - \microtime(true)) > 0.5) ? ($vote->getTimestamp() + 0.001) : null
+                    (abs($vote->getTimestamp() - microtime(true)) > 0.5) ? ($vote->getTimestamp() + 0.001) : null
                 );
             }
         }
@@ -241,17 +241,17 @@ trait VotesProcess
             $this->_Votes[] = $vote;
         } catch (CondorcetInternalException $e) {
             // Security : Check if vote object is not already registered
-            throw new VoteException("seats are already registered");
+            throw new VoteException('seats are already registered');
         }
 
         return $vote;
     }
 
     #[PublicAPI]
-    #[Description("Remove Votes from an election.")]
+    #[Description('Remove Votes from an election.')]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Example("Manual - Vote management", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
-    #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotesByTags")]
+    #[Example('Manual - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
+    #[Related('Election::addVote', 'Election::getVotesList', 'Election::removeVotesByTags')]
     public function removeVote(
         #[FunctionParameter('Vote object')]
         Vote $vote
@@ -266,15 +266,15 @@ trait VotesProcess
 
             return true;
         } else {
-            throw new VoteException("cannot remove vote, is not registered in this election");
+            throw new VoteException('cannot remove vote, is not registered in this election');
         }
     }
 
     #[PublicAPI]
     #[Description("Remove Vote from an election using tags.\n\n```php\n\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie\n\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie\n\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.\n\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.\n```")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Example("Manual - Vote management", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote")]
-    #[Related("Election::addVote", "Election::getVotesList", "Election::removeVotes")]
+    #[Example('Manual - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
+    #[Related('Election::addVote', 'Election::getVotesList', 'Election::removeVotes')]
     public function removeVotesByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
@@ -317,10 +317,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Import votes from a Json source.")]
-    #[FunctionReturn("Count of new registered vote.")]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Election::addVote", "Election::parseVotes", "Election::addCandidatesFromJson")]
+    #[Description('Import votes from a Json source.')]
+    #[FunctionReturn('Count of new registered vote.')]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Election::addVote', 'Election::parseVotes', 'Election::addCandidatesFromJson')]
     public function addVotesFromJson(
         #[FunctionParameter('Json string input')]
         string $input
@@ -349,10 +349,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Import votes from a text source. If any invalid vote is found inside, nothing are registered.")]
-    #[FunctionReturn("Count of the new registered vote.")]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotesWithoutFail", "Election::addVotesFromJson")]
+    #[Description('Import votes from a text source. If any invalid vote is found inside, nothing are registered.')]
+    #[FunctionReturn('Count of the new registered vote.')]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Election::addVote', 'Election::parseCandidates', 'Election::parseVotesWithoutFail', 'Election::addVotesFromJson')]
     public function parseVotes(
         #[FunctionParameter('String or valid path to a text file')]
         string $input,
@@ -366,19 +366,19 @@ trait VotesProcess
 
         foreach ($input as $line) {
             // Disallow < and "
-            if (\preg_match('/<|"/mi', $line) === 1) {
+            if (preg_match('/<|"/mi', $line) === 1) {
                 throw new VoteInvalidFormatException("found '<' or '|' in this line: " . $line);
             }
 
             // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(\strpos($line, '*'), $line);
+            $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'), $line);
 
             // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(\strpos($line, '^'), $line);
+            $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'), $line);
 
             // Tags + vote
-            if (\str_contains($line, '||') === true) {
-                $data = \explode('||', $line);
+            if (str_contains($line, '||') === true) {
+                $data = explode('||', $line);
 
                 $vote = $data[1];
                 $tags = $data[0];
@@ -397,10 +397,10 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.")]
+    #[Description('Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.')]
     #[FunctionReturn("Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.")]
-    #[Example("Manual - Add Vote", "https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote")]
-    #[Related("Election::addVote", "Election::parseCandidates", "Election::parseVotes", "Election::addVotesFromJson")]
+    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Related('Election::addVote', 'Election::parseCandidates', 'Election::parseVotes', 'Election::addVotesFromJson')]
     public function parseVotesWithoutFail(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input,
@@ -438,11 +438,11 @@ trait VotesProcess
         while ($char !== false) {
             $char = $file->fgetc();
 
-            if ($char === ";" || $char === "\n" || $char === "#" || $char === false) {
+            if ($char === ';' || $char === "\n" || $char === '#' || $char === false) {
                 try {
                     CondorcetUtil::prepareParse($record, false);
 
-                    $multiple = VoteUtil::parseAnalysingOneLine(\strpos(haystack: $record, needle: '*'), $record);
+                    $multiple = VoteUtil::parseAnalysingOneLine(strpos(haystack: $record, needle: '*'), $record);
 
                     for ($i=0; $i < $multiple; $i++) {
                         $inserted_votes_count += $this->parseVotes($record);

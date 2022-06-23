@@ -16,8 +16,8 @@ use CondorcetPHP\Condorcet\Election;
 interface ConverterInterface
 {
     #[PublicAPI]
-    #[Description("Add the tideman data ton an election object")]
-    #[FunctionReturn("The election object")]
+    #[Description('Add the tideman data ton an election object')]
+    #[FunctionReturn('The election object')]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         Election $election = new Election

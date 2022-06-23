@@ -32,7 +32,7 @@ class Manager
                 return;
             }
 
-            $m = \microtime(true);
+            $m = microtime(true);
 
             if ($this->_lastChronoTimestamp > $chrono->getStart()) {
                 $c = $this->_lastChronoTimestamp;
@@ -65,9 +65,9 @@ class Manager
     }
 
     #[PublicAPI]
-    #[Description("Return benchmarked actions history.")]
-    #[FunctionReturn("An explicit array with history.")]
-    #[Related("Election::getTimerManager")]
+    #[Description('Return benchmarked actions history.')]
+    #[FunctionReturn('An explicit array with history.')]
+    #[Related('Election::getTimerManager')]
     public function getHistory(): array
     {
         return $this->_history;

@@ -18,7 +18,7 @@ abstract class CondorcetUtil
     // Check JSON format
     public static function isValidJsonForCondorcet(string $string): void
     {
-        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || $string === '{}' || empty($string)) {
+        if (is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || $string === '{}' || empty($string)) {
             throw new \JsonException;
         }
     }
@@ -27,7 +27,7 @@ abstract class CondorcetUtil
     {
         self::isValidJsonForCondorcet($input);
 
-        return \json_decode(json: $input, associative: true, flags: \JSON_THROW_ON_ERROR);
+        return json_decode(json: $input, associative: true, flags: \JSON_THROW_ON_ERROR);
     }
 
     // Generic action before parsing data from string input
@@ -35,27 +35,27 @@ abstract class CondorcetUtil
     {
         // Is string or is file ?
         if ($isFile === true) {
-            if (!\is_file($input)) {
+            if (!is_file($input)) {
                 throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
             }
 
-            $input = \file_get_contents($input);
+            $input = file_get_contents($input);
         }
 
         // Line
-        $input = \preg_replace("(\r\n|\n|\r)", ';', $input);
-        $input = \explode(';', $input);
+        $input = preg_replace("(\r\n|\n|\r)", ';', $input);
+        $input = explode(';', $input);
 
         // Delete comments
         foreach ($input as $key => &$line) {
             // Delete comments
-            $is_comment = \strpos($line, '#');
+            $is_comment = strpos($line, '#');
             if ($is_comment !== false) {
-                $line = \substr($line, 0, $is_comment);
+                $line = substr($line, 0, $is_comment);
             }
 
             // Trim
-            $line = \trim($line);
+            $line = trim($line);
 
             // Remove empty
             if (empty($line)) {
@@ -69,7 +69,7 @@ abstract class CondorcetUtil
     // Simplify Condorcet Var_Dump. Transform object to String.
     #[PublicAPI]
     #[Description("Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.\nCan be use before a var_dump, or just to get more simple data output.")]
-    #[FunctionReturn("New formatted data.")]
+    #[FunctionReturn('New formatted data.')]
     public static function format(
         #[FunctionParameter('Input to convert')]
         mixed $input,
@@ -95,8 +95,8 @@ abstract class CondorcetUtil
                 $input[$key] = self::format($line, $convertObject);
             }
 
-            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(\reset($input)) || \count(\reset($input)) === 1)) {
-                $r = \reset($input);
+            if (\count($input) === 1 && \is_int(key($input)) && (!\is_array(reset($input)) || \count(reset($input)) === 1)) {
+                $r = reset($input);
             } else {
                 $r = $input;
             }

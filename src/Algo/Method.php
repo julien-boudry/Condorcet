@@ -47,14 +47,14 @@ abstract class Method
     {
         $this->setElection($mother);
 
-        if (!\is_null(static::$MaxCandidates) && $mother->countCandidates() > static::$MaxCandidates) {
+        if (null !== static::$MaxCandidates && $mother->countCandidates() > static::$MaxCandidates) {
             throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         }
     }
 
     public function __serialize(): array
     {
-        $r = \get_object_vars($this);
+        $r = get_object_vars($this);
         unset($r['_selfElection']);
 
         return $r;
@@ -92,15 +92,15 @@ abstract class Method
 
     protected function createResult(array $result): Result
     {
-        $optionsList = \array_keys((new \ReflectionClass(static::class))->getStaticProperties());
-        $optionsList = \array_filter($optionsList, function (string $name): bool {
-            return \str_starts_with($name, 'option');
+        $optionsList = array_keys((new \ReflectionClass(static::class))->getStaticProperties());
+        $optionsList = array_filter($optionsList, function (string $name): bool {
+            return str_starts_with($name, 'option');
         });
 
         $methodOptions = [];
 
         foreach ($optionsList as $oneOption) {
-            $methodOptions[\substr($oneOption, 6)] = static::$$oneOption;
+            $methodOptions[substr($oneOption, 6)] = static::$$oneOption;
         }
 
         return new Result(

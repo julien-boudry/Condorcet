@@ -11,7 +11,7 @@ class CopelandTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
@@ -84,7 +84,7 @@ class CopelandTest extends TestCase
             D > A > E * 10
         ');
 
-        self::assertSame(null, $this->election->getWinner());
+        self::assertNull($this->election->getWinner());
         self::assertSame($candidateA, $this->election->getWinner('Copeland'));
 
         self::assertSame(

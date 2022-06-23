@@ -41,7 +41,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function __construct(\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entities', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) {
-            throw new DataHandlerException("invalid structure template for PdoHandler");
+            throw new DataHandlerException('invalid structure template for PdoHandler');
         }
 
         $this->_struct = $struct;
@@ -197,13 +197,13 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         foreach (self::SEGMENT as $value) {
             if ($count >= $value) {
-                $input = \array_chunk($input, $value, true);
+                $input = array_chunk($input, $value, true);
 
-                $end = \end($input);
+                $end = end($input);
                 if (\count($input) > 1 && \count($end) < $value) {
                     $this->sliceInput($end);
-                    unset($input[\key($input)]);
-                    $input = \array_merge($input, $end);
+                    unset($input[key($input)]);
+                    $input = array_merge($input, $end);
                 }
                 break;
             }

@@ -52,18 +52,18 @@ abstract class Majority_Core extends Method implements MethodInterface
         // Start a round
         while ($resolved === false) {
             $roundScore = $this->doOneRound();
-            \ksort($roundScore, \SORT_NATURAL);
-            \arsort($roundScore, \SORT_NUMERIC);
+            ksort($roundScore, \SORT_NATURAL);
+            arsort($roundScore, \SORT_NUMERIC);
 
             $score[$round] = $roundScore;
 
             if ($round === 1) {
-                foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
+                foreach (array_keys($election->getCandidatesList()) as $oneCandidateKey) {
                     $score[$round][$oneCandidateKey] ??= 0.0;
                 }
             }
 
-            if ($round === $this->_maxRound || \reset($roundScore) > (\array_sum($roundScore) / 2)) {
+            if ($round === $this->_maxRound || reset($roundScore) > (array_sum($roundScore) / 2)) {
                 $resolved = true;
 
                 if (isset($score[$round - 1]) && $score[$round] === $score[$round - 1]) {
@@ -93,7 +93,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         // Compute Ranking
         $rank = 0;
         $result = [];
-        \krsort($score, \SORT_NUMERIC);
+        krsort($score, \SORT_NUMERIC);
         $doneCandidates = [];
 
         foreach ($score as $oneRound) {
@@ -111,7 +111,7 @@ abstract class Majority_Core extends Method implements MethodInterface
         }
 
         // Finalizing
-        \ksort($score, \SORT_NUMERIC);
+        ksort($score, \SORT_NUMERIC);
         $this->_Stats = $score;
         $this->_Result = $this->createResult($result);
     }
@@ -139,7 +139,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                     }
                 }
 
-                if (($newFirstRank = \reset($oneRanking)) !== false) {
+                if (($newFirstRank = reset($oneRanking)) !== false) {
                     $oneRanking = [1 => $newFirstRank];
                 } else {
                     continue;
@@ -154,7 +154,7 @@ abstract class Majority_Core extends Method implements MethodInterface
             }
         }
 
-        \array_walk($roundScore, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        array_walk($roundScore, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
 
         return $roundScore;
     }

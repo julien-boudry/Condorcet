@@ -112,7 +112,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             }
 
             $result[$rang++] = $winners;
-            \array_push($alreadyDone, ...$winners);
+            array_push($alreadyDone, ...$winners);
         }
 
         return $result;
@@ -122,7 +122,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     {
         $winners = [];
 
-        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
             if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) {
                 $win = true;
                 foreach ($this->_Arcs as $ArcValue) {
@@ -147,7 +147,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
 
-            $newKey = \max((empty($highKey = \array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
+            $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) {
                 $virtualArcs[$newKey] = [ 'from' => $newArc['from'], 'to' => $newArc['to'] ];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
@@ -170,8 +170,8 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     {
         $cycles = [];
 
-        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
-            \array_push($cycles, ...$this->followCycle(
+        foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+            array_push($cycles, ...$this->followCycle(
                 startCandidateKey: $candidateKey,
                 searchCandidateKey: $candidateKey,
                 virtualArcs: $virtualArcs
@@ -194,7 +194,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                     $arcsInCycle[] = $ArcKey;
                 } else {
                     $done[] = $ArcKey;
-                    \array_push(
+                    array_push(
                         $arcsInCycle,
                         ...$this->followCycle(
                             startCandidateKey: $ArcValue['to'],
@@ -233,7 +233,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             }
         }
 
-        \usort($pairs, function (array $a, array $b): int {
+        usort($pairs, function (array $a, array $b): int {
             if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) {
                 return 1;
             } elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) {
@@ -246,7 +246,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         $newArcs = [];
         $i = 0;
         $f = true;
-        foreach (\array_keys($pairs) as $pairsKey) {
+        foreach (array_keys($pairs) as $pairsKey) {
             if ($f === true) {
                 $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;

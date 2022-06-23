@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CombinationsTest extends TestCase
 {
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Combinations::$useBigIntegerIfAvailable = true;
     }

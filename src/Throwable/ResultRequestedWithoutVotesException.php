@@ -12,5 +12,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class ResultRequestedWithoutVotesException extends CondorcetPublicApiException
 {
-    protected $message = "The result cannot be requested without votes";
+    protected $message = 'The result cannot be requested without votes';
 }

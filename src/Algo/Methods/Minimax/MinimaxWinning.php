@@ -30,6 +30,6 @@ class MinimaxWinning extends PairwiseStatsBased_Core
 
     protected function looking(array $challenge): int
     {
-        return \min($challenge);
+        return min($challenge);
     }
 }

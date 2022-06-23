@@ -14,9 +14,9 @@ class Generate
     public static function makeFilename(\ReflectionMethod $method): string
     {
         return  self::getModifiersName($method).
-                " ".
-                str_replace("\\", "_", self::simpleClass($method->class))."--".$method->name.
-                ".md";
+                ' '.
+                str_replace('\\', '_', self::simpleClass($method->class)).'--'.$method->name.
+                '.md';
     }
 
     public static function simpleClass(string $fullClassName): string
@@ -36,7 +36,7 @@ class Generate
             return 'null';
         }
         if (\is_array($c)) {
-            return '['.\implode(',', $c).']';
+            return '['.implode(',', $c).']';
         }
         if (\is_object($c)) {
             return 'new '.\get_class($c);
@@ -73,17 +73,17 @@ class Generate
         $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md' ;
         $url = str_replace(' ', '%20', $url);
 
-        return "[".$name."](".$url.")";
+        return '['.$name.']('.$url.')';
     }
 
     public static function computeRepresentationAsForIndex(\ReflectionMethod $method): string
     {
         return  self::getModifiersName($method).
-                " ".
+                ' '.
                 self::simpleClass($method->class).
-                (($method->isStatic()) ? "::" : '->').
+                (($method->isStatic()) ? '::' : '->').
                 $method->name.
-                " (".(($method->getNumberOfParameters() > 0) ? '...' : '').")";
+                ' ('.(($method->getNumberOfParameters() > 0) ? '...' : '').')';
     }
 
     public static function computeRepresentationAsPHP(\ReflectionMethod $method): string
@@ -95,14 +95,14 @@ class Generate
 
         if ($method->getNumberOfParameters() > 0) {
             foreach ($method->getParameters() as $value) {
-                $str .= " ";
-                $str .= ($value->isOptional() && !$option) ? "[" : "";
-                $str .= ($i > 0) ? ", " : "";
+                $str .= ' ';
+                $str .= ($value->isOptional() && !$option) ? '[' : '';
+                $str .= ($i > 0) ? ', ' : '';
                 $str .= self::getTypeAsString($value->getType());
-                $str .= " ";
+                $str .= ' ';
                 $str .= $value->isPassedByReference() ? '&' : '';
                 $str .= '$'.$value->getName();
-                $str .= $value->isDefaultValueAvailable() ? " = ".self::speakBool($value->getDefaultValue()) : "";
+                $str .= $value->isDefaultValueAvailable() ? ' = '.self::speakBool($value->getDefaultValue()) : '';
 
                 ($value->isOptional() && !$option) ? $option = true : null;
                 $i++;
@@ -110,13 +110,13 @@ class Generate
         }
 
         if ($option) {
-            $str .= "]";
+            $str .= ']';
         }
 
-        $str .= " )";
+        $str .= ' )';
 
         return  "```php\n".
-                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic()) ? "::" : '->').$method->name." ".$str. ((self::getTypeAsString($method->getReturnType()) !== null) ? ": ".self::getTypeAsString($method->getReturnType()) : "").
+                self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic()) ? '::' : '->').$method->name.' '.$str. ((self::getTypeAsString($method->getReturnType()) !== null) ? ': '.self::getTypeAsString($method->getReturnType()) : '').
                 "\n```";
     }
 
@@ -130,7 +130,7 @@ class Generate
 
         //
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
-        $FullClassList = \array_filter($FullClassList, function (string $value) {
+        $FullClassList = array_filter($FullClassList, function (string $value) {
             return (strpos($value, 'Condorcet\Test') === false) && (strpos($value, 'Condorcet\Dev') === false);
         });
 
@@ -156,13 +156,13 @@ class Generate
                         }
                     }
 
-                    if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") {
+                    if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
                         var_dump('Description Attribute is empty: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     }
                 } else {
                     $non_inDoc++;
 
-                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== "") {
+                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
                         // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     }
                 }
@@ -204,8 +204,8 @@ class Generate
                 }
 
                 // Write Markdown
-                if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && (empty($apiAttribute[0]->getArguments()) || in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true))) {
-                    $path = $pathDirectory . str_replace("\\", "_", self::simpleClass($oneMethod->class)) . " Class/";
+                if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && (empty($apiAttribute[0]->getArguments()) || \in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true))) {
+                    $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
 
                     if (!is_dir($path)) {
                         mkdir($path);
@@ -217,7 +217,7 @@ class Generate
         }
 
 
-        print "Public methods in doc: ".$inDoc." / ".($inDoc + $non_inDoc)." | Total non-internal methods count: ".$total_nonInternal_methods." | Number of Class: ".count($FullClassList)." | Number of Methods including internals: ".$total_methods."\n";
+        print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
         $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
@@ -239,7 +239,7 @@ class Generate
 
 
         // Write file
-        file_put_contents($pathDirectory."README.md", $file_content);
+        file_put_contents($pathDirectory.'README.md', $file_content);
 
 
         echo 'YAH ! <br>' . (microtime(true) - $start_time) .'s';
@@ -251,7 +251,7 @@ class Generate
     protected function createMarkdownContent(\ReflectionMethod $method, array $entry): string
     {
         // Header
-        $md =   "## ".self::getModifiersName($method)." ". self::simpleClass($method->class)."::".$method->name."\n\n".
+        $md =   '## '.self::getModifiersName($method).' '. self::simpleClass($method->class).'::'.$method->name."\n\n".
                 "### Description    \n\n".
                 self::computeRepresentationAsPHP($method)."\n\n".
                 $method->getAttributes(Description::class)[0]->getArguments()[0]."\n    ";
@@ -264,11 +264,11 @@ class Generate
                 } elseif (isset($entry['input'][$value->getName()]['text'])) {
                     $pt = $entry['input'][$value->getName()]['text'];
                 } else {
-                    $pt = "";
+                    $pt = '';
                 }
 
                 $md .=  "\n\n".
-                        "##### **".$value->getName().":** *".self::getTypeAsString($value->getType(), true)."*   \n".
+                        '##### **'.$value->getName().':** *'.self::getTypeAsString($value->getType(), true)."*   \n".
                         $pt."    \n";
             }
         }
@@ -279,7 +279,7 @@ class Generate
         if (!empty($method->getAttributes(FunctionReturn::class))) {
             $md .= "\n\n".
                     "### Return value:   \n\n".
-                    "*(".self::getTypeAsString($method->getReturnType(), true).")* ".$method->getAttributes(FunctionReturn::class)[0]->getArguments()[0]."\n\n";
+                    '*('.self::getTypeAsString($method->getReturnType(), true).')* '.$method->getAttributes(FunctionReturn::class)[0]->getArguments()[0]."\n\n";
         }
 
         // Throw
@@ -288,7 +288,7 @@ class Generate
                     "### Throws:   \n\n";
 
             foreach ($method->getAttributes(Throws::class)[0]->getArguments() as $arg) {
-                $md .= "* ```".$arg."```\n";
+                $md .= '* ```'.$arg."```\n";
             }
         }
 
@@ -305,7 +305,7 @@ class Generate
                         continue;
                     }
 
-                    $md .= "* ".self::cleverRelated($value)."    \n";
+                    $md .= '* '.self::cleverRelated($value)."    \n";
                 }
             }
         }
@@ -318,7 +318,7 @@ class Generate
             foreach ($method->getAttributes(Example::class) as $ExampleAttribute) {
                 $ExampleAttribute = $ExampleAttribute->newInstance();
 
-                $md .= "* **[".$ExampleAttribute->name."](".$ExampleAttribute->link.")**    \n";
+                $md .= '* **['.$ExampleAttribute->name.']('.$ExampleAttribute->link.")**    \n";
             }
         }
 
@@ -330,7 +330,7 @@ class Generate
         $file_content = '';
 
         $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
-            return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !in_array(self::simpleClass($reflectionMethod->class), $apiAttribute[0]->getArguments(), true)));
+            return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !\in_array(self::simpleClass($reflectionMethod->class), $apiAttribute[0]->getArguments(), true)));
         };
 
         foreach ($index as $class => &$classMeta) {
@@ -372,10 +372,10 @@ class Generate
             }
 
             if ($classWillBePublic) {
-                $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
+                $isEnum = enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
 
                 $file_content .= "\n";
-                $file_content .= '### CondorcetPHP\Condorcet\\'.$class." ".((!$isEnum) ? "Class" : "Enum")."  \n\n";
+                $file_content .= '### CondorcetPHP\Condorcet\\'.$class.' '.((!$isEnum) ? 'Class' : 'Enum')."  \n\n";
 
                 if ($isEnum) {
                     $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
@@ -392,10 +392,10 @@ class Generate
                 if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) {
                     continue;
                 } else {
-                    $url = str_replace("\\", "_", self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod'])." ". str_replace("\\", "_", self::simpleClass($oneMethod['ReflectionMethod']->class)."--". $oneMethod['ReflectionMethod']->name) . '.md' ;
+                    $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod']).' '. str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class).'--'. $oneMethod['ReflectionMethod']->name) . '.md' ;
                     $url = str_replace(' ', '%20', $url);
 
-                    $file_content .= "* [".self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod'])."](".$url.")";
+                    $file_content .= '* ['.self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod']).']('.$url.')';
 
                     if (isset($oneMethod['ReflectionMethod']) && $oneMethod['ReflectionMethod']->hasReturnType()) {
                         $file_content .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType(), true);
@@ -527,7 +527,7 @@ class Generate
             $file_content .= "  \n";
             $file_content .= "```php\n";
 
-            $isEnum = \enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
+            $isEnum = enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
 
             if ($isEnum) {
                 $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), true);
@@ -568,7 +568,7 @@ class Generate
                         $representation .= ': '.self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
                     }
 
-                    $file_content .= "* ".$representation."  \n";
+                    $file_content .= '* '.$representation."  \n";
                 }
             }
 

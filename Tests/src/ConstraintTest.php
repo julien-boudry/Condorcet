@@ -13,7 +13,7 @@ class ConstraintTest extends TestCase
 {
     private Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
 
@@ -25,7 +25,7 @@ class ConstraintTest extends TestCase
     public function testAddConstraintAndClear(): never
     {
         $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage("The vote constraint could not be set up: class is already registered");
+        $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
 
         $class = NoTie::class;
 
@@ -45,7 +45,7 @@ class ConstraintTest extends TestCase
     public function testPhantomClass(): never
     {
         $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage("The vote constraint could not be set up: class is not defined");
+        $this->expectExceptionMessage('The vote constraint could not be set up: class is not defined');
 
         $this->election->addConstraint('WrongNamespace\AndWrongClass');
     }
@@ -53,7 +53,7 @@ class ConstraintTest extends TestCase
     public function testBadClass(): never
     {
         $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage("The vote constraint could not be set up: class is not a valid subclass");
+        $this->expectExceptionMessage('The vote constraint could not be set up: class is not a valid subclass');
 
         $class = Vote::class;
 

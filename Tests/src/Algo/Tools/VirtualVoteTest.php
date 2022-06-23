@@ -13,7 +13,7 @@ class VirtualVoteTest extends TestCase
     public function testVirtualVote(): void
     {
         $election = new Election;
-        $election->parseCandidates("A;B;C");
+        $election->parseCandidates('A;B;C');
 
         $vote1 = new Vote('A>B>C');
         $election->addVote($vote1);

@@ -28,7 +28,7 @@ class Combinations
             throw new CondorcetInternalException('Parameters invalid');
         }
 
-        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) {
+        if (self::$useBigIntegerIfAvailable && class_exists('Brick\Math\BigInteger')) {
             $a = BigInteger::of(1);
             for ($i = $count ; $i > ($count - $length) ; $i--) {
                 $a = $a->multipliedBy($i);
@@ -82,10 +82,10 @@ class Combinations
     {
         $count = \count($values);
         $size = 2 ** $count;
-        $keys = \array_keys($values);
+        $keys = array_keys($values);
 
         for ($i = 0; $i < $size; $i++) {
-            $b = \sprintf("%0" . $count . "b", $i);
+            $b = sprintf('%0' . $count . 'b', $i);
             $out = [];
 
             for ($j = 0; $j < $count; $j++) {
@@ -94,8 +94,8 @@ class Combinations
                 }
             }
 
-            if (count($out) === $length) {
-                yield \array_values(\array_merge($append_before, $out));
+            if (\count($out) === $length) {
+                yield array_values(array_merge($append_before, $out));
             }
         }
     }

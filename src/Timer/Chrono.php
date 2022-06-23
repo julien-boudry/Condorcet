@@ -46,7 +46,7 @@ class Chrono
 
     protected function resetStart(): void
     {
-        $this->_start = \microtime(true);
+        $this->_start = microtime(true);
     }
 
     public function getRole(): ?string

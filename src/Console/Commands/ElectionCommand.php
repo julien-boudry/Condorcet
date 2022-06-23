@@ -157,7 +157,7 @@ class ElectionCommand extends Command
             ->addOption(
                 name: 'votes-per-mb',
                 mode: InputOption::VALUE_REQUIRED,
-                description: "Adjust memory in case of failure. Default is 100. Try to lower it.",
+                description: 'Adjust memory in case of failure. Default is 100. Try to lower it.',
             )
 
             ->addArgument(
@@ -214,11 +214,11 @@ class ElectionCommand extends Command
                     if ($answer === null) {
                         break;
                     } else {
-                        $registeringCandidates[] = \str_replace(';', ' ', $answer);
+                        $registeringCandidates[] = str_replace(';', ' ', $answer);
                     }
                 }
 
-                $this->candidates = \implode(';', $registeringCandidates);
+                $this->candidates = implode(';', $registeringCandidates);
             }
 
             // Interactive Votes
@@ -235,11 +235,11 @@ class ElectionCommand extends Command
                     if ($answer === null) {
                         break;
                     } else {
-                        $registeringvotes[] = \str_replace(';', ' ', $answer);
+                        $registeringvotes[] = str_replace(';', ' ', $answer);
                     }
                 }
 
-                $this->votes = \implode(';', $registeringvotes);
+                $this->votes = implode(';', $registeringvotes);
             }
         }
     }
@@ -485,7 +485,7 @@ class ElectionCommand extends Command
         ;
 
         foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) {
-            $votesTable->addRow([ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), \implode(',', $oneVote->getTags()) ]);
+            $votesTable->addRow([ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ]);
         }
 
         $votesTable->render();
@@ -516,7 +516,7 @@ class ElectionCommand extends Command
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) {
-                if (\strtolower($oneMethod) === "all") {
+                if (strtolower($oneMethod) === 'all') {
                     $methods = Condorcet::getAuthMethods(false);
                     $methods = array_map(fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
                     break;
@@ -526,7 +526,7 @@ class ElectionCommand extends Command
                     $method_class = Condorcet::getMethodClass($oneMethod);
                     $method_name = $method_class::METHOD_NAME[0];
 
-                    if (!in_array(needle: $method_name, haystack: $methods, strict: true)) {
+                    if (!\in_array(needle: $method_name, haystack: $methods, strict: true)) {
                         $methods[] = ['name' => $method_name, 'class' => $method_class];
                     }
                 }
@@ -619,12 +619,12 @@ class ElectionCommand extends Command
 
         foreach ($resultArray as $rank => &$line) {
             if (\is_array($line)) {
-                $line = \implode(',', $line);
+                $line = implode(',', $line);
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
                 $line = $line.'*';
-            } elseif ($rank === \max(\array_keys($resultArray)) && \count($result[\max(\array_keys($resultArray))]) === 1 && $result[\max(\array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
+            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
                 $line = $line.'#';
             }
 
@@ -632,17 +632,17 @@ class ElectionCommand extends Command
         }
 
 
-        $last_rank = \max(\array_keys($resultArray));
+        $last_rank = max(array_keys($resultArray));
 
         return $resultArray;
     }
 
     protected function getFilePath(string $path): ?string
     {
-        if ($this->isAbsolute($path) && \is_file($path)) {
+        if ($this->isAbsolute($path) && is_file($path)) {
             return $path;
         } else {
-            return (\is_file($file = \getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
+            return (is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
         }
         ;
     }
@@ -650,20 +650,20 @@ class ElectionCommand extends Command
     protected function isAbsolute(string $path): bool
     {
         return empty($path) ? false : (
-            \strspn($path, '/\\', 0, 1) ||
-                                            (\strlen($path) > 3 && \ctype_alpha($path[0]) && ':' === $path[1] && \strspn($path, '/\\', 2, 1))
+            strspn($path, '/\\', 0, 1) ||
+                                            (\strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1))
         );
     }
 
     protected function useDataHandler(InputInterface $input): ?\Closure
     {
-        if ($input->getOption('deactivate-file-cache') || !\class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true)) {
+        if ($input->getOption('deactivate-file-cache') || !class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true)) {
             return null;
         } else {
             $election = $this->election;
             $SQLitePath = &$this->SQLitePath;
 
-            $memory_limit = (int) \preg_replace('`[^0-9]`', '', $this->ini_memory_limit);
+            $memory_limit = (int) preg_replace('`[^0-9]`', '', $this->ini_memory_limit);
             $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
 
             $callBack = static function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
@@ -672,8 +672,8 @@ class ElectionCommand extends Command
                     /**
                      * @infection-ignore-all
                      */
-                    if (\file_exists($SQLitePath = \getcwd().'/condorcet-bdd.sqlite')) {
-                        \unlink($SQLitePath);
+                    if (file_exists($SQLitePath = getcwd().'/condorcet-bdd.sqlite')) {
+                        unlink($SQLitePath);
                     }
 
                     /**

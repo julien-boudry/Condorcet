@@ -12,7 +12,7 @@ class DavidHillFormatTest extends TestCase
 {
     private static DavidHillFormat $tidemanA77;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHillFormat(__DIR__.'/TidemanData/A77.HIL'));
     }
@@ -337,7 +337,7 @@ class DavidHillFormatTest extends TestCase
     {
         $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
 
-        self::assertEquals([0=>"1",1=>"2",2=>"3",3=>"4",4=>"5",5=>"6"], $hil->candidates); # Candidates are object, AssertEquals compare __toString
+        self::assertEquals([0=>'1',1=>'2',2=>'3',3=>'4',4=>'5',5=>'6'], $hil->candidates); # Candidates are object, AssertEquals compare __toString
 
         $implicitElectionFromHill = $hil->setDataToAnElection();
 

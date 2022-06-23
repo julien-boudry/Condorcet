@@ -12,12 +12,12 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 {
     private readonly Election $election;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->election = new Election;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     }
@@ -85,7 +85,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('SainteLague')->getResultAsArray());
 
         // Jefferson
@@ -108,7 +108,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('Jefferson')->getResultAsArray());
 
         // Hare-LR
@@ -132,7 +132,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
 
         // Droop-LR
@@ -156,7 +156,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
 
         //  Hagenbach-Bischoff-LR
@@ -180,7 +180,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
 
         //  Imperiali-LR
@@ -204,7 +204,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, \array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
+        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
         $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
     }
 

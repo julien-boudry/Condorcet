@@ -25,7 +25,7 @@ for ($i=0; $i < $number_of_votes; $i++) {
 
     $cache .= implode('>', $candidates)."\n";
 
-    if (strlen($cache) > 5_000_000) {
+    if (\strlen($cache) > 5_000_000) {
         $file->fwrite($cache);
         $cache = '';
     }

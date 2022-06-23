@@ -20,7 +20,7 @@
         $election->addVote($vote, 'coucou') ;
     }
 
-    $vote = "A>D>E>C>B" ;
+    $vote = 'A>D>E>C>B' ;
 
     for ($i = 1 ; $i <= 5 ; $i++) {
         $election->addVote($vote) ;

@@ -23,20 +23,20 @@ class DebianFormat implements ConverterInterface
     public readonly array $votes;
 
     #[PublicAPI]
-    #[Description("Read a Tideman format file")]
+    #[Description('Read a Tideman format file')]
     public function __construct(
         #[FunctionParameter('File absolute path')]
         string $filePath
     ) {
-        $this->lines = \file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        $this->lines = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
 
         $this->readCandidatesNames();
         $this->readVotes();
     }
 
     #[PublicAPI]
-    #[Description("Add the Debian data to an election object")]
-    #[FunctionReturn("The election object")]
+    #[Description('Add the Debian data to an election object')]
+    #[FunctionReturn('The election object')]
     #[Related("Tools\CondorcetElectionFormat::setDataToAnElection", "Tools\DavidHillFormat::setDataToAnElection")]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
@@ -71,13 +71,13 @@ class DebianFormat implements ConverterInterface
 
         foreach ($candidatesLines as $oneCandidateLine) {
             $match = null;
-            \preg_match($pattern, $oneCandidateLine, $match);
+            preg_match($pattern, $oneCandidateLine, $match);
 
             // $candidates[$k++] = new Candidate( \trim($match['candidateName']) );
             // $candidates[] = new Candidate( \trim( $match['candidateName']) );
             $candidateName = $match['candidateName'];
-            \mb_check_encoding($candidateName) || ($candidateName = \mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16'));
-            $candidateName = \trim($candidateName);
+            mb_check_encoding($candidateName) || ($candidateName = mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16'));
+            $candidateName = trim($candidateName);
 
             $candidates[] = new Candidate($candidateName);
         }
@@ -95,7 +95,7 @@ class DebianFormat implements ConverterInterface
         foreach ($votesLines as $oneVoteLine) {
             $match = null;
 
-            \preg_match($pattern, trim($oneVoteLine), $match);
+            preg_match($pattern, trim($oneVoteLine), $match);
             $oneVoteLineRanking = str_split($match['Ranking']);
 
             $oneVote = [];
