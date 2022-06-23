@@ -19,8 +19,6 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 # Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
 class LargestRemainder extends HighestAverages_Core implements MethodInterface
 {
-    final public const IS_PROPORTIONAL = true;
-
     // Method Name
     public const METHOD_NAME = ['Largest Remainder', 'LargestRemainder', 'LR', 'Hare–Niemeyer method', 'Hamilton method', 'Vinton\'s method'];
 

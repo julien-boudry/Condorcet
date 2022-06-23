@@ -666,7 +666,7 @@ $election->getResult('CPO-STV') ;
 
 > **Family:** Highest Averages Methods  
 > **Proportional type:** Party _(The same candidate can appear several times in the results.)_  
-> **Variant used:** *-*  
+> **Variant used:** *Standard, but variants can be created with the options system as explained*  
 > **Wikipedia:** https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method  
 > ***  
 > **Methods alias available (for function call)**: "Sainte-Laguë", "SainteLague", "Webster", "Major Fractions Method"  
@@ -691,6 +691,11 @@ $election->getResult('Sainte-Laguë')->getNumberOfSeats();
 
 // Get Stats (sumup ranks)
 $election->getResult('Sainte-Laguë')->getStats(); # Summarizes the number of seats. And details about each round.
+
+// Use Norwegian Variant
+$this->election->setMethodOption('SainteLague', 'FirstDivisor', 1.4);
+$election->getResult('Sainte-Laguë');
+
 ```
 
 ### Jefferson / D'Hondt method 

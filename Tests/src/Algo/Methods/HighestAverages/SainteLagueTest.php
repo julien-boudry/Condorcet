@@ -16,6 +16,11 @@ class SainteLagueTest extends TestCase
         $this->election = new Election;
     }
 
+    protected function tearDown(): void
+    {
+        $this->election->setMethodOption('SainteLague', 'FirstDivisor', 1);
+    }
+
     # https://fr.wikipedia.org/wiki/Scrutin_proportionnel_plurinominal#M%C3%A9thode_de_Sainte-Lagu%C3%AB
     public function testResult_1(): void
     {
@@ -167,5 +172,20 @@ class SainteLagueTest extends TestCase
                                     'C' => 2,
                                     ],
                                 ], $this->election->getResult('SainteLague')->getStats());
+    }
+
+    # https://www.regjeringen.no/no/tema/valg-og-demokrati/den-norske-valgordningen/valgordningen/id456636/
+    public function testNorwegianVariant_1(): void
+    {
+        $this->election->setMethodOption('SainteLague', 'FirstDivisor', 1.4);
+
+        $this->election->parseCandidates('H;Ap;FrP;SV;SP;KrF');
+
+        $this->election->setNumberOfSeats(11);
+        $this->election->allowsVoteWeight(true);
+
+        $this->election->parseVotes('H ^81140; Ap ^80862; FrP ^39851; SV ^26295; SP ^12187; KrF ^11229');
+
+        self::assertSame('H > Ap > FrP > H > Ap > SV > H > Ap > FrP > H > Ap', $this->election->getResult('SainteLague')->getResultAsString());
     }
 }

@@ -16,6 +16,8 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 
 abstract class HighestAverages_Core extends Method implements MethodInterface
 {
+    final public const IS_PROPORTIONAL = true;
+
     protected array $candidatesVotes = [];
     protected array $candidatesSeats = [];
     protected array $rounds = [];

@@ -17,13 +17,15 @@ use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 # Copeland is a proportional algorithm | https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
 class SainteLague extends HighestAverages_Core implements MethodInterface
 {
-    final public const IS_PROPORTIONAL = true;
+    public static int|float $optionFirstDivisor = 1;
 
     // Method Name
     public const METHOD_NAME = ['Sainte-Laguë', 'SainteLague', 'Webster', 'Major Fractions Method'];
 
     protected function computeQuotient(int $votesWeight, int $seats): float
     {
-        return (float) ($votesWeight / ($seats * 2 + 1));
+        $divisor = ($seats !== 0) ? ($seats * 2 + 1) : self::$optionFirstDivisor;
+
+        return (float) ($votesWeight / $divisor);
     }
 }
