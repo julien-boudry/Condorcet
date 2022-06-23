@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
@@ -6,7 +7,8 @@ namespace CondorcetPHP\Condorcet\Benchmarks;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Election;
 use PhpBench\Attributes as Bench;
-ini_set('memory_limit','51200M');
+
+ini_set('memory_limit', '51200M');
 
 class PairwiseNumberOfCandidatesBench
 {
@@ -16,43 +18,43 @@ class PairwiseNumberOfCandidatesBench
 
     protected Election $election;
 
-    public function __construct ()
+    public function __construct()
     {
         RankedPairs_Core::$MaxCandidates = null;
     }
 
 
-    protected function buildElection (int $numberOfCandidates, int $numberOfVotes): void
+    protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;
         $this->election->setNumberOfSeats((int) ($numberOfCandidates / 3));
 
         $candidates = [];
 
-        for ($i=0 ; $i < $numberOfCandidates ; $i++) :
+        for ($i=0 ; $i < $numberOfCandidates ; $i++) {
             $candidates[] = $election->addCandidate();
-        endfor;
+        }
 
-        for ($i = 0 ; $i < $numberOfVotes ; $i++) :
+        for ($i = 0 ; $i < $numberOfVotes ; $i++) {
             $oneVote = $candidates;
             shuffle($oneVote);
 
             $election->addVote($oneVote);
-        endfor;
+        }
     }
 
-    public function provideNumberOfCandidates (): \Generator
+    public function provideNumberOfCandidates(): \Generator
     {
-        foreach ($this->numberOfCandidates as $n) :
+        foreach ($this->numberOfCandidates as $n) {
             yield $n => ['numberOfCandidates' => $n];
-        endforeach;
+        }
     }
 
-    public function provideNumberOfVotes (): \Generator
+    public function provideNumberOfVotes(): \Generator
     {
-        foreach ($this->numberOfVotes as $n) :
+        foreach ($this->numberOfVotes as $n) {
             yield $n => ['numberOfVotes' => $n];
-        endforeach;
+        }
     }
 
     #[Bench\OutputTimeUnit('seconds')]
@@ -60,7 +62,7 @@ class PairwiseNumberOfCandidatesBench
     #[Bench\Warmup(0)]
     #[Bench\Iterations(1)]
     #[Bench\Revs(1)]
-    public function benchByCandidates (array $params): void
+    public function benchByCandidates(array $params): void
     {
         $this->buildElection($params['numberOfCandidates'], $params['numberOfVotes']);
     }

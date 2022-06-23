@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 // Manage Candidates for Election class
-Enum ElectionState: int
+enum ElectionState: int
 {
     case CANDIDATES_REGISTRATION = 1;
     case VOTES_REGISTRATION = 2;

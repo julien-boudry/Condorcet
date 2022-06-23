@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Examples;
@@ -50,9 +51,8 @@ class ExamplesTest extends TestCase
 
         try {
             \ob_start();
-                include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
+            include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
             \ob_end_clean();
-
         } catch (\Exception $e) {
             throw $e;
             $r = false;
@@ -70,7 +70,7 @@ class ExamplesTest extends TestCase
 
         try {
             \ob_start();
-                include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
+            include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
             \ob_end_clean();
         } catch (\Exception $e) {
             $r = false;
@@ -79,6 +79,4 @@ class ExamplesTest extends TestCase
 
         self::assertTrue($r);
     }
-
-
 }

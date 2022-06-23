@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
@@ -21,7 +22,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     }
 
-    public function testFranceLegislatives2022_1erTour (): void
+    public function testFranceLegislatives2022_1erTour(): void
     {
         $this->election->setNumberOfSeats(577);
         $this->election->allowsVoteWeight(true);
@@ -208,7 +209,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
     }
 
     # https://www.electoral-reform.org.uk/what-is-the-difference-between-dhondt-sainte-lague-and-hare/
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->parseCandidates('Con;Lab;LD;Brexit;Ash Ind;Green;Others');
         $this->election->setNumberOfSeats(11);
@@ -225,7 +226,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
     # https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
     # https://en.wikipedia.org/wiki/D%27Hondt_method
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');

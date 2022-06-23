@@ -1,14 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\CondorcetUtil;
+use CondorcetPHP\Condorcet\{Condorcet, CondorcetUtil, Election};
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
 Condorcet::$UseTimer = true;
-$election = new Election () ;
+$election = new Election  ;
 
 // Inluding Data
 
@@ -52,36 +50,34 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<ul>
 	<?php
-	foreach ($election->getCandidatesList() as $candidatName)
-	{
-		echo '<li>'.$candidatName.'</li>' ;
-	}
-	?>
+    foreach ($election->getCandidatesList() as $candidatName) {
+        echo '<li>'.$candidatName.'</li>' ;
+    }
+    ?>
 	</ul>
 
 
 	<h2>Registered votes details :</h2>
 <?php
-	foreach ($election->getVotesList() as $vote)
-	{
-		echo '<div class="votant">';
+    foreach ($election->getVotesList() as $vote) {
+        echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-		echo "<ol>";
+        echo "<ol>";
 
-		foreach ($vote as $rank => $value)
-		{
-			if ($rank == 'tag') {continue ;}
-		?>
+        foreach ($vote as $rank => $value) {
+            if ($rank == 'tag') {
+                continue ;
+            } ?>
 
-			<li><?php echo implode(',',$value) ; ?></li>
+			<li><?php echo implode(',', $value) ; ?></li>
 
 		<?php
-		}
+        }
 
-		echo '</ol><br></div>' ;
-	}
+        echo '</ol><br></div>' ;
+    }
 ?>
 
 <hr style="clear:both;">
@@ -90,50 +86,50 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getWinner()) )
-			{ echo $election->getWinner() ;}
-		else
-			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
-		?>
+        if (!is_null($election->getWinner())) {
+            echo $election->getWinner() ;
+        } else {
+            echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
+        }
+        ?>
 		<br>
-		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(), 5) ; ?> second(s).</em>	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getLoser()) )
-			{ echo $election->getLoser() ;}
-		else
-			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
-		?>
+        if (!is_null($election->getLoser())) {
+            echo $election->getLoser() ;
+        } else {
+            echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
+        }
+        ?>
 		<br>
-		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>	</strong>
+		<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(), 5) ; ?> second(s).</em>	</strong>
 	</strong>
 
 <br><br><hr>
 
 <?php
-	foreach (Condorcet::getAuthMethods() as $method)
-	{ ?>
+    foreach (Condorcet::getAuthMethods() as $method) { ?>
 
 		<h2>Ranking by <?php echo $method ?>:</h2>
 
 		<?php
 
-			$result = $election->getResult($method) ;
-			$lastTimer = $election->getLastTimer() ;
+            $result = $election->getResult($method) ;
+            $lastTimer = $election->getLastTimer() ;
 
-			if ( $method === 'Kemeny–Young' && !empty($result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)) )
-			{
-				$kemeny_conflicts = explode( ';', $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg'] ) ;
+            if ($method === 'Kemeny–Young' && !empty($result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE))) {
+                $kemeny_conflicts = explode(';', $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)[0]['msg']) ;
 
-				echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
-			}
-		 ?>
+                echo '<strong style="color:red;">Arbitrary results: Kemeny-Young has '.$kemeny_conflicts[0].' possible solutions at score '.$kemeny_conflicts[1].'</strong>' ;
+            }
+         ?>
 
 		<pre>
-		<?php var_dump( CondorcetUtil::format($result) ); ?>
+		<?php var_dump(CondorcetUtil::format($result)); ?>
 		</pre>
 
 		<em style="color:green;">computed in <?php echo $lastTimer ; ?> second(s).</em>
@@ -142,7 +138,7 @@ define('TEST_NAME', 'Condorcet Global Example');
 
 ?>
 <br><br><hr><br>
-<strong style="color:green;">Total computed in <?php echo number_format($election->getGlobalTimer(),5) ; ?> second(s).</strong>
+<strong style="color:green;">Total computed in <?php echo number_format($election->getGlobalTimer(), 5) ; ?> second(s).</strong>
 <br>
 <?php var_dump($election->getTimerManager()->getHistory()); ?>
 <br><br><hr>
@@ -152,16 +148,15 @@ define('TEST_NAME', 'Condorcet Global Example');
 	<h3>Pairwise :</h3>
 
 	<pre>
-	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
+	<?php var_dump(CondorcetUtil::format($election->getPairwise())); ?>
 	</pre>
 
 	<?php
-	foreach (Condorcet::getAuthMethods() as $method)
-	{ ?>
+    foreach (Condorcet::getAuthMethods() as $method) { ?>
 		<h3>Stats for <?php echo $method ?>:</h3>
 
 		<pre>
-		<?php var_dump( CondorcetUtil::format($election->getResult($method)->getStats()) ); ?>
+		<?php var_dump(CondorcetUtil::format($election->getResult($method)->getStats())); ?>
 		</pre>
 
 	<?php } ?>
@@ -173,13 +168,13 @@ define('TEST_NAME', 'Condorcet Global Example');
  <h4>Defaut method (not used explicitly before) :</h4>
 
  <pre>
-<?php var_dump( CondorcetUtil::format(Condorcet::getDefaultMethod()) ); ?>
+<?php var_dump(CondorcetUtil::format(Condorcet::getDefaultMethod())); ?>
  </pre>
 
 <!-- <h4>CondorcetUtil::format (for debug only) :</h4>
 
  <pre>
-<?php // CondorcetUtil::format($election); ?>
+<?php // CondorcetUtil::format($election);?>
  </pre> -->
 
  </body>

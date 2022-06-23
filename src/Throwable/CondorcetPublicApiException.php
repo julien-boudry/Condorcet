@@ -17,12 +17,12 @@ abstract class CondorcetPublicApiException extends \Exception implements \String
 {
     use CondorcetVersion;
 
-    public function __construct (int|string|null $message = null)
+    public function __construct(int|string|null $message = null)
     {
         // If there is a custom message, append it.
-        if ($message !== null) :
+        if ($message !== null) {
             $this->message .= ': ' . $message;
-        endif;
+        }
 
         parent::__construct($this->message);
     }

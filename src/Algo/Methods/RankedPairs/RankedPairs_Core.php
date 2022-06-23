@@ -29,18 +29,18 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     protected bool $_StatsDone = false;
 
 
-/////////// PUBLIC ///////////
+    /////////// PUBLIC ///////////
 
 
     // Get the Ranked Pairs ranking
-    public function getResult (): Result
+    public function getResult(): Result
     {
         // Cache
-        if ( $this->_Result !== null ) :
+        if ($this->_Result !== null) {
             return $this->_Result;
-        endif;
+        }
 
-            //////
+        //////
 
         // Sort pairwise
         $this->_PairwiseSort = $this->pairwiseSort();
@@ -57,42 +57,42 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     }
 
     // Get the Ranked Pair ranking
-    protected function getStats (): array
+    protected function getStats(): array
     {
         $election = $this->getElection();
 
-        if (!$this->_StatsDone) :
-            foreach ($this->_Stats['tally'] as &$Roundvalue) :
-                foreach ($Roundvalue as &$Arcvalue) :
-                    foreach ($Arcvalue as $key => &$value) :
-                        if ($key === 'from' || $key === 'to') :
+        if (!$this->_StatsDone) {
+            foreach ($this->_Stats['tally'] as &$Roundvalue) {
+                foreach ($Roundvalue as &$Arcvalue) {
+                    foreach ($Arcvalue as $key => &$value) {
+                        if ($key === 'from' || $key === 'to') {
                             $value = $election->getCandidateObjectFromKey($value)->getName();
-                        endif;
-                    endforeach;
-                endforeach;
-            endforeach;
+                        }
+                    }
+                }
+            }
 
-            foreach ($this->_Stats['arcs'] as &$Arcvalue) :
-                foreach ($Arcvalue as $key => &$value) :
-                    if ($key === 'from' || $key === 'to') :
+            foreach ($this->_Stats['arcs'] as &$Arcvalue) {
+                foreach ($Arcvalue as $key => &$value) {
+                    if ($key === 'from' || $key === 'to') {
                         $value = $election->getCandidateObjectFromKey($value)->getName();
-                    endif;
-                endforeach;
-            endforeach;
+                    }
+                }
+            }
 
             $this->_StatsDone = true;
-        endif;
+        }
 
         return $this->_Stats;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
 
     //:: RANKED PAIRS ALGORITHM. :://
 
-    protected function makeResult (): array
+    protected function makeResult(): array
     {
         $election = $this->getElection();
 
@@ -100,122 +100,124 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         $alreadyDone = [];
 
         $rang = 1;
-        while (\count($alreadyDone) < $election->countCandidates()) :
+        while (\count($alreadyDone) < $election->countCandidates()) {
             $winners = $this->getWinners($alreadyDone);
 
-            foreach ($this->_Arcs as $ArcKey => $Arcvalue) :
-                foreach ($winners as $oneWinner) :
-                    if ($Arcvalue['from'] === $oneWinner || $Arcvalue['to'] === $oneWinner ) :
+            foreach ($this->_Arcs as $ArcKey => $Arcvalue) {
+                foreach ($winners as $oneWinner) {
+                    if ($Arcvalue['from'] === $oneWinner || $Arcvalue['to'] === $oneWinner) {
                         unset($this->_Arcs[$ArcKey]);
-                    endif;
-                endforeach;
-            endforeach;
+                    }
+                }
+            }
 
             $result[$rang++] = $winners;
             \array_push($alreadyDone, ...$winners);
-        endwhile;
+        }
 
         return $result;
     }
 
-    protected function getWinners (array $alreadyDone): array
+    protected function getWinners(array $alreadyDone): array
     {
         $winners = [];
 
-        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
-            if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) :
+        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+            if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) {
                 $win = true;
-                foreach ($this->_Arcs as $ArcValue) :
-                    if ($ArcValue['to'] === $candidateKey) :
+                foreach ($this->_Arcs as $ArcValue) {
+                    if ($ArcValue['to'] === $candidateKey) {
                         $win = false;
-                    endif;
-                endforeach;
+                    }
+                }
 
-                if ($win) :
+                if ($win) {
                     $winners[] = $candidateKey;
-                endif;
-            endif;
-        endforeach;
+                }
+            }
+        }
 
         return $winners;
     }
 
 
-    protected function makeArcs (): void
+    protected function makeArcs(): void
     {
-        foreach ($this->_PairwiseSort as $newArcsRound) :
+        foreach ($this->_PairwiseSort as $newArcsRound) {
             $virtualArcs = $this->_Arcs;
             $testNewsArcs = [];
 
             $newKey = \max((empty($highKey = \array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
-            foreach ($newArcsRound as $newArc) :
+            foreach ($newArcsRound as $newArc) {
                 $virtualArcs[$newKey] = [ 'from' => $newArc['from'], 'to' => $newArc['to'] ];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
                 $newKey++;
-            endforeach;
+            }
 
-            foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) :
-                if (\array_key_exists($cycleArcKey, $testNewsArcs)) :
+            foreach ($this->getArcsInCycle($virtualArcs) as $cycleArcKey) {
+                if (\array_key_exists($cycleArcKey, $testNewsArcs)) {
                     unset($testNewsArcs[$cycleArcKey]);
-                endif;
-            endforeach;
+                }
+            }
 
-            foreach ($testNewsArcs as $newArc) :
+            foreach ($testNewsArcs as $newArc) {
                 $this->_Arcs[] = $newArc;
-            endforeach;
-
-        endforeach;
+            }
+        }
     }
 
-    protected function getArcsInCycle (array $virtualArcs): array
+    protected function getArcsInCycle(array $virtualArcs): array
     {
         $cycles = [];
 
-        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) :
-            \array_push($cycles, ...$this->followCycle( startCandidateKey: $candidateKey,
-                                                        searchCandidateKey: $candidateKey,
-                                                        virtualArcs: $virtualArcs
+        foreach (\array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
+            \array_push($cycles, ...$this->followCycle(
+                startCandidateKey: $candidateKey,
+                searchCandidateKey: $candidateKey,
+                virtualArcs: $virtualArcs
             ));
-        endforeach;
+        }
 
         return $cycles;
     }
 
-    protected function followCycle (array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []): array
+    protected function followCycle(array $virtualArcs, int $startCandidateKey, int $searchCandidateKey, array &$done = []): array
     {
         $arcsInCycle = [];
 
-        foreach ($virtualArcs as $ArcKey => $ArcValue) :
-            if ($ArcValue['from'] === $startCandidateKey) :
-                if (\in_array(needle: $ArcKey, haystack: $done, strict: true)) :
+        foreach ($virtualArcs as $ArcKey => $ArcValue) {
+            if ($ArcValue['from'] === $startCandidateKey) {
+                if (\in_array(needle: $ArcKey, haystack: $done, strict: true)) {
                     continue;
-                elseif ($ArcValue['to'] === $searchCandidateKey) :
+                } elseif ($ArcValue['to'] === $searchCandidateKey) {
                     $done[] = $ArcKey;
                     $arcsInCycle[] = $ArcKey;
-                else :
+                } else {
                     $done[] = $ArcKey;
-                    \array_push(    $arcsInCycle,
-                                    ...$this->followCycle(  startCandidateKey: $ArcValue['to'],
-                                                            searchCandidateKey: $searchCandidateKey,
-                                                            virtualArcs: $virtualArcs,
-                                                            done: $done )
+                    \array_push(
+                        $arcsInCycle,
+                        ...$this->followCycle(
+                            startCandidateKey: $ArcValue['to'],
+                            searchCandidateKey: $searchCandidateKey,
+                            virtualArcs: $virtualArcs,
+                            done: $done
+                        )
                     );
-                endif;
-            endif;
-        endforeach;
+                }
+            }
+        }
 
         return $arcsInCycle;
     }
 
-    protected function pairwiseSort (): array
+    protected function pairwiseSort(): array
     {
         $pairs = [];
 
         $i = 0;
-        foreach ($this->getElection()->getPairwise() as $candidate_key => $candidate_value) :
-            foreach ($candidate_value['win'] as $challenger_key => $challenger_value) :
-
-                if ($challenger_value > $candidate_value['lose'][$challenger_key]) :
+        foreach ($this->getElection()->getPairwise() as $candidate_key => $candidate_value) {
+            foreach ($candidate_value['win'] as $challenger_key => $challenger_value) {
+                if ($challenger_value > $candidate_value['lose'][$challenger_key]) {
 
                     // Victory
                     $pairs[$i]['from'] = $candidate_key;
@@ -227,35 +229,33 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                     $pairs[$i]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
 
                     $i++;
-
-                endif;
-
-            endforeach;
-        endforeach;
+                }
+            }
+        }
 
         \usort($pairs, function (array $a, array $b): int {
-            if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) :
+            if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) {
                 return 1;
-            elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) :
+            } elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) {
                 return -1;
-            else : // Equal
+            } else { // Equal
                 return $a['minority'] <=> $b['minority'];
-            endif;
+            }
         });
 
         $newArcs = [];
         $i = 0;
         $f = true;
-        foreach (\array_keys($pairs) as $pairsKey) :
-            if ($f === true) :
+        foreach (\array_keys($pairs) as $pairsKey) {
+            if ($f === true) {
                 $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;
-            elseif ($pairs[$pairsKey][static::RP_VARIANT_1] === $pairs[$pairsKey - 1][static::RP_VARIANT_1] && $pairs[$pairsKey]['minority'] === $pairs[$pairsKey - 1]['minority']) :
+            } elseif ($pairs[$pairsKey][static::RP_VARIANT_1] === $pairs[$pairsKey - 1][static::RP_VARIANT_1] && $pairs[$pairsKey]['minority'] === $pairs[$pairsKey - 1]['minority']) {
                 $newArcs[$i][] = $pairs[$pairsKey];
-            else :
+            } else {
                 $newArcs[++$i][] = $pairs[$pairsKey];
-            endif;
-        endforeach;
+            }
+        }
 
         return $newArcs;
     }

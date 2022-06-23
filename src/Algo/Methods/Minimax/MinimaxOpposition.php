@@ -24,11 +24,11 @@ class MinimaxOpposition extends PairwiseStatsBased_Core
     protected const COUNT_TYPE = 'worst_pairwise_opposition';
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: SIMPSON ALGORITHM. :://
 
-    protected function looking (array $challenge): int
+    protected function looking(array $challenge): int
     {
         return \min($challenge);
     }

@@ -24,11 +24,11 @@ class Copeland extends PairwiseStatsBased_Core
     protected const COUNT_TYPE = 'balance';
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: COPELAND ALGORITHM. :://
 
-    protected function looking (array $challenge): int
+    protected function looking(array $challenge): int
     {
         return \max($challenge);
     }

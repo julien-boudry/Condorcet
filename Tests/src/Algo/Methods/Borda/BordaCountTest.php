@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Borda;
@@ -20,7 +21,7 @@ class BordaCountTest extends TestCase
         $this->election->setMethodOption('Borda Count', 'Starting', 1);
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -36,7 +37,8 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'B',
                 2 => 'C',
                 3 => 'A',
@@ -44,7 +46,8 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'B' => 294,
             'C' => 273,
             'A' => 226,
@@ -53,7 +56,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -71,7 +74,8 @@ class BordaCountTest extends TestCase
             A>D>C>B ^ 15
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'A',
             2 => 'B',
             3 => 'C',
@@ -79,7 +83,8 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'A' => 340,
             'B' => 280,
             'C' => 195,
@@ -88,7 +93,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -98,13 +103,15 @@ class BordaCountTest extends TestCase
             A
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'A',
             2 => ['B','C'] ],
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'A' => 3,
             'B' => 1.5,
             'C' => 1.5 ],
@@ -113,13 +120,15 @@ class BordaCountTest extends TestCase
 
         $this->election->setImplicitRanking(false);
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'A',
             2 => ['B','C'] ],
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'A' => 3,
             'B' => 0,
             'C' => 0 ],
@@ -127,7 +136,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -143,7 +152,8 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'B',
                 2 => 'C',
                 3 => 'A',
@@ -151,7 +161,8 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'B' => 294,
             'C' => 273,
             'A' => 226,
@@ -160,7 +171,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testResult_variant (): void
+    public function testResult_variant(): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Borda
 
@@ -178,7 +189,8 @@ class BordaCountTest extends TestCase
 
         $this->election->setMethodOption('Borda Count', 'Starting', 0);
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'B',
                 2 => 'C',
                 3 => 'A',
@@ -186,7 +198,8 @@ class BordaCountTest extends TestCase
             $this->election->getResult('Borda Count')->getResultAsArray(true)
         );
 
-        self::assertEquals( [
+        self::assertEquals(
+            [
             'B' => 294 - 100,
             'C' => 273 - 100,
             'A' => 226 - 100,
@@ -195,7 +208,7 @@ class BordaCountTest extends TestCase
         );
     }
 
-    public function testVeryHighVoteWeightAndPerformances (): void
+    public function testVeryHighVoteWeightAndPerformances(): void
     {
         $this->election->allowsVoteWeight(true);
         $this->election->parseCandidates('0;1');

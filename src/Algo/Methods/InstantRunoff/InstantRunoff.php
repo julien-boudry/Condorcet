@@ -30,25 +30,25 @@ class InstantRunoff extends Method implements MethodInterface
         $election = $this->getElection();
         $stats = ['majority' => $this->majority];
 
-        foreach ($this->_Stats as $oneIterationKey => $oneIterationData) :
-            if (\count($oneIterationData) === 1) :
+        foreach ($this->_Stats as $oneIterationKey => $oneIterationData) {
+            if (\count($oneIterationData) === 1) {
                 break;
-            endif;
+            }
 
-            foreach ($oneIterationData as $candidateKey => $candidateValue) :
+            foreach ($oneIterationData as $candidateKey => $candidateValue) {
                 $stats['rounds'][$oneIterationKey][(string) $election->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
-            endforeach;
-        endforeach;
+            }
+        }
 
         return $stats;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: Alternative Vote ALGORITHM. :://
 
-    protected function compute (): void
+    protected function compute(): void
     {
         $election = $this->getElection();
 
@@ -62,74 +62,73 @@ class InstantRunoff extends Method implements MethodInterface
 
         $iteration = 0;
 
-        while (\count($candidateDone) < $candidateCount) :
+        while (\count($candidateDone) < $candidateCount) {
             $score = $this->makeScore($candidateDone);
             $maxScore = \max($score);
             $minScore = \min($score);
 
             $this->_Stats[++$iteration] = $score;
 
-            if ( $maxScore > $this->majority ) :
-                foreach ($score as $candidateKey => $candidateScore) :
-                    if ($candidateScore !== $maxScore) :
+            if ($maxScore > $this->majority) {
+                foreach ($score as $candidateKey => $candidateScore) {
+                    if ($candidateScore !== $maxScore) {
                         continue;
-                    else :
+                    } else {
                         $candidateDone[] = $candidateKey;
                         $result[++$CandidatesWinnerCount][] = $candidateKey;
-                    endif;
-                endforeach;
-            else :
+                    }
+                }
+            } else {
                 $LosersToRegister = [];
 
-                foreach ($score as $candidateKey => $candidateScore) :
-                    if ($candidateScore !== $minScore) :
+                foreach ($score as $candidateKey => $candidateScore) {
+                    if ($candidateScore !== $minScore) {
                         continue;
-                    else :
+                    } else {
                         $LosersToRegister[] = $candidateKey;
-                    endif;
-                endforeach;
+                    }
+                }
 
                 // Tie Breaking
                 $round = \count($LosersToRegister);
-                for ($i = 1 ; $i < $round ; $i++): // A little silly. But ultimately shorter and simpler.
+                for ($i = 1 ; $i < $round ; $i++) { // A little silly. But ultimately shorter and simpler.
                     $LosersToRegister = TieBreakersCollection::electSomeLosersbasedOnPairwiseComparaison($election, $LosersToRegister);
-                endfor;
+                }
 
                 $CandidatesLoserCount += \count($LosersToRegister);
                 \array_push($candidateDone, ...$LosersToRegister);
                 $result[$candidateCount - $CandidatesLoserCount + 1] = $LosersToRegister;
-            endif;
-        endwhile;
+            }
+        }
 
         $this->_Result = $this->createResult($result);
     }
 
-    protected function makeScore (array $candidateDone): array
+    protected function makeScore(array $candidateDone): array
     {
         $election = $this->getElection();
         $score = [];
 
-        foreach ($election->getCandidatesList() as $candidateKey => $oneCandidate) :
-            if (!\in_array(needle: $candidateKey, haystack: $candidateDone, strict: true)) :
+        foreach ($election->getCandidatesList() as $candidateKey => $oneCandidate) {
+            if (!\in_array(needle: $candidateKey, haystack: $candidateDone, strict: true)) {
                 $score[$candidateKey] = 0;
-            endif;
-        endforeach;
+            }
+        }
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
-
+        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $weight = $oneVote->getWeight($election);
 
-            foreach ($oneVote->getContextualRankingWithoutSort($election) as $oneRank) :
-                foreach ($oneRank as $oneCandidate) :
-                    if (\count($oneRank) !== 1) :
+            foreach ($oneVote->getContextualRankingWithoutSort($election) as $oneRank) {
+                foreach ($oneRank as $oneCandidate) {
+                    if (\count($oneRank) !== 1) {
                         break;
-                    elseif (!\in_array(needle: ($candidateKey = $election->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) :
+                    } elseif (!\in_array(needle: ($candidateKey = $election->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) {
                         $score[$candidateKey] += $weight;
                         break 2;
-                    endif;
-                endforeach;
-            endforeach;
-        endforeach;
+                    }
+                }
+            }
+        }
 
         return $score;
     }

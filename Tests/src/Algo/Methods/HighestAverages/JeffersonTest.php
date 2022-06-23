@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
@@ -16,7 +17,7 @@ class JeffersonTest extends TestCase
     }
 
     # https://fr.wikipedia.org/wiki/Scrutin_proportionnel_plurinominal#M%C3%A9thode_de_Jefferson_ou_m%C3%A9thode_D'Hondt
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -30,5 +31,4 @@ class JeffersonTest extends TestCase
 
         self::assertSame(['A' =>3, 'B' => 2, 'C' => 1, 'D' => 0], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
     }
-
 }

@@ -14,7 +14,6 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Algo\Methods\Majority\Majority_Core;
 
 class MultipleRoundsSystem extends Majority_Core
 {
@@ -26,7 +25,7 @@ class MultipleRoundsSystem extends Majority_Core
     protected static int $optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND = 2;
     protected static int $optionNUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND = 0;
 
-    public function __construct (Election $mother)
+    public function __construct(Election $mother)
     {
         $this->_maxRound = self::$optionMAX_ROUND;
         $this->_targetNumberOfCandidatesForTheNextRound = self::$optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND;

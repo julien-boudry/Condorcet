@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\KemenyYoung;
@@ -18,7 +19,7 @@ class KemenyYoungTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -45,13 +46,13 @@ class KemenyYoungTest extends TestCase
 
         self::assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['Best Score']);
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('KemenyYoung'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('KemenyYoung'));
     }
 
     /**
      * @preserveGlobalState disabled
      */
-    public function testResult2 (): void
+    public function testResult2(): void
     {
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
 
@@ -77,7 +78,7 @@ class KemenyYoungTest extends TestCase
         );
     }
 
-    public function testStats_1 (): void
+    public function testStats_1(): void
     {
         $this->election->setStatsVerbosity(StatsVerbosity::FULL);
 
@@ -108,21 +109,21 @@ class KemenyYoungTest extends TestCase
         self::assertArrayNotHasKey('rankingScores', $this->election->getResult('KemenyYoung')->getStats());
     }
 
-    public function testMaxCandidates (): never
+    public function testMaxCandidates(): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
         $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only ".KemenyYoung::$MaxCandidates." candidates");
 
-        for ($i=0; $i < (KemenyYoung::$MaxCandidates + 1); $i++) :
+        for ($i=0; $i < (KemenyYoung::$MaxCandidates + 1); $i++) {
             $this->election->addCandidate();
-        endfor;
+        }
 
         $this->election->parseVotes('A');
 
         $this->election->getWinner('KemenyYoung');
     }
 
-    public function testConflicts (): void
+    public function testConflicts(): void
     {
         $this->election->parseCandidates('A;B;C');
 
@@ -131,7 +132,7 @@ class KemenyYoungTest extends TestCase
             B>C>A;
             C>A>B');
 
-        $result = $this->election->getResult( 'KemenyYoung' ) ;
+        $result = $this->election->getResult('KemenyYoung') ;
 
         self::assertEquals(
             [ 0 => [
@@ -155,26 +156,26 @@ class KemenyYoungTest extends TestCase
 
         $this->election->addVote('A>B>C');
 
-        $result = $this->election->getResult( 'KemenyYoung' ) ;
+        $result = $this->election->getResult('KemenyYoung') ;
 
         self::assertEquals(
             [],
             $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)
         );
 
-        self::assertEquals('A',$this->election->getWinner('KemenyYoung'));
+        self::assertEquals('A', $this->election->getWinner('KemenyYoung'));
     }
 
-    public function testKemenyWithOnly1Candidate ()
+    public function testKemenyWithOnly1Candidate()
     {
         $candidate[] = $this->election->addCandidate();
 
         $this->election->addVote($candidate);
 
-        self::assertSame($candidate[0],$this->election->getWinner('KemenyYoung'));
+        self::assertSame($candidate[0], $this->election->getWinner('KemenyYoung'));
     }
 
-    public function ManyCandidatesProvider (): array
+    public function ManyCandidatesProvider(): array
     {
         return [
             9  => [9],
@@ -186,18 +187,18 @@ class KemenyYoungTest extends TestCase
      * @group large
      * @dataProvider  ManyCandidatesProvider
      */
-    public function testKemenyWithManyCandidates (int $candidatesCount)
+    public function testKemenyWithManyCandidates(int $candidatesCount)
     {
         $original = KemenyYoung::$MaxCandidates;
         KemenyYoung::$MaxCandidates = null;
 
-        for ($i=0;$i<$candidatesCount;$i++):
+        for ($i=0;$i<$candidatesCount;$i++) {
             $candidates[] = $this->election->addCandidate();
-        endfor;
+        }
 
         $this->election->addVote($candidates);
 
-        self::assertSame($candidates[0],$this->election->getWinner('KemenyYoung'));
+        self::assertSame($candidates[0], $this->election->getWinner('KemenyYoung'));
 
         KemenyYoung::$MaxCandidates = $original;
     }

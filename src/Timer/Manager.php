@@ -25,41 +25,41 @@ class Manager
     protected array $_history = [];
 
     #[Throws(TimerException::class)]
-    public function addTime ( Chrono $chrono ): void
+    public function addTime(Chrono $chrono): void
     {
-        if ($chrono->getTimerManager() === $this) :
-            if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) :
+        if ($chrono->getTimerManager() === $this) {
+            if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) {
                 return;
-            endif;
+            }
 
             $m = \microtime(true);
 
-            if ( $this->_lastChronoTimestamp > $chrono->getStart() ) :
+            if ($this->_lastChronoTimestamp > $chrono->getStart()) {
                 $c = $this->_lastChronoTimestamp;
-            else :
+            } else {
                 $c = $chrono->getStart();
                 $this->_history[] = [   'role' => $chrono->getRole(),
                                         'process_in' => ($m - $c),
                                         'timer_start' => $c,
                                         'timer_end' => $m
                                     ];
-            endif;
+            }
 
             $this->_globalTimer += ($m - $c);
 
             $this->_lastTimer = ($m - $chrono->getStart());
             $this->_lastChronoTimestamp = $m;
-        else :
-            throw new TimerException();
-        endif;
+        } else {
+            throw new TimerException;
+        }
     }
 
-    public function getGlobalTimer (): float
+    public function getGlobalTimer(): float
     {
         return $this->_globalTimer;
     }
 
-    public function getLastTimer (): float
+    public function getLastTimer(): float
     {
         return $this->_lastTimer;
     }
@@ -68,15 +68,15 @@ class Manager
     #[Description("Return benchmarked actions history.")]
     #[FunctionReturn("An explicit array with history.")]
     #[Related("Election::getTimerManager")]
-    public function getHistory (): array
+    public function getHistory(): array
     {
         return $this->_history;
     }
 
-    public function startDeclare (Chrono $chrono): void
+    public function startDeclare(Chrono $chrono): void
     {
-        if ($this->_startDeclare === null) :
+        if ($this->_startDeclare === null) {
             $this->_startDeclare = $chrono->getStart();
-        endif;
+        }
     }
 }

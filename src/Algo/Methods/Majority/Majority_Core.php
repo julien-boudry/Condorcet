@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 abstract class Majority_Core extends Method implements MethodInterface
@@ -30,17 +29,17 @@ abstract class Majority_Core extends Method implements MethodInterface
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $roundNumber => $roundScore) :
-            foreach ($roundScore as $candidateKey => $oneScore) :
+        foreach ($this->_Stats as $roundNumber => $roundScore) {
+            foreach ($roundScore as $candidateKey => $oneScore) {
                 $stats[$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
-            endforeach;
-        endforeach;
+            }
+        }
 
         return $stats;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     protected function compute(): void
     {
@@ -51,45 +50,45 @@ abstract class Majority_Core extends Method implements MethodInterface
         $score = [];
 
         // Start a round
-        while ($resolved === false) :
+        while ($resolved === false) {
             $roundScore = $this->doOneRound();
             \ksort($roundScore, \SORT_NATURAL);
             \arsort($roundScore, \SORT_NUMERIC);
 
             $score[$round] = $roundScore;
 
-            if ($round === 1) :
-                foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
+            if ($round === 1) {
+                foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
                     $score[$round][$oneCandidateKey] ??= 0.0;
-                endforeach;
-            endif;
+                }
+            }
 
-            if ( $round === $this->_maxRound || \reset($roundScore) > (\array_sum($roundScore) / 2) ) :
+            if ($round === $this->_maxRound || \reset($roundScore) > (\array_sum($roundScore) / 2)) {
                 $resolved = true;
 
-                if ( isset($score[$round - 1]) && $score[$round] === $score[$round - 1] ) :
+                if (isset($score[$round - 1]) && $score[$round] === $score[$round - 1]) {
                     unset($score[$round]);
-                endif;
-            else :
+                }
+            } else {
                 $lastScore = null;
                 $nextRoundAddedCandidates = 0;
 
                 $this->_admittedCandidates = [];
 
-                foreach ($roundScore as $oneCandidateKey => $oneScore) :
+                foreach ($roundScore as $oneCandidateKey => $oneScore) {
                     if ($lastScore === null ||
-                        $nextRoundAddedCandidates < ( $this->_targetNumberOfCandidatesForTheNextRound + ($this->_numberOfTargetedCandidatesAfterEachRound * ($round - 1)) ) ||
+                        $nextRoundAddedCandidates < ($this->_targetNumberOfCandidatesForTheNextRound + ($this->_numberOfTargetedCandidatesAfterEachRound * ($round - 1))) ||
                         $oneScore === $lastScore
-                        ) :
-                            $this->_admittedCandidates[] = $oneCandidateKey;
-                            $lastScore = $oneScore;
-                            $nextRoundAddedCandidates++;
-                    endif;
-                endforeach;
-            endif;
+                        ) {
+                        $this->_admittedCandidates[] = $oneCandidateKey;
+                        $lastScore = $oneScore;
+                        $nextRoundAddedCandidates++;
+                    }
+                }
+            }
 
             $round++;
-        endwhile;
+        }
 
         // Compute Ranking
         $rank = 0;
@@ -97,19 +96,19 @@ abstract class Majority_Core extends Method implements MethodInterface
         \krsort($score, \SORT_NUMERIC);
         $doneCandidates = [];
 
-        foreach ($score as $oneRound) :
+        foreach ($score as $oneRound) {
             $lastScore = null;
-            foreach ($oneRound as $candidateKey => $candidateScore) :
-                if (!\in_array(needle: $candidateKey, haystack: $doneCandidates, strict: true)) :
-                    if ($candidateScore === $lastScore) :
+            foreach ($oneRound as $candidateKey => $candidateScore) {
+                if (!\in_array(needle: $candidateKey, haystack: $doneCandidates, strict: true)) {
+                    if ($candidateScore === $lastScore) {
                         $doneCandidates[] = $result[$rank][] = $candidateKey;
-                    else :
+                    } else {
                         $result[++$rank] = [$doneCandidates[] = $candidateKey];
                         $lastScore = $candidateScore;
-                    endif;
-                endif;
-            endforeach;
-        endforeach;
+                    }
+                }
+            }
+        }
 
         // Finalizing
         \ksort($score, \SORT_NUMERIC);
@@ -117,46 +116,45 @@ abstract class Majority_Core extends Method implements MethodInterface
         $this->_Result = $this->createResult($result);
     }
 
-    protected function doOneRound (): array
+    protected function doOneRound(): array
     {
         $election = $this->getElection();
         $roundScore = [];
 
-        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) :
-
+        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $weight = $oneVote->getWeight($election);
 
             $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
 
-            if ( !empty($this->_admittedCandidates) ) :
-                foreach ($oneRanking as $rankKey => $oneRank) :
-                    foreach ($oneRank as $InRankKey => $oneCandidate) :
-                        if ( !\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true) ) :
+            if (!empty($this->_admittedCandidates)) {
+                foreach ($oneRanking as $rankKey => $oneRank) {
+                    foreach ($oneRank as $InRankKey => $oneCandidate) {
+                        if (!\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true)) {
                             unset($oneRanking[$rankKey][$InRankKey]);
-                        endif;
-                    endforeach;
+                        }
+                    }
 
-                    if (empty($oneRanking[$rankKey])) :
+                    if (empty($oneRanking[$rankKey])) {
                         unset($oneRanking[$rankKey]);
-                    endif;
-                endforeach;
+                    }
+                }
 
-                if( ($newFirstRank = \reset($oneRanking)) !== false ) :
+                if (($newFirstRank = \reset($oneRanking)) !== false) {
                     $oneRanking = [1 => $newFirstRank];
-                else :
+                } else {
                     continue;
-                endif;
-            endif;
+                }
+            }
 
-            if (isset($oneRanking[1])) :
-                foreach ($oneRanking[1] as $oneCandidateInRank) :
+            if (isset($oneRanking[1])) {
+                foreach ($oneRanking[1] as $oneCandidateInRank) {
                     $roundScore[$election->getCandidateKey($oneCandidateInRank)] ??= (float) 0;
                     $roundScore[$election->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
-                endforeach;
-            endif;
-        endforeach;
+                }
+            }
+        }
 
-        \array_walk($roundScore, fn(float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        \array_walk($roundScore, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
 
         return $roundScore;
     }

@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet;
 
 abstract class VoteConstraint
 {
-    public static function isVoteAllow (Election $election, Vote $vote): bool
+    public static function isVoteAllow(Election $election, Vote $vote): bool
     {
         return static::evaluateVote($vote->getContextualRankingWithoutSort($election));
     }
@@ -20,5 +20,8 @@ abstract class VoteConstraint
     /**
      * @infection-ignore-all
      */
-    protected static function evaluateVote (array $vote): bool { return false; }
+    protected static function evaluateVote(array $vote): bool
+    {
+        return false;
+    }
 }

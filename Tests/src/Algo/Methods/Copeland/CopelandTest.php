@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Copeland;
@@ -15,7 +16,7 @@ class CopelandTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://en.wikipedia.org/wiki/Copeland%27s_method
 
@@ -32,7 +33,8 @@ class CopelandTest extends TestCase
         ');
 
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Nashville',
                 2 => 'Chattanooga',
                 3 => 'Knoxville',
@@ -40,7 +42,7 @@ class CopelandTest extends TestCase
             $this->election->getResult('Copeland')->getResultAsArray(true)
         );
 
-        self::assertSame($this->election->getWinner('Copeland'),$this->election->getWinner());
+        self::assertSame($this->election->getWinner('Copeland'), $this->election->getWinner());
 
         self::assertSame(
             [
@@ -65,7 +67,7 @@ class CopelandTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://en.wikipedia.org/wiki/Copeland%27s_method
 
@@ -94,7 +96,7 @@ class CopelandTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -120,13 +122,13 @@ class CopelandTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals(['Abby','Brad'],$this->election->getWinner('Copeland'));
+        self::assertEquals(['Abby','Brad'], $this->election->getWinner('Copeland'));
 
         self::assertSame(
             [   1 => ['Abby','Brad'],
                 2 => ['Dave','Erin'],
                 3 => 'Cora'    ],
-        $this->election->getResult('Copeland')->getResultAsArray(true)
+            $this->election->getResult('Copeland')->getResultAsArray(true)
         );
     }
 }

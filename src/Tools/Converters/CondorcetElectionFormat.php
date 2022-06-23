@@ -10,15 +10,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
-use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\CondorcetUtil;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil, Election};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 
 class CondorcetElectionFormat implements ConverterInterface
 {
-
     ////// # Static Export Method //////
 
     public const SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
@@ -26,7 +23,7 @@ class CondorcetElectionFormat implements ConverterInterface
     #[PublicAPI]
     #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]
     #[FunctionReturn("If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
-    public static function exportElectionToCondorcetElectionFormat (
+    public static function exportElectionToCondorcetElectionFormat(
         #[FunctionParameter('Election with data')]
         Election $election,
         #[FunctionParameter('If true, will try to reduce number of lines, with quantifier for identical votes')]
@@ -39,38 +36,39 @@ class CondorcetElectionFormat implements ConverterInterface
         bool $inContext = false,
         #[FunctionParameter('If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_')]
         ?\SplFileObject $file = null
-    ): ?string
-    {
+    ): ?string {
         $r = '';
         $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString())         . "\n";
-        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats()   . "\n"  : null;
+        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats()   . "\n" : null;
         $r .= '#/Implicit Ranking: ' . ($election->getImplicitRankingRule() ? 'true' : 'false') . "\n";
         $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false')      . "\n";
         // $r .= "\n";
 
-        if ($file) :
+        if ($file) {
             $file->fwrite($r);
             $r = '';
-        endif;
+        }
 
-        if ($aggregateVotes) :
+        if ($aggregateVotes) {
             $r .= "\n" . $election->getVotesListAsString($inContext);
-            if ($file) : $file->fwrite($r); endif;
-        else :
-            foreach ($election->getVotesListGenerator() as $vote) :
+            if ($file) {
+                $file->fwrite($r);
+            }
+        } else {
+            foreach ($election->getVotesListGenerator() as $vote) {
                 $line = "\n";
                 $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString().' || ' : '';
 
                 $voteString = $vote->getSimpleRanking($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
 
-                if ($file) :
+                if ($file) {
                     $file->fwrite($line);
-                else :
+                } else {
                     $r .= $line;
-                endif;
-            endforeach;
-        endif;
+                }
+            }
+        }
 
         return ($file) ? null : $r;
     }
@@ -108,20 +106,19 @@ class CondorcetElectionFormat implements ConverterInterface
 
     #[PublicAPI]
     #[Description("Read a Condorcet format file, usually using .cvotes file extension")]
-    public function __construct (
+    public function __construct(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input
-    )
-    {
+    ) {
         $input = ($input instanceof \SplFileInfo) ? $input : new \SplFileInfo($input);
 
-        if ($input instanceof \SplFileObject) :
+        if ($input instanceof \SplFileObject) {
             $this->file = $input;
-        elseif ($input->isFile() && $input->isReadable()) :
+        } elseif ($input->isFile() && $input->isReadable()) {
             $this->file = $input->openFile('r');
-        else :
+        } else {
             throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
-        endif;
+        }
 
         unset($input); // Memory Optimization
 
@@ -130,42 +127,41 @@ class CondorcetElectionFormat implements ConverterInterface
         $this->readParameters();
 
         // Parse candidate directly from votes
-        if (empty($this->candidates)) :
+        if (empty($this->candidates)) {
             $this->parseCandidatesFromVotes();
             $this->CandidatesParsedFromVotes = true;
-        else :
+        } else {
             $this->CandidatesParsedFromVotes = false;
-        endif;
+        }
     }
 
     #[PublicAPI]
     #[Description("Add the data to an election object")]
     #[FunctionReturn("The election object")]
     #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
-    public function setDataToAnElection (
+    public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         Election $election = new Election,
         #[FunctionParameter('Callback function to execute after each registered vote.')]
         ?\Closure $callBack = null
-    ): Election
-    {
+    ): Election {
         // Parameters
-            // Set number of seats if specified in file
-            ($this->numberOfSeats ?? false) && $election->setNumberOfSeats($this->numberOfSeats);
+        // Set number of seats if specified in file
+        ($this->numberOfSeats ?? false) && $election->setNumberOfSeats($this->numberOfSeats);
 
-            // Set explicit pairwise mode if specified in file
-            $this->implicitRanking ??= $election->getImplicitRankingRule();
-            $election->setImplicitRanking($this->implicitRanking);
+        // Set explicit pairwise mode if specified in file
+        $this->implicitRanking ??= $election->getImplicitRankingRule();
+        $election->setImplicitRanking($this->implicitRanking);
 
-            // Set Vote weight (Condorcet disable it by default)
-            $this->voteWeight ??= $election->isVoteWeightAllowed();
-            $election->allowsVoteWeight($this->voteWeight);
+        // Set Vote weight (Condorcet disable it by default)
+        $this->voteWeight ??= $election->isVoteWeightAllowed();
+        $election->allowsVoteWeight($this->voteWeight);
 
 
         // Candidates
-        foreach ($this->candidates as $oneCandidate) :
+        foreach ($this->candidates as $oneCandidate) {
             $election->addCandidate($oneCandidate);
-        endforeach;
+        }
 
         // Votes
         $this->file->rewind();
@@ -176,88 +172,88 @@ class CondorcetElectionFormat implements ConverterInterface
 
     // Internal
 
-    protected function addCandidates (array $candidates): void
+    protected function addCandidates(array $candidates): void
     {
         sort($candidates, \SORT_NATURAL);
         $this->candidates = $candidates;
     }
 
-    protected function readParameters (): void
+    protected function readParameters(): void
     {
         $this->file->rewind();
 
-        while (!$this->file->eof()) :
+        while (!$this->file->eof()) {
             $line = $this->file->fgets();
             $matches = [];
 
-            if (!isset($this->candidates) && preg_match(self::CANDIDATES_PATTERN, $line, $matches)) :
+            if (!isset($this->candidates) && preg_match(self::CANDIDATES_PATTERN, $line, $matches)) {
                 $parse = $matches['candidates'];
                 $parse = CondorcetUtil::prepareParse($parse, false);
 
-                foreach ($parse as &$oneCandidate) :
+                foreach ($parse as &$oneCandidate) {
                     $oneCandidate = new Candidate($oneCandidate);
-                endforeach;
+                }
 
                 $this->addCandidates($parse);
-            elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) :
+            } elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) {
                 $this->numberOfSeats = (int) $matches['seats'];
-            elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) :
+            } elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) {
                 $parse = strtolower($matches['implicitRanking']);
-                 $this->implicitRanking = $this->boolParser($parse);
-            elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) :
+                $this->implicitRanking = $this->boolParser($parse);
+            } elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) {
                 $parse = strtolower($matches['weight']);
                 $this->voteWeight = $this->boolParser($parse);
-            elseif(!empty($line) && !\str_starts_with($line, '#')) :
+            } elseif (!empty($line) && !\str_starts_with($line, '#')) {
                 break;
-            endif;
-        endwhile;
+            }
+        }
     }
 
-    protected function parseCandidatesFromVotes (): void
+    protected function parseCandidatesFromVotes(): void
     {
         $this->file->rewind();
 
         $candidates = [];
 
-        while (!$this->file->eof()) :
+        while (!$this->file->eof()) {
             $line = $this->file->fgets();
 
-            if(!empty($line) && !\str_starts_with($line, '#')) :
-                if ( ($pos = \strpos($line,'||')) !== false ) :
+            if (!empty($line) && !\str_starts_with($line, '#')) {
+                if (($pos = \strpos($line, '||')) !== false) {
                     $line = \substr($line, ($pos + 2));
-                endif;
+                }
 
-                if ( ($pos = \strpos($line,'||')) !== false ) :
+                if (($pos = \strpos($line, '||')) !== false) {
                     $line = \substr($line, ($pos + 2));
-                endif;
+                }
 
-                foreach (['#', '*', '^'] as $c) :
-                    if ( ($pos = \strpos($line, $c)) !== false ) :
+                foreach (['#', '*', '^'] as $c) {
+                    if (($pos = \strpos($line, $c)) !== false) {
                         $line = \substr($line, 0, $pos);
-                    endif;
-                endforeach;
+                    }
+                }
 
                 $line = str_replace('>', '=', $line);
                 $line = explode('=', $line);
 
-                foreach ($line as $oneCandidate) :
+                foreach ($line as $oneCandidate) {
                     $oneCandidate = trim($oneCandidate);
 
-                    if ($oneCandidate !== self::SPECIAL_KEYWORD_EMPTY_RANKING) :
+                    if ($oneCandidate !== self::SPECIAL_KEYWORD_EMPTY_RANKING) {
                         $candidates[$oneCandidate] = null;
-                    endif;
-                endforeach;
-            endif;
-        endwhile;
+                    }
+                }
+            }
+        }
 
         $this->addCandidates(array_keys($candidates));
     }
 
-        protected function boolParser (string $parse): bool
-        {
-            return match ($parse) {
-                'true' => true,
+    protected function boolParser(string $parse): bool
+    {
+        return match ($parse) {
+            'true' => true,
                 'false' => false,
-            };
-        }
+        };
+    }
 }

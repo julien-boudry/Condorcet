@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
@@ -16,7 +17,7 @@ class InstantRunoffTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://fr.wikipedia.org/wiki/Vote_alternatif
 
@@ -32,7 +33,8 @@ class InstantRunoffTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'D',
                 2 => 'A',
                 3 => 'B',
@@ -66,10 +68,9 @@ class InstantRunoffTest extends TestCase
             ],
             $this->election->getResult('InstantRunoff')->getStats()
         );
-
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://en.wikipedia.org/wiki/Instant-runoff_voting#Examples
 
@@ -85,7 +86,8 @@ class InstantRunoffTest extends TestCase
             sue > bob > bill
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'sue',
             2 => 'bob',
             3 => 'bill' ],
@@ -93,7 +95,7 @@ class InstantRunoffTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         $this->election->addCandidate('bob');
         $this->election->addCandidate('sue');
@@ -108,7 +110,8 @@ class InstantRunoffTest extends TestCase
             bill > bob > sue
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'bob',
             2 => 'bill',
             3 => 'sue' ],
@@ -116,7 +119,7 @@ class InstantRunoffTest extends TestCase
         );
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -126,13 +129,14 @@ class InstantRunoffTest extends TestCase
             A=B=C
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => ['A','B','C'] ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
 
-    public function testResult_Equality (): void
+    public function testResult_Equality(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -142,13 +146,14 @@ class InstantRunoffTest extends TestCase
             B
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => ['A','B'] ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
 
-    public function testResult_TieBreaking (): void
+    public function testResult_TieBreaking(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -162,7 +167,8 @@ class InstantRunoffTest extends TestCase
             D>C>B * 2
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => ['A','B'],
             3 => 'C',
             4 => 'D'
@@ -171,14 +177,12 @@ class InstantRunoffTest extends TestCase
         );
     }
 
-    public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking ():void
+    public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking(): void
     {
         $election = (new DavidHillFormat(__DIR__.'/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
 
         $election->setImplicitRanking(false);
 
         self::assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
-
     }
-
 }

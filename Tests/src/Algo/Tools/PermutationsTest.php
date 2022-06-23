@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
@@ -7,15 +8,14 @@ use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use PHPUnit\Framework\TestCase;
 
-
 class PermutationsTest extends TestCase
 {
-    public function tearDown (): void
+    public function tearDown(): void
     {
         Permutations::$useBigIntegerIfAvailable = true;
     }
 
-    public function testCountPossiblePermutations (): void
+    public function testCountPossiblePermutations(): void
     {
         self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
 
@@ -23,13 +23,13 @@ class PermutationsTest extends TestCase
         self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
     }
 
-    public function testIntegerOverflowWithBigInt (): void
+    public function testIntegerOverflowWithBigInt(): void
     {
         $this->expectException(IntegerOverflowException::class);
         Permutations::getPossibleCountOfPermutations(42);
     }
 
-    public function testIntegerOverflowWithoutBigInt (): void
+    public function testIntegerOverflowWithoutBigInt(): void
     {
         Permutations::$useBigIntegerIfAvailable = false;
 
@@ -37,7 +37,7 @@ class PermutationsTest extends TestCase
         Permutations::getPossibleCountOfPermutations(42);
     }
 
-    public function testPermutationsAllResultsFor3 (): void
+    public function testPermutationsAllResultsFor3(): void
     {
         $p = new Permutations([0,1,2]);
 
@@ -46,17 +46,19 @@ class PermutationsTest extends TestCase
         self::assertInstanceOf(\SplFixedArray::class, $r);
         self::assertSame(6, $r->getSize());
 
-        self::assertSame(   [   [1=>0,2=>1,3=>2],
+        self::assertSame(
+            [   [1=>0,2=>1,3=>2],
                                 [1=>1,2=>0,3=>2],
                                 [1=>1,2=>2,3=>0],
                                 [1=>0,2=>2,3=>1],
                                 [1=>2,2=>0,3=>1],
                                 [1=>2,2=>1,3=>0]
                             ],
-                            $r->toArray());
+            $r->toArray()
+        );
     }
 
-    public function testPermutationsAllResultsFor1 (): void
+    public function testPermutationsAllResultsFor1(): void
     {
         $p = new Permutations([42]);
 

@@ -11,8 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, InternalModulesAPI, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Result;
+use CondorcetPHP\Condorcet\{Election, Result};
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
 #[InternalModulesAPI]

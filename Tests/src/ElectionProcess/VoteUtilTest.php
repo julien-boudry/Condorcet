@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\ElectionProcess;
@@ -75,7 +76,7 @@ class VoteUtilTest extends TestCase
         );
     }
 
-    public function tagsProvider() : iterable
+    public function tagsProvider(): iterable
     {
         yield "null tags" => [
             "tags" => null,

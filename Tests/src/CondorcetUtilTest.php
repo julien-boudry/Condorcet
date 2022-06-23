@@ -1,20 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\CondorcetUtil;
-use CondorcetPHP\Condorcet\Vote;
-
+use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
 use PHPUnit\Framework\TestCase;
 
 class CondorcetUtilTest extends TestCase
 {
-    public function testFormatVote (): void
+    public function testFormatVote(): void
     {
-        $vote = new Vote ('A>B>C');
+        $vote = new Vote('A>B>C');
 
-        $this->assertSame('A > B > C', CondorcetUtil::format($vote,true));
+        $this->assertSame('A > B > C', CondorcetUtil::format($vote, true));
     }
 
     public function testDeleteComments(): void

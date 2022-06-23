@@ -18,20 +18,19 @@ trait CondorcetVersion
     // Build by Version
     protected string $_objectVersion = Condorcet::VERSION;
 
-    #[PublicAPI("Candidate","Election","Result","Vote","Algo\Pairwise","DataManager\VotesManager","Timer\Manager")]
+    #[PublicAPI("Candidate", "Election", "Result", "Vote", "Algo\Pairwise", "DataManager\VotesManager", "Timer\Manager")]
     #[Description("Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.")]
     #[FunctionReturn("Condorcet PHP version.")]
     #[Related("static Condorcet::getVersion")]
-    public function getObjectVersion (
+    public function getObjectVersion(
         #[FunctionParameter("true will return : '2.0' and false will return : '2.0.0'")]
         bool $major = false
-    ): string
-    {
-        if ($major === true) :
+    ): string {
+        if ($major === true) {
             $version = \explode('.', $this->_objectVersion);
             return $version[0].'.'.$version[1];
-        else :
+        } else {
             return $this->_objectVersion;
-        endif;
+        }
     }
 }

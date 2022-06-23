@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Borda;
@@ -16,7 +17,7 @@ class DowdallSystemTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://en.wikipedia.org/wiki/Borda_count
 
@@ -31,7 +32,8 @@ class DowdallSystemTest extends TestCase
             A>B>C>D>E>F
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'A',
                 2 => 'B',
                 3 => 'C',
@@ -41,7 +43,8 @@ class DowdallSystemTest extends TestCase
             $this->election->getResult('DowdallSystem')->getResultAsArray(true)
         );
 
-        self::assertEqualsWithDelta( [
+        self::assertEqualsWithDelta(
+            [
             'A' => 1/1,
             'B' => 1/2,
             'C' => 1/3,

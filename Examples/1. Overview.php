@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /* NO INTERFACE here, see html examples for it */
@@ -6,17 +7,15 @@ declare(strict_types=1);
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use CondorcetPHP\Condorcet\Election;
-    use CondorcetPHP\Condorcet\Candidate;
-    use CondorcetPHP\Condorcet\Vote;
+    use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 
     require_once __DIR__.'/../__CondorcetAutoload.php';
 
-    $start_time = microtime(TRUE);
+    $start_time = microtime(true);
 
 // II - Create Election
 
-$election1 = new Election ();
+$election1 = new Election ;
 
 
 // III - Manage Candidate
@@ -27,18 +26,18 @@ $election1 = new Election ();
         $election1->addCandidate('Debussy');
         $election1->addCandidate('Caplet');
         $election1->addCandidate('A');
-        $myLutoCandidate = $election1->addCandidate( 'Lutoslawski' );  // Return the CondorcetPHP\Candidate object.
+        $myLutoCandidate = $election1->addCandidate('Lutoslawski');  // Return the CondorcetPHP\Candidate object.
 
         // Automatic name
         $myAutomaticCandidate = $election1->addCandidate(); // Return an automatic CondorcetPHP\Candidate
         $myAutomaticCandidate->getName(); // return 'B'. Because we have already register the A candidate above.
 
         // An objet
-        $myMessiaenCandidate = new Candidate ('Olivier Messiaen');
+        $myMessiaenCandidate = new Candidate('Olivier Messiaen');
 
         $election1->addCandidate($myMessiaenCandidate);
-        $election1->addCandidate( new Candidate ('Ligeti') );
-        $election1->addCandidate( new Candidate ('Koechlin') );
+        $election1->addCandidate(new Candidate('Ligeti'));
+        $election1->addCandidate(new Candidate('Koechlin'));
 
 
     # -B- Change your mind ?
@@ -65,42 +64,42 @@ $election1 = new Election ();
 
     # -A- Add Votes
 
-        $myVote1 = $election1->addVote ( array (
+        $myVote1 = $election1->addVote([
             1 => 'Debussy',
             2 => ['Caplet', 'Olivier Messiaen'],
             3 => 'Ligeti',
             4 => ['Wiltod Lutoslawski','Koechlin']
-        ) ); // Return the new Vote object
+        ]); // Return the new Vote object
 
-        $myVote2 = new Vote ( array(
+        $myVote2 = new Vote([
             1 => 'Debussy',
             2 => 'Caplet',
             3 => 'Olivier Messiaen',
             4 => 'Koechlin',
             5 => 'Wiltod Lutoslawski',
             6 => 'Ligeti'
-        ) );
+        ]);
 
-        $election1->addVote ($myVote2);
+        $election1->addVote($myVote2);
 
         $myVote3 = $election1->addVote('Debussy > Olivier Messiaen = Ligeti > Caplet'); // Last rank rank will be automatically deducted. A vote can not be expressed on a limited number of candidates. Non-expressed candidates are presumed to last Exaequo
 
         // Off course, you can vote by candidate object. Which is recommended. Or mix the two methods.
-        $myVote4 = $election1->addVote( array(
+        $myVote4 = $election1->addVote([
             $election1->getCandidateObjectFromName('Ligeti'),
             $myLutoCandidate,
             [$myMessiaenCandidate,'Koechlin']
 
-        ) );
+        ]);
 
         // Finishing with another really nice example.
-        $myVote5 = new Vote ( array (
+        $myVote5 = new Vote([
             1 => $election1->getCandidateObjectFromName('Debussy'),
             2 => $election1->getCandidateObjectFromName('Olivier Messiaen'),
             3 => [ $election1->getCandidateObjectFromName('Wiltod Lutoslawski'), $election1->getCandidateObjectFromName('Ligeti') ],
             4 => $election1->getCandidateObjectFromName('Koechlin'),
             5 => $election1->getCandidateObjectFromName('Caplet')
-        ) );
+        ]);
 
         $myVote5->addTags('jusGreatVote');
 
@@ -112,9 +111,9 @@ $election1 = new Election ();
 
         // Add some nice tags to my Vote 1 & 2 & 3 (You can do this before or after add register into to the Election)
 
-        $myVote1->addTags( ['strangeVote', 'greatFrenchVote'] ); // By Array
-        $myVote2->addTags( 'greatFrenchVote,chauvinismVote' ); // By String
-        $myVote3->addTags( $myVote1->getTags() ); // Copy & Past
+        $myVote1->addTags(['strangeVote', 'greatFrenchVote']); // By Array
+        $myVote2->addTags('greatFrenchVote,chauvinismVote'); // By String
+        $myVote3->addTags($myVote1->getTags()); // Copy & Past
 
 
         // Parsing Vote
@@ -130,7 +129,7 @@ $election1 = new Election ();
 
         for ($i = 0 ; $i < 95 ; $i++) {
             shuffle($VoteModel);
-            $election1->addVote( $VoteModel );
+            $election1->addVote($VoteModel);
         }
 
 
@@ -171,11 +170,11 @@ $election1 = new Election ();
 
 
             // Change the vote
-            $myVote1->setRanking ( array(
+            $myVote1->setRanking([
                     1 => 'Caplet',
                     2 => 'Debussy',
                     3=>  'Koechlin'
-             ) );
+             ]);
 
 
             // Check the vote history
@@ -186,10 +185,10 @@ $election1 = new Election ();
         # 3- Delete Votes
 
             // Delete a specific vote object
-            $election1->removeVote( $myVote3 );
+            $election1->removeVote($myVote3);
 
             // Delete all vote with tag "strangeVote" or "frenchies"
-            $election1->removeVotesByTags( ['strangeVote','chauvinismVote'] );
+            $election1->removeVotesByTags(['strangeVote','chauvinismVote']);
 
             // Count vote
             $election1->countVotes(); // Return 98
@@ -218,4 +217,4 @@ $election1 = new Election ();
 
 
 print $firstPart ?? 'Success!
-Process in: '. round(microtime(true) - $start_time,3) . 's';
+Process in: '. round(microtime(true) - $start_time, 3) . 's';

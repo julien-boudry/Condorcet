@@ -1,12 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 use PhpBench\Attributes as Bench;
-
 
 class SimpleUsageBench
 {
@@ -14,14 +13,14 @@ class SimpleUsageBench
     #[Bench\Iterations(10)]
     #[Bench\Revs(10)]
     #[Bench\OutputTimeUnit('milliseconds')]
-    public function benchSimpleManyVotes (): void
+    public function benchSimpleManyVotes(): void
     {
-       $election = new Election;
-       $election->allowsVoteWeight(true);
+        $election = new Election;
+        $election->allowsVoteWeight(true);
 
-       $election->parseCandidates('A;B;C;D;E;F');
+        $election->parseCandidates('A;B;C;D;E;F');
 
-       $election->parseVotes('
+        $election->parseVotes('
        		Ultimate Question of Life || A>B>C ^42 * 42
           C=A>B ^2 * 250
           B>C
@@ -31,14 +30,13 @@ class SimpleUsageBench
           B>F=A>C * 100
        ');
 
-       $winner = $election->getCondorcetWinner();
-       $loser = $election->getCondorcetLoser();
+        $winner = $election->getCondorcetWinner();
+        $loser = $election->getCondorcetLoser();
 
-       $result = [];
+        $result = [];
 
-       foreach (Condorcet::getAuthMethods() as $method) :
-          $result[] = $election->getResult($method);
-       endforeach;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $result[] = $election->getResult($method);
+        }
     }
-
 }

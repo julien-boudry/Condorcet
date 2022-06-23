@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
@@ -10,7 +11,6 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
-use SplTempFileObject;
 
 class CPO_StvTest extends TestCase
 {
@@ -30,7 +30,7 @@ class CPO_StvTest extends TestCase
     }
 
     # From https://en.wikipedia.org/wiki/CPO-STV
-    public function testCPO1 (): void
+    public function testCPO1(): void
     {
         $this->election->setStatsVerbosity(StatsVerbosity::FULL);
 
@@ -54,7 +54,8 @@ class CPO_StvTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Carter',
                 2 => 'Andrea',
                 3 => 'Delilah'
@@ -79,7 +80,7 @@ class CPO_StvTest extends TestCase
             ['Andrea', 'Carter', 'Scott'],
             ['Andrea', 'Carter', 'Delilah'],
             ['Andrea', 'Brad', 'Carter']
-        ],  $stats['Outcomes']);
+        ], $stats['Outcomes']);
 
         self::assertSame('Schulze Margin', $stats['Completion Method']);
 
@@ -163,20 +164,21 @@ class CPO_StvTest extends TestCase
                 ],
                 ]
             ],
-            $stats['Outcomes Comparison']);
+            $stats['Outcomes Comparison']
+        );
 
         self::assertArrayHasKey('Condorcet Completion Method Stats', $stats);
     }
 
 
     # From https://electowiki.org/wiki/CPO-STV
-    public function testCPO2 (): void
+    public function testCPO2(): void
     {
         // $this->election->setStatsVerbosity(StatsVerbosity::FULL);
         $this->election->allowsVoteWeight(true);
 
         $file = new \SplTempFileObject(-1);
-        $file->fwrite(      <<<'CVOTES'
+        $file->fwrite(<<<'CVOTES'
                             #/Number of Seats: 3
                             Escher ^ 100
                             Andre>Nader>Gore ^ 110
@@ -186,7 +188,7 @@ class CPO_StvTest extends TestCase
                             Bush>Gore ^ 45
                             CVOTES);
 
-        $cef = new CondorcetElectionFormat ($file);
+        $cef = new CondorcetElectionFormat($file);
 
         $cef->setDataToAnElection($this->election);
 
@@ -198,20 +200,20 @@ class CPO_StvTest extends TestCase
     }
 
     # From https://electowiki.org/wiki/CPO-STV
-    public function testCPO3 (): void
+    public function testCPO3(): void
     {
         $this->election->setStatsVerbosity(StatsVerbosity::FULL);
         $this->election->allowsVoteWeight(true);
 
         $file = new \SplTempFileObject(-1);
-        $file->fwrite(      <<<'CVOTES'
+        $file->fwrite(<<<'CVOTES'
                             #/Number of Seats: 2
                             A>B>C>D * 5
                             A>C>B>D * 17
                             D * 8
                             CVOTES);
 
-        $cef = new CondorcetElectionFormat ($file);
+        $cef = new CondorcetElectionFormat($file);
 
         $cef->setDataToAnElection($this->election);
 
@@ -225,7 +227,7 @@ class CPO_StvTest extends TestCase
         self::assertSame([1=>19.5, 2=>13.5], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores']);
     }
 
-    public function testLessOrEqualCandidatesThanSeats (): void
+    public function testLessOrEqualCandidatesThanSeats(): void
     {
         $expectedRanking = [
             1 => 'Memphis',
@@ -254,7 +256,7 @@ class CPO_StvTest extends TestCase
         self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
-    public function testEquality1 (): void
+    public function testEquality1(): void
     {
         $this->election->setNumberOfSeats(2);
 
@@ -272,7 +274,7 @@ class CPO_StvTest extends TestCase
         self::assertSame([1=>['A','B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
-    public function testEquality2 (): void
+    public function testEquality2(): void
     {
         $this->election->setImplicitRanking(false);
         $this->election->setNumberOfSeats(3);
@@ -285,7 +287,7 @@ class CPO_StvTest extends TestCase
         self::assertSame([1=>'A',2=>['B','D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
-    public function testLimit1 (): void
+    public function testLimit1(): void
     {
         $this->expectException(MethodLimitReachedException::class);
         $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
@@ -298,7 +300,7 @@ class CPO_StvTest extends TestCase
         $this->election->getResult('CPO STV');
     }
 
-    public function testCPO40Candidates (): void
+    public function testCPO40Candidates(): void
     {
         $this->expectException(MethodLimitReachedException::class);
         $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
@@ -307,17 +309,15 @@ class CPO_StvTest extends TestCase
         $this->election->setNumberOfSeats((int) (40 / 3));
 
         $candidates = [];
-        for ($i=0 ; $i < 40 ; $i++) :
+        for ($i=0 ; $i < 40 ; $i++) {
             $candidates[] = $this->election->addCandidate();
-        endfor;
+        }
 
-        for ($i = 0 ; $i < 100 ; $i++):
+        for ($i = 0 ; $i < 100 ; $i++) {
             \shuffle($candidates);
             $this->election->addVote($candidates);
-        endfor;
+        }
 
         $this->election->getResult('CPO STV')->getResultAsString();
     }
-
-
 }

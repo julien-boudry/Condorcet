@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Majority;
@@ -16,7 +17,7 @@ class FirstPastThePostTest extends TestCase
     }
 
 
-    public function testResult_French2002 (): void
+    public function testResult_French2002(): void
     {
         $this->election->allowsVoteWeight(true);
 
@@ -56,7 +57,8 @@ class FirstPastThePostTest extends TestCase
             Gluckstein ^47
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'Chirac',
             2 => 'Le Pen',
             3 => 'Jospin',
@@ -77,7 +79,8 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals( [ 1 => [
+        self::assertEquals(
+            [ 1 => [
             'Chirac' => 1988,
             'Le Pen' => 1686,
             'Jospin' => 1618,
@@ -99,7 +102,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -113,7 +116,8 @@ class FirstPastThePostTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'A',
                 2 => 'B',
                 3 => 'D',
@@ -121,7 +125,8 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals( [ 1 => [
+        self::assertEquals(
+            [ 1 => [
                 'A' => 42,
                 'B' => 26,
                 'D' => 17,
@@ -131,7 +136,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -148,14 +153,16 @@ class FirstPastThePostTest extends TestCase
             D>B=C=A ^ 25
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => ['A','D'],
             2 => 'B',
             3 => 'C' ],
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertSame( [ 1 => [
+        self::assertSame(
+            [ 1 => [
             'A' => (float) 42,
             'D' => (float) 42,
             'B' => (float) 26,
@@ -165,7 +172,7 @@ class FirstPastThePostTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -176,14 +183,16 @@ class FirstPastThePostTest extends TestCase
             A=C>B
         ');
 
-        self::assertSame( [
+        self::assertSame(
+            [
             1 => 'A',
             2 => 'C',
             3 => 'B' ],
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals( [ 1 => [
+        self::assertEquals(
+            [ 1 => [
             'A' => 1 + 1/2,
             'C' => 1/2,
             'B' => 0

@@ -14,4 +14,5 @@ use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS_CONSTANT | Attribute::TARGET_CLASS)]
 class InternalModulesAPI
-{}
+{
+}

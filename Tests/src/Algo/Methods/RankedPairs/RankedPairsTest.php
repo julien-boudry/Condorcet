@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
@@ -16,7 +17,7 @@ class RankedPairsTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Condorcet_avec_rangement_des_paires_par_ordre_d%C3%A9croissant
 
@@ -37,7 +38,7 @@ class RankedPairsTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         $expected = [   1 => 'A',
                         2 => 'C',
@@ -66,7 +67,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://en.wikipedia.org/wiki/Ranked_pairs
 
@@ -109,7 +110,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         # from http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -141,7 +142,7 @@ class RankedPairsTest extends TestCase
                         4 => 'Dave',
                         5 => 'Cora'];
 
-        self::assertEquals('Brad',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('Brad', $this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
             $expected,
@@ -154,7 +155,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         # From https://en.wikipedia.org/wiki/Ranked_pairs
 
@@ -169,14 +170,14 @@ class RankedPairsTest extends TestCase
         ');
 
         // Not supporting not ranked candidate
-        self::assertNotEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertNotEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         // Supporting not ranked candidate
         $this->election->setImplicitRanking(false);
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
     }
 
-    public function testResult_5 (): void
+    public function testResult_5(): void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example1/
 
@@ -195,7 +196,7 @@ class RankedPairsTest extends TestCase
                         2 => 'B',
                         3 => 'C' ];
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
             $expected,
@@ -208,7 +209,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_6 (): void
+    public function testResult_6(): void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example2/
 
@@ -226,7 +227,7 @@ class RankedPairsTest extends TestCase
                         2 => 'B',
                         3 => 'C' ];
 
-        self::assertEquals('A',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
             $expected,
@@ -239,7 +240,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_7 (): void
+    public function testResult_7(): void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example3/
 
@@ -268,7 +269,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_8 (): void
+    public function testResult_8(): void
     {
         # From http://ericgorr.net/condorcet/rankedpairs/example4/
 
@@ -292,7 +293,7 @@ class RankedPairsTest extends TestCase
                         3 => 'D',
                         4 => 'C' ];
 
-        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
 
         self::assertSame(
             $expected,
@@ -315,7 +316,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_9 (): void
+    public function testResult_9(): void
     {
         # Test fix for rare bug
 
@@ -351,10 +352,10 @@ class RankedPairsTest extends TestCase
             A > H > D > C > F > E > B > G * 1
            ');
 
-        self::assertEquals('B',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
     }
 
-    public function testResult_10 (): void
+    public function testResult_10(): void
     {
         # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
         # Example 5
@@ -375,7 +376,7 @@ class RankedPairsTest extends TestCase
         ');
 
 
-        self::assertEquals('v',$this->election->getWinner('Ranked Pairs Winning'));
+        self::assertEquals('v', $this->election->getWinner('Ranked Pairs Winning'));
 
         $expected = [   1 => 'v',
                         2 => 'w',
@@ -394,7 +395,7 @@ class RankedPairsTest extends TestCase
         );
     }
 
-    public function testResult_11 (): void
+    public function testResult_11(): void
     {
         # From http://rangevoting.org/WinningVotes.htmls
 
@@ -408,18 +409,20 @@ class RankedPairsTest extends TestCase
             A > B > C * 5
         ');
 
-        self::assertNotEquals(  $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true),
-                                $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true));
+        self::assertNotEquals(
+            $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true),
+            $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
+        );
     }
 
-    public function testMaxCandidates (): never
+    public function testMaxCandidates(): never
     {
         $this->expectException(CandidatesMaxNumberReachedException::class);
         $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 60 candidates");
 
-        for ($i=0; $i < 61; $i++) :
+        for ($i=0; $i < 61; $i++) {
             $this->election->addCandidate();
-        endfor;
+        }
 
         $this->election->parseVotes('A');
 
@@ -458,5 +461,4 @@ class RankedPairsTest extends TestCase
     //         self::assertEquals(true,true);
     //     }
     // }
-
 }

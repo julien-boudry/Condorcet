@@ -17,7 +17,7 @@ trait Linkable
 {
     private ?\WeakMap $_link;
 
-    public function __clone (): void
+    public function __clone(): void
     {
         $this->destroyAllLink();
     }
@@ -26,11 +26,10 @@ trait Linkable
     #[Description("Check if this election is linked with this Candidate/Vote object.")]
     #[FunctionReturn("True or False.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function haveLink (
+    public function haveLink(
         #[FunctionParameter('Condorcet election to check')]
         Election $election
-    ): bool
-    {
+    ): bool {
         $this->initWeakMap();
 
         return $this->_link->offsetExists($election);
@@ -40,7 +39,7 @@ trait Linkable
     #[Description("Count number of linked election to this object.")]
     #[FunctionReturn("Number of linked elections.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function countLinks (): int
+    public function countLinks(): int
     {
         $this->initWeakMap();
 
@@ -51,7 +50,7 @@ trait Linkable
     #[Description("Get elections object linked to this Vote or Candidate object.")]
     #[FunctionReturn("Populated by each elections Condorcet object.")]
     #[Related("Vote::countLinks", "Candidate::countLinks", "Vote::getLinks", "Candidate::getLinks", "Vote::haveLink", "Candidate::haveLink")]
-    public function getLinks (): \WeakMap
+    public function getLinks(): \WeakMap
     {
         $this->initWeakMap();
 
@@ -59,33 +58,33 @@ trait Linkable
     }
 
     // Internal
-        # Dot not Overloading ! Do not Use !
+    # Dot not Overloading ! Do not Use !
 
-    protected function initWeakMap (): void
+    protected function initWeakMap(): void
     {
         $this->_link ??= new \WeakMap;
     }
 
-    public function registerLink (Election $election): void
+    public function registerLink(Election $election): void
     {
-        if ( !$this->haveLink($election) ) : // haveLink will initWeakmap if necessary
+        if (!$this->haveLink($election)) { // haveLink will initWeakmap if necessary
             $this->_link->offsetSet($election, true);
-        else :
+        } else {
             throw new CondorcetInternalException('Link is already registered.');
-        endif;
+        }
     }
 
-    public function destroyLink (Election $election): bool
+    public function destroyLink(Election $election): bool
     {
-        if ($this->haveLink($election)) : // haveLink will initWeakmap if necessary
+        if ($this->haveLink($election)) { // haveLink will initWeakmap if necessary
             $this->_link->offsetUnset($election);
             return true;
-        else :
+        } else {
             return false;
-        endif;
+        }
     }
 
-    protected function destroyAllLink (): void
+    protected function destroyAllLink(): void
     {
         $this->_link = null;
         $this->initWeakMap();

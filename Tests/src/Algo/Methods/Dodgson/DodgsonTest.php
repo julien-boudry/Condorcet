@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Dodgson;
@@ -15,7 +16,7 @@ class DodgsonTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -41,7 +42,7 @@ class DodgsonTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertSame($CandidateCora,$this->election->getWinner('DodgsonTideman'));
+        self::assertSame($CandidateCora, $this->election->getWinner('DodgsonTideman'));
 
         self::assertSame(
             [   1 => 'Cora',
@@ -54,23 +55,22 @@ class DodgsonTest extends TestCase
 
         self::assertSame(
             [
-                'Cora' => array (
+                'Cora' => [
                   'sum_defeat_margin' => 4,
-                ),
-                'Abby' => array (
+                ],
+                'Abby' => [
                   'sum_defeat_margin' => 5,
-                ),
-                'Brad' => array (
+                ],
+                'Brad' => [
                   'sum_defeat_margin' => 297,
-                ),
-                'Dave' => array (
+                ],
+                'Dave' => [
                   'sum_defeat_margin' => 348,
-                ),
-                'Erin' => array (
+                ],
+                'Erin' => [
                   'sum_defeat_margin' => 426,
-                ),
-            ]
-            ,
+                ],
+            ],
             $this->election->getResult('DodgsonTideman')->getStats()
         );
     }
@@ -79,7 +79,7 @@ class DodgsonTest extends TestCase
     // public function testResult_2 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
-           # Table 1
+    # Table 1
 
     //     $this->election->addCandidate('A');
     //     $this->election->addCandidate('B');
@@ -100,7 +100,7 @@ class DodgsonTest extends TestCase
     //         'A', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 2
@@ -121,7 +121,9 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'D', $this->election->getWinner('DodgsonQuick'));
+            'D',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [
@@ -130,14 +132,15 @@ class DodgsonTest extends TestCase
                 'B' => 6.0,
                 'C' => 6.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
     # Require real Dodgson method. This test fail with both approximations.
     // public function testResult_4 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
-           # Table 3
+    # Table 3
 
     //     $this->election->addCandidate('A');
     //     $this->election->addCandidate('B');
@@ -156,7 +159,7 @@ class DodgsonTest extends TestCase
     //         'A', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_5 (): void
+    public function testResult_5(): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 4
@@ -175,7 +178,9 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'C', $this->election->getWinner('DodgsonQuick'));
+            'C',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [   'C' => 2.0,
@@ -183,10 +188,11 @@ class DodgsonTest extends TestCase
                 'B' => 13.0,
                 'D' => 24.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
-    public function testResult_6 (): void
+    public function testResult_6(): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 5
@@ -204,7 +210,9 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'D', $this->election->getWinner('DodgsonQuick'));
+            'D',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [   'D' => 3.0,
@@ -212,10 +220,11 @@ class DodgsonTest extends TestCase
                 'A' => 5.0,
                 'B' => 7.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
-    public function testResult_7 (): void
+    public function testResult_7(): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 6
@@ -233,17 +242,20 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'D', $this->election->getWinner('DodgsonQuick'));
+            'D',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [   'B' => 5.0,
                 'C' => 6.0,
                 'A' => 8.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
-    public function testResult_8 (): void
+    public function testResult_8(): void
     {
         # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
         # Table 7
@@ -259,21 +271,24 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'A', $this->election->getWinner('DodgsonQuick'));
+            'A',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [   'A' => 1.0,
                 'B' => 2.0,
                 'C' => 3.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
     # Require real Dodgson method. This test fail with both approximations.
     // public function testResult_9 (): void
     // {
     //     # From http://dss.in.tum.de/files/brandt-research/dodgson.pdf
-           # Table 8
+    # Table 8
 
     //     $this->election->addCandidate('A');
     //     $this->election->addCandidate('B');
@@ -290,7 +305,7 @@ class DodgsonTest extends TestCase
     //         'B', $this->election->getWinner('DodgsonQuick'));
     // }
 
-    public function testResult_10 (): void
+    public function testResult_10(): void
     {
         # From https://link.springer.com/article/10.1007/s003550000060
 
@@ -307,13 +322,17 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'B', $this->election->getWinner('DodgsonQuick'));
+            'B',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertEquals(
-            'B', $this->election->getWinner('DodgsonTideman'));
+            'B',
+            $this->election->getWinner('DodgsonTideman')
+        );
     }
 
-    public function testResult_11 (): void
+    public function testResult_11(): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 2 with Tideman Approximation
@@ -345,7 +364,7 @@ class DodgsonTest extends TestCase
         );
     }
 
-    public function testResult_12 (): void
+    public function testResult_12(): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 3 with Tideman Approximation
@@ -377,7 +396,9 @@ class DodgsonTest extends TestCase
 
 
         self::assertEquals(
-            'D',$this->election->getWinner('DodgsonTideman'));
+            'D',
+            $this->election->getWinner('DodgsonTideman')
+        );
 
         self::assertSame(
             [   1 => 'D',
@@ -388,7 +409,7 @@ class DodgsonTest extends TestCase
         );
     }
 
-    public function testResult_13 (): void
+    public function testResult_13(): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 4
@@ -415,7 +436,9 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            'A', $this->election->getWinner('DodgsonQuick'));
+            'A',
+            $this->election->getWinner('DodgsonQuick')
+        );
 
         self::assertSame(
             [   'A' => 3.0,
@@ -425,10 +448,11 @@ class DodgsonTest extends TestCase
                 'E' => 30.0,
                 'F' => 30.0
             ],
-            $this->election->getResult('DodgsonQuick')->getStats());
+            $this->election->getResult('DodgsonQuick')->getStats()
+        );
     }
 
-    public function testResult_14 (): void
+    public function testResult_14(): void
     {
         # From https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
         # Figure 4: each voters add 4 friends.
@@ -455,16 +479,22 @@ class DodgsonTest extends TestCase
         ');
 
         self::assertEquals(
-            13, $this->election->getResult('DodgsonQuick')->getStats()['A']);
+            13,
+            $this->election->getResult('DodgsonQuick')->getStats()['A']
+        );
 
         self::assertEquals(
-            12, $this->election->getResult('DodgsonQuick')->getStats()['B']);
+            12,
+            $this->election->getResult('DodgsonQuick')->getStats()['B']
+        );
 
         self::assertEquals(
-            'B', $this->election->getWinner('DodgsonQuick'));
+            'B',
+            $this->election->getWinner('DodgsonQuick')
+        );
     }
 
-    public function testResult_15 (): void
+    public function testResult_15(): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -478,10 +508,10 @@ class DodgsonTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertSame($this->election->getWinner(null),$this->election->getWinner('DodgsonQuick'));
+        self::assertSame($this->election->getWinner(null), $this->election->getWinner('DodgsonQuick'));
     }
 
-    public function testResult_16 (): void
+    public function testResult_16(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -501,5 +531,4 @@ class DodgsonTest extends TestCase
             $this->election->getResult('DodgsonQuick')->getResultAsArray(true)
         );
     }
-
 }

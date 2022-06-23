@@ -18,85 +18,85 @@ use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 abstract class VoteUtil
 {
     #[Throws(VoteInvalidFormatException::class)]
-    public static function tagsConvert (array|string|null $tags): ?array
+    public static function tagsConvert(array|string|null $tags): ?array
     {
-        if (empty($tags)) :
+        if (empty($tags)) {
             return null;
-        elseif (\is_string($tags)) :
+        } elseif (\is_string($tags)) {
             $tags = \explode(',', $tags);
-        else :
-            foreach ($tags as $tag) :
-                if (!\is_string($tag)) :
+        } else {
+            foreach ($tags as $tag) {
+                if (!\is_string($tag)) {
                     throw new VoteInvalidFormatException("every tag must be of type string, " . gettype($tag) . " given");
-                endif;
-            endforeach;
-        endif;
+                }
+            }
+        }
 
-        $tags = \array_map( fn(string $x):string => trim($x) , $tags);
+        $tags = \array_map(fn (string $x): string => trim($x), $tags);
 
-        foreach ($tags as $tag) :
-           if (empty($tag)) :
+        foreach ($tags as $tag) {
+            if (empty($tag)) {
                 throw new VoteInvalidFormatException("found empty tag");
-            endif;
-        endforeach;
+            }
+        }
 
         return $tags;
     }
 
-    public static function getRankingAsString (array $ranking): string
+    public static function getRankingAsString(array $ranking): string
     {
-        foreach ($ranking as &$rank) :
-            if (\is_array($rank)) :
+        foreach ($ranking as &$rank) {
+            if (\is_array($rank)) {
                 \sort($rank);
-                $rank = \implode(' = ',$rank);
-            endif;
-        endforeach;
+                $rank = \implode(' = ', $rank);
+            }
+        }
 
         return \implode(' > ', $ranking);
     }
 
     // From a string like 'A>B=C=H>G=T>Q'
-    public static function convertVoteInput (string $formula): array
+    public static function convertVoteInput(string $formula): array
     {
         $formula = trim($formula);
 
         // Condorcet Election Format special string
-        if (empty($formula) || $formula === CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING) :
+        if (empty($formula) || $formula === CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING) {
             $ranking = [];
-        else:
+        } else {
             $ranking = \explode('>', $formula);
 
-            foreach ($ranking as &$rank_vote) :
+            foreach ($ranking as &$rank_vote) {
                 $rank_vote = \explode('=', $rank_vote);
                 $rank_vote = array_filter($rank_vote);
 
                 // Del space at start and end
-                foreach ($rank_vote as &$value) :
+                foreach ($rank_vote as &$value) {
                     $value = \trim($value);
-                endforeach;
-            endforeach;
-        endif;
+                }
+            }
+        }
 
         return \array_filter($ranking);
     }
 
     #[Throws(VoteInvalidFormatException::class)]
-    public static function parseAnalysingOneLine (int|bool $searchCharacter, string &$line): int
+    public static function parseAnalysingOneLine(int|bool $searchCharacter, string &$line): int
     {
-        if (is_int($searchCharacter)) :
-            $value = \trim( \substr($line, $searchCharacter + 1) );
+        if (is_int($searchCharacter)) {
+            $value = \trim(\substr($line, $searchCharacter + 1));
 
             // Errors
-            if ( !\is_numeric($value) ) :
+            if (!\is_numeric($value)) {
                 throw new VoteInvalidFormatException("the value '$value' is not numeric");
-            endif;
+            }
 
             // Reformat line
             $line = \substr($line, 0, $searchCharacter);
 
             return \intval($value);
-        else :
+        } else {
             return 1;
-        endif;
+        }
     }
 }

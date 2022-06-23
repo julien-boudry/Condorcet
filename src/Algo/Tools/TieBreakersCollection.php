@@ -14,60 +14,59 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Examples, FunctionReturn, InternalModulesAPI, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 // Generic for Algorithms
 #[InternalModulesAPI]
 abstract class TieBreakersCollection
 {
-    public static function electSomeLosersbasedOnPairwiseComparaison (Election $election, array $candidatesKeys): array
+    public static function electSomeLosersbasedOnPairwiseComparaison(Election $election, array $candidatesKeys): array
     {
         $pairwise = $election->getPairwise();
         $pairwiseStats = PairwiseStats::PairwiseComparison($pairwise);
         $tooKeep = [];
 
-        foreach ($candidatesKeys as $oneCandidateKeyTotest) :
+        foreach ($candidatesKeys as $oneCandidateKeyTotest) {
             $select = true;
-            foreach ($candidatesKeys as $oneChallengerKey) :
-                if ($oneCandidateKeyTotest === $oneChallengerKey) :
+            foreach ($candidatesKeys as $oneChallengerKey) {
+                if ($oneCandidateKeyTotest === $oneChallengerKey) {
                     continue;
-                endif;
+                }
 
-                if (    $pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
+                if ($pairwise[$oneCandidateKeyTotest]['win'][$oneChallengerKey] > $pairwise[$oneCandidateKeyTotest]['lose'][$oneChallengerKey] ||
                         $pairwiseStats[$oneCandidateKeyTotest]['balance'] > $pairwiseStats[$oneChallengerKey]['balance'] ||
                         $pairwiseStats[$oneCandidateKeyTotest]['win'] > $pairwiseStats[$oneChallengerKey]['win']
-                ) :
+                ) {
                     $select = false;
-                endif;
-            endforeach;
+                }
+            }
 
-            if ($select) :
+            if ($select) {
                 $tooKeep[] = $oneCandidateKeyTotest;
-            endif;
-        endforeach;
+            }
+        }
 
         return (\count($tooKeep) > 0) ? $tooKeep : $candidatesKeys;
     }
 
-    public static function tieBreakerWithAnotherMethods (Election $election, array $methods, array $candidatesKeys): array
+    public static function tieBreakerWithAnotherMethods(Election $election, array $methods, array $candidatesKeys): array
     {
-        foreach ($methods as $oneMethod) :
+        foreach ($methods as $oneMethod) {
             $tooKeep = [];
 
             $methodResults = $election->getResult($oneMethod)->getResultAsInternalKey();
 
-            foreach ($methodResults as $rankKey => $rankValue) :
-                foreach ($rankValue as $oneCandidateKey) :
-                    if (\in_array($oneCandidateKey, $candidatesKeys, true)) :
+            foreach ($methodResults as $rankKey => $rankValue) {
+                foreach ($rankValue as $oneCandidateKey) {
+                    if (\in_array($oneCandidateKey, $candidatesKeys, true)) {
                         $tooKeep[] = $oneCandidateKey;
-                    endif;
-                endforeach;
+                    }
+                }
 
-                if (\count($tooKeep) > 0 && \count($tooKeep) !== \count($candidatesKeys)) :
+                if (\count($tooKeep) > 0 && \count($tooKeep) !== \count($candidatesKeys)) {
                     return $tooKeep;
-                endif;
-            endforeach;
-        endforeach;
+                }
+            }
+        }
 
         return $candidatesKeys;
     }

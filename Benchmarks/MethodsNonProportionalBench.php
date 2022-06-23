@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
@@ -6,11 +7,11 @@ namespace CondorcetPHP\Condorcet\Benchmarks;
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use PhpBench\Attributes as Bench;
-ini_set('memory_limit','51200M');
+
+ini_set('memory_limit', '51200M');
 
 class MethodsNonProportionalBench
 {
@@ -20,14 +21,14 @@ class MethodsNonProportionalBench
 
     protected Election $election;
 
-    public function __construct ()
+    public function __construct()
     {
         RankedPairs_Core::$MaxCandidates = null;
         KemenyYoung::$MaxCandidates = 11;
     }
 
 
-    protected function buildElection (int $numberOfCandidates, int $numberOfVotes): void
+    protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;
         $this->election->setNumberOfSeats(max(1, (int) ($numberOfCandidates / 3)));
@@ -35,37 +36,37 @@ class MethodsNonProportionalBench
 
         $candidates = [];
 
-        for ($i=0 ; $i < $numberOfCandidates ; $i++) :
+        for ($i=0 ; $i < $numberOfCandidates ; $i++) {
             $candidates[] = $election->addCandidate();
-        endfor;
+        }
 
-        for ($i = 0 ; $i < $numberOfVotes ; $i++) :
+        for ($i = 0 ; $i < $numberOfVotes ; $i++) {
             $oneVote = $candidates;
             shuffle($oneVote);
 
             $election->addVote($oneVote);
-        endfor;
+        }
     }
 
-    public function provideMethods (): \Generator
+    public function provideMethods(): \Generator
     {
-        foreach (Condorcet::getAuthMethods() as $method) :
+        foreach (Condorcet::getAuthMethods() as $method) {
             $class = Condorcet::getMethodClass($method);
 
-            if ($class::IS_PROPORTIONAL === $this->IS_A_PROPORTIONAL_BENCH) :
+            if ($class::IS_PROPORTIONAL === $this->IS_A_PROPORTIONAL_BENCH) {
                 yield $method => ['method' => $method];
-            endif;
-        endforeach;
+            }
+        }
     }
 
-    public function provideNumberOfCandidates (): \Generator
+    public function provideNumberOfCandidates(): \Generator
     {
-        foreach ($this->numberOfCandidates as $n) :
+        foreach ($this->numberOfCandidates as $n) {
             yield $n => ['numberOfCandidates' => $n];
-        endforeach;
+        }
     }
 
-    public function setUp (array $params): void
+    public function setUp(array $params): void
     {
         $this->buildElection($params['numberOfCandidates'], 1_000);
     }
@@ -76,11 +77,12 @@ class MethodsNonProportionalBench
     #[Bench\Warmup(1)]
     #[Bench\Iterations(3)]
     #[Bench\Revs(1)]
-    public function benchByCandidates (array $params): void
+    public function benchByCandidates(array $params): void
     {
         try {
             $result = $this->election->getResult($params['method']);
-        } catch (MethodLimitReachedException $e) {}
+        } catch (MethodLimitReachedException $e) {
+        }
 
         $this->election->cleanupCalculator();
     }

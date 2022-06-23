@@ -1,13 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
-use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat};
 use PHPUnit\Framework\TestCase;
 
 class DavidHillFormatTest extends TestCase
@@ -19,14 +17,15 @@ class DavidHillFormatTest extends TestCase
         self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHillFormat(__DIR__.'/TidemanData/A77.HIL'));
     }
 
-    public function testA77_With_Implicit (): void
+    public function testA77_With_Implicit(): void
     {
         $election = self::$tidemanA77->setDataToAnElection();
 
-        self::assertSame(213,$election->countVotes());
-        self::assertSame(1,$election->getNumberOfSeats());
+        self::assertSame(213, $election->countVotes());
+        self::assertSame(1, $election->getNumberOfSeats());
 
-        self::assertSame(<<<EOD
+        self::assertSame(
+            <<<EOD
             3 > 1 = 2 * 39
             1 > 3 > 2 * 38
             3 > 1 > 2 * 36
@@ -41,16 +40,17 @@ class DavidHillFormatTest extends TestCase
         );
     }
 
-    public function testA77_With_Explicit (): void
+    public function testA77_With_Explicit(): void
     {
         $election = new Election;
         $election->setImplicitRanking(false);
 
         self::$tidemanA77->setDataToAnElection($election);
 
-        self::assertSame(213,$election->countVotes());
+        self::assertSame(213, $election->countVotes());
 
-        self::assertSame(<<<EOD
+        self::assertSame(
+            <<<EOD
             3 * 39
             1 > 3 * 38
             3 > 1 * 36
@@ -65,14 +65,15 @@ class DavidHillFormatTest extends TestCase
         );
     }
 
-    public function testA1_ForCandidatesNames (): void
+    public function testA1_ForCandidatesNames(): void
     {
         $election = (new DavidHillFormat(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
 
-        self::assertSame(380,$election->countVotes());
-        self::assertSame(3,$election->getNumberOfSeats());
+        self::assertSame(380, $election->countVotes());
+        self::assertSame(3, $election->getNumberOfSeats());
 
-        self::assertSame(<<<EOD
+        self::assertSame(
+            <<<EOD
             Candidate  3 > Candidate  1 > Candidate  2 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  7 = Candidate  8 = Candidate  9 = Candidate 10 * 13
             Candidate  1 > Candidate  3 > Candidate  2 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  7 = Candidate  8 = Candidate  9 = Candidate 10 * 9
             Candidate  1 > Candidate  3 > Candidate  9 > Candidate  2 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  7 = Candidate  8 = Candidate 10 * 9
@@ -332,7 +333,7 @@ class DavidHillFormatTest extends TestCase
         self::assertSame('Candidate  1 > Candidate  9 > Candidate  8', $election->getResult('STV')->getResultAsString());
     }
 
-    public function testBugDavidHillRandomOrderAndStatsRound (): void
+    public function testBugDavidHillRandomOrderAndStatsRound(): void
     {
         $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
 
@@ -341,29 +342,29 @@ class DavidHillFormatTest extends TestCase
         $implicitElectionFromHill = $hil->setDataToAnElection();
 
         // Without aggregate vote
-        $file = new \SplTempFileObject();
+        $file = new \SplTempFileObject;
         $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes:false));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
 
-        foreach (Condorcet::getAuthMethods() as $method) :
+        foreach (Condorcet::getAuthMethods() as $method) {
             // Stats
             self::assertSame($implicitElectionFromHill->getResult($method)->getStats(), $implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method);
 
             // Result
             self::assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
-        endforeach;
+        }
 
 
         // With aggregate vote
-        $file = new \SplTempFileObject();
+        $file = new \SplTempFileObject;
         $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes:true));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
 
-        foreach (Condorcet::getAuthMethods() as $method) :
+        foreach (Condorcet::getAuthMethods() as $method) {
             // Stats
             self::assertEqualsWithDelta(
                 $implicitElectionFromHill->getResult($method)->getStats(),
@@ -374,7 +375,6 @@ class DavidHillFormatTest extends TestCase
 
             // Result
             self::assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
-        endforeach;
-
+        }
     }
 }

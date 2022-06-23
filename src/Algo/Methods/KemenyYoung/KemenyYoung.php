@@ -42,14 +42,14 @@ class KemenyYoung extends Method implements MethodInterface
     protected array $bestRankingTab;
 
 
-/////////// PUBLIC ///////////
+    /////////// PUBLIC ///////////
 
 
     // Get the Kemeny ranking
-    public function getResult (): Result
+    public function getResult(): Result
     {
         // Cache
-        if ( $this->_Result === null ) :
+        if ($this->_Result === null) {
             $this->countElectionCandidates = $this->getElection()->countCandidates();
             $this->candidatesKey = \array_keys($this->getElection()->getCandidatesList());
             $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
@@ -57,14 +57,14 @@ class KemenyYoung extends Method implements MethodInterface
             $this->computeMaxAndConflicts();
             $this->makeRanking();
             $this->conflictInfos();
-        endif;
+        }
 
         // Return
         return $this->_Result;
     }
 
 
-    protected function getStats (): array
+    protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
@@ -72,85 +72,85 @@ class KemenyYoung extends Method implements MethodInterface
         $stats['Best Score'] = $this->MaxScore;
         $stats['Ranking In Conflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
 
-        if ($election->getStatsVerbosity()->value >= StatsVerbosity::FULL->value) :
+        if ($election->getStatsVerbosity()->value >= StatsVerbosity::FULL->value) {
             $explicit = [];
 
-            foreach ($this->getPossibleRankingIterator() as $key => $value) :
+            foreach ($this->getPossibleRankingIterator() as $key => $value) {
                 // Human readable
                 $i = 1;
-                foreach ($value as $candidate_key) :
+                foreach ($value as $candidate_key) {
                     $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
-                endforeach;
+                }
 
                 $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());
-            endforeach;
+            }
 
             $stats['Ranking Scores'] = $explicit;
-        endif;
+        }
 
         return $stats;
     }
 
-        protected function conflictInfos (): void
-        {
-            if ($this->Conflits > 0)  :
-                $this->_Result->addWarning(
-                    type: self::CONFLICT_WARNING_CODE,
-                    msg: ($this->Conflits + 1).';'.$this->MaxScore
-                );
-            endif;
+    protected function conflictInfos(): void
+    {
+        if ($this->Conflits > 0) {
+            $this->_Result->addWarning(
+                type: self::CONFLICT_WARNING_CODE,
+                msg: ($this->Conflits + 1).';'.$this->MaxScore
+            );
         }
+    }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
 
     //:: Kemeny-Young ALGORITHM. :://
 
-    protected function getPossibleRankingIterator (): \Generator
+    protected function getPossibleRankingIterator(): \Generator
     {
-        $perm = new Permutations ($this->candidatesKey);
+        $perm = new Permutations($this->candidatesKey);
 
         $key = 0;
-        foreach ($perm->getPermutationGenerator() as $onePermutation) :
+        foreach ($perm->getPermutationGenerator() as $onePermutation) {
             yield $key++ => $onePermutation;
-        endforeach;
+        }
     }
 
 
-    protected function computeMaxAndConflicts (): void
+    protected function computeMaxAndConflicts(): void
     {
         $pairwise = $this->getElection()->getPairwise();
 
-        foreach ($this->getPossibleRankingIterator() as $keyScore => $onePossibleRanking) :
+        foreach ($this->getPossibleRankingIterator() as $keyScore => $onePossibleRanking) {
             $rankingScore = $this->computeOneScore($onePossibleRanking, $pairwise);
 
             // Max Ranking Score
-            if ($rankingScore > $this->MaxScore) :
+            if ($rankingScore > $this->MaxScore) {
                 $this->MaxScore = $rankingScore;
                 $this->Conflits = 0;
                 $this->bestRankingKey = $keyScore;
                 $this->bestRankingTab = $onePossibleRanking;
-            elseif ($rankingScore === $this->MaxScore) :
+            } elseif ($rankingScore === $this->MaxScore) {
                 $this->Conflits++;
-            endif;
-        endforeach;
+            }
+        }
     }
 
-    protected function computeOneScore (array $ranking, Pairwise $pairwise): int
+    protected function computeOneScore(array $ranking, Pairwise $pairwise): int
     {
         $rankingScore = 0;
         $do = [];
 
-        foreach ($ranking as $candidateId) :
+        foreach ($ranking as $candidateId) {
             $do[] = $candidateId;
 
-            foreach ($ranking as $rankCandidate) :
-                if (!\in_array(needle: $rankCandidate, haystack: $do, strict: true)) :
+            foreach ($ranking as $rankCandidate) {
+                if (!\in_array(needle: $rankCandidate, haystack: $do, strict: true)) {
                     $rankingScore += $pairwise[$candidateId]['win'][$rankCandidate];
-                endif;
-            endforeach;
-        endforeach;
+                }
+            }
+        }
 
         return $rankingScore;
     }
@@ -162,7 +162,7 @@ class KemenyYoung extends Method implements MethodInterface
 
     See issue on Github : https://github.com/julien-boudry/Condorcet/issues/6
     */
-    protected function makeRanking (): void
+    protected function makeRanking(): void
     {
         $winnerRanking = [null, ...$this->bestRankingTab];
         unset($winnerRanking[0]);

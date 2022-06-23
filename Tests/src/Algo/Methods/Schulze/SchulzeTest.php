@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Schulze;
@@ -15,7 +16,7 @@ class SchulzeTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
@@ -34,7 +35,7 @@ class SchulzeTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertEquals('E',$this->election->getWinner('Schulze Winning'));
+        self::assertEquals('E', $this->election->getWinner('Schulze Winning'));
 
         self::assertSame(
             [   1 => 'E',
@@ -46,7 +47,7 @@ class SchulzeTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -60,7 +61,7 @@ class SchulzeTest extends TestCase
             C > B > D * 2
         ');
 
-        self::assertSame([$candidateB,$candidateD],$this->election->getWinner('Schulze Winning'));
+        self::assertSame([$candidateB,$candidateD], $this->election->getWinner('Schulze Winning'));
 
         self::assertSame(
             [   1 => ['B','D'],
@@ -69,7 +70,7 @@ class SchulzeTest extends TestCase
         );
     }
 
-    public function testSchulzeOfficialExampleResult_1 (): void
+    public function testSchulzeOfficialExampleResult_1(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -87,7 +88,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_2 (): void
+    public function testSchulzeOfficialExampleResult_2(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -104,7 +105,7 @@ class SchulzeTest extends TestCase
         self::assertSame([$candidateB,$candidateD], $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_3 (): void
+    public function testSchulzeOfficialExampleResult_3(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -122,7 +123,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_4 (): void
+    public function testSchulzeOfficialExampleResult_4(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -140,7 +141,7 @@ class SchulzeTest extends TestCase
         self::assertSame([$candidateA,$candidateD], $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_5 (): void
+    public function testSchulzeOfficialExampleResult_5(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -168,7 +169,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_6_situation_1 (): void
+    public function testSchulzeOfficialExampleResult_6_situation_1(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -190,7 +191,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_6_situation_2 (): void
+    public function testSchulzeOfficialExampleResult_6_situation_2(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -213,7 +214,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_7 (): void
+    public function testSchulzeOfficialExampleResult_7(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -248,7 +249,7 @@ class SchulzeTest extends TestCase
         // not implemented
     }
 
-    public function testSchulzeOfficialExampleResult_8 (): void
+    public function testSchulzeOfficialExampleResult_8(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -270,7 +271,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_9 (): void
+    public function testSchulzeOfficialExampleResult_9(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -292,7 +293,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testSchulzeOfficialExampleResult_10 (): void
+    public function testSchulzeOfficialExampleResult_10(): void
     {
         $candidateA = $this->election->addCandidate('A');
         $candidateB = $this->election->addCandidate('B');
@@ -314,7 +315,7 @@ class SchulzeTest extends TestCase
         self::assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
     }
 
-    public function testResult_11 (): void
+    public function testResult_11(): void
     {
         $this->election->addCandidate('Abby');
         $this->election->addCandidate('Brad');
@@ -338,7 +339,7 @@ class SchulzeTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Abby',$this->election->getWinner('Schulze Winning'));
+        self::assertEquals('Abby', $this->election->getWinner('Schulze Winning'));
 
         self::assertSame(
             [   1 => 'Abby',
@@ -350,7 +351,7 @@ class SchulzeTest extends TestCase
         );
     }
 
-    public function testSchulzeRatioEquality (): void
+    public function testSchulzeRatioEquality(): void
     {
         $this->election->parseCandidates('A;B;C;D');
         $this->election->parseVotes('A>B=C>D * 10');
@@ -362,7 +363,5 @@ class SchulzeTest extends TestCase
             ],
             $this->election->getResult('Schulze Ratio')->getResultAsArray(true)
         );
-
-
     }
 }

@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
-use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
-
 // Custom Exeption
-class IntegerOverflowException extends CondorcetInternalException {}
+class IntegerOverflowException extends CondorcetInternalException
+{
+}

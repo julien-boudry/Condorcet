@@ -12,35 +12,32 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
-use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\PublicAPI;
-use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException as CondorcetIntegerOverflowException};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, PublicAPI};
 use SplFixedArray;
 
 #[InternalModulesAPI]
 class Combinations
 {
-
     #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
-    static bool $useBigIntegerIfAvailable = true;
+    public static bool $useBigIntegerIfAvailable = true;
 
-    public static function getPossibleCountOfCombinations (int $count, int $length): int
+    public static function getPossibleCountOfCombinations(int $count, int $length): int
     {
-        if ($count < 1 || $length < 1 || $count < $length) :
+        if ($count < 1 || $length < 1 || $count < $length) {
             throw new CondorcetInternalException('Parameters invalid');
-        endif;
+        }
 
-        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) :
+        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) {
             $a = BigInteger::of(1);
-            for ($i = $count ; $i > ($count - $length) ; $i--) :
+            for ($i = $count ; $i > ($count - $length) ; $i--) {
                 $a = $a->multipliedBy($i);
-            endfor;
+            }
 
             $b = BigInteger::of(1);
-            for ($i = $length ; $i > 0 ; $i--) :
+            for ($i = $length ; $i > 0 ; $i--) {
                 $b = $b->multipliedBy($i);
-            endfor;
+            }
 
             $r = $a->dividedBy($b);
 
@@ -49,57 +46,57 @@ class Combinations
             } catch (IntegerOverflowException $e) {
                 throw new CondorcetIntegerOverflowException($e->getMessage());
             }
-        else :
+        } else {
             $a = 1;
-            for ($i = $count ; $i > ($count - $length) ; $i--) :
+            for ($i = $count ; $i > ($count - $length) ; $i--) {
                 $a = $a * $i;
-            endfor;
+            }
 
             $b = 1;
-            for ($i = $length ; $i > 0 ; $i--) :
+            for ($i = $length ; $i > 0 ; $i--) {
                 $b = $b * $i;
-            endfor;
+            }
 
-            if (\is_float($a) || \is_float($b)) :
+            if (\is_float($a) || \is_float($b)) {
                 throw new CondorcetIntegerOverflowException;
-            else :
+            } else {
                 return (int) ($a / $b);
-            endif;
-        endif;
+            }
+        }
     }
 
-    public static function compute (array $values, int $length, array $append_before = []): SplFixedArray
+    public static function compute(array $values, int $length, array $append_before = []): SplFixedArray
     {
         $count = \count($values);
         $r = new SplFixedArray(self::getPossibleCountOfCombinations($count, $length));
 
         $arrKey = 0;
-        foreach (self::computeGenerator($values, $length, $append_before) as $oneCombination) :
+        foreach (self::computeGenerator($values, $length, $append_before) as $oneCombination) {
             $r[$arrKey++] = $oneCombination;
-        endforeach;
+        }
 
         return $r;
     }
 
-    public static function computeGenerator (array $values, int $length, array $append_before = []): \Generator
+    public static function computeGenerator(array $values, int $length, array $append_before = []): \Generator
     {
         $count = \count($values);
         $size = 2 ** $count;
         $keys = \array_keys($values);
 
-        for ($i = 0; $i < $size; $i++) :
+        for ($i = 0; $i < $size; $i++) {
             $b = \sprintf("%0" . $count . "b", $i);
             $out = [];
 
-            for ($j = 0; $j < $count; $j++) :
-                if ($b[$j] === '1') :
+            for ($j = 0; $j < $count; $j++) {
+                if ($b[$j] === '1') {
                     $out[$keys[$j]] = $values[$keys[$j]];
-                endif;
-            endfor;
+                }
+            }
 
-            if (count($out) === $length) :
-                 yield \array_values(\array_merge($append_before, $out));
-            endif;
-        endfor;
+            if (count($out) === $length) {
+                yield \array_values(\array_merge($append_before, $out));
+            }
+        }
     }
 }

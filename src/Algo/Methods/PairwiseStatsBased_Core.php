@@ -15,24 +15,23 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
-
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected readonly array $_Comparison;
 
 
-/////////// PUBLIC ///////////
+    /////////// PUBLIC ///////////
 
 
     // Get the ranking
-    public function getResult (): Result
+    public function getResult(): Result
     {
         // Cache
-        if ( $this->_Result !== null ) :
+        if ($this->_Result !== null) {
             return $this->_Result;
-        endif;
+        }
 
-            //////
+        //////
 
         // Comparison calculation
         $this->_Comparison = PairwiseStats::PairwiseComparison($this->getElection()->getPairwise());
@@ -46,25 +45,25 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the stats
-    protected function getStats (): array
+    protected function getStats(): array
     {
         $election = $this->getElection();
         $explicit = [];
 
-        foreach ($this->_Comparison as $candidate_key => $value) :
+        foreach ($this->_Comparison as $candidate_key => $value) {
             $explicit[$election->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
-        endforeach;
+        }
 
         return $explicit;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
 
     //:: ALGORITHM. :://
 
-    protected function makeRanking (): void
+    protected function makeRanking(): void
     {
         $result = [];
 
@@ -73,27 +72,27 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $rank = 1;
         $done = 0;
 
-        foreach ($this->_Comparison as $candidate_key => $candidate_data) :
+        foreach ($this->_Comparison as $candidate_key => $candidate_data) {
             $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
-        endforeach;
+        }
 
-        while ($done < $this->getElection()->countCandidates()) :
+        while ($done < $this->getElection()->countCandidates()) {
             $looking = $this->looking($challenge);
 
-            foreach ($challenge as $candidate => $value) :
-                if ($value === $looking) :
+            foreach ($challenge as $candidate => $value) {
+                if ($value === $looking) {
                     $result[$rank][] = $candidate;
 
                     $done++;
                     unset($challenge[$candidate]);
-                endif;
-            endforeach;
+                }
+            }
 
             $rank++;
-        endwhile;
+        }
 
         $this->_Result = $this->createResult($result);
     }
 
-    abstract protected function looking (array $challenge): int;
+    abstract protected function looking(array $challenge): int;
 }

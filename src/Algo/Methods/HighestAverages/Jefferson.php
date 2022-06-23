@@ -23,11 +23,10 @@ class Jefferson extends HighestAverages_Core implements MethodInterface
     public const METHOD_NAME = ['Jefferson', 'D\'Hondt', 'Thomas Jefferson'];
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
-    protected function computeQuotient (int $votesWeight, int $seats): float
+    protected function computeQuotient(int $votesWeight, int $seats): float
     {
         return (float) ($votesWeight / ($seats + 1));
     }
-
 }

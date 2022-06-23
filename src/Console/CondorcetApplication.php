@@ -15,7 +15,6 @@ use Symfony\Component\Console\Application as SymfonyConsoleApplication;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 
-
 abstract class CondorcetApplication
 {
     public static SymfonyConsoleApplication $SymfonyConsoleApplication;
@@ -23,23 +22,23 @@ abstract class CondorcetApplication
     /**
      * @infection-ignore-all
      */
-    public static function run (): void
+    public static function run(): void
     {
-       // Run
-       self::create() && self::$SymfonyConsoleApplication->run();
+        // Run
+        self::create() && self::$SymfonyConsoleApplication->run();
     }
 
-    public static function create (): bool
+    public static function create(): bool
     {
         // New App
         self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet', Condorcet::getVersion());
 
         // ... register commands
 
-            // Election commande
-            $command = new ElectionCommand;
-            self::$SymfonyConsoleApplication->add($command);
-            self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
+        // Election commande
+        $command = new ElectionCommand;
+        self::$SymfonyConsoleApplication->add($command);
+        self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
 
         return true;
     }

@@ -31,7 +31,7 @@ abstract class Method
 
     // Static
 
-    final public static function setOption (string $optionName, array|\BackedEnum|int|string $optionValue): bool
+    final public static function setOption(string $optionName, array|\BackedEnum|int|string $optionValue): bool
     {
         $optionVar = 'option'.ucfirst($optionName);
 
@@ -43,16 +43,16 @@ abstract class Method
     //
 
     #[Throws(CandidatesMaxNumberReachedException::class)]
-    public function __construct (Election $mother)
+    public function __construct(Election $mother)
     {
         $this->setElection($mother);
 
-        if (!\is_null(static::$MaxCandidates) && $mother->countCandidates() > static::$MaxCandidates) :
+        if (!\is_null(static::$MaxCandidates) && $mother->countCandidates() > static::$MaxCandidates) {
             throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
-        endif;
+        }
     }
 
-    public function __serialize (): array
+    public function __serialize(): array
     {
         $r = \get_object_vars($this);
         unset($r['_selfElection']);
@@ -60,55 +60,57 @@ abstract class Method
         return $r;
     }
 
-    public function setElection (Election $election): void
+    public function setElection(Election $election): void
     {
         $this->_selfElection = \WeakReference::create($election);
     }
 
     #[InternalModulesAPI]
-    public function getElection (): Election
+    public function getElection(): Election
     {
         return $this->_selfElection->get();
     }
 
     #[InternalModulesAPI]
-    public function getResult (): Result
+    public function getResult(): Result
     {
         // Cache
-        if ( $this->_Result !== null ) :
+        if ($this->_Result !== null) {
             return $this->_Result;
-        endif;
+        }
 
         $this->compute();
 
         return $this->_Result;
     }
 
-    protected function compute (): void {}
-
-    abstract protected function getStats (): array;
-
-    protected function createResult (array $result): Result
+    protected function compute(): void
     {
-    	$optionsList = \array_keys((new \ReflectionClass(static::class))->getStaticProperties());
+    }
+
+    abstract protected function getStats(): array;
+
+    protected function createResult(array $result): Result
+    {
+        $optionsList = \array_keys((new \ReflectionClass(static::class))->getStaticProperties());
         $optionsList = \array_filter($optionsList, function (string $name): bool {
-            return \str_starts_with($name ,'option');
+            return \str_starts_with($name, 'option');
         });
 
         $methodOptions = [];
 
-        foreach ($optionsList as $oneOption) :
-            $methodOptions[\substr($oneOption,6)] = static::$$oneOption;
-        endforeach;
+        foreach ($optionsList as $oneOption) {
+            $methodOptions[\substr($oneOption, 6)] = static::$$oneOption;
+        }
 
-        return new Result (
+        return new Result(
             fromMethod: static::METHOD_NAME[0],
             byClass: $this::class,
-    		election: $this->getElection(),
-    		result: $result,
+            election: $this->getElection(),
+            result: $result,
             stats: ($this->getElection()->getStatsVerbosity()->value > StatsVerbosity::NONE->value) ? $this->getStats() : null,
             seats: (static::IS_PROPORTIONAL) ? $this->getElection()->getNumberOfSeats() : null,
             methodOptions: $methodOptions
-    	);
+        );
     }
 }

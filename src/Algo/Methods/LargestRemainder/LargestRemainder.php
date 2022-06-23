@@ -26,7 +26,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
 
     public static StvQuotas $optionQuota = StvQuotas::HARE;
 
-    protected function makeRounds (): array
+    protected function makeRounds(): array
     {
         $election = $this->getElection();
         $results = [];
@@ -35,37 +35,36 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
 
         $quotient = $this->computeQuotient($election->sumValidVotesWeightWithConstraints(), $election->getNumberOfSeats());
 
-        while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) :
+        while (\array_sum($this->candidatesSeats) < $election->getNumberOfSeats()) {
             $roundNumber = \count($this->rounds) + 1;
             $maxVotes = null;
             $maxVotesCandidateKey = null;
 
-            foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) :
-
+            foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) {
                 $this->rounds[$roundNumber][$candidateKey]['NumberOfVotesAllocatedBeforeRound'] = $oneCandidateVotes;
                 $this->rounds[$roundNumber][$candidateKey]['NumberOfSeatsAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
 
-                if ($oneCandidateVotes > $maxVotes) :
+                if ($oneCandidateVotes > $maxVotes) {
                     $maxVotes = $oneCandidateVotes;
                     $maxVotesCandidateKey = $candidateKey;
-                endif;
-            endforeach;
+                }
+            }
 
-            if ($maxVotesCandidateKey === null) :
+            if ($maxVotesCandidateKey === null) {
                 $n = \current($rescueCandidatesKeys);
                 $maxVotesCandidateKey = $n;
                 \next($rescueCandidatesKeys) !== false || \reset($rescueCandidatesKeys);
-            endif;
+            }
 
             $this->candidatesVotes[$maxVotesCandidateKey] -= $quotient;
             $this->candidatesSeats[$maxVotesCandidateKey]++;
             $results[$roundNumber] = $maxVotesCandidateKey;
-        endwhile;
+        }
 
         return $results;
     }
 
-    protected function computeQuotient (int $votesWeight, int $seats): float
+    protected function computeQuotient(int $votesWeight, int $seats): float
     {
         return self::$optionQuota->getQuota($votesWeight, $seats);
     }

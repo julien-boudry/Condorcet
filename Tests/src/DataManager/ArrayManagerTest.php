@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\{Election, Vote};
 use PHPUnit\Framework\TestCase;
 
 class ArrayManagerTest extends TestCase
@@ -14,27 +14,29 @@ class ArrayManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ArrayManager = new class(new Election) extends ArrayManager {
-            protected function preDeletedTask ($object): void {}
-            protected function decodeOneEntity (string $data): Vote
+        $this->ArrayManager = new class (new Election) extends ArrayManager {
+            protected function preDeletedTask($object): void
             {
-                $vote = new Vote ($data);
+            }
+            protected function decodeOneEntity(string $data): Vote
+            {
+                $vote = new Vote($data);
                 $this->_Election->checkVoteCandidate($vote);
                 $vote->registerLink($this->_Election->get());
 
                 return $vote;
             }
 
-            protected function encodeOneEntity (Vote $data): string
+            protected function encodeOneEntity(Vote $data): string
             {
                 $data->destroyLink($this->_Election->get());
 
-                return \str_replace([' > ',' = '],['>','='],(string) $data);
+                return \str_replace([' > ',' = '], ['>','='], (string) $data);
             }
         };
     }
 
-    public function testOffsetSetAndOffetsetGet (): void
+    public function testOffsetSetAndOffetsetGet(): void
     {
         self::assertNull($this->ArrayManager->key());
 

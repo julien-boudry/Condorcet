@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\STV;
@@ -24,7 +25,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::DROOP);
     }
 
-    public function testQuotaOption (): never
+    public function testQuotaOption(): never
     {
         self::assertTrue(
             $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'))
@@ -40,7 +41,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->getResult('STV');
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://fr.wikipedia.org/wiki/Scrutin_%C3%A0_vote_unique_transf%C3%A9rable
 
@@ -92,7 +93,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'A',
                 2 => 'B'
              ],
@@ -100,7 +102,7 @@ class SingleTransferableVoteTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://en.wikipedia.org/wiki/Single_transferable_vote
 
@@ -162,11 +164,12 @@ class SingleTransferableVoteTest extends TestCase
                 [
                 'Strawberry' => 5.0,
                 ],
-            ]
-        , $this->election->getResult('STV')->getStats()['rounds']
+            ],
+            $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Chocolate',
                 2 => 'Orange',
                 3 => 'Strawberry'
@@ -175,7 +178,7 @@ class SingleTransferableVoteTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         # From https://en.wikipedia.org/wiki/Schulze_STV
 
@@ -218,7 +221,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Andrea',
                 2 => 'Brad'
              ],
@@ -229,7 +233,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertArrayNotHasKey('rounds', $this->election->getResult('STV')->getStats());
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         # From https://it.wikipedia.org/wiki/Voto_singolo_trasferibile
 
@@ -255,7 +259,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'A',
                 2 => 'D',
                 3 => 'C'
@@ -265,7 +270,7 @@ class SingleTransferableVoteTest extends TestCase
     }
 
 
-    public function testResult_AlternativeQuotas1 (): void
+    public function testResult_AlternativeQuotas1(): void
     {
         # From https://en.wikipedia.org/wiki/Hagenbach-Bischoff_quota
 
@@ -308,7 +313,8 @@ class SingleTransferableVoteTest extends TestCase
             delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Andrea',
                 2 => 'Carter',
              ],
@@ -318,7 +324,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Hagenbach-Bischoff'));
     }
 
-    public function testResult_AlternativeQuotas2 (): void
+    public function testResult_AlternativeQuotas2(): void
     {
         # From https://en.wikipedia.org/wiki/Imperiali_quota
 
@@ -360,7 +366,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Andrea',
                 2 => 'Carter',
              ],
@@ -370,7 +377,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Imperiali quota'));
     }
 
-    public function testResult_AlternativeQuotas3 (): void
+    public function testResult_AlternativeQuotas3(): void
     {
         # From https://en.wikipedia.org/wiki/Hare_quota
 
@@ -413,7 +420,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Andrea',
                 2 => 'Brad',
              ],
@@ -423,7 +431,7 @@ class SingleTransferableVoteTest extends TestCase
         self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::HARE);
     }
 
-    public function testResult_AlternativeQuotas4 (): void
+    public function testResult_AlternativeQuotas4(): void
     {
         # From https://en.wikipedia.org/wiki/CPO-STV
 
@@ -478,7 +486,8 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame( [
+        self::assertSame(
+            [
                 1 => 'Carter',
                 2 => 'Andrea',
                 3 => 'Scott'
@@ -486,5 +495,4 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
     }
-
 }

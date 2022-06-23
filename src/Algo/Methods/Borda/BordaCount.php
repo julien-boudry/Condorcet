@@ -25,69 +25,69 @@ class BordaCount extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected function getStats (): array
+    protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $candidateKey => $oneScore) :
-             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
-        endforeach;
+        foreach ($this->_Stats as $candidateKey => $oneScore) {
+            $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
+        }
 
         return $stats;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: BORDA ALGORITHM. :://
 
-    protected function compute (): void
+    protected function compute(): void
     {
         $election = $this->getElection();
         $score = [];
 
-        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
+        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
             $score[$oneCandidateKey] = 0;
-        endforeach;
+        }
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) :
+        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $CandidatesRanked = 0;
             $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
 
-            foreach ($oneRanking as $oneRank) :
+            foreach ($oneRanking as $oneRank) {
                 $rankScore = 0.0;
-                foreach ($oneRank as $oneCandidateInRank) :
+                foreach ($oneRank as $oneCandidateInRank) {
                     $rankScore += $this->getScoreByCandidateRanking($CandidatesRanked++, $election);
-                endforeach;
+                }
 
-                foreach ($oneRank as $oneCandidateInRank) :
+                foreach ($oneRank as $oneCandidateInRank) {
                     $score[$election->getCandidateKey($oneCandidateInRank)] += ($rankScore / \count($oneRank)) * $oneVote->getWeight($election);
-                endforeach;
-            endforeach;
-        endforeach;
+                }
+            }
+        }
 
-        \array_walk($score, fn(float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        \array_walk($score, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
         \ksort($score, \SORT_NATURAL);
-        \arsort($score,\SORT_NUMERIC);
+        \arsort($score, \SORT_NUMERIC);
 
         $rank = 0;
         $lastScore = null;
         $result = [];
-        foreach ($score as $candidateKey => $candidateScore) :
-            if ($candidateScore === $lastScore) :
+        foreach ($score as $candidateKey => $candidateScore) {
+            if ($candidateScore === $lastScore) {
                 $result[$rank][] = $candidateKey;
-            else :
+            } else {
                 $result[++$rank] = [$candidateKey];
                 $lastScore = $candidateScore;
-            endif;
-        endforeach;
+            }
+        }
 
         $this->_Stats = $score;
         $this->_Result = $this->createResult($result);
     }
 
-    protected function getScoreByCandidateRanking (int $CandidatesRanked, Election $election): float
+    protected function getScoreByCandidateRanking(int $CandidatesRanked, Election $election): float
     {
         return (float) ($election->countCandidates() + static::$optionStarting - 1 - $CandidatesRanked);
     }

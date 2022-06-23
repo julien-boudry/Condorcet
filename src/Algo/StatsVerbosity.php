@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 // Manage Candidates for Election class
-Enum StatsVerbosity: int
+enum StatsVerbosity: int
 {
     case NONE = 0; // No stats
     case LOW = 100; // Minal Stats

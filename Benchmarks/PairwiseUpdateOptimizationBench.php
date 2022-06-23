@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
@@ -6,19 +7,18 @@ namespace CondorcetPHP\Condorcet\Benchmarks;
 use CondorcetPHP\Condorcet\Election;
 use PhpBench\Attributes as Bench;
 
-
 class PairwiseUpdateOptimizationBench
 {
     #[Bench\Warmup(1)]
     #[Bench\Iterations(2)]
     #[Bench\Revs(4)]
-    public function benchPairwiseOptimization (): void
+    public function benchPairwiseOptimization(): void
     {
-       $election = new Election;
+        $election = new Election;
 
-       $election->parseCandidates('A;B;C;D;E;F;G');
+        $election->parseCandidates('A;B;C;D;E;F;G');
 
-       $election->parseVotes('
+        $election->parseVotes('
           E > B > C > A > G * 2500
           F > B > G > H > A * 2500
           H > B > G > E > A * 2500
@@ -37,5 +37,4 @@ class PairwiseUpdateOptimizationBench
 
         $election->getWinner();
     }
-
 }

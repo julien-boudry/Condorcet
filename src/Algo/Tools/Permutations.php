@@ -12,10 +12,8 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
-use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException as CondorcetIntegerOverflowException;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\PublicAPI;
-use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException as CondorcetIntegerOverflowException};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, PublicAPI};
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
@@ -23,72 +21,72 @@ use SplFixedArray;
 class Permutations
 {
     #[PublicAPI] // Must be available with composer installation. Only applied to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
-    static bool $useBigIntegerIfAvailable = true;
+    public static bool $useBigIntegerIfAvailable = true;
 
     protected readonly array $candidates;
 
-    public static function getPossibleCountOfPermutations (int $candidatesNumber): int
+    public static function getPossibleCountOfPermutations(int $candidatesNumber): int
     {
-        if ($candidatesNumber < 1) :
+        if ($candidatesNumber < 1) {
             throw new CondorcetInternalException('Parameters invalid');
-        endif;
+        }
 
-        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) :
+        if (self::$useBigIntegerIfAvailable && \class_exists('Brick\Math\BigInteger')) {
             $result = BigInteger::of($candidatesNumber);
 
-            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) :
+            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) {
                 $result = $result->multipliedBy($candidatesNumber - $iteration);
-            endfor;
+            }
 
             try {
                 return $result->toInt();
             } catch (IntegerOverflowException $e) {
                 throw new CondorcetIntegerOverflowException($e->getMessage());
             }
-        else :
+        } else {
             $result = $candidatesNumber;
 
-            for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++) :
+            for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++) {
                 $result = $result * ($candidatesNumber - $iteration);
-            endfor;
+            }
 
-            if (\is_float($result)) :
+            if (\is_float($result)) {
                 throw new CondorcetIntegerOverflowException;
-            else :
+            } else {
                 return $result;
-            endif;
-        endif;
+            }
+        }
     }
 
-    public function __construct (array $candidates)
+    public function __construct(array $candidates)
     {
         $this->candidates = \array_values($candidates);
     }
 
-    public function getResults (): SplFixedArray
+    public function getResults(): SplFixedArray
     {
         $results = new SplFixedArray(self::getPossibleCountOfPermutations(\count($this->candidates)));
         $arrKey = 0;
 
-        foreach ($this->getPermutationGenerator() as $onePermutation) :
+        foreach ($this->getPermutationGenerator() as $onePermutation) {
             $results[$arrKey++] = $onePermutation;
-        endforeach;
+        }
 
         return $results;
     }
 
-    public function getPermutationGenerator (): \Generator
+    public function getPermutationGenerator(): \Generator
     {
         return $this->permutationGenerator($this->candidates);
     }
 
-    protected function permutationGenerator (array $elements) : \Generator
+    protected function permutationGenerator(array $elements): \Generator
     {
-        if (count($elements) <= 1) :
+        if (count($elements) <= 1) {
             yield [1 => \reset($elements)]; // Set the only key to index 1
-        else :
-            foreach ($this->permutationGenerator(\array_slice($elements, 1)) as $permutation) :
-                foreach (\range(0, \count($elements) - 1) as $i) :
+        } else {
+            foreach ($this->permutationGenerator(\array_slice($elements, 1)) as $permutation) {
+                foreach (\range(0, \count($elements) - 1) as $i) {
                     $r = \array_merge(
                         \array_slice($permutation, 0, $i),
                         [$elements[0]],
@@ -100,8 +98,8 @@ class Permutations
                     unset($r[0]);
 
                     yield $r;
-                endforeach;
-            endforeach;
-        endif;
+                }
+            }
+        }
     }
 }

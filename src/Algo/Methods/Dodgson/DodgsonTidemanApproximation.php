@@ -25,11 +25,11 @@ class DodgsonTidemanApproximation extends PairwiseStatsBased_Core implements Met
     protected const COUNT_TYPE = 'sum_defeat_margin';
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function looking (array $challenge): int
+    protected function looking(array $challenge): int
     {
         return \min($challenge);
     }

@@ -17,7 +17,7 @@ use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
 #[PublicAPI]
-Enum StvQuotas: string
+enum StvQuotas: string
 {
     case DROOP = 'Droop Quota';
     case HARE = 'Hare Quota';
@@ -28,11 +28,10 @@ Enum StvQuotas: string
     #[Description("Build the Enum Quotas option for STV methods")]
     #[FunctionReturn("The Quota option")]
     #[Example("Manual - STV method", "https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote")]
-    public static function make (
+    public static function make(
         #[FunctionParameter('Quota name')]
         string $quota
-    ): self
-    {
+    ): self {
         try {
             return match (strtolower($quota)) {
                 'droop quota', 'droop' => self::DROOP,
@@ -45,10 +44,10 @@ Enum StvQuotas: string
         }
     }
 
-    public function getQuota (int $votesWeight, int $seats): float
+    public function getQuota(int $votesWeight, int $seats): float
     {
         return match ($this) {
-            self::DROOP => floor(( $votesWeight / ($seats + 1) ) + 1),
+            self::DROOP => floor(($votesWeight / ($seats + 1)) + 1),
             self::HARE => $votesWeight / $seats,
             self::HAGENBACH_BISCHOFF => $votesWeight / ($seats + 1),
             self::IMPERIALI, => $votesWeight / ($seats + 2),

@@ -10,9 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
-use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Candidate, Election};
 
 class DavidHillFormat implements ConverterInterface
 {
@@ -25,13 +24,12 @@ class DavidHillFormat implements ConverterInterface
 
     #[PublicAPI]
     #[Description("Read a Tideman format file")]
-    public function __construct (
+    public function __construct(
         #[FunctionParameter('File absolute path')]
         string $filePath
-    )
-    {
-        $this->lines = \file($filePath , \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
-        (end($this->lines) === '') ? array_pop($this->lines):null; # Remove bad format from most popular source for this format (elections A01 and A04)
+    ) {
+        $this->lines = \file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        (end($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
         $this->readNumberOfSeats();
         $this->readCandidatesNames();
@@ -42,37 +40,36 @@ class DavidHillFormat implements ConverterInterface
     #[Description("Add the data to an election object")]
     #[FunctionReturn("The election object")]
     #[Related("Tools\CondorcetElectionFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
-    public function setDataToAnElection (
+    public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         ?Election $election = null
-    ): Election
-    {
-        if ($election === null) :
+    ): Election {
+        if ($election === null) {
             $election = new Election;
-        endif;
+        }
 
         $election->setNumberOfSeats($this->NumberOfSeats);
 
-        foreach ($this->candidates as $oneCandidate) :
+        foreach ($this->candidates as $oneCandidate) {
             $election->addCandidate($oneCandidate);
-        endforeach;
+        }
 
-        foreach($this->lines as $oneVote) :
+        foreach ($this->lines as $oneVote) {
             $election->addVote($oneVote);
-        endforeach;
+        }
 
         return $election;
     }
 
     // Internal
-    protected function readNumberOfSeats (): void
+    protected function readNumberOfSeats(): void
     {
         $first_line = reset($this->lines);
 
         $this->NumberOfSeats = (int) explode(' ', $first_line)[1];
     }
 
-    protected function readCandidatesNames (): void
+    protected function readCandidatesNames(): void
     {
         $last_line = end($this->lines);
         $last_line = ltrim($last_line, '"');
@@ -81,25 +78,25 @@ class DavidHillFormat implements ConverterInterface
         // Remove Election Name
         array_pop($last_line);
 
-        foreach($last_line as &$oneCandidate) :
+        foreach ($last_line as &$oneCandidate) {
             $oneCandidate = str_replace('"', '', $oneCandidate);
             $oneCandidate = new Candidate($oneCandidate);
-        endforeach;
+        }
 
         $this->candidates = $last_line;
     }
 
-    protected function readVotes (): void
+    protected function readVotes(): void
     {
         // Remove last two lines
-        array_pop( $this->lines); // Last
-        array_pop( $this->lines); // New Last
+        array_pop($this->lines); // Last
+        array_pop($this->lines); // New Last
 
         // Remove first line
-        array_shift( $this->lines);
+        array_shift($this->lines);
 
         // Read each line
-        foreach ($this->lines as &$oneVote) :
+        foreach ($this->lines as &$oneVote) {
             $oneVote = explode(' ', $oneVote);
 
             // Remove first line
@@ -107,11 +104,10 @@ class DavidHillFormat implements ConverterInterface
             // Remove Last line
             array_pop($oneVote);
 
-            foreach ($oneVote as &$oneRank) :
+            foreach ($oneVote as &$oneRank) {
                 $oneRank = (int) $oneRank;
                 $oneRank = $this->candidates[$oneRank - 1];
-            endforeach;
-        endforeach;
+            }
+        }
     }
-
 }

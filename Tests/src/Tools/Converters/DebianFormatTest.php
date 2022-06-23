@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
@@ -20,12 +21,12 @@ class DebianFormatTest extends TestCase
         self::$debian2006 ?? (self::$debian2006 = new DebianFormat(__DIR__.'/DebianData/leader2006_tally.txt'));
     }
 
-    public function test2020_Implicit (): void
+    public function test2020_Implicit(): void
     {
         $election = self::$debian2020->setDataToAnElection();
 
-        self::assertSame(339,$election->countVotes());
-        self::assertSame(1,$election->getNumberOfSeats());
+        self::assertSame(339, $election->countVotes());
+        self::assertSame(1, $election->getNumberOfSeats());
 
         self::assertSame(
             'Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above',
@@ -38,7 +39,7 @@ class DebianFormatTest extends TestCase
         );
     }
 
-    public function test2020_Explicit (): void
+    public function test2020_Explicit(): void
     {
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -46,7 +47,7 @@ class DebianFormatTest extends TestCase
 
         self::$debian2020->setDataToAnElection($election);
 
-        self::assertSame(339,$election->countVotes());
+        self::assertSame(339, $election->countVotes());
 
         self::assertSame(
             'Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above',
@@ -54,12 +55,12 @@ class DebianFormatTest extends TestCase
         );
     }
 
-    public function test2007_Implicit (): void
+    public function test2007_Implicit(): void
     {
         $election = self::$debian2007->setDataToAnElection();
 
-        self::assertSame(482,$election->countVotes());
-        self::assertSame(1,$election->getNumberOfSeats());
+        self::assertSame(482, $election->countVotes());
+        self::assertSame(1, $election->getNumberOfSeats());
 
         self::assertSame(
             'Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs',
@@ -67,7 +68,7 @@ class DebianFormatTest extends TestCase
         );
     }
 
-    public function test2007_Explicit (): void
+    public function test2007_Explicit(): void
     {
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -75,7 +76,7 @@ class DebianFormatTest extends TestCase
 
         self::$debian2007->setDataToAnElection($election);
 
-        self::assertSame(482,$election->countVotes());
+        self::assertSame(482, $election->countVotes());
 
         self::assertSame(
             'Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs',
@@ -83,12 +84,12 @@ class DebianFormatTest extends TestCase
         );
     }
 
-    public function test2006_Implicit (): void
+    public function test2006_Implicit(): void
     {
         $election = self::$debian2006->setDataToAnElection();
 
-        self::assertSame(421,$election->countVotes());
-        self::assertSame(1,$election->getNumberOfSeats());
+        self::assertSame(421, $election->countVotes());
+        self::assertSame(1, $election->getNumberOfSeats());
 
         self::assertSame(
             'Anthony Towns > Steve McIntyre > Andreas Schuldei = Jeroen van Wolffelaar > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther',
@@ -96,7 +97,7 @@ class DebianFormatTest extends TestCase
         );
     }
 
-    public function test2006_Explicit (): void
+    public function test2006_Explicit(): void
     {
         $election = new Election;
         $election->setImplicitRanking(false);
@@ -104,7 +105,7 @@ class DebianFormatTest extends TestCase
 
         self::$debian2006->setDataToAnElection($election);
 
-        self::assertSame(421,$election->countVotes());
+        self::assertSame(421, $election->countVotes());
 
         self::assertSame(
             'Steve McIntyre > Anthony Towns > Jeroen van Wolffelaar > Andreas Schuldei > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther',

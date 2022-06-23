@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods;
@@ -17,20 +18,20 @@ class CondorcetBasicTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_Basic (): void
+    public function testResult_Basic(): void
     {
         $this->election->addCandidate('a');
         $this->election->addCandidate('b');
         $this->election->addCandidate('c');
 
-        $vote = new Vote ('a');
+        $vote = new Vote('a');
 
         $this->election->addVote($vote);
 
         self::assertEquals('a', $this->election->getCondorcetWinner());
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         $this->election->addCandidate('a');
         $this->election->addCandidate('b');
@@ -46,7 +47,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('c', $this->election->getCondorcetWinner());
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         $this->election->addCandidate('X');
         $this->election->addCandidate('Y');
@@ -64,7 +65,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('X', $this->election->getWinner('Schulze'));
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -82,7 +83,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('Memphis', $this->election->getCondorcetLoser());
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         $this->election->addCandidate('Memphis');
         $this->election->addCandidate('Nashville');
@@ -99,7 +100,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('Chattanooga', $this->election->getCondorcetWinner());
     }
 
-    public function testResult_5 (): void
+    public function testResult_5(): void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -121,7 +122,7 @@ class CondorcetBasicTest extends TestCase
         self::assertSame(null, $this->election->getCondorcetWinner());
     }
 
-    public function testResult_6 (): void
+    public function testResult_6(): void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -139,7 +140,7 @@ class CondorcetBasicTest extends TestCase
         self::assertEquals('L', $this->election->getCondorcetLoser());
     }
 
-    public function testNoResultObject (): never
+    public function testNoResultObject(): never
     {
         $this->expectException(AlgorithmWithoutRankingFeatureException::class);
         $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): ".CondorcetBasic::METHOD_NAME[0]);
@@ -157,5 +158,4 @@ class CondorcetBasicTest extends TestCase
 
         $this->election->getResult(CondorcetBasic::class);
     }
-
 }

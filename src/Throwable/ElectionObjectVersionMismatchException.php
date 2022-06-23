@@ -16,7 +16,7 @@ class ElectionObjectVersionMismatchException extends CondorcetPublicApiException
 {
     protected $message = "Version mismatch";
 
-    public function __construct (string $message = '')
+    public function __construct(string $message = '')
     {
         parent::__construct(
             "The election object has version '$message' " .

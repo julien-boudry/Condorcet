@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Dodgson;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 // DODGSON Quick is an approximation for Dodgson method | https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
@@ -24,66 +23,66 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected ?array $_Stats = null;
 
-    protected function getStats (): array
+    protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $candidateKey => $dodgsonQuickValue) :
-             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
-        endforeach;
+        foreach ($this->_Stats as $candidateKey => $dodgsonQuickValue) {
+            $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
+        }
 
         return $stats;
     }
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
     //:: DODGSON ALGORITHM. :://
 
-    protected function compute (): void
+    protected function compute(): void
     {
         $election = $this->getElection();
 
         $pairwise = $election->getPairwise();
         $HeadToHead = [];
 
-        foreach ($pairwise as $candidateId => $CandidateStats) :
-            foreach ($CandidateStats['lose'] as $opponentId => $CandidateLose) :
-                if (($diff = $CandidateLose - $CandidateStats['win'][$opponentId]) >= 0) :
+        foreach ($pairwise as $candidateId => $CandidateStats) {
+            foreach ($CandidateStats['lose'] as $opponentId => $CandidateLose) {
+                if (($diff = $CandidateLose - $CandidateStats['win'][$opponentId]) >= 0) {
                     $HeadToHead[$candidateId][$opponentId] = $diff;
-                endif;
-            endforeach;
-        endforeach;
+                }
+            }
+        }
 
         $dodgsonQuick = [];
 
-        foreach ($HeadToHead as $candidateId => $CandidateTidemanScores) :
+        foreach ($HeadToHead as $candidateId => $CandidateTidemanScores) {
             $dodgsonQuick[$candidateId] = 0;
 
-            foreach ($CandidateTidemanScores as $opponentId => $oneTidemanScore) :
+            foreach ($CandidateTidemanScores as $opponentId => $oneTidemanScore) {
                 $dodgsonQuick[$candidateId] += \ceil($oneTidemanScore / 2);
-            endforeach;
-        endforeach;
+            }
+        }
         \asort($dodgsonQuick);
 
         $rank = 0;
         $result = [];
 
-        if($basicCondorcetWinner = $election->getWinner(null)) :
+        if ($basicCondorcetWinner = $election->getWinner(null)) {
             $result[++$rank][] = $election->getCandidateKey($basicCondorcetWinner);
-        endif;
+        }
 
         $lastDodgsonQuickValue = null;
 
-        foreach ($dodgsonQuick as $CandidateId => $dodgsonQuickValue) :
-            if($lastDodgsonQuickValue === $dodgsonQuickValue) :
+        foreach ($dodgsonQuick as $CandidateId => $dodgsonQuickValue) {
+            if ($lastDodgsonQuickValue === $dodgsonQuickValue) {
                 $result[$rank][] = $CandidateId;
-            else:
+            } else {
                 $result[++$rank][] = $CandidateId;
                 $lastDodgsonQuickValue = $dodgsonQuickValue;
-            endif;
-        endforeach;
+            }
+        }
 
         $this->_Stats = $dodgsonQuick;
         $this->_Result = $this->createResult($result);

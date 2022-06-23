@@ -1,16 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
-use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, ResultRequestedWithoutVotesException};
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
-use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
-
 
 class ElectionCommandTest extends TestCase
 {
@@ -23,9 +22,10 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand = new CommandTester(CondorcetApplication::$SymfonyConsoleApplication->find('election'));
     }
 
-    public function testConsoleSimpleElection (): void
+    public function testConsoleSimpleElection(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--candidates' => 'A;B;C',
                                             '--votes' => 'A>B>C;C>B>A;B>A>C',
                                             '--stats' => null,
@@ -35,7 +35,8 @@ class ElectionCommandTest extends TestCase
                                             '--list-votes' => null,
                                             '--deactivate-implicit-ranking' => null,
                                             '--show-pairwise' => null
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
@@ -58,9 +59,10 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleSeats (): void
+    public function testConsoleSeats(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--candidates' => 'A;B;C',
                                             '--votes' => 'A>B>C;C>B>A;B>A>C',
                                             '--stats' => null,
@@ -73,7 +75,8 @@ class ElectionCommandTest extends TestCase
 
                                             '--seats' => 42,
                                             'methods' => ['STV']
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
@@ -88,7 +91,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testQuotas (): void
+    public function testQuotas(): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -115,7 +118,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Imperiali', $output);
     }
 
-    public function testConsoleAllMethodsArgument (): void
+    public function testConsoleAllMethodsArgument(): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -132,7 +135,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleMultiplesMethods (): void
+    public function testConsoleMultiplesMethods(): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -151,7 +154,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testConsoleFileInput (): void
+    public function testConsoleFileInput(): void
     {
         $this->electionCommand->execute([
             '--candidates' => __DIR__.'/data.candidates',
@@ -166,7 +169,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('C#', $output);
     }
 
-    public function testInteractiveCommand (): void
+    public function testInteractiveCommand(): void
     {
         $this->electionCommand->setInputs([
             'A',
@@ -189,18 +192,18 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 
-    public function testNonInteractionMode (): never
+    public function testNonInteractionMode(): never
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
         $this->expectExceptionMessage("The result cannot be requested without votes");
 
-        $this->electionCommand->execute([],['interactive' => false]);
+        $this->electionCommand->execute([], ['interactive' => false]);
 
         // $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
     }
 
-    public function testCustomizeVotesPerMb (): void
+    public function testCustomizeVotesPerMb(): void
     {
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
@@ -214,14 +217,14 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
     }
 
-    public function testVoteWithDb1 (): void
+    public function testVoteWithDb1(): void
     {
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
 
         $this->electionCommand->execute([
                                             '--candidates' => 'A;B;C',
                                             '--votes-per-mb' => 1,
-                                            '--votes' => 'A>B>C * '.( ((int) \preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
+                                            '--votes' => 'A>B>C * '.(((int) \preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
                                         ], [
                                             'verbosity' => OutputInterface::VERBOSITY_DEBUG
                                         ]);
@@ -237,7 +240,7 @@ class ElectionCommandTest extends TestCase
     }
 
 
-    public function testNaturalCondorcet (): void
+    public function testNaturalCondorcet(): void
     {
         $this->electionCommand->execute([
             '--candidates' => 'A;B;C',
@@ -251,28 +254,32 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('# Condorcet loser  | NULL', $output);
     }
 
-    public function testFromCondorcetElectionFormat_DoubleCandidates (): void
+    public function testFromCondorcetElectionFormat_DoubleCandidates(): void
     {
         $this->expectException(CandidateExistsException::class);
 
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--candidates' => 'A;B;C',
                                             '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
     }
 
-    public function testFromCondorcetElectionFormat_ArgumentpriorityAndDoubleVoteArgument (): void
+    public function testFromCondorcetElectionFormat_ArgumentpriorityAndDoubleVoteArgument(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
                                             '--votes' => 'C>A',
                                             '--deactivate-implicit-ranking' => null,
                                             '--no-tie' => null,
                                             '--allows-votes-weight' => null,
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
@@ -294,11 +301,13 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testFromCondorcetElectionFormat_Arguments (): void
+    public function testFromCondorcetElectionFormat_Arguments(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
@@ -322,7 +331,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testVoteWithDb_CondorcetElectionFormat (): void
+    public function testVoteWithDb_CondorcetElectionFormat(): void
     {
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
 
@@ -343,12 +352,14 @@ class ElectionCommandTest extends TestCase
         # And absence of this error: unlink(path): Resource temporarily unavailable
     }
 
-    public function testFromDebianFormat (): void
+    public function testFromDebianFormat(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--import-debian-format' => __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt',
                                             'methods' => ['STV'],
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );
@@ -373,12 +384,14 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('[OK] Success', $output);
     }
 
-    public function testFromDavidHillFormat (): void
+    public function testFromDavidHillFormat(): void
     {
-        $this->electionCommand->execute([
+        $this->electionCommand->execute(
+            [
                                             '--import-david-hill-format' => __DIR__.'/../../Tools/Converters/TidemanData/A1.HIL',
                                             'methods' => ['STV'],
-                                        ],[
+                                        ],
+            [
                                             'verbosity' => OutputInterface::VERBOSITY_VERBOSE
                                         ]
         );

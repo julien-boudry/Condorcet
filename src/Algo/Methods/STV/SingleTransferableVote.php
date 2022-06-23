@@ -32,9 +32,9 @@ class SingleTransferableVote extends Method implements MethodInterface
     protected float $votesNeededToWin;
 
 
-/////////// COMPUTE ///////////
+    /////////// COMPUTE ///////////
 
-    protected function compute (): void
+    protected function compute(): void
     {
         $election = $this->getElection();
         Vote::initCache(); // Performances
@@ -52,17 +52,17 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $surplusToTransfer = [];
 
-        while (!$end) :
+        while (!$end) {
             $scoreTable = $this->makeScore($surplusToTransfer, $candidateElected, $candidateEliminated);
             \ksort($scoreTable, \SORT_NATURAL);
             \arsort($scoreTable, \SORT_NUMERIC);
 
             $successOnRank = false;
 
-            foreach($scoreTable as $candidateKey => $oneScore) :
+            foreach ($scoreTable as $candidateKey => $oneScore) {
                 $surplus = $oneScore - $this->votesNeededToWin;
 
-                if ($surplus >= 0) :
+                if ($surplus >= 0) {
                     $result[++$rank] = [$candidateKey];
                     $candidateElected[] = $candidateKey;
 
@@ -70,45 +70,43 @@ class SingleTransferableVote extends Method implements MethodInterface
                     $surplusToTransfer[$candidateKey]['surplus'] += $surplus;
                     $surplusToTransfer[$candidateKey]['total'] += $oneScore;
                     $successOnRank = true;
-                endif;
-            endforeach;
+                }
+            }
 
-            if (!$successOnRank && !empty($scoreTable)) :
+            if (!$successOnRank && !empty($scoreTable)) {
                 $candidateEliminated[] = \array_key_last($scoreTable);
-            elseif (empty($scoreTable) || $rank >= $election->getNumberOfSeats()) :
+            } elseif (empty($scoreTable) || $rank >= $election->getNumberOfSeats()) {
                 $end = true;
-            endif;
+            }
 
             $this->_Stats[++$round] = $scoreTable;
+        }
 
-        endwhile;
-
-        while ($rank < $election->getNumberOfSeats() && !empty($candidateEliminated)) :
+        while ($rank < $election->getNumberOfSeats() && !empty($candidateEliminated)) {
             $rescueCandidateKey = \array_key_last($candidateEliminated);
             $result[++$rank] = $candidateEliminated[$rescueCandidateKey];
             unset($candidateEliminated[$rescueCandidateKey]);
-        endwhile;
+        }
 
         $this->_Result = $this->createResult($result);
 
         Vote::clearCache(); // Performances
     }
 
-    protected function makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array
+    protected function makeScore(array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array
     {
         $election = $this->getElection();
         $scoreTable = [];
 
         $candidateDone = array_merge($candidateElected, $candidateEliminated);
 
-        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) :
-            if (!\in_array($candidateKey = $oneCandidateKey, $candidateDone, true)) :
+        foreach (\array_keys($election->getCandidatesList()) as $oneCandidateKey) {
+            if (!\in_array($candidateKey = $oneCandidateKey, $candidateDone, true)) {
                 $scoreTable[$candidateKey] = 0.0;
-            endif;
-        endforeach;
+            }
+        }
 
-        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) :
-
+        foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $weight = $oneVote->getWeight($election);
 
             $winnerBonusWeight = 0;
@@ -116,41 +114,43 @@ class SingleTransferableVote extends Method implements MethodInterface
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRankingWithoutSort($election) as $oneRank) :
-                foreach ($oneRank as $oneCandidate) :
-                    if (\count($oneRank) !== 1): break; endif;
+            foreach ($oneVote->getContextualRankingWithoutSort($election) as $oneRank) {
+                foreach ($oneRank as $oneCandidate) {
+                    if (\count($oneRank) !== 1) {
+                        break;
+                    }
 
                     $candidateKey = $election->getCandidateKey($oneCandidate);
 
-                    if ($firstRank) :
-                        if (\array_key_exists($candidateKey, $surplus)) :
+                    if ($firstRank) {
+                        if (\array_key_exists($candidateKey, $surplus)) {
                             $winnerBonusWeight = $weight;
                             $winnerBonusKey = $candidateKey;
                             $firstRank = false;
                             break;
-                        elseif (\in_array($candidateKey, $candidateEliminated, true)) :
+                        } elseif (\in_array($candidateKey, $candidateEliminated, true)) {
                             $LoserBonusWeight = $weight;
                             $firstRank = false;
                             break;
-                        endif;
-                    endif;
+                        }
+                    }
 
-                    if (\array_key_exists($candidateKey, $scoreTable)) :
-                        if ($winnerBonusKey !== null) :
+                    if (\array_key_exists($candidateKey, $scoreTable)) {
+                        if ($winnerBonusKey !== null) {
                             $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total'] * $surplus[$winnerBonusKey]['surplus'];
-                        elseif ($LoserBonusWeight > 0) :
+                        } elseif ($LoserBonusWeight > 0) {
                             $scoreTable[$candidateKey] += $LoserBonusWeight;
-                        else :
+                        } else {
                             $scoreTable[$candidateKey] += $weight;
-                        endif;
+                        }
 
                         $scoreTable[$candidateKey] = \round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
                         break 2;
-                    endif;
-                endforeach;
-            endforeach;
-        endforeach;
+                    }
+                }
+            }
+        }
 
         return $scoreTable;
     }
@@ -161,17 +161,16 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 
-        if ($election->getStatsVerbosity()->value > StatsVerbosity::LOW->value) :
+        if ($election->getStatsVerbosity()->value > StatsVerbosity::LOW->value) {
             $stats['rounds'] = [];
 
-            foreach ($this->_Stats as $roundNumber => $roundData) :
-                foreach ($roundData as $candidateKey => $candidateValue) :
+            foreach ($this->_Stats as $roundNumber => $roundData) {
+                foreach ($roundData as $candidateKey => $candidateValue) {
                     $stats['rounds'][$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
-                endforeach;
-            endforeach;
-        endif;
+                }
+            }
+        }
 
         return $stats;
     }
-
 }

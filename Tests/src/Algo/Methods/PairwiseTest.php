@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use PHPUnit\Framework\TestCase;
 
 class PairwiseTest extends TestCase
@@ -22,7 +22,7 @@ class PairwiseTest extends TestCase
         $this->election1->addVote('A>B>C');
     }
 
-    public function testPairwiseOffsetGet (): void
+    public function testPairwiseOffsetGet(): void
     {
         $pairwise = $this->election1->getPairwise();
 
@@ -31,7 +31,7 @@ class PairwiseTest extends TestCase
         self::assertNull($pairwise[42]);
     }
 
-    public function testExplicitPairwise (): void
+    public function testExplicitPairwise(): void
     {
         self::assertSame(
             [
@@ -94,7 +94,7 @@ class PairwiseTest extends TestCase
         );
     }
 
-    public function testVotesWeight (): void
+    public function testVotesWeight(): void
     {
         $electionOff = new Election;
 

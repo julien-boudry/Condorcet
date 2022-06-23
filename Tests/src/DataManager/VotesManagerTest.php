@@ -1,15 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
-use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\{VoteManagerException, VoteNotLinkedException};
-use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\{Election, Vote};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class VotesManagerTest extends TestCase
 {
@@ -18,7 +17,7 @@ class VotesManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->election = new Election();
+        $this->election = new Election;
         $this->election->parseCandidates('A;B;C');
 
         $this->votes_manager = $this->election->getVotesManager();
@@ -56,7 +55,7 @@ class VotesManagerTest extends TestCase
         self::assertSame($before_list, $this->votes_manager->getVotesList());
 
         // unset existing vote
-        $vote = new Vote ([]);
+        $vote = new Vote([]);
         $vote->registerLink($this->election);
         $this->votes_manager[] = $vote;
         unset($this->votes_manager[0]);
@@ -85,21 +84,21 @@ class VotesManagerTest extends TestCase
 
         $votesListGenerator = [];
 
-        foreach ($this->election->getVotesListGenerator() as $key => $value) :
+        foreach ($this->election->getVotesListGenerator() as $key => $value) {
             $votesListGenerator[$key] = $value;
-        endforeach;
+        }
 
-        self::assertEquals($this->election->getVotesList(),$votesListGenerator);
-        self::assertSame(52,\count($votesListGenerator));
+        self::assertEquals($this->election->getVotesList(), $votesListGenerator);
+        self::assertSame(52, \count($votesListGenerator));
 
 
         $votesListGenerator = [];
 
-        foreach ($this->election->getVotesListGenerator('tag42') as $key => $value) :
+        foreach ($this->election->getVotesListGenerator('tag42') as $key => $value) {
             $votesListGenerator[$key] = $value;
-        endforeach;
+        }
 
-        self::assertEquals($this->election->getVotesList('tag42'),$votesListGenerator);
-        self::assertSame(42,\count($votesListGenerator));
+        self::assertEquals($this->election->getVotesList('tag42'), $votesListGenerator);
+        self::assertSame(42, \count($votesListGenerator));
     }
 }

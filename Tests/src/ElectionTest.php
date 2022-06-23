@@ -1,21 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
-use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
-use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
-use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
-use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
-use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
-use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
-use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
-use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
-use CondorcetPHP\Condorcet\Throwable\VoteException;
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
@@ -32,39 +23,39 @@ class ElectionTest extends TestCase
         $this->candidate2 = $this->election1->addCandidate('candidate2');
         $this->candidate3 = $this->election1->addCandidate('candidate3');
 
-        $this->election1->addVote($this->vote1 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]));
-        $this->election1->addVote($this->vote2 = new Vote ([$this->candidate2,$this->candidate3,$this->candidate1]));
-        $this->election1->addVote($this->vote3 = new Vote ([$this->candidate3,$this->candidate1,$this->candidate2]));
-        $this->election1->addVote($this->vote4 = new Vote ([$this->candidate1,$this->candidate2,$this->candidate3]));
+        $this->election1->addVote($this->vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]));
+        $this->election1->addVote($this->vote2 = new Vote([$this->candidate2,$this->candidate3,$this->candidate1]));
+        $this->election1->addVote($this->vote3 = new Vote([$this->candidate3,$this->candidate1,$this->candidate2]));
+        $this->election1->addVote($this->vote4 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]));
 
         $this->election2 = new Election;
     }
 
-    public function testRemoveVotes (): never
+    public function testRemoveVotes(): never
     {
         $this->expectException(VoteException::class);
         $this->expectExceptionMessage("Problem handling vote: cannot remove vote, is not registered in this election");
 
         self::assertTrue($this->election1->removeVote($this->vote2));
-        self::assertCount(3,$this->election1->getVotesList());
+        self::assertCount(3, $this->election1->getVotesList());
 
         $badRemoveVote = new Vote('A');
 
         $this->election1->removeVote($badRemoveVote);
     }
 
-    public function testRemoveVotesByTags (): void
+    public function testRemoveVotesByTags(): void
     {
         $this->vote1->addtags('tag1,tag2,tag3');
         $this->vote2->addtags('tag3,tag4');
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        self::assertCount(3,$r = $this->election1->removeVotesByTags(['tag1','tag5']));
+        self::assertCount(3, $r = $this->election1->removeVotesByTags(['tag1','tag5']));
 
-        self::assertSame([$this->vote1,$this->vote3,$this->vote4],$r);
+        self::assertSame([$this->vote1,$this->vote3,$this->vote4], $r);
 
-        self::assertSame([1 => $this->vote2],$this->election1->getVotesList());
+        self::assertSame([1 => $this->vote2], $this->election1->getVotesList());
 
         $this->setUp();
 
@@ -73,56 +64,58 @@ class ElectionTest extends TestCase
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        self::assertCount(1,$r = $this->election1->removeVotesByTags('tag1,tag5', false));
+        self::assertCount(1, $r = $this->election1->removeVotesByTags('tag1,tag5', false));
 
-        self::assertSame([$this->vote2],$r);
+        self::assertSame([$this->vote2], $r);
 
-        self::assertSame([0 => $this->vote1, 2=> $this->vote3, 3 => $this->vote4],$this->election1->getVotesList());
+        self::assertSame([0 => $this->vote1, 2=> $this->vote3, 3 => $this->vote4], $this->election1->getVotesList());
     }
 
 
-    public function testTagsFilter (): void
+    public function testTagsFilter(): void
     {
         $this->vote1->addtags('tag1,tag2,tag3');
         $this->vote2->addtags('tag3,tag4');
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        self::assertSame($this->election1->getVotesList('tag1,tag2',true),[0=>$this->vote1,3=>$this->vote4]);
-        self::assertSame($this->election1->countVotes('tag1,tag2',true),2);
+        self::assertSame($this->election1->getVotesList('tag1,tag2', true), [0=>$this->vote1,3=>$this->vote4]);
+        self::assertSame($this->election1->countVotes('tag1,tag2', true), 2);
 
-        self::assertSame($this->election1->getVotesList('tag1,tag2',false),[1=>$this->vote2,2=>$this->vote3]);
-        self::assertSame($this->election1->countVotes('tag1,tag2',false),2);
+        self::assertSame($this->election1->getVotesList('tag1,tag2', false), [1=>$this->vote2,2=>$this->vote3]);
+        self::assertSame($this->election1->countVotes('tag1,tag2', false), 2);
 
         $resultGlobal = $this->election1->getResult('Schulze');
-        $resultFilter1 = $this->election1->getResult('Schulze',['tags' => 'tag1','withTag' => true]);
-        $resultFilter2 = $this->election1->getResult('Schulze',['tags' => 'tag1','withTag' => false]);
+        $resultFilter1 = $this->election1->getResult('Schulze', ['tags' => 'tag1','withTag' => true]);
+        $resultFilter2 = $this->election1->getResult('Schulze', ['tags' => 'tag1','withTag' => false]);
 
-        self::assertNotSame($resultGlobal,$resultFilter1);
-        self::assertNotSame($resultGlobal,$resultFilter2);
-        self::assertNotSame($resultFilter1,$resultFilter2);
+        self::assertNotSame($resultGlobal, $resultFilter1);
+        self::assertNotSame($resultGlobal, $resultFilter2);
+        self::assertNotSame($resultFilter1, $resultFilter2);
     }
 
-    public function testParseCandidates (): void
+    public function testParseCandidates(): void
     {
-        self::assertCount(4,
+        self::assertCount(
+            4,
             $this->election2->parseCandidates('Bruckner;   Mahler   ;
                 Debussy
                 Bibendum')
         );
 
-        self::assertSame(['Bruckner','Mahler','Debussy','Bibendum'],
-        $this->election2->getCandidatesListAsString()
+        self::assertSame(
+            ['Bruckner','Mahler','Debussy','Bibendum'],
+            $this->election2->getCandidatesListAsString()
         );
     }
 
     public function testgetCandidateObjectFromName(): void
     {
-        self::assertSame($this->candidate1,$this->election1->getCandidateObjectFromName('candidate1'));
+        self::assertSame($this->candidate1, $this->election1->getCandidateObjectFromName('candidate1'));
         self::assertNull($this->election1->getCandidateObjectFromName('candidate42'));
     }
 
-    public function testParseError (): never
+    public function testParseError(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: the value 'text' is not numeric");
@@ -135,22 +128,22 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration1 (): never
+    public function testMaxParseIteration1(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
 
-        self::assertSame(42,Election::setMaxParseIteration(42));
+        self::assertSame(42, Election::setMaxParseIteration(42));
 
-        self::assertCount(42,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+        self::assertCount(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
 
-        self::assertCount(42,$this->election1->parseVotes('candidate1>candidate2 * 42'));
+        self::assertCount(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
 
-        self::assertSame(null,Election::setMaxParseIteration(null));
+        self::assertSame(null, Election::setMaxParseIteration(null));
 
-        self::assertCount(43,$this->election1->parseVotes('candidate1>candidate2 * 43'));
+        self::assertCount(43, $this->election1->parseVotes('candidate1>candidate2 * 43'));
 
-        self::assertSame(42,Election::setMaxParseIteration(42));
+        self::assertSame(42, Election::setMaxParseIteration(42));
 
         $this->election1->parseVotes('candidate1>candidate2 * 43');
     }
@@ -160,14 +153,14 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration2 (): never
+    public function testMaxParseIteration2(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 42");
 
-        self::assertSame(42,Election::setMaxParseIteration(42));
+        self::assertSame(42, Election::setMaxParseIteration(42));
 
-        self::assertSame(42,$this->election1->parseVotes('
+        self::assertSame(42, $this->election1->parseVotes('
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
@@ -179,22 +172,22 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxParseIteration3 (): never
+    public function testMaxParseIteration3(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached: 2");
 
-        self::assertSame(2,Election::setMaxParseIteration(2));
+        self::assertSame(2, Election::setMaxParseIteration(2));
 
-        self::assertSame([0=>'candidate1',1=>'candidate2'],$this->election2->parseCandidates('candidate1;candidate2'));
+        self::assertSame([0=>'candidate1',1=>'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
 
-        self::assertSame([0=>'candidate3',1=>'candidate4'],$this->election2->parseCandidates('candidate3;candidate4'));
+        self::assertSame([0=>'candidate3',1=>'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
 
-        self::assertSame(null,Election::setMaxParseIteration(null));
+        self::assertSame(null, Election::setMaxParseIteration(null));
 
-        self::assertSame([0=>'candidate5',1=>'candidate6',2=>'candidate7'],$this->election2->parseCandidates('candidate5;candidate6;candidate7'));
+        self::assertSame([0=>'candidate5',1=>'candidate6',2=>'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
 
-        self::assertSame(2,Election::setMaxParseIteration(2));
+        self::assertSame(2, Election::setMaxParseIteration(2));
 
         $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
@@ -204,36 +197,36 @@ class ElectionTest extends TestCase
       * @backupStaticAttributes disabled
       * @runInSeparateProcess
       */
-    public function testMaxVoteNumber (): never
+    public function testMaxVoteNumber(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
         $this->expectExceptionMessage("The maximal number of votes for the method is reached");
 
         $election = new Election;
-        self::assertCount(3,$election->parseCandidates('candidate1;candidate2;candidate3'));
+        self::assertCount(3, $election->parseCandidates('candidate1;candidate2;candidate3'));
 
-        self::assertSame(42,Election::setMaxVoteNumber(42));
+        self::assertSame(42, Election::setMaxVoteNumber(42));
 
-        self::assertSame(21,$election->parseVotes('candidate1>candidate2 * 21'));
+        self::assertSame(21, $election->parseVotes('candidate1>candidate2 * 21'));
 
         try {
             $election->parseVotes('candidate1>candidate2 * 42');
-            self::assertSame(true,false);
+            self::assertSame(true, false);
         } catch (VoteMaxNumberReachedException $e) {
             $this->assertEquals("The maximal number of votes for the method is reached", $e->getMessage());
         }
 
-        self::assertSame(21,$election->countVotes());
+        self::assertSame(21, $election->countVotes());
 
         $election->parseVotes('candidate1 * 21');
 
-        self::assertSame(42,$election->countVotes());
+        self::assertSame(42, $election->countVotes());
 
-        self::assertSame(null,Election::setMaxVoteNumber(null));
+        self::assertSame(null, Election::setMaxVoteNumber(null));
 
         $election->addVote('candidate3');
 
-        self::assertSame(42,Election::setMaxVoteNumber(42));
+        self::assertSame(42, Election::setMaxVoteNumber(42));
 
         try {
             $election->addVote('candidate3');
@@ -241,12 +234,12 @@ class ElectionTest extends TestCase
             $reserveException = $e;
         }
 
-        self::assertSame(null,Election::setMaxVoteNumber(null));
+        self::assertSame(null, Election::setMaxVoteNumber(null));
 
         throw $reserveException;
     }
 
-    public function testGetVotesListAsString (): void
+    public function testGetVotesListAsString(): void
     {
         $this->election1 = new Election;
 
@@ -265,22 +258,24 @@ class ElectionTest extends TestCase
         ');
 
         self::assertSame(
-        "A > B = C = D = E * 6\n".
+            "A > B = C = D = E * 6\n".
         "D > A = B = C = E * 6\n".
         "A > B = C > E > D * 5\n".
         "A = B = E > C = D * 3\n".
         "A = B = C = D = E * 1",
-        $this->election1->getVotesListAsString());
+            $this->election1->getVotesListAsString()
+        );
 
         $this->election1->setImplicitRanking(false);
 
         self::assertSame(
-        "A * 6\n".
+            "A * 6\n".
         "D * 6\n".
         "A > B = C > E * 5\n".
         "A = B = E * 3\n".
         "/EMPTY_RANKING/ * 1",
-        $this->election1->getVotesListAsString());
+            $this->election1->getVotesListAsString()
+        );
 
         self::assertSame(
             <<<VOTES
@@ -290,10 +285,11 @@ class ElectionTest extends TestCase
             A = B = E * 3
             Y > Z * 1
             VOTES,
-            $this->election1->getVotesListAsString(false));
+            $this->election1->getVotesListAsString(false)
+        );
     }
 
-    public function testEmptyRankingExport (): void
+    public function testEmptyRankingExport(): void
     {
         $this->election2->parseCandidates('A;B;C');
         $this->election2->setImplicitRanking(false);
@@ -304,7 +300,8 @@ class ElectionTest extends TestCase
         self::assertSame('/EMPTY_RANKING/ * 2', $this->election2->getVotesListAsString(true));
         self::assertSame('/EMPTY_RANKING/ * 1'. "\n" .'D > E * 1', $this->election2->getVotesListAsString(false));
 
-        self::assertSame(   $cvotes_explicit_without_context =
+        self::assertSame(
+            $cvotes_explicit_without_context =
                             <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: false
@@ -313,24 +310,27 @@ class ElectionTest extends TestCase
                             /EMPTY_RANKING/ * 1
                             D > E * 1
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
+        );
 
-        self::assertSame    (   str_replace(' * 1', '', $cvotes_explicit_without_context),
-                                CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
-                            );
+        self::assertSame(
+            str_replace(' * 1', '', $cvotes_explicit_without_context),
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+        );
 
-        self::assertSame(   <<<CVOTES
+        self::assertSame(
+            <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: false
                             #/Weight Allowed: false
 
                             /EMPTY_RANKING/ * 2
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+        );
 
-        self::assertSame(   <<<CVOTES
+        self::assertSame(
+            <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: false
                             #/Weight Allowed: false
@@ -338,22 +338,24 @@ class ElectionTest extends TestCase
                             /EMPTY_RANKING/
                             /EMPTY_RANKING/
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+        );
 
         $this->election2->setImplicitRanking(true);
 
-        self::assertSame(   <<<CVOTES
+        self::assertSame(
+            <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: true
                             #/Weight Allowed: false
 
                             A = B = C * 2
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+        );
 
-        self::assertSame(   <<<CVOTES
+        self::assertSame(
+            <<<CVOTES
                             #/Candidates: A ; B ; C
                             #/Implicit Ranking: true
                             #/Weight Allowed: false
@@ -361,8 +363,8 @@ class ElectionTest extends TestCase
                             A = B = C
                             A = B = C
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+        );
 
         $this->election2 = new Election;
         $this->election2->parseCandidates('A;B;C;D');
@@ -370,17 +372,19 @@ class ElectionTest extends TestCase
 
         $this->election2->addVote(new Vote('A>B'));
 
-        self::assertSame(   <<<CVOTES
+        self::assertSame(
+            <<<CVOTES
                             #/Candidates: A ; B ; C ; D
                             #/Implicit Ranking: true
                             #/Weight Allowed: false
 
                             A > B > C = D * 1
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+        );
 
-        self::assertSame(   $cvotes_implicit_without_context =
+        self::assertSame(
+            $cvotes_implicit_without_context =
                             <<<CVOTES
                             #/Candidates: A ; B ; C ; D
                             #/Implicit Ranking: true
@@ -388,15 +392,16 @@ class ElectionTest extends TestCase
 
                             A > B * 1
                             CVOTES,
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
-                        );
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
+        );
 
-        self::assertSame(   str_replace(' * 1', '', $cvotes_implicit_without_context),
-                            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
-                        );
-}
+        self::assertSame(
+            str_replace(' * 1', '', $cvotes_implicit_without_context),
+            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+        );
+    }
 
-    public function testParseVoteCandidateCoherence (): void
+    public function testParseVoteCandidateCoherence(): void
     {
         $this->election1 = new Election;
 
@@ -410,17 +415,16 @@ class ElectionTest extends TestCase
 
         $votes = $this->election1->getVotesList();
 
-        foreach ($votes as $vote) :
+        foreach ($votes as $vote) {
             $ranking = $vote->getRanking();
 
             self::assertSame($cA, $ranking[1][0]);
             self::assertSame($cB, $ranking[2][0]);
             self::assertSame($cC, $ranking[3][0]);
-        endforeach;
-
+        }
     }
 
-    public function testParseVotesInvalidPath (): void
+    public function testParseVotesInvalidPath(): void
     {
         $this->expectException(FileDoesNotExistException::class);
         $this->expectExceptionMessageMatches('/bad_file.txt$/');
@@ -433,7 +437,7 @@ class ElectionTest extends TestCase
         $this->election1->parseVotes('bad_file.txt', true);
     }
 
-    public function testParseVotesWithoutFail (): void
+    public function testParseVotesWithoutFail(): void
     {
         $this->election1 = new Election;
 
@@ -451,19 +455,20 @@ class ElectionTest extends TestCase
 
         self::assertSame(10, $this->election1->countVotes());
 
-        self::assertSame(2, $this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes',true));
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes', true));
 
         self::assertSame(20, $this->election1->countVotes());
 
-        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileObject(__DIR__.'/../LargeElectionData/smallVote1.votes'),true));
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileObject(__DIR__.'/../LargeElectionData/smallVote1.votes'), true));
 
         self::assertSame(30, $this->election1->countVotes());
 
-        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileInfo(__DIR__.'/../LargeElectionData/smallVote1.votes'),true));
+        self::assertSame(2, $this->election1->parseVotesWithoutFail(new \SplFileInfo(__DIR__.'/../LargeElectionData/smallVote1.votes'), true));
 
-        self::assertSame(40, $this->election1->countVotes());    }
+        self::assertSame(40, $this->election1->countVotes());
+    }
 
-    public function testParseVotesWithoutFailInvalidPath (): void
+    public function testParseVotesWithoutFailInvalidPath(): void
     {
         $this->expectException(FileDoesNotExistException::class);
         $this->expectExceptionMessageMatches('/bad_file.txt$/');
@@ -476,7 +481,7 @@ class ElectionTest extends TestCase
         $this->election1->parseVotesWithoutFail('bad_file.txt', true);
     }
 
-    public function testVoteWeight (): void
+    public function testVoteWeight(): void
     {
         $election = new Election;
 
@@ -544,7 +549,7 @@ class ElectionTest extends TestCase
             $election->getResult('Schulze Winning')->getResultAsString()
         );
 
-        $election->allowsVoteWeight( !$election->isVoteWeightAllowed() );
+        $election->allowsVoteWeight(!$election->isVoteWeightAllowed());
 
         $election->removeVote($voteWithWeight);
 
@@ -580,10 +585,9 @@ class ElectionTest extends TestCase
             VOTES,
             $election->getVotesListAsString()
         );
-
     }
 
-    public function testaddVotesFromJson (): never
+    public function testaddVotesFromJson(): never
     {
         $this->expectException(\JsonException::class);
 
@@ -596,10 +600,10 @@ class ElectionTest extends TestCase
         $votes = [];
 
         $votes[]['vote'] = 'B>C>A';
-        $votes[]['vote'] = new \stdClass(); // Invalid Vote
+        $votes[]['vote'] = new \stdClass; // Invalid Vote
         $votes[]['vote'] = ['C','B','A'];
 
-        self::assertSame(2,$election->addVotesFromJson(\json_encode($votes)));
+        self::assertSame(2, $election->addVotesFromJson(\json_encode($votes)));
 
         self::assertSame(
             <<<VOTES
@@ -628,12 +632,12 @@ class ElectionTest extends TestCase
             VOTES,
             $election->getVotesListAsString()
         );
-        self::assertSame(5,$election->countVotes('tag1'));
+        self::assertSame(5, $election->countVotes('tag1'));
 
         $election->addVotesFromJson(\json_encode($votes).'{42');
     }
 
-    public function testaddCandidatesFromJson (): never
+    public function testaddCandidatesFromJson(): never
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage('This candidate already exists: candidate2');
@@ -644,14 +648,14 @@ class ElectionTest extends TestCase
 
         $election->addCandidatesFromJson(\json_encode($candidates));
 
-        self::assertSame(2,$election->countCandidates());
+        self::assertSame(2, $election->countCandidates());
 
-        self::assertEquals(['candidate1','candidate2'],$election->getCandidatesListAsString());
+        self::assertEquals(['candidate1','candidate2'], $election->getCandidatesListAsString());
 
         $election->addCandidatesFromJson(\json_encode(['candidate2']));
     }
 
-    public function testaddCandidatesFromInvalidJson (): never
+    public function testaddCandidatesFromInvalidJson(): never
     {
         $this->expectException(\JsonException::class);
 
@@ -661,18 +665,19 @@ class ElectionTest extends TestCase
     }
 
 
-    public function testaddVotesFromJsonWithInvalidJson (): void
+    public function testaddVotesFromJsonWithInvalidJson(): void
     {
-        $errors = ["42", 'true', 'false', 'null', "", " ", \json_encode(new \stdClass())];
+        $errors = ["42", 'true', 'false', 'null', "", " ", \json_encode(new \stdClass)];
 
-        foreach ($errors as $oneError) :
+        foreach ($errors as $oneError) {
             try {
                 $this->election2->addVotesFromJson($oneError);
 
                 // Else fail
                 $this->fail("$oneError is not a valid Json for PHP");
-            } catch (\JsonException) {}
-        endforeach;
+            } catch (\JsonException) {
+            }
+        }
 
         self::assertEmpty($this->election2->getVotesList());
     }
@@ -686,13 +691,13 @@ class ElectionTest extends TestCase
         $election->addCandidate('C');
         $election->addCandidate('D');
 
-        $election->addVote($vote1 = new Vote ('A > C > D'));
+        $election->addVote($vote1 = new Vote('A > C > D'));
 
         $result1 = $election->getResult('Schulze');
-        self::assertSame($result1,$election->getResult('Schulze'));
+        self::assertSame($result1, $election->getResult('Schulze'));
     }
 
-    public function testElectionSerializing (): void
+    public function testElectionSerializing(): void
     {
         $election = new Election;
 
@@ -701,23 +706,23 @@ class ElectionTest extends TestCase
         $election->addCandidate('C');
         $election->addCandidate('D');
 
-        $election->addVote($vote1 = new Vote ('A > C > D'));
+        $election->addVote($vote1 = new Vote('A > C > D'));
         $result1 = $election->getResult('Schulze');
 
         $election = \serialize($election);
         // file_put_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt",$election); # For next test
         $election = \unserialize($election);
 
-        self::assertNotSame($result1,$election->getResult('Schulze'));
-        self::assertSame($result1->getResultAsString(),$election->getResult('Schulze')->getResultAsString());
+        self::assertNotSame($result1, $election->getResult('Schulze'));
+        self::assertSame($result1->getResultAsString(), $election->getResult('Schulze')->getResultAsString());
 
-        self::assertNotSame($vote1,$election->getVotesList()[0]);
-        self::assertSame($vote1->getSimpleRanking(),$election->getVotesList()[0]->getSimpleRanking());
+        self::assertNotSame($vote1, $election->getVotesList()[0]);
+        self::assertSame($vote1->getSimpleRanking(), $election->getVotesList()[0]->getSimpleRanking());
         self::assertTrue($election->getVotesList()[0]->haveLink($election));
         self::assertFalse($vote1->haveLink($election));
     }
 
-    public function testElectionUnserializing (): void
+    public function testElectionUnserializing(): void
     {
         $this->expectException(ElectionObjectVersionMismatchException::class);
         $this->expectExceptionMessage(
@@ -730,43 +735,43 @@ class ElectionTest extends TestCase
         );
     }
 
-    public function testCloneElection (): void
+    public function testCloneElection(): void
     {
         $this->election1->computeResult();
 
         $cloneElection = clone $this->election1;
 
-        self::assertNotSame($this->election1->getVotesManager(),$cloneElection->getVotesManager());
-        self::assertSame($this->election1->getVotesList(),$cloneElection->getVotesList());
+        self::assertNotSame($this->election1->getVotesManager(), $cloneElection->getVotesManager());
+        self::assertSame($this->election1->getVotesList(), $cloneElection->getVotesList());
 
-        self::assertSame($this->election1->getCandidatesList(),$cloneElection->getCandidatesList());
+        self::assertSame($this->election1->getCandidatesList(), $cloneElection->getCandidatesList());
 
-        self::assertNotSame($this->election1->getPairwise(),$cloneElection->getPairwise());
-        self::assertEquals($this->election1->getExplicitPairwise(),$cloneElection->getExplicitPairwise());
+        self::assertNotSame($this->election1->getPairwise(), $cloneElection->getPairwise());
+        self::assertEquals($this->election1->getExplicitPairwise(), $cloneElection->getExplicitPairwise());
 
-        self::assertNotSame($this->election1->getTimerManager(),$cloneElection->getTimerManager());
+        self::assertNotSame($this->election1->getTimerManager(), $cloneElection->getTimerManager());
 
-        self::assertSame($this->election1->getVotesList()[0],$cloneElection->getVotesList()[0]);
+        self::assertSame($this->election1->getVotesList()[0], $cloneElection->getVotesList()[0]);
 
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($this->election1));
         self::assertTrue($cloneElection->getVotesList()[0]->haveLink($cloneElection));
     }
 
-    public function testPairwiseArrayAccess (): void
+    public function testPairwiseArrayAccess(): void
     {
         $this->election1->computeResult();
 
         self::assertTrue($this->election1->getPairwise()->offsetExists(1));
     }
 
-    public function testGetCandidateObjectFromKey (): void
+    public function testGetCandidateObjectFromKey(): void
     {
-        self::assertSame($this->candidate2,$this->election1->getCandidateObjectFromKey(1));
+        self::assertSame($this->candidate2, $this->election1->getCandidateObjectFromKey(1));
 
-        self::assertSame(null,$this->election1->getCandidateObjectFromKey(42));
+        self::assertSame(null, $this->election1->getCandidateObjectFromKey(42));
     }
 
-    public function testElectionState1 (): never
+    public function testElectionState1(): never
     {
         $this->expectException(VotingHasStartedException::class);
         $this->expectExceptionMessage("The voting has started: cannot add 'candidate4'");
@@ -774,7 +779,7 @@ class ElectionTest extends TestCase
         $this->election1->addCandidate('candidate4');
     }
 
-    public function testElectionState2 (): never
+    public function testElectionState2(): never
     {
         $this->expectException(VotingHasStartedException::class);
         $this->expectExceptionMessage("The voting has started");
@@ -782,7 +787,7 @@ class ElectionTest extends TestCase
         $this->election1->removeCandidates('candidate4');
     }
 
-    public function testElectionState3 (): never
+    public function testElectionState3(): never
     {
         $this->expectException(NoCandidatesException::class);
         $this->expectExceptionMessage("You need to specify one or more candidates before voting");
@@ -791,7 +796,7 @@ class ElectionTest extends TestCase
         $election->setStateTovote();
     }
 
-    public function testElectionState4 (): never
+    public function testElectionState4(): never
     {
         $this->expectException(ResultRequestedWithoutVotesException::class);
         $this->expectExceptionMessage("The result cannot be requested without votes");
@@ -800,7 +805,7 @@ class ElectionTest extends TestCase
         $election->getResult();
     }
 
-    public function testElectionState5 (): void
+    public function testElectionState5(): void
     {
         $this->election1->getResult();
 
@@ -809,7 +814,7 @@ class ElectionTest extends TestCase
         self::assertSame(ElectionState::VOTES_REGISTRATION, $this->election1->getState());
     }
 
-    public function testAddSameVote (): never
+    public function testAddSameVote(): never
     {
         $this->expectException(VoteException::class);
         $this->expectExceptionMessage("Problem handling vote: seats are already registered");
@@ -817,7 +822,7 @@ class ElectionTest extends TestCase
         $this->election1->addVote($this->vote1);
     }
 
-    public function testDestroy (): void
+    public function testDestroy(): void
     {
         $election = new Election;
 
@@ -836,7 +841,7 @@ class ElectionTest extends TestCase
         self::assertNull($weakref->get());
     }
 
-    public function testRemoveCandidate (): never
+    public function testRemoveCandidate(): never
     {
         $this->expectException(CandidateDoesNotExistException::class);
         $this->expectExceptionMessage('This candidate does not exist: B');
@@ -853,7 +858,7 @@ class ElectionTest extends TestCase
     /**
      * @dataProvider MethodsListProvider
      */
-    public function testRemoveCandidateResult (string $method): void
+    public function testRemoveCandidateResult(string $method): void
     {
         $votes = '  Memphis * 4
                     Nashville * 3
@@ -890,23 +895,23 @@ class ElectionTest extends TestCase
         );
     }
 
-        public function MethodsListProvider (): array
-        {
-            $r = [];
+    public function MethodsListProvider(): array
+    {
+        $r = [];
 
-            foreach (Condorcet::getAuthMethods() as $method) :
-                $r[] = [$method];
-            endforeach;
-
-            return $r;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $r[] = [$method];
         }
 
-    public function testAmbiguousCandidatesOnElectionSide (): never
+        return $r;
+    }
+
+    public function testAmbiguousCandidatesOnElectionSide(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid");
 
-        $vote = new Vote ('candidate1>candidate2');
+        $vote = new Vote('candidate1>candidate2');
 
         $election1 = new Election;
         $election2 = new Election;
@@ -918,7 +923,7 @@ class ElectionTest extends TestCase
         $election2->addVote($vote);
     }
 
-    public function testAmbiguousCandidatesOnVoteSide (): never
+    public function testAmbiguousCandidatesOnVoteSide(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage("The format of the vote is invalid: vote does not match candidate in this election");
@@ -933,7 +938,7 @@ class ElectionTest extends TestCase
         $election1->addCandidate($candidate3);
         $election2->addCandidate($candidate3);
 
-        $vote = new Vote ('candidate3');
+        $vote = new Vote('candidate3');
 
         $election1->addVote($vote);
         $election2->addVote($vote);
@@ -943,7 +948,8 @@ class ElectionTest extends TestCase
 
         try {
             $vote->setRanking('candidate1>candidate2>candidate3');
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         self::assertEmpty($election1->debugGetCalculator());
         self::assertEmpty($election2->debugGetCalculator());
@@ -951,7 +957,7 @@ class ElectionTest extends TestCase
         throw $e;
     }
 
-    public function testInvalidSeats (): never
+    public function testInvalidSeats(): never
     {
         $this->expectException(NoSeatsException::class);
         $this->expectExceptionMessage("No seats defined");
@@ -959,7 +965,7 @@ class ElectionTest extends TestCase
         $this->election1->setNumberOfSeats(0);
     }
 
-    public function testSeats (): void
+    public function testSeats(): void
     {
         self::assertSame(100, $this->election1->getNumberOfSeats());
 

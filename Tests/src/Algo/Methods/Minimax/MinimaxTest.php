@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Minimax;
@@ -15,7 +16,7 @@ class MinimaxTest extends TestCase
         $this->election = new Election;
     }
 
-    public function testResult_1 (): void
+    public function testResult_1(): void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 
@@ -31,11 +32,11 @@ class MinimaxTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Winning'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Margin'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Opposition'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Opposition'));
 
         $expectedRanking = [
             1 => 'Nashville',
@@ -84,7 +85,7 @@ class MinimaxTest extends TestCase
         );
     }
 
-    public function testResult_2 (): void
+    public function testResult_2(): void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 
@@ -99,11 +100,11 @@ class MinimaxTest extends TestCase
             B > A = C * 6
         ');
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Winning'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
 
-        self::assertSame($this->election->getWinner(),$this->election->getWinner('Minimax Margin'));
+        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
 
-        self::assertEquals('C',$this->election->getWinner('Minimax Opposition'));
+        self::assertEquals('C', $this->election->getWinner('Minimax Opposition'));
 
         $expectedRanking1 = [
             1 => 'A',
@@ -150,7 +151,7 @@ class MinimaxTest extends TestCase
         );
     }
 
-    public function testResult_3 (): void
+    public function testResult_3(): void
     {
         # From http://www.cs.wustl.edu/~legrand/rbvote/desc.html
 
@@ -176,10 +177,10 @@ class MinimaxTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Cora',$this->election->getWinner('Minimax Winning'));
+        self::assertEquals('Cora', $this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_4 (): void
+    public function testResult_4(): void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -197,10 +198,10 @@ class MinimaxTest extends TestCase
             L > C > A * 2
         ');
 
-        self::assertEquals('L',$this->election->getWinner('Minimax Winning'));
+        self::assertEquals('L', $this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_5 (): void
+    public function testResult_5(): void
     {
         # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
 
@@ -222,9 +223,9 @@ class MinimaxTest extends TestCase
             C > A * 3
         ');
 
-        self::assertEquals('A',$this->election->getWinner('Minimax Winning'));
-        self::assertEquals('B',$this->election->getWinner('Minimax Margin'));
-        self::assertEquals('D',$this->election->getWinner('Minimax Opposition'));
+        self::assertEquals('A', $this->election->getWinner('Minimax Winning'));
+        self::assertEquals('B', $this->election->getWinner('Minimax Margin'));
+        self::assertEquals('D', $this->election->getWinner('Minimax Opposition'));
 
         self::assertSame(
             [   "A"       =>  ["worst_pairwise_defeat_winning" => 35],
@@ -251,10 +252,10 @@ class MinimaxTest extends TestCase
         // Implicit Ranking
         $this->election->setImplicitRanking(true);
 
-        self::assertNotEquals('A',$this->election->getWinner('Minimax Winning'));
+        self::assertNotEquals('A', $this->election->getWinner('Minimax Winning'));
     }
 
-    public function testResult_6 (): void
+    public function testResult_6(): void
     {
         # From https://en.wikipedia.org/wiki/Minimax_Condorcet
 

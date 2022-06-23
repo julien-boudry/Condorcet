@@ -15,13 +15,13 @@ use CondorcetPHP\Condorcet\Vote;
 
 abstract class VirtualVote
 {
-    public static function removeCandidates (Vote $vote, array $candidatesList): Vote
+    public static function removeCandidates(Vote $vote, array $candidatesList): Vote
     {
         $virtualVote = clone $vote;
 
-        foreach ($candidatesList as $oneCandidate) :
+        foreach ($candidatesList as $oneCandidate) {
             $virtualVote->removeCandidate($oneCandidate);
-        endforeach;
+        }
 
         return $virtualVote;
     }

@@ -1,14 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\CondorcetUtil;
+use CondorcetPHP\Condorcet\{Condorcet, CondorcetUtil, Election};
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
 Condorcet::$UseTimer = true;
-$election = new Election () ;
+$election = new Election  ;
 
 // Inluding Data
 
@@ -52,36 +50,34 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<ul>
 	<?php
-	foreach ($election->getCandidatesList() as $candidatName)
-	{
-		echo '<li>'.$candidatName.'</li>' ;
-	}
-	?>
+    foreach ($election->getCandidatesList() as $candidatName) {
+        echo '<li>'.$candidatName.'</li>' ;
+    }
+    ?>
 	</ul>
 
 
 	<h2>Registered votes details :</h2>
 <?php
-	foreach ($election->getVotesList() as $vote)
-	{
-		echo '<div class="votant">';
+    foreach ($election->getVotesList() as $vote) {
+        echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-		echo "<ol>";
+        echo "<ol>";
 
-		foreach ($vote as $rank => $value)
-		{
-			if ($rank == 'tag') {continue ;}
-		?>
+        foreach ($vote as $rank => $value) {
+            if ($rank == 'tag') {
+                continue ;
+            } ?>
 
-			<li><?php echo implode(',',$value) ; ?></li>
+			<li><?php echo implode(',', $value) ; ?></li>
 
 		<?php
-		}
+        }
 
-		echo '</ol><br></div>' ;
-	}
+        echo '</ol><br></div>' ;
+    }
 ?>
 
 <br><hr style="clear:both;">
@@ -89,10 +85,10 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 <h2>Get pairwise :</h2>
 
 	 <pre>
-	<?php var_dump( CondorcetUtil::format($election->getPairwise()) ); ?>
+	<?php var_dump(CondorcetUtil::format($election->getPairwise())); ?>
 	 </pre>
 	<br>
-	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(),5) ; ?> second(s).</em>
+	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(), 5) ; ?> second(s).</em>
 
 <br><br><hr style="clear:both;">
 
@@ -100,22 +96,24 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getWinner()) )
-			{ echo $election->getWinner() ;}
-		else
-			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
-		?>
+        if (!is_null($election->getWinner())) {
+            echo $election->getWinner() ;
+        } else {
+            echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
+        }
+        ?>
 	</strong>
 
 	<h2>Loser by <a target="blank" href="http://en.wikipedia.org/wiki/Condorcet_method">natural Condorcet</a> :</h2>
 
 	<strong style="color:green;">
 		<?php
-		if ( !is_null($election->getLoser()) )
-			{ echo $election->getLoser() ;}
-		else
-			{ echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>'; }
-		?>
+        if (!is_null($election->getLoser())) {
+            echo $election->getLoser() ;
+        } else {
+            echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
+        }
+        ?>
 	</strong>
 
 <br><br><hr>
@@ -127,7 +125,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump( CondorcetUtil::format($election->getResult()) ); ?>
+	<?php var_dump(CondorcetUtil::format($election->getResult())); ?>
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
@@ -136,7 +134,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
 
 	 <pre>
-	<?php var_dump( CondorcetUtil::format($election->getResult()) ); ?>
+	<?php var_dump(CondorcetUtil::format($election->getResult())); ?>
 	 </pre>
 
 
@@ -146,51 +144,49 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	<h3>Display votes with tag "custom_tag_One"</h3>
 <?php
-	foreach ($election->getVotesList('custom_tag_One', true) as $vote)
-	{
-		echo '<div class="votant">';
+    foreach ($election->getVotesList('custom_tag_One', true) as $vote) {
+        echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-		echo "<ol>";
+        echo "<ol>";
 
-		foreach ($vote as $rank => $value)
-		{
-			if ($rank == 'tag') {continue ;}
-		?>
+        foreach ($vote as $rank => $value) {
+            if ($rank == 'tag') {
+                continue ;
+            } ?>
 
-			<li><?php echo implode(',',$value) ; ?></li>
+			<li><?php echo implode(',', $value) ; ?></li>
 
 		<?php
-		}
+        }
 
-		echo '</ol><br></div>' ;
-	}
+        echo '</ol><br></div>' ;
+    }
 ?>
 <div style="clear:both;"></div>
 
 	<h3>Or without with tag "custom_tag_Two"</h3>
 <?php
-	foreach ($election->getVotesList('custom_tag_Two', false) as $vote)
-	{
-		echo '<div class="votant">';
+    foreach ($election->getVotesList('custom_tag_Two', false) as $vote) {
+        echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-		echo "<ol>";
+        echo "<ol>";
 
-		foreach ($vote as $rank => $value)
-		{
-			if ($rank == 'tag') {continue ;}
-		?>
+        foreach ($vote as $rank => $value) {
+            if ($rank == 'tag') {
+                continue ;
+            } ?>
 
-			<li><?php echo implode(',',$value) ; ?></li>
+			<li><?php echo implode(',', $value) ; ?></li>
 
 		<?php
-		}
+        }
 
-		echo '</ol><br></div>' ;
-	}
+        echo '</ol><br></div>' ;
+    }
 ?>
 <div style="clear:both;"></div>
 
@@ -198,49 +194,48 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 
 	 <pre>
 	<?php
-	$options =	array(
-					'tags' => array('custom_tag_One', 'custom_tag_Two'),
-					'withTag' => false
-				);
+    $options =	[
+                    'tags' => ['custom_tag_One', 'custom_tag_Two'],
+                    'withTag' => false
+                ];
 
-	var_dump( CondorcetUtil::format($election->getResult('KemenyYoung', $options)) ); ?>
+    var_dump(CondorcetUtil::format($election->getResult('KemenyYoung', $options))); ?>
 	 </pre>
 <div style="clear:both;"></div>
 
-	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVotesByTags('custom_tag_One', false) ) ?>
+	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVotesByTags('custom_tag_One', false) )?>
 
 	<?php
-		$election->removeVotesByTags(array('custom_tag_One', 'custom_tag_Two')) ;
-	?>
+        $election->removeVotesByTags(['custom_tag_One', 'custom_tag_Two']) ;
+    ?>
 
 
 	 <pre>
-	<?php var_dump( CondorcetUtil::format($election->getResult('KemenyYoung')) ); ?>
+	<?php var_dump(CondorcetUtil::format($election->getResult('KemenyYoung'))); ?>
 	 </pre>
 
 
 	<h3>Check the new vote list</h3>
 <?php
-	foreach ($election->getVotesList() as $vote)
-	{
-		echo '<div class="votant">';
+    foreach ($election->getVotesList() as $vote) {
+        echo '<div class="votant">';
 
-		echo '<strong style="color:green;">'.implode(' / ',$vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
 
-		echo "<ol>";
+        echo "<ol>";
 
-		foreach ($vote as $rank => $value)
-		{
-			if ($rank == 'tag') {continue ;}
-		?>
+        foreach ($vote as $rank => $value) {
+            if ($rank == 'tag') {
+                continue ;
+            } ?>
 
-			<li><?php echo implode(',',$value) ; ?></li>
+			<li><?php echo implode(',', $value) ; ?></li>
 
 		<?php
-		}
+        }
 
-		echo '</ol><br></div>' ;
-	}
+        echo '</ol><br></div>' ;
+    }
 ?>
 <div style="clear:both;"></div>
 
@@ -251,7 +246,7 @@ define('TEST_NAME', 'Condorcet Bonus Example');
 <!-- <h4>CondorcetUtil::format (for debug only) :</h4>
 
  <pre>
-<?php // CondorcetUtil::format($election); ?>
+<?php // CondorcetUtil::format($election);?>
  </pre> -->
 
  </body>

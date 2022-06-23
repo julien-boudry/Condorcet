@@ -16,14 +16,14 @@ use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 abstract class CondorcetUtil
 {
     // Check JSON format
-    public static function isValidJsonForCondorcet (string $string): void
+    public static function isValidJsonForCondorcet(string $string): void
     {
-        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || $string === '{}' || empty($string)) :
-            throw new \JsonException();
-        endif;
+        if (\is_numeric($string) || $string === 'true' || $string === 'false' || $string === 'null' || $string === '{}' || empty($string)) {
+            throw new \JsonException;
+        }
     }
 
-    public static function prepareJson (string $input): mixed
+    public static function prepareJson(string $input): mixed
     {
         self::isValidJsonForCondorcet($input);
 
@@ -31,35 +31,37 @@ abstract class CondorcetUtil
     }
 
     // Generic action before parsing data from string input
-    public static function prepareParse (string $input, bool $isFile): array
+    public static function prepareParse(string $input, bool $isFile): array
     {
         // Is string or is file ?
-        if ($isFile === true) :
-            if (!\is_file($input)) :
+        if ($isFile === true) {
+            if (!\is_file($input)) {
                 throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
-            endif;
+            }
 
             $input = \file_get_contents($input);
-        endif;
+        }
 
         // Line
-        $input = \preg_replace("(\r\n|\n|\r)",';',$input);
+        $input = \preg_replace("(\r\n|\n|\r)", ';', $input);
         $input = \explode(';', $input);
 
         // Delete comments
-        foreach ($input as $key => &$line) :
+        foreach ($input as $key => &$line) {
             // Delete comments
             $is_comment = \strpos($line, '#');
-            if ($is_comment !== false) :
+            if ($is_comment !== false) {
                 $line = \substr($line, 0, $is_comment);
-            endif;
+            }
 
             // Trim
             $line = \trim($line);
 
             // Remove empty
-            if (empty($line)) : unset($input[$key]); endif;
-        endforeach;
+            if (empty($line)) {
+                unset($input[$key]);
+            }
+        }
 
         return $input;
     }
@@ -68,40 +70,37 @@ abstract class CondorcetUtil
     #[PublicAPI]
     #[Description("Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.\nCan be use before a var_dump, or just to get more simple data output.")]
     #[FunctionReturn("New formatted data.")]
-    public static function format (
+    public static function format(
         #[FunctionParameter('Input to convert')]
         mixed $input,
         #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')]
         bool $convertObject = true
-    ): mixed
-    {
-        if (\is_object($input)) :
-
+    ): mixed {
+        if (\is_object($input)) {
             $r = $input;
 
-            if ($convertObject) :
-                if ($input instanceof Candidate) :
+            if ($convertObject) {
+                if ($input instanceof Candidate) {
                     $r = (string) $input;
-                elseif ($input instanceof Vote) :
+                } elseif ($input instanceof Vote) {
                     $r = $input->getSimpleRanking();
-                elseif ($input instanceof Result) :
+                } elseif ($input instanceof Result) {
                     $r = $input->getResultAsArray(true);
-                endif;
-            endif;
-
-        elseif (!\is_array($input)) :
+                }
+            }
+        } elseif (!\is_array($input)) {
             $r = $input;
-        else :
-            foreach ($input as $key => $line) :
-                $input[$key] = self::format($line,$convertObject);
-            endforeach;
+        } else {
+            foreach ($input as $key => $line) {
+                $input[$key] = self::format($line, $convertObject);
+            }
 
-            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(\reset($input)) || \count(\reset($input)) === 1)):
+            if (\count($input) === 1 && \is_int(\key($input)) && (!\is_array(\reset($input)) || \count(\reset($input)) === 1)) {
                 $r = \reset($input);
-            else:
+            } else {
                 $r = $input;
-            endif;
-        endif;
+            }
+        }
 
         return $r;
     }

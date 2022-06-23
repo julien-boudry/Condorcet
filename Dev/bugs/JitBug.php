@@ -1,4 +1,5 @@
 <?php
+
 // Linux: php -dzend_extension=opcache -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M -dopcache.jit=tracing Dev/bugs/JitBug.php
 // Windows: php -d zend_extension=opcache -d opcache.enable_cli=1 -d opcache.jit_buffer_size=100M -d opcache.jit=tracing Dev/bugs/JitBug.php
 
@@ -24,65 +25,68 @@ namespace CondorcetPHP\Condorcet;
 
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
-for ($i=1; $i <= 4000; $i++) :
+for ($i=1; $i <= 4000; $i++) {
 
     # With Condorcet
-        $election = new Election;
+    $election = new Election;
 
-        $election->parseCandidates('A;B;C');
+    $election->parseCandidates('A;B;C');
 
-        $election->addVote('A>B>C');
+    $election->addVote('A>B>C');
 
-        $election->getResult('Schulze');
-        $election->getResult('STV');
+    $election->getResult('Schulze');
+    $election->getResult('STV');
 
     # Tentative to reproduce (impossible...)
         // $a = new A (new Bar);
         // $b = new B (new Bar);
-
-endfor;
+}
 
 
 # Tentative to reproduce (impossible...)
 
-class Foo {
-    function __construct (public string $fromMethod, public string $byClass, public Bar $election, public array $result, public $stats, public ?int $seats = null, public array $methodOptions = [])
+class Foo
+{
+    public function __construct(public string $fromMethod, public string $byClass, public Bar $election, public array $result, public $stats, public ?int $seats = null, public array $methodOptions = [])
     {
     }
 }
 
-class Bar  {}
+class Bar
+{
+}
 
-abstract class Base {
-
+abstract class Base
+{
     public const IS_PROPORTIONAL = false;
 
     public Foo $foo;
 
     public function __construct(public Bar $barInstance)
     {
-        $this->foo = new Foo (
+        $this->foo = new Foo(
             fromMethod: 'test',
             byClass: $this::class,
             election: $this->barInstance,
             result: [],
             stats: [],
-            seats: (static::IS_PROPORTIONAL) ? $this->getSeats(): null,
+            seats: (static::IS_PROPORTIONAL) ? $this->getSeats() : null,
             methodOptions: []
         );
     }
 
-    public function getSeats() : int {
+    public function getSeats(): int
+    {
         return 6;
     }
 }
 
-class A extends Base {
-
+class A extends Base
+{
     public const IS_PROPORTIONAL = false;
 }
 
-class B extends Base {
-
+class B extends Base
+{
     public const IS_PROPORTIONAL = true;
 }

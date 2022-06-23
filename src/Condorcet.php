@@ -15,30 +15,30 @@ use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 // Registering native Condorcet Methods implementation
     // Classic Methods
-Condorcet::addMethod( Algo\Methods\Borda\BordaCount::class );
-Condorcet::addMethod( Algo\Methods\Copeland\Copeland::class );
-Condorcet::addMethod( Algo\Methods\Dodgson\DodgsonQuick::class );
-Condorcet::addMethod( Algo\Methods\Dodgson\DodgsonTidemanApproximation::class );
-Condorcet::addMethod( Algo\Methods\Borda\DowdallSystem::class );
-Condorcet::addMethod( Algo\Methods\InstantRunoff\InstantRunoff::class );
-Condorcet::addMethod( Algo\Methods\KemenyYoung\KemenyYoung::class );
-Condorcet::addMethod( Algo\Methods\Majority\FirstPastThePost::class );
-Condorcet::addMethod( Algo\Methods\Majority\MultipleRoundsSystem::class );
-Condorcet::addMethod( Algo\Methods\Minimax\MinimaxWinning::class );
-Condorcet::addMethod( Algo\Methods\Minimax\MinimaxMargin::class );
-Condorcet::addMethod( Algo\Methods\Minimax\MinimaxOpposition::class );
-Condorcet::addMethod( Algo\Methods\RankedPairs\RankedPairsMargin::class );
-Condorcet::addMethod( Algo\Methods\RankedPairs\RankedPairsWinning::class );
-Condorcet::addMethod( Algo\Methods\Schulze\SchulzeWinning::class );
-Condorcet::addMethod( Algo\Methods\Schulze\SchulzeMargin::class );
-Condorcet::addMethod( Algo\Methods\Schulze\SchulzeRatio::class );
+Condorcet::addMethod(Algo\Methods\Borda\BordaCount::class);
+Condorcet::addMethod(Algo\Methods\Copeland\Copeland::class);
+Condorcet::addMethod(Algo\Methods\Dodgson\DodgsonQuick::class);
+Condorcet::addMethod(Algo\Methods\Dodgson\DodgsonTidemanApproximation::class);
+Condorcet::addMethod(Algo\Methods\Borda\DowdallSystem::class);
+Condorcet::addMethod(Algo\Methods\InstantRunoff\InstantRunoff::class);
+Condorcet::addMethod(Algo\Methods\KemenyYoung\KemenyYoung::class);
+Condorcet::addMethod(Algo\Methods\Majority\FirstPastThePost::class);
+Condorcet::addMethod(Algo\Methods\Majority\MultipleRoundsSystem::class);
+Condorcet::addMethod(Algo\Methods\Minimax\MinimaxWinning::class);
+Condorcet::addMethod(Algo\Methods\Minimax\MinimaxMargin::class);
+Condorcet::addMethod(Algo\Methods\Minimax\MinimaxOpposition::class);
+Condorcet::addMethod(Algo\Methods\RankedPairs\RankedPairsMargin::class);
+Condorcet::addMethod(Algo\Methods\RankedPairs\RankedPairsWinning::class);
+Condorcet::addMethod(Algo\Methods\Schulze\SchulzeWinning::class);
+Condorcet::addMethod(Algo\Methods\Schulze\SchulzeMargin::class);
+Condorcet::addMethod(Algo\Methods\Schulze\SchulzeRatio::class);
 
     // Proportional Methods
-Condorcet::addMethod( Algo\Methods\STV\SingleTransferableVote::class );
-Condorcet::addMethod( Algo\Methods\STV\CPO_STV::class );
-Condorcet::addMethod( Algo\Methods\LargestRemainder\LargestRemainder::class );
-Condorcet::addMethod( Algo\Methods\HighestAverages\Jefferson::class );
-Condorcet::addMethod( Algo\Methods\HighestAverages\SainteLague::class );
+Condorcet::addMethod(Algo\Methods\STV\SingleTransferableVote::class);
+Condorcet::addMethod(Algo\Methods\STV\CPO_STV::class);
+Condorcet::addMethod(Algo\Methods\LargestRemainder\LargestRemainder::class);
+Condorcet::addMethod(Algo\Methods\HighestAverages\Jefferson::class);
+Condorcet::addMethod(Algo\Methods\HighestAverages\SainteLague::class);
 
 
 // Set the default Condorcet Class algorithm
@@ -46,8 +46,7 @@ Condorcet::setDefaultMethod('Schulze');
 
 abstract class Condorcet
 {
-
-/////////// CONSTANTS ///////////
+    /////////// CONSTANTS ///////////
     #[PublicAPI]
     final public const VERSION = '4.0.0';
 
@@ -60,24 +59,23 @@ abstract class Condorcet
     public static bool $UseTimer = false;
 
 
-/////////// STATICS METHODS ///////////
+    /////////// STATICS METHODS ///////////
 
     // Return library version number
     #[PublicAPI]
     #[Description("Get the library version.")]
     #[FunctionReturn("Condorcet PHP version.")]
     #[Related("Election::getObjectVersion")]
-    public static function getVersion (
+    public static function getVersion(
         #[FunctionParameter("* true will return : '2.0'\n* false will return : '2.0.0'")]
         bool $major = false
-    ): string
-    {
-        if ($major === true) :
+    ): string {
+        if ($major === true) {
             $version = \explode('.', self::VERSION);
             return $version[0].'.'.$version[1];
-        else :
+        } else {
             return self::VERSION;
-        endif;
+        }
     }
 
     // Return an array with auth methods
@@ -85,19 +83,18 @@ abstract class Condorcet
     #[Description("Get a list of supported algorithm.")]
     #[FunctionReturn("Populated by method string name. You can use it on getResult ... and others methods.")]
     #[Related("static Condorcet::isAuthMethod", "static Condorcet::getMethodClass")]
-    public static function getAuthMethods (
+    public static function getAuthMethods(
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
         bool $basic = false
-    ): array
-    {
+    ): array {
         $auth = self::$_authMethods;
 
         // Don't show Natural Condorcet
-        if (!$basic) :
+        if (!$basic) {
             unset($auth[self::CONDORCET_BASIC_CLASS]);
-        endif;
+        }
 
-        return \array_column($auth,0);
+        return \array_column($auth, 0);
     }
 
 
@@ -106,7 +103,8 @@ abstract class Condorcet
     #[Description("Return the Condorcet static default method.")]
     #[FunctionReturn("Method name.")]
     #[Related("static Condorcet::getAuthMethods", "static Condorcet::setDefaultMethod")]
-    public static function getDefaultMethod (): ?string {
+    public static function getDefaultMethod(): ?string
+    {
         return self::$_defaultMethod;
     }
 
@@ -117,28 +115,27 @@ abstract class Condorcet
     #[FunctionReturn("Return null is method not exist.")]
     #[Throws(AlgorithmException::class)]
     #[Related("static Condorcet::getAuthMethods")]
-    public static function getMethodClass (
+    public static function getMethodClass(
         #[FunctionParameter('A valid method name')]
         string $method
-    ): ?string
-    {
+    ): ?string {
         $auth = self::$_authMethods;
 
-        if (empty($method)) :
+        if (empty($method)) {
             throw new AlgorithmException("no method name given");
-        endif;
+        }
 
-        if ( isset($auth[$method]) ) :
+        if (isset($auth[$method])) {
             return $method;
-        else : // Alias
-            foreach ($auth as $class => $alias) :
-                foreach ($alias as $entry) :
-                    if ( \strcasecmp($method,$entry) === 0 ) :
+        } else { // Alias
+            foreach ($auth as $class => $alias) {
+                foreach ($alias as $entry) {
+                    if (\strcasecmp($method, $entry) === 0) {
                         return $class;
-                    endif;
-                endforeach;
-            endforeach;
-        endif;
+                    }
+                }
+            }
+        }
 
         return null;
     }
@@ -147,11 +144,10 @@ abstract class Condorcet
     #[Description("Test if a method is in the result set of Condorcet::getAuthMethods.")]
     #[FunctionReturn("True / False")]
     #[Related("static Condorcet::getMethodClass", "static Condorcet::getAuthMethods")]
-    public static function isAuthMethod (
+    public static function isAuthMethod(
         #[FunctionParameter('A valid method name or class')]
         string $method
-    ): bool
-    {
+    ): bool {
         return self::getMethodClass($method) !== null ;
     }
 
@@ -161,43 +157,42 @@ abstract class Condorcet
     #[Description("If you create your own Condorcet Algo. You will need it !")]
     #[FunctionReturn("True on Success. False on failure.")]
     #[Related("static Condorcet::isAuthMethod", "static Condorcet::getMethodClass")]
-    public static function addMethod (
+    public static function addMethod(
         #[FunctionParameter('The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).')]
         string $methodClass
-    ): bool
-    {
+    ): bool {
         // Check algos
-        if ( self::isAuthMethod($methodClass) || !self::testMethod($methodClass) ) :
+        if (self::isAuthMethod($methodClass) || !self::testMethod($methodClass)) {
             return false;
-        endif;
+        }
 
         // Adding algo
         self::$_authMethods[$methodClass] = $methodClass::METHOD_NAME;
 
-        if (self::getDefaultMethod() === null) :
+        if (self::getDefaultMethod() === null) {
             self::setDefaultMethod($methodClass);
-        endif;
+        }
 
         return true;
     }
 
 
     // Check if the class Algo. exist and ready to be used
-    protected static function testMethod (string $method): bool
+    protected static function testMethod(string $method): bool
     {
-        if ( !\class_exists($method) ) :
+        if (!\class_exists($method)) {
             throw new AlgorithmException("no class found for '$method'");
-        endif;
+        }
 
-        if ( !\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class) ) :
+        if (!\is_subclass_of($method, Algo\MethodInterface::class) || !\is_subclass_of($method, Algo\Method::class)) {
             throw new AlgorithmException("the given class is not correct");
-        endif;
+        }
 
-        foreach ($method::METHOD_NAME as $alias) :
-            if (self::isAuthMethod($alias)) :
+        foreach ($method::METHOD_NAME as $alias) {
+            if (self::isAuthMethod($alias)) {
                 throw new AlgorithmException("the given class is using an existing alias");
-            endif;
-        endforeach;
+            }
+        }
 
         return true;
     }
@@ -208,30 +203,29 @@ abstract class Condorcet
     #[Description("Put a new static method by default for the news Condorcet objects.")]
     #[FunctionReturn("In case of success, return TRUE")]
     #[Related("static Condorcet::getDefaultMethod")]
-    public static function setDefaultMethod (
+    public static function setDefaultMethod(
         #[FunctionParameter('A valid method name or class')]
         string $method
-    ): bool
-    {
-        if ( ($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS ) :
+    ): bool {
+        if (($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS) {
             self::$_defaultMethod = $method;
             return true;
-        else :
+        } else {
             return false;
-        endif;
+        }
     }
 
-    public static function condorcetBasicSubstitution (?string $substitution): string
+    public static function condorcetBasicSubstitution(?string $substitution): string
     {
-        if ( $substitution !== null ) :
-            if ( Condorcet::isAuthMethod($substitution) ) :
+        if ($substitution !== null) {
+            if (Condorcet::isAuthMethod($substitution)) {
                 $algo = $substitution;
-            else :
+            } else {
                 throw new AlgorithmException("No class found for method '$substitution'");
-            endif;
-        else :
+            }
+        } else {
             $algo = Condorcet::CONDORCET_BASIC_CLASS;
-        endif;
+        }
 
         return $algo;
     }

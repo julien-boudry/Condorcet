@@ -14,9 +14,9 @@ class CandidatesMaxNumberReachedException extends MethodLimitReachedException
 {
     protected $message = "Maximum number of candidates reached";
 
-    public function __construct (string $method, int $maxCandidates)
-    {       
-        parent::__construct($method,    "$this->message: ".
+    public function __construct(string $method, int $maxCandidates)
+    {
+        parent::__construct($method, "$this->message: ".
                                         "The method '$method' " .
                                         "is configured to accept only $maxCandidates candidates");
     }

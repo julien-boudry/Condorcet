@@ -1,12 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 use PhpBench\Attributes as Bench;
-
 
 class IntensiveUsageBench
 {
@@ -14,15 +13,15 @@ class IntensiveUsageBench
     #[Bench\Iterations(5)]
     #[Bench\Revs(10)]
     #[Bench\OutputTimeUnit('milliseconds')]
-    public function benchSimpleManyVotes (): void
+    public function benchSimpleManyVotes(): void
     {
-       $election = new Election;
-       $election->allowsVoteWeight(true);
-       $election->setNumberOfSeats(2);
+        $election = new Election;
+        $election->allowsVoteWeight(true);
+        $election->setNumberOfSeats(2);
 
-       $election->parseCandidates('A;B;C;D;E;F');
+        $election->parseCandidates('A;B;C;D;E;F');
 
-       $election->parseVotes('
+        $election->parseVotes('
        		Ultimate Question of Life || A>B>C ^42 * 42
           C=A>B ^2 * 200
           B>C
@@ -31,26 +30,26 @@ class IntensiveUsageBench
           D = B = E > F ^6 * 48
        ');
 
-       $election->getCondorcetWinner();
-       $election->getCondorcetLoser();
+        $election->getCondorcetWinner();
+        $election->getCondorcetLoser();
 
-       foreach (Condorcet::getAuthMethods() as $method) :
-         $election->getResult($method);
-       endforeach;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $election->getResult($method);
+        }
 
-       $election->setImplicitRanking(false);
+        $election->setImplicitRanking(false);
 
-       foreach (Condorcet::getAuthMethods() as $method) :
-         $election->getResult($method);
-       endforeach;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $election->getResult($method);
+        }
 
-       $election->allowsVoteWeight(false);
+        $election->allowsVoteWeight(false);
 
-       foreach (Condorcet::getAuthMethods() as $method) :
-         $election->getResult($method);
-       endforeach;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $election->getResult($method);
+        }
 
-       $election->parseVotes('
+        $election->parseVotes('
           Ultimate Question of Life || C>B>A ^42 * 42
           C=A=B ^2 * 200
           B>C
@@ -59,11 +58,10 @@ class IntensiveUsageBench
           C = B = E > A ^6 * 48
        ');
 
-       foreach (Condorcet::getAuthMethods() as $method) :
-         $election->getResult($method);
-       endforeach;
+        foreach (Condorcet::getAuthMethods() as $method) {
+            $election->getResult($method);
+        }
 
-       $votes = $election->getVotesListAsString();
+        $votes = $election->getVotesListAsString();
     }
-
 }
