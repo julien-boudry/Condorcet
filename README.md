@@ -71,7 +71,7 @@ _Two different ways to use Condorcet:_
 _Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider then it's a new project (api, engine)._  
 
 ## Supported Methods
-Support both single-winner methods (with or without Condorcet criterion) and proportional methods.
+Support both single-winner methods _(with or without Condorcet criterion)_ and proportional methods.
 
 [**Complete list of natively implemented methods and implementation choices**](VOTING_METHODS.md)
 
