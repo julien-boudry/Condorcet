@@ -6,11 +6,11 @@ use CondorcetPHP\Condorcet\{Condorcet, CondorcetUtil, Election};
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
 Condorcet::$UseTimer = true;
-$election = new Election  ;
+$election = new Election;
 
 // Inluding Data
 
-require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
+require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php';
 
 \define('TEST_NAME', 'Condorcet Bonus Example');
 
@@ -19,7 +19,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
  <html>
  <head>
  	<meta charset="UTF-8">
- 	<title><?php echo TEST_NAME ;?></title>
+ 	<title><?php echo TEST_NAME; ?></title>
 
  	<style>
 		.votant {
@@ -34,16 +34,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 		<img src="../../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
 	</header>
 
-	<h1><?php echo TEST_NAME ;?></h1>
+	<h1><?php echo TEST_NAME; ?></h1>
 
 	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo Condorcet::getVersion(); ?></em><br>
 
 	<em>
 		Number of Candidates :
-		<?php echo $election->countCandidates() ;?>
+		<?php echo $election->countCandidates(); ?>
 		|
 		Number of votes :
-		<?php echo $election->countVotes() ;?>
+		<?php echo $election->countVotes(); ?>
 	</em>
 
 	<h2>Candidates list :</h2>
@@ -51,7 +51,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	<ul>
 	<?php
     foreach ($election->getCandidatesList() as $candidatName) {
-        echo '<li>'.$candidatName.'</li>' ;
+        echo '<li>'.$candidatName.'</li>';
     }
     ?>
 	</ul>
@@ -67,16 +67,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
         echo '<ol>';
 
         foreach ($vote as $rank => $value) {
-            if ($rank == 'tag') {
-                continue ;
+            if ($rank === 'tag') {
+                continue;
             } ?>
 
-			<li><?php echo implode(',', $value) ; ?></li>
+			<li><?php echo implode(',', $value); ?></li>
 
 		<?php
         }
 
-        echo '</ol><br></div>' ;
+        echo '</ol><br></div>';
     }
 ?>
 
@@ -88,7 +88,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	<?php var_dump(CondorcetUtil::format($election->getPairwise())); ?>
 	 </pre>
 	<br>
-	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(), 5) ; ?> second(s).</em>
+	<em style="color:green;">computed in <?php echo number_format($election->getLastTimer(), 5); ?> second(s).</em>
 
 <br><br><hr style="clear:both;">
 
@@ -97,7 +97,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	<strong style="color:green;">
 		<?php
         if (null !== $election->getWinner()) {
-            echo $election->getWinner() ;
+            echo $election->getWinner();
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
         }
@@ -109,7 +109,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	<strong style="color:green;">
 		<?php
         if (null !== $election->getLoser()) {
-            echo $election->getLoser() ;
+            echo $election->getLoser();
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
         }
@@ -122,16 +122,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 
 	<h3>Use default method :</h3>
 
-	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod(); ?> <br>
 
 	 <pre>
 	<?php var_dump(CondorcetUtil::format($election->getResult())); ?>
 	 </pre>
 
 	<h3>Change it to MiniMax_Margin :</h3>
-	<?php Condorcet::setDefaultMethod('Minimax_Margin') ; ?>
+	<?php Condorcet::setDefaultMethod('Minimax_Margin'); ?>
 
-	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod() ; ?> <br>
+	<strong>Defaut:</strong> <?php echo Condorcet::getDefaultMethod(); ?> <br>
 
 	 <pre>
 	<?php var_dump(CondorcetUtil::format($election->getResult())); ?>
@@ -152,16 +152,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
         echo '<ol>';
 
         foreach ($vote as $rank => $value) {
-            if ($rank == 'tag') {
-                continue ;
+            if ($rank === 'tag') {
+                continue;
             } ?>
 
-			<li><?php echo implode(',', $value) ; ?></li>
+			<li><?php echo implode(',', $value); ?></li>
 
 		<?php
         }
 
-        echo '</ol><br></div>' ;
+        echo '</ol><br></div>';
     }
 ?>
 <div style="clear:both;"></div>
@@ -176,16 +176,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
         echo '<ol>';
 
         foreach ($vote as $rank => $value) {
-            if ($rank == 'tag') {
-                continue ;
+            if ($rank === 'tag') {
+                continue;
             } ?>
 
-			<li><?php echo implode(',', $value) ; ?></li>
+			<li><?php echo implode(',', $value); ?></li>
 
 		<?php
         }
 
-        echo '</ol><br></div>' ;
+        echo '</ol><br></div>';
     }
 ?>
 <div style="clear:both;"></div>
@@ -195,9 +195,9 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	 <pre>
 	<?php
     $options =	[
-                    'tags' => ['custom_tag_One', 'custom_tag_Two'],
-                    'withTag' => false
-                ];
+        'tags' => ['custom_tag_One', 'custom_tag_Two'],
+        'withTag' => false,
+    ];
 
     var_dump(CondorcetUtil::format($election->getResult('KemenyYoung', $options))); ?>
 	 </pre>
@@ -206,7 +206,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
 	<h3>Delete vote with "custom_tag_One" & "custom_tag_Two" tags and display Kemeny-Young  result</h3> <?php // you can also delete vote without this tag, read the doc ( tips: removeVotesByTags('custom_tag_One', false) )?>
 
 	<?php
-        $election->removeVotesByTags(['custom_tag_One', 'custom_tag_Two']) ;
+        $election->removeVotesByTags(['custom_tag_One', 'custom_tag_Two']);
     ?>
 
 
@@ -225,16 +225,16 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php' ;
         echo '<ol>';
 
         foreach ($vote as $rank => $value) {
-            if ($rank == 'tag') {
-                continue ;
+            if ($rank === 'tag') {
+                continue;
             } ?>
 
-			<li><?php echo implode(',', $value) ; ?></li>
+			<li><?php echo implode(',', $value); ?></li>
 
 		<?php
         }
 
-        echo '</ol><br></div>' ;
+        echo '</ol><br></div>';
     }
 ?>
 <div style="clear:both;"></div>

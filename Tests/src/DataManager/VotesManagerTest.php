@@ -89,7 +89,7 @@ class VotesManagerTest extends TestCase
         }
 
         self::assertEquals($this->election->getVotesList(), $votesListGenerator);
-        self::assertSame(52, \count($votesListGenerator));
+        self::assertCount(52, $votesListGenerator);
 
 
         $votesListGenerator = [];
@@ -99,6 +99,6 @@ class VotesManagerTest extends TestCase
         }
 
         self::assertEquals($this->election->getVotesList('tag42'), $votesListGenerator);
-        self::assertSame(42, \count($votesListGenerator));
+        self::assertCount(42, $votesListGenerator);
     }
 }

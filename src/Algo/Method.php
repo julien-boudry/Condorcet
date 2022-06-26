@@ -35,7 +35,7 @@ abstract class Method
     {
         $optionVar = 'option'.ucfirst($optionName);
 
-        static::$$optionVar = $optionValue;
+        static::${$optionVar} = $optionValue;
 
         return true;
     }
@@ -93,14 +93,14 @@ abstract class Method
     protected function createResult(array $result): Result
     {
         $optionsList = array_keys((new \ReflectionClass(static::class))->getStaticProperties());
-        $optionsList = array_filter($optionsList, function (string $name): bool {
+        $optionsList = array_filter($optionsList, static function (string $name): bool {
             return str_starts_with($name, 'option');
         });
 
         $methodOptions = [];
 
         foreach ($optionsList as $oneOption) {
-            $methodOptions[substr($oneOption, 6)] = static::$$oneOption;
+            $methodOptions[mb_substr($oneOption, 6)] = static::${$oneOption};
         }
 
         return new Result(

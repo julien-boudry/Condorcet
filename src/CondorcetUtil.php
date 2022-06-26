@@ -49,9 +49,9 @@ abstract class CondorcetUtil
         // Delete comments
         foreach ($input as $key => &$line) {
             // Delete comments
-            $is_comment = strpos($line, '#');
+            $is_comment = mb_strpos($line, '#');
             if ($is_comment !== false) {
-                $line = substr($line, 0, $is_comment);
+                $line = mb_substr($line, 0, $is_comment);
             }
 
             // Trim

@@ -113,7 +113,7 @@ class Election
             '_Constraints' => $this->_Constraints,
 
             '_Pairwise' => $this->_Pairwise,
-            '_Calculator' => $this->_Calculator
+            '_Calculator' => $this->_Calculator,
         ];
 
         !self::$_checksumMode && ($include += ['_timer' => $this->_timer]);
@@ -312,7 +312,7 @@ class Election
         }
 
         $this->cleanupCompute();
-        ;
+
 
         $this->_Constraints[] = $constraintClass;
 
@@ -339,7 +339,7 @@ class Election
         $this->_Constraints = [];
 
         $this->cleanupCompute();
-        ;
+
         return true;
     }
 

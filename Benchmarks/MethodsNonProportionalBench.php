@@ -17,7 +17,7 @@ class MethodsNonProportionalBench
 {
     public bool $IS_A_PROPORTIONAL_BENCH = false;
 
-    public array $numberOfCandidates = [3,5,6,7,8,9,10,11,20,30,40,50,60,70,80,90,100];
+    public array $numberOfCandidates = [3, 5, 6, 7, 8, 9, 10, 11, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
     protected Election $election;
 
@@ -36,11 +36,11 @@ class MethodsNonProportionalBench
 
         $candidates = [];
 
-        for ($i=0 ; $i < $numberOfCandidates ; $i++) {
+        for ($i=0; $i < $numberOfCandidates; $i++) {
             $candidates[] = $election->addCandidate();
         }
 
-        for ($i = 0 ; $i < $numberOfVotes ; $i++) {
+        for ($i = 0; $i < $numberOfVotes; $i++) {
             $oneVote = $candidates;
             shuffle($oneVote);
 

@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Election;
 class BordaCount extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['BordaCount','Borda Count','Borda','Méthode Borda'];
+    public const METHOD_NAME = ['BordaCount', 'Borda Count', 'Borda', 'Méthode Borda'];
 
     public static int $optionStarting = 1;
 
@@ -67,7 +67,7 @@ class BordaCount extends Method implements MethodInterface
             }
         }
 
-        array_walk($score, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        array_walk($score, static fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
         ksort($score, \SORT_NATURAL);
         arsort($score, \SORT_NUMERIC);
 

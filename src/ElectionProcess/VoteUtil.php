@@ -32,7 +32,7 @@ abstract class VoteUtil
             }
         }
 
-        $tags = array_map(fn (string $x): string => trim($x), $tags);
+        $tags = array_map(static fn (string $x): string => trim($x), $tags);
 
         foreach ($tags as $tag) {
             if (empty($tag)) {
@@ -84,7 +84,7 @@ abstract class VoteUtil
     public static function parseAnalysingOneLine(int|bool $searchCharacter, string &$line): int
     {
         if (\is_int($searchCharacter)) {
-            $value = trim(substr($line, $searchCharacter + 1));
+            $value = trim(mb_substr($line, $searchCharacter + 1));
 
             // Errors
             if (!is_numeric($value)) {
@@ -92,7 +92,7 @@ abstract class VoteUtil
             }
 
             // Reformat line
-            $line = substr($line, 0, $searchCharacter);
+            $line = mb_substr($line, 0, $searchCharacter);
 
             return \intval($value);
         } else {

@@ -54,7 +54,7 @@ abstract class Condorcet
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
     protected static ?string $_defaultMethod = null;
-    protected static array $_authMethods = [ self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME ];
+    protected static array $_authMethods = [self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME];
 
     public static bool $UseTimer = false;
 
@@ -148,7 +148,7 @@ abstract class Condorcet
         #[FunctionParameter('A valid method name or class')]
         string $method
     ): bool {
-        return self::getMethodClass($method) !== null ;
+        return self::getMethodClass($method) !== null;
     }
 
 
@@ -218,13 +218,13 @@ abstract class Condorcet
     public static function condorcetBasicSubstitution(?string $substitution): string
     {
         if ($substitution !== null) {
-            if (Condorcet::isAuthMethod($substitution)) {
+            if (self::isAuthMethod($substitution)) {
                 $algo = $substitution;
             } else {
                 throw new AlgorithmException("No class found for method '$substitution'");
             }
         } else {
-            $algo = Condorcet::CONDORCET_BASIC_CLASS;
+            $algo = self::CONDORCET_BASIC_CLASS;
         }
 
         return $algo;

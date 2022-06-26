@@ -39,18 +39,18 @@ class DowdallSystemTest extends TestCase
                 3 => 'C',
                 4 => 'D',
                 5 => 'E',
-                6 => 'F' ],
+                6 => 'F', ],
             $this->election->getResult('DowdallSystem')->getResultAsArray(true)
         );
 
         self::assertEqualsWithDelta(
             [
-            'A' => 1/1,
-            'B' => 1/2,
-            'C' => 1/3,
-            'D' => 1/4,
-            'E' => 1/5,
-            'F' => 1/6 ],
+                'A' => 1/1,
+                'B' => 1/2,
+                'C' => 1/3,
+                'D' => 1/4,
+                'E' => 1/5,
+                'F' => 1/6, ],
             $this->election->getResult('DowdallSystem')->getStats(),
             1 / (0.1 ** DowdallSystem::DECIMAL_PRECISION)
         );

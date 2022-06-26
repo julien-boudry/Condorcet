@@ -13,7 +13,7 @@ class Generate
 
     public static function makeFilename(\ReflectionMethod $method): string
     {
-        return  self::getModifiersName($method).
+        return self::getModifiersName($method).
                 ' '.
                 str_replace('\\', '_', self::simpleClass($method->class)).'--'.$method->name.
                 '.md';
@@ -39,7 +39,7 @@ class Generate
             return '['.implode(',', $c).']';
         }
         if (\is_object($c)) {
-            return 'new '.\get_class($c);
+            return 'new '.$c::class;
         }
 
         return (string) $c;
@@ -70,7 +70,7 @@ class Generate
         $infos = explode('::', $name);
         $infos[0] = str_replace('static ', '', $infos[0]);
 
-        $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md' ;
+        $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md';
         $url = str_replace(' ', '%20', $url);
 
         return '['.$name.']('.$url.')';
@@ -78,7 +78,7 @@ class Generate
 
     public static function computeRepresentationAsForIndex(\ReflectionMethod $method): string
     {
-        return  self::getModifiersName($method).
+        return self::getModifiersName($method).
                 ' '.
                 self::simpleClass($method->class).
                 (($method->isStatic()) ? '::' : '->').
@@ -115,7 +115,7 @@ class Generate
 
         $str .= ' )';
 
-        return  "```php\n".
+        return "```php\n".
                 self::getModifiersName($method).' '.self::simpleClass($method->class).(($method->isStatic()) ? '::' : '->').$method->name.' '.$str. ((self::getTypeAsString($method->getReturnType()) !== null) ? ': '.self::getTypeAsString($method->getReturnType()) : '').
                 "\n```";
     }
@@ -130,8 +130,8 @@ class Generate
 
         //
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
-        $FullClassList = array_filter($FullClassList, function (string $value) {
-            return (strpos($value, 'Condorcet\Test') === false) && (strpos($value, 'Condorcet\Dev') === false);
+        $FullClassList = array_filter($FullClassList, static function (string $value) {
+            return (mb_strpos($value, 'Condorcet\Test') === false) && (mb_strpos($value, 'Condorcet\Dev') === false);
         });
 
         $inDoc = 0;
@@ -181,21 +181,21 @@ class Generate
                 'FullClass' => $FullClass,
                 'shortClass' => $shortClass,
                 'ReflectionClass' => $reflectionClass,
-                'methods' => []
+                'methods' => [],
             ];
 
             foreach ($methods as $oneMethod) {
                 $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
-                                                        'FullClass' => $FullClass,
-                                                        'shortClass' => $shortClass,
-                                                        'name' => $oneMethod->name,
-                                                        'static' => $oneMethod->isStatic(),
-                                                        'visibility_public' => $oneMethod->isPublic(),
-                                                        'visibility_protected' => $oneMethod->isProtected(),
-                                                        'visibility_private' => $oneMethod->isPrivate(),
-                                                        'ReflectionMethod' => $oneMethod,
-                                                        'ReflectionClass' => $oneMethod->getDeclaringClass(),
-                                                    ];
+                    'FullClass' => $FullClass,
+                    'shortClass' => $shortClass,
+                    'name' => $oneMethod->name,
+                    'static' => $oneMethod->isStatic(),
+                    'visibility_public' => $oneMethod->isPublic(),
+                    'visibility_protected' => $oneMethod->isProtected(),
+                    'visibility_private' => $oneMethod->isPrivate(),
+                    'ReflectionMethod' => $oneMethod,
+                    'ReflectionClass' => $oneMethod->getDeclaringClass(),
+                ];
 
                 $total_methods++;
 
@@ -329,12 +329,12 @@ class Generate
     {
         $file_content = '';
 
-        $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
+        $testPublicAttribute = static function (\ReflectionMethod $reflectionMethod): bool {
             return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !\in_array(self::simpleClass($reflectionMethod->class), $apiAttribute[0]->getArguments(), true)));
         };
 
         foreach ($index as $class => &$classMeta) {
-            usort($classMeta['methods'], function (array $a, array $b): int {
+            usort($classMeta['methods'], static function (array $a, array $b): int {
                 if ($a['ReflectionMethod']->isStatic() === $b['ReflectionMethod']->isStatic()) {
                     return strnatcmp($a['ReflectionMethod']->name, $b['ReflectionMethod']->name);
                 } elseif ($a['ReflectionMethod']->isStatic() && !$b['ReflectionMethod']->isStatic()) {
@@ -392,7 +392,7 @@ class Generate
                 if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) {
                     continue;
                 } else {
-                    $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod']).' '. str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class).'--'. $oneMethod['ReflectionMethod']->name) . '.md' ;
+                    $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod']).' '. str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class).'--'. $oneMethod['ReflectionMethod']->name) . '.md';
                     $url = str_replace(' ', '%20', $url);
 
                     $file_content .= '* ['.self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod']).']('.$url.')';
@@ -492,7 +492,7 @@ class Generate
         $file_content = '';
 
         foreach ($index as $class => &$classMeta) {
-            usort($classMeta['methods'], function (array $a, array $b): int {
+            usort($classMeta['methods'], static function (array $a, array $b): int {
                 if ($a['static'] === $b['static']) {
                     if ($a['visibility_public'] && !$b['visibility_public']) {
                         return -1;

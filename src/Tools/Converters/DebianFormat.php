@@ -96,7 +96,7 @@ class DebianFormat implements ConverterInterface
             $match = null;
 
             preg_match($pattern, trim($oneVoteLine), $match);
-            $oneVoteLineRanking = str_split($match['Ranking']);
+            $oneVoteLineRanking = mb_str_split($match['Ranking']);
 
             $oneVote = [];
             foreach ($oneVoteLineRanking as $candidateKey => $candidateRankEvaluation) {

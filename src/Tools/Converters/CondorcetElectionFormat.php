@@ -198,10 +198,10 @@ class CondorcetElectionFormat implements ConverterInterface
             } elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) {
                 $this->numberOfSeats = (int) $matches['seats'];
             } elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) {
-                $parse = strtolower($matches['implicitRanking']);
+                $parse = mb_strtolower($matches['implicitRanking']);
                 $this->implicitRanking = $this->boolParser($parse);
             } elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) {
-                $parse = strtolower($matches['weight']);
+                $parse = mb_strtolower($matches['weight']);
                 $this->voteWeight = $this->boolParser($parse);
             } elseif (!empty($line) && !str_starts_with($line, '#')) {
                 break;
@@ -219,17 +219,17 @@ class CondorcetElectionFormat implements ConverterInterface
             $line = $this->file->fgets();
 
             if (!empty($line) && !str_starts_with($line, '#')) {
-                if (($pos = strpos($line, '||')) !== false) {
-                    $line = substr($line, ($pos + 2));
+                if (($pos = mb_strpos($line, '||')) !== false) {
+                    $line = mb_substr($line, ($pos + 2));
                 }
 
-                if (($pos = strpos($line, '||')) !== false) {
-                    $line = substr($line, ($pos + 2));
+                if (($pos = mb_strpos($line, '||')) !== false) {
+                    $line = mb_substr($line, ($pos + 2));
                 }
 
                 foreach (['#', '*', '^'] as $c) {
-                    if (($pos = strpos($line, $c)) !== false) {
-                        $line = substr($line, 0, $pos);
+                    if (($pos = mb_strpos($line, $c)) !== false) {
+                        $line = mb_substr($line, 0, $pos);
                     }
                 }
 

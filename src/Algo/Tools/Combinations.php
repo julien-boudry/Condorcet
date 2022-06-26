@@ -30,12 +30,12 @@ class Combinations
 
         if (self::$useBigIntegerIfAvailable && class_exists('Brick\Math\BigInteger')) {
             $a = BigInteger::of(1);
-            for ($i = $count ; $i > ($count - $length) ; $i--) {
+            for ($i = $count; $i > ($count - $length); $i--) {
                 $a = $a->multipliedBy($i);
             }
 
             $b = BigInteger::of(1);
-            for ($i = $length ; $i > 0 ; $i--) {
+            for ($i = $length; $i > 0; $i--) {
                 $b = $b->multipliedBy($i);
             }
 
@@ -48,12 +48,12 @@ class Combinations
             }
         } else {
             $a = 1;
-            for ($i = $count ; $i > ($count - $length) ; $i--) {
+            for ($i = $count; $i > ($count - $length); $i--) {
                 $a = $a * $i;
             }
 
             $b = 1;
-            for ($i = $length ; $i > 0 ; $i--) {
+            for ($i = $length; $i > 0; $i--) {
                 $b = $b * $i;
             }
 

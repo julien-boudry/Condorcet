@@ -54,7 +54,7 @@ class ResultTest extends TestCase
 
 
         self::assertSame(
-            [1 => [0,1], 2 => [2]],
+            [1 => [0, 1], 2 => [2]],
             $this->election1->getResult('Ranked Pairs')->getResultAsInternalKey()
         );
     }
@@ -147,7 +147,7 @@ class ResultTest extends TestCase
         $this->election1->addVote('a > b > c');
 
         self::assertEquals(
-            [   1 => 'a',
+            [1 => 'a',
                 2 => 'b',
                 3 => 'c',
             ],
@@ -227,7 +227,7 @@ class ResultTest extends TestCase
         $this->election1->addVote('C = A = B');
 
         self::assertSame(
-            [   1 => ['A','B','C']
+            [1 => ['A', 'B', 'C'],
             ],
             $this->election1->getResult()->getOriginalResultArrayWithString()
         );

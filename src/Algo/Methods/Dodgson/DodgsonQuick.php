@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 class DodgsonQuick extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Dodgson Quick','DodgsonQuick','Dodgson Quick Winner'];
+    public const METHOD_NAME = ['Dodgson Quick', 'DodgsonQuick', 'Dodgson Quick Winner'];
 
     protected ?array $_Stats = null;
 

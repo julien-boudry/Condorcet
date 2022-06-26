@@ -19,6 +19,6 @@ class FunctionParameter
 
     public function __construct(string $text)
     {
-        $this->text = (substr($text, -1) === '.') ? $text : $text.'.';
+        $this->text = (mb_substr($text, -1) === '.') ? $text : $text.'.';
     }
 }

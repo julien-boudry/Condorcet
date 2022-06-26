@@ -38,11 +38,11 @@ class Manager
                 $c = $this->_lastChronoTimestamp;
             } else {
                 $c = $chrono->getStart();
-                $this->_history[] = [   'role' => $chrono->getRole(),
-                                        'process_in' => ($m - $c),
-                                        'timer_start' => $c,
-                                        'timer_end' => $m
-                                    ];
+                $this->_history[] = ['role' => $chrono->getRole(),
+                    'process_in' => ($m - $c),
+                    'timer_start' => $c,
+                    'timer_end' => $m,
+                ];
             }
 
             $this->_globalTimer += ($m - $c);

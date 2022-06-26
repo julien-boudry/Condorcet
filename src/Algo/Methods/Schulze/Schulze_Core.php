@@ -87,7 +87,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
             // Format array for the strongest path
             foreach ($CandidatesKeys as $candidate_key_r) {
-                if ($candidate_key_r != $candidate_key) {
+                if ($candidate_key_r !== $candidate_key) {
                     $this->_StrongestPaths[$candidate_key][$candidate_key_r] = 0;
                 }
             }

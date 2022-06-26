@@ -23,7 +23,7 @@ class SingleTransferableVote extends Method implements MethodInterface
     final public const IS_PROPORTIONAL = true;
 
     // Method Name
-    public const METHOD_NAME = ['STV','Single Transferable Vote','SingleTransferableVote'];
+    public const METHOD_NAME = ['STV', 'Single Transferable Vote', 'SingleTransferableVote'];
 
     public static StvQuotas $optionQuota = StvQuotas::DROOP;
 

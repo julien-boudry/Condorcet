@@ -31,7 +31,7 @@ class ConstraintTest extends TestCase
 
         self::assertTrue($this->election->addConstraint($class));
 
-        self::assertSame([ $class ], $this->election->getConstraints());
+        self::assertSame([$class], $this->election->getConstraints());
 
         self::assertTrue($this->election->clearConstraints());
 

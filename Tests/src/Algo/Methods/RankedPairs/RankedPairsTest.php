@@ -40,11 +40,11 @@ class RankedPairsTest extends TestCase
 
         self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
-        $expected = [   1 => 'A',
-                        2 => 'C',
-                        3 => 'E',
-                        4 => 'B',
-                        5 => 'D'    ];
+        $expected = [1 => 'A',
+            2 => 'C',
+            3 => 'E',
+            4 => 'B',
+            5 => 'D', ];
 
         self::assertSame(
             $expected,
@@ -83,10 +83,10 @@ class RankedPairsTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        $expected = [   1 => 'Nashville',
-                        2 => 'Chattanooga',
-                        3 => 'Knoxville',
-                        4 => 'Memphis'];
+        $expected = [1 => 'Nashville',
+            2 => 'Chattanooga',
+            3 => 'Knoxville',
+            4 => 'Memphis', ];
 
 
         self::assertSame(
@@ -136,11 +136,11 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $expected =[    1 => 'Brad',
-                        2 => 'Abby',
-                        3 => 'Erin',
-                        4 => 'Dave',
-                        5 => 'Cora'];
+        $expected =[1 => 'Brad',
+            2 => 'Abby',
+            3 => 'Erin',
+            4 => 'Dave',
+            5 => 'Cora', ];
 
         self::assertEquals('Brad', $this->election->getWinner('Ranked Pairs Winning'));
 
@@ -192,9 +192,9 @@ class RankedPairsTest extends TestCase
             B > C > A * 2
         ');
 
-        $expected = [   1 => 'A',
-                        2 => 'B',
-                        3 => 'C' ];
+        $expected = [1 => 'A',
+            2 => 'B',
+            3 => 'C', ];
 
         self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
@@ -223,9 +223,9 @@ class RankedPairsTest extends TestCase
             C > A > B * 25
         ');
 
-        $expected = [   1 => 'A',
-                        2 => 'B',
-                        3 => 'C' ];
+        $expected = [1 => 'A',
+            2 => 'B',
+            3 => 'C', ];
 
         self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
@@ -255,8 +255,8 @@ class RankedPairsTest extends TestCase
             C > B > A * 2
         ');
 
-        $expected =  [   1 => ['A','B'],
-                         2 => 'C' ];
+        $expected =  [1 => ['A', 'B'],
+            2 => 'C', ];
 
         self::assertSame(
             $expected,
@@ -288,10 +288,10 @@ class RankedPairsTest extends TestCase
             D>B>A>C*6
         ');
 
-        $expected = [   1 => 'B',
-                        2 => 'A',
-                        3 => 'D',
-                        4 => 'C' ];
+        $expected = [1 => 'B',
+            2 => 'A',
+            3 => 'D',
+            4 => 'C', ];
 
         self::assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
 
@@ -320,7 +320,7 @@ class RankedPairsTest extends TestCase
     {
         # Test fix for rare bug
 
-        for ($i=0; $i < 8 ; $i++) {
+        for ($i=0; $i < 8; $i++) {
             $this->election->addCandidate();
         }
 
@@ -378,11 +378,11 @@ class RankedPairsTest extends TestCase
 
         self::assertEquals('v', $this->election->getWinner('Ranked Pairs Winning'));
 
-        $expected = [   1 => 'v',
-                        2 => 'w',
-                        3 => 'x',
-                        4 => 'y',
-                        5 => 'z' ];
+        $expected = [1 => 'v',
+            2 => 'w',
+            3 => 'x',
+            4 => 'y',
+            5 => 'z', ];
 
         self::assertSame(
             $expected,

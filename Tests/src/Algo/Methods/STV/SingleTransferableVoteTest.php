@@ -65,24 +65,21 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertEqualsWithDelta(
             [
-                1 =>
-                    [
+                1 => [
                     'A' => 42.0,
                     'D' => 26.0,
                     'C' => 17.0,
                     'B' => 15.0,
-                    ],
-                2 =>
-                    [
+                ],
+                2 => [
                     'D' => 26.0,
                     'B' => 20.33333333333,
                     'C' => 19.66666666667,
-                    ],
-                3 =>
-                    [
+                ],
+                3 => [
                     'B' => 37.33333333333,
                     'D' => 28.66666666667,
-                    ],
+                ],
             ],
             $this->election->getResult('STV')->getStats()['rounds'],
             1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
@@ -96,8 +93,8 @@ class SingleTransferableVoteTest extends TestCase
         self::assertSame(
             [
                 1 => 'A',
-                2 => 'B'
-             ],
+                2 => 'B',
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
     }
@@ -134,35 +131,30 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                [
-                'Chocolate' => 12.0,
-                'Orange' => 4.0,
-                'Pear' => 2.0,
-                'Strawberry' => 1.0,
-                'Hamburger' => 1.0,
+                1 => [
+                    'Chocolate' => 12.0,
+                    'Orange' => 4.0,
+                    'Pear' => 2.0,
+                    'Strawberry' => 1.0,
+                    'Hamburger' => 1.0,
                 ],
-                2 =>
-                [
-                'Strawberry' => 5.0,
-                'Orange' => 4.0,
-                'Hamburger' => 3.0,
-                'Pear' => 2.0,
+                2 => [
+                    'Strawberry' => 5.0,
+                    'Orange' => 4.0,
+                    'Hamburger' => 3.0,
+                    'Pear' => 2.0,
                 ],
-                3 =>
-                [
-                'Orange' => 6.0,
-                'Strawberry' => 5.0,
-                'Hamburger' => 3.0,
+                3 => [
+                    'Orange' => 6.0,
+                    'Strawberry' => 5.0,
+                    'Hamburger' => 3.0,
                 ],
-                4 =>
-                [
-                'Strawberry' => 5.0,
-                'Hamburger' => 3.0,
+                4 => [
+                    'Strawberry' => 5.0,
+                    'Hamburger' => 3.0,
                 ],
-                5 =>
-                [
-                'Strawberry' => 5.0,
+                5 => [
+                    'Strawberry' => 5.0,
                 ],
             ],
             $this->election->getResult('STV')->getStats()['rounds']
@@ -172,8 +164,8 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'Chocolate',
                 2 => 'Orange',
-                3 => 'Strawberry'
-             ],
+                3 => 'Strawberry',
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
     }
@@ -206,17 +198,15 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                    [
+                1 => [
                     'Andrea' => 50.0,
                     'Brad' => 27.0,
-                    'Carter' => 13.0
-                    ],
-                2 =>
-                    [
+                    'Carter' => 13.0,
+                ],
+                2 => [
                     'Brad' => 31.56,
-                    'Carter' => 27.44
-                    ]
+                    'Carter' => 27.44,
+                ],
             ],
             $this->election->getResult('STV')->getStats()['rounds']
         );
@@ -224,8 +214,8 @@ class SingleTransferableVoteTest extends TestCase
         self::assertSame(
             [
                 1 => 'Andrea',
-                2 => 'Brad'
-             ],
+                2 => 'Brad',
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
@@ -263,8 +253,8 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'A',
                 2 => 'D',
-                3 => 'C'
-             ],
+                3 => 'C',
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
     }
@@ -297,17 +287,15 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertEqualsWithDelta(
             [
-                1 =>
-                    [
+                1 => [
                     'Andrea' => 45.0,
                     'Brad' => 30.0,
-                    'Carter' => 25.0
-                    ],
-                2 =>
-                    [
+                    'Carter' => 25.0,
+                ],
+                2 => [
                     'Carter' => 36.0 + 2/3,
-                    'Brad' => 30.0
-                    ]
+                    'Brad' => 30.0,
+                ],
             ],
             $this->election->getResult('STV')->getStats()['rounds'],
             delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
@@ -317,7 +305,7 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'Andrea',
                 2 => 'Carter',
-             ],
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
@@ -351,17 +339,15 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                    [
+                1 => [
                     'Andrea' => 65.0,
                     'Brad' => 20.0,
-                    'Carter' => 15.0
-                    ],
-                2 =>
-                    [
+                    'Carter' => 15.0,
+                ],
+                2 => [
                     'Carter' => 55.0,
-                    'Brad' => 20.0
-                    ]
+                    'Brad' => 20.0,
+                ],
             ],
             $this->election->getResult('STV')->getStats()['rounds']
         );
@@ -370,7 +356,7 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'Andrea',
                 2 => 'Carter',
-             ],
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
@@ -404,18 +390,16 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                    [
+                1 => [
                     'Andrea' => 60.0,
                     'Brad' => 26.0,
-                    'Carter' => 14.0
-                    ],
-                2 =>
-                    [
+                    'Carter' => 14.0,
+                ],
+                2 => [
                     'Brad' => 26.0,
-                    'Carter' => 24.0
-                    ],
-                3 => ['Brad' => 26.0]
+                    'Carter' => 24.0,
+                ],
+                3 => ['Brad' => 26.0],
             ],
             $this->election->getResult('STV')->getStats()['rounds']
         );
@@ -424,7 +408,7 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'Andrea',
                 2 => 'Brad',
-             ],
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
@@ -463,25 +447,22 @@ class SingleTransferableVoteTest extends TestCase
 
         self::assertSame(
             [
-                1 =>
-                    [
+                1 => [
                     'Carter' => 34.0,
                     'Andrea' => 25.0,
                     'Scott' => 21.0,
                     'Delilah' => 13.0,
                     'Brad' => 7.0,
-                    ],
-                2 =>
-                    [
+                ],
+                2 => [
                     'Scott' => 21.0,
                     'Brad' => 16.0,
                     'Delilah' => 13.0,
-                    ],
-                3 =>
-                    [
+                ],
+                3 => [
                     'Scott' => 26.0,
                     'Brad' => 24.0,
-                    ],
+                ],
             ],
             $this->election->getResult('STV')->getStats()['rounds']
         );
@@ -490,8 +471,8 @@ class SingleTransferableVoteTest extends TestCase
             [
                 1 => 'Carter',
                 2 => 'Andrea',
-                3 => 'Scott'
-             ],
+                3 => 'Scott',
+            ],
             $this->election->getResult('STV')->getResultAsArray(true)
         );
     }

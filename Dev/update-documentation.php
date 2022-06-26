@@ -8,7 +8,7 @@ require_once __DIR__.str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendo
 
   // Build command
 
-  $path = substr(__DIR__, 0, \strlen(__DIR__) - 4);
+  $path = mb_substr(__DIR__, 0, mb_strlen(__DIR__) - 4);
   $path .= \DIRECTORY_SEPARATOR.'Documentation';
 
   // Clear folder
@@ -18,8 +18,8 @@ require_once __DIR__.str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendo
       if (is_dir($dir)) {
           $objects = scandir($dir);
           foreach ($objects as $object) {
-              if ($object != '.' && $object != '..') {
-                  if (filetype($dir.\DIRECTORY_SEPARATOR.$object) == 'dir') {
+              if ($object !== '.' && $object !== '..') {
+                  if (filetype($dir.\DIRECTORY_SEPARATOR.$object) === 'dir') {
                       rrmdir($dir.\DIRECTORY_SEPARATOR.$object, $path);
                   } else {
                       unlink($dir.\DIRECTORY_SEPARATOR.$object);

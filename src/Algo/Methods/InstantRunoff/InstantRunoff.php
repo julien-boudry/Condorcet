@@ -91,7 +91,7 @@ class InstantRunoff extends Method implements MethodInterface
 
                 // Tie Breaking
                 $round = \count($LosersToRegister);
-                for ($i = 1 ; $i < $round ; $i++) { // A little silly. But ultimately shorter and simpler.
+                for ($i = 1; $i < $round; $i++) { // A little silly. But ultimately shorter and simpler.
                     $LosersToRegister = TieBreakersCollection::electSomeLosersbasedOnPairwiseComparaison($election, $LosersToRegister);
                 }
 

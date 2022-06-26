@@ -26,19 +26,19 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
-                                            '--stats' => null,
-                                            '--natural-condorcet' => null,
-                                            '--allows-votes-weight' => null,
-                                            '--no-tie' => null,
-                                            '--list-votes' => null,
-                                            '--deactivate-implicit-ranking' => null,
-                                            '--show-pairwise' => null
-                                        ],
+                '--candidates' => 'A;B;C',
+                '--votes' => 'A>B>C;C>B>A;B>A>C',
+                '--stats' => null,
+                '--natural-condorcet' => null,
+                '--allows-votes-weight' => null,
+                '--no-tie' => null,
+                '--list-votes' => null,
+                '--deactivate-implicit-ranking' => null,
+                '--show-pairwise' => null,
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();
@@ -63,22 +63,22 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
-                                            '--stats' => null,
-                                            '--natural-condorcet' => null,
-                                            '--allows-votes-weight' => null,
-                                            '--no-tie' => null,
-                                            '--list-votes' => null,
-                                            '--deactivate-implicit-ranking' => null,
-                                            '--show-pairwise' => null,
+                '--candidates' => 'A;B;C',
+                '--votes' => 'A>B>C;C>B>A;B>A>C',
+                '--stats' => null,
+                '--natural-condorcet' => null,
+                '--allows-votes-weight' => null,
+                '--no-tie' => null,
+                '--list-votes' => null,
+                '--deactivate-implicit-ranking' => null,
+                '--show-pairwise' => null,
 
-                                            '--seats' => 42,
-                                            'methods' => ['STV']
-                                        ],
+                '--seats' => 42,
+                'methods' => ['STV'],
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();
@@ -94,10 +94,10 @@ class ElectionCommandTest extends TestCase
     public function testQuotas(): void
     {
         $this->electionCommand->execute([
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A>B>C;C>B>A;B>A>C',
 
-                                            'methods' => ['STV'],
+            'methods' => ['STV'],
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -110,7 +110,7 @@ class ElectionCommandTest extends TestCase
             '--votes' => 'A>B>C;C>B>A;B>A>C',
 
             'methods' => ['STV'],
-            '--quota' => 'imperiali'
+            '--quota' => 'imperiali',
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -121,10 +121,10 @@ class ElectionCommandTest extends TestCase
     public function testConsoleAllMethodsArgument(): void
     {
         $this->electionCommand->execute([
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A>B>C;C>B>A;B>A>C',
 
-                                            'methods' => ['all']
+            'methods' => ['all'],
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -138,10 +138,10 @@ class ElectionCommandTest extends TestCase
     public function testConsoleMultiplesMethods(): void
     {
         $this->electionCommand->execute([
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A>B>C;C>B>A;B>A>C',
 
-                                            'methods' => ['Copeland', 'RankedPairs', 'Minimax']
+            'methods' => ['Copeland', 'RankedPairs', 'Minimax'],
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -158,7 +158,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute([
             '--candidates' => __DIR__.'/data.candidates',
-            '--votes' => __DIR__.'/data.votes'
+            '--votes' => __DIR__.'/data.votes',
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -179,11 +179,11 @@ class ElectionCommandTest extends TestCase
             'A>B>C',
             'B>A>C',
             'A>C>B',
-            ''
-            ]);
+            '',
+        ]);
 
         $this->electionCommand->execute([
-            'command' => 'election'
+            'command' => 'election',
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -206,10 +206,10 @@ class ElectionCommandTest extends TestCase
     public function testCustomizeVotesPerMb(): void
     {
         $this->electionCommand->execute([
-                                            '--candidates' => 'A;B;C',
-                                            '--votes' => 'A>B>C;C>B>A;B>A>C',
-                                            '--votes-per-mb' => 42
-                                        ]);
+            '--candidates' => 'A;B;C',
+            '--votes' => 'A>B>C;C>B>A;B>A>C',
+            '--votes-per-mb' => 42,
+        ]);
 
         self::assertSame(42, \CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB);
 
@@ -222,12 +222,12 @@ class ElectionCommandTest extends TestCase
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
 
         $this->electionCommand->execute([
-                                            '--candidates' => 'A;B;C',
-                                            '--votes-per-mb' => 1,
-                                            '--votes' => 'A>B>C * '.(((int) preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
-                                        ], [
-                                            'verbosity' => OutputInterface::VERBOSITY_DEBUG
-                                        ]);
+            '--candidates' => 'A;B;C',
+            '--votes-per-mb' => 1,
+            '--votes' => 'A>B>C * '.(((int) preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
+        ], [
+            'verbosity' => OutputInterface::VERBOSITY_DEBUG,
+        ]);
 
         $output = $this->electionCommand->getDisplay();
 
@@ -260,12 +260,12 @@ class ElectionCommandTest extends TestCase
 
         $this->electionCommand->execute(
             [
-                                            '--candidates' => 'A;B;C',
-                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
-                                        ],
+                '--candidates' => 'A;B;C',
+                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
     }
 
@@ -273,15 +273,15 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
-                                            '--votes' => 'C>A',
-                                            '--deactivate-implicit-ranking' => null,
-                                            '--no-tie' => null,
-                                            '--allows-votes-weight' => null,
-                                        ],
+                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                '--votes' => 'C>A',
+                '--deactivate-implicit-ranking' => null,
+                '--no-tie' => null,
+                '--allows-votes-weight' => null,
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();
@@ -305,11 +305,11 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
-                                        ],
+                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();
@@ -336,11 +336,11 @@ class ElectionCommandTest extends TestCase
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
 
         $this->electionCommand->execute([
-                                            '--votes-per-mb' => 1,
-                                            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
-                                        ], [
-                                            'verbosity' => OutputInterface::VERBOSITY_DEBUG
-                                        ]);
+            '--votes-per-mb' => 1,
+            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
+        ], [
+            'verbosity' => OutputInterface::VERBOSITY_DEBUG,
+        ]);
 
         $output = $this->electionCommand->getDisplay();
 
@@ -356,12 +356,12 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--import-debian-format' => __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt',
-                                            'methods' => ['STV'],
-                                        ],
+                '--import-debian-format' => __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt',
+                'methods' => ['STV'],
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();
@@ -388,12 +388,12 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                                            '--import-david-hill-format' => __DIR__.'/../../Tools/Converters/TidemanData/A1.HIL',
-                                            'methods' => ['STV'],
-                                        ],
+                '--import-david-hill-format' => __DIR__.'/../../Tools/Converters/TidemanData/A1.HIL',
+                'methods' => ['STV'],
+            ],
             [
-                                            'verbosity' => OutputInterface::VERBOSITY_VERBOSE
-                                        ]
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
         );
 
         $output = $this->electionCommand->getDisplay();

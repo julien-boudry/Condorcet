@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Candidates
     $election->addCandidate('Memphis');
     $election->addCandidate('Nashville');
@@ -11,42 +13,42 @@
     $vote[] = 'Memphis';
     $vote[] = 'Nashville';
     $vote[] = 'Chatta';
-    $vote[] = 'Knoxville' ;
+    $vote[] = 'Knoxville';
 
-    for ($i = 1 ; $i <= 42 ; $i++) {
-        $election->addVote($vote, 'custom_tag_Two') ;
+    for ($i = 1; $i <= 42; $i++) {
+        $election->addVote($vote, 'custom_tag_Two');
     }
-    $vote = [] ;
+    $vote = [];
 
     $vote[] = 'Nashville';
     $vote[] = 'Chatta';
-    $vote[] = 'Knoxville' ;
+    $vote[] = 'Knoxville';
     $vote[] = 'Memphis';
 
-    for ($i = 1 ; $i <= 26 ; $i++) {
-        $election->addVote($vote, 'custom_tag_Two') ;
+    for ($i = 1; $i <= 26; $i++) {
+        $election->addVote($vote, 'custom_tag_Two');
     }
-    $vote = [] ;
+    $vote = [];
 
     $vote[] = 'Chatta';
-    $vote[] = 'Knoxville' ;
+    $vote[] = 'Knoxville';
     $vote[] = 'Nashville';
     $vote[] = 'Memphis';
 
-    for ($i = 1 ; $i <= 12 ; $i++) {
-        $election->addVote($vote) ;
+    for ($i = 1; $i <= 12; $i++) {
+        $election->addVote($vote);
     }
-    for ($i = 1 ; $i <= 3 ; $i++) {
-        $election->addVote($vote, 'custom_tag_One') ;
+    for ($i = 1; $i <= 3; $i++) {
+        $election->addVote($vote, 'custom_tag_One');
     }
-    $vote = [] ;
+    $vote = [];
 
-    $vote[] = 'Knoxville' ;
+    $vote[] = 'Knoxville';
     $vote[] = 'Chatta';
     $vote[] = 'Nashville';
     $vote[] = 'Memphis';
 
-    for ($i = 1 ; $i <= 17 ; $i++) {
-        $election->addVote($vote, 'custom_tag_Two') ;
+    for ($i = 1; $i <= 17; $i++) {
+        $election->addVote($vote, 'custom_tag_Two');
     }
-    $vote = [] ;
+    $vote = [];

@@ -40,7 +40,7 @@ class LargestRemainderTest extends TestCase
                 'Reds' => 1,
                 'Greens' => 1,
                 'Blues' => 1,
-                'Pinks' => 0],
+                'Pinks' => 0, ],
             $this->election->getResult('LR')->getStats()['Seats per Candidates']
         );
 
@@ -52,7 +52,7 @@ class LargestRemainderTest extends TestCase
                 'Reds' => 2,
                 'Greens' => 1,
                 'Blues' => 0,
-                'Pinks' => 0],
+                'Pinks' => 0, ],
             $this->election->getResult('LR')->getStats()['Seats per Candidates']
         );
     }
@@ -75,7 +75,7 @@ class LargestRemainderTest extends TestCase
                 'C' => 4,
                 'D' => 3,
                 'E' => 3,
-                'F' => 1],
+                'F' => 1, ],
             $this->election->getResult('LR')->getStats()['Seats per Candidates']
         );
     }
@@ -98,7 +98,7 @@ class LargestRemainderTest extends TestCase
                 'C' => 5,
                 'D' => 2,
                 'E' => 2,
-                'F' => 1],
+                'F' => 1, ],
             $this->election->getResult('LR')->getStats()['Seats per Candidates']
         );
     }
@@ -117,7 +117,7 @@ class LargestRemainderTest extends TestCase
                 'A' => 33,
                 'B' => 33,
                 'C' => 33,
-                ],
+            ],
             $this->election->getResult('LR')->getStats()['Seats per Candidates']
         );
     }

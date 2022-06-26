@@ -324,8 +324,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                            ['* Condorcet winner', (string) ($this->election->getCondorcetWinner() ?? 'NULL')],
-                            ['# Condorcet loser', (string) ($this->election->getCondorcetLoser() ?? 'NULL')]
+                    ['* Condorcet winner', (string) ($this->election->getCondorcetWinner() ?? 'NULL')],
+                    ['# Condorcet loser', (string) ($this->election->getCondorcetLoser() ?? 'NULL')],
                 ])
 
                 ->render()
@@ -485,7 +485,7 @@ class ElectionCommand extends Command
         ;
 
         foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) {
-            $votesTable->addRow([ ($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags()) ]);
+            $votesTable->addRow([($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags())]);
         }
 
         $votesTable->render();
@@ -516,9 +516,9 @@ class ElectionCommand extends Command
             $methods = [];
 
             foreach ($methodArgument as $oneMethod) {
-                if (strtolower($oneMethod) === 'all') {
+                if (mb_strtolower($oneMethod) === 'all') {
                     $methods = Condorcet::getAuthMethods(false);
-                    $methods = array_map(fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
+                    $methods = array_map(static fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
                     break;
                 }
 
@@ -628,7 +628,7 @@ class ElectionCommand extends Command
                 $line = $line.'#';
             }
 
-            $line = [$rank,$line];
+            $line = [$rank, $line];
         }
 
 
@@ -644,14 +644,13 @@ class ElectionCommand extends Command
         } else {
             return (is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
         }
-        ;
     }
 
     protected function isAbsolute(string $path): bool
     {
         return empty($path) ? false : (
             strspn($path, '/\\', 0, 1) ||
-                                            (\strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1))
+                                            (mb_strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1))
         );
     }
 

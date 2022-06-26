@@ -18,10 +18,10 @@ declare(strict_types=1);
 // VI - Play with Condorcet objects (Advanced)
 
         // Create a second election
-        $election2 = new Election ;
+        $election2 = new Election;
 
          // Create three candidate : 'A', 'B' and 'C'
-        for ($i = 0 ; $i < 3 ; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $election2->addCandidate();
         }
 
@@ -57,7 +57,7 @@ declare(strict_types=1);
             6 => $election1->getCandidateObjectFromName('W.Lutoslawski'),
             7 => new Candidate('Another candidate'), // This one does not takes part in any of two elections.
             8 => $election1->getCandidateObjectFromName('Caplet'),
-            9 => $election2->getCandidateObjectFromName('C')
+            9 => $election2->getCandidateObjectFromName('C'),
         ]);
 
         // Add it on election 1 and 2
@@ -79,7 +79,7 @@ declare(strict_types=1);
             $myNewVote->setRanking([
                 1 => $election2->getCandidateObjectFromName('B'),
                 2 => $election1->getCandidateObjectFromName('Koechlin'),
-                3 => $election1->getCandidateObjectFromName('W.Lutoslawski')
+                3 => $election1->getCandidateObjectFromName('W.Lutoslawski'),
             ]);
 
             # Get Ranking history

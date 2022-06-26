@@ -35,7 +35,7 @@ class VotesManager extends ArrayManager
     {
         $data->destroyLink($this->getElection());
 
-        return str_replace([' > ',' = '], ['>','='], (string) $data);
+        return str_replace([' > ', ' = '], ['>', '='], (string) $data);
     }
 
     protected function preDeletedTask($object): void

@@ -13,7 +13,6 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
-use stdClass;
 
 class Vote implements \Iterator, \Stringable
 {
@@ -71,7 +70,7 @@ class Vote implements \Iterator, \Stringable
 
 
     // Performance (for internal use)
-    protected static ?stdClass $cacheKey = null;
+    protected static ?\stdClass $cacheKey = null;
     protected ?\WeakMap $cacheMap = null;
 
     public static function initCache(): \stdClass
@@ -109,9 +108,9 @@ class Vote implements \Iterator, \Stringable
 
         // Vote Weight
         if (\is_string($ranking)) {
-            $is_voteWeight = strpos(haystack: $ranking, needle: '^');
+            $is_voteWeight = mb_strpos(haystack: $ranking, needle: '^');
             if ($is_voteWeight !== false) {
-                $weight = trim(substr($ranking, $is_voteWeight + 1));
+                $weight = trim(mb_substr($ranking, $is_voteWeight + 1));
 
                 // Errors
                 if (!is_numeric($weight)) {
@@ -120,13 +119,13 @@ class Vote implements \Iterator, \Stringable
 
                 $weight = \intval($weight);
 
-                $ranking = substr($ranking, 0, $is_voteWeight);
+                $ranking = mb_substr($ranking, 0, $is_voteWeight);
             }
 
-            $is_voteTags = strpos($ranking, '||');
+            $is_voteTags = mb_strpos($ranking, '||');
             if ($is_voteTags !== false) {
-                $tagsFromString = explode(',', trim(substr($ranking, 0, $is_voteTags)));
-                $ranking = substr($ranking, $is_voteTags + 2);
+                $tagsFromString = explode(',', trim(mb_substr($ranking, 0, $is_voteTags)));
+                $ranking = mb_substr($ranking, $is_voteTags + 2);
             }
         }
 
@@ -478,7 +477,7 @@ class Vote implements \Iterator, \Stringable
             $ranking = VoteUtil::convertVoteInput($ranking);
         }
 
-        $ranking = array_filter($ranking, fn ($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
+        $ranking = array_filter($ranking, static fn ($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
 
         ksort($ranking);
 
@@ -678,9 +677,9 @@ class Vote implements \Iterator, \Stringable
 
     private function archiveRanking(): void
     {
-        $this->_ranking_history[] = [   'ranking' => $this->_ranking,
-                                        'timestamp' => $this->_lastTimestamp,
-                                        'counter' => $this->_counter   ];
+        $this->_ranking_history[] = ['ranking' => $this->_ranking,
+            'timestamp' => $this->_lastTimestamp,
+            'counter' => $this->_counter, ];
 
         $this->rewind();
     }

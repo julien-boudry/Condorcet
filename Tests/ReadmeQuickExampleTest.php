@@ -11,7 +11,7 @@ class ReadmeQuickExampleTest extends TestCase
 {
     public function testReadmeQuickExample(): void
     {
-        $myElection1 = new Election  ;
+        $myElection1 = new Election;
 
         // Create your own candidate object
         $candidate1 = new Candidate('Candidate 1');
@@ -27,10 +27,10 @@ class ReadmeQuickExampleTest extends TestCase
         // Add some votes, by some ways
         $myElection1->addVote(
             [
-                                      $candidate2, // 1
-                                      [$candidate1, $candidate4] // 2 - Tie
-                                      // Last rank is optionnal. Here it's : $candidate3
-                                  ]
+                $candidate2, // 1
+                [$candidate1, $candidate4], // 2 - Tie
+                // Last rank is optionnal. Here it's : $candidate3
+            ]
         );
 
         $myElection1->addVote('Candidate 2 > Candidate 3 > Candidate 4 = Candidate 1'); // last rank can also be omitted
@@ -42,10 +42,10 @@ class ReadmeQuickExampleTest extends TestCase
 
         $myElection1->addVote(new Vote(
             [
-                                                $candidate4,
-                                                $candidate2
-                                                // You can ignore the over. They will be at the last rank in the contexte of each election.
-                                            ]
+                $candidate4,
+                $candidate2,
+                // You can ignore the over. They will be at the last rank in the contexte of each election.
+            ]
         ));
 
 

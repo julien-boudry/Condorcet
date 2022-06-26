@@ -154,7 +154,7 @@ abstract class Majority_Core extends Method implements MethodInterface
             }
         }
 
-        array_walk($roundScore, fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        array_walk($roundScore, static fn (float &$sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
 
         return $roundScore;
     }

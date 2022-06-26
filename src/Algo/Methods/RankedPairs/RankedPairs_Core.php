@@ -149,7 +149,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
 
             $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
             foreach ($newArcsRound as $newArc) {
-                $virtualArcs[$newKey] = [ 'from' => $newArc['from'], 'to' => $newArc['to'] ];
+                $virtualArcs[$newKey] = ['from' => $newArc['from'], 'to' => $newArc['to']];
                 $testNewsArcs[$newKey] = $virtualArcs[$newKey];
                 $newKey++;
             }
@@ -233,7 +233,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             }
         }
 
-        usort($pairs, function (array $a, array $b): int {
+        usort($pairs, static function (array $a, array $b): int {
             if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) {
                 return 1;
             } elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) {

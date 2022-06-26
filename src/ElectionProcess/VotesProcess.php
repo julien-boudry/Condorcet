@@ -371,10 +371,10 @@ trait VotesProcess
             }
 
             // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(strpos($line, '*'), $line);
+            $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '*'), $line);
 
             // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(strpos($line, '^'), $line);
+            $weight = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '^'), $line);
 
             // Tags + vote
             if (str_contains($line, '||') === true) {
@@ -442,7 +442,7 @@ trait VotesProcess
                 try {
                     CondorcetUtil::prepareParse($record, false);
 
-                    $multiple = VoteUtil::parseAnalysingOneLine(strpos(haystack: $record, needle: '*'), $record);
+                    $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos(haystack: $record, needle: '*'), $record);
 
                     for ($i=0; $i < $multiple; $i++) {
                         $inserted_votes_count += $this->parseVotes($record);
@@ -498,7 +498,7 @@ trait VotesProcess
         $this->_voteFastMode = 1;
 
         foreach ($adding as $oneLine) {
-            for ($i = 1 ; $i <= $oneLine['multiple'] ; $i++) {
+            for ($i = 1; $i <= $oneLine['multiple']; $i++) {
                 if ($i === 1) {
                     $finalVoteModel = $this->addVote($oneLine['vote']);
                     $this->_voteFastMode = 2;

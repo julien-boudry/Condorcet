@@ -23,10 +23,10 @@ class ElectionTest extends TestCase
         $this->candidate2 = $this->election1->addCandidate('candidate2');
         $this->candidate3 = $this->election1->addCandidate('candidate3');
 
-        $this->election1->addVote($this->vote1 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]));
-        $this->election1->addVote($this->vote2 = new Vote([$this->candidate2,$this->candidate3,$this->candidate1]));
-        $this->election1->addVote($this->vote3 = new Vote([$this->candidate3,$this->candidate1,$this->candidate2]));
-        $this->election1->addVote($this->vote4 = new Vote([$this->candidate1,$this->candidate2,$this->candidate3]));
+        $this->election1->addVote($this->vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]));
+        $this->election1->addVote($this->vote2 = new Vote([$this->candidate2, $this->candidate3, $this->candidate1]));
+        $this->election1->addVote($this->vote3 = new Vote([$this->candidate3, $this->candidate1, $this->candidate2]));
+        $this->election1->addVote($this->vote4 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]));
 
         $this->election2 = new Election;
     }
@@ -51,9 +51,9 @@ class ElectionTest extends TestCase
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        self::assertCount(3, $r = $this->election1->removeVotesByTags(['tag1','tag5']));
+        self::assertCount(3, $r = $this->election1->removeVotesByTags(['tag1', 'tag5']));
 
-        self::assertSame([$this->vote1,$this->vote3,$this->vote4], $r);
+        self::assertSame([$this->vote1, $this->vote3, $this->vote4], $r);
 
         self::assertSame([1 => $this->vote2], $this->election1->getVotesList());
 
@@ -79,15 +79,15 @@ class ElectionTest extends TestCase
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        self::assertSame($this->election1->getVotesList('tag1,tag2', true), [0=>$this->vote1,3=>$this->vote4]);
+        self::assertSame($this->election1->getVotesList('tag1,tag2', true), [0=>$this->vote1, 3=>$this->vote4]);
         self::assertSame($this->election1->countVotes('tag1,tag2', true), 2);
 
-        self::assertSame($this->election1->getVotesList('tag1,tag2', false), [1=>$this->vote2,2=>$this->vote3]);
+        self::assertSame($this->election1->getVotesList('tag1,tag2', false), [1=>$this->vote2, 2=>$this->vote3]);
         self::assertSame($this->election1->countVotes('tag1,tag2', false), 2);
 
         $resultGlobal = $this->election1->getResult('Schulze');
-        $resultFilter1 = $this->election1->getResult('Schulze', ['tags' => 'tag1','withTag' => true]);
-        $resultFilter2 = $this->election1->getResult('Schulze', ['tags' => 'tag1','withTag' => false]);
+        $resultFilter1 = $this->election1->getResult('Schulze', ['tags' => 'tag1', 'withTag' => true]);
+        $resultFilter2 = $this->election1->getResult('Schulze', ['tags' => 'tag1', 'withTag' => false]);
 
         self::assertNotSame($resultGlobal, $resultFilter1);
         self::assertNotSame($resultGlobal, $resultFilter2);
@@ -104,7 +104,7 @@ class ElectionTest extends TestCase
         );
 
         self::assertSame(
-            ['Bruckner','Mahler','Debussy','Bibendum'],
+            ['Bruckner', 'Mahler', 'Debussy', 'Bibendum'],
             $this->election2->getCandidatesListAsString()
         );
     }
@@ -179,13 +179,13 @@ class ElectionTest extends TestCase
 
         self::assertSame(2, Election::setMaxParseIteration(2));
 
-        self::assertSame([0=>'candidate1',1=>'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
+        self::assertSame([0=>'candidate1', 1=>'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
 
-        self::assertSame([0=>'candidate3',1=>'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
+        self::assertSame([0=>'candidate3', 1=>'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
 
         self::assertNull(Election::setMaxParseIteration(null));
 
-        self::assertSame([0=>'candidate5',1=>'candidate6',2=>'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
+        self::assertSame([0=>'candidate5', 1=>'candidate6', 2=>'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
 
         self::assertSame(2, Election::setMaxParseIteration(2));
 
@@ -278,13 +278,13 @@ class ElectionTest extends TestCase
         );
 
         self::assertSame(
-            <<<VOTES
-            A * 6
-            D * 6
-            A > B = C > E * 5
-            A = B = E * 3
-            Y > Z * 1
-            VOTES,
+            <<<'VOTES'
+                A * 6
+                D * 6
+                A > B = C > E * 5
+                A = B = E * 3
+                Y > Z * 1
+                VOTES,
             $this->election1->getVotesListAsString(false)
         );
     }
@@ -302,14 +302,14 @@ class ElectionTest extends TestCase
 
         self::assertSame(
             $cvotes_explicit_without_context =
-                            <<<CVOTES
-                            #/Candidates: A ; B ; C
-                            #/Implicit Ranking: false
-                            #/Weight Allowed: false
+                            <<<'CVOTES'
+                                #/Candidates: A ; B ; C
+                                #/Implicit Ranking: false
+                                #/Weight Allowed: false
 
-                            /EMPTY_RANKING/ * 1
-                            D > E * 1
-                            CVOTES,
+                                /EMPTY_RANKING/ * 1
+                                D > E * 1
+                                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
         );
 
@@ -319,50 +319,50 @@ class ElectionTest extends TestCase
         );
 
         self::assertSame(
-            <<<CVOTES
-                            #/Candidates: A ; B ; C
-                            #/Implicit Ranking: false
-                            #/Weight Allowed: false
+            <<<'CVOTES'
+                #/Candidates: A ; B ; C
+                #/Implicit Ranking: false
+                #/Weight Allowed: false
 
-                            /EMPTY_RANKING/ * 2
-                            CVOTES,
+                /EMPTY_RANKING/ * 2
+                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
-            <<<CVOTES
-                            #/Candidates: A ; B ; C
-                            #/Implicit Ranking: false
-                            #/Weight Allowed: false
+            <<<'CVOTES'
+                #/Candidates: A ; B ; C
+                #/Implicit Ranking: false
+                #/Weight Allowed: false
 
-                            /EMPTY_RANKING/
-                            /EMPTY_RANKING/
-                            CVOTES,
+                /EMPTY_RANKING/
+                /EMPTY_RANKING/
+                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
         );
 
         $this->election2->setImplicitRanking(true);
 
         self::assertSame(
-            <<<CVOTES
-                            #/Candidates: A ; B ; C
-                            #/Implicit Ranking: true
-                            #/Weight Allowed: false
+            <<<'CVOTES'
+                #/Candidates: A ; B ; C
+                #/Implicit Ranking: true
+                #/Weight Allowed: false
 
-                            A = B = C * 2
-                            CVOTES,
+                A = B = C * 2
+                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
-            <<<CVOTES
-                            #/Candidates: A ; B ; C
-                            #/Implicit Ranking: true
-                            #/Weight Allowed: false
+            <<<'CVOTES'
+                #/Candidates: A ; B ; C
+                #/Implicit Ranking: true
+                #/Weight Allowed: false
 
-                            A = B = C
-                            A = B = C
-                            CVOTES,
+                A = B = C
+                A = B = C
+                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
         );
 
@@ -373,25 +373,25 @@ class ElectionTest extends TestCase
         $this->election2->addVote(new Vote('A>B'));
 
         self::assertSame(
-            <<<CVOTES
-                            #/Candidates: A ; B ; C ; D
-                            #/Implicit Ranking: true
-                            #/Weight Allowed: false
+            <<<'CVOTES'
+                #/Candidates: A ; B ; C ; D
+                #/Implicit Ranking: true
+                #/Weight Allowed: false
 
-                            A > B > C = D * 1
-                            CVOTES,
+                A > B > C = D * 1
+                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
             $cvotes_implicit_without_context =
-                            <<<CVOTES
-                            #/Candidates: A ; B ; C ; D
-                            #/Implicit Ranking: true
-                            #/Weight Allowed: false
+                            <<<'CVOTES'
+                                #/Candidates: A ; B ; C ; D
+                                #/Implicit Ranking: true
+                                #/Weight Allowed: false
 
-                            A > B * 1
-                            CVOTES,
+                                A > B * 1
+                                CVOTES,
             CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
         );
 
@@ -575,14 +575,14 @@ class ElectionTest extends TestCase
         $election->addVote('D > C > B');
 
         self::assertSame(
-            <<<VOTES
-            A > C > D > B * 6
-            C > B > D > A * 3
-            D > B > A > C * 3
-            D > C > B > A ^2 * 1
-            B > A > D > C * 1
-            D > C > B > A * 1
-            VOTES,
+            <<<'VOTES'
+                A > C > D > B * 6
+                C > B > D > A * 3
+                D > B > A > C * 3
+                D > C > B > A ^2 * 1
+                B > A > D > C * 1
+                D > C > B > A * 1
+                VOTES,
             $election->getVotesListAsString()
         );
     }
@@ -601,15 +601,15 @@ class ElectionTest extends TestCase
 
         $votes[]['vote'] = 'B>C>A';
         $votes[]['vote'] = new \stdClass; // Invalid Vote
-        $votes[]['vote'] = ['C','B','A'];
+        $votes[]['vote'] = ['C', 'B', 'A'];
 
         self::assertSame(2, $election->addVotesFromJson(json_encode($votes)));
 
         self::assertSame(
-            <<<VOTES
-            B > C > A * 1
-            C > B > A * 1
-            VOTES,
+            <<<'VOTES'
+                B > C > A * 1
+                C > B > A * 1
+                VOTES,
             $election->getVotesListAsString()
         );
 
@@ -625,11 +625,11 @@ class ElectionTest extends TestCase
         $election->allowsVoteWeight(true);
 
         self::assertSame(
-            <<<VOTES
-            A > B > C ^42 * 5
-            B > C > A * 1
-            C > B > A * 1
-            VOTES,
+            <<<'VOTES'
+                A > B > C ^42 * 5
+                B > C > A * 1
+                C > B > A * 1
+                VOTES,
             $election->getVotesListAsString()
         );
         self::assertSame(5, $election->countVotes('tag1'));
@@ -644,13 +644,13 @@ class ElectionTest extends TestCase
 
         $election = new Election;
 
-        $candidates = ['candidate1 ','candidate2'];
+        $candidates = ['candidate1 ', 'candidate2'];
 
         $election->addCandidatesFromJson(json_encode($candidates));
 
         self::assertSame(2, $election->countCandidates());
 
-        self::assertEquals(['candidate1','candidate2'], $election->getCandidatesListAsString());
+        self::assertEquals(['candidate1', 'candidate2'], $election->getCandidatesListAsString());
 
         $election->addCandidatesFromJson(json_encode(['candidate2']));
     }

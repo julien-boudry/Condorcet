@@ -45,30 +45,30 @@ class DodgsonTest extends TestCase
         self::assertSame($CandidateCora, $this->election->getWinner('DodgsonTideman'));
 
         self::assertSame(
-            [   1 => 'Cora',
+            [1 => 'Cora',
                 2 => 'Abby',
                 3 => 'Brad',
                 4 => 'Dave',
-                5 => 'Erin'   ],
+                5 => 'Erin', ],
             $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
         );
 
         self::assertSame(
             [
                 'Cora' => [
-                  'sum_defeat_margin' => 4,
+                    'sum_defeat_margin' => 4,
                 ],
                 'Abby' => [
-                  'sum_defeat_margin' => 5,
+                    'sum_defeat_margin' => 5,
                 ],
                 'Brad' => [
-                  'sum_defeat_margin' => 297,
+                    'sum_defeat_margin' => 297,
                 ],
                 'Dave' => [
-                  'sum_defeat_margin' => 348,
+                    'sum_defeat_margin' => 348,
                 ],
                 'Erin' => [
-                  'sum_defeat_margin' => 426,
+                    'sum_defeat_margin' => 426,
                 ],
             ],
             $this->election->getResult('DodgsonTideman')->getStats()
@@ -130,7 +130,7 @@ class DodgsonTest extends TestCase
                 'D' => 3.0,
                 'A' => 6.0,
                 'B' => 6.0,
-                'C' => 6.0
+                'C' => 6.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -183,10 +183,10 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   'C' => 2.0,
+            ['C' => 2.0,
                 'A' => 3.0,
                 'B' => 13.0,
-                'D' => 24.0
+                'D' => 24.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -215,10 +215,10 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   'D' => 3.0,
+            ['D' => 3.0,
                 'C' => 4.0,
                 'A' => 5.0,
-                'B' => 7.0
+                'B' => 7.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -247,9 +247,9 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   'B' => 5.0,
+            ['B' => 5.0,
                 'C' => 6.0,
-                'A' => 8.0
+                'A' => 8.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -276,9 +276,9 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   'A' => 1.0,
+            ['A' => 1.0,
                 'B' => 2.0,
-                'C' => 3.0
+                'C' => 3.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -356,9 +356,9 @@ class DodgsonTest extends TestCase
         self::assertEquals(2, $this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin']);
 
         self::assertSame(
-            [   1 => ['A','B'],
+            [1 => ['A', 'B'],
                 2 => 'D',
-                3 => 'C'
+                3 => 'C',
             ],
             $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
         );
@@ -401,9 +401,9 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   1 => 'D',
+            [1 => 'D',
                 2 => 'C',
-                3 => ['A','B']
+                3 => ['A', 'B'],
             ],
             $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
         );
@@ -441,12 +441,12 @@ class DodgsonTest extends TestCase
         );
 
         self::assertSame(
-            [   'A' => 3.0,
+            ['A' => 3.0,
                 'B' => 4.0,
                 'C' => 20.0,
                 'D' => 20.0,
                 'E' => 30.0,
-                'F' => 30.0
+                'F' => 30.0,
             ],
             $this->election->getResult('DodgsonQuick')->getStats()
         );
@@ -525,8 +525,8 @@ class DodgsonTest extends TestCase
 
         self::assertSame(
             [
-                1 => ['A','B'],
-                2 => ['C','D']
+                1 => ['A', 'B'],
+                2 => ['C', 'D'],
             ],
             $this->election->getResult('DodgsonQuick')->getResultAsArray(true)
         );

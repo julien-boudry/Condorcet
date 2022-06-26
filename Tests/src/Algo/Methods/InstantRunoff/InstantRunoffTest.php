@@ -38,7 +38,7 @@ class InstantRunoffTest extends TestCase
                 1 => 'D',
                 2 => 'A',
                 3 => 'B',
-                4 => 'C' ],
+                4 => 'C', ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
 
@@ -46,25 +46,22 @@ class InstantRunoffTest extends TestCase
             [
                 'majority' => 50.0,
                 'rounds' => [
-                    1 =>
-                        [
-                            'A' => 42,
-                            'B' => 26,
-                            'C' => 15,
-                            'D' => 17
-                        ],
-                    2 =>
-                        [
-                            'A' => 42,
-                            'B' => 26,
-                            'D' => 32
-                        ],
-                    3 =>
-                        [
-                            'A' => 42,
-                            'D' => 58
-                        ]
-                ]
+                    1 => [
+                        'A' => 42,
+                        'B' => 26,
+                        'C' => 15,
+                        'D' => 17,
+                    ],
+                    2 => [
+                        'A' => 42,
+                        'B' => 26,
+                        'D' => 32,
+                    ],
+                    3 => [
+                        'A' => 42,
+                        'D' => 58,
+                    ],
+                ],
             ],
             $this->election->getResult('InstantRunoff')->getStats()
         );
@@ -88,9 +85,9 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-            1 => 'sue',
-            2 => 'bob',
-            3 => 'bill' ],
+                1 => 'sue',
+                2 => 'bob',
+                3 => 'bill', ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
@@ -112,9 +109,9 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-            1 => 'bob',
-            2 => 'bill',
-            3 => 'sue' ],
+                1 => 'bob',
+                2 => 'bill',
+                3 => 'sue', ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
@@ -131,7 +128,7 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-            1 => ['A','B','C'] ],
+                1 => ['A', 'B', 'C'], ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
@@ -148,7 +145,7 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-            1 => ['A','B'] ],
+                1 => ['A', 'B'], ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
     }
@@ -169,9 +166,9 @@ class InstantRunoffTest extends TestCase
 
         self::assertSame(
             [
-            1 => ['A','B'],
-            3 => 'C',
-            4 => 'D'
+                1 => ['A', 'B'],
+                3 => 'C',
+                4 => 'D',
             ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );

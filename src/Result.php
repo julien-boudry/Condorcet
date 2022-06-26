@@ -256,7 +256,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /////////// Get & Set MetaData ///////////
 
     #[InternalModulesAPI]
-    public function addWarning(int $type, string $msg = null): bool
+    public function addWarning(int $type, ?string $msg = null): bool
     {
         $this->_warning[] = ['type' => $type, 'msg' => $msg];
 

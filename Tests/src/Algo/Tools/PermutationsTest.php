@@ -39,7 +39,7 @@ class PermutationsTest extends TestCase
 
     public function testPermutationsAllResultsFor3(): void
     {
-        $p = new Permutations([0,1,2]);
+        $p = new Permutations([0, 1, 2]);
 
         $r = $p->getResults();
 
@@ -47,13 +47,13 @@ class PermutationsTest extends TestCase
         self::assertSame(6, $r->getSize());
 
         self::assertSame(
-            [   [1=>0,2=>1,3=>2],
-                                [1=>1,2=>0,3=>2],
-                                [1=>1,2=>2,3=>0],
-                                [1=>0,2=>2,3=>1],
-                                [1=>2,2=>0,3=>1],
-                                [1=>2,2=>1,3=>0]
-                            ],
+            [[1=>0, 2=>1, 3=>2],
+                [1=>1, 2=>0, 3=>2],
+                [1=>1, 2=>2, 3=>0],
+                [1=>0, 2=>2, 3=>1],
+                [1=>2, 2=>0, 3=>1],
+                [1=>2, 2=>1, 3=>0],
+            ],
             $r->toArray()
         );
     }

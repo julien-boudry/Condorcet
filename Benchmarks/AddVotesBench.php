@@ -23,11 +23,11 @@ class AddVotesBench
 
         $candidates = [];
 
-        for ($i=0 ; $i < 100 ; $i++) {
+        for ($i=0; $i < 100; $i++) {
             $candidates[] = $election->addCandidate();
         }
 
-        for ($i = 0 ; $i < 1_000 ; $i++) {
+        for ($i = 0; $i < 1_000; $i++) {
             $oneVote = $candidates;
             shuffle($oneVote);
 

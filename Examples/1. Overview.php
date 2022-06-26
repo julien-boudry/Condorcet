@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 // II - Create Election
 
-$election1 = new Election ;
+$election1 = new Election;
 
 
 // III - Manage Candidate
@@ -68,7 +68,7 @@ $election1 = new Election ;
             1 => 'Debussy',
             2 => ['Caplet', 'Olivier Messiaen'],
             3 => 'Ligeti',
-            4 => ['Wiltod Lutoslawski','Koechlin']
+            4 => ['Wiltod Lutoslawski', 'Koechlin'],
         ]); // Return the new Vote object
 
         $myVote2 = new Vote([
@@ -77,7 +77,7 @@ $election1 = new Election ;
             3 => 'Olivier Messiaen',
             4 => 'Koechlin',
             5 => 'Wiltod Lutoslawski',
-            6 => 'Ligeti'
+            6 => 'Ligeti',
         ]);
 
         $election1->addVote($myVote2);
@@ -88,7 +88,7 @@ $election1 = new Election ;
         $myVote4 = $election1->addVote([
             $election1->getCandidateObjectFromName('Ligeti'),
             $myLutoCandidate,
-            [$myMessiaenCandidate,'Koechlin']
+            [$myMessiaenCandidate, 'Koechlin'],
 
         ]);
 
@@ -96,9 +96,9 @@ $election1 = new Election ;
         $myVote5 = new Vote([
             1 => $election1->getCandidateObjectFromName('Debussy'),
             2 => $election1->getCandidateObjectFromName('Olivier Messiaen'),
-            3 => [ $election1->getCandidateObjectFromName('Wiltod Lutoslawski'), $election1->getCandidateObjectFromName('Ligeti') ],
+            3 => [$election1->getCandidateObjectFromName('Wiltod Lutoslawski'), $election1->getCandidateObjectFromName('Ligeti')],
             4 => $election1->getCandidateObjectFromName('Koechlin'),
-            5 => $election1->getCandidateObjectFromName('Caplet')
+            5 => $election1->getCandidateObjectFromName('Caplet'),
         ]);
 
         $myVote5->addTags('jusGreatVote');
@@ -127,7 +127,7 @@ $election1 = new Election ;
         // Adding some random to this election
         $VoteModel = $myVote2->getRanking();
 
-        for ($i = 0 ; $i < 95 ; $i++) {
+        for ($i = 0; $i < 95; $i++) {
             shuffle($VoteModel);
             $election1->addVote($VoteModel);
         }
@@ -150,18 +150,18 @@ $election1 = new Election ;
             // Or without
             $election1->countVotes('strangeVote', false); // Return 100 (int)
             // Or with this tag OR this tag
-            $election1->countVotes(['greatFrenchVote','chauvinismVote']); // Return 4 (int)
+            $election1->countVotes(['greatFrenchVote', 'chauvinismVote']); // Return 4 (int)
             // Or without this tag AND this tag
-            $election1->countVotes(['greatFrenchVote','chauvinismVote'], false); // Return 4 (int)
+            $election1->countVotes(['greatFrenchVote', 'chauvinismVote'], false); // Return 4 (int)
 
             // Return this 10 votes !
             $election1->getVotesList('strangeVote');
             // And the others 100 votes without this tags
-            $election1->getVotesList('strangeVote', false) ;
+            $election1->getVotesList('strangeVote', false);
             // Or with this tag OR this tag
-            $election1->getVotesList(['greatFrenchVote','chauvinismVote']); // Return 4 (int)
+            $election1->getVotesList(['greatFrenchVote', 'chauvinismVote']); // Return 4 (int)
             // Or without this tag AND this tag
-            $election1->getVotesList(['greatFrenchVote','chauvinismVote'], false); // Return 4 (int)
+            $election1->getVotesList(['greatFrenchVote', 'chauvinismVote'], false); // Return 4 (int)
 
 
         # 2- Vote objet
@@ -171,10 +171,10 @@ $election1 = new Election ;
 
             // Change the vote
             $myVote1->setRanking([
-                    1 => 'Caplet',
-                    2 => 'Debussy',
-                    3=>  'Koechlin'
-             ]);
+                1 => 'Caplet',
+                2 => 'Debussy',
+                3=>  'Koechlin',
+            ]);
 
 
             // Check the vote history
@@ -188,7 +188,7 @@ $election1 = new Election ;
             $election1->removeVote($myVote3);
 
             // Delete all vote with tag "strangeVote" or "frenchies"
-            $election1->removeVotesByTags(['strangeVote','chauvinismVote']);
+            $election1->removeVotesByTags(['strangeVote', 'chauvinismVote']);
 
             // Count vote
             $election1->countVotes(); // Return 98

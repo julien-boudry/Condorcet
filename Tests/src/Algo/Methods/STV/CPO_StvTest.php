@@ -58,19 +58,19 @@ class CPO_StvTest extends TestCase
             [
                 1 => 'Carter',
                 2 => 'Andrea',
-                3 => 'Delilah'
-             ],
+                3 => 'Delilah',
+            ],
             $this->election->getResult('CPO STV')->getResultAsArray(true)
         );
 
         $stats = $this->election->getResult('CPO STV')->getStats();
 
         self::assertSame(25.0, $stats['Votes Needed to Win']);
-        self::assertSame([  'Andrea'=> 25.0,
-                            'Brad'=> 7.0,
-                            'Carter'=> 34.0,
-                            'Delilah'=> 13.0,
-                            'Scott'=> 21.0
+        self::assertSame(['Andrea'=> 25.0,
+            'Brad'=> 7.0,
+            'Carter'=> 34.0,
+            'Delilah'=> 13.0,
+            'Scott'=> 21.0,
         ], $stats['Initial Score Table']);
 
         self::assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
@@ -79,90 +79,75 @@ class CPO_StvTest extends TestCase
         self::assertSame([
             ['Andrea', 'Carter', 'Scott'],
             ['Andrea', 'Carter', 'Delilah'],
-            ['Andrea', 'Brad', 'Carter']
+            ['Andrea', 'Brad', 'Carter'],
         ], $stats['Outcomes']);
 
         self::assertSame('Schulze Margin', $stats['Completion Method']);
 
         self::assertSame(
-            [  'Outcome N° 0 compared to Outcome N° 1' =>
-                [
-                'candidates_excluded' =>
-                [
+            ['Outcome N° 0 compared to Outcome N° 1' => [
+                'candidates_excluded' => [
                     0 => 'Brad',
                 ],
-                'scores_after_exclusion' =>
-                [
+                'scores_after_exclusion' => [
                     'Andrea' => 25.0,
                     'Carter' => 34.0,
                     'Delilah' => 20.0,
                     'Scott' => 21.0,
                 ],
-                'scores_after_surplus' =>
-                [
+                'scores_after_surplus' => [
                     'Andrea' => 25.0,
                     'Carter' => 25.0,
                     'Delilah' => 29.0,
                     'Scott' => 21.0,
                 ],
-                'outcomes_scores' =>
-                [
+                'outcomes_scores' => [
                     0 => 71.0,
                     1 => 79.0,
                 ],
+            ],
+                'Outcome N° 0 compared to Outcome N° 2' => [
+                    'candidates_excluded' => [
+                        0 => 'Delilah',
+                    ],
+                    'scores_after_exclusion' => [
+                        'Andrea' => 25.0,
+                        'Brad' => 15.0,
+                        'Carter' => 34.0,
+                        'Scott' => 26.0,
+                    ],
+                    'scores_after_surplus' => [
+                        'Andrea' => 25.0,
+                        'Brad' => 24.0,
+                        'Carter' => 25.0,
+                        'Scott' => 26.0,
+                    ],
+                    'outcomes_scores' => [
+                        0 => 76.0,
+                        2 => 74.0,
+                    ],
                 ],
-                'Outcome N° 0 compared to Outcome N° 2' =>
-                [
-                'candidates_excluded' =>
-                [
-                    0 => 'Delilah',
+                'Outcome N° 1 compared to Outcome N° 2' => [
+                    'candidates_excluded' => [
+                        0 => 'Scott',
+                    ],
+                    'scores_after_exclusion' => [
+                        'Andrea' => 25.0,
+                        'Brad' => 7.0,
+                        'Carter' => 34.0,
+                        'Delilah' => 34.0,
+                    ],
+                    'scores_after_surplus' => [
+                        'Andrea' => 25.0,
+                        'Brad' => 16.0,
+                        'Carter' => 25.0,
+                        'Delilah' => 34.0,
+                    ],
+                    'outcomes_scores' => [
+                        1 => 84.0,
+                        2 => 66.0,
+                    ],
                 ],
-                'scores_after_exclusion' =>
-                [
-                    'Andrea' => 25.0,
-                    'Brad' => 15.0,
-                    'Carter' => 34.0,
-                    'Scott' => 26.0,
-                ],
-                'scores_after_surplus' =>
-                [
-                    'Andrea' => 25.0,
-                    'Brad' => 24.0,
-                    'Carter' => 25.0,
-                    'Scott' => 26.0,
-                ],
-                'outcomes_scores' =>
-                [
-                    0 => 76.0,
-                    2 => 74.0,
-                ],
-                ],
-                'Outcome N° 1 compared to Outcome N° 2' =>
-                [
-                'candidates_excluded' =>
-                [
-                    0 => 'Scott',
-                ],
-                'scores_after_exclusion' =>
-                [
-                    'Andrea' => 25.0,
-                    'Brad' => 7.0,
-                    'Carter' => 34.0,
-                    'Delilah' => 34.0,
-                ],
-                'scores_after_surplus' =>
-                [
-                    'Andrea' => 25.0,
-                    'Brad' => 16.0,
-                    'Carter' => 25.0,
-                    'Delilah' => 34.0,
-                ],
-                'outcomes_scores' =>
-                [
-                    1 => 84.0,
-                    2 => 66.0,
-                ],
-                ]
             ],
             $stats['Outcomes Comparison']
         );
@@ -179,14 +164,14 @@ class CPO_StvTest extends TestCase
 
         $file = new \SplTempFileObject(-1);
         $file->fwrite(<<<'CVOTES'
-                            #/Number of Seats: 3
-                            Escher ^ 100
-                            Andre>Nader>Gore ^ 110
-                            Nader>Gore ^ 18
-                            Gore>Nader ^ 21
-                            Gore>Bush ^ 6
-                            Bush>Gore ^ 45
-                            CVOTES);
+            #/Number of Seats: 3
+            Escher ^ 100
+            Andre>Nader>Gore ^ 110
+            Nader>Gore ^ 18
+            Gore>Nader ^ 21
+            Gore>Bush ^ 6
+            Bush>Gore ^ 45
+            CVOTES);
 
         $cef = new CondorcetElectionFormat($file);
 
@@ -207,11 +192,11 @@ class CPO_StvTest extends TestCase
 
         $file = new \SplTempFileObject(-1);
         $file->fwrite(<<<'CVOTES'
-                            #/Number of Seats: 2
-                            A>B>C>D * 5
-                            A>C>B>D * 17
-                            D * 8
-                            CVOTES);
+            #/Number of Seats: 2
+            A>B>C>D * 5
+            A>C>B>D * 17
+            D * 8
+            CVOTES);
 
         $cef = new CondorcetElectionFormat($file);
 
@@ -267,11 +252,11 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('B>C>A');
         $this->election->addVote('A>B>C');
 
-        self::assertSame([1=>['A','B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        self::assertSame([1=>['A', 'B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
 
         $this->election->setNumberOfSeats(3);
 
-        self::assertSame([1=>['A','B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        self::assertSame([1=>['A', 'B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
     public function testEquality2(): void
@@ -284,7 +269,7 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('A>B>C>D');
         $this->election->addVote('A>B>D>C');
 
-        self::assertSame([1=>'A',2=>['B','D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        self::assertSame([1=>'A', 2=>['B', 'D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
     public function testLimit1(): void
@@ -309,11 +294,11 @@ class CPO_StvTest extends TestCase
         $this->election->setNumberOfSeats((int) (40 / 3));
 
         $candidates = [];
-        for ($i=0 ; $i < 40 ; $i++) {
+        for ($i=0; $i < 40; $i++) {
             $candidates[] = $this->election->addCandidate();
         }
 
-        for ($i = 0 ; $i < 100 ; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             shuffle($candidates);
             $this->election->addVote($candidates);
         }

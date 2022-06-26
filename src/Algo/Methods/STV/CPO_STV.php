@@ -168,9 +168,9 @@ class CPO_STV extends SingleTransferableVote
                     continue;
                 }
 
-                $entry = [  'c_key' => $outcomeComparisonKey,
-                            'candidates_excluded' => [],
-                        ];
+                $entry = ['c_key' => $outcomeComparisonKey,
+                    'candidates_excluded' => [],
+                ];
 
                 // Eliminate Candidates from Outcome
                 foreach (array_keys($election->getCandidatesList()) as $candidateKey) {
@@ -243,16 +243,16 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Votes
-                $coef = Method::DECIMAL_PRECISION ** 10 ; # Actually, vote weight does not support float
+                $coef = Method::DECIMAL_PRECISION ** 10; # Actually, vote weight does not support float
                 foreach ($this->outcomeComparisonTable as $comparison) {
                     ($vote1 = new Vote([
                         (string) $key = array_key_first($comparison['outcomes_scores']),
-                        (string) array_key_last($comparison['outcomes_scores'])
+                        (string) array_key_last($comparison['outcomes_scores']),
                     ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
                     ($vote2 = new Vote([
                         (string) $key = array_key_last($comparison['outcomes_scores']),
-                        (string) array_key_first($comparison['outcomes_scores'])
+                        (string) array_key_first($comparison['outcomes_scores']),
                     ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
                     $winnerOutcomeElection->addVote($vote1);
@@ -294,7 +294,7 @@ class CPO_STV extends SingleTransferableVote
             } else {
                 $election = $this->getElection();
 
-                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a,$b])) === 1) {
+                if (\count($tiebreaker = TieBreakersCollection::tieBreakerWithAnotherMethods($election, self::$optionTieBreakerMethods, [$a, $b])) === 1) {
                     $w = reset($tiebreaker);
                     return ($w === $a) ? -1 : 1;
                 } else {
@@ -312,7 +312,7 @@ class CPO_STV extends SingleTransferableVote
 
         $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 
-        $changeKeyToCandidateAndSortByName = function (array $arr, Election $election): array {
+        $changeKeyToCandidateAndSortByName = static function (array $arr, Election $election): array {
             $r = [];
             foreach ($arr as $candidateKey => $value) {
                 $r[(string) $election->getCandidateObjectFromKey($candidateKey)] = $value;
@@ -322,7 +322,7 @@ class CPO_STV extends SingleTransferableVote
             return $r;
         };
 
-        $changeValueToCandidateAndSortByName = function (array $arr, Election $election): array {
+        $changeValueToCandidateAndSortByName = static function (array $arr, Election $election): array {
             $r = [];
             foreach ($arr as $candidateKey) {
                 $r[] = (string) $election->getCandidateObjectFromKey($candidateKey);

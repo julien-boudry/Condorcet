@@ -38,7 +38,7 @@ class CopelandTest extends TestCase
                 1 => 'Nashville',
                 2 => 'Chattanooga',
                 3 => 'Knoxville',
-                4 => 'Memphis' ],
+                4 => 'Memphis', ],
             $this->election->getResult('Copeland')->getResultAsArray(true)
         );
 
@@ -46,21 +46,17 @@ class CopelandTest extends TestCase
 
         self::assertSame(
             [
-                'Memphis' =>
-                [
-                  'balance' => -3,
+                'Memphis' => [
+                    'balance' => -3,
                 ],
-                'Nashville' =>
-                [
-                  'balance' => 3,
+                'Nashville' => [
+                    'balance' => 3,
                 ],
-                'Knoxville' =>
-                [
-                  'balance' => -1,
+                'Knoxville' => [
+                    'balance' => -1,
                 ],
-                'Chattanooga' =>
-                [
-                  'balance' => 1,
+                'Chattanooga' => [
+                    'balance' => 1,
                 ],
             ],
             $this->election->getResult('Copeland')->getStats()
@@ -88,8 +84,8 @@ class CopelandTest extends TestCase
         self::assertSame($candidateA, $this->election->getWinner('Copeland'));
 
         self::assertSame(
-            [   1 => $candidateA,
-                2 => [$candidateB,$candidateC,$candidateE],
+            [1 => $candidateA,
+                2 => [$candidateB, $candidateC, $candidateE],
                 3 => $candidateD,
             ],
             $this->election->getResult('Copeland')->getResultAsArray()
@@ -122,12 +118,12 @@ class CopelandTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals(['Abby','Brad'], $this->election->getWinner('Copeland'));
+        self::assertEquals(['Abby', 'Brad'], $this->election->getWinner('Copeland'));
 
         self::assertSame(
-            [   1 => ['Abby','Brad'],
-                2 => ['Dave','Erin'],
-                3 => 'Cora'    ],
+            [1 => ['Abby', 'Brad'],
+                2 => ['Dave', 'Erin'],
+                3 => 'Cora', ],
             $this->election->getResult('Copeland')->getResultAsArray(true)
         );
     }

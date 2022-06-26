@@ -12,8 +12,8 @@ ini_set('memory_limit', '51200M');
 
 class PairwiseNumberOfCandidatesBench
 {
-    public array $numberOfCandidates = [3,5,7,10,20,30,40,50,60,70,80,90,100];
-    public array $numberOfVotes = [10,100,1000,10000];
+    public array $numberOfCandidates = [3, 5, 7, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    public array $numberOfVotes = [10, 100, 1000, 10000];
 
 
     protected Election $election;
@@ -31,11 +31,11 @@ class PairwiseNumberOfCandidatesBench
 
         $candidates = [];
 
-        for ($i=0 ; $i < $numberOfCandidates ; $i++) {
+        for ($i=0; $i < $numberOfCandidates; $i++) {
             $candidates[] = $election->addCandidate();
         }
 
-        for ($i = 0 ; $i < $numberOfVotes ; $i++) {
+        for ($i = 0; $i < $numberOfVotes; $i++) {
             $oneVote = $candidates;
             shuffle($oneVote);
 

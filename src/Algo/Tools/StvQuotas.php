@@ -33,7 +33,7 @@ enum StvQuotas: string
         string $quota
     ): self {
         try {
-            return match (strtolower($quota)) {
+            return match (mb_strtolower($quota)) {
                 'droop quota', 'droop' => self::DROOP,
                 'hare quota', 'hare' => self::HARE,
                 'hagenbach-bischoff quota', 'hagenbach-bischoff' => self::HAGENBACH_BISCHOFF,

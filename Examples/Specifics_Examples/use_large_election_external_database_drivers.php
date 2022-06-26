@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* NO INTERFACE here, see html examples for it */
 
 # Quick tour of the main features of Condorcet PHP
@@ -15,7 +17,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDr
 
  // II - Create Election
 
-    $myElection = new Election ;
+    $myElection = new Election;
 
     $myElection->addCandidate(new Candidate('A'));
     $myElection->addCandidate(new Candidate('B'));
@@ -47,7 +49,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDr
 
     $voteModel = $myElection->getCandidatesList();
 
-    for ($i = 0 ; $i < $howMany ; $i++) {
+    for ($i = 0; $i < $howMany; $i++) {
         shuffle($voteModel);
         $myElection->addVote($voteModel);
     }
@@ -63,7 +65,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDr
 print 'Success!
 Process in: '. round(microtime(true) - $start_time, 2) . "s\n";
 
-echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/pow(1024, ($i=floor(log(memory_get_peak_usage(), 1024)))), 2).' '.['b','kb','mb','gb','tb','pb'][$i]."\n\n";
+echo ' Peak of memory allocated : '.round(memory_get_peak_usage()/1024** ($i=floor(log(memory_get_peak_usage(), 1024))), 2).' '.['b', 'kb', 'mb', 'gb', 'tb', 'pb'][$i]."\n\n";
 
 
 // Optionally. You can close external driver and and retrieve data into classical internal RAM memory, if there is enough space...

@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Election;
 class SchulzeRatio extends Schulze_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Schulze Ratio','SchulzeRatio','Schulze_Ratio'];
+    public const METHOD_NAME = ['Schulze Ratio', 'SchulzeRatio', 'Schulze_Ratio'];
 
     protected function schulzeVariant(int $i, int $j, Election $election): float
     {

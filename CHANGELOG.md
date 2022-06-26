@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.1] - 2022-??-??
+## [v4.1] - 2022-06-26
 
 ### Description
 Implements new proportional methods 
@@ -17,7 +17,7 @@ Implements new proportional methods
 - Default max length of a candidate name is now 100 UTF-8 characters instead of 30
 
 ### Internal changes
-- Migrates the entire code base to a strict application of PSR-12 standards. It's debatable, but it's now standard and no longer iconoclastic, it's the age of reason. The respect of coding standards is now controlled by Laravel Pint.
+- Migrates the entire code base to a strict application of PSR-12 standards (and many other rules). It's debatable because our alternative syntax was lovely, but it's now standard and no longer iconoclastic, it's the age of reason. The respect for coding standards is now controlled by Laravel Pint.
 
 
 ## [v4.0] - 2022-06-17

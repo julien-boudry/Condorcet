@@ -75,7 +75,7 @@ class Candidate implements \Stringable
             throw new CandidateExistsException("the name '$name' is taken by another candidate");
         }
 
-        $this->_name[] =  [ 'name' => $name, 'timestamp' => microtime(true) ];
+        $this->_name[] =  ['name' => $name, 'timestamp' => microtime(true)];
 
         return true;
     }

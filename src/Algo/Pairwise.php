@@ -153,7 +153,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->_Pairwise_Model = [];
 
         foreach ($election->getCandidatesList() as $candidate_key => $candidate_id) {
-            $this->_Pairwise_Model[$candidate_key] = [ 'win' => [], 'null' => [], 'lose' => [] ];
+            $this->_Pairwise_Model[$candidate_key] = ['win' => [], 'null' => [], 'lose' => []];
 
             foreach ($election->getCandidatesList() as $candidate_key_r => $candidate_id_r) {
                 if ($candidate_key_r !== $candidate_key) {

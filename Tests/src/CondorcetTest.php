@@ -109,7 +109,7 @@ class CondorcetTest extends TestCase
 
 class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 {
-    public const METHOD_NAME = ['FirstMethodName','Alias1','Alias_2','Alias 3'];
+    public const METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
 
     // Get the Result object
@@ -155,13 +155,13 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 class CondorcetTest_DuplicateAlgorithmAlias extends CondorcetTest_ValidAlgorithmName implements MethodInterface
 {
-    public const METHOD_NAME = ['SecondMethodName','Alias_2'];
+    public const METHOD_NAME = ['SecondMethodName', 'Alias_2'];
 }
 
 
 class CondorcetTest_UnvalidAlgorithmName
 {
-    public const METHOD_NAME = ['FirstMethodName','Alias1','Alias_2','Alias 3'];
+    public const METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
 
     // Get the Result object
@@ -199,7 +199,7 @@ class CondorcetTest_UnvalidAlgorithmName
     {
         $this->_selfElection->getPairwise();
 
-        $result = [0=>0, 1=> [1,2], 2=> 3]; // Candidate must be valid internal candidate key.
+        $result = [0=>0, 1=> [1, 2], 2=> 3]; // Candidate must be valid internal candidate key.
 
         $this->_Result = $result;
     }

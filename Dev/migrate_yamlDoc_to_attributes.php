@@ -27,7 +27,7 @@ foreach ($doc as &$entry) {
     }
 
     foreach ($entry['class'] as $class) {
-        $method = $entry ;
+        $method = $entry;
         $method['class'] = $class;
 
         $index[$method['class']][$method['name']] = $method;
@@ -39,10 +39,10 @@ $patternReplaceLastNewLine = '/(.*)\n$/';
 
 foreach ($index as $ClassName => $ClassData) {
     $path_to_file = [
-                        __DIR__.'/../lib/'.str_replace('\\', '/', $ClassName).'.php',
-                        __DIR__.'/../lib/CondorcetVersion.php',
-                        __DIR__.'/../lib/Linkable.php'
-                    ];
+        __DIR__.'/../lib/'.str_replace('\\', '/', $ClassName).'.php',
+        __DIR__.'/../lib/CondorcetVersion.php',
+        __DIR__.'/../lib/Linkable.php',
+    ];
 
     if ($ClassName === 'Election') {
         $path_to_file[] = __DIR__.'/../lib/ElectionProcess/CandidatesProcess.php';
@@ -63,7 +63,7 @@ foreach ($index as $ClassName => $ClassData) {
             $description = $MethodData['description'];
             $description = str_replace('$', '\\\$', $description);
             $description = preg_replace($patternReplaceLastNewLine, '$1', $description);
-            $description = str_replace(["\n    ","\n"], '\\n', $description);
+            $description = str_replace(["\n    ", "\n"], '\\n', $description);
             $description = str_replace('"', '\"', $description);
 
             $attributes =  '$3#[Description("'.$description.'")]$2';
@@ -71,7 +71,7 @@ foreach ($index as $ClassName => $ClassData) {
             if (isset($MethodData['return'])) {
                 $returnV = $MethodData['return'];
                 $returnV = preg_replace($patternReplaceLastNewLine, '$1', $returnV);
-                $returnV = str_replace(["\n    ","\n"], '\\n', $returnV);
+                $returnV = str_replace(["\n    ", "\n"], '\\n', $returnV);
                 $returnV = str_replace('"', '\"', $returnV);
 
                 $attributes .= '$3#[FunctionReturn("'.$returnV.'")]$2';
@@ -81,7 +81,7 @@ foreach ($index as $ClassName => $ClassData) {
             if (isset($MethodData['examples'])) {
                 $examples = $MethodData['examples'];
                 $examples = preg_replace($patternReplaceLastNewLine, '$1', $examples);
-                $examples = str_replace(["\n    ","\n"], '\\n', $examples);
+                $examples = str_replace(["\n    ", "\n"], '\\n', $examples);
                 $examples = str_replace('"', '\"', $examples);
 
                 $arg = '';

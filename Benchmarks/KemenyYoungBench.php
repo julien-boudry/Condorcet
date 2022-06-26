@@ -21,7 +21,7 @@ class KemenyYoungBench
 
     public function provideCandidatesCount(): \Generator
     {
-        for ($i = 1 ; $i <= 10 ; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             yield $i => ['candidatesCount' => $i];
         }
     }
@@ -36,7 +36,7 @@ class KemenyYoungBench
     {
         $election = new Election;
 
-        for ($i = 0 ; $i < $params['candidatesCount'] ; $i++) {
+        for ($i = 0; $i < $params['candidatesCount']; $i++) {
             $candidates[] = $election->addCandidate();
         }
 

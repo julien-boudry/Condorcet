@@ -44,7 +44,7 @@ class CandidateTest extends TestCase
         while (mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH) {
             $name .= uniqid();
         }
-        $name = substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
+        $name = mb_substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
 
         // The name is exactly as long as allowed.
         $candidate = new Candidate($name);
@@ -87,7 +87,7 @@ class CandidateTest extends TestCase
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
 
-        $election1 = new Election ;
+        $election1 = new Election;
 
         $candidate = new Candidate('Schizophrenic');
 
@@ -100,7 +100,7 @@ class CandidateTest extends TestCase
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage('This candidate already exists: candidate1');
 
-        $election1 = new Election ;
+        $election1 = new Election;
 
         $election1->parseCandidates('candidate1;candidate2;candidate1');
     }
@@ -110,7 +110,7 @@ class CandidateTest extends TestCase
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage('This candidate already exists: candidate1');
 
-        $election1 = new Election ;
+        $election1 = new Election;
 
         $election1->addCandidate('candidate1');
         $election1->parseCandidates('candidate2;candidate1');
@@ -118,7 +118,7 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate4(): void
     {
-        $election1 = new Election ;
+        $election1 = new Election;
 
         $candidate1= $election1->addCandidate('candidate1');
 
@@ -130,14 +130,14 @@ class CandidateTest extends TestCase
         self::assertsame([$candidate1], $election1->getCandidatesList());
     }
 
-    public function testSameCandidateToMultipleElection()
+    public function testSameCandidateToMultipleElection(): void
     {
         $this->expectException(CandidateExistsException::class);
         $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
 
-        $election1 = new Election ;
-        $election2 = new Election ;
-        $election3 = new Election ;
+        $election1 = new Election;
+        $election2 = new Election;
+        $election3 = new Election;
 
         // Add candidate to election
         self::assertSame($this->candidate1, $election1->addCandidate($this->candidate1));

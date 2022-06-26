@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // Linux: php -dzend_extension=opcache -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M -dopcache.jit=tracing Dev/bugs/JitBug.php
 // Windows: php -d zend_extension=opcache -d opcache.enable_cli=1 -d opcache.jit_buffer_size=100M -d opcache.jit=tracing Dev/bugs/JitBug.php
 

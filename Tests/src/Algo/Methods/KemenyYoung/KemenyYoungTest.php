@@ -39,7 +39,7 @@ class KemenyYoungTest extends TestCase
                 1 => 'Nashville',
                 2 => 'Chattanooga',
                 3 => 'Knoxville',
-                4 => 'Memphis'
+                4 => 'Memphis',
             ],
             $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
@@ -72,7 +72,7 @@ class KemenyYoungTest extends TestCase
                 1 => 'Elliot',
                 2 => 'Roland',
                 3 => 'Meredith',
-                4 => 'Selden'
+                4 => 'Selden',
             ],
             $this->election->getResult('KemenyYoung')->getResultAsArray(true)
         );
@@ -99,7 +99,7 @@ class KemenyYoungTest extends TestCase
                 'Ranking Scores' => [
                     [1 => 'A', 2 => 'B', 'score' => 1],
                     [1 => 'B', 2 => 'A', 'score' => 0],
-                ]
+                ],
             ],
             $this->election->getResult('KemenyYoung')->getStats()
         );
@@ -132,22 +132,22 @@ class KemenyYoungTest extends TestCase
             B>C>A;
             C>A>B');
 
-        $result = $this->election->getResult('KemenyYoung') ;
+        $result = $this->election->getResult('KemenyYoung');
 
         self::assertEquals(
-            [ 0 => [
+            [0 => [
                 'type' => 42,
-                'msg' => '3;5'
-              ]
+                'msg' => '3;5',
+            ],
             ],
             $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)
         );
 
         self::assertEquals(
-            [ 0 => [
+            [0 => [
                 'type' => 42,
-                'msg' => '3;5'
-              ]
+                'msg' => '3;5',
+            ],
             ],
             $result->getWarning()
         );
@@ -156,7 +156,7 @@ class KemenyYoungTest extends TestCase
 
         $this->election->addVote('A>B>C');
 
-        $result = $this->election->getResult('KemenyYoung') ;
+        $result = $this->election->getResult('KemenyYoung');
 
         self::assertEquals(
             [],
@@ -166,7 +166,7 @@ class KemenyYoungTest extends TestCase
         self::assertEquals('A', $this->election->getWinner('KemenyYoung'));
     }
 
-    public function testKemenyWithOnly1Candidate()
+    public function testKemenyWithOnly1Candidate(): void
     {
         $candidate[] = $this->election->addCandidate();
 
@@ -187,12 +187,12 @@ class KemenyYoungTest extends TestCase
      * @group large
      * @dataProvider  ManyCandidatesProvider
      */
-    public function testKemenyWithManyCandidates(int $candidatesCount)
+    public function testKemenyWithManyCandidates(int $candidatesCount): void
     {
         $original = KemenyYoung::$MaxCandidates;
         KemenyYoung::$MaxCandidates = null;
 
-        for ($i=0;$i<$candidatesCount;$i++) {
+        for ($i=0; $i<$candidatesCount; $i++) {
             $candidates[] = $this->election->addCandidate();
         }
 

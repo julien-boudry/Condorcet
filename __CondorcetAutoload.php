@@ -8,7 +8,7 @@
 */
 declare(strict_types=1);
 
-if (version_compare($condorcet_minimal_php_version = substr(str_replace('^', '', json_decode(json: file_get_contents(__DIR__.\DIRECTORY_SEPARATOR.'composer.json'), associative: true, flags: \JSON_THROW_ON_ERROR)['require']['php']), 1, 3), \PHP_VERSION, '>')) {
+if (version_compare($condorcet_minimal_php_version = mb_substr(str_replace('^', '', json_decode(json: file_get_contents(__DIR__.\DIRECTORY_SEPARATOR.'composer.json'), associative: true, flags: \JSON_THROW_ON_ERROR)['require']['php']), 1, 3), \PHP_VERSION, '>')) {
     trigger_error(
         'Condorcet PHP requires a PHP version greater than or equal to '.$condorcet_minimal_php_version.'. Your current version is '.\PHP_VERSION.'.',
         \E_USER_ERROR
@@ -23,14 +23,14 @@ spl_autoload_register(function (string $class): void {
 
 
     // does the class use the namespace prefix?
-    $len = \strlen($prefix);
+    $len = mb_strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
         // no, move to the next registered autoloader
         return;
     }
 
     // get the relative class name
-    $relative_class = substr($class, $len);
+    $relative_class = mb_substr($class, $len);
 
     // replace the namespace prefix with the base directory, replace namespace
     // separators with directory separators in the relative class name, append

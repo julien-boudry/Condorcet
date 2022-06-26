@@ -46,7 +46,7 @@ class Permutations
         } else {
             $result = $candidatesNumber;
 
-            for ($iteration = 1 ; $iteration < $candidatesNumber ; $iteration++) {
+            for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) {
                 $result = $result * ($candidatesNumber - $iteration);
             }
 

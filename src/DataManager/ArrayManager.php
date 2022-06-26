@@ -53,9 +53,9 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->clearCache();
         $this->rewind();
 
-        return [    '_Container' => $this->_Container,
-                    '_DataHandler' => $this->_DataHandler,
-                ];
+        return ['_Container' => $this->_Container,
+            '_DataHandler' => $this->_DataHandler,
+        ];
     }
 
     public function __unserialize(array $data): void
