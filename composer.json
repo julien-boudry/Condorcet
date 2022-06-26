@@ -28,7 +28,7 @@
         "ext-json": "*",
         "symfony/console": "^6.0",
         "symfony/yaml": "^6.0",
-        "brick/math": "^0.9 || ^0.10"
+        "brick/math": "^0.10"
     },
     "require-dev": {
         "ext-mbstring": "*",
@@ -40,7 +40,7 @@
         "haydenpierce/class-finder": ">= 0.4",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.6",
-        "laravel/pint": "^0.1 || ^0.2"
+        "laravel/pint": "^0.2"
     },
     "suggest": {
         "ext-mbstring": "If you need to deal with Debian vote format",
