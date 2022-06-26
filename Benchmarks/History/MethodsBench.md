@@ -1,3 +1,159 @@
+# v4.1 Branch
+
+1000 random votes different for each test, variable number of candidates (look at column "set") 
+
+* AMD Ryzen 9 5900X
+
+PHPBench (1.2.5) 
+with PHP version 8.1.7, xdebug ❌, opcache ✔ (with JIT Tracing)
+
+```php
+    #[Bench\Warmup(1)]
+    #[Bench\Iterations(3)]
+    #[Bench\Revs(1)]
+```
+
+### Non-Proportional
+_Same as 4.0_
+
+### Proportional
+
+Subjects: 1, Assertions: 0, Failures: 0, Errors: 0
++--------------------------+-------------------+-----------------------+------+-----+-----------+-------------+---------+
+| benchmark                | subject           | set                   | revs | its | mem_peak  | mode        | rstdev  |
++--------------------------+-------------------+-----------------------+------+-----+-----------+-------------+---------+
+| MethodsProportionalBench | benchByCandidates | STV,3                 | 1    | 3   | 6.140mb   | 0.002796s   | ±18.88% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,3             | 1    | 3   | 6.150mb   | 0.013553s   | ±46.44% |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,3   | 1    | 3   | 3.963mb   | 0.001552s   | ±7.83%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,3           | 1    | 3   | 3.963mb   | 0.001470s   | ±2.80%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,3        | 1    | 3   | 3.963mb   | 0.001400s   | ±6.81%  |
+| MethodsProportionalBench | benchByCandidates | STV,4                 | 1    | 3   | 6.649mb   | 0.003776s   | ±5.99%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,4             | 1    | 3   | 6.770mb   | 0.020136s   | ±28.89% |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,4   | 1    | 3   | 4.407mb   | 0.001897s   | ±2.65%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,4           | 1    | 3   | 4.407mb   | 0.001770s   | ±5.52%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,4        | 1    | 3   | 4.407mb   | 0.001668s   | ±11.97% |
+| MethodsProportionalBench | benchByCandidates | STV,5                 | 1    | 3   | 7.470mb   | 0.004705s   | ±1.49%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,5             | 1    | 3   | 7.669mb   | 0.023462s   | ±15.21% |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,5   | 1    | 3   | 4.851mb   | 0.002089s   | ±8.17%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,5           | 1    | 3   | 4.851mb   | 0.001867s   | ±2.44%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,5        | 1    | 3   | 4.851mb   | 0.001759s   | ±7.13%  |
+| MethodsProportionalBench | benchByCandidates | STV,6                 | 1    | 3   | 8.292mb   | 0.005555s   | ±8.11%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,6             | 1    | 3   | 10.407mb  | 0.169012s   | ±2.73%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,6   | 1    | 3   | 5.295mb   | 0.002087s   | ±0.79%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,6           | 1    | 3   | 5.295mb   | 0.001869s   | ±0.41%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,6        | 1    | 3   | 5.295mb   | 0.001886s   | ±1.77%  |
+| MethodsProportionalBench | benchByCandidates | STV,7                 | 1    | 3   | 9.113mb   | 0.008930s   | ±7.93%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,7             | 1    | 3   | 13.333mb  | 0.344687s   | ±0.74%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,7   | 1    | 3   | 5.739mb   | 0.002214s   | ±4.71%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,7           | 1    | 3   | 5.739mb   | 0.002079s   | ±1.59%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,7        | 1    | 3   | 5.739mb   | 0.002031s   | ±8.01%  |
+| MethodsProportionalBench | benchByCandidates | STV,8                 | 1    | 3   | 10.609mb  | 0.009126s   | ±0.97%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,8             | 1    | 3   | 18.034mb  | 0.641492s   | ±0.78%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,8   | 1    | 3   | 6.503mb   | 0.002300s   | ±22.88% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,8           | 1    | 3   | 6.503mb   | 0.002214s   | ±3.09%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,8        | 1    | 3   | 6.503mb   | 0.002173s   | ±2.41%  |
+| MethodsProportionalBench | benchByCandidates | STV,9                 | 1    | 3   | 11.447mb  | 0.007795s   | ±6.70%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,9             | 1    | 3   | 83.423mb  | 5.907340s   | ±0.54%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,9   | 1    | 3   | 6.961mb   | 0.002415s   | ±2.68%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,9           | 1    | 3   | 6.961mb   | 0.002306s   | ±4.59%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,9        | 1    | 3   | 6.961mb   | 0.002176s   | ±2.10%  |
+| MethodsProportionalBench | benchByCandidates | STV,10                | 1    | 3   | 12.233mb  | 0.008335s   | ±12.54% |
+| MethodsProportionalBench | benchByCandidates | CPO STV,10            | 1    | 3   | 155.669mb | 13.365452s  | ±1.92%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,10  | 1    | 3   | 7.408mb   | 0.004098s   | ±15.02% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,10          | 1    | 3   | 7.408mb   | 0.003836s   | ±19.18% |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,10       | 1    | 3   | 7.408mb   | 0.003827s   | ±17.49% |
+| MethodsProportionalBench | benchByCandidates | STV,11                | 1    | 3   | 13.091mb  | 0.010444s   | ±6.50%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,11            | 1    | 3   | 286.707mb | 25.839933s  | ±1.15%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,11  | 1    | 3   | 7.854mb   | 0.002936s   | ±1.94%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,11          | 1    | 3   | 7.854mb   | 0.002715s   | ±4.13%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,11       | 1    | 3   | 7.854mb   | 0.002782s   | ±0.63%  |
+| MethodsProportionalBench | benchByCandidates | STV,12                | 1    | 3   | 13.879mb  | 0.010493s   | ±1.24%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,12            | 1    | 3   | 2.417gb   | 310.681427s | ±0.34%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,12  | 1    | 3   | 8.300mb   | 0.003592s   | ±51.21% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,12          | 1    | 3   | 8.299mb   | 0.003187s   | ±34.53% |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,12       | 1    | 3   | 8.300mb   | 0.003387s   | ±32.42% |
+| MethodsProportionalBench | benchByCandidates | STV,13                | 1    | 3   | 14.701mb  | 0.012803s   | ±1.34%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,13            | 1    | 3   | 14.732mb  | 0.004578s   | ±0.85%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,13  | 1    | 3   | 8.745mb   | 0.003384s   | ±4.92%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,13          | 1    | 3   | 8.745mb   | 0.003551s   | ±4.73%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,13       | 1    | 3   | 8.745mb   | 0.003303s   | ±4.17%  |
+| MethodsProportionalBench | benchByCandidates | STV,14                | 1    | 3   | 15.522mb  | 0.013331s   | ±4.09%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,14            | 1    | 3   | 15.487mb  | 0.005143s   | ±14.17% |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,14  | 1    | 3   | 9.191mb   | 0.003328s   | ±0.64%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,14          | 1    | 3   | 9.191mb   | 0.003417s   | ±3.84%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,14       | 1    | 3   | 9.191mb   | 0.003650s   | ±14.27% |
+| MethodsProportionalBench | benchByCandidates | STV,15                | 1    | 3   | 16.346mb  | 0.014077s   | ±4.13%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,15            | 1    | 3   | 16.309mb  | 0.004995s   | ±4.99%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,15  | 1    | 3   | 9.640mb   | 0.005224s   | ±31.24% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,15          | 1    | 3   | 9.639mb   | 0.003729s   | ±16.58% |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,15       | 1    | 3   | 9.640mb   | 0.003584s   | ±0.64%  |
+| MethodsProportionalBench | benchByCandidates | STV,16                | 1    | 3   | 18.446mb  | 0.015429s   | ±8.53%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,16            | 1    | 3   | 18.411mb  | 0.004596s   | ±7.59%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,16  | 1    | 3   | 10.728mb  | 0.004133s   | ±0.77%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,16          | 1    | 3   | 10.727mb  | 0.003669s   | ±4.98%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,16       | 1    | 3   | 10.728mb  | 0.004017s   | ±4.55%  |
+| MethodsProportionalBench | benchByCandidates | STV,17                | 1    | 3   | 19.326mb  | 0.016124s   | ±2.04%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,17            | 1    | 3   | 19.287mb  | 0.005705s   | ±1.88%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,17  | 1    | 3   | 11.237mb  | 0.004140s   | ±1.00%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,17          | 1    | 3   | 11.236mb  | 0.003962s   | ±4.62%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,17       | 1    | 3   | 11.237mb  | 0.003954s   | ±4.42%  |
+| MethodsProportionalBench | benchByCandidates | STV,18                | 1    | 3   | 20.157mb  | 0.016955s   | ±4.44%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,18            | 1    | 3   | 20.115mb  | 0.005920s   | ±1.38%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,18  | 1    | 3   | 11.700mb  | 0.004243s   | ±11.95% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,18          | 1    | 3   | 11.699mb  | 0.004167s   | ±5.96%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,18       | 1    | 3   | 11.700mb  | 0.004331s   | ±10.30% |
+| MethodsProportionalBench | benchByCandidates | STV,19                | 1    | 3   | 20.984mb  | 0.017616s   | ±1.99%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,19            | 1    | 3   | 20.940mb  | 0.005932s   | ±7.57%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,19  | 1    | 3   | 12.151mb  | 0.004609s   | ±3.18%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,19          | 1    | 3   | 12.151mb  | 0.004244s   | ±4.38%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,19       | 1    | 3   | 12.151mb  | 0.004391s   | ±3.48%  |
+| MethodsProportionalBench | benchByCandidates | STV,20                | 1    | 3   | 21.808mb  | 0.019353s   | ±6.03%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,20            | 1    | 3   | 21.765mb  | 0.006336s   | ±0.70%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,20  | 1    | 3   | 12.602mb  | 0.004655s   | ±2.31%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,20          | 1    | 3   | 12.602mb  | 0.004561s   | ±0.98%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,20       | 1    | 3   | 12.602mb  | 0.004507s   | ±0.33%  |
+| MethodsProportionalBench | benchByCandidates | STV,30                | 1    | 3   | 30.114mb  | 0.027635s   | ±2.53%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,30            | 1    | 3   | 30.138mb  | 0.010538s   | ±12.38% |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,30  | 1    | 3   | 17.213mb  | 0.008364s   | ±9.75%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,30          | 1    | 3   | 17.212mb  | 0.006590s   | ±3.75%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,30       | 1    | 3   | 17.213mb  | 0.006709s   | ±1.63%  |
+| MethodsProportionalBench | benchByCandidates | STV,40                | 1    | 3   | 41.236mb  | 0.037545s   | ±4.36%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,40            | 1    | 3   | 41.193mb  | 0.012487s   | ±2.01%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,40  | 1    | 3   | 23.370mb  | 0.009508s   | ±11.16% |
+| MethodsProportionalBench | benchByCandidates | Jefferson,40          | 1    | 3   | 23.369mb  | 0.009279s   | ±1.30%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,40       | 1    | 3   | 23.370mb  | 0.009423s   | ±4.00%  |
+| MethodsProportionalBench | benchByCandidates | STV,50                | 1    | 3   | 49.602mb  | 0.047640s   | ±1.69%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,50            | 1    | 3   | 49.443mb  | 0.014999s   | ±5.16%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,50  | 1    | 3   | 28.048mb  | 0.012300s   | ±1.65%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,50          | 1    | 3   | 28.047mb  | 0.011829s   | ±4.08%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,50       | 1    | 3   | 28.047mb  | 0.012519s   | ±2.92%  |
+| MethodsProportionalBench | benchByCandidates | STV,60                | 1    | 3   | 57.963mb  | 0.060343s   | ±3.62%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,60            | 1    | 3   | 57.755mb  | 0.019293s   | ±5.08%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,60  | 1    | 3   | 32.772mb  | 0.015561s   | ±2.90%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,60          | 1    | 3   | 32.771mb  | 0.014827s   | ±0.42%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,60       | 1    | 3   | 32.772mb  | 0.015001s   | ±1.17%  |
+| MethodsProportionalBench | benchByCandidates | STV,70                | 1    | 3   | 79.765mb  | 0.072319s   | ±1.12%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,70            | 1    | 3   | 79.335mb  | 0.024373s   | ±3.34%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,70  | 1    | 3   | 45.391mb  | 0.019033s   | ±6.86%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,70          | 1    | 3   | 45.390mb  | 0.018760s   | ±5.18%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,70       | 1    | 3   | 45.391mb  | 0.018700s   | ±0.84%  |
+| MethodsProportionalBench | benchByCandidates | STV,80                | 1    | 3   | 88.501mb  | 0.083748s   | ±6.08%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,80            | 1    | 3   | 87.929mb  | 0.027875s   | ±2.13%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,80  | 1    | 3   | 50.453mb  | 0.022614s   | ±2.68%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,80          | 1    | 3   | 50.451mb  | 0.022171s   | ±0.40%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,80       | 1    | 3   | 50.452mb  | 0.022119s   | ±0.68%  |
+| MethodsProportionalBench | benchByCandidates | STV,90                | 1    | 3   | 97.257mb  | 0.095371s   | ±0.50%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,90            | 1    | 3   | 96.523mb  | 0.032974s   | ±2.87%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,90  | 1    | 3   | 55.586mb  | 0.026290s   | ±1.04%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,90          | 1    | 3   | 55.585mb  | 0.026412s   | ±3.99%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,90       | 1    | 3   | 55.586mb  | 0.026185s   | ±1.39%  |
+| MethodsProportionalBench | benchByCandidates | STV,100               | 1    | 3   | 105.949mb | 0.119077s   | ±6.04%  |
+| MethodsProportionalBench | benchByCandidates | CPO STV,100           | 1    | 3   | 105.116mb | 0.041255s   | ±5.16%  |
+| MethodsProportionalBench | benchByCandidates | Largest Remainder,100 | 1    | 3   | 60.703mb  | 0.030632s   | ±4.05%  |
+| MethodsProportionalBench | benchByCandidates | Jefferson,100         | 1    | 3   | 60.703mb  | 0.030897s   | ±0.77%  |
+| MethodsProportionalBench | benchByCandidates | Sainte-Laguë,100      | 1    | 3   | 60.703mb  | 0.030627s   | ±2.33%  |
++--------------------------+-------------------+-----------------------+------+-----+-----------+-------------+---------+
+
 # v4.0-beta1 Branch
 
 1000 random votes different for each test, variable number of candidates (look at column "set") 

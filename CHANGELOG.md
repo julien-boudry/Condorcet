@@ -16,6 +16,9 @@ Implements new proportional methods
 ### Changed
 - Default max length of a candidate name is now 100 UTF-8 characters instead of 30
 
+### Internal changes
+- Migrates the entire code base to a strict application of PSR-12 standards. It's debatable, but it's now standard and no longer iconoclastic, it's the age of reason. The respect of coding standards is now controlled by Laravel Pint.
+
 
 ## [v4.0] - 2022-06-17
 ### Description
