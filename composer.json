@@ -28,7 +28,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "symfony/console": "^6.0",
-        "symfony/yaml": "^6.0",
+        "symfony/yaml": "^6.1",
         "brick/math": "^0.10"
     },
     "require-dev": {
