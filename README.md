@@ -83,7 +83,7 @@ Single Winner return a full ranking. But they were designed for elected one. Inp
 ### Proportional Methods provided natively
 Designed for electing assembly. Inputs are ordered ranking, but most of these methods, don't support tie on a rank.
 
-> Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt and variants)* / Largest Remainder Methods _(with different quotas)*
+> Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt and variants)* / Largest Remainder Methods _(with different quotas)_
 
 ### Add your own method as module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).  
