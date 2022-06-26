@@ -10,6 +10,7 @@ Condorcet PHP: Voting Methods
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*  
 
 ## Single winner methods
+_Designed for electing a single winner. But return a full ranking._
 
 * **Condorcet Basic** Give you the natural winner or loser of Condorcet if there is one.  
 * **Borda count**
@@ -37,12 +38,15 @@ Condorcet PHP: Voting Methods
     * **[Schulze Ratio](#schulze-ratio)**
 
 ## Proportional methods
+_Designed for electing an assembly. Return a ranking of elected candidates._
 
-* **[Single Transferable Vote](#single-transferable-vote)** *(The classical STV method)*
-* **[CPO-STV](#cpo-stv)** *Comparison of Pairs of Outcomes by the Single Transferable Vote, by Nicolaus Tideman*
-* **[Highest Average: Sainte-Laguë](#sainte-laguë--webster-method)** *Include Variants like Norway ou Sweden methods*
-* **[Highest Average: Thomas Jefferson / D'Hondt](#jefferson--dhondt-method)**
-* **[Largest Remainder: Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR](#hare-lr--droop-lr--imperiali-lr--hagenbach-bischoff-lr)**
+* **STV Family**
+    * **[Single Transferable Vote](#single-transferable-vote)** *(The classical STV method)*
+    * **[CPO-STV](#cpo-stv)** *Comparison of Pairs of Outcomes by the Single Transferable Vote, by Nicolaus Tideman*
+* **Highest Average / Largest Remainder Family**
+    * **[Highest Average: Sainte-Laguë](#sainte-laguë--webster-method)** *Include Variants like Norway ou Sweden methods*
+    * **[Highest Average: Thomas Jefferson / D'Hondt](#jefferson--dhondt-method)**
+    * **[Largest Remainder: Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR](#hare-lr--droop-lr--imperiali-lr--hagenbach-bischoff-lr)**
 
 
 
@@ -701,6 +705,8 @@ $election->getResult('Sainte-Laguë')->getStats(); # Summarizes the number of se
 $this->election->setMethodOption('SainteLague', 'FirstDivisor', 1.4);
 $election->getResult('Sainte-Laguë');
 
+// Get back to the normal version
+$this->election->setMethodOption('SainteLague', 'FirstDivisor', 1);
 ```
 
 ### Jefferson / D'Hondt method 
