@@ -66,6 +66,7 @@
         "ordered_interfaces": true,
         "php_unit_construct": true,
         "php_unit_dedicate_assert": true,
+        "php_unit_no_expectation_annotation": true,
         "php_unit_set_up_tear_down_visibility": true,
         "pow_to_exponentiation": true,
         "regular_callable_call": true,
