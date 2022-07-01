@@ -15,7 +15,8 @@ namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\Throwable\{DataHandlerException, CondorcetInternalError};
+use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 
 class PdoHandlerDriver implements DataHandlerDriverInterface
 {

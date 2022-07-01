@@ -43,6 +43,7 @@ class ElectionCommand extends Command
     protected ?string $DavidHillFormatPath;
 
     public static int $VotesPerMB = 100;
+    protected string $ini_memory_limit;
 
     // Internal Process
     protected bool $candidatesListIsWrite = false;

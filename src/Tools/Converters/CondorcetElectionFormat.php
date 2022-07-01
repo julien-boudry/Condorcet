@@ -253,7 +253,8 @@ class CondorcetElectionFormat implements ConverterInterface
     {
         return match ($parse) {
             'true' => true,
-                'false' => false,
+            'false' => false,
+            default => true
         };
     }
 }
