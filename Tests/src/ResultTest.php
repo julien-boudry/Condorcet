@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
-use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
 use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase

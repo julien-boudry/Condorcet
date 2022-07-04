@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
 class Pairwise implements \ArrayAccess, \Iterator

@@ -22,7 +22,6 @@ use CondorcetPHP\Condorcet\Algo\{Method, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Tools\{Combinations, StvQuotas, TieBreakersCollection};
 use CondorcetPHP\Condorcet\Algo\Methods\Minimax\{MinimaxMargin, MinimaxWinning};
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\{SchulzeMargin, SchulzeRatio, SchulzeWinning};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use SplFixedArray;

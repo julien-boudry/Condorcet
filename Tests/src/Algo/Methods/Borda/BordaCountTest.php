@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Borda;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 
 class BordaCountTest extends TestCase

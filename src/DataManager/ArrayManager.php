@@ -10,9 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\CondorcetVersion;
-use CondorcetPHP\Condorcet\{Election, Vote};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
+use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 

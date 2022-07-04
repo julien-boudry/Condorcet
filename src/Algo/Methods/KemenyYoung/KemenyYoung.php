@@ -12,9 +12,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Result;
-use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity, Pairwise};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, Pairwise, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method

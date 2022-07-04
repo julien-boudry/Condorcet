@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related};
 use Symfony\Component\Console\Application as SymfonyConsoleApplication;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;

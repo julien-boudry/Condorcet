@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
+use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
-use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteInvalidFormatException, VoteMaxNumberReachedException, VoteException};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 
 // Manage Results for Election class

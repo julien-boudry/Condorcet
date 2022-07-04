@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 
 class DebianFormat implements ConverterInterface
 {

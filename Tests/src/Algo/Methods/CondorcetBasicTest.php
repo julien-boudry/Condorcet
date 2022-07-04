@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\{Condorcet, Election, Vote};
 use CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic;
 use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 use PHPUnit\Framework\TestCase;

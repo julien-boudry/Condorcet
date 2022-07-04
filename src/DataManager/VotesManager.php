@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\{Election, Vote};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Related, Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;

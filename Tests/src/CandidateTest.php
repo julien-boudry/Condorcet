@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote, VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\{CandidateInvalidNameException, CandidateExistsException};
+use CondorcetPHP\Condorcet\{Candidate, Election};
+use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
 use PHPUnit\Framework\TestCase;
 
 class CandidateTest extends TestCase

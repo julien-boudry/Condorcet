@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate,
-    Condorcet,
-    CondorcetUtil,
-    Election,
-    Result,
-    Throwable\VoteNotLinkedException,
-    Vote,
-    VoteConstraint};
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Vote};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 

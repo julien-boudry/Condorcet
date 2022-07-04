@@ -7,7 +7,7 @@ declare(strict_types=1);
 # Quick tour of the main features of Condorcet PHP
 
 // I - Install
-    use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
+    use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election};
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 
     require_once __DIR__.'/../../__CondorcetAutoload.php';
