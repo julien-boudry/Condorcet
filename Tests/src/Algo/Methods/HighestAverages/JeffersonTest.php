@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
 class JeffersonTest extends TestCase
@@ -30,5 +31,17 @@ class JeffersonTest extends TestCase
         $this->election->parseVotes('A * 42; B ^31; C *15; D ^12'); // Mix weight and number
 
         self::assertSame(['A' =>3, 'B' => 2, 'C' => 1, 'D' => 0], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+    }
+
+    public function testResult_Tideman_A03(): void
+    {
+        $cef = new CondorcetElectionFormat(__DIR__.'/'.'A03.cvotes');
+        $cef->setDataToAnElection($this->election);
+
+        $this->election->setImplicitRanking(false); // Empty ranking was throw an error.
+
+        $this->election->getResult('Jefferson');
+
+        self::assertTrue(true);
     }
 }

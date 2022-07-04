@@ -47,6 +47,10 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
         }
 
         foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) {
+            if ($oneVote->countRankingCandidates() === 0) {
+                continue;
+            }
+
             $voteWinnerRank = $oneVote->getContextualRankingWithoutSort($election)[1];
 
             if (\count($voteWinnerRank) !== 1) {
