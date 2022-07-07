@@ -1297,6 +1297,7 @@ _Including above methods from public API_
 * protected ?string $DebianFormatPath
 * protected ?string $DavidHillFormatPath
 * public static int $VotesPerMB
+* protected string $ini_memory_limit
 * protected bool $candidatesListIsWrite
 * protected bool $votesCountIsWrite
 * protected bool $pairwiseIsWrite

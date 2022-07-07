@@ -2,7 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.1] - 2022-06-26
+## [v4.1.1] - 2022-07-07
+### Changed
+- Composer: Fix ext-mbstring dependency
+- HighestAverage & LargestRemainder methods: Fix a bug with empty ranking in context (or non valid rank in a vote)
+
+## [v4.1.0] - 2022-06-26
 
 ### Description
 Implements new proportional methods 
@@ -20,7 +25,7 @@ Implements new proportional methods
 - Migrates the entire code base to a strict application of PSR-12 standards (and many other rules). It's debatable because our alternative syntax was lovely, but it's now standard and no longer iconoclastic, it's the age of reason. The respect for coding standards is now controlled by Laravel Pint.
 
 
-## [v4.0] - 2022-06-17
+## [v4.0.0] - 2022-06-17
 ### Description
 Implement the CPO-STV method, the second official module for a proportional method. Comes with many performance improvements for some methods and elections with a lot of candidates.
 
