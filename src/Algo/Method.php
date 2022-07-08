@@ -24,8 +24,8 @@ abstract class Method
 
     public static ?int $MaxCandidates = null;
 
-    protected readonly \WeakReference $_selfElection;
-    protected ?Result $_Result = null;
+    protected readonly \WeakReference $selfElection;
+    protected ?Result $Result = null;
 
     // Internal precision
     public const DECIMAL_PRECISION = 9;
@@ -56,33 +56,33 @@ abstract class Method
     public function __serialize(): array
     {
         $r = get_object_vars($this);
-        unset($r['_selfElection']);
+        unset($r['selfElection']);
 
         return $r;
     }
 
     public function setElection(Election $election): void
     {
-        $this->_selfElection = \WeakReference::create($election);
+        $this->selfElection = \WeakReference::create($election);
     }
 
     #[InternalModulesAPI]
     public function getElection(): Election
     {
-        return $this->_selfElection->get();
+        return $this->selfElection->get();
     }
 
     #[InternalModulesAPI]
     public function getResult(): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($this->Result !== null) {
+            return $this->Result;
         }
 
         $this->compute();
 
-        return $this->_Result;
+        return $this->Result;
     }
 
     protected function compute(): void

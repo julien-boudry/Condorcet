@@ -56,7 +56,7 @@ class VotesManager extends ArrayManager
     {
         if ($value instanceof Vote) {
             parent::offsetSet((\is_int($offset) ? $offset : null), $value);
-            $this->UpdateAndResetComputing(key: $this->_maxKey, type: 1);
+            $this->UpdateAndResetComputing(key: $this->maxKey, type: 1);
         } else {
             throw new VoteManagerException;
         }
@@ -95,7 +95,7 @@ class VotesManager extends ArrayManager
 
     public function getVoteKey(Vote $vote): ?int
     {
-        ($r = array_search(needle: $vote, haystack: $this->_Container, strict: true)) !== false || ($r = array_search(needle: $vote, haystack: $this->_Cache, strict: true));
+        ($r = array_search(needle: $vote, haystack: $this->Container, strict: true)) !== false || ($r = array_search(needle: $vote, haystack: $this->Cache, strict: true));
 
         return ($r !== false) ? $r : null;
     }

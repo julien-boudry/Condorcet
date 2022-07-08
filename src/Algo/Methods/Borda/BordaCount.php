@@ -23,14 +23,14 @@ class BordaCount extends Method implements MethodInterface
 
     public static int $optionStarting = 1;
 
-    protected ?array $_Stats = null;
+    protected ?array $Stats = null;
 
     protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $candidateKey => $oneScore) {
+        foreach ($this->Stats as $candidateKey => $oneScore) {
             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
         }
 
@@ -83,8 +83,8 @@ class BordaCount extends Method implements MethodInterface
             }
         }
 
-        $this->_Stats = $score;
-        $this->_Result = $this->createResult($result);
+        $this->Stats = $score;
+        $this->Result = $this->createResult($result);
     }
 
     protected function getScoreByCandidateRanking(int $CandidatesRanked, Election $election): float

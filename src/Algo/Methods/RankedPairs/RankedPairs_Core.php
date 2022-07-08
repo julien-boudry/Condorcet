@@ -23,10 +23,10 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     public static ?int $MaxCandidates = 60;
 
     // Ranked Pairs
-    protected readonly array $_PairwiseSort;
-    protected array $_Arcs = [];
-    protected ?array $_Stats = null;
-    protected bool $_StatsDone = false;
+    protected readonly array $PairwiseSort;
+    protected array $Arcs = [];
+    protected ?array $Stats = null;
+    protected bool $StatsDone = false;
 
 
     /////////// PUBLIC ///////////
@@ -36,24 +36,24 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     public function getResult(): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($this->Result !== null) {
+            return $this->Result;
         }
 
         // -------
 
         // Sort pairwise
-        $this->_PairwiseSort = $this->pairwiseSort();
+        $this->PairwiseSort = $this->pairwiseSort();
 
         // Ranking calculation
         $this->makeArcs();
 
         // Make Stats
-        $this->_Stats['tally'] = $this->_PairwiseSort;
-        $this->_Stats['arcs'] = $this->_Arcs;
+        $this->Stats['tally'] = $this->PairwiseSort;
+        $this->Stats['arcs'] = $this->Arcs;
 
         // Make Result
-        return $this->_Result = $this->createResult($this->makeResult());
+        return $this->Result = $this->createResult($this->makeResult());
     }
 
     // Get the Ranked Pair ranking
@@ -61,8 +61,8 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     {
         $election = $this->getElection();
 
-        if (!$this->_StatsDone) {
-            foreach ($this->_Stats['tally'] as &$Roundvalue) {
+        if (!$this->StatsDone) {
+            foreach ($this->Stats['tally'] as &$Roundvalue) {
                 foreach ($Roundvalue as &$Arcvalue) {
                     foreach ($Arcvalue as $key => &$value) {
                         if ($key === 'from' || $key === 'to') {
@@ -72,7 +72,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                 }
             }
 
-            foreach ($this->_Stats['arcs'] as &$Arcvalue) {
+            foreach ($this->Stats['arcs'] as &$Arcvalue) {
                 foreach ($Arcvalue as $key => &$value) {
                     if ($key === 'from' || $key === 'to') {
                         $value = $election->getCandidateObjectFromKey($value)->getName();
@@ -80,10 +80,10 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                 }
             }
 
-            $this->_StatsDone = true;
+            $this->StatsDone = true;
         }
 
-        return $this->_Stats;
+        return $this->Stats;
     }
 
 
@@ -103,10 +103,10 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         while (\count($alreadyDone) < $election->countCandidates()) {
             $winners = $this->getWinners($alreadyDone);
 
-            foreach ($this->_Arcs as $ArcKey => $Arcvalue) {
+            foreach ($this->Arcs as $ArcKey => $Arcvalue) {
                 foreach ($winners as $oneWinner) {
                     if ($Arcvalue['from'] === $oneWinner || $Arcvalue['to'] === $oneWinner) {
-                        unset($this->_Arcs[$ArcKey]);
+                        unset($this->Arcs[$ArcKey]);
                     }
                 }
             }
@@ -125,7 +125,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
             if (!\in_array(needle: $candidateKey, haystack: $alreadyDone, strict: true)) {
                 $win = true;
-                foreach ($this->_Arcs as $ArcValue) {
+                foreach ($this->Arcs as $ArcValue) {
                     if ($ArcValue['to'] === $candidateKey) {
                         $win = false;
                     }
@@ -143,8 +143,8 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
 
     protected function makeArcs(): void
     {
-        foreach ($this->_PairwiseSort as $newArcsRound) {
-            $virtualArcs = $this->_Arcs;
+        foreach ($this->PairwiseSort as $newArcsRound) {
+            $virtualArcs = $this->Arcs;
             $testNewsArcs = [];
 
             $newKey = max((empty($highKey = array_keys($virtualArcs)) ? [-1] : $highKey)) + 1;
@@ -161,7 +161,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             }
 
             foreach ($testNewsArcs as $newArc) {
-                $this->_Arcs[] = $newArc;
+                $this->Arcs[] = $newArc;
             }
         }
     }

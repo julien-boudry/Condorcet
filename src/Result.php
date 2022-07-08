@@ -24,27 +24,27 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function rewind(): void
     {
-        reset($this->_ResultIterator);
+        reset($this->ResultIterator);
     }
 
     public function current(): array|Candidate
     {
-        return current($this->_ResultIterator);
+        return current($this->ResultIterator);
     }
 
     public function key(): int
     {
-        return key($this->_ResultIterator);
+        return key($this->ResultIterator);
     }
 
     public function next(): void
     {
-        next($this->_ResultIterator);
+        next($this->ResultIterator);
     }
 
     public function valid(): bool
     {
-        return key($this->_ResultIterator) !== null;
+        return key($this->ResultIterator) !== null;
     }
 
     // Implement ArrayAccess
@@ -81,10 +81,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /////////// CONSTRUCTOR ///////////
 
-    protected readonly array $_Result;
-    protected array $_ResultIterator;
-    protected $_Stats;
-    protected array $_warning = [];
+    protected readonly array $Result;
+    protected array $ResultIterator;
+    protected $Stats;
+    protected array $warning = [];
 
     #[PublicAPI]
     public readonly array $ranking;
@@ -115,10 +115,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         ksort($result, \SORT_NUMERIC);
 
-        $this->_Result = $result;
-        $this->_ResultIterator = $this->ranking = $this->makeUserResult($election);
+        $this->Result = $result;
+        $this->ResultIterator = $this->ranking = $this->makeUserResult($election);
         $this->rankingAsString = $this->getResultAsArray(true);
-        $this->_Stats = $stats;
+        $this->Stats = $stats;
         $this->seats = $seats;
         $this->fromMethod = $fromMethod;
         $this->byClass = $byClass;
@@ -177,7 +177,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[InternalModulesAPI]
     public function getResultAsInternalKey(): array
     {
-        return $this->_Result;
+        return $this->Result;
     }
 
     #[PublicAPI]
@@ -187,7 +187,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[Related('Election::getResult')]
     public function getStats(): mixed
     {
-        return $this->_Stats;
+        return $this->Stats;
     }
 
     #[PublicAPI]
@@ -230,7 +230,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         $userResult = [];
 
-        foreach ($this->_Result as $key => $value) {
+        foreach ($this->Result as $key => $value) {
             if (\is_array($value)) {
                 foreach ($value as $candidate_key) {
                     $userResult[$key][] = $election->getCandidateObjectFromKey($candidate_key);
@@ -259,7 +259,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[InternalModulesAPI]
     public function addWarning(int $type, ?string $msg = null): bool
     {
-        $this->_warning[] = ['type' => $type, 'msg' => $msg];
+        $this->warning[] = ['type' => $type, 'msg' => $msg];
 
         return true;
     }
@@ -272,11 +272,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         ?int $type = null
     ): array {
         if ($type === null) {
-            return $this->_warning;
+            return $this->warning;
         } else {
             $r = [];
 
-            foreach ($this->_warning as $oneWarning) {
+            foreach ($this->warning as $oneWarning) {
                 if ($oneWarning['type'] === $type) {
                     $r[] = $oneWarning;
                 }

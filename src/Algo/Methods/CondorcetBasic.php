@@ -21,8 +21,8 @@ class CondorcetBasic extends Method implements MethodInterface
     public const METHOD_NAME = ['CondorcetBasic'];
 
     // Basic Condorcet
-    protected ?int $_CondorcetWinner = null;
-    protected ?int $_CondorcetLoser = null;
+    protected ?int $CondorcetWinner = null;
+    protected ?int $CondorcetLoser = null;
 
 
     /////////// PUBLIC ///////////
@@ -44,8 +44,8 @@ class CondorcetBasic extends Method implements MethodInterface
     public function getWinner(): ?int
     {
         // Cache
-        if ($this->_CondorcetWinner !== null) {
-            return $this->_CondorcetWinner;
+        if ($this->CondorcetWinner !== null) {
+            return $this->CondorcetWinner;
         }
 
         // -------
@@ -62,8 +62,8 @@ class CondorcetBasic extends Method implements MethodInterface
             }
 
             if ($winner) {
-                $this->_CondorcetWinner = $candidate_key;
-                return $this->_CondorcetWinner;
+                $this->CondorcetWinner = $candidate_key;
+                return $this->CondorcetWinner;
             }
         }
 
@@ -74,8 +74,8 @@ class CondorcetBasic extends Method implements MethodInterface
     public function getLoser(): ?int
     {
         // Cache
-        if ($this->_CondorcetLoser !== null) {
-            return $this->_CondorcetLoser;
+        if ($this->CondorcetLoser !== null) {
+            return $this->CondorcetLoser;
         }
 
         // -------
@@ -92,8 +92,8 @@ class CondorcetBasic extends Method implements MethodInterface
             }
 
             if ($loser) {
-                $this->_CondorcetLoser = $candidate_key;
-                return $this->_CondorcetLoser;
+                $this->CondorcetLoser = $candidate_key;
+                return $this->CondorcetLoser;
             }
         }
 

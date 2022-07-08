@@ -54,8 +54,8 @@ abstract class Condorcet
     #[PublicAPI]
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
 
-    protected static ?string $_defaultMethod = null;
-    protected static array $_authMethods = [self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME];
+    protected static ?string $defaultMethod = null;
+    protected static array $authMethods = [self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME];
 
     public static bool $UseTimer = false;
 
@@ -88,7 +88,7 @@ abstract class Condorcet
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
         bool $basic = false
     ): array {
-        $auth = self::$_authMethods;
+        $auth = self::$authMethods;
 
         // Don't show Natural Condorcet
         if (!$basic) {
@@ -106,7 +106,7 @@ abstract class Condorcet
     #[Related('static Condorcet::getAuthMethods', 'static Condorcet::setDefaultMethod')]
     public static function getDefaultMethod(): ?string
     {
-        return self::$_defaultMethod;
+        return self::$defaultMethod;
     }
 
 
@@ -120,7 +120,7 @@ abstract class Condorcet
         #[FunctionParameter('A valid method name')]
         string $method
     ): ?string {
-        $auth = self::$_authMethods;
+        $auth = self::$authMethods;
 
         if (empty($method)) {
             throw new AlgorithmException('no method name given');
@@ -168,7 +168,7 @@ abstract class Condorcet
         }
 
         // Adding algo
-        self::$_authMethods[$methodClass] = $methodClass::METHOD_NAME;
+        self::$authMethods[$methodClass] = $methodClass::METHOD_NAME;
 
         if (self::getDefaultMethod() === null) {
             self::setDefaultMethod($methodClass);
@@ -209,7 +209,7 @@ abstract class Condorcet
         string $method
     ): bool {
         if (($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS) {
-            self::$_defaultMethod = $method;
+            self::$defaultMethod = $method;
             return true;
         } else {
             return false;

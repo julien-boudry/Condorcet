@@ -21,15 +21,15 @@ class ArrayManagerTest extends TestCase
             protected function decodeOneEntity(string $data): Vote
             {
                 $vote = new Vote($data);
-                $this->_Election->checkVoteCandidate($vote);
-                $vote->registerLink($this->_Election->get());
+                $this->Election->checkVoteCandidate($vote);
+                $vote->registerLink($this->Election->get());
 
                 return $vote;
             }
 
             protected function encodeOneEntity(Vote $data): string
             {
-                $data->destroyLink($this->_Election->get());
+                $data->destroyLink($this->Election->get());
 
                 return str_replace([' > ', ' = '], ['>', '='], (string) $data);
             }

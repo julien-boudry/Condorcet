@@ -21,8 +21,8 @@ trait CandidatesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected array $_Candidates = []; // Candidate list
-    protected string $_AutomaticNewCandidateName = 'A';
+    protected array $Candidates = []; // Candidate list
+    protected string $AutomaticNewCandidateName = 'A';
 
 
     /////////// GET CANDIDATES ///////////
@@ -34,7 +34,7 @@ trait CandidatesProcess
     #[Related('Election::getCandidatesList')]
     public function countCandidates(): int
     {
-        return \count($this->_Candidates);
+        return \count($this->Candidates);
     }
 
     #[PublicAPI]
@@ -43,7 +43,7 @@ trait CandidatesProcess
     #[Related('Election::countCandidates')]
     public function getCandidatesList(): array
     {
-        return $this->_Candidates;
+        return $this->Candidates;
     }
 
     // Get the list of registered CANDIDATES
@@ -55,7 +55,7 @@ trait CandidatesProcess
     {
         $result = [];
 
-        foreach ($this->_Candidates as $candidateKey => &$oneCandidate) {
+        foreach ($this->Candidates as $candidateKey => &$oneCandidate) {
             $result[$candidateKey] = $oneCandidate->getName();
         }
 
@@ -66,9 +66,9 @@ trait CandidatesProcess
     public function getCandidateKey(Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) {
-            $r = array_search(needle: $candidate, haystack: $this->_Candidates, strict: true);
+            $r = array_search(needle: $candidate, haystack: $this->Candidates, strict: true);
         } else {
-            $r = array_search(needle: trim((string) $candidate), haystack: $this->_Candidates, strict: false);
+            $r = array_search(needle: trim((string) $candidate), haystack: $this->Candidates, strict: false);
         }
 
         return ($r !== false) ? $r : null;
@@ -77,7 +77,7 @@ trait CandidatesProcess
     #[InternalModulesAPI]
     public function getCandidateObjectFromKey(int $candidate_key): ?Candidate
     {
-        return $this->_Candidates[$candidate_key] ?? null;
+        return $this->Candidates[$candidate_key] ?? null;
     }
 
     #[PublicAPI]
@@ -90,7 +90,7 @@ trait CandidatesProcess
         #[FunctionParameter("Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.\nIf strict mode is false, the comparison will be based on name")]
         bool $strictMode = true
     ): bool {
-        return $strictMode ? \in_array(needle: $candidate, haystack: $this->_Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->_Candidates, strict: false);
+        return $strictMode ? \in_array(needle: $candidate, haystack: $this->Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->Candidates, strict: false);
     }
 
     #[PublicAPI]
@@ -100,7 +100,7 @@ trait CandidatesProcess
         #[FunctionParameter('Candidate name')]
         string $candidateName
     ): ?Candidate {
-        foreach ($this->_Candidates as $oneCandidate) {
+        foreach ($this->Candidates as $oneCandidate) {
             if ($oneCandidate->getName() === $candidateName) {
                 return $oneCandidate;
             }
@@ -124,17 +124,17 @@ trait CandidatesProcess
         Candidate|string|null $candidate = null
     ): Candidate {
         // only if the vote has not started
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
+        if ($this->State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
             throw new VotingHasStartedException("cannot add '{$candidate}'");
         }
 
         // Process
         if (empty($candidate) && $candidate !== '0') {
-            while (!$this->canAddCandidate($this->_AutomaticNewCandidateName)) {
-                $this->_AutomaticNewCandidateName++;
+            while (!$this->canAddCandidate($this->AutomaticNewCandidateName)) {
+                $this->AutomaticNewCandidateName++;
             }
 
-            $newCandidate = new Candidate($this->_AutomaticNewCandidateName);
+            $newCandidate = new Candidate($this->AutomaticNewCandidateName);
         } else { // Try to add the candidate_id
             $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate((string) $candidate);
 
@@ -144,7 +144,7 @@ trait CandidatesProcess
         }
 
         // Register it
-        $this->_Candidates[] = $newCandidate;
+        $this->Candidates[] = $newCandidate;
 
         // Linking
         $newCandidate->registerLink($this);
@@ -178,7 +178,7 @@ trait CandidatesProcess
         array|Candidate|string $candidates_input
     ): array {
         // only if the vote has not started
-        if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
+        if ($this->State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
             throw new VotingHasStartedException;
         }
 
@@ -198,11 +198,11 @@ trait CandidatesProcess
 
         $rem = [];
         foreach ($candidates_input as $candidate_key) {
-            $this->_Candidates[$candidate_key]->destroyLink($this);
+            $this->Candidates[$candidate_key]->destroyLink($this);
 
-            $rem[] = $this->_Candidates[$candidate_key];
+            $rem[] = $this->Candidates[$candidate_key];
 
-            unset($this->_Candidates[$candidate_key]);
+            unset($this->Candidates[$candidate_key]);
         }
 
         return $rem;
@@ -261,8 +261,8 @@ trait CandidatesProcess
         $adding = [];
         foreach ($input as $line) {
             // addCandidate
-            if (self::$_maxParseIteration !== null && \count($adding) >= self::$_maxParseIteration) {
-                throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
+            if (self::$maxParseIteration !== null && \count($adding) >= self::$maxParseIteration) {
+                throw new VoteMaxNumberReachedException(self::$maxParseIteration);
             }
 
             if (!$this->canAddCandidate($line)) {

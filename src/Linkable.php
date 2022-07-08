@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 
 trait Linkable
 {
-    private ?\WeakMap $_link;
+    private ?\WeakMap $link;
 
     public function __clone(): void
     {
@@ -33,7 +33,7 @@ trait Linkable
     ): bool {
         $this->initWeakMap();
 
-        return $this->_link->offsetExists($election);
+        return $this->link->offsetExists($election);
     }
 
     #[PublicAPI]
@@ -44,7 +44,7 @@ trait Linkable
     {
         $this->initWeakMap();
 
-        return \count($this->_link);
+        return \count($this->link);
     }
 
     #[PublicAPI]
@@ -55,7 +55,7 @@ trait Linkable
     {
         $this->initWeakMap();
 
-        return $this->_link;
+        return $this->link;
     }
 
     // Internal
@@ -63,13 +63,13 @@ trait Linkable
 
     protected function initWeakMap(): void
     {
-        $this->_link ??= new \WeakMap;
+        $this->link ??= new \WeakMap;
     }
 
     public function registerLink(Election $election): void
     {
         if (!$this->haveLink($election)) { // haveLink will initWeakmap if necessary
-            $this->_link->offsetSet($election, true);
+            $this->link->offsetSet($election, true);
         } else {
             throw new CondorcetInternalException('Link is already registered.');
         }
@@ -78,7 +78,7 @@ trait Linkable
     public function destroyLink(Election $election): bool
     {
         if ($this->haveLink($election)) { // haveLink will initWeakmap if necessary
-            $this->_link->offsetUnset($election);
+            $this->link->offsetUnset($election);
             return true;
         } else {
             return false;
@@ -87,7 +87,7 @@ trait Linkable
 
     protected function destroyAllLink(): void
     {
-        $this->_link = null;
+        $this->link = null;
         $this->initWeakMap();
     }
 }

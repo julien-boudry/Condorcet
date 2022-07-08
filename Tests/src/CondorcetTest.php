@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
+use CondorcetPHP\Condorcet\{Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
@@ -116,8 +116,8 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
     public function getResult($options = null): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($this->Result !== null) {
+            return $this->Result;
         }
 
         //////
@@ -126,7 +126,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
         $this->makeRanking();
 
         // Return
-        return $this->_Result;
+        return $this->Result;
     }
 
 
@@ -145,11 +145,11 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
     protected function makeRanking(): void
     {
-        $this->_selfElection->get()->getPairwise();
+        $this->selfElection->get()->getPairwise();
 
         $result = [0=>1, 1=>2, 2=>3]; // Candidate must be valid candidates
 
-        $this->_Result = $this->createResult($result);
+        $this->Result = $this->createResult($result);
     }
 }
 
@@ -168,15 +168,15 @@ class CondorcetTest_UnvalidAlgorithmName
     public function getResult($options = null): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($thisResult !== null) {
+            return $this->Result;
         }
 
         // Ranking calculation
         $this->makeRanking();
 
         // Return
-        return $this->_Result;
+        return $this->Result;
     }
 
 
@@ -195,10 +195,10 @@ class CondorcetTest_UnvalidAlgorithmName
 
     protected function makeRanking(): void
     {
-        $this->_selfElection->getPairwise();
+        $this->selfElection->getPairwise();
 
         $result = [0=>0, 1=> [1, 2], 2=> 3]; // Candidate must be valid internal candidate key.
 
-        $this->_Result = $result;
+        $this->Result = $result;
     }
 }

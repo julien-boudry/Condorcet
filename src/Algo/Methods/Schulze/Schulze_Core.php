@@ -20,7 +20,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 abstract class Schulze_Core extends Method implements MethodInterface
 {
     // Schulze
-    protected array $_StrongestPaths = [];
+    protected array $StrongestPaths = [];
 
 
     /////////// PUBLIC ///////////
@@ -30,8 +30,8 @@ abstract class Schulze_Core extends Method implements MethodInterface
     public function getResult(): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($this->Result !== null) {
+            return $this->Result;
         }
 
         // -------
@@ -47,7 +47,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
         // Return
-        return $this->_Result;
+        return $this->Result;
     }
 
 
@@ -57,7 +57,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $election = $this->getElection();
         $explicit = [];
 
-        foreach ($this->_StrongestPaths as $candidate_key => $candidate_value) {
+        foreach ($this->StrongestPaths as $candidate_key => $candidate_value) {
             $candidate_key = $election->getCandidateObjectFromKey($candidate_key)->getName();
 
             foreach ($candidate_value as $challenger_key => $challenger_value) {
@@ -83,12 +83,12 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $CandidatesKeys = array_keys($election->getCandidatesList());
 
         foreach ($CandidatesKeys as $candidate_key) {
-            $this->_StrongestPaths[$candidate_key] = [];
+            $this->StrongestPaths[$candidate_key] = [];
 
             // Format array for the strongest path
             foreach ($CandidatesKeys as $candidate_key_r) {
                 if ($candidate_key_r !== $candidate_key) {
-                    $this->_StrongestPaths[$candidate_key][$candidate_key_r] = 0;
+                    $this->StrongestPaths[$candidate_key][$candidate_key_r] = 0;
                 }
             }
         }
@@ -105,9 +105,9 @@ abstract class Schulze_Core extends Method implements MethodInterface
             foreach ($CandidatesKeys as $j) {
                 if ($i !== $j) {
                     if ($election->getPairwise()[$i]['win'][$j] > $election->getPairwise()[$j]['win'][$i]) {
-                        $this->_StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $election);
+                        $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $election);
                     } else {
-                        $this->_StrongestPaths[$i][$j] = 0;
+                        $this->StrongestPaths[$i][$j] = 0;
                     }
                 }
             }
@@ -118,10 +118,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
                 if ($i !== $j) {
                     foreach ($CandidatesKeys as $k) {
                         if ($i !== $k && $j !== $k) {
-                            $this->_StrongestPaths[$j][$k] =
+                            $this->StrongestPaths[$j][$k] =
                                 max(
-                                    $this->_StrongestPaths[$j][$k],
-                                    min($this->_StrongestPaths[$j][$i], $this->_StrongestPaths[$i][$k])
+                                    $this->StrongestPaths[$j][$k],
+                                    min($this->StrongestPaths[$j][$i], $this->StrongestPaths[$i][$k])
                                 );
                         }
                     }
@@ -144,7 +144,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
         while (\count($done) < $election->countCandidates()) {
             $to_done = [];
 
-            foreach ($this->_StrongestPaths as $candidate_key => $challengers_key) {
+            foreach ($this->StrongestPaths as $candidate_key => $challengers_key) {
                 if (\in_array(needle: $candidate_key, haystack: $done, strict: true)) {
                     continue;
                 }
@@ -156,7 +156,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
                         continue;
                     }
 
-                    if ($beaten_value < $this->_StrongestPaths[$beaten_key][$candidate_key]) {
+                    if ($beaten_value < $this->StrongestPaths[$beaten_key][$candidate_key]) {
                         $winner = false;
                     }
                 }
@@ -173,6 +173,6 @@ abstract class Schulze_Core extends Method implements MethodInterface
             $rank++;
         }
 
-        $this->_Result = $this->createResult($result);
+        $this->Result = $this->createResult($result);
     }
 }

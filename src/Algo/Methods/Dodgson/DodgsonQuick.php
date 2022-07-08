@@ -21,14 +21,14 @@ class DodgsonQuick extends Method implements MethodInterface
     // Method Name
     public const METHOD_NAME = ['Dodgson Quick', 'DodgsonQuick', 'Dodgson Quick Winner'];
 
-    protected ?array $_Stats = null;
+    protected ?array $Stats = null;
 
     protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $candidateKey => $dodgsonQuickValue) {
+        foreach ($this->Stats as $candidateKey => $dodgsonQuickValue) {
             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $dodgsonQuickValue;
         }
 
@@ -84,7 +84,7 @@ class DodgsonQuick extends Method implements MethodInterface
             }
         }
 
-        $this->_Stats = $dodgsonQuick;
-        $this->_Result = $this->createResult($result);
+        $this->Stats = $dodgsonQuick;
+        $this->Result = $this->createResult($result);
     }
 }

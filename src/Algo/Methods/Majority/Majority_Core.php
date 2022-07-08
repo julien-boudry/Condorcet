@@ -17,19 +17,19 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 abstract class Majority_Core extends Method implements MethodInterface
 {
-    protected int $_maxRound;
-    protected int $_targetNumberOfCandidatesForTheNextRound;
-    protected int $_numberOfTargetedCandidatesAfterEachRound;
+    protected int $maxRound;
+    protected int $targetNumberOfCandidatesForTheNextRound;
+    protected int $numberOfTargetedCandidatesAfterEachRound;
 
-    protected array $_admittedCandidates = [];
-    protected ?array $_Stats = null;
+    protected array $admittedCandidates = [];
+    protected ?array $Stats = null;
 
     protected function getStats(): array
     {
         $election = $this->getElection();
         $stats = [];
 
-        foreach ($this->_Stats as $roundNumber => $roundScore) {
+        foreach ($this->Stats as $roundNumber => $roundScore) {
             foreach ($roundScore as $candidateKey => $oneScore) {
                 $stats[$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
             }
@@ -63,7 +63,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                 }
             }
 
-            if ($round === $this->_maxRound || reset($roundScore) > (array_sum($roundScore) / 2)) {
+            if ($round === $this->maxRound || reset($roundScore) > (array_sum($roundScore) / 2)) {
                 $resolved = true;
 
                 if (isset($score[$round - 1]) && $score[$round] === $score[$round - 1]) {
@@ -73,14 +73,14 @@ abstract class Majority_Core extends Method implements MethodInterface
                 $lastScore = null;
                 $nextRoundAddedCandidates = 0;
 
-                $this->_admittedCandidates = [];
+                $this->admittedCandidates = [];
 
                 foreach ($roundScore as $oneCandidateKey => $oneScore) {
                     if ($lastScore === null ||
-                        $nextRoundAddedCandidates < ($this->_targetNumberOfCandidatesForTheNextRound + ($this->_numberOfTargetedCandidatesAfterEachRound * ($round - 1))) ||
+                        $nextRoundAddedCandidates < ($this->targetNumberOfCandidatesForTheNextRound + ($this->numberOfTargetedCandidatesAfterEachRound * ($round - 1))) ||
                         $oneScore === $lastScore
                         ) {
-                        $this->_admittedCandidates[] = $oneCandidateKey;
+                        $this->admittedCandidates[] = $oneCandidateKey;
                         $lastScore = $oneScore;
                         $nextRoundAddedCandidates++;
                     }
@@ -112,8 +112,8 @@ abstract class Majority_Core extends Method implements MethodInterface
 
         // Finalizing
         ksort($score, \SORT_NUMERIC);
-        $this->_Stats = $score;
-        $this->_Result = $this->createResult($result);
+        $this->Stats = $score;
+        $this->Result = $this->createResult($result);
     }
 
     protected function doOneRound(): array
@@ -126,10 +126,10 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
 
-            if (!empty($this->_admittedCandidates)) {
+            if (!empty($this->admittedCandidates)) {
                 foreach ($oneRanking as $rankKey => $oneRank) {
                     foreach ($oneRank as $InRankKey => $oneCandidate) {
-                        if (!\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $this->_admittedCandidates, strict: true)) {
+                        if (!\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $this->admittedCandidates, strict: true)) {
                             unset($oneRanking[$rankKey][$InRankKey]);
                         }
                     }

@@ -53,7 +53,7 @@ class CPO_STV extends SingleTransferableVote
     public static array $optionCondorcetCompletionMethod = self::DEFAULT_METHODS_CHAINING;
     public static array $optionTieBreakerMethods = self::DEFAULT_METHODS_CHAINING;
 
-    protected ?array $_Stats = null;
+    protected ?array $Stats = null;
 
     protected SplFixedArray $outcomes;
     protected readonly array $initialScoreTable;
@@ -149,7 +149,7 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Register result
-        $this->_Result = $this->createResult($r);
+        $this->Result = $this->createResult($r);
 
         Vote::clearCache(); // Performances
     }

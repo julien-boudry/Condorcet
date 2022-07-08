@@ -17,7 +17,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
-    protected readonly array $_Comparison;
+    protected readonly array $Comparison;
 
 
     /////////// PUBLIC ///////////
@@ -27,20 +27,20 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
     public function getResult(): Result
     {
         // Cache
-        if ($this->_Result !== null) {
-            return $this->_Result;
+        if ($this->Result !== null) {
+            return $this->Result;
         }
 
         // -------
 
         // Comparison calculation
-        $this->_Comparison = PairwiseStats::PairwiseComparison($this->getElection()->getPairwise());
+        $this->Comparison = PairwiseStats::PairwiseComparison($this->getElection()->getPairwise());
 
         // Ranking calculation
         $this->makeRanking();
 
         // Return
-        return $this->_Result;
+        return $this->Result;
     }
 
 
@@ -50,7 +50,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $election = $this->getElection();
         $explicit = [];
 
-        foreach ($this->_Comparison as $candidate_key => $value) {
+        foreach ($this->Comparison as $candidate_key => $value) {
             $explicit[$election->getCandidateObjectFromKey($candidate_key)->getName()] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         }
 
@@ -72,7 +72,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
         $rank = 1;
         $done = 0;
 
-        foreach ($this->_Comparison as $candidate_key => $candidate_data) {
+        foreach ($this->Comparison as $candidate_key => $candidate_data) {
             $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
         }
 
@@ -91,7 +91,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
             $rank++;
         }
 
-        $this->_Result = $this->createResult($result);
+        $this->Result = $this->createResult($result);
     }
 
     abstract protected function looking(array $challenge): int;

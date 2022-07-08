@@ -234,9 +234,9 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -257,11 +257,11 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
-* protected ?array $_Stats
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -283,11 +283,11 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
-* protected ?array $_Stats
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -308,12 +308,12 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected ?int $_CondorcetWinner
-* protected ?int $_CondorcetLoser
+* protected ?int $CondorcetWinner
+* protected ?int $CondorcetLoser
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -336,11 +336,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -362,11 +362,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected ?array $_Stats
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -387,11 +387,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -416,9 +416,9 @@ _Including above methods from public API_
 * protected array $candidatesSeats
 * protected array $rounds
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -445,9 +445,9 @@ _Including above methods from public API_
 * protected array $candidatesSeats
 * protected array $rounds
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -475,9 +475,9 @@ _Including above methods from public API_
 * protected array $candidatesSeats
 * protected array $rounds
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -500,12 +500,12 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected ?array $_Stats
+* protected ?array $Stats
 * readonly public float $majority
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -535,9 +535,9 @@ _Including above methods from public API_
 * protected int $Conflits
 * protected int $bestRankingKey
 * protected array $bestRankingTab
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -567,9 +567,9 @@ _Including above methods from public API_
 * protected array $candidatesSeats
 * protected array $rounds
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -592,15 +592,15 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected int $_maxRound
-* protected int $_targetNumberOfCandidatesForTheNextRound
-* protected int $_numberOfTargetedCandidatesAfterEachRound
-* protected array $_admittedCandidates
-* protected ?array $_Stats
+* protected int $maxRound
+* protected int $targetNumberOfCandidatesForTheNextRound
+* protected int $numberOfTargetedCandidatesAfterEachRound
+* protected array $admittedCandidates
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -620,15 +620,15 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected int $_maxRound
-* protected int $_targetNumberOfCandidatesForTheNextRound
-* protected int $_numberOfTargetedCandidatesAfterEachRound
-* protected array $_admittedCandidates
-* protected ?array $_Stats
+* protected int $maxRound
+* protected int $targetNumberOfCandidatesForTheNextRound
+* protected int $numberOfTargetedCandidatesAfterEachRound
+* protected array $admittedCandidates
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -652,15 +652,15 @@ _Including above methods from public API_
 * protected static int $optionMAX_ROUND
 * protected static int $optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND
 * protected static int $optionNUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND
-* protected int $_maxRound
-* protected int $_targetNumberOfCandidatesForTheNextRound
-* protected int $_numberOfTargetedCandidatesAfterEachRound
-* protected array $_admittedCandidates
-* protected ?array $_Stats
+* protected int $maxRound
+* protected int $targetNumberOfCandidatesForTheNextRound
+* protected int $numberOfTargetedCandidatesAfterEachRound
+* protected array $admittedCandidates
+* protected ?array $Stats
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -682,11 +682,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -709,11 +709,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -736,11 +736,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -761,11 +761,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* readonly protected array $_Comparison
+* readonly protected array $Comparison
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -789,13 +789,13 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
-* readonly protected array $_PairwiseSort
-* protected array $_Arcs
-* protected ?array $_Stats
-* protected bool $_StatsDone
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected array $PairwiseSort
+* protected array $Arcs
+* protected ?array $Stats
+* protected bool $StatsDone
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -823,13 +823,13 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
-* readonly protected array $_PairwiseSort
-* protected array $_Arcs
-* protected ?array $_Stats
-* protected bool $_StatsDone
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected array $PairwiseSort
+* protected array $Arcs
+* protected ?array $Stats
+* protected bool $StatsDone
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -855,13 +855,13 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static ?int $MaxCandidates
-* readonly protected array $_PairwiseSort
-* protected array $_Arcs
-* protected ?array $_Stats
-* protected bool $_StatsDone
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected array $PairwiseSort
+* protected array $Arcs
+* protected ?array $Stats
+* protected bool $StatsDone
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -892,7 +892,7 @@ _Including above methods from public API_
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * public static array $optionCondorcetCompletionMethod
 * public static array $optionTieBreakerMethods
-* protected ?array $_Stats
+* protected ?array $Stats
 * protected SplFixedArray $outcomes
 * readonly protected array $initialScoreTable
 * protected array $candidatesElectedFromFirstRound
@@ -903,9 +903,9 @@ _Including above methods from public API_
 * readonly protected CondorcetPHP\Condorcet\Result $completionMethodResult
 * protected float $votesNeededToWin
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -931,12 +931,12 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
-* protected ?array $_Stats
+* protected ?array $Stats
 * protected float $votesNeededToWin
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -957,11 +957,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected array $_StrongestPaths
+* protected array $StrongestPaths
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -985,11 +985,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected array $_StrongestPaths
+* protected array $StrongestPaths
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -1013,11 +1013,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected array $_StrongestPaths
+* protected array $StrongestPaths
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -1040,11 +1040,11 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected array $_StrongestPaths
+* protected array $StrongestPaths
 * public static ?int $MaxCandidates
-* readonly protected WeakReference $_selfElection
-* protected ?CondorcetPHP\Condorcet\Result $_Result
-* protected string $_objectVersion
+* readonly protected WeakReference $selfElection
+* protected ?CondorcetPHP\Condorcet\Result $Result
+* protected string $objectVersion
 
 * public static setOption (string $optionName, BackedEnum|array|string|int|float $optionValue): bool  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
@@ -1065,10 +1065,10 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
 ```php
 * private bool $valid
-* protected WeakReference $_Election
-* protected array $_Pairwise_Model
-* protected array $_Pairwise
-* protected string $_objectVersion
+* protected WeakReference $Election
+* protected array $Pairwise_Model
+* protected array $Pairwise
+* protected string $objectVersion
 
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public __serialize (): array  
@@ -1229,10 +1229,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Candidate implements Stringable  
 ```php
-* private array $_name
-* private bool $_provisional
-* private ?WeakMap $_link
-* protected string $_objectVersion
+* private array $name
+* private bool $provisional
+* private ?WeakMap $link
+* protected string $objectVersion
 
 * public __clone (): void  
 * public __construct (string $name)  
@@ -1261,8 +1261,8 @@ _Including above methods from public API_
 * final public const VERSION: (string)
 * final public const CONDORCET_BASIC_CLASS: (string)
 
-* protected static ?string $_defaultMethod
-* protected static array $_authMethods
+* protected static ?string $defaultMethod
+* protected static array $authMethods
 * public static bool $UseTimer
 
 * public static addMethod (string $methodClass): bool  
@@ -1290,7 +1290,7 @@ _Including above methods from public API_
 * public const FAILURE: (integer)
 * public const INVALID: (integer)
 
-* protected CondorcetPHP\Condorcet\Election $election
+* protected ?CondorcetPHP\Condorcet\Election $election
 * protected ?string $candidates
 * protected ?string $votes
 * protected ?string $CondorcetElectionFormatPath
@@ -1381,17 +1381,17 @@ _Including above methods from public API_
 ```php
 * public static int $CacheSize
 * public static int $MaxContainerLength
-* protected array $_Container
-* protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected WeakReference $_Election
-* protected array $_Cache
-* protected int $_CacheMaxKey
-* protected int $_CacheMinKey
-* protected ?int $_cursor
-* protected int $_counter
-* protected int $_maxKey
+* protected array $Container
+* protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $DataHandler
+* protected WeakReference $Election
+* protected array $Cache
+* protected int $CacheMaxKey
+* protected int $CacheMinKey
+* protected ?int $cursor
+* protected int $counter
+* protected int $maxKey
 * protected bool $valid
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
 * public __destruct ()  
@@ -1437,13 +1437,13 @@ _Including above methods from public API_
 ```php
 * public const SEGMENT: (array)
 
-* protected PDO $_handler
-* protected bool $_transaction
-* protected bool $_queryError
+* protected PDO $handler
+* protected bool $transaction
+* protected bool $queryError
 * public static bool $preferBlobInsteadVarchar
-* protected array $_struct
-* protected array $_prepare
-* protected string $_objectVersion
+* protected array $struct
+* protected array $prepare
+* protected string $objectVersion
 
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
 * public closeTransaction (): void  
@@ -1466,17 +1466,17 @@ _Including above methods from public API_
 ```php
 * public static int $CacheSize
 * public static int $MaxContainerLength
-* protected array $_Container
-* protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $_DataHandler
-* protected WeakReference $_Election
-* protected array $_Cache
-* protected int $_CacheMaxKey
-* protected int $_CacheMinKey
-* protected ?int $_cursor
-* protected int $_counter
-* protected int $_maxKey
+* protected array $Container
+* protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $DataHandler
+* protected WeakReference $Election
+* protected array $Cache
+* protected int $CacheMaxKey
+* protected int $CacheMinKey
+* protected ?int $cursor
+* protected int $counter
+* protected int $maxKey
 * protected bool $valid
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public UpdateAndResetComputing (int $key, int $type): void  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
@@ -1533,23 +1533,23 @@ _Including above methods from public API_
 ```php
 * public const MAX_CANDIDATE_NAME_LENGTH: (integer)
 
-* protected static ?int $_maxParseIteration
-* protected static ?int $_maxVoteNumber
-* protected static bool $_checksumMode
-* protected CondorcetPHP\Condorcet\ElectionProcess\ElectionState $_State
-* protected CondorcetPHP\Condorcet\Timer\Manager $_timer
-* protected bool $_ImplicitRanking
-* protected bool $_VoteWeightRule
-* protected array $_Constraints
-* protected int $_Seats
-* protected string $_objectVersion
-* protected array $_Candidates
-* protected string $_AutomaticNewCandidateName
-* protected CondorcetPHP\Condorcet\DataManager\VotesManager $_Votes
-* protected int $_voteFastMode
-* protected ?CondorcetPHP\Condorcet\Algo\Pairwise $_Pairwise
-* protected ?array $_Calculator
-* protected CondorcetPHP\Condorcet\Algo\StatsVerbosity $_StatsVerbosity
+* protected static ?int $maxParseIteration
+* protected static ?int $maxVoteNumber
+* protected static bool $checksumMode
+* protected CondorcetPHP\Condorcet\ElectionProcess\ElectionState $State
+* protected CondorcetPHP\Condorcet\Timer\Manager $timer
+* protected bool $ImplicitRanking
+* protected bool $VoteWeightRule
+* protected array $Constraints
+* protected int $Seats
+* protected string $objectVersion
+* protected array $Candidates
+* protected string $AutomaticNewCandidateName
+* protected CondorcetPHP\Condorcet\DataManager\VotesManager $Votes
+* protected int $voteFastMode
+* protected ?CondorcetPHP\Condorcet\Algo\Pairwise $Pairwise
+* protected ?array $Calculator
+* protected CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity
 
 * public static setMaxParseIteration (?int $maxParseIterations): ?int  
 * public static setMaxVoteNumber (?int $maxVotesNumber): ?int  
@@ -1654,10 +1654,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
 ```php
-* readonly protected array $_Result
-* protected array $_ResultIterator
-* protected  $_Stats
-* protected array $_warning
+* readonly protected array $Result
+* protected array $ResultIterator
+* protected  $Stats
+* protected array $warning
 * readonly public array $ranking
 * readonly public array $rankingAsString
 * readonly public ?int $seats
@@ -1669,7 +1669,7 @@ _Including above methods from public API_
 * readonly public string $byClass
 * readonly public CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity
 * readonly public string $electionCondorcetVersion
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])  
 * public addWarning (int $type, ?string $msg = null): bool  
@@ -1710,7 +1710,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1722,7 +1722,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1734,7 +1734,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1746,7 +1746,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1758,7 +1758,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1771,7 +1771,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string $method, int $maxCandidates)  
 * public getObjectVersion (bool $major = false): string  
@@ -1783,7 +1783,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1795,7 +1795,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1807,7 +1807,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string $message = )  
 * public getObjectVersion (bool $major = false): string  
@@ -1819,7 +1819,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1831,7 +1831,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public getObjectVersion (bool $major = false): string  
 ```
@@ -1861,7 +1861,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string $method, ?string $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1873,7 +1873,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1885,7 +1885,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1897,7 +1897,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1909,7 +1909,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1921,7 +1921,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1933,7 +1933,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1945,7 +1945,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1957,7 +1957,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1969,7 +1969,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1981,7 +1981,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -1993,7 +1993,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -2005,7 +2005,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -2017,7 +2017,7 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $_objectVersion
+* protected string $objectVersion
 
 * public __construct (string|int|null $message = null)  
 * public getObjectVersion (bool $major = false): string  
@@ -2025,10 +2025,10 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Timer\Chrono   
 ```php
-* protected CondorcetPHP\Condorcet\Timer\Manager $_manager
-* protected float $_start
-* protected ?string $_role
-* protected string $_objectVersion
+* protected CondorcetPHP\Condorcet\Timer\Manager $manager
+* protected float $start
+* protected ?string $role
+* protected string $objectVersion
 
 * public __construct (CondorcetPHP\Condorcet\Timer\Manager $timer, ?string $role = null)  
 * public __destruct ()  
@@ -2043,12 +2043,12 @@ _Including above methods from public API_
 
 #### CondorcetPHP\Condorcet\Timer\Manager   
 ```php
-* protected float $_globalTimer
-* protected ?float $_lastTimer
-* protected ?float $_lastChronoTimestamp
-* protected ?float $_startDeclare
-* protected array $_history
-* protected string $_objectVersion
+* protected float $globalTimer
+* protected ?float $lastTimer
+* protected ?float $lastChronoTimestamp
+* protected ?float $startDeclare
+* protected array $history
+* protected string $objectVersion
 
 * public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
 * public getGlobalTimer (): float  
@@ -2111,19 +2111,19 @@ _Including above methods from public API_
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
 ```php
 * private int $position
-* private array $_ranking
-* private float $_lastTimestamp
-* private int $_counter
-* private array $_ranking_history
-* private int $_weight
-* private array $_tags
-* private string $_hashCode
-* private ?CondorcetPHP\Condorcet\Election $_electionContext
+* private array $ranking
+* private float $lastTimestamp
+* private int $counter
+* private array $ranking_history
+* private int $weight
+* private array $tags
+* private string $hashCode
+* private ?CondorcetPHP\Condorcet\Election $electionContext
 * public bool $notUpdate
 * protected static ?stdClass $cacheKey
 * protected ?WeakMap $cacheMap
-* private ?WeakMap $_link
-* protected string $_objectVersion
+* private ?WeakMap $link
+* protected string $objectVersion
 
 * public static clearCache (): void  
 * public static initCache (): stdClass  

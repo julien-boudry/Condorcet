@@ -17,13 +17,13 @@ class Chrono
 {
     use CondorcetVersion;
 
-    protected Manager $_manager;
-    protected float $_start;
-    protected ?string $_role = null;
+    protected Manager $manager;
+    protected float $start;
+    protected ?string $role = null;
 
     public function __construct(Manager $timer, ?string $role = null)
     {
-        $this->_manager = $timer;
+        $this->manager = $timer;
         $this->setRole($role);
         $this->resetStart();
         $this->managerStartDeclare();
@@ -31,36 +31,36 @@ class Chrono
 
     public function __destruct()
     {
-        $this->_manager->addTime($this);
+        $this->manager->addTime($this);
     }
 
     public function getStart(): float
     {
-        return $this->_start;
+        return $this->start;
     }
 
     public function getTimerManager(): Manager
     {
-        return $this->_manager;
+        return $this->manager;
     }
 
     protected function resetStart(): void
     {
-        $this->_start = microtime(true);
+        $this->start = microtime(true);
     }
 
     public function getRole(): ?string
     {
-        return $this->_role;
+        return $this->role;
     }
 
     public function setRole(?string $role): void
     {
-        $this->_role = $role;
+        $this->role = $role;
     }
 
     protected function managerStartDeclare(): void
     {
-        $this->_manager->startDeclare($this);
+        $this->manager->startDeclare($this);
     }
 }

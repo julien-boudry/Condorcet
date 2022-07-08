@@ -23,9 +23,9 @@ trait ResultsProcess
     /////////// CONSTRUCTOR ///////////
 
     // Result
-    protected ?Pairwise $_Pairwise = null;
-    protected ?array $_Calculator = null;
-    protected StatsVerbosity $_StatsVerbosity = StatsVerbosity::STD;
+    protected ?Pairwise $Pairwise = null;
+    protected ?array $Calculator = null;
+    protected StatsVerbosity $StatsVerbosity = StatsVerbosity::STD;
 
 
     /////////// GET RESULTS ///////////
@@ -47,7 +47,7 @@ trait ResultsProcess
 
         // Filter if tag is provided & return
         if ($methodOptions['%tagFilter']) {
-            $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->_timer, 'GetResult with filter') : null;
+            $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->timer, 'GetResult with filter') : null;
 
             $filter = new self;
 
@@ -71,14 +71,14 @@ trait ResultsProcess
 
         // -------
 
-        $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->_timer) : null;
+        $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->timer) : null;
 
         if ($method === null) {
             $this->initResult(Condorcet::getDefaultMethod());
-            $result = $this->_Calculator[Condorcet::getDefaultMethod()]->getResult();
+            $result = $this->Calculator[Condorcet::getDefaultMethod()]->getResult();
         } elseif ($wanted_method = Condorcet::getMethodClass($method)) {
             $this->initResult($wanted_method);
-            $result = $this->_Calculator[$wanted_method]->getResult();
+            $result = $this->Calculator[$wanted_method]->getResult();
         } else {
             throw new AlgorithmException($method);
         }
@@ -103,9 +103,9 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->_timer, 'GetWinner for CondorcetBasic');
+            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
             $this->initResult($algo);
-            $result = $this->_Calculator[$algo]->getWinner();
+            $result = $this->Calculator[$algo]->getWinner();
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
@@ -128,9 +128,9 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->_timer, 'GetLoser for CondorcetBasic');
+            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
             $this->initResult($algo);
-            $result = $this->_Calculator[$algo]->getLoser();
+            $result = $this->Calculator[$algo]->getLoser();
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
@@ -165,11 +165,11 @@ trait ResultsProcess
     #[Related('Election::getExplicitPairwise', 'Election::getResult')]
     public function getPairwise(): Pairwise
     {
-        if ($this->_Pairwise === null) {
+        if ($this->Pairwise === null) {
             $this->preparePairwiseAndCleanCompute();
         }
 
-        return $this->_Pairwise;
+        return $this->Pairwise;
     }
 
     #[PublicAPI]
@@ -196,7 +196,7 @@ trait ResultsProcess
     ): bool {
         if ($method = Condorcet::getMethodClass($method)) {
             $method::setOption($optionName, $optionValue);
-            unset($this->_Calculator[$method]);
+            unset($this->Calculator[$method]);
 
             return true;
         } else {
@@ -209,7 +209,7 @@ trait ResultsProcess
     #[FunctionReturn('The current verbosity level for this election object.')]
     public function getStatsVerbosity(): StatsVerbosity
     {
-        return $this->_StatsVerbosity;
+        return $this->StatsVerbosity;
     }
 
     #[PublicAPI]
@@ -219,11 +219,11 @@ trait ResultsProcess
         #[FunctionParameter('A verbosity level')]
         StatsVerbosity $StatsVerbosity
     ): void {
-        if ($StatsVerbosity !== $this->_StatsVerbosity) {
+        if ($StatsVerbosity !== $this->StatsVerbosity) {
             $this->cleanupCalculator();
         }
 
-        $this->_StatsVerbosity = $StatsVerbosity;
+        $this->StatsVerbosity = $StatsVerbosity;
     }
 
 
@@ -243,19 +243,19 @@ trait ResultsProcess
     protected function makePairwise(): void
     {
         $this->cleanupCalculator();
-        $this->_Pairwise = new Pairwise($this);
+        $this->Pairwise = new Pairwise($this);
     }
 
     protected function initResult(string $class): void
     {
-        if (!isset($this->_Calculator[$class])) {
-            $this->_Calculator[$class] = new $class($this);
+        if (!isset($this->Calculator[$class])) {
+            $this->Calculator[$class] = new $class($this);
         }
     }
 
     public function debugGetCalculator(): ?array
     {
-        return $this->_Calculator;
+        return $this->Calculator;
     }
 
     // Cleanup results to compute again with new votes
@@ -265,12 +265,12 @@ trait ResultsProcess
         $this->cleanupCalculator();
 
         // Clean pairwise
-        $this->_Pairwise = null;
+        $this->Pairwise = null;
     }
 
     public function cleanupCalculator(): void
     {
-        $this->_Calculator = null;
+        $this->Calculator = null;
     }
 
 

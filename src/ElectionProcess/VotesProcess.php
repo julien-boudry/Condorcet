@@ -23,8 +23,8 @@ trait VotesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected VotesManager $_Votes; // Votes list
-    protected int $_voteFastMode = 0; // When parsing vote, avoid unnecessary checks
+    protected VotesManager $Votes; // Votes list
+    protected int $voteFastMode = 0; // When parsing vote, avoid unnecessary checks
 
 
 /////////// VOTES LIST ///////////
@@ -40,7 +40,7 @@ trait VotesProcess
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool $with = true
     ): int {
-        return $this->_Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
+        return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
     }
 
     #[PublicAPI]
@@ -49,7 +49,7 @@ trait VotesProcess
     #[Related('Election::countValidVoteWithConstraints', 'Election::countVotes', 'Election::sumValidVotesWeightWithConstraints')]
     public function countInvalidVoteWithConstraints(): int
     {
-        return $this->_Votes->countInvalidVoteWithConstraints();
+        return $this->Votes->countInvalidVoteWithConstraints();
     }
 
     #[PublicAPI]
@@ -68,7 +68,7 @@ trait VotesProcess
     #[Related('Election::sumValidVotesWeightWithConstraints')]
     public function sumVotesWeight(): int
     {
-        return $this->_Votes->sumVotesWeight(false);
+        return $this->Votes->sumVotesWeight(false);
     }
 
     #[PublicAPI]
@@ -77,7 +77,7 @@ trait VotesProcess
     #[Related('Election::countValidVoteWithConstraints', 'Election::countInvalidVoteWithConstraints')]
     public function sumValidVotesWeightWithConstraints(): int
     {
-        return $this->_Votes->sumVotesWeight(true);
+        return $this->Votes->sumVotesWeight(true);
     }
 
     // Get the votes registered list
@@ -91,7 +91,7 @@ trait VotesProcess
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): array {
-        return $this->_Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
+        return $this->Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
 
     #[PublicAPI]
@@ -102,12 +102,12 @@ trait VotesProcess
         #[FunctionParameter('Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.')]
         bool $withContext = true
     ): string {
-        return $this->_Votes->getVotesListAsString($withContext);
+        return $this->Votes->getVotesListAsString($withContext);
     }
 
     public function getVotesManager(): VotesManager
     {
-        return $this->_Votes;
+        return $this->Votes;
     }
 
     #[PublicAPI]
@@ -120,7 +120,7 @@ trait VotesProcess
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): \Generator {
-        return $this->_Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
+        return $this->Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
 
     #[PublicAPI]
@@ -133,13 +133,13 @@ trait VotesProcess
         #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): \Generator {
-        return $this->_Votes->getVotesValidUnderConstraintGenerator($tags, $with);
+        return $this->Votes->getVotesValidUnderConstraintGenerator($tags, $with);
     }
 
     #[InternalModulesAPI]
     public function getVoteKey(Vote $vote): ?int
     {
-        return $this->_Votes->getVoteKey($vote);
+        return $this->Votes->getVoteKey($vote);
     }
 
 
@@ -161,8 +161,8 @@ trait VotesProcess
         $this->prepareVoteInput($vote, $tags);
 
         // Check Max Vote Count
-        if (self::$_maxVoteNumber !== null && $this->countVotes() >= self::$_maxVoteNumber) {
-            throw new VoteMaxNumberReachedException(self::$_maxVoteNumber);
+        if (self::$maxVoteNumber !== null && $this->countVotes() >= self::$maxVoteNumber) {
+            throw new VoteMaxNumberReachedException(self::$maxVoteNumber);
         }
 
         // Register vote
@@ -171,21 +171,21 @@ trait VotesProcess
 
     public function prepareUpdateVote(Vote $existVote): void
     {
-        $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 2);
+        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 2);
     }
 
     public function finishUpdateVote(Vote $existVote): void
     {
-        $this->_Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 1);
+        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 1);
 
-        if ($this->_Votes->isUsingHandler()) {
-            $this->_Votes[$this->getVoteKey($existVote)] = $existVote;
+        if ($this->Votes->isUsingHandler()) {
+            $this->Votes[$this->getVoteKey($existVote)] = $existVote;
         }
     }
 
     public function checkVoteCandidate(Vote $vote): bool
     {
-        if ($this->_voteFastMode === 0) {
+        if ($this->voteFastMode === 0) {
             $linkCount = $vote->countLinks();
             $linkCheck = ($linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)));
 
@@ -196,7 +196,7 @@ trait VotesProcess
             }
         }
 
-        if ($this->_voteFastMode < 2) {
+        if ($this->voteFastMode < 2) {
             $ranking = $vote->getRanking();
 
             $change = $this->convertRankingCandidates($ranking);
@@ -220,7 +220,7 @@ trait VotesProcess
             foreach ($choice as &$candidate) {
                 if (!$this->isRegisteredCandidate($candidate, true)) {
                     if ($candidate->getProvisionalState() && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) {
-                        $candidate = $this->_Candidates[$this->getCandidateKey((string) $candidate)];
+                        $candidate = $this->Candidates[$this->getCandidateKey((string) $candidate)];
                         $change = true;
                     }
                 }
@@ -239,7 +239,7 @@ trait VotesProcess
         // Register
         try {
             $vote->registerLink($this);
-            $this->_Votes[] = $vote;
+            $this->Votes[] = $vote;
         } catch (CondorcetInternalException $e) {
             // Security : Check if vote object is not already registered
             throw new VoteException('seats are already registered');
@@ -259,9 +259,9 @@ trait VotesProcess
     ): bool {
         $key = $this->getVoteKey($vote);
         if ($key !== null) {
-            $deletedVote = $this->_Votes[$key];
+            $deletedVote = $this->Votes[$key];
 
-            unset($this->_Votes[$key]);
+            unset($this->Votes[$key]);
 
             $deletedVote->destroyLink($this);
 
@@ -289,10 +289,10 @@ trait VotesProcess
 
         // Deleting
         foreach ($this->getVotesList($tags, $with) as $key => $value) {
-            $deletedVote = $this->_Votes[$key];
+            $deletedVote = $this->Votes[$key];
             $rem[] = $deletedVote;
 
-            unset($this->_Votes[$key]);
+            unset($this->Votes[$key]);
 
             $deletedVote->destroyLink($this);
         }
@@ -478,12 +478,12 @@ trait VotesProcess
     {
         $adding_predicted_count = $count + $multiple;
 
-        if (self::$_maxVoteNumber && self::$_maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) {
-            throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
+        if (self::$maxVoteNumber && self::$maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) {
+            throw new VoteMaxNumberReachedException(self::$maxParseIteration);
         }
 
-        if (self::$_maxParseIteration !== null && $adding_predicted_count >= self::$_maxParseIteration) {
-            throw new VoteMaxNumberReachedException(self::$_maxParseIteration);
+        if (self::$maxParseIteration !== null && $adding_predicted_count >= self::$maxParseIteration) {
+            throw new VoteMaxNumberReachedException(self::$maxParseIteration);
         }
 
         $newVote = new Vote($vote, $tags, null, $this);
@@ -496,19 +496,19 @@ trait VotesProcess
 
     protected function doAddVotesFromParse(array $adding): void
     {
-        $this->_voteFastMode = 1;
+        $this->voteFastMode = 1;
 
         foreach ($adding as $oneLine) {
             for ($i = 1; $i <= $oneLine['multiple']; $i++) {
                 if ($i === 1) {
                     $finalVoteModel = $this->addVote($oneLine['vote']);
-                    $this->_voteFastMode = 2;
+                    $this->voteFastMode = 2;
                 } else {
                     $this->addVote(clone $finalVoteModel);
                 }
             }
         }
 
-        $this->_voteFastMode = 0;
+        $this->voteFastMode = 0;
     }
 }

@@ -17,7 +17,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 trait CondorcetVersion
 {
     // Build by Version
-    protected string $_objectVersion = Condorcet::VERSION;
+    protected string $objectVersion = Condorcet::VERSION;
 
     #[PublicAPI('Candidate', 'Election', 'Result', 'Vote', "Algo\Pairwise", "DataManager\VotesManager", "Timer\Manager")]
     #[Description('Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.')]
@@ -28,10 +28,10 @@ trait CondorcetVersion
         bool $major = false
     ): string {
         if ($major === true) {
-            $version = explode('.', $this->_objectVersion);
+            $version = explode('.', $this->objectVersion);
             return $version[0].'.'.$version[1];
         } else {
-            return $this->_objectVersion;
+            return $this->objectVersion;
         }
     }
 }

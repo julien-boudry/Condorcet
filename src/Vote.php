@@ -51,21 +51,21 @@ class Vote implements \Iterator, \Stringable
 
     // Vote
 
-    private array $_ranking;
+    private array $ranking;
 
-    private float $_lastTimestamp;
+    private float $lastTimestamp;
 
-    private int $_counter;
+    private int $counter;
 
-    private array $_ranking_history = [];
+    private array $ranking_history = [];
 
-    private int $_weight = 1;
+    private int $weight = 1;
 
-    private array $_tags = [];
+    private array $tags = [];
 
-    private string $_hashCode = '';
+    private string $hashCode = '';
 
-    private ?Election $_electionContext = null;
+    private ?Election $electionContext = null;
 
     public bool $notUpdate = false;
 
@@ -104,7 +104,7 @@ class Vote implements \Iterator, \Stringable
     ) {
         $this->cacheMap = new \WeakMap;
 
-        $this->_electionContext = $electionContext;
+        $this->electionContext = $electionContext;
         $tagsFromString = null;
 
         // Vote Weight
@@ -138,13 +138,13 @@ class Vote implements \Iterator, \Stringable
             $this->setWeight($weight);
         }
 
-        $this->_electionContext = null;
+        $this->electionContext = null;
     }
 
     public function __serialize(): array
     {
         $this->position = 1;
-        $this->_link = null;
+        $this->link = null;
 
         $var = get_object_vars($this);
         unset($var['cacheMap']);
@@ -178,7 +178,7 @@ class Vote implements \Iterator, \Stringable
     #[Related('Vote::getWeight')]
     public function getHashCode(): string
     {
-        return $this->_hashCode;
+        return $this->hashCode;
     }
 
     // -------
@@ -193,7 +193,7 @@ class Vote implements \Iterator, \Stringable
         #[FunctionParameter('Sort Candidate in a Rank by name. Useful for performant internal calls from methods.')]
         bool $sortCandidatesInRank = true
     ): array {
-        $r = $this->_ranking;
+        $r = $this->ranking;
 
         foreach ($r as &$oneRank) {
             if ($sortCandidatesInRank && \count($oneRank) > 1) {
@@ -210,7 +210,7 @@ class Vote implements \Iterator, \Stringable
     #[Related('Vote::getCreateTimestamp')]
     public function getHistory(): array
     {
-        return $this->_ranking_history;
+        return $this->ranking_history;
     }
 
 
@@ -220,7 +220,7 @@ class Vote implements \Iterator, \Stringable
     #[Related('Vote::getTagsAsString', 'Vote::addTags', 'Vote::removeTags')]
     public function getTags(): array
     {
-        return $this->_tags;
+        return $this->tags;
     }
 
     #[PublicAPI]
@@ -238,7 +238,7 @@ class Vote implements \Iterator, \Stringable
     #[Related('Candidate::getTimestamp')]
     public function getCreateTimestamp(): float
     {
-        return $this->_ranking_history[0]['timestamp'];
+        return $this->ranking_history[0]['timestamp'];
     }
 
     #[PublicAPI]
@@ -247,7 +247,7 @@ class Vote implements \Iterator, \Stringable
     #[Related('Vote::getCreateTimestamp')]
     public function getTimestamp(): float
     {
-        return $this->_lastTimestamp;
+        return $this->lastTimestamp;
     }
 
     #[PublicAPI]
@@ -255,7 +255,7 @@ class Vote implements \Iterator, \Stringable
     #[FunctionReturn('Number of Candidate into ranking.')]
     public function countRankingCandidates(): int
     {
-        return $this->_counter;
+        return $this->counter;
     }
 
     #[PublicAPI]
@@ -398,7 +398,7 @@ class Vote implements \Iterator, \Stringable
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
-        if ($displayWeight && $this->_weight > 1 && (($context && $context->isVoteWeightAllowed()) || $context === null)) {
+        if ($displayWeight && $this->weight > 1 && (($context && $context->isVoteWeightAllowed()) || $context === null)) {
             $simpleRanking .= ' ^'.$this->getWeight();
         }
 
@@ -422,7 +422,7 @@ class Vote implements \Iterator, \Stringable
     ): bool {
         // Timestamp
         if ($ownTimestamp !== null) {
-            if (!empty($this->_ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
+            if (!empty($this->ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
                 throw new VoteInvalidFormatException('Timestamp format of vote is not correct');
             }
         }
@@ -430,8 +430,8 @@ class Vote implements \Iterator, \Stringable
         // Ranking
         $candidateCounter = $this->formatRanking($ranking);
 
-        if ($this->_electionContext !== null) {
-            $this->_electionContext->convertRankingCandidates($ranking);
+        if ($this->electionContext !== null) {
+            $this->electionContext->convertRankingCandidates($ranking);
         }
 
         if (!$this->notUpdate) {
@@ -440,13 +440,13 @@ class Vote implements \Iterator, \Stringable
             }
         }
 
-        $this->_ranking = $ranking;
-        $this->_lastTimestamp = $ownTimestamp ?? microtime(true);
-        $this->_counter = $candidateCounter;
+        $this->ranking = $ranking;
+        $this->lastTimestamp = $ownTimestamp ?? microtime(true);
+        $this->counter = $candidateCounter;
 
         $this->archiveRanking();
 
-        if (\count($this->_link) > 0) {
+        if (\count($this->link) > 0) {
             try {
                 foreach ($this->getLinks() as $link => $value) {
                     if (!$link->checkVoteCandidate($this)) {
@@ -576,13 +576,13 @@ class Vote implements \Iterator, \Stringable
         $tags = VoteUtil::tagsConvert($tags) ?? [];
 
         foreach ($tags as $key => $tag) {
-            if (\in_array(needle: $tag, haystack: $this->_tags, strict: true)) {
+            if (\in_array(needle: $tag, haystack: $this->tags, strict: true)) {
                 unset($tags[$key]);
             }
         }
 
         foreach ($tags as $tag) {
-            $this->_tags[] = $tag;
+            $this->tags[] = $tag;
         }
 
         $this->computeHashCode();
@@ -607,13 +607,13 @@ class Vote implements \Iterator, \Stringable
 
         $rm = [];
         foreach ($tags as $key => $tag) {
-            $tagK = array_search(needle: $tag, haystack: $this->_tags, strict: true);
+            $tagK = array_search(needle: $tag, haystack: $this->tags, strict: true);
 
             if ($tagK === false) {
                 unset($tags[$key]);
             } else {
-                $rm[] = $this->_tags[$tagK];
-                unset($this->_tags[$tagK]);
+                $rm[] = $this->tags[$tagK];
+                unset($this->tags[$tagK]);
             }
         }
 
@@ -642,7 +642,7 @@ class Vote implements \Iterator, \Stringable
         if ($context !== null && !$context->isVoteWeightAllowed()) {
             return 1;
         } else {
-            return $this->_weight;
+            return $this->weight;
         }
     }
 
@@ -659,10 +659,10 @@ class Vote implements \Iterator, \Stringable
             throw new VoteInvalidFormatException('the vote weight can not be less than 1');
         }
 
-        if ($newWeight !== $this->_weight) {
-            $this->_weight = $newWeight;
+        if ($newWeight !== $this->weight) {
+            $this->weight = $newWeight;
 
-            if (\count($this->_link) > 0) {
+            if (\count($this->link) > 0) {
                 foreach ($this->getLinks() as $link => $value) {
                     $link->setStateToVote();
                 }
@@ -678,13 +678,13 @@ class Vote implements \Iterator, \Stringable
 
     private function archiveRanking(): void
     {
-        $this->_ranking_history[] = ['ranking' => $this->_ranking, 'timestamp' => $this->_lastTimestamp, 'counter' => $this->_counter];
+        $this->ranking_history[] = ['ranking' => $this->ranking, 'timestamp' => $this->lastTimestamp, 'counter' => $this->counter];
 
         $this->rewind();
     }
 
     private function computeHashCode(): string
     {
-        return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
+        return $this->hashCode = hash('sha224', ((string) $this) . microtime(false));
     }
 }

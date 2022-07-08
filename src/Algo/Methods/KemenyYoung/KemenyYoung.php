@@ -49,7 +49,7 @@ class KemenyYoung extends Method implements MethodInterface
     public function getResult(): Result
     {
         // Cache
-        if ($this->_Result === null) {
+        if ($this->Result === null) {
             $this->countElectionCandidates = $this->getElection()->countCandidates();
             $this->candidatesKey = array_keys($this->getElection()->getCandidatesList());
             $this->countPossibleRanking = Permutations::getPossibleCountOfPermutations($this->countElectionCandidates);
@@ -60,7 +60,7 @@ class KemenyYoung extends Method implements MethodInterface
         }
 
         // Return
-        return $this->_Result;
+        return $this->Result;
     }
 
 
@@ -94,7 +94,7 @@ class KemenyYoung extends Method implements MethodInterface
     protected function conflictInfos(): void
     {
         if ($this->Conflits > 0) {
-            $this->_Result->addWarning(
+            $this->Result->addWarning(
                 type: self::CONFLICT_WARNING_CODE,
                 msg: ($this->Conflits + 1).';'.$this->MaxScore
             );
@@ -167,6 +167,6 @@ class KemenyYoung extends Method implements MethodInterface
         $winnerRanking = [null, ...$this->bestRankingTab];
         unset($winnerRanking[0]);
 
-        $this->_Result = $this->createResult($winnerRanking);
+        $this->Result = $this->createResult($winnerRanking);
     }
 }

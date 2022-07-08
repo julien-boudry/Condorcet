@@ -19,8 +19,8 @@ class Candidate implements \Stringable
     use Linkable;
     use CondorcetVersion;
 
-    private array $_name = [];
-    private bool $_provisional = false;
+    private array $name = [];
+    private bool $provisional = false;
 
     // -------
 
@@ -42,10 +42,10 @@ class Candidate implements \Stringable
 
     public function __serialize(): array
     {
-        $this->_link = null;
+        $this->link = null;
 
         $r = get_object_vars($this);
-        unset($r['_link']);
+        unset($r['link']);
 
         return $r;
     }
@@ -76,14 +76,14 @@ class Candidate implements \Stringable
             throw new CandidateExistsException("the name '{$name}' is taken by another candidate");
         }
 
-        $this->_name[] =  ['name' => $name, 'timestamp' => microtime(true)];
+        $this->name[] =  ['name' => $name, 'timestamp' => microtime(true)];
 
         return true;
     }
 
     public function setProvisionalState(bool $provisional): void
     {
-        $this->_provisional = $provisional;
+        $this->provisional = $provisional;
     }
 
     // GETTERS
@@ -94,7 +94,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getHistory', 'Candidate::setName')]
     public function getName(): string
     {
-        return end($this->_name)['name'];
+        return end($this->name)['name'];
     }
 
     #[PublicAPI]
@@ -103,7 +103,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getCreateTimestamp')]
     public function getHistory(): array
     {
-        return $this->_name;
+        return $this->name;
     }
 
     #[PublicAPI]
@@ -112,7 +112,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getTimestamp')]
     public function getCreateTimestamp(): float
     {
-        return $this->_name[0]['timestamp'];
+        return $this->name[0]['timestamp'];
     }
 
     #[PublicAPI]
@@ -121,7 +121,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getCreateTimestamp')]
     public function getTimestamp(): float
     {
-        return end($this->_name)['timestamp'];
+        return end($this->name)['timestamp'];
     }
 
     #[PublicAPI]
@@ -129,7 +129,7 @@ class Candidate implements \Stringable
     #[FunctionReturn('True if candidate object is in a provisional state, false else.')]
     public function getProvisionalState(): bool
     {
-        return $this->_provisional;
+        return $this->provisional;
     }
 
     // -------

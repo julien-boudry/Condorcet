@@ -27,9 +27,9 @@ class MultipleRoundsSystem extends Majority_Core
 
     public function __construct(Election $mother)
     {
-        $this->_maxRound = self::$optionMAX_ROUND;
-        $this->_targetNumberOfCandidatesForTheNextRound = self::$optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND;
-        $this->_numberOfTargetedCandidatesAfterEachRound = self::$optionNUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND;
+        $this->maxRound = self::$optionMAX_ROUND;
+        $this->targetNumberOfCandidatesForTheNextRound = self::$optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND;
+        $this->numberOfTargetedCandidatesAfterEachRound = self::$optionNUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND;
 
         parent::__construct($mother);
     }

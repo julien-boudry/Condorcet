@@ -45,9 +45,9 @@ class Election
     #[PublicAPI]
     public const MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
-    protected static ?int $_maxParseIteration = null;
-    protected static ?int $_maxVoteNumber = null;
-    protected static bool $_checksumMode = false;
+    protected static ?int $maxParseIteration = null;
+    protected static ?int $maxVoteNumber = null;
+    protected static bool $checksumMode = false;
 
     /////////// STATICS METHODS ///////////
 
@@ -60,8 +60,8 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
         ?int $maxParseIterations
     ): ?int {
-        self::$_maxParseIteration = $maxParseIterations;
-        return self::$_maxParseIteration;
+        self::$maxParseIteration = $maxParseIterations;
+        return self::$maxParseIteration;
     }
 
     // Change max vote number
@@ -73,19 +73,19 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
         ?int $maxVotesNumber
     ): ?int {
-        self::$_maxVoteNumber = $maxVotesNumber;
-        return self::$_maxVoteNumber;
+        self::$maxVoteNumber = $maxVotesNumber;
+        return self::$maxVoteNumber;
     }
 
     // Mechanics
-    protected ElectionState $_State = ElectionState::CANDIDATES_REGISTRATION;
-    protected Timer_Manager $_timer;
+    protected ElectionState $State = ElectionState::CANDIDATES_REGISTRATION;
+    protected Timer_Manager $timer;
 
     // Params
-    protected bool $_ImplicitRanking = true;
-    protected bool $_VoteWeightRule = false;
-    protected array $_Constraints = [];
-    protected int $_Seats = 100;
+    protected bool $ImplicitRanking = true;
+    protected bool $VoteWeightRule = false;
+    protected array $Constraints = [];
+    protected int $Seats = 100;
 
     // -------
 
@@ -93,31 +93,31 @@ class Election
     #[Description('Build a new Election.')]
     public function __construct()
     {
-        $this->_Candidates = [];
-        $this->_Votes = new VotesManager($this);
-        $this->_timer = new Timer_Manager;
+        $this->Candidates = [];
+        $this->Votes = new VotesManager($this);
+        $this->timer = new Timer_Manager;
     }
 
     public function __serialize(): array
     {
         // Don't include others data
         $include = [
-            '_Candidates' => $this->_Candidates,
-            '_Votes' => $this->_Votes,
+            'Candidates' => $this->Candidates,
+            'Votes' => $this->Votes,
 
-            '_State' => $this->_State,
-            '_objectVersion' => $this->_objectVersion,
-            '_AutomaticNewCandidateName' => $this->_AutomaticNewCandidateName,
+            'State' => $this->State,
+            'objectVersion' => $this->objectVersion,
+            'AutomaticNewCandidateName' => $this->AutomaticNewCandidateName,
 
-            '_ImplicitRanking' => $this->_ImplicitRanking,
-            '_VoteWeightRule' => $this->_VoteWeightRule,
-            '_Constraints' => $this->_Constraints,
+            'ImplicitRanking' => $this->ImplicitRanking,
+            'VoteWeightRule' => $this->VoteWeightRule,
+            'Constraints' => $this->Constraints,
 
-            '_Pairwise' => $this->_Pairwise,
-            '_Calculator' => $this->_Calculator,
+            'Pairwise' => $this->Pairwise,
+            'Calculator' => $this->Calculator,
         ];
 
-        !self::$_checksumMode && ($include += ['_timer' => $this->_timer]);
+        !self::$checksumMode && ($include += ['timer' => $this->timer]);
 
         return $include;
     }
@@ -126,47 +126,47 @@ class Election
     {
         // Only compare major and minor version numbers, not patch level
         // e.g. 2.0 and 3.2
-        $objectVersion = explode('.', $data['_objectVersion']);
+        $objectVersion = explode('.', $data['objectVersion']);
         $objectVersion = $objectVersion[0] . '.' . $objectVersion[1];
         if (version_compare($objectVersion, Condorcet::getVersion(true), '!=')) {
             throw new ElectionObjectVersionMismatchException($objectVersion);
         }
 
-        $this->_Candidates = $data['_Candidates'];
-        $this->_Votes = $data['_Votes'];
-        $this->_Votes->setElection($this);
+        $this->Candidates = $data['Candidates'];
+        $this->Votes = $data['Votes'];
+        $this->Votes->setElection($this);
         $this->registerAllLinks();
 
-        $this->_AutomaticNewCandidateName = $data['_AutomaticNewCandidateName'];
-        $this->_State = $data['_State'];
-        $this->_objectVersion = $data['_objectVersion'];
+        $this->AutomaticNewCandidateName = $data['AutomaticNewCandidateName'];
+        $this->State = $data['State'];
+        $this->objectVersion = $data['objectVersion'];
 
-        $this->_ImplicitRanking = $data['_ImplicitRanking'];
-        $this->_VoteWeightRule = $data['_VoteWeightRule'];
-        $this->_Constraints = $data['_Constraints'];
+        $this->ImplicitRanking = $data['ImplicitRanking'];
+        $this->VoteWeightRule = $data['VoteWeightRule'];
+        $this->Constraints = $data['Constraints'];
 
-        $this->_Pairwise = $data['_Pairwise'];
-        $this->_Pairwise->setElection($this);
+        $this->Pairwise = $data['Pairwise'];
+        $this->Pairwise->setElection($this);
 
-        $this->_Calculator = $data['_Calculator'];
-        foreach ($this->_Calculator as $methodObject) {
+        $this->Calculator = $data['Calculator'];
+        foreach ($this->Calculator as $methodObject) {
             $methodObject->setElection($this);
         }
 
-        $this->_timer ??= $data['_timer'];
+        $this->timer ??= $data['timer'];
     }
 
     public function __clone(): void
     {
-        $this->_Votes = clone $this->_Votes;
-        $this->_Votes->setElection($this);
+        $this->Votes = clone $this->Votes;
+        $this->Votes->setElection($this);
         $this->registerAllLinks();
 
-        $this->_timer = clone $this->_timer;
+        $this->timer = clone $this->timer;
 
-        if ($this->_Pairwise !== null) {
-            $this->_Pairwise = clone $this->_Pairwise;
-            $this->_Pairwise->setElection($this);
+        if ($this->Pairwise !== null) {
+            $this->Pairwise = clone $this->Pairwise;
+            $this->Pairwise->setElection($this);
         }
     }
 
@@ -180,7 +180,7 @@ class Election
     #[Related('Election::getLastTimer')]
     public function getGlobalTimer(): float
     {
-        return $this->_timer->getGlobalTimer();
+        return $this->timer->getGlobalTimer();
     }
 
     #[PublicAPI]
@@ -190,7 +190,7 @@ class Election
     #[Related('Election::getGlobalTimer')]
     public function getLastTimer(): float
     {
-        return $this->_timer->getLastTimer();
+        return $this->timer->getLastTimer();
     }
 
     #[PublicAPI]
@@ -199,7 +199,7 @@ class Election
     #[Related('Election::getGlobalTimer', 'Election::getLastTimer')]
     public function getTimerManager(): Timer_Manager
     {
-        return $this->_timer;
+        return $this->timer;
     }
 
     #[PublicAPI]
@@ -208,24 +208,24 @@ class Election
     #[Example('Manual - Cryptographic Checksum', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum')]
     public function getChecksum(): string
     {
-        self::$_checksumMode = true;
+        self::$checksumMode = true;
 
         $r = hash_init('sha256');
 
-        foreach ($this->_Candidates as $value) {
+        foreach ($this->Candidates as $value) {
             hash_update($r, (string) $value);
         }
 
-        foreach ($this->_Votes as $value) {
+        foreach ($this->Votes as $value) {
             hash_update($r, (string) $value);
         }
 
-        $this->_Pairwise !== null
-            && hash_update($r, serialize($this->_Pairwise->getExplicitPairwise()));
+        $this->Pairwise !== null
+            && hash_update($r, serialize($this->Pairwise->getExplicitPairwise()));
 
         hash_update($r, $this->getObjectVersion(true));
 
-        self::$_checksumMode = false;
+        self::$checksumMode = false;
 
         return hash_final($r);
     }
@@ -235,11 +235,11 @@ class Election
 
     protected function registerAllLinks(): void
     {
-        foreach ($this->_Candidates as $value) {
+        foreach ($this->Candidates as $value) {
             $value->registerLink($this);
         }
 
-        foreach ($this->_Votes as $value) {
+        foreach ($this->Votes as $value) {
             $value->registerLink($this);
         }
     }
@@ -253,7 +253,7 @@ class Election
     #[Related('Election::setImplicitRanking')]
     public function getImplicitRankingRule(): bool
     {
-        return $this->_ImplicitRanking;
+        return $this->ImplicitRanking;
     }
 
     #[PublicAPI]
@@ -264,7 +264,7 @@ class Election
         #[FunctionParameter('New rule')]
         bool $rule = true
     ): bool {
-        $this->_ImplicitRanking = $rule;
+        $this->ImplicitRanking = $rule;
         $this->cleanupCompute();
         return $this->getImplicitRankingRule();
     }
@@ -275,7 +275,7 @@ class Election
     #[Related('Election::allowsVoteWeight')]
     public function isVoteWeightAllowed(): bool
     {
-        return $this->_VoteWeightRule;
+        return $this->VoteWeightRule;
     }
 
     #[PublicAPI]
@@ -286,7 +286,7 @@ class Election
         #[FunctionParameter('New rule')]
         bool $rule = true
     ): bool {
-        $this->_VoteWeightRule = $rule;
+        $this->VoteWeightRule = $rule;
         $this->cleanupCompute();
         return $this->isVoteWeightAllowed();
     }
@@ -315,7 +315,7 @@ class Election
         $this->cleanupCompute();
 
 
-        $this->_Constraints[] = $constraintClass;
+        $this->Constraints[] = $constraintClass;
 
         return true;
     }
@@ -327,7 +327,7 @@ class Election
     #[Related('Election::clearConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function getConstraints(): array
     {
-        return $this->_Constraints;
+        return $this->Constraints;
     }
 
     #[PublicAPI]
@@ -337,7 +337,7 @@ class Election
     #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function clearConstraints(): bool
     {
-        $this->_Constraints = [];
+        $this->Constraints = [];
 
         $this->cleanupCompute();
 
@@ -353,7 +353,7 @@ class Election
         #[FunctionParameter('A vote. Not necessarily registered in this election')]
         Vote $vote
     ): bool {
-        foreach ($this->_Constraints as $oneConstraint) {
+        foreach ($this->Constraints as $oneConstraint) {
             if ($oneConstraint::isVoteAllow($this, $vote) === false) {
                 return false;
             }
@@ -371,7 +371,7 @@ class Election
     #[Related('Election::setNumberOfSeats', 'Result::getNumberOfSeats')]
     public function getNumberOfSeats(): int
     {
-        return $this->_Seats;
+        return $this->Seats;
     }
 
     #[PublicAPI]
@@ -386,12 +386,12 @@ class Election
         if ($seats > 0) {
             $this->cleanupCompute();
 
-            $this->_Seats = $seats;
+            $this->Seats = $seats;
         } else {
             throw new NoSeatsException;
         }
 
-        return $this->_Seats;
+        return $this->Seats;
     }
 
 
@@ -407,8 +407,8 @@ class Election
         #[FunctionParameter('Driver object')]
         DataHandlerDriverInterface $driver
     ): bool {
-        if (!$this->_Votes->isUsingHandler()) {
-            $this->_Votes->importHandler($driver);
+        if (!$this->Votes->isUsingHandler()) {
+            $this->Votes->importHandler($driver);
             return true;
         } else {
             throw new DataHandlerException('external data handler cannot be imported');
@@ -422,8 +422,8 @@ class Election
     #[Related('Election::setExternalDataHandler')]
     public function removeExternalDataHandler(): bool
     {
-        if ($this->_Votes->isUsingHandler()) {
-            $this->_Votes->closeHandler();
+        if ($this->Votes->isUsingHandler()) {
+            $this->Votes->closeHandler();
             return true;
         } else {
             throw new DataHandlerException('external data handler cannot be removed, is already in use');
@@ -439,7 +439,7 @@ class Election
     #[Related('Election::setStateToVote')]
     public function getState(): ElectionState
     {
-        return $this->_State;
+        return $this->State;
     }
 
     // Close the candidate config, be ready for voting (optional)
@@ -450,12 +450,12 @@ class Election
     #[Related('Election::getState')]
     public function setStateToVote(): bool
     {
-        if ($this->_State === ElectionState::CANDIDATES_REGISTRATION) {
-            if (empty($this->_Candidates)) {
+        if ($this->State === ElectionState::CANDIDATES_REGISTRATION) {
+            if (empty($this->Candidates)) {
                 throw new NoCandidatesException;
             }
 
-            $this->_State = ElectionState::VOTES_REGISTRATION;
+            $this->State = ElectionState::VOTES_REGISTRATION;
             $this->preparePairwiseAndCleanCompute();
         }
 
@@ -465,7 +465,7 @@ class Election
     // Prepare to compute results & caching system
     protected function preparePairwiseAndCleanCompute(): bool
     {
-        if ($this->_Pairwise === null && $this->_State === ElectionState::VOTES_REGISTRATION) {
+        if ($this->Pairwise === null && $this->State === ElectionState::VOTES_REGISTRATION) {
             $this->cleanupCompute();
 
             // Do Pairwise
@@ -473,7 +473,7 @@ class Election
 
             // Return
             return true;
-        } elseif ($this->_State === ElectionState::CANDIDATES_REGISTRATION || $this->countVotes() === 0) {
+        } elseif ($this->State === ElectionState::CANDIDATES_REGISTRATION || $this->countVotes() === 0) {
             throw new ResultRequestedWithoutVotesException;
         } else {
             return false;

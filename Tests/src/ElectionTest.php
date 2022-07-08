@@ -710,7 +710,7 @@ class ElectionTest extends TestCase
         $result1 = $election->getResult('Schulze');
 
         $election = serialize($election);
-        // file_put_contents("Tests/lib/ElectionData/serialized_election_v3.2.0.txt",$election); # For next test
+        // file_put_contents("Tests/src/ElectionData/serialized_election_v3.2.0.txt", $election); # For next test
         $election = unserialize($election);
 
         self::assertNotSame($result1, $election->getResult('Schulze'));

@@ -26,7 +26,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function offsetExists(mixed $offset): bool
     {
-        return isset($this->_Pairwise[$offset]);
+        return isset($this->Pairwise[$offset]);
     }
 
     public function offsetUnset(mixed $offset): void
@@ -35,7 +35,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function offsetGet(mixed $offset): ?array
     {
-        return $this->_Pairwise[$offset] ?? null;
+        return $this->Pairwise[$offset] ?? null;
     }
 
 
@@ -44,23 +44,23 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function rewind(): void
     {
-        reset($this->_Pairwise);
+        reset($this->Pairwise);
         $this->valid = true;
     }
 
     public function current(): array
     {
-        return $this->_Pairwise[$this->key()];
+        return $this->Pairwise[$this->key()];
     }
 
     public function key(): ?int
     {
-        return key($this->_Pairwise);
+        return key($this->Pairwise);
     }
 
     public function next(): void
     {
-        if (next($this->_Pairwise) === false) {
+        if (next($this->Pairwise) === false) {
             $this->valid = false;
         }
     }
@@ -73,9 +73,9 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     // Pairwise
 
-    protected \WeakReference $_Election;
-    protected array $_Pairwise_Model;
-    protected array $_Pairwise;
+    protected \WeakReference $Election;
+    protected array $Pairwise_Model;
+    protected array $Pairwise;
 
     public function __construct(Election $link)
     {
@@ -87,40 +87,40 @@ class Pairwise implements \ArrayAccess, \Iterator
     public function __serialize(): array
     {
         return [
-            '_Pairwise_Model' => $this->_Pairwise_Model,
-            '_Pairwise' => $this->_Pairwise,
+            'Pairwise_Model' => $this->Pairwise_Model,
+            'Pairwise' => $this->Pairwise,
         ];
     }
 
     public function getElection(): Election
     {
-        return $this->_Election->get();
+        return $this->Election->get();
     }
 
     public function setElection(Election $election): void
     {
-        $this->_Election = \WeakReference::create($election);
+        $this->Election = \WeakReference::create($election);
     }
 
     public function addNewVote(int $key): void
     {
         (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Add Vote To Pairwise');
 
-        $this->computeOneVote($this->_Pairwise, $this->getElection()->getVotesManager()[$key]);
+        $this->computeOneVote($this->Pairwise, $this->getElection()->getVotesManager()[$key]);
     }
 
     public function removeVote(int $key): void
     {
         (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Remove Vote To Pairwise');
 
-        $diff = $this->_Pairwise_Model;
+        $diff = $this->Pairwise_Model;
 
         $this->computeOneVote($diff, $this->getElection()->getVotesManager()[$key]);
 
         foreach ($diff as $candidate_key => $candidate_details) {
             foreach ($candidate_details as $type => $opponent) {
                 foreach ($opponent as $opponent_key => $score) {
-                    $this->_Pairwise[$candidate_key][$type][$opponent_key] -= $score;
+                    $this->Pairwise[$candidate_key][$type][$opponent_key] -= $score;
                 }
             }
         }
@@ -135,7 +135,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $election = $this->getElection();
         $explicit_pairwise = [];
 
-        foreach ($this->_Pairwise as $candidate_key => $candidate_value) {
+        foreach ($this->Pairwise as $candidate_key => $candidate_value) {
             $candidate_name = $election->getCandidateObjectFromKey($candidate_key)->getName();
 
             foreach ($candidate_value as $mode => $mode_value) {
@@ -151,16 +151,16 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected function formatNewpairwise(): void
     {
         $election = $this->getElection();
-        $this->_Pairwise_Model = [];
+        $this->Pairwise_Model = [];
 
         foreach ($election->getCandidatesList() as $candidate_key => $candidate_id) {
-            $this->_Pairwise_Model[$candidate_key] = ['win' => [], 'null' => [], 'lose' => []];
+            $this->Pairwise_Model[$candidate_key] = ['win' => [], 'null' => [], 'lose' => []];
 
             foreach ($election->getCandidatesList() as $candidate_key_r => $candidate_id_r) {
                 if ($candidate_key_r !== $candidate_key) {
-                    $this->_Pairwise_Model[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->_Pairwise_Model[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->_Pairwise_Model[$candidate_key]['lose'][$candidate_key_r]  = 0;
+                    $this->Pairwise_Model[$candidate_key]['win'][$candidate_key_r]   = 0;
+                    $this->Pairwise_Model[$candidate_key]['null'][$candidate_key_r]  = 0;
+                    $this->Pairwise_Model[$candidate_key]['lose'][$candidate_key_r]  = 0;
                 }
             }
         }
@@ -173,10 +173,10 @@ class Pairwise implements \ArrayAccess, \Iterator
         // Chrono
         (Condorcet::$UseTimer === true) && new Timer_Chrono($election->getTimerManager(), 'Do Pairwise');
 
-        $this->_Pairwise = $this->_Pairwise_Model;
+        $this->Pairwise = $this->Pairwise_Model;
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
-            $this->computeOneVote($this->_Pairwise, $oneVote);
+            $this->computeOneVote($this->Pairwise, $oneVote);
         }
     }
 

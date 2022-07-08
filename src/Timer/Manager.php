@@ -19,37 +19,37 @@ class Manager
 {
     use CondorcetVersion;
 
-    protected float $_globalTimer = 0.0;
-    protected ?float $_lastTimer = null;
-    protected ?float $_lastChronoTimestamp = null;
-    protected ?float $_startDeclare = null;
-    protected array $_history = [];
+    protected float $globalTimer = 0.0;
+    protected ?float $lastTimer = null;
+    protected ?float $lastChronoTimestamp = null;
+    protected ?float $startDeclare = null;
+    protected array $history = [];
 
     #[Throws(TimerException::class)]
     public function addTime(Chrono $chrono): void
     {
         if ($chrono->getTimerManager() === $this) {
-            if ($this->_lastChronoTimestamp === null && $chrono->getStart() !== $this->_startDeclare) {
+            if ($this->lastChronoTimestamp === null && $chrono->getStart() !== $this->startDeclare) {
                 return;
             }
 
             $m = microtime(true);
 
-            if ($this->_lastChronoTimestamp > $chrono->getStart()) {
-                $c = $this->_lastChronoTimestamp;
+            if ($this->lastChronoTimestamp > $chrono->getStart()) {
+                $c = $this->lastChronoTimestamp;
             } else {
                 $c = $chrono->getStart();
-                $this->_history[] = ['role' => $chrono->getRole(),
+                $this->history[] = ['role' => $chrono->getRole(),
                     'process_in' => ($m - $c),
                     'timer_start' => $c,
                     'timer_end' => $m,
                 ];
             }
 
-            $this->_globalTimer += ($m - $c);
+            $this->globalTimer += ($m - $c);
 
-            $this->_lastTimer = ($m - $chrono->getStart());
-            $this->_lastChronoTimestamp = $m;
+            $this->lastTimer = ($m - $chrono->getStart());
+            $this->lastChronoTimestamp = $m;
         } else {
             throw new TimerException;
         }
@@ -57,12 +57,12 @@ class Manager
 
     public function getGlobalTimer(): float
     {
-        return $this->_globalTimer;
+        return $this->globalTimer;
     }
 
     public function getLastTimer(): float
     {
-        return $this->_lastTimer;
+        return $this->lastTimer;
     }
 
     #[PublicAPI]
@@ -71,13 +71,13 @@ class Manager
     #[Related('Election::getTimerManager')]
     public function getHistory(): array
     {
-        return $this->_history;
+        return $this->history;
     }
 
     public function startDeclare(Chrono $chrono): void
     {
-        if ($this->_startDeclare === null) {
-            $this->_startDeclare = $chrono->getStart();
+        if ($this->startDeclare === null) {
+            $this->startDeclare = $chrono->getStart();
         }
     }
 }

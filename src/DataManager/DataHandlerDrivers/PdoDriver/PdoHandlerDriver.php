@@ -26,17 +26,17 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     #[PublicAPI]
     public const SEGMENT = [499, 50, 4, 1]; // Must be ordered desc.
 
-    protected \PDO $_handler;
-    protected bool $_transaction = false;
-    protected bool $_queryError = false;
+    protected \PDO $handler;
+    protected bool $transaction = false;
+    protected bool $queryError = false;
 
     // Database structure
     #[PublicAPI]
     public static bool $preferBlobInsteadVarchar = true;
 
-    protected array $_struct;
+    protected array $struct;
     // Prepare Query
-    protected array $_prepare = [];
+    protected array $prepare = [];
 
 
     #[Throws(DataHandlerException::class)]
@@ -46,11 +46,11 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             throw new DataHandlerException('invalid structure template for PdoHandler');
         }
 
-        $this->_struct = $struct;
+        $this->struct = $struct;
 
-        $this->_handler = $bdd;
+        $this->handler = $bdd;
 
-        $this->_handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->handler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         if ($tryCreateTable) {
             $this->createTable();
@@ -76,12 +76,12 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         $dataType = (self::$preferBlobInsteadVarchar) ? 'BLOB' : 'VARCHAR';
 
-        $tableCreationQuery = match ($this->_handler->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
-            default => 'CREATE TABLE IF NOT EXISTS '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , '.$this->_struct['dataColumnName'].' '.$dataType.' NOT NULL );'
+        $tableCreationQuery = match ($this->handler->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
+            default => 'CREATE TABLE IF NOT EXISTS '.$this->struct['tableName'].' ('.$this->struct['primaryColumnName'].' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , '.$this->struct['dataColumnName'].' '.$dataType.' NOT NULL );'
         };
 
         try {
-            $this->_handler->exec($tableCreationQuery);
+            $this->handler->exec($tableCreationQuery);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -93,13 +93,13 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
         // Base - Small query ends
         $template['end_template'] = ';';
-        $template['insert_template'] = 'INSERT INTO '.$this->_struct['tableName'].' ('.$this->_struct['primaryColumnName'].', '.$this->_struct['dataColumnName'].') VALUES ';
-        $template['delete_template'] = 'DELETE FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
-        $template['select_template'] = 'SELECT '.$this->_struct['primaryColumnName'].','.$this->_struct['dataColumnName'].' FROM '.$this->_struct['tableName'].' WHERE '.$this->_struct['primaryColumnName'];
+        $template['insert_template'] = 'INSERT INTO '.$this->struct['tableName'].' ('.$this->struct['primaryColumnName'].', '.$this->struct['dataColumnName'].') VALUES ';
+        $template['delete_template'] = 'DELETE FROM '.$this->struct['tableName'].' WHERE '.$this->struct['primaryColumnName'];
+        $template['select_template'] = 'SELECT '.$this->struct['primaryColumnName'].','.$this->struct['dataColumnName'].' FROM '.$this->struct['tableName'].' WHERE '.$this->struct['primaryColumnName'];
 
         // Select the max / min key value. Usefull if array cursor is lost on DataManager.
-        $this->_prepare['selectMaxKey'] = $this->_handler->prepare('SELECT max('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
-        $this->_prepare['selectMinKey'] = $this->_handler->prepare('SELECT min('.$this->_struct['primaryColumnName'].') FROM '.$this->_struct['tableName'] . $template['end_template']);
+        $this->prepare['selectMaxKey'] = $this->handler->prepare('SELECT max('.$this->struct['primaryColumnName'].') FROM '.$this->struct['tableName'] . $template['end_template']);
+        $this->prepare['selectMinKey'] = $this->handler->prepare('SELECT min('.$this->struct['primaryColumnName'].') FROM '.$this->struct['tableName'] . $template['end_template']);
 
         // Insert many Entities
         $makeMany = static function (int $how) use (&$template): string {
@@ -115,41 +115,41 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         };
 
         foreach (self::SEGMENT as $value) {
-            $this->_prepare['insert'.$value.'Entities'] = $this->_handler->prepare($makeMany($value));
+            $this->prepare['insert'.$value.'Entities'] = $this->handler->prepare($makeMany($value));
         }
 
         // Delete one Entity
-        $this->_prepare['deleteOneEntity'] = $this->_handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
+        $this->prepare['deleteOneEntity'] = $this->handler->prepare($template['delete_template'] . ' = ?' . $template['end_template']);
 
         // Get a Entity
-        $this->_prepare['selectOneEntity'] = $this->_handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
+        $this->prepare['selectOneEntity'] = $this->handler->prepare($template['select_template'] . ' = ?' . $template['end_template']);
 
         // Get a range of Entity
-        $this->_prepare['selectRangeEntities'] = $this->_handler->prepare($template['select_template'] . ' >= :startKey order by '.$this->_struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
+        $this->prepare['selectRangeEntities'] = $this->handler->prepare($template['select_template'] . ' >= :startKey order by '.$this->struct['primaryColumnName'].' asc LIMIT :limit' . $template['end_template']);
 
         // Count Entities
-        $this->_prepare['countEntities'] = $this->_handler->prepare('SELECT count('.$this->_struct['primaryColumnName'].') FROM '. $this->_struct['tableName'] . $template['end_template']);
+        $this->prepare['countEntities'] = $this->handler->prepare('SELECT count('.$this->struct['primaryColumnName'].') FROM '. $this->struct['tableName'] . $template['end_template']);
     }
 
     protected function initTransaction(): void
     {
-        if (!$this->_transaction) {
-            $this->_transaction = $this->_handler->beginTransaction();
+        if (!$this->transaction) {
+            $this->transaction = $this->handler->beginTransaction();
         }
     }
 
     public function closeTransaction(): void
     {
-        if ($this->_transaction === true) {
+        if ($this->transaction === true) {
 
             /**
              * @infection-ignore-all
              */
-            if ($this->_queryError) {
+            if ($this->queryError) {
                 throw new CondorcetInternalError('Query Error.');
             }
 
-            $this->_transaction = !$this->_handler->commit();
+            $this->transaction = !$this->handler->commit();
         }
     }
 
@@ -172,23 +172,23 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                     $param['data'.$i++] = $Entity;
                 }
 
-                $this->_prepare['insert'.$group_count.'Entities']->execute(
+                $this->prepare['insert'.$group_count.'Entities']->execute(
                     $param
                 );
 
                 /**
                  * @infection-ignore-all
                  */
-                if ($this->_prepare['insert'.$group_count.'Entities']->rowCount() !== $group_count) {
+                if ($this->prepare['insert'.$group_count.'Entities']->rowCount() !== $group_count) {
                     throw new CondorcetInternalError('Not all entities have been inserted');
                 }
 
-                $this->_prepare['insert'.$group_count.'Entities']->closeCursor();
+                $this->prepare['insert'.$group_count.'Entities']->closeCursor();
             }
 
             $this->closeTransaction();
         } catch (\Throwable $e) {
-            $this->_queryError = true;
+            $this->queryError = true;
             throw $e;
         }
     }
@@ -216,10 +216,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function deleteOneEntity(int $key, bool $justTry): ?int
     {
         try {
-            $this->_prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
-            $this->_prepare['deleteOneEntity']->execute();
+            $this->prepare['deleteOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
+            $this->prepare['deleteOneEntity']->execute();
 
-            $deleteCount = $this->_prepare['deleteOneEntity']->rowCount();
+            $deleteCount = $this->prepare['deleteOneEntity']->rowCount();
 
             /**
              * @infection-ignore-all
@@ -228,11 +228,11 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
                 throw new CondorcetInternalError('Entity deletion failure.');
             }
 
-            $this->_prepare['deleteOneEntity']->closeCursor();
+            $this->prepare['deleteOneEntity']->closeCursor();
 
             return $deleteCount;
         } catch (\Throwable $e) {
-            $this->_queryError = true;
+            $this->queryError = true;
             throw $e;
         }
     }
@@ -243,27 +243,27 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             return null;
         }
 
-        $this->_prepare['selectMaxKey']->execute();
-        $r = (int) $this->_prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
-        $this->_prepare['selectMaxKey']->closeCursor();
+        $this->prepare['selectMaxKey']->execute();
+        $r = (int) $this->prepare['selectMaxKey']->fetch(\PDO::FETCH_NUM)[0];
+        $this->prepare['selectMaxKey']->closeCursor();
 
         return $r;
     }
 
     public function selectMinKey(): int
     {
-        $this->_prepare['selectMinKey']->execute();
-        $r = (int) $this->_prepare['selectMinKey']->fetch(\PDO::FETCH_NUM)[0];
-        $this->_prepare['selectMinKey']->closeCursor();
+        $this->prepare['selectMinKey']->execute();
+        $r = (int) $this->prepare['selectMinKey']->fetch(\PDO::FETCH_NUM)[0];
+        $this->prepare['selectMinKey']->closeCursor();
 
         return $r;
     }
 
     public function countEntities(): int
     {
-        $this->_prepare['countEntities']->execute();
-        $r = (int) $this->_prepare['countEntities']->fetch(\PDO::FETCH_NUM)[0];
-        $this->_prepare['countEntities']->closeCursor();
+        $this->prepare['countEntities']->execute();
+        $r = (int) $this->prepare['countEntities']->fetch(\PDO::FETCH_NUM)[0];
+        $this->prepare['countEntities']->closeCursor();
 
         return $r;
     }
@@ -271,11 +271,11 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     // return false if Entity does not exist.
     public function selectOneEntity(int $key): string|bool
     {
-        $this->_prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
-        $this->_prepare['selectOneEntity']->execute();
+        $this->prepare['selectOneEntity']->bindParam(1, $key, \PDO::PARAM_INT);
+        $this->prepare['selectOneEntity']->execute();
 
-        $r = $this->_prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
-        $this->_prepare['selectOneEntity']->closeCursor();
+        $r = $this->prepare['selectOneEntity']->fetchAll(\PDO::FETCH_NUM);
+        $this->prepare['selectOneEntity']->closeCursor();
         if (!empty($r)) {
             return $r[0][1];
         } else {
@@ -285,12 +285,12 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     public function selectRangeEntities(int $key, int $limit): array
     {
-        $this->_prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
-        $this->_prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
-        $this->_prepare['selectRangeEntities']->execute();
+        $this->prepare['selectRangeEntities']->bindParam(':startKey', $key, \PDO::PARAM_INT);
+        $this->prepare['selectRangeEntities']->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $this->prepare['selectRangeEntities']->execute();
 
-        $r = $this->_prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
-        $this->_prepare['selectRangeEntities']->closeCursor();
+        $r = $this->prepare['selectRangeEntities']->fetchAll(\PDO::FETCH_NUM);
+        $this->prepare['selectRangeEntities']->closeCursor();
         if (!empty($r)) {
             $result = [];
             foreach ($r as $value) {

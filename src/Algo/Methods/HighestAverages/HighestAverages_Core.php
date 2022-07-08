@@ -36,7 +36,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
         # Rounds
         $this->rounds = [];
-        $this->_Result = $this->createResult($this->makeRounds());
+        $this->Result = $this->createResult($this->makeRounds());
     }
 
     protected function countVotesPerCandidates(): void

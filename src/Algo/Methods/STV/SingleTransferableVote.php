@@ -27,7 +27,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
     public static StvQuotas $optionQuota = StvQuotas::DROOP;
 
-    protected ?array $_Stats = null;
+    protected ?array $Stats = null;
 
     protected float $votesNeededToWin;
 
@@ -79,7 +79,7 @@ class SingleTransferableVote extends Method implements MethodInterface
                 $end = true;
             }
 
-            $this->_Stats[++$round] = $scoreTable;
+            $this->Stats[++$round] = $scoreTable;
         }
 
         while ($rank < $election->getNumberOfSeats() && !empty($candidateEliminated)) {
@@ -88,7 +88,7 @@ class SingleTransferableVote extends Method implements MethodInterface
             unset($candidateEliminated[$rescueCandidateKey]);
         }
 
-        $this->_Result = $this->createResult($result);
+        $this->Result = $this->createResult($result);
 
         Vote::clearCache(); // Performances
     }
@@ -164,7 +164,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         if ($election->getStatsVerbosity()->value > StatsVerbosity::LOW->value) {
             $stats['rounds'] = [];
 
-            foreach ($this->_Stats as $roundNumber => $roundData) {
+            foreach ($this->Stats as $roundNumber => $roundData) {
                 foreach ($roundData as $candidateKey => $candidateValue) {
                     $stats['rounds'][$roundNumber][(string) $election->getCandidateObjectFromKey($candidateKey)] = $candidateValue;
                 }
