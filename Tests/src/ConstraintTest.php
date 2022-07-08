@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraint};
+use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use PHPUnit\Framework\TestCase;
@@ -125,7 +125,7 @@ class ConstraintTest extends TestCase
 }
 
 
-class AlternativeNoTieConstraintClass extends VoteConstraint
+class AlternativeNoTieConstraintClass implements VoteConstraintInterface
 {
     public static function isVoteAllow(Election $election, Vote $vote): bool
     {

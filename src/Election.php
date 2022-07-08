@@ -305,7 +305,7 @@ class Election
     ): bool {
         if (!class_exists($constraintClass)) {
             throw new VoteConstraintException('class is not defined');
-        } elseif (!is_subclass_of($constraintClass, VoteConstraint::class)) {
+        } elseif (!is_subclass_of($constraintClass, VoteConstraintInterface::class)) {
             throw new VoteConstraintException('class is not a valid subclass');
         } elseif (\in_array(needle: $constraintClass, haystack: $this->getConstraints(), strict: true)) {
             throw new VoteConstraintException('class is already registered');

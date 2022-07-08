@@ -10,13 +10,15 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Constraints;
 
-use CondorcetPHP\Condorcet\VoteConstraint;
+use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
 
-class NoTie extends VoteConstraint
+class NoTie implements VoteConstraintInterface
 {
-    protected static function evaluateVote(array $vote): bool
+    public static function isVoteAllow(Election $election, Vote $vote): bool
     {
-        foreach ($vote as $oneRank) {
+        $voteRanking = $vote->getContextualRankingWithoutSort($election);
+
+        foreach ($voteRanking as $oneRank) {
             if (\count($oneRank) > 1) {
                 return false;
             }

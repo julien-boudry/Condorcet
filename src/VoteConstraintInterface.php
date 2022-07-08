@@ -10,18 +10,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-abstract class VoteConstraint
+interface VoteConstraintInterface
 {
-    public static function isVoteAllow(Election $election, Vote $vote): bool
-    {
-        return static::evaluateVote($vote->getContextualRankingWithoutSort($election));
-    }
-
-    /**
-     * @infection-ignore-all
-     */
-    protected static function evaluateVote(array $vote): bool
-    {
-        return false;
-    }
+    public static function isVoteAllow(Election $election, Vote $vote): bool;
 }
