@@ -241,4 +241,19 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         self::assertSame('A > B > A > C > B > A > D > B', $this->election->getResult('SainteLague')->getResultAsString());
         self::assertSame('A > B > A > B > A > C > B > A', $this->election->getResult('Jefferson')->getResultAsString());
     }
+
+    public function testTiesOnFirstRank(): void
+    {
+        $this->election->setNumberOfSeats(1);
+
+        $this->election->addCandidate('A');
+        $this->election->addCandidate('B');
+        $this->election->addCandidate('C');
+
+        $this->election->addVote('A = B > C');
+        self::assertSame([], $this->election->getResult('SainteLague')->getResultAsArray());
+
+        $this->election->addVote('B>A');
+        self::assertSame('B', $this->election->getResult('SainteLague')->getResultAsString());
+    }
 }
