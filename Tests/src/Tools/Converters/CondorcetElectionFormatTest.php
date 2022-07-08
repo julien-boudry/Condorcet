@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
@@ -390,5 +391,12 @@ class CondorcetElectionFormatTest extends TestCase
 
         self::assertEquals(['A', 'B', 'C', 'D', 'E', 'F'], $election->getCandidatesList());
         self::assertSame('D > A > B > C > E > F', $election->getResult()->getResultAsString());
+    }
+
+    public function testFileDoesNotExists(): void
+    {
+        $this->expectException(FileDoesNotExistException::class);
+
+        new CondorcetElectionFormat(__DIR__.'noFile.txt');
     }
 }

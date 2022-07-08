@@ -27,6 +27,8 @@ class SingleTransferableVoteTest extends TestCase
 
     public function testQuotaOption(): never
     {
+        self::assertSame(StvQuotas::DROOP, StvQuotas::make('droop'));
+
         self::assertTrue(
             $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'))
         );
@@ -35,10 +37,6 @@ class SingleTransferableVoteTest extends TestCase
         $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
 
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('another quota'));
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addVote('A');
-        $this->election->getResult('STV');
     }
 
     public function testResult_1(): void

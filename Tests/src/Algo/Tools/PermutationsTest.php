@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
-use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
+use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException};
 use PHPUnit\Framework\TestCase;
 
 class PermutationsTest extends TestCase
@@ -21,6 +21,9 @@ class PermutationsTest extends TestCase
 
         Permutations::$useBigIntegerIfAvailable = false;
         self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
+
+        $this->expectException(CondorcetInternalException::class);
+        Permutations::getPossibleCountOfPermutations(0);
     }
 
     public function testIntegerOverflowWithBigInt(): void
