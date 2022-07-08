@@ -18,10 +18,11 @@ class ArrayManagerTest extends TestCase
             protected function preDeletedTask($object): void
             {
             }
+
             protected function decodeOneEntity(string $data): Vote
             {
                 $vote = new Vote($data);
-                $this->Election->checkVoteCandidate($vote);
+                $this->getElection()->checkVoteCandidate($vote);
                 $vote->registerLink($this->Election->get());
 
                 return $vote;
@@ -29,7 +30,7 @@ class ArrayManagerTest extends TestCase
 
             protected function encodeOneEntity(Vote $data): string
             {
-                $data->destroyLink($this->Election->get());
+                $data->destroyLink($this->getElection());
 
                 return str_replace([' > ', ' = '], ['>', '='], (string) $data);
             }
