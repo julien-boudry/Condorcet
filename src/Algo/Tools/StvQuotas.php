@@ -6,6 +6,7 @@
     By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
+
 declare(strict_types=1);
 
 /////////// TOOLS FOR MODULAR ALGORITHMS ///////////
