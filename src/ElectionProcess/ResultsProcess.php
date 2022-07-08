@@ -68,7 +68,7 @@ trait ResultsProcess
         // Prepare
         $this->preparePairwiseAndCleanCompute();
 
-        //////
+        // -------
 
         $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->_timer) : null;
 
@@ -99,7 +99,7 @@ trait ResultsProcess
     ): array|Candidate|null {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
-        //////
+        // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
             (Condorcet::$UseTimer === true) && new Timer_Chrono($this->_timer, 'GetWinner for CondorcetBasic');
@@ -124,7 +124,7 @@ trait ResultsProcess
     ): array|Candidate|null {
         $algo = Condorcet::condorcetBasicSubstitution($method);
 
-        //////
+        // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
             (Condorcet::$UseTimer === true) && new Timer_Chrono($this->_timer, 'GetLoser for CondorcetBasic');

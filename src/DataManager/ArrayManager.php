@@ -19,8 +19,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
 
-    //////
-
     public static int $CacheSize = 2000;
     public static int $MaxContainerLength = 2000;
 

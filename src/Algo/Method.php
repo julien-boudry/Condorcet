@@ -40,7 +40,7 @@ abstract class Method
         return true;
     }
 
-    //
+    // -------
 
     #[Throws(CandidatesMaxNumberReachedException::class)]
     public function __construct(Election $mother)

@@ -172,8 +172,6 @@ class CondorcetTest_UnvalidAlgorithmName
             return $this->_Result;
         }
 
-        //////
-
         // Ranking calculation
         $this->makeRanking();
 

@@ -11,6 +11,7 @@
         "declare_strict_types": true,
         "dir_constant": true,
         "explicit_indirect_variable": true,
+        "explicit_string_variable": true,
         "fully_qualified_strict_types": true,
         "function_to_constant": true,
         "function_typehint_space": true,

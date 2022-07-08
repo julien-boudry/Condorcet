@@ -54,7 +54,7 @@ class CandidateTest extends TestCase
         $name .= 'A';
 
         $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage("This name is not valid: $name");
+        $this->expectExceptionMessage("This name is not valid: {$name}");
 
         new Candidate($name);
     }

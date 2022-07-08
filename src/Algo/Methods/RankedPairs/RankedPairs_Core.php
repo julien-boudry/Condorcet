@@ -39,7 +39,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             return $this->_Result;
         }
 
-        //////
+        // -------
 
         // Sort pairwise
         $this->_PairwiseSort = $this->pairwiseSort();

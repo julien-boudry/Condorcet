@@ -21,7 +21,7 @@ class Candidate implements \Stringable
     private array $_name = [];
     private bool $_provisional = false;
 
-    ///
+    // -------
 
     #[PublicAPI]
     #[Description('Build a candidate.')]
@@ -49,7 +49,7 @@ class Candidate implements \Stringable
         return $r;
     }
 
-    ///
+    // -------
 
     // SETTERS
 
@@ -72,7 +72,7 @@ class Candidate implements \Stringable
         }
 
         if (!$this->checkNameInElectionContext($name)) {
-            throw new CandidateExistsException("the name '$name' is taken by another candidate");
+            throw new CandidateExistsException("the name '{$name}' is taken by another candidate");
         }
 
         $this->_name[] =  ['name' => $name, 'timestamp' => microtime(true)];
@@ -131,7 +131,7 @@ class Candidate implements \Stringable
         return $this->_provisional;
     }
 
-    ///
+    // -------
 
     // INTERNAL
 

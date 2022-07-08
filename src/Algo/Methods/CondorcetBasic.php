@@ -47,7 +47,7 @@ class CondorcetBasic extends Method implements MethodInterface
             return $this->_CondorcetWinner;
         }
 
-        //////
+        // -------
 
         // Basic Condorcet calculation
         foreach ($this->getElection()->getPairwise() as $candidate_key => $candidat_detail) {
@@ -77,7 +77,7 @@ class CondorcetBasic extends Method implements MethodInterface
             return $this->_CondorcetLoser;
         }
 
-        //////
+        // -------
 
         // Basic Condorcet calculation
         foreach ($this->getElection()->getPairwise() as $candidate_key => $candidat_detail) {

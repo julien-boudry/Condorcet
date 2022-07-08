@@ -30,7 +30,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
             return $this->_Result;
         }
 
-        //////
+        // -------
 
         // Comparison calculation
         $this->_Comparison = PairwiseStats::PairwiseComparison($this->getElection()->getPairwise());

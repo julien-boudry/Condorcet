@@ -84,7 +84,7 @@ class Vote implements \Iterator, \Stringable
         self::$cacheKey = null;
     }
 
-    ///
+    // -------
 
     #[PublicAPI]
     #[Description('Build a vote object.')]
@@ -180,7 +180,7 @@ class Vote implements \Iterator, \Stringable
         return $this->_hashCode;
     }
 
-    ///
+    // -------
 
     // GETTERS
 

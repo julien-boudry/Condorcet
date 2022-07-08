@@ -33,7 +33,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
             return $this->_Result;
         }
 
-        //////
+        // -------
 
         // Format array
         $this->prepareStrongestPath();

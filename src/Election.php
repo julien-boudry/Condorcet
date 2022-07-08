@@ -86,7 +86,7 @@ class Election
     protected array $_Constraints = [];
     protected int $_Seats = 100;
 
-    //////
+    // -------
 
     #[PublicAPI]
     #[Description('Build a new Election.')]

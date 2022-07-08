@@ -124,7 +124,7 @@ trait CandidatesProcess
     ): Candidate {
         // only if the vote has not started
         if ($this->_State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
-            throw new VotingHasStartedException("cannot add '$candidate'");
+            throw new VotingHasStartedException("cannot add '{$candidate}'");
         }
 
         // Process
@@ -222,7 +222,7 @@ trait CandidatesProcess
     ): array {
         $input = CondorcetUtil::prepareJson($input);
 
-        //////
+        // -------
 
         $adding = [];
         foreach ($input as $candidate) {

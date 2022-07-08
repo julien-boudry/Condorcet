@@ -181,7 +181,7 @@ abstract class Condorcet
     protected static function testMethod(string $method): bool
     {
         if (!class_exists($method)) {
-            throw new AlgorithmException("no class found for '$method'");
+            throw new AlgorithmException("no class found for '{$method}'");
         }
 
         if (!is_subclass_of($method, Algo\MethodInterface::class) || !is_subclass_of($method, Algo\Method::class)) {
@@ -221,7 +221,7 @@ abstract class Condorcet
             if (self::isAuthMethod($substitution)) {
                 $algo = $substitution;
             } else {
-                throw new AlgorithmException("No class found for method '$substitution'");
+                throw new AlgorithmException("No class found for method '{$substitution}'");
             }
         } else {
             $algo = self::CONDORCET_BASIC_CLASS;

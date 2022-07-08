@@ -88,7 +88,7 @@ abstract class VoteUtil
 
             // Errors
             if (!is_numeric($value)) {
-                throw new VoteInvalidFormatException("the value '$value' is not numeric");
+                throw new VoteInvalidFormatException("the value '{$value}' is not numeric");
             }
 
             // Reformat line

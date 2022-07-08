@@ -674,7 +674,7 @@ class ElectionTest extends TestCase
                 $this->election2->addVotesFromJson($oneError);
 
                 // Else fail
-                $this->fail("$oneError is not a valid Json for PHP");
+                $this->fail("{$oneError} is not a valid Json for PHP");
             } catch (\JsonException) {
             }
         }
