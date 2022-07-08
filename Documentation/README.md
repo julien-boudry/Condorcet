@@ -1372,10 +1372,9 @@ _Including above methods from public API_
 * public static run (): void  
 ```
 
-#### CondorcetPHP\Condorcet\Constraints\NoTie extends CondorcetPHP\Condorcet\VoteConstraint   
+#### CondorcetPHP\Condorcet\Constraints\NoTie implements CondorcetPHP\Condorcet\VoteConstraintInterface  
 ```php
 * public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote): bool  
-* protected static evaluateVote (array $vote): bool  
 ```
 
 #### Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable  
@@ -1834,7 +1833,6 @@ _Including above methods from public API_
 * protected int $line
 * protected string $_objectVersion
 
-* public __construct (string $message)  
 * public getObjectVersion (bool $major = false): string  
 ```
 
@@ -2170,12 +2168,6 @@ _Including above methods from public API_
 * protected destroyAllLink (): void  
 * protected initWeakMap (): void  
 * private archiveRanking (): void  
+* private computeHashCode (): string  
 * private formatRanking (array|string $ranking): int  
-* private setHashCode (): string  
-```
-
-#### Abstract CondorcetPHP\Condorcet\VoteConstraint   
-```php
-* public static isVoteAllow (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote): bool  
-* protected static evaluateVote (array $vote): bool  
 ```

@@ -55,7 +55,7 @@ abstract class TieBreakersCollection
 
             $methodResults = $election->getResult($oneMethod)->getResultAsInternalKey();
 
-            foreach ($methodResults as $rankKey => $rankValue) {
+            foreach ($methodResults as $rankValue) {
                 foreach ($rankValue as $oneCandidateKey) {
                     if (\in_array($oneCandidateKey, $candidatesKeys, true)) {
                         $tooKeep[] = $oneCandidateKey;

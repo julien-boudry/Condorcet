@@ -16,9 +16,4 @@ use CondorcetPHP\Condorcet\CondorcetVersion;
 class CondorcetInternalError extends \Error
 {
     use CondorcetVersion;
-
-    public function __construct(string $message)
-    {
-        parent::__construct($message);
-    }
 }

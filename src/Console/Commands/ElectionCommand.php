@@ -632,9 +632,6 @@ class ElectionCommand extends Command
             $line = [$rank, $line];
         }
 
-
-        $last_rank = max(array_keys($resultArray));
-
         return $resultArray;
     }
 

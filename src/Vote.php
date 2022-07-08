@@ -159,7 +159,7 @@ class Vote implements \Iterator, \Stringable
     public function __clone(): void
     {
         $this->destroyAllLink();
-        $this->setHashCode();
+        $this->computeHashCode();
     }
 
     public function __toString(): string
@@ -467,7 +467,7 @@ class Vote implements \Iterator, \Stringable
             }
         }
 
-        $this->setHashCode();
+        $this->computeHashCode();
         return true;
     }
 
@@ -584,7 +584,7 @@ class Vote implements \Iterator, \Stringable
             $this->_tags[] = $tag;
         }
 
-        $this->setHashCode();
+        $this->computeHashCode();
 
         return true;
     }
@@ -616,7 +616,7 @@ class Vote implements \Iterator, \Stringable
             }
         }
 
-        $this->setHashCode();
+        $this->computeHashCode();
         return $rm;
     }
 
@@ -668,7 +668,7 @@ class Vote implements \Iterator, \Stringable
             }
         }
 
-        $this->setHashCode();
+        $this->computeHashCode();
 
         return $this->getWeight();
     }
@@ -677,14 +677,12 @@ class Vote implements \Iterator, \Stringable
 
     private function archiveRanking(): void
     {
-        $this->_ranking_history[] = ['ranking' => $this->_ranking,
-            'timestamp' => $this->_lastTimestamp,
-            'counter' => $this->_counter, ];
+        $this->_ranking_history[] = ['ranking' => $this->_ranking, 'timestamp' => $this->_lastTimestamp, 'counter' => $this->_counter];
 
         $this->rewind();
     }
 
-    private function setHashCode(): string
+    private function computeHashCode(): string
     {
         return $this->_hashCode = hash('sha224', ((string) $this) . microtime(false));
     }

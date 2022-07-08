@@ -49,12 +49,12 @@ class Combinations
         } else {
             $a = 1;
             for ($i = $count; $i > ($count - $length); $i--) {
-                $a = $a * $i;
+                $a *= $i;
             }
 
             $b = 1;
             for ($i = $length; $i > 0; $i--) {
-                $b = $b * $i;
+                $b *= $i;
             }
 
             if (\is_float($a) || \is_float($b)) {

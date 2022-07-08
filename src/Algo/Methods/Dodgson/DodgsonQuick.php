@@ -59,7 +59,7 @@ class DodgsonQuick extends Method implements MethodInterface
         foreach ($HeadToHead as $candidateId => $CandidateTidemanScores) {
             $dodgsonQuick[$candidateId] = 0;
 
-            foreach ($CandidateTidemanScores as $opponentId => $oneTidemanScore) {
+            foreach ($CandidateTidemanScores as $oneTidemanScore) {
                 $dodgsonQuick[$candidateId] += ceil($oneTidemanScore / 2);
             }
         }
