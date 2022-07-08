@@ -35,7 +35,7 @@ use Symfony\Component\Yaml\Yaml;
 )]
 class ElectionCommand extends Command
 {
-    protected Election $election;
+    protected ?Election $election;
     protected ?string $candidates;
     protected ?string $votes;
 
@@ -411,7 +411,7 @@ class ElectionCommand extends Command
          * @infection-ignore-all
          */
         if (($SQLitePath = $this->SQLitePath) !== null) {
-            unset($this->election);
+            $this->election = null;
             unlink($SQLitePath);
         }
 
@@ -625,9 +625,9 @@ class ElectionCommand extends Command
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
-                $line = $line.'*';
+                $line .= '*';
             } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
-                $line = $line.'#';
+                $line .= '#';
             }
 
             $line = [$rank, $line];
