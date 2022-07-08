@@ -96,7 +96,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php';
 
 	<strong style="color:green;">
 		<?php
-        if (null !== $election->getWinner()) {
+        if ($election->getWinner() !== null) {
             echo $election->getWinner();
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet winner because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';
@@ -108,7 +108,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'BasicVoteConf.php';
 
 	<strong style="color:green;">
 		<?php
-        if (null !== $election->getLoser()) {
+        if ($election->getLoser() !== null) {
             echo $election->getLoser();
         } else {
             echo '<span style="color:red;">The votes of this group do not allow natural Condorcet loser because of <a href="http://fr.wikipedia.org/wiki/Paradoxe_de_Condorcet" target="_blank">Condorcet paradox</a>.</span>';

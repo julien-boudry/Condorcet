@@ -304,7 +304,7 @@ trait VotesProcess
 
     // Return the well formatted vote to use.
     #[Throws(VoteInvalidFormatException::class)]
-    protected function prepareVoteInput(array|string|Vote &$vote, array|string $tags = null): void
+    protected function prepareVoteInput(array|string|Vote &$vote, array|string|null $tags = null): void
     {
         if (!($vote instanceof Vote)) {
             $vote = new Vote(ranking: $vote, tags: $tags, ownTimestamp: null, electionContext: $this);

@@ -47,7 +47,7 @@ abstract class Method
     {
         $this->setElection($mother);
 
-        if (null !== static::$MaxCandidates && $mother->countCandidates() > static::$MaxCandidates) {
+        if (static::$MaxCandidates !== null && $mother->countCandidates() > static::$MaxCandidates) {
             throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
         }
     }

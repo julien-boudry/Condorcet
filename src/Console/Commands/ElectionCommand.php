@@ -649,10 +649,7 @@ class ElectionCommand extends Command
 
     protected function isAbsolute(string $path): bool
     {
-        return empty($path) ? false : (
-            strspn($path, '/\\', 0, 1) ||
-                                            (mb_strlen($path) > 3 && ctype_alpha($path[0]) && ':' === $path[1] && strspn($path, '/\\', 2, 1))
-        );
+        return empty($path) ? false : (strspn($path, '/\\', 0, 1) || (mb_strlen($path) > 3 && ctype_alpha($path[0]) && $path[1] === ':' && strspn($path, '/\\', 2, 1)));
     }
 
     protected function useDataHandler(InputInterface $input): ?\Closure

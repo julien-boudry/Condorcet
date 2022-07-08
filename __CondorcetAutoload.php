@@ -16,7 +16,7 @@ if (version_compare($condorcet_minimal_php_version = mb_substr(str_replace('^', 
 }
 
 // Self Autoload function coming after and as a fallback of composer or other framework PSR autoload implementation. Composer or framework autoload will alway be will be preferred to that custom function.
-spl_autoload_register(function (string $class): void {
+spl_autoload_register(static function (string $class): void {
 
     // project-specific namespace prefix
     $prefix = 'CondorcetPHP\Condorcet\\';

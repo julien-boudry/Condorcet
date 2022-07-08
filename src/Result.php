@@ -236,7 +236,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
                 }
 
                 sort($userResult[$key], \SORT_STRING);
-            } elseif (null === $value) {
+            } elseif ($value === null) {
                 $userResult[$key] = null;
             } else {
                 $userResult[$key][] = $election->getCandidateObjectFromKey($value);
@@ -244,7 +244,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         }
 
         foreach ($userResult as $key => $value) {
-            if (null === $value) {
+            if ($value === null) {
                 $userResult[$key] = null;
             }
         }
