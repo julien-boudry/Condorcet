@@ -37,8 +37,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
             # Rounds
             $this->Result = $this->createResult($this->makeRounds());
-        }
-        else {
+        } else {
             $this->Result = $this->createResult([]);
         }
     }

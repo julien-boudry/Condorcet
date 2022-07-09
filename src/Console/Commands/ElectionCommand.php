@@ -498,7 +498,7 @@ class ElectionCommand extends Command
         if (!$this->pairwiseIsWrite) {
             (new Table($output))
                 ->setHeaderTitle('Pairwise')
-                ->setHeaders(['For each candidate, show their win, null or lose'])
+                ->setHeaders(['For each candidate, show their win, null, or lose'])
                 ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(), 100))]])
 
                 ->render()
