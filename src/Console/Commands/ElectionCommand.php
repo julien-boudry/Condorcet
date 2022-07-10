@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\{Condorcet, Election, Result};
+use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteConstraintException};
 use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
@@ -22,8 +23,6 @@ use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillF
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symfony\Component\Yaml\Yaml;
 
@@ -199,27 +198,28 @@ class ElectionCommand extends Command
         $this->DavidHillFormatPath = $input->getOption('import-david-hill-format') ?? null;
 
         // Logo
-        $io = new SymfonyStyle($input, $output);
+        $io = new CondorcetStyle($input, $output);
 
         $io->newLine();
         $output->write(file_get_contents(__DIR__.'\..\Assets\logo.ascii'));
-        $io->newLine();
-        $io->newLine();
+        $io->newLine(2);
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
+        $io = new CondorcetStyle($input, $output);
+
         if (empty($this->CondorcetElectionFormatPath) && empty($this->DebianFormatPath) && empty($this->DavidHillFormatPath)) {
             // Interactive Candidates
             if (empty($this->candidates)) {
-                $helper = $this->getHelper('question');
+                $io->title('Enter the candidates');
+                $io->instruction('Candidates', 'Enter each candidate names');
 
                 $c = 0;
                 $registeringCandidates = [];
 
                 while (true) {
-                    $question = new Question('Please register candidate N°'.++$c.' or press enter: ', null);
-                    $answer = $helper->ask($input, $output, $question);
+                    $answer = $io->ask('Please register candidate N°'.++$c.' or press enter');
 
                     if ($answer === null) {
                         break;
@@ -233,14 +233,14 @@ class ElectionCommand extends Command
 
             // Interactive Votes
             if (empty($this->votes)) {
-                $helper = $this->getHelper('question');
+                $io->title('Enter the votes');
+                $io->instruction('Format', 'Candidate B > CandidateName D > CandidateName C = CandidateName A');
 
                 $c = 0;
                 $registeringvotes = [];
 
                 while (true) {
-                    $question = new Question('Please register vote N°'.++$c.' or press enter: ', null);
-                    $answer = $helper->ask($input, $output, $question);
+                    $answer = $io->ask('Please register vote N°'.++$c.' or press enter');
 
                     if ($answer === null) {
                         break;
@@ -250,6 +250,22 @@ class ElectionCommand extends Command
                 }
 
                 $this->votes = implode(';', $registeringvotes);
+            }
+
+            // Interactive Methods
+            if (empty($input->getArgument('methods'))) {
+                $io->title('Enter the methods');
+                $io->instruction('Voting methods', 'Choose by entering their numbers separated by commas. Press enter for the default method.');
+
+                $c = 0;
+                $registeringMethods = [];
+
+                $authMehods = Condorcet::getAuthMethods();
+                $authMehods = array_merge(['ALL'], $authMehods);
+
+                $registeringMethods = $io->choiceMultiple('Select methods', $authMehods, Condorcet::getDefaultMethod()::METHOD_NAME[0], true);
+
+                $input->setArgument('methods', $registeringMethods);
             }
         }
     }
@@ -283,9 +299,9 @@ class ElectionCommand extends Command
         unset($callBack);
 
         // Summary
-        $io = new SymfonyStyle($input, $output);
+        $io = new CondorcetStyle($input, $output);
 
-        $io->title('Summary');
+        $io->title('Configuration');
 
         $output->write($this->election->countCandidates().' candidates(s) registered');
         $output->write('  ||  ');
@@ -430,7 +446,7 @@ class ElectionCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function sectionVerbose(SymfonyStyle $io, OutputInterface $output): void
+    protected function sectionVerbose(CondorcetStyle $io, OutputInterface $output): void
     {
         $io->title('Detailed election input');
 
