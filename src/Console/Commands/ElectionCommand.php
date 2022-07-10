@@ -197,6 +197,14 @@ class ElectionCommand extends Command
         $this->CondorcetElectionFormatPath = $input->getOption('import-condorcet-election-format') ?? null;
         $this->DebianFormatPath = $input->getOption('import-debian-format') ?? null;
         $this->DavidHillFormatPath = $input->getOption('import-david-hill-format') ?? null;
+
+        // Logo
+        $io = new SymfonyStyle($input, $output);
+
+        $io->newLine();
+        $output->write(file_get_contents(__DIR__.'\..\Assets\logo.ascii'));
+        $io->newLine();
+        $io->newLine();
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
