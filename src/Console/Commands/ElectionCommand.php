@@ -201,7 +201,15 @@ class ElectionCommand extends Command
         $io = new CondorcetStyle($input, $output);
 
         $io->newLine();
-        $output->write(file_get_contents(__DIR__.'\..\Assets\logo.ascii'));
+        $io->logo(__DIR__.'\..\Assets\logo.ascii');
+        $io->newLine();
+
+        // Header
+        $io->version(Condorcet::getVersion());
+        $output->write(' || ');
+        $io->author(Condorcet::AUTHOR);
+        $output->write(' || ');
+        $io->homepage(Condorcet::HOMEPAGE);
         $io->newLine(2);
     }
 
@@ -219,12 +227,12 @@ class ElectionCommand extends Command
                 $registeringCandidates = [];
 
                 while (true) {
-                    $answer = $io->ask('Please register candidate N°'.++$c.' or press enter');
+                    $answer = $io->ask('Please register candidate N°<fg=magenta>'.++$c.'</> or press enter');
 
                     if ($answer === null) {
                         break;
                     } else {
-                        $registeringCandidates[] = str_replace(';', ' ', $answer);
+                        array_push($registeringCandidates, ...explode(';', $answer));
                     }
                 }
 
@@ -240,12 +248,12 @@ class ElectionCommand extends Command
                 $registeringvotes = [];
 
                 while (true) {
-                    $answer = $io->ask('Please register vote N°'.++$c.' or press enter');
+                    $answer = $io->ask('Please register vote N°<fg=magenta>'.++$c.'</> or press enter');
 
                     if ($answer === null) {
                         break;
                     } else {
-                        $registeringvotes[] = str_replace(';', ' ', $answer);
+                        array_push($registeringvotes, ...explode(';', $answer));
                     }
                 }
 

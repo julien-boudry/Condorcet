@@ -41,13 +41,15 @@ Condorcet::addMethod(Algo\Methods\LargestRemainder\LargestRemainder::class);
 Condorcet::addMethod(Algo\Methods\HighestAverages\Jefferson::class);
 Condorcet::addMethod(Algo\Methods\HighestAverages\SainteLague::class);
 
-
 // Set the default Condorcet Class algorithm
 Condorcet::setDefaultMethod('Schulze');
 
 abstract class Condorcet
 {
     /////////// CONSTANTS ///////////
+    final public const AUTHOR = 'Julien Boudry and contributors';
+    final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
+
     #[PublicAPI]
     final public const VERSION = '4.1.1';
 
