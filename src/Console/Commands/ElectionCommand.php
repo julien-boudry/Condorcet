@@ -53,8 +53,8 @@ class ElectionCommand extends Command
     public ?string $SQLitePath = null;
 
     // TableFormat & Terminal
-    protected TableStyle $centerPadTypeStyle;
     protected Terminal $terminal;
+    protected CondorcetStyle $io;
 
     // Debug
     public static ?string $forceIniMemoryLimitTo = null;
@@ -173,7 +173,7 @@ class ElectionCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         // Initialize Style & Terminal
-        $this->centerPadTypeStyle = (new TableStyle)->setPadType(\STR_PAD_BOTH);
+        $this->io = new CondorcetStyle($input, $output);
         $this->terminal = new Terminal;
 
         // Setup Memory
@@ -199,36 +199,32 @@ class ElectionCommand extends Command
         $this->DavidHillFormatPath = $input->getOption('import-david-hill-format') ?? null;
 
         // Logo
-        $io = new CondorcetStyle($input, $output);
-
-        $io->newLine();
-        $io->logo(__DIR__.'\..\Assets\logo.ascii');
-        $io->newLine();
+        $this->io->newLine();
+        $this->io->logo(__DIR__.'\..\Assets\logo.ascii');
+        $this->io->newLine();
 
         // Header
-        $io->version(Condorcet::getVersion());
-        $output->write(' || ');
-        $io->author(Condorcet::AUTHOR);
-        $output->write(' || ');
-        $io->homepage(Condorcet::HOMEPAGE);
-        $io->newLine(2);
+        $this->io->version(Condorcet::getVersion());
+        $this->io->inlineSeparator();
+        $this->io->author(Condorcet::AUTHOR);
+        $this->io->inlineSeparator();
+        $this->io->homepage(Condorcet::HOMEPAGE);
+        $this->io->newLine(2);
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        $io = new CondorcetStyle($input, $output);
-
         if (empty($this->CondorcetElectionFormatPath) && empty($this->DebianFormatPath) && empty($this->DavidHillFormatPath)) {
             // Interactive Candidates
             if (empty($this->candidates)) {
-                $io->title('Enter the candidates');
-                $io->instruction('Candidates', 'Enter each candidate names');
+                $this->io->title('Enter the candidates');
+                $this->io->instruction('Candidates', 'Enter each candidate names');
 
                 $c = 0;
                 $registeringCandidates = [];
 
                 while (true) {
-                    $answer = $io->ask('Please register candidate N°<fg=magenta>'.++$c.'</> or press enter');
+                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.++$c.'</> or press enter');
 
                     if ($answer === null) {
                         break;
@@ -242,14 +238,14 @@ class ElectionCommand extends Command
 
             // Interactive Votes
             if (empty($this->votes)) {
-                $io->title('Enter the votes');
-                $io->instruction('Format', 'Candidate B > CandidateName D > CandidateName C = CandidateName A');
+                $this->io->title('Enter the votes');
+                $this->io->instruction('Format', 'Candidate B > CandidateName D > CandidateName C = CandidateName A');
 
                 $c = 0;
                 $registeringvotes = [];
 
                 while (true) {
-                    $answer = $io->ask('Please register vote N°<fg=magenta>'.++$c.'</> or press enter');
+                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.++$c.'</> or press enter');
 
                     if ($answer === null) {
                         break;
@@ -263,8 +259,8 @@ class ElectionCommand extends Command
 
             // Interactive Methods
             if (empty($input->getArgument('methods'))) {
-                $io->title('Enter the methods');
-                $io->instruction('Voting methods', 'Choose by entering their numbers separated by commas. Press enter for the default method.');
+                $this->io->title('Enter the methods');
+                $this->io->instruction('Voting methods', 'Choose by entering their numbers separated by commas. Press enter for the default method.');
 
                 $c = 0;
                 $registeringMethods = [];
@@ -272,7 +268,7 @@ class ElectionCommand extends Command
                 $authMehods = Condorcet::getAuthMethods();
                 $authMehods = array_merge(['ALL'], $authMehods);
 
-                $registeringMethods = $io->choiceMultiple('Select methods', $authMehods, Condorcet::getDefaultMethod()::METHOD_NAME[0], true);
+                $registeringMethods = $this->io->choiceMultiple('Select methods', $authMehods, Condorcet::getDefaultMethod()::METHOD_NAME[0], true);
 
                 $input->setArgument('methods', $registeringMethods);
             }
@@ -289,9 +285,9 @@ class ElectionCommand extends Command
                 }
 
                 if ($hasProportionalMethods) {
-                    $io->instruction('Number of Seats', 'Some of the method(s) chosen are proportional and require a number of seats.');
+                    $this->io->instruction('Number of Seats', 'Some of the method(s) chosen are proportional and require a number of seats.');
 
-                    $answer = $io->ask('Number of seats to fill', (string) 100, static function ($answer): string {
+                    $answer = $this->io->ask('Number of seats to fill', (string) 100, static function ($answer): string {
                         if (!is_numeric($answer)) {
                             throw new CondorcetInternalException('Seats must be numeric');
                         }
@@ -339,24 +335,22 @@ class ElectionCommand extends Command
         unset($callBack);
 
         // Summary
-        $io = new CondorcetStyle($input, $output);
+        $this->io->title('Configuration');
 
-        $io->title('Configuration');
-
-        $output->write($this->election->countCandidates().' candidates(s) registered');
-        $output->write('  ||  ');
-        $output->writeln($this->election->countVotes().' vote(s) registered');
+        $output->write("<condor1>{$this->election->countCandidates()} candidates(s) registered</>");
+        $this->io->inlineSeparator();
+        $output->writeln("<condor2>{$this->election->countVotes()} vote(s) registered</>");
+        $this->io->newLine();
 
         if ($output->isDebug()) {
-            $io->info('Votes per Mb: '.self::$VotesPerMB);
-            $io->info('Db is used: '.((empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath));
-
-            $output->writeln($this->election->countVotes().' vote(s) registered');
+            $this->io->newLine();
+            $this->io->definitionList(
+                ['Votes per Mb' => self::$VotesPerMB],
+                ['Db is used' => 'Db is used: '.((empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath)],
+            );
         }
 
-        $output->writeln('<info>==========================</>');
-
-        $io->definitionList(
+        $this->io->definitionList(
             ['Is vote weight allowed?' => $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE'],
             new TableSeparator,
             ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
@@ -366,25 +360,25 @@ class ElectionCommand extends Command
 
         // Input Sum Up
         if ($output->isVerbose()) {
-            $this->sectionVerbose($io, $output);
+            $this->sectionVerbose($output);
         }
 
         if ($input->getOption('list-votes')) {
             $this->displayVotesCount($output);
 
             $this->displayVotesList($output);
-
-            $io->newLine();
+            $this->io->newLine();
         }
 
         // Pairwise
         if ($input->getOption('show-pairwise') || $input->getOption('stats')) {
             $this->displayPairwise($output);
+            $this->io->newLine();
         }
 
         // Natural Condorcet
         if ($input->getOption('natural-condorcet')) {
-            $io->section('Condorcet natural winner & loser');
+            $this->io->section('Condorcet natural winner & loser');
 
             (new Table($output))
                 ->setHeaderTitle('Natural Condorcet')
@@ -394,10 +388,11 @@ class ElectionCommand extends Command
                     ['# Condorcet loser', (string) ($this->election->getCondorcetLoser() ?? 'NULL')],
                 ])
 
+                ->setStyle($this->io->MainTableStyle)
                 ->render()
             ;
 
-            $io->newLine();
+            $this->io->newLine();
         }
 
 
@@ -405,11 +400,11 @@ class ElectionCommand extends Command
 
         $methods = $this->prepareMethods($input->getArgument('methods'));
 
-        $io->title('Results per methods');
+        $this->io->title('Results per methods');
 
         foreach ($methods as $oneMethod) {
-            $io->newLine();
-            $io->section($oneMethod['name'].' Method:');
+            $this->io->newLine();
+            $this->io->section($oneMethod['name'].' Method:');
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
                 $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota')));
@@ -435,9 +430,10 @@ class ElectionCommand extends Command
                     ->setHeaders(['Variable', 'Value'])
                     ->setRows($rows)
 
-                    ->setColumnStyle(0, $this->centerPadTypeStyle)
+                    ->setColumnStyle(0, $this->io->FirstColumnStyle)
                     ->setColumnWidth(0, 30)
                     ->setColumnWidth(1, 70)
+                    ->setStyle($this->io->MainTableStyle)
                     ->render()
                 ;
             }
@@ -447,12 +443,12 @@ class ElectionCommand extends Command
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows($this->formatResultTable($result))
 
-                ->setColumnStyle(0, $this->centerPadTypeStyle)
-
                 ->setColumnWidth(0, 30)
                 ->setColumnWidth(1, 70)
                 ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 30))
 
+                ->setColumnStyle(0, $this->io->FirstColumnStyle)
+                ->setStyle($this->io->MainTableStyle)
                 ->render()
             ;
 
@@ -460,11 +456,14 @@ class ElectionCommand extends Command
             if ($input->getOption('method-stats') || $input->getOption('stats')) {
                 $table = (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod['name'])
+
                     ->setColumnWidth(0, 100)
+                    ->setColumnStyle(0, $this->io->FirstColumnStyle)
+                    ->setStyle($this->io->MainTableStyle)
                 ;
 
                 $line = 0;
-                foreach($result->getStats() as $oneStatKey => $oneStatEntry) {
+                foreach ($result->getStats() as $oneStatKey => $oneStatEntry) {
                     ++$line !== 1 && $table->addRow(new TableSeparator);
                     $table->addRow([preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump([$oneStatKey => $oneStatEntry], 100))]);
                 }
@@ -485,20 +484,20 @@ class ElectionCommand extends Command
         }
 
         // Success
-        $io->newLine();
-        $io->success('Success');
+        $this->io->newLine();
+        $this->io->success('Success');
 
         return Command::SUCCESS;
     }
 
-    protected function sectionVerbose(CondorcetStyle $io, OutputInterface $output): void
+    protected function sectionVerbose(OutputInterface $output): void
     {
-        $io->title('Detailed election input');
+        $this->io->title('Detailed election input');
 
         $this->displayCandidatesList($output);
+        $this->io->newLine();
         $this->displayVotesCount($output);
-
-        $io->newLine();
+        $this->io->newLine();
     }
 
     protected function displayCandidatesList(OutputInterface $output): void
@@ -509,7 +508,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Registered candidates')
                 ->setHeaders(['Num', 'Candidate name'])
 
-                ->setStyle($this->centerPadTypeStyle)
+                ->setStyle($this->io->MainTableStyle)
+                ->setColumnStyle(0, $this->io->FirstColumnStyle)
                 ->setColumnWidth(0, 14)
             ;
 
@@ -532,6 +532,7 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Stats - votes registration')
                 ->setHeaders(['Stats', 'Value'])
                 ->setColumnStyle(0, (new Tablestyle)->setPadType(\STR_PAD_LEFT))
+                ->setStyle($this->io->MainTableStyle)
             ;
 
             $votesStatsTable->addRow(['Count registered votes', $this->election->countValidVoteWithConstraints()]);

@@ -12,6 +12,10 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Console\Style;
 
 use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalError, NoGitShellException};
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Helper\TableStyle;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -19,10 +23,41 @@ class CondorcetStyle extends SymfonyStyle
 {
     public const CONDORCET_MAIN_COLOR = '#f57255';
     public const CONDORCET_SECONDARY_COLOR = '#8993c0';
+    public const CONDORCET_THIRD_COLOR = '#e3e1e0';
+
+    public readonly TableStyle $MainTableStyle;
+    public readonly TableStyle $FirstColumnStyle;
+
+    public function __construct(InputInterface $input, OutputInterface $output)
+    {
+        parent::__construct($input, $output);
+
+        $output->getFormatter()->setStyle('condor1', new OutputFormatterStyle(foreground: self::CONDORCET_MAIN_COLOR));
+        $output->getFormatter()->setStyle('condor2', new OutputFormatterStyle(foreground: self::CONDORCET_SECONDARY_COLOR));
+        $output->getFormatter()->setStyle('condor3', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR));
+
+        $output->getFormatter()->setStyle('condor1b', new OutputFormatterStyle(foreground: self::CONDORCET_MAIN_COLOR, options: ['bold']));
+        $output->getFormatter()->setStyle('condor2b', new OutputFormatterStyle(foreground: self::CONDORCET_SECONDARY_COLOR, options: ['bold']));
+        $output->getFormatter()->setStyle('condor3b', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: ['bold']));
+
+        // $output->getFormatter()->setStyle('comment', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: []));
+
+        $this->MainTableStyle = (new TableStyle)
+            ->setBorderFormat('<condor1>%s</>')
+            ->setHeaderTitleFormat('<fg='.self::CONDORCET_THIRD_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold> %s </>')
+            ->setCellHeaderFormat('<condor2>%s</>')
+            // ->setCellRowFormat('<condor3>%s</>')
+        ;
+
+        $this->FirstColumnStyle = (new TableStyle)
+            ->setPadType(\STR_PAD_BOTH)
+            ->setCellRowFormat('<condor1>%s</>')
+        ;
+    }
 
     public function author(string $author): void
     {
-        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.'>Author:</> <fg='.self::CONDORCET_SECONDARY_COLOR.">{$author}</>");
+        $this->write("<condor1b>Author:</> <condor2>{$author}</>");
     }
 
     public function choiceMultiple(string $question, array $choices, mixed $default = null): mixed
@@ -40,12 +75,17 @@ class CondorcetStyle extends SymfonyStyle
 
     public function homepage(string $homepage): void
     {
-        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.'>Homepage:</> <fg='.self::CONDORCET_SECONDARY_COLOR."><href={$homepage}>{$homepage}</></>");
+        $this->write("<condor1b>Homepage:</> <condor2><href={$homepage}>{$homepage}</></>");
+    }
+
+    public function inlineSeparator(): void
+    {
+        $this->write('<condor3> || </>');
     }
 
     public function instruction(string $prefix, string $message): void
     {
-        $this->writeln('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.">{$prefix}:</> <fg=".self::CONDORCET_SECONDARY_COLOR.">{$message}</>");
+        $this->writeln("<condor1b>{$prefix}:</> <condor2>{$message}</>");
     }
 
     public function logo(string $path): void
@@ -54,6 +94,24 @@ class CondorcetStyle extends SymfonyStyle
         $logo = str_replace(['CondorcetMainColor', 'CondorcetSecondaryColor'], [self::CONDORCET_MAIN_COLOR, self::CONDORCET_SECONDARY_COLOR], $logo);
 
         $this->writeln($logo);
+    }
+
+    public function section(string $message)
+    {
+        $this->block(   messages: $message,
+                        type: null,
+                        style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+                        padding: false
+                    );
+    }
+
+    public function success(string|array $message)
+    {
+        $this->block(   messages: $message,
+                        type: 'OK',
+                        style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+                        padding: true
+                    );
     }
 
     public function version(string $applicationOfficialVersion): void
@@ -104,6 +162,6 @@ class CondorcetStyle extends SymfonyStyle
             $version = $applicationOfficialVersion;
         }
 
-        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.'>Version:</> <fg='.self::CONDORCET_SECONDARY_COLOR.">{$version}</>");
+        $this->write("<condor1b>Version:</> <condor2>{$version}</>");
     }
 }
