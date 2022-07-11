@@ -436,7 +436,8 @@ class ElectionCommand extends Command
                     ->setRows($rows)
 
                     ->setColumnStyle(0, $this->centerPadTypeStyle)
-                    ->setColumnWidth(0, 0)
+                    ->setColumnWidth(0, 30)
+                    ->setColumnWidth(1, 70)
                     ->render()
                 ;
             }
@@ -449,7 +450,7 @@ class ElectionCommand extends Command
                 ->setColumnStyle(0, $this->centerPadTypeStyle)
 
                 ->setColumnWidth(0, 30)
-                ->setColumnWidth(1, 100)
+                ->setColumnWidth(1, 70)
                 ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 30))
 
                 ->render()
@@ -457,14 +458,18 @@ class ElectionCommand extends Command
 
             // Stats
             if ($input->getOption('method-stats') || $input->getOption('stats')) {
-                (new Table($output))
+                $table = (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod['name'])
-                    ->setHeaders(['Stats'])
-                    ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($result->getStats(), 100))]])
-
-                    ->setColumnWidth(0, 43)
-                    ->render()
+                    ->setColumnWidth(0, 100)
                 ;
+
+                $line = 0;
+                foreach($result->getStats() as $oneStatKey => $oneStatEntry) {
+                    ++$line !== 1 && $table->addRow(new TableSeparator);
+                    $table->addRow([preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump([$oneStatKey => $oneStatEntry], 100))]);
+                }
+
+                $table->render();
             }
         }
 
