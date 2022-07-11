@@ -22,7 +22,7 @@ class CondorcetStyle extends SymfonyStyle
 
     public function author(string $author): void
     {
-        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.">Author:</> <fg=".self::CONDORCET_SECONDARY_COLOR.">{$author}</>");
+        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.'>Author:</> <fg='.self::CONDORCET_SECONDARY_COLOR.">{$author}</>");
     }
 
     public function choiceMultiple(string $question, array $choices, mixed $default = null): mixed
@@ -40,7 +40,7 @@ class CondorcetStyle extends SymfonyStyle
 
     public function homepage(string $homepage): void
     {
-        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.">Homepage:</> <fg=".self::CONDORCET_SECONDARY_COLOR."><href={$homepage}>{$homepage}</></>");
+        $this->write('<options=bold;fg='.self::CONDORCET_MAIN_COLOR.'>Homepage:</> <fg='.self::CONDORCET_SECONDARY_COLOR."><href={$homepage}>{$homepage}</></>");
     }
 
     public function instruction(string $prefix, string $message): void

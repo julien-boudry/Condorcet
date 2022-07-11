@@ -18,6 +18,7 @@ use CondorcetPHP\Condorcet\{Condorcet, Election, Result};
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteConstraintException};
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
 use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -274,6 +275,37 @@ class ElectionCommand extends Command
                 $registeringMethods = $io->choiceMultiple('Select methods', $authMehods, Condorcet::getDefaultMethod()::METHOD_NAME[0], true);
 
                 $input->setArgument('methods', $registeringMethods);
+            }
+
+            if (empty($input->getOption('seats'))) {
+                $hasProportionalMethods = false;
+                $methods = $this->prepareMethods($input->getArgument('methods'));
+
+                foreach ($methods as $oneMethod) {
+                    if ($oneMethod['class']::IS_PROPORTIONAL) {
+                        $hasProportionalMethods = true;
+                        break;
+                    }
+                }
+
+                if ($hasProportionalMethods) {
+                    $io->instruction('Number of Seats', 'Some of the method(s) chosen are proportional and require a number of seats.');
+
+                    $answer = $io->ask('Number of seats to fill', (string) 100, static function ($answer): string {
+                        if (!is_numeric($answer)) {
+                            throw new CondorcetInternalException('Seats must be numeric');
+                        }
+
+                        if (($answer = (int) $answer) < 1) {
+                            throw new CondorcetInternalException('Seats must be a natural number (positive)');
+                        }
+
+                        return (string) $answer;
+                    });
+
+                    $input->setOption('seats', $answer);
+                    $this->election->setNumberOfSeats((int) $answer);
+                }
             }
         }
     }
