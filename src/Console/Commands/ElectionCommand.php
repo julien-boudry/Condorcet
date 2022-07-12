@@ -200,7 +200,7 @@ class ElectionCommand extends Command
 
         // Logo
         $this->io->newLine();
-        $this->io->logo(__DIR__.'\..\Assets\logo.ascii');
+        $this->io->logo(__DIR__.'/../Assets/logo.ascii');
         $this->io->newLine();
 
         // Header
