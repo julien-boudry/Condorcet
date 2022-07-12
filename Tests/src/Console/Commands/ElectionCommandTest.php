@@ -8,6 +8,7 @@ use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, ResultRequestedWithoutVotesException};
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
+use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -166,7 +167,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('A,B', $output);
-        self::assertStringContainsString('C#', $output);
+        self::assertStringContainsString('C '.CondorcetStyle::CONDORCET_LOSER_SYMBOL, $output);
     }
 
     public function testInteractiveCommand(): void
@@ -326,7 +327,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Sum vote weight | 2', $output);
 
-        self::assertStringContainsString('B*', $output); # Condorcet Winner
+        self::assertStringContainsString('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
 
         self::assertStringContainsString('[OK] Success', $output);
     }
@@ -379,7 +380,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Sum vote weight | 339', $output);
 
-        self::assertStringContainsString('Jonathan Carter*', $output); # Condorcet Winner
+        self::assertStringContainsString('Jonathan Carter '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
         self::assertMatchesRegularExpression('/Seats: *\| 1/', $output);
 
         self::assertStringContainsString('[OK] Success', $output);
@@ -411,7 +412,7 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Sum vote weight | 380', $output);
 
-        self::assertStringContainsString('Candidate  1*', $output); # Condorcet Winner
+        self::assertStringContainsString('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
         self::assertMatchesRegularExpression('/Seats: *\| 3/', $output);
 
         self::assertStringContainsString('[OK] Success', $output);

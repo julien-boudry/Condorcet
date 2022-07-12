@@ -25,6 +25,9 @@ class CondorcetStyle extends SymfonyStyle
     public const CONDORCET_SECONDARY_COLOR = '#8993c0';
     public const CONDORCET_THIRD_COLOR = '#e3e1e0';
 
+    public const CONDORCET_WINNER_SYMBOL = '★';
+    public const CONDORCET_LOSER_SYMBOL = '⚐';
+
     public readonly TableStyle $MainTableStyle;
     public readonly TableStyle $FirstColumnStyle;
 
@@ -103,6 +106,28 @@ class CondorcetStyle extends SymfonyStyle
                         style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
                         padding: false
                     );
+    }
+
+    public function methodResultSection(string $message)
+    {
+        $messageLength = mb_strlen($message) + 4;
+        $prefixLength = 15;
+        $totalLength = $messageLength + $prefixLength;
+        $totalBorderLength = $totalLength + 4;
+
+        $horizontalBorder = '<condor3>'.str_repeat('♦ ', (int) ceil($totalBorderLength/2)).'</>';
+        $vbs = '<condor2>|</>';
+
+        $spaceMessage = '<bg='.self::CONDORCET_MAIN_COLOR.'>'.str_repeat(' ', $messageLength).'</>';
+        $spacePrefix = '<bg='.self::CONDORCET_SECONDARY_COLOR.'>'.str_repeat(' ', $prefixLength).'</>';
+        $bande = "{$vbs} ".$spacePrefix.$spaceMessage." {$vbs}";
+
+        $this->writeln($horizontalBorder);
+        $this->writeln($bande);
+        $this->writeln("{$vbs} <bg=".self::CONDORCET_SECONDARY_COLOR.';options=bold>  Vote Method  </><bg='.self::CONDORCET_MAIN_COLOR.";options=bold>  {$message}  </> {$vbs}");
+        $this->writeln($bande);
+        $this->writeln($horizontalBorder);
+        $this->newLine();
     }
 
     public function success(string|array $message)

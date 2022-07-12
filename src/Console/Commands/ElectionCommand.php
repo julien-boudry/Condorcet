@@ -400,11 +400,12 @@ class ElectionCommand extends Command
 
         $methods = $this->prepareMethods($input->getArgument('methods'));
 
+        $this->io->newLine();
         $this->io->title('Results per methods');
 
         foreach ($methods as $oneMethod) {
             $this->io->newLine();
-            $this->io->section($oneMethod['name'].' Method:');
+            $this->io->methodResultSection($oneMethod['name']);
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
                 $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota')));
@@ -437,6 +438,10 @@ class ElectionCommand extends Command
                     ->render()
                 ;
             }
+
+            $this->io->write("<condor3>".CondorcetStyle::CONDORCET_WINNER_SYMBOL." Condorcet Winner</>");
+            $this->io->inlineSeparator();
+            $this->io->writeln("<condor3>".CondorcetStyle::CONDORCET_LOSER_SYMBOL." Condorcet Loser</>");
 
             (new Table($output))
                 ->setHeaderTitle('Results: '.$oneMethod['name'])
@@ -695,9 +700,9 @@ class ElectionCommand extends Command
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
-                $line .= '*';
+                $line .= ' '.CondorcetStyle::CONDORCET_WINNER_SYMBOL;
             } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
-                $line .= '#';
+                $line .= ' '.CondorcetStyle::CONDORCET_LOSER_SYMBOL;
             }
 
             $line = [$rank, $line];
