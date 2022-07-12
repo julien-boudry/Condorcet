@@ -143,7 +143,7 @@ class CondorcetStyle extends SymfonyStyle
     {
         $git = static function (string $path): string {
             if (!is_dir($path . \DIRECTORY_SEPARATOR . '.git')) {
-                throw new CondorcetInternalError('Path is not valid');
+                throw new NoGitShellException('Path is not valid');
             }
 
             $process = proc_open(
