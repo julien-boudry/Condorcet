@@ -346,7 +346,7 @@ class ElectionCommand extends Command
             $this->io->newLine();
             $this->io->definitionList(
                 ['Votes per Mb' => self::$VotesPerMB],
-                ['Db is used' => 'Db is used: '.((empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath)],
+                ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
             );
         }
 

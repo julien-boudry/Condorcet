@@ -43,7 +43,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates(s) registered || 3 vote(s) registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -83,7 +83,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered  ||  3 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates(s) registered || 3 vote(s) registered', $output);
 
         self::assertStringContainsString('Seats:', $output);
         self::assertStringContainsString('42', $output);
@@ -231,8 +231,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
-        self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+        self::assertMatchesRegularExpression('/Votes per Mb +1/', $output);
+        self::assertMatchesRegularExpression('/Db is used +yes, using path\\:/', $output);
 
         ElectionCommand::$forceIniMemoryLimitTo = null;
 
@@ -286,7 +286,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered  ||  2 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates(s) registered || 2 vote(s) registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -314,7 +314,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered  ||  2 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates(s) registered || 2 vote(s) registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -344,8 +344,9 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('[INFO] Votes per Mb: 1', $output);
-        self::assertStringContainsString('[INFO] Db is used: yes, using path:', $output);
+        self::assertMatchesRegularExpression('/Votes per Mb +1/', $output);
+        self::assertStringContainsString('Db is used', $output);
+        self::assertStringContainsString('yes, using path:', $output);
 
         ElectionCommand::$forceIniMemoryLimitTo = null;
 
@@ -366,7 +367,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('4 candidates(s) registered  ||  339 vote(s) registered', $output);
+        self::assertStringContainsString('4 candidates(s) registered || 339 vote(s) registered', $output);
 
         self::assertStringContainsString('STV', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -398,7 +399,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('10 candidates(s) registered  ||  380 vote(s) registered', $output);
+        self::assertStringContainsString('10 candidates(s) registered || 380 vote(s) registered', $output);
 
         self::assertStringContainsString('STV', $output);
         self::assertStringContainsString('Registered candidates', $output);
