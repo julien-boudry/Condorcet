@@ -27,6 +27,8 @@ class CondorcetStyle extends SymfonyStyle
 
     public const CONDORCET_WINNER_SYMBOL = '★';
     public const CONDORCET_LOSER_SYMBOL = '⚐';
+    public const CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>'.self::CONDORCET_WINNER_SYMBOL.'</>';
+    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#87ffff>'.self::CONDORCET_LOSER_SYMBOL.'</>';
 
     public readonly TableStyle $MainTableStyle;
     public readonly TableStyle $FirstColumnStyle;
@@ -43,6 +45,7 @@ class CondorcetStyle extends SymfonyStyle
         $output->getFormatter()->setStyle('condor2b', new OutputFormatterStyle(foreground: self::CONDORCET_SECONDARY_COLOR, options: ['bold']));
         $output->getFormatter()->setStyle('condor3b', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: ['bold']));
 
+        $output->getFormatter()->setStyle('continue', new OutputFormatterStyle(foreground: '#008080'));
         // $output->getFormatter()->setStyle('comment', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: []));
 
         $this->MainTableStyle = (new TableStyle)
@@ -115,7 +118,7 @@ class CondorcetStyle extends SymfonyStyle
         $totalLength = $messageLength + $prefixLength;
         $totalBorderLength = $totalLength + 4;
 
-        $horizontalBorder = '<condor3>'.str_repeat('♦ ', (int) ceil($totalBorderLength/2)).'</>';
+        $horizontalBorder = '<condor2>'.str_repeat('=', (int) $totalBorderLength).'</>';
         $vbs = '<condor2>|</>';
 
         $spaceMessage = '<bg='.self::CONDORCET_MAIN_COLOR.'>'.str_repeat(' ', $messageLength).'</>';

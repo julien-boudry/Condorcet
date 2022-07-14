@@ -220,11 +220,10 @@ class ElectionCommand extends Command
                 $this->io->title('Enter the candidates');
                 $this->io->instruction('Candidates', 'Enter each candidate names');
 
-                $c = 0;
                 $registeringCandidates = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.++$c.'</> or press enter');
+                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.(count($registeringCandidates) + 1).'</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
@@ -241,20 +240,19 @@ class ElectionCommand extends Command
                 $this->io->title('Enter the votes');
                 $this->io->instruction('Format', 'Candidate B > CandidateName D > CandidateName C = CandidateName A');
 
-                $c = 0;
-                $registeringvotes = [];
+                $registeringVotes = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.++$c.'</> or press enter');
+                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.(count($registeringVotes) + 1).'</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
                     } else {
-                        array_push($registeringvotes, ...explode(';', $answer));
+                        array_push($registeringVotes, ...explode(';', $answer));
                     }
                 }
 
-                $this->votes = implode(';', $registeringvotes);
+                $this->votes = implode(';', $registeringVotes);
             }
 
             // Interactive Methods
@@ -439,9 +437,9 @@ class ElectionCommand extends Command
                 ;
             }
 
-            $this->io->write("<condor3>".CondorcetStyle::CONDORCET_WINNER_SYMBOL." Condorcet Winner</>");
+            $this->io->write("<condor3>".CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED." Condorcet Winner</>");
             $this->io->inlineSeparator();
-            $this->io->writeln("<condor3>".CondorcetStyle::CONDORCET_LOSER_SYMBOL." Condorcet Loser</>");
+            $this->io->writeln("<condor3>".CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED." Condorcet Loser</>");
 
             (new Table($output))
                 ->setHeaderTitle('Results: '.$oneMethod['name'])
@@ -490,7 +488,7 @@ class ElectionCommand extends Command
 
         // Success
         $this->io->newLine();
-        $this->io->success('Success');
+        // $this->io->success('Success');
 
         return Command::SUCCESS;
     }
@@ -700,9 +698,9 @@ class ElectionCommand extends Command
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_WINNER_SYMBOL;
+                $line .= ' '.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
             } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_LOSER_SYMBOL;
+                $line .= ' '.CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
             }
 
             $line = [$rank, $line];

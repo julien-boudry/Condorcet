@@ -56,8 +56,6 @@ class ElectionCommandTest extends TestCase
         self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
         self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
         self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testConsoleSeats(): void
@@ -88,8 +86,6 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Seats:', $output);
         self::assertStringContainsString('42', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testQuotas(): void
@@ -132,8 +128,6 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
 
         self::assertStringContainsString('Copeland', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testConsoleMultiplesMethods(): void
@@ -151,8 +145,6 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Copeland', $output);
         self::assertStringContainsString('Ranked Pairs M', $output);
         self::assertStringContainsString('Minimax Winning', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testConsoleFileInput(): void
@@ -298,8 +290,6 @@ class ElectionCommandTest extends TestCase
         self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
 
         self::assertStringContainsString('Sum vote weight | 3', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testFromCondorcetElectionFormat_Arguments(): void
@@ -328,8 +318,6 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Sum vote weight | 2', $output);
 
         self::assertStringContainsString('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testVoteWithDb_CondorcetElectionFormat(): void
@@ -382,8 +370,6 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Jonathan Carter '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
         self::assertMatchesRegularExpression('/Seats: *\| 1/', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 
     public function testFromDavidHillFormat(): void
@@ -414,7 +400,5 @@ class ElectionCommandTest extends TestCase
 
         self::assertStringContainsString('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
         self::assertMatchesRegularExpression('/Seats: *\| 3/', $output);
-
-        self::assertStringContainsString('[OK] Success', $output);
     }
 }
