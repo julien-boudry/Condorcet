@@ -14,7 +14,8 @@ namespace CondorcetPHP\Condorcet\Console\Commands;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
-use CondorcetPHP\Condorcet\{Condorcet, Election, Result};
+use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Console\Helper\{CommandInputHelper, FormaterHelper};
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteConstraintException};
@@ -204,7 +205,7 @@ class ElectionCommand extends Command
         $this->io->newLine();
 
         // Header
-        $this->io->version(Condorcet::getVersion());
+        $this->io->version();
         $this->io->inlineSeparator();
         $this->io->author(Condorcet::AUTHOR);
         $this->io->inlineSeparator();
@@ -223,7 +224,7 @@ class ElectionCommand extends Command
                 $registeringCandidates = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.(count($registeringCandidates) + 1).'</> <continue>(or press enter to continue)</>');
+                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.(\count($registeringCandidates) + 1).'</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
@@ -243,7 +244,7 @@ class ElectionCommand extends Command
                 $registeringVotes = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.(count($registeringVotes) + 1).'</> <continue>(or press enter to continue)</>');
+                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.(\count($registeringVotes) + 1).'</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
@@ -273,7 +274,7 @@ class ElectionCommand extends Command
 
             if (empty($input->getOption('seats'))) {
                 $hasProportionalMethods = false;
-                $methods = $this->prepareMethods($input->getArgument('methods'));
+                $methods = FormaterHelper::prepareMethods($input->getArgument('methods'));
 
                 foreach ($methods as $oneMethod) {
                     if ($oneMethod['class']::IS_PROPORTIONAL) {
@@ -304,7 +305,7 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function importInputData(InputInterface $input): void
     {
         // Define Callback
         $callBack = $this->useDataHandler($input);
@@ -329,8 +330,11 @@ class ElectionCommand extends Command
         // Parse Votes & Candidates from classicals inputs
         !empty($this->candidates) && $this->parseFromCandidatesArguments();
         !empty($this->votes) && $this->parseFromVotesArguments($callBack);
+    }
 
-        unset($callBack);
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $this->importInputData($input);
 
         // Summary
         $this->io->title('Configuration');
@@ -363,7 +367,7 @@ class ElectionCommand extends Command
 
         if ($input->getOption('list-votes')) {
             $this->displayVotesCount($output);
-
+            $this->io->newLine();
             $this->displayVotesList($output);
             $this->io->newLine();
         }
@@ -393,10 +397,9 @@ class ElectionCommand extends Command
             $this->io->newLine();
         }
 
-
         // By Method
 
-        $methods = $this->prepareMethods($input->getArgument('methods'));
+        $methods = FormaterHelper::prepareMethods($input->getArgument('methods'));
 
         $this->io->newLine();
         $this->io->title('Results per methods');
@@ -437,14 +440,14 @@ class ElectionCommand extends Command
                 ;
             }
 
-            $this->io->write("<condor3>".CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED." Condorcet Winner</>");
+            $this->io->write('<condor3>'.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.' Condorcet Winner</>');
             $this->io->inlineSeparator();
-            $this->io->writeln("<condor3>".CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED." Condorcet Loser</>");
+            $this->io->writeln('<condor3>'.CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED.' Condorcet Loser</>');
 
             (new Table($output))
                 ->setHeaderTitle('Results: '.$oneMethod['name'])
                 ->setHeaders(['Rank', 'Candidates'])
-                ->setRows($this->formatResultTable($result))
+                ->setRows(FormaterHelper::formatResultTable($result))
 
                 ->setColumnWidth(0, 30)
                 ->setColumnWidth(1, 70)
@@ -557,6 +560,7 @@ class ElectionCommand extends Command
             ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
 
             ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 50))
+            ->setStyle($this->io->MainTableStyle)
         ;
 
         foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) {
@@ -574,6 +578,7 @@ class ElectionCommand extends Command
                 ->setHeaders(['For each candidate, show their win, null, or lose'])
                 ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(), 100))]])
 
+                ->setStyle($this->io->MainTableStyle)
                 ->render()
             ;
 
@@ -582,34 +587,6 @@ class ElectionCommand extends Command
     }
 
     # Processing
-
-    protected function prepareMethods(array $methodArgument): array
-    {
-        if (empty($methodArgument)) {
-            return [['name' => Condorcet::getDefaultMethod()::METHOD_NAME[0], 'class' => Condorcet::getDefaultMethod()]];
-        } else {
-            $methods = [];
-
-            foreach ($methodArgument as $oneMethod) {
-                if (mb_strtolower($oneMethod) === 'all') {
-                    $methods = Condorcet::getAuthMethods(false);
-                    $methods = array_map(static fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
-                    break;
-                }
-
-                if (Condorcet::isAuthMethod($oneMethod)) {
-                    $method_class = Condorcet::getMethodClass($oneMethod);
-                    $method_name = $method_class::METHOD_NAME[0];
-
-                    if (!\in_array(needle: $method_name, haystack: $methods, strict: true)) {
-                        $methods[] = ['name' => $method_name, 'class' => $method_class];
-                    }
-                }
-            }
-
-            return $methods;
-        }
-    }
 
     protected function setUpParameters(InputInterface $input): void
     {
@@ -638,7 +615,7 @@ class ElectionCommand extends Command
 
     protected function parseFromCandidatesArguments(): void
     {
-        if ($file = $this->getFilePath($this->candidates)) {
+        if ($file = CommandInputHelper::getFilePath($this->candidates)) {
             $this->election->parseCandidates($file, true);
         } else {
             $this->election->parseCandidates($this->candidates);
@@ -648,7 +625,7 @@ class ElectionCommand extends Command
     protected function parseFromVotesArguments(\Closure $callBack): void
     {
         // Parses Votes
-        if ($file = $this->getFilePath($this->votes)) {
+        if ($file = CommandInputHelper::getFilePath($this->votes)) {
             $this->election->parseVotesWithoutFail(input: $file, isFile: true, callBack: $callBack);
         } else {
             $this->election->parseVotesWithoutFail(input: $this->votes, isFile: false, callBack: $callBack);
@@ -657,7 +634,7 @@ class ElectionCommand extends Command
 
     protected function parseFromCondorcetElectionFormat(\Closure $callBack): void
     {
-        $file = $this->getFilePath($this->CondorcetElectionFormatPath);
+        $file = CommandInputHelper::getFilePath($this->CondorcetElectionFormatPath);
 
         if ($file !== null) {
             (new CondorcetElectionFormat($file))->setDataToAnElection($this->election, $callBack);
@@ -668,7 +645,7 @@ class ElectionCommand extends Command
 
     protected function parseFromDebianFormat(): void
     {
-        $file = $this->getFilePath($this->DebianFormatPath);
+        $file = CommandInputHelper::getFilePath($this->DebianFormatPath);
 
         if ($file !== null) {
             (new DebianFormat($file))->setDataToAnElection($this->election);
@@ -679,48 +656,13 @@ class ElectionCommand extends Command
 
     protected function parseFromDavidHillFormat(): void
     {
-        $file = $this->getFilePath($this->DavidHillFormatPath);
+        $file = CommandInputHelper::getFilePath($this->DavidHillFormatPath);
 
         if ($file !== null) {
             (new DavidHillFormat($file))->setDataToAnElection($this->election);
         } else {
             throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
         }
-    }
-
-    protected function formatResultTable(Result $result): array
-    {
-        $resultArray = $result->getResultAsArray(true);
-
-        foreach ($resultArray as $rank => &$line) {
-            if (\is_array($line)) {
-                $line = implode(',', $line);
-            }
-
-            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
-            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
-            }
-
-            $line = [$rank, $line];
-        }
-
-        return $resultArray;
-    }
-
-    protected function getFilePath(string $path): ?string
-    {
-        if ($this->isAbsolute($path) && is_file($path)) {
-            return $path;
-        } else {
-            return (is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
-        }
-    }
-
-    protected function isAbsolute(string $path): bool
-    {
-        return empty($path) ? false : (strspn($path, '/\\', 0, 1) || (mb_strlen($path) > 3 && ctype_alpha($path[0]) && $path[1] === ':' && strspn($path, '/\\', 2, 1)));
     }
 
     protected function useDataHandler(InputInterface $input): ?\Closure

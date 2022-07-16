@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console\Style;
 
-use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalError, NoGitShellException};
+use CondorcetPHP\Condorcet\Console\CondorcetApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,12 +52,12 @@ class CondorcetStyle extends SymfonyStyle
             ->setBorderFormat('<condor1>%s</>')
             ->setHeaderTitleFormat('<fg='.self::CONDORCET_THIRD_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold> %s </>')
             ->setCellHeaderFormat('<condor2>%s</>')
-            // ->setCellRowFormat('<condor3>%s</>')
+            ->setCellRowFormat('<condor3>%s</>')
         ;
 
         $this->FirstColumnStyle = (new TableStyle)
             ->setPadType(\STR_PAD_BOTH)
-            ->setCellRowFormat('<condor1>%s</>')
+            // ->setCellRowFormat('<condor1>%s</>') # Buggy
         ;
     }
 
@@ -102,16 +102,17 @@ class CondorcetStyle extends SymfonyStyle
         $this->writeln($logo);
     }
 
-    public function section(string $message)
+    public function section(string $message): void
     {
-        $this->block(   messages: $message,
-                        type: null,
-                        style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
-                        padding: false
-                    );
+        $this->block(
+            messages: $message,
+            type: null,
+            style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+            padding: false
+        );
     }
 
-    public function methodResultSection(string $message)
+    public function methodResultSection(string $message): void
     {
         $messageLength = mb_strlen($message) + 4;
         $prefixLength = 15;
@@ -133,63 +134,19 @@ class CondorcetStyle extends SymfonyStyle
         $this->newLine();
     }
 
-    public function success(string|array $message)
+    public function success(string|array $message): void
     {
-        $this->block(   messages: $message,
-                        type: 'OK',
-                        style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
-                        padding: true
-                    );
+        $this->block(
+            messages: $message,
+            type: 'OK',
+            style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+            padding: true
+        );
     }
 
-    public function version(string $applicationOfficialVersion): void
+    public function version(): void
     {
-        $git = static function (string $path): string {
-            if (!is_dir($path . \DIRECTORY_SEPARATOR . '.git')) {
-                throw new NoGitShellException('Path is not valid');
-            }
-
-            $process = proc_open(
-                'git describe --tags --match="v[0-9]*\.[0-9]*\.[0-9]*"',
-                [
-                    1 => ['pipe', 'w'],
-                    2 => ['pipe', 'w'],
-                ],
-                $pipes,
-                $path
-            );
-
-            if (!\is_resource($process)) {
-                throw new NoGitShellException;
-            }
-
-            $result = trim(stream_get_contents($pipes[1]));
-
-            fclose($pipes[1]);
-            fclose($pipes[2]);
-
-            $returnCode = proc_close($process);
-
-            if ($returnCode !== 0) {
-                throw new NoGitShellException;
-            }
-
-            return $result;
-        };
-
-        try {
-            $version = $git(__DIR__.'/../../../');
-            $commit = explode('-', $version)[2];
-
-            $match = [];
-            preg_match('/^v([0-9]+\.[0-9]+\.[0-9]+)/', $version, $match);
-            $gitLastestTag = $match[1];
-
-            $version = (version_compare($gitLastestTag, $applicationOfficialVersion, '>=')) ? $version : $applicationOfficialVersion.'-(dev)-'.$commit;
-        } catch (NoGitShellException) { // Git no available, use the Condorcet Version
-            $version = $applicationOfficialVersion;
-        }
-
+        $version = CondorcetApplication::getVersionWithGitParsing();
         $this->write("<condor1b>Version:</> <condor2>{$version}</>");
     }
 }
