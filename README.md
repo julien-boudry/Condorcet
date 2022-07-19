@@ -24,23 +24,24 @@ Condorcet PHP
 ===========================
 > **Presentation | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](Documentation/README.md) | [Tests](Tests/)**  
 
-Condorcet is an application implementing the Condorcet voting system and many other methods like the Schulze, Tideman, Borda, Alternative Voting or STV. And also a powerful election manager allowing the logical management of a phased election, with many natives options and elections methodes included.  
+Condorcet manages the stages of an electoral process (configuration, votes ingestion & manipulation, integrity) and calculates the results. It offers natively the implementation of more than 20 voting methods compatible with preferential voting ballots, including Condorcet methods, Alternative Voting, STV, and many others.  
+=> [**Supported Voting Methods**](#supported-voting-methods) 
 
 _Two different ways to use Condorcet:_
-* A [**command line application**](#condorcet-wiki---command-line-manual), for quick use of essential features without complicated technical knowledge. Allowing you to easily compute your elections results and stats.  
-* A [**PHP library**](#use-condorcet-as-a-php-library)   that you can include in your code to take advantage of 100% of the advanced features (abstraction, control, interaction, extensions).  
+* A [**command line application**](#condorcet-wiki---command-line-manual), for quick use of essential features without complicated technical knowledge. Allowing you to easily compute your election results and stats.  
+* A [**PHP library**](#use-condorcet-as-a-php-library) that you can include in your code to take advantage of 100% of the advanced features (advanced manipulations & configurations, extensions & modularity, cache & high performances simulations, advanced input and output methods...).  
 
+_Both approaches can handle up to hundreds of millions of votes (or more) on modest hardware. Although using it as a library will allow more configuration and control over this advanced usage._
 
-*Read more about alternative voting methods >> https://en.wikipedia.org/wiki/Condorcet_method*  
 
 ## Summary
 1. [Project State and Specifications](#project-state-and-specifications)  
-1. [Supported Methods](#supported-methods)  
+1. [Supported Voting Methods](#supported-voting-methods)  
 1. [Main features](#main-features)     
   a. [Methods provided natively](#methods-provided-natively)     
   b. [Add your own method](#add-your-own-method-as-module)  
 1. [Use Condorcet as a command line application](#use-condorcet-as-a-command-line-application)  
-  a. [Install as an application](#install-as-an-application)  
+  a. [Install as a command line application](#install-as-a-command-line-application)  
   b. [Condorcet Wiki - Command Line Manual](#condorcet-wiki---command-line-manual)  
   c. [Command Line - Examples](#command-line---some-quick-examples)
 1. [Use Condorcet as a PHP Library](#use-condorcet-as-a-php-library)  
@@ -57,33 +58,33 @@ _Two different ways to use Condorcet:_
 
 > [**Releases Notes**](CHANGELOG.md)
 
-* **Stable Version: 4.1.x**  _support provided_  
-  * * *PHP Requirement:* PHP 8.1
-* **Stable Version: 2.2.x**  _support provided_  
-  * * *PHP Requirement:* PHP 7.4 with Json PHP extension. _(tested up to PHP 8.0)_
-* **Old Stable: 3.x** _limited support_  
-    * *PHP Requirement:* PHP 8.1 _(tested up to PHP 8.1)_
-* **Old Stable: 2.0.x** _support NOT provided_  
-    * *PHP Requirement:* PHP 7.1 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.4)_
-* **Very Old Stable: 1.0.x** _Support requiring some bait._  
-    * *PHP Requirement:* PHP 5.6 with Ctype, MB_String, Json common extensions. _(tested up to PHP 7.1)_
+| Version | PHP Requirements | State | Support
+| --- | --- | --- | --- |
+| 4.2 | 8.1 | Dev | ✔ _support provided_
+| 4.1 | 8.1 | Stable | ✔ _support provided_
+| 3.x | 8.1 | Old Stable | ❌ _not any support_ 
+| 2.2 | 7.4 | Old Stable | ❌ _support requiring some bait_ 
+| 2.0 | 7.1 | Old Stable | ❌ _support requiring some bait_ 
+| 1.0 | 5.6 | Old Stable | ❌ _support requiring some bait_ 
+| 0.97 | 5.5 | Old Stable | ❌ _support requiring some bait_<br>ℹ _Since v0.90, you should consider then it's a new project (api, engine)._ 
+| 0.14 | 5.5 | Old Stable | ❌ _ready for the museum_ 
 
-_Some support and fix can be done for 0.14 version on demand. Since v0.90, you should consider then it's a new project (api, engine)._  
+_All versions require Json and Mbstring extensions. Pdo-Sqlite is recommended if you need to activate the default provided driver for bigs elections (hundred of thousands of votes or more)_
 
-## Supported Methods
-Support both single-winner methods _(with or without Condorcet criterion)_ and proportional methods.
+## Supported Voting Methods
+Support both single-winner methods _(with or without the Condorcet criterion)_ and proportional methods.
 
-[**Complete list of natively implemented methods and implementation choices**](VOTING_METHODS.md)
+[**Complete list of natively implemented methods, their options (variants), and implementation choices**](VOTING_METHODS.md)
 
 ### Single-Winner Methods provided natively
-Single Winner return a full ranking. But they were designed for elected one. Inputs are ordered ranking.
+Single Winner returns a full ranking of all candidates, even though they are generally more designed to designate only one.
 
 > Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)
 
 ### Proportional Methods provided natively
-Designed for electing assembly. Inputs are ordered ranking, but most of these methods, don't support tie on a rank.
+Designed for electing assembly, return a full ranking of elected candidates.
 
-> Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt and variants)* / Largest Remainder Methods _(with different quotas)_
+> Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt, and variants)* / Largest Remainder Methods _(with different quotas)_
 
 ### Add your own method as module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).  
@@ -91,40 +92,40 @@ Condorcet is designed to be easily extensible with new algorithms (they don't ne
 
 ## Main features
 * __Manage an election__
-  * Respect an election cycle: Registering candidate, registering a vote, get results from many algorithms.
-  * Ordered votes, delete it, simulate partials results.
-  * Many input type available (String, Json, Parse text, Objects...)
-  * Integrity check (checksumming) and logs.
+  * Respect an election cycle: Registering candidates, registers votes, gets results from many algorithms.
+  * Ordered votes, tags votes, delete votes, simulates partial results.
+  * Many input types available _(string, Json, objects...)_
+  * Import from Condorcet Election Format _(and export to)_, Debian Format, David Hill Format
+  * Integrity check (checksumming)
   * Support for storing elections (serializing Election object, export data...)
-  * Some methods can be used nearly front final user (anti-spam check, parsing input, human-friendly results and stats, vote constraints...)
+  * Some methods can be used nearly front final user (vote constraints, anti-spam check, parsing input, human-friendly results and stats...)
 * __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
-  * Get full ranking from advanced Condorcet-like methods (Schulze, Copeland, Ranked Pairs, Kemeny–Young, Minimax...)
-  * Get full ranking from others methods like Alternative Vote
-  * Get full ranking from proportional methods (STV...)
+  * Get full ranking from advanced [voting methods](VOTING_METHODS.md)
   * Get some additional stats from these methods
-  * Force ranking all candidate implicitly _(default)_ or allow voters to not rank all candidates.
-  * Put weight for each vote, give more importance to certain voters.
+  * Force ranking all candidates implicitly _(default)_ or allow voters to not rank all candidates.
+  * Put weight on a certain vote, and give more importance to certain voters.
 * __Be more powerful__
   * All are objects, all are abstract _(But there are many higher-level functions and inputs types)_.
-  * Candidates and Votes are objects which can take part to multiples elections at the same time and change her name or ranking dynamically. That allows powerful tools to simulate elections.
-  * Manage hundred billions of votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDO driver is provided by default, an example is provided with SQLite, an interface allows you to design other drivers.
+  * Candidates and Votes are objects which can take part in multiple elections at the same time and change their name or ranking dynamically. That allows powerful tools to simulate elections.
+  * Manage hundred of billions of votes by activating an external driver to store (instead of RAM) an unlimited number of votes during the computation phase. A PDO driver is provided by default, an example is provided with SQLite, an interface that allows you to design other drivers.
+  * Smart cache system, allows calling multiple time computation methods without performance issues.
 * __Extend it! Configure it!__
-  * Modular architecture to extend it without fork Condorcet PHP! Just make your own module on your own namespace.
-    * Election, Candidate and Vote class are extensible.
+  * Modular architecture to extend it without fork Condorcet PHP! Just make your module on your own namespace.
+    * Election, Candidate, and Vote classes are extensible.
     * Add your own ranking algorithm.
-    * Create your own votes constraints.
-  * Allow you to use your own datastore driver to manage very large elections at your way without ram limit. A first driver for PDO (and Sqlite example) is provided.
-  * Many configurations options and methods.
+    * Create your own vote constraints.
+    * Use your own datastore driver to manage very large elections on your way without ram limit.
+  * Many configuration options and methods.
 
-_Condorcet PHP is not designed for high performances. But can handle virtually unlimited voting without limit or degrading performance, it's a linear and predictable scheme._  
-_And has no certification or proven implementation that would guarantee a very high level of reliability. However, there are many written tests for each voting methods and features. This ensures an excellent level of confidence in the results._   
+_Condorcet PHP is not designed for high performance. But can handle virtually unlimited voting without limit or degrading performance, it's a linear and predictable scheme._  
+_And has no certification or proven implementation that would guarantee a very high level of reliability. However, there are many written tests for each voting method and feature. This ensures an excellent level of confidence in the results._   
 
 
 ---------------------------------------
 ## Use Condorcet as a command line application
 
-### Install as an application
+### Install as a command line application
 
 Can be installed natively from source (with composer), from PHAR file, from Docker image (build or pull).
 
@@ -175,10 +176,10 @@ The precise documentation of methods is not a wiki. It can be found in the form 
 ## Performance & Coding style considerations
 
 #### Coding standards:  
-The code is close to the respect of PSR-1 (lacks only the naming of methods), and freely influenced by PSR-2 when it is not unnecessarily authoritarian.  
+The code is very close to the respect of PSR-12 (lacks only the naming of methods) when it is not unnecessarily authoritarian or conservative and follows some additional rules. Code is checked and fixed with [CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) custom rules through [Laravel Pint](https://github.com/laravel/pint).
 
 #### Performance:  
-* Complete and huge use case with all voting methods chained, 6 candidates, 2 seats and one thousand votes (many with implicit ranking).
+* Complete and huge use case with all voting methods chained, 6 candidates, 2 seats, and one thousand votes (many with implicit ranking).
   * _Memory usage: less than 3M_    
   * _Execution time (after Jit compiling): less than 160ms_  
   * _Execution time (without JIT): less than 250ms_  
@@ -195,22 +196,22 @@ _1 000 randoms votes. Memory consumption comes from votes more than combinations
 * use Kemeny-Young 11 candidates: ~8MB - 193s   
 
 ###### Massive election case:  
-Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsource this data (PHP don't like that) and it's not extensive to infinity.   
+Extending PHP memory_limit allows you to manage hundreds of thousands of votes, but it can be a bit slower than outsourcing this data (PHP doesn't like that) and it's not extensive to infinity.   
 
-If you need to manage an election with more than 50 000 votes. You should consider externalizing your data, Condorcet provides a simple PDO driver to store data outside RAM between processing steps, this driver stores it into a classical relational database system, it supports hundreds millions votes _(or more)_. A very simple example with Sqlite is provided and very easy to activate.   
+If you need to manage an election with more than 50 000 votes. You should consider externalizing your data, Condorcet provides a simple PDO driver to store data outside RAM between processing steps, this driver stores it into a classical relational database system, and it supports hundreds of millions of votes _(or more)_. A very simple example with Sqlite is provided and very easy to activate.   
 
-You can also develop your own datastore driver (to store into NoSQL... all your fantasy), the modular architecture allows you to link it easily.
+You can also develop your homemade datastore driver (to store into NoSQL... all your fantasy), the modular architecture allows you to link it easily.
 
-[Have a look to the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes-%28library%29)     
+[Have a look at the manual](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-3.-Get-started-to-handle-millions-of-votes-%28library%29)     
 
-_Benchmark on a modern machine (linux - x64 - php 8.0 - cli)._ 
+_Benchmark on a modern machine (linux - x64 - php 8.1 - cli)._ 
 
 
 ## Roadmap for further releases 
 * ...
 
 ## Related projects / They use Condorcet
-* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including interactives and collaborative features.    
+* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including interactive and collaborative features.  
 It is based in large part on this project and uses the library as a real election manager for computing, storage & stats.        
 * [Mahler-S2-BlindTest-Condorcet
 ](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (French interface) Web wrapper to compute and show the result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
