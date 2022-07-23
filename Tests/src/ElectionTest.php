@@ -15,6 +15,15 @@ class ElectionTest extends TestCase
     private Election $election1;
     private Election $election2;
 
+    private Candidate $candidate1;
+    private Candidate $candidate2;
+    private Candidate $candidate3;
+
+    private Vote $vote1;
+    private Vote $vote2;
+    private Vote $vote3;
+    private Vote $vote4;
+
     protected function setUp(): void
     {
         $this->election1 = new Election;
