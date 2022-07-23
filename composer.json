@@ -37,7 +37,7 @@
         "phpbench/phpbench": "*",
         "phpunit/phpunit": "^9 || ^10",
         "phploc/phploc": "dev-main",
-        "haydenpierce/class-finder": ">= 0.4",
+        "haydenpierce/class-finder": ">= 0.4.3",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.8",
         "laravel/pint": "^1.0"
