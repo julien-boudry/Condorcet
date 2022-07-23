@@ -19,6 +19,8 @@ class AddVotesBench
     #[Bench\Revs(1)]
     public function benchVotesWithManyCandidates(): void
     {
+        $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
+
         $this->election = $election = new Election;
 
         $candidates = [];
@@ -28,9 +30,7 @@ class AddVotesBench
         }
 
         for ($i = 0; $i < 1_000; $i++) {
-            $oneVote = $candidates;
-            shuffle($oneVote);
-
+            $oneVote = $randomizer->shuffleArray($candidates);
             $election->addVote($oneVote);
         }
     }

@@ -298,9 +298,20 @@ class CPO_StvTest extends TestCase
             $candidates[] = $this->election->addCandidate();
         }
 
+        if (version_compare(\PHP_VERSION, '8.2') >= 0) {
+            $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
+
+            $shuffle = static fn (array $candidates): array => $randomizer->shuffleArray($candidates);
+        } else {
+            $shuffle = static function (array $candidates): array {
+                $newCandidates = $candidates;
+                shuffle($newCandidates);
+                return $newCandidates;
+            };
+        }
+
         for ($i = 0; $i < 100; $i++) {
-            shuffle($candidates);
-            $this->election->addVote($candidates);
+            $this->election->addVote($shuffle($candidates));
         }
 
         $this->election->getResult('CPO STV')->getResultAsString();

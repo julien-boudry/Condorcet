@@ -26,6 +26,8 @@ class PairwiseNumberOfCandidatesBench
 
     protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
+        $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
+
         $this->election = $election = new Election;
         $this->election->setNumberOfSeats((int) ($numberOfCandidates / 3));
 
@@ -36,9 +38,7 @@ class PairwiseNumberOfCandidatesBench
         }
 
         for ($i = 0; $i < $numberOfVotes; $i++) {
-            $oneVote = $candidates;
-            shuffle($oneVote);
-
+            $oneVote = $randomizer->shuffleArray($candidates);
             $election->addVote($oneVote);
         }
     }
