@@ -51,7 +51,7 @@ abstract class Condorcet
     final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
 
     #[PublicAPI]
-    final public const VERSION = '4.1.1';
+    final public const VERSION = '4.2.0';
 
     #[PublicAPI]
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;

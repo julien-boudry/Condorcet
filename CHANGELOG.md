@@ -2,9 +2,23 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.2.0] - 2022-07-24
+### Added
+- Support for PHP 8.2
+- [Console] Redesign console, add many styles, colors, and logo.
+- [Console] Improve interactive mode.
+
+### Changed
+- [Methods] Fix a rare crash on HighestAverage methods.
+
+### Dev
+- [Benchmarks] Use a random deterministic seed for generating votes. (Benchmarks now require PHP 8.2 at least)
+- [Tests] Use a random deterministic if available (PHP >= 8.2) for generating votes.
+- [Coding Style] Improve rules.
+
 ## [v4.1.1] - 2022-07-07
 ### Changed
-- Composer: Fix ext-mbstring dependency
+- Composer: Fix ext-mbstring dependency.
 - HighestAverage & LargestRemainder methods: Fix a bug with empty ranking in context (or non valid rank in a vote)
 
 ## [v4.1.0] - 2022-06-26
@@ -23,7 +37,6 @@ Implements new proportional methods
 
 ### Internal changes
 - Migrates the entire code base to a strict application of PSR-12 standards (and many other rules). It's debatable because our alternative syntax was lovely, but it's now standard and no longer iconoclastic, it's the age of reason. The respect for coding standards is now controlled by Laravel Pint.
-
 
 ## [v4.0.0] - 2022-06-17
 ### Description
