@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class PairwiseTest extends TestCase
 {
-    private readonly Election $election;
+    private readonly Election $election1;
 
     protected function setUp(): void
     {

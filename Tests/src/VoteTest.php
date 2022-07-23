@@ -462,33 +462,33 @@ class VoteTest extends TestCase
 
     public function testAddRemoveTags(): void
     {
-        $this->vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        $this->vote1->addTags('tag1');
-        $this->vote1->addTags(['tag2', 'tag3']);
-        self::assertTrue($this->vote1->addTags('tag4,tag5'));
+        $vote1->addTags('tag1');
+        $vote1->addTags(['tag2', 'tag3']);
+        self::assertTrue($vote1->addTags('tag4,tag5'));
 
         self::assertSame(
             ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
-            $this->vote1->getTags()
+            $vote1->getTags()
         );
 
-        self::assertsame([], $this->vote1->removeTags(''));
-        $this->vote1->removeTags('tag1');
-        $this->vote1->removeTags(['tag2', 'tag3']);
-        self::assertsame($this->vote1->removeTags('tag4,tag5,tag42'), ['tag4', 'tag5']);
+        self::assertsame([], $vote1->removeTags(''));
+        $vote1->removeTags('tag1');
+        $vote1->removeTags(['tag2', 'tag3']);
+        self::assertsame($vote1->removeTags('tag4,tag5,tag42'), ['tag4', 'tag5']);
 
         self::assertSame(
             [],
-            $this->vote1->getTags()
+            $vote1->getTags()
         );
 
-        self::assertTrue($this->vote1->addTags('tag4,tag5'));
-        self::assertTrue($this->vote1->removeAllTags());
+        self::assertTrue($vote1->addTags('tag4,tag5'));
+        self::assertTrue($vote1->removeAllTags());
 
         self::assertSame(
             [],
-            $this->vote1->getTags()
+            $vote1->getTags()
         );
     }
 
