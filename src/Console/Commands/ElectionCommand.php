@@ -339,18 +339,23 @@ class ElectionCommand extends Command
         // Summary
         $this->io->title('Configuration');
 
-        $output->write("<condor1>{$this->election->countCandidates()} candidates(s) registered</>");
+        $output->write("<condor1>{$this->election->countCandidates()} candidate".($this->election->countCandidates() > 1 ? 's' : '').' registered</>');
         $this->io->inlineSeparator();
-        $output->writeln("<condor2>{$this->election->countVotes()} vote(s) registered</>");
+        $output->writeln('<condor2>'.number_format($this->election->countVotes(), thousands_separator: ' ').' vote'.($this->election->countVotes() > 1 ? 's' : '').' registered</>');
         $this->io->newLine();
 
         if ($output->isDebug()) {
             $this->io->newLine();
+            $this->io->title('Debug - External Handler Informations');
+
             $this->io->definitionList(
                 ['Votes per Mb' => self::$VotesPerMB],
                 ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
             );
         }
+
+
+        $this->io->title('Configuration');
 
         $this->io->definitionList(
             ['Is vote weight allowed?' => $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE'],
@@ -439,6 +444,8 @@ class ElectionCommand extends Command
                     ->render()
                 ;
             }
+
+            $this->io->newLine(2);
 
             $this->io->write('<condor3>'.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.' Condorcet Winner</>');
             $this->io->inlineSeparator();
@@ -541,11 +548,13 @@ class ElectionCommand extends Command
                 ->setStyle($this->io->MainTableStyle)
             ;
 
-            $votesStatsTable->addRow(['Count registered votes', $this->election->countValidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Count valid registered votes with constraints', $this->election->countValidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Count invalid registered votes with constraints', $this->election->countInvalidVoteWithConstraints()]);
-            $votesStatsTable->addRow(['Sum vote weight', $this->election->sumVotesWeight()]);
-            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $this->election->sumValidVotesWeightWithConstraints()]);
+            $formatter = static fn (int $input): string => number_format($input, thousands_separator: ' ');
+
+            $votesStatsTable->addRow(['Count registered votes', $formatter($this->election->countVotes())]);
+            $votesStatsTable->addRow(['Count valid registered votes with constraints', $formatter($this->election->countValidVoteWithConstraints())]);
+            $votesStatsTable->addRow(['Count invalid registered votes with constraints', $formatter($this->election->countInvalidVoteWithConstraints())]);
+            $votesStatsTable->addRow(['Sum vote weight', $formatter($this->election->sumVotesWeight())]);
+            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $formatter($this->election->sumValidVotesWeightWithConstraints())]);
 
             $votesStatsTable->render();
 
@@ -682,7 +691,7 @@ class ElectionCommand extends Command
                     /**
                      * @infection-ignore-all
                      */
-                    if (file_exists($SQLitePath = getcwd().'/condorcet-bdd.sqlite')) {
+                    if (file_exists($SQLitePath = getcwd().\DIRECTORY_SEPARATOR.'condorcet-bdd.sqlite')) {
                         unlink($SQLitePath);
                     }
 

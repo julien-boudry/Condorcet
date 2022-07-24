@@ -46,7 +46,7 @@ class CondorcetStyle extends SymfonyStyle
         $output->getFormatter()->setStyle('condor3b', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: ['bold']));
 
         $output->getFormatter()->setStyle('continue', new OutputFormatterStyle(foreground: '#008080'));
-        // $output->getFormatter()->setStyle('comment', new OutputFormatterStyle(foreground: self::CONDORCET_THIRD_COLOR, options: []));
+        $output->getFormatter()->setStyle('comment', new OutputFormatterStyle(foreground: '#fed5b7'));
 
         $this->MainTableStyle = (new TableStyle)
             ->setBorderFormat('<condor1>%s</>')

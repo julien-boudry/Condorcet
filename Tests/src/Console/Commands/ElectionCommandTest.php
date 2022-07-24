@@ -44,7 +44,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered || 3 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates registered || 3 votes registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -82,7 +82,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered || 3 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates registered || 3 votes registered', $output);
 
         self::assertStringContainsString('Seats:', $output);
         self::assertStringContainsString('42', $output);
@@ -279,7 +279,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered || 2 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates registered || 2 votes registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -305,7 +305,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates(s) registered || 2 vote(s) registered', $output);
+        self::assertStringContainsString('3 candidates registered || 2 votes registered', $output);
 
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -356,7 +356,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('4 candidates(s) registered || 339 vote(s) registered', $output);
+        self::assertStringContainsString('4 candidates registered || 339 votes registered', $output);
 
         self::assertStringContainsString('STV', $output);
         self::assertStringContainsString('Registered candidates', $output);
@@ -386,7 +386,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('10 candidates(s) registered || 380 vote(s) registered', $output);
+        self::assertStringContainsString('10 candidates registered || 380 votes registered', $output);
 
         self::assertStringContainsString('STV', $output);
         self::assertStringContainsString('Registered candidates', $output);
