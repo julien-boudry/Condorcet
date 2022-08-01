@@ -201,7 +201,7 @@ class ElectionCommand extends Command
 
         // Logo
         $this->io->newLine();
-        $this->io->logo(__DIR__.'/../Assets/'.($this->terminal->getWidth() >= 125 ? 'logo.125c.ascii' : 'logo.90c.ascii'));
+        $this->io->logo($this->terminal->getWidth());
         $this->io->newLine();
 
         // Header

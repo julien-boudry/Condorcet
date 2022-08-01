@@ -61,6 +61,21 @@ class CondorcetStyle extends SymfonyStyle
         ;
     }
 
+    public function logo(int $terminalSize): void
+    {
+        $path = __DIR__.\DIRECTORY_SEPARATOR.'..'.\DIRECTORY_SEPARATOR.'Assets'.\DIRECTORY_SEPARATOR;
+
+        if ($terminalSize >= 125) {
+            $path .= 'logo.125c.ascii';
+        } elseif ($terminalSize >= 90) {
+            $path .= 'logo.90c.ascii';
+        } else {
+            $path .= 'logo.73c.ascii';
+        }
+
+        $this->writeln(file_get_contents($path));
+    }
+
     public function author(string $author): void
     {
         $this->write("<condor1b>Author:</> <condor2>{$author}</>");
@@ -92,14 +107,6 @@ class CondorcetStyle extends SymfonyStyle
     public function instruction(string $prefix, string $message): void
     {
         $this->writeln("<condor1b>{$prefix}:</> <condor2>{$message}</>");
-    }
-
-    public function logo(string $path): void
-    {
-        $logo = file_get_contents($path);
-        $logo = str_replace(['CondorcetMainColor', 'CondorcetSecondaryColor'], [self::CONDORCET_MAIN_COLOR, self::CONDORCET_SECONDARY_COLOR], $logo);
-
-        $this->writeln($logo);
     }
 
     public function section(string $message): void
