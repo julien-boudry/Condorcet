@@ -20,6 +20,8 @@ abstract class Method
 {
     use CondorcetVersion;
 
+    private const METHOD_NAME = ['abstractMethod'];
+
     public const IS_PROPORTIONAL = false;
 
     public static ?int $MaxCandidates = null;

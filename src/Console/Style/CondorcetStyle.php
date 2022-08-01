@@ -81,7 +81,7 @@ class CondorcetStyle extends SymfonyStyle
         $this->write("<condor1b>Author:</> <condor2>{$author}</>");
     }
 
-    public function choiceMultiple(string $question, array $choices, mixed $default = null): mixed
+    public function choiceMultiple(string $question, array $choices, mixed $default = null, bool $multi): mixed
     {
         if ($default !== null) {
             $values = array_flip($choices);
@@ -89,7 +89,7 @@ class CondorcetStyle extends SymfonyStyle
         }
 
         $questionChoice = new ChoiceQuestion($question, $choices, $default);
-        $questionChoice->setMultiselect(true);
+        $questionChoice->setMultiselect($multi);
 
         return $this->askQuestion($questionChoice);
     }
