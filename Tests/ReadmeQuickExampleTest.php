@@ -52,17 +52,17 @@ class ReadmeQuickExampleTest extends TestCase
         // Get Result
 
         // Natural Condorcet Winner
-            $myWinner = $myElection1->getCondorcetWinner(); // Return a candidate object
-            $this->assertEquals('My winner is Candidate 1<br>', 'My winner is ' . $myWinner->getName() . '<br>');
+        $myWinner = $myElection1->getCondorcetWinner(); // Return a candidate object
+        $this->assertEquals('My winner is Candidate 1<br>', 'My winner is ' . $myWinner->getName() . '<br>');
 
         // Natural Condorcet Loser
-            $myLoser = $myElection1->getCondorcetLoser(); // Return a candidate object
-            $this->assertEquals('My loser is Candidate 3', 'My loser is ' . $myLoser->getName());
+        $myLoser = $myElection1->getCondorcetLoser(); // Return a candidate object
+        $this->assertEquals('My loser is Candidate 3', 'My loser is ' . $myLoser->getName());
 
         // Schulze Ranking
-            $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
+        $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
               # Echo it easily
-            $this->assertEquals([1=>'Candidate 1', 2=>'Candidate 2', 3=>'Candidate 4', 4=>'Candidate 3'], CondorcetUtil::format($myResultBySchulze));
+        $this->assertEquals([1=>'Candidate 1', 2=>'Candidate 2', 3=>'Candidate 4', 4=>'Candidate 3'], CondorcetUtil::format($myResultBySchulze));
 
         // Get Schulze advanced computing data & stats
         $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();

@@ -27,7 +27,7 @@ trait VotesProcess
     protected int $voteFastMode = 0; // When parsing vote, avoid unnecessary checks
 
 
-/////////// VOTES LIST ///////////
+    /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
     #[PublicAPI]

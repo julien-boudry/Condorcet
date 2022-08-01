@@ -198,7 +198,7 @@ class CondorcetElectionFormatTest extends TestCase
             Candidate B > Candidate C > Candidate A * 1
             Candidate C > Candidate A = Candidate B * 1
             VOTES
-                            , $election->getVotesListAsString());
+            , $election->getVotesListAsString());
 
 
         self::assertCount(1, $election->getVotesList(tags: 'signature:55073db57b0a859911', with: true));
@@ -231,7 +231,7 @@ class CondorcetElectionFormatTest extends TestCase
             Candidate B * 1
             Candidate C > Candidate B * 1
             VOTES
-                            , $election->getVotesListAsString());
+            , $election->getVotesListAsString());
     }
 
     public function testexportElectionToCondorcetElectionFormat(): void

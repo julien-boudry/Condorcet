@@ -65,7 +65,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     {
         if (!empty($struct['tableName']) && !empty($struct['primaryColumnName']) && !empty($struct['dataColumnName']) &&
                 \is_string($struct['tableName']) && \is_string($struct['primaryColumnName']) && \is_string($struct['dataColumnName'])
-         ) {
+        ) {
             return true;
         } else {
             return false;

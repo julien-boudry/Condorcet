@@ -40,8 +40,8 @@ for ($i=1; $i <= 4000; $i++) {
     $election->getResult('STV');
 
     # Tentative to reproduce (impossible...)
-        // $a = new A (new Bar);
-        // $b = new B (new Bar);
+    // $a = new A (new Bar);
+    // $b = new B (new Bar);
 }
 
 

@@ -99,5 +99,8 @@
             "identical": false,
             "less_and_greater": false
         }
-    }
+    },
+    "exclude": [
+        "Examples"
+    ]
 }

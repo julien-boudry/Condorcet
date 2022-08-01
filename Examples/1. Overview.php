@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 // II - Create Election
 
-$election1 = new Election;
+    $election1 = new Election;
 
 
 // III - Manage Candidate
@@ -132,11 +132,8 @@ $election1 = new Election;
             $election1->addVote($VoteModel);
         }
 
-
-            // How Many Vote could I Have now ?
-            $election1->countVotes(); // Return 110 (int)
-
-
+        // How Many Vote could I Have now ?
+        $election1->countVotes(); // Return 110 (int)
 
 
     # -B- Manage Votes
@@ -181,7 +178,6 @@ $election1 = new Election;
             $myVote1History = $myVote1->getHistory();
 
 
-
         # 3- Delete Votes
 
             // Delete a specific vote object
@@ -196,24 +192,22 @@ $election1 = new Election;
 
 // V - Get Result
 
-            // Natural Condorcet Winner
-            $election1->getWinner(); // Return NULL if there is not, else return the winner candidate object
-            $election1->getWinner('Schulze'); // Same thing, but try to resolve winner by Schulze method that extends Condorcet method. Can return an array of winners if there are multiple.
+    // Natural Condorcet Winner
+    $election1->getWinner(); // Return NULL if there is not, else return the winner candidate object
+    $election1->getWinner('Schulze'); // Same thing, but try to resolve winner by Schulze method that extends Condorcet method. Can return an array of winners if there are multiple.
 
-            // Natural Condorcet Loser
-            $election1->getLoser(); // Return NULL if there is not, else return the winner candidate object
-            $election1->getLoser('Schulze'); // Same thing, but try to resolve loser by Schulze method that extends Condorcet method. Can return an array of winners if there are multiple.
+    // Natural Condorcet Loser
+    $election1->getLoser(); // Return NULL if there is not, else return the winner candidate object
+    $election1->getLoser('Schulze'); // Same thing, but try to resolve loser by Schulze method that extends Condorcet method. Can return an array of winners if there are multiple.
 
-            // Advanced Method -
-            $election1->getResult(); // Result set for defaut method (Should be Schulze Winning). That return a Condorcet/Result object.
-            $election1->getResult('Copeland'); // Do it with the Copeland method
+    // Advanced Method -
+    $election1->getResult(); // Result set for defaut method (Should be Schulze Winning). That return a Condorcet/Result object.
+    $election1->getResult('Copeland'); // Do it with the Copeland method
 
-            /* Please note that a Result object is fixed and independent. It does not change automatically when you change the election. You then have requested the production of a new object result. */
+    /* Please note that a Result object is fixed and independent. It does not change automatically when you change the election. You then have requested the production of a new object result. */
 
-            // Get an easy game outcome to read and understand (Table populated by string)
-            $election1->getResult('Schulze')->getResultAsArray(true);
-
-
+    // Get an easy game outcome to read and understand (Table populated by string)
+    $election1->getResult('Schulze')->getResultAsArray(true);
 
 
 print $firstPart ?? 'Success!
