@@ -414,7 +414,7 @@ class ElectionCommand extends Command
             $this->io->methodResultSection($oneMethod['name']);
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
-                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota')));
+                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota'))); // @phpstan-ignore-line
             }
 
             // Result

@@ -69,7 +69,7 @@ class DodgsonQuick extends Method implements MethodInterface
         $rank = 0;
         $result = [];
 
-        if ($basicCondorcetWinner = $election->getWinner(null)) {
+        if ($basicCondorcetWinner = $election->getCondorcetWinner()) {
             $result[++$rank][] = $election->getCandidateKey($basicCondorcetWinner);
         }
 

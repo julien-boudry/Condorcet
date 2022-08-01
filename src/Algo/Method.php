@@ -71,7 +71,7 @@ abstract class Method
     #[InternalModulesAPI]
     public function getElection(): Election
     {
-        return $this->selfElection->get();
+        return $this->selfElection->get(); // @phpstan-ignore-line
     }
 
     #[InternalModulesAPI]
