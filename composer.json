@@ -69,15 +69,13 @@
     "bin": ["bin/condorcet"],
     "archive": {
         "exclude": [
+            "/Assets",
             "/Benchmarks",
             "/Dev/",
             "/Documentation",
             "/Examples",
             "/Tests",
-            "condorcet-logo.psd",
-            "phpbench.json.dist",
-            "phpcs.xml.dist",
-            ".travis.yml"
+            "*.dist"
         ]
     },
     "config": {

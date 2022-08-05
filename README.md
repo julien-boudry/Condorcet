@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="condorcet-logo.png" alt="Condorcet" width="40%">
+  <img src="Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
 </p>
 
 [![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=for-the-badge)](https://packagist.org/packages/julien-boudry/condorcet)

@@ -1,11 +1,10 @@
-condorcet-logo*
+# Assets
+Assets/Logos
 
 # git
 .git
 
 # Large Votes Data
-lib/Algo/Methods/KemenyYoung-Data/9.data
-lib/Algo/Methods/KemenyYoung-Data/10.data
 Dev/large.votes
 *.sqlite
 
