@@ -20,6 +20,8 @@ abstract class Method
 {
     use CondorcetVersion;
 
+    private const METHOD_NAME = ['abstractMethod'];
+
     public const IS_PROPORTIONAL = false;
 
     public static ?int $MaxCandidates = null;
@@ -69,7 +71,7 @@ abstract class Method
     #[InternalModulesAPI]
     public function getElection(): Election
     {
-        return $this->selfElection->get();
+        return $this->selfElection->get(); // @phpstan-ignore-line
     }
 
     #[InternalModulesAPI]

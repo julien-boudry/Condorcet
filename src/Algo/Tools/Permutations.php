@@ -51,7 +51,7 @@ class Permutations
                 $result = $result * ($candidatesNumber - $iteration);
             }
 
-            if (\is_float($result)) {
+            if (\is_float($result)) { // @phpstan-ignore-line
                 throw new CondorcetIntegerOverflowException;
             } else {
                 return $result;

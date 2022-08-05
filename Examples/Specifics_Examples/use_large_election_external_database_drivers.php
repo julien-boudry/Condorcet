@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 // I - Install
     use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election};
-use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
+    use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 
     require_once __DIR__.'/../../__CondorcetAutoload.php';
 

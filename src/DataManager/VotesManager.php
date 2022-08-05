@@ -39,7 +39,7 @@ class VotesManager extends ArrayManager
         return str_replace([' > ', ' = '], ['>', '='], (string) $data);
     }
 
-    protected function preDeletedTask($object): void
+    protected function preDeletedTask(Vote $object): void
     {
         $object->destroyLink($this->getElection());
     }

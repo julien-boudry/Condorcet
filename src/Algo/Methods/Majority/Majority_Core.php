@@ -79,7 +79,7 @@ abstract class Majority_Core extends Method implements MethodInterface
                     if ($lastScore === null ||
                         $nextRoundAddedCandidates < ($this->targetNumberOfCandidatesForTheNextRound + ($this->numberOfTargetedCandidatesAfterEachRound * ($round - 1))) ||
                         $oneScore === $lastScore
-                        ) {
+                    ) {
                         $this->admittedCandidates[] = $oneCandidateKey;
                         $lastScore = $oneScore;
                         $nextRoundAddedCandidates++;

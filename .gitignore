@@ -19,3 +19,4 @@ Dev/large.votes
 # IDE
 *.idea
 *.code-workspace
+phpstan.neon

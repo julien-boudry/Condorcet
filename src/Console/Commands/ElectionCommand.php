@@ -202,7 +202,7 @@ class ElectionCommand extends Command
 
         // Logo
         $this->io->newLine();
-        $this->io->logo(__DIR__.'/../Assets/'.($this->terminal->getWidth() >= 125 ? 'logo.125c.ascii' : 'logo.90c.ascii'));
+        $this->io->logo($this->terminal->getWidth());
         $this->io->newLine();
 
         // Header
@@ -417,7 +417,7 @@ class ElectionCommand extends Command
             $this->io->methodResultSection($oneMethod['name']);
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
-                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota')));
+                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota'))); // @phpstan-ignore-line
             }
 
             // Result

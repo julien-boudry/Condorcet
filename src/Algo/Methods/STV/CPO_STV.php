@@ -243,21 +243,21 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Votes
-                $coef = Method::DECIMAL_PRECISION ** 10; # Actually, vote weight does not support float
-                foreach ($this->outcomeComparisonTable as $comparison) {
-                    ($vote1 = new Vote([
-                        (string) $key = array_key_first($comparison['outcomes_scores']),
-                        (string) array_key_last($comparison['outcomes_scores']),
-                    ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
+        $coef = Method::DECIMAL_PRECISION ** 10; # Actually, vote weight does not support float
+        foreach ($this->outcomeComparisonTable as $comparison) {
+            ($vote1 = new Vote([
+                (string) $key = array_key_first($comparison['outcomes_scores']),
+                (string) array_key_last($comparison['outcomes_scores']),
+            ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
-                    ($vote2 = new Vote([
-                        (string) $key = array_key_last($comparison['outcomes_scores']),
-                        (string) array_key_first($comparison['outcomes_scores']),
-                    ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
+            ($vote2 = new Vote([
+                (string) $key = array_key_last($comparison['outcomes_scores']),
+                (string) array_key_first($comparison['outcomes_scores']),
+            ]))->setWeight((int) ($comparison['outcomes_scores'][$key] * $coef));
 
-                    $winnerOutcomeElection->addVote($vote1);
-                    $winnerOutcomeElection->addVote($vote2);
-                }
+            $winnerOutcomeElection->addVote($vote1);
+            $winnerOutcomeElection->addVote($vote2);
+        }
 
         // Selection Winner
         $selectionSucces = false;

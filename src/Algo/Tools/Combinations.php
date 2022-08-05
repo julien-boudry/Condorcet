@@ -58,7 +58,7 @@ class Combinations
                 $b *= $i;
             }
 
-            if (\is_float($a) || \is_float($b)) {
+            if (\is_float($a) || \is_float($b)) { // @phpstan-ignore-line
                 throw new CondorcetIntegerOverflowException;
             } else {
                 return (int) ($a / $b);

@@ -233,7 +233,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         }
     }
 
-    public function keyExist($offset): bool
+    public function keyExist(int $offset): bool
     {
         if (\array_key_exists(key: $offset, array: $this->Container) || ($this->DataHandler !== null && $this->DataHandler->selectOneEntity(key: $offset) !== false)) {
             return true;
@@ -271,7 +271,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     /////////// HANDLER API ///////////
 
-    abstract protected function preDeletedTask($object): void;
+    abstract protected function preDeletedTask(Vote $object): void;
 
     abstract protected function decodeOneEntity(string $data): Vote;
 
