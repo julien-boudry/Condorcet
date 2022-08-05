@@ -45,7 +45,8 @@ class ElectionCommand extends Command
     protected ?string $DavidHillFormatPath;
 
     public static int $VotesPerMB = 100;
-    protected string $ini_memory_limit;
+    protected string $iniMemoryLimit;
+    protected int $maxVotesInMemory;
 
     // Internal Process
     protected bool $candidatesListIsWrite = false;
@@ -187,7 +188,7 @@ class ElectionCommand extends Command
 
         // Parameters
         $this->setUpParameters($input);
-        $this->ini_memory_limit = (self::$forceIniMemoryLimitTo === null) ? \ini_get('memory_limit') : self::$forceIniMemoryLimitTo;
+        $this->iniMemoryLimit = (self::$forceIniMemoryLimitTo === null) ? preg_replace('`[^-0-9KMG]`', '', \ini_get('memory_limit')) : self::$forceIniMemoryLimitTo;
 
         // Non-interactive candidates
         $this->candidates = $input->getOption('candidates') ?? null;
@@ -349,8 +350,10 @@ class ElectionCommand extends Command
             $this->io->title('Debug - External Handler Informations');
 
             $this->io->definitionList(
+                ['Ini max_memory' => $this->iniMemoryLimit],
                 ['Votes per Mb' => self::$VotesPerMB],
                 ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
+                ['Max Votes in Memory' => $this->maxVotesInMemory],
             );
         }
 
@@ -679,26 +682,35 @@ class ElectionCommand extends Command
         if ($input->getOption('deactivate-file-cache') || !class_exists('\PDO') || !\in_array(needle: 'sqlite', haystack: \PDO::getAvailableDrivers(), strict: true)) {
             return null;
         } else {
-            $election = $this->election;
-            $SQLitePath = &$this->SQLitePath;
+            if ($this->iniMemoryLimit === '-1') {
+                $memoryLimit = 8 * (1000 * 1048576); # Limit to 8GB, use a true memory limit to go further
+            } else {
+                $memoryLimit = (int) preg_replace('`[^0-9]`', '', $this->iniMemoryLimit);
+                $memoryLimit *= match (mb_strtoupper(mb_substr($this->iniMemoryLimit, -1, 1))) {
+                    'K' => 1024,
+                    'M' => 1048576,
+                    'G' => (1000 * 1048576),
+                    default => 1
+                };
+            }
 
-            $memory_limit = (int) preg_replace('`[^0-9]`', '', $this->ini_memory_limit);
-            $vote_in_memory_limit = self::$VotesPerMB * $memory_limit;
+            $memoryLimit = (int) ($memoryLimit / 1048576);
+            $this->maxVotesInMemory = self::$VotesPerMB * $memoryLimit;
 
-            $callBack = static function (int $inserted_votes_count) use ($election, $vote_in_memory_limit, &$SQLitePath): bool {
-                if ($inserted_votes_count > $vote_in_memory_limit) {
+            $callBack = function (int $inserted_votes_count): bool {
+                if ($inserted_votes_count > $this->maxVotesInMemory) {
 
                     /**
                      * @infection-ignore-all
                      */
-                    if (file_exists($SQLitePath = getcwd().\DIRECTORY_SEPARATOR.'condorcet-bdd.sqlite')) {
-                        unlink($SQLitePath);
+                    if (file_exists($this->SQLitePath = getcwd().\DIRECTORY_SEPARATOR.'condorcet-bdd.sqlite')) {
+                        unlink($this->SQLitePath);
                     }
 
                     /**
                      * @infection-ignore-all
                      */
-                    $election->setExternalDataHandler(new PdoHandlerDriver(new \PDO('sqlite:'.$SQLitePath, '', '', [\PDO::ATTR_PERSISTENT => false]), true));
+                    $this->election->setExternalDataHandler(new PdoHandlerDriver(new \PDO('sqlite:'.$this->SQLitePath, '', '', [\PDO::ATTR_PERSISTENT => false]), true));
 
                     return false; // No, stop next iteration
                 } else {
