@@ -1,7 +1,0 @@
-exclude:
-- /Documentation/.*
-- /Examples/.*
-- /Benchmarks/.*
-component_depth: 2
-languages:
-- php
