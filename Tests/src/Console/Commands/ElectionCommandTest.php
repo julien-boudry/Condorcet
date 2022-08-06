@@ -243,8 +243,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('* Condorcet winner | NULL', $output);
-        self::assertStringContainsString('# Condorcet loser  | NULL', $output);
+        self::assertStringContainsString(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet winner | -', $output);
+        self::assertStringContainsString(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet loser  | -', $output);
     }
 
     public function testFromCondorcetElectionFormat_DoubleCandidates(): void
