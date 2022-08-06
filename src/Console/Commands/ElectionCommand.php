@@ -311,7 +311,7 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function importInputData(InputInterface $input): void
+    protected function importInputsData(InputInterface $input): void
     {
         // Define Callback
         $callBack = $this->useDataHandler($input);
@@ -340,31 +340,86 @@ class ElectionCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Start Timer Chrono
         $chrono = new Chrono($this->timer, 'CondorcetConsoleCommand');
 
-        $this->importInputData($input);
+        // Import Inputs
+        $this->importInputsData($input);
 
-        // Summary
-        $this->io->title('Configuration');
+        // Inputs Display Section
+        $this->displayInputsSection();
 
-        $output->write("<condor1>{$this->election->countCandidates()} candidate".($this->election->countCandidates() > 1 ? 's' : '').' registered</>');
-        $this->io->inlineSeparator();
-        $output->writeln('<condor2>'.number_format($this->election->countVotes(), thousands_separator: ' ').' vote'.($this->election->countVotes() > 1 ? 's' : '').' registered</>');
-        $this->io->newLine();
-
+        // Debug Display Section
         if ($output->isDebug()) {
-            $this->io->newLine();
-            $this->io->title('Debug - External Handler Informations');
-
-            $this->io->definitionList(
-                ['Ini max_memory' => $this->iniMemoryLimit],
-                ['Votes per Mb' => self::$VotesPerMB],
-                ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
-                ['Max Votes in Memory' => $this->maxVotesInMemory],
-            );
+            $this->displayDebugSection();
         }
 
+        // Configuration Display Section
+        $this->displayConfigurationSection();
 
+        // Verbose Display Section
+        if ($output->isVerbose() || $input->getOption('list-votes')) {
+            $this->displayDetailedElectionInputsSection($input, $output);
+        }
+
+        // Pairwise Display Section
+        if ($input->getOption('show-pairwise') || $input->getOption('stats')) {
+            $this->displayPairwiseSection($output);
+            $this->io->newLine();
+        }
+
+        // NaturalCondorcet Dislay Section
+        $this->displayNaturalCondorcet($input, $output);
+
+        // MethodsResults Display Section
+        $this->io->newLine();
+        $this->io->title('Results per methods');
+        $this->displayMethodsResultSection($input, $output);
+
+
+        // RM Sqlite Database if exist
+        /**
+         * @infection-ignore-all
+         */
+        if (($SQLitePath = $this->SQLitePath) !== null) {
+            $this->election = null;
+            unlink($SQLitePath);
+        }
+
+        // Timer
+        unset($chrono);
+        $this->displayTimerSection();
+
+        return Command::SUCCESS;
+    }
+
+    protected function displayInputsSection(): void
+    {
+        $messageCandidates = "<condor1>{$this->election->countCandidates()} candidate".($this->election->countCandidates() > 1 ? 's' : '').' registered</>';
+        $messageVotes = '<condor2>'.number_format($this->election->countVotes(), thousands_separator: ' ').' vote'.($this->election->countVotes() > 1 ? 's' : '').' registered</>';
+
+        $this->io->writeln('<comment>'.str_repeat('-', mb_strlen($messageCandidates.$messageVotes) + 4 - 24).'</comment>');
+        $this->io->write($messageCandidates);
+        $this->io->inlineSeparator();
+        $this->io->writeln($messageVotes);
+        $this->io->newLine();
+    }
+
+    protected function displayDebugSection(): void
+    {
+        $this->io->newLine();
+        $this->io->title('Debug - External Handler Informations');
+
+        $this->io->definitionList(
+            ['Ini max_memory' => $this->iniMemoryLimit],
+            ['Votes per Mb' => self::$VotesPerMB],
+            ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
+            ['Max Votes in Memory' => $this->maxVotesInMemory],
+        );
+    }
+
+    protected function displayConfigurationSection(): void
+    {
         $this->io->title('Configuration');
 
         $this->io->definitionList(
@@ -374,28 +429,120 @@ class ElectionCommand extends Command
             new TableSeparator,
             ['Is vote tie in rank allowed?' => \in_array(needle: NoTie::class, haystack: $this->election->getConstraints(), strict: true) ? 'FALSE' : 'TRUE']
         );
+    }
 
-        // Input Sum Up
+    protected function displayDetailedElectionInputsSection(InputInterface $input, OutputInterface $output): void
+    {
+        $this->io->title('Detailed Election Inputs');
+
         if ($output->isVerbose()) {
-            $this->sectionVerbose($output);
+            $this->displayVerbose($output);
         }
 
+        // List-Votes Display Section
         if ($input->getOption('list-votes')) {
             $this->displayVotesCount($output);
             $this->io->newLine();
             $this->displayVotesList($output);
             $this->io->newLine();
         }
+    }
 
-        // Pairwise
-        if ($input->getOption('show-pairwise') || $input->getOption('stats')) {
-            $this->displayPairwise($output);
-            $this->io->newLine();
+    protected function displayVerbose(OutputInterface $output): void
+    {
+        $this->displayCandidatesList($output);
+        $this->io->newLine();
+        $this->displayVotesCount($output);
+        $this->io->newLine();
+    }
+
+    protected function displayCandidatesList(OutputInterface $output): void
+    {
+        if (!$this->candidatesListIsWrite) {
+            // Candidate List
+            ($candidateTable = new Table($output))
+                ->setHeaderTitle('Registered candidates')
+                ->setHeaders(['Num', 'Candidate name'])
+
+                ->setStyle($this->io->MainTableStyle)
+                ->setColumnStyle(0, $this->io->FirstColumnStyle)
+                ->setColumnWidth(0, 14)
+            ;
+
+            $candidate_num = 1;
+            foreach ($this->election->getCandidatesListAsString() as $oneCandidate) {
+                $candidateTable->addRow([$candidate_num++, $oneCandidate]);
+            }
+
+            $candidateTable->render();
+
+            $this->candidatesListIsWrite = true;
+        }
+    }
+
+    protected function displayVotesCount(OutputInterface $output): void
+    {
+        if (!$this->votesCountIsWrite) {
+            // Votes Count
+            ($votesStatsTable = new Table($output))
+                ->setHeaderTitle('Stats - votes registration')
+                ->setHeaders(['Stats', 'Value'])
+                ->setColumnStyle(0, (new Tablestyle)->setPadType(\STR_PAD_LEFT))
+                ->setStyle($this->io->MainTableStyle)
+            ;
+
+            $formatter = static fn (int $input): string => number_format($input, thousands_separator: ' ');
+
+            $votesStatsTable->addRow(['Count registered votes', $formatter($this->election->countVotes())]);
+            $votesStatsTable->addRow(['Count valid registered votes with constraints', $formatter($this->election->countValidVoteWithConstraints())]);
+            $votesStatsTable->addRow(['Count invalid registered votes with constraints', $formatter($this->election->countInvalidVoteWithConstraints())]);
+            $votesStatsTable->addRow(['Sum vote weight', $formatter($this->election->sumVotesWeight())]);
+            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $formatter($this->election->sumValidVotesWeightWithConstraints())]);
+
+            $votesStatsTable->render();
+
+            $this->votesCountIsWrite = true;
+        }
+    }
+
+    protected function displayVotesList(OutputInterface $output): void
+    {
+        ($votesTable = new Table($output))
+            ->setHeaderTitle('Registered votes list')
+            ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
+
+            ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 50))
+            ->setStyle($this->io->MainTableStyle)
+        ;
+
+        foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) {
+            $votesTable->addRow([($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags())]);
         }
 
-        // Natural Condorcet
+        $votesTable->render();
+    }
+
+    protected function displayPairwiseSection(OutputInterface $output): void
+    {
+        if (!$this->pairwiseIsWrite) {
+            (new Table($output))
+                ->setHeaderTitle('Pairwise')
+                ->setHeaders(['For each candidate, show their win, null, or lose'])
+                ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(), 100))]])
+
+                ->setStyle($this->io->MainTableStyle)
+                ->render()
+            ;
+
+            $this->pairwiseIsWrite= true;
+        }
+    }
+
+    protected function displayNaturalCondorcet(InputInterface $input, OutputInterface $output): void
+    {
         if ($input->getOption('natural-condorcet')) {
-            $this->io->section('Condorcet natural winner & loser');
+            $this->io->methodResultSection('Condorcet natural winner & loser');
+            $this->io->newLine();
 
             (new Table($output))
                 ->setHeaderTitle('Natural Condorcet')
@@ -411,13 +558,11 @@ class ElectionCommand extends Command
 
             $this->io->newLine();
         }
+    }
 
-        // By Method
-
+    protected function displayMethodsResultSection(InputInterface $input, OutputInterface $output): void
+    {
         $methods = FormaterHelper::prepareMethods($input->getArgument('methods'));
-
-        $this->io->newLine();
-        $this->io->title('Results per methods');
 
         foreach ($methods as $oneMethod) {
             $this->io->methodResultSection($oneMethod['name']);
@@ -493,121 +638,16 @@ class ElectionCommand extends Command
                 $table->render();
             }
         }
+    }
 
-        unset($result);
-
-        // RM Sqlite Database if exist
-        /**
-         * @infection-ignore-all
-         */
-        if (($SQLitePath = $this->SQLitePath) !== null) {
-            $this->election = null;
-            unlink($SQLitePath);
-        }
-
-        // Timer
-        unset($chrono);
-
+    protected function displayTimerSection(): void
+    {
         $executionTime = round($this->timer->getGlobalTimer(), 4);
 
         $this->io->newLine();
-        $this->io->writeln('<comment>=======================</comment>', OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->writeln('<comment>'.str_repeat('-', 23).'</comment>', OutputInterface::VERBOSITY_VERBOSE);
         $this->io->writeln("<comment>Execution Time: {$executionTime}s</comment>", OutputInterface::VERBOSITY_VERBOSE);
         $this->io->newLine();
-
-        return Command::SUCCESS;
-    }
-
-    protected function sectionVerbose(OutputInterface $output): void
-    {
-        $this->io->title('Detailed election input');
-
-        $this->displayCandidatesList($output);
-        $this->io->newLine();
-        $this->displayVotesCount($output);
-        $this->io->newLine();
-    }
-
-    protected function displayCandidatesList(OutputInterface $output): void
-    {
-        if (!$this->candidatesListIsWrite) {
-            // Candidate List
-            ($candidateTable = new Table($output))
-                ->setHeaderTitle('Registered candidates')
-                ->setHeaders(['Num', 'Candidate name'])
-
-                ->setStyle($this->io->MainTableStyle)
-                ->setColumnStyle(0, $this->io->FirstColumnStyle)
-                ->setColumnWidth(0, 14)
-            ;
-
-            $candidate_num = 1;
-            foreach ($this->election->getCandidatesListAsString() as $oneCandidate) {
-                $candidateTable->addRow([$candidate_num++, $oneCandidate]);
-            }
-
-            $candidateTable->render();
-
-            $this->candidatesListIsWrite = true;
-        }
-    }
-
-    public function displayVotesCount(OutputInterface $output): void
-    {
-        if (!$this->votesCountIsWrite) {
-            // Votes Count
-            ($votesStatsTable = new Table($output))
-                ->setHeaderTitle('Stats - votes registration')
-                ->setHeaders(['Stats', 'Value'])
-                ->setColumnStyle(0, (new Tablestyle)->setPadType(\STR_PAD_LEFT))
-                ->setStyle($this->io->MainTableStyle)
-            ;
-
-            $formatter = static fn (int $input): string => number_format($input, thousands_separator: ' ');
-
-            $votesStatsTable->addRow(['Count registered votes', $formatter($this->election->countVotes())]);
-            $votesStatsTable->addRow(['Count valid registered votes with constraints', $formatter($this->election->countValidVoteWithConstraints())]);
-            $votesStatsTable->addRow(['Count invalid registered votes with constraints', $formatter($this->election->countInvalidVoteWithConstraints())]);
-            $votesStatsTable->addRow(['Sum vote weight', $formatter($this->election->sumVotesWeight())]);
-            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $formatter($this->election->sumValidVotesWeightWithConstraints())]);
-
-            $votesStatsTable->render();
-
-            $this->votesCountIsWrite = true;
-        }
-    }
-
-    public function displayVotesList(OutputInterface $output): void
-    {
-        ($votesTable = new Table($output))
-            ->setHeaderTitle('Registered votes list')
-            ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
-
-            ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 50))
-            ->setStyle($this->io->MainTableStyle)
-        ;
-
-        foreach ($this->election->getVotesValidUnderConstraintGenerator() as $voteKey => $oneVote) {
-            $votesTable->addRow([($voteKey + 1), $oneVote->getSimpleRanking($this->election, false), $oneVote->getWeight($this->election), implode(',', $oneVote->getTags())]);
-        }
-
-        $votesTable->render();
-    }
-
-    public function displayPairwise(OutputInterface $output): void
-    {
-        if (!$this->pairwiseIsWrite) {
-            (new Table($output))
-                ->setHeaderTitle('Pairwise')
-                ->setHeaders(['For each candidate, show their win, null, or lose'])
-                ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(), 100))]])
-
-                ->setStyle($this->io->MainTableStyle)
-                ->render()
-            ;
-
-            $this->pairwiseIsWrite= true;
-        }
     }
 
     # Processing
