@@ -74,10 +74,12 @@ class Manager
         return $this->history;
     }
 
-    public function startDeclare(Chrono $chrono): void
+    public function startDeclare(Chrono $chrono): static
     {
         if ($this->startDeclare === null) {
             $this->startDeclare = $chrono->getStart();
         }
+
+        return $this;
     }
 }

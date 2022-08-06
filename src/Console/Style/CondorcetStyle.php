@@ -28,7 +28,7 @@ class CondorcetStyle extends SymfonyStyle
     public const CONDORCET_WINNER_SYMBOL = '★';
     public const CONDORCET_LOSER_SYMBOL = '⚐';
     public const CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>'.self::CONDORCET_WINNER_SYMBOL.'</>';
-    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#87ffff>'.self::CONDORCET_LOSER_SYMBOL.'</>';
+    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#33beff>'.self::CONDORCET_LOSER_SYMBOL.'</>';
 
     public readonly TableStyle $MainTableStyle;
     public readonly TableStyle $FirstColumnStyle;
@@ -138,7 +138,11 @@ class CondorcetStyle extends SymfonyStyle
         $this->writeln("{$vbs} <bg=".self::CONDORCET_SECONDARY_COLOR.';options=bold>  Vote Method  </><bg='.self::CONDORCET_MAIN_COLOR.";options=bold>  {$message}  </> {$vbs}");
         $this->writeln($bande);
         $this->writeln($horizontalBorder);
-        $this->newLine();
+    }
+
+    public function note(string|array $message): void
+    {
+        $this->block(messages: $message, style: 'fg=gray');
     }
 
     public function success(string|array $message): void

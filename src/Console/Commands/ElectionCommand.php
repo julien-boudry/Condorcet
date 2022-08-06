@@ -20,6 +20,7 @@ use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteConstraintException};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Timer\{Chrono, Manager};
 use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
 use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -60,6 +61,7 @@ class ElectionCommand extends Command
 
     // Debug
     public static ?string $forceIniMemoryLimitTo = null;
+    protected Manager $timer;
 
     protected function configure(): void
     {
@@ -177,6 +179,9 @@ class ElectionCommand extends Command
         // Initialize Style & Terminal
         $this->io = new CondorcetStyle($input, $output);
         $this->terminal = new Terminal;
+
+        // Setup Timer Manager
+        $this->timer = new Manager;
 
         // Setup Memory
         if ($input->getOption('votes-per-mb') && ($NewVotesPerMB = (int) $input->getOption('votes-per-mb')) >= 1) {
@@ -335,6 +340,8 @@ class ElectionCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $chrono = new Chrono($this->timer, 'CondorcetConsoleCommand');
+
         $this->importInputData($input);
 
         // Summary
@@ -413,7 +420,6 @@ class ElectionCommand extends Command
         $this->io->title('Results per methods');
 
         foreach ($methods as $oneMethod) {
-            $this->io->newLine();
             $this->io->methodResultSection($oneMethod['name']);
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
@@ -499,9 +505,15 @@ class ElectionCommand extends Command
             unlink($SQLitePath);
         }
 
-        // Success
+        // Timer
+        unset($chrono);
+
+        $executionTime = round($this->timer->getGlobalTimer(), 4);
+
         $this->io->newLine();
-        // $this->io->success('Success');
+        $this->io->writeln('<comment>=======================</comment>', OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->writeln("<comment>Execution Time: {$executionTime}s</comment>", OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->newLine();
 
         return Command::SUCCESS;
     }
