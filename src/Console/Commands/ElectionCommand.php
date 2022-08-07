@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Console\Helper\{CommandInputHelper, FormaterHelper};
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
@@ -40,6 +41,7 @@ class ElectionCommand extends Command
     protected ?Election $election;
     protected ?string $candidates;
     protected ?string $votes;
+    protected bool $displayMethodsStats = false;
 
     protected ?string $CondorcetElectionFormatPath;
     protected ?string $DebianFormatPath;
@@ -190,6 +192,8 @@ class ElectionCommand extends Command
 
         // Setup Election Object
         $this->election = new Election;
+        $this->displayMethodsStats = $input->getOption('method-stats') || $input->getOption('stats');
+        $this->election->setStatsVerbosity($this->displayMethodsStats ? StatsVerbosity::HIGH : StatsVerbosity::NONE);
 
         // Parameters
         $this->setUpParameters($input);
@@ -508,10 +512,12 @@ class ElectionCommand extends Command
     protected function displayVotesList(OutputInterface $output): void
     {
         ($votesTable = new Table($output))
-            ->setHeaderTitle('Registered votes list')
-            ->setHeaders(['Vote Num.', 'Vote', 'Vote Weight', 'Vote Tags'])
+            ->setHeaderTitle('Registered Votes List')
+            ->setHeaders(['Vote Num', 'Vote', 'Weight', 'Vote Tags'])
 
-            ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 50))
+            ->setColumnWidth(0, 8)
+            ->setColumnWidth(1, 30)
+            ->setColumnMaxWidth(2, 6)
             ->setStyle($this->io->MainTableStyle)
         ;
 
@@ -548,8 +554,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                    [CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.'  Condorcet winner', (string) ($this->election->getCondorcetWinner() ?? '-')],
-                    [CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED.'  Condorcet loser', (string) ($this->election->getCondorcetLoser() ?? '-')],
+                    [CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.'  Condorcet Winner', (string) ($this->election->getCondorcetWinner() ?? '-')],
+                    [CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED.'  Condorcet Loser', (string) ($this->election->getCondorcetLoser() ?? '-')],
                 ])
 
                 ->setStyle($this->io->MainTableStyle)
@@ -586,20 +592,24 @@ class ElectionCommand extends Command
                     $rows[] = [$key.':', $value];
                 }
 
+                $this->io->newLine();
+
                 (new Table($output))
                     ->setHeaderTitle('Configuration: '.$oneMethod['name'])
                     ->setHeaders(['Variable', 'Value'])
                     ->setRows($rows)
 
                     ->setColumnStyle(0, $this->io->FirstColumnStyle)
-                    ->setColumnWidth(0, 30)
-                    ->setColumnWidth(1, 70)
+                    ->setColumnMaxWidth(0, 30)
+
+                    ->setColumnMaxWidth(0, 40)
+
                     ->setStyle($this->io->MainTableStyle)
                     ->render()
                 ;
             }
 
-            $this->io->newLine(2);
+            $this->io->newLine();
 
             $this->io->write('<condor3>'.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.' Condorcet Winner</>');
             $this->io->inlineSeparator();
@@ -610,9 +620,9 @@ class ElectionCommand extends Command
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows(FormaterHelper::formatResultTable($result))
 
-                ->setColumnWidth(0, 30)
-                ->setColumnWidth(1, 70)
-                ->setColumnMaxWidth(1, ($this->terminal->getWidth() - 30))
+                ->setColumnWidth(0, $fcw = 20)
+                ->setColumnWidth(1, 50)
+                ->setColumnMaxWidth(1, ($this->terminal->getWidth() - $fcw - 10 - 3))
 
                 ->setColumnStyle(0, $this->io->FirstColumnStyle)
                 ->setStyle($this->io->MainTableStyle)
@@ -620,12 +630,13 @@ class ElectionCommand extends Command
             ;
 
             // Stats
-            if ($input->getOption('method-stats') || $input->getOption('stats')) {
+            if ($this->displayMethodsStats) {
                 $table = (new Table($output))
                     ->setHeaderTitle('Stats: '.$oneMethod['name'])
 
-                    ->setColumnWidth(0, 100)
-                    ->setColumnStyle(0, $this->io->FirstColumnStyle)
+                    ->setColumnWidth(0, 73)
+                    ->setColumnMaxWidth(0, $this->terminal->getWidth() - 10)
+                    // ->setColumnStyle(0, $this->io->FirstColumnStyle)
                     ->setStyle($this->io->MainTableStyle)
                 ;
 
