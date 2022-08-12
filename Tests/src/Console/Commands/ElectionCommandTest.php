@@ -49,7 +49,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Schulze', $output);
         self::assertStringContainsString('Registered candidates', $output);
         self::assertStringContainsString('Stats - votes registration', $output);
-        self::assertStringContainsString('Registered votes list', $output);
+        self::assertStringContainsString('Registered Votes List', $output);
         self::assertStringContainsString('Pairwise', $output);
         self::assertStringContainsString('Stats:', $output);
 
@@ -243,8 +243,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet winner | -', $output);
-        self::assertStringContainsString(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet loser  | -', $output);
+        self::assertStringContainsString(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet Winner | -', $output);
+        self::assertStringContainsString(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet Loser  | -', $output);
     }
 
     public function testFromCondorcetElectionFormat_DoubleCandidates(): void
