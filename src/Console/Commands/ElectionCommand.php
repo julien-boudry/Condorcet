@@ -26,6 +26,7 @@ use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
 use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Completion\{CompletionInput, CompletionSuggestions};
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 use Symfony\Component\Yaml\Yaml;
@@ -174,6 +175,21 @@ class ElectionCommand extends Command
                 description: 'Methods to output',
             )
         ;
+    }
+
+    public function complete(CompletionInput $input, CompletionSuggestions $suggestions): void
+    {
+        if ($input->mustSuggestOptionValuesFor('quota')) {
+            $r = [];
+
+            foreach (StvQuotas::cases() as $case) {
+                $r[] = $case->name;
+            }
+
+            $suggestions->suggestValues($r);
+        } elseif ($input->mustSuggestArgumentValuesFor('methods')) {
+            $suggestions->suggestValues(Condorcet::getAuthMethods());
+        }
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
