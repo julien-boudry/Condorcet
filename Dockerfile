@@ -23,6 +23,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
         /usr/share/doc \
         /usr/share/doc-base
 
+# Sf Command completion
+RUN php bin/condorcet completion bash | tee /etc/bash_completion.d/console-events-terminate
+
 ENTRYPOINT [ "condorcet" ]
 
 # Usage:
