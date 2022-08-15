@@ -5,8 +5,9 @@
 /vendor/
 /composer.lock
 
-# phpunit
+# phpunit, phpstan
 .phpunit.result.cache
+phpstan.neon
 
 # infection
 Dev/infection_logs/
@@ -19,4 +20,4 @@ Dev/large.votes
 # IDE
 *.idea
 *.code-workspace
-phpstan.neon
+.vscode
