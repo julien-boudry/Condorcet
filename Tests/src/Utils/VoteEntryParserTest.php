@@ -171,7 +171,7 @@ class VoteEntryParserTest extends TestCase
                 'comment' => 'FeteDuDindon',
                 'multiple' => 42,
                 'ranking' => [],
-                'tags' => ['tag1','tag2'],
+                'tags' => ['tag1', 'tag2'],
                 'weight' => 7,
             ],
         ];
