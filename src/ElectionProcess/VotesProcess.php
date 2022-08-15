@@ -16,6 +16,7 @@ use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteException, 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
+use CondorcetPHP\Condorcet\Utils\{VoteEntryParser, VoteUtil};
 
 // Manage Results for Election class
 trait VotesProcess
@@ -366,30 +367,16 @@ trait VotesProcess
         $count = 0;
 
         foreach ($input as $line) {
-            // Disallow < and "
-            if (preg_match('/<|"/mi', $line) === 1) {
-                throw new VoteInvalidFormatException("found '<' or '|' in this line: " . $line);
-            }
+            $voteParser = new VoteEntryParser($line);
 
-            // Multiples
-            $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '*'), $line);
-
-            // Vote Weight
-            $weight = VoteUtil::parseAnalysingOneLine(mb_strpos($line, '^'), $line);
-
-            // Tags + vote
-            if (str_contains($line, '||') === true) {
-                $data = explode('||', $line);
-
-                $vote = $data[1];
-                $tags = $data[0];
-            // Vote without tags
-            } else {
-                $vote = $line;
-                $tags = null;
-            }
-
-            $this->synthesisVoteFromParse(count: $count, multiple: $multiple, adding: $adding, vote: $vote, tags: $tags, weight: $weight);
+            $this->synthesisVoteFromParse(
+                count: $count,
+                multiple: $voteParser->multiple,
+                adding: $adding,
+                vote: $voteParser->ranking,
+                tags: $voteParser->tags,
+                weight: $voteParser->weight,
+            );
         }
 
         $this->doAddVotesFromParse($adding);
@@ -440,31 +427,49 @@ trait VotesProcess
             $char = $file->fgetc();
 
             if ($char === ';' || $char === "\n" || $char === '#' || $char === false) {
-                try {
-                    CondorcetUtil::prepareParse($record, false);
+                if ($char === '#') {
+                    $record .= $char;
 
-                    $multiple = VoteUtil::parseAnalysingOneLine(mb_strpos(haystack: $record, needle: '*'), $record);
-
-                    for ($i=0; $i < $multiple; $i++) {
-                        $inserted_votes_count += $this->parseVotes($record);
-
-                        if ($doCallBack) {
-                            $doCallBack = $callBack($inserted_votes_count);
+                    while (($char = $file->fgetc()) !== false) {
+                        if ($char === "\n") {
+                            break;
+                        } else {
+                            $record .= $char;
                         }
+                    }
+                }
+
+                try {
+                    $parsedVote = new VoteEntryParser($record);
+
+                    if ($parsedVote->ranking === null) {
+                        $record = '';
+                        continue;
+                    }
+
+                    $count = 0;
+                    $adding = [];
+
+                    $this->synthesisVoteFromParse(
+                        count: $count,
+                        adding: $adding,
+                        vote: $parsedVote->ranking,
+                        tags: $parsedVote->tags,
+                        weight: $parsedVote->weight,
+                        multiple: $parsedVote->multiple
+                    );
+
+                    $this->doAddVotesFromParse($adding);
+
+                    $inserted_votes_count += $count;
+
+                    if ($doCallBack) {
+                        $doCallBack = $callBack($inserted_votes_count);
                     }
                 } catch (VoteInvalidFormatException) {
                     ++$fail_count;
                 } finally {
                     $record = '';
-                }
-
-                if ($char === '#') {
-                    $newLine = false;  // Can not use $file->current() then $file->next(): in case of very big election on one lince, can lead to memory limit.
-                    while (!$newLine && ($char = $file->fgetc()) !== false) {
-                        if ($char === "\n") {
-                            $newLine = true;
-                        }
-                    }
                 }
             } else {
                 $record .= $char;
@@ -486,7 +491,7 @@ trait VotesProcess
             throw new VoteMaxNumberReachedException(self::$maxParseIteration);
         }
 
-        $newVote = new Vote($vote, $tags, null, $this);
+        $newVote = new Vote(ranking: $vote, tags: $tags, electionContext: $this);
         $newVote->setWeight($weight);
 
         $adding[] = ['multiple' => $multiple, 'vote' => $newVote];

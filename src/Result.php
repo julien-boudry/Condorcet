@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
+use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
 class Result implements \ArrayAccess, \Countable, \Iterator

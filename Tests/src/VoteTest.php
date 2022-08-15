@@ -537,7 +537,7 @@ class VoteTest extends TestCase
         self::assertsame(1, $vote->getWeight($this->election1));
 
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: you must specify an integer for the vote weight');
+        $this->expectExceptionMessage("The format of the vote is invalid: the value 'a' is not an integer.");
 
         $vote = new Vote('A>B>C^a');
     }

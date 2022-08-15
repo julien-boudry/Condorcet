@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
+use CondorcetPHP\Condorcet\Utils\{VoteEntryParser, VoteUtil};
 
 class Vote implements \Iterator, \Stringable
 {
@@ -109,25 +109,15 @@ class Vote implements \Iterator, \Stringable
 
         // Vote Weight
         if (\is_string($ranking)) {
-            $is_voteWeight = mb_strpos(haystack: $ranking, needle: '^');
-            if ($is_voteWeight !== false) {
-                $weight = trim(mb_substr($ranking, $is_voteWeight + 1));
+            $parsedVote = new VoteEntryParser($ranking);
 
-                // Errors
-                if (!is_numeric($weight)) {
-                    throw new VoteInvalidFormatException('you must specify an integer for the vote weight');
-                }
-
-                $weight = \intval($weight);
-
-                $ranking = mb_substr($ranking, 0, $is_voteWeight);
+            if ($parsedVote->weight > 1) {
+                $weight = $parsedVote->weight;
             }
 
-            $is_voteTags = mb_strpos($ranking, '||');
-            if ($is_voteTags !== false) {
-                $tagsFromString = explode(',', trim(mb_substr($ranking, 0, $is_voteTags)));
-                $ranking = mb_substr($ranking, $is_voteTags + 2);
-            }
+            $tagsFromString = $parsedVote->tags;
+
+            $ranking = $parsedVote->ranking ?? [];
         }
 
         $this->setRanking($ranking, $ownTimestamp);
@@ -475,7 +465,7 @@ class Vote implements \Iterator, \Stringable
     private function formatRanking(array|string &$ranking): int
     {
         if (\is_string($ranking)) {
-            $ranking = VoteUtil::convertVoteInput($ranking);
+            $ranking = (new VoteEntryParser($ranking))->ranking ?? [];
         }
 
         $ranking = array_filter($ranking, static fn ($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);

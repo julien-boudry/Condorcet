@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tests\ElectionProcess;
+namespace CondorcetPHP\Condorcet\Tests\Utils;
 
-use CondorcetPHP\Condorcet\ElectionProcess\VoteUtil;
+use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use PHPUnit\Framework\TestCase;
 
@@ -45,35 +45,6 @@ class VoteUtilTest extends TestCase
 
         // Unsorted array ranking
         $this->assertEquals('A = B > C', VoteUtil::getRankingAsString([['B', 'A'], 'C']));
-    }
-
-    public function testConvertVoteInput(): void
-    {
-        // Empty vote
-        $this->assertEquals(
-            [],
-            VoteUtil::convertVoteInput('')
-        );
-
-        $this->assertEquals(
-            [],
-            VoteUtil::convertVoteInput('')
-        );
-
-        $this->assertEquals(
-            [],
-            VoteUtil::convertVoteInput('  >  ')
-        );
-
-        // Normal vote
-        $this->assertEquals(
-            [
-                ['A'],
-                ['D', 'B'],
-                ['C'],
-            ],
-            VoteUtil::convertVoteInput('A   > D =    B > C ')
-        );
     }
 
     public function tagsProvider(): iterable

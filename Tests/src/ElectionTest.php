@@ -127,7 +127,7 @@ class ElectionTest extends TestCase
     public function testParseError(): never
     {
         $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid: the value 'text' is not numeric");
+        $this->expectExceptionMessage("The format of the vote is invalid: the value 'text' is not an integer.");
 
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }

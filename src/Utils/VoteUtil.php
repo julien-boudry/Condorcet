@@ -9,11 +9,10 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\ElectionProcess;
+namespace CondorcetPHP\Condorcet\Utils;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 
 // Base Condorcet class
 abstract class VoteUtil
@@ -54,50 +53,5 @@ abstract class VoteUtil
         }
 
         return implode(' > ', $ranking);
-    }
-
-    // From a string like 'A>B=C=H>G=T>Q'
-    public static function convertVoteInput(string $formula): array
-    {
-        $formula = trim($formula);
-
-        // Condorcet Election Format special string
-        if (empty($formula) || $formula === CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING) {
-            $ranking = [];
-        } else {
-            $ranking = explode('>', $formula);
-
-            foreach ($ranking as &$rank_vote) {
-                $rank_vote = explode('=', $rank_vote);
-                $rank_vote = array_filter($rank_vote);
-
-                // Del space at start and end
-                foreach ($rank_vote as &$value) {
-                    $value = trim($value);
-                }
-            }
-        }
-
-        return array_filter($ranking);
-    }
-
-    #[Throws(VoteInvalidFormatException::class)]
-    public static function parseAnalysingOneLine(int|bool $searchCharacter, string &$line): int
-    {
-        if (\is_int($searchCharacter)) {
-            $value = trim(mb_substr($line, $searchCharacter + 1));
-
-            // Errors
-            if (!is_numeric($value)) {
-                throw new VoteInvalidFormatException("the value '{$value}' is not numeric");
-            }
-
-            // Reformat line
-            $line = mb_substr($line, 0, $searchCharacter);
-
-            return \intval($value);
-        } else {
-            return 1;
-        }
     }
 }
