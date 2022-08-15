@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\ResultException;
+use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 class Result implements \ArrayAccess, \Countable, \Iterator
 {

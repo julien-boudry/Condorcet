@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Vote};
+use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
 
 class VoteTest extends TestCase

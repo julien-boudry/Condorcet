@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\Utils\{VoteEntryParser, VoteUtil};
+use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 class Vote implements \Iterator, \Stringable
 {

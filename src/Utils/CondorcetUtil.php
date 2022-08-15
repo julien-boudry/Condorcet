@@ -9,10 +9,13 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet;
+namespace CondorcetPHP\Condorcet\Utils;
 
+use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
+use CondorcetPHP\Condorcet\Vote;
 
 abstract class CondorcetUtil
 {

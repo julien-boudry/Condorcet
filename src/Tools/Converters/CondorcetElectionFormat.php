@@ -11,9 +11,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
-use CondorcetPHP\Condorcet\{Candidate, CondorcetUtil, Election};
+use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
+use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 class CondorcetElectionFormat implements ConverterInterface
 {

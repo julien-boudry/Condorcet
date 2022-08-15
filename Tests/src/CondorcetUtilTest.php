@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{CondorcetUtil, Vote};
+use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
+use CondorcetPHP\Condorcet\Vote;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetUtilTest extends TestCase

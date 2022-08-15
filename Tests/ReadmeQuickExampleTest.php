@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetUtil, Election, Result, Vote};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Result, Vote};
+use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
 
 class ReadmeQuickExampleTest extends TestCase
