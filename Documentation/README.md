@@ -31,10 +31,6 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public static Condorcet::isAuthMethod (...)](Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md): ```bool```  
 * [public static Condorcet::setDefaultMethod (...)](Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md): ```bool```  
 
-### CondorcetPHP\Condorcet\CondorcetUtil Class  
-
-* [public static CondorcetUtil::format (...)](CondorcetUtil%20Class/public%20static%20CondorcetUtil--format.md): ```mixed```  
-
 ### CondorcetPHP\Condorcet\Election Class  
 
 * ```public const MAX_CANDIDATE_NAME_LENGTH: (integer)```  
@@ -222,6 +218,10 @@ _*: I try to update and complete the documentation. See also [the manual](https:
 * [public Tools\Converters\DebianFormat->__construct (...)](Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
 
+### CondorcetPHP\Condorcet\Utils\CondorcetUtil Class  
+
+* [public static Utils\CondorcetUtil::format (...)](Utils_CondorcetUtil%20Class/public%20static%20Utils_CondorcetUtil--format.md): ```mixed```  
+
 
 
 # Full Class & Methods References
@@ -230,6 +230,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Method   
 ```php
+* private const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
@@ -758,6 +759,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* private const COUNT_TYPE: (string)
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
@@ -851,6 +853,7 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface  
 ```php
+* protected const RP_VARIANT_1: (string)
 * public const IS_PROPORTIONAL: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
@@ -1059,7 +1062,7 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election)  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int|float  
 ```
 
 #### CondorcetPHP\Condorcet\Algo\Pairwise implements ArrayAccess, Iterator, Traversable  
@@ -1258,6 +1261,8 @@ _Including above methods from public API_
 
 #### Abstract CondorcetPHP\Condorcet\Condorcet   
 ```php
+* final public const AUTHOR: (string)
+* final public const HOMEPAGE: (string)
 * final public const VERSION: (string)
 * final public const CONDORCET_BASIC_CLASS: (string)
 
@@ -1276,14 +1281,6 @@ _Including above methods from public API_
 * protected static testMethod (string $method): bool  
 ```
 
-#### Abstract CondorcetPHP\Condorcet\CondorcetUtil   
-```php
-* public static format (mixed $input, bool $convertObject = true): mixed  
-* public static isValidJsonForCondorcet (string $string): void  
-* public static prepareJson (string $input): mixed  
-* public static prepareParse (string $input, bool $isFile): array  
-```
-
 #### CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command   
 ```php
 * public const SUCCESS: (integer)
@@ -1293,18 +1290,21 @@ _Including above methods from public API_
 * protected ?CondorcetPHP\Condorcet\Election $election
 * protected ?string $candidates
 * protected ?string $votes
+* protected bool $displayMethodsStats
 * protected ?string $CondorcetElectionFormatPath
 * protected ?string $DebianFormatPath
 * protected ?string $DavidHillFormatPath
 * public static int $VotesPerMB
-* protected string $ini_memory_limit
+* protected string $iniMemoryLimit
+* protected int $maxVotesInMemory
 * protected bool $candidatesListIsWrite
 * protected bool $votesCountIsWrite
 * protected bool $pairwiseIsWrite
 * public ?string $SQLitePath
-* protected Symfony\Component\Console\Helper\TableStyle $centerPadTypeStyle
 * protected Symfony\Component\Console\Terminal $terminal
+* protected CondorcetPHP\Condorcet\Console\Style\CondorcetStyle $io
 * public static ?string $forceIniMemoryLimitTo
+* protected CondorcetPHP\Condorcet\Timer\Manager $timer
 * protected static  $defaultName
 * protected static  $defaultDescription
 
@@ -1315,9 +1315,6 @@ _Including above methods from public API_
 * public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null): static  
 * public addUsage (string $usage): static  
 * public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
-* public displayPairwise (Symfony\Component\Console\Output\OutputInterface $output): void  
-* public displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output): void  
-* public displayVotesList (Symfony\Component\Console\Output\OutputInterface $output): void  
 * public getAliases (): array  
 * public getApplication (): ?Symfony\Component\Console\Application  
 * public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
@@ -1347,19 +1344,26 @@ _Including above methods from public API_
 * public setProcessTitle (string $title): static  
 * protected configure (): void  
 * protected displayCandidatesList (Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayConfigurationSection (): void  
+* protected displayDebugSection (): void  
+* protected displayDetailedElectionInputsSection (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayInputsSection (): void  
+* protected displayMethodsResultSection (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayNaturalCondorcet (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayPairwiseSection (Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayTimerSection (): void  
+* protected displayVerbose (Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayVotesCount (Symfony\Component\Console\Output\OutputInterface $output): void  
+* protected displayVotesList (Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
-* protected formatResultTable (CondorcetPHP\Condorcet\Result $result): array  
-* protected getFilePath (string $path): ?string  
+* protected importInputsData (Symfony\Component\Console\Input\InputInterface $input): void  
 * protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
-* protected isAbsolute (string $path): bool  
 * protected parseFromCandidatesArguments (): void  
 * protected parseFromCondorcetElectionFormat (Closure $callBack): void  
 * protected parseFromDavidHillFormat (): void  
 * protected parseFromDebianFormat (): void  
 * protected parseFromVotesArguments (Closure $callBack): void  
-* protected prepareMethods (array $methodArgument): array  
-* protected sectionVerbose (Symfony\Component\Console\Style\SymfonyStyle $io, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected setUpParameters (Symfony\Component\Console\Input\InputInterface $input): void  
 * protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input): ?Closure  
 ```
@@ -1369,7 +1373,94 @@ _Including above methods from public API_
 * public static Symfony\Component\Console\Application $SymfonyConsoleApplication
 
 * public static create (): bool  
+* public static getVersionWithGitParsing (): string  
 * public static run (): void  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Console\Helper\CommandInputHelper   
+```php
+* public static getFilePath (string $path): ?string  
+* public static pathIsAbsolute (string $path): bool  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Console\Helper\FormaterHelper   
+```php
+* public static formatResultTable (CondorcetPHP\Condorcet\Result $result): array  
+* public static prepareMethods (array $methodArgument): array  
+```
+
+#### CondorcetPHP\Condorcet\Console\Style\CondorcetStyle extends Symfony\Component\Console\Style\SymfonyStyle implements Symfony\Component\Console\Output\OutputInterface, Symfony\Component\Console\Style\StyleInterface  
+```php
+* public const CONDORCET_MAIN_COLOR: (string)
+* public const CONDORCET_SECONDARY_COLOR: (string)
+* public const CONDORCET_THIRD_COLOR: (string)
+* public const CONDORCET_WINNER_SYMBOL: (string)
+* public const CONDORCET_LOSER_SYMBOL: (string)
+* public const CONDORCET_WINNER_SYMBOL_FORMATED: (string)
+* public const CONDORCET_LOSER_SYMBOL_FORMATED: (string)
+* public const MAX_LINE_LENGTH: (integer)
+* public const VERBOSITY_QUIET: (integer)
+* public const VERBOSITY_NORMAL: (integer)
+* public const VERBOSITY_VERBOSE: (integer)
+* public const VERBOSITY_VERY_VERBOSE: (integer)
+* public const VERBOSITY_DEBUG: (integer)
+* public const OUTPUT_NORMAL: (integer)
+* public const OUTPUT_RAW: (integer)
+* public const OUTPUT_PLAIN: (integer)
+
+* readonly public Symfony\Component\Console\Helper\TableStyle $MainTableStyle
+* readonly public Symfony\Component\Console\Helper\TableStyle $FirstColumnStyle
+
+* public __construct (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output)  
+* public ask (string $question, ?string $default = null, ?callable $validator = null): mixed  
+* public askHidden (string $question, ?callable $validator = null): mixed  
+* public askQuestion (Symfony\Component\Console\Question\Question $question): mixed  
+* public author (string $author): void  
+* public block (array|string $messages, ?string $type = null, ?string $style = null, string $prefix =  , bool $padding = false, bool $escape = true)  
+* public caution (array|string $message)  
+* public choice (string $question, array $choices, mixed $default = null): mixed  
+* public choiceMultiple (string $question, array $choices, mixed $default, bool $multi): mixed  
+* public comment (array|string $message)  
+* public confirm (string $question, bool $default = true): bool  
+* public createProgressBar (int $max = 0): Symfony\Component\Console\Helper\ProgressBar  
+* public createTable (): Symfony\Component\Console\Helper\Table  
+* public definitionList (Symfony\Component\Console\Helper\TableSeparator|array|string $list)  
+* public error (array|string $message)  
+* public getErrorStyle (): self  
+* public getFormatter (): Symfony\Component\Console\Formatter\OutputFormatterInterface  
+* public getVerbosity (): int  
+* public homepage (string $homepage): void  
+* public horizontalTable (array $headers, array $rows)  
+* public info (array|string $message)  
+* public inlineSeparator (): void  
+* public instruction (string $prefix, string $message): void  
+* public isDebug (): bool  
+* public isDecorated (): bool  
+* public isQuiet (): bool  
+* public isVerbose (): bool  
+* public isVeryVerbose (): bool  
+* public listing (array $elements)  
+* public logo (int $terminalSize): void  
+* public methodResultSection (string $message): void  
+* public newLine (int $count = 1)  
+* public note (array|string $message): void  
+* public progressAdvance (int $step = 1)  
+* public progressFinish ()  
+* public progressIterate (iterable $iterable, ?int $max = null): iterable  
+* public progressStart (int $max = 0)  
+* public section (string $message): void  
+* public setDecorated (bool $decorated)  
+* public setFormatter (Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)  
+* public setVerbosity (int $level)  
+* public success (array|string $message): void  
+* public table (array $headers, array $rows)  
+* public text (array|string $message)  
+* public title (string $message)  
+* public version (): void  
+* public warning (array|string $message)  
+* public write (iterable|string $messages, bool $newline = false, int $type = 1)  
+* public writeln (iterable|string $messages, int $type = 1)  
+* protected getErrorOutput ()  
 ```
 
 #### CondorcetPHP\Condorcet\Constraints\NoTie implements CondorcetPHP\Condorcet\VoteConstraintInterface  
@@ -1412,7 +1503,7 @@ _Including above methods from public API_
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler): bool  
 * public isUsingHandler (): bool  
 * public key (): ?int  
-* public keyExist ($offset): bool  
+* public keyExist (int $offset): bool  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
 * public offsetGet (mixed $offset): mixed  
@@ -1429,7 +1520,7 @@ _Including above methods from public API_
 * protected encodeManyEntities (array $entities): array  
 * protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data): string  
 * protected populateCache (): void  
-* protected preDeletedTask ($object): void  
+* protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected setCursorOnNextKeyInArray (array $array): void  
 ```
 
@@ -1505,7 +1596,7 @@ _Including above methods from public API_
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler): bool  
 * public isUsingHandler (): bool  
 * public key (): ?int  
-* public keyExist ($offset): bool  
+* public keyExist (int $offset): bool  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
 * public offsetGet (mixed $offset): CondorcetPHP\Condorcet\Vote  
@@ -1525,7 +1616,7 @@ _Including above methods from public API_
 * protected getFullVotesListGenerator (): Generator  
 * protected getPartialVotesListGenerator (array $tags, bool $with): Generator  
 * protected populateCache (): void  
-* protected preDeletedTask ($object): void  
+* protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected setCursorOnNextKeyInArray (array $array): void  
 ```
 
@@ -1642,14 +1733,6 @@ _Including above methods from public API_
 * readonly public string $name
 * readonly public int $value
 
-```
-
-#### Abstract CondorcetPHP\Condorcet\ElectionProcess\VoteUtil   
-```php
-* public static convertVoteInput (string $formula): array  
-* public static getRankingAsString (array $ranking): string  
-* public static parseAnalysingOneLine (int|bool $searchCharacter, string $line): int  
-* public static tagsConvert (array|string|null $tags): ?array  
 ```
 
 #### CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable  
@@ -1846,6 +1929,15 @@ _Including above methods from public API_
 ```
 
 #### CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable  
+```php
+* protected  $message
+* protected  $code
+* protected string $file
+* protected int $line
+
+```
+
+#### CondorcetPHP\Condorcet\Throwable\Internal\NoGitShellException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable  
 ```php
 * protected  $message
 * protected  $code
@@ -2055,7 +2147,7 @@ _Including above methods from public API_
 * public getHistory (): array  
 * public getLastTimer (): float  
 * public getObjectVersion (bool $major = false): string  
-* public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
+* public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): static  
 ```
 
 #### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\ConverterInterface  
@@ -2106,6 +2198,36 @@ _Including above methods from public API_
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
 * protected readCandidatesNames (): void  
 * protected readVotes (): void  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Utils\CondorcetUtil   
+```php
+* public static format (mixed $input, bool $convertObject = true): mixed  
+* public static isValidJsonForCondorcet (string $string): void  
+* public static prepareJson (string $input): mixed  
+* public static prepareParse (string $input, bool $isFile): array  
+```
+
+#### CondorcetPHP\Condorcet\Utils\VoteEntryParser   
+```php
+* readonly public string $originalEntry
+* readonly public ?string $comment
+* readonly public int $multiple
+* readonly public ?array $ranking
+* readonly public ?array $tags
+* readonly public int $weight
+
+* public static convertRankingFromString (string $formula): ?array  
+* public static convertTagsFromVoteString (string $voteString, bool $cut = false): ?array  
+* public static getComment (string $voteString, bool $cut = false): ?string  
+* public static parseIntValueFromVoteStringOffset (string $character, string $entry, bool $cut = false): int  
+* public __construct (string $entry)  
+```
+
+#### Abstract CondorcetPHP\Condorcet\Utils\VoteUtil   
+```php
+* public static getRankingAsString (array $ranking): string  
+* public static tagsConvert (array|string|null $tags): ?array  
 ```
 
 #### CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable  
