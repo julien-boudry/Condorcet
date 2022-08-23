@@ -34,9 +34,7 @@ abstract class CondorcetApplication
         // New App
         self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet', Condorcet::getVersion());
 
-        // ... register commands
-
-        // Election commande
+        // Election command
         $command = new ElectionCommand;
         self::$SymfonyConsoleApplication->add($command);
         self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
