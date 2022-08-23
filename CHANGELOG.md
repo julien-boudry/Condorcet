@@ -3,6 +3,9 @@ CHANGELOG
 All notable changes to this project will be documented in this file.
 
 ## [v4.2.0] - 2022-08-23
+### Description
+Redesign & refactor the console. And internal improvements.
+
 ### Added
 - Support for PHP 8.2
 - [Console] Redesign console, add many styles, colors, and logo.
@@ -13,7 +16,7 @@ All notable changes to this project will be documented in this file.
 - New namespace `CondorcetPHP\Condorcet\Utils`and move `CondorcetUtil` and `VoteUtil` classes to it.
 
 ### Internal
-- Refactor Vote entry parser to new class `CondorcetPHP\Condorcet\Utils\VoteEntryParser`: Better architecture and reduce code duplication.
+- Refactor Vote entry parser to new class `CondorcetPHP\Condorcet\Utils\VoteEntryParser`: Better architecture and reduced code duplication.
 
 ### Dev
 - [Benchmarks] Use a random deterministic seed for generating votes. (Benchmarks now require PHP 8.2 at least)
@@ -23,7 +26,7 @@ All notable changes to this project will be documented in this file.
 ## [v4.1.1] - 2022-07-07
 ### Changed
 - Composer: Fix ext-mbstring dependency.
-- HighestAverage & LargestRemainder methods: Fix a bug with empty ranking in context (or non valid rank in a vote)
+- HighestAverage & LargestRemainder methods: Fix a bug with an empty ranking in context (or non-valid rank in a vote)
 
 ## [v4.1.0] - 2022-06-26
 
