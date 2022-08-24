@@ -14,7 +14,7 @@
 [![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?style=for-the-badge&logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
 
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
-> License: [MIT](LICENSE.txt) _- Please say hello if you like or use this code!_  
+> License: [MIT](LICENSE.txt) - _Please [say hello](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects) if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
 > Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
 > _You can also offer me a bottle of good wine._  
@@ -211,8 +211,4 @@ _Benchmark on a modern machine (linux - x64 - php 8.1 - cli)._
 * ...
 
 ## Related projects / They use Condorcet
-* From August 2014: [Condorcet.Vote](http://www.condorcet.vote) Web services to create and store online Condorcet election. Including interactive and collaborative features.  
-It is based in large part on this project and uses the library as a real election manager for computing, storage & stats.        
-* [Mahler-S2-BlindTest-Condorcet
-](https://github.com/julien-boudry/Mahler-S2-BlindTest-Condorcet) (French interface) Web wrapper to compute and show the result for classical music blind challenge with the Condorcet Class full potential (can also be used and adapted for any elections).    
-Look like the examples provided here, but better: [Gustav Mahler blind listening test](http://classik.forumactif.com/t7244-ecoute-comparee-mahler-2e-symphonie-la-suite)    
+**[See the list of known projects, add yours!](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects)**
