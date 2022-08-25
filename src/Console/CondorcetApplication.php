@@ -81,7 +81,7 @@ abstract class CondorcetApplication
 
         try {
             $version = $git(__DIR__.'/../../');
-            $commit = explode('-', $version)[2];
+            $commit = explode('-', $version)[2] ?? null;
 
             $match = [];
             preg_match('/^v([0-9]+\.[0-9]+\.[0-9]+)/', $version, $match);
