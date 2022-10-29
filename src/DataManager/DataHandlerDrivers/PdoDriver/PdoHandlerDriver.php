@@ -141,7 +141,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     public function closeTransaction(): void
     {
         if ($this->transaction === true) {
-
             /**
              * @infection-ignore-all
              */

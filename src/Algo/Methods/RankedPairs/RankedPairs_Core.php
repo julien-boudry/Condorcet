@@ -220,7 +220,6 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         foreach ($this->getElection()->getPairwise() as $candidate_key => $candidate_value) {
             foreach ($candidate_value['win'] as $challenger_key => $challenger_value) {
                 if ($challenger_value > $candidate_value['lose'][$challenger_key]) {
-
                     // Victory
                     $pairs[$i]['from'] = $candidate_key;
                     // Defeat

@@ -28,7 +28,6 @@ namespace CondorcetPHP\Condorcet;
 require_once __DIR__.'/../../__CondorcetAutoload.php';
 
 for ($i=1; $i <= 4000; $i++) {
-
     # With Condorcet
     $election = new Election;
 
