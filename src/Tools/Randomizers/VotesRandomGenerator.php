@@ -24,7 +24,7 @@ class VotesRandomGenerator
 
     public ?int $maxRanksCount = null;
 
-    public float|int $tiesProbability = 0; // Per vote
+    public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
 
     public function __construct(array $candidates, Randomizer|null|string $seed = null)
     {
@@ -85,18 +85,24 @@ class VotesRandomGenerator
 
     protected function makeTies(array $randomizedCandidates): array
     {
-        $numberOfAddedTies = 0;
+        $numberOfTiesToAdd = 0;
+        $prob = (int) ($this->tiesProbability * 1_000);
 
-        while ($this->randomizer->getInt(1, 100_000) <= ($this->tiesProbability * 1_000) && $numberOfAddedTies < \count($randomizedCandidates)) {
-            $numberOfAddedTies++;
+        while ($prob >= 0) {
+            if ($prob >= 100_000 || $this->randomizer->getInt(1, 100_000) <= $prob) {
+                $numberOfTiesToAdd++;
+            }
 
-            $ar = array_keys($randomizedCandidates);
-            $swFrom = $this->randomizer->pickArrayKeys($ar, 1);
+            $prob -= 100_000;
+        }
+
+        for ($i = $numberOfAddedTies = 0; $i < $numberOfTiesToAdd && count($randomizedCandidates) > 1; ++$i && ++$numberOfAddedTies) {
+            $swFrom = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
 
             $orphan = $randomizedCandidates[$swFrom];
             unset($randomizedCandidates[$swFrom]);
 
-            $swTo = $this->randomizer->pickArrayKeys($ar, 1);
+            $swTo = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
 
             if (\is_array($randomizedCandidates[$swTo])) {
                 $orphan = (\is_array($orphan)) ? $orphan : [$orphan];

@@ -15,6 +15,14 @@ class VotesRandomGeneratorTest extends TestCase
         'Candidate1', 'Candidate2', 'Candidate3', 'Candidate4', 'Candidate5', 'Candidate6', 'Candidate7', 'Candidate8', 'Candidate9',
     ];
 
+    public const CANDIDATE_SET_2 = [
+        'Candidate1', 'Candidate2', 'Candidate3',
+    ];
+
+    public const CANDIDATE_SET_3 = [
+        'Candidate1', 'Candidate2', 'Candidate3', ['Candidate4'],
+    ];
+
 
     public function testDefaultRandomVotes(): void
     {
@@ -87,6 +95,41 @@ class VotesRandomGeneratorTest extends TestCase
         self::assertSame($votesRandomizer->maxCandidatesRanked - $votesRandomizer->minCandidatesRanked + 1, $variationsCount);
     }
 
+    public function testAddedTies(): void
+    {
+        $votesRandomizer = new VotesRandomGenerator(self::CANDIDATE_SET_2, self::SEED);
+
+        $votesRandomizer->tiesProbability = 100;
+        $nv = $votesRandomizer->getNewVote();
+        self::assertCount(2, $nv);
+        self::assertIsString($nv[0]);
+        self::assertCount(2, $nv[1]);
+
+        $votesRandomizer->tiesProbability = 90;
+        $nv = $votesRandomizer->getNewVote();
+        self::assertCount(2, $nv);
+        self::assertIsString($nv[0]);
+        self::assertCount(2, $nv[1]);
+
+        $votesRandomizer->tiesProbability = 70;
+        $nv = $votesRandomizer->getNewVote();
+        self::assertCount(3, $nv);
+
+        $votesRandomizer->tiesProbability = 500;
+        $nv = $votesRandomizer->getNewVote();
+        self::assertCount(1, $nv);
+        self::assertCount(3, $nv[0]);
+    }
+
+    public function testAddedTiesWithArray(): void
+    {
+        $votesRandomizer = new VotesRandomGenerator(self::CANDIDATE_SET_3, self::SEED);
+
+        $votesRandomizer->tiesProbability = 500;
+        $nv = $votesRandomizer->getNewVote();
+        self::assertSame([], $nv);
+    }
+
     public function testSeeds(): void
     {
         // Test low seed
@@ -105,9 +148,9 @@ class VotesRandomGeneratorTest extends TestCase
         self::assertSame(self::CANDIDATE_SET_1[4], $votesRandomizer->getNewVote()[0]);
 
         // Test secure engine
-        $votesRandomizer = new VotesRandomGenerator([1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        $votesRandomizer = new VotesRandomGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
-        for($i=0;$i<3;$i++) {
+        for ($i=0; $i<3; $i++) {
             self::assertNotSame(self::CANDIDATE_SET_1, $votesRandomizer->getNewVote());
         }
     }
