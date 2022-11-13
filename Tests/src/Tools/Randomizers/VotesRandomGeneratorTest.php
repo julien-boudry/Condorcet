@@ -121,13 +121,26 @@ class VotesRandomGeneratorTest extends TestCase
         self::assertCount(3, $nv[0]);
     }
 
-    public function testAddedTiesWithArray(): void
+    public function testAddedTiesWithArray1(): void
     {
         $votesRandomizer = new VotesRandomGenerator(self::CANDIDATE_SET_3, self::SEED);
 
+        $votesRandomizer->tiesProbability = 100;
+        $nv = $votesRandomizer->getNewVote();
+
+        self::assertCount(3, $nv);
+        self::assertCount(2, $nv[2]);
+    }
+
+    public function testAddedTiesWithArray2(): void
+    {
+        $votesRandomizer = new VotesRandomGenerator(self::CANDIDATE_SET_1, self::SEED);
+
         $votesRandomizer->tiesProbability = 500;
         $nv = $votesRandomizer->getNewVote();
-        self::assertSame([], $nv);
+
+        self::assertCount(4, $nv);
+        self::assertCount(6, $nv[2]);
     }
 
     public function testSeeds(): void

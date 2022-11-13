@@ -88,7 +88,7 @@ class VotesRandomGenerator
         $numberOfTiesToAdd = 0;
         $prob = (int) ($this->tiesProbability * 1_000);
 
-        while ($prob >= 0) {
+        while ($prob > 0) {
             if ($prob >= 100_000 || $this->randomizer->getInt(1, 100_000) <= $prob) {
                 $numberOfTiesToAdd++;
             }
@@ -96,20 +96,18 @@ class VotesRandomGenerator
             $prob -= 100_000;
         }
 
-        for ($i = $numberOfAddedTies = 0; $i < $numberOfTiesToAdd && count($randomizedCandidates) > 1; ++$i && ++$numberOfAddedTies) {
+        for ($i = $numberOfAddedTies = 0; $i < $numberOfTiesToAdd && \count($randomizedCandidates) > 1; ++$i && ++$numberOfAddedTies) {
             $swFrom = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
 
             $orphan = $randomizedCandidates[$swFrom];
             unset($randomizedCandidates[$swFrom]);
 
             $swTo = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
+            $destination = $randomizedCandidates[$swTo];
 
-            if (\is_array($randomizedCandidates[$swTo])) {
-                $orphan = (\is_array($orphan)) ? $orphan : [$orphan];
-                $newRankValue = array_merge($randomizedCandidates[$swTo], $orphan);
-            } else {
-                $newRankValue = [$randomizedCandidates[$swTo], $orphan];
-            }
+            \is_array($orphan) || $orphan = [$orphan];
+            \is_array($destination) || $destination = [$destination];
+            $newRankValue = array_merge($destination, $orphan);
 
             $randomizedCandidates[$swTo] = $newRankValue;
         }
