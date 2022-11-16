@@ -713,7 +713,7 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function parseFromVotesArguments(\Closure $callBack): void
+    protected function parseFromVotesArguments(?\Closure $callBack): void
     {
         // Parses Votes
         if ($file = CommandInputHelper::getFilePath($this->votes)) {
