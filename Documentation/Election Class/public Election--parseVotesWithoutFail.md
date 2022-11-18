@@ -18,7 +18,7 @@ If true, the string input is evalatued as path to text file.
 
 
 ##### **callBack:** *```?Closure```*   
-Callback function to execute after each registered vote.    
+Callback function to execute after each valid line, before vote registration.    
 
 
 ### Return value:   

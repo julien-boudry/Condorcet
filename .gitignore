@@ -16,6 +16,7 @@ Dev/infection_logs/
 build/
 *.phar
 Dev/large.votes
+test.php
 
 # IDE
 *.idea

@@ -1363,7 +1363,7 @@ _Including above methods from public API_
 * protected parseFromCondorcetElectionFormat (Closure $callBack): void  
 * protected parseFromDavidHillFormat (): void  
 * protected parseFromDebianFormat (): void  
-* protected parseFromVotesArguments (Closure $callBack): void  
+* protected parseFromVotesArguments (?Closure $callBack): void  
 * protected setUpParameters (Symfony\Component\Console\Input\InputInterface $input): void  
 * protected useDataHandler (Symfony\Component\Console\Input\InputInterface $input): ?Closure  
 ```

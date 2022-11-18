@@ -2,6 +2,12 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.2.1] - 2022-11-17
+
+### Changed
+- [Console] Fix issue #110 - Crash on environnement without `PDO/Sqlite` or with the `--deactivate-file-cache` option.
+- [Console] Fix a `memory_limit` crash despite dataHandler driver if one entry with a multiplier contains more votes than `memory_limit` allows.
+
 ## [v4.2.0] - 2022-08-23
 ### Description
 Redesign & refactor the console. And internal improvements.

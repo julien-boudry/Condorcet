@@ -401,4 +401,24 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
         self::assertMatchesRegularExpression('/Seats: *\| 3/', $output);
     }
+
+    // Issue #110
+    public function testFileCacheForbidden(): void
+    {
+        $this->electionCommand->execute(
+            [
+                '--candidates' => 'A;B;C',
+                '--votes' => 'A*10000',
+                '--votes-per-mb' => 1,
+                '--deactivate-file-cache' => null,
+            ],
+            [
+                'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
+            ]
+        );
+
+        $output = $this->electionCommand->getDisplay();
+
+        self::assertStringContainsString('10 000 votes registered', $output);
+    }
 }
