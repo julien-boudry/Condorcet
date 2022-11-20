@@ -10,8 +10,28 @@
 # Condorcet % bin/condorcet Election --import-condorcet-election-format=Boudry.cvotes --stats -r
 
 #/Candidates: CavCoeur ; Juju2000 ; Axirus ; LaBoudre
-#/Implicit Ranking: true
+#/Implicit Ranking: false
 #/Weight allowed: true
 
 # Ranks
-CavCoeur > Juju2000 = Axirus = LaBoudre ^42
+
+## MarioKart
+Axirus > LaBoudre > Juju2000 > CavCoeur
+
+## Palet
+LaBoudre > Juju2000 > Axirus > CavCoeur
+
+## BabyFoot
+CavCoeur > Juju2000 > LaBoudre > Axirus
+
+## Bowling
+LaBoudre > CavCoeur > Juju2000 > Axirus
+
+## Calcul
+Axirus > CavCoeur > LaBoudre > Juju2000
+
+# Poker
+Juju2000 > LaBoudre > Axirus > CavCoeur
+
+# Tarot
+CavCoeur > LaBoudre > Juju2000 > Axirus
