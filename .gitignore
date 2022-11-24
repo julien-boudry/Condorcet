@@ -22,3 +22,6 @@ test.php
 *.idea
 *.code-workspace
 .vscode
+
+# Sys
+.DS_Store
