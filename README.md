@@ -13,14 +13,14 @@
 [![Build Status](https://d3g33cz5i5omk9.cloudfront.net/github/workflow/status/julien-boudry/Condorcet/Execute%20All%20Tests?style=for-the-badge&label=Tests)](https://github.com/julien-boudry/Condorcet/actions)
 [![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?style=for-the-badge&logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) - _Please [say hello](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects) if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
 > Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
 > _You can also offer me a bottle of good wine._  
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
-[![Execute Condorcet With GithubCodespace (coming soon)](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
 
 Condorcet PHP
 ===========================
