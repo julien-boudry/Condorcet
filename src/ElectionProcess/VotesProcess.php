@@ -394,10 +394,10 @@ trait VotesProcess
         \SplFileInfo|string $input,
         #[FunctionParameter('If true, the string input is evalatued as path to text file')]
         bool $isFile = false,
-        #[FunctionParameter('Callback function to execute after each registered vote')]
+        #[FunctionParameter('Callback function to execute after each valid line, before vote registration.')]
         ?\Closure $callBack = null
     ): int {
-        $inserted_votes_count = 0;
+        $parsedVotesCounter = 0;
         $fail_count = 0;
         $doCallBack = $callBack !== null;
 
@@ -459,13 +459,13 @@ trait VotesProcess
                         multiple: $parsedVote->multiple
                     );
 
-                    $this->doAddVotesFromParse($adding);
-
-                    $inserted_votes_count += $count;
+                    $parsedVotesCounter += $count;
 
                     if ($doCallBack) {
-                        $doCallBack = $callBack($inserted_votes_count);
+                        $doCallBack = $callBack($parsedVotesCounter);
                     }
+
+                    $this->doAddVotesFromParse($adding);
                 } catch (VoteInvalidFormatException) {
                     ++$fail_count;
                 } finally {

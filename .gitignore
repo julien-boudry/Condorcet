@@ -16,8 +16,12 @@ Dev/infection_logs/
 build/
 *.phar
 Dev/large.votes
+test.php
 
 # IDE
 *.idea
 *.code-workspace
 .vscode
+
+# Sys
+.DS_Store

@@ -39,7 +39,7 @@
         "phploc/phploc": "dev-main",
         "haydenpierce/class-finder": ">= 0.4.4",
         "infection/infection": "^0.26",
-        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan": "^1.9",
         "laravel/pint": "^1.2"
     },
     "suggest": {

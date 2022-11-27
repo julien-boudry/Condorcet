@@ -713,7 +713,7 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function parseFromVotesArguments(\Closure $callBack): void
+    protected function parseFromVotesArguments(?\Closure $callBack): void
     {
         // Parses Votes
         if ($file = CommandInputHelper::getFilePath($this->votes)) {
@@ -767,8 +767,8 @@ class ElectionCommand extends Command
                 $memoryLimit = (int) preg_replace('`[^0-9]`', '', $this->iniMemoryLimit);
                 $memoryLimit *= match (mb_strtoupper(mb_substr($this->iniMemoryLimit, -1, 1))) {
                     'K' => 1024,
-                    'M' => 1048576,
-                    'G' => (1000 * 1048576),
+                    'M' => (1024 * 1024),
+                    'G' => (1000 * 1024 * 1024),
                     default => 1
                 };
             }
@@ -776,8 +776,9 @@ class ElectionCommand extends Command
             $memoryLimit = (int) ($memoryLimit / 1048576);
             $this->maxVotesInMemory = self::$VotesPerMB * $memoryLimit;
 
-            $callBack = function (int $inserted_votes_count): bool {
-                if ($inserted_votes_count > $this->maxVotesInMemory) {
+            $callBack = function (int $parsedVotesCounter): bool {
+                if ($parsedVotesCounter > $this->maxVotesInMemory) {
+
                     /**
                      * @infection-ignore-all
                      */

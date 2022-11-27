@@ -19,6 +19,8 @@
 > Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
 > _You can also offer me a bottle of good wine._  
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
+[![Execute Condorcet With GithubCodespace (coming soon)](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
 
 Condorcet PHP
 ===========================
@@ -61,12 +63,11 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
 | Version | PHP Requirements | State | Support
 | --- | --- | --- | --- |
 | 4.2 | 8.1 | Stable | ✔ _support provided_
-| 4.1 | 8.1 | Old Stable | ✔ _support provided_
 | 3.x | 8.1 | Old Stable | ❌ _not any support_ 
 | 2.2 | 7.4 | Old Stable | ❌ _support requiring some bait_ 
 | 2.0 | 7.1 | Old Stable | ❌ _support requiring some bait_ 
 | 1.0 | 5.6 | Old Stable | ❌ _support requiring some bait_ 
-| 0.97 | 5.5 | Old Stable | ❌ _support requiring some bait_<br>ℹ _Since v0.90, you should consider then it's a new project (api, engine)._ 
+| 0.9x | 5.5 | Old Stable | ❌ ℹ _Since v0.90, you should consider then it's a new project (api, engine)._ 
 | 0.14 | 5.5 | Old Stable | ❌ _ready for the museum_ 
 
 _All versions require Json and Mbstring extensions. Pdo-Sqlite is recommended if you need to activate the default provided driver for bigs elections (hundred of thousands of votes or more)_
