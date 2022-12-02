@@ -293,7 +293,12 @@ class ElectionCommand extends Command
                 $authMehods = Condorcet::getAuthMethods();
                 $authMehods = array_merge(['ALL'], $authMehods);
 
-                $registeringMethods = $this->io->choiceMultiple('Select methods', $authMehods, Condorcet::getDefaultMethod()::METHOD_NAME[0], true);
+                $registeringMethods = $this->io->choice(
+                    question: 'Select methods',
+                    choices: $authMehods,
+                    default: Condorcet::getDefaultMethod()::METHOD_NAME[0],
+                    multiSelect: true
+                );
 
                 $input->setArgument('methods', $registeringMethods);
             }
@@ -778,7 +783,6 @@ class ElectionCommand extends Command
 
             $callBack = function (int $parsedVotesCounter): bool {
                 if ($parsedVotesCounter > $this->maxVotesInMemory) {
-
                     /**
                      * @infection-ignore-all
                      */

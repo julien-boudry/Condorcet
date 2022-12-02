@@ -16,7 +16,6 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CondorcetStyle extends SymfonyStyle
@@ -79,19 +78,6 @@ class CondorcetStyle extends SymfonyStyle
     public function author(string $author): void
     {
         $this->write("<condor1b>Author:</> <condor2>{$author}</>");
-    }
-
-    public function choiceMultiple(string $question, array $choices, mixed $default = null, bool $multi): mixed
-    {
-        if ($default !== null) {
-            $values = array_flip($choices);
-            $default = $values[$default] ?? $default;
-        }
-
-        $questionChoice = new ChoiceQuestion($question, $choices, $default);
-        $questionChoice->setMultiselect($multi);
-
-        return $this->askQuestion($questionChoice);
     }
 
     public function homepage(string $homepage): void
