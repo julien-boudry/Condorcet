@@ -1,0 +1,43 @@
+{
+	"name": "Production Codespace",
+	"image": "mcr.microsoft.com/devcontainers/php:8.1-bullseye",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Env
+	"containerEnv": {
+		"COMPOSER_NO_DEV=": "1"
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+        "codespaces": {
+            "openFiles": [
+              "README.md",
+              "VOTING_METHODS.md"
+            ]
+        },
+
+
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"php.validate.executablePath": "/usr/local/bin/php"
+			},
+
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"bmewburn.vscode-intelephense-client"
+			]
+		}
+	},
+
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/postCreate.sh",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
+}
