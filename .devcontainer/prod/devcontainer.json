@@ -1,12 +1,25 @@
 {
-	"name": "Dev Codespace - PHP Current Stable",
+	"name": "Production Codespace",
 	"image": "mcr.microsoft.com/devcontainers/php:8.2-bullseye",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
+	// Env
+	"containerEnv": {
+		"COMPOSER_NO_DEV=": "1"
+	},
+
 	// Configure tool-specific properties.
 	"customizations": {
+        "codespaces": {
+            "openFiles": [
+              "README.md",
+              "VOTING_METHODS.md"
+            ]
+        },
+
+
 		// Configure properties specific to VS Code.
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
@@ -16,7 +29,6 @@
 
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"xdebug.php-debug",
 				"bmewburn.vscode-intelephense-client"
 			]
 		}
