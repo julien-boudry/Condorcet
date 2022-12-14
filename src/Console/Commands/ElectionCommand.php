@@ -213,7 +213,7 @@ class ElectionCommand extends Command
 
         // Parameters
         $this->setUpParameters($input);
-        $this->iniMemoryLimit = (self::$forceIniMemoryLimitTo === null) ? preg_replace('`[^-0-9KMG]`', '', \ini_get('memory_limit')) : self::$forceIniMemoryLimitTo;
+        $this->iniMemoryLimit = (string) (self::$forceIniMemoryLimitTo === null) ? \ini_get('memory_limit') : self::$forceIniMemoryLimitTo;
 
         // Non-interactive candidates
         $this->candidates = $input->getOption('candidates') ?? null;
@@ -769,13 +769,7 @@ class ElectionCommand extends Command
             if ($this->iniMemoryLimit === '-1') {
                 $memoryLimit = 8 * (1000 * 1048576); # Limit to 8GB, use a true memory limit to go further
             } else {
-                $memoryLimit = (int) preg_replace('`[^0-9]`', '', $this->iniMemoryLimit);
-                $memoryLimit *= match (mb_strtoupper(mb_substr($this->iniMemoryLimit, -1, 1))) {
-                    'K' => 1024,
-                    'M' => (1024 * 1024),
-                    'G' => (1000 * 1024 * 1024),
-                    default => 1
-                };
+                $memoryLimit = \ini_parse_quantity($this->iniMemoryLimit);
             }
 
             $memoryLimit = (int) ($memoryLimit / 1048576);
