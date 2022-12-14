@@ -12,3 +12,13 @@ sudo bash -c "sed -i 's/= debug/= off/' /usr/local/etc/php/conf.d/xdebug.ini"
 
 # Composer Update
 composer update
+
+# Psysh
+echo 'export PATH="$PATH:$HOME/.composer/vendor/bin"' >> ~/.bashrc
+composer g require psy/psysh:@stable
+
+# Put local bin in PATH
+echo 'export PATH="$PATH:$PWD/vendor/bin"' >> ~/.bashrc
+
+# Create condorcet command
+echo 'export PATH="$PATH:$PWD/bin"' >> ~/.bashrc
