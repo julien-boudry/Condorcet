@@ -409,7 +409,7 @@ class Vote implements \Iterator, \Stringable
         array|string $ranking,
         #[FunctionParameter('Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.')]
         ?float $ownTimestamp = null
-    ): bool {
+    ): true {
         // Timestamp
         if ($ownTimestamp !== null) {
             if (!empty($this->ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
@@ -520,7 +520,7 @@ class Vote implements \Iterator, \Stringable
     public function removeCandidate(
         #[FunctionParameter('Candidate object or string')]
         Candidate|string $candidate
-    ): bool {
+    ): true {
         if ($candidate instanceof Candidate) {
             $strict = true;
         } else {
@@ -615,7 +615,7 @@ class Vote implements \Iterator, \Stringable
     #[Description('Remove all registered tag(s) on this Vote.')]
     #[FunctionReturn('Return True.')]
     #[Related('Vote::addTags', 'Vote::removeTags')]
-    public function removeAllTags(): bool
+    public function removeAllTags(): true
     {
         $this->removeTags($this->getTags());
         return true;

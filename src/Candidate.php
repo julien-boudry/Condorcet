@@ -61,7 +61,7 @@ class Candidate implements \Stringable
     public function setName(
         #[FunctionParameter('Candidate Name')]
         string $name
-    ): bool {
+    ): true {
         $name = trim($name);
 
         if (mb_strlen($name) > Election::MAX_CANDIDATE_NAME_LENGTH) {

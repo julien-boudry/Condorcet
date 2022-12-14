@@ -257,7 +257,7 @@ trait VotesProcess
     public function removeVote(
         #[FunctionParameter('Vote object')]
         Vote $vote
-    ): bool {
+    ): true {
         $key = $this->getVoteKey($vote);
         if ($key !== null) {
             $deletedVote = $this->Votes[$key];

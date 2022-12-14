@@ -303,7 +303,7 @@ class Election
     public function addConstraint(
         #[FunctionParameter('A valid class path. Class must extend VoteConstraint class')]
         string $constraintClass
-    ): bool {
+    ): true {
         if (!class_exists($constraintClass)) {
             throw new VoteConstraintException('class is not defined');
         } elseif (!is_subclass_of($constraintClass, VoteConstraintInterface::class)) {
@@ -406,7 +406,7 @@ class Election
     public function setExternalDataHandler(
         #[FunctionParameter('Driver object')]
         DataHandlerDriverInterface $driver
-    ): bool {
+    ): true {
         if (!$this->Votes->isUsingHandler()) {
             $this->Votes->importHandler($driver);
             return true;
@@ -448,7 +448,7 @@ class Election
     #[FunctionReturn('Always True.')]
     #[Throws(NoCandidatesException::class, ResultRequestedWithoutVotesException::class)]
     #[Related('Election::getState')]
-    public function setStateToVote(): bool
+    public function setStateToVote(): true
     {
         if ($this->State === ElectionState::CANDIDATES_REGISTRATION) {
             if (empty($this->Candidates)) {

@@ -29,7 +29,7 @@ abstract class CondorcetApplication
         self::create() && self::$SymfonyConsoleApplication->run();
     }
 
-    public static function create(): bool
+    public static function create(): true
     {
         // New App
         self::$SymfonyConsoleApplication = new SymfonyConsoleApplication('Condorcet', Condorcet::getVersion());

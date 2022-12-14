@@ -375,7 +375,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[Throws(DataHandlerException::class)]
-    public function importHandler(DataHandlerDriverInterface $handler): bool
+    public function importHandler(DataHandlerDriverInterface $handler): true
     {
         if ($handler->countEntities() === 0) {
             $this->DataHandler = $handler;

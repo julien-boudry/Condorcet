@@ -769,7 +769,7 @@ class ElectionCommand extends Command
             if ($this->iniMemoryLimit === '-1') {
                 $memoryLimit = 8 * (1000 * 1048576); # Limit to 8GB, use a true memory limit to go further
             } else {
-                $memoryLimit = \ini_parse_quantity($this->iniMemoryLimit);
+                $memoryLimit = ini_parse_quantity($this->iniMemoryLimit);
             }
 
             $memoryLimit = (int) ($memoryLimit / 1048576);
