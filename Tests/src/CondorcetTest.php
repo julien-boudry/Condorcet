@@ -43,10 +43,12 @@ class CondorcetTest extends TestCase
     }
 
     /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+     * @preserveGlobalState disabled
+     *
+     * @backupStaticAttributes disabled
+     *
+     * @runInSeparateProcess
+     */
     public function testAddMethod(): never
     {
         $this->expectException(AlgorithmException::class);

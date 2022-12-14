@@ -133,10 +133,12 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+     * @preserveGlobalState disabled
+     *
+     * @backupStaticAttributes disabled
+     *
+     * @runInSeparateProcess
+     */
     public function testMaxParseIteration1(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -158,10 +160,12 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+     * @preserveGlobalState disabled
+     *
+     * @backupStaticAttributes disabled
+     *
+     * @runInSeparateProcess
+     */
     public function testMaxParseIteration2(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -177,10 +181,12 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+     * @preserveGlobalState disabled
+     *
+     * @backupStaticAttributes disabled
+     *
+     * @runInSeparateProcess
+     */
     public function testMaxParseIteration3(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -202,10 +208,12 @@ class ElectionTest extends TestCase
     }
 
     /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+     * @preserveGlobalState disabled
+     *
+     * @backupStaticAttributes disabled
+     *
+     * @runInSeparateProcess
+     */
     public function testMaxVoteNumber(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);

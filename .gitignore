@@ -5,9 +5,10 @@
 /vendor/
 /composer.lock
 
-# phpunit, phpstan
+# phpunit, phpstan, phpdoc
 .phpunit.result.cache
 phpstan.neon
+.phpdoc
 
 # infection
 Dev/infection_logs/

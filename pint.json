@@ -1,4 +1,7 @@
 {
+    "exclude": [
+        "Examples"
+    ],
     "preset": "psr12",
     "rules": {
         "array_indentation": true,
@@ -6,6 +9,7 @@
         "array_syntax": true,
         "cast_spaces": true,
         "class_reference_name_casing": true,
+        "clean_namespace": true,
         "combine_consecutive_issets": true,
         "constant_case": true,
         "declare_strict_types": true,
@@ -15,6 +19,7 @@
         "fully_qualified_strict_types": true,
         "function_to_constant": true,
         "function_typehint_space": true,
+        "general_phpdoc_tag_rename": true,
         "get_class_to_class_keyword": true,
         "group_import": true,
         "heredoc_indentation": true,
@@ -43,6 +48,8 @@
         "no_alias_functions": true,
         "no_alias_language_construct_call": true,
         "no_alternative_syntax": true,
+        "no_blank_lines_after_phpdoc": true,
+        "no_empty_phpdoc": true,
         "no_empty_statement": true,
         "no_homoglyph_names": true,
         "no_leading_namespace_whitespace": true,
@@ -52,6 +59,7 @@
         "no_short_bool_cast": true,
         "no_singleline_whitespace_before_semicolons": true,
         "no_spaces_around_offset": true,
+        "no_superfluous_phpdoc_tags": true,
         "no_trailing_comma_in_list_call": true,
         "no_trailing_comma_in_singleline_array": true,
         "no_trailing_comma_in_singleline_function_call": true,
@@ -69,6 +77,30 @@
         "php_unit_dedicate_assert": true,
         "php_unit_no_expectation_annotation": true,
         "php_unit_set_up_tear_down_visibility": true,
+        "phpdoc_add_missing_param_annotation": true,
+        "phpdoc_align": true,
+        "phpdoc_annotation_without_dot": true,
+        "phpdoc_indent": true,
+        "phpdoc_inline_tag_normalizer": true,
+        "phpdoc_line_span": true,
+        "phpdoc_no_access": true,
+        "phpdoc_no_alias_tag": true,
+        "phpdoc_no_empty_return": true,
+        "phpdoc_no_package": true,
+        "phpdoc_no_useless_inheritdoc": true,
+        "phpdoc_order": true,
+        "phpdoc_order_by_value": true,
+        "phpdoc_scalar": true,
+        "phpdoc_separation": true,
+        "phpdoc_single_line_var_spacing": true,
+        "phpdoc_summary": true,
+        "phpdoc_tag_type": true,
+        "phpdoc_trim": true,
+        "phpdoc_trim_consecutive_blank_line_separation": true,
+        "phpdoc_types": true,
+        "phpdoc_types_order": true,
+        "phpdoc_var_annotation_correct_order": true,
+        "phpdoc_var_without_name": true,
         "pow_to_exponentiation": true,
         "regular_callable_call": true,
         "return_assignment": true,
@@ -98,8 +130,5 @@
             "identical": false,
             "less_and_greater": false
         }
-    },
-    "exclude": [
-        "Examples"
-    ]
+    }
 }

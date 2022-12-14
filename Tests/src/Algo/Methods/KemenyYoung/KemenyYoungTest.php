@@ -185,6 +185,7 @@ class KemenyYoungTest extends TestCase
 
     /**
      * @group large
+     *
      * @dataProvider  ManyCandidatesProvider
      */
     public function testKemenyWithManyCandidates(int $candidatesCount): void
