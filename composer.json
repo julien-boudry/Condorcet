@@ -40,7 +40,7 @@
         "haydenpierce/class-finder": ">= 0.4.4",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.9",
-        "laravel/pint": "^1.2"
+        "laravel/pint": "^1.3"
     },
     "suggest": {
         "ext-mbstring": "If you need to deal with Debian vote format",
