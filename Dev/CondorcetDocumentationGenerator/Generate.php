@@ -220,11 +220,11 @@ class Generate
         print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
-        $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
+        $file_content =  "> **[Presentation](../README.md) | [Manual](https://condorcetphp.github.io/Documentation-Book/) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**\n\n".
 
                         "# Public API Index*_\n".
 
-                        "_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        "_*: I try to update and complete the documentation. See also [the manual](https://condorcetphp.github.io/Documentation-Book/), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($full_methods_list);

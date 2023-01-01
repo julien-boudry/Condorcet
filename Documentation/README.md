@@ -1,7 +1,7 @@
-> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**
+> **[Presentation](../README.md) | [Manual](https://condorcetphp.github.io/Documentation-Book/) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**
 
 # Public API Index*_
-_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
+_*: I try to update and complete the documentation. See also [the manual](https://condorcetphp.github.io/Documentation-Book/), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
 ### CondorcetPHP\Condorcet\Candidate Class  
@@ -1418,7 +1418,7 @@ _Including above methods from public API_
 * public author (string $author): void  
 * public block (array|string $messages, ?string $type = null, ?string $style = null, string $prefix =  , bool $padding = false, bool $escape = true)  
 * public caution (array|string $message)  
-* public choice (string $question, array $choices, mixed $default = null): mixed  
+* public choice (string $question, array $choices, mixed $default = null, bool $multiSelect = false): mixed  
 * public choiceMultiple (string $question, array $choices, mixed $default, bool $multi): mixed  
 * public comment (array|string $message)  
 * public confirm (string $question, bool $default = true): bool  
@@ -1458,8 +1458,8 @@ _Including above methods from public API_
 * public title (string $message)  
 * public version (): void  
 * public warning (array|string $message)  
-* public write (iterable|string $messages, bool $newline = false, int $type = 1)  
-* public writeln (iterable|string $messages, int $type = 1)  
+* public write (Traversable|array|string $messages, bool $newline = false, int $type = 1)  
+* public writeln (Traversable|array|string $messages, int $type = 1)  
 * protected getErrorOutput ()  
 ```
 
