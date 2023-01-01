@@ -40,4 +40,4 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ### Examples and explanation
 
-* **[Manual - Vote Management](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    
+* **[Documentation Book - Vote Management](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    

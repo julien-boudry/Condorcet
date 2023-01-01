@@ -37,4 +37,4 @@ Throw an exception on error.
 
 ### Examples and explanation
 
-* **[Manual - Natural Condorcet](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet)**    
+* **[Documentation Book - Natural Condorcet](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet)**    

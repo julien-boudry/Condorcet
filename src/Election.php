@@ -176,7 +176,7 @@ class Election
     #[PublicAPI]
     #[Description('Returns the cumulated computation runtime of this object. Include only computation related methods.')]
     #[FunctionReturn('(Float) Timer')]
-    #[Example('Manual - Timber benchmarking', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking')]
+    #[Example('Documentation Book - Timber benchmarking', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking')]
     #[Related('Election::getLastTimer')]
     public function getGlobalTimer(): float
     {
@@ -186,7 +186,7 @@ class Election
     #[PublicAPI]
     #[Description('Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.')]
     #[FunctionReturn('(Float) Timer')]
-    #[Example('Manual - Timber benchmarking', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking')]
+    #[Example('Documentation Book - Timber benchmarking', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking')]
     #[Related('Election::getGlobalTimer')]
     public function getLastTimer(): float
     {
@@ -205,7 +205,7 @@ class Election
     #[PublicAPI]
     #[Description("SHA-2 256 checksum of following internal data:\n* Candidates\n* Votes list & tags\n* Computed data (pairwise, algorithm cache, stats)\n* Class version (major version like 0.14)\n\nCan be powerfull to check integrity and security of an election. Or working with serialized object.")]
     #[FunctionReturn('SHA-2 256 bits Hexadecimal')]
-    #[Example('Manual - Cryptographic Checksum', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum')]
+    #[Example('Documentation Book - Cryptographic Checksum', 'https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum')]
     public function getChecksum(): string
     {
         self::$checksumMode = true;
@@ -298,7 +298,7 @@ class Election
     #[Description('Add a constraint rules as a valid class path.')]
     #[FunctionReturn('True on success.')]
     #[Throws(VoteConstraintException::class)]
-    #[Example('Manual - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
+    #[Example('Documentation Book - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
     #[Related('Election::getConstraints', 'Election::clearConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function addConstraint(
         #[FunctionParameter('A valid class path. Class must extend VoteConstraint class')]
@@ -323,7 +323,7 @@ class Election
     #[PublicAPI]
     #[Description('Get active constraints list.')]
     #[FunctionReturn('Array with class name of each active constraint. Empty array if there is not.')]
-    #[Example('Manual - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
+    #[Example('Documentation Book - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
     #[Related('Election::clearConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function getConstraints(): array
     {
@@ -333,7 +333,7 @@ class Election
     #[PublicAPI]
     #[Description('Clear all constraints rules and clear previous results.')]
     #[FunctionReturn('Return True.')]
-    #[Example('Manual - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
+    #[Example('Documentation Book - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
     #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function clearConstraints(): bool
     {
@@ -347,7 +347,7 @@ class Election
     #[PublicAPI]
     #[Description('Test if a vote is valid with these election constraints.')]
     #[FunctionReturn('Return True if vote will pass the constraints rules, else False.')]
-    #[Example('Manual - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
+    #[Example('Documentation Book - Vote Constraints', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints')]
     #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::clearConstraints')]
     public function testIfVoteIsValidUnderElectionConstraints(
         #[FunctionParameter('A vote. Not necessarily registered in this election')]
@@ -401,7 +401,7 @@ class Election
     #[Description('Import and enable an external driver to store vote on very large election.')]
     #[FunctionReturn('True if success. Else throw an Exception.')]
     #[Throws(DataHandlerException::class)]
-    #[Example('[Manual - DataHandler]', 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php')]
+    #[Example('[Documentation Book - DataHandler]', 'https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php')]
     #[Related('Election::removeExternalDataHandler')]
     public function setExternalDataHandler(
         #[FunctionParameter('Driver object')]

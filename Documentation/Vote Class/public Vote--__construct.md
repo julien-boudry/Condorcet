@@ -40,4 +40,4 @@ Try to convert directly your candidates from sting input" to Candidate object of
 
 ### Examples and explanation
 
-* **[Manual - Add Vote](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    
+* **[Documentation Book - Add Vote](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    

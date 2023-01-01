@@ -24,4 +24,4 @@ Can be powerfull to check integrity and security of an election. Or working with
 
 ### Examples and explanation
 
-* **[Manual - Cryptographic Checksum](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum)**    
+* **[Documentation Book - Cryptographic Checksum](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum)**    

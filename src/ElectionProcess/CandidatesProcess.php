@@ -118,7 +118,7 @@ trait CandidatesProcess
     #[Description('Add one candidate to an election.')]
     #[FunctionReturn('The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).')]
     #[Throws(CandidateExistsException::class, VotingHasStartedException::class)]
-    #[Example('Manual - Manage Candidate', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Example('Documentation Book - Manage Candidate', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
     #[Related('Election::parseCandidates', 'Election::addCandidatesFromJson', 'Election::removeCandidate', 'Election::getCandidatesList', 'Election::canAddCandidate')]
     public function addCandidate(
         #[FunctionParameter('Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.')]
@@ -172,7 +172,7 @@ trait CandidatesProcess
     #[Description("Remove candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. An exception will be thrown.*")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
     #[Throws(CandidateDoesNotExistException::class, VotingHasStartedException::class)]
-    #[Example('Manual - Manage Candidate', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Example('Documentation Book - Manage Candidate', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
     #[Related('Election::addCandidate', 'Election::getCandidatesList')]
     public function removeCandidates(
         #[FunctionParameter("* String matching candidate name\n* CondorcetPHP\Condorcet\Candidate object\n* Array populated by CondorcetPHP\Condorcet\Candidate\n* Array populated by string matching candidate name")]
@@ -216,7 +216,7 @@ trait CandidatesProcess
     #[Description('Import candidate from a JSON source.')]
     #[FunctionReturn('List of newly registered candidate object.')]
     #[Throws(CandidateExistsException::class)]
-    #[Example('Manual - Manage Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Example('Documentation Book - Manage Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
     #[Related('Election::addCandidate', 'Election::parseCandidates', 'Election::addVotesFromJson')]
     public function addCandidatesFromJson(
         #[FunctionParameter('JSON string input')]
@@ -249,7 +249,7 @@ trait CandidatesProcess
     #[Description('Import candidate from a text source.')]
     #[FunctionReturn('List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.')]
     #[Throws(CandidateExistsException::class, VoteMaxNumberReachedException::class)]
-    #[Example('Manual - Manage Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Example('Documentation Book - Manage Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
     #[Related('Election::addCandidate', 'Election::addCandidatesFromJson', 'Election::parseVotes')]
     public function parseCandidates(
         #[FunctionParameter('String or valid path to a text file')]

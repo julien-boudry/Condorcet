@@ -39,4 +39,4 @@ Array of option for some methods. Look at each method documentation.
 
 ### Examples and explanation
 
-* **[Manual - Ranking from Condorcet Method](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods)**    
+* **[Documentation Book - Ranking from Condorcet Method](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods)**    

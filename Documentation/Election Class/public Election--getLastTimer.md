@@ -24,4 +24,4 @@ Return the last computation runtime (typically after a getResult() call.). Inclu
 
 ### Examples and explanation
 
-* **[Manual - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    
+* **[Documentation Book - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    

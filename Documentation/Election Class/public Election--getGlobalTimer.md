@@ -24,4 +24,4 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ### Examples and explanation
 
-* **[Manual - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    
+* **[Documentation Book - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    

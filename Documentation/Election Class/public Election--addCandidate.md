@@ -38,4 +38,4 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace o
 
 ### Examples and explanation
 
-* **[Manual - Manage Candidate](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    
+* **[Documentation Book - Manage Candidate](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    

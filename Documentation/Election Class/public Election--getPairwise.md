@@ -25,4 +25,4 @@ Return the Pairwise.
 
 ### Examples and explanation
 
-* **[Manual - Advanced Results](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management)**    
+* **[Documentation Book - Advanced Results](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management)**    

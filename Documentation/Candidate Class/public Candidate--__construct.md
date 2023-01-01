@@ -22,4 +22,4 @@ Candidate Name.
 
 ### Examples and explanation
 
-* **[Manual - Create Candidates](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    
+* **[Documentation Book - Candidates](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    

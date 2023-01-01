@@ -26,7 +26,7 @@ class Candidate implements \Stringable
 
     #[PublicAPI]
     #[Description('Build a candidate.')]
-    #[Example('Manual - Create Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Example('Documentation Book - Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
     #[Related('Candidate::setName')]
     public function __construct(
         #[FunctionParameter('Candidate Name')]

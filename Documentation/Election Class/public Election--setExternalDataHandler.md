@@ -33,4 +33,4 @@ Driver object.
 
 ### Examples and explanation
 
-* **[[Manual - DataHandler]](https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php)**    
+* **[[Documentation Book - DataHandler]](https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php)**    

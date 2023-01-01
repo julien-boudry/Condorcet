@@ -35,4 +35,4 @@ A valid class path. Class must extend VoteConstraint class.
 
 ### Examples and explanation
 
-* **[Manual - Vote Constraints](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints)**    
+* **[Documentation Book - Vote Constraints](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-5.-Vote-Constraints)**    

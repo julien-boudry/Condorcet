@@ -35,7 +35,7 @@ trait ResultsProcess
     #[Description("Get a full ranking from an advanced Condorcet method.\n*Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*")]
     #[FunctionReturn('An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)')]
     #[Throws(AlgorithmException::class)]
-    #[Example('Manual - Ranking from Condorcet Method', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods')]
+    #[Example('Documentation Book - Ranking from Condorcet Method', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-2.-Get-Ranking-from-Condorcet-advanced-Methods')]
     #[Related('Election::getWinner', 'Election::getResult', 'Condorcet::getDefaultMethod')]
     public function getResult(
         #[FunctionParameter('Not required for use election default method. Set the string name of the algorithm for use of a specific one.')]
@@ -92,7 +92,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
-    #[Example('Manual - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
+    #[Example('Documentation Book - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
     #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
     public function getWinner(
         #[FunctionParameter("*Only if not null:    *\n\nThe winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\nIf null, Natural Condorcet algorithm will be use.")]
@@ -117,7 +117,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
-    #[Example('Manual - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
+    #[Example('Documentation Book - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
     #[Related('Election::getWinner', 'Election::getResult')]
     public function getLoser(
         #[FunctionParameter("*Only if not nulle:*    \n\nThe loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\n        If null, Natural Condorcet algorithm will be use.")]
@@ -141,7 +141,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet winner if there is one.')]
     #[FunctionReturn('Candidate object given. Null if there are no available winner.')]
-    #[Example('Manual - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
+    #[Example('Documentation Book - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
     #[Related('Election::getCondorcetLoser', 'Election::getWiner', 'Election::getResult')]
     public function getCondorcetWinner(): ?Candidate
     {
@@ -151,7 +151,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet loser if there is one.')]
     #[FunctionReturn('Candidate object given. Null if there are no available loser.')]
-    #[Example('Manual - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
+    #[Example('Documentation Book - Natural Condorcet', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-1.-Natural-Condorcet')]
     #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
     public function getCondorcetLoser(): ?Candidate
     {
@@ -161,7 +161,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Return the Pairwise.')]
     #[FunctionReturn('Pairwise object.')]
-    #[Example('Manual - Advanced Results', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management')]
+    #[Example('Documentation Book - Advanced Results', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management')]
     #[Related('Election::getExplicitPairwise', 'Election::getResult')]
     public function getPairwise(): Pairwise
     {

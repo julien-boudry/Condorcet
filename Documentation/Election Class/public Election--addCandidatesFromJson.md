@@ -35,4 +35,4 @@ JSON string input.
 
 ### Examples and explanation
 
-* **[Manual - Manage Candidates](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    
+* **[Documentation Book - Manage Candidates](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    

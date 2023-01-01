@@ -151,7 +151,7 @@ trait VotesProcess
     #[Description('Add a vote to an election.')]
     #[FunctionReturn('The vote object.')]
     #[Throws(VoteMaxNumberReachedException::class)]
-    #[Example('Manual - Vote Management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Example('Documentation Book - Vote Management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
     #[Related('Election::parseVotes', 'Election::addVotesFromJson', 'Election::removeVote', 'Election::getVotesList')]
     public function addVote(
         #[FunctionParameter('String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you')]
@@ -252,7 +252,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description('Remove Votes from an election.')]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Example('Manual - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
+    #[Example('Documentation Book - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
     #[Related('Election::addVote', 'Election::getVotesList', 'Election::removeVotesByTags')]
     public function removeVote(
         #[FunctionParameter('Vote object')]
@@ -275,7 +275,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description("Remove Vote from an election using tags.\n\n```php\n\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie\n\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie\n\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.\n\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.\n```")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
-    #[Example('Manual - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
+    #[Example('Documentation Book - Vote management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-2.-Manage-Vote')]
     #[Related('Election::addVote', 'Election::getVotesList', 'Election::removeVotes')]
     public function removeVotesByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
@@ -321,7 +321,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description('Import votes from a Json source.')]
     #[FunctionReturn('Count of new registered vote.')]
-    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
     #[Related('Election::addVote', 'Election::parseVotes', 'Election::addCandidatesFromJson')]
     public function addVotesFromJson(
         #[FunctionParameter('Json string input')]
@@ -353,7 +353,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description('Import votes from a text source. If any invalid vote is found inside, nothing are registered.')]
     #[FunctionReturn('Count of the new registered vote.')]
-    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
     #[Related('Election::addVote', 'Election::parseCandidates', 'Election::parseVotesWithoutFail', 'Election::addVotesFromJson')]
     public function parseVotes(
         #[FunctionParameter('String or valid path to a text file')]
@@ -387,7 +387,7 @@ trait VotesProcess
     #[PublicAPI]
     #[Description('Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.')]
     #[FunctionReturn("Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.")]
-    #[Example('Manual - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
     #[Related('Election::addVote', 'Election::parseCandidates', 'Election::parseVotes', 'Election::addVotesFromJson')]
     public function parseVotesWithoutFail(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]

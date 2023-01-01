@@ -22,4 +22,4 @@ Quota name.
 
 ### Examples and explanation
 
-* **[Manual - STV method](https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote)**    
+* **[Documentation Book - STV method](https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote)**    
