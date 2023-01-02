@@ -6,7 +6,7 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
 enum BookLibrary: string
 {
-    public const BASE = Generate::BOOK_URL.'/3.AsPhpLibrary/';
+    public const BASE = Generate::BOOK_URL.'#/3.AsPhpLibrary/';
 
     case VotingMethods = 'https://www.condorcet.io/#VotingMethods';
 

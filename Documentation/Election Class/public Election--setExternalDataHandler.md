@@ -33,4 +33,4 @@ Driver object.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)**    

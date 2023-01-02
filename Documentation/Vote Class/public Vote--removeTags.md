@@ -28,4 +28,4 @@ They can be added by string separated by commas or an array.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/2.VotesTags)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/5.Votes/2.VotesTags)**    

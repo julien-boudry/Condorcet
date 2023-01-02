@@ -40,4 +40,4 @@ If true, the input is evaluated as path to a text file.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/4.Candidates)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/4.Candidates)**    

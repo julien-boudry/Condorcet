@@ -26,4 +26,4 @@ Clear all constraints rules and clear previous results.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    
