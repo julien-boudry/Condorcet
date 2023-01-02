@@ -1,7 +1,7 @@
-> **[Presentation](../README.md) | [Manual](https://condorcetphp.github.io/Documentation-Book/) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**
+> **[Presentation](../README.md) | [Documentation Book](https://condorcetphp.github.io/Documentation-Book/) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**
 
 # Public API Index*_
-_*: I try to update and complete the documentation. See also [the manual](https://condorcetphp.github.io/Documentation-Book/), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
+_*: I try to update and complete the documentation. See also [the documentation book](https://condorcetphp.github.io/Documentation-Book/), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
 ### CondorcetPHP\Condorcet\Candidate Class  

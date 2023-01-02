@@ -275,7 +275,7 @@ class CPO_StvTest extends TestCase
     public function testLimit1(): void
     {
         $this->expectException(MethodLimitReachedException::class);
-        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
 
 
         $this->election->setNumberOfSeats(10);
@@ -288,7 +288,7 @@ class CPO_StvTest extends TestCase
     public function testCPO40Candidates(): void
     {
         $this->expectException(MethodLimitReachedException::class);
-        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the manual to increase or remove this limit.');
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
 
         $this->election->setImplicitRanking(false);
         $this->election->setNumberOfSeats((int) (40 / 3));
