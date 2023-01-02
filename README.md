@@ -2,24 +2,25 @@
   <img src="Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
 </p>
 
-[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=for-the-badge)](https://packagist.org/packages/julien-boudry/condorcet)
-[![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/mashape/apistatus.svg?style=for-the-badge)](LICENSE.txt)
-[![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=for-the-badge)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
-[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=for-the-badge)](https://packagist.org/packages/julien-boudry/condorcet)
-![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=for-the-badge)
-
-[![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/grade/f34e354703514ab68248a0c995a4913a?style=for-the-badge)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julien-boudry/Condorcet&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/coverage/f34e354703514ab68248a0c995a4913a?style=for-the-badge)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp)
-[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/github/workflow/status/julien-boudry/Condorcet/Execute%20All%20Tests?style=for-the-badge&label=Tests)](https://github.com/julien-boudry/Condorcet/actions)
-[![Docker Hub](https://d3g33cz5i5omk9.cloudfront.net/docker/cloud/automated/julienboudry/condorcet?style=for-the-badge&logo=Docker%20Hub%20Condorcet)](https://hub.docker.com/r/julienboudry/condorcet)
-
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
 
-> Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)
-> License: [MIT](LICENSE.txt) - _Please [say hello](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects) if you like or use this code!_
-> Contribute: [Contribute File](CONTRIBUTING.md)
-> Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**
-> _You can also offer me a bottle of good wine._
+[![License](https://d3g33cz5i5omk9.cloudfront.net/github/license/julien-boudry/condorcet?style=for-the-badge)](LICENSE.txt)
+[![Packagist](https://d3g33cz5i5omk9.cloudfront.net/packagist/v/julien-boudry/condorcet.svg?style=for-the-badge)](https://packagist.org/packages/julien-boudry/condorcet)
+[![Docker Pulls](https://d3g33cz5i5omk9.cloudfront.net/docker/pulls/julienboudry/condorcet?style=for-the-badge)](https://hub.docker.com/r/julienboudry/condorcet)
+[![Packagist Download](https://d3g33cz5i5omk9.cloudfront.net/packagist/dt/julien-boudry/condorcet.svg?style=for-the-badge&label=Packagist%20Download)](https://packagist.org/packages/julien-boudry/condorcet)
+[![GitHub contributors](https://d3g33cz5i5omk9.cloudfront.net/github/contributors/julien-boudry/Condorcet.svg?style=for-the-badge)](https://github.com/julien-boudry/Condorcet/graphs/contributors)
+
+[![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/grade/f34e354703514ab68248a0c995a4913a?style=for-the-badge&label=Codacy%20Code%20Quality)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=julien-boudry/Condorcet&amp;utm_campaign=Badge_Grade)
+![GitHub code size in bytes](https://d3g33cz5i5omk9.cloudfront.net/github/languages/code-size/julien-boudry/Condorcet.svg?style=for-the-badge)
+[![Codacy Badge](https://d3g33cz5i5omk9.cloudfront.net/codacy/coverage/f34e354703514ab68248a0c995a4913a?style=for-the-badge)](https://app.codacy.com/gh/julien-boudry/Condorcet/dashboard?utm_source=github.com&amp;utm_medium=referral&amp)
+[![Build Status](https://d3g33cz5i5omk9.cloudfront.net/github/actions/workflow/status/julien-boudry/Condorcet/execute_all_tests.yml?branch=master&style=for-the-badge&label=Tests)](https://github.com/julien-boudry/Condorcet/actions)
+  
+
+> Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
+> License: [MIT](LICENSE.txt) - _Please [say hello](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects) if you like or use this code!_  
+> Contribute: [Contribute File](CONTRIBUTING.md)   
+> Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
+> _You can also offer me a bottle of good wine._  
 
 
 Condorcet PHP
@@ -127,8 +128,8 @@ Condorcet is designed to be easily extensible with new algorithms (they don't ne
     * Use your own datastore driver to manage very large elections on your way without ram limit.
   * Many configuration options and methods.
 
-_Condorcet PHP is not designed for high performance. But can handle virtually unlimited voting without limit or degrading performance, it's a linear and predictable scheme._
-_And has no certification or proven implementation that would guarantee a very high level of reliability. However, there are many written tests for each voting method and feature. This ensures an excellent level of confidence in the results._
+_Condorcet PHP is not designed for high performance. But can handle virtually unlimited voting without limit or degrading performance, it's a linear and predictable scheme._  
+_And has no certification or proven implementation that would guarantee a very high level of reliability. However, there are many written tests for each voting method and feature. This ensures an excellent level of confidence in the results._   
 
 
 ---------------------------------------
