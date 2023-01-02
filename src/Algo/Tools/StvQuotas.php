@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
@@ -28,7 +29,7 @@ enum StvQuotas: string
     #[PublicAPI]
     #[Description('Build the Enum Quotas option for STV methods')]
     #[FunctionReturn('The Quota option')]
-    #[Example('Documentation Book - STV method', 'https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote')]
+    #[Book(BookLibrary::VotingMethods)]
     public static function make(
         #[FunctionParameter('Quota name')]
         string $quota

@@ -38,6 +38,6 @@ Remove candidates from an election.
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - Manage Candidate](https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/4.Candidates)**    

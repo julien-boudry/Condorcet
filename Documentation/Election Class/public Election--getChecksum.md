@@ -22,6 +22,6 @@ Can be powerfull to check integrity and security of an election. Or working with
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - Cryptographic Checksum](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-2.-Cryptographic-Checksum)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/7.GoFurther/CryptographicChecksum)**    

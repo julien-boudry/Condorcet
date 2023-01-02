@@ -23,6 +23,6 @@ Return the Pairwise.
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - Advanced Results](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-4.-Advanced-Results-Management)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/.AddVotes)**    

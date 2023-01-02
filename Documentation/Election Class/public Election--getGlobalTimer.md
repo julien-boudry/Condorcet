@@ -22,6 +22,6 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - Timber benchmarking](https://github.com/julien-boudry/Condorcet/wiki/III-%23-A.-Avanced-features---Configuration-%23-1.-Timer-Benchmarking)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    

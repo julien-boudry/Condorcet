@@ -22,6 +22,6 @@ Get advanced computing data from used algorithm. Like Strongest paths for Schulz
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Advanced Result Management](https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/.AddVotes)**    

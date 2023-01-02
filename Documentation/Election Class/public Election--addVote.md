@@ -38,6 +38,6 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - Vote Management](https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/5.Votes/1.AddVotes)**    

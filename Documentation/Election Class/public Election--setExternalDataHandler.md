@@ -31,6 +31,6 @@ Driver object.
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[[Documentation Book - DataHandler]](https://github.com/julien-boudry/Condorcet/blob/master/examples/specifics_examples/use_large_election_external_database_drivers.php)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)**    

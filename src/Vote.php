@@ -11,8 +11,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 class Vote implements \Iterator, \Stringable
@@ -90,7 +91,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description('Build a vote object.')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Book(BookLibrary::Votes)]
     #[Related('Vote::setRanking', 'Vote::addTags')]
     public function __construct(
         #[FunctionParameter('Equivalent to Vote::setRanking method')]
@@ -402,7 +403,7 @@ class Vote implements \Iterator, \Stringable
     #[Description("Set a new ranking for this vote.\n\nNote that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.")]
     #[FunctionReturn('In case of success, return TRUE')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example('Documentation Book - Add a vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Book(BookLibrary::Votes)]
     #[Related('Vote::getRanking', 'Vote::getHistory', 'Vote::__construct')]
     public function setRanking(
         #[FunctionParameter('A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.')]
@@ -557,7 +558,7 @@ class Vote implements \Iterator, \Stringable
     #[Description('Add tag(s) on this Vote.')]
     #[FunctionReturn('In case of success, return TRUE')]
     #[Throws(VoteInvalidFormatException::class)]
-    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Book(BookLibrary::VotesTags)]
     #[Related('Vote::removeTags')]
     public function addTags(
         #[FunctionParameter('Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.')]
@@ -583,7 +584,7 @@ class Vote implements \Iterator, \Stringable
     #[PublicAPI]
     #[Description('Remove registered tag(s) on this Vote.')]
     #[FunctionReturn('List of deleted tags.')]
-    #[Example('Documentation Book - Add Vote', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote')]
+    #[Book(BookLibrary::VotesTags)]
     #[Related('Vote::addTags')]
     public function removeTags(
         #[FunctionParameter('They can be added by string separated by commas or an array.')]

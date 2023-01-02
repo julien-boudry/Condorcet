@@ -12,7 +12,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
@@ -183,7 +184,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     #[Description('Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.')]
     #[FunctionReturn('Varying according to the algorithm used.')]
-    #[Example('Advanced Result Management', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-C.-Result-%23-3.-Advanced-Results-Management')]
+    #[Book(BookLibrary::Results)]
     #[Related('Election::getResult')]
     public function getStats(): mixed
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
 
 class Generate
@@ -310,6 +310,18 @@ class Generate
             }
         }
 
+        if (!empty($method->getAttributes(Book::class))) {
+            $md .=  "\n".
+                    "---------------------------------------\n\n".
+                    "### Tutorial\n\n";
+
+            foreach ($method->getAttributes(Book::class) as $BookAttribute) {
+                $BookAttribute = $BookAttribute->newInstance();
+
+                $md .= '* **[This method has explanations and examples in the Documentation Book]('.$BookAttribute->chapter->value.")**    \n";
+            }
+        }
+
         if (!empty($method->getAttributes(Example::class))) {
             $md .=  "\n".
                     "---------------------------------------\n\n".
@@ -321,6 +333,7 @@ class Generate
                 $md .= '* **['.$ExampleAttribute->name.']('.$ExampleAttribute->link.")**    \n";
             }
         }
+
 
         return $md;
     }

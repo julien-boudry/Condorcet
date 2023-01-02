@@ -20,6 +20,6 @@ Quota name.
 
 ---------------------------------------
 
-### Examples and explanation
+### Tutorial
 
-* **[Documentation Book - STV method](https://github.com/julien-boudry/Condorcet/blob/master/VOTING_METHODS.md#single-transferable-vote)**    
+* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#VotingMethods)**    

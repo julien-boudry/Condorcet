@@ -11,11 +11,12 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes;
 
 use Attribute;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-class Example
+class Book
 {
-    public function __construct(public readonly string $name, public readonly string $link)
+    public function __construct(public readonly BookLibrary $chapter)
     {
     }
 }
