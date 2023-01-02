@@ -16,7 +16,7 @@ assignees: julien-boudry
 | Installation Method | Composer / __CondorcetAutoload.php / Custom / Dockerfile / Devcontainer
 
 <!--
-- Visit first the wiki https://condorcetphp.github.io/Documentation-Book/ if you are looking for support.
+- Visit first the wiki https://www.condorcet.io/ if you are looking for support.
 - Visit first https://github.com/julien-boudry/Condorcet/tree/master/Documentation if you are looking for more accurate methods and reference documentation.
 - For the www.condorcet.vote service, please report to this repository: https://github.com/julien-boudry/Condorcet.Vote
 -->

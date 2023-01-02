@@ -33,4 +33,4 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/5.Votes/2.VotesTags)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/2.VotesTags)**    

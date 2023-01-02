@@ -25,4 +25,4 @@ Return the Pairwise.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/.AddVotes)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/.AddVotes)**    

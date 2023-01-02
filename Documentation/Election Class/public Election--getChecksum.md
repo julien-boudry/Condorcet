@@ -24,4 +24,4 @@ Can be powerfull to check integrity and security of an election. Or working with
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://condorcetphp.github.io/Documentation-Book/#/3.AsPhpLibrary/7.GoFurther/CryptographicChecksum)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/7.GoFurther/CryptographicChecksum)**    

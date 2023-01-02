@@ -9,6 +9,8 @@ use HaydenPierce\ClassFinder\ClassFinder;
 
 class Generate
 {
+    public const BOOK_URL = 'https://www.condorcet.io';
+
     // Static - Translators
 
     public static function makeFilename(\ReflectionMethod $method): string
@@ -220,11 +222,11 @@ class Generate
         print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
-        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](https://condorcetphp.github.io/Documentation-Book/) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**\n\n".
+        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**\n\n".
 
                         "# Public API Index*_\n".
 
-                        "_*: I try to update and complete the documentation. See also [the documentation book](https://condorcetphp.github.io/Documentation-Book/), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        "_*: I try to update and complete the documentation. See also [the documentation book](".self::BOOK_URL."), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($full_methods_list);
