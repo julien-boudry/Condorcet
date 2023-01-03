@@ -224,7 +224,8 @@ class Generate
         // Add Index
         $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**\n\n".
 
-                        "# Public API Index*_\n".
+                        "# Methods References\n".
+                        "## Public API Index *\n".
 
                         "_*: I try to update and complete the documentation. See also [the documentation book](".self::BOOK_URL."), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
@@ -234,7 +235,7 @@ class Generate
         $file_content .= "\n\n\n";
 
         uksort($full_methods_list, 'strnatcmp');
-        $file_content .=    "# Full Class & Methods References\n".
+        $file_content .=    "## Full Class & Methods References\n".
                             "_Including above methods from public API_\n\n";
 
         $file_content .= $this->makeProfundis($full_methods_list);

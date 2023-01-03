@@ -1,6 +1,7 @@
 > **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**
 
-# Public API Index*_
+# Methods References
+## Public API Index *
 _*: I try to update and complete the documentation. See also [the documentation book](https://www.condorcet.io), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_
 
 
@@ -224,7 +225,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 
 
-# Full Class & Methods References
+## Full Class & Methods References
 _Including above methods from public API_
 
 

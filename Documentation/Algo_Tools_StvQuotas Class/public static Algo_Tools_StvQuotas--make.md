@@ -22,4 +22,4 @@ Quota name.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/#VotingMethods)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#VotingMethods)**    
