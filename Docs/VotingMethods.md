@@ -1,6 +1,6 @@
 > **[Presentation](README.md) | [Documentation Book](https://www.condorcet.io) | [Methods References](Documentation/README.md) | Voting Method | [Tests](Tests/)**
 
-Condorcet PHP: Voting Methods
+Voting Methods (natively implemented)
 ===========================
 > **[Implementation philosophy](#implementation-philophy)**
 

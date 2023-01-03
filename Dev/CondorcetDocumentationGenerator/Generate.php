@@ -223,7 +223,7 @@ class Generate
         print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
-        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**\n\n".
+        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | Methods References | [Voting Method](/Docs/VotingMethods.md) | [Tests](../Tests/)**\n\n".
 
                         "# Methods References\n".
                         "## Public API Index *\n".

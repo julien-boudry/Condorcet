@@ -1,4 +1,4 @@
-> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | Methods References | [Voting Method](../VOTING_METHODS.md) | [Tests](../Tests/)**
+> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | Methods References | [Voting Method](/Docs/VotingMethods.md) | [Tests](../Tests/)**
 
 # Methods References
 ## Public API Index *

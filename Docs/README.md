@@ -1,3 +1,3 @@
 * [Documentation Book](https://www.condorcet.io)
-* [Voting Methods](../VOTING_METHODS.md)
+* [Voting Methods](/Docs/VotingMethods.md)
 * [Methods References](MethodsReferences/)
