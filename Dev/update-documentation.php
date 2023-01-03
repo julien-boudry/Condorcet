@@ -9,7 +9,7 @@ require_once __DIR__.str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendo
 // Build command
 
 $path = mb_substr(__DIR__, 0, mb_strlen(__DIR__) - 4);
-$path .= \DIRECTORY_SEPARATOR.'Documentation';
+$path .= $urlPath = '/Docs/MethodsReferences';
 
 // Clear folder
 
@@ -37,4 +37,4 @@ rrmdir($path, $path);
 
 // Execute command
 
-new Generate($path);
+new Generate($path, $urlPath);

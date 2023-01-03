@@ -67,12 +67,12 @@ class Generate
 
     // Static - Builder
 
-    public static function cleverRelated(string $name): string
+    public static function cleverRelated(string $name, string $path): string
     {
         $infos = explode('::', $name);
         $infos[0] = str_replace('static ', '', $infos[0]);
 
-        $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md';
+        $url = $path.'/'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md';
         $url = str_replace(' ', '%20', $url);
 
         return '['.$name.']('.$url.')';
@@ -124,7 +124,8 @@ class Generate
 
 
     // Script
-    public function __construct(string $path)
+
+    public function __construct($path, public readonly string $pathBase)
     {
         $start_time = microtime(true);
 
@@ -308,7 +309,7 @@ class Generate
                         continue;
                     }
 
-                    $md .= '* '.self::cleverRelated($value)."    \n";
+                    $md .= '* '.self::cleverRelated($value, $this->pathBase)."    \n";
                 }
             }
         }
@@ -410,6 +411,7 @@ class Generate
                 } else {
                     $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod']).' '. str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class).'--'. $oneMethod['ReflectionMethod']->name) . '.md';
                     $url = str_replace(' ', '%20', $url);
+                    $url = $this->pathBase.'/'.$url;
 
                     $file_content .= '* ['.self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod']).']('.$url.')';
 
