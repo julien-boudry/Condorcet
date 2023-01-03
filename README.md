@@ -25,7 +25,7 @@
 
 Condorcet PHP
 ===========================
-> **Presentation | [Documentation Book](https://www.condorcet.io) | [Methods References](/Docs/MethodsReferences/README.md) | [Voting Method](/Docs/VotingMethods.md) | [Tests](Tests/)**
+> **Presentation | [Documentation Book](https://www.condorcet.io) | [Methods References](/Docs/MethodsReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](Tests/)**
 
 Condorcet manages the stages of an electoral process (configuration, votes ingestion & manipulation, integrity) and calculates the results. It offers natively the implementation of more than 20 voting methods compatible with preferential voting ballots, including Condorcet methods, Alternative Voting, STV, and many others.
 => [**Supported Voting Methods**](#supported-voting-methods)
