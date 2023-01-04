@@ -15,10 +15,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Description
 {
-    public readonly string $text;
-
-    public function __construct(string $text)
+    public function __construct(public readonly string $text)
     {
-        $this->text = $text;
     }
 }

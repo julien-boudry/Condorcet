@@ -11,8 +11,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 
 class Candidate implements \Stringable
 {
@@ -26,7 +27,7 @@ class Candidate implements \Stringable
 
     #[PublicAPI]
     #[Description('Build a candidate.')]
-    #[Example('Manual - Create Candidates', 'https://github.com/julien-boudry/Condorcet/wiki/II-%23-A.-Create-an-Election-%23-2.-Create-Candidates')]
+    #[Book(BookLibrary::Candidates)]
     #[Related('Candidate::setName')]
     public function __construct(
         #[FunctionParameter('Candidate Name')]

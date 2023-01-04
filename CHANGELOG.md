@@ -59,7 +59,7 @@ Implement the CPO-STV method, the second official module for a proportional meth
 #### Core
 - Adds `Election->setStatsVerbosity()` and `Election->getStatsVerbosity()` methods. This allows controlling the level of stats returned in the Result object by some methods. And to save memory and processing time if needed.
 #### Voting Methods
-- New proportional method: **CPO-STV** Look at the [VOTING_METHODS.md](VOTING_METHODS.md) for more details
+- New proportional method: **CPO-STV** Look at the [/Docs/VotingMethods.md](/Docs/VotingMethods.md) for more details
 #### TieBreaker
 - New Tie Breaker method `TieBreaker::TieBreakerWithAnotherMethods`, a chaining method to break a tie
 - Condorcet Election Format: Ability to parse candidates directly from votes, if not specified with the parameters first. According to the V1 specification of the format.
@@ -405,7 +405,7 @@ Rewrite and extend old and experimental implementation with a new one. After a l
 ### Added
 - Ranked Pairs method is no more experimental thanks to a completely new implementation. It has also been divided into two methods:  "Ranked Pairs Margin" which is favored by Nicolaus Tideman and Ranked Pairs Winning which is the variant most often mentioned in other documentation, including the English Wikipedia.
 Regarding compatibility with the old version, "Ranked Pairs" or "RankedPairs" calls now use Ranked Pairs Margin. Note that the old implementation, although failing in other respects, used a Winning version. which in some very specific cases can change your results.
-*[More information on Condorcet Wiki](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods)*
+*[More information on Condorcet Wiki](/Docs/VotingMethods.md)*
 
 - New method: [Election::getVotesListAsString](https://github.com/julien-boudry/Condorcet/blob/master/Documentation/Election%20Class/public%20Election--getVotesListAsString.md)
 - New method: [Result::Election::getResultAsString](https://github.com/julien-boudry/Condorcet/blob/master/Documentation/Result%20Class/public%20Result--getResultAsString.md)
@@ -423,7 +423,7 @@ Regarding compatibility with the old version, "Ranked Pairs" or "RankedPairs" ca
   Instead, we kept "Tideman approximation" but renamed it. And we added another approximation: "Dodgson Quick". We recommend this second solution, being the best of both, even if the two may be right in different cases or wrong together.
   More explanations here: https://www.maa.org/sites/default/files/pdf/cmj_ftp/CMJ/September%202010/3%20Articles/6%2009-229%20Ratliff/Dodgson_CMJ_Final.pdf
 
-  No longer any method use the call "Dodgson", please look at the [documentation](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation---Basic-Configuration-%23-2.-Condorcet-Methods) to know which calls to use for either one.
+  No longer any method use the call "Dodgson", please look at the [documentation](/Docs/VotingMethods.md) to know which calls to use for either one.
 
 ## [v1.3.3] - 2017-10-04
 ### Fixed

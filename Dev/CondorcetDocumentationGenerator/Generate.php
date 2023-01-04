@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
 
 class Generate
 {
+    public const BOOK_URL = 'https://www.condorcet.io';
+
     // Static - Translators
 
     public static function makeFilename(\ReflectionMethod $method): string
@@ -65,12 +67,12 @@ class Generate
 
     // Static - Builder
 
-    public static function cleverRelated(string $name): string
+    public static function cleverRelated(string $name, string $path): string
     {
         $infos = explode('::', $name);
         $infos[0] = str_replace('static ', '', $infos[0]);
 
-        $url = '../'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md';
+        $url = $path.'/'.$infos[0].' Class/public '.str_replace('::', '--', $name) . '.md';
         $url = str_replace(' ', '%20', $url);
 
         return '['.$name.']('.$url.')';
@@ -122,7 +124,8 @@ class Generate
 
 
     // Script
-    public function __construct(string $path)
+
+    public function __construct($path, public readonly string $pathBase)
     {
         $start_time = microtime(true);
 
@@ -220,11 +223,12 @@ class Generate
         print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
-        $file_content =  "> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | Methods References | [Tests](../Tests)**\n\n".
+        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | Methods References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../Tests/)**\n\n".
 
-                        "# Public API Index*_\n".
+                        "# Methods References\n".
+                        "## Public API Index *\n".
 
-                        "_*: I try to update and complete the documentation. See also [the manual](https://github.com/julien-boudry/Condorcet/wiki), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        "_*: I try to update and complete the documentation. See also [the documentation book](".self::BOOK_URL."), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($full_methods_list);
@@ -232,7 +236,7 @@ class Generate
         $file_content .= "\n\n\n";
 
         uksort($full_methods_list, 'strnatcmp');
-        $file_content .=    "# Full Class & Methods References\n".
+        $file_content .=    "## Full Class & Methods References\n".
                             "_Including above methods from public API_\n\n";
 
         $file_content .= $this->makeProfundis($full_methods_list);
@@ -305,8 +309,20 @@ class Generate
                         continue;
                     }
 
-                    $md .= '* '.self::cleverRelated($value)."    \n";
+                    $md .= '* '.self::cleverRelated($value, $this->pathBase)."    \n";
                 }
+            }
+        }
+
+        if (!empty($method->getAttributes(Book::class))) {
+            $md .=  "\n".
+                    "---------------------------------------\n\n".
+                    "### Tutorial\n\n";
+
+            foreach ($method->getAttributes(Book::class) as $BookAttribute) {
+                $BookAttribute = $BookAttribute->newInstance();
+
+                $md .= '* **[This method has explanations and examples in the Documentation Book]('.$BookAttribute->chapter->value.")**    \n";
             }
         }
 
@@ -321,6 +337,7 @@ class Generate
                 $md .= '* **['.$ExampleAttribute->name.']('.$ExampleAttribute->link.")**    \n";
             }
         }
+
 
         return $md;
     }
@@ -394,6 +411,7 @@ class Generate
                 } else {
                     $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)).' Class/'.self::getModifiersName($oneMethod['ReflectionMethod']).' '. str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class).'--'. $oneMethod['ReflectionMethod']->name) . '.md';
                     $url = str_replace(' ', '%20', $url);
+                    $url = $this->pathBase.'/'.$url;
 
                     $file_content .= '* ['.self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod']).']('.$url.')';
 

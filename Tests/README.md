@@ -1,4 +1,4 @@
-> **[Presentation](../README.md) | [Manual](https://github.com/julien-boudry/Condorcet/wiki) | [Methods References](../Documentation/README.md) | Tests**
+> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | [Methods References](../Documentation/README.md) | [Voting Methods](/Docs/VotingMethods.md) | Tests**
 
 #### ~300 tests and more than 1000 assertions to explore on this path
 
