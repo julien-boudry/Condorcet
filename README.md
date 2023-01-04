@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
+  <img src="https://raw.githubusercontent.com/julien-boudry/Condorcet/master/Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
 </p>
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
