@@ -52,15 +52,15 @@ _Designed for electing an assembly. Return a ranking of elected candidates._
 
 # Implementation Philophy
 
-## Result tie-breaking<!-- {docsify-ignore} -->
+### Result tie-breaking<!-- {docsify-ignore} -->
 Unless explicitly stated otherwise in the details below, no tie-breaking is added to methods, we kept them pure.
 The results are therefore likely to contain ties in some ranks. Which according to the algorithms is more or less frequent, but always tends to become less likely in proportion to the size of the election.
 
-## Tie into a vote rank<!-- {docsify-ignore} -->
+### Tie into a vote rank<!-- {docsify-ignore} -->
 Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.
 This is more annoying for other methods like Borda, Instant-runoff or Ftpt. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
 
-## Implicit vs Explicit Ranking<!-- {docsify-ignore} -->
+### Implicit vs Explicit Ranking<!-- {docsify-ignore} -->
 Please read the manual [about explicit and implicit ranking](https://www.condorcet.io/#/3.AsPhpLibrary/6.Results/4.ImplicitOrExplicitMod) modes.
 In terms of implementation, what you have to understand is that algorithms and pairwise are blind. And see votes in their implicit or explicit context, which can significantly change the results of some of them.
 
