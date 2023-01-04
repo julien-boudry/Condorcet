@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
+  <img src="https://raw.githubusercontent.com/julien-boudry/Condorcet/master/Assets/Logos/condorcet-logo.png" alt="Condorcet" width="40%">
 </p>
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=17303525&devcontainer_path=.devcontainer%2Fdevcontainer.json)
@@ -23,7 +23,7 @@
 > _You can also offer me a bottle of good wine._  
 
 
-Condorcet PHP
+Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
 > **Presentation | [Documentation Book](https://www.condorcet.io) | [Methods References](/Docs/MethodsReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](Tests/)**
 
@@ -37,7 +37,7 @@ _Two different ways to use Condorcet:_
 _Both approaches can handle up to hundreds of millions of votes (or more) on modest hardware. Although using it as a library will allow more configuration and control over this advanced usage._
 
 
-## Summary
+## Summary <!-- {docsify-ignore-all} -->
 - [Condorcet PHP](#condorcet-php)
   - [Summary](#summary)
   - [Project State and Specifications](#project-state-and-specifications)
@@ -84,7 +84,7 @@ _All versions require Json and Mbstring extensions. Pdo-Sqlite is recommended if
 ## Supported Voting Methods
 Support both single-winner methods _(with or without the Condorcet criterion)_ and proportional methods.
 
-[**Complete list of natively implemented methods, their options (variants), and implementation choices**](docs/VotingMethods.md)
+[**Complete list of natively implemented methods, their options (variants), and implementation choices**](Docs/VotingMethods.md)
 
 ### Single-Winner Methods provided natively
 Single Winner returns a full ranking of all candidates, even though they are generally more designed to designate only one.
@@ -111,7 +111,7 @@ Condorcet is designed to be easily extensible with new algorithms (they don't ne
   * Some methods can be used nearly front final user (vote constraints, anti-spam check, parsing input, human-friendly results and stats...)
 * __Get election results and stats__
   * Get the natural Condorcet Winner, Loser, Pairwise, Paradox...
-  * Get full ranking from advanced [voting methods](docs/VotingMethods.md)
+  * Get full ranking from advanced [voting methods](Docs/VotingMethods.md)
   * Get some additional stats from these methods
   * Force ranking all candidates implicitly _(default)_ or allow voters to not rank all candidates.
   * Put weight on a certain vote, and give more importance to certain voters.
@@ -157,7 +157,7 @@ Can be installed as you prefer with: Composer / Natively provided autoloader / A
 
 ### Library Manual
 
-> **[Visit the Documentation Book](https://www.condorcet.io/#/3.AsPhpLibrary/2.UnderstandingTheFlow)**
+> **[Visit the Documentation Book](https://www.condorcet.io)**
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
