@@ -23,7 +23,7 @@
 > _You can also offer me a bottle of good wine._  
 
 
-Condorcet PHP
+Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
 > **Presentation | [Documentation Book](https://www.condorcet.io) | [Methods References](/Docs/MethodsReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](Tests/)**
 
@@ -37,7 +37,7 @@ _Two different ways to use Condorcet:_
 _Both approaches can handle up to hundreds of millions of votes (or more) on modest hardware. Although using it as a library will allow more configuration and control over this advanced usage._
 
 
-## Summary
+## Summary <!-- {docsify-ignore-all} -->
 - [Condorcet PHP](#condorcet-php)
   - [Summary](#summary)
   - [Project State and Specifications](#project-state-and-specifications)
