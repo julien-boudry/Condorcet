@@ -138,7 +138,7 @@ class ResultTest extends TestCase
         self::assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
     }
 
-    public function testgetOriginalResultArrayWithString(): void
+    public function testgetOriginalResult(): void
     {
         $this->election1->addCandidate('a');
         $this->election1->addCandidate('b');
@@ -147,12 +147,14 @@ class ResultTest extends TestCase
         $this->election1->addVote('a > b > c');
 
         self::assertEquals(
-            [1 => 'a',
+            [   1 => 'a',
                 2 => 'b',
                 3 => 'c',
             ],
             $this->election1->getResult()->getOriginalResultArrayWithString()
         );
+
+        self::assertSame('a > b > c', $this->election1->getResult()->getOriginalResultAsString());
     }
 
     public function testOffsetSet(): never

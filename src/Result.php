@@ -167,12 +167,21 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
-    #[Description('Get result as an array')]
+    #[Description('Get immutable result as an array')]
     #[FunctionReturn("Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.\nCandidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.\n\nThis control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.")]
-    #[Related('Result::getResultAsArray', 'Result::getResultAsString')]
+    #[Related('Result::getResultAsArray', 'Result::getResultAsString', 'Result::getOriginalResultAsString')]
     public function getOriginalResultArrayWithString(): array
     {
         return $this->rankingAsString;
+    }
+
+    #[PublicAPI]
+    #[Description('Get immutable result as a string')]
+    #[FunctionReturn("Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.\nCandidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.\n\nThis control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.")]
+    #[Related('Result::getResultAsArray', 'Result::getResultAsString', 'Result::getOriginalResultArrayWithString')]
+    public function getOriginalResultAsString(): string
+    {
+        return VoteUtil::getRankingAsString($this->getOriginalResultArrayWithString());
     }
 
     #[InternalModulesAPI]
