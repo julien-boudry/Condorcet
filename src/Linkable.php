@@ -51,11 +51,17 @@ trait Linkable
     #[Description('Get elections object linked to this Vote or Candidate object.')]
     #[FunctionReturn('Populated by each elections Condorcet object.')]
     #[Related('Vote::countLinks', 'Candidate::countLinks', 'Vote::getLinks', 'Candidate::getLinks', 'Vote::haveLink', 'Candidate::haveLink')]
-    public function getLinks(): \WeakMap
+    public function getLinks(): array
     {
         $this->initWeakMap();
 
-        return $this->link;
+        $r = [];
+
+        foreach($this->link as $k => $v) {
+            $r[] = $k;
+        }
+
+        return $r;
     }
 
     // Internal

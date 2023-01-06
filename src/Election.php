@@ -204,7 +204,7 @@ class Election
     }
 
     #[PublicAPI]
-    #[Description("SHA-2 256 checksum of following internal data:\n* Candidates\n* Votes list & tags\n* Computed data (pairwise, algorithm cache, stats)\n* Class version (major version like 0.14)\n\nCan be powerfull to check integrity and security of an election. Or working with serialized object.")]
+    #[Description("SHA-2 256 checksum of following internal data:\n* Candidates\n* Votes list & tags\n* Computed data (pairwise, algorithm cache, stats)\n* Class version (major version like 3.4)\n\nCan be powerfull to check integrity and security of an election. Or working with serialized object.")]
     #[FunctionReturn('SHA-2 256 bits Hexadecimal')]
     #[Book(BookLibrary::Crypto)]
     public function getChecksum(): string
@@ -436,7 +436,7 @@ class Election
 
     #[PublicAPI]
     #[Description('Get the election process level.')]
-    #[FunctionReturn("ElectionState::CANDIDATES_REGISTRATION: Candidate registered state. No votes, no result, no cache.\nElectionState::VOTES_REGISTRATION: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.\n3: Result phase: Some method result may exist, pairwise exist. An election will return to Phase 2 if votes are added or modified dynamically.")]
+    #[FunctionReturn("  \n`ElectionState::CANDIDATES_REGISTRATION`: Candidate registered state. No votes, no result, no cache.  \n`ElectionState::VOTES_REGISTRATION`: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.  \n3: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.")]
     #[Related('Election::setStateToVote')]
     public function getState(): ElectionState
     {

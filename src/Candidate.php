@@ -139,7 +139,7 @@ class Candidate implements \Stringable
 
     private function checkNameInElectionContext(string $name): bool
     {
-        foreach ($this->getLinks() as $link => $value) {
+        foreach ($this->getLinks() as $link) {
             if (!$link->canAddCandidate($name)) {
                 return false;
             }

@@ -426,7 +426,7 @@ class Vote implements \Iterator, \Stringable
         }
 
         if (!$this->notUpdate) {
-            foreach ($this->getLinks() as $link => $value) {
+            foreach ($this->getLinks() as $link) {
                 $link->prepareUpdateVote($this);
             }
         }
@@ -439,13 +439,13 @@ class Vote implements \Iterator, \Stringable
 
         if (\count($this->link) > 0) {
             try {
-                foreach ($this->getLinks() as $link => $value) {
+                foreach ($this->getLinks() as $link) {
                     if (!$link->checkVoteCandidate($this)) {
                         throw new VoteInvalidFormatException('vote does not match candidate in this election');
                     }
                 }
             } catch (VoteInvalidFormatException $e) {
-                foreach ($this->getLinks() as $link => $value) {
+                foreach ($this->getLinks() as $link) {
                     $link->setStateToVote();
                 }
 
@@ -453,7 +453,7 @@ class Vote implements \Iterator, \Stringable
             }
 
             if (!$this->notUpdate) {
-                foreach ($this->getLinks() as $link => $value) {
+                foreach ($this->getLinks() as $link) {
                     $link->finishUpdateVote($this);
                 }
             }
@@ -654,7 +654,7 @@ class Vote implements \Iterator, \Stringable
             $this->weight = $newWeight;
 
             if (\count($this->link) > 0) {
-                foreach ($this->getLinks() as $link => $value) {
+                foreach ($this->getLinks() as $link) {
                     $link->setStateToVote();
                 }
             }
