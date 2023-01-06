@@ -9,11 +9,11 @@ public Election->parseVotes ( string $input [, bool $isFile = false] ): int
 Import votes from a text source. If any invalid vote is found inside, nothing are registered.
     
 
-##### **input:** *```string```*   
+#### **input:** *```string```*   
 String or valid path to a text file.    
 
 
-##### **isFile:** *```bool```*   
+#### **isFile:** *```bool```*   
 If true, the input is evalatued as path to text file.    
 
 

@@ -3,19 +3,19 @@
 ### Description    
 
 ```php
-public Election->removeVote ( CondorcetPHP\Condorcet\Vote $vote ): bool
+public Election->removeVote ( CondorcetPHP\Condorcet\Vote $vote ): true
 ```
 
 Remove Votes from an election.
     
 
-##### **vote:** *```CondorcetPHP\Condorcet\Vote```*   
+#### **vote:** *```CondorcetPHP\Condorcet\Vote```*   
 Vote object.    
 
 
 ### Return value:   
 
-*(```bool```)* List of removed CondorcetPHP\Condorcet\Vote object.
+*(```true```)* List of removed CondorcetPHP\Condorcet\Vote object.
 
 
 ---------------------------------------

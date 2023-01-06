@@ -1,17 +1,17 @@
-## public Result::getOriginalResultArrayWithString
+## public Result::getOriginalResultAsString
 
 ### Description    
 
 ```php
-public Result->getOriginalResultArrayWithString ( ): array
+public Result->getOriginalResultAsString ( ): string
 ```
 
-Get immutable result as an array
+Get immutable result as a string
     
 
 ### Return value:   
 
-*(```array```)* Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
+*(```string```)* Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
 Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
 
 This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
@@ -23,4 +23,4 @@ This control method can therefore be useful if you undertake suspicious operatio
 
 * [Result::getResultAsArray](/Docs/MethodsReferences/Result%20Class/public%20Result--getResultAsArray.md)    
 * [Result::getResultAsString](/Docs/MethodsReferences/Result%20Class/public%20Result--getResultAsString.md)    
-* [Result::getOriginalResultAsString](/Docs/MethodsReferences/Result%20Class/public%20Result--getOriginalResultAsString.md)    
+* [Result::getOriginalResultArrayWithString](/Docs/MethodsReferences/Result%20Class/public%20Result--getOriginalResultArrayWithString.md)    

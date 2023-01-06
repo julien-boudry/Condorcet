@@ -9,7 +9,7 @@ public Result->getObjectVersion ( [bool $major = false] ): string
 Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
     
 
-##### **major:** *```bool```*   
+#### **major:** *```bool```*   
 true will return : '2.0' and false will return : '2.0.0'.    
 
 

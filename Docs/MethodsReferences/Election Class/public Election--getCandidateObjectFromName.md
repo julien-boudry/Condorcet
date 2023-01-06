@@ -9,7 +9,7 @@ public Election->getCandidateObjectFromName ( string $candidateName ): ?Condorce
 Find candidate object by string and return the candidate object.
     
 
-##### **candidateName:** *```string```*   
+#### **candidateName:** *```string```*   
 Candidate name.    
 
 

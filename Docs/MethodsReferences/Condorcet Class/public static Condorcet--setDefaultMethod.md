@@ -9,7 +9,7 @@ public static Condorcet::setDefaultMethod ( string $method ): bool
 Put a new static method by default for the news Condorcet objects.
     
 
-##### **method:** *```string```*   
+#### **method:** *```string```*   
 A valid method name or class.    
 
 

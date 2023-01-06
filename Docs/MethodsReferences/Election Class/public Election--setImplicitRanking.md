@@ -11,7 +11,7 @@ If it is True then all votes expressing a partial ranking are understood as impl
 If it is false, then the candidates not ranked, are not taken into account at all.
     
 
-##### **rule:** *```bool```*   
+#### **rule:** *```bool```*   
 New rule.    
 
 

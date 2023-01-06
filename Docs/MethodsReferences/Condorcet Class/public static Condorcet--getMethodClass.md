@@ -9,7 +9,7 @@ public static Condorcet::getMethodClass ( string $method ): ?string
 Return the full class path for a method.
     
 
-##### **method:** *```string```*   
+#### **method:** *```string```*   
 A valid method name.    
 
 

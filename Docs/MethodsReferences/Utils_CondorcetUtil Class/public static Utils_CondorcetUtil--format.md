@@ -10,11 +10,11 @@ Provide pretty re-formatting, human compliant, of all Condorcet PHP object or re
 Can be use before a var_dump, or just to get more simple data output.
     
 
-##### **input:** *```mixed```*   
+#### **input:** *```mixed```*   
 Input to convert.    
 
 
-##### **convertObject:** *```bool```*   
+#### **convertObject:** *```bool```*   
 If true. Will convert Candidate objects into string representation of their name.    
 
 

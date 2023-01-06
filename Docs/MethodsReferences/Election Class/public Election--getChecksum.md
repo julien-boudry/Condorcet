@@ -10,7 +10,7 @@ SHA-2 256 checksum of following internal data:
 * Candidates
 * Votes list & tags
 * Computed data (pairwise, algorithm cache, stats)
-* Class version (major version like 0.14)
+* Class version (major version like 3.4)
 
 Can be powerfull to check integrity and security of an election. Or working with serialized object.
     

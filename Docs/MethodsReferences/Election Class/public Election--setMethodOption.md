@@ -9,15 +9,15 @@ public Election->setMethodOption ( string $method , string $optionName , BackedE
 Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
     
 
-##### **method:** *```string```*   
+#### **method:** *```string```*   
 Method name or class path.    
 
 
-##### **optionName:** *```string```*   
+#### **optionName:** *```string```*   
 Option name.    
 
 
-##### **optionValue:** *```BackedEnum|array|string|int|float```*   
+#### **optionValue:** *```BackedEnum|array|string|int|float```*   
 Option Value.    
 
 

@@ -9,7 +9,7 @@ public static Election::setMaxVoteNumber ( ?int $maxVotesNumber ): ?int
 Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
     
 
-##### **maxVotesNumber:** *```?int```*   
+#### **maxVotesNumber:** *```?int```*   
 Null will deactivate this functionality. An integer will fix the limit.    
 
 

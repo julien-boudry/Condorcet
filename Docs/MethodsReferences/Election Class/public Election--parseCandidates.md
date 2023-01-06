@@ -9,11 +9,11 @@ public Election->parseCandidates ( string $input [, bool $isFile = false] ): arr
 Import candidate from a text source.
     
 
-##### **input:** *```string```*   
+#### **input:** *```string```*   
 String or valid path to a text file.    
 
 
-##### **isFile:** *```bool```*   
+#### **isFile:** *```bool```*   
 If true, the input is evaluated as path to a text file.    
 
 

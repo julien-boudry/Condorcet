@@ -10,11 +10,11 @@ Same as Election::getVotesList. But Return a PHP generator object.
 Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
     
 
-##### **tags:** *```array|string|null```*   
+#### **tags:** *```array|string|null```*   
 Tags list as a string separated by commas or array.    
 
 
-##### **with:** *```bool```*   
+#### **with:** *```bool```*   
 Get votes with these tags or without.    
 
 

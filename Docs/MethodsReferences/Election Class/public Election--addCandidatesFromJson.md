@@ -9,7 +9,7 @@ public Election->addCandidatesFromJson ( string $input ): array
 Import candidate from a JSON source.
     
 
-##### **input:** *```string```*   
+#### **input:** *```string```*   
 JSON string input.    
 
 

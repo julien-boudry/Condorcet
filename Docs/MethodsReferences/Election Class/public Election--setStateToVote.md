@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Election->setStateToVote ( ): bool
+public Election->setStateToVote ( ): true
 ```
 
 Force the election to get back to state 2. See Election::getState.
@@ -15,7 +15,7 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Return value:   
 
-*(```bool```)* Always True.
+*(```true```)* Always True.
 
 
 

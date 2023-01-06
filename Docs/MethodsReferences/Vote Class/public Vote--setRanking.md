@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->setRanking ( array|string $ranking [, ?float $ownTimestamp = null] ): bool
+public Vote->setRanking ( array|string $ranking [, ?float $ownTimestamp = null] ): true
 ```
 
 Set a new ranking for this vote.
@@ -11,17 +11,17 @@ Set a new ranking for this vote.
 Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
     
 
-##### **ranking:** *```array|string```*   
+#### **ranking:** *```array|string```*   
 A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.    
 
 
-##### **ownTimestamp:** *```?float```*   
+#### **ownTimestamp:** *```?float```*   
 Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.    
 
 
 ### Return value:   
 
-*(```bool```)* In case of success, return TRUE
+*(```true```)* In case of success, return TRUE
 
 
 

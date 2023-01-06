@@ -3,19 +3,19 @@
 ### Description    
 
 ```php
-public Election->addConstraint ( string $constraintClass ): bool
+public Election->addConstraint ( string $constraintClass ): true
 ```
 
 Add a constraint rules as a valid class path.
     
 
-##### **constraintClass:** *```string```*   
+#### **constraintClass:** *```string```*   
 A valid class path. Class must extend VoteConstraint class.    
 
 
 ### Return value:   
 
-*(```bool```)* True on success.
+*(```true```)* True on success.
 
 
 

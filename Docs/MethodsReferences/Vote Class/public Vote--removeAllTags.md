@@ -3,7 +3,7 @@
 ### Description    
 
 ```php
-public Vote->removeAllTags ( ): bool
+public Vote->removeAllTags ( ): true
 ```
 
 Remove all registered tag(s) on this Vote.
@@ -11,7 +11,7 @@ Remove all registered tag(s) on this Vote.
 
 ### Return value:   
 
-*(```bool```)* Return True.
+*(```true```)* Return True.
 
 
 ---------------------------------------

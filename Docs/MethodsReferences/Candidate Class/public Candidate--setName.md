@@ -3,20 +3,20 @@
 ### Description    
 
 ```php
-public Candidate->setName ( string $name ): bool
+public Candidate->setName ( string $name ): true
 ```
 
 Change the candidate name.
 *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
     
 
-##### **name:** *```string```*   
+#### **name:** *```string```*   
 Candidate Name.    
 
 
 ### Return value:   
 
-*(```bool```)* In case of success, return TRUE
+*(```true```)* In case of success, return TRUE
 
 
 

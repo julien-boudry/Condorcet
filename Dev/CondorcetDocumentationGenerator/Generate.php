@@ -272,7 +272,7 @@ class Generate
                 }
 
                 $md .=  "\n\n".
-                        '##### **'.$value->getName().':** *'.self::getTypeAsString($value->getType(), true)."*   \n".
+                        '#### **'.$value->getName().':** *'.self::getTypeAsString($value->getType(), true)."*   \n".
                         $pt."    \n";
             }
         }

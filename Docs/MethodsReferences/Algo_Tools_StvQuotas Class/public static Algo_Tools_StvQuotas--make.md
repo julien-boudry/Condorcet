@@ -9,7 +9,7 @@ public static Algo\Tools\StvQuotas::make ( string $quota ): self
 Build the Enum Quotas option for STV methods
     
 
-##### **quota:** *```string```*   
+#### **quota:** *```string```*   
 Quota name.    
 
 

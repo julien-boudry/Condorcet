@@ -87,7 +87,7 @@ trait CandidatesProcess
     #[FunctionReturn('True / False')]
     #[Related('Election::addCandidate')]
     public function isRegisteredCandidate(
-        #[FunctionParameter('Candidate object or candidate string name. String name works only if the strict mode is active')]
+        #[FunctionParameter('Candidate object or candidate string name. String name works only if the strict mode is false')]
         Candidate|string $candidate,
         #[FunctionParameter("Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.\nIf strict mode is false, the comparison will be based on name")]
         bool $strictMode = true
@@ -158,9 +158,9 @@ trait CandidatesProcess
     }
 
     #[PublicAPI]
-    #[Description('Check if a candidate is already registered. Uses strict Vote object comparison, but also string naming comparison in the election.')]
+    #[Description('Check if a candidate is already registered. Equivalent of `!$election->isRegisteredCandidate($candidate, false)`.')]
     #[FunctionReturn('True if your candidate is available, false otherwise.')]
-    #[Related('Election::addCandidate')]
+    #[Related('Election::addCandidate', 'Election::isRegisteredCandidate')]
     public function canAddCandidate(
         #[FunctionParameter('String or Condorcet/Vote object')]
         Candidate|string $candidate

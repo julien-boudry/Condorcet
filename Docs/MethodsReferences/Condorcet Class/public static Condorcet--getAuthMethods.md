@@ -9,7 +9,7 @@ public static Condorcet::getAuthMethods ( [bool $basic = false] ): array
 Get a list of supported algorithm.
     
 
-##### **basic:** *```bool```*   
+#### **basic:** *```bool```*   
 Include or not the natural Condorcet base algorithm.    
 
 

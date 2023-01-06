@@ -16,11 +16,11 @@ $election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with t
 ```
     
 
-##### **tags:** *```array|string```*   
+#### **tags:** *```array|string```*   
 Tags as string separated by commas or array.    
 
 
-##### **with:** *```bool```*   
+#### **with:** *```bool```*   
 Votes with these tags or without.    
 
 

@@ -9,7 +9,7 @@ public Election->getWinner ( [?string $method = null] ): CondorcetPHP\Condorcet\
 Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
     
 
-##### **method:** *```?string```*   
+#### **method:** *```?string```*   
 *Only if not null:    *
 
 The winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    

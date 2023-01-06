@@ -9,7 +9,7 @@ public Election->addCandidate ( [CondorcetPHP\Condorcet\Candidate|string|null $c
 Add one candidate to an election.
     
 
-##### **candidate:** *```CondorcetPHP\Condorcet\Candidate|string|null```*   
+#### **candidate:** *```CondorcetPHP\Condorcet\Candidate|string|null```*   
 Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.    
 
 

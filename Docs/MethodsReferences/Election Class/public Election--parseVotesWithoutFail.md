@@ -9,15 +9,15 @@ public Election->parseVotesWithoutFail ( SplFileInfo|string $input [, bool $isFi
 Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
     
 
-##### **input:** *```SplFileInfo|string```*   
+#### **input:** *```SplFileInfo|string```*   
 String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.    
 
 
-##### **isFile:** *```bool```*   
+#### **isFile:** *```bool```*   
 If true, the string input is evalatued as path to text file.    
 
 
-##### **callBack:** *```?Closure```*   
+#### **callBack:** *```?Closure```*   
 Callback function to execute after each valid line, before vote registration.    
 
 

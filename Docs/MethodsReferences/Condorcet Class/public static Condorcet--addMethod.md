@@ -9,7 +9,7 @@ public static Condorcet::addMethod ( string $methodClass ): bool
 If you create your own Condorcet Algo. You will need it !
     
 
-##### **methodClass:** *```string```*   
+#### **methodClass:** *```string```*   
 The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).    
 
 
