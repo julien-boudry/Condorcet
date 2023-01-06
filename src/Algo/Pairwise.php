@@ -74,7 +74,7 @@ class Pairwise implements \ArrayAccess, \Iterator
     // Pairwise
 
     protected \WeakReference $Election;
-    protected array $Pairwise_Model;
+    protected readonly array $Pairwise_Model;
     protected array $Pairwise;
 
     public function __construct(Election $link)
@@ -151,19 +151,21 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected function formatNewpairwise(): void
     {
         $election = $this->getElection();
-        $this->Pairwise_Model = [];
+        $pairwiseModel = [];
 
         foreach ($election->getCandidatesList() as $candidate_key => $candidate_id) {
-            $this->Pairwise_Model[$candidate_key] = ['win' => [], 'null' => [], 'lose' => []];
+            $pairwiseModel[$candidate_key] = ['win' => [], 'null' => [], 'lose' => []];
 
             foreach ($election->getCandidatesList() as $candidate_key_r => $candidate_id_r) {
                 if ($candidate_key_r !== $candidate_key) {
-                    $this->Pairwise_Model[$candidate_key]['win'][$candidate_key_r]   = 0;
-                    $this->Pairwise_Model[$candidate_key]['null'][$candidate_key_r]  = 0;
-                    $this->Pairwise_Model[$candidate_key]['lose'][$candidate_key_r]  = 0;
+                    $pairwiseModel[$candidate_key]['win'][$candidate_key_r]   = 0;
+                    $pairwiseModel[$candidate_key]['null'][$candidate_key_r]  = 0;
+                    $pairwiseModel[$candidate_key]['lose'][$candidate_key_r]  = 0;
                 }
             }
         }
+
+        $this->Pairwise_Model ??= $pairwiseModel;
     }
 
     protected function doPairwise(): void
