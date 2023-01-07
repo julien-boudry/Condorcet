@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Description;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\FunctionParameter;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\FunctionReturn;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\PublicAPI;
 use Random\Randomizer;
 
 class VotesRandomGenerator
@@ -19,14 +23,24 @@ class VotesRandomGenerator
 
     public array $candidates;
 
+    #[PublicAPI]
     public ?int $maxCandidatesRanked = null;
+    #[PublicAPI]
     public int|false $minCandidatesRanked = false; // true: min = max or candidatesCount
 
+    #[PublicAPI]
     public ?int $maxRanksCount = null;
 
+    #[PublicAPI]
     public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
 
-    public function __construct(array $candidates, Randomizer|null|string $seed = null)
+    #[PublicAPI]
+    #[Description('Create a new VotesRandomGenerator instance')]
+    public function __construct(
+        #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
+        array $candidates,
+        #[FunctionParameter('If null, will use a cryptographivcally secure randomier')]
+        Randomizer|null|string $seed = null)
     {
         $this->setCandidates($candidates);
 
@@ -40,16 +54,24 @@ class VotesRandomGenerator
         }
     }
 
+    #[PublicAPI]
+    #[Description('Change the candidates running for this randomizer.')]
     public function setCandidates(array $candidates): void
     {
         $this->candidates = $candidates;
     }
 
+    #[PublicAPI]
+    #[Description('Count candidates currently running for this instance of the randomizer.')]
+    #[FunctionReturn('Count of candidates')]
     public function countCandidates(): int
     {
         return \count($this->candidates);
     }
 
+    #[PublicAPI]
+    #[Description('Generate a new random vote.')]
+    #[FunctionReturn('Return the new vote.')]
     public function getNewVote(): array
     {
         $randomizedCandidates = $this->randomizer->shuffleArray($this->candidates);

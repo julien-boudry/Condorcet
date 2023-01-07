@@ -220,6 +220,18 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Tools\Converters\DebianFormat->__construct (...)](/Docs/MethodsReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/MethodsReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): ```CondorcetPHP\Condorcet\Election```  
 
+### CondorcetPHP\Condorcet\Tools\Randomizers\VotesRandomGenerator Class  
+
+* ```public ?int $maxCandidatesRanked```  
+* ```public int|false $minCandidatesRanked```  
+* ```public ?int $maxRanksCount```  
+* ```public int|float $tiesProbability```  
+
+* [public Tools\Randomizers\VotesRandomGenerator->__construct (...)](/Docs/MethodsReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--__construct.md)  
+* [public Tools\Randomizers\VotesRandomGenerator->countCandidates ()](/Docs/MethodsReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--countCandidates.md): ```int```  
+* [public Tools\Randomizers\VotesRandomGenerator->getNewVote ()](/Docs/MethodsReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--getNewVote.md): ```array```  
+* [public Tools\Randomizers\VotesRandomGenerator->setCandidates (...)](/Docs/MethodsReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--setCandidates.md): ```void```  
+
 ### CondorcetPHP\Condorcet\Utils\CondorcetUtil Class  
 
 * [public static Utils\CondorcetUtil::format (...)](/Docs/MethodsReferences/Utils_CondorcetUtil%20Class/public%20static%20Utils_CondorcetUtil--format.md): ```mixed```  
@@ -1071,7 +1083,7 @@ _Including above methods from public API_
 ```php
 * private bool $valid
 * protected WeakReference $Election
-* protected array $Pairwise_Model
+* readonly protected array $Pairwise_Model
 * protected array $Pairwise
 * protected string $objectVersion
 
