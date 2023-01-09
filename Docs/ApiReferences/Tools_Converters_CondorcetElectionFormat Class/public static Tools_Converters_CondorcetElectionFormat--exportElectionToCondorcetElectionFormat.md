@@ -12,31 +12,31 @@ Create a CondorcetElectionFormat file from an Election object.
 
     
 
-#### **election:** *```CondorcetPHP\Condorcet\Election```*   
+#### **election:** *`CondorcetPHP\Condorcet\Election`*   
 Election with data.    
 
 
-#### **aggregateVotes:** *```bool```*   
+#### **aggregateVotes:** *`bool`*   
 If true, will try to reduce number of lines, with quantifier for identical votes.    
 
 
-#### **includeNumberOfSeats:** *```bool```*   
+#### **includeNumberOfSeats:** *`bool`*   
 Add the Number Of Seats parameters to the output.    
 
 
-#### **includeTags:** *```bool```*   
+#### **includeTags:** *`bool`*   
 Add the vote tags information if any. Don't work if $aggregateVotes is true.    
 
 
-#### **inContext:** *```bool```*   
+#### **inContext:** *`bool`*   
 Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.    
 
 
-#### **file:** *```?SplFileObject```*   
+#### **file:** *`?SplFileObject`*   
 If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    
 
 
 ### Return value:   
 
-*(```?string```)* If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
+*(`?string`)* If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
 

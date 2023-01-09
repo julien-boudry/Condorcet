@@ -11,13 +11,13 @@ public Election->testIfVoteIsValidUnderElectionConstraints ( CondorcetPHP\Condor
 Test if a vote is valid with these election constraints.
     
 
-#### **vote:** *```CondorcetPHP\Condorcet\Vote```*   
+#### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
 A vote. Not necessarily registered in this election.    
 
 
 ### Return value:   
 
-*(```bool```)* Return True if vote will pass the constraints rules, else False.
+*(`bool`)* Return True if vote will pass the constraints rules, else False.
 
 
 ---------------------------------------

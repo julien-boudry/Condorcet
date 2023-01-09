@@ -13,7 +13,7 @@ Get active constraints list.
 
 ### Return value:   
 
-*(```array```)* Array with class name of each active constraint. Empty array if there is not.
+*(`array`)* Array with class name of each active constraint. Empty array if there is not.
 
 
 ---------------------------------------

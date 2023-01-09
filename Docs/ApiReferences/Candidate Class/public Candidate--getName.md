@@ -13,7 +13,7 @@ Get the candidate name.
 
 ### Return value:   
 
-*(```string```)* Candidate name.
+*(`string`)* Candidate name.
 
 
 ---------------------------------------

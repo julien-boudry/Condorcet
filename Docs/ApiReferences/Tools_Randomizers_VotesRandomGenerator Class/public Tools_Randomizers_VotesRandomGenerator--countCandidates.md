@@ -13,5 +13,5 @@ Count candidates currently running for this instance of the randomizer.
 
 ### Return value:   
 
-*(```int```)* Count of candidates
+*(`int`)* Count of candidates
 

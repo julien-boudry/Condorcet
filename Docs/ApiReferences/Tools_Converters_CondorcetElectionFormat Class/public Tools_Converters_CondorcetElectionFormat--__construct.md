@@ -11,5 +11,5 @@ public Tools\Converters\CondorcetElectionFormat->__construct ( SplFileInfo|strin
 Read a Condorcet format file, usually using .cvotes file extension
     
 
-#### **input:** *```SplFileInfo|string```*   
+#### **input:** *`SplFileInfo|string`*   
 String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.    

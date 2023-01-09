@@ -11,17 +11,17 @@ public Tools\Converters\CondorcetElectionFormat->setDataToAnElection ( [Condorce
 Add the data to an election object
     
 
-#### **election:** *```CondorcetPHP\Condorcet\Election```*   
+#### **election:** *`CondorcetPHP\Condorcet\Election`*   
 Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.    
 
 
-#### **callBack:** *```?Closure```*   
+#### **callBack:** *`?Closure`*   
 Callback function to execute after each registered vote.    
 
 
 ### Return value:   
 
-*(```CondorcetPHP\Condorcet\Election```)* The election object
+*(`CondorcetPHP\Condorcet\Election`)* The election object
 
 
 ---------------------------------------

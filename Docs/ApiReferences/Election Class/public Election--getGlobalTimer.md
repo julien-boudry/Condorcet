@@ -13,7 +13,7 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ### Return value:   
 
-*(```float```)* (Float) Timer
+*(`float`)* (Float) Timer
 
 
 ---------------------------------------

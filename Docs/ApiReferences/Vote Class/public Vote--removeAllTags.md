@@ -13,7 +13,7 @@ Remove all registered tag(s) on this Vote.
 
 ### Return value:   
 
-*(```true```)* Return True.
+*(`true`)* Return True.
 
 
 ---------------------------------------

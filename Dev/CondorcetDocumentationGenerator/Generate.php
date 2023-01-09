@@ -53,7 +53,7 @@ class Generate
     {
         if ($rf_rt !== null) {
             if ($codeBlock) {
-                return '```'.((string) $rf_rt).'```';
+                return '`'.((string) $rf_rt).'`';
             } else {
                 return (string) $rf_rt;
             }
@@ -449,7 +449,7 @@ class Generate
 
         foreach ($cases as $oneCase) {
             $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
-            $r .= '* ```case '.$name.'::'.$oneCase->getName()."```  \n";
+            $r .= '* `case '.$name.'::'.$oneCase->getName()."`  \n";
         }
 
         return $r;
@@ -464,7 +464,7 @@ class Generate
         foreach ($class->getReflectionConstants($type) as $constant) {
             if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) {
                 $file_content .= '* ';
-                $file_content .=  $addMdCodeTag ? '```' : '';
+                $file_content .=  $addMdCodeTag ? '`' : '';
 
                 $file_content .= $constant->isFinal() ? 'final ' : '';
 
@@ -473,7 +473,7 @@ class Generate
                 $file_content .= $constant->isPrivate() ? 'private' : '';
 
                 $file_content .= ' const '.$constant->getName().': ('.\gettype($constant->getValue()).')';
-                $file_content .= $addMdCodeTag ? '```  ' : '';
+                $file_content .= $addMdCodeTag ? '`  ' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
             }
@@ -495,7 +495,7 @@ class Generate
         foreach ($class->getProperties($type) as $propertie) {
             if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) {
                 $file_content .= '* ';
-                $file_content .=  $addMdCodeTag ? '```' : '';
+                $file_content .=  $addMdCodeTag ? '`' : '';
 
                 $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
 
@@ -506,7 +506,7 @@ class Generate
                 $file_content .= $propertie->isStatic() ? 'static ' : '';
 
                 $file_content .= ((string) $propertie->getType()).' $'.$propertie->getName();
-                $file_content .= $addMdCodeTag ? '```  ' : '';
+                $file_content .= $addMdCodeTag ? '`  ' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
             }
@@ -547,7 +547,7 @@ class Generate
             });
 
             $file_content .= "\n";
-            $file_content .= '#### ';
+            $file_content .= '#### `';
             $file_content .= ($classMeta['ReflectionClass']->isAbstract()) ? 'Abstract ' : '';
             $file_content .= 'CondorcetPHP\Condorcet\\'.$class.' ';
 
@@ -556,7 +556,7 @@ class Generate
             $interfaces = implode(', ', $classMeta['ReflectionClass']->getInterfaceNames());
             $file_content .= (!empty($interfaces)) ? 'implements '.$interfaces : '';
 
-            $file_content .= "  \n";
+            $file_content .= "`  \n";
 
             $file_content .= "> [Read it at the source](".self::getGithubLink($classMeta['ReflectionClass']).")\n\n";
 

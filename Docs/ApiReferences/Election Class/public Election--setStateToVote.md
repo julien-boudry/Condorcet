@@ -17,7 +17,7 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Return value:   
 
-*(```true```)* Always True.
+*(`true`)* Always True.
 
 
 

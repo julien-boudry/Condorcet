@@ -13,7 +13,7 @@ Count the number of actual registered and valid vote for this election. This met
 
 ### Return value:   
 
-*(```int```)* Number of valid and registered vote into this election.
+*(`int`)* Number of valid and registered vote into this election.
 
 
 ---------------------------------------

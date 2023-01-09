@@ -11,13 +11,13 @@ public Vote->getContextualRanking ( CondorcetPHP\Condorcet\Election $election ):
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
     
 
-#### **election:** *```CondorcetPHP\Condorcet\Election```*   
+#### **election:** *`CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    
 
 
 ### Return value:   
 
-*(```array```)* Contextual full ranking.
+*(`array`)* Contextual full ranking.
 
 
 

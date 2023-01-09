@@ -13,7 +13,7 @@ Get the natural Condorcet winner if there is one.
 
 ### Return value:   
 
-*(```?CondorcetPHP\Condorcet\Candidate```)* Candidate object given. Null if there are no available winner.
+*(`?CondorcetPHP\Condorcet\Candidate`)* Candidate object given. Null if there are no available winner.
 
 
 ---------------------------------------

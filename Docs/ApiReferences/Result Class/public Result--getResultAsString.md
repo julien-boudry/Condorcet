@@ -13,7 +13,7 @@ Get result as string
 
 ### Return value:   
 
-*(```string```)* Result ranking as string.
+*(`string`)* Result ranking as string.
 
 
 ---------------------------------------

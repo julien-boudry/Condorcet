@@ -13,7 +13,7 @@ Get the timestamp corresponding of the creation of this candidate.
 
 ### Return value:   
 
-*(```float```)* Timestamp
+*(`float`)* Timestamp
 
 
 ---------------------------------------

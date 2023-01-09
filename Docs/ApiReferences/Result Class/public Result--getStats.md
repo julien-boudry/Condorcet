@@ -13,7 +13,7 @@ Get advanced computing data from used algorithm. Like Strongest paths for Schulz
 
 ### Return value:   
 
-*(```mixed```)* Varying according to the algorithm used.
+*(`mixed`)* Varying according to the algorithm used.
 
 
 ---------------------------------------

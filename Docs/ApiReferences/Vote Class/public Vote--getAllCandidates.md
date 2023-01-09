@@ -13,7 +13,7 @@ Get all the candidates object set in the last ranking of this Vote.
 
 ### Return value:   
 
-*(```array```)* Candidates list.
+*(`array`)* Candidates list.
 
 
 ---------------------------------------

@@ -13,7 +13,7 @@ Get the The algorithmic method used for this result.
 
 ### Return value:   
 
-*(```string```)* Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
+*(`string`)* Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
 
 
 ---------------------------------------

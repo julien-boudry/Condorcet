@@ -13,7 +13,7 @@ Return the Pairwise.
 
 ### Return value:   
 
-*(```array```)* Pairwise as an explicit array .
+*(`array`)* Pairwise as an explicit array .
 
 
 ---------------------------------------

@@ -13,5 +13,5 @@ Get the timestamp of this result.
 
 ### Return value:   
 
-*(```float```)* Microsecond timestamp.
+*(`float`)* Microsecond timestamp.
 

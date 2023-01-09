@@ -17,5 +17,5 @@ See VoteTest::testVoteHistory() test for a demonstration. In principle this is t
 
 ### Return value:   
 
-*(```bool```)* True if candidate object is in a provisional state, false else.
+*(`bool`)* True if candidate object is in a provisional state, false else.
 

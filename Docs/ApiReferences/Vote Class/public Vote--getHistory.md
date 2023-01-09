@@ -13,7 +13,7 @@ Return an history of each vote change, with timestamp.
 
 ### Return value:   
 
-*(```array```)* An explicit multi-dimenssional array.
+*(`array`)* An explicit multi-dimenssional array.
 
 
 ---------------------------------------

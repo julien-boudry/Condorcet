@@ -13,5 +13,5 @@ Generate a new random vote.
 
 ### Return value:   
 
-*(```array```)* Return the new vote.
+*(`array`)* Return the new vote.
 

@@ -13,7 +13,7 @@ Get the timestamp corresponding of the last vote change.
 
 ### Return value:   
 
-*(```float```)* Timestamp
+*(`float`)* Timestamp
 
 
 ---------------------------------------

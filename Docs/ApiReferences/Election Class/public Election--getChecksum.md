@@ -19,7 +19,7 @@ Can be powerfull to check integrity and security of an election. Or working with
 
 ### Return value:   
 
-*(```string```)* SHA-2 256 bits Hexadecimal
+*(`string`)* SHA-2 256 bits Hexadecimal
 
 
 ---------------------------------------

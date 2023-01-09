@@ -13,7 +13,7 @@ Get the Condorcet winner, if exist, at the result time.
 
 ### Return value:   
 
-*(```?CondorcetPHP\Condorcet\Candidate```)* CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
+*(`?CondorcetPHP\Condorcet\Candidate`)* CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
 
 
 ---------------------------------------

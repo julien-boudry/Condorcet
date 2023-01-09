@@ -13,5 +13,5 @@ The current level of stats verbosity for this election object. Look at Election-
 
 ### Return value:   
 
-*(```CondorcetPHP\Condorcet\Algo\StatsVerbosity```)* The current verbosity level for this election object.
+*(`CondorcetPHP\Condorcet\Algo\StatsVerbosity`)* The current verbosity level for this election object.
 

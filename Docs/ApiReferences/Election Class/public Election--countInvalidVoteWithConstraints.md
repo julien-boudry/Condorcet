@@ -13,7 +13,7 @@ Count the number of actual invalid (if constraints functionality is enabled) but
 
 ### Return value:   
 
-*(```int```)* Number of valid and registered vote into this election.
+*(`int`)* Number of valid and registered vote into this election.
 
 
 ---------------------------------------

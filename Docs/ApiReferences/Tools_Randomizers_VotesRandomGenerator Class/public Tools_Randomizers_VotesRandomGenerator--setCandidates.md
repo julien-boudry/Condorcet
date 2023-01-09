@@ -11,5 +11,5 @@ public Tools\Randomizers\VotesRandomGenerator->setCandidates ( array $candidates
 Change the candidates running for this randomizer.
     
 
-#### **candidates:** *```array```*   
+#### **candidates:** *`array`*   
     

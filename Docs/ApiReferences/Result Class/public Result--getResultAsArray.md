@@ -11,13 +11,13 @@ public Result->getResultAsArray ( [bool $convertToString = false] ): array
 Get result as an array
     
 
-#### **convertToString:** *```bool```*   
+#### **convertToString:** *`bool`*   
 Convert Candidate object to string.    
 
 
 ### Return value:   
 
-*(```array```)* An ordered multidimensionnal array by rank.
+*(`array`)* An ordered multidimensionnal array by rank.
 
 
 ---------------------------------------

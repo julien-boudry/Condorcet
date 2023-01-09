@@ -11,5 +11,5 @@ public Tools\Converters\DebianFormat->__construct ( string $filePath )
 Read a Tideman format file
     
 
-#### **filePath:** *```string```*   
+#### **filePath:** *`string`*   
 File absolute path.    

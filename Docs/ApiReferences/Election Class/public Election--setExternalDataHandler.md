@@ -11,13 +11,13 @@ public Election->setExternalDataHandler ( CondorcetPHP\Condorcet\DataManager\Dat
 Import and enable an external driver to store vote on very large election.
     
 
-#### **driver:** *```CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface```*   
+#### **driver:** *`CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`*   
 Driver object.    
 
 
 ### Return value:   
 
-*(```true```)* True if success. Else throw an Exception.
+*(`true`)* True if success. Else throw an Exception.
 
 
 

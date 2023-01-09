@@ -13,7 +13,7 @@ Return the Condorcet static default method.
 
 ### Return value:   
 
-*(```?string```)* Method name.
+*(`?string`)* Method name.
 
 
 ---------------------------------------

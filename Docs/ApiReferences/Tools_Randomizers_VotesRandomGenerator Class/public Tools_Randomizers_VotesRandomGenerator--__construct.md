@@ -11,9 +11,9 @@ public Tools\Randomizers\VotesRandomGenerator->__construct ( array $candidates [
 Create a new VotesRandomGenerator instance
     
 
-#### **candidates:** *```array```*   
+#### **candidates:** *`array`*   
 List of candidates as string, candidates objects or sub-array.    
 
 
-#### **seed:** *```Random\Randomizer|string|null```*   
+#### **seed:** *`Random\Randomizer|string|null`*   
 If null, will use a cryptographivcally secure randomier.    
