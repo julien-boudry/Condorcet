@@ -1,5 +1,7 @@
 ## public Election::countInvalidVoteWithConstraints
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L52)
+
 ### Description    
 
 ```php

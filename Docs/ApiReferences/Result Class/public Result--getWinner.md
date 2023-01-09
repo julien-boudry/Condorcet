@@ -1,5 +1,7 @@
 ## public Result::getWinner
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L207)
+
 ### Description    
 
 ```php

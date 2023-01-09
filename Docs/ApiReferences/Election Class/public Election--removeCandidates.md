@@ -1,5 +1,7 @@
 ## public Election::removeCandidates
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L178)
+
 ### Description    
 
 ```php

@@ -1,5 +1,7 @@
 ## public static Algo\Tools\StvQuotas::make
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L33)
+
 ### Description    
 
 ```php

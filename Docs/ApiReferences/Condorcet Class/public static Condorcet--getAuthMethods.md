@@ -1,5 +1,7 @@
 ## public static Condorcet::getAuthMethods
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L90)
+
 ### Description    
 
 ```php

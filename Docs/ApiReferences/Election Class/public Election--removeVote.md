@@ -1,5 +1,7 @@
 ## public Election::removeVote
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L258)
+
 ### Description    
 
 ```php

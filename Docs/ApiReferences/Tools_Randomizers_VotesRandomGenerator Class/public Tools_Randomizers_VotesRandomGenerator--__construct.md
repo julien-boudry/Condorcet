@@ -1,5 +1,7 @@
 ## public Tools\Randomizers\VotesRandomGenerator::__construct
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VotesRandomGenerator.php#L39)
+
 ### Description    
 
 ```php

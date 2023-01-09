@@ -1,5 +1,7 @@
 ## public Tools\Randomizers\VotesRandomGenerator::setCandidates
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VotesRandomGenerator.php#L59)
+
 ### Description    
 
 ```php

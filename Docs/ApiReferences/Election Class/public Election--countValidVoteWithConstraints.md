@@ -1,5 +1,7 @@
 ## public Election::countValidVoteWithConstraints
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L61)
+
 ### Description    
 
 ```php

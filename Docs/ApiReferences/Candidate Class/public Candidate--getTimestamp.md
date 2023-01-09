@@ -1,5 +1,7 @@
 ## public Candidate::getTimestamp
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L123)
+
 ### Description    
 
 ```php

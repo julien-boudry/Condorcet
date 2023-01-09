@@ -1,5 +1,7 @@
 ## public Election::addConstraint
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L304)
+
 ### Description    
 
 ```php

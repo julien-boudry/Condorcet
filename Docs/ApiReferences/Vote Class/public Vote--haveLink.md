@@ -1,5 +1,7 @@
 ## public Vote::haveLink
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Linkable.php#L30)
+
 ### Description    
 
 ```php

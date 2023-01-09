@@ -1,5 +1,7 @@
 ## public Vote::getContextualRankingAsString
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L371)
+
 ### Description    
 
 ```php

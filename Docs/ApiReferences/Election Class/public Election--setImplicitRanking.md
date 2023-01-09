@@ -1,5 +1,7 @@
 ## public Election::setImplicitRanking
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L264)
+
 ### Description    
 
 ```php

@@ -10,6 +10,8 @@ use HaydenPierce\ClassFinder\ClassFinder;
 class Generate
 {
     public const BOOK_URL = 'https://www.condorcet.io';
+    public const GITHUB_BASE = 'https://github.com/julien-boudry/Condorcet';
+    public const GITHUB_BRANCH_PATH = '/blob/master/';
 
     // Static - Translators
 
@@ -58,6 +60,15 @@ class Generate
         }
 
         return $rf_rt;
+    }
+
+    public static function getGithubLink(\ReflectionFunctionAbstract $refl): string {
+        $link = self::GITHUB_BASE.self::GITHUB_BRANCH_PATH .
+                substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1) .
+                '#L'.$refl->getStartLine()
+                ;
+
+        return $link;
     }
 
     public static function getModifiersName(\ReflectionMethod $method): string
@@ -256,6 +267,9 @@ class Generate
     {
         // Header
         $md =   '## '.self::getModifiersName($method).' '. self::simpleClass($method->class).'::'.$method->name."\n\n".
+
+                "> [Read it at the source](".self::getGithubLink($method).")\n\n".
+
                 "### Description    \n\n".
                 self::computeRepresentationAsPHP($method)."\n\n".
                 $method->getAttributes(Description::class)[0]->getArguments()[0]."\n    ";

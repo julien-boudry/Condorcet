@@ -1,5 +1,7 @@
 ## public Result::getResultAsArray
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L141)
+
 ### Description    
 
 ```php

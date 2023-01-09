@@ -1,5 +1,7 @@
 ## public static Tools\Converters\CondorcetElectionFormat::exportElectionToCondorcetElectionFormat
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L28)
+
 ### Description    
 
 ```php

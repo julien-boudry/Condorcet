@@ -1,5 +1,7 @@
 ## public static Condorcet::getVersion
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L73)
+
 ### Description    
 
 ```php

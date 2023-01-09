@@ -1,5 +1,7 @@
 ## public Election::canAddCandidate
 
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L164)
+
 ### Description    
 
 ```php
