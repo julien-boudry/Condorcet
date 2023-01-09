@@ -25,7 +25,7 @@
 
 Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
-> **Presentation | [Documentation Book](https://www.condorcet.io) | [Methods References](/Docs/MethodsReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](Tests/)**
+> **Presentation | [Documentation Book](https://www.condorcet.io) | [API References](/Docs/ApiReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](Tests/)**
 
 Condorcet manages the stages of an electoral process (configuration, votes ingestion & manipulation, integrity) and calculates the results. It offers natively the implementation of more than 20 voting methods compatible with preferential voting ballots, including Condorcet methods, Alternative Voting, STV, and many others.
 => [**Supported Voting Methods**](#supported-voting-methods)
@@ -52,7 +52,7 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
   - [Use Condorcet as a PHP Library](#use-condorcet-as-a-php-library)
     - [Install / Autoloading](#install--autoloading)
     - [Library Manual](#library-manual)
-    - [Class \& Methods References](#class--methods-references)
+    - [Class \& API References](#class--methods-references)
     - [PHP Library - Examples](#php-library---examples)
     - [Overview](#overview)
     - [With Html output basics examples](#with-html-output-basics-examples)
@@ -161,10 +161,10 @@ Can be installed as you prefer with: Composer / Natively provided autoloader / A
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
-### Class & Methods References
+### Class & API References
 
 The precise documentation of methods can be found in the form of Markdown in the "Documentation" folder for each release.
-> **[Class & Methods References](/Docs/MethodsReferences/README.md)**
+> **[Class & API References](/Docs/ApiReferences/README.md)**
 
 ### PHP Library - Examples
 
