@@ -62,7 +62,7 @@ class Generate
         return $rf_rt;
     }
 
-    public static function getGithubLink(\ReflectionFunctionAbstract $refl): string {
+    public static function getGithubLink(\ReflectionFunctionAbstract|\ReflectionClass $refl): string {
         $link = self::GITHUB_BASE.self::GITHUB_BRANCH_PATH .
                 substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1) .
                 '#L'.$refl->getStartLine()
@@ -557,6 +557,9 @@ class Generate
             $file_content .= (!empty($interfaces)) ? 'implements '.$interfaces : '';
 
             $file_content .= "  \n";
+
+            $file_content .= "> [Read it at the source](".self::getGithubLink($classMeta['ReflectionClass']).")\n\n";
+
             $file_content .= "```php\n";
 
             $isEnum = enum_exists(($enumCases = $classMeta['ReflectionClass'])->name);
