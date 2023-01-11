@@ -126,7 +126,7 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
+    #[Description("Same as Election::getVotesList, filter out vote invalid under constraint. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
     #[FunctionReturn('Populated by each Vote object.')]
     #[Related('Election::getVotesListGenerator', 'Election::getVotesList')]
     public function getVotesValidUnderConstraintGenerator(

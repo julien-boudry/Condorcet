@@ -8,7 +8,7 @@
 public Election->getVotesValidUnderConstraintGenerator ( [array|string|null $tags = null , bool $with = true] ): Generator
 ```
 
-Same as Election::getVotesList. But Return a PHP generator object.
+Same as Election::getVotesList, filter out vote invalid under constraint. But Return a PHP generator object.
 Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
     
 

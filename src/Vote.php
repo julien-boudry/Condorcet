@@ -561,7 +561,7 @@ class Vote implements \Iterator, \Stringable
     #[Book(BookLibrary::VotesTags)]
     #[Related('Vote::removeTags')]
     public function addTags(
-        #[FunctionParameter('Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array.')]
+        #[FunctionParameter('Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed')]
         array|string $tags
     ): bool {
         $tags = VoteUtil::tagsConvert($tags) ?? [];
