@@ -229,10 +229,10 @@ class CPO_StvTest extends TestCase
         $this->election->addCandidate('Knoxville');
         $this->election->addCandidate('Chattanooga');
 
-        $this->election->parseVotes(' Memphis * 4
-                                    Nashville * 3
-                                    Chattanooga * 2
-                                    Knoxville * 1');
+        $this->election->parseVotes('   Memphis * 4
+                                        Nashville * 3
+                                        Chattanooga * 2
+                                        Knoxville * 1');
 
         self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
 

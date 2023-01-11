@@ -40,4 +40,4 @@ Throw an exception on error.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/6.Results/1.WinnerAndLoser)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/6.Results/1.WinnerAndLoser)**    

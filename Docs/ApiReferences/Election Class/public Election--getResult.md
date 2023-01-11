@@ -41,4 +41,4 @@ Array of option for some methods. Look at each method documentation.
 
 ### Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io#/3.AsPhpLibrary/6.Results/2.FullRanking)**    
+* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/6.Results/2.FullRanking)**    
