@@ -40,10 +40,17 @@ class ElectionTest extends TestCase
         $this->election2 = new Election;
     }
 
+    public function testRemoveAllVotes(): void
+    {
+        self::assertTrue($this->election1->removeAllVotes());
+        self::assertCount(0, $this->election1->getVotesList());
+        self::assertSame(0, $this->election1->countVotes());
+    }
+
     public function testRemoveVotes(): never
     {
         $this->expectException(VoteException::class);
-        $this->expectExceptionMessage('Problem handling vote: cannot remove vote, is not registered in this election');
+        $this->expectExceptionMessage('Problem handling vote: Cannot remove vote not registered in this election');
 
         self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3, $this->election1->getVotesList());

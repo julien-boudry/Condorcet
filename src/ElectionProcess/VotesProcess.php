@@ -251,10 +251,23 @@ trait VotesProcess
     }
 
     #[PublicAPI]
-    #[Description('Remove Votes from an election.')]
-    #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]
+    #[Description('Remove all Votes from an election.')]
+    #[FunctionReturn("True on success.")]
     #[Book(BookLibrary::Votes)]
-    #[Related('Election::addVote', 'Election::getVotesList', 'Election::removeVotesByTags')]
+    #[Related('Election::addVote', 'Election::removeVote', 'Election::removeVotesByTags')]
+    public function removeAllVotes(): true {
+        foreach ($this->getVotesList() as $oneVote) {
+            $this->removeVote($oneVote);
+        }
+
+        return true;
+    }
+
+    #[PublicAPI]
+    #[Description('Remove Votes from an election.')]
+    #[FunctionReturn("True on success")]
+    #[Book(BookLibrary::Votes)]
+    #[Related('Election::removeAllVotes', 'Election::addVote', 'Election::getVotesList', 'Election::removeVotesByTags')]
     public function removeVote(
         #[FunctionParameter('Vote object')]
         Vote $vote
@@ -264,12 +277,11 @@ trait VotesProcess
             $deletedVote = $this->Votes[$key];
 
             unset($this->Votes[$key]);
-
             $deletedVote->destroyLink($this);
 
             return true;
         } else {
-            throw new VoteException('cannot remove vote, is not registered in this election');
+            throw new VoteException('Cannot remove vote not registered in this election');
         }
     }
 
@@ -290,13 +302,10 @@ trait VotesProcess
         $tags = VoteUtil::tagsConvert($tags);
 
         // Deleting
-        foreach ($this->getVotesList($tags, $with) as $key => $value) {
-            $deletedVote = $this->Votes[$key];
-            $rem[] = $deletedVote;
+        foreach ($this->getVotesList($tags, $with) as $oneVote) {
+            $rem[] = $oneVote;
 
-            unset($this->Votes[$key]);
-
-            $deletedVote->destroyLink($this);
+            $this->removeVote($oneVote);
         }
 
         return $rem;

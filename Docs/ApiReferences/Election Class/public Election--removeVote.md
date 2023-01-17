@@ -1,6 +1,6 @@
 ## public Election::removeVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L258)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L271)
 
 ### Description    
 
@@ -17,13 +17,14 @@ Vote object.
 
 ### Return value:   
 
-*(`true`)* List of removed CondorcetPHP\Condorcet\Vote object.
+*(`true`)* True on success
 
 
 ---------------------------------------
 
 ### Related method(s)      
 
+* [Election::removeAllVotes](/Docs/ApiReferences/Election%20Class/public%20Election--removeAllVotes.md)    
 * [Election::addVote](/Docs/ApiReferences/Election%20Class/public%20Election--addVote.md)    
 * [Election::getVotesList](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesList.md)    
 * [Election::removeVotesByTags](/Docs/ApiReferences/Election%20Class/public%20Election--removeVotesByTags.md)    

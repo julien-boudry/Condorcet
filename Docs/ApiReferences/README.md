@@ -81,6 +81,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->parseCandidates (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseCandidates.md): `array`  
 * [public Election->parseVotes (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotes.md): `int`  
 * [public Election->parseVotesWithoutFail (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotesWithoutFail.md): `int`  
+* [public Election->removeAllVotes ()](/Docs/ApiReferences/Election%20Class/public%20Election--removeAllVotes.md): `true`  
 * [public Election->removeCandidates (...)](/Docs/ApiReferences/Election%20Class/public%20Election--removeCandidates.md): `array`  
 * [public Election->removeExternalDataHandler ()](/Docs/ApiReferences/Election%20Class/public%20Election--removeExternalDataHandler.md): `bool`  
 * [public Election->removeVote (...)](/Docs/ApiReferences/Election%20Class/public%20Election--removeVote.md): `true`  
@@ -1248,95 +1249,6 @@ _Including above methods from public API_
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList): CondorcetPHP\Condorcet\Vote  
 ```
 
-<<<<<<< HEAD
-=======
-#### `CondorcetPHP\Condorcet\Benchmarks\AddVotesBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/AddVotesBench.php#L12)
-
-```php
-* protected CondorcetPHP\Condorcet\Election $election
-
-* public benchVotesWithManyCandidates (): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\IntensiveUsageBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/IntensiveUsageBench.php#L10)
-
-```php
-* public benchSimpleManyVotes (): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\KemenyYoungBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/KemenyYoungBench.php#L15)
-
-```php
-* public __construct ()  
-* public benchKemenyYoung (array $params): void  
-* public provideCandidatesCount (): Generator  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\MethodsNonProportionalBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/MethodsNonProportionalBench.php#L16)
-
-```php
-* public bool $IS_A_PROPORTIONAL_BENCH
-* public array $numberOfCandidates
-* protected CondorcetPHP\Condorcet\Election $election
-
-* public __construct ()  
-* public benchByCandidates (array $params): void  
-* public provideMethods (): Generator  
-* public provideNumberOfCandidates (): Generator  
-* public setUp (array $params): void  
-* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\MethodsProportionalBench extends CondorcetPHP\Condorcet\Benchmarks\MethodsNonProportionalBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/MethodsProportionalBench.php#L11)
-
-```php
-* public bool $IS_A_PROPORTIONAL_BENCH
-* public array $numberOfCandidates
-* protected CondorcetPHP\Condorcet\Election $election
-
-* public __construct ()  
-* public benchByCandidates (array $params): void  
-* public provideMethods (): Generator  
-* public provideNumberOfCandidates (): Generator  
-* public setUp (array $params): void  
-* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\PairwiseNumberOfCandidatesBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/PairwiseNumberOfCandidatesBench.php#L13)
-
-```php
-* public array $numberOfCandidates
-* public array $numberOfVotes
-* protected CondorcetPHP\Condorcet\Election $election
-
-* public __construct ()  
-* public benchByCandidates (array $params): void  
-* public provideNumberOfCandidates (): Generator  
-* public provideNumberOfVotes (): Generator  
-* protected buildElection (int $numberOfCandidates, int $numberOfVotes): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\PairwiseUpdateOptimizationBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/PairwiseUpdateOptimizationBench.php#L10)
-
-```php
-* public benchPairwiseOptimization (): void  
-```
-
-#### `CondorcetPHP\Condorcet\Benchmarks\SimpleUsageBench `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/workspaces/Condorcet/Benchmarks/SimpleUsageBench.php#L10)
-
-```php
-* public benchSimpleManyVotes (): void  
-```
-
->>>>>>> adeb15bc (Update Docs)
 #### `CondorcetPHP\Condorcet\Candidate implements Stringable`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L18)
 
@@ -1831,6 +1743,7 @@ _Including above methods from public API_
 * public parseVotes (string $input, bool $isFile = false): int  
 * public parseVotesWithoutFail (SplFileInfo|string $input, bool $isFile = false, ?Closure $callBack = null): int  
 * public prepareUpdateVote (CondorcetPHP\Condorcet\Vote $existVote): void  
+* public removeAllVotes (): true  
 * public removeCandidates (CondorcetPHP\Condorcet\Candidate|array|string $candidates_input): array  
 * public removeExternalDataHandler (): bool  
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote): true  
