@@ -56,7 +56,7 @@ class VotesManager extends ArrayManager
     {
         if ($value instanceof Vote) {
             parent::offsetSet((\is_int($offset) ? $offset : null), $value);
-            $this->UpdateAndResetComputing(key: $this->maxKey, type: 1);
+            $this->UpdateAndResetComputing(key: $this->maxKey, type: VotesManagerEvent::NewVote);
         } else {
             throw new VoteManagerException;
         }
@@ -66,23 +66,22 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset(mixed $offset): void
     {
-        $this->UpdateAndResetComputing(key: $offset, type: 2);
+        $this->UpdateAndResetComputing(key: $offset, type: VotesManagerEvent::RemoveVote);
         parent::offsetUnset($offset);
     }
 
     /////////// Internal Election related methods ///////////
 
-    public function UpdateAndResetComputing(int $key, int $type): void
+    public function UpdateAndResetComputing(int $key, VotesManagerEvent $type): void
     {
         $election = $this->getElection();
 
 
         if ($election->getState() === ElectionState::VOTES_REGISTRATION) {
-            if ($type === 1) {
-                $election->getPairwise()->addNewVote($key);
-            } elseif ($type === 2) {
-                $election->getPairwise()->removeVote($key);
-            }
+            match ($type) {
+                VotesManagerEvent::NewVote, VotesManagerEvent::FinishUpdateVote => $election->getPairwise()->addNewVote($key),
+                VotesManagerEvent::RemoveVote, VotesManagerEvent::PrepareUpdateVote => $election->getPairwise()->removeVote($key),
+            };
 
             $election->cleanupCalculator();
         } else {

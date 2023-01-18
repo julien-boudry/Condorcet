@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\DataManager\VotesManager;
+use CondorcetPHP\Condorcet\DataManager\{VotesManager, VotesManagerEvent};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
@@ -173,12 +173,12 @@ trait VotesProcess
 
     public function prepareUpdateVote(Vote $existVote): void
     {
-        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 2);
+        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::PrepareUpdateVote);
     }
 
     public function finishUpdateVote(Vote $existVote): void
     {
-        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: 1);
+        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::FinishUpdateVote);
 
         if ($this->Votes->isUsingHandler()) {
             $this->Votes[$this->getVoteKey($existVote)] = $existVote;
@@ -252,10 +252,11 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description('Remove all Votes from an election.')]
-    #[FunctionReturn("True on success.")]
+    #[FunctionReturn('True on success.')]
     #[Book(BookLibrary::Votes)]
     #[Related('Election::addVote', 'Election::removeVote', 'Election::removeVotesByTags')]
-    public function removeAllVotes(): true {
+    public function removeAllVotes(): true
+    {
         foreach ($this->getVotesList() as $oneVote) {
             $this->removeVote($oneVote);
         }
@@ -265,7 +266,7 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description('Remove Votes from an election.')]
-    #[FunctionReturn("True on success")]
+    #[FunctionReturn('True on success')]
     #[Book(BookLibrary::Votes)]
     #[Related('Election::removeAllVotes', 'Election::addVote', 'Election::getVotesList', 'Election::removeVotesByTags')]
     public function removeVote(
