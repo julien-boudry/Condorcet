@@ -1609,7 +1609,7 @@ _Including above methods from public API_
 * protected bool $valid
 * protected string $objectVersion
 
-* public UpdateAndResetComputing (int $key, int $type): void  
+* public UpdateAndResetComputing (int $key, CondorcetPHP\Condorcet\DataManager\VotesManagerEvent $type): void  
 * public __construct (CondorcetPHP\Condorcet\Election $election)  
 * public __destruct ()  
 * public __serialize (): array  
@@ -1658,6 +1658,19 @@ _Including above methods from public API_
 * protected populateCache (): void  
 * protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected setCursorOnNextKeyInArray (array $array): void  
+```
+
+#### `CondorcetPHP\Condorcet\DataManager\VotesManagerEvent implements UnitEnum`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManagerEvent.php#L14)
+
+```php
+* `case VotesManagerEvent::NewVote`  
+* `case VotesManagerEvent::RemoveVote`  
+* `case VotesManagerEvent::PrepareUpdateVote`  
+* `case VotesManagerEvent::FinishUpdateVote`  
+
+* readonly public string $name
+
 ```
 
 #### `CondorcetPHP\Condorcet\Election `  
@@ -2315,7 +2328,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Randomizers\VotesRandomGenerator `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VotesRandomGenerator.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VotesRandomGenerator.php#L17)
 
 ```php
 * protected Random\Randomizer $randomizer
