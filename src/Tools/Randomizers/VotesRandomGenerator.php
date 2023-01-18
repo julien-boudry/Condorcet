@@ -11,10 +11,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Description;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\FunctionParameter;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\FunctionReturn;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\PublicAPI;
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
 use Random\Randomizer;
 
 class VotesRandomGenerator
@@ -40,7 +37,8 @@ class VotesRandomGenerator
         #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
         array $candidates,
         #[FunctionParameter('If null, will use a cryptographivcally secure randomier')]
-        Randomizer|null|string $seed = null)
+        Randomizer|null|string $seed = null
+    )
     {
         $this->setCandidates($candidates);
 

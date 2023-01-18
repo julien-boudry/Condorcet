@@ -147,7 +147,7 @@ class ResultTest extends TestCase
         $this->election1->addVote('a > b > c');
 
         self::assertEquals(
-            [   1 => 'a',
+            [1 => 'a',
                 2 => 'b',
                 3 => 'c',
             ],

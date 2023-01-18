@@ -57,7 +57,7 @@ trait Linkable
 
         $r = [];
 
-        foreach($this->link as $k => $v) {
+        foreach ($this->link as $k => $v) {
             $r[] = $k;
         }
 

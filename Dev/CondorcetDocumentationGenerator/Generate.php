@@ -62,13 +62,12 @@ class Generate
         return $rf_rt;
     }
 
-    public static function getGithubLink(\ReflectionFunctionAbstract|\ReflectionClass $refl): string {
-        $link = self::GITHUB_BASE.self::GITHUB_BRANCH_PATH .
+    public static function getGithubLink(\ReflectionFunctionAbstract|\ReflectionClass $refl): string
+    {
+        return self::GITHUB_BASE.self::GITHUB_BRANCH_PATH .
                 substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1) .
                 '#L'.$refl->getStartLine()
-                ;
-
-        return $link;
+        ;
     }
 
     public static function getModifiersName(\ReflectionMethod $method): string
@@ -234,12 +233,12 @@ class Generate
         print 'Public methods in doc: '.$inDoc.' / '.($inDoc + $non_inDoc).' | Total non-internal methods count: '.$total_nonInternal_methods.' | Number of Class: '.\count($FullClassList).' | Number of Methods including internals: '.$total_methods."\n";
 
         // Add Index
-        $file_content =  "> **[Presentation](../README.md) | [Documentation Book](".self::BOOK_URL.") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n".
+        $file_content =  '> **[Presentation](../README.md) | [Documentation Book]('.self::BOOK_URL.") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n".
 
                         "# API References\n".
                         "## Public API Index *\n".
 
-                        "_*: I try to update and complete the documentation. See also [the documentation book](".self::BOOK_URL."), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        '_*: I try to update and complete the documentation. See also [the documentation book]('.self::BOOK_URL."), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($full_methods_list);
@@ -268,7 +267,7 @@ class Generate
         // Header
         $md =   '## '.self::getModifiersName($method).' '. self::simpleClass($method->class).'::'.$method->name."\n\n".
 
-                "> [Read it at the source](".self::getGithubLink($method).")\n\n".
+                '> [Read it at the source]('.self::getGithubLink($method).")\n\n".
 
                 "### Description    \n\n".
                 self::computeRepresentationAsPHP($method)."\n\n".
@@ -558,7 +557,7 @@ class Generate
 
             $file_content .= "`  \n";
 
-            $file_content .= "> [Read it at the source](".self::getGithubLink($classMeta['ReflectionClass']).")\n\n";
+            $file_content .= '> [Read it at the source]('.self::getGithubLink($classMeta['ReflectionClass']).")\n\n";
 
             $file_content .= "```php\n";
 
