@@ -275,11 +275,7 @@ trait VotesProcess
     ): true {
         $key = $this->getVoteKey($vote);
         if ($key !== null) {
-            $deletedVote = $this->Votes[$key];
-
             unset($this->Votes[$key]);
-            $deletedVote->destroyLink($this);
-
             return true;
         } else {
             throw new VoteException('Cannot remove vote not registered in this election');

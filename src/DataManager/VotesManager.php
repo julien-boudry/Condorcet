@@ -66,8 +66,11 @@ class VotesManager extends ArrayManager
 
     public function offsetUnset(mixed $offset): void
     {
-        $this->UpdateAndResetComputing(key: $offset, type: VotesManagerEvent::RemoveVote);
-        parent::offsetUnset($offset);
+        if ($this->offsetExists($offset)) {
+            $this->UpdateAndResetComputing(key: $offset, type: VotesManagerEvent::RemoveVote);
+            $this->offsetGet($offset)->destroyLink($this->Election->get());
+            parent::offsetUnset($offset);
+        }
     }
 
     /////////// Internal Election related methods ///////////
@@ -75,7 +78,6 @@ class VotesManager extends ArrayManager
     public function UpdateAndResetComputing(int $key, VotesManagerEvent $type): void
     {
         $election = $this->getElection();
-
 
         if ($election->getState() === ElectionState::VOTES_REGISTRATION) {
             match ($type) {
