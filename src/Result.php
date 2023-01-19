@@ -28,6 +28,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         reset($this->ResultIterator);
     }
 
+    /** 
+     * @return array<int, array<int, Candidate>|Candidate> | Candidate
+     */
     public function current(): array|Candidate
     {
         return current($this->ResultIterator);
@@ -67,6 +70,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         throw new ResultException;
     }
 
+    /** 
+     * @return array<int, array<int, Candidate>|Candidate|null> 
+     */
     public function offsetGet(mixed $offset): array|Candidate|null
     {
         return $this->ranking[$offset] ?? null;
@@ -82,6 +88,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /////////// CONSTRUCTOR ///////////
 
+    /** 
+     * @var array<int, array<int, array<int, int>> 
+     */
     protected readonly array $Result;
     protected array $ResultIterator;
     protected $Stats;
@@ -166,6 +175,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return VoteUtil::getRankingAsString($this->getResultAsArray(true));
     }
 
+    /** 
+     * @return array<int, array<int, string> 
+     */
     #[PublicAPI]
     #[Description('Get immutable result as an array')]
     #[FunctionReturn("Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.\nCandidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.\n\nThis control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.")]
@@ -184,6 +196,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return VoteUtil::getRankingAsString($this->getOriginalResultArrayWithString());
     }
 
+    /** 
+     * @return array<int, array<int, array<int, int>> 
+     */
     #[InternalModulesAPI]
     public function getResultAsInternalKey(): array
     {
@@ -200,6 +215,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return $this->Stats;
     }
 
+    /** 
+     * @return array<int, Candidate>|Candidate|null
+     */
     #[PublicAPI]
     #[Description('Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner.\nYou can get an array with multiples winners.")]
@@ -209,6 +227,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return CondorcetUtil::format($this[1], false);
     }
 
+    /** 
+     * @return array<int, Candidate>|Candidate|null
+     */
     #[PublicAPI]
     #[Description('Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).')]
     #[FunctionReturn("Candidate object given. Null if there are no available loser.\nYou can get an array with multiples losers.")]

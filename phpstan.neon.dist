@@ -7,7 +7,5 @@ parameters:
         - '#Variable \$.* might not be defined.#'
         - '#Unsafe access to private constant .* through static#'
         - '#Readonly property .* is assigned outside of the constructor.#'
-        - '#no value type specified in iterable type array#'
-        - '#Exception::\$message has no type specified.#'
-
+        - '#has parameter .* with no value type specified in iterable type array#'
         - '#Readonly property .*\$CandidatesParsedFromVotes is already assigned.#'

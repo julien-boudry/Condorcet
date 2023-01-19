@@ -30,6 +30,9 @@ class Vote implements \Iterator, \Stringable
         $this->position = 1;
     }
 
+    /** 
+     * @return array<int, Candidate>
+     */
     public function current(): array
     {
         return $this->getRanking()[$this->position];
@@ -62,6 +65,9 @@ class Vote implements \Iterator, \Stringable
 
     private int $weight = 1;
 
+    /** 
+     * @var array<int, string> 
+     */
     private array $tags = [];
 
     private string $hashCode = '';
@@ -176,6 +182,9 @@ class Vote implements \Iterator, \Stringable
 
     // GETTERS
 
+    /** 
+     * @return array<int, array<int, Candidate>>
+     */
     #[PublicAPI]
     #[Description('Get the actual Ranking of this Vote.')]
     #[FunctionReturn('Multidimenssionnal array populated by Candidate object.')]
@@ -195,6 +204,9 @@ class Vote implements \Iterator, \Stringable
         return $r;
     }
 
+    /** 
+     * @return array<int, array<int, array<string, mixed>>> 
+     */
     #[PublicAPI]
     #[Description('Return an history of each vote change, with timestamp.')]
     #[FunctionReturn('An explicit multi-dimenssional array.')]
@@ -205,6 +217,9 @@ class Vote implements \Iterator, \Stringable
     }
 
 
+    /** 
+     * @return array<int, string> 
+     */
     #[PublicAPI]
     #[Description('Get the registered tags for this Vote.')]
     #[FunctionReturn('List of registered tag.')]
@@ -249,6 +264,9 @@ class Vote implements \Iterator, \Stringable
         return $this->counter;
     }
 
+    /** 
+     * @return array<int, Candidate> 
+     */
     #[PublicAPI]
     #[Description('Get all the candidates object set in the last ranking of this Vote.')]
     #[FunctionReturn('Candidates list.')]
@@ -266,6 +284,9 @@ class Vote implements \Iterator, \Stringable
         return $list;
     }
 
+    /** 
+     * @return array<int, array<int, Candidate>|Candidate> 
+     */
     #[PublicAPI]
     #[Description('Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.')]
     #[FunctionReturn('Contextual full ranking.')]
@@ -279,6 +300,9 @@ class Vote implements \Iterator, \Stringable
     }
 
     // Performances
+    /** 
+     * @return array<int, array<int, Candidate>|Candidate> 
+     */
     #[InternalModulesAPI]
     public function getContextualRankingWithoutSort(
         #[FunctionParameter('An election already linked to the Vote')]
@@ -287,6 +311,9 @@ class Vote implements \Iterator, \Stringable
         return $this->computeContextualRanking($election, false);
     }
 
+    /** 
+     * @return array<int, array<int, Candidate>|Candidate> 
+     */
     protected function computeContextualRanking(
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
@@ -364,6 +391,7 @@ class Vote implements \Iterator, \Stringable
         return $newRanking;
     }
 
+    /** @return array<int, Vote> */
     #[PublicAPI]
     #[Description('Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.')]
     #[FunctionReturn('Contextual full ranking, with string instead Candidate object.')]
@@ -581,6 +609,9 @@ class Vote implements \Iterator, \Stringable
         return true;
     }
 
+    /** 
+     * @return array<int, string> 
+     */
     #[PublicAPI]
     #[Description('Remove registered tag(s) on this Vote.')]
     #[FunctionReturn('List of deleted tags.')]

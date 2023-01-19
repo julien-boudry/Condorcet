@@ -89,7 +89,9 @@ trait ResultsProcess
         return $result;
     }
 
-
+    /** 
+     * @return array<int, Candidate>|Candidate|null
+     */
     #[PublicAPI]
     #[Description('Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
@@ -114,7 +116,9 @@ trait ResultsProcess
         }
     }
 
-
+    /** 
+     * @return array<int, Candidate>|Candidate|null
+     */
     #[PublicAPI]
     #[Description('Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
@@ -173,6 +177,9 @@ trait ResultsProcess
         return $this->Pairwise;
     }
 
+    /**
+     * @return array<string, array<string, int|float>>
+     */
     #[PublicAPI]
     #[Description('Return the Pairwise.')]
     #[FunctionReturn('Pairwise as an explicit array .')]

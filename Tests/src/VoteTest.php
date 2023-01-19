@@ -158,12 +158,12 @@ class VoteTest extends TestCase
         $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
 
         self::assertSame(
-            CondorcetUtil::format($vote->getRanking()),
             [
                 1 => 'candidate4',
                 2 => ['candidate1', 'candidate3'],
                 3 => 'candidate2',
-            ]
+            ],
+            CondorcetUtil::format($vote->getRanking())
         );
 
         $election = new Election;
@@ -171,21 +171,21 @@ class VoteTest extends TestCase
         $election->addVote($vote);
 
         self::assertSame(
-            CondorcetUtil::format($vote->getContextualRanking($election)),
             [
                 1 => 'candidate4',
                 2 => ['candidate1', 'candidate3'],
                 3 => 'candidate2',
-            ]
+            ],
+            CondorcetUtil::format($vote->getContextualRanking($election))
         );
 
         self::assertSame(
-            $election->getResult()->getResultAsArray(true),
             [
                 1 => 'candidate4',
                 2 => ['candidate1', 'candidate3'],
                 3 => 'candidate2',
-            ]
+            ],
+            $election->getResult()->getResultAsArray(true)
         );
 
         // Contextual Ranking Fail

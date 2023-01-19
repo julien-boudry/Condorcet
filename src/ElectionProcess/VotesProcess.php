@@ -82,6 +82,7 @@ trait VotesProcess
     }
 
     // Get the votes registered list
+    /** @return array<int, Vote> */
     #[PublicAPI]
     #[Description('Get registered vote list.')]
     #[FunctionReturn('Populated by each Vote object.')]
@@ -111,6 +112,7 @@ trait VotesProcess
         return $this->Votes;
     }
 
+    /** * @return \Generator<int, Vote> */
     #[PublicAPI]
     #[Description("Same as Election::getVotesList. But Return a PHP generator object.\nUsefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.")]
     #[FunctionReturn('Populated by each Vote object.')]
@@ -275,6 +277,9 @@ trait VotesProcess
         }
     }
 
+    /** 
+     * @return array<int, Vote>
+     */
     #[PublicAPI]
     #[Description("Remove Vote from an election using tags.\n\n```php\n\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie\n\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie\n\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.\n\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.\n```")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Vote object.")]

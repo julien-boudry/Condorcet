@@ -111,6 +111,7 @@ class VotesManager extends ArrayManager
         return ($r !== false) ? $r : null;
     }
 
+    /** * @return \Generator<int, Vote> */
     protected function getFullVotesListGenerator(): \Generator
     {
         foreach ($this as $voteKey => $vote) {
@@ -118,6 +119,7 @@ class VotesManager extends ArrayManager
         }
     }
 
+    /** * @return \Generator<int, Vote> */
     protected function getPartialVotesListGenerator(array $tags, bool $with): \Generator
     {
         foreach ($this as $voteKey => $vote) {
@@ -140,6 +142,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list
+    /** @return array<int, Vote> */
     public function getVotesList(?array $tags = null, bool $with = true): array
     {
         if ($tags === null) {
