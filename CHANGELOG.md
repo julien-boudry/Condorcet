@@ -2,6 +2,42 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.3.0] - 2023-??-??
+### Description
+Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers for dev and command line usage. And a new documentation book and others documentation improvements.
+
+### Added
+
+#### Public API
+- New VotesRandomGenerator class providing random votes following either a reproducible or cryptographically secure scheme with many options.
+- New `Election->removeAllVotes()` method.
+
+#### Core
+- Upgrade to `PHP 8.2`and use new features.
+- Add some `true` return type.
+- Various refactoring & cleanup.
+
+#### Distribution
+- New Devcontainer for prod. Very easy to execute as a command line application directly in Github Codespace.
+
+#### Docs
+- New Docs directory structure.
+- New www.condorcet.io docbook replacing Github Wiki.
+- Improve Api Reference docs generator.
+- Ongoing efforts to improve documentation.
+
+
+### Changed
+#### General
+
+#### Voting Methods
+
+### Internal changes
+#### Engine
+
+#### Dev
+- New Dev Container for Dev
+
 ## [v4.2.1] - 2022-11-17
 
 ### Changed

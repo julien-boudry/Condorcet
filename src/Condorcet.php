@@ -52,7 +52,7 @@ abstract class Condorcet
     final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
 
     #[PublicAPI]
-    final public const VERSION = '4.2.1';
+    final public const VERSION = '4.3.0';
 
     #[PublicAPI]
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
@@ -60,6 +60,7 @@ abstract class Condorcet
     protected static ?string $defaultMethod = null;
     protected static array $authMethods = [self::CONDORCET_BASIC_CLASS => (Algo\Methods\CondorcetBasic::class)::METHOD_NAME];
 
+    #[PublicAPI]
     public static bool $UseTimer = false;
 
 
