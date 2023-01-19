@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\{Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{VoteManagerException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
@@ -25,25 +25,44 @@ class VotesManagerTest extends TestCase
 
     public function testOffsetSet(): never
     {
-        $this->expectException(VoteNotLinkedException::class);
-        $this->expectExceptionMessage('The vote is not linked to an election');
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage('This vote is already linked to the election');
 
         $vote = new Vote([]);
 
         // add valid vote
         $this->votes_manager[] = $vote;
         self::assertSame($vote, $this->votes_manager->getVotesList()[0]);
+        self::assertSame($this->election, $vote->getLinks()[0]);
 
         // add invalid vote
-        $this->votes_manager[] = null;
+        $this->votes_manager[] = $vote;
     }
 
-    public function testOffsetSetArgumentType(): never
+    public function testOffsetSetArgumentType1(): never
     {
         $this->expectException(VoteManagerException::class);
 
         // add invalid vote
-        $this->votes_manager[] = new \stdClass;
+        try {
+            $this->votes_manager[] = new \stdClass;
+        } catch (VoteManagerException $e) {
+            self::assertCount(0, $this->votes_manager);
+            throw $e;
+        }
+    }
+
+    public function testOffsetSetArgumentType2(): never
+    {
+        $this->expectException(VoteManagerException::class);
+
+        // add invalid vote
+        try {
+            $this->votes_manager[] = null;
+        } catch (VoteManagerException $e) {
+            self::assertCount(0, $this->votes_manager);
+            throw $e;
+        }
     }
 
     public function testOffsetUnset(): void
@@ -56,7 +75,6 @@ class VotesManagerTest extends TestCase
 
         // unset existing vote
         $vote = new Vote([]);
-        $vote->registerLink($this->election);
         $this->votes_manager[] = $vote;
         unset($this->votes_manager[0]);
         self::assertEmpty($this->votes_manager->getVotesList());

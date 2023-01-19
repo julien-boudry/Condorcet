@@ -833,7 +833,7 @@ class ElectionTest extends TestCase
     public function testAddSameVote(): never
     {
         $this->expectException(VoteException::class);
-        $this->expectExceptionMessage('Problem handling vote: seats are already registered');
+        $this->expectExceptionMessage('This vote is already linked to the election');
 
         $this->election1->addVote($this->vote1);
     }

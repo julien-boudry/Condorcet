@@ -14,7 +14,8 @@ namespace CondorcetPHP\Condorcet\DataManager;
 use CondorcetPHP\Condorcet\{Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
-use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
+use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
+use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 
 class VotesManager extends ArrayManager
@@ -55,10 +56,19 @@ class VotesManager extends ArrayManager
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($value instanceof Vote) {
+            try {
+                $value->registerLink($this->Election->get());
+            } catch (AlreadyLinkedException $e) {
+                // Security : Check if vote object is not already registered and not present at offset
+                if (($this->Cache[$offset] ?? $this->Container[$offset] ?? false) !== $value) {
+                    throw new VoteException('This vote is already linked to the election');
+                }
+            }
+
             parent::offsetSet((\is_int($offset) ? $offset : null), $value);
             $this->UpdateAndResetComputing(key: $this->maxKey, type: VotesManagerEvent::NewVote);
         } else {
-            throw new VoteManagerException;
+            throw new VoteManagerException('value must be a Vote object.');
         }
 
         $this->checkRegularize();

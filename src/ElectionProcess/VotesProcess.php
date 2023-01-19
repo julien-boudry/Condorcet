@@ -16,7 +16,6 @@ use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteException, 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\{VotesManager, VotesManagerEvent};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 // Manage Results for Election class
@@ -239,13 +238,7 @@ trait VotesProcess
         $tags === null || $vote->addTags($tags);
 
         // Register
-        try {
-            $vote->registerLink($this);
-            $this->Votes[] = $vote;
-        } catch (CondorcetInternalException $e) {
-            // Security : Check if vote object is not already registered
-            throw new VoteException('seats are already registered');
-        }
+        $this->Votes[] = $vote;
 
         return $vote;
     }

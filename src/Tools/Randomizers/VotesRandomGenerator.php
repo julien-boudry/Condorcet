@@ -38,8 +38,7 @@ class VotesRandomGenerator
         array $candidates,
         #[FunctionParameter('If null, will use a cryptographivcally secure randomier')]
         Randomizer|null|string $seed = null
-    )
-    {
+    ) {
         $this->setCandidates($candidates);
 
         if ($seed === null) {
