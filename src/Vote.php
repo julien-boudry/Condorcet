@@ -186,8 +186,8 @@ class Vote implements \Iterator, \Stringable
     ): array {
         $r = $this->ranking;
 
-        foreach ($r as &$oneRank) {
-            if ($sortCandidatesInRank && \count($oneRank) > 1) {
+        if ($sortCandidatesInRank) {
+            foreach ($r as &$oneRank) {
                 sort($oneRank, \SORT_STRING);
             }
         }
