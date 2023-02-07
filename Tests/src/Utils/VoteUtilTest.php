@@ -6,6 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests\Utils;
 
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class VoteUtilTest extends TestCase
@@ -52,9 +53,7 @@ class VoteUtilTest extends TestCase
         VoteUtil::tagsConvert('an , empty, tag , , in, the, middle');
     }
 
-    /**
-     * @dataProvider tagsProvider
-     */
+    #[DataProvider('tagsProvider')]
     public function testTagsGetConverted($tags, $expected): void
     {
         $this->assertSame($expected, VoteUtil::tagsConvert($tags));

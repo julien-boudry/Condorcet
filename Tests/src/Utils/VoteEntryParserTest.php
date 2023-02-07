@@ -7,6 +7,7 @@ namespace CondorcetPHP\Condorcet\Tests\Utils;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Utils\VoteEntryParser;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class VoteEntryParserTest extends TestCase
@@ -161,9 +162,7 @@ class VoteEntryParserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider voteBadNumericValueProvider
-     */
+    #[DataProvider('voteBadNumericValueProvider')]
     public function testBadNumericValue(string $entry, string $message): void
     {
         $this->expectException(VoteInvalidFormatException::class);
@@ -172,9 +171,7 @@ class VoteEntryParserTest extends TestCase
         new VoteEntryParser($entry);
     }
 
-    /**
-     * @dataProvider voteEntriesProvider
-     */
+    #[DataProvider('voteEntriesProvider')]
     public function testVotesEntries(string $entry, array $expected): void
     {
         $parser = new VoteEntryParser($entry);

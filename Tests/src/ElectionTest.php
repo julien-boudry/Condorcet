@@ -8,7 +8,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
-use PHPUnit\Framework\Attributes\{BackupStaticProperties, PreserveGlobalState, RunInSeparateProcess};
+use PHPUnit\Framework\Attributes\{BackupStaticProperties, DataProvider, PreserveGlobalState, RunInSeparateProcess};
 use PHPUnit\Framework\TestCase;
 
 class ElectionTest extends TestCase
@@ -864,9 +864,7 @@ class ElectionTest extends TestCase
         $election->removeCandidates($badCandidate);
     }
 
-    /**
-     * @dataProvider MethodsListProvider
-     */
+    #[DataProvider('MethodsListProvider')]
     public function testRemoveCandidateResult(string $method): void
     {
         $votes = '  Memphis * 4

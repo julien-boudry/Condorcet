@@ -8,6 +8,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
+use PHPUnit\Framework\Attributes\{DataProvider, Group, PreserveGlobalState};
 use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase
@@ -49,9 +50,7 @@ class KemenyYoungTest extends TestCase
         self::assertSame($this->election->getWinner(), $this->election->getWinner('KemenyYoung'));
     }
 
-    /**
-     * @preserveGlobalState disabled
-     */
+    #[PreserveGlobalState(false)]
     public function testResult2(): void
     {
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
@@ -183,10 +182,8 @@ class KemenyYoungTest extends TestCase
         ];
     }
 
-    /**
-     * @group large
-     * @dataProvider  ManyCandidatesProvider
-     */
+    #[Group('large')]
+    #[DataProvider('ManyCandidatesProvider')]
     public function testKemenyWithManyCandidates(int $candidatesCount): void
     {
         $original = KemenyYoung::$MaxCandidates;
