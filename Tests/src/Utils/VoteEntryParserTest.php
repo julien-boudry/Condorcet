@@ -11,18 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class VoteEntryParserTest extends TestCase
 {
-    /**
-     * @dataProvider voteBadNumericValueProvider()
-     */
-    public function testBadNumericValue(string $entry, string $message): void
-    {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage($message);
-
-        new VoteEntryParser($entry);
-    }
-
-    public function voteBadNumericValueProvider(): iterable
+    public static function voteBadNumericValueProvider(): iterable
     {
         yield [
             'entry' => 'A>B ^g',
@@ -45,23 +34,7 @@ class VoteEntryParserTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider voteEntriesProvider()
-     */
-    public function testVotesEntries(string $entry, array $expected): void
-    {
-        $parser = new VoteEntryParser($entry);
-
-        self::assertSame($entry, $parser->originalEntry);
-
-        self::assertSame($expected['comment'], $parser->comment);
-        self::assertSame($expected['multiple'], $parser->multiple);
-        self::assertSame($expected['ranking'], $parser->ranking);
-        self::assertSame($expected['tags'], $parser->tags);
-        self::assertSame($expected['weight'], $parser->weight);
-    }
-
-    public function voteEntriesProvider(): iterable
+    public static function voteEntriesProvider(): iterable
     {
         yield [
             'entry' => 'A >B = C>D',
@@ -186,5 +159,32 @@ class VoteEntryParserTest extends TestCase
                 'weight' => 1,
             ],
         ];
+    }
+
+    /**
+     * @dataProvider voteBadNumericValueProvider
+     */
+    public function testBadNumericValue(string $entry, string $message): void
+    {
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage($message);
+
+        new VoteEntryParser($entry);
+    }
+
+    /**
+     * @dataProvider voteEntriesProvider
+     */
+    public function testVotesEntries(string $entry, array $expected): void
+    {
+        $parser = new VoteEntryParser($entry);
+
+        self::assertSame($entry, $parser->originalEntry);
+
+        self::assertSame($expected['comment'], $parser->comment);
+        self::assertSame($expected['multiple'], $parser->multiple);
+        self::assertSame($expected['ranking'], $parser->ranking);
+        self::assertSame($expected['tags'], $parser->tags);
+        self::assertSame($expected['weight'], $parser->weight);
     }
 }

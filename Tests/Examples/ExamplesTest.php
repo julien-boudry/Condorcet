@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Examples;
 
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
 class ExamplesTest extends TestCase
 {
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testOverviewExample(): void
     {
         $r = true;
@@ -25,9 +24,7 @@ class ExamplesTest extends TestCase
         self::assertTrue($r);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testAdvancedObjectManagementExample(): void
     {
         $r = true;
@@ -42,9 +39,7 @@ class ExamplesTest extends TestCase
         self::assertTrue($r);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testGlobalHtmlExample(): void
     {
         $r = true;
@@ -61,9 +56,7 @@ class ExamplesTest extends TestCase
         self::assertTrue($r);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testRankingManipulationHtmlExample(): void
     {
         $r = true;

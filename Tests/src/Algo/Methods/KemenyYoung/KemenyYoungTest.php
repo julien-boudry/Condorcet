@@ -175,7 +175,7 @@ class KemenyYoungTest extends TestCase
         self::assertSame($candidate[0], $this->election->getWinner('KemenyYoung'));
     }
 
-    public function ManyCandidatesProvider(): array
+    public static function ManyCandidatesProvider(): array
     {
         return [
             9  => [9],

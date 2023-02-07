@@ -8,6 +8,7 @@
 # phpunit, phpstan
 .phpunit.result.cache
 phpstan.neon
+.phpunit.cache/test-results
 
 # infection
 Dev/infection_logs/
