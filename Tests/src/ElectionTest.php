@@ -8,6 +8,7 @@ use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use PHPUnit\Framework\Attributes\{BackupStaticProperties, DataProvider, PreserveGlobalState, RunInSeparateProcess};
 use PHPUnit\Framework\TestCase;
 
 class ElectionTest extends TestCase
@@ -132,11 +133,9 @@ class ElectionTest extends TestCase
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }
 
-    /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+    #[PreserveGlobalState(false)]
+    #[BackupStaticProperties(false)]
+    #[RunInSeparateProcess]
     public function testMaxParseIteration1(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -144,24 +143,22 @@ class ElectionTest extends TestCase
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
-        self::assertCount(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
+        self::assertSame(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
 
-        self::assertCount(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
+        self::assertSame(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
 
         self::assertNull(Election::setMaxParseIteration(null));
 
-        self::assertCount(43, $this->election1->parseVotes('candidate1>candidate2 * 43'));
+        self::assertSame(43, $this->election1->parseVotes('candidate1>candidate2 * 43'));
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
         $this->election1->parseVotes('candidate1>candidate2 * 43');
     }
 
-    /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+    #[PreserveGlobalState(false)]
+    #[BackupStaticProperties(false)]
+    #[RunInSeparateProcess]
     public function testMaxParseIteration2(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -176,11 +173,9 @@ class ElectionTest extends TestCase
         '));
     }
 
-    /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+    #[PreserveGlobalState(false)]
+    #[BackupStaticProperties(false)]
+    #[RunInSeparateProcess]
     public function testMaxParseIteration3(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -201,11 +196,9 @@ class ElectionTest extends TestCase
         $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
 
-    /**
-      * @preserveGlobalState disabled
-      * @backupStaticAttributes disabled
-      * @runInSeparateProcess
-      */
+    #[PreserveGlobalState(false)]
+    #[BackupStaticProperties(false)]
+    #[RunInSeparateProcess]
     public function testMaxVoteNumber(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -864,9 +857,7 @@ class ElectionTest extends TestCase
         $election->removeCandidates($badCandidate);
     }
 
-    /**
-     * @dataProvider MethodsListProvider
-     */
+    #[DataProvider('MethodsListProvider')]
     public function testRemoveCandidateResult(string $method): void
     {
         $votes = '  Memphis * 4
@@ -904,7 +895,7 @@ class ElectionTest extends TestCase
         );
     }
 
-    public function MethodsListProvider(): array
+    public static function MethodsListProvider(): array
     {
         $r = [];
 

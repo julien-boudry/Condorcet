@@ -8,13 +8,12 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
+use PHPUnit\Framework\Attributes\{BackupStaticProperties, Group, PreserveGlobalState};
 use PHPUnit\Framework\TestCase;
 
-/**
- * @preserveGlobalState disabled
- * @backupStaticAttributes disabled
- * @group DataHandlerDrivers
- */
+#[PreserveGlobalState(false)]
+#[BackupStaticProperties(false)]
+#[Group('DataHandlerDrivers')]
 class PdoHandlerDriverTest extends TestCase
 {
     protected function getPDO(): \PDO
