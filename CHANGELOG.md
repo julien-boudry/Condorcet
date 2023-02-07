@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.2.2] - 2023-02-07
+### Dev
+- Upgrade to PHPUnit `^10`
+
 ## [v4.2.1] - 2022-11-17
 
 ### Changed
