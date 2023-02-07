@@ -29,7 +29,7 @@
         "ext-mbstring": "*",
         "symfony/console": "^6.0",
         "symfony/yaml": "^6.0",
-        "brick/math": "^0.10"
+        "brick/math": "^0.11"
     },
     "require-dev": {
         "ext-pdo": "*",
