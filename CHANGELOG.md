@@ -38,6 +38,11 @@ Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers f
 #### Dev
 - New Dev Container for Dev
 
+## [v4.2.2] - 2023-02-07
+
+### Dev
+- Upgrade to PHPUnit `^10`
+
 ## [v4.2.1] - 2022-11-17
 
 ### Changed
