@@ -592,6 +592,14 @@ class VoteTest extends TestCase
         self::assertNotSame($hashCode[4], $hashCode[3]);
     }
 
+    public function testCountRanks(): void
+    {
+        $vote = new Vote('A>B=C>D');
+
+        self::assertsame(3, $vote->countRanks());
+        self::assertsame(4, $vote->countRankingCandidates());
+    }
+
     public function testCountRankingCandidates(): void
     {
         $vote = new Vote('A>B>C');

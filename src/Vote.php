@@ -250,6 +250,14 @@ class Vote implements \Iterator, \Stringable
     }
 
     #[PublicAPI]
+    #[Description('Count the number of ranks.')]
+    #[FunctionReturn('Number of ranks.')]
+    public function countRanks(): int
+    {
+        return \count($this->ranking);
+    }
+
+    #[PublicAPI]
     #[Description('Get all the candidates object set in the last ranking of this Vote.')]
     #[FunctionReturn('Candidates list.')]
     #[Related('Vote::getRanking', 'Vote::countRankingCandidates')]
