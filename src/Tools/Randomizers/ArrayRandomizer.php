@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
 use Random\Randomizer;
 
-class VotesRandomGenerator
+class ArrayRandomizer
 {
     protected Randomizer $randomizer;
 
@@ -69,7 +69,7 @@ class VotesRandomGenerator
     #[PublicAPI]
     #[Description('Generate a new random vote.')]
     #[FunctionReturn('Return the new vote.')]
-    public function getNewVote(): array
+    public function shuffle(): array
     {
         $randomizedCandidates = $this->randomizer->shuffleArray($this->candidates);
 
