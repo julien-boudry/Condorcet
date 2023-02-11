@@ -1,6 +1,6 @@
 ## public Vote::setRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L408)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L441)
 
 ### Description    
 

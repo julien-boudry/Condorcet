@@ -24,6 +24,8 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `final public const VERSION: (string)`  
 * `final public const CONDORCET_BASIC_CLASS: (string)`  
 
+* `public static bool $UseTimer`  
+
 * [public static Condorcet::addMethod (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--addMethod.md): `bool`  
 * [public static Condorcet::getAuthMethods (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md): `array`  
 * [public static Condorcet::getDefaultMethod ()](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md): `?string`  
@@ -135,6 +137,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Vote->addTags (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--addTags.md): `bool`  
 * [public Vote->countLinks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countLinks.md): `int`  
 * [public Vote->countRankingCandidates ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRankingCandidates.md): `int`  
+* [public Vote->countRanks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRanks.md): `int`  
 * [public Vote->getAllCandidates ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--getAllCandidates.md): `array`  
 * [public Vote->getContextualRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRanking.md): `array`  
 * [public Vote->getContextualRankingAsString (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRankingAsString.md): `array`  
@@ -221,17 +224,30 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Tools\Converters\DebianFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
-### CondorcetPHP\Condorcet\Tools\Randomizers\VotesRandomGenerator Class  
+### CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer Class  
 
 * `public ?int $maxCandidatesRanked`  
 * `public int|false $minCandidatesRanked`  
 * `public ?int $maxRanksCount`  
 * `public int|float $tiesProbability`  
 
-* [public Tools\Randomizers\VotesRandomGenerator->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--__construct.md)  
-* [public Tools\Randomizers\VotesRandomGenerator->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--countCandidates.md): `int`  
-* [public Tools\Randomizers\VotesRandomGenerator->getNewVote ()](/Docs/ApiReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--getNewVote.md): `array`  
-* [public Tools\Randomizers\VotesRandomGenerator->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_VotesRandomGenerator%20Class/public%20Tools_Randomizers_VotesRandomGenerator--setCandidates.md): `void`  
+* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+
+### CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer Class  
+
+* `public ?int $maxCandidatesRanked`  
+* `public int|false $minCandidatesRanked`  
+* `public ?int $maxRanksCount`  
+* `public int|float $tiesProbability`  
+
+* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* [public Tools\Randomizers\VoteRandomizer->getNewVote ()](/Docs/ApiReferences/Tools_Randomizers_VoteRandomizer%20Class/public%20Tools_Randomizers_VoteRandomizer--getNewVote.md): `CondorcetPHP\Condorcet\Vote`  
+* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
 
 ### CondorcetPHP\Condorcet\Utils\CondorcetUtil Class  
 
@@ -1551,6 +1567,8 @@ _Including above methods from public API_
 * public rewind (): void  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * public valid (): bool  
+* protected containerKeyExist (int $offset): bool  
+* protected dataHandlerKeyExist (int $offset): bool  
 * protected decodeManyEntities (array $entities): array  
 * protected decodeOneEntity (string $data): CondorcetPHP\Condorcet\Vote  
 * protected encodeManyEntities (array $entities): array  
@@ -1592,7 +1610,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L21)
 
 ```php
 * public static int $CacheSize
@@ -1649,6 +1667,8 @@ _Including above methods from public API_
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * public sumVotesWeight (bool $constraint = false): int  
 * public valid (): bool  
+* protected containerKeyExist (int $offset): bool  
+* protected dataHandlerKeyExist (int $offset): bool  
 * protected decodeManyEntities (array $entities): array  
 * protected decodeOneEntity (string $data): CondorcetPHP\Condorcet\Vote  
 * protected encodeManyEntities (array $entities): array  
@@ -1989,6 +2009,17 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 ```
 
+#### `CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/AlreadyLinkedException.php#L15)
+
+```php
+* protected  $message
+* protected  $code
+* protected string $file
+* protected int $line
+
+```
+
 #### `CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError extends Error implements Throwable, Stringable`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/CondorcetInternalError.php#L17)
 
@@ -2327,8 +2358,8 @@ _Including above methods from public API_
 * protected readVotes (): void  
 ```
 
-#### `CondorcetPHP\Condorcet\Tools\Randomizers\VotesRandomGenerator `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VotesRandomGenerator.php#L17)
+#### `CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L17)
 
 ```php
 * protected Random\Randomizer $randomizer
@@ -2340,8 +2371,27 @@ _Including above methods from public API_
 
 * public __construct (array $candidates, Random\Randomizer|string|null $seed = null)  
 * public countCandidates (): int  
-* public getNewVote (): array  
 * public setCandidates (array $candidates): void  
+* public shuffle (): array  
+* protected makeTies (array $randomizedCandidates): array  
+```
+
+#### `CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer extends CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L17)
+
+```php
+* protected Random\Randomizer $randomizer
+* public array $candidates
+* public ?int $maxCandidatesRanked
+* public int|false $minCandidatesRanked
+* public ?int $maxRanksCount
+* public int|float $tiesProbability
+
+* public __construct (array $candidates, Random\Randomizer|string|null $seed = null)  
+* public countCandidates (): int  
+* public getNewVote (): CondorcetPHP\Condorcet\Vote  
+* public setCandidates (array $candidates): void  
+* public shuffle (): array  
 * protected makeTies (array $randomizedCandidates): array  
 ```
 
@@ -2381,8 +2431,8 @@ _Including above methods from public API_
 * public static tagsConvert (array|string|null $tags): ?array  
 ```
 
-#### `CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L19)
+#### `CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, ArrayAccess, Traversable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L20)
 
 ```php
 * private int $position
@@ -2410,6 +2460,7 @@ _Including above methods from public API_
 * public addTags (array|string $tags): bool  
 * public countLinks (): int  
 * public countRankingCandidates (): int  
+* public countRanks (): int  
 * public current (): array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public getAllCandidates (): array  
@@ -2430,6 +2481,10 @@ _Including above methods from public API_
 * public haveLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public key (): int  
 * public next (): void  
+* public offsetExists (mixed $offset): bool  
+* public offsetGet (mixed $offset): CondorcetPHP\Condorcet\Candidate|array|null  
+* public offsetSet (mixed $offset, mixed $value): void  
+* public offsetUnset (mixed $offset): void  
 * public registerLink (CondorcetPHP\Condorcet\Election $election): void  
 * public removeAllTags (): true  
 * public removeCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): true  
