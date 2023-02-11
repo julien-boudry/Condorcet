@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
@@ -193,6 +193,35 @@ class VoteTest extends TestCase
         $unexpectedElection = new Election;
 
         $vote1->getContextualRanking($unexpectedElection);
+    }
+
+    public function testArrayAccess(): void
+    {
+        // Ranking 1
+        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+
+        self::assertSame('candidate1', $vote[1][0]->getName());
+        self::assertSame('candidate4', $vote[3][0]->getName());
+    }
+
+    public function testArrayAccessSetException(): void
+    {
+        $this->expectException(VoteException::class);
+
+        // Ranking 1
+        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+
+        $vote[1] = 'candidateX';
+    }
+
+    public function testArrayAccessUnsetException(): void
+    {
+        $this->expectException(VoteException::class);
+
+        // Ranking 1
+        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+
+        unset($vote[1]);
     }
 
     public function testSimpleRanking(): void

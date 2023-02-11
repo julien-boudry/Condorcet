@@ -12,6 +12,7 @@ Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers f
 - New VotesRandomGenerator class providing random votes following either a reproducible or cryptographically secure scheme with many options.
 - New `Election->removeAllVotes()` method.
 - New `Election->countRanks()` method.
+- Votes objects now support the ArrayAccess interface in read mode.
 
 #### Core
 - Upgrade to `PHP 8.2`and use new features.

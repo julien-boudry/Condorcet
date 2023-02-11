@@ -11,15 +11,40 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use ArrayAccess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteInvalidFormatException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
-class Vote implements \Iterator, \Stringable
+class Vote implements \Iterator, \Stringable, ArrayAccess
 {
     use Linkable;
     use CondorcetVersion;
+
+    // Implement ArrayAccess
+
+    #[Throws(VoteException::class)]
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        throw new VoteException('Modifying a Vote as a table is not yet supported.');
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return isset($this->ranking[$offset]);
+    }
+
+    #[Throws(VoteException::class)]
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new VoteException('Modifying a Vote as a table is not yet supported.');
+    }
+
+    public function offsetGet(mixed $offset): array|Candidate|null
+    {
+        return $this->ranking[$offset] ?? null;
+    }
 
     // Implement Iterator
 
