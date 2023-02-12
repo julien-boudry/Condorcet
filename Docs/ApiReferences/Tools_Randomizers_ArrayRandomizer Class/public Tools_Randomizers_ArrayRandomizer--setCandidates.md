@@ -12,4 +12,4 @@ Change the candidates running for this randomizer.
     
 
 #### **candidates:** *`array`*   
-    
+The array of candidates to shuffle.    

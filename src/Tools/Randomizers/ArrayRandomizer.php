@@ -53,7 +53,10 @@ class ArrayRandomizer
 
     #[PublicAPI]
     #[Description('Change the candidates running for this randomizer.')]
-    public function setCandidates(array $candidates): void
+    public function setCandidates(
+        #[FunctionParameter('The array of candidates to shuffle')]
+        array $candidates
+    ): void
     {
         $this->candidates = $candidates;
     }
