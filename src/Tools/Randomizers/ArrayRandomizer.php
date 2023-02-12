@@ -23,7 +23,7 @@ class ArrayRandomizer
     #[PublicAPI]
     public ?int $maxCandidatesRanked = null;
     #[PublicAPI]
-    public int|false $minCandidatesRanked = false; // true: min = max or candidatesCount
+    public int|false $minCandidatesRanked = false; // false => min = max or candidatesCount
 
     #[PublicAPI]
     public ?int $maxRanksCount = null;

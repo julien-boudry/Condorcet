@@ -60,10 +60,14 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "document": "php Dev/update-documentation.php",
+        "pintify": "pint"
     },
     "scripts-descriptions": {
-        "test": "Run all tests!"
+        "test": "Run all tests!",
+        "document": "Generate documentation",
+        "pintify": "Run laravel Pint"
     },
     "bin": ["bin/condorcet"],
     "archive": {
