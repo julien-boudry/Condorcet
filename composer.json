@@ -36,7 +36,7 @@
         "ext-pdo_sqlite": "*",
         "phpbench/phpbench": "*",
         "phpunit/phpunit": "^10",
-        "haydenpierce/class-finder": ">= 0.5.0",
+        "haydenpierce/class-finder": ">= 0.5.1",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.9",
         "laravel/pint": "^1.6"
