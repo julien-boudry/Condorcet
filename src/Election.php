@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
+use CondorcetPHP\Condorcet\Algo\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\{DataHandlerException, ElectionObjectVersionMismatchException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteConstraintException};
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ElectionState, ResultsProcess, VotesProcess};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
@@ -145,10 +146,10 @@ class Election
         $this->VoteWeightRule = $data['VoteWeightRule'];
         $this->Constraints = $data['Constraints'];
 
-        $this->Pairwise = $data['Pairwise'];
+        $this->Pairwise = $data['Pairwise'] ?? new Pairwise($this);
         $this->Pairwise->setElection($this);
 
-        $this->Calculator = $data['Calculator'];
+        $this->Calculator = $data['Calculator'] ?? [];
         foreach ($this->Calculator as $methodObject) {
             $methodObject->setElection($this);
         }

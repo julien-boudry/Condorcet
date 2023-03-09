@@ -737,6 +737,16 @@ class ElectionTest extends TestCase
         );
     }
 
+    public function testElectionUnserializingWithoutVotes(): void
+    {
+        $e = new Election;
+        $e->parseCandidates('A;B');
+        $e = serialize($e);
+        $e = unserialize($e);
+
+        self::assertInstanceOf(Election::class, $e);
+    }
+
     public function testCloneElection(): void
     {
         $this->election1->computeResult();

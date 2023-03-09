@@ -778,7 +778,6 @@ class ElectionCommand extends Command
 
             $callBack = function (int $parsedVotesCounter): bool {
                 if ($parsedVotesCounter > $this->maxVotesInMemory) {
-
                     /**
                      * @infection-ignore-all
                      */
