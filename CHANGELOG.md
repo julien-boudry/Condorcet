@@ -40,6 +40,10 @@ Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers f
 #### Dev
 - New Dev Container for Dev
 
+## [v4.2.3] - 2023-02-09
+### Changed
+- Fix #127
+
 ## [v4.2.2] - 2023-02-07
 
 ### Dev
