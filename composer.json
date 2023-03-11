@@ -9,7 +9,7 @@
         {
             "name": "Julien Boudry",
             "email": "julien.boudry@gmail.com",
-            "homepage": "http://www.julien-boudry.net",
+            "homepage": "https://artisanat-furieux.net/",
             "role": "Developer"
         }
     ],
@@ -42,7 +42,6 @@
         "laravel/pint": "^1.6"
     },
     "suggest": {
-        "ext-mbstring": "If you need to deal with Debian vote format",
         "ext-pdo": "Allow to use database for very large elections.",
         "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
     },
@@ -75,7 +74,7 @@
             "/Assets",
             "/Benchmarks",
             "/Dev/",
-            "/Documentation",
+            "/Docs",
             "/Examples",
             "/Tests",
             "*.dist"

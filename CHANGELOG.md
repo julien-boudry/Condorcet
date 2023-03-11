@@ -2,9 +2,9 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.3.0] - 2023-??-??
+## [v4.3.0] - 2023-03-12
 ### Description
-Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers for dev and command line usage. And a new documentation book and others documentation improvements.
+Require `PHP 8.2`. Include a new random vote generator API. Provide some devcontainers for dev and command line usage.
 
 ### Added
 
@@ -12,12 +12,8 @@ Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers f
 - New VotesRandomGenerator class providing random votes following either a reproducible or cryptographically secure scheme with many options.
 - New `Election->removeAllVotes()` method.
 - New `Election->countRanks()` method.
-- Votes objects now support the ArrayAccess interface in read mode.
+- Votes objects now support the ArrayAccess interface (readonly).)
 
-#### Core
-- Upgrade to `PHP 8.2`and use new features.
-- Add some `true` return type.
-- Various refactoring & cleanup.
 
 #### Distribution
 - New Devcontainer for prod. Very easy to execute as a command line application directly in Github Codespace.
@@ -28,17 +24,15 @@ Require `PHP 8.2`. Include a new random vote generator API. Some devcontainers f
 - Improve Api Reference docs generator.
 - Ongoing efforts to improve documentation.
 
-
-### Changed
-#### General
-
-#### Voting Methods
-
 ### Internal changes
 #### Engine
+- Upgrade to `PHP 8.2` and use new features.
+- Add some `true` return type.
+- Various refactoring & cleanup.
 
 #### Dev
 - New Dev Container for Dev
+- Migrate to PHPUnit 10
 
 ## [v4.2.3] - 2023-02-09
 ### Changed

@@ -56,8 +56,7 @@ class ArrayRandomizer
     public function setCandidates(
         #[FunctionParameter('The array of candidates to shuffle')]
         array $candidates
-    ): void
-    {
+    ): void {
         $this->candidates = $candidates;
     }
 
