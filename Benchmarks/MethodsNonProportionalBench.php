@@ -9,6 +9,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
+use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use PhpBench\Attributes as Bench;
 
 ini_set('memory_limit', '51200M');
@@ -30,8 +31,6 @@ class MethodsNonProportionalBench
 
     protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
-        $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
-
         $this->election = $election = new Election;
         $this->election->setNumberOfSeats(max(1, (int) ($numberOfCandidates / 3)));
         $this->election->setStatsVerbosity(StatsVerbosity::STD);
@@ -42,8 +41,10 @@ class MethodsNonProportionalBench
             $candidates[] = $election->addCandidate();
         }
 
+        $randomizer = new VoteRandomizer($candidates, 'CondorcetReproductibleSeed');
+
         for ($i = 0; $i < $numberOfVotes; $i++) {
-            $oneVote = $randomizer->shuffleArray($candidates);
+            $oneVote = $randomizer->getNewVote();
             $election->addVote($oneVote);
         }
     }

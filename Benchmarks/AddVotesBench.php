@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use PhpBench\Attributes as Bench;
 
 ini_set('memory_limit', '51200M');
@@ -19,8 +20,6 @@ class AddVotesBench
     #[Bench\Revs(1)]
     public function benchVotesWithManyCandidates(): void
     {
-        $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
-
         $this->election = $election = new Election;
 
         $candidates = [];
@@ -29,8 +28,10 @@ class AddVotesBench
             $candidates[] = $election->addCandidate();
         }
 
+        $randomizer = new VoteRandomizer($candidates, 'CondorcetReproductibleSeed');
+
         for ($i = 0; $i < 1_000; $i++) {
-            $oneVote = $randomizer->shuffleArray($candidates);
+            $oneVote = $randomizer->getNewVote();
             $election->addVote($oneVote);
         }
     }
