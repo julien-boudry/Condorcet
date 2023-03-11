@@ -10,6 +10,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use PHPUnit\Framework\TestCase;
 
 class CPO_StvTest extends TestCase
@@ -298,20 +299,10 @@ class CPO_StvTest extends TestCase
             $candidates[] = $this->election->addCandidate();
         }
 
-        if (version_compare(\PHP_VERSION, '8.2') >= 0) {
-            $randomizer = new \Random\Randomizer(new \Random\Engine\Xoshiro256StarStar('CondorcetReproductibleRandomSeed'));
-
-            $shuffle = static fn (array $candidates): array => $randomizer->shuffleArray($candidates);
-        } else {
-            $shuffle = static function (array $candidates): array {
-                $newCandidates = $candidates;
-                shuffle($newCandidates);
-                return $newCandidates;
-            };
-        }
+        $randomizer = new VoteRandomizer($candidates, 'CondorcetReproductibleRandomSeed');
 
         for ($i = 0; $i < 100; $i++) {
-            $this->election->addVote($shuffle($candidates));
+            $this->election->addVote($randomizer->getNewVote());
         }
 
         $this->election->getResult('CPO STV')->getResultAsString();
