@@ -1694,7 +1694,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Election `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L24)
 
 ```php
 * public const MAX_CANDIDATE_NAME_LENGTH: (integer)

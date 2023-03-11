@@ -1,6 +1,6 @@
 ## public Election::removeExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L424)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L425)
 
 ### Description    
 
