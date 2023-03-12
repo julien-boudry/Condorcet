@@ -95,15 +95,15 @@ class CondorcetStyle extends SymfonyStyle
         $this->writeln("<condor1b>{$prefix}:</> <condor2>{$message}</>");
     }
 
-    public function section(string $message): void
-    {
-        $this->block(
-            messages: $message,
-            type: null,
-            style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
-            padding: false
-        );
-    }
+    // public function section(string $message): void
+    // {
+    //     $this->block(
+    //         messages: $message,
+    //         type: null,
+    //         style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+    //         padding: false
+    //     );
+    // }
 
     public function methodResultSection(string $message): void
     {
@@ -131,15 +131,15 @@ class CondorcetStyle extends SymfonyStyle
         $this->block(messages: $message, style: 'fg=gray');
     }
 
-    public function success(string|array $message): void
-    {
-        $this->block(
-            messages: $message,
-            type: 'OK',
-            style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
-            padding: true
-        );
-    }
+    // public function success(string|array $message): void
+    // {
+    //     $this->block(
+    //         messages: $message,
+    //         type: 'OK',
+    //         style: 'fg='.self::CONDORCET_MAIN_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold',
+    //         padding: true
+    //     );
+    // }
 
     public function version(): void
     {
