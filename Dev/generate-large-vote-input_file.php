@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
+
 require_once __DIR__.'/../__CondorcetAutoload.php';
 
 ///
@@ -17,15 +19,16 @@ for ($i=0; $i < $number_of_candidates; $i++) {
     $candidates[] = $candidateName++;
 }
 
+$randomizer = new VoteRandomizer($candidates, 'CondorcetSeed');
+
 $file = new \SplFileObject(__DIR__.'/large.votes', 'w+');
 $cache = '';
 
 for ($i=0; $i < $number_of_votes; $i++) {
-    shuffle($candidates);
 
-    $cache .= implode('>', $candidates)."\n";
+    $cache .= $randomizer->getNewVote()."\n";
 
-    if (mb_strlen($cache) > 5_000_000) {
+    if ($i % 5_000_000 === 0) {
         $file->fwrite($cache);
         $cache = '';
     }
