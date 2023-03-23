@@ -678,7 +678,8 @@ class ElectionCommand extends Command
 
         $this->io->newLine();
         $this->io->writeln('<comment>'.str_repeat('-', 23).'</comment>', OutputInterface::VERBOSITY_VERBOSE);
-        $this->io->writeln("<comment>Execution Time: {$executionTime}s</comment>", OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->writeln("<comment>Execution Time: <condor2>{$executionTime}s</condor2></comment>", OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->writeln("<comment>Ansi terminal color mode: <condor2>".Terminal::getColorMode()->name."</condor2></comment>", OutputInterface::VERBOSITY_DEBUG);
         $this->io->newLine();
     }
 
