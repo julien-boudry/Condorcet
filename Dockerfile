@@ -2,7 +2,9 @@ FROM php:8.2-cli-bullseye
 
 COPY . /usr/src/condorcetapp
 WORKDIR /usr/src/condorcetapp
+
 ENV PATH="${PATH}:/usr/src/condorcetapp/bin"
+ENV COLORTERM="truecolor"
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && sed -i "s/128M/4096M/g" "$PHP_INI_DIR/php.ini" \
