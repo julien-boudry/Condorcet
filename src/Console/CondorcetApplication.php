@@ -15,6 +15,8 @@ use Symfony\Component\Console\Application as SymfonyConsoleApplication;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 use CondorcetPHP\Condorcet\Throwable\Internal\NoGitShellException;
+use Symfony\Component\Console\Output\AnsiColorMode;
+use Symfony\Component\Console\Terminal;
 
 abstract class CondorcetApplication
 {
@@ -38,6 +40,9 @@ abstract class CondorcetApplication
         $command = new ElectionCommand;
         self::$SymfonyConsoleApplication->add($command);
         self::$SymfonyConsoleApplication->setDefaultCommand($command->getName(), false);
+
+        // Force True color for Docker (or others), based on env
+        getenv('CONDORCET_TERM_ANSI24') && Terminal::setColorMode(AnsiColorMode::Ansi24);
 
         return true;
     }
