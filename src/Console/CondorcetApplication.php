@@ -11,12 +11,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console;
 
-use Symfony\Component\Console\Application as SymfonyConsoleApplication;
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 use CondorcetPHP\Condorcet\Throwable\Internal\NoGitShellException;
 use Symfony\Component\Console\Output\AnsiColorMode;
-use Symfony\Component\Console\Terminal;
+use Symfony\Component\Console\{Application as SymfonyConsoleApplication, Terminal};
 
 abstract class CondorcetApplication
 {
