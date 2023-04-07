@@ -16,4 +16,4 @@ List of candidates as string, candidates objects or sub-array.
 
 
 #### **seed:** *`Random\Randomizer|string|null`*   
-If null, will use a cryptographivcally secure randomier.    
+If null, will use a cryptographically secure randomizer.    

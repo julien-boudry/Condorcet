@@ -1496,11 +1496,11 @@ _Including above methods from public API_
 * public progressFinish ()  
 * public progressIterate (iterable $iterable, ?int $max = null): iterable  
 * public progressStart (int $max = 0)  
-* public section (string $message): void  
+* public section (string $message)  
 * public setDecorated (bool $decorated)  
 * public setFormatter (Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)  
 * public setVerbosity (int $level)  
-* public success (array|string $message): void  
+* public success (array|string $message)  
 * public table (array $headers, array $rows)  
 * public text (array|string $message)  
 * public title (string $message)  

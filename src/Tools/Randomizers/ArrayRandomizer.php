@@ -36,7 +36,7 @@ class ArrayRandomizer
     public function __construct(
         #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
         array $candidates,
-        #[FunctionParameter('If null, will use a cryptographivcally secure randomier')]
+        #[FunctionParameter('If null, will use a cryptographically secure randomizer')]
         Randomizer|null|string $seed = null
     ) {
         $this->setCandidates($candidates);
