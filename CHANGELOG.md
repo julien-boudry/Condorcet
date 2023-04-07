@@ -2,6 +2,11 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.3.1] - 2023-04-07
+
+### Changed
+- Force Terminal Ansi24 (truecolor) for Docker build instead of Ansi4.
+
 ## [v4.3.0] - 2023-03-12
 ### Description
 Require `PHP 8.2`. Include a new random vote generator API. Provide some devcontainers for dev and command line usage.
