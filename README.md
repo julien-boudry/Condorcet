@@ -19,7 +19,7 @@
 > Main Author: [Julien Boudry](https://www.linkedin.com/in/julienboudry/)   
 > License: [MIT](LICENSE.txt) - _Please [say hello](https://github.com/julien-boudry/Condorcet/discussions/categories/your-condorcet-projects) if you like or use this code!_  
 > Contribute: [Contribute File](CONTRIBUTING.md)   
-> Donation: **₿ [bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9](https://blockchair.com/bitcoin/address/bc1qesj74vczsetqjkfcwqymyns9hl6k220dhl0sr9)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
+> Donation: **₿ [bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh](https://blockchair.com/bitcoin/address/bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh)** or **[Github Sponsor Page](https://github.com/sponsors/julien-boudry)**  
 > _You can also offer me a bottle of good wine._  
 
 
