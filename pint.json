@@ -1,5 +1,5 @@
 {
-    "preset": "psr12",
+    "preset": "per",
     "rules": {
         "array_indentation": true,
         "array_push": true,
