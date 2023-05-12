@@ -343,7 +343,7 @@ class DavidHillFormatTest extends TestCase
 
         // Without aggregate vote
         $file = new \SplTempFileObject;
-        $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes: false));
+        $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: false));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
@@ -359,7 +359,7 @@ class DavidHillFormatTest extends TestCase
 
         // With aggregate vote
         $file = new \SplTempFileObject;
-        $file->fwrite(CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $implicitElectionFromHill, aggregateVotes: true));
+        $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: true));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
