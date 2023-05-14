@@ -14,8 +14,9 @@
 	"customizations": {
         "codespaces": {
             "openFiles": [
-              "README.md",
-              "Docs/VotingMethods.md"
+				"Docs/CodespaceInstructions.md",
+            	"README.md",
+              	"Docs/VotingMethods.md"
             ]
         },
 
