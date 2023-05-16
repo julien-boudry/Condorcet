@@ -17,6 +17,8 @@ use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
 class DavidHillFormat implements ConverterImport
 {
+    public const COMMAND_LINE_OPTION_NAME = 'david-hill-format';
+
     protected array $lines;
 
     #[PublicAPI]

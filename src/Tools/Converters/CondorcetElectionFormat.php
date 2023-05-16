@@ -14,11 +14,13 @@ namespace CondorcetPHP\Condorcet\Tools\Converters;
 use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
+use CondorcetPHP\Condorcet\Tools\Converters\Interface\{ConverterExport, ConverterImport};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
-class CondorcetElectionFormat implements ConverterImport
+class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
+    public const COMMAND_LINE_OPTION_NAME = 'condorcet-election-format';
+
     ////// # Static Export Method //////
 
     public const SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';

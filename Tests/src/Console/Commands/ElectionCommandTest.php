@@ -150,8 +150,8 @@ class ElectionCommandTest extends TestCase
     public function testConsoleFileInput(): void
     {
         $this->electionCommand->execute([
-            '--candidates' => __DIR__.'/data.candidates',
-            '--votes' => __DIR__.'/data.votes',
+            '--candidates' => __DIR__.'/files/data.candidates',
+            '--votes' => __DIR__.'/files/data.votes',
         ]);
 
         $output = $this->electionCommand->getDisplay();
