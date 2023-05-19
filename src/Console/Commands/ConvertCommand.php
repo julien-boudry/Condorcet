@@ -15,7 +15,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Console\Helper\CommandInputHelper;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
-use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
+use CondorcetPHP\Condorcet\Tools\Converters\{CivsFormat, CondorcetElectionFormat, DavidHillFormat, DebianFormat};
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\{ConverterExport, ConverterImport};
 use SplFileObject;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -33,6 +33,7 @@ class ConvertCommand extends Command
         CondorcetElectionFormat::class,
         DebianFormat::class,
         DavidHillFormat::class,
+        CivsFormat::class,
     ];
 
     protected readonly string $fromConverter;
@@ -92,7 +93,7 @@ class ConvertCommand extends Command
 
         $this->toConverter = match (true) {
             $input->getOption('to-condorcet-election-format') => CondorcetElectionFormat::class,
-            // $input->getOption('to-civs-format') => CivsFormat::class,
+            $input->getOption('to-civs-format') => CivsFormat::class,
 
             default => throw new CondorcetInternalException('The option defining the output format is missing')
         };
