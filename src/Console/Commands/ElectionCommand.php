@@ -85,7 +85,7 @@ class ElectionCommand extends Command
             ->addOption(
                 name: 'import-condorcet-election-format',
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'File path. Setup an election and his data from a Condorcet Election file as defined as standard on https://github.com/CondorcetPHP/CondorcetElectionFormat . Other parameters from the command line argument have the priority if set. Other votes can be added with the --vote argument, other candidates can\'t be added.',
+                description: 'File path. Setup an election and his data from a Condorcet Election file as defined as standard on https://github.com/CondorcetVote/CondorcetElectionFormat . Other parameters from the command line argument have the priority if set. Other votes can be added with the --vote argument, other candidates can\'t be added.',
             )
             ->addOption(
                 name: 'import-debian-format',
