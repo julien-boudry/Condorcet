@@ -42,7 +42,7 @@ class ConvertCommand extends Command
     protected readonly Election $election;
 
     protected string $input;
-    protected SplFileObject $output;
+    protected ?SplFileObject $output;
 
 
     protected function configure(): void
@@ -115,6 +115,8 @@ class ConvertCommand extends Command
         $this->election = (new $this->fromConverter($this->input))->setDataToAnElection();
 
         $this->toConverter::createFromElection(election: $this->election, file: $this->output);
+
+        $this->output = null; // Releases the file. Otherwise it can cause unexpected bugs when testing on some platforms (windows).
 
         return Command::SUCCESS;
     }
