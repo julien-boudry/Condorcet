@@ -6,7 +6,8 @@ namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
-use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalError, CondorcetInternalException};
+use CondorcetPHP\Condorcet\Throwable\ConsoleInputException;
+use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -65,7 +66,7 @@ class ConverterCommandTest extends TestCase
 
     public function testLacksAnOption(): void
     {
-        $this->expectException(CondorcetInternalException::class);
+        $this->expectException(ConsoleInputException::class);
         $this->expectExceptionMessageMatches('/output/');
 
         $this->converterCommand->execute(
@@ -83,7 +84,7 @@ class ConverterCommandTest extends TestCase
 
     public function testLacksAnArgument(): void
     {
-        $this->expectException(CondorcetInternalException::class);
+        $this->expectException(ConsoleInputException::class);
         $this->expectExceptionMessageMatches('/output/');
 
         $this->converterCommand->execute(

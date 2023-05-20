@@ -17,8 +17,6 @@ use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport;
 
 class CivsFormat implements ConverterExport
 {
-    public const COMMAND_LINE_OPTION_NAME = 'civs-format';
-
     ////// # Static Export Method //////
 
     #[PublicAPI]

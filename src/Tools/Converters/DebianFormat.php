@@ -17,8 +17,6 @@ use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
 class DebianFormat implements ConverterImport
 {
-    public const COMMAND_LINE_OPTION_NAME = 'debian-format';
-
     protected array $lines;
 
     #[PublicAPI]

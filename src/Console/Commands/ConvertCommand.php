@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Console\Commands;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Console\Helper\CommandInputHelper;
+use CondorcetPHP\Condorcet\Throwable\ConsoleInputException;
 use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Tools\Converters\{CivsFormat, CondorcetElectionFormat, DavidHillFormat, DebianFormat};
@@ -30,10 +31,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ConvertCommand extends Command
 {
     public static array $converters = [
-        CondorcetElectionFormat::class,
-        DebianFormat::class,
-        DavidHillFormat::class,
-        CivsFormat::class,
+        'condorcet-election-format' => CondorcetElectionFormat::class,
+        'debian-format' => DebianFormat::class,
+        'david-hill-format' => DavidHillFormat::class,
+        'civs-format' => CivsFormat::class,
     ];
 
     protected readonly string $fromConverter;
@@ -47,19 +48,19 @@ class ConvertCommand extends Command
 
     protected function configure(): void
     {
-        foreach (self::$converters as $converter) {
+        foreach (self::$converters as $optionKey => $converter) {
             if (isset(class_implements($converter)[ConverterImport::class])) {
                 $this->addOption(
-                    name: 'from-'.$converter::COMMAND_LINE_OPTION_NAME,
+                    name: 'from-'.$optionKey,
                     mode: InputOption::VALUE_NONE,
                 );
             }
         }
 
-        foreach (self::$converters as $converter) {
+        foreach (self::$converters as $optionKey => $converter) {
             if (isset(class_implements($converter)[ConverterExport::class])) {
                 $this->addOption(
-                    name: 'to-'.$converter::COMMAND_LINE_OPTION_NAME,
+                    name: 'to-'.$optionKey,
                     mode: InputOption::VALUE_NONE,
                 );
             }
@@ -82,29 +83,25 @@ class ConvertCommand extends Command
     public function initialize(InputInterface $input, OutputInterface $output): void
     {
         // Get converters class
+        foreach (self::$converters as $optionKey => $converter) {
+            if (empty($this->fromConverter) && $input->hasOption('from-'.$optionKey) && $input->getOption('from-'.$optionKey)) {
+                $this->fromConverter = $converter;
+            }
 
-        $this->fromConverter = match (true) {
-            $input->getOption('from-debian-format') => DebianFormat::class,
-            $input->getOption('from-david-hill-format') => DavidHillFormat::class,
-            $input->getOption('from-condorcet-election-format') => CondorcetElectionFormat::class,
+            if (empty($this->toConverter) && $input->hasOption('to-'.$optionKey) && $input->getOption('to-'.$optionKey)) {
+                $this->toConverter = $converter;
+            }
+        }
 
-            default => throw new CondorcetInternalException('The option defining the input format is missing')
-        };
-
-        $this->toConverter = match (true) {
-            $input->getOption('to-condorcet-election-format') => CondorcetElectionFormat::class,
-            $input->getOption('to-civs-format') => CivsFormat::class,
-
-            default => throw new CondorcetInternalException('The option defining the output format is missing')
-        };
+        empty($this->fromConverter) && throw new ConsoleInputException('The option defining the input format is missing');
+        empty($this->toConverter) && throw new ConsoleInputException('The option defining the output format is missing');
 
         // Get Files
         $this->input = $input->getArgument('input') ?? throw new CondorcetInternalException('Argument "input" is required');
         $this->input = CommandInputHelper::getFilePath($this->input) ?? throw new CondorcetInternalException('The input file does not exist');
 
-        $output = CommandInputHelper::isAbsoluteAndExist($input->getArgument('output') ?? throw new CondorcetInternalException('Argument "output" is required')) ?
-                        $input->getArgument('output') :
-                        CommandInputHelper::getFilePath($input->getArgument('output'));
+        $output = CommandInputHelper::isAbsoluteAndExist($input->getArgument('output') ?? throw new ConsoleInputException('Argument "output" is required')) ?
+                        $input->getArgument('output') : CommandInputHelper::getFilePath($input->getArgument('output'));
 
         $this->output = new SplFileObject($input->getArgument('output'), 'w+');
     }

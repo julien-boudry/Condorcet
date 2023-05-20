@@ -19,8 +19,6 @@ use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
-    public const COMMAND_LINE_OPTION_NAME = 'condorcet-election-format';
-
     ////// # Static Export Method //////
 
     public const SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';

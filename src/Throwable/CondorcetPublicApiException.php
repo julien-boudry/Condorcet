@@ -22,7 +22,11 @@ abstract class CondorcetPublicApiException extends \Exception implements \String
     {
         // If there is a custom message, append it.
         if ($message !== null) {
-            $this->message .= ': ' . $message;
+            if (!empty($this->message)) {
+                $this->message .= ': ' . $message;
+            } else {
+                $this->message = $message;
+            }
         }
 
         parent::__construct($this->message);
