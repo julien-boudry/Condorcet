@@ -1,6 +1,6 @@
 ## public Tools\Converters\CondorcetElectionFormat::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L111)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L112)
 
 ### Description    
 

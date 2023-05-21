@@ -1,6 +1,6 @@
 ## public Tools\Converters\CondorcetElectionFormat::setDataToAnElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L144)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L145)
 
 ### Description    
 
