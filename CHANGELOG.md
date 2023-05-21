@@ -2,6 +2,18 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.4.0] - 2023-05-21
+
+### Description
+Add a new console command to convert an election file format to another format.
+
+### Added
+- New `convert`command.
+- New converter _(export only)_ for the Civs format.
+
+### Internal changes
+- Converter now uses distinct interfaces for import and export capabilities.
+
 ## [v4.3.1] - 2023-04-07
 
 ### Changed
