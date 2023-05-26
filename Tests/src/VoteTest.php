@@ -848,4 +848,42 @@ class VoteTest extends TestCase
         self::assertSame([], $vote1->getRanking());
         self::assertSame([], $vote2->getRanking());
     }
+
+    public function testGetAllCandidates(): void
+    {
+        $vote = new Vote('candidate1>candidate2>candidate8>candidate3=candidate4=candidate6>candidate5');
+        $election = new Election;
+
+        $election->addCandidate($this->candidate1);
+        $election->addCandidate($this->candidate2);
+        $election->addCandidate($this->candidate3);
+        $election->addCandidate($this->candidate4);
+        $election->addCandidate($this->candidate5);
+        $election->addCandidate($this->candidate6);
+
+        $election->addVote($vote);
+
+        // var_dump(array_map(fn ($v) => (string) $v ,$vote->getAllCandidates()));
+
+        self::assertSame([
+            $this->candidate1,
+            $this->candidate2,
+            $vote[3][0],
+            $this->candidate3,
+            $this->candidate4,
+            $this->candidate6,
+            $this->candidate5,
+
+        ], $vote->getAllCandidates());
+
+        self::assertSame([
+            $this->candidate1,
+            $this->candidate2,
+            $this->candidate3,
+            $this->candidate4,
+            $this->candidate6,
+            $this->candidate5,
+
+        ], $vote->getAllCandidates($election));
+    }
 }

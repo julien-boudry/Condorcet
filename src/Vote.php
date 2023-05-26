@@ -286,11 +286,14 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     #[Description('Get all the candidates object set in the last ranking of this Vote.')]
     #[FunctionReturn('Candidates list.')]
     #[Related('Vote::getRanking', 'Vote::countRankingCandidates')]
-    public function getAllCandidates(): array
-    {
+    public function getAllCandidates(
+        #[FunctionParameter('An election already linked to the Vote')]
+        ?Election $context = null
+    ): array {
+        $ranking = ($context !== null) ? $this->getContextualRanking($context) : $this->getRanking(false);
         $list = [];
 
-        foreach ($this->getRanking(false) as $rank) {
+        foreach ($ranking as $rank) {
             foreach ($rank as $oneCandidate) {
                 $list[] = $oneCandidate;
             }
