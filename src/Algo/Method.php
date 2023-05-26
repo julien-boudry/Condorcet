@@ -14,10 +14,12 @@ namespace CondorcetPHP\Condorcet\Algo;
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, Throws};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
+use CondorcetPHP\Condorcet\Relations\HasElection;
 
 // Generic for Algorithms
 abstract class Method
 {
+    use HasElection;
     use CondorcetVersion;
 
     private const METHOD_NAME = ['abstractMethod'];
@@ -26,7 +28,6 @@ abstract class Method
 
     public static ?int $MaxCandidates = null;
 
-    protected readonly \WeakReference $selfElection;
     protected ?Result $Result = null;
 
     // Internal precision
@@ -61,17 +62,6 @@ abstract class Method
         unset($r['selfElection']);
 
         return $r;
-    }
-
-    public function setElection(Election $election): void
-    {
-        $this->selfElection = \WeakReference::create($election);
-    }
-
-    #[InternalModulesAPI]
-    public function getElection(): Election
-    {
-        return $this->selfElection->get(); // @phpstan-ignore-line
     }
 
     #[InternalModulesAPI]

@@ -15,9 +15,11 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+use CondorcetPHP\Condorcet\Relations\HasElection;
 
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {
+    use HasElection;
     use CondorcetVersion;
 
     public static int $CacheSize = 2000;
@@ -25,7 +27,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     protected array $Container = [];
     protected ?DataHandlerDriverInterface $DataHandler = null;
-    protected \WeakReference $Election;
 
     protected array $Cache = [];
     protected int $CacheMaxKey = 0;
@@ -61,16 +62,6 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         $this->resetMaxKey();
         $this->resetCounter();
-    }
-
-    public function getElection(): Election
-    {
-        return $this->Election->get();
-    }
-
-    public function setElection(Election $election): void
-    {
-        $this->Election = \WeakReference::create($election);
     }
 
 

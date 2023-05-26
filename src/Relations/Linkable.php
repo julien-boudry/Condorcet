@@ -9,10 +9,11 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet;
+namespace CondorcetPHP\Condorcet\Relations;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
-use CondorcetPHP\Condorcet\Throwable\Internal\{AlreadyLinkedException, CondorcetInternalException};
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 
 trait Linkable
 {

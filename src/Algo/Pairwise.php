@@ -14,9 +14,11 @@ namespace CondorcetPHP\Condorcet\Algo;
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
+use CondorcetPHP\Condorcet\Relations\HasElection;
 
 class Pairwise implements \ArrayAccess, \Iterator
 {
+    use HasElection;
     use CondorcetVersion;
 
     // Implement ArrayAccess
@@ -73,7 +75,6 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     // Pairwise
 
-    protected \WeakReference $Election;
     protected readonly array $Pairwise_Model;
     protected array $Pairwise;
 
@@ -90,16 +91,6 @@ class Pairwise implements \ArrayAccess, \Iterator
             'Pairwise_Model' => $this->Pairwise_Model,
             'Pairwise' => $this->Pairwise,
         ];
-    }
-
-    public function getElection(): Election
-    {
-        return $this->Election->get();
-    }
-
-    public function setElection(Election $election): void
-    {
-        $this->Election = \WeakReference::create($election);
     }
 
     public function addNewVote(int $key): void

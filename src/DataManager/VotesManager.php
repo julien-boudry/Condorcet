@@ -57,7 +57,7 @@ class VotesManager extends ArrayManager
     {
         if ($value instanceof Vote) {
             try {
-                $value->registerLink($this->Election->get());
+                $value->registerLink($this->getElection());
             } catch (AlreadyLinkedException $e) {
                 // Security : Check if vote object is not already registered and not present at offset
                 if (($this->Cache[$offset] ?? $this->Container[$offset] ?? false) !== $value) {
@@ -78,7 +78,7 @@ class VotesManager extends ArrayManager
     {
         if ($this->offsetExists($offset)) {
             $this->UpdateAndResetComputing(key: $offset, type: VotesManagerEvent::RemoveVote);
-            $this->offsetGet($offset)->destroyLink($this->Election->get());
+            $this->offsetGet($offset)->destroyLink($this->getElection());
             parent::offsetUnset($offset);
         }
     }
