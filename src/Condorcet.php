@@ -34,6 +34,7 @@ Condorcet::addMethod(Algo\Methods\RankedPairs\RankedPairsWinning::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeWinning::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeMargin::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeRatio::class);
+Condorcet::addMethod(Algo\Methods\Schulze\Gecko::class);
 
 # Proportional Methods
 Condorcet::addMethod(Algo\Methods\STV\SingleTransferableVote::class);
