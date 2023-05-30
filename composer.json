@@ -27,7 +27,7 @@
         "php": "^8.2",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/console": "^6.2",
+        "symfony/console": "^6.3",
         "symfony/yaml": "^6.2",
         "brick/math": "^0.11"
     },
