@@ -22,14 +22,16 @@ class Gecko extends Schulze_Core
     public const METHOD_NAME = ['Gecko'];
 
     protected readonly VotesCandidatesRankedStatsImmutable $rankedCandidatesStats;
+    protected readonly VotesCandidatesRankedStatsImmutable $candidatesApprovals;
 
     protected function schulzeVariant(int $i, int $j, Election $election): float
     {
         $this->rankedCandidatesStats ??= new VotesCandidatesRankedStatsImmutable(2, $election);
+        $this->candidatesApprovals ??= new VotesCandidatesRankedStatsImmutable(1, $election);
 
         $v = $election->getPairwise()[$i]['win'][$j];
         $V = $this->rankedCandidatesStats->sumWeightIfVotesIncludeCandidates([$i, $j]);
-        $a = ($election->getPairwise()[$i]['win'][$j] + $election->getPairwise()[$i]['null'][$j] + $election->getPairwise()[$i]['lose'][$j]);
+        $a = $this->candidatesApprovals->sumWeightIfVotesIncludeCandidates([$i]);
 
         if ($V === 0) {
             $V = 0.0000001;
