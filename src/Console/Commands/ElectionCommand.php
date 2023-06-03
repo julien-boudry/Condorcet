@@ -262,6 +262,16 @@ class ElectionCommand extends Command
                 $this->candidates = implode(';', $registeringCandidates);
             }
 
+            // Implicit mod
+            if ($input->getOption('deactivate-implicit-ranking') === false) {
+                $implicitAnswer = $this->io->confirm(
+                    question: 'Should the votes be interpreted implicitly (candidates not mentioned come last)?',
+                    default: true
+                );
+
+                $this->election->setImplicitRanking($implicitAnswer);
+            }
+
             // Interactive Votes
             if (empty($this->votes)) {
                 $this->io->title('Enter the votes');

@@ -169,6 +169,7 @@ class ElectionCommandTest extends TestCase
             'B',
             'C',
             '',
+            'implicit' => 'no',
             'A>B>C',
             'B>A>C',
             'A>C>B',
@@ -182,6 +183,7 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
+        self::assertStringContainsString('ranking rule?   FALSE', $output);
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
 
