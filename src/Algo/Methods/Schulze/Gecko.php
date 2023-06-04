@@ -32,7 +32,7 @@ class Gecko extends Schulze_Core
         $a = ($election->getPairwise()[$i]['win'][$j] + $election->getPairwise()[$i]['null'][$j] + $election->getPairwise()[$i]['lose'][$j]);
 
         if ($V === 0) {
-            $V = 0.0000001;
+            return (float) $v;
         }
 
         return (float) $v + $V * sqrt($a/$V);

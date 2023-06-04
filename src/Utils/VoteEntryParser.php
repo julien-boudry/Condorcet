@@ -43,6 +43,7 @@ class VoteEntryParser
         $this->tags = $this->convertTagsFromVoteString($entry, true);
 
         $this->ranking = self::convertRankingFromString($entry);
+        $this->approvals = self::convertApprovalsFromString($entry);
     }
 
     // From a string like 'A>B=C=H>G=T>Q'
@@ -68,7 +69,28 @@ class VoteEntryParser
                 }
             }
 
+            echo '<pre>'; print_r($ranking); echo '</pre>';
+            
             return array_filter($ranking);
+        }
+    }
+    
+    public static function convertApprovalsFromString(string $formula): ?array
+    {
+        $formula = trim($formula);
+        
+        if (empty($formula)) {
+            return [];
+        } elseif ($formula === CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING) {
+            return [];
+        } elseif (strpos($formula, '>>') != false) {
+            $approvals = strstr($formula, '>>', true);
+            $approvals = str_replace('>', '=', $approvals);
+            $approvals = explode($approvals, '=');
+
+            return array_filter($approvals);
+        } else {
+            return [];
         }
     }
 
