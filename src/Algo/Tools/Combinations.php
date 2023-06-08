@@ -29,7 +29,7 @@ class Combinations
             throw new CondorcetInternalException('Parameters invalid');
         }
 
-        if (self::$useBigIntegerIfAvailable && class_exists('Brick\Math\BigInteger')) {
+        if (self::$useBigIntegerIfAvailable && class_exists(BigInteger::class)) {
             $a = BigInteger::of(1);
             for ($i = $count; $i > ($count - $length); $i--) {
                 $a = $a->multipliedBy($i);
