@@ -256,6 +256,7 @@ class ElectionCommand extends Command
                         break;
                     } else {
                         array_push($registeringCandidates, ...explode(';', $answer));
+                        $registeringCandidates = array_unique($registeringCandidates, \SORT_REGULAR);
                     }
                 }
 

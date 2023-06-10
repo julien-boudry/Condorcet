@@ -167,6 +167,8 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->setInputs([
             'A',
             'B',
+            'A', // Skip
+            ' B    ', // Skip
             'C',
             '',
             'implicit' => 'no',
@@ -183,6 +185,7 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
+        self::assertStringContainsString('3 candidates registered', $output);
         self::assertStringContainsString('ranking rule?   FALSE', $output);
         self::assertStringContainsString('Results: Schulze Winning', $output);
     }
