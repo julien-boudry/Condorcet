@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
 // Generic for Algorithms
-class VotesCandidatesRankedStatsImmutable implements \Countable
+class PairwiseDeductedApprovals implements \Countable
 {
     use HasElection;
 
@@ -71,7 +71,7 @@ class VotesCandidatesRankedStatsImmutable implements \Countable
         }
     }
 
-    // Implement Countable
+    // Implements Countable
     public function count(): int
     {
         return \count($this->combinationsScore);
