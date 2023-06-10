@@ -32,7 +32,7 @@ class Permutations
             throw new CondorcetInternalException('Parameters invalid');
         }
 
-        if (self::$useBigIntegerIfAvailable && class_exists('Brick\Math\BigInteger')) {
+        if (self::$useBigIntegerIfAvailable && class_exists(BigInteger::class)) {
             $result = BigInteger::of($candidatesNumber);
 
             for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) {

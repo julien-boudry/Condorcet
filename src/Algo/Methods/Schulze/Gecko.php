@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\Algo\Tools\VotesCandidatesRankedStatsImmutable;
+use CondorcetPHP\Condorcet\Algo\Tools\PairwiseDeductedApprovals;
 use CondorcetPHP\Condorcet\Election;
 
 class Gecko extends Schulze_Core
@@ -21,13 +21,13 @@ class Gecko extends Schulze_Core
     // Method Name
     public const METHOD_NAME = ['Gecko'];
 
-    protected readonly VotesCandidatesRankedStatsImmutable $rankedCandidatesStats;
-    protected readonly VotesCandidatesRankedStatsImmutable $candidatesApprovals;
+    protected readonly PairwiseDeductedApprovals $rankedCandidatesStats;
+    protected readonly PairwiseDeductedApprovals $candidatesApprovals;
 
     protected function schulzeVariant(int $i, int $j, Election $election): float
     {
-        $this->rankedCandidatesStats ??= new VotesCandidatesRankedStatsImmutable(2, $election);
-        $this->candidatesApprovals ??= new VotesCandidatesRankedStatsImmutable(1, $election);
+        $this->rankedCandidatesStats ??= new PairwiseDeductedApprovals(2, $election);
+        $this->candidatesApprovals ??= new PairwiseDeductedApprovals(1, $election);
 
         $v = $election->getPairwise()[$i]['win'][$j];
         $V = $this->rankedCandidatesStats->sumWeightIfVotesIncludeCandidates([$i, $j]);

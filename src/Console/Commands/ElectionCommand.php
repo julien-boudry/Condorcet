@@ -256,10 +256,21 @@ class ElectionCommand extends Command
                         break;
                     } else {
                         array_push($registeringCandidates, ...explode(';', $answer));
+                        $registeringCandidates = array_unique($registeringCandidates, \SORT_REGULAR);
                     }
                 }
 
                 $this->candidates = implode(';', $registeringCandidates);
+            }
+
+            // Implicit mod
+            if ($input->getOption('deactivate-implicit-ranking') === false) {
+                $implicitAnswer = $this->io->confirm(
+                    question: 'Should the votes be interpreted implicitly (candidates not mentioned come last)?',
+                    default: true
+                );
+
+                $this->election->setImplicitRanking($implicitAnswer);
             }
 
             // Interactive Votes
