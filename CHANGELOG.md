@@ -2,6 +2,23 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.4.0] - 2023-06-10
+
+### Description
+
+### Added
+- [Console] Interactive mode asks if votes ranking are explicit (if option not provided)
+
+### Changed
+- [Console] Interactive mode ignores duplicate candidates instead of error at the end of execution
+
+### Internal API
+- New tools PairwiseDeductedApprovals for methods, simulate approbation from votes. _(actually unused by officials methods modules)_
+
+#### Dev
+- Add news officials Schulze tests
+
+
 ## [v4.4.0] - 2023-05-21
 
 ### Description
