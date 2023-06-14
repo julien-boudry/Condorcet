@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Public API Reform
 about: Propose public api reform (can be breaking changes) for next major version
 title: '[Public API Reform] '
 labels: suggestion, public api reform
