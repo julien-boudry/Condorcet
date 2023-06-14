@@ -211,7 +211,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                             $pairwise[$candidate_key]['win'][$opponent_candidate_key] += $voteWeight;
                             $pairwise[$opponent_candidate_key]['lose'][$candidate_key] += $voteWeight;
 
-                        // Null
+                            // Null
                         } elseif ($opponent_in_rank ?? \in_array(needle: $opponent_candidate_key, haystack: $candidates_in_rank_keys, strict: true)) {
                             $pairwise[$candidate_key]['null'][$opponent_candidate_key] += $voteWeight;
                         }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
+use CondorcetPHP\Condorcet\Algo\{Pairwise, StatsVerbosity};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
@@ -100,6 +100,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     public readonly ?Candidate $CondorcetLoser;
     #[PublicAPI]
+    public readonly array $pairwise;
+    #[PublicAPI]
     public readonly float $buildTimestamp;
     #[PublicAPI]
     public readonly string $fromMethod;
@@ -112,8 +114,15 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
 
     #[InternalModulesAPI]
-    public function __construct(string $fromMethod, string $byClass, Election $election, array $result, $stats, ?int $seats = null, array $methodOptions = [])
-    {
+    public function __construct(
+        string $fromMethod,
+        string $byClass,
+        Election $election,
+        array $result,
+        $stats,
+        ?int $seats = null,
+        array $methodOptions = []
+    ) {
         ksort($result, \SORT_NUMERIC);
 
         $this->Result = $result;
@@ -127,6 +136,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getWinner();
         $this->CondorcetLoser = $election->getLoser();
+        $this->pairwise = $election->getExplicitPairwise();
         $this->buildTimestamp = microtime(true);
         $this->methodOptions = $methodOptions;
     }

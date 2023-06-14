@@ -8,6 +8,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
@@ -332,5 +333,115 @@ class ResultTest extends TestCase
         self::assertNotSame($r1, $r3);
         self::assertArrayNotHasKey('Ranking Scores', $r1->getStats());
         self::assertArrayHasKey('Ranking Scores', $r3->getStats());
+    }
+
+    #[DataProviderExternal(ElectionTest::class, 'MethodsListProvider')]
+    public function testImmutablePairwise(string $method): void
+    {
+        $election = new Election;
+        $election->parseCandidates('A;B');
+        $election->parseVotes('
+            tag1 || A > B
+            tag2 || B > A
+        ');
+
+        $resultGlobal = $election->getResult($method);
+
+        $resultTag1 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag1']);
+        $resultTag2 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag2']);
+
+        $testSuite = static function () use ($resultGlobal, $resultTag1, $resultTag2): void {
+            self::assertSame(
+                [
+                    'A' => [
+                        'win' => [
+                            'B' => 1,
+                        ],
+                        'null' => [
+                            'B' => 0,
+                        ],
+                        'lose' => [
+                            'B' => 1,
+                        ],
+                    ],
+                    'B' => [
+                        'win' => [
+                            'A' => 1,
+                        ],
+                        'null' => [
+                            'A' => 0,
+                        ],
+                        'lose' => [
+                            'A' => 1,
+                        ],
+                    ],
+                ],
+                $resultGlobal->pairwise
+            );
+
+            self::assertSame(
+                [
+                    'A' => [
+                        'win' => [
+                            'B' => 1,
+                        ],
+                        'null' => [
+                            'B' => 0,
+                        ],
+                        'lose' => [
+                            'B' => 0,
+                        ],
+                    ],
+                    'B' => [
+                        'win' => [
+                            'A' => 0,
+                        ],
+                        'null' => [
+                            'A' => 0,
+                        ],
+                        'lose' => [
+                            'A' => 1,
+                        ],
+                    ],
+                ],
+                $resultTag1->pairwise
+            );
+
+            self::assertSame(
+                [
+                    'A' => [
+                        'win' => [
+                            'B' => 0,
+                        ],
+                        'null' => [
+                            'B' => 0,
+                        ],
+                        'lose' => [
+                            'B' => 1,
+                        ],
+                    ],
+                    'B' => [
+                        'win' => [
+                            'A' => 1,
+                        ],
+                        'null' => [
+                            'A' => 0,
+                        ],
+                        'lose' => [
+                            'A' => 0,
+                        ],
+                    ],
+                ],
+                $resultTag2->pairwise
+            );
+        };
+
+        // Run first
+        $testSuite();
+
+        // Add a vote, nothing move
+        $election->parseVotes('tag1 || A > B');
+
+        $testSuite();
     }
 }
