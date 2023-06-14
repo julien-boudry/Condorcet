@@ -1,6 +1,6 @@
 ## public Tools\Converters\DavidHillFormat::setDataToAnElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L44)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L45)
 
 ### Description    
 

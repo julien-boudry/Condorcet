@@ -17,11 +17,16 @@ abstract class CommandInputHelper
 {
     public static function getFilePath(string $path): ?string
     {
-        if (self::pathIsAbsolute($path) && is_file($path)) {
+        if (self::isAbsoluteAndExist($path)) {
             return $path;
         } else {
             return (is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
         }
+    }
+
+    public static function isAbsoluteAndExist(string $path): bool
+    {
+        return self::pathIsAbsolute($path) && is_file($path);
     }
 
     public static function pathIsAbsolute(string $path): bool

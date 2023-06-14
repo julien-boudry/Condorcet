@@ -9,18 +9,14 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tools\Converters;
+namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
 use CondorcetPHP\Condorcet\Election;
 
-interface ConverterInterface
+interface ConverterImport
 {
-    #[PublicAPI]
-    #[Description('Add the tideman data ton an election object')]
-    #[FunctionReturn('The election object')]
     public function setDataToAnElection(
-        #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         Election $election = new Election
     ): Election;
 }

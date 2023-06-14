@@ -13,11 +13,12 @@ phpstan.neon
 # infection
 Dev/infection_logs/
 
-# coverage & others
+# coverage, tests & others
 build/
 *.phar
 Dev/large.votes
 test.php
+*.temp
 
 # IDE
 *.idea

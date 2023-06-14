@@ -287,7 +287,6 @@ class ElectionCommand extends Command
                 $this->io->title('Enter the methods');
                 $this->io->instruction('Voting methods', 'Choose by entering their numbers separated by commas. Press enter for the default method.');
 
-                $c = 0;
                 $registeringMethods = [];
 
                 $authMehods = Condorcet::getAuthMethods();

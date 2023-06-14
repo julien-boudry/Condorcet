@@ -275,7 +275,7 @@ class Generate
 
         // Input
         if ($method->getNumberOfParameters() > 0) {
-            foreach ($method->getParameters() as $key => $value) {
+            foreach ($method->getParameters() as $value) {
                 if (!empty($attributes = $value->getAttributes(FunctionParameter::class))) {
                     $pt = $attributes[0]->newInstance()->text;
                 } elseif (isset($entry['input'][$value->getName()]['text'])) {

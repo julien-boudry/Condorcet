@@ -1,0 +1,65 @@
+#/Candidates: Jonathan Carter ; Sruthi Chandran ; Brian Gupta ; None Of The Above
+#/Number of Seats: 1
+#/Implicit Ranking: true
+#/Weight Allowed: false
+
+Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above * 37
+Jonathan Carter > Sruthi Chandran > None Of The Above > Brian Gupta * 36
+Jonathan Carter > Brian Gupta > Sruthi Chandran > None Of The Above * 35
+Jonathan Carter > Brian Gupta > Sruthi Chandran * 17
+Sruthi Chandran > Jonathan Carter > None Of The Above > Brian Gupta * 15
+Jonathan Carter > Brian Gupta = Sruthi Chandran > None Of The Above * 12
+Sruthi Chandran > Jonathan Carter > Brian Gupta > None Of The Above * 12
+Jonathan Carter > None Of The Above > Brian Gupta = Sruthi Chandran * 11
+Jonathan Carter > Brian Gupta > None Of The Above > Sruthi Chandran * 10
+Jonathan Carter > Sruthi Chandran > Brian Gupta * 10
+Jonathan Carter > None Of The Above * 9
+Jonathan Carter > None Of The Above > Brian Gupta > Sruthi Chandran * 9
+Jonathan Carter > None Of The Above > Sruthi Chandran > Brian Gupta * 9
+Jonathan Carter * 8
+Brian Gupta > Jonathan Carter > Sruthi Chandran * 7
+Jonathan Carter > Brian Gupta = Sruthi Chandran * 7
+Brian Gupta > Jonathan Carter > Sruthi Chandran > None Of The Above * 6
+Jonathan Carter = Sruthi Chandran > Brian Gupta > None Of The Above * 6
+Jonathan Carter > Sruthi Chandran * 6
+None Of The Above * 5
+Sruthi Chandran > None Of The Above > Jonathan Carter > Brian Gupta * 5
+Jonathan Carter = Sruthi Chandran > None Of The Above > Brian Gupta * 4
+None Of The Above > Jonathan Carter > Brian Gupta = Sruthi Chandran * 4
+Sruthi Chandran > Jonathan Carter > Brian Gupta * 4
+Brian Gupta > Jonathan Carter > None Of The Above > Sruthi Chandran * 3
+Brian Gupta > Sruthi Chandran > Jonathan Carter * 3
+Jonathan Carter > Brian Gupta * 3
+Jonathan Carter > Sruthi Chandran > None Of The Above * 3
+Brian Gupta = Jonathan Carter = None Of The Above = Sruthi Chandran * 2
+Brian Gupta > Jonathan Carter > None Of The Above * 2
+Brian Gupta > None Of The Above * 2
+Brian Gupta > Sruthi Chandran > Jonathan Carter > None Of The Above * 2
+Brian Gupta > Sruthi Chandran > None Of The Above * 2
+Jonathan Carter > Sruthi Chandran > Brian Gupta = None Of The Above * 2
+None Of The Above > Brian Gupta > Jonathan Carter > Sruthi Chandran * 2
+None Of The Above > Jonathan Carter > Brian Gupta > Sruthi Chandran * 2
+Sruthi Chandran > Brian Gupta > Jonathan Carter > None Of The Above * 2
+Sruthi Chandran > None Of The Above * 2
+Sruthi Chandran > None Of The Above > Brian Gupta = Jonathan Carter * 2
+Brian Gupta * 1
+Brian Gupta = Jonathan Carter * 1
+Brian Gupta = Jonathan Carter = Sruthi Chandran * 1
+Brian Gupta = Jonathan Carter = Sruthi Chandran > None Of The Above * 1
+Brian Gupta = Jonathan Carter > None Of The Above > Sruthi Chandran * 1
+Brian Gupta > Jonathan Carter * 1
+Brian Gupta > Jonathan Carter > None Of The Above = Sruthi Chandran * 1
+Brian Gupta > None Of The Above = Sruthi Chandran > Jonathan Carter * 1
+Brian Gupta > None Of The Above > Jonathan Carter = Sruthi Chandran * 1
+Brian Gupta > None Of The Above > Jonathan Carter > Sruthi Chandran * 1
+Jonathan Carter > None Of The Above = Sruthi Chandran > Brian Gupta * 1
+None Of The Above > Brian Gupta = Jonathan Carter = Sruthi Chandran * 1
+None Of The Above > Brian Gupta > Sruthi Chandran > Jonathan Carter * 1
+None Of The Above > Jonathan Carter * 1
+None Of The Above > Jonathan Carter > Sruthi Chandran > Brian Gupta * 1
+None Of The Above > Sruthi Chandran > Brian Gupta > Jonathan Carter * 1
+Sruthi Chandran * 1
+Sruthi Chandran > Brian Gupta = Jonathan Carter > None Of The Above * 1
+Sruthi Chandran > Brian Gupta > Jonathan Carter * 1
+Sruthi Chandran > Jonathan Carter * 1
+Sruthi Chandran > Jonathan Carter > None Of The Above * 1

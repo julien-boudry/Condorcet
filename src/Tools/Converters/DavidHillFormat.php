@@ -13,8 +13,9 @@ namespace CondorcetPHP\Condorcet\Tools\Converters;
 
 use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
-class DavidHillFormat implements ConverterInterface
+class DavidHillFormat implements ConverterImport
 {
     protected array $lines;
 

@@ -319,12 +319,12 @@ class ElectionTest extends TestCase
                                 /EMPTY_RANKING/ * 1
                                 D > E * 1
                                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
         );
 
         self::assertSame(
             str_replace(' * 1', '', $cvotes_explicit_without_context),
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
         );
 
         self::assertSame(
@@ -335,7 +335,7 @@ class ElectionTest extends TestCase
 
                 /EMPTY_RANKING/ * 2
                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
@@ -347,7 +347,7 @@ class ElectionTest extends TestCase
                 /EMPTY_RANKING/
                 /EMPTY_RANKING/
                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
         );
 
         $this->election2->setImplicitRanking(true);
@@ -360,7 +360,7 @@ class ElectionTest extends TestCase
 
                 A = B = C * 2
                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
@@ -372,7 +372,7 @@ class ElectionTest extends TestCase
                 A = B = C
                 A = B = C
                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true)
         );
 
         $this->election2 = new Election;
@@ -389,7 +389,7 @@ class ElectionTest extends TestCase
 
                 A > B > C = D * 1
                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
         );
 
         self::assertSame(
@@ -401,12 +401,12 @@ class ElectionTest extends TestCase
 
                                 A > B * 1
                                 CVOTES,
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false)
         );
 
         self::assertSame(
             str_replace(' * 1', '', $cvotes_implicit_without_context),
-            CondorcetElectionFormat::exportElectionToCondorcetElectionFormat(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
+            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false)
         );
     }
 
