@@ -8,9 +8,10 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest, windows-latest]
         php-versions: ['8.2']
+        php-extensions: ['pdo,pdo_sqlite,mbstring,json', 'none,mbstring,json,dom,tokenizer,xml,xmlwriter']
       fail-fast: false
 
-    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} - Execute All Tests Without coverage
+    name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} - Execute All Tests Without coverage
 
     steps:
     - name: Checkout
@@ -20,10 +21,13 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
-        extensions: mbstring, json, pdo, pdo_sqlite, dom
+        extensions: ${{ matrix.php-extensions }}
 
     - name: Check PHP Version
       run: php -v
+
+    - name: Check PHP extensions
+      run: php -r "print_r(get_loaded_extensions());"
 
     - name: Validate composer.json and composer.lock
       run: composer validate
