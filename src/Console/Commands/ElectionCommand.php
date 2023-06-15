@@ -728,7 +728,7 @@ class ElectionCommand extends Command
         }
     }
 
-    protected function parseFromCondorcetElectionFormat(\Closure $callBack): void
+    protected function parseFromCondorcetElectionFormat(?\Closure $callBack): void
     {
         $file = CommandInputHelper::getFilePath($this->CondorcetElectionFormatPath);
 
