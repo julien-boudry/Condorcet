@@ -5,11 +5,15 @@
 ### Description    
 
 ```php
-public Vote->getAllCandidates ( ): array
+public Vote->getAllCandidates ( [?CondorcetPHP\Condorcet\Election $context = null] ): array
 ```
 
 Get all the candidates object set in the last ranking of this Vote.
     
+
+#### **context:** *`?CondorcetPHP\Condorcet\Election`*   
+An election already linked to the Vote.    
+
 
 ### Return value:   
 
