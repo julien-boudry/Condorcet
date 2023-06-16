@@ -8,12 +8,13 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
-use PHPUnit\Framework\Attributes\{BackupStaticProperties, Group, PreserveGlobalState};
+use PHPUnit\Framework\Attributes\{BackupStaticProperties, Group, PreserveGlobalState, RequiresPhpExtension};
 use PHPUnit\Framework\TestCase;
 
 #[PreserveGlobalState(false)]
 #[BackupStaticProperties(false)]
 #[Group('DataHandlerDrivers')]
+#[RequiresPhpExtension('pdo_sqlite')]
 class PdoHandlerDriverTest extends TestCase
 {
     protected function getPDO(): \PDO
@@ -280,7 +281,7 @@ class PdoHandlerDriverTest extends TestCase
         $this->expectExceptionMessage('Problem with data handler: invalid structure template for PdoHandler');
 
         $pdo = $this->getPDO();
-        $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
+        new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
     }
 
     public function testBadTableSchema2(): never
@@ -288,7 +289,7 @@ class PdoHandlerDriverTest extends TestCase
         $this->expectException(\Exception::class);
 
         $pdo = $this->getPDO();
-        $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+        new PdoHandlerDriver($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
     }
 
     public function testEmptyEntities(): void
