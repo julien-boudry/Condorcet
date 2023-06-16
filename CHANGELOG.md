@@ -2,6 +2,10 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.4.1] - 2023-06-16
+### Changed
+- Fix #147. Command line crash when importing CondorcetElectionFormat file if PDO Sqlite is not available.
+
 ## [v4.4.0] - 2023-06-10
 
 ### Description

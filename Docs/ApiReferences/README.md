@@ -138,7 +138,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Vote->countLinks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countLinks.md): `int`  
 * [public Vote->countRankingCandidates ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRankingCandidates.md): `int`  
 * [public Vote->countRanks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRanks.md): `int`  
-* [public Vote->getAllCandidates ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--getAllCandidates.md): `array`  
+* [public Vote->getAllCandidates (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getAllCandidates.md): `array`  
 * [public Vote->getContextualRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRanking.md): `array`  
 * [public Vote->getContextualRankingAsString (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRankingAsString.md): `array`  
 * [public Vote->getCreateTimestamp ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--getCreateTimestamp.md): `float`  
@@ -1365,7 +1365,7 @@ _Including above methods from public API_
 * public initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * public isEnabled ()  
 * public isHidden (): bool  
-* public mergeApplicationDefinition (bool $mergeArgs = true)  
+* public mergeApplicationDefinition (bool $mergeArgs = true): void  
 * public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
 * public setAliases (iterable $aliases): static  
 * public setApplication (?Symfony\Component\Console\Application $application = null)  
@@ -1432,7 +1432,7 @@ _Including above methods from public API_
 * public ignoreValidationErrors ()  
 * public isEnabled ()  
 * public isHidden (): bool  
-* public mergeApplicationDefinition (bool $mergeArgs = true)  
+* public mergeApplicationDefinition (bool $mergeArgs = true): void  
 * public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
 * public setAliases (iterable $aliases): static  
 * public setApplication (?Symfony\Component\Console\Application $application = null)  
@@ -1462,7 +1462,7 @@ _Including above methods from public API_
 * protected initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected interact (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
 * protected parseFromCandidatesArguments (): void  
-* protected parseFromCondorcetElectionFormat (Closure $callBack): void  
+* protected parseFromCondorcetElectionFormat (?Closure $callBack): void  
 * protected parseFromDavidHillFormat (): void  
 * protected parseFromDebianFormat (): void  
 * protected parseFromVotesArguments (?Closure $callBack): void  
@@ -2546,7 +2546,7 @@ _Including above methods from public API_
 * public countRanks (): int  
 * public current (): array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
-* public getAllCandidates (): array  
+* public getAllCandidates (?CondorcetPHP\Condorcet\Election $context = null): array  
 * public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $election): array  
