@@ -146,7 +146,8 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $this->explicitPairwise;
     }
 
-    protected function clearExplicitPairwiseCache(): void {
+    protected function clearExplicitPairwiseCache(): void
+    {
         $this->explicitPairwise = null;
     }
 
