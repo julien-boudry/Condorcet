@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Algo\Pairwise;
+use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
 // Generic for Algorithms
 abstract class PairwiseStats

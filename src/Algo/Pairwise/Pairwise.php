@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo;
+namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
