@@ -285,4 +285,215 @@ class PairwiseTest extends TestCase
             actual: $this->election1->getExplicitPairwise()
         );
     }
+
+    public function testFilteredPairwise(): void
+    {
+        $this->election1->removeAllVotes();
+        $this->election1->allowsVoteWeight(true);
+
+        $this->election1->parseVotes('
+            A > B > C
+            tag1 || C > B > A
+            tag2 || A > B > C ^2
+        ');
+
+
+        $filteredwithoutTag1 = $this->election1->getExplicitFilteredPairwiseByTags('tag1', false);
+        $filteredWithTag2 = $this->election1->getExplicitFilteredPairwiseByTags('tag2');
+        $filteredWithTag2AndTag1 = $this->election1->getExplicitFilteredPairwiseByTags('tag2,tag1');
+        $normalPairwise = $this->election1->getExplicitPairwise();
+
+        // Test $filteredwithoutTag1
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 3,
+                        'C' => 3,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 0,
+                        'C' => 3,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 3,
+                        'C' => 0,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 3,
+                        'B' => 3,
+                    ],
+                ]],
+            actual: $filteredwithoutTag1
+        );
+
+        // Test $filteredwithTag2
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 2,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 0,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'C' => 0,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'B' => 2,
+                    ],
+                ]],
+            actual: $filteredWithTag2
+        );
+
+
+        // Test $filteredwithTag2AndTag1
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 2,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 1,
+                        'C' => 1,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 1,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'C' => 1,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 1,
+                        'B' => 1,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'B' => 2,
+                    ],
+                ]],
+            actual: $filteredWithTag2AndTag1
+        );
+
+        // Test NormalPairwise
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 3,
+                        'C' => 3,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 1,
+                        'C' => 1,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 1,
+                        'C' => 3,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 3,
+                        'C' => 1,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 1,
+                        'B' => 1,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 3,
+                        'B' => 3,
+                    ],
+                ]],
+            actual: $normalPairwise
+        );
+    }
 }

@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
+use CondorcetPHP\Condorcet\Utils\VoteUtil;
 
 class Pairwise implements \ArrayAccess, \Iterator
 {
@@ -79,9 +80,17 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected array $Pairwise;
     protected ?array $explicitPairwise = null;
 
-    public function __construct(Election $link)
-    {
+    protected readonly ?array $tags;
+
+    public function __construct(
+        Election $link,
+        array|string|null $tags = null,
+        protected readonly bool $withTags = true
+    ) {
         $this->setElection($link);
+
+        $this->tags = VoteUtil::tagsConvert($tags);
+
         $this->formatNewpairwise();
         $this->doPairwise();
     }
@@ -181,7 +190,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->clearExplicitPairwiseCache();
         $this->Pairwise = $this->Pairwise_Model;
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
+        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator(tags: $this->tags, with: $this->withTags) as $oneVote) {
             $this->computeOneVote($this->Pairwise, $oneVote);
         }
     }
