@@ -9,6 +9,7 @@ use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, ResultRequestedW
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -215,6 +216,7 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
     }
 
+    #[RequiresPhpExtension('pdo_sqlite')]
     public function testVoteWithDb1(): void
     {
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
@@ -325,6 +327,7 @@ class ElectionCommandTest extends TestCase
         self::assertStringContainsString('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
     }
 
+    #[RequiresPhpExtension('pdo_sqlite')]
     public function testVoteWithDb_CondorcetElectionFormat(): void
     {
         ElectionCommand::$forceIniMemoryLimitTo = '128M';
