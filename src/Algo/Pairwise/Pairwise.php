@@ -15,11 +15,14 @@ use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
+use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 class Pairwise implements \ArrayAccess, \Iterator
 {
     use HasElection;
     use CondorcetVersion;
+    
+    protected VotesManager $Votes; // Votes list
 
     // Implement ArrayAccess
     public function offsetSet(mixed $offset, mixed $value): void
@@ -79,10 +82,13 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected array $Pairwise;
     protected ?array $explicitPairwise = null;
 
-    public function __construct(Election $link)
+    public function __construct(Election $link, VotesManager $Votes=NULL)
     {
         $this->setElection($link);
         $this->formatNewpairwise();
+        if(isset($Votes)) {
+            $this->Votes = $link->getVotesManager();
+        }
         $this->doPairwise();
     }
 
@@ -100,7 +106,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         $this->clearExplicitPairwiseCache();
 
-        $this->computeOneVote($this->Pairwise, $this->getElection()->getVotesManager()[$key]);
+        $this->computeOneVote($this->Pairwise, $this->getVotesManager()[$key]);
     }
 
     public function removeVote(int $key): void
@@ -111,7 +117,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
         $diff = $this->Pairwise_Model;
 
-        $this->computeOneVote($diff, $this->getElection()->getVotesManager()[$key]);
+        $this->computeOneVote($diff, $this->getVotesManager()[$key]);
 
         foreach ($diff as $candidate_key => $candidate_details) {
             foreach ($candidate_details as $type => $opponent) {
@@ -181,7 +187,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->clearExplicitPairwiseCache();
         $this->Pairwise = $this->Pairwise_Model;
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
+        foreach ($this->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $this->computeOneVote($this->Pairwise, $oneVote);
         }
     }
@@ -234,5 +240,10 @@ class Pairwise implements \ArrayAccess, \Iterator
                 $done_Candidates[] = $candidate_key;
             }
         }
+    }
+    
+    protected function getVotesManager() : VotesManager
+    {
+        return $this->Votes ?? $this->getElection()->getVotesManager();
     }
 }
