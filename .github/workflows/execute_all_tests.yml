@@ -8,7 +8,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest, windows-latest]
         php-versions: ['8.2']
-        php-extensions: ['pdo,pdo_sqlite,mbstring,json', 'none,mbstring,json,dom,tokenizer,xml,xmlwriter']
+        php-extensions: ['pdo,pdo_sqlite,mbstring,json', 'none,mbstring,json,dom,openssl,tokenizer,xml,xmlwriter']
       fail-fast: false
 
     name: PHP ${{ matrix.php-versions }} on ${{ matrix.operating-system }} with ${{ matrix.php-extensions }} - Execute All Tests Without coverage
