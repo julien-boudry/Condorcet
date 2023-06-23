@@ -32,11 +32,6 @@ class FilteredPairwise extends Pairwise
         $this->candidates = $link->getCandidatesListAsString();
     }
 
-    public function __serialize(): array
-    {
-        return array_merge(parent::__serialize(), ['candidates' => $this->candidates, 'tags' => $this->tags, 'withTags' => $this->withTags]);
-    }
-
     protected function getVotesManagerGenerator(): \Generator
     {
         return $this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator(tags: $this->tags, with: $this->withTags);

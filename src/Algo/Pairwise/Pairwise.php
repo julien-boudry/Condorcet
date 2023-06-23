@@ -95,10 +95,10 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function __serialize(): array
     {
-        return [
-            'Pairwise_Model' => $this->Pairwise_Model,
-            'Pairwise' => $this->Pairwise,
-        ];
+        $s = get_object_vars($this);
+        unset($s['valid'], $s['selfElection']);
+
+        return $s;
     }
 
     public function addNewVote(int $key): void
