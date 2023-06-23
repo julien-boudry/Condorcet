@@ -314,10 +314,9 @@ class Election
             throw new VoteConstraintException('class is already registered');
         }
 
-        $this->cleanupCompute();
-
-
         $this->Constraints[] = $constraintClass;
+
+        $this->cleanupCompute();
 
         return true;
     }
@@ -386,9 +385,9 @@ class Election
         int $seats
     ): int {
         if ($seats > 0) {
-            $this->cleanupCompute();
-
             $this->Seats = $seats;
+
+            $this->cleanupCompute();
         } else {
             throw new NoSeatsException;
         }
@@ -469,9 +468,6 @@ class Election
     {
         if ($this->Pairwise === null && $this->State === ElectionState::VOTES_REGISTRATION) {
             $this->cleanupCompute();
-
-            // Do Pairwise
-            $this->makePairwise();
 
             // Return
             return true;

@@ -267,7 +267,11 @@ trait ResultsProcess
         $this->cleanupCalculator();
 
         // Clean pairwise
-        $this->Pairwise = null;
+        if ($this->getState() === ElectionState::VOTES_REGISTRATION) {
+            $this->makePairwise();
+        } else {
+            $this->Pairwise = null;
+        }
     }
 
     public function cleanupCalculator(): void

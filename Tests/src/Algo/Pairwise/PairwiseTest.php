@@ -173,4 +173,116 @@ class PairwiseTest extends TestCase
             $electionOn->getPairwise()->getExplicitPairwise()
         );
     }
+
+    public function testRemoveVote_1(): void
+    {
+        $this->election1->allowsVoteWeight(true);
+        $this->election1->removeAllVotes(); // removeAllVotes process a loop on each vote
+
+        $this->election1->parseVotes('A>B>C ^2');
+
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 2,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 0,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'C' => 0,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'B' => 2,
+                    ],
+                ],
+            ],
+            actual: $this->election1->getExplicitPairwise()
+        );
+    }
+
+    public function testRemoveVote_BugWithWeight(): void
+    {
+        $this->election1->removeAllVotes(); // removeAllVotes process a loop on each vote
+        $this->election1->allowsVoteWeight(true); // Bug was occured when they were not any votes left, then setting pairwise to null without rebuild a new one.
+
+        $this->election1->parseVotes('A>B>C ^2');
+
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 2,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 0,
+                        'C' => 2,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'C' => 0,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 2,
+                        'B' => 2,
+                    ],
+                ],
+            ],
+            actual: $this->election1->getExplicitPairwise()
+        );
+    }
 }
