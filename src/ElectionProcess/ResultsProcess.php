@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
-use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
+use CondorcetPHP\Condorcet\Algo\Pairwise\{FilteredPairwise, Pairwise};
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 
@@ -174,6 +174,19 @@ trait ResultsProcess
         return $this->Pairwise;
     }
 
+    #[InternalModulesAPI]
+    #[Description('Get a pairwise object filtered by tags. Not any votes updates are provided to the object.')]
+    #[FunctionReturn('Return a Pairwise filtered by tags')]
+    #[Related('Election::getPairwise')]
+    public function getFilteredPairwiseByTags(
+        #[FunctionParameter('Tags as string separated by commas or array')]
+        array|string $tags,
+        #[FunctionParameter('Votes with these tags or without')]
+        bool $with = true
+    ): FilteredPairwise {
+        return new FilteredPairwise($this, $tags, $with);
+    }
+
     #[PublicAPI]
     #[Description('Return the Pairwise.')]
     #[FunctionReturn('Pairwise as an explicit array .')]
@@ -181,6 +194,19 @@ trait ResultsProcess
     public function getExplicitPairwise(): array
     {
         return $this->getPairwise()->getExplicitPairwise();
+    }
+
+    #[PublicAPI]
+    #[Description('Get a pairwise filtered by tags.')]
+    #[FunctionReturn('Return a Pairwise filtered by tags')]
+    #[Related('Election::getPairwise')]
+    public function getExplicitFilteredPairwiseByTags(
+        #[FunctionParameter('Tags as string separated by commas or array')]
+        array|string $tags,
+        #[FunctionParameter('Votes with these tags or without')]
+        bool $with = true
+    ): array {
+        return $this->getFilteredPairwiseByTags($tags, $with)->getExplicitPairwise();
     }
 
     // Generic function for default result with ability to change default object method

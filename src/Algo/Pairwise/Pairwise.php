@@ -79,19 +79,26 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected array $Pairwise;
     protected ?array $explicitPairwise = null;
 
-    public function __construct(Election $link)
-    {
+    public function __construct(
+        Election $link
+    ) {
         $this->setElection($link);
+
         $this->formatNewpairwise();
         $this->doPairwise();
     }
 
+    protected function getVotesManagerGenerator(): \Generator
+    {
+        return $this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator();
+    }
+
     public function __serialize(): array
     {
-        return [
-            'Pairwise_Model' => $this->Pairwise_Model,
-            'Pairwise' => $this->Pairwise,
-        ];
+        $s = get_object_vars($this);
+        unset($s['valid'], $s['selfElection']);
+
+        return $s;
     }
 
     public function addNewVote(int $key): void
@@ -129,21 +136,25 @@ class Pairwise implements \ArrayAccess, \Iterator
     public function getExplicitPairwise(): array
     {
         if ($this->explicitPairwise === null) {
-            $election = $this->getElection();
             $this->explicitPairwise = [];
 
             foreach ($this->Pairwise as $candidate_key => $candidate_value) {
-                $candidate_name = $election->getCandidateObjectFromKey($candidate_key)->getName();
+                $candidate_name = $this->getCandidateNameFromKey($candidate_key);
 
                 foreach ($candidate_value as $mode => $mode_value) {
                     foreach ($mode_value as $candidate_list_key => $candidate_list_value) {
-                        $this->explicitPairwise[$candidate_name][$mode][$election->getCandidateObjectFromKey($candidate_list_key)->getName()] = $candidate_list_value;
+                        $this->explicitPairwise[$candidate_name][$mode][$this->getCandidateNameFromKey($candidate_list_key)] = $candidate_list_value;
                     }
                 }
             }
         }
 
         return $this->explicitPairwise;
+    }
+
+    protected function getCandidateNameFromKey(int $candidateKey): string
+    {
+        return $this->getElection()->getCandidateObjectFromKey($candidateKey)->getName();
     }
 
     protected function clearExplicitPairwiseCache(): void
@@ -173,15 +184,13 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function doPairwise(): void
     {
-        $election = $this->getElection();
-
         // Chrono
-        (Condorcet::$UseTimer === true) && new Timer_Chrono($election->getTimerManager(), 'Do Pairwise');
+        (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Do Pairwise');
 
         $this->clearExplicitPairwiseCache();
         $this->Pairwise = $this->Pairwise_Model;
 
-        foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
+        foreach ($this->getVotesManagerGenerator() as $oneVote) {
             $this->computeOneVote($this->Pairwise, $oneVote);
         }
     }
