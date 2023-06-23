@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
-use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
+use CondorcetPHP\Condorcet\Algo\Pairwise\{FilteredPairwise, Pairwise};
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
@@ -183,8 +183,8 @@ trait ResultsProcess
         array|string $tags,
         #[FunctionParameter('Votes with these tags or without')]
         bool $with = true
-    ): Pairwise {
-        return new Pairwise($this, $tags, $with);
+    ): FilteredPairwise {
+        return new FilteredPairwise($this, $tags, $with);
     }
 
     #[PublicAPI]
