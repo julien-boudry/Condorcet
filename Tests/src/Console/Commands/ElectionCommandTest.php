@@ -159,7 +159,7 @@ class ElectionCommandTest extends TestCase
         // \var_dump($output);
 
         self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('A,B', $output);
+        self::assertStringContainsString('A ; B', $output);
         self::assertStringContainsString('C '.CondorcetStyle::CONDORCET_LOSER_SYMBOL, $output);
     }
 

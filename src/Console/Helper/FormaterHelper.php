@@ -22,7 +22,7 @@ abstract class FormaterHelper
 
         foreach ($resultArray as $rank => &$line) {
             if (\is_array($line)) {
-                $line = implode(',', $line);
+                $line = implode(' ; ', $line);
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
