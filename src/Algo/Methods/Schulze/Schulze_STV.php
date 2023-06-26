@@ -13,8 +13,8 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     
     protected array $StrongestPaths = [];
     protected array $StrongestSetPaths = [];
-    protected array $outcomes;
-    protected array $CandidatesKeys;
+    protected array $outcomes = [];
+    protected array $CandidatesKeys = [];
     
     public function getResult(): Result
     {
@@ -23,10 +23,11 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         }
         
         $this->M = $this->getElection()->getNumberOfSeats();
+        var_dump($this->M);
         
-        $this->prepareStrongestPath();
+        /*$this->prepareStrongestPath();
         $this->makeStrongestPaths($this->M);
-        $this->filterCandidates();
+        $this->filterCandidates();*/
         
         $this->prepareOutcomes();
         var_dump($this->outcomes);
@@ -84,20 +85,22 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         $this->CandidatesKeys = array_keys($election->getCandidatesList());
         $totalVotesWeight = $election->sumVotesWeight();
         
-        $this->addToSet([], $election->sumVotesWeight()/($this->M + 1));
+        $this->addToSet([]/*, $election->sumVotesWeight()/($this->M + 1)*/);
     }
     
-    protected function addToSet(array $set, int $quota)
+    protected function addToSet(array $set/*, $quota*/)
     {
-        foreach ($this->CandidatesKeys as $candidate) if ($candidate > end($prev))
+        $election = $this->getElection();
+        $M = $this->M;
+        $CandidatesKeys = array_keys($election->getCandidatesList());
+        foreach ($CandidatesKeys as $candidate) if ($candidate > end($set))
         {
             array_push($set, $candidate);
-            if (count($set) < $this->M) {
-                $set = $this->addToSet($set, $M);
-            } else {
-                if ($this->checkSupport($set, $quota)) {
-                    array_push($this->Outcomes, $set);
-                }
+            //$set .= $candidate;
+            if (count($set) < $M) {
+                $set = $this->addToSet($set/*, $M*/);
+            } else/*if ($this->checkSupport($set, $quota))*/ {
+                array_push($this->outcomes, $set);
             }
         }
     }
@@ -121,7 +124,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         foreach($election->getVotesList() as $oneVote)
         {
             $rankings = $oneVote->getRankingsAsAssociativeArray;
-            if (isset($from) && $rankings[$from] < $rankings[$i]) {
+            if (isset($from) && $rankings[$from] > $rankings[$i]) {
                 continue;
             }
             if ($this->prefers($i, $set, $rankings, $election)) {
@@ -133,7 +136,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected function prefers(int $i, $set, array $rankings, Election $election)
     {
         $prefers = true;
-        foreach ($set as $j=>$ranking) if ($ranking > $rankings[$i]) {
+        foreach ($set as $j=>$ranking) if ($ranking < $rankings[$i]) {
             $prefers = false;
             break;
         }

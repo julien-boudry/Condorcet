@@ -218,7 +218,6 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
             }
         }
 
-        var_dump($r->getCandidateKey);
         return $r;
     }
     
