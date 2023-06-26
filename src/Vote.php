@@ -218,11 +218,30 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
             }
         }
 
+        var_dump($r->getCandidateKey);
         return $r;
+    }
+    
+    #[PublicAPI]
+    #[Description('Get the Ranking of this Vote as an array of candidate keys.')]
+    #[FunctionReturn('Array populated by Candidate keys.')]
+    #[Related('Vote::setRanking')]
+    public function getRankingsAsAssociativeArray(Election $election)
+    {
+        $rankings = [];
+        foreach($election->getCandidatesList() as $candidateKey=>$candidate)
+        {
+            $candidateRanking;
+            foreach(getRanking(true) as $rank=>$equalCandidates) if (!array_search($candidate)) {
+                $rankings[$candidateKey] = $rank;
+                break;
+            }
+        }
+        return $rankings;
     }
 
     #[PublicAPI]
-    #[Description('Return an history of each vote change, with timestamp.')]
+    #[Description('Return a history of each vote change, with timestamp.')]
     #[FunctionReturn('An explicit multi-dimenssional array.')]
     #[Related('Vote::getCreateTimestamp')]
     public function getHistory(): array
