@@ -15,6 +15,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     final public const IS_PROPORTIONAL = true;
     public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze_STV'];
     
+    public int $M;
     protected array $StrongestPaths = [];
     protected array $StrongestSetPaths = [];
     protected array $outcomes = [];
@@ -121,12 +122,13 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected function votesPreferring($i, $set, $from=NULL)
     {
         $election = $this->getElection();
-        unset($set[array_search($i, $set, true)]);
+        //unset($set[array_search($i, $set, true)]);
         $total = 0;
+        $implicit = $election->getImplicitRankingRule();
         
         foreach($election->getVotesList() as $oneVote)
         {
-            $rankings = $oneVote->getRankingsAsAssociativeArray($election);
+            $rankings = $oneVote->getRankingsAsAssociativeArray($election, $implicit);
             if (isset($from) && $rankings[$from] > $rankings[$i]) {
                 continue;
             }
@@ -152,19 +154,19 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     
     protected function compareOutcomes(array $iArray, array $jArray, Election $election, $quota = NULL): int
     {
-        $overlap = array_intersect_assoc($iArray, $jArray);
+        //$overlap = array_intersect_assoc($iArray, $jArray);
         //There may be a more efficient function than current() for this task.
         $iUnique = current(array_diff($iArray, $jArray));
-        $jUnique = current(array_diff($jArray, $iArray));
+        /*$jUnique = current(array_diff($jArray, $iArray));
         $all = $iArray;
         $all[$this->M] = $jUnique;
-        $votesFor = [];
+        $votesFor = [];*/
         
         /*foreach ($all as $candidate)
         {
             $votesFor[$candidate] = $this->votesPreferring($candidate, $all);
         }*/
-        $iVotes = $this->votesPreferring($iUnique, $all);
+        $iVotes = $this->votesPreferring($iUnique, $jArray);
         return $iVotes;
         
         /*foreach ($overlap as $candidate)
@@ -179,31 +181,34 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected function makeStrongestSetPaths($M): void
     {
         $election = $this->getElection();
-        //$outcomes = $this->outcomes;
+        $outcomes = $this->outcomes;
 
         foreach ($this->outcomes as $iKey=>$iSet) {
             //Note: The line below must be changed if this were modified for a variable number of winners.
+            $time = microtime();
             foreach ($this->outcomes as $jKey=>$jSet) {
-                $count = count(array_diff($iSet, $jSet));
-                if ($count === 1) {
+                //$count = count(array_diff($iSet, $jSet));
+                if (count(array_diff($iSet, $jSet)) === 1) {
                     /*if ($iKey > $jKey) {
                         $this->StrongestSetPaths[$iKey][$jKey] = (-1) * $this->StrongestSetPaths[$jKey][$iKey];
-                    } else*/if ($iKey != $jKey) {
+                    } else*/if ($iKey !== $jKey) {
                         $this->StrongestSetPaths[$iKey][$jKey] = $this->compareOutcomes($iSet, $jSet, $election);
+                        //echo("Went through outcome number ".$jKey."\n");
                     }
                 }
             }
+            echo('Time for to compare outcome '.$iKey.' with others was '.$time-microtime()." seconds.\n");
         }
 
-        foreach ($CandidatesKeys as $i) {
-            foreach ($CandidatesKeys as $j) {
+        foreach ($outcomes as $i) {
+            foreach ($outcomes as $j) {
                 if ($i !== $j) {
-                    foreach ($CandidatesKeys as $k) {
+                    foreach ($outcomes as $k) {
                         if ($i !== $k && $j !== $k) {
-                            $this->StrongestPaths[$j][$k] =
+                            $this->StrongestSetPaths[$j][$k] =
                                 max(
-                                    $this->StrongestPaths[$j][$k],
-                                    min($this->StrongestPaths[$j][$i], $this->StrongestPaths[$i][$k])
+                                    $this->StrongestSetPaths[$j][$k],
+                                    min($this->StrongestSetPaths[$j][$i], $this->StrongestSetPaths[$i][$k])
                                 );
                         }
                     }
