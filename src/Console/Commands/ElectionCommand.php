@@ -397,6 +397,11 @@ class ElectionCommand extends Command
             $this->displayDetailedElectionInputsSection($input, $output);
         }
 
+        // Warning if candidates count = 1
+        if ($this->election->countCandidates() === 1) {
+            $this->io->warning("There is only 1 candidate in this election named \"{$this->election->getCandidatesList()[0]->getName()}\". Check your input and make sure to separate candidates with semicolons.");
+        }
+
         // Pairwise Display Section
         if ($input->getOption('show-pairwise') || $input->getOption('stats')) {
             $this->displayPairwiseSection($output);
