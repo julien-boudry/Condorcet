@@ -7,8 +7,12 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 use CondorcetPHP\Condorcet\{Election, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
+//May be removed later with reorganisation.
+use CondorcetPHP\Condorcet\Vote;
+
 class Schulze_STV extends Schulze_Core implements MethodInterface
 {
+    final public const IS_PROPORTIONAL = true;
     public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze_STV'];
     
     protected array $StrongestPaths = [];
@@ -23,14 +27,12 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         }
         
         $this->M = $this->getElection()->getNumberOfSeats();
-        var_dump($this->M);
         
         /*$this->prepareStrongestPath();
         $this->makeStrongestPaths($this->M);
         $this->filterCandidates();*/
         
         $this->prepareOutcomes();
-        var_dump($this->outcomes);
         $this->makeStrongestSetPaths($this->M);
         
         $election = $this->getElection();
@@ -43,7 +45,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
             $to_done = [];
 
             foreach ($this->StrongestSetPaths as $set_key => $opposing_key) {
-                if (\in_array(needle: $candidate_key, haystack: $done, strict: true)) {
+                if (\in_array(needle: $set_key, haystack: $done, strict: true)) {
                     continue;
                 }
 
@@ -84,24 +86,25 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         $election = $this->getElection();
         $this->CandidatesKeys = array_keys($election->getCandidatesList());
         $totalVotesWeight = $election->sumVotesWeight();
-        
-        $this->addToSet([]/*, $election->sumVotesWeight()/($this->M + 1)*/);
+        foreach ($this->CandidatesKeys as $candidate) {
+            $this->addToSet([$candidate], $this->M/*, $election->sumVotesWeight()/($this->M + 1)*/);
+        }
     }
     
-    protected function addToSet(array $set/*, $quota*/)
+    protected function addToSet(array $set, $M)
     {
         $election = $this->getElection();
         $M = $this->M;
         $CandidatesKeys = array_keys($election->getCandidatesList());
-        foreach ($CandidatesKeys as $candidate) if ($candidate > end($set))
+        foreach ($CandidatesKeys as $candidate) if($candidate > end($set))
         {
             array_push($set, $candidate);
-            //$set .= $candidate;
             if (count($set) < $M) {
-                $set = $this->addToSet($set/*, $M*/);
-            } else/*if ($this->checkSupport($set, $quota))*/ {
+                /*$set =*/ $this->addToSet($set, $M);
+            } elseif(count($set)===$M)/*($this->checkSupport($set, $quota))*/ {
                 array_push($this->outcomes, $set);
             }
+            array_pop($set);
         }
     }
     
@@ -123,7 +126,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         
         foreach($election->getVotesList() as $oneVote)
         {
-            $rankings = $oneVote->getRankingsAsAssociativeArray;
+            $rankings = $oneVote->getRankingsAsAssociativeArray($election);
             if (isset($from) && $rankings[$from] > $rankings[$i]) {
                 continue;
             }
@@ -131,53 +134,62 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
                 $total = $total + $oneVote->getWeight();
             }
         }
+        return $total;
     }
     
     protected function prefers(int $i, $set, array $rankings, Election $election)
     {
+        if ($rankings[$i] === NULL) {
+            return false;
+        }
         $prefers = true;
-        foreach ($set as $j=>$ranking) if ($ranking < $rankings[$i]) {
+        foreach ($set as $j) if ($rankings[$j] < $rankings[$i]) {
             $prefers = false;
             break;
         }
         return $prefers;
     }
     
-    protected function compareOutcomes(array $iArray, array $jArray, $quota)
+    protected function compareOutcomes(array $iArray, array $jArray, Election $election, $quota = NULL): int
     {
         $overlap = array_intersect_assoc($iArray, $jArray);
-        $iUnique = array_diff($iArray, $jArray)[0];
-        $jUnique = array_diff($jArray, $iArray)[0];
-        $all = array_push($iArray, $jUnique);
+        //There may be a more efficient function than current() for this task.
+        $iUnique = current(array_diff($iArray, $jArray));
+        $jUnique = current(array_diff($jArray, $iArray));
+        $all = $iArray;
+        $all[$this->M] = $jUnique;
         $votesFor = [];
         
-        foreach ($all as $candidate)
+        /*foreach ($all as $candidate)
         {
             $votesFor[$candidate] = $this->votesPreferring($candidate, $all);
-        }
+        }*/
+        $iVotes = $this->votesPreferring($iUnique, $all);
+        return $iVotes;
         
-        foreach ($overlap as $candidate)
+        /*foreach ($overlap as $candidate)
         {
             $weight = ($votesFor[$candidate] - $quota)/$votesFor[$candidate];
             $votesFor[$iUnique] += $weight * $this->votesPreferring($iUnique, $jArray, $candidate);
             $votesFor[$jUnique] += $weight * $this->votesPreferring($jUnique, $iArray, $candidate);
-        }
-        return $votesFor;
+        }*/
+        return $votesFor[$iUnique] - $votesFor[$jUnique];
     }
     
     protected function makeStrongestSetPaths($M): void
     {
         $election = $this->getElection();
+        //$outcomes = $this->outcomes;
 
-        foreach ($outcomes as $i) {
+        foreach ($this->outcomes as $iKey=>$iSet) {
             //Note: The line below must be changed if this were modified for a variable number of winners.
-            foreach ($outcomes as $j) {
-                $count = count(array_diff($outcomes[$i], $outcomes[$j]));
-                if ($count = 1) {
-                    if ($i > $j) {
-                        $this->StrongestSetPaths[$i][$j] = (-1) * $this->StrongestSetPaths[$j][$i];
-                    } elseif ($i != $j) {
-                        $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $contest);
+            foreach ($this->outcomes as $jKey=>$jSet) {
+                $count = count(array_diff($iSet, $jSet));
+                if ($count === 1) {
+                    /*if ($iKey > $jKey) {
+                        $this->StrongestSetPaths[$iKey][$jKey] = (-1) * $this->StrongestSetPaths[$jKey][$iKey];
+                    } else*/if ($iKey != $jKey) {
+                        $this->StrongestSetPaths[$iKey][$jKey] = $this->compareOutcomes($iSet, $jSet, $election);
                     }
                 }
             }
@@ -224,7 +236,6 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
 
             if (!$qualifies) {
                 unset($this->CandidatesKeys[array_search($candidate_key, $this->CandidatesKeys)]);
-                echo("Removed ".$election->getCandidateObjectFromKey($candidate_key)->getName()." due to low support.\n");
             }
         }
     }
