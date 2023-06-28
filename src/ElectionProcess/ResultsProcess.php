@@ -18,6 +18,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
+use Random\Randomizer;
 
 // Manage Results for Election class
 trait ResultsProcess
@@ -220,7 +221,7 @@ trait ResultsProcess
         #[FunctionParameter('Option name')]
         string $optionName,
         #[FunctionParameter('Option Value')]
-        array|\BackedEnum|int|float|string $optionValue
+        array|\BackedEnum|int|float|string|Randomizer $optionValue
     ): bool {
         if ($method = Condorcet::getMethodClass($method)) {
             $method::setOption($optionName, $optionValue);

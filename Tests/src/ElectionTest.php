@@ -914,10 +914,14 @@ class ElectionTest extends TestCase
 
     public static function MethodsListProvider(): array
     {
+        $withNonDeterministicMethod = false;
+
         $r = [];
 
         foreach (Condorcet::getAuthMethods() as $method) {
-            $r[] = [$method];
+            if ($withNonDeterministicMethod || Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
+                $r[] = [$method];
+            }
         }
 
         return $r;
