@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, Throws};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
+use Random\Randomizer;
 
 // Generic for Algorithms
 abstract class Method
@@ -25,6 +26,7 @@ abstract class Method
     private const METHOD_NAME = ['abstractMethod'];
 
     public const IS_PROPORTIONAL = false;
+    public const IS_DETERMINISTIC = true;
 
     public static ?int $MaxCandidates = null;
 
@@ -35,7 +37,7 @@ abstract class Method
 
     // Static
 
-    final public static function setOption(string $optionName, array|\BackedEnum|int|float|string $optionValue): true
+    final public static function setOption(string $optionName, array|\BackedEnum|int|float|string|Randomizer $optionValue): true
     {
         $optionVar = 'option'.ucfirst($optionName);
 

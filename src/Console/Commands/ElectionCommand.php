@@ -24,6 +24,7 @@ use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Timer\{Chrono, Manager};
 use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
 use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
+use Random\Randomizer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Completion\{CompletionInput, CompletionSuggestions};
@@ -623,6 +624,8 @@ class ElectionCommand extends Command
                         $value = $value->value;
                     } elseif (\is_array($value)) {
                         $value = implode(' / ', $value);
+                    } elseif ($value instanceof Randomizer) {
+                        $value = $value->engine::class;
                     }
 
                     $rows[] = [$key.':', $value];

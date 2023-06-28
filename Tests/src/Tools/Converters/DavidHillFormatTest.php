@@ -349,6 +349,10 @@ class DavidHillFormatTest extends TestCase
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
 
         foreach (Condorcet::getAuthMethods() as $method) {
+            if (!Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
+                continue;
+            }
+
             // Stats
             self::assertSame($implicitElectionFromHill->getResult($method)->getStats(), $implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method);
 
@@ -365,6 +369,10 @@ class DavidHillFormatTest extends TestCase
         self::assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
 
         foreach (Condorcet::getAuthMethods() as $method) {
+            if (!Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
+                continue;
+            }
+
             // Stats
             self::assertEqualsWithDelta(
                 $implicitElectionFromHill->getResult($method)->getStats(),
