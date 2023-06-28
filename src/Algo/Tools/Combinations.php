@@ -20,7 +20,7 @@ use SplFixedArray;
 #[InternalModulesAPI]
 class Combinations
 {
-    #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
+    #[PublicAPI] // Must be available with composer installation. Only applies to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 
     public static function getPossibleCountOfCombinations(int $count, int $length): int

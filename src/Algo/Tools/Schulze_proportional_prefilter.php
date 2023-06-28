@@ -2,13 +2,22 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
+namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
+use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning;
+use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
 class Schulze_proportional_prefilter extends SchulzeWinning
 {
     public const METHOD_NAME = ['Schulze proportional prefilter'];
+
+    public function __construct(Election $mother, $M=NULL)
+    {
+        $this->setElection($mother);
+        $this->M = $M ?? $mother->getNumberOfSeats();
+    }
     protected function makeRanking($M=1): void
     {
         $election = $this->getElection();

@@ -36,7 +36,6 @@ Condorcet::addMethod(Algo\Methods\Schulze\SchulzeMargin::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeRatio::class);
 
 Condorcet::addMethod(Algo\Methods\Schulze\Schulze_STV::class);
-Condorcet::addMethod(Algo\Methods\Schulze\Schulze_proportional_prefilter::class);
 
 # Proportional Methods
 Condorcet::addMethod(Algo\Methods\STV\SingleTransferableVote::class);

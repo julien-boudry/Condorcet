@@ -6,6 +6,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\{Election, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Tools\Schulze_proportional_prefilter;
 
 //May be removed later with reorganisation.
 use CondorcetPHP\Condorcet\Vote;
@@ -20,6 +21,8 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected array $StrongestSetPaths = [];
     protected array $outcomes = [];
     protected array $CandidatesKeys = [];
+    // May be renamed to $votesNeededToWin to match SingleTransferableVote class.
+    protected float $quota;
 
     public function getResult(): Result
     {
@@ -30,9 +33,11 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         $election = $this->getElection();
         $result = [];
 
-        $this->M = $this->getElection()->getNumberOfSeats();
+        $this->M = $election->getNumberOfSeats();
+        //$this->quota = self::$optionQuota->getQuota($election()->sumValidVotesWeightWithConstraints(), $this->M);
 
-        $candidates = $election->getResult('Schulze proportional prefilter')->getResultAsArray(true);
+        $prefilter = new Schulze_proportional_prefilter($election, $this->M);
+        $candidates = $prefilter->getResult('Schulze proportional prefilter')->getResultAsArray(true);
         foreach ($candidates as $candidate) {
             $candidate_key = $election->getCandidateKey($candidate);
             $this->CandidatesKeys[$candidate_key] = $candidate_key;
@@ -46,6 +51,13 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
 
         $this->prepareOutcomes();
         $this->makeStrongestSetPaths($this->M);
+        $this->selectBestOutcome();
+
+        return $this->Result;
+    }
+
+    protected function selectBestOutcome()
+    {
 
         $done = [];
         $rank = 1;
@@ -66,17 +78,15 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
 
                 if ($beaten_value < $this->StrongestSetPaths[$beaten_key][$set_key]) {
                     $winner = false;
+                    continue;
                 }
             }
 
             if ($winner) {
-                $result[$rank][] = $set_key;
-
-                $to_done[] = $set_key;
+                $result = $this->outcomes[$set_key];
+                break;
             }
         }
-
-        array_push($done, ...$to_done);
 
         $this->Result = $this->createResult($result);
     }
@@ -95,9 +105,10 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         }
     }
 
+    // Recursive function to add candidates to a set.
     protected function addToSet(array $set)
     {
-        foreach ($this->CandidatesKeys as $candidate) if($candidate > end($set))
+        foreach ($this->CandidatesKeys as $candidate) if($candidate > end($set) ?? -1)
         {
             array_push($set, $candidate);
             if (count($set) < $this->M) {
@@ -110,8 +121,9 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     }
 
     // This function may not be necessary. It can be determined experimentally whether this is required for this method.
-    protected function checkSupport($set, $quota)
+    protected function checkSupport($set, $quota = NULL)
     {
+        $quota = $quota ?? $this->quota;
         foreach ($set as $i) {
             if ($this->votesPreferring($i, $set) < $quota) {
                 return false;
