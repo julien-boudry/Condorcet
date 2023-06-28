@@ -27,52 +27,56 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
             return $this->Result;
         }
 
+        $election = $this->getElection();
+        $result = [];
+
         $this->M = $this->getElection()->getNumberOfSeats();
 
+        $candidates = $election->getResult('Schulze proportional prefilter')->getResultAsArray(true);
+        foreach ($candidates as $candidate) {
+            $candidate_key = $election->getCandidateKey($candidate);
+            $this->CandidatesKeys[$candidate_key] = $candidate_key;
+        }
+        unset($candidates, $candidate_key);
+
+        // Originally, it was going to do the regular Schulze method within this same method object. These commented lines can be removed unless we go back to this approach.
         /*$this->prepareStrongestPath();
         $this->makeStrongestPaths($this->M);
         $this->filterCandidates();*/
 
         $this->prepareOutcomes();
-        $this->makeStrongestSetPaths();
-
-        $election = $this->getElection();
-        $result = [];
+        $this->makeStrongestSetPaths($this->M);
 
         $done = [];
         $rank = 1;
 
-        while (\count($done) < $election->countCandidates()) {
-            $to_done = [];
+        $to_done = [];
 
-            foreach ($this->StrongestSetPaths as $set_key => $opposing_key) {
-                if (\in_array(needle: $set_key, haystack: $done, strict: true)) {
+        foreach ($this->StrongestSetPaths as $set_key => $opposing_key) {
+            if (\in_array(needle: $set_key, haystack: $done, strict: true)) {
+                continue;
+            }
+
+            $winner = true;
+
+            foreach ($opposing_key as $beaten_key => $beaten_value) {
+                if (\in_array(needle: $beaten_key, haystack: $done, strict: true)) {
                     continue;
                 }
 
-                $winner = true;
-
-                foreach ($opposing_key as $beaten_key => $beaten_value) {
-                    if (\in_array(needle: $beaten_key, haystack: $done, strict: true)) {
-                        continue;
-                    }
-
-                    if ($beaten_value < $this->StrongestPaths[$beaten_key][$candidate_key]) {
-                        $winner = false;
-                    }
-                }
-
-                if ($winner) {
-                    $result[$rank][] = $candidate_key;
-
-                    $to_done[] = $candidate_key;
+                if ($beaten_value < $this->StrongestSetPaths[$beaten_key][$set_key]) {
+                    $winner = false;
                 }
             }
 
-            array_push($done, ...$to_done);
+            if ($winner) {
+                $result[$rank][] = $set_key;
 
-            $rank++;
+                $to_done[] = $set_key;
+            }
         }
+
+        array_push($done, ...$to_done);
 
         $this->Result = $this->createResult($result);
     }
@@ -85,7 +89,6 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected function prepareOutcomes()
     {
         $election = $this->getElection();
-        $this->CandidatesKeys = array_keys($election->getCandidatesList());
         $totalVotesWeight = $election->sumVotesWeight();
         foreach ($this->CandidatesKeys as $candidate) {
             $this->addToSet([$candidate], $this->M/*, $election->sumVotesWeight()/($this->M + 1)*/);
@@ -94,9 +97,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
 
     protected function addToSet(array $set)
     {
-        $election = $this->getElection();
-        $CandidatesKeys = array_keys($election->getCandidatesList());
-        foreach ($CandidatesKeys as $candidate) if($candidate > end($set))
+        foreach ($this->CandidatesKeys as $candidate) if($candidate > end($set))
         {
             array_push($set, $candidate);
             if (count($set) < $this->M) {
@@ -108,6 +109,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         }
     }
 
+    // This function may not be necessary. It can be determined experimentally whether this is required for this method.
     protected function checkSupport($set, $quota)
     {
         foreach ($set as $i) {
@@ -151,6 +153,8 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         return $prefers;
     }
 
+    /*  Originally this function was supposed to determine how many voters favour each candidate in both or neither set,
+        transfer some votes from the overlapping candidates to the unique candidates, & return it as an array. The lines for this are in comments. */
     protected function compareOutcomes(array $iArray, array $jArray, Election $election, $quota = NULL): int
     {
         //$overlap = array_intersect_assoc($iArray, $jArray);
@@ -184,7 +188,7 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
 
         foreach ($this->outcomes as $iKey=>$iSet) {
             //Note: The line below must be changed if this were modified for a variable number of winners.
-            $time = microtime();
+            $time = microtime(true);
             foreach ($this->outcomes as $jKey=>$jSet) {
                 //$count = count(array_diff($iSet, $jSet));
                 if (count(array_diff($iSet, $jSet)) === 1) {
@@ -196,18 +200,18 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
                     }
                 }
             }
-            echo('Time for to compare outcome '.$iKey.' with others was '.$time-microtime()." seconds.\n");
+            echo('Time to compare outcome '.$iKey.' with others was '.microtime(true)-$time." microseconds.\n");
         }
 
-        foreach ($outcomes as $i) {
-            foreach ($outcomes as $j) {
-                if ($i !== $j) {
-                    foreach ($outcomes as $k) {
-                        if ($i !== $k && $j !== $k) {
-                            $this->StrongestSetPaths[$j][$k] =
+        foreach ($outcomes as $iKey=>$iSet) {
+            foreach ($outcomes as $jKey=>$jSet) {
+                if ($iKey !== $jKey) {
+                    foreach ($outcomes as $kKey=>$kSet) {
+                        if ($iKey !== $kKey && $jKey !== $kKey) {
+                            $this->StrongestSetPaths[$jKey][$kKey] =
                                 max(
-                                    $this->StrongestSetPaths[$j][$k],
-                                    min($this->StrongestSetPaths[$j][$i], $this->StrongestSetPaths[$i][$k])
+                                    $this->StrongestSetPaths[$jKey][$kKey],
+                                    min($this->StrongestSetPaths[$jKey][$iKey], $this->StrongestSetPaths[$iKey][$kKey])
                                 );
                         }
                     }
@@ -215,33 +219,4 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
             }
         }
     }
-
-    protected function filterCandidates(): void
-    {
-        $election = $this->getElection();
-
-        foreach ($this->StrongestPaths as $candidate_key => $challengers_key) {
-            /*if (\in_array(needle: $candidate_key, haystack: $done, strict: true)) {
-                continue;
-            }*/
-
-            $qualifies = true;
-            $done;
-
-            foreach ($challengers_key as $beaten_key => $beaten_value) {
-                if (\in_array(needle: $beaten_key, haystack: $done, strict: true)) {
-                    continue;
-                }
-
-                if ($beaten_value < $this->M * $this->StrongestPaths[$beaten_key][$candidate_key]) {
-                    $qualifies = false;
-                }
-            }
-
-            if (!$qualifies) {
-                unset($this->CandidatesKeys[array_search($candidate_key, $this->CandidatesKeys)]);
-            }
-        }
-    }
-
 }
