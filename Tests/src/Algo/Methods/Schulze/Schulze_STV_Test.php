@@ -36,6 +36,8 @@ class Schulze_STV_Test extends TestCase
         self::assertContains('G', $resultsArray);
         self::assertContains('D', $resultsArray);
 
+        self::assertCount($this->election->getNumberOfSeats(), $resultsArray, 'Schulze-STV has output more candidates than there are seats available');
+
         var_dump($resultsArray);
     }
 

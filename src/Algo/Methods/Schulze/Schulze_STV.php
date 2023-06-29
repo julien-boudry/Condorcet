@@ -17,7 +17,6 @@ class Schulze_STV extends Method implements MethodInterface
     public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze_STV'];
 
     public int $M;
-    protected array $StrongestPaths = [];
     protected array $StrongestSetPaths = [];
     protected array $outcomes = [];
     protected array $CandidatesKeys = [];
@@ -47,11 +46,6 @@ class Schulze_STV extends Method implements MethodInterface
             $this->CandidatesKeys[$candidate_key] = $candidate_key;
         }
         unset($candidates, $candidate_key);
-
-        // Originally, it was going to do the regular Schulze method within this same method object. These commented lines can be removed unless we go back to this approach.
-        /*$this->prepareStrongestPath();
-        $this->makeStrongestPaths($this->M);
-        $this->filterCandidates();*/
 
         $this->prepareOutcomes();
         $this->makeStrongestSetPaths($this->M);
@@ -93,11 +87,6 @@ class Schulze_STV extends Method implements MethodInterface
         }
 
         $this->Result = $this->createResult($result);
-    }
-
-    protected function schulzeVariant(int $i, int $j, Election $election): int
-    {
-        return $election->getPairwise()[$i]['win'][$j];
     }
 
     protected function prepareOutcomes()

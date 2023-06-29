@@ -9,9 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class SchulzePrefilterTest extends TestCase
 {
-    private Election $election;
     //Checks that the Schulze-STV winners (as determined using Schulze's C++ program) are not filtered out.
-    public function VerifyCandidatesOutput():void
+    public function testDestinedWinnersHaveSurvived():void
     {
         $correctwinners = [
             2 => ['C', 'D'],
@@ -28,15 +27,17 @@ class SchulzePrefilterTest extends TestCase
             95 => ['A', 'B']
         ];
 
-        $this->election = new Election;
+        //$election = new Election;
 
         foreach ($correctwinners as $electionCycle=>$winningSet) {
-            (new CondorcetElectionFormat(__DIR__.'/../../../LargeElectionData/Tideman A'.$electionCycle.'.cvotes'))->setDataToAnElection($this->election);
-            $prefilter = new Schulze_proportional_prefilter($this->election);
+            $election = new Election;
+            (new CondorcetElectionFormat(__DIR__.'/../../../LargeElectionData/TidemanA'.$electionCycle.'.cvotes'))->setDataToAnElection($election);
+            $prefilter = new Schulze_proportional_prefilter($election);
             $survivors = $prefilter->getResult('Schulze proportional prefilter')->getResultAsArray(true);
             foreach ($correctwinners[$electionCycle] as $candidate) {
-                self::assertContains($candidate, $survivors, "Winning candidate '".$candidate."' in election ".$electionCycle." has been incorrectly eliminated by the pre-filter.");
+                self::assertContains($candidate, $survivors, "Correct winning candidate '".$candidate."' in Tideman election A".$electionCycle." has been incorrectly eliminated by the pre-filter.");
             }
+            unset($election);
         }
     }
 }

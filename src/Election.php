@@ -68,7 +68,7 @@ class Election
 
     // Change max vote number
     #[PublicAPI]
-    #[Description("Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.")]
+    #[Description("Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or greater than this limit.")]
     #[FunctionReturn('*(int or null)* The new limit.')]
     #[Related('static Election::setMaxParseIteration')]
     public static function setMaxVoteNumber(
