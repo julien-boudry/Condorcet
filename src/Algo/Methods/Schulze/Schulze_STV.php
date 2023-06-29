@@ -11,7 +11,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Schulze_proportional_prefilter;
 //May be removed later with reorganisation.
 use CondorcetPHP\Condorcet\Vote;
 
-class Schulze_STV extends Schulze_Core implements MethodInterface
+class Schulze_STV extends Method implements MethodInterface
 {
     final public const IS_PROPORTIONAL = true;
     public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze_STV'];
@@ -23,6 +23,10 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
     protected array $CandidatesKeys = [];
     // May be renamed to $votesNeededToWin to match SingleTransferableVote class.
     protected float $quota;
+
+    public function getStats(): array {
+        return [];
+    }
 
     public function getResult(): Result
     {
