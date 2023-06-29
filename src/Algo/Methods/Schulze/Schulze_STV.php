@@ -137,11 +137,10 @@ class Schulze_STV extends Schulze_Core implements MethodInterface
         $election = $this->getElection();
         //unset($set[array_search($i, $set, true)]);
         $total = 0;
-        $implicit = $election->getImplicitRankingRule();
 
-        foreach($election->getVotesList() as $oneVote)
+        foreach($election->getVotesValidUnderConstraintGenerator() as $oneVote)
         {
-            $rankings = $oneVote->getRankingsAsAssociativeArray($election, $implicit);
+            $rankings = $oneVote->getContextualRankingWithCandidateKeys($election);
             if (isset($from) && $rankings[$from] > $rankings[$i]) {
                 continue;
             }

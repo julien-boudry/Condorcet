@@ -220,28 +220,6 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
         return $r;
     }
-    
-    #[PublicAPI]
-    #[Description('Get the Rankings of each candidate in this Vote as an array with candidate keys.')]
-    #[FunctionReturn('Array populated by Candidate keys.')]
-    #[Related('Vote::setRanking')]
-    public function getRankingsAsAssociativeArray(Election $election, bool $implicitRank): array
-    {
-        $rankings = [];
-        foreach($election->getCandidatesList() as $candidateKey=>$candidate)
-        {
-            if ($implicitRank) {
-                $rankings[$candidateKey] = $this->countRanks()+1;
-            }
-            foreach($this->getRanking(true) as $rank=>$equalCandidates) {
-                if (in_array($candidate, $equalCandidates)) {
-                    $rankings[$candidateKey] = $rank;
-                    break;
-                }
-            }
-        }
-        return $rankings;
-    }
 
     #[PublicAPI]
     #[Description('Return a history of each vote change, with timestamp.')]
