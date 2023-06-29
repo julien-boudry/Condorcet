@@ -331,9 +331,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     ): array {
         $ranking = $this->getContextualRankingWithoutSort($election);
 
-        array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
-            array_walk($candidatesInRank, static fn (&$v) => $v = $election->getCandidateKey($v));
-        });
+        VoteUtil::convertRankingFromCandidateObjectToInternalKeys($election, $ranking);
 
         return $ranking;
     }
