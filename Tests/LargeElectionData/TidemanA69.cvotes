@@ -1,0 +1,78 @@
+#/Candidates: A ; B ; C ; D ; E ; F ; G ; I ; J
+#/Number of Seats: 3
+#/Implicit Ranking: true
+#/Weight Allowed: false
+
+A > C > D > B * 3
+G > E > A > D > J > I > C > B * 3
+C > D > E > J * 2
+C > D > I > G > F > E * 2
+C > D > J * 2
+D > E > I * 2
+E > F > C > A > J * 2
+I > E > A * 2
+I > E > C > D > J * 2
+J > C > B * 2
+J > F > C > D > I > A > B > G * 2
+A > D > J * 1
+A > E > D * 1
+A > E > D > B > F * 1
+A > E > G > J * 1
+A > E > I > J > F * 1
+A > E > J * 1
+A > E > J > D > C > F * 1
+A > I > E * 1
+B > A > C * 1
+B > A > J > F > G * 1
+B > C > A * 1
+B > C > A > E * 1
+B > C > A > J > F * 1
+B > D > A > G > F > J * 1
+C > A > D > F * 1
+C > A > D > F > E * 1
+C > D > I > F > G > E * 1
+C > E * 1
+C > E > A * 1
+C > F > E > A > J > I * 1
+C > F > J > B > G > A > D > E * 1
+C > J * 1
+C > J > A * 1
+C > J > B * 1
+C > J > F > E > B > I * 1
+C > J > G * 1
+D > A > E * 1
+D > A > I > F > J > E > G > C * 1
+D > E > G > A > I > B > C > J * 1
+D > E > I > C * 1
+D > E > J * 1
+D > I > F > A > E > C > J > G * 1
+E > A > D > F > B > I > C > G * 1
+E > A > I * 1
+E > B > A > C > D > J > G > F * 1
+E > B > A > F * 1
+E > B > J * 1
+E > D > F > J * 1
+E > I > A * 1
+E > I > F > C > D > J > G > B * 1
+E > J > A * 1
+F > A > C > J * 1
+F > A > J > D > E * 1
+F > C > I * 1
+F > D > A * 1
+F > E > A > D > I * 1
+F > E > D > C * 1
+F > E > I > D > A * 1
+F > E > J * 1
+F > G > C * 1
+F > J > C > E * 1
+F > J > D * 1
+F > J > E > C * 1
+F > J > E > D > A * 1
+G > A > D > E * 1
+I > A > F * 1
+J * 1
+J > A * 1
+J > A > D > I > C * 1
+J > E > A > F > G > B > D > C * 1
+J > F > B > A * 1
+J > F > C > E > D > A > B > I * 1

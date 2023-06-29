@@ -1,0 +1,40 @@
+#/Candidates: A ; B ; C ; D ; E ; F ; G ; I ; J ; K ; L
+#/Number of Seats: 2
+#/Implicit Ranking: true
+#/Weight Allowed: false
+
+L > C * 7
+C > L * 3
+B > I > A * 2
+A > B > C * 1
+A > D > F > G > K * 1
+A > E > I > B > C > L > K > G > D > J * 1
+A > I > G * 1
+A > L > C * 1
+B > I * 1
+C > B > E * 1
+C > K > B > L > J > I > E > F > A > G * 1
+C > L > K > B > I > G > J > A > E > D * 1
+C > L > K > J * 1
+D > B > L > K > J * 1
+D > G > I > L > B > J > K > C > E > F * 1
+E > A > B * 1
+F * 1
+G > B > I > K > E > J > D > F > C > A * 1
+G > D > A > L * 1
+G > D > I * 1
+G > D > L * 1
+G > L > D * 1
+G > L > J > E > D > A > I > B > C > F * 1
+I * 1
+J > C > K > B > A > E > L > G > D > I * 1
+J > E > A > D > G > K > I > B > C > F * 1
+K > C > B * 1
+K > F * 1
+L > B > G > D > J > A > I > K > E > F * 1
+L > C > D > A > I > J > G > E > B > F * 1
+L > C > D > J * 1
+L > C > G > E * 1
+L > E > J > I > C * 1
+L > J > G * 1
+L > K > D > E > B > A > G > I > J > F * 1
