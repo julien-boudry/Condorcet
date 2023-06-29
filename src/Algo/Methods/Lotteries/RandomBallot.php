@@ -54,13 +54,7 @@ class RandomBallot extends Method implements MethodInterface
 
         $electedVote = $election->getVotesManager()[$this->electedBallotKey];
 
-        $ranking = $electedVote->getContextualRanking($election);
-
-        array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
-            array_walk($candidatesInRank, static fn (&$v) => $v = $election->getCandidateKey($v));
-        });
-
-        $this->Result = $this->createResult($ranking);
+        $this->Result = $this->createResult($electedVote->getContextualRankingWithCandidateKeys($election));
     }
 
     public function getStats(): array

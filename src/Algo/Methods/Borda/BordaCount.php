@@ -53,7 +53,7 @@ class BordaCount extends Method implements MethodInterface
 
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $CandidatesRanked = 0;
-            $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
+            $oneRanking = $oneVote->getContextualRankingWithCandidateKeys($election);
 
             foreach ($oneRanking as $oneRank) {
                 $rankScore = 0.0;
@@ -62,7 +62,7 @@ class BordaCount extends Method implements MethodInterface
                 }
 
                 foreach ($oneRank as $oneCandidateInRank) {
-                    $score[$election->getCandidateKey($oneCandidateInRank)] += ($rankScore / \count($oneRank)) * $oneVote->getWeight($election);
+                    $score[$oneCandidateInRank] += ($rankScore / \count($oneRank)) * $oneVote->getWeight($election);
                 }
             }
         }

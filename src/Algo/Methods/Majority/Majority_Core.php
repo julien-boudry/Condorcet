@@ -124,12 +124,12 @@ abstract class Majority_Core extends Method implements MethodInterface
         foreach ($election->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $weight = $oneVote->getWeight($election);
 
-            $oneRanking = $oneVote->getContextualRankingWithoutSort($election);
+            $oneRanking = $oneVote->getContextualRankingWithCandidateKeys($election);
 
             if (!empty($this->admittedCandidates)) {
                 foreach ($oneRanking as $rankKey => $oneRank) {
                     foreach ($oneRank as $InRankKey => $oneCandidate) {
-                        if (!\in_array(needle: $election->getCandidateKey($oneCandidate), haystack: $this->admittedCandidates, strict: true)) {
+                        if (!\in_array(needle: $oneCandidate, haystack: $this->admittedCandidates, strict: true)) {
                             unset($oneRanking[$rankKey][$InRankKey]);
                         }
                     }
@@ -148,8 +148,8 @@ abstract class Majority_Core extends Method implements MethodInterface
 
             if (isset($oneRanking[1])) {
                 foreach ($oneRanking[1] as $oneCandidateInRank) {
-                    $roundScore[$election->getCandidateKey($oneCandidateInRank)] ??= (float) 0;
-                    $roundScore[$election->getCandidateKey($oneCandidateInRank)] += (1 / \count($oneRanking[1])) * $weight;
+                    $roundScore[$oneCandidateInRank] ??= (float) 0;
+                    $roundScore[$oneCandidateInRank] += (1 / \count($oneRanking[1])) * $weight;
                 }
             }
         }
