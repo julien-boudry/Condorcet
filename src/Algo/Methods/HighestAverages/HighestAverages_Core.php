@@ -55,13 +55,13 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
                 continue;
             }
 
-            $voteWinnerRank = $oneVote->getContextualRankingWithoutSort($election)[1];
+            $voteWinnerRank = $oneVote->getContextualRankingWithCandidateKeys($election)[1];
 
             if (\count($voteWinnerRank) !== 1) {
                 continue;
             } // This method support only one winner per vote. Ignore bad votes.
 
-            $this->candidatesVotes[$election->getCandidateKey(reset($voteWinnerRank))] += $oneVote->getWeight($election);
+            $this->candidatesVotes[reset($voteWinnerRank)] += $oneVote->getWeight($election);
         }
     }
 

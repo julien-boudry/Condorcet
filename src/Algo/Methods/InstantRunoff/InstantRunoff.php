@@ -118,11 +118,11 @@ class InstantRunoff extends Method implements MethodInterface
         foreach ($election->getVotesManager()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $weight = $oneVote->getWeight($election);
 
-            foreach ($oneVote->getContextualRankingWithoutSort($election) as $oneRank) {
+            foreach ($oneVote->getContextualRankingWithCandidateKeys($election) as $oneRank) {
                 foreach ($oneRank as $oneCandidate) {
                     if (\count($oneRank) !== 1) {
                         break;
-                    } elseif (!\in_array(needle: ($candidateKey = $election->getCandidateKey($oneCandidate)), haystack: $candidateDone, strict: true)) {
+                    } elseif (!\in_array(needle: ($candidateKey = $oneCandidate), haystack: $candidateDone, strict: true)) {
                         $score[$candidateKey] += $weight;
                         break 2;
                     }

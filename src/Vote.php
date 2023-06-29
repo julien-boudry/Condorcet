@@ -346,6 +346,20 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         return $this->computeContextualRanking($election, false);
     }
 
+    #[InternalModulesAPI]
+    public function getContextualRankingWithCandidateKeys(
+        #[FunctionParameter('An election already linked to the Vote')]
+        Election $election,
+    ): array {
+        $ranking = $this->getContextualRankingWithoutSort($election);
+
+        array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
+            array_walk($candidatesInRank, static fn (&$v) => $v = $election->getCandidateKey($v));
+        });
+
+        return $ranking;
+    }
+
     protected function computeContextualRanking(
         #[FunctionParameter('An election already linked to the Vote')]
         Election $election,
