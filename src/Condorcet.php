@@ -25,6 +25,7 @@ Condorcet::addMethod(Algo\Methods\Borda\DowdallSystem::class);
 Condorcet::addMethod(Algo\Methods\InstantRunoff\InstantRunoff::class);
 Condorcet::addMethod(Algo\Methods\KemenyYoung\KemenyYoung::class);
 Condorcet::addMethod(Algo\Methods\Lotteries\RandomBallot::class);
+Condorcet::addMethod(Algo\Methods\Lotteries\RandomCandidates::class);
 Condorcet::addMethod(Algo\Methods\Majority\FirstPastThePost::class);
 Condorcet::addMethod(Algo\Methods\Majority\MultipleRoundsSystem::class);
 Condorcet::addMethod(Algo\Methods\Minimax\MinimaxWinning::class);

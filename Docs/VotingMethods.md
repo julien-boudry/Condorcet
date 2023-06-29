@@ -29,6 +29,7 @@ _Designed for electing a single winner. But return a full ranking._
     * **[Minimax Opposition](#minimax-opposition)**
 * **Lotteries Family**
     * **[Random Ballot](#random-ballot)**
+    * **[Random Candidates](#random-candidates)**
 * **Ranked Pairs Family** *(Tideman method)*
     * **[Ranked Pairs Margin](#ranked-pairs-margin)**
     * **[Ranked Pairs Winning](#ranked-pairs-winning)**
@@ -450,6 +451,44 @@ $election->setMethodOption(
 );
 
 $election->getResult('Random Ballot') ;
+```
+
+
+## Random Candidates
+
+> **Family:** Lotteries 
+> **Variant used:** *None*  
+**Wikipedia:** https://en.wikipedia.org/wiki/Random_Candidates
+> ***  
+> **Methods alias available (for function call)**: Random Candidates / Single Stochastic Vote / Lottery Voting  
+
+### Implementation Comments<!-- {docsify-ignore} -->
+If vote weight is activated and used, the probabilities are calculated taking into account the weight of each Candidates.  
+By default, a cryptographic level generator is used to perform the random lottery. It is also possible to use an option in the method to obtain a reproducible lottery.
+
+### Code example<!-- {docsify-ignore} -->
+```php
+// Get Full Ranking
+$election->getResult('Random Candidates') ;
+
+// Just get Winner or Loser
+$election->getWinner('Random Candidates') ;
+$election->getLoser('Random Candidates') ;
+
+// Get Stats
+$election->getResult('Random Candidates')->getStats() ;
+
+// Use a custom randomizer engine
+use Random\Engine\Xoshiro256StarStar;
+use Random\Randomizer;
+
+$election->setMethodOption(
+    method: 'Random Candidates',
+    optionName: 'Randomizer',
+    optionValue: new Randomizer( new Xoshiro256StarStar( hash('sha256', 'My Seed)', true) ) )
+);
+
+$election->getResult('Random Candidates') ;
 ```
 
 
