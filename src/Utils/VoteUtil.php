@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Utils;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
+use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 
 // Base Condorcet class
@@ -53,5 +54,12 @@ abstract class VoteUtil
         }
 
         return implode(' > ', $ranking);
+    }
+
+    public static function convertRankingFromCandidateObjectToInternalKeys(Election $election, array &$ranking): void
+    {
+        array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
+            array_walk($candidatesInRank, static fn (&$v) => $v = $election->getCandidateKey($v));
+        });
     }
 }
