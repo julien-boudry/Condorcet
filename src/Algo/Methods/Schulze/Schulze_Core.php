@@ -96,7 +96,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
 
 
     // Calculate the Strongest Paths
-    protected function makeStrongestPaths(): void
+    protected function makeStrongestPaths($M=1): void
     {
         $election = $this->getElection();
         $CandidatesKeys = array_keys($election->getCandidatesList());
@@ -104,7 +104,7 @@ abstract class Schulze_Core extends Method implements MethodInterface
         foreach ($CandidatesKeys as $i) {
             foreach ($CandidatesKeys as $j) {
                 if ($i !== $j) {
-                    if ($election->getPairwise()[$i]['win'][$j] > $election->getPairwise()[$j]['win'][$i]) {
+                    if ($election->getPairwise()[$i]['win'][$j] * $M > $election->getPairwise()[$j]['win'][$i]) {
                         $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $election);
                     } else {
                         $this->StrongestPaths[$i][$j] = 0;

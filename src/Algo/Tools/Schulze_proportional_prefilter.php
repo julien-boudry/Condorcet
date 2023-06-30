@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
@@ -13,17 +14,40 @@ class Schulze_proportional_prefilter extends SchulzeWinning
 {
     public const METHOD_NAME = ['Schulze proportional prefilter'];
 
-    public function __construct(Election $mother, $M=NULL)
+    public function __construct(Election $election, $M=NULL)
     {
-        $this->setElection($mother);
-        $this->M = $M ?? $mother->getNumberOfSeats();
+        $this->setElection($election);
+        $this->M = $M ?? min($election->getNumberOfSeats(), $election->countCandidates());
     }
-    protected function makeRanking($M=1): void
+
+    // Get's a list of candidates who can possibly win in Schulze STV, as far as can be determined through pairwise results.
+    // Would ideally be renamed to 'getPotentialWinners()', if it could still override the inherited function.
+    public function getResult(): Result
+    {
+        // Cache
+        if ($this->Result !== null) {
+            return $this->Result;
+        }
+
+        // Format array
+        $this->prepareStrongestPath();
+
+        // Strongest Paths calculation
+        $this->makeStrongestPaths($this->M);
+
+        $this->filterCandidates();
+
+        // Return
+        return $this->Result;
+    }
+
+    // Would ideally be renamed to 'filterCandidates()'.
+    protected function filterCandidates(): void
     {
         $election = $this->getElection();
         $result = [];
 
-        $M = $election->getNumberOfSeats();
+        $M = &$this->M;
 
         // Calculate ranking
         $done = [];
@@ -53,11 +77,11 @@ class Schulze_proportional_prefilter extends SchulzeWinning
                             if ($superlosses > $M) {
                                 $eliminated++;
                                 echo("Removed candidate ".$election->getCandidateObjectFromKey($candidate_key)->getName()."\n");
-                                unset($this->StrongestPaths[$candidate_key]);
-                                unset($challengers_keys[$candidate_key]);
-                                foreach($this->StrongestPaths as &$pathArray) {
+                                //unset($this->StrongestPaths[$candidate_key]);
+                                //unset($challengers_keys[$candidate_key]);
+                                /*foreach($this->StrongestPaths as &$pathArray) {
                                     unset($pathArray[$candidate_key]);
-                                }
+                                }*/
                                 break;
                             }
                         }

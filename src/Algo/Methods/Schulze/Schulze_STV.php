@@ -34,13 +34,12 @@ class Schulze_STV extends Method implements MethodInterface
         }
 
         $election = $this->getElection();
-        $result = [];
 
-        $this->M = $election->getNumberOfSeats();
+        $this->M = $M ?? min($election->getNumberOfSeats(), $election->countCandidates());
         //$this->quota = self::$optionQuota->getQuota($election()->sumValidVotesWeightWithConstraints(), $this->M);
 
         $prefilter = new Schulze_proportional_prefilter($election, $this->M);
-        $candidates = $prefilter->getResult('Schulze proportional prefilter')->getResultAsArray(true);
+        $candidates = $prefilter->getResult()->getResultAsArray(true);
         foreach ($candidates as $candidate) {
             $candidate_key = $election->getCandidateKey($candidate);
             $this->CandidatesKeys[$candidate_key] = $candidate_key;
@@ -109,7 +108,7 @@ class Schulze_STV extends Method implements MethodInterface
             } elseif(count($set)===$this->M)/*($this->checkSupport($set, $quota))*/ {
                 array_push($this->outcomes, $set);
             }
-            array_pop($set);
+            //array_pop($set);
         }
     }
 
