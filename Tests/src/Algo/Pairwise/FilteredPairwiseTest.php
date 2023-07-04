@@ -250,7 +250,7 @@ class FilteredPairwiseTest extends TestCase
 
         self::assertSame($explicitOriginalFromFilteredPairwise, $filteredPairwise->getExplicitPairwise());
         self::assertSame(['tag1'], $filteredPairwise->tags);
-        self::assertTrue($filteredPairwise->withTags);
+        self::assertSame(1, $filteredPairwise->withTags);
     }
 
     public function testModifyFilteredPairwise(): void
@@ -277,5 +277,70 @@ class FilteredPairwiseTest extends TestCase
         self::assertArrayHasKey('A', $filteredPairwise->getExplicitPairwise());
         self::assertArrayHasKey('B', $filteredPairwise->getExplicitPairwise());
         self::assertArrayHasKey('C', $filteredPairwise->getExplicitPairwise());
+    }
+
+    public function testFilteredPairwiseResults_2(): void
+    {
+        $this->election1->removeAllVotes();
+        $this->election1->allowsVoteWeight(true);
+
+        $this->election1->parseVotes('
+            A > B > C
+            tag1 || B > C > A
+            tag2 || A > B > C
+            tag1, tag2 || C > B > A *2
+        ');
+
+
+        $filteredWithBothTags = $this->election1->getExplicitFilteredPairwiseByTags(['tag1','tag2'], 2);
+
+
+        // Test $filteredwithBothTags
+        self::assertSame(
+            expected: [
+                'A' => [
+                    'win' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'null' => [
+                        'B' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 2,
+                        'C' => 2,
+                    ],
+                ],
+                'B' => [
+                    'win' => [
+                        'A' => 2,
+                        'C' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'C' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 0,
+                        'C' => 2,
+                    ],
+                ],
+                'C' => [
+                    'win' => [
+                        'A' => 2,
+                        'B' => 2,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 0,
+                        'B' => 0,
+                    ],
+                ]],
+            actual: $filteredWithBothTags
+        );
     }
 }
