@@ -183,7 +183,7 @@ trait ResultsProcess
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
         #[FunctionParameter('Votes with these tags or without')]
-        bool $with = true
+        int|bool $with = true
     ): FilteredPairwise {
         return new FilteredPairwise($this, $tags, $with);
     }
@@ -204,8 +204,8 @@ trait ResultsProcess
     public function getExplicitFilteredPairwiseByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
-        #[FunctionParameter('Votes with these tags or without')]
-        bool $with = true
+        #[FunctionParameter('Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags')]
+        bool|int $with = 1
     ): array {
         return $this->getFilteredPairwiseByTags($tags, $with)->getExplicitPairwise();
     }

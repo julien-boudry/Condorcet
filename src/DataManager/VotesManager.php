@@ -118,17 +118,26 @@ class VotesManager extends ArrayManager
         }
     }
 
-    protected function getPartialVotesListGenerator(array $tags, bool $with): \Generator
+    protected function getPartialVotesListGenerator(array $tags, int|bool $with): \Generator
     {
+        $tagsfound = 0;
         foreach ($this as $voteKey => $vote) {
             $noOne = true;
-            foreach ($tags as $oneTag) {
-                if (($oneTag === $voteKey) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
-                    if ($with) {
-                        yield $voteKey => $vote;
-                        break;
-                    } else {
-                        $noOne = false;
+            if ($min == 0 or $min == 1) {
+                foreach ($tags as $oneTag) {
+                    if (($oneTag === $voteKey) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
+                        if ($with == 1) {
+                            yield $voteKey => $vote;
+                            break;
+                        } elseif ($with > 1) {
+                            $tagsfound++;
+                            if ($tagsfound >= $with) {
+                                yield $voteKey => $vote;
+                                break;
+                            }
+                        } else {
+                            $noOne = false;
+                        }
                     }
                 }
             }
@@ -165,7 +174,7 @@ class VotesManager extends ArrayManager
         }
     }
 
-    public function getVotesValidUnderConstraintGenerator(?array $tags = null, bool $with = true): \Generator
+    public function getVotesValidUnderConstraintGenerator(?array $tags = null, int|bool $with = true): \Generator
     {
         $election = $this->getElection();
         $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags, $with);
