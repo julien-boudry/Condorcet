@@ -120,8 +120,9 @@ class VotesManager extends ArrayManager
 
     protected function getPartialVotesListGenerator(array $tags, int|bool $with): \Generator
     {
-        $tagsfound = 0;
+
         foreach ($this as $voteKey => $vote) {
+            $tagsfound = 0;
             $noOne = true;
             if ($min == 0 or $min == 1) {
                 foreach ($tags as $oneTag) {
