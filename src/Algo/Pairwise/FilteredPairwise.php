@@ -20,8 +20,6 @@ class FilteredPairwise extends Pairwise
     protected readonly array $candidates;
     public readonly ?array $tags;
 
-    const ALL = 2;
-
     public function __construct(
         Election $link,
         array|string|null $tags = null,

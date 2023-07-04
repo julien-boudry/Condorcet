@@ -124,26 +124,25 @@ class VotesManager extends ArrayManager
         foreach ($this as $voteKey => $vote) {
             $tagsfound = 0;
             $noOne = true;
-            if ($min == 0 or $min == 1) {
-                foreach ($tags as $oneTag) {
-                    if (($oneTag === $voteKey) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
-                        if ($with == 1) {
+            foreach ($tags as $oneTag) {
+                if (($oneTag === $voteKey) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
+                    if ($with == 1) {
+                        yield $voteKey => $vote;
+                        break;
+                    } elseif ($with > 1) {
+                        $tagsfound++;
+                        if ($tagsfound >= $with) {
                             yield $voteKey => $vote;
                             break;
-                        } elseif ($with > 1) {
-                            $tagsfound++;
-                            if ($tagsfound >= $with) {
-                                yield $voteKey => $vote;
-                                break;
-                            }
-                        } else {
-                            $noOne = false;
                         }
+                    } else {
+                        $noOne = false;
                     }
                 }
             }
 
-            if (!$with && $noOne) {
+
+            if ($with == 0 && $noOne) {
                 yield $voteKey => $vote;
             }
         }
