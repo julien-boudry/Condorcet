@@ -23,7 +23,7 @@ class FilteredPairwise extends Pairwise
     public function __construct(
         Election $link,
         array|string|null $tags = null,
-        public readonly int $withTags = 1
+        public readonly bool|int $withTags = true
     ) {
         $this->tags = VoteUtil::tagsConvert($tags);
 

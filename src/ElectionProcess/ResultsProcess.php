@@ -183,9 +183,9 @@ trait ResultsProcess
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
         #[FunctionParameter('Votes with these tags or without')]
-        int|bool $with = true
+        bool|int $with = true
     ): FilteredPairwise {
-        return new FilteredPairwise($this, $tags, (int)$with);
+        return new FilteredPairwise($this, $tags, $with);
     }
 
     #[PublicAPI]

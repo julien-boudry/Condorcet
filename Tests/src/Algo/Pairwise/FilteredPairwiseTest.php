@@ -250,7 +250,7 @@ class FilteredPairwiseTest extends TestCase
 
         self::assertSame($explicitOriginalFromFilteredPairwise, $filteredPairwise->getExplicitPairwise());
         self::assertSame(['tag1'], $filteredPairwise->tags);
-        self::assertSame(1, $filteredPairwise->withTags);
+        self::assertTrue($filteredPairwise->withTags);
     }
 
     public function testModifyFilteredPairwise(): void
@@ -292,7 +292,7 @@ class FilteredPairwiseTest extends TestCase
         ');
 
 
-        $filteredWithBothTags = $this->election1->getExplicitFilteredPairwiseByTags(['tag1','tag2'], 2);
+        $filteredWithBothTags = $this->election1->getExplicitFilteredPairwiseByTags(['tag1', 'tag2'], 2);
 
 
         // Test $filteredwithBothTags
