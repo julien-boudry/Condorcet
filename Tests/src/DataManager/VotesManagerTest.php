@@ -133,7 +133,9 @@ class VotesManagerTest extends TestCase
 
         self::assertEquals(60, $this->votes_manager->countVotes(['tag42'], 1));
         self::assertEquals(44, $this->votes_manager->countVotes(['tag44'], 1));
+        self::assertEquals(44, $this->votes_manager->countVotes(['tag44'], true));
         self::assertEquals(18, $this->votes_manager->countVotes(['tag42', 'tag44'], 2));
         self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], 0));
+        self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], false));
     }
 }
