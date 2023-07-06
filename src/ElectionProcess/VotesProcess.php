@@ -39,7 +39,7 @@ trait VotesProcess
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
-        bool $with = true
+        bool|int $with = true
     ): int {
         return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
     }

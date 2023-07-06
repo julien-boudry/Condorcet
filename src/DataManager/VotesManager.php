@@ -225,7 +225,7 @@ class VotesManager extends ArrayManager
         return $simpleList;
     }
 
-    public function countVotes(?array $tag, bool $with): int
+    public function countVotes(?array $tag, bool|int $with): int
     {
         if ($tag === null) {
             return \count($this);
@@ -233,19 +233,18 @@ class VotesManager extends ArrayManager
             $count = 0;
 
             foreach ($this as $key => $value) {
-                $noOne = true;
+                $tagsfound = 0;
                 foreach ($tag as $oneTag) {
                     if (($oneTag === $key) || \in_array(needle: $oneTag, haystack: $value->getTags(), strict: true)) {
-                        if ($with) {
+                        $tagsfound++;
+                        if ($with > 0 AND $tagsfound >= $with) {
                             $count++;
                             break;
-                        } else {
-                            $noOne = false;
                         }
                     }
                 }
 
-                if (!$with && $noOne) {
+                if ($with == 0 && $tagsfound == 0) {
                     $count++;
                 }
             }

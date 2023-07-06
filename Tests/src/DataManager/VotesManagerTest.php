@@ -119,4 +119,21 @@ class VotesManagerTest extends TestCase
         self::assertEquals($this->election->getVotesList('tag42'), $votesListGenerator);
         self::assertCount(42, $votesListGenerator);
     }
+
+    public function testCountVotes(): void
+    {
+        self::assertEmpty($this->votes_manager->getVotesList());
+
+        $this->election->parseVotes('
+            A>B>C * 10;
+            tag42 || C>B>A * 42
+            tag44 || B>C>A * 26
+            tag42, tag44 || A>C>B * 18
+        ');
+
+        self::assertEquals(60, $this->votes_manager->countVotes(['tag42'], 1));
+        self::assertEquals(44, $this->votes_manager->countVotes(['tag44'], 1));
+        self::assertEquals(18, $this->votes_manager->countVotes(['tag42', 'tag44'], 2));
+        self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], 0));
+    }
 }
