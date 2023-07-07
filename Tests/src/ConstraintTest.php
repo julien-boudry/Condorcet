@@ -91,6 +91,8 @@ class ConstraintTest extends TestCase
 
             self::assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
             self::assertEquals(46, $this->election->sumVotesWeight());
+            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            self::assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
             self::assertEquals(5, $this->election->countVotes());
             self::assertEquals(1, $this->election->countValidVoteWithConstraints());
             self::assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));
@@ -105,6 +107,8 @@ class ConstraintTest extends TestCase
 
             self::assertEquals(43, $this->election->sumValidVotesWeightWithConstraints());
             self::assertEquals(46, $this->election->sumVotesWeight());
+            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            self::assertEquals(42, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
             self::assertEquals(5, $this->election->countVotes());
             self::assertEquals(2, $this->election->countValidVoteWithConstraints());
             self::assertEquals(1, $this->election->countValidVoteWithConstraints('tag1', false));
@@ -117,6 +121,8 @@ class ConstraintTest extends TestCase
 
             self::assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
             self::assertEquals(46, $this->election->sumVotesWeight());
+            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            self::assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
             self::assertEquals(5, $this->election->countVotes());
             self::assertEquals(1, $this->election->countValidVoteWithConstraints());
             self::assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));

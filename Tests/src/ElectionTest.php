@@ -500,8 +500,8 @@ class ElectionTest extends TestCase
         $election->addCandidate('D');
 
         $election->parseVotes('
-            A > C > D * 6
-            B > A > D * 1
+            tag1 || A > C > D * 6
+            tag2 || B > A > D * 1
             C > B > D * 3
             D > B > A * 3
         ');
@@ -514,6 +514,28 @@ class ElectionTest extends TestCase
             $election->sumVotesWeight()
         );
 
+        self::assertSame(
+            $election->sumVotesWeight(),
+            $election->sumValidVotesWeightWithConstraints()
+        );
+
+        // Some test about votes weight tags filters
+        self::assertSame(
+            7,
+            $election->sumVotesWeight('tag1,tag2')
+        );
+
+        self::assertSame(
+            13,
+            $election->sumVotesWeight('tag2', false)
+        );
+
+        self::assertSame(
+            0,
+            $election->sumVotesWeight('tag1,tag2', 2)
+        );
+
+        // Continue
         self::assertSame(
             'D > C > B ^2',
             (string) $voteWithWeight
