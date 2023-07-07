@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-public Election->countVotes ( [array|string|null $tags = null , bool $with = true] ): int
+public Election->countVotes ( [array|string|null $tags = null , int|bool $with = true] ): int
 ```
 
 Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
@@ -15,7 +15,7 @@ Count the number of actual registered and valid vote for this election. This met
 Tag into string separated by commas, or an Array.    
 
 
-#### **with:** *`bool`*   
+#### **with:** *`int|bool`*   
 Count Votes with this tag ou without this tag-.    
 
 

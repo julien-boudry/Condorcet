@@ -1,6 +1,6 @@
 ## public Vote::removeCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L557)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L570)
 
 ### Description    
 

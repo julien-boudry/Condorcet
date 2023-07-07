@@ -1,6 +1,6 @@
 ## public Result::getStats
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L198)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L208)
 
 ### Description    
 

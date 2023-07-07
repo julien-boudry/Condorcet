@@ -1,6 +1,6 @@
 ## public Result::getWarning
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L280)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L290)
 
 ### Description    
 

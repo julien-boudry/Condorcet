@@ -1,11 +1,11 @@
 ## public Election::setMethodOption
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L190)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L218)
 
 ### Description    
 
 ```php
-public Election->setMethodOption ( string $method , string $optionName , BackedEnum|array|string|int|float $optionValue ): bool
+public Election->setMethodOption ( string $method , string $optionName , BackedEnum|Random\Randomizer|array|string|int|float $optionValue ): bool
 ```
 
 Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
@@ -19,7 +19,7 @@ Method name or class path.
 Option name.    
 
 
-#### **optionValue:** *`BackedEnum|array|string|int|float`*   
+#### **optionValue:** *`BackedEnum|Random\Randomizer|array|string|int|float`*   
 Option Value.    
 
 

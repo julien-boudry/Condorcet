@@ -1,6 +1,6 @@
 ## public Vote::countRankingCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L272)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L273)
 
 ### Description    
 
