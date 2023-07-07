@@ -39,7 +39,7 @@ trait VotesProcess
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
-        bool $with = true
+        bool|int $with = true
     ): int {
         return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
     }
@@ -57,9 +57,13 @@ trait VotesProcess
     #[Description("Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn('Number of valid and registered vote into this election.')]
     #[Related('Election::countInvalidVoteWithConstraints', 'Election::countVotes', 'Election::sumValidVotesWeightWithConstraints')]
-    public function countValidVoteWithConstraints(): int
-    {
-        return $this->countVotes() - $this->countInvalidVoteWithConstraints();
+    public function countValidVoteWithConstraints(
+        #[FunctionParameter('Tag into string separated by commas, or an Array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
+        bool|int $with = true
+    ): int {
+        return $this->Votes->countValidVotesWithConstraints(VoteUtil::tagsConvert($tags), $with);
     }
 
     // Sum votes weight
@@ -67,18 +71,28 @@ trait VotesProcess
     #[Description('Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.')]
     #[FunctionReturn('(Int) Total vote weight')]
     #[Related('Election::sumValidVotesWeightWithConstraints')]
-    public function sumVotesWeight(): int
+    public function sumVotesWeight(
+        #[FunctionParameter('Tag into string separated by commas, or an Array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
+        bool|int $with = true
+    ): int
     {
-        return $this->Votes->sumVotesWeight(false);
+        return $this->Votes->sumVotesWeight(VoteUtil::tagsConvert($tags), $with);
     }
 
     #[PublicAPI]
     #[Description("Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn('(Int) Total vote weight')]
     #[Related('Election::countValidVoteWithConstraints', 'Election::countInvalidVoteWithConstraints')]
-    public function sumValidVotesWeightWithConstraints(): int
+    public function sumValidVotesWeightWithConstraints(
+        #[FunctionParameter('Tag into string separated by commas, or an Array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
+        bool|int $with = true
+    ): int
     {
-        return $this->Votes->sumVotesWeight(true);
+        return $this->Votes->sumVotesWeightWithConstraints(VoteUtil::tagsConvert($tags), $with);
     }
 
     // Get the votes registered list
