@@ -225,28 +225,15 @@ class VotesManager extends ArrayManager
         return $simpleList;
     }
 
-    public function countVotes(?array $tag, bool|int $with): int
+    public function countVotes(?array $tags, bool|int $with): int
     {
-        if ($tag === null) {
+        if ($tags === null) {
             return \count($this);
         } else {
             $count = 0;
 
-            foreach ($this as $key => $value) {
-                $tagsfound = 0;
-                foreach ($tag as $oneTag) {
-                    if (($oneTag === $key) || \in_array(needle: $oneTag, haystack: $value->getTags(), strict: true)) {
-                        $tagsfound++;
-                        if ($with > 0 AND $tagsfound >= $with) {
-                            $count++;
-                            break;
-                        }
-                    }
-                }
-
-                if ($with == 0 && $tagsfound == 0) {
-                    $count++;
-                }
+            foreach ($this->getPartialVotesListGenerator($tags, $with) as $vote) {
+                $count++;
             }
 
             return $count;
