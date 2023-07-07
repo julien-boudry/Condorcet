@@ -160,19 +160,14 @@ class VotesManager extends ArrayManager
     // Get the votes list as a generator object
     public function getVotesListGenerator(?array $tags = null, bool|int $with = true): \Generator
     {
-        if ($tags === null) {
-            return $this->getFullVotesListGenerator();
-        } else {
-            return $this->getPartialVotesListGenerator($tags, $with);
-        }
+        return ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags, $with);
     }
 
     public function getVotesValidUnderConstraintGenerator(?array $tags = null, bool|int $with = true): \Generator
     {
         $election = $this->getElection();
-        $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags, $with);
 
-        foreach ($generator as $voteKey => $oneVote) {
+        foreach ($this->getVotesListGenerator($tags, $with) as $voteKey => $oneVote) {
             if (!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
                 continue;
             }
@@ -238,6 +233,20 @@ class VotesManager extends ArrayManager
 
             return $count;
         }
+    }
+
+    public function countValidVotesWithConstraint(?array $tags, bool|int $with): int
+    {
+        $election = $this->getElection();
+        $count = 0;
+
+        foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
+            if ($election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     public function countInvalidVoteWithConstraints(): int

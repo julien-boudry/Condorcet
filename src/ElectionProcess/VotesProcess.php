@@ -57,9 +57,13 @@ trait VotesProcess
     #[Description("Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.")]
     #[FunctionReturn('Number of valid and registered vote into this election.')]
     #[Related('Election::countInvalidVoteWithConstraints', 'Election::countVotes', 'Election::sumValidVotesWeightWithConstraints')]
-    public function countValidVoteWithConstraints(): int
-    {
-        return $this->countVotes() - $this->countInvalidVoteWithConstraints();
+    public function countValidVoteWithConstraints(
+        #[FunctionParameter('Tag into string separated by commas, or an Array')]
+        array|null|string $tags = null,
+        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
+        bool|int $with = true
+    ): int {
+        return $this->Votes->countValidVotesWithConstraint(VoteUtil::tagsConvert($tags), $with);
     }
 
     // Sum votes weight
