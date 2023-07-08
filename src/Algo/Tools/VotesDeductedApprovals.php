@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
 // Generic for Algorithms
-class PairwiseDeductedApprovals implements \Countable
+class VotesDeductedApprovals implements \Countable
 {
     use HasElection;
 
