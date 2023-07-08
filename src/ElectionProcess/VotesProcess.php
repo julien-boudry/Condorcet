@@ -76,8 +76,7 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
-    ): int
-    {
+    ): int {
         return $this->Votes->sumVotesWeight(VoteUtil::tagsConvert($tags), $with);
     }
 
@@ -90,8 +89,7 @@ trait VotesProcess
         array|null|string $tags = null,
         #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
-    ): int
-    {
+    ): int {
         return $this->Votes->sumVotesWeightWithConstraints(VoteUtil::tagsConvert($tags), $with);
     }
 

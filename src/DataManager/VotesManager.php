@@ -15,7 +15,7 @@ use CondorcetPHP\Condorcet\{Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
-use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException};
+use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException};
 use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
 
 class VotesManager extends ArrayManager
@@ -122,6 +122,8 @@ class VotesManager extends ArrayManager
     {
         if (\is_bool($with)) {
             $with = ($with) ? 1 : 0;
+        } elseif ($with < 0) {
+            throw new TagsFilterException('Value of $with cannot be less than 0. Actual value is '.$with);
         }
 
         foreach ($this as $voteKey => $vote) {
@@ -279,8 +281,7 @@ class VotesManager extends ArrayManager
         $sum = 0;
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
-            if (!$constraints || $election->testIfVoteIsValidUnderElectionConstraints($oneVote)) # They are no constraints check OR the vote is valid.
-            {
+            if (!$constraints || $election->testIfVoteIsValidUnderElectionConstraints($oneVote)) { # They are no constraints check OR the vote is valid.
                 $sum += $election->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
             }
         }

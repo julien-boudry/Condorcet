@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\{Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
@@ -120,7 +120,7 @@ class VotesManagerTest extends TestCase
         self::assertCount(42, $votesListGenerator);
     }
 
-    public function testCountVotes(): void
+    public function testCountVotes(): never
     {
         self::assertEmpty($this->votes_manager->getVotesList());
 
@@ -137,5 +137,12 @@ class VotesManagerTest extends TestCase
         self::assertEquals(18, $this->votes_manager->countVotes(['tag42', 'tag44'], 2));
         self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], 0));
         self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], false));
+
+        $with = -1;
+
+        $this->expectException(TagsFilterException::class);
+        $this->expectExceptionMessage('Value of $with cannot be less than 0. Actual value is '.$with);
+
+        $this->election->countVotes('tag44', $with);
     }
 }
