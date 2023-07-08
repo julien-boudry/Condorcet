@@ -43,8 +43,10 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
   - [Project State and Specifications](#project-state-and-specifications)
   - [Supported Voting Methods](#supported-voting-methods)
     - [Single-Winner Methods provided natively](#single-winner-methods-provided-natively)
+      - [Deterministic](#deterministic)
+      - [Lotteries](#lotteries)
     - [Proportional Methods provided natively](#proportional-methods-provided-natively)
-    - [Add your own method as module](#add-your-own-method-as-module)
+    - [Add your own voting method as a module](#add-your-own-voting-method-as-a-module)
   - [Main features](#main-features)
   - [Use Condorcet as a command line application](#use-condorcet-as-a-command-line-application)
     - [Install as a command line application](#install-as-a-command-line-application)
@@ -90,16 +92,21 @@ Support both single-winner methods _(with or without the Condorcet criterion)_ a
 ### Single-Winner Methods provided natively
 Single Winner returns a full ranking of all candidates, even though they are generally more designed to designate only one.
 
+#### Deterministic
 > Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)
+
+#### Lotteries
+> Random Ballot / Random Candidates
 
 ### Proportional Methods provided natively
 Designed for electing assembly, return a full ranking of elected candidates.
 
 > Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt, and variants)* / Largest Remainder Methods _(with different quotas)_
 
-### Add your own method as module
+### Add your own voting method as a module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).
-[*More explanations with this documentation*](https://www.condorcet.io/#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)
+- [*More explanations with this documentation*](https://www.condorcet.io/3.AsPhpLibrary/9.ExtendingCondorcet/1.CreateNewVoteMethod)
+- [Modules Skeleton](https://github.com/CondorcetVote/Condorcet_Modules_Skeletons): A template for starting to develop fast and following best practices.
 
 ## Main features
 * __Manage an election__
