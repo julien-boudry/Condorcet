@@ -2,6 +2,47 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.5.0] - 2023-07-xx
+### Description
+A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its fair share of refinements and fixes in various areas, notably the Console.
+
+### Added
+
+#### Voting Methods
+- New vote method: [Random Ballot](https://www.condorcet.io/VotingMethods?id=random-ballot)
+- New vote method: [Random Candidates](https://www.condorcet.io/VotingMethods?id=random-candidates)
+
+#### Public API
+- Results object new property `Result->pairwise` contain an immutable and explicit pairwise array, from the object creation.
+- `Election->countVotes()`, `Election->countValidVoteWithConstraints()`, `Election->countValidVoteWithConstraints` and `Election->sumValidVotesWeightWithConstraints` now optionally support votes filtering by tags.
+
+
+#### Internal Modules API
+- New algo tool `VotesDeductedApprovals`
+- New FilteredPairwise object and API
+- Add a flag for preliminary support for non-deterministic methods
+- New API `Vote->getContextualRankingWithCandidatesKeys(Election $election)` to prevent code deduplication inside the votes method code.
+
+### Changed
+#### Console
+- Ignore duplicate candidates instead of an error at the end
+- Fix bug #147: crash on importing from ConforcetElectionFormat without pdo_sqlite extension.
+- Display separator is always semicolon, instead of commas in some cases (to avoid confusion with the input format)
+- Add a warning if only one candidate is registered
+
+### Internal changes
+- Refactoring Linkable logic and organization
+- Move Pairwise namespace
+
+#### Engine
+- Fix a rare bug affecting the validity of results in some case of `Election->removeAllVotes()` used in conjunction with `Election->allowsVoteWeight` in a particular sequence. And prevent similar cases in the future. #153
+- Various optimizations & refactors
+
+#### Dev
+- Skip concerned tests if pdo_sqlite is not available.
+- Add CI tests without pdo_sqlite
+
+
 ## [v4.4.1] - 2023-06-16
 ### Changed
 - Fix #147. Command line crash when importing CondorcetElectionFormat file if PDO Sqlite is not available.
