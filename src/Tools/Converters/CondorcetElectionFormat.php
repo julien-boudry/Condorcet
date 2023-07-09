@@ -92,6 +92,9 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     protected \SplFileObject $file;
 
     #[PublicAPI]
+    public readonly array $parameters;
+
+    #[PublicAPI]
     public readonly array $candidates;
     #[PublicAPI]
     public readonly int $numberOfSeats;
@@ -183,11 +186,19 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
     protected function readParameters(): void
     {
+        $parameters = [];
+
         $this->file->rewind();
 
         while (!$this->file->eof()) {
             $line = $this->file->fgets();
             $matches = [];
+            $parameterMatch = [];
+
+            if (preg_match('/^#\/(?<parameter_name>.+):(?<parameter_value>.+)$/mi', $line, $parameterMatch)) {
+                $parameters[trim($parameterMatch['parameter_name'])] = trim($parameterMatch['parameter_value']);
+                // continue;
+            }
 
             if (!isset($this->candidates) && preg_match(self::CANDIDATES_PATTERN, $line, $matches)) {
                 $parse = $matches['candidates'];
@@ -210,6 +221,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 break;
             }
         }
+
+        $this->parameters = $parameters;
     }
 
     protected function parseCandidatesFromVotes(): void
