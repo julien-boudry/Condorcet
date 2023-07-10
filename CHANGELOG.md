@@ -26,7 +26,7 @@ A major release, including two new voting methods, additions to the internal API
 
 ### Changed
 
-### Public API
+#### Public API
 - Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
 
 #### Console
@@ -46,6 +46,7 @@ A major release, including two new voting methods, additions to the internal API
 #### Dev
 - Skip concerned tests if pdo_sqlite is not available.
 - Add CI tests without pdo_sqlite
+- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead.
 
 
 ## [v4.4.1] - 2023-06-16

@@ -7,7 +7,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 use CondorcetPHP\Condorcet\{Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\BackupStaticProperties;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetTest extends TestCase
@@ -42,7 +42,7 @@ class CondorcetTest extends TestCase
         self::assertSame(\CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class, Condorcet::getMethodClass('Schulze Winning'));
     }
 
-    #[RunInSeparateProcess]
+    #[BackupStaticProperties(true)]
     public function testAddMethod(): never
     {
         $this->expectException(AlgorithmException::class);

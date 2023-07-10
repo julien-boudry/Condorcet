@@ -13,14 +13,14 @@ $election = new Election;
 
 require_once 'vote_data'.\DIRECTORY_SEPARATOR.'ComplexeVoteConf.php';
 
-\define('TEST_NAME', 'Condorcet Global Example');
+const TEST_NAME_GE = 'Condorcet Global Example';
 
 // View :
 ?><!doctype html>
  <html>
  <head>
  	<meta charset="UTF-8">
- 	<title><?php echo TEST_NAME; ?></title>
+ 	<title><?php echo TEST_NAME_GE; ?></title>
 
  	<style>
 		.votant {
@@ -35,7 +35,7 @@ require_once 'vote_data'.\DIRECTORY_SEPARATOR.'ComplexeVoteConf.php';
 		<img src="../../condorcet-logo.png" alt="Condorcet Class" style="width:15%;">
 	</header>
 
-	<h1><?php echo TEST_NAME; ?></h1>
+	<h1><?php echo TEST_NAME_GE; ?></h1>
 
 	<em style="font-weight:bold;"><a href="https://github.com/julien-boudry/Condorcet" target="_blank">Condorcet Class</a> version : <?php echo Condorcet::getVersion(); ?></em><br>
 
