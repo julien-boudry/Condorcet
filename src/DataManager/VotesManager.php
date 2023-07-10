@@ -16,7 +16,7 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException};
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 
 class VotesManager extends ArrayManager
 {

@@ -9,13 +9,12 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tools\Converters;
+namespace CondorcetPHP\Condorcet\Tools\Converters\CEF;
 
 use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\{ConverterExport, ConverterImport};
-use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
@@ -76,17 +75,17 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         return ($file) ? null : $r;
     }
 
+    public static function boolParser(string $parse): bool
+    {
+        return match (mb_strtolower($parse)) {
+            'true' => true,
+            'false' => false,
+            default => true
+        };
+    }
+
 
     ////// # Reader Object //////
-
-    # Reader Object
-
-    // Const
-    protected const CANDIDATES_PATTERN  = '/^#\/Candidates:(?<candidates>.+)$/mi';
-    protected const SEATS_PATTERN       = '/^#\/Number of Seats: *(?<seats>[0-9]+) *$/mi';
-    protected const IMPLICIT_PATTERN    = '/^#\/Implicit Ranking: *(?<implicitRanking>(true|false)) *$/mi';
-    protected const WEIGHT_PATTERN      = '/^#\/Weight Allowed: *(?<weight>(true|false)) *$/mi';
-
 
     // Properties
     protected \SplFileObject $file;
@@ -131,6 +130,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         $this->file->setFlags(\SplFileObject::SKIP_EMPTY | \SplFileObject::DROP_NEW_LINE);
 
         $this->readParameters();
+        $this->interpretStandardParameters();
+
 
         // Parse candidate directly from votes
         if (empty($this->candidates)) {
@@ -197,32 +198,35 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
             if (preg_match('/^#\/(?<parameter_name>.+):(?<parameter_value>.+)$/mi', $line, $parameterMatch)) {
                 $parameters[trim($parameterMatch['parameter_name'])] = trim($parameterMatch['parameter_value']);
-                // continue;
+                continue;
             }
 
-            if (!isset($this->candidates) && preg_match(self::CANDIDATES_PATTERN, $line, $matches)) {
-                $parse = $matches['candidates'];
-                $parse = CondorcetUtil::prepareParse($parse, false);
-
-                foreach ($parse as &$oneCandidate) {
-                    $oneCandidate = new Candidate($oneCandidate);
-                }
-
-                $this->addCandidates($parse);
-            } elseif (!isset($this->numberOfSeats) && preg_match(self::SEATS_PATTERN, $line, $matches)) {
-                $this->numberOfSeats = (int) $matches['seats'];
-            } elseif (!isset($this->implicitRanking) && preg_match(self::IMPLICIT_PATTERN, $line, $matches)) {
-                $parse = mb_strtolower($matches['implicitRanking']);
-                $this->implicitRanking = $this->boolParser($parse);
-            } elseif (!isset($this->voteWeight) && preg_match(self::WEIGHT_PATTERN, $line, $matches)) {
-                $parse = mb_strtolower($matches['weight']);
-                $this->voteWeight = $this->boolParser($parse);
-            } elseif (!empty($line) && !str_starts_with($line, '#')) {
+            if (!empty($line) && !str_starts_with($line, '#')) {
                 break;
             }
         }
 
         $this->parameters = $parameters;
+    }
+
+    protected function interpretStandardParameters(): void
+    {
+        foreach ($this->parameters as $parameterName => $parameterValue) {
+            if ($parameter = StandardParameter::tryFrom(mb_strtolower($parameterName))) {
+
+                $parameterValue = $parameter->formatValue($parameterValue);
+
+                if (!isset($this->candidates) && $parameter === StandardParameter::CANDIDATES) {
+                    $this->addCandidates($parameterValue);
+                } elseif (!isset($this->numberOfSeats) && $parameter === StandardParameter::SEATS) {
+                    $this->numberOfSeats = $parameterValue;
+                } elseif (!isset($this->implicitRanking) && $parameter === StandardParameter::IMPLICIT) {
+                    $this->implicitRanking = $parameterValue;
+                } elseif (!isset($this->voteWeight) && $parameter === StandardParameter::WEIGHT) {
+                    $this->voteWeight = $parameterValue;
+                }
+            }
+        }
     }
 
     protected function parseCandidatesFromVotes(): void
@@ -265,12 +269,4 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         $this->addCandidates(array_keys($candidates));
     }
 
-    protected function boolParser(string $parse): bool
-    {
-        return match ($parse) {
-            'true' => true,
-            'false' => false,
-            default => true
-        };
-    }
 }

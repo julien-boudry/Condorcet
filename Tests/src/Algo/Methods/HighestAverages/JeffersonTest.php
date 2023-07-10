@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\HighestAverage;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
 class JeffersonTest extends TestCase

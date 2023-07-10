@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.5.0] - 2023-07-xx
+## [v4.5.0] - 2023-07-11
 ### Description
 A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its fair share of refinements and fixes in various areas, notably the Console.
 
@@ -15,6 +15,7 @@ A major release, including two new voting methods, additions to the internal API
 #### Public API
 - Results object new property `Result->pairwise` contain an immutable and explicit pairwise array, from the object creation.
 - `Election->countVotes()`, `Election->countValidVoteWithConstraints()`, `Election->countValidVoteWithConstraints` and `Election->sumValidVotesWeightWithConstraints` now optionally support votes filtering by tags.
+- New `CondorcetElectionFormat::parameters` property, an array containing raw and untouched parameters from input, including non-standard parameters.
 
 
 #### Internal Modules API
@@ -24,6 +25,10 @@ A major release, including two new voting methods, additions to the internal API
 - New API `Vote->getContextualRankingWithCandidatesKeys(Election $election)` to prevent code deduplication inside the votes method code.
 
 ### Changed
+
+### Public API
+- Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
+
 #### Console
 - Ignore duplicate candidates instead of an error at the end
 - Fix bug #147: crash on importing from ConforcetElectionFormat without pdo_sqlite extension.
