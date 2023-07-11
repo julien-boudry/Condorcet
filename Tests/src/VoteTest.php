@@ -428,11 +428,12 @@ class VoteTest extends TestCase
     {
         $vote = new Vote('A');
 
-        try{
+        try {
             $vote->addTags(
                 ['tag1 ', ' tag2', ' tag3 ', ' ']
             );
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],
@@ -451,11 +452,12 @@ class VoteTest extends TestCase
     {
         $vote = new Vote('A');
 
-        try{
+        try {
             $vote->addTags(
                 ' tag1,tag2 , tag3 ,'
             );
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],
@@ -474,11 +476,12 @@ class VoteTest extends TestCase
     {
         $vote = new Vote('A');
 
-        try{
+        try {
             $vote->addTags(
                 [null]
             );
-        } catch (Throwable $e) {}
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],

@@ -1916,8 +1916,8 @@ _Including above methods from public API_
 ```php
 * public const MAX_CANDIDATE_NAME_LENGTH: (integer)
 
-* protected static ?int $maxParseIteration
-* protected static ?int $maxVoteNumber
+* public static ?int $maxParseIteration
+* public static ?int $maxVoteNumber
 * protected static bool $checksumMode
 * protected CondorcetPHP\Condorcet\ElectionProcess\ElectionState $State
 * protected CondorcetPHP\Condorcet\Timer\Manager $timer
@@ -2331,6 +2331,20 @@ _Including above methods from public API_
 
 #### `CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoSeatsException.php#L14)
+
+```php
+* protected  $message
+* protected  $code
+* protected string $file
+* protected int $line
+* protected string $objectVersion
+
+* public __construct (string|int|null $message = null)  
+* public getObjectVersion (bool $major = false): string  
+```
+
+#### `CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ParseVotesMaxNumberReachedException.php#L14)
 
 ```php
 * protected  $message
