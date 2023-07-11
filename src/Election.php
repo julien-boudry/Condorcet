@@ -47,7 +47,10 @@ class Election
     #[PublicAPI]
     public const MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
+    #[PublicAPI]
     public static ?int $maxParseIteration = null;
+
+    #[PublicAPI]
     public static ?int $maxVoteNumber = null;
 
     protected static bool $checksumMode = false;

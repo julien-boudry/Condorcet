@@ -1,6 +1,6 @@
 ## public Election::isVoteWeightAllowed
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L277)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L280)
 
 ### Description    
 

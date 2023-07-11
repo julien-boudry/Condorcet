@@ -38,6 +38,9 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * `public const MAX_CANDIDATE_NAME_LENGTH: (integer)`  
 
+* `public static ?int $maxParseIteration`  
+* `public static ?int $maxVoteNumber`  
+
 * [public static Election::setMaxParseIteration (...)](/Docs/ApiReferences/Election%20Class/public%20static%20Election--setMaxParseIteration.md): `?int`  
 * [public static Election::setMaxVoteNumber (...)](/Docs/ApiReferences/Election%20Class/public%20static%20Election--setMaxVoteNumber.md): `?int`  
 * [public Election->__construct ()](/Docs/ApiReferences/Election%20Class/public%20Election--__construct.md)  
