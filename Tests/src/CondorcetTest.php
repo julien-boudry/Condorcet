@@ -45,9 +45,6 @@ class CondorcetTest extends TestCase
     #[BackupStaticProperties(true)]
     public function testAddMethod(): never
     {
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
-
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
@@ -57,7 +54,10 @@ class CondorcetTest extends TestCase
         // Try to add existing alias
         $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
 
-        self::assertFalse(Condorcet::addMethod($algoClassPath));
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
+
+        Condorcet::addMethod($algoClassPath);
     }
 
     public function testAddUnvalidMethod(): never

@@ -8,8 +8,9 @@ use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
-use PHPUnit\Framework\Attributes\{BackupStaticProperties, DataProvider};
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class ElectionTest extends TestCase
 {
@@ -43,8 +44,8 @@ class ElectionTest extends TestCase
 
     protected function tearDown(): void
     {
-        Election::setMaxParseIteration(null);
-        Election::setMaxVoteNumber(null);
+        Election::setMaxParseIteration((new ReflectionClass(Election::class))->getProperty('maxParseIteration')->getDefaultValue());
+        Election::setMaxVoteNumber((new ReflectionClass(Election::class))->getProperty('maxVoteNumber')->getDefaultValue());
     }
 
     public function testRemoveAllVotes(): void
@@ -146,7 +147,6 @@ class ElectionTest extends TestCase
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }
 
-    #[BackupStaticProperties(true)]
     public function testMaxParseIteration1(): never
     {
         self::assertSame(42, Election::setMaxParseIteration(42));
@@ -165,7 +165,6 @@ class ElectionTest extends TestCase
         $this->election1->parseVotes('candidate1>candidate2 * 43');
     }
 
-    #[BackupStaticProperties(true)]
     public function testMaxParseIteration2(): never
     {
         self::assertSame(42, Election::setMaxParseIteration(42));
@@ -178,7 +177,6 @@ class ElectionTest extends TestCase
         '));
     }
 
-    #[BackupStaticProperties(true)]
     public function testMaxParseIteration3(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);
@@ -199,7 +197,6 @@ class ElectionTest extends TestCase
         $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
 
-    #[BackupStaticProperties(true)]
     public function testMaxVoteNumber(): never
     {
         $this->expectException(VoteMaxNumberReachedException::class);

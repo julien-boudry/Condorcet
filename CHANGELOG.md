@@ -30,6 +30,7 @@ A major release, including two new voting methods, additions to the internal API
 - Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
 - Fix a bug with about MaxParseIteration that triggered the exception 1 vote in advance.
 - Create new dedicated `ParseVotesMaxNumberReachedException` for max parsing fail.
+- `Election::maxParseIteration` and `Election::setMaxVoteNumber` are now public properties and they can be accessed or modified directly. Corresponding setter and getter methods still exists but may be deprecated with v5.0.
 
 #### Console
 - Ignore duplicate candidates instead of an error at the end
@@ -48,7 +49,8 @@ A major release, including two new voting methods, additions to the internal API
 #### Dev
 - Skip concerned tests if pdo_sqlite is not available.
 - Add CI tests without pdo_sqlite
-- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead.
+- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead or refactor to don't use any of them if possible.
+- Compatibility with PestPHP
 
 
 ## [v4.4.1] - 2023-06-16

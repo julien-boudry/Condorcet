@@ -45,7 +45,7 @@ Condorcet::addMethod(Algo\Methods\HighestAverages\Jefferson::class);
 Condorcet::addMethod(Algo\Methods\HighestAverages\SainteLague::class);
 
 // Set the default Condorcet Class algorithm
-Condorcet::setDefaultMethod('Schulze');
+Condorcet::setDefaultMethod(Algo\Methods\Schulze\SchulzeWinning::class);
 
 abstract class Condorcet
 {
