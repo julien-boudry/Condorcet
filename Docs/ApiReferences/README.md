@@ -204,19 +204,6 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * [public static Tools\Converters\CivsFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CivsFormat%20Class/public%20static%20Tools_Converters_CivsFormat--createFromElection.md): `string|true`  
 
-### CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat Class  
-
-* `readonly public array $candidates`  
-* `readonly public int $numberOfSeats`  
-* `readonly public bool $implicitRanking`  
-* `readonly public bool $voteWeight`  
-* `readonly public bool $CandidatesParsedFromVotes`  
-* `readonly public int $invalidBlocksCount`  
-
-* [public static Tools\Converters\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CondorcetElectionFormat--createFromElection.md): `?string`  
-* [public Tools\Converters\CondorcetElectionFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--__construct.md)  
-* [public Tools\Converters\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_CondorcetElectionFormat%20Class/public%20Tools_Converters_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
-
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
 * `readonly public array $candidates`  
@@ -232,6 +219,20 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * [public Tools\Converters\DebianFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+
+### CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat Class  
+
+* `readonly public array $parameters`  
+* `readonly public array $candidates`  
+* `readonly public int $numberOfSeats`  
+* `readonly public bool $implicitRanking`  
+* `readonly public bool $voteWeight`  
+* `readonly public bool $CandidatesParsedFromVotes`  
+* `readonly public int $invalidBlocksCount`  
+
+* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
+* [public Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
+* [public Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer Class  
 
@@ -1351,23 +1352,6 @@ _Including above methods from public API_
 * public static getPossibleCountOfCombinations (int $count, int $length): int  
 ```
 
-#### `CondorcetPHP\Condorcet\Algo\Tools\PairwiseDeductedApprovals implements Countable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/PairwiseDeductedApprovals.php#L22)
-
-```php
-* protected array $combinationsScore
-* readonly public int $subsetSize
-* protected WeakReference $selfElection
-
-* protected static getCombinationsScoreKey (array $oneCombination): string  
-* protected static voteHasCandidates (array $voteCandidatesKey, array $combination): bool  
-* public __construct (int $subsetSize, CondorcetPHP\Condorcet\Election $election)  
-* public count (): int  
-* public getElection (): CondorcetPHP\Condorcet\Election  
-* public setElection (CondorcetPHP\Condorcet\Election $election): void  
-* public sumWeightIfVotesIncludeCandidates (array $candidatesKeys): int  
-```
-
 #### `Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats `  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/PairwiseStats.php#L19)
 
@@ -1418,6 +1402,23 @@ _Including above methods from public API_
 
 ```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList): CondorcetPHP\Condorcet\Vote  
+```
+
+#### `CondorcetPHP\Condorcet\Algo\Tools\VotesDeductedApprovals implements Countable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VotesDeductedApprovals.php#L22)
+
+```php
+* protected array $combinationsScore
+* readonly public int $subsetSize
+* protected WeakReference $selfElection
+
+* protected static getCombinationsScoreKey (array $oneCombination): string  
+* protected static voteHasCandidates (array $voteCandidatesKey, array $combination): bool  
+* public __construct (int $subsetSize, CondorcetPHP\Condorcet\Election $election)  
+* public count (): int  
+* public getElection (): CondorcetPHP\Condorcet\Election  
+* public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* public sumWeightIfVotesIncludeCandidates (array $candidatesKeys): int  
 ```
 
 #### `CondorcetPHP\Condorcet\Candidate implements Stringable`  
@@ -1476,7 +1477,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Console\Commands\ConvertCommand extends Symfony\Component\Console\Command\Command `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L31)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L32)
 
 ```php
 * public const SUCCESS: (integer)
@@ -1533,7 +1534,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L41)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L42)
 
 ```php
 * public const SUCCESS: (integer)
@@ -2384,6 +2385,20 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 ```
 
+#### `CondorcetPHP\Condorcet\Throwable\TagsFilterException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TagsFilterException.php#L14)
+
+```php
+* protected  $message
+* protected  $code
+* protected string $file
+* protected int $line
+* protected string $objectVersion
+
+* public __construct (string|int|null $message = null)  
+* public getObjectVersion (bool $major = false): string  
+```
+
 #### `CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TimerException.php#L14)
 
@@ -2535,24 +2550,14 @@ _Including above methods from public API_
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): static  
 ```
 
-#### `CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L18)
-
-```php
-* public static createFromElection (CondorcetPHP\Condorcet\Election $election, ?SplFileObject $file = null): string|true  
-```
-
-#### `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L20)
+#### `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L19)
 
 ```php
 * public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
-* protected const CANDIDATES_PATTERN: (string)
-* protected const SEATS_PATTERN: (string)
-* protected const IMPLICIT_PATTERN: (string)
-* protected const WEIGHT_PATTERN: (string)
 
 * protected SplFileObject $file
+* readonly public array $parameters
 * readonly public array $candidates
 * readonly public int $numberOfSeats
 * readonly public bool $implicitRanking
@@ -2560,13 +2565,36 @@ _Including above methods from public API_
 * readonly public bool $CandidatesParsedFromVotes
 * readonly public int $invalidBlocksCount
 
+* public static boolParser (string $parse): bool  
 * public static createFromElection (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
 * public __construct (SplFileInfo|string $input)  
 * public setDataToAnElection (CondorcetPHP\Condorcet\Election $election = new CondorcetPHP\Condorcet\Election, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * protected addCandidates (array $candidates): void  
-* protected boolParser (string $parse): bool  
+* protected interpretStandardParameters (): void  
 * protected parseCandidatesFromVotes (): void  
 * protected readParameters (): void  
+```
+
+#### `CondorcetPHP\Condorcet\Tools\Converters\CEF\StandardParameter implements UnitEnum, BackedEnum`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/StandardParameter.php#L17)
+
+```php
+* `case StandardParameter::CANDIDATES`  
+* `case StandardParameter::SEATS`  
+* `case StandardParameter::IMPLICIT`  
+* `case StandardParameter::WEIGHT`  
+
+* readonly public string $name
+* readonly public string $value
+
+* public formatValue (string $parameterValue): mixed  
+```
+
+#### `CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L18)
+
+```php
+* public static createFromElection (CondorcetPHP\Condorcet\Election $election, ?SplFileObject $file = null): string|true  
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  

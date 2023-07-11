@@ -1,11 +1,11 @@
-## public static Tools\Converters\CondorcetElectionFormat::createFromElection
+## public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CondorcetElectionFormat.php#L29)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L28)
 
 ### Description    
 
 ```php
-public static Tools\Converters\CondorcetElectionFormat::createFromElection ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeNumberOfSeats = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
+public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeNumberOfSeats = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
