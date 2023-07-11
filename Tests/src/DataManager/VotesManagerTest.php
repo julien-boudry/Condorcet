@@ -25,15 +25,15 @@ class VotesManagerTest extends TestCase
 
     public function testOffsetSet(): never
     {
-        $this->expectException(VoteException::class);
-        $this->expectExceptionMessage('This vote is already linked to the election');
-
         $vote = new Vote([]);
 
         // add valid vote
         $this->votes_manager[] = $vote;
         self::assertSame($vote, $this->votes_manager->getVotesList()[0]);
         self::assertSame($this->election, $vote->getLinks()[0]);
+
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage('This vote is already linked to the election');
 
         // add invalid vote
         $this->votes_manager[] = $vote;

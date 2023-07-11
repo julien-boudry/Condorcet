@@ -84,14 +84,15 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate1(): never
     {
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
-
         $election1 = new Election;
 
         $candidate = new Candidate('Schizophrenic');
 
         $election1->addCandidate($candidate);
+
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
+
         $election1->addCandidate($candidate);
     }
 
@@ -107,12 +108,13 @@ class CandidateTest extends TestCase
 
     public function testAddSameCandidate3(): never
     {
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: candidate1');
-
         $election1 = new Election;
 
         $election1->addCandidate('candidate1');
+
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage('This candidate already exists: candidate1');
+
         $election1->parseCandidates('candidate2;candidate1');
     }
 
@@ -132,9 +134,6 @@ class CandidateTest extends TestCase
 
     public function testSameCandidateToMultipleElection(): void
     {
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
-
         $election1 = new Election;
         $election2 = new Election;
         $election3 = new Election;
@@ -160,6 +159,10 @@ class CandidateTest extends TestCase
         self::assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
 
         $election2->addCandidate('Debussy');
+
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
+
         $this->candidate1->setName('Debussy');
     }
 
@@ -172,5 +175,7 @@ class CandidateTest extends TestCase
         $cloneCandidate = clone $this->candidate1;
 
         self::assertsame(0, $cloneCandidate->countLinks());
+
+        self::assertSame(1, $election->countCandidates());
     }
 }

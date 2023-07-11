@@ -24,9 +24,6 @@ class ConstraintTest extends TestCase
 
     public function testAddConstraintAndClear(): never
     {
-        $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
-
         $class = NoTie::class;
 
         self::assertTrue($this->election->addConstraint($class));
@@ -38,6 +35,9 @@ class ConstraintTest extends TestCase
         self::assertsame([], $this->election->getConstraints());
 
         self::assertTrue($this->election->addConstraint($class));
+
+        $this->expectException(VoteConstraintException::class);
+        $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
 
         $this->election->addConstraint($class);
     }

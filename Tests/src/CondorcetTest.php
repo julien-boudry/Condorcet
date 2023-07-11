@@ -62,17 +62,12 @@ class CondorcetTest extends TestCase
 
     public function testAddUnvalidMethod(): never
     {
+        $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
+
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
 
-        $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
-
-        self::assertFalse(Condorcet::addMethod($algoClassPath));
-
-        self::assertSame(
-            CondorcetTest_UnvalidAlgorithmName::class,
-            Condorcet::getMethodClass('FirstMethodName')
-        );
+        Condorcet::addMethod($algoClassPath);
     }
 
     public function testUnvalidDefaultMethod(): void

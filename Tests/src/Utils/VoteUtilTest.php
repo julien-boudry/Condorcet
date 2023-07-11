@@ -43,6 +43,7 @@ class VoteUtilTest extends TestCase
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, array given');
+
         VoteUtil::tagsConvert(['not', 'a', 'string:', []]);
     }
 
@@ -50,6 +51,7 @@ class VoteUtilTest extends TestCase
     {
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
+
         VoteUtil::tagsConvert('an , empty, tag , , in, the, middle');
     }
 

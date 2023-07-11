@@ -275,22 +275,18 @@ class CPO_StvTest extends TestCase
 
     public function testLimit1(): void
     {
-        $this->expectException(MethodLimitReachedException::class);
-        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
-
-
         $this->election->setNumberOfSeats(10);
         $this->election->parseCandidates('1;2;3;4;5;6;7;8;9;10;11;12;13;14;15');
         $this->election->addVote('1>2');
+
+        $this->expectException(MethodLimitReachedException::class);
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
 
         $this->election->getResult('CPO STV');
     }
 
     public function testCPO40Candidates(): void
     {
-        $this->expectException(MethodLimitReachedException::class);
-        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
-
         $this->election->setImplicitRanking(false);
         $this->election->setNumberOfSeats((int) (40 / 3));
 
@@ -304,6 +300,9 @@ class CPO_StvTest extends TestCase
         for ($i = 0; $i < 100; $i++) {
             $this->election->addVote($randomizer->getNewVote());
         }
+
+        $this->expectException(MethodLimitReachedException::class);
+        $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
 
         $this->election->getResult('CPO STV')->getResultAsString();
     }

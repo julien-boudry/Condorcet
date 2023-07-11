@@ -142,9 +142,6 @@ class CondorcetBasicTest extends TestCase
 
     public function testNoResultObject(): never
     {
-        $this->expectException(AlgorithmWithoutRankingFeatureException::class);
-        $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): ".CondorcetBasic::METHOD_NAME[0]);
-
         $this->election->addCandidate('A');
         $this->election->addCandidate('B');
         $this->election->addCandidate('C');
@@ -155,6 +152,9 @@ class CondorcetBasicTest extends TestCase
             B > C > L
             A > C > L
         ');
+
+        $this->expectException(AlgorithmWithoutRankingFeatureException::class);
+        $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): ".CondorcetBasic::METHOD_NAME[0]);
 
         $this->election->getResult(CondorcetBasic::class);
     }
