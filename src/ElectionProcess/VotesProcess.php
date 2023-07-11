@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Vote;
-use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
+use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, ParseVotesMaxNumberReachedException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\{VotesManager, VotesManagerEvent};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
@@ -499,8 +499,8 @@ trait VotesProcess
             throw new VoteMaxNumberReachedException(self::$maxParseIteration);
         }
 
-        if (self::$maxParseIteration !== null && $adding_predicted_count >= self::$maxParseIteration) {
-            throw new VoteMaxNumberReachedException(self::$maxParseIteration);
+        if (self::$maxParseIteration !== null && $adding_predicted_count > self::$maxParseIteration) {
+            throw new ParseVotesMaxNumberReachedException(self::$maxParseIteration);
         }
 
         $newVote = new Vote(ranking: $vote, tags: $tags, electionContext: $this);

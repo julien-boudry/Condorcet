@@ -28,6 +28,8 @@ A major release, including two new voting methods, additions to the internal API
 
 #### Public API
 - Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
+- Fix a bug with about MaxParseIteration that triggered the exception 1 vote in advance.
+- Create new dedicated `ParseVotesMaxNumberReachedException` for max parsing fail.
 
 #### Console
 - Ignore duplicate candidates instead of an error at the end

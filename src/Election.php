@@ -62,8 +62,7 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
         ?int $maxParseIterations
     ): ?int {
-        self::$maxParseIteration = $maxParseIterations;
-        return self::$maxParseIteration;
+        return self::$maxParseIteration = $maxParseIterations;
     }
 
     // Change max vote number
@@ -75,8 +74,7 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
         ?int $maxVotesNumber
     ): ?int {
-        self::$maxVoteNumber = $maxVotesNumber;
-        return self::$maxVoteNumber;
+        return self::$maxVoteNumber = $maxVotesNumber;
     }
 
     // Mechanics

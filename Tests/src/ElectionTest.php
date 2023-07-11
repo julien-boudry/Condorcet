@@ -6,7 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use PHPUnit\Framework\Attributes\{BackupStaticProperties, DataProvider};
 use PHPUnit\Framework\TestCase;
@@ -39,6 +39,12 @@ class ElectionTest extends TestCase
         $this->election1->addVote($this->vote4 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]));
 
         $this->election2 = new Election;
+    }
+
+    protected function tearDown(): void
+    {
+        Election::setMaxParseIteration(null);
+        Election::setMaxVoteNumber(null);
     }
 
     public function testRemoveAllVotes(): void
@@ -143,9 +149,6 @@ class ElectionTest extends TestCase
     #[BackupStaticProperties(true)]
     public function testMaxParseIteration1(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
-
         self::assertSame(42, Election::setMaxParseIteration(42));
 
         self::assertSame(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
@@ -158,17 +161,16 @@ class ElectionTest extends TestCase
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
+        $this->expectException(ParseVotesMaxNumberReachedException::class);
         $this->election1->parseVotes('candidate1>candidate2 * 43');
     }
 
     #[BackupStaticProperties(true)]
     public function testMaxParseIteration2(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
-
         self::assertSame(42, Election::setMaxParseIteration(42));
 
+        $this->expectException(ParseVotesMaxNumberReachedException::class);
         self::assertSame(42, $this->election1->parseVotes('
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
