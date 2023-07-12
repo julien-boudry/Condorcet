@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Utils;
 
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Utils\VoteEntryParser;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

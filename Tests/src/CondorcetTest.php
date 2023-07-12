@@ -7,7 +7,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 use CondorcetPHP\Condorcet\{Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\BackupStaticProperties;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetTest extends TestCase
@@ -42,12 +42,9 @@ class CondorcetTest extends TestCase
         self::assertSame(\CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class, Condorcet::getMethodClass('Schulze Winning'));
     }
 
-    #[RunInSeparateProcess]
+    #[BackupStaticProperties(true)]
     public function testAddMethod(): never
     {
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
-
         $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
         self::assertTrue(Condorcet::addMethod($algoClassPath));
@@ -57,22 +54,20 @@ class CondorcetTest extends TestCase
         // Try to add existing alias
         $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
 
-        self::assertFalse(Condorcet::addMethod($algoClassPath));
+        $this->expectException(AlgorithmException::class);
+        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
+
+        Condorcet::addMethod($algoClassPath);
     }
 
     public function testAddUnvalidMethod(): never
     {
+        $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
+
         $this->expectException(AlgorithmException::class);
         $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
 
-        $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
-
-        self::assertFalse(Condorcet::addMethod($algoClassPath));
-
-        self::assertSame(
-            CondorcetTest_UnvalidAlgorithmName::class,
-            Condorcet::getMethodClass('FirstMethodName')
-        );
+        Condorcet::addMethod($algoClassPath);
     }
 
     public function testUnvalidDefaultMethod(): void

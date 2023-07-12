@@ -1,6 +1,6 @@
 ## public static Condorcet::isAuthMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L152)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L154)
 
 ### Description    
 

@@ -4,72 +4,60 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Examples;
 
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use CondorcetPHP\Condorcet\Condorcet;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionProperty;
 
 class ExamplesTest extends TestCase
-{
-    #[RunInSeparateProcess]
+{            
+    protected static string $condorcetDefaultMethod;
+
+    public static function setUpBeforeClass(): void
+    {
+        self::$condorcetDefaultMethod = Condorcet::getDefaultMethod();
+    }
+    
+    protected function tearDown(): void
+    {        
+        Condorcet::$UseTimer = (new ReflectionClass(Condorcet::class))->getProperty('UseTimer')->getDefaultValue();
+        Condorcet::setDefaultMethod(self::$condorcetDefaultMethod);
+    }
+    
+    
     public function testOverviewExample(): void
     {
-        $r = true;
-
         try {
             include __DIR__.'/../../Examples/1. Overview.php';
         } catch (\Exception $e) {
-            $r = false;
             throw $e;
         }
 
-        self::assertTrue($r);
+        self::assertTrue(true);
     }
 
-    #[RunInSeparateProcess]
     public function testAdvancedObjectManagementExample(): void
     {
-        $r = true;
-
         try {
             include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
         } catch (\Exception $e) {
             throw $e;
-            $r = false;
         }
 
-        self::assertTrue($r);
+        self::assertTrue(true);
     }
 
-    #[RunInSeparateProcess]
     public function testGlobalHtmlExample(): void
     {
-        $r = true;
+        $this->expectOutputRegex('/\<\/html\>/');
 
-        try {
-            ob_start();
-            include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
-            ob_end_clean();
-        } catch (\Exception $e) {
-            throw $e;
-            $r = false;
-        }
-
-        self::assertTrue($r);
+        include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
     }
 
-    #[RunInSeparateProcess]
     public function testRankingManipulationHtmlExample(): void
     {
-        $r = true;
+        $this->expectOutputRegex('/\<\/html\>/');
 
-        try {
-            ob_start();
-            include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
-            ob_end_clean();
-        } catch (\Exception $e) {
-            $r = false;
-            throw $e;
-        }
-
-        self::assertTrue($r);
+        include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
     }
 }

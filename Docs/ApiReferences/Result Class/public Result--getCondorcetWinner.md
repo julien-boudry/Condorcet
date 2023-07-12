@@ -1,6 +1,6 @@
 ## public Result::getCondorcetWinner
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L225)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L235)
 
 ### Description    
 

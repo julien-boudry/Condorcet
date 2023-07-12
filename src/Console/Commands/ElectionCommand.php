@@ -23,7 +23,8 @@ use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, VoteConstraintE
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Timer\{Chrono, Manager};
 use Symfony\Component\Console\Helper\{Table, TableSeparator, TableStyle};
-use CondorcetPHP\Condorcet\Tools\Converters\{CondorcetElectionFormat, DavidHillFormat, DebianFormat};
+use CondorcetPHP\Condorcet\Tools\Converters\{DavidHillFormat, DebianFormat};
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use Random\Randomizer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

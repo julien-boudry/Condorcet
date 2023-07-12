@@ -1,6 +1,6 @@
 ## public Election::getTimerManager
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L202)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L204)
 
 ### Description    
 

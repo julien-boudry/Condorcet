@@ -15,8 +15,8 @@ use CondorcetPHP\Condorcet\{Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
-use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException};
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException};
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 
 class VotesManager extends ArrayManager
 {
@@ -118,29 +118,33 @@ class VotesManager extends ArrayManager
         }
     }
 
-    protected function getPartialVotesListGenerator(array $tags, bool $with): \Generator
+    protected function getPartialVotesListGenerator(array $tags, bool|int $with): \Generator
     {
+        if (\is_bool($with)) {
+            $with = ($with) ? 1 : 0;
+        } elseif ($with < 0) {
+            throw new TagsFilterException('Value of $with cannot be less than 0. Actual value is '.$with);
+        }
+
         foreach ($this as $voteKey => $vote) {
-            $noOne = true;
+            $tagsfound = 0;
             foreach ($tags as $oneTag) {
-                if (($oneTag === $voteKey) || \in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
-                    if ($with) {
+                if (\in_array(needle: $oneTag, haystack: $vote->getTags(), strict: true)) {
+                    if (++$tagsfound === $with) {
                         yield $voteKey => $vote;
                         break;
-                    } else {
-                        $noOne = false;
                     }
                 }
             }
 
-            if (!$with && $noOne) {
+            if ($with === 0 && $tagsfound === 0) {
                 yield $voteKey => $vote;
             }
         }
     }
 
     // Get the votes list
-    public function getVotesList(?array $tags = null, bool $with = true): array
+    public function getVotesList(?array $tags = null, bool|int $with = true): array
     {
         if ($tags === null) {
             return $this->getFullDataSet();
@@ -156,21 +160,16 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list as a generator object
-    public function getVotesListGenerator(?array $tags = null, bool $with = true): \Generator
+    public function getVotesListGenerator(?array $tags = null, bool|int $with = true): \Generator
     {
-        if ($tags === null) {
-            return $this->getFullVotesListGenerator();
-        } else {
-            return $this->getPartialVotesListGenerator($tags, $with);
-        }
+        return ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags, $with);
     }
 
-    public function getVotesValidUnderConstraintGenerator(?array $tags = null, bool $with = true): \Generator
+    public function getVotesValidUnderConstraintGenerator(?array $tags = null, bool|int $with = true): \Generator
     {
         $election = $this->getElection();
-        $generator = ($tags === null) ? $this->getFullVotesListGenerator() : $this->getPartialVotesListGenerator($tags, $with);
 
-        foreach ($generator as $voteKey => $oneVote) {
+        foreach ($this->getVotesListGenerator($tags, $with) as $voteKey => $oneVote) {
             if (!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
                 continue;
             }
@@ -223,33 +222,33 @@ class VotesManager extends ArrayManager
         return $simpleList;
     }
 
-    public function countVotes(?array $tag, bool $with): int
+    public function countVotes(?array $tags, bool|int $with): int
     {
-        if ($tag === null) {
+        if ($tags === null) {
             return \count($this);
         } else {
             $count = 0;
 
-            foreach ($this as $key => $value) {
-                $noOne = true;
-                foreach ($tag as $oneTag) {
-                    if (($oneTag === $key) || \in_array(needle: $oneTag, haystack: $value->getTags(), strict: true)) {
-                        if ($with) {
-                            $count++;
-                            break;
-                        } else {
-                            $noOne = false;
-                        }
-                    }
-                }
-
-                if (!$with && $noOne) {
-                    $count++;
-                }
+            foreach ($this->getPartialVotesListGenerator($tags, $with) as $vote) {
+                $count++;
             }
 
             return $count;
         }
+    }
+
+    public function countValidVotesWithConstraints(?array $tags, bool|int $with): int
+    {
+        $election = $this->getElection();
+        $count = 0;
+
+        foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
+            if ($election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     public function countInvalidVoteWithConstraints(): int
@@ -266,13 +265,23 @@ class VotesManager extends ArrayManager
         return $count;
     }
 
-    public function sumVotesWeight(bool $constraint = false): int
+    public function sumVotesWeight(?array $tags, bool|int $with): int
+    {
+        return $this->processSumVotesWeight(tags: $tags, with: $with, constraints: false);
+    }
+
+    public function sumVotesWeightWithConstraints(?array $tags, bool|int $with): int
+    {
+        return $this->processSumVotesWeight(tags: $tags, with: $with, constraints: true);
+    }
+
+    protected function processSumVotesWeight(?array $tags, bool|int $with, bool $constraints)
     {
         $election = $this->getElection();
         $sum = 0;
 
-        foreach ($this as $oneVote) {
-            if (!$constraint || $election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+        foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
+            if (!$constraints || $election->testIfVoteIsValidUnderElectionConstraints($oneVote)) { # They are no constraints check OR the vote is valid.
                 $sum += $election->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
             }
         }

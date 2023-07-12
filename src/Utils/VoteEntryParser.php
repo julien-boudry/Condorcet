@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Utils;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Throws;
 use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 
 // Base Condorcet class
 class VoteEntryParser

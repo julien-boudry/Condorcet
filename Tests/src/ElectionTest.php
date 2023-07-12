@@ -6,10 +6,11 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
-use PHPUnit\Framework\Attributes\{BackupStaticProperties, DataProvider, PreserveGlobalState, RunInSeparateProcess};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class ElectionTest extends TestCase
 {
@@ -41,6 +42,12 @@ class ElectionTest extends TestCase
         $this->election2 = new Election;
     }
 
+    protected function tearDown(): void
+    {
+        Election::setMaxParseIteration((new ReflectionClass(Election::class))->getProperty('maxParseIteration')->getDefaultValue());
+        Election::setMaxVoteNumber((new ReflectionClass(Election::class))->getProperty('maxVoteNumber')->getDefaultValue());
+    }
+
     public function testRemoveAllVotes(): void
     {
         self::assertTrue($this->election1->removeAllVotes());
@@ -50,13 +57,13 @@ class ElectionTest extends TestCase
 
     public function testRemoveVotes(): never
     {
-        $this->expectException(VoteException::class);
-        $this->expectExceptionMessage('Problem handling vote: Cannot remove vote not registered in this election');
-
         self::assertTrue($this->election1->removeVote($this->vote2));
         self::assertCount(3, $this->election1->getVotesList());
 
         $badRemoveVote = new Vote('A');
+
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage('Problem handling vote: Cannot remove vote not registered in this election');
 
         $this->election1->removeVote($badRemoveVote);
     }
@@ -140,14 +147,8 @@ class ElectionTest extends TestCase
         $this->election1->parseVotes('candidate1>candidate2 * text');
     }
 
-    #[PreserveGlobalState(false)]
-    #[BackupStaticProperties(false)]
-    #[RunInSeparateProcess]
     public function testMaxParseIteration1(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
-
         self::assertSame(42, Election::setMaxParseIteration(42));
 
         self::assertSame(42, $this->election1->parseVotes('candidate1>candidate2 * 42'));
@@ -160,19 +161,15 @@ class ElectionTest extends TestCase
 
         self::assertSame(42, Election::setMaxParseIteration(42));
 
+        $this->expectException(ParseVotesMaxNumberReachedException::class);
         $this->election1->parseVotes('candidate1>candidate2 * 43');
     }
 
-    #[PreserveGlobalState(false)]
-    #[BackupStaticProperties(false)]
-    #[RunInSeparateProcess]
     public function testMaxParseIteration2(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 42');
-
         self::assertSame(42, Election::setMaxParseIteration(42));
 
+        $this->expectException(ParseVotesMaxNumberReachedException::class);
         self::assertSame(42, $this->election1->parseVotes('
             candidate1>candidate2 * 21
             candidate1>candidate2 * 21
@@ -180,14 +177,8 @@ class ElectionTest extends TestCase
         '));
     }
 
-    #[PreserveGlobalState(false)]
-    #[BackupStaticProperties(false)]
-    #[RunInSeparateProcess]
     public function testMaxParseIteration3(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 2');
-
         self::assertSame(2, Election::setMaxParseIteration(2));
 
         self::assertSame([0=>'candidate1', 1=>'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
@@ -200,17 +191,14 @@ class ElectionTest extends TestCase
 
         self::assertSame(2, Election::setMaxParseIteration(2));
 
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached: 2');
+
         $this->election2->parseCandidates('candidate8;candidate9;candidate10');
     }
 
-    #[PreserveGlobalState(false)]
-    #[BackupStaticProperties(false)]
-    #[RunInSeparateProcess]
     public function testMaxVoteNumber(): never
     {
-        $this->expectException(VoteMaxNumberReachedException::class);
-        $this->expectExceptionMessage('The maximal number of votes for the method is reached');
-
         $election = new Election;
         self::assertCount(3, $election->parseCandidates('candidate1;candidate2;candidate3'));
 
@@ -244,6 +232,9 @@ class ElectionTest extends TestCase
         }
 
         self::assertNull(Election::setMaxVoteNumber(null));
+
+        $this->expectException(VoteMaxNumberReachedException::class);
+        $this->expectExceptionMessage('The maximal number of votes for the method is reached');
 
         throw $reserveException;
     }
@@ -435,13 +426,13 @@ class ElectionTest extends TestCase
 
     public function testParseVotesInvalidPath(): void
     {
-        $this->expectException(FileDoesNotExistException::class);
-        $this->expectExceptionMessageMatches('/bad_file.txt$/');
-
         $this->election1 = new Election;
 
         $this->election1->addCandidate('A');
         $this->election1->addCandidate('B');
+
+        $this->expectException(FileDoesNotExistException::class);
+        $this->expectExceptionMessageMatches('/bad_file.txt$/');
 
         $this->election1->parseVotes('bad_file.txt', true);
     }
@@ -479,13 +470,13 @@ class ElectionTest extends TestCase
 
     public function testParseVotesWithoutFailInvalidPath(): void
     {
-        $this->expectException(FileDoesNotExistException::class);
-        $this->expectExceptionMessageMatches('/bad_file.txt$/');
-
         $this->election1 = new Election;
 
         $this->election1->addCandidate('A');
         $this->election1->addCandidate('B');
+
+        $this->expectException(FileDoesNotExistException::class);
+        $this->expectExceptionMessageMatches('/bad_file.txt$/');
 
         $this->election1->parseVotesWithoutFail('bad_file.txt', true);
     }
@@ -500,8 +491,8 @@ class ElectionTest extends TestCase
         $election->addCandidate('D');
 
         $election->parseVotes('
-            A > C > D * 6
-            B > A > D * 1
+            tag1 || A > C > D * 6
+            tag2 || B > A > D * 1
             C > B > D * 3
             D > B > A * 3
         ');
@@ -514,6 +505,28 @@ class ElectionTest extends TestCase
             $election->sumVotesWeight()
         );
 
+        self::assertSame(
+            $election->sumVotesWeight(),
+            $election->sumValidVotesWeightWithConstraints()
+        );
+
+        // Some test about votes weight tags filters
+        self::assertSame(
+            7,
+            $election->sumVotesWeight('tag1,tag2')
+        );
+
+        self::assertSame(
+            13,
+            $election->sumVotesWeight('tag2', false)
+        );
+
+        self::assertSame(
+            0,
+            $election->sumVotesWeight('tag1,tag2', 2)
+        );
+
+        // Continue
         self::assertSame(
             'D > C > B ^2',
             (string) $voteWithWeight
@@ -598,8 +611,6 @@ class ElectionTest extends TestCase
 
     public function testaddVotesFromJson(): never
     {
-        $this->expectException(\JsonException::class);
-
         $election = new Election;
 
         $election->addCandidate('A');
@@ -643,14 +654,13 @@ class ElectionTest extends TestCase
         );
         self::assertSame(5, $election->countVotes('tag1'));
 
+        $this->expectException(\JsonException::class);
+
         $election->addVotesFromJson(json_encode($votes).'{42');
     }
 
     public function testaddCandidatesFromJson(): never
     {
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: candidate2');
-
         $election = new Election;
 
         $candidates = ['candidate1 ', 'candidate2'];
@@ -661,15 +671,17 @@ class ElectionTest extends TestCase
 
         self::assertEquals(['candidate1', 'candidate2'], $election->getCandidatesListAsString());
 
+        $this->expectException(CandidateExistsException::class);
+        $this->expectExceptionMessage('This candidate already exists: candidate2');
+
         $election->addCandidatesFromJson(json_encode(['candidate2']));
     }
 
     public function testaddCandidatesFromInvalidJson(): never
     {
-        $this->expectException(\JsonException::class);
-
         $election = new Election;
 
+        $this->expectException(\JsonException::class);
         $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
     }
 

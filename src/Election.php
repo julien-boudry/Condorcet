@@ -47,8 +47,12 @@ class Election
     #[PublicAPI]
     public const MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
-    protected static ?int $maxParseIteration = null;
-    protected static ?int $maxVoteNumber = null;
+    #[PublicAPI]
+    public static ?int $maxParseIteration = null;
+
+    #[PublicAPI]
+    public static ?int $maxVoteNumber = null;
+
     protected static bool $checksumMode = false;
 
     /////////// STATICS METHODS ///////////
@@ -62,8 +66,7 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
         ?int $maxParseIterations
     ): ?int {
-        self::$maxParseIteration = $maxParseIterations;
-        return self::$maxParseIteration;
+        return self::$maxParseIteration = $maxParseIterations;
     }
 
     // Change max vote number
@@ -75,8 +78,7 @@ class Election
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
         ?int $maxVotesNumber
     ): ?int {
-        self::$maxVoteNumber = $maxVotesNumber;
-        return self::$maxVoteNumber;
+        return self::$maxVoteNumber = $maxVotesNumber;
     }
 
     // Mechanics

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\{Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{VoteException, VoteManagerException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;
@@ -25,15 +25,15 @@ class VotesManagerTest extends TestCase
 
     public function testOffsetSet(): never
     {
-        $this->expectException(VoteException::class);
-        $this->expectExceptionMessage('This vote is already linked to the election');
-
         $vote = new Vote([]);
 
         // add valid vote
         $this->votes_manager[] = $vote;
         self::assertSame($vote, $this->votes_manager->getVotesList()[0]);
         self::assertSame($this->election, $vote->getLinks()[0]);
+
+        $this->expectException(VoteException::class);
+        $this->expectExceptionMessage('This vote is already linked to the election');
 
         // add invalid vote
         $this->votes_manager[] = $vote;
@@ -118,5 +118,31 @@ class VotesManagerTest extends TestCase
 
         self::assertEquals($this->election->getVotesList('tag42'), $votesListGenerator);
         self::assertCount(42, $votesListGenerator);
+    }
+
+    public function testCountVotes(): never
+    {
+        self::assertEmpty($this->votes_manager->getVotesList());
+
+        $this->election->parseVotes('
+            A>B>C * 10;
+            tag42 || C>B>A * 42
+            tag44 || B>C>A * 26
+            tag42, tag44 || A>C>B * 18
+        ');
+
+        self::assertEquals(60, $this->votes_manager->countVotes(['tag42'], 1));
+        self::assertEquals(44, $this->votes_manager->countVotes(['tag44'], 1));
+        self::assertEquals(44, $this->votes_manager->countVotes(['tag44'], true));
+        self::assertEquals(18, $this->votes_manager->countVotes(['tag42', 'tag44'], 2));
+        self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], 0));
+        self::assertEquals(52, $this->votes_manager->countVotes(['tag44'], false));
+
+        $with = -1;
+
+        $this->expectException(TagsFilterException::class);
+        $this->expectExceptionMessage('Value of $with cannot be less than 0. Actual value is '.$with);
+
+        $this->election->countVotes('tag44', $with);
     }
 }

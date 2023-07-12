@@ -1,6 +1,6 @@
 ## public Vote::getHashCode
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L195)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L196)
 
 ### Description    
 

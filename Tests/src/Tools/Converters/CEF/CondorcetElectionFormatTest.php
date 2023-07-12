@@ -6,7 +6,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use PHPUnit\Framework\TestCase;
 
 class CondorcetElectionFormatTest extends TestCase
@@ -398,5 +398,37 @@ class CondorcetElectionFormatTest extends TestCase
         $this->expectException(FileDoesNotExistException::class);
 
         new CondorcetElectionFormat(__DIR__.'noFile.txt');
+    }
+
+    public function testNonStandardParameters(): void
+    {
+        $file = new \SplTempFileObject;
+        $file->fwrite($input =  <<<'CVOTES'
+            #/Number Of Seats: 42
+            #/Implicit Ranking: tRue
+            #/Weight Allowed: false
+            #/ a non standard paRameter  : 7
+            #/Candidates: A ; b
+
+            A > b
+            #/Weight Allowed: true
+
+            CVOTES);
+
+        $cef = new CondorcetElectionFormat($file);
+
+        self::assertSame(42, $cef->numberOfSeats);
+        self::assertSame('42', $cef->parameters['Number Of Seats']);
+
+        self::assertTrue($cef->implicitRanking);
+        self::assertSame('tRue', $cef->parameters['Implicit Ranking']);
+
+        self::assertFalse($cef->voteWeight);
+        self::assertSame('false', $cef->parameters['Weight Allowed']);
+
+        self::assertEquals(['A', 'b'], $cef->candidates);
+        self::assertSame('A ; b', $cef->parameters['Candidates']);
+
+        self::assertSame('7', $cef->parameters['a non standard paRameter']);
     }
 }

@@ -12,9 +12,6 @@ class TimerTest extends TestCase
 {
     public function testInvalidChrono(): never
     {
-        $this->expectException(TimerException::class);
-        $this->expectExceptionMessage('Only a chrono linked to this manager can be used');
-
         $manager1 = new Manager;
         $manager2 = new Manager;
 
@@ -22,6 +19,10 @@ class TimerTest extends TestCase
         $chrono2 = new Chrono($manager2);
 
         $manager1->addTime($chrono1);
+
+        $this->expectException(TimerException::class);
+        $this->expectExceptionMessage('Only a chrono linked to this manager can be used');
+
         $manager1->addTime($chrono2);
     }
 }

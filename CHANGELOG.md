@@ -2,6 +2,57 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.5.0] - 2023-07-11
+### Description
+A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its fair share of refinements and fixes in various areas, notably the Console.
+
+### Added
+
+#### Voting Methods
+- New vote method: [Random Ballot](https://www.condorcet.io/VotingMethods?id=random-ballot)
+- New vote method: [Random Candidates](https://www.condorcet.io/VotingMethods?id=random-candidates)
+
+#### Public API
+- Results object new property `Result->pairwise` contain an immutable and explicit pairwise array, from the object creation.
+- `Election->countVotes()`, `Election->countValidVoteWithConstraints()`, `Election->countValidVoteWithConstraints` and `Election->sumValidVotesWeightWithConstraints` now optionally support votes filtering by tags.
+- New `CondorcetElectionFormat::parameters` property, an array containing raw and untouched parameters from input, including non-standard parameters.
+
+
+#### Internal Modules API
+- New algo tool `VotesDeductedApprovals`
+- New FilteredPairwise object and API
+- Add a flag for preliminary support for non-deterministic methods
+- New API `Vote->getContextualRankingWithCandidatesKeys(Election $election)` to prevent code deduplication inside the votes method code.
+
+### Changed
+
+#### Public API
+- Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
+- Fix a bug with about MaxParseIteration that triggered the exception 1 vote in advance.
+- Create new dedicated `ParseVotesMaxNumberReachedException` for max parsing fail.
+- `Election::maxParseIteration` and `Election::setMaxVoteNumber` are now public properties and they can be accessed or modified directly. Corresponding setter and getter methods still exists but may be deprecated with v5.0.
+
+#### Console
+- Ignore duplicate candidates instead of an error at the end
+- Fix bug #147: crash on importing from ConforcetElectionFormat without pdo_sqlite extension.
+- Display separator is always semicolon, instead of commas in some cases (to avoid confusion with the input format)
+- Add a warning if only one candidate is registered
+
+### Internal changes
+- Refactoring Linkable logic and organization
+- Move Pairwise namespace
+
+#### Engine
+- Fix a rare bug affecting the validity of results in some case of `Election->removeAllVotes()` used in conjunction with `Election->allowsVoteWeight` in a particular sequence. And prevent similar cases in the future. #153
+- Various optimizations & refactors
+
+#### Dev
+- Skip concerned tests if pdo_sqlite is not available.
+- Add CI tests without pdo_sqlite
+- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead or refactor to don't use any of them if possible.
+- Compatibility with PestPHP
+
+
 ## [v4.4.1] - 2023-06-16
 ### Changed
 - Fix #147. Command line crash when importing CondorcetElectionFormat file if PDO Sqlite is not available.

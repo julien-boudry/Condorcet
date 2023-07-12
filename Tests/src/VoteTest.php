@@ -6,9 +6,10 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
-use CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat;
+use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class VoteTest extends TestCase
 {
@@ -46,9 +47,6 @@ class VoteTest extends TestCase
 
     public function testDifferentRanking(): never
     {
-        $this->expectException(VoteNotLinkedException::class);
-        $this->expectExceptionMessage('The vote is not linked to an election');
-
         // Ranking 1
         $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
@@ -189,9 +187,10 @@ class VoteTest extends TestCase
         );
 
         // Contextual Ranking Fail
+        $this->expectException(VoteNotLinkedException::class);
+        $this->expectExceptionMessage('The vote is not linked to an election');
 
         $unexpectedElection = new Election;
-
         $vote1->getContextualRanking($unexpectedElection);
     }
 
@@ -427,13 +426,14 @@ class VoteTest extends TestCase
 
     public function testBadTagInput2(): never
     {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
-
         $vote = new Vote('A');
-        $vote->addTags(
-            ['tag1 ', ' tag2', ' tag3 ', ' ']
-        );
+
+        try {
+            $vote->addTags(
+                ['tag1 ', ' tag2', ' tag3 ', ' ']
+            );
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],
@@ -441,17 +441,23 @@ class VoteTest extends TestCase
         );
 
         self::assertTrue($vote->removeAllTags());
+
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
+
+        throw $e;
     }
 
     public function testBadTagInput3(): never
     {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
-
         $vote = new Vote('A');
-        $vote->addTags(
-            ' tag1,tag2 , tag3 ,'
-        );
+
+        try {
+            $vote->addTags(
+                ' tag1,tag2 , tag3 ,'
+            );
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],
@@ -459,22 +465,33 @@ class VoteTest extends TestCase
         );
 
         self::assertTrue($vote->removeAllTags());
+
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
+
+        throw $e;
     }
 
     public function testBadTagInput4(): never
     {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, NULL given');
-
         $vote = new Vote('A');
-        $vote->addTags(
-            [null]
-        );
+
+        try {
+            $vote->addTags(
+                [null]
+            );
+        } catch (Throwable $e) {
+        }
 
         self::assertSame(
             [],
             $vote->getTags()
         );
+
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, NULL given');
+
+        throw $e;
     }
 
     public function testBadTagInput5(): void
@@ -574,9 +591,6 @@ class VoteTest extends TestCase
 
     public function testCustomTimestamp(): never
     {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
-
         $vote = new Vote(
             'A>B>C',
             null,
@@ -594,6 +608,9 @@ class VoteTest extends TestCase
         self::assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
 
         self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
+
+        $this->expectException(VoteInvalidFormatException::class);
+        $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
 
         $vote->setRanking('A', 1);
     }

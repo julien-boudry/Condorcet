@@ -1,6 +1,6 @@
 {
 	"name": "Dev Codespace - PHP Next",
-	"image": "php:8.2-rc-bullseye",
+	"image": "php:8.2-rc-bookworm",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {

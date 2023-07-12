@@ -8,11 +8,9 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
-use PHPUnit\Framework\Attributes\{BackupStaticProperties, Group, PreserveGlobalState, RequiresPhpExtension};
+use PHPUnit\Framework\Attributes\{Group, RequiresPhpExtension};
 use PHPUnit\Framework\TestCase;
 
-#[PreserveGlobalState(false)]
-#[BackupStaticProperties(false)]
 #[Group('DataHandlerDrivers')]
 #[RequiresPhpExtension('pdo_sqlite')]
 class PdoHandlerDriverTest extends TestCase

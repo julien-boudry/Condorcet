@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Algo\Tools\{Combinations, PairwiseDeductedApprovals};
+use CondorcetPHP\Condorcet\Algo\Tools\{Combinations, VotesDeductedApprovals};
 use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 
-class PairwiseDeductedApprovalsTest extends TestCase
+class VotesDeductedApprovalsTest extends TestCase
 {
     public function testGetVotesCountWithCandidatesAllCombination(): void
     {
@@ -28,7 +28,7 @@ class PairwiseDeductedApprovalsTest extends TestCase
         $election->parseVotes('A>B>C=D>E ^42');
 
         // Test with 2 and implicit
-        $votesStats = new PairwiseDeductedApprovals(2, $election);
+        $votesStats = new VotesDeductedApprovals(2, $election);
         self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
         self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
@@ -42,7 +42,7 @@ class PairwiseDeductedApprovalsTest extends TestCase
         // Test with 2 and explicit
         $election->setImplicitRanking(false);
 
-        $votesStats = $votesStats = new PairwiseDeductedApprovals(2, $election);
+        $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
         self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
         self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
@@ -52,7 +52,7 @@ class PairwiseDeductedApprovalsTest extends TestCase
         self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
 
         // Test with 5 and explicit
-        $votesStats = $votesStats = new PairwiseDeductedApprovals(5, $election);
+        $votesStats = $votesStats = new VotesDeductedApprovals(5, $election);
         self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 5), $votesStats);
 
         self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 4]));
@@ -63,7 +63,7 @@ class PairwiseDeductedApprovalsTest extends TestCase
         // With 2 and weight activated
         $election->allowsVoteWeight(true);
 
-        $votesStats = $votesStats = new PairwiseDeductedApprovals(2, $election);
+        $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
         self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
         self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
@@ -74,7 +74,7 @@ class PairwiseDeductedApprovalsTest extends TestCase
 
         // Add a vote
         $election->parseVotes('A>B');
-        $votesStats = $votesStats = new PairwiseDeductedApprovals(2, $election);
+        $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
 
         self::assertSame(43, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
         self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 2]));

@@ -197,9 +197,6 @@ class ElectionCommandTest extends TestCase
         $this->expectExceptionMessage('The result cannot be requested without votes');
 
         $this->electionCommand->execute([], ['interactive' => false]);
-
-        // $output = $this->electionCommand->getDisplay();
-        // \var_dump($output);
     }
 
     public function testCustomizeVotesPerMb(): void
