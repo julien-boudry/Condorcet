@@ -304,6 +304,29 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     }
 
     #[PublicAPI]
+    #[Description('Return an array with candidate names or keys as keys and ranking as values')]
+    #[FunctionReturn('Contextual full ranking.')]
+    public function getCandidateRanks(
+        #[FunctionParameter('Should candidate keys be used instead of names?')]
+        bool $useKeys = false,
+        #[FunctionParameter('The election to obtain the keys from')]
+        Election $election = null
+    ): array {
+        $candidateRanks = [];
+        foreach ($this->getRanking() as $rank=>$tiedCandidates) {
+            foreach ($tiedCandidates as $candidate) {
+                if ($useKeys) {
+                    $candidate = $election->getCandidateKey($candidate);
+                } else {
+                    $candidate = $candidate->getName();
+                }
+                $candidateRanks[$candidate] = $rank;
+            }
+        }
+        return $candidateRanks;
+    }
+
+    #[PublicAPI]
     #[Description('Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.')]
     #[FunctionReturn('Contextual full ranking.')]
     #[Throws(VoteNotLinkedException::class)]
