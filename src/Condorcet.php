@@ -37,11 +37,12 @@ Condorcet::addMethod(Algo\Methods\Schulze\SchulzeWinning::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeMargin::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeRatio::class);
 
-Condorcet::addMethod(Algo\Methods\STV\Schulze_STV::class);
-
-# Proportional Methods
+# Party-agnostic Proportional Methods
 Condorcet::addMethod(Algo\Methods\STV\SingleTransferableVote::class);
 Condorcet::addMethod(Algo\Methods\STV\CPO_STV::class);
+Condorcet::addMethod(Algo\Methods\STV\Schulze_STV::class);
+
+# Party-list Proportional Methods
 Condorcet::addMethod(Algo\Methods\LargestRemainder\LargestRemainder::class);
 Condorcet::addMethod(Algo\Methods\HighestAverages\Jefferson::class);
 Condorcet::addMethod(Algo\Methods\HighestAverages\SainteLague::class);

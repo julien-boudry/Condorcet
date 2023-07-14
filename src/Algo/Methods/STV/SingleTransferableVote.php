@@ -115,6 +115,8 @@ class SingleTransferableVote extends Method implements MethodInterface
 
             $firstRank = true;
             foreach ($oneVote->getContextualRankingWithCandidateKeys($election) as $oneRank) {
+                $tied = count($oneRank);
+                $counter = 0;
                 foreach ($oneRank as $candidateKey) {
                     if (\count($oneRank) !== 1) {
                         break;
@@ -135,16 +137,19 @@ class SingleTransferableVote extends Method implements MethodInterface
 
                     if (\array_key_exists($candidateKey, $scoreTable)) {
                         if ($winnerBonusKey !== null) {
-                            $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total'] * $surplus[$winnerBonusKey]['surplus'];
+                            $scoreTable[$candidateKey] += $winnerBonusWeight / $surplus[$winnerBonusKey]['total'] * $surplus[$winnerBonusKey]['surplus'] / $tied;
                         } elseif ($LoserBonusWeight > 0) {
-                            $scoreTable[$candidateKey] += $LoserBonusWeight;
+                            $scoreTable[$candidateKey] += $LoserBonusWeight / $tied;
                         } else {
-                            $scoreTable[$candidateKey] += $weight;
+                            $scoreTable[$candidateKey] += $weight / $tied;
                         }
 
                         $scoreTable[$candidateKey] = round($scoreTable[$candidateKey], self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
 
-                        break 2;
+                        $counter++;
+                        if ($counter >= $tied) {
+                            break 2;
+                        }
                     }
                 }
             }
