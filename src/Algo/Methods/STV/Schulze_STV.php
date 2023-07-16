@@ -14,12 +14,13 @@ class Schulze_STV extends CPO_STV
     public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze STV', ];
 
     protected readonly array $initialScoreTable;
+    protected readonly array $candidatesRemainingFromFirstRound;
 
     protected array $StrongestPaths;
 
     protected function compute(): void
     {
-        Vote::initCache(); // Performances
+        //Vote::initCache(); // Performances
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
@@ -38,28 +39,43 @@ class Schulze_STV extends CPO_STV
         $numberOfCandidatesNeededToComplete = $this->getElection()->getNumberOfSeats() - \count($this->candidatesElectedFromFirstRound);
         $this->candidatesRemainingFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
-        try {
-            $numberOfComparisons =  Combinations::getPossibleCountOfCombinations(
-                count: \count($this->candidatesRemainingFromFirstRound),
-                length: $numberOfCandidatesNeededToComplete
-            ) * $numberOfCandidatesNeededToComplete * (\count($this->candidatesRemainingFromFirstRound) - $numberOfCandidatesNeededToComplete);
-        } catch (IntegerOverflowException) {
-            $numberOfComparisons = false;
+        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete <= \count($this->candidatesRemainingFromFirstRound)) {
+            try {
+                $numberOfComparisons = Combinations::getPossibleCountOfCombinations(
+                        count: \count($this->candidatesRemainingFromFirstRound),
+                        length: $numberOfCandidatesNeededToComplete
+                    ) * $numberOfCandidatesNeededToComplete * (\count($this->candidatesRemainingFromFirstRound) - $numberOfCandidatesNeededToComplete);
+            } catch (IntegerOverflowException) {
+                $numberOfComparisons = false;
+            }
+
+            if ($numberOfComparisons === false || (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons)) {
+                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1] . ' is currently limited to ' . self::$MaxOutcomeComparisons . ' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
+            }
+
+            // Determine all possible Outcomes
+            $this->outcomes = Combinations::compute($this->candidatesRemainingFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
+
+            // Compare it
+            $this->outcomeComparisonTable->setSize($numberOfComparisons);
+            $this->compareOutcomes();
+            $this->findStrongestPaths();
+
+            $this->selectBestOutcome();
+        } else {
+            //throw new CondorcetInternalException('There are more candidates than there are seats to fill');
+            $result = array_keys($this->initialScoreTable);
+            $result = \array_slice($result, 0, $this->getElection()->getNumberOfSeats());
         }
 
-        if ($numberOfComparisons === false || (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons)) {
-            throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparisons.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
-        }
+        // Sort winning candidates by how many voters prefer them to the other winning candidates.
+        $finalScoreTable = $this->makeScore([], [], array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesRemainingFromFirstRound));
+        arsort($finalScoreTable);
+        $result = array_intersect(array_keys($finalScoreTable), $result);
 
-        // Determine all possible Outcomes
-        $this->outcomes = Combinations::compute($this->candidatesRemainingFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
+        $this->Result = $this->createResult($result);
 
-        // Compare it
-        $this->outcomeComparisonTable->setSize($numberOfComparisons);
-        $this->compareOutcomes();
-        $this->findStrongestPaths();
-
-        $this->selectBestOutcome();
+        //Vote::initCache();
     }
 
     protected function compareOutcomes(): void

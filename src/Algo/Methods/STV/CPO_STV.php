@@ -58,7 +58,7 @@ class CPO_STV extends SingleTransferableVote
     protected SplFixedArray $outcomes;
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
-    protected readonly array $candidatesEliminatedFromFirstRound;
+    protected readonly array $candidatesRemainingFromFirstRound;
     protected SplFixedArray $outcomeComparisonTable;
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
@@ -86,13 +86,13 @@ class CPO_STV extends SingleTransferableVote
         }
 
         $numberOfCandidatesNeededToComplete = $this->getElection()->getNumberOfSeats() - \count($this->candidatesElectedFromFirstRound);
-        $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
+        $this->candidatesRemainingFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
-        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) {
+        if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesRemainingFromFirstRound)) {
             try {
                 $numberOfComparisons =  Combinations::getPossibleCountOfCombinations(
                     count: Combinations::getPossibleCountOfCombinations(
-                        count: \count($this->candidatesEliminatedFromFirstRound),
+                        count: \count($this->candidatesRemainingFromFirstRound),
                         length: $numberOfCandidatesNeededToComplete
                     ),
                     length: 2
@@ -107,7 +107,7 @@ class CPO_STV extends SingleTransferableVote
 
 
             // Compute all possible Ranking
-            $this->outcomes = Combinations::compute($this->candidatesEliminatedFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
+            $this->outcomes = Combinations::compute($this->candidatesRemainingFromFirstRound, $numberOfCandidatesNeededToComplete, $this->candidatesElectedFromFirstRound);
 
             // Compare it
             $this->outcomeComparisonTable->setSize($numberOfComparisons);
@@ -341,7 +341,7 @@ class CPO_STV extends SingleTransferableVote
             $stats['Candidates elected from first round'] = $changeValueToCandidateAndSortByName($this->candidatesElectedFromFirstRound, $election);
 
             // Candidates Eliminated from first round
-            $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesEliminatedFromFirstRound, $election);
+            $stats['Candidates eliminated from first round'] = $changeValueToCandidateAndSortByName($this->candidatesRemainingFromFirstRound, $election);
 
             // Completion Method
             if (isset($this->completionMethodResult)) {
