@@ -60,8 +60,9 @@ class Schulze_STV extends CPO_STV
             $this->outcomeComparisonTable->setSize($numberOfComparisons);
             $this->compareOutcomes();
             $this->findStrongestPaths();
+            $this->findStrongestPaths();
 
-            $this->selectBestOutcome();
+            $result = $this->outcomes[$this->selectBestOutcome()];
         } else {
             //throw new CondorcetInternalException('There are more candidates than there are seats to fill');
             $result = array_keys($this->initialScoreTable);
@@ -132,9 +133,9 @@ class Schulze_STV extends CPO_STV
 
         for ($i = 0; $i < $outcomeCount; $i++) {
             for ($j = 0; $j < $outcomeCount; $j++) {
-                if ($i !== $j) {
+                if ($i !== $j && isset($this->StrongestPaths[$j][$i])) {
                     for ($k = 0; $k < $outcomeCount; $k++) {
-                        if ($i !== $k && $j !== $k AND isset($this->StrongestPaths[$j][$i]) || isset($this->StrongestPaths[$i][$k])) {
+                        if ($i !== $k && $j !== $k && isset($this->StrongestPaths[$i][$k])) {
                             $this->StrongestPaths[$j][$k] =
                                 max(
                                     $this->StrongestPaths[$j][$k] ?? 0,
@@ -147,20 +148,16 @@ class Schulze_STV extends CPO_STV
         }
     }
 
-    protected function selectBestOutcome(): void
+    protected function selectBestOutcome(): int
     {
 
         $done = [];
         $rank = 1;
 
-        $to_done = [];
-
         foreach ($this->StrongestPaths as $set_key => $opposing_keys) {
             if (\in_array(needle: $set_key, haystack: $done, strict: true)) {
                 continue;
             }
-
-            $winner = true;
 
             foreach ($opposing_keys as $beaten_key => $beaten_value) {
                 if (\in_array(needle: $beaten_key, haystack: $done, strict: true)) {
@@ -176,5 +173,6 @@ class Schulze_STV extends CPO_STV
         }
 
         $this->Result = $this->createResult($result);
+        return $set_key;
     }
 }

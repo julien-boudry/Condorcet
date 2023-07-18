@@ -229,7 +229,7 @@ class CPO_STV extends SingleTransferableVote
         return 'Outcome N° '.$minOutcome.' compared to Outcome N° '.$maxOutcome;
     }
 
-    protected function selectBestOutcome(): void
+    protected function selectBestOutcome(): int
     {
         // With Condorcet
         $winnerOutcomeElection = new Election;
@@ -282,6 +282,8 @@ class CPO_STV extends SingleTransferableVote
 
         $this->condorcetWinnerOutcome = (int) $condorcetWinnerOutcome->getName();
         $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
+
+        return $this->condorcetWinnerOutcome;
     }
 
     protected function sortResultBeforeCut(array &$result): void
