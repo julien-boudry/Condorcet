@@ -101,6 +101,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     protected static ?\stdClass $cacheKey = null;
     protected ?\WeakMap $cacheMap = null;
 
+    // Warning: Use of this function may cause unexpected errors and bugs. Do not call this function without later calling clearCache().
     public static function initCache(): \stdClass
     {
         self::$cacheKey = new \stdClass;

@@ -11,7 +11,7 @@ use SplFixedArray;
 
 class Schulze_STV extends CPO_STV
 {
-    public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze STV', ];
+    public const METHOD_NAME = ['Schulze STV', 'Schulze-STV', 'Schulze_STV', ];
 
     protected readonly array $initialScoreTable;
     protected readonly array $candidatesRemainingFromFirstRound;
@@ -115,7 +115,7 @@ class Schulze_STV extends CPO_STV
 
                     if ($rankNumbers[$iUnique] < $rankNumbers[$jUnique]) {
                         foreach ($others as $candidate) {
-                            if (isset($rankNumbers[$candidate]) AND $rankNumbers[$candidate] < $rankNumbers[$iUnique]) {
+                            if (isset($rankNumbers[$candidate]) AND $rankNumbers[$iUnique] > $rankNumbers[$candidate]) {
                                 continue 2;
                             }
                         }
