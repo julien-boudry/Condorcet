@@ -42,9 +42,12 @@ class Schulze_STV extends CPO_STV
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete <= \count($this->candidatesRemainingFromFirstRound)) {
             try {
                 $numberOfComparisons = Combinations::getPossibleCountOfCombinations(
+                    count: Combinations::getPossibleCountOfCombinations(
                         count: \count($this->candidatesRemainingFromFirstRound),
                         length: $numberOfCandidatesNeededToComplete
-                    ) * $numberOfCandidatesNeededToComplete * (\count($this->candidatesRemainingFromFirstRound) - $numberOfCandidatesNeededToComplete);
+                    ) - 1 - $numberOfCandidatesNeededToComplete,
+                    length: 2
+                );
             } catch (IntegerOverflowException) {
                 $numberOfComparisons = false;
             }
@@ -60,7 +63,7 @@ class Schulze_STV extends CPO_STV
             $this->outcomeComparisonTable->setSize($numberOfComparisons);
             $this->compareOutcomes();
             $this->findStrongestPaths();
-            $this->findStrongestPaths();
+            //$this->findStrongestPaths();
 
             $result = $this->outcomes[$this->selectBestOutcome()];
         } else {
@@ -70,7 +73,7 @@ class Schulze_STV extends CPO_STV
         }
 
         // Sort winning candidates by how many voters prefer them to the other winning candidates.
-        $finalScoreTable = $this->makeScore([], [], array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesRemainingFromFirstRound));
+        $finalScoreTable = $this->makeScore([], [], array_diff(array_keys($this->getElection()->getCandidatesList()), $result));
         arsort($finalScoreTable);
         $result = array_intersect(array_keys($finalScoreTable), $result);
 
@@ -85,16 +88,9 @@ class Schulze_STV extends CPO_STV
         $index = 0;
         $key_done = [];
 
-        $voteCandidateRanks = [];
+        $voteCandidateRankings = [];
         foreach($election->getVotesValidUnderConstraintGenerator() as $oneVote) {
-            $candidateRanks = $oneVote->getCandidateRanks(true, $election);
-            if ($election->getImplicitRankingRule()) {
-                $lastRank = $election->countCandidates();
-                foreach ($election->getCandidatesList() as $key=>$candidate) {
-                    if (!isset($candidateRanks[$key])) $candidateRanks[$key] = $lastRank;
-                }
-            }
-            $voteCandidateRanks[] = $candidateRanks;
+            $voteCandidateRankings[] = $oneVote->getCandidateRanks(true, $election);
         }
 
         foreach ($this->outcomes as $iKey => $iSet) {
@@ -105,17 +101,17 @@ class Schulze_STV extends CPO_STV
 
                 $iUnique = reset($iUnique);
                 $jUnique = current(array_diff($jSet, $iSet));
-                $others = array_merge(array_diff($iSet, [$jUnique]), $this->candidatesElectedFromFirstRound);
+                $common = array_merge(array_diff($iSet, [$iUnique]), $this->candidatesElectedFromFirstRound);
 
                 //$this->StrongestPaths[$iKey][$jKey] = $this->votesPreferring($iUnique, $jSet);
                 $linkStrength = 0;
-                foreach ($voteCandidateRanks as $rankNumbers) {
-                    //$rankNumbers = $oneVote->getCandidateRanks();
-                    if (!isset($rankNumbers[$iUnique]) || !isset($rankNumbers[$jUnique])) continue;
+                foreach ($voteCandidateRankings as $candidateRanks) {
+                    //$candidateRanks = $oneVote->getCandidateRanks();
+                    if (!isset($candidateRanks[$iUnique]) || !isset($candidateRanks[$jUnique])) continue;
 
-                    if ($rankNumbers[$iUnique] < $rankNumbers[$jUnique]) {
-                        foreach ($others as $candidate) {
-                            if (isset($rankNumbers[$candidate]) AND $rankNumbers[$iUnique] > $rankNumbers[$candidate]) {
+                    if ($candidateRanks[$iUnique] < $candidateRanks[$jUnique]) {
+                        foreach ($common as $candidate) {
+                            if (isset($candidateRanks[$candidate]) AND $candidateRanks[$iUnique] > $candidateRanks[$candidate]) {
                                 continue 2;
                             }
                         }
@@ -123,6 +119,11 @@ class Schulze_STV extends CPO_STV
                     }
                 }
                 $this->StrongestPaths[$iKey][$jKey] = $linkStrength;
+
+                if (isset($this->StrongestPaths[$jKey][$iKey])) {
+                    $this->StrongestPaths[$iKey][$jKey] -= $this->StrongestPaths[$jKey][$iKey];
+                    $this->StrongestPaths[$jKey][$iKey] -= $linkStrength;
+                }
             }
         }
     }
@@ -135,7 +136,7 @@ class Schulze_STV extends CPO_STV
             for ($j = 0; $j < $outcomeCount; $j++) {
                 if ($i !== $j && isset($this->StrongestPaths[$j][$i])) {
                     for ($k = 0; $k < $outcomeCount; $k++) {
-                        if ($i !== $k && $j !== $k && isset($this->StrongestPaths[$i][$k])) {
+                        if ($i !== $k && $j !== $k && isset($this->StrongestPaths[$i][$k]) && isset($this->StrongestPaths[$j][$k])) {
                             $this->StrongestPaths[$j][$k] =
                                 max(
                                     $this->StrongestPaths[$j][$k] ?? 0,
@@ -170,9 +171,10 @@ class Schulze_STV extends CPO_STV
             }
 
             $result = $this->outcomes[$set_key];
+            $winning_key = $set_key;
         }
 
         $this->Result = $this->createResult($result);
-        return $set_key;
+        return $winning_key;
     }
 }

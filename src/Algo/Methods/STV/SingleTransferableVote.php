@@ -114,11 +114,12 @@ class SingleTransferableVote extends Method implements MethodInterface
             $LoserBonusWeight = 0;
 
             $firstRank = true;
-            foreach ($oneVote->getContextualRankingWithCandidateKeys($election) as $oneRank) {
+            $rankCount = $oneVote->countRanks();
+            foreach ($oneVote->getContextualRankingWithCandidateKeys($election) as $rankNumber=>$oneRank) if ($rankNumber <= $rankCount) {
                 $tied = count($oneRank);
                 $counter = 0;
                 foreach ($oneRank as $candidateKey) {
-                    if (\count($oneRank) !== 1) {
+                    if (\count($oneRank) == 0 ) {
                         break;
                     }
 

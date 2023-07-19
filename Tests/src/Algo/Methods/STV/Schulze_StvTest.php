@@ -23,8 +23,32 @@ class Schulze_StvTest extends TestCase
         $this->election = new Election;
     }
 
-    # From https://en.wikipedia.org/wiki/CPO-STV
-    public function testSchulzeStvTideman(): void
+    public function testResult_1(): void
+    {
+        $this->election->addCandidate('A1');
+        $this->election->addCandidate('A2');
+        $this->election->addCandidate('B1');
+        $this->election->addCandidate('B2');
+        $this->election->addCandidate('C1');
+
+        $this->election->setImplicitRanking(true);
+
+        $this->election->parseVotes('
+            A1 > A2 *5
+            A2 > A1 *4
+            B1 > B2 *4
+            B2 > B1 *5
+            C1 *6
+        ');
+
+        $this->election->setNumberOfSeats(2);
+
+        $resultArray = $this->election->getResult('Schulze-STV')->getResultAsArray(true);
+        self::assertContains('A1', $resultArray);
+        self::assertContains('B2', $resultArray);
+    }
+
+    public function testResult_Tideman(): void
     {
         // Correct results for Tideman dataset as determined using the C++ program written by Markus Schulze.
         $correctResults = [

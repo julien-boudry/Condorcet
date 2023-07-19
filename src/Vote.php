@@ -311,20 +311,31 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         #[FunctionParameter('Should candidate keys be used instead of names?')]
         bool $useKeys = false,
         #[FunctionParameter('The election to obtain the keys from')]
-        Election $election = null
+        Election $election = null,
+        #[FunctionParameter('Should unranked candidates be given a last-place ranking?')]
+        bool $implicitRank = null
     ): array {
         $candidateRanks = [];
         foreach ($this->ranking as $rank=>$tiedCandidates) {
             foreach ($tiedCandidates as $candidate) {
                 if ($useKeys) {
                     $candidate = $election->getCandidateKey($candidate);
-                    if ($candidate == null) continue;
+                    if ($candidate === null) continue;
                 } else {
                     $candidate = $candidate->getName();
                 }
                 $candidateRanks[$candidate] = $rank;
             }
         }
+        if ($implicitRank === null && isset($election)) {
+            $implicitRank = $election->getImplicitRankingRule();
+        }
+        if ($implicitRank) {
+            foreach(array_keys($election->getCandidatesList()) as $candidate) if (!isset($candidateRanks[$candidate])) {
+                $candidateRanks[$candidate] = $rank + 1;
+            }
+        }
+        ksort($candidateRanks);
         return $candidateRanks;
     }
 
