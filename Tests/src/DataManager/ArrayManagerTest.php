@@ -40,12 +40,12 @@ class ArrayManagerTest extends TestCase
 
     public function testOffsetSetAndOffetsetGet(): void
     {
-        self::assertNull($this->ArrayManager->key());
+        $this->assertNull($this->ArrayManager->key());
 
         $this->ArrayManager[42] = 'foo';
 
-        self::assertSame('foo', $this->ArrayManager[42]);
+        $this->assertSame('foo', $this->ArrayManager[42]);
 
-        self::assertNull($this->ArrayManager[43]);
+        $this->assertNull($this->ArrayManager[43]);
     }
 }

@@ -32,7 +32,7 @@ class DowdallSystemTest extends TestCase
             A>B>C>D>E>F
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'B',
@@ -43,7 +43,7 @@ class DowdallSystemTest extends TestCase
             $this->election->getResult('DowdallSystem')->getResultAsArray(true)
         );
 
-        self::assertEqualsWithDelta(
+        $this->assertEqualsWithDelta(
             [
                 'A' => 1/1,
                 'B' => 1/2,

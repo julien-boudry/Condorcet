@@ -51,7 +51,7 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 3);
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'D',
@@ -60,7 +60,7 @@ class MultipleRoundsSystemTest extends TestCase
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1=> [
                 'A' => 42,
                 'B' => 26,
@@ -103,12 +103,12 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'B', 2 => 'A', 3 => 'C', 4=> 'D', 5=> 'E'],
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1=> [
                 'B' => 12,
                 'A' => 10,
@@ -156,12 +156,12 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 5);
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', -1);
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E', 6 => 'F'],
             $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1=> [
                 'A' => 100,
                 'B' => 99,

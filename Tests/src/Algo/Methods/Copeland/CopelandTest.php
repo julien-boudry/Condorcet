@@ -33,7 +33,7 @@ class CopelandTest extends TestCase
         ');
 
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Nashville',
                 2 => 'Chattanooga',
@@ -42,9 +42,9 @@ class CopelandTest extends TestCase
             $this->election->getResult('Copeland')->getResultAsArray(true)
         );
 
-        self::assertSame($this->election->getWinner('Copeland'), $this->election->getWinner());
+        $this->assertSame($this->election->getWinner('Copeland'), $this->election->getWinner());
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'Memphis' => [
                     'balance' => -3,
@@ -80,10 +80,10 @@ class CopelandTest extends TestCase
             D > A > E * 10
         ');
 
-        self::assertNull($this->election->getWinner());
-        self::assertSame($candidateA, $this->election->getWinner('Copeland'));
+        $this->assertNull($this->election->getWinner());
+        $this->assertSame($candidateA, $this->election->getWinner('Copeland'));
 
-        self::assertSame(
+        $this->assertSame(
             [1 => $candidateA,
                 2 => [$candidateB, $candidateC, $candidateE],
                 3 => $candidateD,
@@ -118,9 +118,9 @@ class CopelandTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals(['Abby', 'Brad'], $this->election->getWinner('Copeland'));
+        $this->assertEquals(['Abby', 'Brad'], $this->election->getWinner('Copeland'));
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['Abby', 'Brad'],
                 2 => ['Dave', 'Erin'],
                 3 => 'Cora', ],

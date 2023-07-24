@@ -18,10 +18,10 @@ class PermutationsTest extends TestCase
 
     public function testCountPossiblePermutations(): void
     {
-        self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
+        $this->assertSame(6, Permutations::getPossibleCountOfPermutations(3));
 
         Permutations::$useBigIntegerIfAvailable = false;
-        self::assertSame(6, Permutations::getPossibleCountOfPermutations(3));
+        $this->assertSame(6, Permutations::getPossibleCountOfPermutations(3));
 
         $this->expectException(CondorcetInternalException::class);
         Permutations::getPossibleCountOfPermutations(0);
@@ -47,10 +47,10 @@ class PermutationsTest extends TestCase
 
         $r = $p->getResults();
 
-        self::assertInstanceOf(\SplFixedArray::class, $r);
-        self::assertSame(6, $r->getSize());
+        $this->assertInstanceOf(\SplFixedArray::class, $r);
+        $this->assertSame(6, $r->getSize());
 
-        self::assertSame(
+        $this->assertSame(
             [[1=>0, 2=>1, 3=>2],
                 [1=>1, 2=>0, 3=>2],
                 [1=>1, 2=>2, 3=>0],
@@ -68,9 +68,9 @@ class PermutationsTest extends TestCase
 
         $r = $p->getResults();
 
-        self::assertInstanceOf(\SplFixedArray::class, $r);
-        self::assertSame(1, $r->getSize());
+        $this->assertInstanceOf(\SplFixedArray::class, $r);
+        $this->assertSame(1, $r->getSize());
 
-        self::assertSame([[1=>42]], $r->toArray());
+        $this->assertSame([[1=>42]], $r->toArray());
     }
 }

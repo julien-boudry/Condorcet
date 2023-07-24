@@ -66,7 +66,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         ');
 
         // SainteLeague
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -89,7 +89,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->assertCount(577, $this->election->getResult('SainteLague')->getResultAsArray());
 
         // Jefferson
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 6,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 150,
@@ -113,7 +113,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         // Hare-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -137,7 +137,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         // Droop-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Droop-LR
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -161,7 +161,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         //  Hagenbach-Bischoff-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HAGENBACH_BISCHOFF); //  Hagenbach-Bischoff-LR
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -185,7 +185,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         //  Imperiali-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::IMPERIALI); //  Imperiali-LR
-        self::assertSame([
+        $this->assertSame([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 149,
@@ -217,11 +217,11 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         $this->election->parseVotes('Con ^258794; Lab ^204011; LD ^33604; Brexit ^15728; Ash Ind ^13498; Green ^10375; Others ^9743');
 
-        self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
-        self::assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
+        $this->assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
+        $this->assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        self::assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('LargestRemainder')->getResultAsString());
+        $this->assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('LargestRemainder')->getResultAsString());
     }
 
     # https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
@@ -238,8 +238,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         $this->election->parseVotes('A ^100000; B ^80000; C ^30000; D ^20000');
 
-        self::assertSame('A > B > A > C > B > A > D > B', $this->election->getResult('SainteLague')->getResultAsString());
-        self::assertSame('A > B > A > B > A > C > B > A', $this->election->getResult('Jefferson')->getResultAsString());
+        $this->assertSame('A > B > A > C > B > A > D > B', $this->election->getResult('SainteLague')->getResultAsString());
+        $this->assertSame('A > B > A > B > A > C > B > A', $this->election->getResult('Jefferson')->getResultAsString());
     }
 
     public function testTiesOnFirstRank(): void
@@ -251,9 +251,9 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->election->addCandidate('C');
 
         $this->election->addVote('A = B > C');
-        self::assertSame([], $this->election->getResult('SainteLague')->getResultAsArray());
+        $this->assertSame([], $this->election->getResult('SainteLague')->getResultAsArray());
 
         $this->election->addVote('B>A');
-        self::assertSame('B', $this->election->getResult('SainteLague')->getResultAsString());
+        $this->assertSame('B', $this->election->getResult('SainteLague')->getResultAsString());
     }
 }

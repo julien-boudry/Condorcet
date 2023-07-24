@@ -33,11 +33,11 @@ class MinimaxTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
+        $this->assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
 
-        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
+        $this->assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
 
-        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Opposition'));
+        $this->assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Opposition'));
 
         $expectedRanking = [
             1 => 'Nashville',
@@ -46,22 +46,22 @@ class MinimaxTest extends TestCase
             4 => 'Knoxville',
         ];
 
-        self::assertSame(
+        $this->assertSame(
             $expectedRanking,
             $this->election->getResult('Minimax Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expectedRanking,
             $this->election->getResult('Minimax Margin')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expectedRanking,
             $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['Memphis'       =>  ['worst_pairwise_defeat_winning' => 58],
                 'Nashville'     =>  ['worst_pairwise_defeat_winning' => 0],
                 'Chattanooga'   =>  ['worst_pairwise_defeat_winning' => 68],
@@ -69,7 +69,7 @@ class MinimaxTest extends TestCase
             $this->election->getResult('Minimax Winning')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['Memphis'       =>  ['worst_pairwise_defeat_margin' => 16],
                 'Nashville'     =>  ['worst_pairwise_defeat_margin' => -16],
                 'Chattanooga'   =>  ['worst_pairwise_defeat_margin' => 36],
@@ -77,7 +77,7 @@ class MinimaxTest extends TestCase
             $this->election->getResult('Minimax Margin')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['Memphis'       =>  ['worst_pairwise_opposition' => 58],
                 'Nashville'     =>  ['worst_pairwise_opposition' => 42],
                 'Chattanooga'   =>  ['worst_pairwise_opposition' => 68],
@@ -101,11 +101,11 @@ class MinimaxTest extends TestCase
             B > A = C * 6
         ');
 
-        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
+        $this->assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Winning'));
 
-        self::assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
+        $this->assertSame($this->election->getWinner(), $this->election->getWinner('Minimax Margin'));
 
-        self::assertEquals('C', $this->election->getWinner('Minimax Opposition'));
+        $this->assertEquals('C', $this->election->getWinner('Minimax Opposition'));
 
         $expectedRanking1 = [
             1 => 'A',
@@ -113,38 +113,38 @@ class MinimaxTest extends TestCase
             3 => 'B',
         ];
 
-        self::assertSame(
+        $this->assertSame(
             $expectedRanking1,
             $this->election->getResult('Minimax Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expectedRanking1,
             $this->election->getResult('Minimax Margin')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'C',
                 2 => 'A',
                 3 => 'B', ],
             $this->election->getResult('Minimax Opposition')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_defeat_winning' => 0],
                 'B'     =>  ['worst_pairwise_defeat_winning' => 94],
                 'C'     =>  ['worst_pairwise_defeat_winning' => 47], ],
             $this->election->getResult('Minimax Winning')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_defeat_margin' => -2],
                 'B'     =>  ['worst_pairwise_defeat_margin' => 88],
                 'C'     =>  ['worst_pairwise_defeat_margin' => 4], ],
             $this->election->getResult('Minimax Margin')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_opposition' => 49],
                 'B'     =>  ['worst_pairwise_opposition' => 94],
                 'C'     =>  ['worst_pairwise_opposition' => 47], ],
@@ -178,7 +178,7 @@ class MinimaxTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Cora', $this->election->getWinner('Minimax Winning'));
+        $this->assertEquals('Cora', $this->election->getWinner('Minimax Winning'));
     }
 
     public function testResult_4(): void
@@ -199,7 +199,7 @@ class MinimaxTest extends TestCase
             L > C > A * 2
         ');
 
-        self::assertEquals('L', $this->election->getWinner('Minimax Winning'));
+        $this->assertEquals('L', $this->election->getWinner('Minimax Winning'));
     }
 
     public function testResult_5(): void
@@ -224,25 +224,25 @@ class MinimaxTest extends TestCase
             C > A * 3
         ');
 
-        self::assertEquals('A', $this->election->getWinner('Minimax Winning'));
-        self::assertEquals('B', $this->election->getWinner('Minimax Margin'));
-        self::assertEquals('D', $this->election->getWinner('Minimax Opposition'));
+        $this->assertEquals('A', $this->election->getWinner('Minimax Winning'));
+        $this->assertEquals('B', $this->election->getWinner('Minimax Margin'));
+        $this->assertEquals('D', $this->election->getWinner('Minimax Opposition'));
 
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_defeat_winning' => 35],
                 'B'     =>  ['worst_pairwise_defeat_winning' => 50],
                 'C'   =>  ['worst_pairwise_defeat_winning' => 45],
                 'D'     =>  ['worst_pairwise_defeat_winning' => 36], ],
             $this->election->getResult('Minimax Winning')->getStats()
         );
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_defeat_margin' => 5],
                 'B'     =>  ['worst_pairwise_defeat_margin' => 1],
                 'C'   =>  ['worst_pairwise_defeat_margin' => 2],
                 'D'     =>  ['worst_pairwise_defeat_margin' => 3], ],
             $this->election->getResult('Minimax Margin')->getStats()
         );
-        self::assertSame(
+        $this->assertSame(
             ['A'       =>  ['worst_pairwise_opposition' => 43],
                 'B'     =>  ['worst_pairwise_opposition' => 50],
                 'C'   =>  ['worst_pairwise_opposition' => 49],
@@ -253,7 +253,7 @@ class MinimaxTest extends TestCase
         // Implicit Ranking
         $this->election->setImplicitRanking(true);
 
-        self::assertNotEquals('A', $this->election->getWinner('Minimax Winning'));
+        $this->assertNotEquals('A', $this->election->getWinner('Minimax Winning'));
     }
 
     public function testResult_6(): void
@@ -269,6 +269,6 @@ class MinimaxTest extends TestCase
             C > B > A
         ');
 
-        self::assertNotNull($this->election->getWinner('Minimax Margin'));
+        $this->assertNotNull($this->election->getWinner('Minimax Margin'));
     }
 }

@@ -31,8 +31,8 @@ class ArrayRandomizerTest extends TestCase
         for ($i=0; $i<10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
-            self::assertNotEquals(self::CANDIDATE_SET_1, $nv);
-            self::assertCount(\count(self::CANDIDATE_SET_1), $nv);
+            $this->assertNotEquals(self::CANDIDATE_SET_1, $nv);
+            $this->assertCount(\count(self::CANDIDATE_SET_1), $nv);
         }
     }
 
@@ -46,8 +46,8 @@ class ArrayRandomizerTest extends TestCase
         for ($i=0; $i<10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
-            self::assertNotEquals($original, $nv);
-            self::assertCount($votesRandomizer->maxCandidatesRanked, $nv);
+            $this->assertNotEquals($original, $nv);
+            $this->assertCount($votesRandomizer->maxCandidatesRanked, $nv);
         }
     }
 
@@ -61,16 +61,16 @@ class ArrayRandomizerTest extends TestCase
         for ($i=0; $i<10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
-            self::assertNotEquals(self::CANDIDATE_SET_1, $nv);
+            $this->assertNotEquals(self::CANDIDATE_SET_1, $nv);
 
             $countNv = \count($nv);
             $variations[] = $countNv;
 
-            self::assertGreaterThanOrEqual($votesRandomizer->minCandidatesRanked, $countNv);
+            $this->assertGreaterThanOrEqual($votesRandomizer->minCandidatesRanked, $countNv);
         }
 
         $variationsCount = \count(array_unique($variations));
-        self::assertSame(\count(self::CANDIDATE_SET_1) - $votesRandomizer->minCandidatesRanked + 1, $variationsCount);
+        $this->assertSame(\count(self::CANDIDATE_SET_1) - $votesRandomizer->minCandidatesRanked + 1, $variationsCount);
     }
 
     public function testMinAndMaxCandidatesRanked(): void
@@ -87,12 +87,12 @@ class ArrayRandomizerTest extends TestCase
             $countNv = \count($nv);
             $variations[] = $countNv;
 
-            self::assertGreaterThanOrEqual($votesRandomizer->minCandidatesRanked, $countNv);
-            self::assertLessThanOrEqual($votesRandomizer->maxCandidatesRanked, $countNv);
+            $this->assertGreaterThanOrEqual($votesRandomizer->minCandidatesRanked, $countNv);
+            $this->assertLessThanOrEqual($votesRandomizer->maxCandidatesRanked, $countNv);
         }
 
         $variationsCount = \count(array_unique($variations));
-        self::assertSame($votesRandomizer->maxCandidatesRanked - $votesRandomizer->minCandidatesRanked + 1, $variationsCount);
+        $this->assertSame($votesRandomizer->maxCandidatesRanked - $votesRandomizer->minCandidatesRanked + 1, $variationsCount);
     }
 
     public function testAddedTies(): void
@@ -101,24 +101,24 @@ class ArrayRandomizerTest extends TestCase
 
         $votesRandomizer->tiesProbability = 100;
         $nv = $votesRandomizer->shuffle();
-        self::assertCount(2, $nv);
-        self::assertIsString($nv[0]);
-        self::assertCount(2, $nv[1]);
+        $this->assertCount(2, $nv);
+        $this->assertIsString($nv[0]);
+        $this->assertCount(2, $nv[1]);
 
         $votesRandomizer->tiesProbability = 90;
         $nv = $votesRandomizer->shuffle();
-        self::assertCount(2, $nv);
-        self::assertIsString($nv[0]);
-        self::assertCount(2, $nv[1]);
+        $this->assertCount(2, $nv);
+        $this->assertIsString($nv[0]);
+        $this->assertCount(2, $nv[1]);
 
         $votesRandomizer->tiesProbability = 70;
         $nv = $votesRandomizer->shuffle();
-        self::assertCount(3, $nv);
+        $this->assertCount(3, $nv);
 
         $votesRandomizer->tiesProbability = 500;
         $nv = $votesRandomizer->shuffle();
-        self::assertCount(1, $nv);
-        self::assertCount(3, $nv[0]);
+        $this->assertCount(1, $nv);
+        $this->assertCount(3, $nv[0]);
     }
 
     public function testAddedTiesWithArray1(): void
@@ -128,8 +128,8 @@ class ArrayRandomizerTest extends TestCase
         $votesRandomizer->tiesProbability = 100;
         $nv = $votesRandomizer->shuffle();
 
-        self::assertCount(3, $nv);
-        self::assertCount(2, $nv[2]);
+        $this->assertCount(3, $nv);
+        $this->assertCount(2, $nv[2]);
     }
 
     public function testAddedTiesWithArray2(): void
@@ -139,32 +139,32 @@ class ArrayRandomizerTest extends TestCase
         $votesRandomizer->tiesProbability = 500;
         $nv = $votesRandomizer->shuffle();
 
-        self::assertCount(4, $nv);
-        self::assertCount(6, $nv[2]);
+        $this->assertCount(4, $nv);
+        $this->assertCount(6, $nv[2]);
     }
 
     public function testSeeds(): void
     {
         // Test low seed
         $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, '42');
-        self::assertSame(self::CANDIDATE_SET_1[5], $votesRandomizer->shuffle()[0]);
+        $this->assertSame(self::CANDIDATE_SET_1[5], $votesRandomizer->shuffle()[0]);
 
         // Test 32 bytes seed
         $s = 'abcdefghijklmnopqrstuvwxyz123456';
-        self::assertSame(32, \strlen($s));
+        $this->assertSame(32, \strlen($s));
         $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, $s);
-        self::assertSame(self::CANDIDATE_SET_1[6], $votesRandomizer->shuffle()[0]);
+        $this->assertSame(self::CANDIDATE_SET_1[6], $votesRandomizer->shuffle()[0]);
 
         // Test custom Randomizer
         $r = new \Random\Randomizer(new \Random\Engine\PcgOneseq128XslRr64('abcdefghijklmnop'));
         $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, $r);
-        self::assertSame(self::CANDIDATE_SET_1[4], $votesRandomizer->shuffle()[0]);
+        $this->assertSame(self::CANDIDATE_SET_1[4], $votesRandomizer->shuffle()[0]);
 
         // Test secure engine
         $votesRandomizer = new ArrayRandomizer([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
         for ($i=0; $i<3; $i++) {
-            self::assertNotSame(self::CANDIDATE_SET_1, $votesRandomizer->shuffle());
+            $this->assertNotSame(self::CANDIDATE_SET_1, $votesRandomizer->shuffle());
         }
     }
 }

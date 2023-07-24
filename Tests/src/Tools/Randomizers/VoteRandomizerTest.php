@@ -17,7 +17,7 @@ class VoteRandomizerTest extends TestCase
         $votesRandomizer = new VoteRandomizer(ArrayRandomizerTest::CANDIDATE_SET_1, ArrayRandomizerTest::SEED);
 
         for ($i=0; $i<5; $i++) {
-            self::assertEquals(
+            $this->assertEquals(
                 $arrayRandomizer->shuffle(),
                 array_values(
                     CondorcetUtil::format(
@@ -31,7 +31,7 @@ class VoteRandomizerTest extends TestCase
         $votesRandomizer->tiesProbability = 100;
 
         for ($i=0; $i<5; $i++) {
-            self::assertEquals(
+            $this->assertEquals(
                 $arrayRandomizer->shuffle(),
                 array_values(
                     CondorcetUtil::format(

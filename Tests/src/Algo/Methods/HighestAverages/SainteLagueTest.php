@@ -33,9 +33,9 @@ class SainteLagueTest extends TestCase
 
         $this->election->parseVotes('A ^53; B ^24; C ^23');
 
-        self::assertSame('A > B > C > A > A > B > C', $this->election->getResult('SainteLague')->getResultAsString());
+        $this->assertSame('A > B > C > A > A > B > C', $this->election->getResult('SainteLague')->getResultAsString());
 
-        self::assertSame([
+        $this->assertSame([
             'Rounds' => [
                 1 => [
                     'A' => [
@@ -156,6 +156,6 @@ class SainteLagueTest extends TestCase
 
         $this->election->parseVotes('H ^81140; Ap ^80862; FrP ^39851; SV ^26295; SP ^12187; KrF ^11229');
 
-        self::assertSame('H > Ap > FrP > H > Ap > SV > H > Ap > FrP > H > Ap', $this->election->getResult('SainteLague')->getResultAsString());
+        $this->assertSame('H > Ap > FrP > H > Ap > SV > H > Ap > FrP > H > Ap', $this->election->getResult('SainteLague')->getResultAsString());
     }
 }

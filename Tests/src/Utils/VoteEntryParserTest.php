@@ -176,12 +176,12 @@ class VoteEntryParserTest extends TestCase
     {
         $parser = new VoteEntryParser($entry);
 
-        self::assertSame($entry, $parser->originalEntry);
+        $this->assertSame($entry, $parser->originalEntry);
 
-        self::assertSame($expected['comment'], $parser->comment);
-        self::assertSame($expected['multiple'], $parser->multiple);
-        self::assertSame($expected['ranking'], $parser->ranking);
-        self::assertSame($expected['tags'], $parser->tags);
-        self::assertSame($expected['weight'], $parser->weight);
+        $this->assertSame($expected['comment'], $parser->comment);
+        $this->assertSame($expected['multiple'], $parser->multiple);
+        $this->assertSame($expected['ranking'], $parser->ranking);
+        $this->assertSame($expected['tags'], $parser->tags);
+        $this->assertSame($expected['weight'], $parser->weight);
     }
 }

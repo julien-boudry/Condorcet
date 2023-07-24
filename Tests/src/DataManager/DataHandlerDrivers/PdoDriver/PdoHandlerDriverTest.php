@@ -62,19 +62,19 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
 
-        self::assertSame(
+        $this->assertSame(
             $electionWithDb->countVotes(),
             $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
         );
 
-        self::assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        self::assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        self::assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
+        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
+        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
 
-        self::assertEquals($electionInMemory->getPairwise()->getExplicitPairwise(), $electionWithDb->getPairwise()->getExplicitPairwise());
-        self::assertEquals((string) $electionInMemory->getWinner('Ranked Pairs Winning'), (string) $electionWithDb->getWinner('Ranked Pairs Winning'));
-        self::assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
-        self::assertEquals((string) $electionInMemory->getCondorcetWinner(), (string) $electionWithDb->getCondorcetWinner());
+        $this->assertEquals($electionInMemory->getPairwise()->getExplicitPairwise(), $electionWithDb->getPairwise()->getExplicitPairwise());
+        $this->assertEquals((string) $electionInMemory->getWinner('Ranked Pairs Winning'), (string) $electionWithDb->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
+        $this->assertEquals((string) $electionInMemory->getCondorcetWinner(), (string) $electionWithDb->getCondorcetWinner());
 
 
         // 58 Votes
@@ -83,20 +83,20 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
 
-        self::assertSame(58 % ArrayManager::$MaxContainerLength, $electionWithDb->getVotesManager()->getContainerSize());
-        self::assertSame(
+        $this->assertSame(58 % ArrayManager::$MaxContainerLength, $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertSame(
             $electionWithDb->countVotes(),
             $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
         );
 
-        self::assertEquals('A', $electionWithDb->getWinner());
-        self::assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
+        $this->assertEquals('A', $electionWithDb->getWinner());
+        $this->assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
 
-        self::assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        self::assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        self::assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
-        self::assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        self::assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
+        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
+        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
+        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
 
         // Delete 3 votes
         unset($electionInMemory->getVotesManager()[13]);
@@ -106,41 +106,41 @@ class PdoHandlerDriverTest extends TestCase
         unset($electionWithDb->getVotesManager()[100]);
         unset($electionWithDb->getVotesManager()[102]);
 
-        self::assertSame(
+        $this->assertSame(
             $electionWithDb->countVotes(),
             $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
         );
-        self::assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        self::assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        self::assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
-        self::assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        self::assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
-        self::assertArrayNotHasKey(13, $electionWithDb->getVotesManager()->debugGetCache());
-        self::assertArrayNotHasKey(102, $electionWithDb->getVotesManager()->debugGetCache());
-        self::assertArrayNotHasKey(100, $electionWithDb->getVotesManager()->debugGetCache());
-        self::assertArrayHasKey(101, $electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
+        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
+        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
+        $this->assertArrayNotHasKey(13, $electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertArrayNotHasKey(102, $electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertArrayNotHasKey(100, $electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertArrayHasKey(101, $electionWithDb->getVotesManager()->debugGetCache());
 
 
         // Unset Handler
         $electionWithDb->removeExternalDataHandler();
 
-        self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
-        self::assertSame($electionInMemory->getVotesManager()->getContainerSize(), $electionWithDb->getVotesManager()->getContainerSize());
-        self::assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        self::assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        self::assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        $this->assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertSame($electionInMemory->getVotesManager()->getContainerSize(), $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
+        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
+        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
 
         // Change my mind : Set again the a new handler
         unset($handlerDriver);
         $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver($this->getPDO(), true));
 
-        self::assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
-        self::assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        self::assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        self::assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        self::assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        $this->assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
+        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
+        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
+        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
 
-        self::assertTrue($electionWithDb->removeExternalDataHandler());
+        $this->assertTrue($electionWithDb->removeExternalDataHandler());
 
         $this->expectException(DataHandlerException::class);
         $this->expectExceptionMessage('Problem with data handler: external data handler cannot be removed, is already in use');
@@ -162,14 +162,14 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes('A > B > C * 5
                                         tag1 || B > A > C * 3');
 
-        self::assertSame(5, $electionWithDb->countVotes('tag1', false));
-        self::assertSame(3, $electionWithDb->countVotes('tag1', true));
+        $this->assertSame(5, $electionWithDb->countVotes('tag1', false));
+        $this->assertSame(3, $electionWithDb->countVotes('tag1', true));
 
         $electionWithDb->parseVotes('A > B > C * 5
                                         tag1 || B > A > C * 3');
 
-        self::assertSame(10, $electionWithDb->countVotes('tag1', false));
-        self::assertSame(6, $electionWithDb->countVotes('tag1', true));
+        $this->assertSame(10, $electionWithDb->countVotes('tag1', false));
+        $this->assertSame(6, $electionWithDb->countVotes('tag1', true));
     }
 
     public function testVoteObjectIntoDataHandler(): void
@@ -186,12 +186,12 @@ class PdoHandlerDriverTest extends TestCase
         $myVote = $electionWithDb->addVote('A>B>C');
 
         $electionWithDb->getVotesManager()->regularize();
-        self::assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
+        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
 
         // myVote is no longer a part of the election. Internally, it will work with clones.
-        self::assertSame(0, $myVote->countLinks());
-        self::assertNotSame($electionWithDb->getVotesList()[0], $myVote);
-        self::assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
+        $this->assertSame(0, $myVote->countLinks());
+        $this->assertNotSame($electionWithDb->getVotesList()[0], $myVote);
+        $this->assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
     }
 
     public function testUpdateEntity(): void
@@ -214,7 +214,7 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb->parseVotes('A>B>C * 20');
 
-        self::assertSame(
+        $this->assertSame(
             "A > B > C * 39\n".
             'B > A > C * 1',
             $electionWithDb->getVotesListAsString()
@@ -236,7 +236,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        self::assertCount(52, $votesListGenerator);
+        $this->assertCount(52, $votesListGenerator);
 
 
         $votesListGenerator = [];
@@ -245,7 +245,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        self::assertCount(42, $votesListGenerator);
+        $this->assertCount(42, $votesListGenerator);
     }
 
     public function testSliceInput(): void
@@ -261,7 +261,7 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb->parseVotes('A>B>C * 463');
 
-        self::assertSame(463, $electionWithDb->countVotes());
+        $this->assertSame(463, $electionWithDb->countVotes());
     }
 
     public function testMultipleHandler(): never
@@ -296,8 +296,8 @@ class PdoHandlerDriverTest extends TestCase
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
 
-        self::assertFalse($handlerDriver->selectOneEntity(500));
+        $this->assertFalse($handlerDriver->selectOneEntity(500));
 
-        self::assertSame([], $handlerDriver->selectRangeEntities(500, 5));
+        $this->assertSame([], $handlerDriver->selectRangeEntities(500, 5));
     }
 }

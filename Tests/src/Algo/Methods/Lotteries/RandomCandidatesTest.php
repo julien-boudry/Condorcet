@@ -26,13 +26,13 @@ class RandomCandidatesTest extends TestCase
     {
         $this->election->addVote('A>B>C');
 
-        self::assertSame(
+        $this->assertSame(
             expected: 'C > A > B',
             actual: $this->election->getResult('Random candidates')->getOriginalResultAsString()
         );
 
         // Test again, test cache
-        self::assertSame(
+        $this->assertSame(
             expected: 'C > A > B',
             actual: $this->election->getResult('Random candidates')->getOriginalResultAsString()
         );
@@ -40,13 +40,13 @@ class RandomCandidatesTest extends TestCase
         // Test tie probability
         $this->election->setMethodOption('Random Candidates', 'TiesProbability', $lastTiesProbability = 42.42);
 
-        self::assertSame(
+        $this->assertSame(
             expected: 'C > A = B',
             actual: ($lastResult = $this->election->getResult('Random candidates'))->getOriginalResultAsString()
         );
 
         $this->election->setMethodOption('Random Candidates', 'TiesProbability', 0);
 
-        self::assertSame($lastTiesProbability, $lastResult->getStats()['Ties Probability']);
+        $this->assertSame($lastTiesProbability, $lastResult->getStats()['Ties Probability']);
     }
 }

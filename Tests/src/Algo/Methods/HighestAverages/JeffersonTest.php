@@ -30,7 +30,7 @@ class JeffersonTest extends TestCase
 
         $this->election->parseVotes('A * 42; B ^31; C *15; D ^12'); // Mix weight and number
 
-        self::assertSame(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+        $this->assertSame(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
     }
 
     public function testResult_Tideman_A03(): void
@@ -42,6 +42,6 @@ class JeffersonTest extends TestCase
 
         $this->election->getResult('Jefferson');
 
-        self::assertTrue(true);
+        $this->assertTrue(true);
     }
 }

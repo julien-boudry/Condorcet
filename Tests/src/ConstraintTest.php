@@ -28,15 +28,15 @@ class ConstraintTest extends TestCase
     {
         $class = NoTie::class;
 
-        self::assertTrue($this->election->addConstraint($class));
+        $this->assertTrue($this->election->addConstraint($class));
 
-        self::assertSame([$class], $this->election->getConstraints());
+        $this->assertSame([$class], $this->election->getConstraints());
 
-        self::assertTrue($this->election->clearConstraints());
+        $this->assertTrue($this->election->clearConstraints());
 
         self::assertsame([], $this->election->getConstraints());
 
-        self::assertTrue($this->election->addConstraint($class));
+        $this->assertTrue($this->election->addConstraint($class));
 
         $this->expectException(VoteConstraintException::class);
         $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
@@ -77,60 +77,60 @@ class ConstraintTest extends TestCase
 
             $this->election->allowsVoteWeight();
 
-            self::assertEquals('B', $this->election->getWinner());
+            $this->assertEquals('B', $this->election->getWinner());
 
             $this->election->addConstraint($constraintClass);
 
-            self::assertEquals('A', $this->election->getWinner());
+            $this->assertEquals('A', $this->election->getWinner());
 
             $this->election->clearConstraints();
 
-            self::assertEquals('B', $this->election->getWinner());
+            $this->assertEquals('B', $this->election->getWinner());
 
             $this->election->addConstraint($constraintClass);
 
-            self::assertEquals('A', $this->election->getWinner());
+            $this->assertEquals('A', $this->election->getWinner());
 
-            self::assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
-            self::assertEquals(46, $this->election->sumVotesWeight());
-            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
-            self::assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
-            self::assertEquals(5, $this->election->countVotes());
-            self::assertEquals(1, $this->election->countValidVoteWithConstraints());
-            self::assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));
-            self::assertEquals(4, $this->election->countInvalidVoteWithConstraints());
+            $this->assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
+            $this->assertEquals(46, $this->election->sumVotesWeight());
+            $this->assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            $this->assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
+            $this->assertEquals(5, $this->election->countVotes());
+            $this->assertEquals(1, $this->election->countValidVoteWithConstraints());
+            $this->assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));
+            $this->assertEquals(4, $this->election->countInvalidVoteWithConstraints());
 
-            self::assertEquals('A', $this->election->getWinner('FTPT'));
+            $this->assertEquals('A', $this->election->getWinner('FTPT'));
 
-            self::assertFalse($this->election->setImplicitRanking(false));
+            $this->assertFalse($this->election->setImplicitRanking(false));
 
-            self::assertEquals('B', $this->election->getWinner('FTPT'));
-            self::assertEquals('A', $this->election->getWinner());
+            $this->assertEquals('B', $this->election->getWinner('FTPT'));
+            $this->assertEquals('A', $this->election->getWinner());
 
-            self::assertEquals(43, $this->election->sumValidVotesWeightWithConstraints());
-            self::assertEquals(46, $this->election->sumVotesWeight());
-            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
-            self::assertEquals(42, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
-            self::assertEquals(5, $this->election->countVotes());
-            self::assertEquals(2, $this->election->countValidVoteWithConstraints());
-            self::assertEquals(1, $this->election->countValidVoteWithConstraints('tag1', false));
-            self::assertEquals(3, $this->election->countInvalidVoteWithConstraints());
+            $this->assertEquals(43, $this->election->sumValidVotesWeightWithConstraints());
+            $this->assertEquals(46, $this->election->sumVotesWeight());
+            $this->assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            $this->assertEquals(42, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
+            $this->assertEquals(5, $this->election->countVotes());
+            $this->assertEquals(2, $this->election->countValidVoteWithConstraints());
+            $this->assertEquals(1, $this->election->countValidVoteWithConstraints('tag1', false));
+            $this->assertEquals(3, $this->election->countInvalidVoteWithConstraints());
 
-            self::assertTrue($this->election->setImplicitRanking(true));
+            $this->assertTrue($this->election->setImplicitRanking(true));
 
-            self::assertEquals('A', $this->election->getWinner());
-            self::assertEquals('A', $this->election->getWinner('FTPT'));
+            $this->assertEquals('A', $this->election->getWinner());
+            $this->assertEquals('A', $this->election->getWinner('FTPT'));
 
-            self::assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
-            self::assertEquals(46, $this->election->sumVotesWeight());
-            self::assertEquals(45, $this->election->sumVotesWeight('tag1', false));
-            self::assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
-            self::assertEquals(5, $this->election->countVotes());
-            self::assertEquals(1, $this->election->countValidVoteWithConstraints());
-            self::assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));
-            self::assertEquals(4, $this->election->countInvalidVoteWithConstraints());
-            self::assertCount(1, iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], true)));
-            self::assertCount(0, iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], false)));
+            $this->assertEquals(1, $this->election->sumValidVotesWeightWithConstraints());
+            $this->assertEquals(46, $this->election->sumVotesWeight());
+            $this->assertEquals(45, $this->election->sumVotesWeight('tag1', false));
+            $this->assertEquals(0, $this->election->sumValidVotesWeightWithConstraints('tag1', false));
+            $this->assertEquals(5, $this->election->countVotes());
+            $this->assertEquals(1, $this->election->countValidVoteWithConstraints());
+            $this->assertEquals(0, $this->election->countValidVoteWithConstraints('tag1', false));
+            $this->assertEquals(4, $this->election->countInvalidVoteWithConstraints());
+            $this->assertCount(1, iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], true)));
+            $this->assertCount(0, iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], false)));
         }
     }
 }

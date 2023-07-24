@@ -65,6 +65,9 @@
         "nullable_type_declaration_for_default_null_value": true,
         "object_operator_without_whitespace": true,
         "ordered_interfaces": true,
+        "php_unit_test_case_static_method_calls": {
+            "call_type": "this"
+        },
         "php_unit_construct": true,
         "php_unit_dedicate_assert": true,
         "php_unit_no_expectation_annotation": true,

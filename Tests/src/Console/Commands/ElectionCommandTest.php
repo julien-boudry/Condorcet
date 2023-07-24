@@ -46,18 +46,18 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates registered || 3 votes registered', $output);
+        $this->assertStringContainsString('3 candidates registered || 3 votes registered', $output);
 
-        self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('Registered candidates', $output);
-        self::assertStringContainsString('Stats - votes registration', $output);
-        self::assertStringContainsString('Registered Votes List', $output);
-        self::assertStringContainsString('Pairwise', $output);
-        self::assertStringContainsString('Stats:', $output);
+        $this->assertStringContainsString('Schulze', $output);
+        $this->assertStringContainsString('Registered candidates', $output);
+        $this->assertStringContainsString('Stats - votes registration', $output);
+        $this->assertStringContainsString('Registered Votes List', $output);
+        $this->assertStringContainsString('Pairwise', $output);
+        $this->assertStringContainsString('Stats:', $output);
 
-        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
-        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
+        $this->assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
+        $this->assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
     }
 
     public function testConsoleSeats(): void
@@ -84,10 +84,10 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates registered || 3 votes registered', $output);
+        $this->assertStringContainsString('3 candidates registered || 3 votes registered', $output);
 
-        self::assertStringContainsString('Seats:', $output);
-        self::assertStringContainsString('42', $output);
+        $this->assertStringContainsString('Seats:', $output);
+        $this->assertStringContainsString('42', $output);
     }
 
     public function testQuotas(): void
@@ -101,8 +101,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
-        self::assertStringContainsString('Droop Quota', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        $this->assertStringContainsString('Droop Quota', $output);
 
         $this->electionCommand->execute([
             '--candidates' => 'A;B;C',
@@ -114,7 +114,7 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('Imperiali', $output);
+        $this->assertStringContainsString('Imperiali', $output);
     }
 
     public function testConsoleAllMethodsArgument(): void
@@ -129,7 +129,7 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
-        self::assertStringContainsString('Copeland', $output);
+        $this->assertStringContainsString('Copeland', $output);
     }
 
     public function testConsoleMultiplesMethods(): void
@@ -144,9 +144,9 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
-        self::assertStringContainsString('Copeland', $output);
-        self::assertStringContainsString('Ranked Pairs M', $output);
-        self::assertStringContainsString('Minimax Winning', $output);
+        $this->assertStringContainsString('Copeland', $output);
+        $this->assertStringContainsString('Ranked Pairs M', $output);
+        $this->assertStringContainsString('Minimax Winning', $output);
     }
 
     public function testConsoleFileInput(): void
@@ -159,9 +159,9 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
-        self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('A ; B', $output);
-        self::assertStringContainsString('C '.CondorcetStyle::CONDORCET_LOSER_SYMBOL, $output);
+        $this->assertStringContainsString('Schulze', $output);
+        $this->assertStringContainsString('A ; B', $output);
+        $this->assertStringContainsString('C '.CondorcetStyle::CONDORCET_LOSER_SYMBOL, $output);
     }
 
     public function testInteractiveCommand(): void
@@ -187,9 +187,9 @@ class ElectionCommandTest extends TestCase
         $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
 
-        self::assertStringContainsString('3 candidates registered', $output);
-        self::assertStringContainsString('ranking rule?   FALSE', $output);
-        self::assertStringContainsString('Results: Schulze Winning', $output);
+        $this->assertStringContainsString('3 candidates registered', $output);
+        $this->assertStringContainsString('ranking rule?   FALSE', $output);
+        $this->assertStringContainsString('Results: Schulze Winning', $output);
     }
 
     public function testNonInteractionMode(): never
@@ -208,7 +208,7 @@ class ElectionCommandTest extends TestCase
             '--votes-per-mb' => 42,
         ]);
 
-        self::assertSame(42, \CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB);
+        $this->assertSame(42, \CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB);
 
         // $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
@@ -229,8 +229,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertMatchesRegularExpression('/Votes per Mb +1/', $output);
-        self::assertMatchesRegularExpression('/Db is used +yes, using path\\:/', $output);
+        $this->assertMatchesRegularExpression('/Votes per Mb +1/', $output);
+        $this->assertMatchesRegularExpression('/Db is used +yes, using path\\:/', $output);
 
         ElectionCommand::$forceIniMemoryLimitTo = null;
 
@@ -248,8 +248,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet Winner | -', $output);
-        self::assertStringContainsString(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet Loser  | -', $output);
+        $this->assertStringContainsString(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet Winner | -', $output);
+        $this->assertStringContainsString(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet Loser  | -', $output);
     }
 
     public function testFromCondorcetElectionFormat_DoubleCandidates(): void
@@ -284,17 +284,17 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates registered || 2 votes registered', $output);
+        $this->assertStringContainsString('3 candidates registered || 2 votes registered', $output);
 
-        self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('Registered candidates', $output);
-        self::assertStringContainsString('Stats - votes registration', $output);
+        $this->assertStringContainsString('Schulze', $output);
+        $this->assertStringContainsString('Registered candidates', $output);
+        $this->assertStringContainsString('Stats - votes registration', $output);
 
-        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
-        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
+        $this->assertMatchesRegularExpression('/Is vote weight allowed\?( )+TRUE/', $output);
+        $this->assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+FALSE/', $output);
 
-        self::assertStringContainsString('Sum vote weight | 3', $output);
+        $this->assertStringContainsString('Sum vote weight | 3', $output);
     }
 
     public function testFromCondorcetElectionFormat_Arguments(): void
@@ -310,19 +310,19 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('3 candidates registered || 2 votes registered', $output);
+        $this->assertStringContainsString('3 candidates registered || 2 votes registered', $output);
 
-        self::assertStringContainsString('Schulze', $output);
-        self::assertStringContainsString('Registered candidates', $output);
-        self::assertStringContainsString('Stats - votes registration', $output);
+        $this->assertStringContainsString('Schulze', $output);
+        $this->assertStringContainsString('Registered candidates', $output);
+        $this->assertStringContainsString('Stats - votes registration', $output);
 
-        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
-        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        $this->assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        $this->assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+FALSE./', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
 
-        self::assertStringContainsString('Sum vote weight | 2', $output);
+        $this->assertStringContainsString('Sum vote weight | 2', $output);
 
-        self::assertStringContainsString('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
+        $this->assertStringContainsString('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
     }
 
     #[RequiresPhpExtension('pdo_sqlite')]
@@ -339,9 +339,9 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertMatchesRegularExpression('/Votes per Mb +1/', $output);
-        self::assertStringContainsString('Db is used', $output);
-        self::assertStringContainsString('yes, using path:', $output);
+        $this->assertMatchesRegularExpression('/Votes per Mb +1/', $output);
+        $this->assertStringContainsString('Db is used', $output);
+        $this->assertStringContainsString('yes, using path:', $output);
 
         ElectionCommand::$forceIniMemoryLimitTo = null;
 
@@ -362,20 +362,20 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('4 candidates registered || 339 votes registered', $output);
+        $this->assertStringContainsString('4 candidates registered || 339 votes registered', $output);
 
-        self::assertStringContainsString('STV', $output);
-        self::assertStringContainsString('Registered candidates', $output);
-        self::assertStringContainsString('Stats - votes registration', $output);
+        $this->assertStringContainsString('STV', $output);
+        $this->assertStringContainsString('Registered candidates', $output);
+        $this->assertStringContainsString('Stats - votes registration', $output);
 
-        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
-        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        $this->assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        $this->assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
 
-        self::assertStringContainsString('Sum vote weight | 339', $output);
+        $this->assertStringContainsString('Sum vote weight | 339', $output);
 
-        self::assertStringContainsString('Jonathan Carter '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
-        self::assertMatchesRegularExpression('/Seats: *\| 1/', $output);
+        $this->assertStringContainsString('Jonathan Carter '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
+        $this->assertMatchesRegularExpression('/Seats: *\| 1/', $output);
     }
 
     public function testFromDavidHillFormat(): void
@@ -392,20 +392,20 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('10 candidates registered || 380 votes registered', $output);
+        $this->assertStringContainsString('10 candidates registered || 380 votes registered', $output);
 
-        self::assertStringContainsString('STV', $output);
-        self::assertStringContainsString('Registered candidates', $output);
-        self::assertStringContainsString('Stats - votes registration', $output);
+        $this->assertStringContainsString('STV', $output);
+        $this->assertStringContainsString('Registered candidates', $output);
+        $this->assertStringContainsString('Stats - votes registration', $output);
 
-        self::assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
-        self::assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
-        self::assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
+        $this->assertMatchesRegularExpression('/Is vote weight allowed\?( )+FALSE/', $output);
+        $this->assertMatchesRegularExpression('/Votes are evaluated according to the implicit ranking rule\?( )+TRUE./', $output);
+        $this->assertMatchesRegularExpression('/Is vote tie in rank allowed\?( )+TRUE/', $output);
 
-        self::assertStringContainsString('Sum vote weight | 380', $output);
+        $this->assertStringContainsString('Sum vote weight | 380', $output);
 
-        self::assertStringContainsString('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
-        self::assertMatchesRegularExpression('/Seats: *\| 3/', $output);
+        $this->assertStringContainsString('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL, $output); # Condorcet Winner
+        $this->assertMatchesRegularExpression('/Seats: *\| 3/', $output);
     }
 
     // Issue #110
@@ -425,6 +425,6 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        self::assertStringContainsString('10 000 votes registered', $output);
+        $this->assertStringContainsString('10 000 votes registered', $output);
     }
 }
