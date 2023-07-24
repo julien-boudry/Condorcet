@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Tools\Randomizers\{ArrayRandomizer, VoteRandomizer};
+use CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer;
+use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
 

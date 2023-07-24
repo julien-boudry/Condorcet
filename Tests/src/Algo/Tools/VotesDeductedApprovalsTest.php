@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Algo\Tools\{Combinations, VotesDeductedApprovals};
+use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
+use CondorcetPHP\Condorcet\Algo\Tools\VotesDeductedApprovals;
 use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 

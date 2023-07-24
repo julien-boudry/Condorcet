@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
 
-use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election};
+use CondorcetPHP\Condorcet\Candidate;
+use CondorcetPHP\Condorcet\Condorcet;
+use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use PHPUnit\Framework\TestCase;
 

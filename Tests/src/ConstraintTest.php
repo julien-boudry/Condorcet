@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\VoteConstraintInterface;
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
 use PHPUnit\Framework\TestCase;

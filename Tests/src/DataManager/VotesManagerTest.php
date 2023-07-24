@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
-use CondorcetPHP\Condorcet\{Election, Vote};
-use CondorcetPHP\Condorcet\Throwable\{TagsFilterException, VoteException, VoteManagerException, VoteNotLinkedException};
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\Throwable\TagsFilterException;
+use CondorcetPHP\Condorcet\Throwable\VoteException;
+use CondorcetPHP\Condorcet\Throwable\VoteManagerException;
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 
 use PHPUnit\Framework\TestCase;

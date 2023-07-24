@@ -6,8 +6,10 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
-use CondorcetPHP\Condorcet\{Condorcet, Election};
-use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
+use CondorcetPHP\Condorcet\Condorcet;
+use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\ResultException;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 

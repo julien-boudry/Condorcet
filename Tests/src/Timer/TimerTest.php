@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Timer;
 
 use CondorcetPHP\Condorcet\Throwable\TimerException;
-use CondorcetPHP\Condorcet\Timer\{Chrono, Manager};
+use CondorcetPHP\Condorcet\Timer\Chrono;
+use CondorcetPHP\Condorcet\Timer\Manager;
 use PHPUnit\Framework\TestCase;
 
 class TimerTest extends TestCase

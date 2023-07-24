@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Methods\Tests;
 
-use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Condorcet;
+use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 
 class MultipleRoundsSystemTest extends TestCase
