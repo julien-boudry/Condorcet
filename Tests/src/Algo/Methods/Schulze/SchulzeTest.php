@@ -30,9 +30,9 @@ class SchulzeTest extends TestCase
             C > B > D * 2
         ');
 
-        self::assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
+        $this->assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['B', 'D'],
                 2 => ['A', 'C'], ],
             $this->election->getResult('Schulze Winning')->getResultAsArray(true)
@@ -55,7 +55,7 @@ class SchulzeTest extends TestCase
             D > C > B * 2
         ');
 
-        self::assertSame([$candidateA, $candidateD], $this->election->getWinner('Schulze Winning'));
+        $this->assertSame([$candidateA, $candidateD], $this->election->getWinner('Schulze Winning'));
     }
 
     public function testResult_3(): void
@@ -82,9 +82,9 @@ class SchulzeTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertEquals('Abby', $this->election->getWinner('Schulze Winning'));
+        $this->assertEquals('Abby', $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'Abby',
                 2 => 'Brad',
                 3 => 'Erin',
@@ -110,9 +110,9 @@ class SchulzeTest extends TestCase
             D > C > B * 3
         ');
 
-        self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 14, 'C' => 14, 'D' => 12],
                 'B' => ['A' => 13, 'C' => 13, 'D' => 12],
@@ -139,9 +139,9 @@ class SchulzeTest extends TestCase
             D > B > C * 5
         ');
 
-        self::assertSame($candidateC, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateC, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 17, 'C' => 17, 'D' => 17],
                 'B' => ['A' => 18, 'C' => 19, 'D' => 19],
@@ -172,9 +172,9 @@ class SchulzeTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'E',
                 2 => 'A',
@@ -201,9 +201,9 @@ class SchulzeTest extends TestCase
             D > B > C * 2
         ');
 
-        self::assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
+        $this->assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 5, 'C' => 5, 'D' => 5],
                 'B' => ['A' => 5, 'C' => 7, 'D' => 5],
@@ -230,9 +230,9 @@ class SchulzeTest extends TestCase
             D > B > A * 21
         ');
 
-        self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 36, 'C' => 39, 'D' => 36],
                 'B' => ['A' => 36, 'C' => 48, 'D' => 36],
@@ -261,9 +261,9 @@ class SchulzeTest extends TestCase
             D > B > A
         ');
 
-        self::assertSame([$candidateA, $candidateC], $this->election->getWinner('Schulze Winning'));
+        $this->assertSame([$candidateA, $candidateC], $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 14, 'C' => 15, 'D' => 15],
                 'B' => ['A' => 12, 'C' => 12, 'D' => 12],
@@ -295,12 +295,12 @@ class SchulzeTest extends TestCase
         ');
 
         # Situation 1
-        self::assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
 
         # Situation 2
         $this->election->parseVotes('A > E > F > C > B * 2');
 
-        self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -323,9 +323,9 @@ class SchulzeTest extends TestCase
             D > C > A * 5
         ');
 
-        self::assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 18, 'C' => 20, 'D' => 21],
                 'B' => ['A' => 17, 'C' => 17, 'D' => 17],
@@ -357,9 +357,9 @@ class SchulzeTest extends TestCase
             D > E > C > A * 5
         ');
 
-        self::assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 18, 'C' => 20, 'D' => 21, 'E' => 21],
                 'B' => ['A' => 19, 'C' => 19, 'D' => 19, 'E' => 19],
@@ -386,7 +386,7 @@ class SchulzeTest extends TestCase
             C > D > A * 2
         ');
 
-        self::assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -405,7 +405,7 @@ class SchulzeTest extends TestCase
             C > D > A > B * 2
         ');
 
-        self::assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -432,9 +432,9 @@ class SchulzeTest extends TestCase
         ');
 
         # Margin
-        self::assertSame($candidateA, $this->election->getWinner('Schulze Margin'));
+        $this->assertSame($candidateA, $this->election->getWinner('Schulze Margin'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 67-55, 'C' => 67-55, 'D' => 67-55],
                 'B' => ['A' => 50-40, 'C' => 79-59, 'D' => 45-29],
@@ -446,9 +446,9 @@ class SchulzeTest extends TestCase
 
 
         # Ratio
-        self::assertSame($candidateB, $this->election->getWinner('Schulze Ratio'));
+        $this->assertSame($candidateB, $this->election->getWinner('Schulze Ratio'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 67/55, 'C' => 67/55, 'D' => 67/55],
                 'B' => ['A' => 36/28, 'C' => 79/59, 'D' => 79/59],
@@ -459,9 +459,9 @@ class SchulzeTest extends TestCase
         );
 
         # Winning
-        self::assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 67, 'C' => 67, 'D' => 45],
                 'B' => ['A' => 45, 'C' => 79, 'D' => 45],
@@ -495,9 +495,9 @@ class SchulzeTest extends TestCase
             E > D > A > C * 1
         ');
 
-        self::assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 26, 'C' => 28, 'D' => 31, 'E' => 28],
                 'B' => ['A' => 27, 'C' => 27, 'D' => 27, 'E' => 27],
@@ -529,7 +529,7 @@ class SchulzeTest extends TestCase
             E > B > C > A * 2
         ');
 
-        self::assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
+        $this->assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -545,9 +545,9 @@ class SchulzeTest extends TestCase
             C > A > B
         ');
 
-        self::assertSame([$candidateA, $candidateB], $this->election->getWinner('Schulze Winning'));
+        $this->assertSame([$candidateA, $candidateB], $this->election->getWinner('Schulze Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => ['B' => 3, 'C' => 3],
                 'B' => ['A' => 3, 'C' => 4],
@@ -562,7 +562,7 @@ class SchulzeTest extends TestCase
         $this->election->parseCandidates('A;B;C;D');
         $this->election->parseVotes('A>B=C>D * 10');
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'A',
                 2 => ['B', 'C'],
                 3 => 'D',

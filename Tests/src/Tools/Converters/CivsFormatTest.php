@@ -27,7 +27,7 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        self::assertSame(
+        $this->assertSame(
             <<<'CIVS'
                 # Candidates: A / B / C
                 1,2,3
@@ -50,7 +50,7 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        self::assertSame(
+        $this->assertSame(
             <<<'CIVS'
                 # Candidates: A / B / C
                 1,2,3
@@ -72,7 +72,7 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        self::assertSame(
+        $this->assertSame(
             <<<'CIVS'
                 # Candidates: A / B / C
                 1,2,-
@@ -91,7 +91,7 @@ class CivsFormatTest extends TestCase
         // Deactivated
         $r = CivsFormat::createFromElection($this->election);
 
-        self::assertSame(
+        $this->assertSame(
             <<<'CIVS'
                 # Candidates: A / B / C
                 1,2,3
@@ -105,7 +105,7 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        self::assertSame(
+        $this->assertSame(
             <<<'CIVS'
                 # Candidates: A / B / C
                 1,2,3
@@ -121,21 +121,21 @@ class CivsFormatTest extends TestCase
     {
         $file = new SplTempFileObject;
 
-        self::assertSame(0, $file->key());
+        $this->assertSame(0, $file->key());
 
         $this->election->parseVotes('A>B; B>C');
 
         CivsFormat::createFromElection(election: $this->election, file: $file);
 
         $file->seek(0);
-        self::assertSame("# Candidates: A / B / C\n", $file->current());
+        $this->assertSame("# Candidates: A / B / C\n", $file->current());
 
         $file->seek(1);
-        self::assertSame("1,2,3\n", $file->current());
+        $this->assertSame("1,2,3\n", $file->current());
 
         $file->seek(2);
-        self::assertSame('3,1,2', $file->current());
+        $this->assertSame('3,1,2', $file->current());
 
-        self::assertTrue($file->eof());
+        $this->assertTrue($file->eof());
     }
 }

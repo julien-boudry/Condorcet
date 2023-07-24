@@ -34,7 +34,7 @@ class ResultTest extends TestCase
         ');
 
 
-        self::assertSame(
+        $this->assertSame(
             'A = B > C',
             $this->election1->getResult('Ranked Pairs')->getResultAsString()
         );
@@ -54,7 +54,7 @@ class ResultTest extends TestCase
         ');
 
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [0, 1], 2 => [2]],
             $this->election1->getResult('Ranked Pairs')->getResultAsInternalKey()
         );
@@ -68,7 +68,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame(Condorcet::getVersion(), $this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion());
+        $this->assertSame(Condorcet::getVersion(), $this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion());
     }
 
     public function testResultClassgenerator(): void
@@ -79,7 +79,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame(\CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class, $this->election1->getResult('Ranked Pairs')->getClassGenerator());
+        $this->assertSame(\CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class, $this->election1->getResult('Ranked Pairs')->getClassGenerator());
     }
 
     public function testMethod(): void
@@ -90,7 +90,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertSame('Ranked Pairs Margin', $this->election1->getResult('Ranked Pairs')->getMethod());
+        $this->assertSame('Ranked Pairs Margin', $this->election1->getResult('Ranked Pairs')->getMethod());
     }
 
     public function testGetBuildTimeStamp(): void
@@ -101,7 +101,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        self::assertIsFloat($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp());
+        $this->assertIsFloat($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp());
     }
 
     public function testGetWinner(): void
@@ -117,8 +117,8 @@ class ResultTest extends TestCase
             c > a > b * 2
         ');
 
-        self::assertEquals('c', $this->election1->getResult()->getWinner());
-        self::assertEquals('c', $this->election1->getResult()->getCondorcetWinner());
+        $this->assertEquals('c', $this->election1->getResult()->getWinner());
+        $this->assertEquals('c', $this->election1->getResult()->getCondorcetWinner());
     }
 
     public function testGetLoser(): void
@@ -135,8 +135,8 @@ class ResultTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertEquals('Memphis', $this->election1->getResult()->getLoser());
-        self::assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
+        $this->assertEquals('Memphis', $this->election1->getResult()->getLoser());
+        $this->assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
     }
 
     public function testgetOriginalResult(): void
@@ -147,7 +147,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('a > b > c');
 
-        self::assertEquals(
+        $this->assertEquals(
             [1 => 'a',
                 2 => 'b',
                 3 => 'c',
@@ -155,7 +155,7 @@ class ResultTest extends TestCase
             $this->election1->getResult()->getOriginalResultArrayWithString()
         );
 
-        self::assertSame('a > b > c', $this->election1->getResult()->getOriginalResultAsString());
+        $this->assertSame('a > b > c', $this->election1->getResult()->getOriginalResultAsString());
     }
 
     public function testOffsetSet(): never
@@ -184,7 +184,7 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('Schulze');
 
-        self::assertTrue(isset($result[1]));
+        $this->assertTrue(isset($result[1]));
 
         $this->expectException(ResultException::class);
         $this->expectExceptionMessage('Result cannot be changed');
@@ -203,7 +203,7 @@ class ResultTest extends TestCase
         $result = $this->election1->getResult('Schulze');
 
         foreach ($result as $key => $value) {
-            self::assertSame($vote->getRanking()[$key], $value);
+            $this->assertSame($vote->getRanking()[$key], $value);
         }
     }
 
@@ -229,7 +229,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C = A = B');
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['A', 'B', 'C'],
             ],
             $this->election1->getResult()->getOriginalResultArrayWithString()
@@ -248,30 +248,30 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('STV');
 
-        self::assertSame(
+        $this->assertSame(
             2,
             $result->getNumberOfSeats()
         );
 
-        self::assertTrue(
+        $this->assertTrue(
             $result->getClassGenerator()::IS_PROPORTIONAL
         );
 
-        self::assertTrue(
+        $this->assertTrue(
             $result->isProportional()
         );
 
         $result = $this->election1->getResult('Schulze');
 
-        self::assertNull(
+        $this->assertNull(
             $result->getNumberOfSeats()
         );
 
-        self::assertFalse(
+        $this->assertFalse(
             $result->getClassGenerator()::IS_PROPORTIONAL
         );
 
-        self::assertFalse(
+        $this->assertFalse(
             $result->isProportional()
         );
     }
@@ -286,27 +286,27 @@ class ResultTest extends TestCase
 
         $class = Condorcet::getMethodClass('Borda');
 
-        self::assertSame(1, $class::$optionStarting);
+        $this->assertSame(1, $class::$optionStarting);
 
         $b1 = $this->election1->getResult('Borda');
         $c1 = $this->election1->getResult('Copeland');
 
-        self::assertSame(1, $b1->getMethodOptions()['Starting']);
+        $this->assertSame(1, $b1->getMethodOptions()['Starting']);
 
-        self::assertTrue($this->election1->setMethodOption('Borda Count', 'Starting', 0));
-        self::assertSame(0, $class::$optionStarting);
+        $this->assertTrue($this->election1->setMethodOption('Borda Count', 'Starting', 0));
+        $this->assertSame(0, $class::$optionStarting);
 
-        self::assertSame(1, $b1->getMethodOptions()['Starting']);
+        $this->assertSame(1, $b1->getMethodOptions()['Starting']);
 
         $b2 = $this->election1->getResult('Borda');
         $c2 = $this->election1->getResult('Copeland');
 
-        self::assertNotSame($b1, $b2);
-        self::assertSame($c1, $c2);
+        $this->assertNotSame($b1, $b2);
+        $this->assertSame($c1, $c2);
 
-        self::assertSame(0, $b2->getMethodOptions()['Starting']);
+        $this->assertSame(0, $b2->getMethodOptions()['Starting']);
 
-        self::assertFalse($this->election1->setMethodOption('Unregistered method', 'Starting', 0));
+        $this->assertFalse($this->election1->setMethodOption('Unregistered method', 'Starting', 0));
     }
 
     public function testVerbosityLevel(): void
@@ -318,21 +318,21 @@ class ResultTest extends TestCase
         $this->election1->addVote('A>B>C');
 
         $r1 = $this->election1->getResult(KemenyYoung::class);
-        self::assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
+        $this->assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
 
         $this->election1->setStatsVerbosity(StatsVerbosity::STD);
         $r2 = $this->election1->getResult(KemenyYoung::class);
-        self::assertSame($r1, $r2);
+        $this->assertSame($r1, $r2);
 
         $this->election1->setStatsVerbosity(StatsVerbosity::FULL);
         $r3 = $this->election1->getResult(KemenyYoung::class);
 
-        self::assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
-        self::assertSame(StatsVerbosity::FULL, $r3->statsVerbosity);
+        $this->assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
+        $this->assertSame(StatsVerbosity::FULL, $r3->statsVerbosity);
 
-        self::assertNotSame($r1, $r3);
-        self::assertArrayNotHasKey('Ranking Scores', $r1->getStats());
-        self::assertArrayHasKey('Ranking Scores', $r3->getStats());
+        $this->assertNotSame($r1, $r3);
+        $this->assertArrayNotHasKey('Ranking Scores', $r1->getStats());
+        $this->assertArrayHasKey('Ranking Scores', $r3->getStats());
     }
 
     #[DataProviderExternal(ElectionTest::class, 'MethodsListProvider')]

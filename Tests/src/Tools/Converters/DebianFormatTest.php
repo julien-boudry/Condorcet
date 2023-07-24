@@ -25,15 +25,15 @@ class DebianFormatTest extends TestCase
     {
         $election = self::$debian2020->setDataToAnElection();
 
-        self::assertSame(339, $election->countVotes());
-        self::assertSame(1, $election->getNumberOfSeats());
+        $this->assertSame(339, $election->countVotes());
+        $this->assertSame(1, $election->getNumberOfSeats());
 
-        self::assertSame(
+        $this->assertSame(
             'Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above',
             $election->getResult('Schulze Margin')->getResultAsString()
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:4:{s:15:"Jonathan Carter";a:3:{s:15:"Sruthi Chandran";i:201;s:11:"Brian Gupta";i:241;s:17:"None Of The Above";i:267;}s:15:"Sruthi Chandran";a:3:{s:15:"Jonathan Carter";i:0;s:11:"Brian Gupta";i:49;s:17:"None Of The Above";i:168;}s:11:"Brian Gupta";a:3:{s:15:"Jonathan Carter";i:0;s:15:"Sruthi Chandran";i:0;s:17:"None Of The Above";i:69;}s:17:"None Of The Above";a:3:{s:15:"Jonathan Carter";i:0;s:15:"Sruthi Chandran";i:0;s:11:"Brian Gupta";i:0;}}'),
             $election->getResult('Schulze Margin')->getStats()
         );
@@ -47,9 +47,9 @@ class DebianFormatTest extends TestCase
 
         self::$debian2020->setDataToAnElection($election);
 
-        self::assertSame(339, $election->countVotes());
+        $this->assertSame(339, $election->countVotes());
 
-        self::assertSame(
+        $this->assertSame(
             'Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above',
             $election->getResult('Schulze Margin')->getResultAsString()
         );
@@ -59,10 +59,10 @@ class DebianFormatTest extends TestCase
     {
         $election = self::$debian2007->setDataToAnElection();
 
-        self::assertSame(482, $election->countVotes());
-        self::assertSame(1, $election->getNumberOfSeats());
+        $this->assertSame(482, $election->countVotes());
+        $this->assertSame(1, $election->getNumberOfSeats());
 
-        self::assertSame(
+        $this->assertSame(
             'Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs',
             $election->getResult('Schulze Margin')->getResultAsString()
         );
@@ -76,9 +76,9 @@ class DebianFormatTest extends TestCase
 
         self::$debian2007->setDataToAnElection($election);
 
-        self::assertSame(482, $election->countVotes());
+        $this->assertSame(482, $election->countVotes());
 
-        self::assertSame(
+        $this->assertSame(
             'Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs',
             $election->getResult('Schulze Margin')->getResultAsString()
         );
@@ -88,10 +88,10 @@ class DebianFormatTest extends TestCase
     {
         $election = self::$debian2006->setDataToAnElection();
 
-        self::assertSame(421, $election->countVotes());
-        self::assertSame(1, $election->getNumberOfSeats());
+        $this->assertSame(421, $election->countVotes());
+        $this->assertSame(1, $election->getNumberOfSeats());
 
-        self::assertSame(
+        $this->assertSame(
             'Anthony Towns > Steve McIntyre > Andreas Schuldei = Jeroen van Wolffelaar > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther',
             $election->getResult('Schulze Margin')->getResultAsString()
         );
@@ -105,9 +105,9 @@ class DebianFormatTest extends TestCase
 
         self::$debian2006->setDataToAnElection($election);
 
-        self::assertSame(421, $election->countVotes());
+        $this->assertSame(421, $election->countVotes());
 
-        self::assertSame(
+        $this->assertSame(
             'Steve McIntyre > Anthony Towns > Jeroen van Wolffelaar > Andreas Schuldei > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther',
             $election->getResult('Schulze Margin')->getResultAsString()
         );

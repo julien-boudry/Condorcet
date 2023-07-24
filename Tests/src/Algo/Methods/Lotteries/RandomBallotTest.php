@@ -31,17 +31,17 @@ class RandomBallotTest extends TestCase
             A = B = C ^3
         ');
 
-        self::assertSame(4, $this->election->countVotes());
-        self::assertSame(7, $this->election->sumValidVotesWeightWithConstraints());
+        $this->assertSame(4, $this->election->countVotes());
+        $this->assertSame(7, $this->election->sumValidVotesWeightWithConstraints());
 
-        self::assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
+        $this->assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
 
         // Cache must continue to stabilize result
         for ($i = 0; $i < 4; $i++) {
-            self::assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
+            $this->assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
         }
 
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'Elected Weight Level' => 6,
                 'Elected Ballot Key' => 3,
@@ -51,9 +51,9 @@ class RandomBallotTest extends TestCase
 
         $this->election->cleanupCalculator();
 
-        self::assertSame('C > A > B', $this->election->getResult('Random ballot')->getResultAsString());
+        $this->assertSame('C > A > B', $this->election->getResult('Random ballot')->getResultAsString());
 
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'Elected Weight Level' => 4,
                 'Elected Ballot Key' => 2,

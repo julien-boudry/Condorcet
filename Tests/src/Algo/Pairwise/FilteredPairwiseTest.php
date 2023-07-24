@@ -42,7 +42,7 @@ class FilteredPairwiseTest extends TestCase
         $normalPairwise = $this->election1->getExplicitPairwise();
 
         // Test $filteredwithoutTag1
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'A' => [
                     'win' => [
@@ -90,7 +90,7 @@ class FilteredPairwiseTest extends TestCase
         );
 
         // Test $filteredwithTag2
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'A' => [
                     'win' => [
@@ -139,7 +139,7 @@ class FilteredPairwiseTest extends TestCase
 
 
         // Test $filteredwithTag2AndTag1
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'A' => [
                     'win' => [
@@ -187,7 +187,7 @@ class FilteredPairwiseTest extends TestCase
         );
 
         // Test NormalPairwise
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'A' => [
                     'win' => [
@@ -239,7 +239,7 @@ class FilteredPairwiseTest extends TestCase
     {
         $filteredPairwise = $this->election1->getFilteredPairwiseByTags('tag1');
 
-        self::assertSame(1, $filteredPairwise[2]['win'][0]);
+        $this->assertSame(1, $filteredPairwise[2]['win'][0]);
 
         $explicitOriginalFromFilteredPairwise = $filteredPairwise->getExplicitPairwise();
 
@@ -248,9 +248,9 @@ class FilteredPairwiseTest extends TestCase
 
         $filteredPairwise = unserialize($serializedFilteredPairwise);
 
-        self::assertSame($explicitOriginalFromFilteredPairwise, $filteredPairwise->getExplicitPairwise());
-        self::assertSame(['tag1'], $filteredPairwise->tags);
-        self::assertTrue($filteredPairwise->withTags);
+        $this->assertSame($explicitOriginalFromFilteredPairwise, $filteredPairwise->getExplicitPairwise());
+        $this->assertSame(['tag1'], $filteredPairwise->tags);
+        $this->assertTrue($filteredPairwise->withTags);
     }
 
     public function testModifyFilteredPairwise(): void
@@ -259,24 +259,24 @@ class FilteredPairwiseTest extends TestCase
 
         $filteredPairwise = $this->election1->getFilteredPairwiseByTags('tag1');
 
-        self::assertSame(2, $filteredPairwise[2]['win'][0]);
+        $this->assertSame(2, $filteredPairwise[2]['win'][0]);
 
         $filteredPairwise->removeVote(1);
-        self::assertSame(1, $filteredPairwise[2]['win'][0]);
+        $this->assertSame(1, $filteredPairwise[2]['win'][0]);
 
         $newVote = $this->election1->addVote('A>B>C');
         $newVote->addTags('tag1');
 
-        self::assertSame(0, $filteredPairwise[0]['win'][2]);
+        $this->assertSame(0, $filteredPairwise[0]['win'][2]);
         $filteredPairwise->addNewVote($this->election1->getVoteKey($newVote));
-        self::assertSame(1, $filteredPairwise[0]['win'][2]);
+        $this->assertSame(1, $filteredPairwise[0]['win'][2]);
 
         $this->election1 = null; // destroy reference and weak reference
 
         // Explicit pairwise must continue to find original candidates names
-        self::assertArrayHasKey('A', $filteredPairwise->getExplicitPairwise());
-        self::assertArrayHasKey('B', $filteredPairwise->getExplicitPairwise());
-        self::assertArrayHasKey('C', $filteredPairwise->getExplicitPairwise());
+        $this->assertArrayHasKey('A', $filteredPairwise->getExplicitPairwise());
+        $this->assertArrayHasKey('B', $filteredPairwise->getExplicitPairwise());
+        $this->assertArrayHasKey('C', $filteredPairwise->getExplicitPairwise());
     }
 
     public function testFilteredPairwiseResults_2(): void
@@ -296,7 +296,7 @@ class FilteredPairwiseTest extends TestCase
 
 
         // Test $filteredwithBothTags
-        self::assertSame(
+        $this->assertSame(
             expected: [
                 'A' => [
                     'win' => [

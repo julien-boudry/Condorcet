@@ -55,7 +55,7 @@ class CPO_StvTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Carter',
                 2 => 'Andrea',
@@ -66,26 +66,26 @@ class CPO_StvTest extends TestCase
 
         $stats = $this->election->getResult('CPO STV')->getStats();
 
-        self::assertSame(25.0, $stats['Votes Needed to Win']);
-        self::assertSame(['Andrea'=> 25.0,
+        $this->assertSame(25.0, $stats['Votes Needed to Win']);
+        $this->assertSame(['Andrea'=> 25.0,
             'Brad'=> 7.0,
             'Carter'=> 34.0,
             'Delilah'=> 13.0,
             'Scott'=> 21.0,
         ], $stats['Initial Score Table']);
 
-        self::assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
-        self::assertSame(['Brad', 'Delilah', 'Scott'], $stats['Candidates eliminated from first round']);
+        $this->assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
+        $this->assertSame(['Brad', 'Delilah', 'Scott'], $stats['Candidates eliminated from first round']);
 
-        self::assertSame([
+        $this->assertSame([
             ['Andrea', 'Carter', 'Scott'],
             ['Andrea', 'Carter', 'Delilah'],
             ['Andrea', 'Brad', 'Carter'],
         ], $stats['Outcomes']);
 
-        self::assertSame('Schulze Margin', $stats['Completion Method']);
+        $this->assertSame('Schulze Margin', $stats['Completion Method']);
 
-        self::assertSame(
+        $this->assertSame(
             ['Outcome N° 0 compared to Outcome N° 1' => [
                 'candidates_excluded' => [
                     0 => 'Brad',
@@ -153,7 +153,7 @@ class CPO_StvTest extends TestCase
             $stats['Outcomes Comparison']
         );
 
-        self::assertArrayHasKey('Condorcet Completion Method Stats', $stats);
+        $this->assertArrayHasKey('Condorcet Completion Method Stats', $stats);
     }
 
 
@@ -180,9 +180,9 @@ class CPO_StvTest extends TestCase
 
         $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HARE);
 
-        self::assertSame('Andre > Escher > Gore', $this->election->getResult('CPO STV')->getResultAsString());
+        $this->assertSame('Andre > Escher > Gore', $this->election->getResult('CPO STV')->getResultAsString());
 
-        self::assertSame((float) 100, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
+        $this->assertSame((float) 100, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
     }
 
     # From https://electowiki.org/wiki/CPO-STV
@@ -205,12 +205,12 @@ class CPO_StvTest extends TestCase
 
         $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP);
 
-        self::assertSame('A > C', $this->election->getResult('CPO STV')->getResultAsString());
+        $this->assertSame('A > C', $this->election->getResult('CPO STV')->getResultAsString());
 
-        self::assertSame((float) 11, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
-        self::assertSame([0=>19.0, 2=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores']);
-        self::assertSame([0=>19.0, 1=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores']);
-        self::assertSame([1=>19.5, 2=>13.5], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores']);
+        $this->assertSame((float) 11, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
+        $this->assertSame([0=>19.0, 2=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores']);
+        $this->assertSame([0=>19.0, 1=>22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores']);
+        $this->assertSame([1=>19.5, 2=>13.5], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores']);
     }
 
     public function testLessOrEqualCandidatesThanSeats(): void
@@ -235,11 +235,11 @@ class CPO_StvTest extends TestCase
                                         Chattanooga * 2
                                         Knoxville * 1');
 
-        self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+        $this->assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
 
         $this->election->setNumberOfSeats(5);
 
-        self::assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+        $this->assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
     public function testEquality1(): void
@@ -253,11 +253,11 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('B>C>A');
         $this->election->addVote('A>B>C');
 
-        self::assertSame([1=>['A', 'B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        $this->assertSame([1=>['A', 'B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
 
         $this->election->setNumberOfSeats(3);
 
-        self::assertSame([1=>['A', 'B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        $this->assertSame([1=>['A', 'B'], 3=> 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
     public function testEquality2(): void
@@ -270,7 +270,7 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('A>B>C>D');
         $this->election->addVote('A>B>D>C');
 
-        self::assertSame([1=>'A', 2=>['B', 'D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        $this->assertSame([1=>'A', 2=>['B', 'D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
     }
 
     public function testLimit1(): void

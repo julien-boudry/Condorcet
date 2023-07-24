@@ -27,9 +27,9 @@ class SingleTransferableVoteTest extends TestCase
 
     public function testQuotaOption(): never
     {
-        self::assertSame(StvQuotas::DROOP, StvQuotas::make('droop'));
+        $this->assertSame(StvQuotas::DROOP, StvQuotas::make('droop'));
 
-        self::assertTrue(
+        $this->assertTrue(
             $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'))
         );
 
@@ -61,7 +61,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
 
 
-        self::assertEqualsWithDelta(
+        $this->assertEqualsWithDelta(
             [
                 1 => [
                     'A' => 42.0,
@@ -83,12 +83,12 @@ class SingleTransferableVoteTest extends TestCase
             1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
-        self::assertSame(
+        $this->assertSame(
             (float) 34,
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'B',
@@ -122,12 +122,12 @@ class SingleTransferableVoteTest extends TestCase
             Hamburger
         ');
 
-        self::assertSame(
+        $this->assertSame(
             (float) 6,
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => [
                     'Chocolate' => 12.0,
@@ -158,7 +158,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Chocolate',
                 2 => 'Orange',
@@ -189,12 +189,12 @@ class SingleTransferableVoteTest extends TestCase
             Brad ^ 27
         ');
 
-        self::assertSame(
+        $this->assertSame(
             (float) 31,
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => [
                     'Andrea' => 50.0,
@@ -209,7 +209,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Andrea',
                 2 => 'Brad',
@@ -218,7 +218,7 @@ class SingleTransferableVoteTest extends TestCase
         );
 
         $this->election->setStatsVerbosity(StatsVerbosity::LOW);
-        self::assertArrayNotHasKey('rounds', $this->election->getResult('STV')->getStats());
+        $this->assertArrayNotHasKey('rounds', $this->election->getResult('STV')->getStats());
     }
 
     public function testResult_4(): void
@@ -242,12 +242,12 @@ class SingleTransferableVoteTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        self::assertSame(
+        $this->assertSame(
             (float) 26,
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'D',
@@ -278,12 +278,12 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
-        self::assertSame(
+        $this->assertSame(
             round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertEqualsWithDelta(
+        $this->assertEqualsWithDelta(
             [
                 1 => [
                     'Andrea' => 45.0,
@@ -299,7 +299,7 @@ class SingleTransferableVoteTest extends TestCase
             delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Andrea',
                 2 => 'Carter',
@@ -330,12 +330,12 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::IMPERIALI);
 
-        self::assertSame(
+        $this->assertSame(
             (float) (100 / (2 + 2)),
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => [
                     'Andrea' => 65.0,
@@ -350,7 +350,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Andrea',
                 2 => 'Carter',
@@ -381,12 +381,12 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hare quota'));
 
-        self::assertSame(
+        $this->assertSame(
             (float) (100 / 2),
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => [
                     'Andrea' => 60.0,
@@ -402,7 +402,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Andrea',
                 2 => 'Brad',
@@ -438,12 +438,12 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(3);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
 
-        self::assertSame(
+        $this->assertSame(
             (float) 25,
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => [
                     'Carter' => 34.0,
@@ -465,7 +465,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getStats()['rounds']
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Carter',
                 2 => 'Andrea',

@@ -38,7 +38,7 @@ class RankedPairsTest extends TestCase
             E > B > A > D * 8
         ');
 
-        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         $expected = [1 => 'A',
             2 => 'C',
@@ -46,22 +46,22 @@ class RankedPairsTest extends TestCase
             4 => 'B',
             5 => 'D', ];
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'),
             $this->election->getResult('Ranked Pairs Winning')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'),
             $this->election->getResult('Ranked Pairs Margin')->getStats()
         );
@@ -89,22 +89,22 @@ class RankedPairsTest extends TestCase
             4 => 'Memphis', ];
 
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'),
             $this->election->getResult('Ranked Pairs Winning')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'),
             $this->election->getResult('Ranked Pairs Margin')->getStats()
         );
@@ -142,14 +142,14 @@ class RankedPairsTest extends TestCase
             4 => 'Dave',
             5 => 'Cora', ];
 
-        self::assertEquals('Brad', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('Brad', $this->election->getWinner('Ranked Pairs Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
@@ -170,11 +170,11 @@ class RankedPairsTest extends TestCase
         ');
 
         // Not supporting not ranked candidate
-        self::assertNotEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertNotEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
         // Supporting not ranked candidate
         $this->election->setImplicitRanking(false);
-        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
     }
 
     public function testResult_5(): void
@@ -196,14 +196,14 @@ class RankedPairsTest extends TestCase
             2 => 'B',
             3 => 'C', ];
 
-        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
@@ -227,14 +227,14 @@ class RankedPairsTest extends TestCase
             2 => 'B',
             3 => 'C', ];
 
-        self::assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('A', $this->election->getWinner('Ranked Pairs Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
@@ -258,12 +258,12 @@ class RankedPairsTest extends TestCase
         $expected =  [1 => ['A', 'B'],
             2 => 'C', ];
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
@@ -293,24 +293,24 @@ class RankedPairsTest extends TestCase
             3 => 'D',
             4 => 'C', ];
 
-        self::assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'),
             $this->election->getResult('Ranked Pairs Winning')->getStats()
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'),
             $this->election->getResult('Ranked Pairs Winning')->getStats()
         );
@@ -352,7 +352,7 @@ class RankedPairsTest extends TestCase
             A > H > D > C > F > E > B > G * 1
            ');
 
-        self::assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('B', $this->election->getWinner('Ranked Pairs Winning'));
     }
 
     public function testResult_10(): void
@@ -376,7 +376,7 @@ class RankedPairsTest extends TestCase
         ');
 
 
-        self::assertEquals('v', $this->election->getWinner('Ranked Pairs Winning'));
+        $this->assertEquals('v', $this->election->getWinner('Ranked Pairs Winning'));
 
         $expected = [1 => 'v',
             2 => 'w',
@@ -384,12 +384,12 @@ class RankedPairsTest extends TestCase
             4 => 'y',
             5 => 'z', ];
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             $expected,
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );
@@ -409,7 +409,7 @@ class RankedPairsTest extends TestCase
             A > B > C * 5
         ');
 
-        self::assertNotEquals(
+        $this->assertNotEquals(
             $this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true),
             $this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true)
         );

@@ -29,55 +29,55 @@ class VotesDeductedApprovalsTest extends TestCase
 
         // Test with 2 and implicit
         $votesStats = new VotesDeductedApprovals(2, $election);
-        self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 0]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 0]));
 
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([2, 3]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([4, 0]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([2, 3]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([4, 0]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
 
         // Test with 2 and explicit
         $election->setImplicitRanking(false);
 
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
-        self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
 
         // Test with 5 and explicit
         $votesStats = $votesStats = new VotesDeductedApprovals(5, $election);
-        self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 5), $votesStats);
+        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 5), $votesStats);
 
-        self::assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 4]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 5]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([3, 8, 6, 9, 2]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([5, 6, 8, 7, 9]));
+        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 4]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 5]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([3, 8, 6, 9, 2]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([5, 6, 8, 7, 9]));
 
         // With 2 and weight activated
         $election->allowsVoteWeight(true);
 
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
-        self::assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
 
-        self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
-        self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
+        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
+        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
 
         // Add a vote
         $election->parseVotes('A>B');
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
 
-        self::assertSame(43, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        self::assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 2]));
-        self::assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
+        $this->assertSame(43, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
+        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 2]));
+        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
     }
 }

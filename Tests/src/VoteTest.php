@@ -38,11 +38,11 @@ class VoteTest extends TestCase
     {
         $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        self::assertEquals($vote1->getCreateTimestamp(), $vote1->getTimestamp());
+        $this->assertEquals($vote1->getCreateTimestamp(), $vote1->getTimestamp());
 
         $vote1->setRanking([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        self::assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
+        $this->assertLessThan($vote1->getTimestamp(), $vote1->getCreateTimestamp());
     }
 
     public function testDifferentRanking(): never
@@ -53,91 +53,91 @@ class VoteTest extends TestCase
         $newRanking1 = $vote1->getRanking();
 
         // Ranking 2
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 [$this->candidate1, $this->candidate2, $this->candidate3]
             )
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getRanking()
         );
 
         // Ranking 3
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 [4=> $this->candidate1, 6=> $this->candidate2, 14 => $this->candidate3]
             )
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getRanking()
         );
 
         // Add vote into an election
-        self::assertSame(
+        $this->assertSame(
             $this->election1->addVote($vote1),
             $vote1
         );
 
         // Ranking 4
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 [$this->candidate1, $this->candidate2]
             )
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
 
-        self::assertCount(
+        $this->assertCount(
             2,
             $vote1->getRanking()
         );
 
         // Ranking 5
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 ['candidate1', 'candidate2']
             )
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
 
         // Ranking 6
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 [42 => 'candidate2', 142=> 'candidate1']
             )
         );
 
-        self::assertNotSame(
+        $this->assertNotSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
 
         // Ranking 7
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking(
                 'candidate1>Kim Jong>candidate2>Trump'
             )
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
 
 
         // Ranking 8
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking([
                 2=> $this->candidate2,
                 1=> $this->candidate1,
@@ -145,7 +145,7 @@ class VoteTest extends TestCase
             ])
         );
 
-        self::assertSame(
+        $this->assertSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
@@ -155,7 +155,7 @@ class VoteTest extends TestCase
 
         $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
 
-        self::assertSame(
+        $this->assertSame(
             CondorcetUtil::format($vote->getRanking()),
             [
                 1 => 'candidate4',
@@ -168,7 +168,7 @@ class VoteTest extends TestCase
         $election->parseCandidates('candidate2;candidate3;candidate4;candidate1');
         $election->addVote($vote);
 
-        self::assertSame(
+        $this->assertSame(
             CondorcetUtil::format($vote->getContextualRanking($election)),
             [
                 1 => 'candidate4',
@@ -177,7 +177,7 @@ class VoteTest extends TestCase
             ]
         );
 
-        self::assertSame(
+        $this->assertSame(
             $election->getResult()->getResultAsArray(true),
             [
                 1 => 'candidate4',
@@ -199,8 +199,8 @@ class VoteTest extends TestCase
         // Ranking 1
         $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-        self::assertSame('candidate1', $vote[1][0]->getName());
-        self::assertSame('candidate4', $vote[3][0]->getName());
+        $this->assertSame('candidate1', $vote[1][0]->getName());
+        $this->assertSame('candidate4', $vote[3][0]->getName());
     }
 
     public function testArrayAccessSetException(): void
@@ -228,11 +228,11 @@ class VoteTest extends TestCase
         // Ranking 1
         $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-        self::assertSame($vote1->getSimpleRanking(), 'candidate1 > candidate2 = candidate3 > candidate4');
+        $this->assertSame($vote1->getSimpleRanking(), 'candidate1 > candidate2 = candidate3 > candidate4');
 
         $this->election1->addVote($vote1);
 
-        self::assertSame($vote1->getSimpleRanking($this->election1), 'candidate1 > candidate2 = candidate3');
+        $this->assertSame($vote1->getSimpleRanking($this->election1), 'candidate1 > candidate2 = candidate3');
     }
 
     public function testProvisionalCandidateObject(): void
@@ -243,7 +243,7 @@ class VoteTest extends TestCase
         $this->election1->addVote($vote1);
 
         // I
-        self::assertTrue(
+        $this->assertTrue(
             $vote1->setRanking([
                 new Candidate('candidate1'),
                 $this->candidate2,
@@ -251,19 +251,19 @@ class VoteTest extends TestCase
             ])
         );
 
-        self::assertNotSame(
+        $this->assertNotSame(
             $newRanking1,
             $vote1->getContextualRanking($this->election1)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [$this->candidate2],
                 2 => [$this->candidate3],
                 3 => [$this->candidate1], ],
             $vote1->getContextualRanking($this->election1)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'candidate2',
                 2 => 'candidate3',
                 3 => 'candidate1', ],
@@ -273,21 +273,21 @@ class VoteTest extends TestCase
         // II
         $vote2 = new Vote('candidate1>candidate2');
 
-        self::assertTrue($vote2->getRanking()[1][0]->getProvisionalState());
+        $this->assertTrue($vote2->getRanking()[1][0]->getProvisionalState());
         $vote2_firstRanking = $vote2->getRanking();
 
         $this->election1->addVote($vote2);
 
-        self::assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
+        $this->assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [$this->candidate1],
                 2 => [$this->candidate2],
                 3 => [$this->candidate3], ],
             $vote2->getContextualRanking($this->election1)
         );
 
-        self::assertNotEquals(
+        $this->assertNotEquals(
             $vote2_firstRanking,
             $vote2->getRanking()
         );
@@ -299,26 +299,26 @@ class VoteTest extends TestCase
 
         $vote3 = new Vote([$otherCandidate1, $otherCandidate2, $this->candidate3]);
 
-        self::assertFalse($vote3->getRanking()[1][0]->getProvisionalState());
+        $this->assertFalse($vote3->getRanking()[1][0]->getProvisionalState());
         $vote3_firstRanking = $vote3->getRanking();
 
         $this->election1->addVote($vote3);
 
-        self::assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
+        $this->assertFalse($vote2->getRanking()[1][0]->getProvisionalState());
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [$this->candidate3],
                 2 => [$this->candidate1, $this->candidate2], ],
             $vote3->getContextualRanking($this->election1)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'candidate3',
                 2 => ['candidate1', 'candidate2'], ],
             $vote3->getContextualRankingAsString($this->election1)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             $vote3_firstRanking,
             $vote3->getRanking()
         );
@@ -344,27 +344,27 @@ class VoteTest extends TestCase
         $election1->addVote($vote1);
         $election2->addVote($vote1);
 
-        self::assertSame($vote1_originalRanking, $vote1->getRanking());
-        self::assertSame(
+        $this->assertSame($vote1_originalRanking, $vote1->getRanking());
+        $this->assertSame(
             [1=>[$this->candidate1], 2=>[$this->candidate2], 3=>[$this->candidate3]],
             $vote1->getContextualRanking($election1)
         );
-        self::assertSame(
+        $this->assertSame(
             [1=>[$this->candidate1], 2=>[$this->candidate2], 3=>[$this->candidate4]],
             $vote1->getContextualRanking($election2)
         );
-        self::assertNotSame($vote1->getRanking(), $vote1->getContextualRanking($election2));
+        $this->assertNotSame($vote1->getRanking(), $vote1->getContextualRanking($election2));
 
-        self::assertTrue($vote1->setRanking([
+        $this->assertTrue($vote1->setRanking([
             [$this->candidate5, $this->candidate2],
             $this->candidate3,
         ]));
 
-        self::assertSame(
+        $this->assertSame(
             [1=>[$this->candidate2], 2=>[$this->candidate3], 3=>[$this->candidate1]],
             $vote1->getContextualRanking($election1)
         );
-        self::assertSame(
+        $this->assertSame(
             [1=>[$this->candidate2], 2=>[$this->candidate1, $this->candidate4]],
             $vote1->getContextualRanking($election2)
         );
@@ -376,40 +376,40 @@ class VoteTest extends TestCase
 
         $targetTags = ['tag1', 'tag2', 'tag3'];
 
-        self::assertTrue($vote1->addTags(
+        $this->assertTrue($vote1->addTags(
             'tag1,tag2,tag3'
         ));
 
-        self::assertSame(
+        $this->assertSame(
             $targetTags,
             array_values($vote1->getTags())
         );
 
-        self::assertTrue($vote1->removeAllTags());
-        self::assertSame(
+        $this->assertTrue($vote1->removeAllTags());
+        $this->assertSame(
             [],
             $vote1->getTags()
         );
 
-        self::assertTrue($vote1->addTags(
+        $this->assertTrue($vote1->addTags(
             ['tag1', 'tag2', 'tag3']
         ));
 
-        self::assertSame(
+        $this->assertSame(
             $targetTags,
             array_values($vote1->getTags())
         );
 
-        self::assertEquals(['tag2'], $vote1->removeTags('tag2'));
+        $this->assertEquals(['tag2'], $vote1->removeTags('tag2'));
 
-        self::assertEquals(
+        $this->assertEquals(
             ['tag1', 'tag3'],
             array_values($vote1->getTags())
         );
 
-        self::assertTrue($vote1->removeAllTags());
+        $this->assertTrue($vote1->removeAllTags());
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote1->getTags()
         );
@@ -435,12 +435,12 @@ class VoteTest extends TestCase
         } catch (Throwable $e) {
         }
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote->getTags()
         );
 
-        self::assertTrue($vote->removeAllTags());
+        $this->assertTrue($vote->removeAllTags());
 
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
@@ -459,12 +459,12 @@ class VoteTest extends TestCase
         } catch (Throwable $e) {
         }
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote->getTags()
         );
 
-        self::assertTrue($vote->removeAllTags());
+        $this->assertTrue($vote->removeAllTags());
 
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
@@ -483,7 +483,7 @@ class VoteTest extends TestCase
         } catch (Throwable $e) {
         }
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote->getTags()
         );
@@ -501,7 +501,7 @@ class VoteTest extends TestCase
             []
         );
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote->getTags()
         );
@@ -513,9 +513,9 @@ class VoteTest extends TestCase
 
         $vote1->addTags('tag1');
         $vote1->addTags(['tag2', 'tag3']);
-        self::assertTrue($vote1->addTags('tag4,tag5'));
+        $this->assertTrue($vote1->addTags('tag4,tag5'));
 
-        self::assertSame(
+        $this->assertSame(
             ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
             $vote1->getTags()
         );
@@ -525,15 +525,15 @@ class VoteTest extends TestCase
         $vote1->removeTags(['tag2', 'tag3']);
         self::assertsame($vote1->removeTags('tag4,tag5,tag42'), ['tag4', 'tag5']);
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote1->getTags()
         );
 
-        self::assertTrue($vote1->addTags('tag4,tag5'));
-        self::assertTrue($vote1->removeAllTags());
+        $this->assertTrue($vote1->addTags('tag4,tag5'));
+        $this->assertTrue($vote1->removeAllTags());
 
-        self::assertSame(
+        $this->assertSame(
             [],
             $vote1->getTags()
         );
@@ -543,13 +543,13 @@ class VoteTest extends TestCase
     {
         $vote1 = new Vote('tag1,tag2 ||A > B >C', 'tag3,tag4');
 
-        self::assertSame(['tag3', 'tag4', 'tag1', 'tag2'], $vote1->getTags());
+        $this->assertSame(['tag3', 'tag4', 'tag1', 'tag2'], $vote1->getTags());
 
-        self::assertSame('A > B > C', $vote1->getSimpleRanking());
+        $this->assertSame('A > B > C', $vote1->getSimpleRanking());
 
         $vote2 = new Vote((string) $vote1);
 
-        self::assertSame((string) $vote1, (string) $vote2);
+        $this->assertSame((string) $vote1, (string) $vote2);
     }
 
     public function testCloneVote(): void
@@ -561,8 +561,8 @@ class VoteTest extends TestCase
 
         $vote2 = clone $vote1;
 
-        self::assertSame(0, $vote2->countLinks());
-        self::assertSame(1, $vote1->countLinks());
+        $this->assertSame(0, $vote2->countLinks());
+        $this->assertSame(1, $vote1->countLinks());
     }
 
     public function testIterator(): void
@@ -570,7 +570,7 @@ class VoteTest extends TestCase
         $vote = new Vote('C > B > A');
 
         foreach ($vote as $key => $value) {
-            self::assertSame($vote->getRanking()[$key], $value);
+            $this->assertSame($vote->getRanking()[$key], $value);
         }
     }
 
@@ -597,17 +597,17 @@ class VoteTest extends TestCase
             $createTimestamp = microtime(true) - (3600 * 1000)
         );
 
-        self::assertSame($createTimestamp, $vote->getTimestamp());
+        $this->assertSame($createTimestamp, $vote->getTimestamp());
 
         $vote->setRanking('B>C>A', $ranking2Timestamp = microtime(true) - (60 * 1000));
 
-        self::assertSame($ranking2Timestamp, $vote->getTimestamp());
+        $this->assertSame($ranking2Timestamp, $vote->getTimestamp());
 
-        self::assertSame($createTimestamp, $vote->getCreateTimestamp());
+        $this->assertSame($createTimestamp, $vote->getCreateTimestamp());
 
-        self::assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
+        $this->assertSame($createTimestamp, $vote->getHistory()[0]['timestamp']);
 
-        self::assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
+        $this->assertSame($ranking2Timestamp, $vote->getHistory()[1]['timestamp']);
 
         $this->expectException(VoteInvalidFormatException::class);
         $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
@@ -635,7 +635,7 @@ class VoteTest extends TestCase
 
         self::assertNotsame($hashCode[2], $hashCode[1]);
         self::assertNotsame($hashCode[3], $hashCode[2]);
-        self::assertNotSame($hashCode[4], $hashCode[3]);
+        $this->assertNotSame($hashCode[4], $hashCode[3]);
     }
 
     public function testCountRanks(): void
@@ -687,17 +687,17 @@ class VoteTest extends TestCase
 
         $this->election1->addVote($vote1);
 
-        self::assertSame('candidate1 > candidate2 > candidate3', $this->election1->getResult()->getResultAsString());
+        $this->assertSame('candidate1 > candidate2 > candidate3', $this->election1->getResult()->getResultAsString());
 
         $vote1->removeCandidate('candidate2');
 
-        self::assertSame('candidate1 > candidate3 ^42', $vote1->getSimpleRanking());
+        $this->assertSame('candidate1 > candidate3 ^42', $vote1->getSimpleRanking());
 
-        self::assertSame('candidate1 > candidate3 > candidate2', $this->election1->getResult()->getResultAsString());
+        $this->assertSame('candidate1 > candidate3 > candidate2', $this->election1->getResult()->getResultAsString());
 
         $vote1->removeCandidate($this->candidate3);
 
-        self::assertSame('candidate1 > candidate2 = candidate3', $this->election1->getResult()->getResultAsString());
+        $this->assertSame('candidate1 > candidate2 = candidate3', $this->election1->getResult()->getResultAsString());
 
         $this->expectException(CandidateDoesNotExistException::class);
         $this->expectExceptionMessage('This candidate does not exist: candidate4');
@@ -723,13 +723,13 @@ class VoteTest extends TestCase
 
         $vote1 = $this->election1->addVote(['candidate1', 'candidate2']);
 
-        self::assertCount(1, $vote1->getHistory());
+        $this->assertCount(1, $vote1->getHistory());
 
         // -------
 
         $vote2 = $this->election1->addVote('candidate1 > candidate2');
 
-        self::assertCount(1, $vote2->getHistory());
+        $this->assertCount(1, $vote2->getHistory());
 
         // -------
 
@@ -737,7 +737,7 @@ class VoteTest extends TestCase
 
         $this->election1->addVote($vote3);
 
-        self::assertCount(2, $vote3);
+        $this->assertCount(2, $vote3);
 
         // -------
 
@@ -746,7 +746,7 @@ class VoteTest extends TestCase
         $votes_lists = $this->election1->getVotesListGenerator('voterParsed', true);
         $vote4 = $votes_lists->current();
 
-        self::assertCount(1, $vote4->getHistory());
+        $this->assertCount(1, $vote4->getHistory());
 
         // -------
 
@@ -754,7 +754,7 @@ class VoteTest extends TestCase
 
         $this->election1->addVote($vote5);
 
-        self::assertCount(1, $vote5->getHistory());
+        $this->assertCount(1, $vote5->getHistory());
 
         // -------
 
@@ -762,7 +762,7 @@ class VoteTest extends TestCase
 
         $this->election1->addVote($vote6);
 
-        self::assertCount(2, $vote6->getHistory());
+        $this->assertCount(2, $vote6->getHistory());
 
         // -------
 
@@ -772,13 +772,13 @@ class VoteTest extends TestCase
 
         self::assertsame('candidate8', $candidate8->getName());
 
-        self::assertTrue($candidate8->getProvisionalState());
+        $this->assertTrue($candidate8->getProvisionalState());
 
         $this->election1->addVote($vote7);
 
-        self::assertTrue($candidate8->getProvisionalState());
+        $this->assertTrue($candidate8->getProvisionalState());
 
-        self::assertCount(1, $vote7->getHistory());
+        $this->assertCount(1, $vote7->getHistory());
     }
 
     public function testBadRankingInput1(): never
@@ -802,14 +802,14 @@ class VoteTest extends TestCase
     {
         $vote = $this->election1->addVote('candidate4 > candidate5');
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [$this->candidate1, $this->candidate2, $this->candidate3]],
             $vote->getContextualRanking($this->election1)
         );
 
         $cr = $vote->getContextualRankingAsString($this->election1);
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['candidate1', 'candidate2', 'candidate3']],
             $cr
         );
@@ -819,14 +819,14 @@ class VoteTest extends TestCase
     {
         $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [$this->candidate1, $this->candidate2, $this->candidate3]],
             $vote->getContextualRanking($this->election1)
         );
 
         $cr = $vote->getContextualRankingAsString($this->election1);
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['candidate1', 'candidate2', 'candidate3']],
             $cr
         );
@@ -851,7 +851,7 @@ class VoteTest extends TestCase
 
         $vote = $election->addVote('Spain>Japan>France>Netherlands>Australia>france');
 
-        self::assertSame(
+        $this->assertSame(
             'Spain > Japan > France > Netherlands > Australia',
             $vote->getSimpleRanking($election)
         );
@@ -862,8 +862,8 @@ class VoteTest extends TestCase
         $vote1 = new Vote(CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING);
         $vote2 = new Vote('  '.CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING.'  ');
 
-        self::assertSame([], $vote1->getRanking());
-        self::assertSame([], $vote2->getRanking());
+        $this->assertSame([], $vote1->getRanking());
+        $this->assertSame([], $vote2->getRanking());
     }
 
     public function testGetAllCandidates(): void
@@ -882,7 +882,7 @@ class VoteTest extends TestCase
 
         // var_dump(array_map(fn ($v) => (string) $v ,$vote->getAllCandidates()));
 
-        self::assertSame([
+        $this->assertSame([
             $this->candidate1,
             $this->candidate2,
             $vote[3][0],
@@ -893,7 +893,7 @@ class VoteTest extends TestCase
 
         ], $vote->getAllCandidates());
 
-        self::assertSame([
+        $this->assertSame([
             $this->candidate1,
             $this->candidate2,
             $this->candidate3,

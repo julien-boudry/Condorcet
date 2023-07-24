@@ -57,7 +57,7 @@ class FirstPastThePostTest extends TestCase
             Gluckstein ^47
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'Chirac',
                 2 => 'Le Pen',
@@ -79,7 +79,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1 => [
                 'Chirac' => 1988,
                 'Le Pen' => 1686,
@@ -116,7 +116,7 @@ class FirstPastThePostTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'B',
@@ -125,7 +125,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1 => [
                 'A' => 42,
                 'B' => 26,
@@ -153,7 +153,7 @@ class FirstPastThePostTest extends TestCase
             D>B=C=A ^ 25
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => ['A', 'D'],
                 2 => 'B',
@@ -161,7 +161,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => [
                 'A' => (float) 42,
                 'D' => (float) 42,
@@ -183,7 +183,7 @@ class FirstPastThePostTest extends TestCase
             A=C>B
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'A',
                 2 => 'C',
@@ -191,7 +191,7 @@ class FirstPastThePostTest extends TestCase
             $this->election->getResult('Fptp')->getResultAsArray(true)
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             [1 => [
                 'A' => 1 + 1/2,
                 'C' => 1/2,

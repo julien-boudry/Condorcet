@@ -42,9 +42,9 @@ class DodgsonTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        self::assertSame($CandidateCora, $this->election->getWinner('DodgsonTideman'));
+        $this->assertSame($CandidateCora, $this->election->getWinner('DodgsonTideman'));
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'Cora',
                 2 => 'Abby',
                 3 => 'Brad',
@@ -53,7 +53,7 @@ class DodgsonTest extends TestCase
             $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'Cora' => [
                     'sum_defeat_margin' => 4,
@@ -120,12 +120,12 @@ class DodgsonTest extends TestCase
             D>A>B>C*3
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'D',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'D' => 3.0,
                 'A' => 6.0,
@@ -177,12 +177,12 @@ class DodgsonTest extends TestCase
             A>B>C>D*5
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'C',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['C' => 2.0,
                 'A' => 3.0,
                 'B' => 13.0,
@@ -209,12 +209,12 @@ class DodgsonTest extends TestCase
             D>C>A>B*4
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'D',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['D' => 3.0,
                 'C' => 4.0,
                 'A' => 5.0,
@@ -241,12 +241,12 @@ class DodgsonTest extends TestCase
             B>A>C>D*4
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'D',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['B' => 5.0,
                 'C' => 6.0,
                 'A' => 8.0,
@@ -270,12 +270,12 @@ class DodgsonTest extends TestCase
             C>A>B*3
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'A',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['A' => 1.0,
                 'B' => 2.0,
                 'C' => 3.0,
@@ -321,12 +321,12 @@ class DodgsonTest extends TestCase
             B>D>A>C*12
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'B',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             'B',
             $this->election->getWinner('DodgsonTideman')
         );
@@ -350,12 +350,12 @@ class DodgsonTest extends TestCase
             C>D>B>A*1
         ');
 
-        self::assertEquals(1, $this->election->getResult('DodgsonTideman')->getStats()['A']['sum_defeat_margin']);
-        self::assertEquals(1, $this->election->getResult('DodgsonTideman')->getStats()['B']['sum_defeat_margin']);
-        self::assertEquals(4, $this->election->getResult('DodgsonTideman')->getStats()['C']['sum_defeat_margin']);
-        self::assertEquals(2, $this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin']);
+        $this->assertEquals(1, $this->election->getResult('DodgsonTideman')->getStats()['A']['sum_defeat_margin']);
+        $this->assertEquals(1, $this->election->getResult('DodgsonTideman')->getStats()['B']['sum_defeat_margin']);
+        $this->assertEquals(4, $this->election->getResult('DodgsonTideman')->getStats()['C']['sum_defeat_margin']);
+        $this->assertEquals(2, $this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin']);
 
-        self::assertSame(
+        $this->assertSame(
             [1 => ['A', 'B'],
                 2 => 'D',
                 3 => 'C',
@@ -389,18 +389,18 @@ class DodgsonTest extends TestCase
             C>B>A>D*1
         ');
 
-        self::assertEquals(11, $this->election->getResult('DodgsonTideman')->getStats()['A']['sum_defeat_margin']);
-        self::assertEquals(11, $this->election->getResult('DodgsonTideman')->getStats()['B']['sum_defeat_margin']);
-        self::assertEquals(7, $this->election->getResult('DodgsonTideman')->getStats()['C']['sum_defeat_margin']);
-        self::assertEquals(3, $this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin']);
+        $this->assertEquals(11, $this->election->getResult('DodgsonTideman')->getStats()['A']['sum_defeat_margin']);
+        $this->assertEquals(11, $this->election->getResult('DodgsonTideman')->getStats()['B']['sum_defeat_margin']);
+        $this->assertEquals(7, $this->election->getResult('DodgsonTideman')->getStats()['C']['sum_defeat_margin']);
+        $this->assertEquals(3, $this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin']);
 
 
-        self::assertEquals(
+        $this->assertEquals(
             'D',
             $this->election->getWinner('DodgsonTideman')
         );
 
-        self::assertSame(
+        $this->assertSame(
             [1 => 'D',
                 2 => 'C',
                 3 => ['A', 'B'],
@@ -435,12 +435,12 @@ class DodgsonTest extends TestCase
             F>E>C>A>D>B*10
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             'A',
             $this->election->getWinner('DodgsonQuick')
         );
 
-        self::assertSame(
+        $this->assertSame(
             ['A' => 3.0,
                 'B' => 4.0,
                 'C' => 20.0,
@@ -478,17 +478,17 @@ class DodgsonTest extends TestCase
             F>E>C>A>D>B*50
         ');
 
-        self::assertEquals(
+        $this->assertEquals(
             13,
             $this->election->getResult('DodgsonQuick')->getStats()['A']
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             12,
             $this->election->getResult('DodgsonQuick')->getStats()['B']
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             'B',
             $this->election->getWinner('DodgsonQuick')
         );
@@ -508,7 +508,7 @@ class DodgsonTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        self::assertSame($this->election->getWinner(null), $this->election->getWinner('DodgsonQuick'));
+        $this->assertSame($this->election->getWinner(null), $this->election->getWinner('DodgsonQuick'));
     }
 
     public function testResult_16(): void
@@ -523,7 +523,7 @@ class DodgsonTest extends TestCase
             B
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => ['A', 'B'],
                 2 => ['C', 'D'],

@@ -33,7 +33,7 @@ class InstantRunoffTest extends TestCase
             D>C>B>A * 17
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'D',
                 2 => 'A',
@@ -42,7 +42,7 @@ class InstantRunoffTest extends TestCase
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
         );
 
-        self::assertSame(
+        $this->assertSame(
             [
                 'majority' => 50.0,
                 'rounds' => [
@@ -83,7 +83,7 @@ class InstantRunoffTest extends TestCase
             sue > bob > bill
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'sue',
                 2 => 'bob',
@@ -107,7 +107,7 @@ class InstantRunoffTest extends TestCase
             bill > bob > sue
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => 'bob',
                 2 => 'bill',
@@ -126,7 +126,7 @@ class InstantRunoffTest extends TestCase
             A=B=C
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => ['A', 'B', 'C'], ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
@@ -143,7 +143,7 @@ class InstantRunoffTest extends TestCase
             B
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => ['A', 'B'], ],
             $this->election->getResult('InstantRunoff')->getResultAsArray(true)
@@ -164,7 +164,7 @@ class InstantRunoffTest extends TestCase
             D>C>B * 2
         ');
 
-        self::assertSame(
+        $this->assertSame(
             [
                 1 => ['A', 'B'],
                 3 => 'C',
@@ -180,6 +180,6 @@ class InstantRunoffTest extends TestCase
 
         $election->setImplicitRanking(false);
 
-        self::assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
+        $this->assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
     }
 }

@@ -33,7 +33,7 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('Yellows ^47000;Whites ^16000;Reds ^15800;Greens ^12000;Blues ^6100;Pinks ^3100');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        self::assertSame(
+        $this->assertSame(
             [
                 'Yellows' => 5,
                 'Whites' => 2,
@@ -45,7 +45,7 @@ class LargestRemainderTest extends TestCase
         );
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Hare-LR
-        self::assertSame(
+        $this->assertSame(
             [
                 'Yellows' => 5,
                 'Whites' => 2,
@@ -68,7 +68,7 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => 7,
                 'B' => 7,
@@ -91,7 +91,7 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => 8,
                 'B' => 8,
@@ -112,7 +112,7 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A>B>C;C>B>A;B>A>C');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Hare-LR
-        self::assertSame(
+        $this->assertSame(
             [
                 'A' => 33,
                 'B' => 33,
