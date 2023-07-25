@@ -121,21 +121,21 @@ class CivsFormatTest extends TestCase
     {
         $file = new SplTempFileObject;
 
-        $this->assertSame(0, $file->key());
+        expect($file->key())->toBe(0);
 
         $this->election->parseVotes('A>B; B>C');
 
         CivsFormat::createFromElection(election: $this->election, file: $file);
 
         $file->seek(0);
-        $this->assertSame("# Candidates: A / B / C\n", $file->current());
+        expect($file->current())->toBe("# Candidates: A / B / C\n");
 
         $file->seek(1);
-        $this->assertSame("1,2,3\n", $file->current());
+        expect($file->current())->toBe("1,2,3\n");
 
         $file->seek(2);
-        $this->assertSame('3,1,2', $file->current());
+        expect($file->current())->toBe('3,1,2');
 
-        $this->assertTrue($file->eof());
+        expect($file->eof())->toBeTrue();
     }
 }

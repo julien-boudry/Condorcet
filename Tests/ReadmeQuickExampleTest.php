@@ -56,16 +56,16 @@ class ReadmeQuickExampleTest extends TestCase
 
         // Natural Condorcet Winner
         $myWinner = $myElection1->getCondorcetWinner(); // Return a candidate object
-        $this->assertEquals('My winner is Candidate 1<br>', 'My winner is ' . $myWinner->getName() . '<br>');
+        expect('My winner is ' . $myWinner->getName() . '<br>')->toEqual('My winner is Candidate 1<br>');
 
         // Natural Condorcet Loser
         $myLoser = $myElection1->getCondorcetLoser(); // Return a candidate object
-        $this->assertEquals('My loser is Candidate 3', 'My loser is ' . $myLoser->getName());
+        expect('My loser is ' . $myLoser->getName())->toEqual('My loser is Candidate 3');
 
         // Schulze Ranking
         $myResultBySchulze = $myElection1->getResult('Schulze'); // Return a multi-dimensional array, filled with objects Candidate (multi-dimensional if tie on a rank)
         # Echo it easily
-        $this->assertEquals([1=>'Candidate 1', 2=>'Candidate 2', 3=>'Candidate 4', 4=>'Candidate 3'], CondorcetUtil::format($myResultBySchulze));
+        expect(CondorcetUtil::format($myResultBySchulze))->toBe([1=>'Candidate 1', 2=>'Candidate 2', 3=>'Candidate 4', 4=>'Candidate 3']);
 
         // Get Schulze advanced computing data & stats
         $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
@@ -84,6 +84,7 @@ class ReadmeQuickExampleTest extends TestCase
         $myChecksum = $myElection1->getChecksum();
         $toStore = serialize($myElection1);
         $comeBack = unserialize($toStore);
-        $this->assertEquals($comeBack->getChecksum(), $myChecksum); // True
+
+        expect($myChecksum)->toBe($comeBack->getChecksum());
     }
 }

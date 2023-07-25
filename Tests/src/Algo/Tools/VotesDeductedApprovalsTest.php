@@ -30,55 +30,55 @@ class VotesDeductedApprovalsTest extends TestCase
 
         // Test with 2 and implicit
         $votesStats = new VotesDeductedApprovals(2, $election);
-        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2));
 
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 0]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([1, 0]))->toBe(1);
 
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([2, 3]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([4, 0]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([2, 3]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([4, 0]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([1, 8]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([8, 9]))->toBe(1);
 
         // Test with 2 and explicit
         $election->setImplicitRanking(false);
 
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
-        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2));
 
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([3, 2]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 4]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([1, 8]))->toBe(0);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([8, 9]))->toBe(0);
 
         // Test with 5 and explicit
         $votesStats = $votesStats = new VotesDeductedApprovals(5, $election);
-        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 5), $votesStats);
+        expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 5));
 
-        $this->assertSame(1, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 4]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 5]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([3, 8, 6, 9, 2]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([5, 6, 8, 7, 9]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 4]))->toBe(1);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1, 2, 3, 5]))->toBe(0);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([3, 8, 6, 9, 2]))->toBe(0);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([5, 6, 8, 7, 9]))->toBe(0);
 
         // With 2 and weight activated
         $election->allowsVoteWeight(true);
 
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
-        $this->assertCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2), $votesStats);
+        expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2));
 
-        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([3, 2]));
-        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 4]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([8, 9]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1]))->toBe(42);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([3, 2]))->toBe(42);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 4]))->toBe(42);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([1, 8]))->toBe(0);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([8, 9]))->toBe(0);
 
         // Add a vote
         $election->parseVotes('A>B');
         $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
 
-        $this->assertSame(43, $votesStats->sumWeightIfVotesIncludeCandidates([0, 1]));
-        $this->assertSame(42, $votesStats->sumWeightIfVotesIncludeCandidates([0, 2]));
-        $this->assertSame(0, $votesStats->sumWeightIfVotesIncludeCandidates([1, 8]));
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 1]))->toBe(43);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([0, 2]))->toBe(42);
+        expect($votesStats->sumWeightIfVotesIncludeCandidates([1, 8]))->toBe(0);
     }
 }

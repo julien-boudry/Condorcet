@@ -26,27 +26,18 @@ class RandomCandidatesTest extends TestCase
     {
         $this->election->addVote('A>B>C');
 
-        $this->assertSame(
-            expected: 'C > A > B',
-            actual: $this->election->getResult('Random candidates')->getOriginalResultAsString()
-        );
+        expect($this->election->getResult('Random candidates')->getOriginalResultAsString())->toBe('C > A > B');
 
         // Test again, test cache
-        $this->assertSame(
-            expected: 'C > A > B',
-            actual: $this->election->getResult('Random candidates')->getOriginalResultAsString()
-        );
+        expect($this->election->getResult('Random candidates')->getOriginalResultAsString())->toBe('C > A > B');
 
         // Test tie probability
         $this->election->setMethodOption('Random Candidates', 'TiesProbability', $lastTiesProbability = 42.42);
 
-        $this->assertSame(
-            expected: 'C > A = B',
-            actual: ($lastResult = $this->election->getResult('Random candidates'))->getOriginalResultAsString()
-        );
+        expect(($lastResult = $this->election->getResult('Random candidates'))->getOriginalResultAsString())->toBe('C > A = B');
 
         $this->election->setMethodOption('Random Candidates', 'TiesProbability', 0);
 
-        $this->assertSame($lastTiesProbability, $lastResult->getStats()['Ties Probability']);
+        expect($lastResult->getStats()['Ties Probability'])->toBe($lastTiesProbability);
     }
 }

@@ -31,14 +31,14 @@ class RandomBallotTest extends TestCase
             A = B = C ^3
         ');
 
-        $this->assertSame(4, $this->election->countVotes());
-        $this->assertSame(7, $this->election->sumValidVotesWeightWithConstraints());
+        expect($this->election->countVotes())->toBe(4);
+        expect($this->election->sumValidVotesWeightWithConstraints())->toBe(7);
 
-        $this->assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
+        expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
 
         // Cache must continue to stabilize result
         for ($i = 0; $i < 4; $i++) {
-            $this->assertSame('A = B = C', $this->election->getResult('Random ballot')->getResultAsString());
+            expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
         }
 
         $this->assertSame(
@@ -51,7 +51,7 @@ class RandomBallotTest extends TestCase
 
         $this->election->cleanupCalculator();
 
-        $this->assertSame('C > A > B', $this->election->getResult('Random ballot')->getResultAsString());
+        expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('C > A > B');
 
         $this->assertSame(
             expected: [

@@ -32,8 +32,8 @@ class VotesManagerTest extends TestCase
 
         // add valid vote
         $this->votes_manager[] = $vote;
-        $this->assertSame($vote, $this->votes_manager->getVotesList()[0]);
-        $this->assertSame($this->election, $vote->getLinks()[0]);
+        expect($this->votes_manager->getVotesList()[0])->toBe($vote);
+        expect($vote->getLinks()[0])->toBe($this->election);
 
         $this->expectException(VoteException::class);
         $this->expectExceptionMessage('This vote is already linked to the election');
@@ -50,7 +50,7 @@ class VotesManagerTest extends TestCase
         try {
             $this->votes_manager[] = new \stdClass;
         } catch (VoteManagerException $e) {
-            $this->assertCount(0, $this->votes_manager);
+            expect($this->votes_manager)->toHaveCount(0);
             throw $e;
         }
     }
@@ -63,7 +63,7 @@ class VotesManagerTest extends TestCase
         try {
             $this->votes_manager[] = null;
         } catch (VoteManagerException $e) {
-            $this->assertCount(0, $this->votes_manager);
+            expect($this->votes_manager)->toHaveCount(0);
             throw $e;
         }
     }
@@ -74,29 +74,29 @@ class VotesManagerTest extends TestCase
 
         // unset non existent vote
         unset($this->votes_manager[0]);
-        $this->assertSame($before_list, $this->votes_manager->getVotesList());
+        expect($this->votes_manager->getVotesList())->toBe($before_list);
 
         // unset existing vote
         $vote = new Vote([]);
         $this->votes_manager[] = $vote;
         unset($this->votes_manager[0]);
-        $this->assertEmpty($this->votes_manager->getVotesList());
+        expect($this->votes_manager->getVotesList())->toBeEmpty();
     }
 
     public function testGetVoteKey(): void
     {
-        $this->assertNull($this->votes_manager->getVoteKey(new Vote([])));
+        expect($this->votes_manager->getVoteKey(new Vote([])))->toBeNull();
     }
 
     public function testGetVotesList(): void
     {
         // With Election
-        $this->assertEmpty($this->votes_manager->getVotesList());
+        expect($this->votes_manager->getVotesList())->toBeEmpty();
 
         $this->election->addCandidate('candidate');
         $this->election->addVote(new Vote(['candidate']));
 
-        $this->assertNotEmpty($this->votes_manager->getVotesList());
+        expect($this->votes_manager->getVotesList())->not()->toBeEmpty();
     }
 
     public function testGetVotesListGenerator(): void
@@ -109,8 +109,8 @@ class VotesManagerTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        $this->assertEquals($this->election->getVotesList(), $votesListGenerator);
-        $this->assertCount(52, $votesListGenerator);
+        expect($votesListGenerator)->toEqual($this->election->getVotesList());
+        expect($votesListGenerator)->toHaveCount(52);
 
 
         $votesListGenerator = [];
@@ -119,13 +119,13 @@ class VotesManagerTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        $this->assertEquals($this->election->getVotesList('tag42'), $votesListGenerator);
-        $this->assertCount(42, $votesListGenerator);
+        expect($votesListGenerator)->toEqual($this->election->getVotesList('tag42'));
+        expect($votesListGenerator)->toHaveCount(42);
     }
 
     public function testCountVotes(): never
     {
-        $this->assertEmpty($this->votes_manager->getVotesList());
+        expect($this->votes_manager->getVotesList())->toBeEmpty();
 
         $this->election->parseVotes('
             A>B>C * 10;
@@ -134,12 +134,12 @@ class VotesManagerTest extends TestCase
             tag42, tag44 || A>C>B * 18
         ');
 
-        $this->assertEquals(60, $this->votes_manager->countVotes(['tag42'], 1));
-        $this->assertEquals(44, $this->votes_manager->countVotes(['tag44'], 1));
-        $this->assertEquals(44, $this->votes_manager->countVotes(['tag44'], true));
-        $this->assertEquals(18, $this->votes_manager->countVotes(['tag42', 'tag44'], 2));
-        $this->assertEquals(52, $this->votes_manager->countVotes(['tag44'], 0));
-        $this->assertEquals(52, $this->votes_manager->countVotes(['tag44'], false));
+        expect($this->votes_manager->countVotes(['tag42'], 1))->toEqual(60);
+        expect($this->votes_manager->countVotes(['tag44'], 1))->toEqual(44);
+        expect($this->votes_manager->countVotes(['tag44'], true))->toEqual(44);
+        expect($this->votes_manager->countVotes(['tag42', 'tag44'], 2))->toEqual(18);
+        expect($this->votes_manager->countVotes(['tag44'], 0))->toEqual(52);
+        expect($this->votes_manager->countVotes(['tag44'], false))->toEqual(52);
 
         $with = -1;
 

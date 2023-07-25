@@ -21,23 +21,23 @@ class CandidateTest extends TestCase
 
     public function testCreateTimestamp(): void
     {
-        $this->assertEquals($this->candidate1->getCreateTimestamp(), $this->candidate1->getTimestamp());
+        expect($this->candidate1->getTimestamp())->toEqual($this->candidate1->getCreateTimestamp());
     }
 
     public function testChangeName(): void
     {
-        $this->assertTrue($this->candidate1->setName('candidate1.n2'));
+        expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
 
-        $this->assertEquals('candidate1.n2', $this->candidate1->getName());
+        expect($this->candidate1->getName())->toEqual('candidate1.n2');
 
-        $this->assertLessThan($this->candidate1->getTimestamp(), $this->candidate1->getCreateTimestamp());
-        $this->assertCount(2, $this->candidate1->getHistory());
+        expect($this->candidate1->getCreateTimestamp())->toBeLessThan($this->candidate1->getTimestamp());
+        expect($this->candidate1->getHistory())->toHaveCount(2);
     }
 
     public function testTrimName(): void
     {
         $candidate = new Candidate(' candidateName ');
-        $this->assertSame('candidateName', (string) $candidate);
+        expect((string) $candidate)->toBe('candidateName');
     }
 
     public function testMatchingAndTooLongName(): never
@@ -50,7 +50,7 @@ class CandidateTest extends TestCase
 
         // The name is exactly as long as allowed.
         $candidate = new Candidate($name);
-        $this->assertEquals($name, (string) $candidate);
+        expect((string) $candidate)->toEqual($name);
 
         // Now the name is one character too long.
         $name .= 'A';
@@ -131,7 +131,7 @@ class CandidateTest extends TestCase
         } catch (\Exception) {
         }
 
-        self::assertsame([$candidate1], $election1->getCandidatesList());
+        expect($election1->getCandidatesList())->toBe([$candidate1]);
     }
 
     public function testSameCandidateToMultipleElection(): void
@@ -141,24 +141,24 @@ class CandidateTest extends TestCase
         $election3 = new Election;
 
         // Add candidate to election
-        $this->assertSame($this->candidate1, $election1->addCandidate($this->candidate1));
-        $this->assertSame($this->candidate1, $election2->addCandidate($this->candidate1));
-        $this->assertSame($this->candidate1, $election3->addCandidate($this->candidate1));
+        expect($election1->addCandidate($this->candidate1))->toBe($this->candidate1);
+        expect($election2->addCandidate($this->candidate1))->toBe($this->candidate1);
+        expect($election3->addCandidate($this->candidate1))->toBe($this->candidate1);
 
         // Check Candidate Link
-        $this->assertTrue($this->candidate1->haveLink($election1));
-        $this->assertTrue($this->candidate1->haveLink($election2));
-        $this->assertTrue($this->candidate1->haveLink($election3));
-        $this->assertCount(3, $this->candidate1->getLinks());
+        expect($this->candidate1->haveLink($election1))->toBeTrue();
+        expect($this->candidate1->haveLink($election2))->toBeTrue();
+        expect($this->candidate1->haveLink($election3))->toBeTrue();
+        expect($this->candidate1->getLinks())->toHaveCount(3);
 
         $election3->removeCandidates('candidate1.n1');
 
-        $this->assertCount(2, $this->candidate1->getLinks());
+        expect($this->candidate1->getLinks())->toHaveCount(2);
 
         // Add some conflicts
-        $this->assertTrue($this->candidate1->setName('candidate1.n2'));
-        $this->assertSame('candidate1.n2', $this->candidate1->getName());
-        $this->assertNotSame($this->candidate1, $election1->addCandidate('candidate1.n1'));
+        expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
+        expect($this->candidate1->getName())->toBe('candidate1.n2');
+        expect($election1->addCandidate('candidate1.n1'))->not()->toBe($this->candidate1);
 
         $election2->addCandidate('Debussy');
 
@@ -172,12 +172,12 @@ class CandidateTest extends TestCase
     {
         ($election = new Election)->addCandidate($this->candidate1);
 
-        self::assertsame(1, $this->candidate1->countLinks());
+        expect($this->candidate1->countLinks())->toBe(1);
 
         $cloneCandidate = clone $this->candidate1;
 
-        self::assertsame(0, $cloneCandidate->countLinks());
+        expect($cloneCandidate->countLinks())->toBe(0);
 
-        $this->assertSame(1, $election->countCandidates());
+        expect($election->countCandidates())->toBe(1);
     }
 }

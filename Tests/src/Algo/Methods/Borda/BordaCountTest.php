@@ -215,6 +215,6 @@ class BordaCountTest extends TestCase
 
         $this->election->parseVotes('1 > 0 ^6973568802');
 
-        $this->assertSame('1', $this->election->getResult('Borda Count')->getResultAsString());
+        expect($this->election->getResult('Borda Count')->getResultAsString())->toBe('1');
     }
 }

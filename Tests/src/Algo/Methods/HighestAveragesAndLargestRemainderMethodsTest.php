@@ -85,8 +85,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('SainteLague')->getResultAsArray());
+        expect(array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('SainteLague')->getResultAsArray())->toHaveCount(577);
 
         // Jefferson
         $this->assertSame([
@@ -108,8 +108,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('Jefferson')->getResultAsArray());
+        expect(array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('Jefferson')->getResultAsArray())->toHaveCount(577);
 
         // Hare-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
@@ -132,8 +132,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+        expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         // Droop-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Droop-LR
@@ -156,8 +156,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+        expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         //  Hagenbach-Bischoff-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HAGENBACH_BISCHOFF); //  Hagenbach-Bischoff-LR
@@ -180,8 +180,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+        expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         //  Imperiali-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::IMPERIALI); //  Imperiali-LR
@@ -204,8 +204,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Divers extrême droite' => 0,
         ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
 
-        $this->assertSame(577, array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']));
-        $this->assertCount(577, $this->election->getResult('LargestRemainder')->getResultAsArray());
+        expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
+        expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
     }
 
     # https://www.electoral-reform.org.uk/what-is-the-difference-between-dhondt-sainte-lague-and-hare/
@@ -217,11 +217,11 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         $this->election->parseVotes('Con ^258794; Lab ^204011; LD ^33604; Brexit ^15728; Ash Ind ^13498; Green ^10375; Others ^9743');
 
-        $this->assertSame('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con', $this->election->getResult('SainteLague')->getResultAsString());
-        $this->assertSame('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab', $this->election->getResult('Jefferson')->getResultAsString());
+        expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('Con > Lab > Con > Lab > Con > Lab > Con > LD > Lab > Con > Con');
+        expect($this->election->getResult('Jefferson')->getResultAsString())->toBe('Con > Lab > Con > Lab > Con > Lab > Con > Con > Lab > Con > Lab');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        $this->assertSame('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit', $this->election->getResult('LargestRemainder')->getResultAsString());
+        expect($this->election->getResult('LargestRemainder')->getResultAsString())->toBe('Con > Con > Lab > Con > Lab > Con > Lab > Con > Lab > LD > Brexit');
     }
 
     # https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
@@ -238,8 +238,8 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
 
         $this->election->parseVotes('A ^100000; B ^80000; C ^30000; D ^20000');
 
-        $this->assertSame('A > B > A > C > B > A > D > B', $this->election->getResult('SainteLague')->getResultAsString());
-        $this->assertSame('A > B > A > B > A > C > B > A', $this->election->getResult('Jefferson')->getResultAsString());
+        expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('A > B > A > C > B > A > D > B');
+        expect($this->election->getResult('Jefferson')->getResultAsString())->toBe('A > B > A > B > A > C > B > A');
     }
 
     public function testTiesOnFirstRank(): void
@@ -251,9 +251,9 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         $this->election->addCandidate('C');
 
         $this->election->addVote('A = B > C');
-        $this->assertSame([], $this->election->getResult('SainteLague')->getResultAsArray());
+        expect($this->election->getResult('SainteLague')->getResultAsArray())->toBe([]);
 
         $this->election->addVote('B>A');
-        $this->assertSame('B', $this->election->getResult('SainteLague')->getResultAsString());
+        expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('B');
     }
 }

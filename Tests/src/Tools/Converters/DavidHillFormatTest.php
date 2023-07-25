@@ -23,8 +23,8 @@ class DavidHillFormatTest extends TestCase
     {
         $election = self::$tidemanA77->setDataToAnElection();
 
-        $this->assertSame(213, $election->countVotes());
-        $this->assertSame(1, $election->getNumberOfSeats());
+        expect($election->countVotes())->toBe(213);
+        expect($election->getNumberOfSeats())->toBe(1);
 
         $this->assertSame(
             <<<'EOD'
@@ -49,7 +49,7 @@ class DavidHillFormatTest extends TestCase
 
         self::$tidemanA77->setDataToAnElection($election);
 
-        $this->assertSame(213, $election->countVotes());
+        expect($election->countVotes())->toBe(213);
 
         $this->assertSame(
             <<<'EOD'
@@ -71,8 +71,8 @@ class DavidHillFormatTest extends TestCase
     {
         $election = (new DavidHillFormat(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
 
-        $this->assertSame(380, $election->countVotes());
-        $this->assertSame(3, $election->getNumberOfSeats());
+        expect($election->countVotes())->toBe(380);
+        expect($election->getNumberOfSeats())->toBe(3);
 
         $this->assertSame(
             <<<'EOD'
@@ -332,14 +332,14 @@ class DavidHillFormatTest extends TestCase
             $election->getVotesListAsString()
         );
 
-        $this->assertSame('Candidate  1 > Candidate  9 > Candidate  8', $election->getResult('STV')->getResultAsString());
+        expect($election->getResult('STV')->getResultAsString())->toBe('Candidate  1 > Candidate  9 > Candidate  8');
     }
 
     public function testBugDavidHillRandomOrderAndStatsRound(): void
     {
         $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
 
-        $this->assertEquals([0=>'1', 1=>'2', 2=>'3', 3=>'4', 4=>'5', 5=>'6'], $hil->candidates); # Candidates are object, AssertEquals compare __toString
+        expect($hil->candidates)->toEqual([0=>'1', 1=>'2', 2=>'3', 3=>'4', 4=>'5', 5=>'6']); # Candidates are object, AssertEquals compare __toString
 
         $implicitElectionFromHill = $hil->setDataToAnElection();
 
@@ -348,7 +348,7 @@ class DavidHillFormatTest extends TestCase
         $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: false));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
-        $this->assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
+        expect($implicitElectionFromCondorcetElection->getCandidatesListAsString())->toEqual($implicitElectionFromHill->getCandidatesListAsString());
 
         foreach (Condorcet::getAuthMethods() as $method) {
             if (!Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
@@ -356,10 +356,10 @@ class DavidHillFormatTest extends TestCase
             }
 
             // Stats
-            $this->assertSame($implicitElectionFromHill->getResult($method)->getStats(), $implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method);
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getStats());
 
             // Result
-            $this->assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
         }
 
 
@@ -368,7 +368,7 @@ class DavidHillFormatTest extends TestCase
         $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: true));
         $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
 
-        $this->assertEquals($implicitElectionFromHill->getCandidatesListAsString(), $implicitElectionFromCondorcetElection->getCandidatesListAsString());
+        expect($implicitElectionFromCondorcetElection->getCandidatesListAsString())->toEqual($implicitElectionFromHill->getCandidatesListAsString());
 
         foreach (Condorcet::getAuthMethods() as $method) {
             if (!Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
@@ -376,15 +376,15 @@ class DavidHillFormatTest extends TestCase
             }
 
             // Stats
-            $this->assertEqualsWithDelta(
-                $implicitElectionFromHill->getResult($method)->getStats(),
-                $implicitElectionFromCondorcetElection->getResult($method)->getStats(),
-                1 / (0.1 ** Condorcet::getMethodClass($method)::DECIMAL_PRECISION),
-                'Method: '.$method
-            );
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getStats())
+                ->toEqualWithDelta(
+                    expected: $implicitElectionFromHill->getResult($method)->getStats(),
+                    delta: 1 / (0.1 ** Condorcet::getMethodClass($method)::DECIMAL_PRECISION),
+                    message: 'Method: '.$method
+                );
 
             // Result
-            $this->assertSame($implicitElectionFromHill->getResult($method)->getResultAsString(), $implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method);
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
         }
     }
 }

@@ -21,11 +21,11 @@ class VirtualVoteTest extends TestCase
 
         $vote2 = VirtualVote::removeCandidates($vote1, ['B']);
 
-        $this->assertNotSame($vote1->getSimpleRanking(), $vote2->getSimpleRanking());
-        $this->assertSame('A > C', $vote2->getSimpleRanking());
+        expect($vote2->getSimpleRanking())->not()->toBe($vote1->getSimpleRanking());
+        expect($vote2->getSimpleRanking())->toBe('A > C');
 
-        $this->assertSame(1, $vote1->countLinks());
-        $this->assertSame(0, $vote2->countLinks());
-        $this->assertSame(1, $election->countVotes());
+        expect($vote1->countLinks())->toBe(1);
+        expect($vote2->countLinks())->toBe(0);
+        expect($election->countVotes())->toBe(1);
     }
 }

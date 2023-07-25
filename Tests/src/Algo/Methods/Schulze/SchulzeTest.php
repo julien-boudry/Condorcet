@@ -30,7 +30,7 @@ class SchulzeTest extends TestCase
             C > B > D * 2
         ');
 
-        $this->assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
         $this->assertSame(
             [1 => ['B', 'D'],
@@ -55,7 +55,7 @@ class SchulzeTest extends TestCase
             D > C > B * 2
         ');
 
-        $this->assertSame([$candidateA, $candidateD], $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateD]);
     }
 
     public function testResult_3(): void
@@ -82,7 +82,7 @@ class SchulzeTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $this->assertEquals('Abby', $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toEqual('Abby');
 
         $this->assertSame(
             [1 => 'Abby',
@@ -110,7 +110,7 @@ class SchulzeTest extends TestCase
             D > C > B * 3
         ');
 
-        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
         $this->assertSame(
             [
@@ -139,7 +139,7 @@ class SchulzeTest extends TestCase
             D > B > C * 5
         ');
 
-        $this->assertSame($candidateC, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateC);
 
         $this->assertSame(
             [
@@ -172,7 +172,7 @@ class SchulzeTest extends TestCase
             E > B > A > D * 8
         ');
 
-        $this->assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateE);
 
         $this->assertSame(
             [
@@ -201,7 +201,7 @@ class SchulzeTest extends TestCase
             D > B > C * 2
         ');
 
-        $this->assertSame([$candidateB, $candidateD], $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
         $this->assertSame(
             [
@@ -230,7 +230,7 @@ class SchulzeTest extends TestCase
             D > B > A * 21
         ');
 
-        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
         $this->assertSame(
             [
@@ -261,7 +261,7 @@ class SchulzeTest extends TestCase
             D > B > A
         ');
 
-        $this->assertSame([$candidateA, $candidateC], $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateC]);
 
         $this->assertSame(
             [
@@ -295,12 +295,12 @@ class SchulzeTest extends TestCase
         ');
 
         # Situation 1
-        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateA);
 
         # Situation 2
         $this->election->parseVotes('A > E > F > C > B * 2');
 
-        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -323,7 +323,7 @@ class SchulzeTest extends TestCase
             D > C > A * 5
         ');
 
-        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateA);
 
         $this->assertSame(
             [
@@ -357,7 +357,7 @@ class SchulzeTest extends TestCase
             D > E > C > A * 5
         ');
 
-        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
         $this->assertSame(
             [
@@ -386,7 +386,7 @@ class SchulzeTest extends TestCase
             C > D > A * 2
         ');
 
-        $this->assertSame($candidateA, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateA);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -405,7 +405,7 @@ class SchulzeTest extends TestCase
             C > D > A > B * 2
         ');
 
-        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -432,7 +432,7 @@ class SchulzeTest extends TestCase
         ');
 
         # Margin
-        $this->assertSame($candidateA, $this->election->getWinner('Schulze Margin'));
+        expect($this->election->getWinner('Schulze Margin'))->toBe($candidateA);
 
         $this->assertSame(
             [
@@ -446,7 +446,7 @@ class SchulzeTest extends TestCase
 
 
         # Ratio
-        $this->assertSame($candidateB, $this->election->getWinner('Schulze Ratio'));
+        expect($this->election->getWinner('Schulze Ratio'))->toBe($candidateB);
 
         $this->assertSame(
             [
@@ -459,7 +459,7 @@ class SchulzeTest extends TestCase
         );
 
         # Winning
-        $this->assertSame($candidateD, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
         $this->assertSame(
             [
@@ -495,7 +495,7 @@ class SchulzeTest extends TestCase
             E > D > A > C * 1
         ');
 
-        $this->assertSame($candidateB, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
         $this->assertSame(
             [
@@ -529,7 +529,7 @@ class SchulzeTest extends TestCase
             E > B > C > A * 2
         ');
 
-        $this->assertSame($candidateE, $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe($candidateE);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -545,7 +545,7 @@ class SchulzeTest extends TestCase
             C > A > B
         ');
 
-        $this->assertSame([$candidateA, $candidateB], $this->election->getWinner('Schulze Winning'));
+        expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateB]);
 
         $this->assertSame(
             [

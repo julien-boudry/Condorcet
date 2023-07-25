@@ -20,24 +20,24 @@ class CondorcetElectionFormatTest extends TestCase
             CVOTES);
 
         $condorcetFormat = new CondorcetElectionFormat($file);
-        $this->assertFalse($condorcetFormat->CandidatesParsedFromVotes);
+        expect($condorcetFormat->CandidatesParsedFromVotes)->toBeFalse();
 
 
         $election = $condorcetFormat->setDataToAnElection();
 
-        $this->assertFalse($election->isVoteWeightAllowed());
+        expect($election->isVoteWeightAllowed())->toBeFalse();
         $election->allowsVoteWeight(true);
-        $this->assertTrue($election->isVoteWeightAllowed());
+        expect($election->isVoteWeightAllowed())->toBeTrue();
 
 
-        $this->assertSame(['Petr Němec', 'Richard Boháč', 'Simona Slaná'], $election->getCandidatesListAsString());
+        expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-        $this->assertSame(100, $election->getNumberOfSeats());
-        $this->assertTrue($election->getImplicitRankingRule());
+        expect($election->getNumberOfSeats())->toBe(100);
+        expect($election->getImplicitRankingRule())->toBeTrue();
 
-        $this->assertSame(1, $election->countVotes());
-        $this->assertSame('Richard Boháč > Petr Němec > Simona Slaná ^42', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
-        $this->assertSame(0, $condorcetFormat->invalidBlocksCount);
+        expect($election->countVotes())->toBe(1);
+        expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná ^42');
+        expect($condorcetFormat->invalidBlocksCount)->toBe(0);
     }
 
 
@@ -62,17 +62,17 @@ class CondorcetElectionFormatTest extends TestCase
 
         $election = $condorcetFormat->setDataToAnElection();
 
-        $this->assertSame(['A', 'B', 'C'], $election->getCandidatesListAsString());
+        expect($election->getCandidatesListAsString())->toBe(['A', 'B', 'C']);
 
-        $this->assertSame(6, $election->getNumberOfSeats());
+        expect($election->getNumberOfSeats())->toBe(6);
 
-        $this->assertFalse($election->getImplicitRankingRule());
+        expect($election->getImplicitRankingRule())->toBeFalse();
 
-        $this->assertSame(10, $election->countVotes());
+        expect($election->countVotes())->toBe(10);
 
-        $this->assertSame(3, $condorcetFormat->invalidBlocksCount);
+        expect($condorcetFormat->invalidBlocksCount)->toBe(3);
 
-        $this->assertSame(['tag1'], $election->getVotesList()[5]->getTags());
+        expect($election->getVotesList()[5]->getTags())->toBe(['tag1']);
     }
 
     public function testCondorcetElectionFormat3_CustomElection1(): void
@@ -93,14 +93,14 @@ class CondorcetElectionFormatTest extends TestCase
 
         $condorcetFormat->setDataToAnElection($election);
 
-        $this->assertSame(['Petr Němec', 'Richard Boháč', 'Simona Slaná'], $election->getCandidatesListAsString());
+        expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-        $this->assertSame(42, $election->getNumberOfSeats());
-        $this->assertTrue($election->getImplicitRankingRule());
+        expect($election->getNumberOfSeats())->toBe(42);
+        expect($election->getImplicitRankingRule())->toBeTrue();
 
-        $this->assertSame(1, $election->countVotes());
-        $this->assertSame('Richard Boháč > Petr Němec > Simona Slaná', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
-        $this->assertSame(0, $condorcetFormat->invalidBlocksCount);
+        expect($election->countVotes())->toBe(1);
+        expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná');
+        expect($condorcetFormat->invalidBlocksCount)->toBe(0);
     }
 
     public function testCondorcetElectionFormat4_CustomElection2(): void
@@ -124,14 +124,14 @@ class CondorcetElectionFormatTest extends TestCase
         $election->allowsVoteWeight(true); // Must be forced by parameter
 
 
-        $this->assertSame(['Petr Němec', 'Richard Boháč', 'Simona Slaná'], $election->getCandidatesListAsString());
+        expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-        $this->assertSame(66, $election->getNumberOfSeats());
-        $this->assertFalse($election->getImplicitRankingRule());
+        expect($election->getNumberOfSeats())->toBe(66);
+        expect($election->getImplicitRankingRule())->toBeFalse();
 
-        $this->assertSame(1, $election->countVotes());
-        $this->assertSame('Richard Boháč > Petr Němec ^42', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
-        $this->assertSame(0, $condorcetFormat->invalidBlocksCount);
+        expect($election->countVotes())->toBe(1);
+        expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec ^42');
+        expect($condorcetFormat->invalidBlocksCount)->toBe(0);
     }
 
     public function testCondorcetElectionFormat5_UnknowParametersAndEmptyLinesAndCase(): void
@@ -157,14 +157,14 @@ class CondorcetElectionFormatTest extends TestCase
 
         $condorcetFormat->setDataToAnElection($election);
 
-        $this->assertSame(['Richard Boháč', 'Simona Slaná', '郝文彦'], $election->getCandidatesListAsString());
+        expect($election->getCandidatesListAsString())->toBe(['Richard Boháč', 'Simona Slaná', '郝文彦']);
 
-        $this->assertSame(42, $election->getNumberOfSeats());
-        $this->assertTrue($election->getImplicitRankingRule());
+        expect($election->getNumberOfSeats())->toBe(42);
+        expect($election->getImplicitRankingRule())->toBeTrue();
 
-        $this->assertSame(1, $election->countVotes());
-        $this->assertSame('Richard Boháč > 郝文彦 > Simona Slaná', $election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true));
-        $this->assertSame(0, $condorcetFormat->invalidBlocksCount);
+        expect($election->countVotes())->toBe(1);
+        expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > 郝文彦 > Simona Slaná');
+        expect($condorcetFormat->invalidBlocksCount)->toBe(0);
     }
 
     public function testOfficialSpecificationValidExamples(): void
@@ -189,7 +189,7 @@ class CondorcetElectionFormatTest extends TestCase
         $condorcetFormat = new CondorcetElectionFormat($file);
         $election = $condorcetFormat->setDataToAnElection();
 
-        $this->assertSame(54, $election->countVotes());
+        expect($election->countVotes())->toBe(54);
 
         $this->assertSame(<<<'VOTES'
             Candidate C > Candidate A = Candidate B ^7 * 8
@@ -201,10 +201,10 @@ class CondorcetElectionFormatTest extends TestCase
             , $election->getVotesListAsString());
 
 
-        $this->assertCount(1, $election->getVotesList(tags: 'signature:55073db57b0a859911', with: true));
-        $this->assertCount(1, $election->getVotesList(tags: 'julien@condorcet.vote', with: true));
-        $this->assertCount(0, $election->getVotesList(tags: 'otherTag', with: true));
-        $this->assertSame('Candidate A > Candidate B > Candidate C', current($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->getSimpleRanking());
+        expect($election->getVotesList(tags: 'signature:55073db57b0a859911', with: true))->toHaveCount(1);
+        expect($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->toHaveCount(1);
+        expect($election->getVotesList(tags: 'otherTag', with: true))->toHaveCount(0);
+        expect(current($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->getSimpleRanking())->toBe('Candidate A > Candidate B > Candidate C');
 
 
         # Example without implicit ranking as weight
@@ -224,7 +224,7 @@ class CondorcetElectionFormatTest extends TestCase
         $condorcetFormat = new CondorcetElectionFormat($file);
         $election = $condorcetFormat->setDataToAnElection();
 
-        $this->assertSame(4, $election->countVotes());
+        expect($election->countVotes())->toBe(4);
 
         $this->assertSame(<<<'VOTES'
             Candidate A > Candidate B > Candidate C * 2
@@ -268,7 +268,8 @@ class CondorcetElectionFormatTest extends TestCase
             CondorcetElectionFormat::createFromElection(election: $election)
         );
 
-        $this->assertStringNotContainsString('Number of Seats: 42', CondorcetElectionFormat::createFromElection(election: $election, includeNumberOfSeats: false));
+        expect(CondorcetElectionFormat::createFromElection(election: $election, includeNumberOfSeats: false))->not()->toContain('Number of Seats: 42');
+
 
         $election->setImplicitRanking(false);
         $this->assertSame(
@@ -323,22 +324,16 @@ class CondorcetElectionFormatTest extends TestCase
 
         $election->setImplicitRanking(true);
         $output = new \SplTempFileObject;
-        $this->assertNull(CondorcetElectionFormat::createFromElection(election: $election, file: $output));
+        expect(CondorcetElectionFormat::createFromElection(election: $election, file: $output))->toBeNull();
         $output->rewind();
 
-        $this->assertSame(
-            $assertion1,
-            $output->fread(2048)
-        );
+        expect($output->fread(2048))->toBe($assertion1);
 
         $election->setImplicitRanking(false);
         $output = new \SplTempFileObject;
-        $this->assertNull(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false, file: $output));
+        expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false, file: $output))->toBeNull();
         $output->rewind();
-        $this->assertSame(
-            $assertion5,
-            $output->fread(2048)
-        );
+        expect($output->fread(2048))->toBe($assertion5);
     }
 
     public function testEmptyRankingImport(): void
@@ -358,9 +353,9 @@ class CondorcetElectionFormatTest extends TestCase
 
         $election = $cef->setDataToAnElection();
 
-        $this->assertSame('/EMPTY_RANKING/ * 2', $election->getVotesListAsString());
-        $this->assertSame([], $election->getVotesList()[0]->getRanking());
-        $this->assertSame($input, CondorcetElectionFormat::createFromElection($election));
+        expect($election->getVotesListAsString())->toBe('/EMPTY_RANKING/ * 2');
+        expect($election->getVotesList()[0]->getRanking())->toBe([]);
+        expect(CondorcetElectionFormat::createFromElection($election))->toBe($input);
     }
 
     public function testCandidatesFromVotes(): void
@@ -381,16 +376,16 @@ class CondorcetElectionFormatTest extends TestCase
 
         $cef = new CondorcetElectionFormat($file);
 
-        $this->assertSame(['A', 'B', 'C', 'D', 'E', 'F'], $cef->candidates);
-        $this->assertTrue($cef->CandidatesParsedFromVotes);
+        expect($cef->candidates)->toBe(['A', 'B', 'C', 'D', 'E', 'F']);
+        expect($cef->CandidatesParsedFromVotes)->toBeTrue();
 
         $election = $cef->setDataToAnElection();
 
-        $this->assertFalse($election->getImplicitRankingRule());
-        $this->assertSame(42, $election->getNumberOfSeats());
+        expect($election->getImplicitRankingRule())->toBeFalse();
+        expect($election->getNumberOfSeats())->toBe(42);
 
-        $this->assertEquals(['A', 'B', 'C', 'D', 'E', 'F'], $election->getCandidatesList());
-        $this->assertSame('D > A > B > C > E > F', $election->getResult()->getResultAsString());
+        expect($election->getCandidatesList())->toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
+        expect($election->getResult()->getResultAsString())->toBe('D > A > B > C > E > F');
     }
 
     public function testFileDoesNotExists(): void
@@ -417,18 +412,18 @@ class CondorcetElectionFormatTest extends TestCase
 
         $cef = new CondorcetElectionFormat($file);
 
-        $this->assertSame(42, $cef->numberOfSeats);
-        $this->assertSame('42', $cef->parameters['Number Of Seats']);
+        expect($cef->numberOfSeats)->toBe(42);
+        expect($cef->parameters['Number Of Seats'])->toBe('42');
 
-        $this->assertTrue($cef->implicitRanking);
-        $this->assertSame('tRue', $cef->parameters['Implicit Ranking']);
+        expect($cef->implicitRanking)->toBeTrue();
+        expect($cef->parameters['Implicit Ranking'])->toBe('tRue');
 
-        $this->assertFalse($cef->voteWeight);
-        $this->assertSame('false', $cef->parameters['Weight Allowed']);
+        expect($cef->voteWeight)->toBeFalse();
+        expect($cef->parameters['Weight Allowed'])->toBe('false');
 
-        $this->assertEquals(['A', 'b'], $cef->candidates);
-        $this->assertSame('A ; b', $cef->parameters['Candidates']);
+        expect($cef->candidates)->toEqual(['A', 'b']);
+        expect($cef->parameters['Candidates'])->toBe('A ; b');
 
-        $this->assertSame('7', $cef->parameters['a non standard paRameter']);
+        expect($cef->parameters['a non standard paRameter'])->toBe('7');
     }
 }

@@ -42,7 +42,7 @@ class CopelandTest extends TestCase
             $this->election->getResult('Copeland')->getResultAsArray(true)
         );
 
-        $this->assertSame($this->election->getWinner('Copeland'), $this->election->getWinner());
+        expect($this->election->getWinner())->toBe($this->election->getWinner('Copeland'));
 
         $this->assertSame(
             [
@@ -80,8 +80,8 @@ class CopelandTest extends TestCase
             D > A > E * 10
         ');
 
-        $this->assertNull($this->election->getWinner());
-        $this->assertSame($candidateA, $this->election->getWinner('Copeland'));
+        expect($this->election->getWinner())->toBeNull();
+        expect($this->election->getWinner('Copeland'))->toBe($candidateA);
 
         $this->assertSame(
             [1 => $candidateA,
@@ -118,7 +118,7 @@ class CopelandTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $this->assertEquals(['Abby', 'Brad'], $this->election->getWinner('Copeland'));
+        expect($this->election->getWinner('Copeland'))->toEqual(['Abby', 'Brad']);
 
         $this->assertSame(
             [1 => ['Abby', 'Brad'],

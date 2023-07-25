@@ -62,19 +62,16 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
 
-        $this->assertSame(
-            $electionWithDb->countVotes(),
-            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
-        );
+        expect($handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize())->toBe($electionWithDb->countVotes());
 
-        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        expect($electionWithDb->countVotes())->toBe($electionInMemory->countVotes());
+        expect($electionWithDb->getVotesListAsString())->toBe($electionInMemory->getVotesListAsString());
+        expect($this->hashVotesList($electionWithDb))->toBe($this->hashVotesList($electionInMemory));
 
-        $this->assertEquals($electionInMemory->getPairwise()->getExplicitPairwise(), $electionWithDb->getPairwise()->getExplicitPairwise());
-        $this->assertEquals((string) $electionInMemory->getWinner('Ranked Pairs Winning'), (string) $electionWithDb->getWinner('Ranked Pairs Winning'));
-        $this->assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
-        $this->assertEquals((string) $electionInMemory->getCondorcetWinner(), (string) $electionWithDb->getCondorcetWinner());
+        expect($electionWithDb->getPairwise()->getExplicitPairwise())->toEqual($electionInMemory->getPairwise()->getExplicitPairwise());
+        expect((string) $electionWithDb->getWinner('Ranked Pairs Winning'))->toEqual((string) $electionInMemory->getWinner('Ranked Pairs Winning'));
+        expect((string) $electionWithDb->getWinner())->toEqual((string) $electionInMemory->getWinner());
+        expect((string) $electionWithDb->getCondorcetWinner())->toEqual((string) $electionInMemory->getCondorcetWinner());
 
 
         // 58 Votes
@@ -83,20 +80,17 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes($votes);
         $electionInMemory->parseVotes($votes);
 
-        $this->assertSame(58 % ArrayManager::$MaxContainerLength, $electionWithDb->getVotesManager()->getContainerSize());
-        $this->assertSame(
-            $electionWithDb->countVotes(),
-            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
-        );
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(58 % ArrayManager::$MaxContainerLength);
+        expect($handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize())->toBe($electionWithDb->countVotes());
 
-        $this->assertEquals('A', $electionWithDb->getWinner());
-        $this->assertEquals((string) $electionInMemory->getWinner(), (string) $electionWithDb->getWinner());
+        expect($electionWithDb->getWinner())->toEqual('A');
+        expect((string) $electionWithDb->getWinner())->toEqual((string) $electionInMemory->getWinner());
 
-        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
-        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        $this->assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
+        expect($electionWithDb->countVotes())->toBe($electionInMemory->countVotes());
+        expect($electionWithDb->getVotesListAsString())->toBe($electionInMemory->getVotesListAsString());
+        expect($this->hashVotesList($electionWithDb))->toBe($this->hashVotesList($electionInMemory));
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(0);
+        expect($electionWithDb->getVotesManager()->getCacheSize())->toBeLessThanOrEqual(ArrayManager::$CacheSize);
 
         // Delete 3 votes
         unset($electionInMemory->getVotesManager()[13]);
@@ -106,41 +100,38 @@ class PdoHandlerDriverTest extends TestCase
         unset($electionWithDb->getVotesManager()[100]);
         unset($electionWithDb->getVotesManager()[102]);
 
-        $this->assertSame(
-            $electionWithDb->countVotes(),
-            $handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize()
-        );
-        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
-        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        $this->assertLessThanOrEqual(ArrayManager::$CacheSize, $electionWithDb->getVotesManager()->getCacheSize());
-        $this->assertArrayNotHasKey(13, $electionWithDb->getVotesManager()->debugGetCache());
-        $this->assertArrayNotHasKey(102, $electionWithDb->getVotesManager()->debugGetCache());
-        $this->assertArrayNotHasKey(100, $electionWithDb->getVotesManager()->debugGetCache());
-        $this->assertArrayHasKey(101, $electionWithDb->getVotesManager()->debugGetCache());
+        expect($handlerDriver->countEntities() + $electionWithDb->getVotesManager()->getContainerSize())->toBe($electionWithDb->countVotes());
+        expect($electionWithDb->countVotes())->toBe($electionInMemory->countVotes());
+        expect($electionWithDb->getVotesListAsString())->toBe($electionInMemory->getVotesListAsString());
+        expect($this->hashVotesList($electionWithDb))->toBe($this->hashVotesList($electionInMemory));
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(0);
+        expect($electionWithDb->getVotesManager()->getCacheSize())->toBeLessThanOrEqual(ArrayManager::$CacheSize);
+        expect($electionWithDb->getVotesManager()->debugGetCache())->not()->toHaveKey(13);
+        expect($electionWithDb->getVotesManager()->debugGetCache())->not()->toHaveKey(102);
+        expect($electionWithDb->getVotesManager()->debugGetCache())->not()->toHaveKey(100);
+        expect($electionWithDb->getVotesManager()->debugGetCache())->toHaveKey(101);
 
 
         // Unset Handler
         $electionWithDb->removeExternalDataHandler();
 
-        $this->assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
-        $this->assertSame($electionInMemory->getVotesManager()->getContainerSize(), $electionWithDb->getVotesManager()->getContainerSize());
-        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        expect($electionWithDb->getVotesManager()->debugGetCache())->toBeEmpty();
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe($electionInMemory->getVotesManager()->getContainerSize());
+        expect($electionWithDb->countVotes())->toBe($electionInMemory->countVotes());
+        expect($electionWithDb->getVotesListAsString())->toBe($electionInMemory->getVotesListAsString());
+        expect($this->hashVotesList($electionWithDb))->toBe($this->hashVotesList($electionInMemory));
 
         // Change my mind : Set again the a new handler
         unset($handlerDriver);
         $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver($this->getPDO(), true));
 
-        $this->assertEmpty($electionWithDb->getVotesManager()->debugGetCache());
-        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
-        $this->assertSame($electionInMemory->countVotes(), $electionWithDb->countVotes());
-        $this->assertSame($electionInMemory->getVotesListAsString(), $electionWithDb->getVotesListAsString());
-        $this->assertSame($this->hashVotesList($electionInMemory), $this->hashVotesList($electionWithDb));
+        expect($electionWithDb->getVotesManager()->debugGetCache())->toBeEmpty();
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(0);
+        expect($electionWithDb->countVotes())->toBe($electionInMemory->countVotes());
+        expect($electionWithDb->getVotesListAsString())->toBe($electionInMemory->getVotesListAsString());
+        expect($this->hashVotesList($electionWithDb))->toBe($this->hashVotesList($electionInMemory));
 
-        $this->assertTrue($electionWithDb->removeExternalDataHandler());
+        expect($electionWithDb->removeExternalDataHandler())->toBeTrue();
 
         $this->expectException(DataHandlerException::class);
         $this->expectExceptionMessage('Problem with data handler: external data handler cannot be removed, is already in use');
@@ -162,14 +153,14 @@ class PdoHandlerDriverTest extends TestCase
         $electionWithDb->parseVotes('A > B > C * 5
                                         tag1 || B > A > C * 3');
 
-        $this->assertSame(5, $electionWithDb->countVotes('tag1', false));
-        $this->assertSame(3, $electionWithDb->countVotes('tag1', true));
+        expect($electionWithDb->countVotes('tag1', false))->toBe(5);
+        expect($electionWithDb->countVotes('tag1', true))->toBe(3);
 
         $electionWithDb->parseVotes('A > B > C * 5
                                         tag1 || B > A > C * 3');
 
-        $this->assertSame(10, $electionWithDb->countVotes('tag1', false));
-        $this->assertSame(6, $electionWithDb->countVotes('tag1', true));
+        expect($electionWithDb->countVotes('tag1', false))->toBe(10);
+        expect($electionWithDb->countVotes('tag1', true))->toBe(6);
     }
 
     public function testVoteObjectIntoDataHandler(): void
@@ -186,12 +177,12 @@ class PdoHandlerDriverTest extends TestCase
         $myVote = $electionWithDb->addVote('A>B>C');
 
         $electionWithDb->getVotesManager()->regularize();
-        $this->assertSame(0, $electionWithDb->getVotesManager()->getContainerSize());
+        expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(0);
 
         // myVote is no longer a part of the election. Internally, it will work with clones.
-        $this->assertSame(0, $myVote->countLinks());
-        $this->assertNotSame($electionWithDb->getVotesList()[0], $myVote);
-        $this->assertTrue($electionWithDb->getVotesList()[0]->haveLink($electionWithDb));
+        expect($myVote->countLinks())->toBe(0);
+        expect($myVote)->not()->toBe($electionWithDb->getVotesList()[0]);
+        expect($electionWithDb->getVotesList()[0]->haveLink($electionWithDb))->toBeTrue();
     }
 
     public function testUpdateEntity(): void
@@ -236,7 +227,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        $this->assertCount(52, $votesListGenerator);
+        expect($votesListGenerator)->toHaveCount(52);
 
 
         $votesListGenerator = [];
@@ -245,7 +236,7 @@ class PdoHandlerDriverTest extends TestCase
             $votesListGenerator[$key] = $value;
         }
 
-        $this->assertCount(42, $votesListGenerator);
+        expect($votesListGenerator)->toHaveCount(42);
     }
 
     public function testSliceInput(): void
@@ -261,7 +252,7 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb->parseVotes('A>B>C * 463');
 
-        $this->assertSame(463, $electionWithDb->countVotes());
+        expect($electionWithDb->countVotes())->toBe(463);
     }
 
     public function testMultipleHandler(): never
@@ -296,8 +287,8 @@ class PdoHandlerDriverTest extends TestCase
         $pdo = $this->getPDO();
         $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
 
-        $this->assertFalse($handlerDriver->selectOneEntity(500));
+        expect($handlerDriver->selectOneEntity(500))->toBeFalse();
 
-        $this->assertSame([], $handlerDriver->selectRangeEntities(500, 5));
+        expect($handlerDriver->selectRangeEntities(500, 5))->toBe([]);
     }
 }

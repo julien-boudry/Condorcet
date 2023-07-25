@@ -103,10 +103,7 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
 
-        $this->assertSame(
-            [1 => 'B', 2 => 'A', 3 => 'C', 4=> 'D', 5=> 'E'],
-            $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4=> 'D', 5=> 'E']);
 
         $this->assertEquals(
             [1=> [
@@ -156,10 +153,7 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 5);
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', -1);
 
-        $this->assertSame(
-            [1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E', 6 => 'F'],
-            $this->election->getResult('Multiple Rounds System')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E', 6 => 'F']);
 
         $this->assertEquals(
             [1=> [

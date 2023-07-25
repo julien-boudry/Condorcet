@@ -26,9 +26,9 @@ class PairwiseTest extends TestCase
     {
         $pairwise = $this->election1->getPairwise();
 
-        $this->assertIsArray($pairwise[1]);
+        expect($pairwise[1])->toBeArray();
 
-        $this->assertNull($pairwise[42]);
+        expect($pairwise[42])->toBeNull();
     }
 
     public function testExplicitPairwise(): void
@@ -97,7 +97,7 @@ class PairwiseTest extends TestCase
         $electionOn = clone $electionOff;
         $electionOn->allowsVoteWeight(true);
 
-        $this->assertNotSame($electionOff->getExplicitPairwise(), $electionOn->getExplicitPairwise());
+        expect($electionOn->getExplicitPairwise())->not()->toBe($electionOff->getExplicitPairwise());
 
         $this->assertSame(
             [

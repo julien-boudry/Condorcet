@@ -176,12 +176,12 @@ class VoteEntryParserTest extends TestCase
     {
         $parser = new VoteEntryParser($entry);
 
-        $this->assertSame($entry, $parser->originalEntry);
+        expect($parser->originalEntry)->toBe($entry);
 
-        $this->assertSame($expected['comment'], $parser->comment);
-        $this->assertSame($expected['multiple'], $parser->multiple);
-        $this->assertSame($expected['ranking'], $parser->ranking);
-        $this->assertSame($expected['tags'], $parser->tags);
-        $this->assertSame($expected['weight'], $parser->weight);
+        expect($parser->comment)->toBe($expected['comment']);
+        expect($parser->multiple)->toBe($expected['multiple']);
+        expect($parser->ranking)->toBe($expected['ranking']);
+        expect($parser->tags)->toBe($expected['tags']);
+        expect($parser->weight)->toBe($expected['weight']);
     }
 }

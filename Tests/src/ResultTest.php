@@ -36,10 +36,7 @@ class ResultTest extends TestCase
         ');
 
 
-        $this->assertSame(
-            'A = B > C',
-            $this->election1->getResult('Ranked Pairs')->getResultAsString()
-        );
+        expect($this->election1->getResult('Ranked Pairs')->getResultAsString())->toBe('A = B > C');
     }
 
     public function testGetResultAsInternalKey(): void
@@ -56,10 +53,7 @@ class ResultTest extends TestCase
         ');
 
 
-        $this->assertSame(
-            [1 => [0, 1], 2 => [2]],
-            $this->election1->getResult('Ranked Pairs')->getResultAsInternalKey()
-        );
+        expect($this->election1->getResult('Ranked Pairs')->getResultAsInternalKey())->toBe([1 => [0, 1], 2 => [2]]);
     }
 
     public function testgetCondorcetElectionGeneratorVersion(): void
@@ -70,7 +64,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        $this->assertSame(Condorcet::getVersion(), $this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion());
+        expect($this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion())->toBe(Condorcet::getVersion());
     }
 
     public function testResultClassgenerator(): void
@@ -81,7 +75,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        $this->assertSame(\CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class, $this->election1->getResult('Ranked Pairs')->getClassGenerator());
+        expect($this->election1->getResult('Ranked Pairs')->getClassGenerator())->toBe(\CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class);
     }
 
     public function testMethod(): void
@@ -92,7 +86,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        $this->assertSame('Ranked Pairs Margin', $this->election1->getResult('Ranked Pairs')->getMethod());
+        expect($this->election1->getResult('Ranked Pairs')->getMethod())->toBe('Ranked Pairs Margin');
     }
 
     public function testGetBuildTimeStamp(): void
@@ -103,7 +97,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C > B > A');
 
-        $this->assertIsFloat($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp());
+        expect($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp())->toBeFloat();
     }
 
     public function testGetWinner(): void
@@ -119,8 +113,8 @@ class ResultTest extends TestCase
             c > a > b * 2
         ');
 
-        $this->assertEquals('c', $this->election1->getResult()->getWinner());
-        $this->assertEquals('c', $this->election1->getResult()->getCondorcetWinner());
+        expect($this->election1->getResult()->getWinner())->toEqual('c');
+        expect($this->election1->getResult()->getCondorcetWinner())->toEqual('c');
     }
 
     public function testGetLoser(): void
@@ -137,8 +131,8 @@ class ResultTest extends TestCase
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        $this->assertEquals('Memphis', $this->election1->getResult()->getLoser());
-        $this->assertEquals('Memphis', $this->election1->getResult()->getCondorcetLoser());
+        expect($this->election1->getResult()->getLoser())->toEqual('Memphis');
+        expect($this->election1->getResult()->getCondorcetLoser())->toEqual('Memphis');
     }
 
     public function testgetOriginalResult(): void
@@ -157,7 +151,7 @@ class ResultTest extends TestCase
             $this->election1->getResult()->getOriginalResultArrayWithString()
         );
 
-        $this->assertSame('a > b > c', $this->election1->getResult()->getOriginalResultAsString());
+        expect($this->election1->getResult()->getOriginalResultAsString())->toBe('a > b > c');
     }
 
     public function testOffsetSet(): never
@@ -186,7 +180,7 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('Schulze');
 
-        $this->assertTrue(isset($result[1]));
+        expect(isset($result[1]))->toBeTrue();
 
         $this->expectException(ResultException::class);
         $this->expectExceptionMessage('Result cannot be changed');
@@ -205,7 +199,7 @@ class ResultTest extends TestCase
         $result = $this->election1->getResult('Schulze');
 
         foreach ($result as $key => $value) {
-            $this->assertSame($vote->getRanking()[$key], $value);
+            expect($value)->toBe($vote->getRanking()[$key]);
         }
     }
 
@@ -231,11 +225,7 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('C = A = B');
 
-        $this->assertSame(
-            [1 => ['A', 'B', 'C'],
-            ],
-            $this->election1->getResult()->getOriginalResultArrayWithString()
-        );
+        expect($this->election1->getResult()->getOriginalResultArrayWithString())->toBe([1 => ['A', 'B', 'C']]);
     }
 
     public function testProportional(): void
@@ -250,32 +240,20 @@ class ResultTest extends TestCase
 
         $result = $this->election1->getResult('STV');
 
-        $this->assertSame(
-            2,
-            $result->getNumberOfSeats()
-        );
+        expect($result->getNumberOfSeats())->toBe(2);
 
-        $this->assertTrue(
-            $result->getClassGenerator()::IS_PROPORTIONAL
-        );
+        expect($result->getClassGenerator()::IS_PROPORTIONAL)->toBeTrue();
 
-        $this->assertTrue(
-            $result->isProportional()
-        );
+
+        expect($result->isProportional())->toBeTrue();
 
         $result = $this->election1->getResult('Schulze');
 
-        $this->assertNull(
-            $result->getNumberOfSeats()
-        );
+        expect($result->getNumberOfSeats())->toBeNull();
 
-        $this->assertFalse(
-            $result->getClassGenerator()::IS_PROPORTIONAL
-        );
+        expect($result->getClassGenerator()::IS_PROPORTIONAL)->toBeFalse();
 
-        $this->assertFalse(
-            $result->isProportional()
-        );
+        expect($result->isProportional())->toBeFalse();
     }
 
     public function testMethodOption(): void
@@ -288,27 +266,27 @@ class ResultTest extends TestCase
 
         $class = Condorcet::getMethodClass('Borda');
 
-        $this->assertSame(1, $class::$optionStarting);
+        expect($class::$optionStarting)->toBe(1);
 
         $b1 = $this->election1->getResult('Borda');
         $c1 = $this->election1->getResult('Copeland');
 
-        $this->assertSame(1, $b1->getMethodOptions()['Starting']);
+        expect($b1->getMethodOptions()['Starting'])->toBe(1);
 
-        $this->assertTrue($this->election1->setMethodOption('Borda Count', 'Starting', 0));
-        $this->assertSame(0, $class::$optionStarting);
+        expect($this->election1->setMethodOption('Borda Count', 'Starting', 0))->toBeTrue();
+        expect($class::$optionStarting)->toBe(0);
 
-        $this->assertSame(1, $b1->getMethodOptions()['Starting']);
+        expect($b1->getMethodOptions()['Starting'])->toBe(1);
 
         $b2 = $this->election1->getResult('Borda');
         $c2 = $this->election1->getResult('Copeland');
 
-        $this->assertNotSame($b1, $b2);
-        $this->assertSame($c1, $c2);
+        expect($b2)->not()->toBe($b1);
+        expect($c2)->toBe($c1);
 
-        $this->assertSame(0, $b2->getMethodOptions()['Starting']);
+        expect($b2->getMethodOptions()['Starting'])->toBe(0);
 
-        $this->assertFalse($this->election1->setMethodOption('Unregistered method', 'Starting', 0));
+        expect($this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toBeFalse();
     }
 
     public function testVerbosityLevel(): void
@@ -320,21 +298,21 @@ class ResultTest extends TestCase
         $this->election1->addVote('A>B>C');
 
         $r1 = $this->election1->getResult(KemenyYoung::class);
-        $this->assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
+        expect($r1->statsVerbosity)->toBe(StatsVerbosity::STD);
 
         $this->election1->setStatsVerbosity(StatsVerbosity::STD);
         $r2 = $this->election1->getResult(KemenyYoung::class);
-        $this->assertSame($r1, $r2);
+        expect($r2)->toBe($r1);
 
         $this->election1->setStatsVerbosity(StatsVerbosity::FULL);
         $r3 = $this->election1->getResult(KemenyYoung::class);
 
-        $this->assertSame(StatsVerbosity::STD, $r1->statsVerbosity);
-        $this->assertSame(StatsVerbosity::FULL, $r3->statsVerbosity);
+        expect($r1->statsVerbosity)->toBe(StatsVerbosity::STD);
+        expect($r3->statsVerbosity)->toBe(StatsVerbosity::FULL);
 
-        $this->assertNotSame($r1, $r3);
-        $this->assertArrayNotHasKey('Ranking Scores', $r1->getStats());
-        $this->assertArrayHasKey('Ranking Scores', $r3->getStats());
+        expect($r3)->not()->toBe($r1);
+        expect($r1->getStats())->not()->toHaveKey('Ranking Scores');
+        expect($r3->getStats())->toHaveKey('Ranking Scores');
     }
 
     #[DataProviderExternal(ElectionTest::class, 'MethodsListProvider')]
@@ -352,8 +330,8 @@ class ResultTest extends TestCase
         $resultTag1 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag1']);
         $resultTag2 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag2']);
 
-        $testSuite = static function () use ($resultGlobal, $resultTag1, $resultTag2): void {
-            self::assertSame(
+        $testSuite = function () use ($resultGlobal, $resultTag1, $resultTag2): void {
+            $this->assertSame(
                 [
                     'A' => [
                         'win' => [
@@ -381,7 +359,7 @@ class ResultTest extends TestCase
                 $resultGlobal->pairwise
             );
 
-            self::assertSame(
+            $this->assertSame(
                 [
                     'A' => [
                         'win' => [
@@ -409,7 +387,7 @@ class ResultTest extends TestCase
                 $resultTag1->pairwise
             );
 
-            self::assertSame(
+            $this->assertSame(
                 [
                     'A' => [
                         'win' => [

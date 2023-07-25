@@ -10,21 +10,21 @@ use ReflectionClass;
 use ReflectionProperty;
 
 class ExamplesTest extends TestCase
-{            
+{
     protected static string $condorcetDefaultMethod;
 
     public static function setUpBeforeClass(): void
     {
         self::$condorcetDefaultMethod = Condorcet::getDefaultMethod();
     }
-    
+
     protected function tearDown(): void
-    {        
+    {
         Condorcet::$UseTimer = (new ReflectionClass(Condorcet::class))->getProperty('UseTimer')->getDefaultValue();
         Condorcet::setDefaultMethod(self::$condorcetDefaultMethod);
     }
-    
-    
+
+
     public function testOverviewExample(): void
     {
         try {
@@ -33,7 +33,7 @@ class ExamplesTest extends TestCase
             throw $e;
         }
 
-        self::assertTrue(true);
+        expect(true)->toBeTrue();
     }
 
     public function testAdvancedObjectManagementExample(): void
@@ -44,7 +44,7 @@ class ExamplesTest extends TestCase
             throw $e;
         }
 
-        self::assertTrue(true);
+        expect(true)->toBeTrue();
     }
 
     public function testGlobalHtmlExample(): void

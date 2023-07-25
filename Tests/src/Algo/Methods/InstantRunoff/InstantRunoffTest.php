@@ -181,6 +181,6 @@ class InstantRunoffTest extends TestCase
 
         $election->setImplicitRanking(false);
 
-        $this->assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
+        expect($election->getResult('InstantRunoff')->getResultAsString())->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
     }
 }

@@ -58,21 +58,21 @@ class VoteUtilTest extends TestCase
     #[DataProvider('tagsProvider')]
     public function testTagsGetConverted($tags, $expected): void
     {
-        $this->assertSame($expected, VoteUtil::tagsConvert($tags));
+        expect(VoteUtil::tagsConvert($tags))->toBe($expected);
     }
 
     public function testGetRankingAsString(): void
     {
         // Empty ranking
-        $this->assertEquals('', VoteUtil::getRankingAsString([]));
+        expect(VoteUtil::getRankingAsString([]))->toBe('');
 
         // String ranking
-        $this->assertEquals('A > B > C', VoteUtil::getRankingAsString(['A', 'B', 'C']));
+        expect(VoteUtil::getRankingAsString(['A', 'B', 'C']))->toBe('A > B > C');
 
         // Array ranking
-        $this->assertEquals('A = B > C', VoteUtil::getRankingAsString([['A', 'B'], 'C']));
+        expect(VoteUtil::getRankingAsString([['A', 'B'], 'C']))->toBe('A = B > C');
 
         // Unsorted array ranking
-        $this->assertEquals('A = B > C', VoteUtil::getRankingAsString([['B', 'A'], 'C']));
+        expect(VoteUtil::getRankingAsString([['B', 'A'], 'C']))->toBe('A = B > C');
     }
 }

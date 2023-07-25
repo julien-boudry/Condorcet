@@ -239,7 +239,7 @@ class FilteredPairwiseTest extends TestCase
     {
         $filteredPairwise = $this->election1->getFilteredPairwiseByTags('tag1');
 
-        $this->assertSame(1, $filteredPairwise[2]['win'][0]);
+        expect($filteredPairwise[2]['win'][0])->toBe(1);
 
         $explicitOriginalFromFilteredPairwise = $filteredPairwise->getExplicitPairwise();
 
@@ -248,9 +248,9 @@ class FilteredPairwiseTest extends TestCase
 
         $filteredPairwise = unserialize($serializedFilteredPairwise);
 
-        $this->assertSame($explicitOriginalFromFilteredPairwise, $filteredPairwise->getExplicitPairwise());
-        $this->assertSame(['tag1'], $filteredPairwise->tags);
-        $this->assertTrue($filteredPairwise->withTags);
+        expect($filteredPairwise->getExplicitPairwise())->toBe($explicitOriginalFromFilteredPairwise);
+        expect($filteredPairwise->tags)->toBe(['tag1']);
+        expect($filteredPairwise->withTags)->toBeTrue();
     }
 
     public function testModifyFilteredPairwise(): void
@@ -259,24 +259,24 @@ class FilteredPairwiseTest extends TestCase
 
         $filteredPairwise = $this->election1->getFilteredPairwiseByTags('tag1');
 
-        $this->assertSame(2, $filteredPairwise[2]['win'][0]);
+        expect($filteredPairwise[2]['win'][0])->toBe(2);
 
         $filteredPairwise->removeVote(1);
-        $this->assertSame(1, $filteredPairwise[2]['win'][0]);
+        expect($filteredPairwise[2]['win'][0])->toBe(1);
 
         $newVote = $this->election1->addVote('A>B>C');
         $newVote->addTags('tag1');
 
-        $this->assertSame(0, $filteredPairwise[0]['win'][2]);
+        expect($filteredPairwise[0]['win'][2])->toBe(0);
         $filteredPairwise->addNewVote($this->election1->getVoteKey($newVote));
-        $this->assertSame(1, $filteredPairwise[0]['win'][2]);
+        expect($filteredPairwise[0]['win'][2])->toBe(1);
 
         $this->election1 = null; // destroy reference and weak reference
 
         // Explicit pairwise must continue to find original candidates names
-        $this->assertArrayHasKey('A', $filteredPairwise->getExplicitPairwise());
-        $this->assertArrayHasKey('B', $filteredPairwise->getExplicitPairwise());
-        $this->assertArrayHasKey('C', $filteredPairwise->getExplicitPairwise());
+        expect($filteredPairwise->getExplicitPairwise())->toHaveKey('A');
+        expect($filteredPairwise->getExplicitPairwise())->toHaveKey('B');
+        expect($filteredPairwise->getExplicitPairwise())->toHaveKey('C');
     }
 
     public function testFilteredPairwiseResults_2(): void

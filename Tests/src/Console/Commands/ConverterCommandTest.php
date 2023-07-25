@@ -58,10 +58,10 @@ class ConverterCommandTest extends TestCase
 
         $output = $this->converterCommand->getDisplay();
         $this->converterCommand->assertCommandIsSuccessful();
-        $this->assertSame(0, $this->converterCommand->getStatusCode());
-        $this->assertEmpty($output);
+        expect($this->converterCommand->getStatusCode())->toBe(0);
+        expect($output)->toBeEmpty();
 
-        $this->assertSame(file_get_contents($comparaison), file_get_contents(self::OUTPUT_FILE));
+        expect(file_get_contents(self::OUTPUT_FILE))->toBe(file_get_contents($comparaison));
     }
 
     public function testLacksAnOption(): void

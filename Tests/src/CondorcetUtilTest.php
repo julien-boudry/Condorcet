@@ -14,13 +14,13 @@ class CondorcetUtilTest extends TestCase
     {
         $vote = new Vote('A>B>C');
 
-        $this->assertSame('A > B > C', CondorcetUtil::format($vote, true));
+        expect(CondorcetUtil::format($vote, true))->toBe('A > B > C');
     }
 
     public function testDeleteComments(): void
     {
         $result = CondorcetUtil::prepareParse('A > B # This is a comment', false);
 
-        $this->assertSame(['A > B'], $result);
+        expect($result)->toBe(['A > B']);
     }
 }

@@ -27,11 +27,9 @@ class SingleTransferableVoteTest extends TestCase
 
     public function testQuotaOption(): never
     {
-        $this->assertSame(StvQuotas::DROOP, StvQuotas::make('droop'));
+        expect(StvQuotas::make('droop'))->toBe(StvQuotas::DROOP);
 
-        $this->assertTrue(
-            $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'))
-        );
+        expect($this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff')))->toBeTrue();
 
         $this->expectException(StvQuotaNotImplementedException::class);
         $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
@@ -60,41 +58,34 @@ class SingleTransferableVoteTest extends TestCase
 
         $this->election->setNumberOfSeats(2);
 
-
-        $this->assertEqualsWithDelta(
-            [
-                1 => [
-                    'A' => 42.0,
-                    'D' => 26.0,
-                    'C' => 17.0,
-                    'B' => 15.0,
+        expect($this->election->getResult('STV')->getStats()['rounds'])
+            ->toEqualWithDelta(
+                expected: [
+                    1 => [
+                        'A' => 42.0,
+                        'D' => 26.0,
+                        'C' => 17.0,
+                        'B' => 15.0,
+                    ],
+                    2 => [
+                        'D' => 26.0,
+                        'B' => 20.33333333333,
+                        'C' => 19.66666666667,
+                    ],
+                    3 => [
+                        'B' => 37.33333333333,
+                        'D' => 28.66666666667,
+                    ],
                 ],
-                2 => [
-                    'D' => 26.0,
-                    'B' => 20.33333333333,
-                    'C' => 19.66666666667,
-                ],
-                3 => [
-                    'B' => 37.33333333333,
-                    'D' => 28.66666666667,
-                ],
-            ],
-            $this->election->getResult('STV')->getStats()['rounds'],
-            1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
-        );
+                delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
+            );
 
-        $this->assertSame(
-            (float) 34,
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(34.0);
 
-        $this->assertSame(
-            [
-                1 => 'A',
-                2 => 'B',
-            ],
-            $this->election->getResult('STV')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+            1 => 'A',
+            2 => 'B',
+        ]);
     }
 
     public function testResult_2(): void
@@ -122,10 +113,7 @@ class SingleTransferableVoteTest extends TestCase
             Hamburger
         ');
 
-        $this->assertSame(
-            (float) 6,
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->tobe(6.0);
 
         $this->assertSame(
             [
@@ -189,10 +177,7 @@ class SingleTransferableVoteTest extends TestCase
             Brad ^ 27
         ');
 
-        $this->assertSame(
-            (float) 31,
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(31.0);
 
         $this->assertSame(
             [
@@ -218,7 +203,7 @@ class SingleTransferableVoteTest extends TestCase
         );
 
         $this->election->setStatsVerbosity(StatsVerbosity::LOW);
-        $this->assertArrayNotHasKey('rounds', $this->election->getResult('STV')->getStats());
+        expect($this->election->getResult('STV')->getStats())->not()->toHaveKey('rounds');
     }
 
     public function testResult_4(): void
@@ -242,10 +227,7 @@ class SingleTransferableVoteTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        $this->assertSame(
-            (float) 26,
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->tobe(26.0);
 
         $this->assertSame(
             [
@@ -278,26 +260,23 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
-        $this->assertSame(
-            round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN));
 
-        $this->assertEqualsWithDelta(
-            [
-                1 => [
-                    'Andrea' => 45.0,
-                    'Brad' => 30.0,
-                    'Carter' => 25.0,
+        expect($this->election->getResult('STV')->getStats()['rounds'])
+            ->toEqualWithDelta(
+                expected: [
+                    1 => [
+                        'Andrea' => 45.0,
+                        'Brad' => 30.0,
+                        'Carter' => 25.0,
+                    ],
+                    2 => [
+                        'Carter' => 36.0 + 2/3,
+                        'Brad' => 30.0,
+                    ],
                 ],
-                2 => [
-                    'Carter' => 36.0 + 2/3,
-                    'Brad' => 30.0,
-                ],
-            ],
-            $this->election->getResult('STV')->getStats()['rounds'],
-            delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
-        );
+                delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
+            );
 
         $this->assertSame(
             [
@@ -307,7 +286,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Hagenbach-Bischoff'));
+        expect(StvQuotas::make('Hagenbach-Bischoff'))->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
     }
 
     public function testResult_AlternativeQuotas2(): void
@@ -330,10 +309,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::IMPERIALI);
 
-        $this->assertSame(
-            (float) (100 / (2 + 2)),
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe((float) (100 / (2 + 2)));
 
         $this->assertSame(
             [
@@ -358,7 +334,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::make('Imperiali quota'));
+        expect(StvQuotas::make('Imperiali quota'))->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
     }
 
     public function testResult_AlternativeQuotas3(): void
@@ -381,10 +357,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hare quota'));
 
-        $this->assertSame(
-            (float) (100 / 2),
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe((float) (100 / 2));
 
         $this->assertSame(
             [
@@ -410,7 +383,7 @@ class SingleTransferableVoteTest extends TestCase
             $this->election->getResult('STV')->getResultAsArray(true)
         );
 
-        self::assertsame($this->election->getResult('STV')->getMethodOptions()['Quota'], StvQuotas::HARE);
+        expect(StvQuotas::HARE)->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
     }
 
     public function testResult_AlternativeQuotas4(): void
@@ -438,10 +411,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(3);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
 
-        $this->assertSame(
-            (float) 25,
-            $this->election->getResult('STV')->getStats()['Votes Needed to Win']
-        );
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(25.0);
 
         $this->assertSame(
             [
