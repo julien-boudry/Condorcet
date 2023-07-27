@@ -8,9 +8,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\{DataProvider, Group, PreserveGlobalState};
 use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer;
-use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
+use CondorcetPHP\Condorcet\Tools\Randomizers\{ArrayRandomizer, VoteRandomizer};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +16,8 @@ class VoteRandomizerTest extends TestCase
         $votesRandomizer = new VoteRandomizer(ArrayRandomizerTest::CANDIDATE_SET_1, ArrayRandomizerTest::SEED);
 
         for ($i=0; $i<5; $i++) {
-            expect(array_values(
+            expect(
+                array_values(
                     CondorcetUtil::format(
                         $votesRandomizer->getNewVote()->getRanking(false)
                     )
@@ -29,7 +29,8 @@ class VoteRandomizerTest extends TestCase
         $votesRandomizer->tiesProbability = 100;
 
         for ($i=0; $i<5; $i++) {
-            expect(array_values(
+            expect(
+                array_values(
                     CondorcetUtil::format(
                         $votesRandomizer->getNewVote()->getRanking(false)
                     )

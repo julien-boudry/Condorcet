@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
 use PHPUnit\Framework\TestCase;
 

@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Result;
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Condorcet\{Condorcet, Result};
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use PHPUnit\Framework\Attributes\BackupStaticProperties;
 use PHPUnit\Framework\TestCase;

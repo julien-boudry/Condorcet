@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\DataManager;
 
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Vote;
+use CondorcetPHP\Condorcet\{Election, Vote};
 use PHPUnit\Framework\TestCase;
 
 class ArrayManagerTest extends TestCase

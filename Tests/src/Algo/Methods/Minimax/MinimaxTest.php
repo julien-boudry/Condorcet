@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\Minimax;
 
-use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\TestCase;
 

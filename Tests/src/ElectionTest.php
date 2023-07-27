@@ -5,22 +5,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
-use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Vote;
-use CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
-use CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException;
-use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
-use CondorcetPHP\Condorcet\Throwable\NoCandidatesException;
-use CondorcetPHP\Condorcet\Throwable\NoSeatsException;
-use CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException;
-use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
-use CondorcetPHP\Condorcet\Throwable\VoteException;
-use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
-use CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException;
-use CondorcetPHP\Condorcet\Throwable\VotingHasStartedException;
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
+use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -551,13 +537,13 @@ class ElectionTest extends TestCase
         expect($election->getVotesListAsString())
             ->toBe(
                 <<<'VOTES'
-                A > C > D > B * 6
-                C > B > D > A * 3
-                D > B > A > C * 3
-                D > C > B > A ^2 * 1
-                B > A > D > C * 1
-                D > C > B > A * 1
-                VOTES
+                    A > C > D > B * 6
+                    C > B > D > A * 3
+                    D > B > A > C * 3
+                    D > C > B > A ^2 * 1
+                    B > A > D > C * 1
+                    D > C > B > A * 1
+                    VOTES
             );
     }
 

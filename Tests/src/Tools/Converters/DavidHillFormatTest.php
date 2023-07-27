@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests;
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
 use PHPUnit\Framework\TestCase;

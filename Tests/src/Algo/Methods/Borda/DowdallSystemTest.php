@@ -51,7 +51,7 @@ class DowdallSystemTest extends TestCase
                     'C' => 1/3,
                     'D' => 1/4,
                     'E' => 1/5,
-                    'F' => 1/6 ],
+                    'F' => 1/6],
                 delta: 1 / (0.1 ** DowdallSystem::DECIMAL_PRECISION)
             );
     }

@@ -8,8 +8,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
+use PHPUnit\Framework\Attributes\{Group, RequiresPhpExtension};
 use PHPUnit\Framework\TestCase;
 
 #[Group('DataHandlerDrivers')]

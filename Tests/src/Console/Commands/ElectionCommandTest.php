@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Console\Commands;
 
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
-use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
-use CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException;
+use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, ResultRequestedWithoutVotesException};
 use PHPUnit\Framework\TestCase;
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
 use CondorcetPHP\Condorcet\Console\Style\CondorcetStyle;

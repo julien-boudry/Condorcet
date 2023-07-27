@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tests\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
-use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
-use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
+use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException};
 use PHPUnit\Framework\TestCase;
 
 class CombinationsTest extends TestCase
