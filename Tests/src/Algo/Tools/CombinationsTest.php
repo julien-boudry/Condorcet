@@ -18,8 +18,7 @@ class CombinationsTest extends TestCase
     public function testCountPossibleCombinationsResultWithBigInt(): void
     {
         // Usual permutation for CPO STV 11 candidates and 3 seats left
-        $this->assertSame(
-            13_530,
+        expect(
             Combinations::getPossibleCountOfCombinations(
                 count: Combinations::getPossibleCountOfCombinations(
                     count: 11,
@@ -27,7 +26,7 @@ class CombinationsTest extends TestCase
                 ),
                 length: 2
             )
-        );
+        )->toBe(13_530);
 
         expect(Combinations::getPossibleCountOfCombinations(52, 5))->toBe(2_598_960); // Card Game
 
@@ -43,8 +42,7 @@ class CombinationsTest extends TestCase
         Combinations::$useBigIntegerIfAvailable = false;
 
         // Usual permutation for CPO STV 11 candidates and 3 seats left
-        $this->assertSame(
-            13_530,
+        expect(
             Combinations::getPossibleCountOfCombinations(
                 count: Combinations::getPossibleCountOfCombinations(
                     count: 11,
@@ -52,7 +50,7 @@ class CombinationsTest extends TestCase
                 ),
                 length: 2
             )
-        );
+        )->tobe(13_530);
 
         expect(Combinations::getPossibleCountOfCombinations(52, 5))->toBe(2_598_960); // Card Game - Result is - 4_367_914_309_753_280
 

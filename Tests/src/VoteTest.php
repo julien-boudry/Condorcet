@@ -764,9 +764,7 @@ class VoteTest extends TestCase
 
         $election->addVote($vote);
 
-        // var_dump(array_map(fn ($v) => (string) $v ,$vote->getAllCandidates()));
-
-        $this->assertSame([
+        expect($vote->getAllCandidates())->toBe([
             $this->candidate1,
             $this->candidate2,
             $vote[3][0],
@@ -774,17 +772,15 @@ class VoteTest extends TestCase
             $this->candidate4,
             $this->candidate6,
             $this->candidate5,
+        ]);
 
-        ], $vote->getAllCandidates());
-
-        $this->assertSame([
+        expect($vote->getAllCandidates($election))->tobe([
             $this->candidate1,
             $this->candidate2,
             $this->candidate3,
             $this->candidate4,
             $this->candidate6,
             $this->candidate5,
-
-        ], $vote->getAllCandidates($election));
+        ]);
     }
 }

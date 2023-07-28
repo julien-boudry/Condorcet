@@ -204,10 +204,11 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb->parseVotes('A>B>C * 20');
 
-        $this->assertSame(
-            "A > B > C * 39\n".
-            'B > A > C * 1',
-            $electionWithDb->getVotesListAsString()
+        expect($electionWithDb->getVotesListAsString())->toBe(
+            <<<'VOTES'
+                A > B > C * 39
+                B > A > C * 1
+                VOTES
         );
     }
 

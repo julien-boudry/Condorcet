@@ -191,15 +191,15 @@ class CondorcetElectionFormatTest extends TestCase
 
         expect($election->countVotes())->toBe(54);
 
-        $this->assertSame(<<<'VOTES'
-            Candidate C > Candidate A = Candidate B ^7 * 8
-            Candidate A > Candidate B > Candidate C * 43
-            Candidate A = Candidate B > Candidate C * 1
-            Candidate B > Candidate C > Candidate A * 1
-            Candidate C > Candidate A = Candidate B * 1
-            VOTES
-            , $election->getVotesListAsString());
-
+        expect($election->getVotesListAsString())->toBe(
+            <<<'VOTES'
+                Candidate C > Candidate A = Candidate B ^7 * 8
+                Candidate A > Candidate B > Candidate C * 43
+                Candidate A = Candidate B > Candidate C * 1
+                Candidate B > Candidate C > Candidate A * 1
+                Candidate C > Candidate A = Candidate B * 1
+                VOTES
+        );
 
         expect($election->getVotesList(tags: 'signature:55073db57b0a859911', with: true))->toHaveCount(1);
         expect($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->toHaveCount(1);
@@ -226,12 +226,13 @@ class CondorcetElectionFormatTest extends TestCase
 
         expect($election->countVotes())->toBe(4);
 
-        $this->assertSame(<<<'VOTES'
-            Candidate A > Candidate B > Candidate C * 2
-            Candidate B * 1
-            Candidate C > Candidate B * 1
-            VOTES
-            , $election->getVotesListAsString());
+        expect($election->getVotesListAsString())->toBe(
+            <<<'VOTES'
+                Candidate A > Candidate B > Candidate C * 2
+                Candidate B * 1
+                Candidate C > Candidate B * 1
+                VOTES
+        );
     }
 
     public function testcreateFromElection(): void
@@ -252,7 +253,7 @@ class CondorcetElectionFormatTest extends TestCase
 
         $election = (new CondorcetElectionFormat($input))->setDataToAnElection();
 
-        $this->assertSame(
+        expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(
             $assertion1 =
             <<<'CVOTES'
                 #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
@@ -265,10 +266,10 @@ class CondorcetElectionFormatTest extends TestCase
                 Simona Slaná * 2
                 Petr Němec * 1
                 CVOTES,
-            CondorcetElectionFormat::createFromElection(election: $election)
         );
 
-        expect(CondorcetElectionFormat::createFromElection(election: $election, includeNumberOfSeats: false))->not()->toContain('Number of Seats: 42');
+        expect(CondorcetElectionFormat::createFromElection(election: $election, includeNumberOfSeats: false))
+            ->not()->toContain('Number of Seats: 42');
 
 
         $election->setImplicitRanking(false);
@@ -304,23 +305,23 @@ class CondorcetElectionFormatTest extends TestCase
             CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false)
         );
 
-        $this->assertSame(
-            $assertion5 =
-            <<<'CVOTES'
-                #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
-                #/Number of Seats: 42
-                #/Implicit Ranking: false
-                #/Weight Allowed: true
+        expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false))
+            ->toBe(
+                $assertion5 =
+                <<<'CVOTES'
+                    #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
+                    #/Number of Seats: 42
+                    #/Implicit Ranking: false
+                    #/Weight Allowed: true
 
-                Richard Boháč > Petr Němec ^7
-                Richard Boháč > Petr Němec
-                Richard Boháč > Petr Němec
-                Simona Slaná
-                Simona Slaná
-                Petr Němec
-                CVOTES,
-            CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false)
-        );
+                    Richard Boháč > Petr Němec ^7
+                    Richard Boháč > Petr Němec
+                    Richard Boháč > Petr Němec
+                    Simona Slaná
+                    Simona Slaná
+                    Petr Němec
+                    CVOTES
+            );
 
         $election->setImplicitRanking(true);
         $output = new \SplTempFileObject;

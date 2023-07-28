@@ -307,16 +307,16 @@ class ElectionTest extends TestCase
 
         expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false))->toBe(str_replace(' * 1', '', $cvotes_explicit_without_context));
 
-        $this->assertSame(
-            <<<'CVOTES'
-                #/Candidates: A ; B ; C
-                #/Implicit Ranking: false
-                #/Weight Allowed: false
+        expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true))
+            ->toBe(
+                <<<'CVOTES'
+                    #/Candidates: A ; B ; C
+                    #/Implicit Ranking: false
+                    #/Weight Allowed: false
 
-                /EMPTY_RANKING/ * 2
-                CVOTES,
-            CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true)
-        );
+                    /EMPTY_RANKING/ * 2
+                    CVOTES
+            );
 
         $this->assertSame(
             <<<'CVOTES'

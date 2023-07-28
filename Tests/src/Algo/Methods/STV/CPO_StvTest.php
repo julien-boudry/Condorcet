@@ -67,25 +67,27 @@ class CPO_StvTest extends TestCase
         $stats = $this->election->getResult('CPO STV')->getStats();
 
         expect($stats['Votes Needed to Win'])->toBe(25.0);
-        $this->assertSame(['Andrea'=> 25.0,
+
+        expect($stats['Initial Score Table'])->toBe([
+            'Andrea'=> 25.0,
             'Brad'=> 7.0,
             'Carter'=> 34.0,
             'Delilah'=> 13.0,
             'Scott'=> 21.0,
-        ], $stats['Initial Score Table']);
+        ]);
 
         expect($stats['Candidates elected from first round'])->toBe(['Andrea', 'Carter']);
         expect($stats['Candidates eliminated from first round'])->toBe(['Brad', 'Delilah', 'Scott']);
 
-        $this->assertSame([
+        expect($stats['Outcomes'])->toBe([
             ['Andrea', 'Carter', 'Scott'],
             ['Andrea', 'Carter', 'Delilah'],
             ['Andrea', 'Brad', 'Carter'],
-        ], $stats['Outcomes']);
+        ]);
 
         expect($stats['Completion Method'])->toBe('Schulze Margin');
 
-        $this->assertSame(
+        expect($stats['Outcomes Comparison'])->toBe(
             ['Outcome N° 0 compared to Outcome N° 1' => [
                 'candidates_excluded' => [
                     0 => 'Brad',
@@ -149,8 +151,7 @@ class CPO_StvTest extends TestCase
                         2 => 66.0,
                     ],
                 ],
-            ],
-            $stats['Outcomes Comparison']
+            ]
         );
 
         expect($stats)->toHaveKey('Condorcet Completion Method Stats');

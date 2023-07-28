@@ -43,7 +43,7 @@ class FilteredPairwiseTest extends TestCase
 
         // Test $filteredwithoutTag1
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 3,
@@ -86,12 +86,12 @@ class FilteredPairwiseTest extends TestCase
                         'B' => 3,
                     ],
                 ]],
-            actual: $filteredwithoutTag1
+            $filteredwithoutTag1
         );
 
         // Test $filteredwithTag2
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 2,
@@ -134,13 +134,13 @@ class FilteredPairwiseTest extends TestCase
                         'B' => 2,
                     ],
                 ]],
-            actual: $filteredWithTag2
+            $filteredWithTag2
         );
 
 
         // Test $filteredwithTag2AndTag1
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 2,
@@ -183,12 +183,12 @@ class FilteredPairwiseTest extends TestCase
                         'B' => 2,
                     ],
                 ]],
-            actual: $filteredWithTag2AndTag1
+            $filteredWithTag2AndTag1
         );
 
         // Test NormalPairwise
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 3,
@@ -231,7 +231,7 @@ class FilteredPairwiseTest extends TestCase
                         'B' => 3,
                     ],
                 ]],
-            actual: $normalPairwise
+            $normalPairwise
         );
     }
 
@@ -297,7 +297,7 @@ class FilteredPairwiseTest extends TestCase
 
         // Test $filteredwithBothTags
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 0,
@@ -340,7 +340,7 @@ class FilteredPairwiseTest extends TestCase
                         'B' => 0,
                     ],
                 ]],
-            actual: $filteredWithBothTags
+            $filteredWithBothTags
         );
     }
 }

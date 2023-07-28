@@ -182,7 +182,7 @@ class PairwiseTest extends TestCase
         $this->election1->parseVotes('A>B>C ^2');
 
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 2,
@@ -226,7 +226,7 @@ class PairwiseTest extends TestCase
                     ],
                 ],
             ],
-            actual: $this->election1->getExplicitPairwise()
+            $this->election1->getExplicitPairwise()
         );
     }
 
@@ -238,7 +238,7 @@ class PairwiseTest extends TestCase
         $this->election1->parseVotes('A>B>C ^2');
 
         $this->assertSame(
-            expected: [
+            [
                 'A' => [
                     'win' => [
                         'B' => 2,
@@ -282,7 +282,7 @@ class PairwiseTest extends TestCase
                     ],
                 ],
             ],
-            actual: $this->election1->getExplicitPairwise()
+            $this->election1->getExplicitPairwise()
         );
     }
 }

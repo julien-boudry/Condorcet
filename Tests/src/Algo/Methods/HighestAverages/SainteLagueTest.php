@@ -35,7 +35,7 @@ class SainteLagueTest extends TestCase
 
         expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('A > B > C > A > A > B > C');
 
-        $this->assertSame([
+        expect($this->election->getResult('SainteLague')->getStats())->toBe([
             'Rounds' => [
                 1 => [
                     'A' => [
@@ -141,7 +141,7 @@ class SainteLagueTest extends TestCase
                 'B' => 2,
                 'C' => 2,
             ],
-        ], $this->election->getResult('SainteLague')->getStats());
+        ]);
     }
 
     # https://www.regjeringen.no/no/tema/valg-og-demokrati/den-norske-valgordningen/valgordningen/id456636/

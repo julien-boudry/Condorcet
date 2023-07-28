@@ -66,7 +66,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
         ');
 
         // SainteLeague
-        $this->assertSame([
+        expect($this->election->getResult('SainteLague')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -83,13 +83,13 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('SainteLague')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('SainteLague')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('SainteLague')->getResultAsArray())->toHaveCount(577);
 
         // Jefferson
-        $this->assertSame([
+        expect($this->election->getResult('Jefferson')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 6,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 150,
@@ -106,14 +106,15 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 24,
             'Rassemblement National' => 109,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('Jefferson')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('Jefferson')->getResultAsArray())->toHaveCount(577);
 
         // Hare-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        $this->assertSame([
+
+        expect($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -130,14 +131,15 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         // Droop-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Droop-LR
-        $this->assertSame([
+
+        expect($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -154,14 +156,14 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         //  Hagenbach-Bischoff-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HAGENBACH_BISCHOFF); //  Hagenbach-Bischoff-LR
-        $this->assertSame([
+        expect($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 148,
@@ -178,14 +180,14 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);
 
         //  Imperiali-LR
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::IMPERIALI); //  Imperiali-LR
-        $this->assertSame([
+        expect($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates'])->toBe([
             'Divers extrême gauche' => 7,
             'Parti radical de gauche' => 3,
             'Nouvelle union populaire écologique et sociale' => 149,
@@ -202,7 +204,7 @@ class HighestAveragesAndLargestRemainderMethodsTest extends TestCase
             'Reconquête !' => 25,
             'Rassemblement National' => 108,
             'Divers extrême droite' => 0,
-        ], $this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']);
+        ]);
 
         expect(array_sum($this->election->getResult('LargestRemainder')->getStats()['Seats per Candidates']))->toBe(577);
         expect($this->election->getResult('LargestRemainder')->getResultAsArray())->toHaveCount(577);

@@ -41,25 +41,19 @@ class RandomBallotTest extends TestCase
             expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
         }
 
-        $this->assertSame(
-            expected: [
-                'Elected Weight Level' => 6,
-                'Elected Ballot Key' => 3,
-            ],
-            actual: $this->election->getResult('Random ballot')->getStats()
-        );
+        expect($this->election->getResult('Random ballot')->getStats())->toBe([
+            'Elected Weight Level' => 6,
+            'Elected Ballot Key' => 3,
+        ]);
 
         $this->election->cleanupCalculator();
 
         expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('C > A > B');
 
-        $this->assertSame(
-            expected: [
-                'Elected Weight Level' => 4,
-                'Elected Ballot Key' => 2,
-            ],
-            actual: $this->election->getResult('Random ballot')->getStats()
-        );
+        expect($this->election->getResult('Random ballot')->getStats())->toBe([
+            'Elected Weight Level' => 4,
+            'Elected Ballot Key' => 2,
+        ]);
 
         $this->election->cleanupCalculator();
     }
