@@ -1,4 +1,4 @@
-FROM php:8.2-cli-bullseye
+FROM php:8.2-cli-bookworm
 
 COPY . /usr/src/condorcetapp
 WORKDIR /usr/src/condorcetapp
