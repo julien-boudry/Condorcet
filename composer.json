@@ -39,7 +39,8 @@
         "haydenpierce/class-finder": ">= 0.5.3",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.9",
-        "laravel/pint": "^1.10"
+        "laravel/pint": "^1.10",
+        "cmgmyr/phploc": "^8.0"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
