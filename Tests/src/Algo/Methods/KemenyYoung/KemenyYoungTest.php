@@ -35,22 +35,18 @@ class KemenyYoungTest extends TestCase
         ');
 
 
-        $this->assertSame(
-            [
-                1 => 'Nashville',
-                2 => 'Chattanooga',
-                3 => 'Knoxville',
-                4 => 'Memphis',
-            ],
-            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+            1 => 'Nashville',
+            2 => 'Chattanooga',
+            3 => 'Knoxville',
+            4 => 'Memphis',
+        ]);
 
         expect($this->election->getResult('KemenyYoung')->getStats()['Best Score'])->toBe(393);
 
         expect($this->election->getWinner('KemenyYoung'))->toBe($this->election->getWinner());
     }
 
-    #[PreserveGlobalState(false)]
     public function testResult2(): void
     {
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
@@ -66,15 +62,12 @@ class KemenyYoungTest extends TestCase
 
         $this->election->setImplicitRanking(false);
 
-        $this->assertSame(
-            [
-                1 => 'Elliot',
-                2 => 'Roland',
-                3 => 'Meredith',
-                4 => 'Selden',
-            ],
-            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+            1 => 'Elliot',
+            2 => 'Roland',
+            3 => 'Meredith',
+            4 => 'Selden',
+        ]);
     }
 
     public function testStats_1(): void
@@ -88,17 +81,14 @@ class KemenyYoungTest extends TestCase
 
         expect($this->election->getResult('KemenyYoung')->getResultAsString())->toBe($r);
 
-        $this->assertSame(
-            [
-                'Best Score' => 1,
-                'Ranking In Conflicts' => 0,
-                'Ranking Scores' => [
-                    [1 => 'A', 2 => 'B', 'score' => 1],
-                    [1 => 'B', 2 => 'A', 'score' => 0],
-                ],
+        expect($this->election->getResult('KemenyYoung')->getStats())->toBe([
+            'Best Score' => 1,
+            'Ranking In Conflicts' => 0,
+            'Ranking Scores' => [
+                [1 => 'A', 2 => 'B', 'score' => 1],
+                [1 => 'B', 2 => 'A', 'score' => 0],
             ],
-            $this->election->getResult('KemenyYoung')->getStats()
-        );
+        ]);
 
         $this->election->setStatsVerbosity(StatsVerbosity::STD);
 
@@ -130,23 +120,17 @@ class KemenyYoungTest extends TestCase
 
         $result = $this->election->getResult('KemenyYoung');
 
-        $this->assertEquals(
-            [0 => [
-                'type' => 42,
-                'msg' => '3;5',
-            ],
-            ],
-            $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)
-        );
+        expect($result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE))->toEqual([0 => [
+            'type' => 42,
+            'msg' => '3;5',
+        ],
+        ]);
 
-        $this->assertEquals(
-            [0 => [
-                'type' => 42,
-                'msg' => '3;5',
-            ],
-            ],
-            $result->getWarning()
-        );
+        expect($result->getWarning())->toEqual([0 => [
+            'type' => 42,
+            'msg' => '3;5',
+        ],
+        ]);
 
         expect($result->getStats()['Ranking In Conflicts'])->toBe(3);
 

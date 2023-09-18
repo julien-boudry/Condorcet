@@ -37,23 +37,17 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        $this->assertSame(
-            [
-                1 => 'B',
-                2 => 'C',
-                3 => 'A',
-                4 => 'D', ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'B',
+            2 => 'C',
+            3 => 'A',
+            4 => 'D', ]);
 
-        $this->assertEquals(
-            [
-                'B' => 294,
-                'C' => 273,
-                'A' => 226,
-                'D' => 207, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'B' => 294,
+            'C' => 273,
+            'A' => 226,
+            'D' => 207, ]);
     }
 
     public function testResult_2(): void
@@ -74,23 +68,17 @@ class BordaCountTest extends TestCase
             A>D>C>B ^ 15
         ');
 
-        $this->assertSame(
-            [
-                1 => 'A',
-                2 => 'B',
-                3 => 'C',
-                4 => 'D', ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'A',
+            2 => 'B',
+            3 => 'C',
+            4 => 'D', ]);
 
-        $this->assertEquals(
-            [
-                'A' => 340,
-                'B' => 280,
-                'C' => 195,
-                'D' => 185, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'A' => 340,
+            'B' => 280,
+            'C' => 195,
+            'D' => 185, ]);
     }
 
     public function testResult_3(): void
@@ -103,37 +91,25 @@ class BordaCountTest extends TestCase
             A
         ');
 
-        $this->assertSame(
-            [
-                1 => 'A',
-                2 => ['B', 'C'], ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'A',
+            2 => ['B', 'C'], ]);
 
-        $this->assertEquals(
-            [
-                'A' => 3,
-                'B' => 1.5,
-                'C' => 1.5, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'A' => 3,
+            'B' => 1.5,
+            'C' => 1.5, ]);
 
         $this->election->setImplicitRanking(false);
 
-        $this->assertSame(
-            [
-                1 => 'A',
-                2 => ['B', 'C'], ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'A',
+            2 => ['B', 'C'], ]);
 
-        $this->assertEquals(
-            [
-                'A' => 3,
-                'B' => 0,
-                'C' => 0, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'A' => 3,
+            'B' => 0,
+            'C' => 0, ]);
     }
 
     public function testResult_4(): void
@@ -152,23 +128,17 @@ class BordaCountTest extends TestCase
             D>C>B>A * 17
         ');
 
-        $this->assertSame(
-            [
-                1 => 'B',
-                2 => 'C',
-                3 => 'A',
-                4 => 'D', ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'B',
+            2 => 'C',
+            3 => 'A',
+            4 => 'D', ]);
 
-        $this->assertEquals(
-            [
-                'B' => 294,
-                'C' => 273,
-                'A' => 226,
-                'D' => 207, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'B' => 294,
+            'C' => 273,
+            'A' => 226,
+            'D' => 207, ]);
     }
 
     public function testResult_variant(): void
@@ -189,23 +159,17 @@ class BordaCountTest extends TestCase
 
         $this->election->setMethodOption('Borda Count', 'Starting', 0);
 
-        $this->assertSame(
-            [
-                1 => 'B',
-                2 => 'C',
-                3 => 'A',
-                4 => 'D', ],
-            $this->election->getResult('Borda Count')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+            1 => 'B',
+            2 => 'C',
+            3 => 'A',
+            4 => 'D', ]);
 
-        $this->assertEquals(
-            [
-                'B' => 294 - 100,
-                'C' => 273 - 100,
-                'A' => 226 - 100,
-                'D' => 207 - 100, ],
-            $this->election->getResult('Borda Count')->getStats()
-        );
+        expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+            'B' => 294 - 100,
+            'C' => 273 - 100,
+            'A' => 226 - 100,
+            'D' => 207 - 100, ]);
     }
 
     public function testVeryHighVoteWeightAndPerformances(): void

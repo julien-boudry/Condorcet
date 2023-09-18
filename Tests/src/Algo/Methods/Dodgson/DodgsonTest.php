@@ -44,35 +44,29 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonTideman'))->toBe($CandidateCora);
 
-        $this->assertSame(
-            [1 => 'Cora',
-                2 => 'Abby',
-                3 => 'Brad',
-                4 => 'Dave',
-                5 => 'Erin', ],
-            $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => 'Cora',
+            2 => 'Abby',
+            3 => 'Brad',
+            4 => 'Dave',
+            5 => 'Erin', ]);
 
-        $this->assertSame(
-            [
-                'Cora' => [
-                    'sum_defeat_margin' => 4,
-                ],
-                'Abby' => [
-                    'sum_defeat_margin' => 5,
-                ],
-                'Brad' => [
-                    'sum_defeat_margin' => 297,
-                ],
-                'Dave' => [
-                    'sum_defeat_margin' => 348,
-                ],
-                'Erin' => [
-                    'sum_defeat_margin' => 426,
-                ],
+        expect($this->election->getResult('DodgsonTideman')->getStats())->toBe([
+            'Cora' => [
+                'sum_defeat_margin' => 4,
             ],
-            $this->election->getResult('DodgsonTideman')->getStats()
-        );
+            'Abby' => [
+                'sum_defeat_margin' => 5,
+            ],
+            'Brad' => [
+                'sum_defeat_margin' => 297,
+            ],
+            'Dave' => [
+                'sum_defeat_margin' => 348,
+            ],
+            'Erin' => [
+                'sum_defeat_margin' => 426,
+            ],
+        ]);
     }
 
     # Require real Dodgson method. This test fail with both approximations.
@@ -121,15 +115,12 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-        $this->assertSame(
-            [
-                'D' => 3.0,
-                'A' => 6.0,
-                'B' => 6.0,
-                'C' => 6.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe([
+            'D' => 3.0,
+            'A' => 6.0,
+            'B' => 6.0,
+            'C' => 6.0,
+        ]);
     }
 
     # Require real Dodgson method. This test fail with both approximations.
@@ -174,14 +165,11 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('C');
 
-        $this->assertSame(
-            ['C' => 2.0,
-                'A' => 3.0,
-                'B' => 13.0,
-                'D' => 24.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe(['C' => 2.0,
+            'A' => 3.0,
+            'B' => 13.0,
+            'D' => 24.0,
+        ]);
     }
 
     public function testResult_6(): void
@@ -203,14 +191,11 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-        $this->assertSame(
-            ['D' => 3.0,
-                'C' => 4.0,
-                'A' => 5.0,
-                'B' => 7.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe(['D' => 3.0,
+            'C' => 4.0,
+            'A' => 5.0,
+            'B' => 7.0,
+        ]);
     }
 
     public function testResult_7(): void
@@ -232,13 +217,10 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-        $this->assertSame(
-            ['B' => 5.0,
-                'C' => 6.0,
-                'A' => 8.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe(['B' => 5.0,
+            'C' => 6.0,
+            'A' => 8.0,
+        ]);
     }
 
     public function testResult_8(): void
@@ -258,13 +240,10 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('A');
 
-        $this->assertSame(
-            ['A' => 1.0,
-                'B' => 2.0,
-                'C' => 3.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe(['A' => 1.0,
+            'B' => 2.0,
+            'C' => 3.0,
+        ]);
     }
 
     # Require real Dodgson method. This test fail with both approximations.
@@ -331,13 +310,10 @@ class DodgsonTest extends TestCase
         expect($this->election->getResult('DodgsonTideman')->getStats()['C']['sum_defeat_margin'])->toEqual(4);
         expect($this->election->getResult('DodgsonTideman')->getStats()['D']['sum_defeat_margin'])->toEqual(2);
 
-        $this->assertSame(
-            [1 => ['A', 'B'],
-                2 => 'D',
-                3 => 'C',
-            ],
-            $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => ['A', 'B'],
+            2 => 'D',
+            3 => 'C',
+        ]);
     }
 
     public function testResult_12(): void
@@ -373,13 +349,10 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonTideman'))->toEqual('D');
 
-        $this->assertSame(
-            [1 => 'D',
-                2 => 'C',
-                3 => ['A', 'B'],
-            ],
-            $this->election->getResult('DodgsonTideman')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => 'D',
+            2 => 'C',
+            3 => ['A', 'B'],
+        ]);
     }
 
     public function testResult_13(): void
@@ -410,16 +383,13 @@ class DodgsonTest extends TestCase
 
         expect($this->election->getWinner('DodgsonQuick'))->toEqual('A');
 
-        $this->assertSame(
-            ['A' => 3.0,
-                'B' => 4.0,
-                'C' => 20.0,
-                'D' => 20.0,
-                'E' => 30.0,
-                'F' => 30.0,
-            ],
-            $this->election->getResult('DodgsonQuick')->getStats()
-        );
+        expect($this->election->getResult('DodgsonQuick')->getStats())->toBe(['A' => 3.0,
+            'B' => 4.0,
+            'C' => 20.0,
+            'D' => 20.0,
+            'E' => 30.0,
+            'F' => 30.0,
+        ]);
     }
 
     public function testResult_14(): void
@@ -484,12 +454,9 @@ class DodgsonTest extends TestCase
             B
         ');
 
-        $this->assertSame(
-            [
-                1 => ['A', 'B'],
-                2 => ['C', 'D'],
-            ],
-            $this->election->getResult('DodgsonQuick')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('DodgsonQuick')->getResultAsArray(true))->toBe([
+            1 => ['A', 'B'],
+            2 => ['C', 'D'],
+        ]);
     }
 }

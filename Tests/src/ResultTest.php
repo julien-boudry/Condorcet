@@ -141,13 +141,10 @@ class ResultTest extends TestCase
 
         $this->election1->addVote('a > b > c');
 
-        $this->assertEquals(
-            [1 => 'a',
-                2 => 'b',
-                3 => 'c',
-            ],
-            $this->election1->getResult()->getOriginalResultArrayWithString()
-        );
+        expect($this->election1->getResult()->getOriginalResultArrayWithString())->toEqual([1 => 'a',
+            2 => 'b',
+            3 => 'c',
+        ]);
 
         expect($this->election1->getResult()->getOriginalResultAsString())->toBe('a > b > c');
     }
@@ -328,90 +325,81 @@ class ResultTest extends TestCase
         $resultTag1 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag1']);
         $resultTag2 = $election->getResult(method: $method, methodOptions: ['%tagFilter' => true, 'tags' => 'tag2']);
 
-        $testSuite = function () use ($resultGlobal, $resultTag1, $resultTag2): void {
-            $this->assertSame(
-                [
-                    'A' => [
-                        'win' => [
-                            'B' => 1,
-                        ],
-                        'null' => [
-                            'B' => 0,
-                        ],
-                        'lose' => [
-                            'B' => 1,
-                        ],
+        $testSuite = static function () use ($resultGlobal, $resultTag1, $resultTag2): void {
+            expect($resultGlobal->pairwise)->toBe([
+                'A' => [
+                    'win' => [
+                        'B' => 1,
                     ],
-                    'B' => [
-                        'win' => [
-                            'A' => 1,
-                        ],
-                        'null' => [
-                            'A' => 0,
-                        ],
-                        'lose' => [
-                            'A' => 1,
-                        ],
+                    'null' => [
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 1,
                     ],
                 ],
-                $resultGlobal->pairwise
-            );
+                'B' => [
+                    'win' => [
+                        'A' => 1,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 1,
+                    ],
+                ],
+            ]);
 
-            $this->assertSame(
-                [
-                    'A' => [
-                        'win' => [
-                            'B' => 1,
-                        ],
-                        'null' => [
-                            'B' => 0,
-                        ],
-                        'lose' => [
-                            'B' => 0,
-                        ],
+            expect($resultTag1->pairwise)->toBe([
+                'A' => [
+                    'win' => [
+                        'B' => 1,
                     ],
-                    'B' => [
-                        'win' => [
-                            'A' => 0,
-                        ],
-                        'null' => [
-                            'A' => 0,
-                        ],
-                        'lose' => [
-                            'A' => 1,
-                        ],
+                    'null' => [
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 0,
                     ],
                 ],
-                $resultTag1->pairwise
-            );
+                'B' => [
+                    'win' => [
+                        'A' => 0,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 1,
+                    ],
+                ],
+            ]);
 
-            $this->assertSame(
-                [
-                    'A' => [
-                        'win' => [
-                            'B' => 0,
-                        ],
-                        'null' => [
-                            'B' => 0,
-                        ],
-                        'lose' => [
-                            'B' => 1,
-                        ],
+            expect($resultTag2->pairwise)->toBe([
+                'A' => [
+                    'win' => [
+                        'B' => 0,
                     ],
-                    'B' => [
-                        'win' => [
-                            'A' => 1,
-                        ],
-                        'null' => [
-                            'A' => 0,
-                        ],
-                        'lose' => [
-                            'A' => 0,
-                        ],
+                    'null' => [
+                        'B' => 0,
+                    ],
+                    'lose' => [
+                        'B' => 1,
                     ],
                 ],
-                $resultTag2->pairwise
-            );
+                'B' => [
+                    'win' => [
+                        'A' => 1,
+                    ],
+                    'null' => [
+                        'A' => 0,
+                    ],
+                    'lose' => [
+                        'A' => 0,
+                    ],
+                ],
+            ]);
         };
 
         // Run first

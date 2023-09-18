@@ -55,14 +55,11 @@ class CPO_StvTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        $this->assertSame(
-            [
-                1 => 'Carter',
-                2 => 'Andrea',
-                3 => 'Delilah',
-            ],
-            $this->election->getResult('CPO STV')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([
+            1 => 'Carter',
+            2 => 'Andrea',
+            3 => 'Delilah',
+        ]);
 
         $stats = $this->election->getResult('CPO STV')->getStats();
 

@@ -42,197 +42,185 @@ class FilteredPairwiseTest extends TestCase
         $normalPairwise = $this->election1->getExplicitPairwise();
 
         // Test $filteredwithoutTag1
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 3,
-                        'C' => 3,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
+        expect($filteredwithoutTag1)->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 3,
+                    'C' => 3,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 3,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 3,
-                        'C' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 3,
-                        'B' => 3,
-                    ],
-                ]],
-            $filteredwithoutTag1
-        );
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
+                ],
+            ],
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 3,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 3,
+                    'C' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 3,
+                    'B' => 3,
+                ],
+            ]]);
 
         // Test $filteredwithTag2
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 2,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
+        expect($filteredWithTag2)->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 2,
+                    'C' => 2,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'C' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'B' => 2,
-                    ],
-                ]],
-            $filteredWithTag2
-        );
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
+                ],
+            ],
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 2,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'C' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'B' => 2,
+                ],
+            ]]);
 
 
         // Test $filteredwithTag2AndTag1
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 2,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 1,
-                        'C' => 1,
-                    ],
+        expect($filteredWithTag2AndTag1)->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 2,
+                    'C' => 2,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 1,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'C' => 1,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 1,
-                        'B' => 1,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'B' => 2,
-                    ],
-                ]],
-            $filteredWithTag2AndTag1
-        );
+                'lose' => [
+                    'B' => 1,
+                    'C' => 1,
+                ],
+            ],
+            'B' => [
+                'win' => [
+                    'A' => 1,
+                    'C' => 2,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'C' => 1,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 1,
+                    'B' => 1,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'B' => 2,
+                ],
+            ]]);
 
         // Test NormalPairwise
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 3,
-                        'C' => 3,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 1,
-                        'C' => 1,
-                    ],
+        expect($normalPairwise)->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 3,
+                    'C' => 3,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 1,
-                        'C' => 3,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 3,
-                        'C' => 1,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 1,
-                        'B' => 1,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 3,
-                        'B' => 3,
-                    ],
-                ]],
-            $normalPairwise
-        );
+                'lose' => [
+                    'B' => 1,
+                    'C' => 1,
+                ],
+            ],
+            'B' => [
+                'win' => [
+                    'A' => 1,
+                    'C' => 3,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 3,
+                    'C' => 1,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 1,
+                    'B' => 1,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 3,
+                    'B' => 3,
+                ],
+            ]]);
     }
 
     public function testSerializeFilteredPairwise(): void
@@ -296,51 +284,48 @@ class FilteredPairwiseTest extends TestCase
 
 
         // Test $filteredwithBothTags
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 2,
-                        'C' => 2,
-                    ],
+        expect($filteredWithBothTags)->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 2,
-                        'C' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 0,
-                        'C' => 2,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 2,
-                        'B' => 2,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                ]],
-            $filteredWithBothTags
-        );
+                'lose' => [
+                    'B' => 2,
+                    'C' => 2,
+                ],
+            ],
+            'B' => [
+                'win' => [
+                    'A' => 2,
+                    'C' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 0,
+                    'C' => 2,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 2,
+                    'B' => 2,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+            ]]);
     }
 }

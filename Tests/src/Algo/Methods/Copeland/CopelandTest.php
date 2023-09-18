@@ -33,34 +33,28 @@ class CopelandTest extends TestCase
         ');
 
 
-        $this->assertSame(
-            [
-                1 => 'Nashville',
-                2 => 'Chattanooga',
-                3 => 'Knoxville',
-                4 => 'Memphis', ],
-            $this->election->getResult('Copeland')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Copeland')->getResultAsArray(true))->toBe([
+            1 => 'Nashville',
+            2 => 'Chattanooga',
+            3 => 'Knoxville',
+            4 => 'Memphis', ]);
 
         expect($this->election->getWinner())->toBe($this->election->getWinner('Copeland'));
 
-        $this->assertSame(
-            [
-                'Memphis' => [
-                    'balance' => -3,
-                ],
-                'Nashville' => [
-                    'balance' => 3,
-                ],
-                'Knoxville' => [
-                    'balance' => -1,
-                ],
-                'Chattanooga' => [
-                    'balance' => 1,
-                ],
+        expect($this->election->getResult('Copeland')->getStats())->toBe([
+            'Memphis' => [
+                'balance' => -3,
             ],
-            $this->election->getResult('Copeland')->getStats()
-        );
+            'Nashville' => [
+                'balance' => 3,
+            ],
+            'Knoxville' => [
+                'balance' => -1,
+            ],
+            'Chattanooga' => [
+                'balance' => 1,
+            ],
+        ]);
     }
 
     public function testResult_2(): void
@@ -83,13 +77,10 @@ class CopelandTest extends TestCase
         expect($this->election->getWinner())->toBeNull();
         expect($this->election->getWinner('Copeland'))->toBe($candidateA);
 
-        $this->assertSame(
-            [1 => $candidateA,
-                2 => [$candidateB, $candidateC, $candidateE],
-                3 => $candidateD,
-            ],
-            $this->election->getResult('Copeland')->getResultAsArray()
-        );
+        expect($this->election->getResult('Copeland')->getResultAsArray())->toBe([1 => $candidateA,
+            2 => [$candidateB, $candidateC, $candidateE],
+            3 => $candidateD,
+        ]);
     }
 
     public function testResult_3(): void
@@ -120,11 +111,8 @@ class CopelandTest extends TestCase
 
         expect($this->election->getWinner('Copeland'))->toEqual(['Abby', 'Brad']);
 
-        $this->assertSame(
-            [1 => ['Abby', 'Brad'],
-                2 => ['Dave', 'Erin'],
-                3 => 'Cora', ],
-            $this->election->getResult('Copeland')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Copeland')->getResultAsArray(true))->toBe([1 => ['Abby', 'Brad'],
+            2 => ['Dave', 'Erin'],
+            3 => 'Cora', ]);
     }
 }

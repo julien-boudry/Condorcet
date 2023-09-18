@@ -273,37 +273,31 @@ class CondorcetElectionFormatTest extends TestCase
 
 
         $election->setImplicitRanking(false);
-        $this->assertSame(
-            <<<'CVOTES'
-                #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
-                #/Number of Seats: 42
-                #/Implicit Ranking: false
-                #/Weight Allowed: true
+        expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(<<<'CVOTES'
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: false
+            #/Weight Allowed: true
 
-                Richard Boháč > Petr Němec ^7 * 1
-                Richard Boháč > Petr Němec * 2
-                Simona Slaná * 2
-                Petr Němec * 1
-                CVOTES,
-            CondorcetElectionFormat::createFromElection(election: $election)
-        );
+            Richard Boháč > Petr Němec ^7 * 1
+            Richard Boháč > Petr Němec * 2
+            Simona Slaná * 2
+            Petr Němec * 1
+            CVOTES);
 
-        $this->assertSame(
-            <<<'CVOTES'
-                #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
-                #/Number of Seats: 42
-                #/Implicit Ranking: false
-                #/Weight Allowed: true
+        expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false))->toBe(<<<'CVOTES'
+            #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
+            #/Number of Seats: 42
+            #/Implicit Ranking: false
+            #/Weight Allowed: true
 
-                Richard Boháč > Petr Němec ^7
-                Richard Boháč > Petr Němec
-                tag1,tag b || Richard Boháč > Petr Němec
-                Simona Slaná
-                Simona Slaná
-                Petr Němec
-                CVOTES,
-            CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false)
-        );
+            Richard Boháč > Petr Němec ^7
+            Richard Boháč > Petr Němec
+            tag1,tag b || Richard Boháč > Petr Němec
+            Simona Slaná
+            Simona Slaná
+            Petr Němec
+            CVOTES);
 
         expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false))
             ->toBe(

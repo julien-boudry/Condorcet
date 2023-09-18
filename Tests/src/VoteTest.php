@@ -114,36 +114,27 @@ class VoteTest extends TestCase
 
         $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
 
-        $this->assertSame(
-            CondorcetUtil::format($vote->getRanking()),
-            [
-                1 => 'candidate4',
-                2 => ['candidate1', 'candidate3'],
-                3 => 'candidate2',
-            ]
-        );
+        expect([
+            1 => 'candidate4',
+            2 => ['candidate1', 'candidate3'],
+            3 => 'candidate2',
+        ])->toBe(CondorcetUtil::format($vote->getRanking()));
 
         $election = new Election;
         $election->parseCandidates('candidate2;candidate3;candidate4;candidate1');
         $election->addVote($vote);
 
-        $this->assertSame(
-            CondorcetUtil::format($vote->getContextualRanking($election)),
-            [
-                1 => 'candidate4',
-                2 => ['candidate1', 'candidate3'],
-                3 => 'candidate2',
-            ]
-        );
+        expect([
+            1 => 'candidate4',
+            2 => ['candidate1', 'candidate3'],
+            3 => 'candidate2',
+        ])->toBe(CondorcetUtil::format($vote->getContextualRanking($election)));
 
-        $this->assertSame(
-            $election->getResult()->getResultAsArray(true),
-            [
-                1 => 'candidate4',
-                2 => ['candidate1', 'candidate3'],
-                3 => 'candidate2',
-            ]
-        );
+        expect([
+            1 => 'candidate4',
+            2 => ['candidate1', 'candidate3'],
+            3 => 'candidate2',
+        ])->toBe($election->getResult()->getResultAsArray(true));
 
         // Contextual Ranking Fail
         $this->expectException(VoteNotLinkedException::class);
@@ -210,19 +201,13 @@ class VoteTest extends TestCase
 
         expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
 
-        $this->assertSame(
-            [1 => [$this->candidate2],
-                2 => [$this->candidate3],
-                3 => [$this->candidate1], ],
-            $vote1->getContextualRanking($this->election1)
-        );
+        expect($vote1->getContextualRanking($this->election1))->toBe([1 => [$this->candidate2],
+            2 => [$this->candidate3],
+            3 => [$this->candidate1], ]);
 
-        $this->assertSame(
-            [1 => 'candidate2',
-                2 => 'candidate3',
-                3 => 'candidate1', ],
-            $vote1->getContextualRankingAsString($this->election1)
-        );
+        expect($vote1->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate2',
+            2 => 'candidate3',
+            3 => 'candidate1', ]);
 
         // II
         $vote2 = new Vote('candidate1>candidate2');
@@ -234,12 +219,9 @@ class VoteTest extends TestCase
 
         expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
 
-        $this->assertSame(
-            [1 => [$this->candidate1],
-                2 => [$this->candidate2],
-                3 => [$this->candidate3], ],
-            $vote2->getContextualRanking($this->election1)
-        );
+        expect($vote2->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1],
+            2 => [$this->candidate2],
+            3 => [$this->candidate3], ]);
 
         expect($vote2->getRanking())->not()->toBe($vote2_firstRanking);
 
@@ -257,17 +239,11 @@ class VoteTest extends TestCase
 
         expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
 
-        $this->assertSame(
-            [1 => [$this->candidate3],
-                2 => [$this->candidate1, $this->candidate2], ],
-            $vote3->getContextualRanking($this->election1)
-        );
+        expect($vote3->getContextualRanking($this->election1))->toBe([1 => [$this->candidate3],
+            2 => [$this->candidate1, $this->candidate2], ]);
 
-        $this->assertSame(
-            [1 => 'candidate3',
-                2 => ['candidate1', 'candidate2'], ],
-            $vote3->getContextualRankingAsString($this->election1)
-        );
+        expect($vote3->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate3',
+            2 => ['candidate1', 'candidate2'], ]);
 
         expect($vote3->getRanking())->toBe($vote3_firstRanking);
     }

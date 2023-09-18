@@ -32,16 +32,13 @@ class DowdallSystemTest extends TestCase
             A>B>C>D>E>F
         ');
 
-        $this->assertSame(
-            [
-                1 => 'A',
-                2 => 'B',
-                3 => 'C',
-                4 => 'D',
-                5 => 'E',
-                6 => 'F', ],
-            $this->election->getResult('DowdallSystem')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('DowdallSystem')->getResultAsArray(true))->toBe([
+            1 => 'A',
+            2 => 'B',
+            3 => 'C',
+            4 => 'D',
+            5 => 'E',
+            6 => 'F', ]);
 
         expect($this->election->getResult('DowdallSystem')->getStats())
             ->toEqualWithDelta(

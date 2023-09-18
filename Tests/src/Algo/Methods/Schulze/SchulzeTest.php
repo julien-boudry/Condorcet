@@ -32,11 +32,8 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
-        $this->assertSame(
-            [1 => ['B', 'D'],
-                2 => ['A', 'C'], ],
-            $this->election->getResult('Schulze Winning')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([1 => ['B', 'D'],
+            2 => ['A', 'C'], ]);
     }
 
     # From old Schulze paper version
@@ -84,14 +81,11 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toEqual('Abby');
 
-        $this->assertSame(
-            [1 => 'Abby',
-                2 => 'Brad',
-                3 => 'Erin',
-                4 => 'Dave',
-                5 => 'Cora', ],
-            $this->election->getResult('Schulze Winning')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([1 => 'Abby',
+            2 => 'Brad',
+            3 => 'Erin',
+            4 => 'Dave',
+            5 => 'Cora', ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -112,15 +106,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 14, 'C' => 14, 'D' => 12],
-                'B' => ['A' => 13, 'C' => 13, 'D' => 12],
-                'C' => ['A' => 13, 'B' => 15, 'D' => 12],
-                'D' => ['A' => 13, 'B' => 19, 'C' => 13],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 14, 'C' => 14, 'D' => 12],
+            'B' => ['A' => 13, 'C' => 13, 'D' => 12],
+            'C' => ['A' => 13, 'B' => 15, 'D' => 12],
+            'D' => ['A' => 13, 'B' => 19, 'C' => 13],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -141,15 +132,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateC);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 17, 'C' => 17, 'D' => 17],
-                'B' => ['A' => 18, 'C' => 19, 'D' => 19],
-                'C' => ['A' => 18, 'B' => 20, 'D' => 20],
-                'D' => ['A' => 18, 'B' => 21, 'C' => 19],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 17, 'C' => 17, 'D' => 17],
+            'B' => ['A' => 18, 'C' => 19, 'D' => 19],
+            'C' => ['A' => 18, 'B' => 20, 'D' => 20],
+            'D' => ['A' => 18, 'B' => 21, 'C' => 19],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -174,16 +162,13 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateE);
 
-        $this->assertSame(
-            [
-                1 => 'E',
-                2 => 'A',
-                3 => 'C',
-                4 => 'B',
-                5 => 'D',
-            ],
-            $this->election->getResult('Schulze Winning')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([
+            1 => 'E',
+            2 => 'A',
+            3 => 'C',
+            4 => 'B',
+            5 => 'D',
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -203,15 +188,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 5, 'C' => 5, 'D' => 5],
-                'B' => ['A' => 5, 'C' => 7, 'D' => 5],
-                'C' => ['A' => 5, 'B' => 5, 'D' => 5],
-                'D' => ['A' => 6, 'B' => 5, 'C' => 5],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 5, 'C' => 5, 'D' => 5],
+            'B' => ['A' => 5, 'C' => 7, 'D' => 5],
+            'C' => ['A' => 5, 'B' => 5, 'D' => 5],
+            'D' => ['A' => 6, 'B' => 5, 'C' => 5],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -232,15 +214,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 36, 'C' => 39, 'D' => 36],
-                'B' => ['A' => 36, 'C' => 48, 'D' => 36],
-                'C' => ['A' => 36, 'B' => 36, 'D' => 36],
-                'D' => ['A' => 45, 'B' => 42, 'C' => 42],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 36, 'C' => 39, 'D' => 36],
+            'B' => ['A' => 36, 'C' => 48, 'D' => 36],
+            'C' => ['A' => 36, 'B' => 36, 'D' => 36],
+            'D' => ['A' => 45, 'B' => 42, 'C' => 42],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -263,15 +242,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateC]);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 14, 'C' => 15, 'D' => 15],
-                'B' => ['A' => 12, 'C' => 12, 'D' => 12],
-                'C' => ['A' => 15, 'B' => 14, 'D' => 16],
-                'D' => ['A' => 15, 'B' => 14, 'C' => 15],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 14, 'C' => 15, 'D' => 15],
+            'B' => ['A' => 12, 'C' => 12, 'D' => 12],
+            'C' => ['A' => 15, 'B' => 14, 'D' => 16],
+            'D' => ['A' => 15, 'B' => 14, 'C' => 15],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -325,15 +301,12 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateA);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 18, 'C' => 20, 'D' => 21],
-                'B' => ['A' => 17, 'C' => 17, 'D' => 17],
-                'C' => ['A' => 19, 'B' => 18, 'D' => 19],
-                'D' => ['A' => 19, 'B' => 18, 'C' => 20],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 18, 'C' => 20, 'D' => 21],
+            'B' => ['A' => 17, 'C' => 17, 'D' => 17],
+            'C' => ['A' => 19, 'B' => 18, 'D' => 19],
+            'D' => ['A' => 19, 'B' => 18, 'C' => 20],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -359,16 +332,13 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 18, 'C' => 20, 'D' => 21, 'E' => 21],
-                'B' => ['A' => 19, 'C' => 19, 'D' => 19, 'E' => 19],
-                'C' => ['A' => 19, 'B' => 18, 'D' => 19, 'E' => 19],
-                'D' => ['A' => 19, 'B' => 18, 'C' => 20, 'E' => 30],
-                'E' => ['A' => 19, 'B' => 18, 'C' => 20, 'D' => 19],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 18, 'C' => 20, 'D' => 21, 'E' => 21],
+            'B' => ['A' => 19, 'C' => 19, 'D' => 19, 'E' => 19],
+            'C' => ['A' => 19, 'B' => 18, 'D' => 19, 'E' => 19],
+            'D' => ['A' => 19, 'B' => 18, 'C' => 20, 'E' => 30],
+            'E' => ['A' => 19, 'B' => 18, 'C' => 20, 'D' => 19],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -434,42 +404,33 @@ class SchulzeTest extends TestCase
         # Margin
         expect($this->election->getWinner('Schulze Margin'))->toBe($candidateA);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 67 - 55, 'C' => 67 - 55, 'D' => 67 - 55],
-                'B' => ['A' => 50 - 40, 'C' => 79 - 59, 'D' => 45 - 29],
-                'C' => ['A' => 50 - 40, 'B' => 72 - 58, 'D' => 45 - 29],
-                'D' => ['A' => 50 - 40, 'B' => 72 - 58, 'C' => 72 - 58],
-            ],
-            $this->election->getResult('Schulze Margin')->getStats()
-        );
+        expect($this->election->getResult('Schulze Margin')->getStats())->toBe([
+            'A' => ['B' => 67 - 55, 'C' => 67 - 55, 'D' => 67 - 55],
+            'B' => ['A' => 50 - 40, 'C' => 79 - 59, 'D' => 45 - 29],
+            'C' => ['A' => 50 - 40, 'B' => 72 - 58, 'D' => 45 - 29],
+            'D' => ['A' => 50 - 40, 'B' => 72 - 58, 'C' => 72 - 58],
+        ]);
 
 
         # Ratio
         expect($this->election->getWinner('Schulze Ratio'))->toBe($candidateB);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 67 / 55, 'C' => 67 / 55, 'D' => 67 / 55],
-                'B' => ['A' => 36 / 28, 'C' => 79 / 59, 'D' => 79 / 59],
-                'C' => ['A' => 36 / 28, 'B' => 72 / 58, 'D' => 45 / 29],
-                'D' => ['A' => 50 / 40, 'B' => 72 / 58, 'C' => 72 / 58],
-            ],
-            $this->election->getResult('Schulze Ratio')->getStats()
-        );
+        expect($this->election->getResult('Schulze Ratio')->getStats())->toBe([
+            'A' => ['B' => 67 / 55, 'C' => 67 / 55, 'D' => 67 / 55],
+            'B' => ['A' => 36 / 28, 'C' => 79 / 59, 'D' => 79 / 59],
+            'C' => ['A' => 36 / 28, 'B' => 72 / 58, 'D' => 45 / 29],
+            'D' => ['A' => 50 / 40, 'B' => 72 / 58, 'C' => 72 / 58],
+        ]);
 
         # Winning
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 67, 'C' => 67, 'D' => 45],
-                'B' => ['A' => 45, 'C' => 79, 'D' => 45],
-                'C' => ['A' => 45, 'B' => 45, 'D' => 45],
-                'D' => ['A' => 50, 'B' => 72, 'C' => 72],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 67, 'C' => 67, 'D' => 45],
+            'B' => ['A' => 45, 'C' => 79, 'D' => 45],
+            'C' => ['A' => 45, 'B' => 45, 'D' => 45],
+            'D' => ['A' => 50, 'B' => 72, 'C' => 72],
+        ]);
 
         # Losing Votes
         // not implemented
@@ -497,16 +458,13 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 26, 'C' => 28, 'D' => 31, 'E' => 28],
-                'B' => ['A' => 27, 'C' => 27, 'D' => 27, 'E' => 27],
-                'C' => ['A' => 28, 'B' => 26, 'D' => 29, 'E' => 28],
-                'D' => ['A' => 28, 'B' => 26, 'C' => 28, 'E' => 28],
-                'E' => ['A' => 30, 'B' => 26, 'C' => 32, 'D' => 30],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 26, 'C' => 28, 'D' => 31, 'E' => 28],
+            'B' => ['A' => 27, 'C' => 27, 'D' => 27, 'E' => 27],
+            'C' => ['A' => 28, 'B' => 26, 'D' => 29, 'E' => 28],
+            'D' => ['A' => 28, 'B' => 26, 'C' => 28, 'E' => 28],
+            'E' => ['A' => 30, 'B' => 26, 'C' => 32, 'D' => 30],
+        ]);
     }
 
     # From https://arxiv.org/ftp/arxiv/papers/1804/1804.02973.pdf
@@ -547,14 +505,11 @@ class SchulzeTest extends TestCase
 
         expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateB]);
 
-        $this->assertSame(
-            [
-                'A' => ['B' => 3, 'C' => 3],
-                'B' => ['A' => 3, 'C' => 4],
-                'C' => ['A' => 3, 'B' => 3],
-            ],
-            $this->election->getResult('Schulze Winning')->getStats()
-        );
+        expect($this->election->getResult('Schulze Winning')->getStats())->toBe([
+            'A' => ['B' => 3, 'C' => 3],
+            'B' => ['A' => 3, 'C' => 4],
+            'C' => ['A' => 3, 'B' => 3],
+        ]);
     }
 
     public function testSchulzeRatioEquality(): void
@@ -562,12 +517,9 @@ class SchulzeTest extends TestCase
         $this->election->parseCandidates('A;B;C;D');
         $this->election->parseVotes('A>B=C>D * 10');
 
-        $this->assertSame(
-            [1 => 'A',
-                2 => ['B', 'C'],
-                3 => 'D',
-            ],
-            $this->election->getResult('Schulze Ratio')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('Schulze Ratio')->getResultAsArray(true))->toBe([1 => 'A',
+            2 => ['B', 'C'],
+            3 => 'D',
+        ]);
     }
 }
