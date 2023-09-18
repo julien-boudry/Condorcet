@@ -193,8 +193,8 @@ class FirstPastThePostTest extends TestCase
 
         $this->assertEquals(
             [1 => [
-                'A' => 1 + 1/2,
-                'C' => 1/2,
+                'A' => 1 + 1 / 2,
+                'C' => 1 / 2,
                 'B' => 0,
             ]],
             $this->election->getResult('Fptp')->getStats()

@@ -105,7 +105,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $makeMany = static function (int $how) use (&$template): string {
             $query = $template['insert_template'];
 
-            for ($i=1; $i < $how; $i++) {
+            for ($i = 1; $i < $how; $i++) {
                 $query .= '(:key'.$i.', :data'.$i.'),';
             }
 

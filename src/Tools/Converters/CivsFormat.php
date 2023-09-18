@@ -62,7 +62,7 @@ class CivsFormat implements ConverterExport
                 $i = 0;
 
                 foreach ($ranked as $rank) {
-                    $i++ > 0 && $line.= ',';
+                    $i++ > 0 && $line .= ',';
                     $line .= $rank ?? '-';
                 }
 

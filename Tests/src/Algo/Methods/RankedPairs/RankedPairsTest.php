@@ -116,7 +116,7 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $expected =[1 => 'Brad',
+        $expected = [1 => 'Brad',
             2 => 'Abby',
             3 => 'Erin',
             4 => 'Dave',
@@ -268,7 +268,7 @@ class RankedPairsTest extends TestCase
     {
         # Test fix for rare bug
 
-        for ($i=0; $i < 8; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             $this->election->addCandidate();
         }
 
@@ -357,7 +357,7 @@ class RankedPairsTest extends TestCase
 
     public function testMaxCandidates(): never
     {
-        for ($i=0; $i < 61; $i++) {
+        for ($i = 0; $i < 61; $i++) {
             $this->election->addCandidate();
         }
 

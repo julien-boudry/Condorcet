@@ -107,7 +107,7 @@ class KemenyYoungTest extends TestCase
 
     public function testMaxCandidates(): never
     {
-        for ($i=0; $i < (KemenyYoung::$MaxCandidates + 1); $i++) {
+        for ($i = 0; $i < (KemenyYoung::$MaxCandidates + 1); $i++) {
             $this->election->addCandidate();
         }
 
@@ -183,7 +183,7 @@ class KemenyYoungTest extends TestCase
         $original = KemenyYoung::$MaxCandidates;
         KemenyYoung::$MaxCandidates = null;
 
-        for ($i=0; $i<$candidatesCount; $i++) {
+        for ($i = 0; $i < $candidatesCount; $i++) {
             $candidates[] = $this->election->addCandidate();
         }
 
