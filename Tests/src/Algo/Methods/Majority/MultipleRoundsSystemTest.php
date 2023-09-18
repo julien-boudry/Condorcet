@@ -60,13 +60,13 @@ class MultipleRoundsSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 42,
                 'B' => 26,
                 'D' => 17,
                 'C' => 15,
             ],
-                2=> [
+                2 => [
                     'A' => 42,
                     'D' => 32,
                     'B' => 26,
@@ -102,22 +102,22 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
 
-        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4=> 'D', 5=> 'E']);
+        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4 => 'D', 5 => 'E']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'B' => 12,
                 'A' => 10,
                 'C' => 10,
                 'D' => 9,
                 'E' => 5,
             ],
-                2=> [
+                2 => [
                     'A' => 19,
                     'B' => 17,
                     'C' => 10,
                 ],
-                3=> [
+                3 => [
                     'B' => 27,
                     'A' => 19,
                 ],
@@ -152,10 +152,10 @@ class MultipleRoundsSystemTest extends TestCase
         $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 5);
         $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', -1);
 
-        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E', 6 => 'F']);
+        expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E', 6 => 'F']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 100,
                 'B' => 99,
                 'C' => 98,
@@ -163,27 +163,27 @@ class MultipleRoundsSystemTest extends TestCase
                 'E' => 96,
                 'F' => 95,
             ],
-                2=> [
+                2 => [
                     'A' => 100 + 95,
                     'B' => 99,
                     'C' => 98,
                     'D' => 97,
                     'E' => 96,
                 ],
-                3=> [
+                3 => [
                     'A' => 100 + 95,
                     'B' => 99 + 96,
                     'C' => 98,
                     'D' => 97,
                 ],
-                4=> [
-                    'A' => 100 + 95 + (97/2),
-                    'B' => 99 + 96 + (97/2),
+                4 => [
+                    'A' => 100 + 95 + (97 / 2),
+                    'B' => 99 + 96 + (97 / 2),
                     'C' => 98,
                 ],
-                5=> [
-                    'A' => 100 + 95 + (97/2) + 98,
-                    'B' => 99 + 96 + (97/2),
+                5 => [
+                    'A' => 100 + 95 + (97 / 2) + 98,
+                    'B' => 99 + 96 + (97 / 2),
                 ],
             ],
             $this->election->getResult('runoff voting')->getStats()

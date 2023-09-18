@@ -92,7 +92,7 @@ class ElectionTest extends TestCase
 
         expect($r)->toBe([$this->vote2]);
 
-        expect($this->election1->getVotesList())->toBe([0 => $this->vote1, 2=> $this->vote3, 3 => $this->vote4]);
+        expect($this->election1->getVotesList())->toBe([0 => $this->vote1, 2 => $this->vote3, 3 => $this->vote4]);
     }
 
 
@@ -103,10 +103,10 @@ class ElectionTest extends TestCase
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        expect([0=>$this->vote1, 3=>$this->vote4])->toBe($this->election1->getVotesList('tag1,tag2', true));
+        expect([0 => $this->vote1, 3 => $this->vote4])->toBe($this->election1->getVotesList('tag1,tag2', true));
         expect($this->election1->countVotes('tag1,tag2', true))->toBe(2);
 
-        expect([1=>$this->vote2, 2=>$this->vote3])->toBe($this->election1->getVotesList('tag1,tag2', false));
+        expect([1 => $this->vote2, 2 => $this->vote3])->toBe($this->election1->getVotesList('tag1,tag2', false));
         expect($this->election1->countVotes('tag1,tag2', false))->toBe(2);
 
         $resultGlobal = $this->election1->getResult('Schulze');
@@ -176,12 +176,12 @@ class ElectionTest extends TestCase
     {
         expect(Election::setMaxParseIteration(2))->toBe(2);
 
-        expect($this->election2->parseCandidates('candidate1;candidate2'))->toBe([0=>'candidate1', 1=>'candidate2']);
+        expect($this->election2->parseCandidates('candidate1;candidate2'))->toBe([0 => 'candidate1', 1 => 'candidate2']);
 
-        expect($this->election2->parseCandidates('candidate3;candidate4'))->toBe([0=>'candidate3', 1=>'candidate4']);
+        expect($this->election2->parseCandidates('candidate3;candidate4'))->toBe([0 => 'candidate3', 1 => 'candidate4']);
 
         expect(Election::setMaxParseIteration(null))->toBeNull();
-        expect($this->election2->parseCandidates('candidate5;candidate6;candidate7'))->toBe([0=>'candidate5', 1=>'candidate6', 2=>'candidate7']);
+        expect($this->election2->parseCandidates('candidate5;candidate6;candidate7'))->toBe([0 => 'candidate5', 1 => 'candidate6', 2 => 'candidate7']);
 
         expect(Election::setMaxParseIteration(2))->toBe(2);
 

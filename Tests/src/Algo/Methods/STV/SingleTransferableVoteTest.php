@@ -260,7 +260,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setNumberOfSeats(2);
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
-        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN));
+        expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN));
 
         expect($this->election->getResult('STV')->getStats()['rounds'])
             ->toEqualWithDelta(
@@ -271,7 +271,7 @@ class SingleTransferableVoteTest extends TestCase
                         'Carter' => 25.0,
                     ],
                     2 => [
-                        'Carter' => 36.0 + 2/3,
+                        'Carter' => 36.0 + 2 / 3,
                         'Brad' => 30.0,
                     ],
                 ],

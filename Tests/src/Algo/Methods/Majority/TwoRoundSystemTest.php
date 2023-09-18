@@ -81,7 +81,7 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'Chirac' => 1988,
                 'Le Pen' => 1686,
                 'Jospin' => 1618,
@@ -99,7 +99,7 @@ class TwoRoundSystemTest extends TestCase
                 'Boutin' => 119,
                 'Gluckstein' => 47,
             ],
-                2=> [
+                2 => [
                     'Chirac' => 7038,
                     'Le Pen' => 1920,
                 ],
@@ -132,13 +132,13 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 42,
                 'B' => 26,
                 'D' => 17,
                 'C' => 15,
             ],
-                2=> [
+                2 => [
                     'B' => 58,
                     'A' => 42,
                 ],
@@ -174,13 +174,13 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 42,
                 'D' => 42,
                 'B' => 26,
                 'C' => 15,
             ],
-                2=> [
+                2 => [
                     'D' => 83,
                     'A' => 42,
                 ],
@@ -209,7 +209,7 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 1.5,
                 'C' => 0.5,
                 'B' => 0,
@@ -242,7 +242,7 @@ class TwoRoundSystemTest extends TestCase
         );
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 51,
                 'C' => 25,
                 'B' => 24,
@@ -267,12 +267,12 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 2 => 'C']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 50,
                 'B' => 50,
                 'C' => 0,
             ],
-                2=> [
+                2 => [
                     'A' => 50,
                     'B' => 50,
                 ],
@@ -294,7 +294,7 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B']]);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 50,
                 'B' => 50,
             ],
@@ -322,10 +322,10 @@ class TwoRoundSystemTest extends TestCase
         // });
 
         $this->assertSame(
-            [1=> [
-                'A' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
-                'B' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
-                'C' => round(100/3, MultipleRoundsSystem::DECIMAL_PRECISION),
+            [1 => [
+                'A' => round(100 / 3, MultipleRoundsSystem::DECIMAL_PRECISION),
+                'B' => round(100 / 3, MultipleRoundsSystem::DECIMAL_PRECISION),
+                'C' => round(100 / 3, MultipleRoundsSystem::DECIMAL_PRECISION),
             ],
             ],
             $stats
@@ -336,7 +336,7 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C']]);
 
         $this->assertSame(
-            [1=> [
+            [1 => [
                 'A' => 0.0,
                 'B' => 0.0,
                 'C' => 0.0,
@@ -364,17 +364,17 @@ class TwoRoundSystemTest extends TestCase
             E>B ^5
         ');
 
-        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4=> 'D', 5=> 'E']);
+        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'B' => 12,
                 'A' => 10,
                 'C' => 10,
                 'D' => 9,
                 'E' => 5,
             ],
-                2=> [
+                2 => [
                     'A' => 19,
                     'B' => 17,
                     'C' => 10,
@@ -385,17 +385,17 @@ class TwoRoundSystemTest extends TestCase
 
         $this->election->addVote('E>B ^2');
 
-        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 2 => 'C', 3=> 'D', 4 => 'E']);
+        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 2 => 'C', 3 => 'D', 4 => 'E']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'B' => 12,
                 'A' => 10,
                 'C' => 10,
                 'D' => 9,
                 'E' => 7,
             ],
-                2=> [
+                2 => [
                     'A' => 19,
                     'B' => 19,
                     'C' => 10,
@@ -406,17 +406,17 @@ class TwoRoundSystemTest extends TestCase
 
         $this->election->addVote('C');
 
-        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'C', 3=> 'A', 4 => 'D', 5 => 'E']);
+        expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'C', 3 => 'A', 4 => 'D', 5 => 'E']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'B' => 12,
                 'C' => 11,
                 'A' => 10,
                 'D' => 9,
                 'E' => 7,
             ],
-                2=> [
+                2 => [
                     'B' => 38,
                     'C' => 11,
                 ],
@@ -445,14 +445,14 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
         $this->assertSame(
-            [1=> [
+            [1 => [
                 'A' => (float) 10,
                 'B' => (float) 10,
                 'C' => (float) 10,
                 'D' => (float) 9,
                 'E' => (float) 0,
             ],
-                2=> [
+                2 => [
                     'A' => (float) 13,
                     'B' => (float) 13,
                     'C' => (float) 13,
@@ -466,14 +466,14 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
         $this->assertEquals(
-            [1=> [
+            [1 => [
                 'A' => 10,
                 'B' => 10,
                 'C' => 10,
                 'D' => 9,
                 'E' => 0,
             ],
-                2=> [
+                2 => [
                     'A' => 10,
                     'B' => 10,
                     'C' => 10,
@@ -502,7 +502,7 @@ class TwoRoundSystemTest extends TestCase
         expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C']]);
 
         $this->assertSame(
-            [1=> [
+            [1 => [
                 'A' => (float) 10,
                 'B' => (float) 10,
                 'C' => (float) 10,

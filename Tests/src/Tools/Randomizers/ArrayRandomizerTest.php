@@ -28,7 +28,7 @@ class ArrayRandomizerTest extends TestCase
     {
         $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
 
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
             expect($nv)->not()->toEqual(self::CANDIDATE_SET_1);
@@ -43,7 +43,7 @@ class ArrayRandomizerTest extends TestCase
 
         $original = \array_slice(self::CANDIDATE_SET_1, 0, 3);
 
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
             expect($nv)->not()->toEqual($original);
@@ -58,7 +58,7 @@ class ArrayRandomizerTest extends TestCase
 
         $variations = [];
 
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
             expect($nv)->not()->toEqual(self::CANDIDATE_SET_1);
@@ -81,7 +81,7 @@ class ArrayRandomizerTest extends TestCase
 
         $variations = [];
 
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $nv = $votesRandomizer->shuffle();
 
             $countNv = \count($nv);
@@ -163,7 +163,7 @@ class ArrayRandomizerTest extends TestCase
         // Test secure engine
         $votesRandomizer = new ArrayRandomizer([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
-        for ($i=0; $i<3; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             expect($votesRandomizer->shuffle())->not()->toBe(self::CANDIDATE_SET_1);
         }
     }

@@ -61,7 +61,7 @@ class VoteTest extends TestCase
 
         // Ranking 3
         expect($vote1->setRanking(
-            [4=> $this->candidate1, 6=> $this->candidate2, 14 => $this->candidate3]
+            [4 => $this->candidate1, 6 => $this->candidate2, 14 => $this->candidate3]
         ))->toBeTrue();
 
         expect($vote1->getRanking())->toBe($newRanking1);
@@ -87,7 +87,7 @@ class VoteTest extends TestCase
 
         // Ranking 6
         expect($vote1->setRanking(
-            [42 => 'candidate2', 142=> 'candidate1']
+            [42 => 'candidate2', 142 => 'candidate1']
         ))->toBeTrue();
 
         expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
@@ -102,9 +102,9 @@ class VoteTest extends TestCase
 
         // Ranking 8
         expect($vote1->setRanking([
-            2=> $this->candidate2,
-            1=> $this->candidate1,
-            3=> $this->candidate3,
+            2 => $this->candidate2,
+            1 => $this->candidate1,
+            3 => $this->candidate3,
         ]))->toBeTrue();
 
         expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
@@ -293,8 +293,8 @@ class VoteTest extends TestCase
         $election2->addVote($vote1);
 
         expect($vote1->getRanking())->toBe($vote1_originalRanking);
-        expect($vote1->getContextualRanking($election1))->toBe([1=>[$this->candidate1], 2=>[$this->candidate2], 3=>[$this->candidate3]]);
-        expect($vote1->getContextualRanking($election2))->toBe([1=>[$this->candidate1], 2=>[$this->candidate2], 3=>[$this->candidate4]]);
+        expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate3]]);
+        expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate4]]);
         expect($vote1->getContextualRanking($election2))->not()->toBe($vote1->getRanking());
 
         expect($vote1->setRanking([
@@ -303,8 +303,8 @@ class VoteTest extends TestCase
         ]))
             ->toBeTrue();
 
-        expect($vote1->getContextualRanking($election1))->toBe([1=>[$this->candidate2], 2=>[$this->candidate3], 3=>[$this->candidate1]]);
-        expect($vote1->getContextualRanking($election2))->toBe([1=>[$this->candidate2], 2=>[$this->candidate1, $this->candidate4]]);
+        expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
+        expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);
     }
 
     public function testValidTags(): void

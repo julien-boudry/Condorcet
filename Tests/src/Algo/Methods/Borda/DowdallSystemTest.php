@@ -46,12 +46,12 @@ class DowdallSystemTest extends TestCase
         expect($this->election->getResult('DowdallSystem')->getStats())
             ->toEqualWithDelta(
                 expected: [
-                    'A' => 1/1,
-                    'B' => 1/2,
-                    'C' => 1/3,
-                    'D' => 1/4,
-                    'E' => 1/5,
-                    'F' => 1/6],
+                    'A' => 1 / 1,
+                    'B' => 1 / 2,
+                    'C' => 1 / 3,
+                    'D' => 1 / 4,
+                    'E' => 1 / 5,
+                    'F' => 1 / 6],
                 delta: 1 / (0.1 ** DowdallSystem::DECIMAL_PRECISION)
             );
     }
