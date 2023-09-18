@@ -41,7 +41,8 @@
         "phpstan/phpstan": "^1.9",
         "laravel/pint": "^1.10",
         "pestphp/pest": "^2.9",
-        "pestphp/pest-plugin-drift": "^2.0"
+        "pestphp/pest-plugin-drift": "^2.0",
+        "cmgmyr/phploc": "^8.0"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
