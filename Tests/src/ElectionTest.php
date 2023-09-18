@@ -92,7 +92,7 @@ class ElectionTest extends TestCase
 
         $this->assertSame([$this->vote2], $r);
 
-        $this->assertSame([0 => $this->vote1, 2=> $this->vote3, 3 => $this->vote4], $this->election1->getVotesList());
+        $this->assertSame([0 => $this->vote1, 2 => $this->vote3, 3 => $this->vote4], $this->election1->getVotesList());
     }
 
 
@@ -103,10 +103,10 @@ class ElectionTest extends TestCase
         $this->vote3->addtags('tag3,tag4,tag5');
         $this->vote4->addtags('tag1,tag4');
 
-        $this->assertSame($this->election1->getVotesList('tag1,tag2', true), [0=>$this->vote1, 3=>$this->vote4]);
+        $this->assertSame($this->election1->getVotesList('tag1,tag2', true), [0 => $this->vote1, 3 => $this->vote4]);
         $this->assertSame($this->election1->countVotes('tag1,tag2', true), 2);
 
-        $this->assertSame($this->election1->getVotesList('tag1,tag2', false), [1=>$this->vote2, 2=>$this->vote3]);
+        $this->assertSame($this->election1->getVotesList('tag1,tag2', false), [1 => $this->vote2, 2 => $this->vote3]);
         $this->assertSame($this->election1->countVotes('tag1,tag2', false), 2);
 
         $resultGlobal = $this->election1->getResult('Schulze');
@@ -181,13 +181,13 @@ class ElectionTest extends TestCase
     {
         $this->assertSame(2, Election::setMaxParseIteration(2));
 
-        $this->assertSame([0=>'candidate1', 1=>'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
+        $this->assertSame([0 => 'candidate1', 1 => 'candidate2'], $this->election2->parseCandidates('candidate1;candidate2'));
 
-        $this->assertSame([0=>'candidate3', 1=>'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
+        $this->assertSame([0 => 'candidate3', 1 => 'candidate4'], $this->election2->parseCandidates('candidate3;candidate4'));
 
         $this->assertNull(Election::setMaxParseIteration(null));
 
-        $this->assertSame([0=>'candidate5', 1=>'candidate6', 2=>'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
+        $this->assertSame([0 => 'candidate5', 1 => 'candidate6', 2 => 'candidate7'], $this->election2->parseCandidates('candidate5;candidate6;candidate7'));
 
         $this->assertSame(2, Election::setMaxParseIteration(2));
 

@@ -15,7 +15,7 @@ $candidateName = 'A';
 
 $candidates = [];
 
-for ($i=0; $i < $number_of_candidates; $i++) {
+for ($i = 0; $i < $number_of_candidates; $i++) {
     $candidates[] = $candidateName++;
 }
 
@@ -24,7 +24,7 @@ $randomizer = new VoteRandomizer($candidates, 'CondorcetSeed');
 $file = new \SplFileObject(__DIR__.'/large.votes', 'w+');
 $cache = '';
 
-for ($i=0; $i < $number_of_votes; $i++) {
+for ($i = 0; $i < $number_of_votes; $i++) {
 
     $cache .= $randomizer->getNewVote()."\n";
 

@@ -122,7 +122,7 @@ class CandidateTest extends TestCase
     {
         $election1 = new Election;
 
-        $candidate1= $election1->addCandidate('candidate1');
+        $candidate1 = $election1->addCandidate('candidate1');
 
         try {
             $election1->parseCandidates('candidate2;candidate1');

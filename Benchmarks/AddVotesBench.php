@@ -24,7 +24,7 @@ class AddVotesBench
 
         $candidates = [];
 
-        for ($i=0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $candidates[] = $election->addCandidate();
         }
 

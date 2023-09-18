@@ -25,7 +25,7 @@ class SchulzeRatio extends Schulze_Core
         if ($election->getPairwise()[$j]['win'][$i] !== 0) {
             return (float) ($election->getPairwise()[$i]['win'][$j] / $election->getPairwise()[$j]['win'][$i]);
         } else {
-            return (float) (($election->getPairwise()[$i]['win'][$j] +1) / 1);
+            return (float) (($election->getPairwise()[$i]['win'][$j] + 1) / 1);
         }
     }
 }

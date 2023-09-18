@@ -32,7 +32,7 @@ class PairwiseNumberOfCandidatesBench
 
         $candidates = [];
 
-        for ($i=0; $i < $numberOfCandidates; $i++) {
+        for ($i = 0; $i < $numberOfCandidates; $i++) {
             $candidates[] = $election->addCandidate();
         }
 

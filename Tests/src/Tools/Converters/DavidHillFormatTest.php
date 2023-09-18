@@ -338,7 +338,7 @@ class DavidHillFormatTest extends TestCase
     {
         $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
 
-        $this->assertEquals([0=>'1', 1=>'2', 2=>'3', 3=>'4', 4=>'5', 5=>'6'], $hil->candidates); # Candidates are object, AssertEquals compare __toString
+        $this->assertEquals([0 => '1', 1 => '2', 2 => '3', 3 => '4', 4 => '5', 5 => '6'], $hil->candidates); # Candidates are object, AssertEquals compare __toString
 
         $implicitElectionFromHill = $hil->setDataToAnElection();
 

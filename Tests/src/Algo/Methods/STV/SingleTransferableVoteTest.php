@@ -279,7 +279,7 @@ class SingleTransferableVoteTest extends TestCase
         $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
         $this->assertSame(
-            round(33 + 1/3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
+            round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN),
             $this->election->getResult('STV')->getStats()['Votes Needed to Win']
         );
 
@@ -291,7 +291,7 @@ class SingleTransferableVoteTest extends TestCase
                     'Carter' => 25.0,
                 ],
                 2 => [
-                    'Carter' => 36.0 + 2/3,
+                    'Carter' => 36.0 + 2 / 3,
                     'Brad' => 30.0,
                 ],
             ],

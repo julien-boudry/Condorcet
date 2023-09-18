@@ -50,12 +50,12 @@ class PermutationsTest extends TestCase
         $this->assertSame(6, $r->getSize());
 
         $this->assertSame(
-            [[1=>0, 2=>1, 3=>2],
-                [1=>1, 2=>0, 3=>2],
-                [1=>1, 2=>2, 3=>0],
-                [1=>0, 2=>2, 3=>1],
-                [1=>2, 2=>0, 3=>1],
-                [1=>2, 2=>1, 3=>0],
+            [[1 => 0, 2 => 1, 3 => 2],
+                [1 => 1, 2 => 0, 3 => 2],
+                [1 => 1, 2 => 2, 3 => 0],
+                [1 => 0, 2 => 2, 3 => 1],
+                [1 => 2, 2 => 0, 3 => 1],
+                [1 => 2, 2 => 1, 3 => 0],
             ],
             $r->toArray()
         );
@@ -70,6 +70,6 @@ class PermutationsTest extends TestCase
         $this->assertInstanceOf(\SplFixedArray::class, $r);
         $this->assertSame(1, $r->getSize());
 
-        $this->assertSame([[1=>42]], $r->toArray());
+        $this->assertSame([[1 => 42]], $r->toArray());
     }
 }

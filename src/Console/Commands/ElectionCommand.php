@@ -578,7 +578,7 @@ class ElectionCommand extends Command
                 ->render()
             ;
 
-            $this->pairwiseIsWrite= true;
+            $this->pairwiseIsWrite = true;
         }
     }
 
