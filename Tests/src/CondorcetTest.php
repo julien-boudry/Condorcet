@@ -42,6 +42,13 @@ class CondorcetTest extends TestCase
         expect(Condorcet::getMethodClass('Schulze Winning'))->toBe(\CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class);
     }
 
+    public function testGetAuthMethods(): void
+    {
+        expect(\count(Condorcet::getAuthMethods()))
+            ->toBe(\count(Condorcet::getAuthMethods(true)) - 1)
+            ->toBeGreaterThan(\count(Condorcet::getAuthMethods(withNonDeterministicMethods: false)));
+    }
+
     #[BackupStaticProperties(true)]
     public function testAddMethod(): never
     {

@@ -92,13 +92,20 @@ abstract class Condorcet
     #[Related('static Condorcet::isAuthMethod', 'static Condorcet::getMethodClass')]
     public static function getAuthMethods(
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
-        bool $basic = false
+        bool $basic = false,
+        #[FunctionParameter('Include or not non deterministic methods')]
+        bool $withNonDeterministicMethods = true
     ): array {
         $auth = self::$authMethods;
 
         // Don't show Natural Condorcet
         if (!$basic) {
             unset($auth[self::CONDORCET_BASIC_CLASS]);
+        }
+
+        // Exclude Deterministic
+        if (!$withNonDeterministicMethods) {
+            $auth = array_filter($auth, static fn ($m): bool => $m::IS_DETERMINISTIC, \ARRAY_FILTER_USE_KEY);
         }
 
         return array_column($auth, 0);

@@ -829,17 +829,10 @@ class ElectionTest extends TestCase
 
     public static function MethodsListProvider(): array
     {
-        $withNonDeterministicMethod = false;
+        $methods = Condorcet::getAuthMethods(withNonDeterministicMethods: false);
+        array_walk($methods, static fn (&$m): array => $m = [$m]);
 
-        $r = [];
-
-        foreach (Condorcet::getAuthMethods() as $method) {
-            if ($withNonDeterministicMethod || Condorcet::getMethodClass($method)::IS_DETERMINISTIC) {
-                $r[] = [$method];
-            }
-        }
-
-        return $r;
+        return $methods;
     }
 
     public function testAmbiguousCandidatesOnElectionSide(): never
