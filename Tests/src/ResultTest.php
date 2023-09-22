@@ -7,6 +7,7 @@ namespace CondorcetPHP\Condorcet\Tests;
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Tests\Datasets\MethodsDatasets;
 use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
@@ -310,7 +311,7 @@ class ResultTest extends TestCase
         expect($r3->getStats())->toHaveKey('Ranking Scores');
     }
 
-    #[DataProviderExternal(ElectionTest::class, 'MethodsListProvider')]
+    #[DataProviderExternal(MethodsDatasets::class, 'MethodsListProvider')]
     public function testImmutablePairwise(string $method): void
     {
         $election = new Election;

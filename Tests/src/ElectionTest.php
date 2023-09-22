@@ -6,9 +6,10 @@ namespace CondorcetPHP\Condorcet\Tests;
 
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
+use CondorcetPHP\Condorcet\Tests\Datasets\MethodsDatasets;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
-use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\{DataProviderExternal};
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -792,7 +793,7 @@ class ElectionTest extends TestCase
         $election->removeCandidates($badCandidate);
     }
 
-    #[DataProvider('MethodsListProvider')]
+    #[DataProviderExternal(MethodsDatasets::class, 'MethodsListProvider')]
     public function testRemoveCandidateResult(string $method): void
     {
         $votes = '  Memphis * 4
@@ -825,14 +826,6 @@ class ElectionTest extends TestCase
 
 
         expect($electionTest->getResult($method)->getResultAsArray(true))->toBe($electionRef->getResult($method)->getResultAsArray(true));
-    }
-
-    public static function MethodsListProvider(): array
-    {
-        $methods = Condorcet::getAuthMethods(withNonDeterministicMethods: false);
-        array_walk($methods, static fn (&$m): array => $m = [$m]);
-
-        return $methods;
     }
 
     public function testAmbiguousCandidatesOnElectionSide(): never
