@@ -27,19 +27,19 @@
         "php": "^8.2",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/console": "^6.2",
-        "symfony/yaml": "^6.2",
+        "symfony/console": "^6.4 || ^7.0",
+        "symfony/yaml": "^6.4 || ^7.0",
         "brick/math": "^0.11"
     },
     "require-dev": {
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "phpbench/phpbench": "*",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10.5",
         "haydenpierce/class-finder": ">= 0.5.3",
         "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.9",
-        "laravel/pint": "^1.10",
+        "laravel/pint": "^1.13",
         "cmgmyr/phploc": "^8.0"
     },
     "suggest": {
