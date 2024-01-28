@@ -1822,6 +1822,23 @@ _Including above methods from public API_
 * protected sliceInput (array $input): void  
 ```
 
+#### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/WoollyDriver/WoollyDriver.php#L21)
+
+```php
+* public string $voteColumnName
+* readonly public MammothPHP\WoollyM\DataFrame $df
+
+* public __construct (MammothPHP\WoollyM\DataFrame $df = new MammothPHP\WoollyM\DataFrame)  
+* public countEntities (): int  
+* public deleteOneEntity (int $key, bool $justTry): ?int  
+* public insertEntities (array $input): void  
+* public selectMaxKey (): ?int  
+* public selectMinKey (): ?int  
+* public selectOneEntity (int $key): string|bool  
+* public selectRangeEntities (int $key, int $limit): array  
+```
+
 #### `CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L21)
 
