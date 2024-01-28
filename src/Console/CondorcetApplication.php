@@ -86,14 +86,14 @@ abstract class CondorcetApplication
         $applicationOfficialVersion = Condorcet::getVersion();
 
         try {
-            $version = $git(__DIR__.'/../../');
+            $version = $git(__DIR__ . '/../../');
             $commit = explode('-', $version)[2] ?? null;
 
             $match = [];
             preg_match('/^v([0-9]+\.[0-9]+\.[0-9]+)/', $version, $match);
             $gitLastestTag = $match[1];
 
-            $version = (version_compare($gitLastestTag, $applicationOfficialVersion, '>=')) ? $version : $applicationOfficialVersion.'-(dev)-'.$commit;
+            $version = (version_compare($gitLastestTag, $applicationOfficialVersion, '>=')) ? $version : $applicationOfficialVersion . '-(dev)-' . $commit;
         } catch (NoGitShellException) { // Git no available, use the Condorcet Version
             $version = $applicationOfficialVersion;
         }

@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
-class NoGitShellException extends CondorcetInternalException
-{
-}
+class NoGitShellException extends CondorcetInternalException {}

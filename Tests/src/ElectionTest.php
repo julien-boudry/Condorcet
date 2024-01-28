@@ -250,18 +250,18 @@ class ElectionTest extends TestCase
             Y > Z
         ');
 
-        expect($this->election1->getVotesListAsString())->toBe("A > B = C = D = E * 6\n".
-    "D > A = B = C = E * 6\n".
-    "A > B = C > E > D * 5\n".
-    "A = B = E > C = D * 3\n".
+        expect($this->election1->getVotesListAsString())->toBe("A > B = C = D = E * 6\n" .
+    "D > A = B = C = E * 6\n" .
+    "A > B = C > E > D * 5\n" .
+    "A = B = E > C = D * 3\n" .
     'A = B = C = D = E * 1');
 
         $this->election1->setImplicitRanking(false);
 
-        expect($this->election1->getVotesListAsString())->toBe("A * 6\n".
-    "D * 6\n".
-    "A > B = C > E * 5\n".
-    "A = B = E * 3\n".
+        expect($this->election1->getVotesListAsString())->toBe("A * 6\n" .
+    "D * 6\n" .
+    "A > B = C > E * 5\n" .
+    "A = B = E * 3\n" .
     '/EMPTY_RANKING/ * 1');
 
         expect($this->election1->getVotesListAsString(false))->toBe(<<<'VOTES'
@@ -282,7 +282,7 @@ class ElectionTest extends TestCase
         $this->election2->addVote(new Vote('D>E'));
 
         expect($this->election2->getVotesListAsString(true))->toBe('/EMPTY_RANKING/ * 2');
-        expect($this->election2->getVotesListAsString(false))->toBe('/EMPTY_RANKING/ * 1'. "\n" .'D > E * 1');
+        expect($this->election2->getVotesListAsString(false))->toBe('/EMPTY_RANKING/ * 1' . "\n" . 'D > E * 1');
 
         expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false))->toBe($cvotes_explicit_without_context =
                         <<<'CVOTES'
@@ -415,15 +415,15 @@ class ElectionTest extends TestCase
 
         expect($this->election1->countVotes())->toBe(10);
 
-        expect($this->election1->parseVotesWithoutFail(__DIR__.'/../LargeElectionData/smallVote1.votes', true))->toBe(2);
+        expect($this->election1->parseVotesWithoutFail(__DIR__ . '/../LargeElectionData/smallVote1.votes', true))->toBe(2);
 
         expect($this->election1->countVotes())->toBe(20);
 
-        expect($this->election1->parseVotesWithoutFail(new \SplFileObject(__DIR__.'/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
+        expect($this->election1->parseVotesWithoutFail(new \SplFileObject(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
 
         expect($this->election1->countVotes())->toBe(30);
 
-        expect($this->election1->parseVotesWithoutFail(new \SplFileInfo(__DIR__.'/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
+        expect($this->election1->parseVotesWithoutFail(new \SplFileInfo(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
 
         expect($this->election1->countVotes())->toBe(40);
     }
@@ -563,7 +563,7 @@ class ElectionTest extends TestCase
 
         $this->expectException(\JsonException::class);
 
-        $election->addVotesFromJson(json_encode($votes).'{42');
+        $election->addVotesFromJson(json_encode($votes) . '{42');
     }
 
     public function testaddCandidatesFromJson(): never
@@ -589,7 +589,7 @@ class ElectionTest extends TestCase
         $election = new Election;
 
         $this->expectException(\JsonException::class);
-        $election->addCandidatesFromJson(json_encode(['candidate3']).'{42');
+        $election->addCandidatesFromJson(json_encode(['candidate3']) . '{42');
     }
 
 
@@ -655,7 +655,7 @@ class ElectionTest extends TestCase
         $this->expectException(ElectionObjectVersionMismatchException::class);
         $this->expectExceptionMessage(
             "Version mismatch: The election object has version '3.2' " .
-            "which is different from the current class version '".Condorcet::getVersion(true)."'"
+            "which is different from the current class version '" . Condorcet::getVersion(true) . "'"
         );
 
         unserialize(

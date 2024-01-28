@@ -26,9 +26,9 @@ abstract class FormaterHelper
             }
 
             if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
+                $line .= ' ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
             } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
-                $line .= ' '.CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
+                $line .= ' ' . CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
             }
 
             $line = [$rank, $line];
@@ -47,7 +47,7 @@ abstract class FormaterHelper
             foreach ($methodArgument as $oneMethod) {
                 if (mb_strtolower($oneMethod) === 'all') {
                     $methods = Condorcet::getAuthMethods(false);
-                    $methods = array_map(static fn ($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
+                    $methods = array_map(static fn($m) => ['name' => $m, 'class' => Condorcet::getMethodClass($m)], $methods);
                     break;
                 }
 

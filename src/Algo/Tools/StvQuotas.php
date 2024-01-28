@@ -42,7 +42,7 @@ enum StvQuotas: string
                 'imperiali quota', 'imperiali' => self::IMPERIALI,
             };
         } catch (\UnhandledMatchError $e) {
-            throw new StvQuotaNotImplementedException('"'.$quota.'"');
+            throw new StvQuotaNotImplementedException('"' . $quota . '"');
         }
     }
 

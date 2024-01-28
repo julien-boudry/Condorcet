@@ -140,7 +140,7 @@ class VoteEntryParserTest extends TestCase
         ];
 
         yield [
-            'entry' => 'tag1,tag2||'.CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING.'^7*42#FeteDuDindon',
+            'entry' => 'tag1,tag2||' . CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING . '^7*42#FeteDuDindon',
             'expected' => [
                 'comment' => 'FeteDuDindon',
                 'multiple' => 42,
@@ -151,7 +151,7 @@ class VoteEntryParserTest extends TestCase
         ];
 
         yield [
-            'entry' => ' '.CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING.' ',
+            'entry' => ' ' . CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING . ' ',
             'expected' => [
                 'comment' => null,
                 'multiple' => 1,

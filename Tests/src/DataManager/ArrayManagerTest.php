@@ -15,9 +15,7 @@ class ArrayManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->ArrayManager = new class (new Election) extends ArrayManager {
-            protected function preDeletedTask($object): void
-            {
-            }
+            protected function preDeletedTask($object): void {}
 
             protected function decodeOneEntity(string $data): Vote
             {

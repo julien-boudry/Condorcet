@@ -387,7 +387,7 @@ class CondorcetElectionFormatTest extends TestCase
     {
         $this->expectException(FileDoesNotExistException::class);
 
-        new CondorcetElectionFormat(__DIR__.'noFile.txt');
+        new CondorcetElectionFormat(__DIR__ . 'noFile.txt');
     }
 
     public function testNonStandardParameters(): void

@@ -16,9 +16,9 @@ class DebianFormatTest extends TestCase
 
     protected function setUp(): void
     {
-        self::$debian2020 ?? (self::$debian2020 = new DebianFormat(__DIR__.'/DebianData/leader2020_tally.txt'));
-        self::$debian2007 ?? (self::$debian2007 = new DebianFormat(__DIR__.'/DebianData/leader2007_tally.txt'));
-        self::$debian2006 ?? (self::$debian2006 = new DebianFormat(__DIR__.'/DebianData/leader2006_tally.txt'));
+        self::$debian2020 ?? (self::$debian2020 = new DebianFormat(__DIR__ . '/DebianData/leader2020_tally.txt'));
+        self::$debian2007 ?? (self::$debian2007 = new DebianFormat(__DIR__ . '/DebianData/leader2007_tally.txt'));
+        self::$debian2006 ?? (self::$debian2006 = new DebianFormat(__DIR__ . '/DebianData/leader2006_tally.txt'));
     }
 
     public function test2020_Implicit(): void

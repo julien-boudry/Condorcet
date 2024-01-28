@@ -104,7 +104,7 @@ class KemenyYoungTest extends TestCase
         $this->election->parseVotes('A');
 
         $this->expectException(CandidatesMaxNumberReachedException::class);
-        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only ".KemenyYoung::$MaxCandidates.' candidates');
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only " . KemenyYoung::$MaxCandidates . ' candidates');
 
         $this->election->getWinner('KemenyYoung');
     }
@@ -120,7 +120,7 @@ class KemenyYoungTest extends TestCase
 
         $result = $this->election->getResult('KemenyYoung');
 
-        expect($result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE))->toEqual([0 => [
+        expect($result->getWarning(KemenyYoung::CONFLICT_WARNING_CODE))->toEqual([0 => [
             'type' => 42,
             'msg' => '3;5',
         ],
@@ -138,7 +138,7 @@ class KemenyYoungTest extends TestCase
 
         $result = $this->election->getResult('KemenyYoung');
 
-        expect($result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE))->toBe([]);
+        expect($result->getWarning(KemenyYoung::CONFLICT_WARNING_CODE))->toBe([]);
 
         expect($this->election->getWinner('KemenyYoung'))->toEqual('A');
     }

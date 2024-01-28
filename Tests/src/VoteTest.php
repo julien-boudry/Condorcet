@@ -720,7 +720,7 @@ class VoteTest extends TestCase
     public function testEmptySpecialKeyWord(): void
     {
         $vote1 = new Vote(CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING);
-        $vote2 = new Vote('  '.CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING.'  ');
+        $vote2 = new Vote('  ' . CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING . '  ');
 
         expect($vote1->getRanking())->toBe([]);
         expect($vote2->getRanking())->toBe([]);

@@ -252,7 +252,7 @@ class ElectionCommand extends Command
                 $registeringCandidates = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>'.(\count($registeringCandidates) + 1).'</> <continue>(or press enter to continue)</>');
+                    $answer = $this->io->ask('Please register candidate N°<fg=magenta>' . (\count($registeringCandidates) + 1) . '</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
@@ -283,7 +283,7 @@ class ElectionCommand extends Command
                 $registeringVotes = [];
 
                 while (true) {
-                    $answer = $this->io->ask('Please register vote N°<fg=magenta>'.(\count($registeringVotes) + 1).'</> <continue>(or press enter to continue)</>');
+                    $answer = $this->io->ask('Please register vote N°<fg=magenta>' . (\count($registeringVotes) + 1) . '</> <continue>(or press enter to continue)</>');
 
                     if ($answer === null) {
                         break;
@@ -437,10 +437,10 @@ class ElectionCommand extends Command
 
     protected function displayInputsSection(): void
     {
-        $messageCandidates = "<condor1>{$this->election->countCandidates()} candidate".($this->election->countCandidates() > 1 ? 's' : '').' registered</>';
-        $messageVotes = '<condor2>'.number_format($this->election->countVotes(), thousands_separator: ' ').' vote'.($this->election->countVotes() > 1 ? 's' : '').' registered</>';
+        $messageCandidates = "<condor1>{$this->election->countCandidates()} candidate" . ($this->election->countCandidates() > 1 ? 's' : '') . ' registered</>';
+        $messageVotes = '<condor2>' . number_format($this->election->countVotes(), thousands_separator: ' ') . ' vote' . ($this->election->countVotes() > 1 ? 's' : '') . ' registered</>';
 
-        $this->io->writeln('<comment>'.str_repeat('-', mb_strlen($messageCandidates.$messageVotes) + 4 - 24).'</comment>');
+        $this->io->writeln('<comment>' . str_repeat('-', mb_strlen($messageCandidates . $messageVotes) + 4 - 24) . '</comment>');
         $this->io->write($messageCandidates);
         $this->io->inlineSeparator();
         $this->io->writeln($messageVotes);
@@ -455,7 +455,7 @@ class ElectionCommand extends Command
         $this->io->definitionList(
             ['Ini max_memory' => $this->iniMemoryLimit],
             ['Votes per Mb' => self::$VotesPerMB],
-            ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: '.$this->SQLitePath],
+            ['Db is used' => (empty($this->SQLitePath)) ? 'no' : 'yes, using path: ' . $this->SQLitePath],
             ['Max Votes in Memory' => $this->maxVotesInMemory],
         );
     }
@@ -533,7 +533,7 @@ class ElectionCommand extends Command
                 ->setStyle($this->io->MainTableStyle)
             ;
 
-            $formatter = static fn (int $input): string => number_format($input, thousands_separator: ' ');
+            $formatter = static fn(int $input): string => number_format($input, thousands_separator: ' ');
 
             $votesStatsTable->addRow(['Count registered votes', $formatter($this->election->countVotes())]);
             $votesStatsTable->addRow(['Count valid registered votes with constraints', $formatter($this->election->countValidVoteWithConstraints())]);
@@ -592,8 +592,8 @@ class ElectionCommand extends Command
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
-                    [CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.'  Condorcet Winner', (string) ($this->election->getCondorcetWinner() ?? '-')],
-                    [CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED.'  Condorcet Loser', (string) ($this->election->getCondorcetLoser() ?? '-')],
+                    [CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED . '  Condorcet Winner', (string) ($this->election->getCondorcetWinner() ?? '-')],
+                    [CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED . '  Condorcet Loser', (string) ($this->election->getCondorcetLoser() ?? '-')],
                 ])
 
                 ->setStyle($this->io->MainTableStyle)
@@ -629,13 +629,13 @@ class ElectionCommand extends Command
                         $value = $value->engine::class;
                     }
 
-                    $rows[] = [$key.':', $value];
+                    $rows[] = [$key . ':', $value];
                 }
 
                 $this->io->newLine();
 
                 (new Table($output))
-                    ->setHeaderTitle('Configuration: '.$oneMethod['name'])
+                    ->setHeaderTitle('Configuration: ' . $oneMethod['name'])
                     ->setHeaders(['Variable', 'Value'])
                     ->setRows($rows)
 
@@ -651,12 +651,12 @@ class ElectionCommand extends Command
 
             $this->io->newLine();
 
-            $this->io->write('<condor3>'.CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED.' Condorcet Winner</>');
+            $this->io->write('<condor3>' . CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED . ' Condorcet Winner</>');
             $this->io->inlineSeparator();
-            $this->io->writeln('<condor3>'.CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED.' Condorcet Loser</>');
+            $this->io->writeln('<condor3>' . CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED . ' Condorcet Loser</>');
 
             (new Table($output))
-                ->setHeaderTitle('Results: '.$oneMethod['name'])
+                ->setHeaderTitle('Results: ' . $oneMethod['name'])
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows(FormaterHelper::formatResultTable($result))
 
@@ -672,7 +672,7 @@ class ElectionCommand extends Command
             // Stats
             if ($this->displayMethodsStats) {
                 $table = (new Table($output))
-                    ->setHeaderTitle('Stats: '.$oneMethod['name'])
+                    ->setHeaderTitle('Stats: ' . $oneMethod['name'])
 
                     ->setColumnWidth(0, 73)
                     ->setColumnMaxWidth(0, $this->terminal->getWidth() - 10)
@@ -696,9 +696,9 @@ class ElectionCommand extends Command
         $executionTime = round($this->timer->getGlobalTimer(), 4);
 
         $this->io->newLine();
-        $this->io->writeln('<comment>'.str_repeat('-', 23).'</comment>', OutputInterface::VERBOSITY_VERBOSE);
+        $this->io->writeln('<comment>' . str_repeat('-', 23) . '</comment>', OutputInterface::VERBOSITY_VERBOSE);
         $this->io->writeln("<comment>Execution Time: <condor2>{$executionTime}s</condor2></comment>", OutputInterface::VERBOSITY_VERBOSE);
-        $this->io->writeln('<comment>Ansi terminal color mode: <condor2>'.Terminal::getColorMode()->name.'</condor2></comment>', OutputInterface::VERBOSITY_DEBUG);
+        $this->io->writeln('<comment>Ansi terminal color mode: <condor2>' . Terminal::getColorMode()->name . '</condor2></comment>', OutputInterface::VERBOSITY_DEBUG);
         $this->io->newLine();
     }
 
@@ -755,7 +755,7 @@ class ElectionCommand extends Command
         if ($file !== null) {
             (new CondorcetElectionFormat($file))->setDataToAnElection($this->election, $callBack);
         } else {
-            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
+            throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }
     }
 
@@ -766,7 +766,7 @@ class ElectionCommand extends Command
         if ($file !== null) {
             (new DebianFormat($file))->setDataToAnElection($this->election);
         } else {
-            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
+            throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }
     }
 
@@ -777,7 +777,7 @@ class ElectionCommand extends Command
         if ($file !== null) {
             (new DavidHillFormat($file))->setDataToAnElection($this->election);
         } else {
-            throw new FileDoesNotExistException('File does not exist, path: '.$this->CondorcetElectionFormatPath);
+            throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }
     }
 
@@ -800,14 +800,14 @@ class ElectionCommand extends Command
                     /**
                      * @infection-ignore-all
                      */
-                    if (file_exists($this->SQLitePath = getcwd().\DIRECTORY_SEPARATOR.'condorcet-bdd.sqlite')) {
+                    if (file_exists($this->SQLitePath = getcwd() . \DIRECTORY_SEPARATOR . 'condorcet-bdd.sqlite')) {
                         unlink($this->SQLitePath);
                     }
 
                     /**
                      * @infection-ignore-all
                      */
-                    $this->election->setExternalDataHandler(new PdoHandlerDriver(new \PDO('sqlite:'.$this->SQLitePath, '', '', [\PDO::ATTR_PERSISTENT => false]), true));
+                    $this->election->setExternalDataHandler(new PdoHandlerDriver(new \PDO('sqlite:' . $this->SQLitePath, '', '', [\PDO::ATTR_PERSISTENT => false]), true));
 
                     return false; // No, stop next iteration
                 } else {

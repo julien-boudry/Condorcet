@@ -33,7 +33,7 @@ abstract class VoteUtil
             }
         }
 
-        $tags = array_map(static fn (string $x): string => trim($x), $tags);
+        $tags = array_map(static fn(string $x): string => trim($x), $tags);
 
         foreach ($tags as $tag) {
             if (empty($tag)) {
@@ -59,7 +59,7 @@ abstract class VoteUtil
     public static function convertRankingFromCandidateObjectToInternalKeys(Election $election, array &$ranking): void
     {
         array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
-            array_walk($candidatesInRank, static fn (&$v) => $v = $election->getCandidateKey($v));
+            array_walk($candidatesInRank, static fn(&$v) => $v = $election->getCandidateKey($v));
         });
     }
 }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{PublicAPI};
 use Symfony\Component\Yaml\Yaml;
 
-require_once __DIR__.str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendor/autoload.php');
+require_once __DIR__ . str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendor/autoload.php');
 
 
-$doc = Yaml::parseFile(__DIR__.'/../Documentation/doc.yaml');
+$doc = Yaml::parseFile(__DIR__ . '/../Documentation/doc.yaml');
 
 // Header & Prefix
 $header = $doc[0]['header'];
@@ -39,15 +39,15 @@ $patternReplaceLastNewLine = '/(.*)\n$/';
 
 foreach ($index as $ClassName => $ClassData) {
     $path_to_file = [
-        __DIR__.'/../lib/'.str_replace('\\', '/', $ClassName).'.php',
-        __DIR__.'/../lib/CondorcetVersion.php',
-        __DIR__.'/../lib/Linkable.php',
+        __DIR__ . '/../lib/' . str_replace('\\', '/', $ClassName) . '.php',
+        __DIR__ . '/../lib/CondorcetVersion.php',
+        __DIR__ . '/../lib/Linkable.php',
     ];
 
     if ($ClassName === 'Election') {
-        $path_to_file[] = __DIR__.'/../lib/ElectionProcess/CandidatesProcess.php';
-        $path_to_file[] = __DIR__.'/../lib/ElectionProcess/VotesProcess.php';
-        $path_to_file[] = __DIR__.'/../lib/ElectionProcess/ResultsProcess.php';
+        $path_to_file[] = __DIR__ . '/../lib/ElectionProcess/CandidatesProcess.php';
+        $path_to_file[] = __DIR__ . '/../lib/ElectionProcess/VotesProcess.php';
+        $path_to_file[] = __DIR__ . '/../lib/ElectionProcess/ResultsProcess.php';
     }
 
 
@@ -58,7 +58,7 @@ foreach ($index as $ClassName => $ClassData) {
         $file_contents = file_get_contents($oneFile);
 
         foreach ($ClassData as $MethodName => $MethodData) {
-            var_dump($ClassName.'->'.$MethodName);
+            var_dump($ClassName . '->' . $MethodName);
 
             $description = $MethodData['description'];
             $description = str_replace('$', '\\\$', $description);
@@ -66,7 +66,7 @@ foreach ($index as $ClassName => $ClassData) {
             $description = str_replace(["\n    ", "\n"], '\\n', $description);
             $description = str_replace('"', '\"', $description);
 
-            $attributes =  '$3#[Description("'.$description.'")]$2';
+            $attributes =  '$3#[Description("' . $description . '")]$2';
 
             if (isset($MethodData['return'])) {
                 $returnV = $MethodData['return'];
@@ -74,7 +74,7 @@ foreach ($index as $ClassName => $ClassData) {
                 $returnV = str_replace(["\n    ", "\n"], '\\n', $returnV);
                 $returnV = str_replace('"', '\"', $returnV);
 
-                $attributes .= '$3#[FunctionReturn("'.$returnV.'")]$2';
+                $attributes .= '$3#[FunctionReturn("' . $returnV . '")]$2';
             }
 
 
@@ -91,10 +91,10 @@ foreach ($index as $ClassName => $ClassData) {
                         $arg .= ', ';
                     }
 
-                    $arg .= '"'.$oneExampleKey.'||'.$oneExample.'"';
+                    $arg .= '"' . $oneExampleKey . '||' . $oneExample . '"';
                 }
 
-                $attributes .= '$3#[Examples('.$arg.')]$2';
+                $attributes .= '$3#[Examples(' . $arg . ')]$2';
             }
 
             if (isset($MethodData['related'])) {
@@ -108,15 +108,15 @@ foreach ($index as $ClassName => $ClassData) {
                         $arg .= ', ';
                     }
 
-                    $arg .= '"'.$oneRelated.'"';
+                    $arg .= '"' . $oneRelated . '"';
                 }
 
-                $attributes .= '$3#[Related('.$arg.')]$2';
+                $attributes .= '$3#[Related(' . $arg . ')]$2';
             }
 
 
-            $pattern = '/(#\[PublicAPI\])(\n)(.*)(public.*function '.$MethodName.' *\()/';
-            $replacement = '$1$2'.$attributes.'$3$4';
+            $pattern = '/(#\[PublicAPI\])(\n)(.*)(public.*function ' . $MethodName . ' *\()/';
+            $replacement = '$1$2' . $attributes . '$3$4';
 
             $file_contents = preg_replace(
                 $pattern,

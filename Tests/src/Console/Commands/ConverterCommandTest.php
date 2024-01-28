@@ -14,10 +14,10 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ConverterCommandTest extends TestCase
 {
-    public const DEBIAN_INPUT_FILE = __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt';
-    public const DAVIDHILL_INPUT_FILE = __DIR__.'/../../Tools/Converters/TidemanData/A77.HIL';
+    public const DEBIAN_INPUT_FILE = __DIR__ . '/../../Tools/Converters/DebianData/leader2020_tally.txt';
+    public const DAVIDHILL_INPUT_FILE = __DIR__ . '/../../Tools/Converters/TidemanData/A77.HIL';
 
-    public const OUTPUT_FILE = __DIR__.'/files/out.temp';
+    public const OUTPUT_FILE = __DIR__ . '/files/out.temp';
 
     private readonly CommandTester $converterCommand;
 
@@ -36,8 +36,8 @@ class ConverterCommandTest extends TestCase
     public static function conversionsProvider(): array
     {
         return [
-            'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', self::DEBIAN_INPUT_FILE, __DIR__.'/files/fromDebianExpectedFile.cvotes'],
-            'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', self::DAVIDHILL_INPUT_FILE, __DIR__.'/files/fromDavidHillExpectedFile.cvotes'],
+            'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', self::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
+            'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', self::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
         ];
     }
 

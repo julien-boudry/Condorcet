@@ -11,6 +11,4 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class ConsoleInputException extends CondorcetPublicApiException
-{
-}
+class ConsoleInputException extends CondorcetPublicApiException {}

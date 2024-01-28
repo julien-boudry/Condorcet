@@ -15,7 +15,7 @@ class DavidHillFormatTest extends TestCase
 
     protected function setUp(): void
     {
-        self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHillFormat(__DIR__.'/TidemanData/A77.HIL'));
+        self::$tidemanA77 ?? (self::$tidemanA77 = new DavidHillFormat(__DIR__ . '/TidemanData/A77.HIL'));
     }
 
     public function testA77_With_Implicit(): void
@@ -62,7 +62,7 @@ class DavidHillFormatTest extends TestCase
 
     public function testA1_ForCandidatesNames(): void
     {
-        $election = (new DavidHillFormat(__DIR__.'/TidemanData/A1.HIL'))->setDataToAnElection();
+        $election = (new DavidHillFormat(__DIR__ . '/TidemanData/A1.HIL'))->setDataToAnElection();
 
         expect($election->countVotes())->toBe(380);
         expect($election->getNumberOfSeats())->toBe(3);
@@ -327,7 +327,7 @@ class DavidHillFormatTest extends TestCase
 
     public function testBugDavidHillRandomOrderAndStatsRound(): void
     {
-        $hil = new DavidHillFormat(__DIR__.'/TidemanData/A60.HIL');
+        $hil = new DavidHillFormat(__DIR__ . '/TidemanData/A60.HIL');
 
         expect($hil->candidates)->toEqual([0 => '1', 1 => '2', 2 => '3', 3 => '4', 4 => '5', 5 => '6']); # Candidates are object, AssertEquals compare __toString
 
@@ -346,10 +346,10 @@ class DavidHillFormatTest extends TestCase
             }
 
             // Stats
-            expect($implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getStats());
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getStats());
 
             // Result
-            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
         }
 
 
@@ -370,11 +370,11 @@ class DavidHillFormatTest extends TestCase
                 ->toEqualWithDelta(
                     expected: $implicitElectionFromHill->getResult($method)->getStats(),
                     delta: 1 / (0.1 ** Condorcet::getMethodClass($method)::DECIMAL_PRECISION),
-                    message: 'Method: '.$method
+                    message: 'Method: ' . $method
                 );
 
             // Result
-            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: '.$method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+            expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
         }
     }
 }

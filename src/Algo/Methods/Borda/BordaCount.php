@@ -67,7 +67,7 @@ class BordaCount extends Method implements MethodInterface
             }
         }
 
-        array_walk($score, static fn (float & $sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
+        array_walk($score, static fn(float & $sc): float => $sc = round($sc, self::DECIMAL_PRECISION));
         ksort($score, \SORT_NATURAL);
         arsort($score, \SORT_NUMERIC);
 

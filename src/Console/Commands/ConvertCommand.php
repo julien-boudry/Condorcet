@@ -52,7 +52,7 @@ class ConvertCommand extends Command
         foreach (self::$converters as $optionKey => $converter) {
             if (isset(class_implements($converter)[ConverterImport::class])) {
                 $this->addOption(
-                    name: 'from-'.$optionKey,
+                    name: 'from-' . $optionKey,
                     mode: InputOption::VALUE_NONE,
                 );
             }
@@ -61,7 +61,7 @@ class ConvertCommand extends Command
         foreach (self::$converters as $optionKey => $converter) {
             if (isset(class_implements($converter)[ConverterExport::class])) {
                 $this->addOption(
-                    name: 'to-'.$optionKey,
+                    name: 'to-' . $optionKey,
                     mode: InputOption::VALUE_NONE,
                 );
             }
@@ -85,11 +85,11 @@ class ConvertCommand extends Command
     {
         // Get converters class
         foreach (self::$converters as $optionKey => $converter) {
-            if (empty($this->fromConverter) && $input->hasOption('from-'.$optionKey) && $input->getOption('from-'.$optionKey)) {
+            if (empty($this->fromConverter) && $input->hasOption('from-' . $optionKey) && $input->getOption('from-' . $optionKey)) {
                 $this->fromConverter = $converter;
             }
 
-            if (empty($this->toConverter) && $input->hasOption('to-'.$optionKey) && $input->getOption('to-'.$optionKey)) {
+            if (empty($this->toConverter) && $input->hasOption('to-' . $optionKey) && $input->getOption('to-' . $optionKey)) {
                 $this->toConverter = $converter;
             }
         }

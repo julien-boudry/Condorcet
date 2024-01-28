@@ -35,7 +35,7 @@ class JeffersonTest extends TestCase
 
     public function testResult_Tideman_A03(): void
     {
-        $cef = new CondorcetElectionFormat(__DIR__.'/'.'A03.cvotes');
+        $cef = new CondorcetElectionFormat(__DIR__ . '/' . 'A03.cvotes');
         $cef->setDataToAnElection($this->election);
 
         $this->election->setImplicitRanking(false); // Empty ranking was throw an error.

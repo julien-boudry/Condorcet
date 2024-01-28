@@ -29,7 +29,7 @@ class PdoHandlerDriverTest extends TestCase
             $voteCompil .= (string) $oneVote;
         }
 
-        return $c.'||'.hash('md5', $voteCompil);
+        return $c . '||' . hash('md5', $voteCompil);
     }
 
 

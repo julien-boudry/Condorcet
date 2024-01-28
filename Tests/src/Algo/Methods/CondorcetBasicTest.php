@@ -153,7 +153,7 @@ class CondorcetBasicTest extends TestCase
         ');
 
         $this->expectException(AlgorithmWithoutRankingFeatureException::class);
-        $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): ".CondorcetBasic::METHOD_NAME[0]);
+        $this->expectExceptionMessage("This algortihm can't provide a full ranking (but only Winner and Loser): " . CondorcetBasic::METHOD_NAME[0]);
 
         $this->election->getResult(CondorcetBasic::class);
     }

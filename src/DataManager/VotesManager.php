@@ -123,7 +123,7 @@ class VotesManager extends ArrayManager
         if (\is_bool($with)) {
             $with = ($with) ? 1 : 0;
         } elseif ($with < 0) {
-            throw new TagsFilterException('Value of $with cannot be less than 0. Actual value is '.$with);
+            throw new TagsFilterException('Value of $with cannot be less than 0. Actual value is ' . $with);
         }
 
         foreach ($this as $voteKey => $vote) {
@@ -215,7 +215,7 @@ class VotesManager extends ArrayManager
                 $simpleList .= "\n";
             }
             $voteString = ($key === '') ? CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING : $key;
-            $simpleList .= $voteString.' * '.$nb[$key];
+            $simpleList .= $voteString . ' * ' . $nb[$key];
             $isFirst = false;
         }
 

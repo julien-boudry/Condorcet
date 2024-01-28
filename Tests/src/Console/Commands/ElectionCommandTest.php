@@ -151,8 +151,8 @@ class ElectionCommandTest extends TestCase
     public function testConsoleFileInput(): void
     {
         $this->electionCommand->execute([
-            '--candidates' => __DIR__.'/files/data.candidates',
-            '--votes' => __DIR__.'/files/data.votes',
+            '--candidates' => __DIR__ . '/files/data.candidates',
+            '--votes' => __DIR__ . '/files/data.votes',
         ]);
 
         $output = $this->electionCommand->getDisplay();
@@ -160,7 +160,7 @@ class ElectionCommandTest extends TestCase
 
         expect($output)->toContain('Schulze');
         expect($output)->toContain('A ; B');
-        expect($output)->toContain('C '.CondorcetStyle::CONDORCET_LOSER_SYMBOL);
+        expect($output)->toContain('C ' . CondorcetStyle::CONDORCET_LOSER_SYMBOL);
     }
 
     public function testInteractiveCommand(): void
@@ -207,7 +207,7 @@ class ElectionCommandTest extends TestCase
             '--votes-per-mb' => 42,
         ]);
 
-        expect(\CondorcetPHP\Condorcet\Console\Commands\ElectionCommand::$VotesPerMB)->toBe(42);
+        expect(ElectionCommand::$VotesPerMB)->toBe(42);
 
         // $output = $this->electionCommand->getDisplay();
         // \var_dump($output);
@@ -221,7 +221,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->execute([
             '--candidates' => 'A;B;C',
             '--votes-per-mb' => 1,
-            '--votes' => 'A>B>C * '.(((int) preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
+            '--votes' => 'A>B>C * ' . (((int) preg_replace('`[^0-9]`', '', ElectionCommand::$forceIniMemoryLimitTo)) + 1), # Must be superior to memory limit in MB
         ], [
             'verbosity' => OutputInterface::VERBOSITY_DEBUG,
         ]);
@@ -247,8 +247,8 @@ class ElectionCommandTest extends TestCase
 
         $output = $this->electionCommand->getDisplay();
 
-        expect($output)->toContain(CondorcetStyle::CONDORCET_WINNER_SYMBOL.'  Condorcet Winner | -');
-        expect($output)->toContain(CondorcetStyle::CONDORCET_LOSER_SYMBOL.'  Condorcet Loser  | -');
+        expect($output)->toContain(CondorcetStyle::CONDORCET_WINNER_SYMBOL . '  Condorcet Winner | -');
+        expect($output)->toContain(CondorcetStyle::CONDORCET_LOSER_SYMBOL . '  Condorcet Loser  | -');
     }
 
     public function testFromCondorcetElectionFormat_DoubleCandidates(): void
@@ -258,7 +258,7 @@ class ElectionCommandTest extends TestCase
         $this->electionCommand->execute(
             [
                 '--candidates' => 'A;B;C',
-                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                '--import-condorcet-election-format' => __DIR__ . '/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
             ],
             [
                 'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
@@ -270,7 +270,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
+                '--import-condorcet-election-format' => __DIR__ . '/../../Tools/Converters/CondorcetElectionFormatData/test1.cvotes',
                 '--votes' => 'C>A',
                 '--deactivate-implicit-ranking' => null,
                 '--no-tie' => null,
@@ -300,7 +300,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
+                '--import-condorcet-election-format' => __DIR__ . '/../../Tools/Converters/CondorcetElectionFormatData/test2.cvotes',
             ],
             [
                 'verbosity' => OutputInterface::VERBOSITY_VERBOSE,
@@ -321,7 +321,7 @@ class ElectionCommandTest extends TestCase
 
         expect($output)->toContain('Sum vote weight | 2');
 
-        expect($output)->toContain('B '.CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
+        expect($output)->toContain('B ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
     }
 
     #[RequiresPhpExtension('pdo_sqlite')]
@@ -331,7 +331,7 @@ class ElectionCommandTest extends TestCase
 
         $this->electionCommand->execute([
             '--votes-per-mb' => 1,
-            '--import-condorcet-election-format' => __DIR__.'/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
+            '--import-condorcet-election-format' => __DIR__ . '/../../Tools/Converters/CondorcetElectionFormatData/test3.cvotes',
         ], [
             'verbosity' => OutputInterface::VERBOSITY_DEBUG,
         ]);
@@ -351,7 +351,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                '--import-debian-format' => __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt',
+                '--import-debian-format' => __DIR__ . '/../../Tools/Converters/DebianData/leader2020_tally.txt',
                 'methods' => ['STV'],
             ],
             [
@@ -373,7 +373,7 @@ class ElectionCommandTest extends TestCase
 
         expect($output)->toContain('Sum vote weight | 339');
 
-        expect($output)->toContain('Jonathan Carter '.CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
+        expect($output)->toContain('Jonathan Carter ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
         expect($output)->toMatch('/Seats: *\| 1/');
     }
 
@@ -381,7 +381,7 @@ class ElectionCommandTest extends TestCase
     {
         $this->electionCommand->execute(
             [
-                '--import-david-hill-format' => __DIR__.'/../../Tools/Converters/TidemanData/A1.HIL',
+                '--import-david-hill-format' => __DIR__ . '/../../Tools/Converters/TidemanData/A1.HIL',
                 'methods' => ['STV'],
             ],
             [
@@ -403,7 +403,7 @@ class ElectionCommandTest extends TestCase
 
         expect($output)->toContain('Sum vote weight | 380');
 
-        expect($output)->toContain('Candidate  1 '.CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
+        expect($output)->toContain('Candidate  1 ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL); # Condorcet Winner
         expect($output)->toMatch('/Seats: *\| 3/');
     }
 

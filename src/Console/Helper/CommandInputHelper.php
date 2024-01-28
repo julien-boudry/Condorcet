@@ -20,7 +20,7 @@ abstract class CommandInputHelper
         if (self::isAbsoluteAndExist($path)) {
             return $path;
         } else {
-            return (is_file($file = getcwd().\DIRECTORY_SEPARATOR.$path)) ? $file : null;
+            return (is_file($file = getcwd() . \DIRECTORY_SEPARATOR . $path)) ? $file : null;
         }
     }
 

@@ -141,7 +141,7 @@ class VotesManagerTest extends TestCase
         $with = -1;
 
         $this->expectException(TagsFilterException::class);
-        $this->expectExceptionMessage('Value of $with cannot be less than 0. Actual value is '.$with);
+        $this->expectExceptionMessage('Value of $with cannot be less than 0. Actual value is ' . $with);
 
         $this->election->countVotes('tag44', $with);
     }

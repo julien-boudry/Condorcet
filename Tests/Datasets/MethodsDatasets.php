@@ -18,7 +18,7 @@ class MethodsDatasets
     public static function MethodsListProvider(): array
     {
         $methods = Condorcet::getAuthMethods(withNonDeterministicMethods: false);
-        array_walk($methods, static fn (&$m): array => $m = [$m]);
+        array_walk($methods, static fn(&$m): array => $m = [$m]);
 
         return $methods;
     }
