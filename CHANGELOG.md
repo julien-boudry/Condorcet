@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ### Description
 Half-migration of tests to PestPHP.
 
+### Added
+- Experimental WoollyM PHP DataFrame driver.
+
 ## [v4.5.1] - 2023-12-01
 ### Description
 Support for Symfony 7 components
