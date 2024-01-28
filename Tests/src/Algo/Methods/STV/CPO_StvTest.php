@@ -55,37 +55,36 @@ class CPO_StvTest extends TestCase
 
         $this->election->setNumberOfSeats(3);
 
-        $this->assertSame(
-            [
-                1 => 'Carter',
-                2 => 'Andrea',
-                3 => 'Delilah',
-            ],
-            $this->election->getResult('CPO STV')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([
+            1 => 'Carter',
+            2 => 'Andrea',
+            3 => 'Delilah',
+        ]);
 
         $stats = $this->election->getResult('CPO STV')->getStats();
 
-        $this->assertSame(25.0, $stats['Votes Needed to Win']);
-        $this->assertSame(['Andrea' => 25.0,
+        expect($stats['Votes Needed to Win'])->toBe(25.0);
+
+        expect($stats['Initial Score Table'])->toBe([
+            'Andrea' => 25.0,
             'Brad' => 7.0,
             'Carter' => 34.0,
             'Delilah' => 13.0,
             'Scott' => 21.0,
-        ], $stats['Initial Score Table']);
+        ]);
 
-        $this->assertSame(['Andrea', 'Carter'], $stats['Candidates elected from first round']);
-        $this->assertSame(['Brad', 'Delilah', 'Scott'], $stats['Candidates eliminated from first round']);
+        expect($stats['Candidates elected from first round'])->toBe(['Andrea', 'Carter']);
+        expect($stats['Candidates eliminated from first round'])->toBe(['Brad', 'Delilah', 'Scott']);
 
-        $this->assertSame([
+        expect($stats['Outcomes'])->toBe([
             ['Andrea', 'Carter', 'Scott'],
             ['Andrea', 'Carter', 'Delilah'],
             ['Andrea', 'Brad', 'Carter'],
-        ], $stats['Outcomes']);
+        ]);
 
-        $this->assertSame('Schulze Margin', $stats['Completion Method']);
+        expect($stats['Completion Method'])->toBe('Schulze Margin');
 
-        $this->assertSame(
+        expect($stats['Outcomes Comparison'])->toBe(
             ['Outcome N° 0 compared to Outcome N° 1' => [
                 'candidates_excluded' => [
                     0 => 'Brad',
@@ -149,11 +148,10 @@ class CPO_StvTest extends TestCase
                         2 => 66.0,
                     ],
                 ],
-            ],
-            $stats['Outcomes Comparison']
+            ]
         );
 
-        $this->assertArrayHasKey('Condorcet Completion Method Stats', $stats);
+        expect($stats)->toHaveKey('Condorcet Completion Method Stats');
     }
 
 
@@ -180,9 +178,9 @@ class CPO_StvTest extends TestCase
 
         $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HARE);
 
-        $this->assertSame('Andre > Escher > Gore', $this->election->getResult('CPO STV')->getResultAsString());
+        expect($this->election->getResult('CPO STV')->getResultAsString())->toBe('Andre > Escher > Gore');
 
-        $this->assertSame((float) 100, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
+        expect($this->election->getResult('CPO STV')->getStats()['Votes Needed to Win'])->toBe((float) 100);
     }
 
     # From https://electowiki.org/wiki/CPO-STV
@@ -205,12 +203,12 @@ class CPO_StvTest extends TestCase
 
         $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP);
 
-        $this->assertSame('A > C', $this->election->getResult('CPO STV')->getResultAsString());
+        expect($this->election->getResult('CPO STV')->getResultAsString())->toBe('A > C');
 
-        $this->assertSame((float) 11, $this->election->getResult('CPO STV')->getStats()['Votes Needed to Win']);
-        $this->assertSame([0 => 19.0, 2 => 22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores']);
-        $this->assertSame([0 => 19.0, 1 => 22.0], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores']);
-        $this->assertSame([1 => 19.5, 2 => 13.5], $this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores']);
+        expect($this->election->getResult('CPO STV')->getStats()['Votes Needed to Win'])->toBe((float) 11);
+        expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores'])->toBe([0 => 19.0, 2 => 22.0]);
+        expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores'])->toBe([0 => 19.0, 1 => 22.0]);
+        expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores'])->toBe([1 => 19.5, 2 => 13.5]);
     }
 
     public function testLessOrEqualCandidatesThanSeats(): void
@@ -235,11 +233,11 @@ class CPO_StvTest extends TestCase
                                         Chattanooga * 2
                                         Knoxville * 1');
 
-        $this->assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe($expectedRanking);
 
         $this->election->setNumberOfSeats(5);
 
-        $this->assertSame($expectedRanking, $this->election->getResult('CPO STV')->getResultAsArray(true));
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe($expectedRanking);
     }
 
     public function testEquality1(): void
@@ -253,11 +251,11 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('B>C>A');
         $this->election->addVote('A>B>C');
 
-        $this->assertSame([1 => ['A', 'B']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => ['A', 'B']]);
 
         $this->election->setNumberOfSeats(3);
 
-        $this->assertSame([1 => ['A', 'B'], 3 => 'C'], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 3 => 'C']);
     }
 
     public function testEquality2(): void
@@ -270,7 +268,7 @@ class CPO_StvTest extends TestCase
         $this->election->addVote('A>B>C>D');
         $this->election->addVote('A>B>D>C');
 
-        $this->assertSame([1 => 'A', 2 => ['B', 'D']], $this->election->getResult('CPO STV')->getResultAsArray(true));
+        expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => 'A', 2 => ['B', 'D']]);
     }
 
     public function testLimit1(): void

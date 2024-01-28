@@ -27,19 +27,15 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        $this->assertSame(
-            <<<'CIVS'
-                # Candidates: A / B / C
-                1,2,3
-                1,2,3
-                3,2,1
-                3,2,1
-                2,1,1
-                2,1,1
-                CIVS
-            ,
-            $r
-        );
+        expect($r)->toBe(<<<'CIVS'
+            # Candidates: A / B / C
+            1,2,3
+            1,2,3
+            3,2,1
+            3,2,1
+            2,1,1
+            2,1,1
+            CIVS);
     }
 
     public function testImplicit(): void
@@ -50,16 +46,12 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        $this->assertSame(
-            <<<'CIVS'
-                # Candidates: A / B / C
-                1,2,3
-                2,2,1
-                1,1,2
-                CIVS
-            ,
-            $r
-        );
+        expect($r)->toBe(<<<'CIVS'
+            # Candidates: A / B / C
+            1,2,3
+            2,2,1
+            1,1,2
+            CIVS);
     }
 
     public function testExplicit(): void
@@ -72,16 +64,12 @@ class CivsFormatTest extends TestCase
 
         $r = CivsFormat::createFromElection($this->election);
 
-        $this->assertSame(
-            <<<'CIVS'
-                # Candidates: A / B / C
-                1,2,-
-                -,-,1
-                1,1,-
-                CIVS
-            ,
-            $r
-        );
+        expect($r)->toBe(<<<'CIVS'
+            # Candidates: A / B / C
+            1,2,-
+            -,-,1
+            1,1,-
+            CIVS);
     }
 
     public function testWeight(): void
@@ -91,51 +79,43 @@ class CivsFormatTest extends TestCase
         // Deactivated
         $r = CivsFormat::createFromElection($this->election);
 
-        $this->assertSame(
-            <<<'CIVS'
-                # Candidates: A / B / C
-                1,2,3
-                CIVS
-            ,
-            $r
-        );
+        expect($r)->toBe(<<<'CIVS'
+            # Candidates: A / B / C
+            1,2,3
+            CIVS);
 
         //A ctivated
         $this->election->allowsVoteWeight(true);
 
         $r = CivsFormat::createFromElection($this->election);
 
-        $this->assertSame(
-            <<<'CIVS'
-                # Candidates: A / B / C
-                1,2,3
-                1,2,3
-                1,2,3
-                CIVS
-            ,
-            $r
-        );
+        expect($r)->toBe(<<<'CIVS'
+            # Candidates: A / B / C
+            1,2,3
+            1,2,3
+            1,2,3
+            CIVS);
     }
 
     public function testWriteToFile(): void
     {
         $file = new SplTempFileObject;
 
-        $this->assertSame(0, $file->key());
+        expect($file->key())->toBe(0);
 
         $this->election->parseVotes('A>B; B>C');
 
         CivsFormat::createFromElection(election: $this->election, file: $file);
 
         $file->seek(0);
-        $this->assertSame("# Candidates: A / B / C\n", $file->current());
+        expect($file->current())->toBe("# Candidates: A / B / C\n");
 
         $file->seek(1);
-        $this->assertSame("1,2,3\n", $file->current());
+        expect($file->current())->toBe("1,2,3\n");
 
         $file->seek(2);
-        $this->assertSame('3,1,2', $file->current());
+        expect($file->current())->toBe('3,1,2');
 
-        $this->assertTrue($file->eof());
+        expect($file->eof())->toBeTrue();
     }
 }

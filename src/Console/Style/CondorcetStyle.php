@@ -26,8 +26,8 @@ class CondorcetStyle extends SymfonyStyle
 
     public const CONDORCET_WINNER_SYMBOL = '★';
     public const CONDORCET_LOSER_SYMBOL = '⚐';
-    public const CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>'.self::CONDORCET_WINNER_SYMBOL.'</>';
-    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#33beff>'.self::CONDORCET_LOSER_SYMBOL.'</>';
+    public const CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>' . self::CONDORCET_WINNER_SYMBOL . '</>';
+    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#33beff>' . self::CONDORCET_LOSER_SYMBOL . '</>';
 
     public readonly TableStyle $MainTableStyle;
     public readonly TableStyle $FirstColumnStyle;
@@ -49,7 +49,7 @@ class CondorcetStyle extends SymfonyStyle
 
         $this->MainTableStyle = (new TableStyle)
             ->setBorderFormat('<condor1>%s</>')
-            ->setHeaderTitleFormat('<fg='.self::CONDORCET_THIRD_COLOR.';bg='.self::CONDORCET_SECONDARY_COLOR.';options=bold> %s </>')
+            ->setHeaderTitleFormat('<fg=' . self::CONDORCET_THIRD_COLOR . ';bg=' . self::CONDORCET_SECONDARY_COLOR . ';options=bold> %s </>')
             ->setCellHeaderFormat('<condor2>%s</>')
             ->setCellRowFormat('<condor3>%s</>')
         ;
@@ -62,7 +62,7 @@ class CondorcetStyle extends SymfonyStyle
 
     public function logo(int $terminalSize): void
     {
-        $path = __DIR__.\DIRECTORY_SEPARATOR.'..'.\DIRECTORY_SEPARATOR.'Assets'.\DIRECTORY_SEPARATOR;
+        $path = __DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'Assets' . \DIRECTORY_SEPARATOR;
 
         if ($terminalSize >= 125) {
             $path .= 'logo.125c.ascii';
@@ -112,16 +112,16 @@ class CondorcetStyle extends SymfonyStyle
         $totalLength = $messageLength + $prefixLength;
         $totalBorderLength = $totalLength + 4;
 
-        $horizontalBorder = '<condor2>'.str_repeat('=', (int) $totalBorderLength).'</>';
+        $horizontalBorder = '<condor2>' . str_repeat('=', (int) $totalBorderLength) . '</>';
         $vbs = '<condor2>|</>';
 
-        $spaceMessage = '<bg='.self::CONDORCET_MAIN_COLOR.'>'.str_repeat(' ', $messageLength).'</>';
-        $spacePrefix = '<bg='.self::CONDORCET_SECONDARY_COLOR.'>'.str_repeat(' ', $prefixLength).'</>';
-        $bande = "{$vbs} ".$spacePrefix.$spaceMessage." {$vbs}";
+        $spaceMessage = '<bg=' . self::CONDORCET_MAIN_COLOR . '>' . str_repeat(' ', $messageLength) . '</>';
+        $spacePrefix = '<bg=' . self::CONDORCET_SECONDARY_COLOR . '>' . str_repeat(' ', $prefixLength) . '</>';
+        $bande = "{$vbs} " . $spacePrefix . $spaceMessage . " {$vbs}";
 
         $this->writeln($horizontalBorder);
         $this->writeln($bande);
-        $this->writeln("{$vbs} <bg=".self::CONDORCET_SECONDARY_COLOR.';options=bold>  Vote Method  </><bg='.self::CONDORCET_MAIN_COLOR.";options=bold>  {$message}  </> {$vbs}");
+        $this->writeln("{$vbs} <bg=" . self::CONDORCET_SECONDARY_COLOR . ';options=bold>  Vote Method  </><bg=' . self::CONDORCET_MAIN_COLOR . ";options=bold>  {$message}  </> {$vbs}");
         $this->writeln($bande);
         $this->writeln($horizontalBorder);
     }

@@ -54,7 +54,7 @@ abstract class Condorcet
     final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
 
     #[PublicAPI]
-    final public const VERSION = '4.5.1';
+    final public const VERSION = '4.6.0';
 
     #[PublicAPI]
     final public const CONDORCET_BASIC_CLASS = Algo\Methods\CondorcetBasic::class;
@@ -79,7 +79,7 @@ abstract class Condorcet
     ): string {
         if ($major === true) {
             $version = explode('.', self::VERSION);
-            return $version[0].'.'.$version[1];
+            return $version[0] . '.' . $version[1];
         } else {
             return self::VERSION;
         }
@@ -92,13 +92,20 @@ abstract class Condorcet
     #[Related('static Condorcet::isAuthMethod', 'static Condorcet::getMethodClass')]
     public static function getAuthMethods(
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
-        bool $basic = false
+        bool $basic = false,
+        #[FunctionParameter('Include or not non deterministic methods')]
+        bool $withNonDeterministicMethods = true
     ): array {
         $auth = self::$authMethods;
 
         // Don't show Natural Condorcet
         if (!$basic) {
             unset($auth[self::CONDORCET_BASIC_CLASS]);
+        }
+
+        // Exclude Deterministic
+        if (!$withNonDeterministicMethods) {
+            $auth = array_filter($auth, static fn($m): bool => $m::IS_DETERMINISTIC, \ARRAY_FILTER_USE_KEY);
         }
 
         return array_column($auth, 0);

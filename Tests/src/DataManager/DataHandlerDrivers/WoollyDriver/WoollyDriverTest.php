@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tests\DataManager\DataHandlerDrivers\PdoDriver;
+namespace CondorcetPHP\Condorcet\Tests\DataManager\DataHandlerDrivers\WoollyDriver;
 
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\DataManager\ArrayManager;
-use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver;
+use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
+use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
-use PHPUnit\Framework\Attributes\{Group, RequiresPhpExtension};
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 #[Group('DataHandlerDrivers')]
-#[RequiresPhpExtension('pdo_sqlite')]
-class PdoHandlerDriverTest extends TestCase
+class WoollyDriverTest extends TestCase
 {
-    protected function getPDO(): \PDO
+    public function getDriver(): DataHandlerDriverInterface
     {
-        return new \PDO('sqlite::memory:', '', '', [\PDO::ATTR_PERSISTENT => false]);
+        return new WoollyDriver;
     }
 
     protected function hashVotesList(Election $elec): string
@@ -41,7 +41,7 @@ class PdoHandlerDriverTest extends TestCase
 
         $electionWithDb = new Election;
         $electionInMemory = new Election;
-        $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($handlerDriver = $this->getDriver());
 
         // Run Test
 
@@ -122,7 +122,7 @@ class PdoHandlerDriverTest extends TestCase
 
         // Change my mind : Set again the a new handler
         unset($handlerDriver);
-        $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         expect($electionWithDb->getVotesManager()->debugGetCache())->toBeEmpty();
         expect($electionWithDb->getVotesManager()->getContainerSize())->toBe(0);
@@ -145,7 +145,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 10;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -169,7 +169,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 10;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -191,7 +191,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 10;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -215,7 +215,7 @@ class PdoHandlerDriverTest extends TestCase
     public function testGetVotesListGenerator(): void
     {
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -246,7 +246,7 @@ class PdoHandlerDriverTest extends TestCase
         ArrayManager::$MaxContainerLength = 462;
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
+        $electionWithDb->setExternalDataHandler($this->getDriver());
 
         $electionWithDb->parseCandidates('A;B;C');
 
@@ -261,31 +261,13 @@ class PdoHandlerDriverTest extends TestCase
         $this->expectExceptionMessage('external data handler cannot be imported');
 
         $electionWithDb = new Election;
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
-        $electionWithDb->setExternalDataHandler(new PdoHandlerDriver($this->getPDO(), true));
-    }
-
-    public function testBadTableSchema1(): never
-    {
-        $this->expectException(DataHandlerException::class);
-        $this->expectExceptionMessage('Problem with data handler: invalid structure template for PdoHandler');
-
-        $pdo = $this->getPDO();
-        new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 42]);
-    }
-
-    public function testBadTableSchema2(): never
-    {
-        $this->expectException(\Exception::class);
-
-        $pdo = $this->getPDO();
-        new PdoHandlerDriver($pdo, true, ['tableName' => 'B@adName', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+        $electionWithDb->setExternalDataHandler($this->getDriver());
+        $electionWithDb->setExternalDataHandler($this->getDriver());
     }
 
     public function testEmptyEntities(): void
     {
-        $pdo = $this->getPDO();
-        $handlerDriver = new PdoHandlerDriver($pdo, true, ['tableName' => 'Entity', 'primaryColumnName' => 'id', 'dataColumnName' => 'data']);
+        $handlerDriver = $this->getDriver();
 
         expect($handlerDriver->selectOneEntity(500))->toBeFalse();
 

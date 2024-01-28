@@ -27,9 +27,9 @@
         "php": "^8.2",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "symfony/console": "^6.4 || ^7.0",
-        "symfony/yaml": "^6.4 || ^7.0",
-        "brick/math": "^0.11"
+        "symfony/console": "^7.0",
+        "symfony/yaml": "^7.0",
+        "brick/math": "^0.12"
     },
     "require-dev": {
         "ext-pdo": "*",
@@ -37,10 +37,13 @@
         "phpbench/phpbench": "*",
         "phpunit/phpunit": "^10.5",
         "haydenpierce/class-finder": ">= 0.5.3",
-        "infection/infection": "^0.26",
         "phpstan/phpstan": "^1.9",
         "laravel/pint": "^1.13",
-        "cmgmyr/phploc": "^8.0"
+        "pestphp/pest": "^2.32",
+        "pestphp/pest-plugin-drift": "^2.0",
+        "cmgmyr/phploc": "^8.0",
+        "infection/infection": "^0.27, >= 0.27.7",
+        "mammothphp/woollym": "dev-master"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
@@ -53,8 +56,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CondorcetPHP\\Condorcet\\Tests\\": "Tests/src/",
-            "CondorcetPHP\\Condorcet\\Tests\\Examples\\": "Tests/Examples/",
+            "CondorcetPHP\\Condorcet\\Tests\\": "Tests/",
             "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/",
             "CondorcetPHP\\Condorcet\\Benchmarks\\": "Benchmarks"
         }
@@ -84,7 +86,7 @@
     "config": {
         "allow-plugins": {
             "infection/extension-installer": false,
-            "pestphp/pest-plugin": false
+            "pestphp/pest-plugin": true
         }
     }
 }

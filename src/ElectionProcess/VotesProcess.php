@@ -424,7 +424,7 @@ trait VotesProcess
             if ($file->isFile() && $file->isReadable()) {
                 $file = ($file instanceof \SplFileObject) ? $file : $file->openFile('r');
             } else {
-                throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
+                throw new FileDoesNotExistException('Specified input file does not exist. path: ' . $input);
             }
         }
 

@@ -185,7 +185,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         if (empty($this->getTags())) {
             return $this->getSimpleRanking();
         } else {
-            return $this->getTagsAsString().' || '.$this->getSimpleRanking();
+            return $this->getTagsAsString() . ' || ' . $this->getSimpleRanking();
         }
     }
 
@@ -439,7 +439,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
         if ($displayWeight && $this->weight > 1 && (($context && $context->isVoteWeightAllowed()) || $context === null)) {
-            $simpleRanking .= ' ^'.$this->getWeight();
+            $simpleRanking .= ' ^' . $this->getWeight();
         }
 
         return $simpleRanking;
@@ -518,7 +518,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
             $ranking = (new VoteEntryParser($ranking))->ranking ?? [];
         }
 
-        $ranking = array_filter($ranking, static fn ($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
+        $ranking = array_filter($ranking, static fn($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
 
         ksort($ranking);
 

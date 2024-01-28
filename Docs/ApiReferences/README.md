@@ -1470,7 +1470,7 @@ _Including above methods from public API_
 
 * public static addMethod (string $methodClass): bool  
 * public static condorcetBasicSubstitution (?string $substitution): string  
-* public static getAuthMethods (bool $basic = false): array  
+* public static getAuthMethods (bool $basic = false, bool $withNonDeterministicMethods = true): array  
 * public static getDefaultMethod (): ?string  
 * public static getMethodClass (string $method): ?string  
 * public static getVersion (bool $major = false): string  
@@ -1493,14 +1493,12 @@ _Including above methods from public API_
 * readonly protected CondorcetPHP\Condorcet\Election $election
 * protected string $input
 * protected ?SplFileObject $output
-* protected static  $defaultName
-* protected static  $defaultDescription
 
 * public static getDefaultDescription (): ?string  
 * public static getDefaultName (): ?string  
 * public __construct (?string $name = null)  
-* public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null): static  
-* public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null): static  
+* public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
+* public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addUsage (string $usage): static  
 * public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
 * public execute (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
@@ -1509,26 +1507,26 @@ _Including above methods from public API_
 * public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getDescription (): string  
 * public getHelp (): string  
-* public getHelper (string $name): mixed  
+* public getHelper (string $name): Symfony\Component\Console\Helper\HelperInterface  
 * public getHelperSet (): ?Symfony\Component\Console\Helper\HelperSet  
 * public getName (): ?string  
 * public getNativeDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getProcessedHelp (): string  
 * public getSynopsis (bool $short = false): string  
 * public getUsages (): array  
-* public ignoreValidationErrors ()  
+* public ignoreValidationErrors (): void  
 * public initialize (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): void  
-* public isEnabled ()  
+* public isEnabled (): bool  
 * public isHidden (): bool  
 * public mergeApplicationDefinition (bool $mergeArgs = true): void  
 * public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
 * public setAliases (iterable $aliases): static  
-* public setApplication (?Symfony\Component\Console\Application $application = null)  
+* public setApplication (?Symfony\Component\Console\Application $application): void  
 * public setCode (callable $code): static  
 * public setDefinition (Symfony\Component\Console\Input\InputDefinition|array $definition): static  
 * public setDescription (string $description): static  
 * public setHelp (string $help): static  
-* public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet)  
+* public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet): void  
 * public setHidden (bool $hidden = true): static  
 * public setName (string $name): static  
 * public setProcessTitle (string $title): static  
@@ -1562,14 +1560,12 @@ _Including above methods from public API_
 * protected CondorcetPHP\Condorcet\Console\Style\CondorcetStyle $io
 * public static ?string $forceIniMemoryLimitTo
 * protected CondorcetPHP\Condorcet\Timer\Manager $timer
-* protected static  $defaultName
-* protected static  $defaultDescription
 
 * public static getDefaultDescription (): ?string  
 * public static getDefaultName (): ?string  
 * public __construct (?string $name = null)  
-* public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null): static  
-* public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null): static  
+* public addArgument (string $name, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
+* public addOption (string $name, array|string|null $shortcut = null, ?int $mode = null, string $description = , mixed $default = null, Closure|array $suggestedValues = []): static  
 * public addUsage (string $usage): static  
 * public complete (Symfony\Component\Console\Completion\CompletionInput $input, Symfony\Component\Console\Completion\CompletionSuggestions $suggestions): void  
 * public getAliases (): array  
@@ -1577,25 +1573,25 @@ _Including above methods from public API_
 * public getDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getDescription (): string  
 * public getHelp (): string  
-* public getHelper (string $name): mixed  
+* public getHelper (string $name): Symfony\Component\Console\Helper\HelperInterface  
 * public getHelperSet (): ?Symfony\Component\Console\Helper\HelperSet  
 * public getName (): ?string  
 * public getNativeDefinition (): Symfony\Component\Console\Input\InputDefinition  
 * public getProcessedHelp (): string  
 * public getSynopsis (bool $short = false): string  
 * public getUsages (): array  
-* public ignoreValidationErrors ()  
-* public isEnabled ()  
+* public ignoreValidationErrors (): void  
+* public isEnabled (): bool  
 * public isHidden (): bool  
 * public mergeApplicationDefinition (bool $mergeArgs = true): void  
 * public run (Symfony\Component\Console\Input\InputInterface $input, Symfony\Component\Console\Output\OutputInterface $output): int  
 * public setAliases (iterable $aliases): static  
-* public setApplication (?Symfony\Component\Console\Application $application = null)  
+* public setApplication (?Symfony\Component\Console\Application $application): void  
 * public setCode (callable $code): static  
 * public setDefinition (Symfony\Component\Console\Input\InputDefinition|array $definition): static  
 * public setDescription (string $description): static  
 * public setHelp (string $help): static  
-* public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet)  
+* public setHelperSet (Symfony\Component\Console\Helper\HelperSet $helperSet): void  
 * public setHidden (bool $hidden = true): static  
 * public setName (string $name): static  
 * public setProcessTitle (string $title): static  
@@ -1682,21 +1678,21 @@ _Including above methods from public API_
 * public askHidden (string $question, ?callable $validator = null): mixed  
 * public askQuestion (Symfony\Component\Console\Question\Question $question): mixed  
 * public author (string $author): void  
-* public block (array|string $messages, ?string $type = null, ?string $style = null, string $prefix =  , bool $padding = false, bool $escape = true)  
-* public caution (array|string $message)  
+* public block (array|string $messages, ?string $type = null, ?string $style = null, string $prefix =  , bool $padding = false, bool $escape = true): void  
+* public caution (array|string $message): void  
 * public choice (string $question, array $choices, mixed $default = null, bool $multiSelect = false): mixed  
-* public comment (array|string $message)  
+* public comment (array|string $message): void  
 * public confirm (string $question, bool $default = true): bool  
 * public createProgressBar (int $max = 0): Symfony\Component\Console\Helper\ProgressBar  
 * public createTable (): Symfony\Component\Console\Helper\Table  
-* public definitionList (Symfony\Component\Console\Helper\TableSeparator|array|string $list)  
-* public error (array|string $message)  
+* public definitionList (Symfony\Component\Console\Helper\TableSeparator|array|string $list): void  
+* public error (array|string $message): void  
 * public getErrorStyle (): self  
 * public getFormatter (): Symfony\Component\Console\Formatter\OutputFormatterInterface  
 * public getVerbosity (): int  
 * public homepage (string $homepage): void  
-* public horizontalTable (array $headers, array $rows)  
-* public info (array|string $message)  
+* public horizontalTable (array $headers, array $rows): void  
+* public info (array|string $message): void  
 * public inlineSeparator (): void  
 * public instruction (string $prefix, string $message): void  
 * public isDebug (): bool  
@@ -1704,28 +1700,28 @@ _Including above methods from public API_
 * public isQuiet (): bool  
 * public isVerbose (): bool  
 * public isVeryVerbose (): bool  
-* public listing (array $elements)  
+* public listing (array $elements): void  
 * public logo (int $terminalSize): void  
 * public methodResultSection (string $message): void  
-* public newLine (int $count = 1)  
+* public newLine (int $count = 1): void  
 * public note (array|string $message): void  
-* public progressAdvance (int $step = 1)  
-* public progressFinish ()  
+* public progressAdvance (int $step = 1): void  
+* public progressFinish (): void  
 * public progressIterate (iterable $iterable, ?int $max = null): iterable  
-* public progressStart (int $max = 0)  
-* public section (string $message)  
-* public setDecorated (bool $decorated)  
-* public setFormatter (Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)  
-* public setVerbosity (int $level)  
-* public success (array|string $message)  
-* public table (array $headers, array $rows)  
-* public text (array|string $message)  
-* public title (string $message)  
+* public progressStart (int $max = 0): void  
+* public section (string $message): void  
+* public setDecorated (bool $decorated): void  
+* public setFormatter (Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter): void  
+* public setVerbosity (int $level): void  
+* public success (array|string $message): void  
+* public table (array $headers, array $rows): void  
+* public text (array|string $message): void  
+* public title (string $message): void  
 * public version (): void  
-* public warning (array|string $message)  
-* public write (Traversable|array|string $messages, bool $newline = false, int $type = 1)  
-* public writeln (Traversable|array|string $messages, int $type = 1)  
-* protected getErrorOutput ()  
+* public warning (array|string $message): void  
+* public write (Traversable|array|string $messages, bool $newline = false, int $type = 1): void  
+* public writeln (Traversable|array|string $messages, int $type = 1): void  
+* protected getErrorOutput (): Symfony\Component\Console\Output\OutputInterface  
 ```
 
 #### `CondorcetPHP\Condorcet\Constraints\NoTie implements CondorcetPHP\Condorcet\VoteConstraintInterface`  
@@ -1824,6 +1820,23 @@ _Including above methods from public API_
 * protected initPrepareQuery (): void  
 * protected initTransaction (): void  
 * protected sliceInput (array $input): void  
+```
+
+#### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/WoollyDriver/WoollyDriver.php#L21)
+
+```php
+* public string $voteColumnName
+* readonly public MammothPHP\WoollyM\DataFrame $df
+
+* public __construct (MammothPHP\WoollyM\DataFrame $df = new MammothPHP\WoollyM\DataFrame)  
+* public countEntities (): int  
+* public deleteOneEntity (int $key, bool $justTry): ?int  
+* public insertEntities (array $input): void  
+* public selectMaxKey (): ?int  
+* public selectMinKey (): ?int  
+* public selectOneEntity (int $key): string|bool  
+* public selectRangeEntities (int $key, int $limit): array  
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess`  

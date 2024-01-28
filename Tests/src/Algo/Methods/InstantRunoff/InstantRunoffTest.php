@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
 
-use CondorcetPHP\Condorcet\{Election, Vote};
+use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
 use PHPUnit\Framework\TestCase;
 
@@ -33,38 +33,32 @@ class InstantRunoffTest extends TestCase
             D>C>B>A * 17
         ');
 
-        $this->assertSame(
-            [
-                1 => 'D',
-                2 => 'A',
-                3 => 'B',
-                4 => 'C', ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => 'D',
+            2 => 'A',
+            3 => 'B',
+            4 => 'C', ]);
 
-        $this->assertSame(
-            [
-                'majority' => 50.0,
-                'rounds' => [
-                    1 => [
-                        'A' => 42,
-                        'B' => 26,
-                        'C' => 15,
-                        'D' => 17,
-                    ],
-                    2 => [
-                        'A' => 42,
-                        'B' => 26,
-                        'D' => 32,
-                    ],
-                    3 => [
-                        'A' => 42,
-                        'D' => 58,
-                    ],
+        expect($this->election->getResult('InstantRunoff')->getStats())->toBe([
+            'majority' => 50.0,
+            'rounds' => [
+                1 => [
+                    'A' => 42,
+                    'B' => 26,
+                    'C' => 15,
+                    'D' => 17,
+                ],
+                2 => [
+                    'A' => 42,
+                    'B' => 26,
+                    'D' => 32,
+                ],
+                3 => [
+                    'A' => 42,
+                    'D' => 58,
                 ],
             ],
-            $this->election->getResult('InstantRunoff')->getStats()
-        );
+        ]);
     }
 
     public function testResult_2(): void
@@ -83,13 +77,10 @@ class InstantRunoffTest extends TestCase
             sue > bob > bill
         ');
 
-        $this->assertSame(
-            [
-                1 => 'sue',
-                2 => 'bob',
-                3 => 'bill', ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => 'sue',
+            2 => 'bob',
+            3 => 'bill', ]);
     }
 
     public function testResult_3(): void
@@ -107,13 +98,10 @@ class InstantRunoffTest extends TestCase
             bill > bob > sue
         ');
 
-        $this->assertSame(
-            [
-                1 => 'bob',
-                2 => 'bill',
-                3 => 'sue', ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => 'bob',
+            2 => 'bill',
+            3 => 'sue', ]);
     }
 
     public function testResult_4(): void
@@ -126,11 +114,8 @@ class InstantRunoffTest extends TestCase
             A=B=C
         ');
 
-        $this->assertSame(
-            [
-                1 => ['A', 'B', 'C'], ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => ['A', 'B', 'C'], ]);
     }
 
     public function testResult_Equality(): void
@@ -143,11 +128,8 @@ class InstantRunoffTest extends TestCase
             B
         ');
 
-        $this->assertSame(
-            [
-                1 => ['A', 'B'], ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => ['A', 'B'], ]);
     }
 
     public function testResult_TieBreaking(): void
@@ -164,22 +146,19 @@ class InstantRunoffTest extends TestCase
             D>C>B * 2
         ');
 
-        $this->assertSame(
-            [
-                1 => ['A', 'B'],
-                3 => 'C',
-                4 => 'D',
-            ],
-            $this->election->getResult('InstantRunoff')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+            1 => ['A', 'B'],
+            3 => 'C',
+            4 => 'D',
+        ]);
     }
 
     public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking(): void
     {
-        $election = (new DavidHillFormat(__DIR__.'/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
+        $election = (new DavidHillFormat(__DIR__ . '/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
 
         $election->setImplicitRanking(false);
 
-        $this->assertSame('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13', $election->getResult('InstantRunoff')->getResultAsString());
+        expect($election->getResult('InstantRunoff')->getResultAsString())->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
     }
 }

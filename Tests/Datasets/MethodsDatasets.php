@@ -9,6 +9,17 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Throwable;
+namespace CondorcetPHP\Condorcet\Tests\Datasets;
 
-class ConsoleInputException extends CondorcetPublicApiException {}
+use CondorcetPHP\Condorcet\Condorcet;
+
+class MethodsDatasets
+{
+    public static function MethodsListProvider(): array
+    {
+        $methods = Condorcet::getAuthMethods(withNonDeterministicMethods: false);
+        array_walk($methods, static fn(&$m): array => $m = [$m]);
+
+        return $methods;
+    }
+}

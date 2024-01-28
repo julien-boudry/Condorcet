@@ -38,7 +38,7 @@ abstract class CondorcetUtil
         // Is string or is file ?
         if ($isFile === true) {
             if (!is_file($input)) {
-                throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
+                throw new FileDoesNotExistException('Specified input file does not exist. path: ' . $input);
             }
 
             $input = file_get_contents($input);

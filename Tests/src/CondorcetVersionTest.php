@@ -13,7 +13,7 @@ class CondorcetVersionTest extends TestCase
     {
         $election = new Election;
 
-        $this->assertSame(CONDORCET::getVersion(), $election->getObjectVersion());
-        $this->assertSame(CONDORCET::getVersion(true), $election->getObjectVersion(true));
+        expect($election->getObjectVersion())->toBe(CONDORCET::getVersion());
+        expect($election->getObjectVersion(true))->toBe(CONDORCET::getVersion(true));
     }
 }

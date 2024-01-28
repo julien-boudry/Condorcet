@@ -22,18 +22,14 @@ class Pairwise implements \ArrayAccess, \Iterator
     use CondorcetVersion;
 
     // Implement ArrayAccess
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-    }
+    public function offsetSet(mixed $offset, mixed $value): void {}
 
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->Pairwise[$offset]);
     }
 
-    public function offsetUnset(mixed $offset): void
-    {
-    }
+    public function offsetUnset(mixed $offset): void {}
 
     public function offsetGet(mixed $offset): ?array
     {

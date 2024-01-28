@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-public static Condorcet::getAuthMethods ( [bool $basic = false] ): array
+public static Condorcet::getAuthMethods ( [bool $basic = false , bool $withNonDeterministicMethods = true] ): array
 ```
 
 Get a list of supported algorithm.
@@ -13,6 +13,10 @@ Get a list of supported algorithm.
 
 #### **basic:** *`bool`*   
 Include or not the natural Condorcet base algorithm.    
+
+
+#### **withNonDeterministicMethods:** *`bool`*   
+Include or not non deterministic methods.    
 
 
 ### Return value:   

@@ -39,7 +39,7 @@ abstract class Method
 
     final public static function setOption(string $optionName, array|\BackedEnum|int|float|string|Randomizer $optionValue): true
     {
-        $optionVar = 'option'.ucfirst($optionName);
+        $optionVar = 'option' . ucfirst($optionName);
 
         static::${$optionVar} = $optionValue;
 
@@ -79,9 +79,7 @@ abstract class Method
         return $this->Result;
     }
 
-    protected function compute(): void
-    {
-    }
+    protected function compute(): void {}
 
     abstract protected function getStats(): array;
 

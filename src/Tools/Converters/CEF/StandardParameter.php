@@ -24,7 +24,7 @@ enum StandardParameter: String
     public function formatValue(string $parameterValue): mixed
     {
         return match ($this) {
-            self::CANDIDATES => array_map(static fn ($c): Candidate => new Candidate($c), CondorcetUtil::prepareParse($parameterValue, false)),
+            self::CANDIDATES => array_map(static fn($c): Candidate => new Candidate($c), CondorcetUtil::prepareParse($parameterValue, false)),
             self::SEATS => (int) $parameterValue,
             self::IMPLICIT, self::WEIGHT => CondorcetElectionFormat::boolParser($parameterValue),
         };

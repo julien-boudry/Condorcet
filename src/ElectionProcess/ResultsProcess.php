@@ -86,7 +86,7 @@ trait ResultsProcess
             throw new AlgorithmException($method);
         }
 
-        ($chrono !== null) && $chrono->setRole('GetResult for '.$method);
+        ($chrono !== null) && $chrono->setRole('GetResult for ' . $method);
 
         return $result;
     }

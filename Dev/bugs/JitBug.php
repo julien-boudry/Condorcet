@@ -25,7 +25,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-require_once __DIR__.'/../../__CondorcetAutoload.php';
+require_once __DIR__ . '/../../__CondorcetAutoload.php';
 
 for ($i = 1; $i <= 4000; $i++) {
     # With Condorcet
@@ -48,14 +48,10 @@ for ($i = 1; $i <= 4000; $i++) {
 
 class Foo
 {
-    public function __construct(public string $fromMethod, public string $byClass, public Bar $election, public array $result, public $stats, public ?int $seats = null, public array $methodOptions = [])
-    {
-    }
+    public function __construct(public string $fromMethod, public string $byClass, public Bar $election, public array $result, public $stats, public ?int $seats = null, public array $methodOptions = []) {}
 }
 
-class Bar
-{
-}
+class Bar {}
 
 abstract class Base
 {

@@ -15,9 +15,7 @@ class ArrayManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->ArrayManager = new class (new Election) extends ArrayManager {
-            protected function preDeletedTask($object): void
-            {
-            }
+            protected function preDeletedTask($object): void {}
 
             protected function decodeOneEntity(string $data): Vote
             {
@@ -39,12 +37,11 @@ class ArrayManagerTest extends TestCase
 
     public function testOffsetSetAndOffetsetGet(): void
     {
-        $this->assertNull($this->ArrayManager->key());
-
+        expect($this->ArrayManager->key())->toBeNull();
         $this->ArrayManager[42] = 'foo';
 
-        $this->assertSame('foo', $this->ArrayManager[42]);
+        expect($this->ArrayManager[42])->toBe('foo');
 
-        $this->assertNull($this->ArrayManager[43]);
+        expect($this->ArrayManager[43])->toBeNull();
     }
 }

@@ -29,7 +29,7 @@ trait CondorcetVersion
     ): string {
         if ($major === true) {
             $version = explode('.', $this->objectVersion);
-            return $version[0].'.'.$version[1];
+            return $version[0] . '.' . $version[1];
         } else {
             return $this->objectVersion;
         }

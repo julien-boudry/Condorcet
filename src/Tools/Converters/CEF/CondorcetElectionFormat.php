@@ -40,10 +40,10 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         ?\SplFileObject $file = null
     ): ?string {
         $r = '';
-        $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString())         . "\n";
-        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats()   . "\n" : null;
+        $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString()) . "\n";
+        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->getNumberOfSeats() . "\n" : null;
         $r .= '#/Implicit Ranking: ' . ($election->getImplicitRankingRule() ? 'true' : 'false') . "\n";
-        $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false')      . "\n";
+        $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false') . "\n";
         // $r .= "\n";
 
         if ($file) {
@@ -59,7 +59,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         } else {
             foreach ($election->getVotesListGenerator() as $vote) {
                 $line = "\n";
-                $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString().' || ' : '';
+                $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString() . ' || ' : '';
 
                 $voteString = $vote->getSimpleRanking($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
@@ -122,7 +122,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         } elseif ($input->isFile() && $input->isReadable()) {
             $this->file = $input->openFile('r');
         } else {
-            throw new FileDoesNotExistException('Specified input file does not exist. path: '.$input);
+            throw new FileDoesNotExistException('Specified input file does not exist. path: ' . $input);
         }
 
         unset($input); // Memory Optimization

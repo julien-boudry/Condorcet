@@ -30,18 +30,18 @@ class JeffersonTest extends TestCase
 
         $this->election->parseVotes('A * 42; B ^31; C *15; D ^12'); // Mix weight and number
 
-        $this->assertSame(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0], $this->election->getResult('Jefferson')->getStats()['Seats per Candidates']);
+        expect($this->election->getResult('Jefferson')->getStats()['Seats per Candidates'])->toBe(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0]);
     }
 
     public function testResult_Tideman_A03(): void
     {
-        $cef = new CondorcetElectionFormat(__DIR__.'/'.'A03.cvotes');
+        $cef = new CondorcetElectionFormat(__DIR__ . '/' . 'A03.cvotes');
         $cef->setDataToAnElection($this->election);
 
         $this->election->setImplicitRanking(false); // Empty ranking was throw an error.
 
         $this->election->getResult('Jefferson');
 
-        $this->assertTrue(true);
+        expect(true)->toBeTrue();
     }
 }

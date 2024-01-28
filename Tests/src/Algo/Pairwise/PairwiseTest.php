@@ -26,60 +26,57 @@ class PairwiseTest extends TestCase
     {
         $pairwise = $this->election1->getPairwise();
 
-        $this->assertIsArray($pairwise[1]);
+        expect($pairwise[1])->toBeArray();
 
-        $this->assertNull($pairwise[42]);
+        expect($pairwise[42])->toBeNull();
     }
 
     public function testExplicitPairwise(): void
     {
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 1,
-                        'C' => 1,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
+        expect($this->election1->getPairwise()->getExplicitPairwise())->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 1,
+                    'C' => 1,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 1,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 1,
-                        'C' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 1,
-                        'B' => 1,
-                    ],
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
             ],
-            $this->election1->getPairwise()->getExplicitPairwise()
-        );
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 1,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 1,
+                    'C' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 1,
+                    'B' => 1,
+                ],
+            ],
+        ]);
     }
 
     public function testVotesWeight(): void
@@ -97,81 +94,78 @@ class PairwiseTest extends TestCase
         $electionOn = clone $electionOff;
         $electionOn->allowsVoteWeight(true);
 
-        $this->assertNotSame($electionOff->getExplicitPairwise(), $electionOn->getExplicitPairwise());
+        expect($electionOn->getExplicitPairwise())->not()->toBe($electionOff->getExplicitPairwise());
 
-        $this->assertSame(
-            [
-                'A' => [
-                    'win' => [
-                        'B' => 7,
-                        'C' => 7,
-                        'D' => 7,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                        'D' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                        'D' => 0,
-                    ],
+        expect($electionOn->getPairwise()->getExplicitPairwise())->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 7,
+                    'C' => 7,
+                    'D' => 7,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 7,
-                        'D' => 7,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                        'D' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 7,
-                        'C' => 0,
-                        'D' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
+                    'D' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                        'D' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                        'D' => 7,
-                    ],
-                    'lose' => [
-                        'A' => 7,
-                        'B' => 7,
-                        'D' => 0,
-                    ],
-                ],
-                'D' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                        'C' => 7,
-                    ],
-                    'lose' => [
-                        'A' => 7,
-                        'B' => 7,
-                        'C' => 0,
-                    ],
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
+                    'D' => 0,
                 ],
             ],
-            $electionOn->getPairwise()->getExplicitPairwise()
-        );
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 7,
+                    'D' => 7,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                    'D' => 0,
+                ],
+                'lose' => [
+                    'A' => 7,
+                    'C' => 0,
+                    'D' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                    'D' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                    'D' => 7,
+                ],
+                'lose' => [
+                    'A' => 7,
+                    'B' => 7,
+                    'D' => 0,
+                ],
+            ],
+            'D' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                    'C' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                    'C' => 7,
+                ],
+                'lose' => [
+                    'A' => 7,
+                    'B' => 7,
+                    'C' => 0,
+                ],
+            ],
+        ]);
     }
 
     public function testRemoveVote_1(): void
@@ -181,53 +175,50 @@ class PairwiseTest extends TestCase
 
         $this->election1->parseVotes('A>B>C ^2');
 
-        $this->assertSame(
-            expected: [
-                'A' => [
-                    'win' => [
-                        'B' => 2,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
+        expect($this->election1->getExplicitPairwise())->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 2,
+                    'C' => 2,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'C' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'B' => 2,
-                    ],
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
             ],
-            actual: $this->election1->getExplicitPairwise()
-        );
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 2,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'C' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'B' => 2,
+                ],
+            ],
+        ]);
     }
 
     public function testRemoveVote_BugWithWeight(): void
@@ -237,52 +228,49 @@ class PairwiseTest extends TestCase
 
         $this->election1->parseVotes('A>B>C ^2');
 
-        $this->assertSame(
-            expected: [
-                'A' => [
-                    'win' => [
-                        'B' => 2,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'B' => 0,
-                        'C' => 0,
-                    ],
+        expect($this->election1->getExplicitPairwise())->toBe([
+            'A' => [
+                'win' => [
+                    'B' => 2,
+                    'C' => 2,
                 ],
-                'B' => [
-                    'win' => [
-                        'A' => 0,
-                        'C' => 2,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'C' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'C' => 0,
-                    ],
+                'null' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
-                'C' => [
-                    'win' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'null' => [
-                        'A' => 0,
-                        'B' => 0,
-                    ],
-                    'lose' => [
-                        'A' => 2,
-                        'B' => 2,
-                    ],
+                'lose' => [
+                    'B' => 0,
+                    'C' => 0,
                 ],
             ],
-            actual: $this->election1->getExplicitPairwise()
-        );
+            'B' => [
+                'win' => [
+                    'A' => 0,
+                    'C' => 2,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'C' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'C' => 0,
+                ],
+            ],
+            'C' => [
+                'win' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'null' => [
+                    'A' => 0,
+                    'B' => 0,
+                ],
+                'lose' => [
+                    'A' => 2,
+                    'B' => 2,
+                ],
+            ],
+        ]);
     }
 }

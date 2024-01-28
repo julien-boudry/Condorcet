@@ -15,7 +15,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class FunctionReturn
 {
-    public function __construct(public readonly string $text)
-    {
-    }
+    public function __construct(public readonly string $text) {}
 }

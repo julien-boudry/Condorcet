@@ -17,10 +17,10 @@ class PermutationsTest extends TestCase
 
     public function testCountPossiblePermutations(): void
     {
-        $this->assertSame(6, Permutations::getPossibleCountOfPermutations(3));
+        expect(Permutations::getPossibleCountOfPermutations(3))->toBe(6);
 
         Permutations::$useBigIntegerIfAvailable = false;
-        $this->assertSame(6, Permutations::getPossibleCountOfPermutations(3));
+        expect(Permutations::getPossibleCountOfPermutations(3))->toBe(6);
 
         $this->expectException(CondorcetInternalException::class);
         Permutations::getPossibleCountOfPermutations(0);
@@ -46,19 +46,17 @@ class PermutationsTest extends TestCase
 
         $r = $p->getResults();
 
-        $this->assertInstanceOf(\SplFixedArray::class, $r);
-        $this->assertSame(6, $r->getSize());
+        expect($r)->toBeInstanceOf(\SplFixedArray::class);
 
-        $this->assertSame(
-            [[1 => 0, 2 => 1, 3 => 2],
-                [1 => 1, 2 => 0, 3 => 2],
-                [1 => 1, 2 => 2, 3 => 0],
-                [1 => 0, 2 => 2, 3 => 1],
-                [1 => 2, 2 => 0, 3 => 1],
-                [1 => 2, 2 => 1, 3 => 0],
-            ],
-            $r->toArray()
-        );
+        expect($r->getSize())->toBe(6);
+
+        expect($r->toArray())->toBe([[1 => 0, 2 => 1, 3 => 2],
+            [1 => 1, 2 => 0, 3 => 2],
+            [1 => 1, 2 => 2, 3 => 0],
+            [1 => 0, 2 => 2, 3 => 1],
+            [1 => 2, 2 => 0, 3 => 1],
+            [1 => 2, 2 => 1, 3 => 0],
+        ]);
     }
 
     public function testPermutationsAllResultsFor1(): void
@@ -67,9 +65,10 @@ class PermutationsTest extends TestCase
 
         $r = $p->getResults();
 
-        $this->assertInstanceOf(\SplFixedArray::class, $r);
-        $this->assertSame(1, $r->getSize());
+        expect($r)->toBeInstanceOf(\SplFixedArray::class);
 
-        $this->assertSame([[1 => 42]], $r->toArray());
+        expect($r->getSize())->toBe(1);
+
+        expect($r->toArray())->toBe([[1 => 42]]);
     }
 }

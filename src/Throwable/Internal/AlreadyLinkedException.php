@@ -12,6 +12,4 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Throwable\Internal;
 
 // Custom Exeption
-class AlreadyLinkedException extends CondorcetInternalException
-{
-}
+class AlreadyLinkedException extends CondorcetInternalException {}

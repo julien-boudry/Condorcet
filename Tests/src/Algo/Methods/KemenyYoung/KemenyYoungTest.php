@@ -8,7 +8,7 @@ use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
-use PHPUnit\Framework\Attributes\{DataProvider, Group, PreserveGlobalState};
+use PHPUnit\Framework\Attributes\{DataProvider, Group};
 use PHPUnit\Framework\TestCase;
 
 class KemenyYoungTest extends TestCase
@@ -35,22 +35,18 @@ class KemenyYoungTest extends TestCase
         ');
 
 
-        $this->assertSame(
-            [
-                1 => 'Nashville',
-                2 => 'Chattanooga',
-                3 => 'Knoxville',
-                4 => 'Memphis',
-            ],
-            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+            1 => 'Nashville',
+            2 => 'Chattanooga',
+            3 => 'Knoxville',
+            4 => 'Memphis',
+        ]);
 
-        $this->assertSame(393, $this->election->getResult('KemenyYoung')->getStats()['Best Score']);
+        expect($this->election->getResult('KemenyYoung')->getStats()['Best Score'])->toBe(393);
 
-        $this->assertSame($this->election->getWinner(), $this->election->getWinner('KemenyYoung'));
+        expect($this->election->getWinner('KemenyYoung'))->toBe($this->election->getWinner());
     }
 
-    #[PreserveGlobalState(false)]
     public function testResult2(): void
     {
         $this->election->parseCandidates('Elliot;Roland;Meredith;Selden');
@@ -66,15 +62,12 @@ class KemenyYoungTest extends TestCase
 
         $this->election->setImplicitRanking(false);
 
-        $this->assertSame(
-            [
-                1 => 'Elliot',
-                2 => 'Roland',
-                3 => 'Meredith',
-                4 => 'Selden',
-            ],
-            $this->election->getResult('KemenyYoung')->getResultAsArray(true)
-        );
+        expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+            1 => 'Elliot',
+            2 => 'Roland',
+            3 => 'Meredith',
+            4 => 'Selden',
+        ]);
     }
 
     public function testStats_1(): void
@@ -86,26 +79,20 @@ class KemenyYoungTest extends TestCase
 
         $this->election->parseVotes($r = 'A > B');
 
-        $this->assertSame(
-            $r,
-            $this->election->getResult('KemenyYoung')->getResultAsString()
-        );
+        expect($this->election->getResult('KemenyYoung')->getResultAsString())->toBe($r);
 
-        $this->assertSame(
-            [
-                'Best Score' => 1,
-                'Ranking In Conflicts' => 0,
-                'Ranking Scores' => [
-                    [1 => 'A', 2 => 'B', 'score' => 1],
-                    [1 => 'B', 2 => 'A', 'score' => 0],
-                ],
+        expect($this->election->getResult('KemenyYoung')->getStats())->toBe([
+            'Best Score' => 1,
+            'Ranking In Conflicts' => 0,
+            'Ranking Scores' => [
+                [1 => 'A', 2 => 'B', 'score' => 1],
+                [1 => 'B', 2 => 'A', 'score' => 0],
             ],
-            $this->election->getResult('KemenyYoung')->getStats()
-        );
+        ]);
 
         $this->election->setStatsVerbosity(StatsVerbosity::STD);
 
-        $this->assertArrayNotHasKey('rankingScores', $this->election->getResult('KemenyYoung')->getStats());
+        expect($this->election->getResult('KemenyYoung')->getStats())->not()->toHaveKey('rankingScores');
     }
 
     public function testMaxCandidates(): never
@@ -117,7 +104,7 @@ class KemenyYoungTest extends TestCase
         $this->election->parseVotes('A');
 
         $this->expectException(CandidatesMaxNumberReachedException::class);
-        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only ".KemenyYoung::$MaxCandidates.' candidates');
+        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Kemeny–Young' is configured to accept only " . KemenyYoung::$MaxCandidates . ' candidates');
 
         $this->election->getWinner('KemenyYoung');
     }
@@ -133,36 +120,27 @@ class KemenyYoungTest extends TestCase
 
         $result = $this->election->getResult('KemenyYoung');
 
-        $this->assertEquals(
-            [0 => [
-                'type' => 42,
-                'msg' => '3;5',
-            ],
-            ],
-            $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)
-        );
+        expect($result->getWarning(KemenyYoung::CONFLICT_WARNING_CODE))->toEqual([0 => [
+            'type' => 42,
+            'msg' => '3;5',
+        ],
+        ]);
 
-        $this->assertEquals(
-            [0 => [
-                'type' => 42,
-                'msg' => '3;5',
-            ],
-            ],
-            $result->getWarning()
-        );
+        expect($result->getWarning())->toEqual([0 => [
+            'type' => 42,
+            'msg' => '3;5',
+        ],
+        ]);
 
-        $this->assertSame(3, $result->getStats()['Ranking In Conflicts']);
+        expect($result->getStats()['Ranking In Conflicts'])->toBe(3);
 
         $this->election->addVote('A>B>C');
 
         $result = $this->election->getResult('KemenyYoung');
 
-        $this->assertEquals(
-            [],
-            $result->getWarning(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::CONFLICT_WARNING_CODE)
-        );
+        expect($result->getWarning(KemenyYoung::CONFLICT_WARNING_CODE))->toBe([]);
 
-        $this->assertEquals('A', $this->election->getWinner('KemenyYoung'));
+        expect($this->election->getWinner('KemenyYoung'))->toEqual('A');
     }
 
     public function testKemenyWithOnly1Candidate(): void
@@ -171,7 +149,7 @@ class KemenyYoungTest extends TestCase
 
         $this->election->addVote($candidate);
 
-        $this->assertSame($candidate[0], $this->election->getWinner('KemenyYoung'));
+        expect($this->election->getWinner('KemenyYoung'))->toBe($candidate[0]);
     }
 
     public static function ManyCandidatesProvider(): array
@@ -195,7 +173,7 @@ class KemenyYoungTest extends TestCase
 
         $this->election->addVote($candidates);
 
-        $this->assertSame($candidates[0], $this->election->getWinner('KemenyYoung'));
+        expect($this->election->getWinner('KemenyYoung'))->toBe($candidates[0]);
 
         KemenyYoung::$MaxCandidates = $original;
     }

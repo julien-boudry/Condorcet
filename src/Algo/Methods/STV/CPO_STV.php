@@ -102,7 +102,7 @@ class CPO_STV extends SingleTransferableVote
             }
 
             if ($numberOfComparisons === false || (self::$MaxOutcomeComparisons !== null && $numberOfComparisons > self::$MaxOutcomeComparisons)) {
-                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1].' is currently limited to '.self::$MaxOutcomeComparisons.' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
+                throw new MethodLimitReachedException(self::METHOD_NAME[0], self::METHOD_NAME[1] . ' is currently limited to ' . self::$MaxOutcomeComparisons . ' comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
             }
 
 
@@ -226,7 +226,7 @@ class CPO_STV extends SingleTransferableVote
         $minOutcome = (string) min($MainOutcomeKey, $ComparedOutcomeKey);
         $maxOutcome = (string) max($MainOutcomeKey, $ComparedOutcomeKey);
 
-        return 'Outcome N° '.$minOutcome.' compared to Outcome N° '.$maxOutcome;
+        return 'Outcome N° ' . $minOutcome . ' compared to Outcome N° ' . $maxOutcome;
     }
 
     protected function selectBestOutcome(): void

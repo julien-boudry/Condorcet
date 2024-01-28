@@ -30,7 +30,7 @@ class CivsFormat implements ConverterExport
     ): true|string {
         $r = '';
 
-        $header = '# Candidates: '. implode(' / ', $election->getCandidatesListAsString());
+        $header = '# Candidates: ' . implode(' / ', $election->getCandidatesListAsString());
 
         if ($file) {
             $file->fwrite($header);

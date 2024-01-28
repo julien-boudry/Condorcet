@@ -33,28 +33,22 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('Yellows ^47000;Whites ^16000;Reds ^15800;Greens ^12000;Blues ^6100;Pinks ^3100');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        $this->assertSame(
-            [
-                'Yellows' => 5,
-                'Whites' => 2,
-                'Reds' => 1,
-                'Greens' => 1,
-                'Blues' => 1,
-                'Pinks' => 0, ],
-            $this->election->getResult('LR')->getStats()['Seats per Candidates']
-        );
+        expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+            'Yellows' => 5,
+            'Whites' => 2,
+            'Reds' => 1,
+            'Greens' => 1,
+            'Blues' => 1,
+            'Pinks' => 0, ]);
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Hare-LR
-        $this->assertSame(
-            [
-                'Yellows' => 5,
-                'Whites' => 2,
-                'Reds' => 2,
-                'Greens' => 1,
-                'Blues' => 0,
-                'Pinks' => 0, ],
-            $this->election->getResult('LR')->getStats()['Seats per Candidates']
-        );
+        expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+            'Yellows' => 5,
+            'Whites' => 2,
+            'Reds' => 2,
+            'Greens' => 1,
+            'Blues' => 0,
+            'Pinks' => 0, ]);
     }
 
     # https://en.wikipedia.org/wiki/Largest_remainder_method
@@ -68,16 +62,13 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        $this->assertSame(
-            [
-                'A' => 7,
-                'B' => 7,
-                'C' => 4,
-                'D' => 3,
-                'E' => 3,
-                'F' => 1, ],
-            $this->election->getResult('LR')->getStats()['Seats per Candidates']
-        );
+        expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+            'A' => 7,
+            'B' => 7,
+            'C' => 4,
+            'D' => 3,
+            'E' => 3,
+            'F' => 1, ]);
     }
 
     # https://en.wikipedia.org/wiki/Largest_remainder_method
@@ -91,16 +82,13 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE); // Hare-LR
-        $this->assertSame(
-            [
-                'A' => 8,
-                'B' => 8,
-                'C' => 5,
-                'D' => 2,
-                'E' => 2,
-                'F' => 1, ],
-            $this->election->getResult('LR')->getStats()['Seats per Candidates']
-        );
+        expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+            'A' => 8,
+            'B' => 8,
+            'C' => 5,
+            'D' => 2,
+            'E' => 2,
+            'F' => 1, ]);
     }
 
     // Fixing error with Droop Quotas in some cases
@@ -112,13 +100,10 @@ class LargestRemainderTest extends TestCase
         $this->election->parseVotes('A>B>C;C>B>A;B>A>C');
 
         $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP); // Hare-LR
-        $this->assertSame(
-            [
-                'A' => 33,
-                'B' => 33,
-                'C' => 33,
-            ],
-            $this->election->getResult('LR')->getStats()['Seats per Candidates']
-        );
+        expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+            'A' => 33,
+            'B' => 33,
+            'C' => 33,
+        ]);
     }
 }

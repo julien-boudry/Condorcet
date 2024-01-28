@@ -97,7 +97,7 @@ class KemenyYoung extends Method implements MethodInterface
         if ($this->Conflits > 0) {
             $this->Result->addWarning(
                 type: self::CONFLICT_WARNING_CODE,
-                msg: ($this->Conflits + 1).';'.$this->MaxScore
+                msg: ($this->Conflits + 1) . ';' . $this->MaxScore
             );
         }
     }

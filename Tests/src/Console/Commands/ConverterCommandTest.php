@@ -14,10 +14,10 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ConverterCommandTest extends TestCase
 {
-    public const DEBIAN_INPUT_FILE = __DIR__.'/../../Tools/Converters/DebianData/leader2020_tally.txt';
-    public const DAVIDHILL_INPUT_FILE = __DIR__.'/../../Tools/Converters/TidemanData/A77.HIL';
+    public const DEBIAN_INPUT_FILE = __DIR__ . '/../../Tools/Converters/DebianData/leader2020_tally.txt';
+    public const DAVIDHILL_INPUT_FILE = __DIR__ . '/../../Tools/Converters/TidemanData/A77.HIL';
 
-    public const OUTPUT_FILE = __DIR__.'/files/out.temp';
+    public const OUTPUT_FILE = __DIR__ . '/files/out.temp';
 
     private readonly CommandTester $converterCommand;
 
@@ -36,8 +36,8 @@ class ConverterCommandTest extends TestCase
     public static function conversionsProvider(): array
     {
         return [
-            'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', self::DEBIAN_INPUT_FILE, __DIR__.'/files/fromDebianExpectedFile.cvotes'],
-            'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', self::DAVIDHILL_INPUT_FILE, __DIR__.'/files/fromDavidHillExpectedFile.cvotes'],
+            'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', self::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
+            'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', self::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
         ];
     }
 
@@ -58,10 +58,10 @@ class ConverterCommandTest extends TestCase
 
         $output = $this->converterCommand->getDisplay();
         $this->converterCommand->assertCommandIsSuccessful();
-        $this->assertSame(0, $this->converterCommand->getStatusCode());
-        $this->assertEmpty($output);
+        expect($this->converterCommand->getStatusCode())->toBe(0);
+        expect($output)->toBeEmpty();
 
-        $this->assertSame(file_get_contents($comparaison), file_get_contents(self::OUTPUT_FILE));
+        expect(file_get_contents(self::OUTPUT_FILE))->toBe(file_get_contents($comparaison));
     }
 
     public function testLacksAnOption(): void
