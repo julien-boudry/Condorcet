@@ -42,7 +42,8 @@
         "pestphp/pest": "^2.32",
         "pestphp/pest-plugin-drift": "^2.0",
         "cmgmyr/phploc": "^8.0",
-        "infection/infection": "^0.27, >= 0.27.7"
+        "infection/infection": "^0.27, >= 0.27.7",
+        "mammothphp/woollym": "dev-master"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
