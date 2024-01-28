@@ -2,6 +2,14 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.6.0] - 2024-01-28
+### Description
+Half-migration of tests to PestPHP.
+
+## [v4.5.1] - 2023-12-01
+### Description
+Support for Symfony 7 components
+
 ## [v4.5.0] - 2023-07-11
 ### Description
 A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its fair share of refinements and fixes in various areas, notably the Console.
