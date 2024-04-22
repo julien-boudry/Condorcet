@@ -17,9 +17,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError;
 use MammothPHP\WoollyM\DataDrivers\DriversExceptions\KeyNotExistException;
 use MammothPHP\WoollyM\DataFrame;
-use PHPUnit\Framework\Attributes\RequiresPhp;
 
-#[RequiresPhp('8.3')]
 class WoollyDriver implements DataHandlerDriverInterface
 {
     public string $voteColumnName = 'vote';

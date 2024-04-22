@@ -10,8 +10,10 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDriver;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 use PHPUnit\Framework\TestCase;
 
+#[RequiresPhp('8.3')]
 #[Group('DataHandlerDrivers')]
 class WoollyDriverTest extends TestCase
 {
