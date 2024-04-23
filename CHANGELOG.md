@@ -2,6 +2,13 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.6.1] - 2024-04-23
+### Description
+Half-migration of tests to PestPHP.
+
+#### Changed
+- Bugfix with external data handler since PHP 8.3.6
+
 ## [v4.6.0] - 2024-01-28
 ### Description
 Half-migration of tests to PestPHP.

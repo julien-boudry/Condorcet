@@ -74,7 +74,6 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
 | Version | PHP Requirements | State | Support
 | --- | --- | --- | --- |
 | 4.6 | 8.2 | Stable | ✔ _support provided_
-| 4.5 | 8.2 | Old Stable | ✔ _support provided_
 | 3.x | 8.1 | Old Stable | ❌ _not any support_
 | 2.2 | 7.4 | Old Stable | ❌ _support requiring some bait_
 | 2.0 | 7.1 | Old Stable | ❌ _not any support_
