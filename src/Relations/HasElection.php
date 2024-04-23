@@ -19,7 +19,7 @@ trait HasElection
     protected \WeakReference $selfElection;
 
     #[InternalModulesAPI]
-    public function getElection(): Election
+    public function getElection(): ?Election
     {
         return $this->selfElection->get(); // @phpstan-ignore-line
     }

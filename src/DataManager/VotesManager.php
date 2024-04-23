@@ -35,7 +35,9 @@ class VotesManager extends ArrayManager
 
     protected function encodeOneEntity(Vote $data): string
     {
-        $data->destroyLink($this->getElection());
+        if (($election = $this->getElection()) !== null) {
+            $data->destroyLink($election);
+        }
 
         return str_replace([' > ', ' = '], ['>', '='], (string) $data);
     }

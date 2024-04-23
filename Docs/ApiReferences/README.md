@@ -289,7 +289,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -317,7 +317,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -346,7 +346,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -375,7 +375,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getLoser (): ?int  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): never  
@@ -405,7 +405,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -434,7 +434,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -462,7 +462,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -492,7 +492,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -524,7 +524,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -557,7 +557,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -588,7 +588,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -623,7 +623,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -658,7 +658,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -692,7 +692,7 @@ _Including above methods from public API_
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public compute (): void  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public getStats (): array  
@@ -720,7 +720,7 @@ _Including above methods from public API_
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
 * public compute (): void  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public getStats (): array  
@@ -750,7 +750,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -781,7 +781,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -816,7 +816,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -845,7 +845,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -875,7 +875,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -905,7 +905,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -934,7 +934,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -967,7 +967,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1004,7 +1004,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1040,7 +1040,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1087,7 +1087,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1121,7 +1121,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1149,7 +1149,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1180,7 +1180,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1211,7 +1211,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1241,7 +1241,7 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -1271,7 +1271,7 @@ _Including above methods from public API_
 * public __serialize (): array  
 * public addNewVote (int $key): void  
 * public current (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
 * public getObjectVersion (bool $major = false): string  
 * public key (): ?int  
@@ -1307,7 +1307,7 @@ _Including above methods from public API_
 * public __serialize (): array  
 * public addNewVote (int $key): void  
 * public current (): array  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
 * public getObjectVersion (bool $major = false): string  
 * public key (): ?int  
@@ -1419,7 +1419,7 @@ _Including above methods from public API_
 * protected static voteHasCandidates (array $voteCandidatesKey, array $combination): bool  
 * public __construct (int $subsetSize, CondorcetPHP\Condorcet\Election $election)  
 * public count (): int  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * public sumWeightIfVotesIncludeCandidates (array $candidatesKeys): int  
 ```
@@ -1761,7 +1761,7 @@ _Including above methods from public API_
 * public debugGetCache (): array  
 * public getCacheSize (): int  
 * public getContainerSize (): int  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getFirstKey (): int  
 * public getFullDataSet (): array  
 * public getObjectVersion (bool $major = false): string  
@@ -1873,7 +1873,7 @@ _Including above methods from public API_
 * public debugGetCache (): array  
 * public getCacheSize (): int  
 * public getContainerSize (): int  
-* public getElection (): CondorcetPHP\Condorcet\Election  
+* public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getFirstKey (): int  
 * public getFullDataSet (): array  
 * public getObjectVersion (bool $major = false): string  
