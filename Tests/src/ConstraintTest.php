@@ -1,141 +1,120 @@
 <?php
 
 declare(strict_types=1);
-
-namespace CondorcetPHP\Condorcet\Tests;
-
 use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;
-use PHPUnit\Framework\TestCase;
 
-class ConstraintTest extends TestCase
-{
-    private Election $election;
+beforeEach(function (): void {
+    $this->election = new Election;
 
-    protected function setUp(): void
-    {
-        $this->election = new Election;
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+});
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-    }
+test('add constraint and clear', function (): void {
+    $class = NoTie::class;
 
-    public function testAddConstraintAndClear(): never
-    {
-        $class = NoTie::class;
+    expect($this->election->addConstraint($class))->toBeTrue();
 
-        expect($this->election->addConstraint($class))->toBeTrue();
+    expect($this->election->getConstraints())->toBe([$class]);
 
-        expect($this->election->getConstraints())->toBe([$class]);
+    expect($this->election->clearConstraints())->toBeTrue();
 
-        expect($this->election->clearConstraints())->toBeTrue();
+    expect($this->election->getConstraints())
+        ->toBeArray()
+        ->toBeEmpty()
+    ;
 
-        expect($this->election->getConstraints())
-            ->toBeArray()
-            ->toBeEmpty()
-        ;
+    expect($this->election->addConstraint($class))->toBeTrue();
 
-        expect($this->election->addConstraint($class))->toBeTrue();
+    $this->expectException(VoteConstraintException::class);
+    $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
 
-        $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');
+    $this->election->addConstraint($class);
+});
 
-        $this->election->addConstraint($class);
-    }
+test('phantom class', function (): void {
+    $this->expectException(VoteConstraintException::class);
+    $this->expectExceptionMessage('The vote constraint could not be set up: class is not defined');
 
-    public function testPhantomClass(): never
-    {
-        $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage('The vote constraint could not be set up: class is not defined');
+    $this->election->addConstraint('WrongNamespace\AndWrongClass');
+});
 
-        $this->election->addConstraint('WrongNamespace\AndWrongClass');
-    }
+test('bad class', function (): void {
+    $this->expectException(VoteConstraintException::class);
+    $this->expectExceptionMessage('The vote constraint could not be set up: class is not a valid subclass');
 
-    public function testBadClass(): never
-    {
-        $this->expectException(VoteConstraintException::class);
-        $this->expectExceptionMessage('The vote constraint could not be set up: class is not a valid subclass');
+    $class = Vote::class;
 
-        $class = Vote::class;
+    $this->election->addConstraint($class);
+});
 
-        $this->election->addConstraint($class);
-    }
+test('constraints on vote', function (string $constraintClass): void {
+    $this->election->parseVotes('
+            tag1 || A>B>C
+            C>B=A * 3
+            B^42
+        ');
 
-    public function testConstraintsOnVote(): void
-    {
-        $NoTieImplementation = [NoTie::class, AlternativeNoTieConstraintClass::class];
+    $this->election->allowsVoteWeight();
 
-        foreach ($NoTieImplementation as $constraintClass) {
-            $this->setUp();
+    expect($this->election->getWinner())->toEqual('B');
 
-            $this->election->parseVotes('
-                tag1 || A>B>C
-                C>B=A * 3
-                B^42
-            ');
+    $this->election->addConstraint($constraintClass);
 
-            $this->election->allowsVoteWeight();
+    expect($this->election->getWinner())->toEqual('A');
 
-            expect($this->election->getWinner())->toEqual('B');
+    $this->election->clearConstraints();
 
-            $this->election->addConstraint($constraintClass);
+    expect($this->election->getWinner())->toEqual('B');
 
-            expect($this->election->getWinner())->toEqual('A');
+    $this->election->addConstraint($constraintClass);
 
-            $this->election->clearConstraints();
+    expect($this->election->getWinner())->toEqual('A');
 
-            expect($this->election->getWinner())->toEqual('B');
+    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
+    expect($this->election->sumVotesWeight())->toEqual(46);
+    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->countVotes())->toEqual(5);
+    expect($this->election->countValidVoteWithConstraints())->toEqual(1);
+    expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->countInvalidVoteWithConstraints())->toEqual(4);
 
-            $this->election->addConstraint($constraintClass);
+    expect($this->election->getWinner('FTPT'))->toEqual('A');
 
-            expect($this->election->getWinner())->toEqual('A');
+    expect($this->election->setImplicitRanking(false))->toBeFalse();
 
-            expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
-            expect($this->election->sumVotesWeight())->toEqual(46);
-            expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-            expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
-            expect($this->election->countVotes())->toEqual(5);
-            expect($this->election->countValidVoteWithConstraints())->toEqual(1);
-            expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);
-            expect($this->election->countInvalidVoteWithConstraints())->toEqual(4);
+    expect($this->election->getWinner('FTPT'))->toEqual('B');
+    expect($this->election->getWinner())->toEqual('A');
 
-            expect($this->election->getWinner('FTPT'))->toEqual('A');
+    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(43);
+    expect($this->election->sumVotesWeight())->toEqual(46);
+    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(42);
+    expect($this->election->countVotes())->toEqual(5);
+    expect($this->election->countValidVoteWithConstraints())->toEqual(2);
+    expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(1);
+    expect($this->election->countInvalidVoteWithConstraints())->toEqual(3);
 
-            expect($this->election->setImplicitRanking(false))->toBeFalse();
+    expect($this->election->setImplicitRanking(true))->toBeTrue();
 
-            expect($this->election->getWinner('FTPT'))->toEqual('B');
-            expect($this->election->getWinner())->toEqual('A');
+    expect($this->election->getWinner())->toEqual('A');
+    expect($this->election->getWinner('FTPT'))->toEqual('A');
 
-            expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(43);
-            expect($this->election->sumVotesWeight())->toEqual(46);
-            expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-            expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(42);
-            expect($this->election->countVotes())->toEqual(5);
-            expect($this->election->countValidVoteWithConstraints())->toEqual(2);
-            expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(1);
-            expect($this->election->countInvalidVoteWithConstraints())->toEqual(3);
-
-            expect($this->election->setImplicitRanking(true))->toBeTrue();
-
-            expect($this->election->getWinner())->toEqual('A');
-            expect($this->election->getWinner('FTPT'))->toEqual('A');
-
-            expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
-            expect($this->election->sumVotesWeight())->toEqual(46);
-            expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-            expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
-            expect($this->election->countVotes())->toEqual(5);
-            expect($this->election->countValidVoteWithConstraints())->toEqual(1);
-            expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);
-            expect($this->election->countInvalidVoteWithConstraints())->toEqual(4);
-            expect(iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], true)))->toHaveCount(1);
-            expect(iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], false)))->toHaveCount(0);
-        }
-    }
-}
-
+    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
+    expect($this->election->sumVotesWeight())->toEqual(46);
+    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->countVotes())->toEqual(5);
+    expect($this->election->countValidVoteWithConstraints())->toEqual(1);
+    expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->countInvalidVoteWithConstraints())->toEqual(4);
+    expect(iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], true)))->toHaveCount(1);
+    expect(iterator_to_array($this->election->getVotesValidUnderConstraintGenerator(['tag1'], false)))->toHaveCount(0);
+})->with([NoTie::class, AlternativeNoTieConstraintClass::class]);
 
 class AlternativeNoTieConstraintClass implements VoteConstraintInterface
 {

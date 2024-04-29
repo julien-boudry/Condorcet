@@ -85,7 +85,7 @@
         "single_space_after_construct": true,
         "space_after_semicolon": true,
         "standardize_not_equals": true,
-        "static_lambda": true,
+        "static_lambda": false,
         "strict_param": true,
         "string_line_ending": true,
         "switch_continue_to_break": true,

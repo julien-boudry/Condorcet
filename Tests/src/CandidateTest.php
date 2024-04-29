@@ -1,181 +1,158 @@
 <?php
 
 declare(strict_types=1);
-
-namespace CondorcetPHP\Condorcet\Tests;
-
 use CondorcetPHP\Condorcet\{Candidate, Election};
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
-use PHPUnit\Framework\TestCase;
 
-class CandidateTest extends TestCase
-{
-    private readonly Candidate $candidate1;
+beforeEach(function (): void {
+    $this->candidate1 = new Candidate('candidate1.n1');
+});
 
-    protected function setUp(): void
-    {
-        $this->candidate1 = new Candidate('candidate1.n1');
+test('create timestamp', function (): void {
+    expect($this->candidate1->getTimestamp())->toEqual($this->candidate1->getCreateTimestamp());
+});
+
+test('change name', function (): void {
+    expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
+
+    expect($this->candidate1->getName())->toEqual('candidate1.n2');
+
+    expect($this->candidate1->getCreateTimestamp())->toBeLessThan($this->candidate1->getTimestamp());
+    expect($this->candidate1->getHistory())->toHaveCount(2);
+});
+
+test('trim name', function (): void {
+    $candidate = new Candidate(' candidateName ');
+    expect((string) $candidate)->toBe('candidateName');
+});
+
+test('matching and too long name', function (): void {
+    $name = '';
+    while (mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH) {
+        $name .= uniqid();
     }
+    $name = mb_substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
 
-    public function testCreateTimestamp(): void
-    {
-        expect($this->candidate1->getTimestamp())->toEqual($this->candidate1->getCreateTimestamp());
-    }
+    // The name is exactly as long as allowed.
+    $candidate = new Candidate($name);
+    expect((string) $candidate)->toEqual($name);
 
-    public function testChangeName(): void
-    {
-        expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
+    // Now the name is one character too long.
+    $name .= 'A';
 
-        expect($this->candidate1->getName())->toEqual('candidate1.n2');
+    $this->expectException(CandidateInvalidNameException::class);
+    $this->expectExceptionMessage("This name is not valid: {$name}");
 
-        expect($this->candidate1->getCreateTimestamp())->toBeLessThan($this->candidate1->getTimestamp());
-        expect($this->candidate1->getHistory())->toHaveCount(2);
-    }
+    new Candidate($name);
+});
 
-    public function testTrimName(): void
-    {
-        $candidate = new Candidate(' candidateName ');
-        expect((string) $candidate)->toBe('candidateName');
-    }
+test('bad name', function (): void {
+    $this->expectException(CandidateInvalidNameException::class);
+    $this->expectExceptionMessage('This name is not valid');
 
-    public function testMatchingAndTooLongName(): never
-    {
-        $name = '';
-        while (mb_strlen($name) < Election::MAX_CANDIDATE_NAME_LENGTH) {
-            $name .= uniqid();
-        }
-        $name = mb_substr($name, 0, Election::MAX_CANDIDATE_NAME_LENGTH);
+    new Candidate('<$"');
+});
 
-        // The name is exactly as long as allowed.
-        $candidate = new Candidate($name);
-        expect((string) $candidate)->toEqual($name);
+test('bad name with newline', function (): void {
+    $this->expectException(CandidateInvalidNameException::class);
+    $this->expectExceptionMessage('This name is not valid');
 
-        // Now the name is one character too long.
-        $name .= 'A';
+    new Candidate("A name with\n a newline");
+});
 
-        $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage("This name is not valid: {$name}");
+test('candidate bad class', function (): void {
+    $this->expectException(TypeError::class);
 
-        new Candidate($name);
-    }
+    (new Election)->addCandidate(new stdClass);
+});
 
-    public function testBadName(): never
-    {
-        $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage('This name is not valid');
+test('add same candidate1', function (): void {
+    $election1 = new Election;
 
-        new Candidate('<$"');
-    }
+    $candidate = new Candidate('Schizophrenic');
 
-    public function testBadNameWithNewline(): never
-    {
-        $this->expectException(CandidateInvalidNameException::class);
-        $this->expectExceptionMessage('This name is not valid');
+    $election1->addCandidate($candidate);
 
-        new Candidate("A name with\n a newline");
-    }
+    $this->expectException(CandidateExistsException::class);
+    $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
 
-    public function testCandidateBadClass(): never
-    {
-        $this->expectException(\TypeError::class);
+    $election1->addCandidate($candidate);
+});
 
-        (new Election)->addCandidate(new \stdClass);
-    }
+test('add same candidate2', function (): void {
+    $this->expectException(CandidateExistsException::class);
+    $this->expectExceptionMessage('This candidate already exists: candidate1');
 
-    public function testAddSameCandidate1(): never
-    {
-        $election1 = new Election;
+    $election1 = new Election;
 
-        $candidate = new Candidate('Schizophrenic');
+    $election1->parseCandidates('candidate1;candidate2;candidate1');
+});
 
-        $election1->addCandidate($candidate);
+test('add same candidate3', function (): void {
+    $election1 = new Election;
 
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: Schizophrenic');
+    $election1->addCandidate('candidate1');
 
-        $election1->addCandidate($candidate);
-    }
+    $this->expectException(CandidateExistsException::class);
+    $this->expectExceptionMessage('This candidate already exists: candidate1');
 
-    public function testAddSameCandidate2(): never
-    {
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: candidate1');
+    $election1->parseCandidates('candidate2;candidate1');
+});
 
-        $election1 = new Election;
+test('add same candidate4', function (): void {
+    $election1 = new Election;
 
-        $election1->parseCandidates('candidate1;candidate2;candidate1');
-    }
+    $candidate1 = $election1->addCandidate('candidate1');
 
-    public function testAddSameCandidate3(): never
-    {
-        $election1 = new Election;
-
-        $election1->addCandidate('candidate1');
-
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage('This candidate already exists: candidate1');
-
+    try {
         $election1->parseCandidates('candidate2;candidate1');
+    } catch (Exception) {
     }
 
-    public function testAddSameCandidate4(): void
-    {
-        $election1 = new Election;
+    expect($election1->getCandidatesList())->toBe([$candidate1]);
+});
 
-        $candidate1 = $election1->addCandidate('candidate1');
+test('same candidate to multiple election', function (): void {
+    $election1 = new Election;
+    $election2 = new Election;
+    $election3 = new Election;
 
-        try {
-            $election1->parseCandidates('candidate2;candidate1');
-        } catch (\Exception) {
-        }
+    // Add candidate to election
+    expect($election1->addCandidate($this->candidate1))->toBe($this->candidate1);
+    expect($election2->addCandidate($this->candidate1))->toBe($this->candidate1);
+    expect($election3->addCandidate($this->candidate1))->toBe($this->candidate1);
 
-        expect($election1->getCandidatesList())->toBe([$candidate1]);
-    }
+    // Check Candidate Link
+    expect($this->candidate1->haveLink($election1))->toBeTrue();
+    expect($this->candidate1->haveLink($election2))->toBeTrue();
+    expect($this->candidate1->haveLink($election3))->toBeTrue();
+    expect($this->candidate1->getLinks())->toHaveCount(3);
 
-    public function testSameCandidateToMultipleElection(): void
-    {
-        $election1 = new Election;
-        $election2 = new Election;
-        $election3 = new Election;
+    $election3->removeCandidates('candidate1.n1');
 
-        // Add candidate to election
-        expect($election1->addCandidate($this->candidate1))->toBe($this->candidate1);
-        expect($election2->addCandidate($this->candidate1))->toBe($this->candidate1);
-        expect($election3->addCandidate($this->candidate1))->toBe($this->candidate1);
+    expect($this->candidate1->getLinks())->toHaveCount(2);
 
-        // Check Candidate Link
-        expect($this->candidate1->haveLink($election1))->toBeTrue();
-        expect($this->candidate1->haveLink($election2))->toBeTrue();
-        expect($this->candidate1->haveLink($election3))->toBeTrue();
-        expect($this->candidate1->getLinks())->toHaveCount(3);
+    // Add some conflicts
+    expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
+    expect($this->candidate1->getName())->toBe('candidate1.n2');
+    expect($election1->addCandidate('candidate1.n1'))->not()->toBe($this->candidate1);
 
-        $election3->removeCandidates('candidate1.n1');
+    $election2->addCandidate('Debussy');
 
-        expect($this->candidate1->getLinks())->toHaveCount(2);
+    $this->expectException(CandidateExistsException::class);
+    $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
 
-        // Add some conflicts
-        expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
-        expect($this->candidate1->getName())->toBe('candidate1.n2');
-        expect($election1->addCandidate('candidate1.n1'))->not()->toBe($this->candidate1);
+    $this->candidate1->setName('Debussy');
+});
 
-        $election2->addCandidate('Debussy');
+test('clone candidate', function (): void {
+    ($election = new Election)->addCandidate($this->candidate1);
 
-        $this->expectException(CandidateExistsException::class);
-        $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
+    expect($this->candidate1->countLinks())->toBe(1);
 
-        $this->candidate1->setName('Debussy');
-    }
+    $cloneCandidate = clone $this->candidate1;
 
-    public function testCloneCandidate(): void
-    {
-        ($election = new Election)->addCandidate($this->candidate1);
+    expect($cloneCandidate->countLinks())->toBe(0);
 
-        expect($this->candidate1->countLinks())->toBe(1);
-
-        $cloneCandidate = clone $this->candidate1;
-
-        expect($cloneCandidate->countLinks())->toBe(0);
-
-        expect($election->countCandidates())->toBe(1);
-    }
-}
+    expect($election->countCandidates())->toBe(1);
+});

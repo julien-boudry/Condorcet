@@ -56,13 +56,14 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Tests\\": "Tests/",
             "CondorcetPHP\\Condorcet\\Tests\\": "Tests/",
             "CondorcetPHP\\Condorcet\\Dev\\CondorcetDocumentationGenerator\\": "Dev/CondorcetDocumentationGenerator/",
             "CondorcetPHP\\Condorcet\\Benchmarks\\": "Benchmarks"
         }
     },
     "scripts": {
-        "test": "phpunit",
+        "test": "pest",
         "document": "php Dev/update-documentation.php",
         "pintify": "pint"
     },

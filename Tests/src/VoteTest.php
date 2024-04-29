@@ -1,762 +1,692 @@
 <?php
 
 declare(strict_types=1);
-
-namespace CondorcetPHP\Condorcet\Tests;
-
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
-use PHPUnit\Framework\TestCase;
-use Throwable;
 
-class VoteTest extends TestCase
-{
-    private readonly Election $election1;
+beforeEach(function (): void {
+    $this->election1 = new Election;
 
-    private readonly Candidate $candidate1;
-    private readonly Candidate $candidate2;
-    private readonly Candidate $candidate3;
-    private readonly Candidate $candidate4;
-    private readonly Candidate $candidate5;
-    private readonly Candidate $candidate6;
+    $this->candidate1 = $this->election1->addCandidate('candidate1');
+    $this->candidate2 = $this->election1->addCandidate('candidate2');
+    $this->candidate3 = $this->election1->addCandidate('candidate3');
+    $this->candidate4 = new Candidate('candidate4');
+    $this->candidate5 = new Candidate('candidate5');
+    $this->candidate6 = new Candidate('candidate6');
+});
 
-    protected function setUp(): void
-    {
-        $this->election1 = new Election;
+test('timestamp', function (): void {
+    $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        $this->candidate1 = $this->election1->addCandidate('candidate1');
-        $this->candidate2 = $this->election1->addCandidate('candidate2');
-        $this->candidate3 = $this->election1->addCandidate('candidate3');
-        $this->candidate4 = new Candidate('candidate4');
-        $this->candidate5 = new Candidate('candidate5');
-        $this->candidate6 = new Candidate('candidate6');
-    }
+    expect($vote1->getTimestamp())->toBe($vote1->getCreateTimestamp());
 
-    public function testTimestamp(): void
-    {
-        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+    $vote1->setRanking([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        expect($vote1->getTimestamp())->toBe($vote1->getCreateTimestamp());
+    expect($vote1->getCreateTimestamp())->toBeLessThan($vote1->getTimestamp());
+});
 
-        $vote1->setRanking([$this->candidate1, $this->candidate2, $this->candidate3]);
+test('different ranking', function (): void {
+    // Ranking 1
+    $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        expect($vote1->getCreateTimestamp())->toBeLessThan($vote1->getTimestamp());
-    }
+    $newRanking1 = $vote1->getRanking();
 
-    public function testDifferentRanking(): never
-    {
-        // Ranking 1
-        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+    // Ranking 2
+    expect($vote1->setRanking(
+        [$this->candidate1, $this->candidate2, $this->candidate3]
+    ))->toBeTrue();
 
-        $newRanking1 = $vote1->getRanking();
+    expect($vote1->getRanking())->toBe($newRanking1);
 
-        // Ranking 2
-        expect($vote1->setRanking(
-            [$this->candidate1, $this->candidate2, $this->candidate3]
-        ))->toBeTrue();
+    // Ranking 3
+    expect($vote1->setRanking(
+        [4 => $this->candidate1, 6 => $this->candidate2, 14 => $this->candidate3]
+    ))->toBeTrue();
 
-        expect($vote1->getRanking())->toBe($newRanking1);
+    expect($vote1->getRanking())->toBe($newRanking1);
 
-        // Ranking 3
-        expect($vote1->setRanking(
-            [4 => $this->candidate1, 6 => $this->candidate2, 14 => $this->candidate3]
-        ))->toBeTrue();
+    // Add vote into an election
+    expect($vote1)->toBe($this->election1->addVote($vote1));
 
-        expect($vote1->getRanking())->toBe($newRanking1);
+    // Ranking 4
+    expect($vote1->setRanking(
+        [$this->candidate1, $this->candidate2]
+    ))->toBeTrue();
 
-        // Add vote into an election
-        expect($vote1)->toBe($this->election1->addVote($vote1));
+    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
-        // Ranking 4
-        expect($vote1->setRanking(
-            [$this->candidate1, $this->candidate2]
-        ))->toBeTrue();
+    expect($vote1->getRanking())->toHaveCount(2);
 
-        expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    // Ranking 5
+    expect($vote1->setRanking(
+        ['candidate1', 'candidate2']
+    ))->toBeTrue();
 
-        expect($vote1->getRanking())->toHaveCount(2);
+    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
-        // Ranking 5
-        expect($vote1->setRanking(
-            ['candidate1', 'candidate2']
-        ))->toBeTrue();
+    // Ranking 6
+    expect($vote1->setRanking(
+        [42 => 'candidate2', 142 => 'candidate1']
+    ))->toBeTrue();
 
-        expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
 
-        // Ranking 6
-        expect($vote1->setRanking(
-            [42 => 'candidate2', 142 => 'candidate1']
-        ))->toBeTrue();
+    // Ranking 7
+    expect($vote1->setRanking(
+        'candidate1>Kim Jong>candidate2>Trump'
+    ))->toBeTrue();
 
-        expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
+    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
-        // Ranking 7
-        expect($vote1->setRanking(
-            'candidate1>Kim Jong>candidate2>Trump'
-        ))->toBeTrue();
+    // Ranking 8
+    expect($vote1->setRanking([
+        2 => $this->candidate2,
+        1 => $this->candidate1,
+        3 => $this->candidate3,
+    ]))->toBeTrue();
 
-        expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
+    // Ranking 9
+    $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
 
-        // Ranking 8
-        expect($vote1->setRanking([
-            2 => $this->candidate2,
-            1 => $this->candidate1,
-            3 => $this->candidate3,
-        ]))->toBeTrue();
+    expect([
+        1 => 'candidate4',
+        2 => ['candidate1', 'candidate3'],
+        3 => 'candidate2',
+    ])->toBe(CondorcetUtil::format($vote->getRanking()));
 
-        expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    $election = new Election;
+    $election->parseCandidates('candidate2;candidate3;candidate4;candidate1');
+    $election->addVote($vote);
 
+    expect([
+        1 => 'candidate4',
+        2 => ['candidate1', 'candidate3'],
+        3 => 'candidate2',
+    ])->toBe(CondorcetUtil::format($vote->getContextualRanking($election)));
 
-        // Ranking 9
+    expect([
+        1 => 'candidate4',
+        2 => ['candidate1', 'candidate3'],
+        3 => 'candidate2',
+    ])->toBe($election->getResult()->getResultAsArray(true));
 
-        $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
+    // Contextual Ranking Fail
+    $this->expectException(VoteNotLinkedException::class);
+    $this->expectExceptionMessage('The vote is not linked to an election');
 
-        expect([
-            1 => 'candidate4',
-            2 => ['candidate1', 'candidate3'],
-            3 => 'candidate2',
-        ])->toBe(CondorcetUtil::format($vote->getRanking()));
+    $unexpectedElection = new Election;
+    $vote1->getContextualRanking($unexpectedElection);
+});
 
-        $election = new Election;
-        $election->parseCandidates('candidate2;candidate3;candidate4;candidate1');
-        $election->addVote($vote);
+test('array access', function (): void {
+    // Ranking 1
+    $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-        expect([
-            1 => 'candidate4',
-            2 => ['candidate1', 'candidate3'],
-            3 => 'candidate2',
-        ])->toBe(CondorcetUtil::format($vote->getContextualRanking($election)));
+    expect($vote[1][0]->getName())->toBe('candidate1');
+    expect($vote[3][0]->getName())->toBe('candidate4');
+});
 
-        expect([
-            1 => 'candidate4',
-            2 => ['candidate1', 'candidate3'],
-            3 => 'candidate2',
-        ])->toBe($election->getResult()->getResultAsArray(true));
+test('array access set exception', function (): void {
+    $this->expectException(VoteException::class);
 
-        // Contextual Ranking Fail
-        $this->expectException(VoteNotLinkedException::class);
-        $this->expectExceptionMessage('The vote is not linked to an election');
+    // Ranking 1
+    $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-        $unexpectedElection = new Election;
-        $vote1->getContextualRanking($unexpectedElection);
-    }
+    $vote[1] = 'candidateX';
+});
 
-    public function testArrayAccess(): void
-    {
-        // Ranking 1
-        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+test('array access unset exception', function (): void {
+    $this->expectException(VoteException::class);
 
-        expect($vote[1][0]->getName())->toBe('candidate1');
-        expect($vote[3][0]->getName())->toBe('candidate4');
-    }
+    // Ranking 1
+    $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-    public function testArrayAccessSetException(): void
-    {
-        $this->expectException(VoteException::class);
+    unset($vote[1]);
+});
 
-        // Ranking 1
-        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+test('simple ranking', function (): void {
+    // Ranking 1
+    $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-        $vote[1] = 'candidateX';
-    }
+    expect('candidate1 > candidate2 = candidate3 > candidate4')->toBe($vote1->getSimpleRanking());
 
-    public function testArrayAccessUnsetException(): void
-    {
-        $this->expectException(VoteException::class);
+    $this->election1->addVote($vote1);
 
-        // Ranking 1
-        $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+    expect('candidate1 > candidate2 = candidate3')->toBe($vote1->getSimpleRanking($this->election1));
+});
 
-        unset($vote[1]);
-    }
+test('provisional candidate object', function (): void {
+    // Ranking 1
+    $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+    $newRanking1 = $vote1->getRanking();
+    $this->election1->addVote($vote1);
 
-    public function testSimpleRanking(): void
-    {
-        // Ranking 1
-        $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+    // I
+    expect($vote1->setRanking([
+        new Candidate('candidate1'),
+        $this->candidate2,
+        $this->candidate3,
+    ]))->toBeTrue();
 
-        expect('candidate1 > candidate2 = candidate3 > candidate4')->toBe($vote1->getSimpleRanking());
+    expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
 
-        $this->election1->addVote($vote1);
+    expect($vote1->getContextualRanking($this->election1))->toBe([1 => [$this->candidate2],
+        2 => [$this->candidate3],
+        3 => [$this->candidate1], ]);
 
-        expect('candidate1 > candidate2 = candidate3')->toBe($vote1->getSimpleRanking($this->election1));
-    }
+    expect($vote1->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate2',
+        2 => 'candidate3',
+        3 => 'candidate1', ]);
 
-    public function testProvisionalCandidateObject(): void
-    {
-        // Ranking 1
-        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
-        $newRanking1 = $vote1->getRanking();
-        $this->election1->addVote($vote1);
+    // II
+    $vote2 = new Vote('candidate1>candidate2');
 
-        // I
-        expect($vote1->setRanking([
-            new Candidate('candidate1'),
-            $this->candidate2,
-            $this->candidate3,
-        ]))->toBeTrue();
+    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeTrue();
+    $vote2_firstRanking = $vote2->getRanking();
 
-        expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
+    $this->election1->addVote($vote2);
 
-        expect($vote1->getContextualRanking($this->election1))->toBe([1 => [$this->candidate2],
-            2 => [$this->candidate3],
-            3 => [$this->candidate1], ]);
+    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
 
-        expect($vote1->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate2',
-            2 => 'candidate3',
-            3 => 'candidate1', ]);
+    expect($vote2->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1],
+        2 => [$this->candidate2],
+        3 => [$this->candidate3], ]);
 
-        // II
-        $vote2 = new Vote('candidate1>candidate2');
+    expect($vote2->getRanking())->not()->toBe($vote2_firstRanking);
 
-        expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeTrue();
-        $vote2_firstRanking = $vote2->getRanking();
+    // III
+    $otherCandidate1 = new Candidate('candidate1');
+    $otherCandidate2 = new Candidate('candidate2');
 
-        $this->election1->addVote($vote2);
+    $vote3 = new Vote([$otherCandidate1, $otherCandidate2, $this->candidate3]);
 
-        expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    expect($vote3->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    $vote3_firstRanking = $vote3->getRanking();
 
-        expect($vote2->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1],
-            2 => [$this->candidate2],
-            3 => [$this->candidate3], ]);
+    $this->election1->addVote($vote3);
 
-        expect($vote2->getRanking())->not()->toBe($vote2_firstRanking);
+    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
 
+    expect($vote3->getContextualRanking($this->election1))->toBe([1 => [$this->candidate3],
+        2 => [$this->candidate1, $this->candidate2], ]);
 
-        // III
-        $otherCandidate1 = new candidate('candidate1');
-        $otherCandidate2 = new candidate('candidate2');
+    expect($vote3->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate3',
+        2 => ['candidate1', 'candidate2'], ]);
 
-        $vote3 = new Vote([$otherCandidate1, $otherCandidate2, $this->candidate3]);
+    expect($vote3->getRanking())->toBe($vote3_firstRanking);
+});
 
-        expect($vote3->getRanking()[1][0]->getProvisionalState())->toBeFalse();
-        $vote3_firstRanking = $vote3->getRanking();
+test('different election', function (): void {
+    $election1 = $this->election1;
 
-        $this->election1->addVote($vote3);
+    $election2 = new Election;
+    $election2->addCandidate($this->candidate1);
+    $election2->addCandidate($this->candidate2);
+    $election2->addCandidate($this->candidate4);
 
-        expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    $vote1 = new Vote([
+        $this->candidate1,
+        $this->candidate2,
+        $this->candidate3,
+        $this->candidate4,
+    ]);
+    $vote1_originalRanking = $vote1->getRanking();
 
-        expect($vote3->getContextualRanking($this->election1))->toBe([1 => [$this->candidate3],
-            2 => [$this->candidate1, $this->candidate2], ]);
+    $election1->addVote($vote1);
+    $election2->addVote($vote1);
 
-        expect($vote3->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate3',
-            2 => ['candidate1', 'candidate2'], ]);
+    expect($vote1->getRanking())->toBe($vote1_originalRanking);
+    expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate3]]);
+    expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate4]]);
+    expect($vote1->getContextualRanking($election2))->not()->toBe($vote1->getRanking());
 
-        expect($vote3->getRanking())->toBe($vote3_firstRanking);
-    }
+    expect($vote1->setRanking([
+        [$this->candidate5, $this->candidate2],
+        $this->candidate3,
+    ]))
+        ->toBeTrue();
 
-    public function testDifferentElection(): void
-    {
-        $election1 = $this->election1;
+    expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
+    expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);
+});
 
-        $election2 = new Election;
-        $election2->addCandidate($this->candidate1);
-        $election2->addCandidate($this->candidate2);
-        $election2->addCandidate($this->candidate4);
+test('valid tags', function (): void {
+    $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-        $vote1 = new Vote([
-            $this->candidate1,
-            $this->candidate2,
-            $this->candidate3,
-            $this->candidate4,
-        ]);
-        $vote1_originalRanking = $vote1->getRanking();
+    $targetTags = ['tag1', 'tag2', 'tag3'];
 
-        $election1->addVote($vote1);
-        $election2->addVote($vote1);
+    expect($vote1->addTags('tag1,tag2,tag3'))->toBeTrue();
 
-        expect($vote1->getRanking())->toBe($vote1_originalRanking);
-        expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate3]]);
-        expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate4]]);
-        expect($vote1->getContextualRanking($election2))->not()->toBe($vote1->getRanking());
+    expect(array_values($vote1->getTags()))->toBe($targetTags);
 
-        expect($vote1->setRanking([
-            [$this->candidate5, $this->candidate2],
-            $this->candidate3,
-        ]))
-            ->toBeTrue();
+    expect($vote1->removeAllTags())->toBeTrue();
 
-        expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
-        expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);
-    }
+    expect($vote1->getTags())->toBeArray()->toBeEmpty();
 
-    public function testValidTags(): void
-    {
-        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+    expect($vote1->addTags(['tag1', 'tag2', 'tag3']))->toBeTrue();
 
-        $targetTags = ['tag1', 'tag2', 'tag3'];
+    expect(array_values($vote1->getTags()))->toBe($targetTags);
 
-        expect($vote1->addTags('tag1,tag2,tag3'))->toBeTrue();
+    expect($vote1->removeTags('tag2'))->toBe(['tag2']);
 
-        expect(array_values($vote1->getTags()))->toBe($targetTags);
+    expect(array_values($vote1->getTags()))->toBe(['tag1', 'tag3']);
 
-        expect($vote1->removeAllTags())->toBeTrue();
+    expect($vote1->removeAllTags())->toBeTrue();
 
-        expect($vote1->getTags())->toBeArray()->toBeEmpty();
+    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+});
 
-        expect($vote1->addTags(['tag1', 'tag2', 'tag3']))->toBeTrue();
+test('bad tag input1', function (): void {
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, integer given');
 
-        expect(array_values($vote1->getTags()))->toBe($targetTags);
+    $vote = new Vote('A');
+    $vote->addTags(['tag1', 42]);
+});
 
-        expect($vote1->removeTags('tag2'))->toBe(['tag2']);
+test('bad tag input2', function (): void {
+    $vote = new Vote('A');
 
-        expect(array_values($vote1->getTags()))->toBe(['tag1', 'tag3']);
-
-        expect($vote1->removeAllTags())->toBeTrue();
-
-        expect($vote1->getTags())->toBeArray()->toBeEmpty();
-    }
-
-    public function testBadTagInput1(): never
-    {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, integer given');
-
-        $vote = new Vote('A');
-        $vote->addTags(['tag1', 42]);
-    }
-
-    public function testBadTagInput2(): never
-    {
-        $vote = new Vote('A');
-
-        try {
-            $vote->addTags(
-                ['tag1 ', ' tag2', ' tag3 ', ' ']
-            );
-        } catch (Throwable $e) {
-        }
-
-        expect($vote->getTags())->toBeArray()->toBeEmpty();
-
-        expect($vote->removeAllTags())->toBeTrue();
-
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
-
-        throw $e;
-    }
-
-    public function testBadTagInput3(): never
-    {
-        $vote = new Vote('A');
-
-        try {
-            $vote->addTags(
-                ' tag1,tag2 , tag3 ,'
-            );
-        } catch (Throwable $e) {
-        }
-
-        expect($vote->getTags())->toBeArray()->toBeEmpty();
-
-        expect($vote->removeAllTags())->toBeTrue();
-
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
-
-        throw $e;
-    }
-
-    public function testBadTagInput4(): never
-    {
-        $vote = new Vote('A');
-
-        try {
-            $vote->addTags(
-                [null]
-            );
-        } catch (Throwable $e) {
-        }
-
-        expect($vote->getTags())->toBeArray()->toBeEmpty();
-
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, NULL given');
-
-        throw $e;
-    }
-
-    public function testBadTagInput5(): void
-    {
-        $vote = new Vote('A');
+    try {
         $vote->addTags(
-            []
+            ['tag1 ', ' tag2', ' tag3 ', ' ']
         );
-
-        expect($vote->getTags())->toBeArray()->toBeEmpty();
+    } catch (Throwable $e) {
     }
 
-    public function testAddRemoveTags(): void
-    {
-        $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+    expect($vote->getTags())->toBeArray()->toBeEmpty();
 
-        $vote1->addTags('tag1');
-        $vote1->addTags(['tag2', 'tag3']);
-        expect($vote1->addTags('tag4,tag5'))->toBeTrue();
+    expect($vote->removeAllTags())->toBeTrue();
 
-        expect($vote1->getTags())->toBe(['tag1', 'tag2', 'tag3', 'tag4', 'tag5']);
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
 
-        expect($vote1->removeTags(''))->toBeArray()->toBeEmpty();
+    throw $e;
+});
 
-        $vote1->removeTags('tag1');
-        $vote1->removeTags(['tag2', 'tag3']);
-        expect(['tag4', 'tag5'])->toBe($vote1->removeTags('tag4,tag5,tag42'));
+test('bad tag input3', function (): void {
+    $vote = new Vote('A');
 
-        expect($vote1->getTags())->toBeArray()->toBeEmpty();
-
-        expect($vote1->addTags('tag4,tag5'))->toBeTrue();
-        expect($vote1->removeAllTags())->toBeTrue();
-
-        expect($vote1->getTags())->toBeArray()->toBeEmpty();
-    }
-
-    public function testTagsOnConstructorByStringInput(): void
-    {
-        $vote1 = new Vote('tag1,tag2 ||A > B >C', 'tag3,tag4');
-
-        expect($vote1->getTags())->tobe(['tag3', 'tag4', 'tag1', 'tag2']);
-
-        expect($vote1->getSimpleRanking())->toBe('A > B > C');
-
-        $vote2 = new Vote((string) $vote1);
-
-        expect((string) $vote2)->toBe((string) $vote1);
-    }
-
-    public function testCloneVote(): void
-    {
-        // Ranking 1
-        $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
-
-        $this->election1->addVote($vote1);
-
-        $vote2 = clone $vote1;
-
-        expect($vote2->countLinks())->toBe(0);
-        expect($vote1->countLinks())->toBe(1);
-    }
-
-    public function testIterator(): void
-    {
-        $vote = new Vote('C > B > A');
-
-        foreach ($vote as $key => $value) {
-            expect($value)->toBe($vote->getRanking()[$key]);
-        }
-    }
-
-    public function testWeight(): never
-    {
-        $vote = new Vote('A>B>C^42');
-
-        expect($vote->getWeight())->toBe(42);
-        expect($vote->setWeight(2))->toBe(2);
-        expect($vote->getWeight())->toBe(2);
-        expect($vote->getWeight($this->election1))->toBe(1);
-
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage("The format of the vote is invalid: the value 'a' is not an integer.");
-
-        $vote = new Vote('A>B>C^a');
-    }
-
-    public function testCustomTimestamp(): never
-    {
-        $vote = new Vote(
-            'A>B>C',
-            null,
-            $createTimestamp = microtime(true) - (3600 * 1000)
+    try {
+        $vote->addTags(
+            ' tag1,tag2 , tag3 ,'
         );
-
-        expect($vote->getTimestamp())->toBe($createTimestamp);
-
-        $vote->setRanking('B>C>A', $ranking2Timestamp = microtime(true) - (60 * 1000));
-
-        expect($vote->getTimestamp())->toBe($ranking2Timestamp);
-
-        expect($vote->getCreateTimestamp())->toBe($createTimestamp);
-
-        expect($vote->getHistory()[0]['timestamp'])->toBe($createTimestamp);
-
-        expect($vote->getHistory()[1]['timestamp'])->toBe($ranking2Timestamp);
-
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
-
-        $vote->setRanking('A', 1);
+    } catch (Throwable $e) {
     }
 
-    public function testHashCode(): void
-    {
-        $vote = new Vote('A>B>C');
+    expect($vote->getTags())->toBeArray()->toBeEmpty();
 
-        $hashCode[1] = $vote->getHashCode();
+    expect($vote->removeAllTags())->toBeTrue();
 
-        $vote->addTags('tag1');
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: found empty tag');
 
-        $hashCode[2] = $vote->getHashCode();
+    throw $e;
+});
 
-        $vote->setRanking('C>A>B');
+test('bad tag input4', function (): void {
+    $vote = new Vote('A');
 
-        $hashCode[3] = $vote->getHashCode();
-
-        $vote->setRanking('C>A>B');
-
-        $hashCode[4] = $vote->getHashCode();
-
-        expect($hashCode[1])->not()->tobe($hashCode[2]);
-        expect($hashCode[2])->not()->tobe($hashCode[3]);
-        expect($hashCode[3])->not()->toBe($hashCode[4]);
+    try {
+        $vote->addTags(
+            [null]
+        );
+    } catch (Throwable $e) {
     }
 
-    public function testCountRanks(): void
-    {
-        $vote = new Vote('A>B=C>D');
+    expect($vote->getTags())->toBeArray()->toBeEmpty();
 
-        expect($vote->countRanks())->toBe(3);
-        expect($vote->countRankingCandidates())->toBe(4);
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, NULL given');
+
+    throw $e;
+});
+
+test('bad tag input5', function (): void {
+    $vote = new Vote('A');
+    $vote->addTags(
+        []
+    );
+
+    expect($vote->getTags())->toBeArray()->toBeEmpty();
+});
+
+test('add remove tags', function (): void {
+    $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
+
+    $vote1->addTags('tag1');
+    $vote1->addTags(['tag2', 'tag3']);
+    expect($vote1->addTags('tag4,tag5'))->toBeTrue();
+
+    expect($vote1->getTags())->toBe(['tag1', 'tag2', 'tag3', 'tag4', 'tag5']);
+
+    expect($vote1->removeTags(''))->toBeArray()->toBeEmpty();
+
+    $vote1->removeTags('tag1');
+    $vote1->removeTags(['tag2', 'tag3']);
+    expect(['tag4', 'tag5'])->toBe($vote1->removeTags('tag4,tag5,tag42'));
+
+    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+
+    expect($vote1->addTags('tag4,tag5'))->toBeTrue();
+    expect($vote1->removeAllTags())->toBeTrue();
+
+    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+});
+
+test('tags on constructor by string input', function (): void {
+    $vote1 = new Vote('tag1,tag2 ||A > B >C', 'tag3,tag4');
+
+    expect($vote1->getTags())->tobe(['tag3', 'tag4', 'tag1', 'tag2']);
+
+    expect($vote1->getSimpleRanking())->toBe('A > B > C');
+
+    $vote2 = new Vote((string) $vote1);
+
+    expect((string) $vote2)->toBe((string) $vote1);
+});
+
+test('clone vote', function (): void {
+    // Ranking 1
+    $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
+
+    $this->election1->addVote($vote1);
+
+    $vote2 = clone $vote1;
+
+    expect($vote2->countLinks())->toBe(0);
+    expect($vote1->countLinks())->toBe(1);
+});
+
+test('iterator', function (): void {
+    $vote = new Vote('C > B > A');
+
+    foreach ($vote as $key => $value) {
+        expect($value)->toBe($vote->getRanking()[$key]);
     }
+});
 
-    public function testCountRankingCandidates(): void
-    {
-        $vote = new Vote('A>B>C');
+test('weight', function (): void {
+    $vote = new Vote('A>B>C^42');
 
-        expect($vote->countRankingCandidates())->toBe(3);
-    }
+    expect($vote->getWeight())->toBe(42);
+    expect($vote->setWeight(2))->toBe(2);
+    expect($vote->getWeight())->toBe(2);
+    expect($vote->getWeight($this->election1))->toBe(1);
 
-    public function testInvalidWeight(): never
-    {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid: the vote weight can not be less than 1');
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage("The format of the vote is invalid: the value 'a' is not an integer.");
 
-        $vote = new Vote('A>B>C');
+    $vote = new Vote('A>B>C^a');
+});
 
-        $vote->setWeight(0);
-    }
+test('custom timestamp', function (): void {
+    $vote = new Vote(
+        'A>B>C',
+        null,
+        $createTimestamp = microtime(true) - (3600 * 1000)
+    );
 
-    public function testInvalidTag1(): never
-    {
-        $this->expectException(\TypeError::class);
+    expect($vote->getTimestamp())->toBe($createTimestamp);
 
-        $vote = new Vote('A>B>C');
+    $vote->setRanking('B>C>A', $ranking2Timestamp = microtime(true) - (60 * 1000));
 
-        $vote->addTags(true);
-    }
+    expect($vote->getTimestamp())->toBe($ranking2Timestamp);
 
-    public function testInvalidTag2(): never
-    {
-        $this->expectException(\TypeError::class);
+    expect($vote->getCreateTimestamp())->toBe($createTimestamp);
 
-        $vote = new Vote('A>B>C');
+    expect($vote->getHistory()[0]['timestamp'])->toBe($createTimestamp);
 
-        $vote->addTags(42);
-    }
+    expect($vote->getHistory()[1]['timestamp'])->toBe($ranking2Timestamp);
 
-    public function testRemoveCandidate(): never
-    {
-        $vote1 = new Vote('candidate1 > candidate2 > candidate3 ^ 42');
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
 
-        $this->election1->addVote($vote1);
+    $vote->setRanking('A', 1);
+});
 
-        expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 > candidate3');
+test('hash code', function (): void {
+    $vote = new Vote('A>B>C');
 
-        $vote1->removeCandidate('candidate2');
+    $hashCode[1] = $vote->getHashCode();
 
-        expect($vote1->getSimpleRanking())->toBe('candidate1 > candidate3 ^42');
+    $vote->addTags('tag1');
 
-        expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate3 > candidate2');
+    $hashCode[2] = $vote->getHashCode();
 
-        $vote1->removeCandidate($this->candidate3);
+    $vote->setRanking('C>A>B');
 
-        expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 = candidate3');
+    $hashCode[3] = $vote->getHashCode();
 
-        $this->expectException(CandidateDoesNotExistException::class);
-        $this->expectExceptionMessage('This candidate does not exist: candidate4');
+    $vote->setRanking('C>A>B');
 
-        $vote1->removeCandidate($this->candidate4);
-    }
+    $hashCode[4] = $vote->getHashCode();
 
-    public function testRemoveCandidateInvalidInput(): never
-    {
-        $vote1 = new Vote('candidate1 > candidate2 > candidate3 ^ 42');
+    expect($hashCode[1])->not()->tobe($hashCode[2]);
+    expect($hashCode[2])->not()->tobe($hashCode[3]);
+    expect($hashCode[3])->not()->toBe($hashCode[4]);
+});
 
-        $this->expectException(\TypeError::class);
+test('count ranks', function (): void {
+    $vote = new Vote('A>B=C>D');
 
-        $vote1->removeCandidate([]);
-    }
+    expect($vote->countRanks())->toBe(3);
+    expect($vote->countRankingCandidates())->toBe(4);
+});
 
-    public function testVoteHistory(): void
-    {
-        $this->election1->addCandidate($this->candidate4);
-        $this->election1->addCandidate($this->candidate5);
-        $this->election1->addCandidate($this->candidate6);
+test('count ranking candidates', function (): void {
+    $vote = new Vote('A>B>C');
 
+    expect($vote->countRankingCandidates())->toBe(3);
+});
 
-        $vote1 = $this->election1->addVote(['candidate1', 'candidate2']);
+test('invalid weight', function (): void {
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid: the vote weight can not be less than 1');
 
-        expect($vote1->getHistory())->toHaveCount(1);
+    $vote = new Vote('A>B>C');
 
-        // -------
+    $vote->setWeight(0);
+});
 
-        $vote2 = $this->election1->addVote('candidate1 > candidate2');
+test('invalid tag1', function (): void {
+    $this->expectException(TypeError::class);
 
-        expect($vote2->getHistory())->toHaveCount(1);
+    $vote = new Vote('A>B>C');
 
-        // -------
+    $vote->addTags(true);
+});
 
-        $vote3 = new Vote(['candidate1', 'candidate2']);
+test('invalid tag2', function (): void {
+    $this->expectException(TypeError::class);
 
-        $this->election1->addVote($vote3);
+    $vote = new Vote('A>B>C');
 
-        expect($vote3)->toHaveCount(2);
+    $vote->addTags(42);
+});
 
-        // -------
+test('remove candidate', function (): void {
+    $vote1 = new Vote('candidate1 > candidate2 > candidate3 ^ 42');
 
-        $this->election1->parseVotes('voterParsed || candidate1 > candidate2');
+    $this->election1->addVote($vote1);
 
-        $votes_lists = $this->election1->getVotesListGenerator('voterParsed', true);
-        $vote4 = $votes_lists->current();
+    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 > candidate3');
 
-        expect($vote4->getHistory())->toHaveCount(1);
+    $vote1->removeCandidate('candidate2');
 
-        // -------
+    expect($vote1->getSimpleRanking())->toBe('candidate1 > candidate3 ^42');
 
-        $vote5 = new Vote([$this->candidate5, $this->candidate6]);
+    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate3 > candidate2');
 
-        $this->election1->addVote($vote5);
+    $vote1->removeCandidate($this->candidate3);
 
-        expect($vote5->getHistory())->toHaveCount(1);
+    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 = candidate3');
 
-        // -------
+    $this->expectException(CandidateDoesNotExistException::class);
+    $this->expectExceptionMessage('This candidate does not exist: candidate4');
 
-        $vote6 = new Vote([$this->candidate5, 'candidate6']);
+    $vote1->removeCandidate($this->candidate4);
+});
 
-        $this->election1->addVote($vote6);
+test('remove candidate invalid input', function (): void {
+    $vote1 = new Vote('candidate1 > candidate2 > candidate3 ^ 42');
 
-        expect($vote6->getHistory())->toHaveCount(2);
+    $this->expectException(TypeError::class);
 
-        // -------
+    $vote1->removeCandidate([]);
+});
 
-        $vote7 = new Vote([$this->candidate6, 'candidate8']);
+test('vote history', function (): void {
+    $this->election1->addCandidate($this->candidate4);
+    $this->election1->addCandidate($this->candidate5);
+    $this->election1->addCandidate($this->candidate6);
 
-        $candidate8 = $vote7->getAllCandidates()[1];
+    $vote1 = $this->election1->addVote(['candidate1', 'candidate2']);
 
-        expect($candidate8->getName())->toBe('candidate8');
+    expect($vote1->getHistory())->toHaveCount(1);
 
-        expect($candidate8->getProvisionalState())->toBeTrue();
+    // -------
+    $vote2 = $this->election1->addVote('candidate1 > candidate2');
 
-        $this->election1->addVote($vote7);
+    expect($vote2->getHistory())->toHaveCount(1);
 
-        expect($candidate8->getProvisionalState())->toBeTrue();
+    // -------
+    $vote3 = new Vote(['candidate1', 'candidate2']);
 
-        expect($vote7->getHistory())->toHaveCount(1);
-    }
+    $this->election1->addVote($vote3);
 
-    public function testBadRankingInput1(): never
-    {
-        $this->expectException(\TypeError::class);
+    expect($vote3)->toHaveCount(2);
 
-        $vote = new Vote(42);
-    }
+    // -------
+    $this->election1->parseVotes('voterParsed || candidate1 > candidate2');
 
-    public function testBadRankingInput2(): never
-    {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid');
+    $votes_lists = $this->election1->getVotesListGenerator('voterParsed', true);
+    $vote4 = $votes_lists->current();
 
-        $candidate = new Candidate('A');
+    expect($vote4->getHistory())->toHaveCount(1);
 
-        $vote = new Vote([$candidate, $candidate]);
-    }
+    // -------
+    $vote5 = new Vote([$this->candidate5, $this->candidate6]);
 
-    public function testEmptyVoteContextualInRanking(): void
-    {
-        $vote = $this->election1->addVote('candidate4 > candidate5');
+    $this->election1->addVote($vote5);
 
-        expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
+    expect($vote5->getHistory())->toHaveCount(1);
 
-        $cr = $vote->getContextualRankingAsString($this->election1);
+    // -------
+    $vote6 = new Vote([$this->candidate5, 'candidate6']);
 
-        expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
-    }
+    $this->election1->addVote($vote6);
 
-    public function testNonEmptyVoteContextualInRanking(): void
-    {
-        $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
+    expect($vote6->getHistory())->toHaveCount(2);
 
-        expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
+    // -------
+    $vote7 = new Vote([$this->candidate6, 'candidate8']);
 
-        $cr = $vote->getContextualRankingAsString($this->election1);
+    $candidate8 = $vote7->getAllCandidates()[1];
 
-        expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
-    }
+    expect($candidate8->getName())->toBe('candidate8');
 
+    expect($candidate8->getProvisionalState())->toBeTrue();
 
-    // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates1(): never
-    {
-        $this->expectException(VoteInvalidFormatException::class);
-        $this->expectExceptionMessage('The format of the vote is invalid');
+    $this->election1->addVote($vote7);
 
-        new Vote('Spain>Japan>France>Netherlands>Australia>France');
-    }
+    expect($candidate8->getProvisionalState())->toBeTrue();
 
+    expect($vote7->getHistory())->toHaveCount(1);
+});
 
-    // https://github.com/julien-boudry/Condorcet/issues/32
-    public function testDuplicateCandidates2(): void
-    {
-        $election = new Election;
-        $election->parseCandidates('Spain;Japan;France;Netherlands;Australia');
+test('bad ranking input1', function (): void {
+    $this->expectException(TypeError::class);
 
-        $vote = $election->addVote('Spain>Japan>France>Netherlands>Australia>france');
+    $vote = new Vote(42);
+});
 
-        expect($vote->getSimpleRanking($election))->toBe('Spain > Japan > France > Netherlands > Australia');
-    }
+test('bad ranking input2', function (): void {
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid');
 
-    public function testEmptySpecialKeyWord(): void
-    {
-        $vote1 = new Vote(CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING);
-        $vote2 = new Vote('  ' . CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING . '  ');
+    $candidate = new Candidate('A');
 
-        expect($vote1->getRanking())->toBe([]);
-        expect($vote2->getRanking())->toBe([]);
-    }
+    $vote = new Vote([$candidate, $candidate]);
+});
 
-    public function testGetAllCandidates(): void
-    {
-        $vote = new Vote('candidate1>candidate2>candidate8>candidate3=candidate4=candidate6>candidate5');
-        $election = new Election;
+test('empty vote contextual in ranking', function (): void {
+    $vote = $this->election1->addVote('candidate4 > candidate5');
 
-        $election->addCandidate($this->candidate1);
-        $election->addCandidate($this->candidate2);
-        $election->addCandidate($this->candidate3);
-        $election->addCandidate($this->candidate4);
-        $election->addCandidate($this->candidate5);
-        $election->addCandidate($this->candidate6);
+    expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
 
-        $election->addVote($vote);
+    $cr = $vote->getContextualRankingAsString($this->election1);
 
-        expect($vote->getAllCandidates())->toBe([
-            $this->candidate1,
-            $this->candidate2,
-            $vote[3][0],
-            $this->candidate3,
-            $this->candidate4,
-            $this->candidate6,
-            $this->candidate5,
-        ]);
+    expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
+});
 
-        expect($vote->getAllCandidates($election))->tobe([
-            $this->candidate1,
-            $this->candidate2,
-            $this->candidate3,
-            $this->candidate4,
-            $this->candidate6,
-            $this->candidate5,
-        ]);
-    }
-}
+test('non empty vote contextual in ranking', function (): void {
+    $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
+
+    expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
+
+    $cr = $vote->getContextualRankingAsString($this->election1);
+
+    expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
+});
+
+test('duplicate candidates1', function (): void {
+    $this->expectException(VoteInvalidFormatException::class);
+    $this->expectExceptionMessage('The format of the vote is invalid');
+
+    new Vote('Spain>Japan>France>Netherlands>Australia>France');
+});
+
+test('duplicate candidates2', function (): void {
+    $election = new Election;
+    $election->parseCandidates('Spain;Japan;France;Netherlands;Australia');
+
+    $vote = $election->addVote('Spain>Japan>France>Netherlands>Australia>france');
+
+    expect($vote->getSimpleRanking($election))->toBe('Spain > Japan > France > Netherlands > Australia');
+});
+
+test('empty special key word', function (): void {
+    $vote1 = new Vote(CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING);
+    $vote2 = new Vote('  ' . CondorcetElectionFormat::SPECIAL_KEYWORD_EMPTY_RANKING . '  ');
+
+    expect($vote1->getRanking())->toBe([]);
+    expect($vote2->getRanking())->toBe([]);
+});
+
+test('get all candidates', function (): void {
+    $vote = new Vote('candidate1>candidate2>candidate8>candidate3=candidate4=candidate6>candidate5');
+    $election = new Election;
+
+    $election->addCandidate($this->candidate1);
+    $election->addCandidate($this->candidate2);
+    $election->addCandidate($this->candidate3);
+    $election->addCandidate($this->candidate4);
+    $election->addCandidate($this->candidate5);
+    $election->addCandidate($this->candidate6);
+
+    $election->addVote($vote);
+
+    expect($vote->getAllCandidates())->toBe([
+        $this->candidate1,
+        $this->candidate2,
+        $vote[3][0],
+        $this->candidate3,
+        $this->candidate4,
+        $this->candidate6,
+        $this->candidate5,
+    ]);
+
+    expect($vote->getAllCandidates($election))->tobe([
+        $this->candidate1,
+        $this->candidate2,
+        $this->candidate3,
+        $this->candidate4,
+        $this->candidate6,
+        $this->candidate5,
+    ]);
+});

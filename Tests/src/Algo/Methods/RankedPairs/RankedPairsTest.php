@@ -1,33 +1,22 @@
 <?php
 
 declare(strict_types=1);
-
-namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\RankedPairs;
-
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
-use PHPUnit\Framework\TestCase;
 
-class RankedPairsTest extends TestCase
-{
-    private readonly Election $election;
+beforeEach(function (): void {
+    $this->election = new Election;
+});
 
-    protected function setUp(): void
-    {
-        $this->election = new Election;
-    }
+test('result 1', function (): void {
+    # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Condorcet_avec_rangement_des_paires_par_ordre_d%C3%A9croissant
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+    $this->election->addCandidate('D');
+    $this->election->addCandidate('E');
 
-    public function testResult_1(): void
-    {
-        # From https://fr.wikipedia.org/wiki/M%C3%A9thode_Condorcet_avec_rangement_des_paires_par_ordre_d%C3%A9croissant
-
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-        $this->election->addCandidate('D');
-        $this->election->addCandidate('E');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > C > B > E * 5
             A > D > E > C * 5
             B > E > D > A * 8
@@ -38,69 +27,64 @@ class RankedPairsTest extends TestCase
             E > B > A > D * 8
         ');
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 
-        $expected = [1 => 'A',
-            2 => 'C',
-            3 => 'E',
-            4 => 'B',
-            5 => 'D', ];
+    $expected = [1 => 'A',
+        2 => 'C',
+        3 => 'E',
+        4 => 'B',
+        5 => 'D', ];
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'));
+    expect($this->election->getResult('Ranked Pairs Winning')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'));
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'));
-    }
+    expect($this->election->getResult('Ranked Pairs Margin')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:10:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";s:3:"win";i:33;s:8:"minority";i:12;s:6:"margin";i:21;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";s:3:"win";i:31;s:8:"minority";i:14;s:6:"margin";i:17;}}i:2;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:30;s:8:"minority";i:15;s:6:"margin";i:15;}}i:3;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:29;s:8:"minority";i:16;s:6:"margin";i:13;}}i:4;a:1:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:28;s:8:"minority";i:17;s:6:"margin";i:11;}}i:5;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";s:3:"win";i:27;s:8:"minority";i:18;s:6:"margin";i:9;}}i:6;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:26;s:8:"minority";i:19;s:6:"margin";i:7;}}i:7;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:25;s:8:"minority";i:20;s:6:"margin";i:5;}}i:8;a:1:{i:0;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";s:3:"win";i:24;s:8:"minority";i:21;s:6:"margin";i:3;}}i:9;a:1:{i:0;a:5:{s:4:"from";s:1:"E";s:2:"to";s:1:"A";s:3:"win";i:23;s:8:"minority";i:22;s:6:"margin";i:1;}}}s:4:"arcs";a:7:{i:0;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"D";}i:2;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:3;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";}i:4;a:2:{s:4:"from";s:1:"E";s:2:"to";s:1:"B";}i:5;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";}i:6;a:2:{s:4:"from";s:1:"C";s:2:"to";s:1:"E";}}}'));
+});
 
-    public function testResult_2(): void
-    {
-        # From https://en.wikipedia.org/wiki/Ranked_pairs
+test('result 2', function (): void {
+    # From https://en.wikipedia.org/wiki/Ranked_pairs
+    $this->election->addCandidate('Memphis');
+    $this->election->addCandidate('Nashville');
+    $this->election->addCandidate('Knoxville');
+    $this->election->addCandidate('Chattanooga');
 
-        $this->election->addCandidate('Memphis');
-        $this->election->addCandidate('Nashville');
-        $this->election->addCandidate('Knoxville');
-        $this->election->addCandidate('Chattanooga');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             Memphis > Nashville > Chattanooga * 42
             Nashville > Chattanooga > Knoxville * 26
             Chattanooga > Knoxville > Nashville * 15
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-        $expected = [1 => 'Nashville',
-            2 => 'Chattanooga',
-            3 => 'Knoxville',
-            4 => 'Memphis', ];
+    $expected = [1 => 'Nashville',
+        2 => 'Chattanooga',
+        3 => 'Knoxville',
+        4 => 'Memphis', ];
 
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'));
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'));
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'));
+});
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:3:{i:0;a:1:{i:0;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";s:3:"win";i:83;s:8:"minority";i:17;s:6:"margin";i:66;}}i:1;a:2:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}i:1;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";s:3:"win";i:68;s:8:"minority";i:32;s:6:"margin";i:36;}}i:2;a:3:{i:0;a:5:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:1;a:5:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}i:2;a:5:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";s:3:"win";i:58;s:8:"minority";i:42;s:6:"margin";i:16;}}}s:4:"arcs";a:6:{i:0;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:9:"Knoxville";}i:1;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:9:"Knoxville";}i:2;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:11:"Chattanooga";}i:3;a:2:{s:4:"from";s:9:"Nashville";s:2:"to";s:7:"Memphis";}i:4;a:2:{s:4:"from";s:9:"Knoxville";s:2:"to";s:7:"Memphis";}i:5;a:2:{s:4:"from";s:11:"Chattanooga";s:2:"to";s:7:"Memphis";}}}'));
-    }
+test('result 3', function (): void {
+    # from http://www.cs.wustl.edu/~legrand/rbvote/desc.html
+    $this->election->addCandidate('Abby');
+    $this->election->addCandidate('Brad');
+    $this->election->addCandidate('Cora');
+    $this->election->addCandidate('Dave');
+    $this->election->addCandidate('Erin');
 
-    public function testResult_3(): void
-    {
-        # from http://www.cs.wustl.edu/~legrand/rbvote/desc.html
-
-        $this->election->addCandidate('Abby');
-        $this->election->addCandidate('Brad');
-        $this->election->addCandidate('Cora');
-        $this->election->addCandidate('Dave');
-        $this->election->addCandidate('Erin');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             Abby>Cora>Erin>Dave>Brad * 98
             Brad>Abby>Erin>Cora>Dave * 64
             Brad>Abby>Erin>Dave>Cora * 12
@@ -116,125 +100,115 @@ class RankedPairsTest extends TestCase
             Dave>Cora>Brad>Abby>Erin * 23
         ');
 
-        $expected = [1 => 'Brad',
-            2 => 'Abby',
-            3 => 'Erin',
-            4 => 'Dave',
-            5 => 'Cora', ];
+    $expected = [1 => 'Brad',
+        2 => 'Abby',
+        3 => 'Erin',
+        4 => 'Dave',
+        5 => 'Cora', ];
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('Brad');
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('Brad');
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
-    }
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+});
 
-    public function testResult_4(): void
-    {
-        # From https://en.wikipedia.org/wiki/Ranked_pairs
+test('result 4', function (): void {
+    # From https://en.wikipedia.org/wiki/Ranked_pairs
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > B * 68
             B > C * 72
             C > A * 52
         ');
 
-        // Not supporting not ranked candidate
-        expect($this->election->getWinner('Ranked Pairs Winning'))->not()->toEqual('A');
+    // Not supporting not ranked candidate
+    expect($this->election->getWinner('Ranked Pairs Winning'))->not()->toEqual('A');
 
-        // Supporting not ranked candidate
-        $this->election->setImplicitRanking(false);
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
-    }
+    // Supporting not ranked candidate
+    $this->election->setImplicitRanking(false);
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
+});
 
-    public function testResult_5(): void
-    {
-        # From http://ericgorr.net/condorcet/rankedpairs/example1/
+test('result 5', function (): void {
+    # From http://ericgorr.net/condorcet/rankedpairs/example1/
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > B > C * 7
             B > A > C * 5
             C > A > B * 4
             B > C > A * 2
         ');
 
-        $expected = [1 => 'A',
-            2 => 'B',
-            3 => 'C', ];
+    $expected = [1 => 'A',
+        2 => 'B',
+        3 => 'C', ];
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
-    }
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+});
 
-    public function testResult_6(): void
-    {
-        # From http://ericgorr.net/condorcet/rankedpairs/example2/
+test('result 6', function (): void {
+    # From http://ericgorr.net/condorcet/rankedpairs/example2/
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > B > C * 40
             B > C > A * 35
             C > A > B * 25
         ');
 
-        $expected = [1 => 'A',
-            2 => 'B',
-            3 => 'C', ];
+    $expected = [1 => 'A',
+        2 => 'B',
+        3 => 'C', ];
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
-    }
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+});
 
-    public function testResult_7(): void
-    {
-        # From http://ericgorr.net/condorcet/rankedpairs/example3/
+test('result 7', function (): void {
+    # From http://ericgorr.net/condorcet/rankedpairs/example3/
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > B > C * 7
             B > A > C * 7
             C > A > B * 2
             C > B > A * 2
         ');
 
-        $expected =  [1 => ['A', 'B'],
-            2 => 'C', ];
+    $expected =  [1 => ['A', 'B'],
+        2 => 'C', ];
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
-    }
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+});
 
-    public function testResult_8(): void
-    {
-        # From http://ericgorr.net/condorcet/rankedpairs/example4/
+test('result 8', function (): void {
+    # From http://ericgorr.net/condorcet/rankedpairs/example4/
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+    $this->election->addCandidate('D');
 
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-        $this->election->addCandidate('D');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A>D>C>B*12
             B>A>C>D*3
             B>C>A>D*25
@@ -244,35 +218,33 @@ class RankedPairsTest extends TestCase
             D>B>A>C*6
         ');
 
-        $expected = [1 => 'B',
-            2 => 'A',
-            3 => 'D',
-            4 => 'C', ];
+    $expected = [1 => 'B',
+        2 => 'A',
+        3 => 'D',
+        4 => 'C', ];
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('B');
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('B');
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
+    expect($this->election->getResult('Ranked Pairs Winning')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
+    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getStats())
-            ->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
+    expect($this->election->getResult('Ranked Pairs Winning')->getStats())
+        ->toBe(unserialize('a:2:{s:5:"tally";a:4:{i:0;a:1:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";s:3:"win";i:61;s:8:"minority";i:39;s:6:"margin";i:22;}}i:1;a:1:{i:0;a:5:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";s:3:"win";i:55;s:8:"minority";i:45;s:6:"margin";i:10;}}i:2;a:2:{i:0;a:5:{s:4:"from";s:1:"A";s:2:"to";s:1:"C";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}i:1;a:5:{s:4:"from";s:1:"C";s:2:"to";s:1:"B";s:3:"win";i:54;s:8:"minority";i:46;s:6:"margin";i:8;}}i:3;a:2:{i:0;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"B";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}i:1;a:5:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";s:3:"win";i:51;s:8:"minority";i:49;s:6:"margin";i:2;}}}s:4:"arcs";a:3:{i:0;a:2:{s:4:"from";s:1:"A";s:2:"to";s:1:"D";}i:1;a:2:{s:4:"from";s:1:"B";s:2:"to";s:1:"A";}i:2;a:2:{s:4:"from";s:1:"D";s:2:"to";s:1:"C";}}}'));
+});
+
+test('result 9', function (): void {
+    # Test fix for rare bug
+    for ($i = 0; $i < 8; $i++) {
+        $this->election->addCandidate();
     }
 
-    public function testResult_9(): void
-    {
-        # Test fix for rare bug
-
-        for ($i = 0; $i < 8; $i++) {
-            $this->election->addCandidate();
-        }
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A > E > B > H > G > F > D > C * 1
             B > F > E > H > C > A > G > D * 1
             G > F > B > C > D > E > H > A * 1
@@ -300,21 +272,19 @@ class RankedPairsTest extends TestCase
             A > H > D > C > F > E > B > G * 1
            ');
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('B');
-    }
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('B');
+});
 
-    public function testResult_10(): void
-    {
-        # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
-        # Example 5
+test('result 10', function (): void {
+    # Tideman: Independence of Clones as a Criterion for Voting Rules (1987)
+    # Example 5
+    $this->election->addCandidate('v');
+    $this->election->addCandidate('w');
+    $this->election->addCandidate('x');
+    $this->election->addCandidate('y');
+    $this->election->addCandidate('z');
 
-        $this->election->addCandidate('v');
-        $this->election->addCandidate('w');
-        $this->election->addCandidate('x');
-        $this->election->addCandidate('y');
-        $this->election->addCandidate('z');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             v>w>x>y>z*7
             z>y>v>w>x*3
             y>z>w>x>v*6
@@ -323,82 +293,67 @@ class RankedPairsTest extends TestCase
             y>x>v>w>z*3
         ');
 
+    expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('v');
 
-        expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('v');
+    $expected = [1 => 'v',
+        2 => 'w',
+        3 => 'x',
+        4 => 'y',
+        5 => 'z', ];
 
-        $expected = [1 => 'v',
-            2 => 'w',
-            3 => 'x',
-            4 => 'y',
-            5 => 'z', ];
+    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
 
-        expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+});
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
-    }
+test('result 11', function (): void {
+    # From http://rangevoting.org/WinningVotes.htmls
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-    public function testResult_11(): void
-    {
-        # From http://rangevoting.org/WinningVotes.htmls
-
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             B > C > A * 9
             C = A > B * 6
             A > B > C * 5
         ');
 
-        expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))
-            ->not()->toEqual($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))
+        ->not()->toEqual($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+});
+
+test('max candidates', function (): void {
+    for ($i = 0; $i < 61; $i++) {
+        $this->election->addCandidate();
     }
 
-    public function testMaxCandidates(): never
-    {
-        for ($i = 0; $i < 61; $i++) {
-            $this->election->addCandidate();
-        }
+    $this->election->parseVotes('A');
 
-        $this->election->parseVotes('A');
+    $this->expectException(CandidatesMaxNumberReachedException::class);
+    $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 60 candidates");
 
-        $this->expectException(CandidatesMaxNumberReachedException::class);
-        $this->expectExceptionMessage("Maximum number of candidates reached: The method 'Ranked Pairs Winning' is configured to accept only 60 candidates");
-
-        $this->election->getWinner('Ranked Pairs Winning');
-    }
-
-    // public function testResult_stressTests (): void
-    // {
-    //     $rounds = 1;
-    //     $candidates = 332;
-    //     $votes = 500;
-
-    //     # Test fix for rare bug
-    //     for ($j=0; $j < $rounds; $j++) {
-    //         $this->election = new Election;
-
-    //         for ($i=0; $i < $candidates ; $i++) {
-    //             $this->election->addCandidate();
-    //         }
-
-
-    //         $VoteModel = $this->election->getCandidatesList();
-    //         \shuffle($VoteModel);
-
-    //         for ($i = 0 ; $i < $votes ; $i++) {
-    //             \shuffle($VoteModel);
-    //             $this->election->addVote( $VoteModel );
-    //         }
-
-    //         \var_dump($j);
-
-    //         \var_dump($this->election->getVotesListAsString());
-
-    //         \var_dump($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
-
-    //         expect(true)->toBeTrue();
-    //     }
-    // }
-}
+    $this->election->getWinner('Ranked Pairs Winning');
+});
+// public function testResult_stressTests (): void
+// {
+//     $rounds = 1;
+//     $candidates = 332;
+//     $votes = 500;
+//     # Test fix for rare bug
+//     for ($j=0; $j < $rounds; $j++) {
+//         $this->election = new Election;
+//         for ($i=0; $i < $candidates ; $i++) {
+//             $this->election->addCandidate();
+//         }
+//         $VoteModel = $this->election->getCandidatesList();
+//         \shuffle($VoteModel);
+//         for ($i = 0 ; $i < $votes ; $i++) {
+//             \shuffle($VoteModel);
+//             $this->election->addVote( $VoteModel );
+//         }
+//         \var_dump($j);
+//         \var_dump($this->election->getVotesListAsString());
+//         \var_dump($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+//         expect(true)->toBeTrue();
+//     }
+// }

@@ -2,102 +2,83 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tests;
-
 use CondorcetPHP\Condorcet\{Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
-use PHPUnit\Framework\Attributes\BackupStaticProperties;
-use PHPUnit\Framework\TestCase;
 
-class CondorcetTest extends TestCase
-{
-    public function testgetVersion(): void
-    {
-        expect(CONDORCET::getVersion())->toBe(Condorcet::VERSION);
-        expect(CONDORCET::getVersion(true))->toMatch('/^[1-9]+\.[0-9]+$/');
-    }
+test('get version', function (): void {
+    expect(Condorcet::getVersion())->toBe(Condorcet::VERSION);
+    expect(Condorcet::getVersion(true))->toMatch('/^[1-9]+\.[0-9]+$/');
+});
 
-    public function testAddExistingMethod(): void
-    {
-        $algoClassPath = Condorcet::getDefaultMethod();
+test('add existing method', function (): void {
+    $algoClassPath = Condorcet::getDefaultMethod();
 
-        expect(Condorcet::getMethodClass($algoClassPath))->toEqual($algoClassPath);
+    expect(Condorcet::getMethodClass($algoClassPath))->toEqual($algoClassPath);
 
-        expect(Condorcet::addMethod($algoClassPath))->toBeFalse();
-    }
+    expect(Condorcet::addMethod($algoClassPath))->toBeFalse();
+});
 
-    public function testBadClassMethod(): never
-    {
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
+test('bad class method', function (): void {
+    $this->expectException(AlgorithmException::class);
+    $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
 
-        Condorcet::addMethod('sjskkdlkkzksh');
-    }
+    Condorcet::addMethod('sjskkdlkkzksh');
+});
 
-    public function testAuthMethod(): void
-    {
-        expect(Condorcet::isAuthMethod('skzljdpmzk'))->toBeFalse();
-        expect(Condorcet::getMethodClass('skzljdpmzk'))->toBeNull();
-        expect(Condorcet::getMethodClass('Schulze Winning'))->toBe(\CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class);
-    }
+test('auth method', function (): void {
+    expect(Condorcet::isAuthMethod('skzljdpmzk'))->toBeFalse();
+    expect(Condorcet::getMethodClass('skzljdpmzk'))->toBeNull();
+    expect(Condorcet::getMethodClass('Schulze Winning'))->toBe(CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning::class);
+});
 
-    public function testGetAuthMethods(): void
-    {
-        expect(\count(Condorcet::getAuthMethods()))
-            ->toBe(\count(Condorcet::getAuthMethods(true)) - 1)
-            ->toBeGreaterThan(\count(Condorcet::getAuthMethods(withNonDeterministicMethods: false)));
-    }
+test('get auth methods', function (): void {
+    expect(\count(Condorcet::getAuthMethods()))
+        ->toBe(\count(Condorcet::getAuthMethods(true)) - 1)
+        ->toBeGreaterThan(\count(Condorcet::getAuthMethods(withNonDeterministicMethods: false)));
+});
 
-    #[BackupStaticProperties(true)]
-    public function testAddMethod(): never
-    {
-        $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
+test('add method', function (): void {
+    $algoClassPath = CondorcetTest_ValidAlgorithmName::class;
 
-        expect(Condorcet::addMethod($algoClassPath))->toBeTrue();
+    expect(Condorcet::addMethod($algoClassPath))->toBeTrue();
 
-        expect(Condorcet::getMethodClass($algoClassPath))->toEqual($algoClassPath);
+    expect(Condorcet::getMethodClass($algoClassPath))->toEqual($algoClassPath);
 
-        // Try to add existing alias
-        $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
+    // Try to add existing alias
+    $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
 
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
+    $this->expectException(AlgorithmException::class);
+    $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
 
-        Condorcet::addMethod($algoClassPath);
-    }
+    Condorcet::addMethod($algoClassPath);
+});
 
-    public function testAddUnvalidMethod(): never
-    {
-        $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
+test('add unvalid method', function (): void {
+    $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
+    $this->expectException(AlgorithmException::class);
+    $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
 
-        Condorcet::addMethod($algoClassPath);
-    }
+    Condorcet::addMethod($algoClassPath);
+});
 
-    public function testUnvalidDefaultMethod(): void
-    {
-        expect(Condorcet::setDefaultMethod('dgfbdwcd'))->toBeFalse();
-    }
+test('unvalid default method', function (): void {
+    expect(Condorcet::setDefaultMethod('dgfbdwcd'))->toBeFalse();
+});
 
-    public function testEmptyMethod(): never
-    {
-        $this->expectException(AlgorithmException::class);
-        $this->expectExceptionMessage('The voting algorithm is not available: no method name given');
+test('empty method', function (): void {
+    $this->expectException(AlgorithmException::class);
+    $this->expectExceptionMessage('The voting algorithm is not available: no method name given');
 
-        Condorcet::isAuthMethod('');
-    }
+    Condorcet::isAuthMethod('');
+});
 
-    public function testMethodAlias(): void
-    {
-        expect(Condorcet::getMethodClass('kemeny–Young'))->toBe(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class);
+test('method alias', function (): void {
+    expect(Condorcet::getMethodClass('kemeny–Young'))->toBe(CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class);
 
-        expect(Condorcet::getMethodClass('Maximum likelihood Method'))->toBe(\CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class);
-    }
-}
-
+    expect(Condorcet::getMethodClass('Maximum likelihood Method'))->toBe(CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung::class);
+});
 
 class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 {

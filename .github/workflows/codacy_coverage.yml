@@ -35,7 +35,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Run test suite
-      run: vendor/bin/phpunit --coverage-clover clover.xml
+      run: vendor/bin/pest --coverage-clover clover.xml
 
     - name: Export to Codacy
       env:

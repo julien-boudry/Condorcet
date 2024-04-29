@@ -1,75 +1,62 @@
 <?php
 
 declare(strict_types=1);
-
-namespace CondorcetPHP\Condorcet\Tests\Algo\Methods\InstantRunoff;
-
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;
-use PHPUnit\Framework\TestCase;
 
-class InstantRunoffTest extends TestCase
-{
-    private readonly Election $election;
+beforeEach(function (): void {
+    $this->election = new Election;
+});
 
-    protected function setUp(): void
-    {
-        $this->election = new Election;
-    }
+test('result 1', function (): void {
+    # From https://fr.wikipedia.org/wiki/Vote_alternatif
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+    $this->election->addCandidate('D');
 
-    public function testResult_1(): void
-    {
-        # From https://fr.wikipedia.org/wiki/Vote_alternatif
-
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-        $this->election->addCandidate('D');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A>B>C>D * 42
             B>C>D>A * 26
             C>D>B>A * 15
             D>C>B>A * 17
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => 'D',
-            2 => 'A',
-            3 => 'B',
-            4 => 'C', ]);
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => 'D',
+        2 => 'A',
+        3 => 'B',
+        4 => 'C', ]);
 
-        expect($this->election->getResult('InstantRunoff')->getStats())->toBe([
-            'majority' => 50.0,
-            'rounds' => [
-                1 => [
-                    'A' => 42,
-                    'B' => 26,
-                    'C' => 15,
-                    'D' => 17,
-                ],
-                2 => [
-                    'A' => 42,
-                    'B' => 26,
-                    'D' => 32,
-                ],
-                3 => [
-                    'A' => 42,
-                    'D' => 58,
-                ],
+    expect($this->election->getResult('InstantRunoff')->getStats())->toBe([
+        'majority' => 50.0,
+        'rounds' => [
+            1 => [
+                'A' => 42,
+                'B' => 26,
+                'C' => 15,
+                'D' => 17,
             ],
-        ]);
-    }
+            2 => [
+                'A' => 42,
+                'B' => 26,
+                'D' => 32,
+            ],
+            3 => [
+                'A' => 42,
+                'D' => 58,
+            ],
+        ],
+    ]);
+});
 
-    public function testResult_2(): void
-    {
-        # From https://en.wikipedia.org/wiki/Instant-runoff_voting#Examples
+test('result 2', function (): void {
+    # From https://en.wikipedia.org/wiki/Instant-runoff_voting#Examples
+    $this->election->addCandidate('bob');
+    $this->election->addCandidate('sue');
+    $this->election->addCandidate('bill');
 
-        $this->election->addCandidate('bob');
-        $this->election->addCandidate('sue');
-        $this->election->addCandidate('bill');
-
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             bob > bill > sue
             sue > bob > bill
             bill > sue > bob
@@ -77,19 +64,18 @@ class InstantRunoffTest extends TestCase
             sue > bob > bill
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => 'sue',
-            2 => 'bob',
-            3 => 'bill', ]);
-    }
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => 'sue',
+        2 => 'bob',
+        3 => 'bill', ]);
+});
 
-    public function testResult_3(): void
-    {
-        $this->election->addCandidate('bob');
-        $this->election->addCandidate('sue');
-        $this->election->addCandidate('bill');
+test('result 3', function (): void {
+    $this->election->addCandidate('bob');
+    $this->election->addCandidate('sue');
+    $this->election->addCandidate('bill');
 
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             bob > bill > sue
             sue > bob > bill
             bill > sue > bob
@@ -98,67 +84,62 @@ class InstantRunoffTest extends TestCase
             bill > bob > sue
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => 'bob',
-            2 => 'bill',
-            3 => 'sue', ]);
-    }
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => 'bob',
+        2 => 'bill',
+        3 => 'sue', ]);
+});
 
-    public function testResult_4(): void
-    {
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
+test('result 4', function (): void {
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
 
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A=B=C
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => ['A', 'B', 'C'], ]);
-    }
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => ['A', 'B', 'C'], ]);
+});
 
-    public function testResult_Equality(): void
-    {
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
+test('result equality', function (): void {
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
 
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A
             B
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => ['A', 'B'], ]);
-    }
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => ['A', 'B'], ]);
+});
 
-    public function testResult_TieBreaking(): void
-    {
-        $this->election->addCandidate('A');
-        $this->election->addCandidate('B');
-        $this->election->addCandidate('C');
-        $this->election->addCandidate('D');
+test('result tie breaking', function (): void {
+    $this->election->addCandidate('A');
+    $this->election->addCandidate('B');
+    $this->election->addCandidate('C');
+    $this->election->addCandidate('D');
 
-        $this->election->parseVotes('
+    $this->election->parseVotes('
             A * 4
             B * 4
             C>A * 2
             D>C>B * 2
         ');
 
-        expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
-            1 => ['A', 'B'],
-            3 => 'C',
-            4 => 'D',
-        ]);
-    }
+    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+        1 => ['A', 'B'],
+        3 => 'C',
+        4 => 'D',
+    ]);
+});
 
-    public function testInfiniteLoopOnTidemanDataset3IfExplicitRanking(): void
-    {
-        $election = (new DavidHillFormat(__DIR__ . '/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
+test('infinite loop on tideman dataset3 if explicit ranking', function (): void {
+    $election = (new DavidHillFormat(__DIR__ . '/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
 
-        $election->setImplicitRanking(false);
+    $election->setImplicitRanking(false);
 
-        expect($election->getResult('InstantRunoff')->getResultAsString())->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
-    }
-}
+    expect($election->getResult('InstantRunoff')->getResultAsString())->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
+});
