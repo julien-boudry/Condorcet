@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 
 class FilteredPairwise extends Pairwise

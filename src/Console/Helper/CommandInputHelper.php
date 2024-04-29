@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Console\Helper;
 
-use CondorcetPHP\Condorcet\{Condorcet, Election, Result};
-
 abstract class CommandInputHelper
 {
     public static function getFilePath(string $path): ?string

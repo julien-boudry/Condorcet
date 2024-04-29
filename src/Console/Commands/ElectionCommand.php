@@ -529,7 +529,7 @@ class ElectionCommand extends Command
             ($votesStatsTable = new Table($output))
                 ->setHeaderTitle('Stats - votes registration')
                 ->setHeaders(['Stats', 'Value'])
-                ->setColumnStyle(0, (new Tablestyle)->setPadType(\STR_PAD_LEFT))
+                ->setColumnStyle(0, (new TableStyle)->setPadType(\STR_PAD_LEFT))
                 ->setStyle($this->io->MainTableStyle)
             ;
 

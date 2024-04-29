@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\{DataHandlerException, ElectionObjectVersionMismatchException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteConstraintException};
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ElectionState, ResultsProcess, VotesProcess};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;

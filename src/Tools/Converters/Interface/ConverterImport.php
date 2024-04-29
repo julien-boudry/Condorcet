@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters\Interface;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
 use CondorcetPHP\Condorcet\Election;
 
 interface ConverterImport

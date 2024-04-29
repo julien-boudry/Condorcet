@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{PublicAPI};
 use Symfony\Component\Yaml\Yaml;
 
 require_once __DIR__ . str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../vendor/autoload.php');

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI};
 use CondorcetPHP\Condorcet\Vote;
 
 class VoteRandomizer extends ArrayRandomizer

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
