@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest]
+        operating-system: [ubuntu-latest, windows-latest, macos-14]
         php-versions: ['8.2', '8.3']
         php-extensions: ['pdo,pdo_sqlite,mbstring,json', 'none,curl,mbstring,json,dom,openssl,tokenizer,xml,xmlwriter,zip']
       fail-fast: false
