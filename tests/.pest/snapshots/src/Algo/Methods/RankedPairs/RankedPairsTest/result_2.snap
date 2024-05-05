@@ -1,0 +1,78 @@
+{
+    "tally": [
+        [
+            {
+                "from": "Chattanooga",
+                "to": "Knoxville",
+                "win": 83,
+                "minority": 17,
+                "margin": 66
+            }
+        ],
+        [
+            {
+                "from": "Nashville",
+                "to": "Knoxville",
+                "win": 68,
+                "minority": 32,
+                "margin": 36
+            },
+            {
+                "from": "Nashville",
+                "to": "Chattanooga",
+                "win": 68,
+                "minority": 32,
+                "margin": 36
+            }
+        ],
+        [
+            {
+                "from": "Nashville",
+                "to": "Memphis",
+                "win": 58,
+                "minority": 42,
+                "margin": 16
+            },
+            {
+                "from": "Knoxville",
+                "to": "Memphis",
+                "win": 58,
+                "minority": 42,
+                "margin": 16
+            },
+            {
+                "from": "Chattanooga",
+                "to": "Memphis",
+                "win": 58,
+                "minority": 42,
+                "margin": 16
+            }
+        ]
+    ],
+    "arcs": [
+        {
+            "from": "Chattanooga",
+            "to": "Knoxville"
+        },
+        {
+            "from": "Nashville",
+            "to": "Knoxville"
+        },
+        {
+            "from": "Nashville",
+            "to": "Chattanooga"
+        },
+        {
+            "from": "Nashville",
+            "to": "Memphis"
+        },
+        {
+            "from": "Knoxville",
+            "to": "Memphis"
+        },
+        {
+            "from": "Chattanooga",
+            "to": "Memphis"
+        }
+    ]
+}

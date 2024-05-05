@@ -19,7 +19,7 @@ test('2020 implicit', function (): void {
 
     expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
 
-    expect($election->getResult('Schulze Margin')->getStats())->toBe(unserialize('a:4:{s:15:"Jonathan Carter";a:3:{s:15:"Sruthi Chandran";i:201;s:11:"Brian Gupta";i:241;s:17:"None Of The Above";i:267;}s:15:"Sruthi Chandran";a:3:{s:15:"Jonathan Carter";i:0;s:11:"Brian Gupta";i:49;s:17:"None Of The Above";i:168;}s:11:"Brian Gupta";a:3:{s:15:"Jonathan Carter";i:0;s:15:"Sruthi Chandran";i:0;s:17:"None Of The Above";i:69;}s:17:"None Of The Above";a:3:{s:15:"Jonathan Carter";i:0;s:15:"Sruthi Chandran";i:0;s:11:"Brian Gupta";i:0;}}'));
+    expect($election->getResult('Schulze Margin')->getStats())->toMatchSnapshot();
 });
 
 test('2020 explicit', function (): void {

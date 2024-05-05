@@ -1,0 +1,68 @@
+{
+    "tally": [
+        [
+            {
+                "from": "A",
+                "to": "D",
+                "win": 61,
+                "minority": 39,
+                "margin": 22
+            }
+        ],
+        [
+            {
+                "from": "B",
+                "to": "A",
+                "win": 55,
+                "minority": 45,
+                "margin": 10
+            }
+        ],
+        [
+            {
+                "from": "A",
+                "to": "C",
+                "win": 54,
+                "minority": 46,
+                "margin": 8
+            },
+            {
+                "from": "C",
+                "to": "B",
+                "win": 54,
+                "minority": 46,
+                "margin": 8
+            }
+        ],
+        [
+            {
+                "from": "D",
+                "to": "B",
+                "win": 51,
+                "minority": 49,
+                "margin": 2
+            },
+            {
+                "from": "D",
+                "to": "C",
+                "win": 51,
+                "minority": 49,
+                "margin": 2
+            }
+        ]
+    ],
+    "arcs": [
+        {
+            "from": "A",
+            "to": "D"
+        },
+        {
+            "from": "B",
+            "to": "A"
+        },
+        {
+            "from": "D",
+            "to": "C"
+        }
+    ]
+}
