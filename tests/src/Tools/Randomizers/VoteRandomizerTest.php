@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Tests\src\Tools\Randomizers\ArrayRandomizerTest;
 use CondorcetPHP\Condorcet\Tools\Randomizers\{ArrayRandomizer, VoteRandomizer};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 test('equivalence', function (): void {
-    $arrayRandomizer = new ArrayRandomizer(ArrayRandomizerTest::CANDIDATE_SET_1, ArrayRandomizerTest::SEED);
-    $votesRandomizer = new VoteRandomizer(ArrayRandomizerTest::CANDIDATE_SET_1, ArrayRandomizerTest::SEED);
+    $arrayRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
+    $votesRandomizer = new VoteRandomizer(self::CANDIDATE_SET_1, self::SEED);
 
     for ($i = 0; $i < 5; $i++) {
         expect(
