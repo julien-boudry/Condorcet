@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types=1);
-use CondorcetPHP\Condorcet\Tests\ArrayRandomizerTest;
+
+use CondorcetPHP\Condorcet\Tests\src\Tools\Randomizers\ArrayRandomizerTest;
 use CondorcetPHP\Condorcet\Tools\Randomizers\{ArrayRandomizer, VoteRandomizer};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 

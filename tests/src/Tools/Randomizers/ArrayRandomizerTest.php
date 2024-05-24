@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\Tests;
+namespace CondorcetPHP\Condorcet\Tests\src\Tools\Randomizers;
 
 use CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer;
-use PHPUnit\Framework\TestCase;
+use Tests\CondorcetTestCase;
 
-class ArrayRandomizerTest extends TestCase
+class ArrayRandomizerTest extends CondorcetTestCase
 {
     public const SEED = 'CondorcetSeed';
 

@@ -6,10 +6,9 @@ namespace Tests;
 
 use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use PHPUnit\Framework\TestCase;
 
 #[RequiresPhpExtension('pdo_sqlite')]
-class DriversTestCase extends TestCase
+class DriversTestCase extends CondorcetTestCase
 {
     protected function hashVotesList(Election $elec): string
     {
