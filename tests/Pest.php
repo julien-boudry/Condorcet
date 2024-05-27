@@ -17,6 +17,7 @@ use CondorcetPHP\Condorcet\Condorcet;
 
 uses(Tests\CondorcetTestCase::class);
 uses(Tests\AlgoTestCase::class)->in('src/Algo');
+uses(Tests\src\Console\ConsoleTestCase::class)->in('src/Console');
 uses(Tests\src\Tools\Randomizers\RandomizerTestCase::class)->in('src/Tools/Randomizers');
 
 
