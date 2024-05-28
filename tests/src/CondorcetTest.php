@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\{Condorcet, Result};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
@@ -118,11 +118,9 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
     protected function makeRanking(): void
     {
-        $this->selfElection->get()->getPairwise();
+        $election = $this->getElection();
 
-        $result = [0 => 1, 1 => 2, 2 => 3]; // Candidate must be valid candidates
-
-        $this->Result = $this->createResult($result);
+        $this->Result = $this->createResult(array_slice(array_map(fn(Candidate $e): int => $election->getCandidateKey($e), $this->getElection()->getCandidatesList()), 0, 3));
     }
 }
 
@@ -141,7 +139,7 @@ class CondorcetTest_UnvalidAlgorithmName
     public function getResult($options = null): Result
     {
         // Cache
-        if ($thisResult !== null) {
+        if ($this->Result !== null) {
             return $this->Result;
         }
 
@@ -168,7 +166,7 @@ class CondorcetTest_UnvalidAlgorithmName
 
     protected function makeRanking(): void
     {
-        $this->selfElection->getPairwise();
+        $this->getElection()->getPairwise();
 
         $result = [0 => 0, 1 => [1, 2], 2 => 3]; // Candidate must be valid internal candidate key.
 
