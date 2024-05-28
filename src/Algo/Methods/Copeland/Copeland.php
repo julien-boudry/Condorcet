@@ -28,6 +28,7 @@ class Copeland extends PairwiseStatsBased_Core
 
     //:: COPELAND ALGORITHM. :://
 
+    #[\Override]
     protected function looking(array $challenge): int
     {
         return max($challenge);

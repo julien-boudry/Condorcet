@@ -20,6 +20,7 @@ class SchulzeMargin extends Schulze_Core
     // Method Name
     public const array METHOD_NAME = ['Schulze Margin', 'SchulzeMargin', 'Schulze_Margin'];
 
+    #[\Override]
     protected function schulzeVariant(int $i, int $j, Election $election): int
     {
         return $election->getPairwise()[$i]['win'][$j] - $election->getPairwise()[$j]['win'][$i];

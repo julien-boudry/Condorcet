@@ -31,11 +31,13 @@ class FilteredPairwise extends Pairwise
         $this->candidates = $link->getCandidatesListAsString();
     }
 
+    #[\Override]
     protected function getVotesManagerGenerator(): \Generator
     {
         return $this->getElection()->getVotesManager()->getVotesValidUnderConstraintGenerator(tags: $this->tags, with: $this->withTags);
     }
 
+    #[\Override]
     protected function getCandidateNameFromKey(int $candidateKey): string
     {
         return $this->candidates[$candidateKey];

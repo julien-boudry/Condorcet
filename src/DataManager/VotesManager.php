@@ -22,6 +22,7 @@ class VotesManager extends ArrayManager
 {
     /////////// Data CallBack for external drivers ///////////
 
+    #[\Override]
     protected function decodeOneEntity(string $data): Vote
     {
         $vote = new Vote($data);
@@ -33,6 +34,7 @@ class VotesManager extends ArrayManager
         return $vote;
     }
 
+    #[\Override]
     protected function encodeOneEntity(Vote $data): string
     {
         if (($election = $this->getElection()) !== null) {
@@ -42,6 +44,7 @@ class VotesManager extends ArrayManager
         return str_replace([' > ', ' = '], ['>', '='], (string) $data);
     }
 
+    #[\Override]
     protected function preDeletedTask(Vote $object): void
     {
         $object->destroyLink($this->getElection());
@@ -49,12 +52,14 @@ class VotesManager extends ArrayManager
 
     /////////// Array Access - Specials improvements ///////////
 
+    #[\Override]
     public function offsetGet(mixed $offset): Vote
     {
         return parent::offsetGet($offset);
     }
 
     #[Throws(VoteManagerException::class)]
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($value instanceof Vote) {
@@ -76,6 +81,7 @@ class VotesManager extends ArrayManager
         $this->checkRegularize();
     }
 
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         if ($this->offsetExists($offset)) {

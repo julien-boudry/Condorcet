@@ -20,6 +20,7 @@ class SchulzeWinning extends Schulze_Core
     // Method Name
     public const array METHOD_NAME = ['Schulze Winning', 'Schulze', 'SchulzeWinning', 'Schulze_Winning', 'Schwartz Sequential Dropping', 'SSD', 'Cloneproof Schwartz Sequential Dropping', 'CSSD', 'Beatpath', 'Beatpath Method', 'Beatpath Winner', 'Path Voting', 'Path Winner'];
 
+    #[\Override]
     protected function schulzeVariant(int $i, int $j, Election $election): int
     {
         return $election->getPairwise()[$i]['win'][$j];

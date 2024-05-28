@@ -23,6 +23,7 @@ class SainteLague extends HighestAverages_Core implements MethodInterface
     // Method Name
     public const array METHOD_NAME = ['Sainte-Laguë', 'SainteLague', 'Webster', 'Major Fractions Method'];
 
+    #[\Override]
     protected function computeQuotient(int $votesWeight, int $seats): float
     {
         $divisor = ($seats !== 0) ? ($seats * 2 + 1) : self::$optionFirstDivisor;

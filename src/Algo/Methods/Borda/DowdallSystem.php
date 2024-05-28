@@ -20,6 +20,7 @@ class DowdallSystem extends BordaCount
     // Method Name
     public const array METHOD_NAME = ['DowdallSystem', 'Dowdall System', 'Nauru', 'Borda Nauru'];
 
+    #[\Override]
     protected function getScoreByCandidateRanking(int $CandidatesRanked, Election $election): float
     {
         return (float) (1 / ($CandidatesRanked + 1));

@@ -25,6 +25,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
 
     public static StvQuotas $optionQuota = StvQuotas::HARE;
 
+    #[\Override]
     protected function makeRounds(): array
     {
         $election = $this->getElection();
@@ -63,6 +64,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
         return $results;
     }
 
+    #[\Override]
     protected function computeQuotient(int $votesWeight, int $seats): float
     {
         return self::$optionQuota->getQuota($votesWeight, $seats);

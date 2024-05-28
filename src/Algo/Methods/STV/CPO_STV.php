@@ -67,6 +67,7 @@ class CPO_STV extends SingleTransferableVote
 
     /////////// COMPUTE ///////////
 
+    #[\Override]
     protected function compute(): void
     {
         Vote::initCache(); // Performances

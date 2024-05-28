@@ -20,6 +20,7 @@ class SchulzeRatio extends Schulze_Core
     // Method Name
     public const array METHOD_NAME = ['Schulze Ratio', 'SchulzeRatio', 'Schulze_Ratio'];
 
+    #[\Override]
     protected function schulzeVariant(int $i, int $j, Election $election): float
     {
         if ($election->getPairwise()[$j]['win'][$i] !== 0) {
