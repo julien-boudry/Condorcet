@@ -24,7 +24,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "ext-json": "*",
         "ext-mbstring": "*",
         "symfony/console": "^7.0",
@@ -35,11 +35,10 @@
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "phpbench/phpbench": "*",
-        "phpunit/phpunit": "^10.5",
         "haydenpierce/class-finder": ">= 0.5.3",
         "phpstan/phpstan": "^1.9",
-        "laravel/pint": "^1.13",
-        "pestphp/pest": "^2.32",
+        "laravel/pint": "^1.16",
+        "pestphp/pest": "^2.34",
         "pestphp/pest-plugin-drift": "^2.0",
         "cmgmyr/phploc": "^8.0",
         "infection/infection": "^0.27, >= 0.27.7",

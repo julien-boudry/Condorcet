@@ -2,6 +2,13 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.7.0] - 2024-05-xx
+### Description
+The minimum PHP version is now 8.3
+
+#### Dev
+- Complete the migration to Pest PHP
+
 ## [v4.6.1] - 2024-04-23
 ### Description
 Half-migration of tests to PestPHP.
