@@ -22,7 +22,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Kemeny–Young', 'Kemeny-Young', 'Kemeny Young', 'KemenyYoung', 'Kemeny rule', 'VoteFair popularity ranking', 'Maximum Likelihood Method', 'Median Relation'];
+    public const array METHOD_NAME = ['Kemeny–Young', 'Kemeny-Young', 'Kemeny Young', 'KemenyYoung', 'Kemeny rule', 'VoteFair popularity ranking', 'Maximum Likelihood Method', 'Median Relation'];
 
     // Method Name
     final public const CONFLICT_WARNING_CODE = 42;

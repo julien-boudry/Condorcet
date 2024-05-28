@@ -21,10 +21,10 @@ use Random\Randomizer;
 class RandomCandidates extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Random Candidates', 'Random Candidate'];
+    public const array METHOD_NAME = ['Random Candidates', 'Random Candidate'];
 
     // Non deterministic method
-    public const IS_DETERMINISTIC = false;
+    public const bool IS_DETERMINISTIC = false;
 
     // Options
     public static ?Randomizer $optionRandomizer = null;

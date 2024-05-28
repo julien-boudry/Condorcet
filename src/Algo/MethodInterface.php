@@ -18,6 +18,8 @@ use CondorcetPHP\Condorcet\{Election, Result};
 #[InternalModulesAPI]
 interface MethodInterface
 {
+    public const array METHOD_NAME = [];
+
     public function __construct(Election $election);
 
     public function setElection(Election $election): void;

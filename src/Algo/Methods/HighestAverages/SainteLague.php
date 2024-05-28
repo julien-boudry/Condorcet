@@ -21,7 +21,7 @@ class SainteLague extends HighestAverages_Core implements MethodInterface
     public static int|float $optionFirstDivisor = 1;
 
     // Method Name
-    public const METHOD_NAME = ['Sainte-Laguë', 'SainteLague', 'Webster', 'Major Fractions Method'];
+    public const array METHOD_NAME = ['Sainte-Laguë', 'SainteLague', 'Webster', 'Major Fractions Method'];
 
     protected function computeQuotient(int $votesWeight, int $seats): float
     {

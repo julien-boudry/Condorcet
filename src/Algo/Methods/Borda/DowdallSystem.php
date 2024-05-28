@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Election;
 class DowdallSystem extends BordaCount
 {
     // Method Name
-    public const METHOD_NAME = ['DowdallSystem', 'Dowdall System', 'Nauru', 'Borda Nauru'];
+    public const array METHOD_NAME = ['DowdallSystem', 'Dowdall System', 'Nauru', 'Borda Nauru'];
 
     protected function getScoreByCandidateRanking(int $CandidatesRanked, Election $election): float
     {

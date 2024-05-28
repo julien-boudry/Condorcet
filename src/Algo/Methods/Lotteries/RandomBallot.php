@@ -19,10 +19,10 @@ use Random\Randomizer;
 class RandomBallot extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Random Ballot', 'single stochastic vote', 'lottery voting'];
+    public const array METHOD_NAME = ['Random Ballot', 'single stochastic vote', 'lottery voting'];
 
     // Non deterministic method
-    public const IS_DETERMINISTIC = false;
+    public const bool IS_DETERMINISTIC = false;
 
     // Options
     public static ?Randomizer $optionRandomizer = null;

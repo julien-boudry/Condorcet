@@ -20,7 +20,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
     ////// # Static Export Method //////
 
-    public const SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
+    public const string SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
 
     #[PublicAPI]
     #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]

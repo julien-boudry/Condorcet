@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Election;
 class MultipleRoundsSystem extends Majority_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Multiple Rounds System', 'MultipleRoundsSystem', 'Multiple Rounds', 'Majority', 'Majority System', 'Two-round system', 'second ballot', 'runoff voting', 'ballotage', 'two round system', 'two round', 'two rounds', 'two rounds system', 'runoff voting'];
+    public const array METHOD_NAME = ['Multiple Rounds System', 'MultipleRoundsSystem', 'Multiple Rounds', 'Majority', 'Majority System', 'Two-round system', 'second ballot', 'runoff voting', 'ballotage', 'two round system', 'two round', 'two rounds', 'two rounds system', 'runoff voting'];
 
     // Mod
     protected static int $optionMAX_ROUND = 2;

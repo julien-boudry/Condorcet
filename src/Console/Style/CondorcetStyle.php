@@ -20,14 +20,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CondorcetStyle extends SymfonyStyle
 {
-    public const CONDORCET_MAIN_COLOR = '#f57255';
-    public const CONDORCET_SECONDARY_COLOR = '#8993c0';
-    public const CONDORCET_THIRD_COLOR = '#e3e1e0';
+    public const string CONDORCET_MAIN_COLOR = '#f57255';
+    public const string CONDORCET_SECONDARY_COLOR = '#8993c0';
+    public const string CONDORCET_THIRD_COLOR = '#e3e1e0';
 
-    public const CONDORCET_WINNER_SYMBOL = '★';
-    public const CONDORCET_LOSER_SYMBOL = '⚐';
-    public const CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>' . self::CONDORCET_WINNER_SYMBOL . '</>';
-    public const CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#33beff>' . self::CONDORCET_LOSER_SYMBOL . '</>';
+    public const string CONDORCET_WINNER_SYMBOL = '★';
+    public const string CONDORCET_LOSER_SYMBOL = '⚐';
+    public const string CONDORCET_WINNER_SYMBOL_FORMATED = '<fg=#ffff00>' . self::CONDORCET_WINNER_SYMBOL . '</>';
+    public const string CONDORCET_LOSER_SYMBOL_FORMATED = '<fg=#33beff>' . self::CONDORCET_LOSER_SYMBOL . '</>';
 
     public readonly TableStyle $MainTableStyle;
     public readonly TableStyle $FirstColumnStyle;

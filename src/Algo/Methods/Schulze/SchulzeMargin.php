@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Election;
 class SchulzeMargin extends Schulze_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Schulze Margin', 'SchulzeMargin', 'Schulze_Margin'];
+    public const array METHOD_NAME = ['Schulze Margin', 'SchulzeMargin', 'Schulze_Margin'];
 
     protected function schulzeVariant(int $i, int $j, Election $election): int
     {

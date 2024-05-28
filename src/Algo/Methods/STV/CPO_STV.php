@@ -31,12 +31,12 @@ use SplFixedArray;
 class CPO_STV extends SingleTransferableVote
 {
     // Method Name
-    public const METHOD_NAME = ['CPO STV', 'CPO-STV', 'CPO_STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
+    public const array METHOD_NAME = ['CPO STV', 'CPO-STV', 'CPO_STV', 'CPO', 'Comparison of Pairs of Outcomes by the Single Transferable Vote', 'Tideman STV'];
 
     // Limits
     public static ?int $MaxOutcomeComparisons = 12_000;
 
-    public const DEFAULT_METHODS_CHAINING = [
+    public const array DEFAULT_METHODS_CHAINING = [
         SchulzeMargin::METHOD_NAME[0],
         SchulzeWinning::METHOD_NAME[0],
         SchulzeRatio::METHOD_NAME[0],

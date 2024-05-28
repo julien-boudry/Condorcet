@@ -45,7 +45,7 @@ class Election
     /////////// PROPERTIES ///////////
 
     #[PublicAPI]
-    public const MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
+    public const int MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
     #[PublicAPI]
     public static ?int $maxParseIteration = null;

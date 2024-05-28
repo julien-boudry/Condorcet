@@ -21,7 +21,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 class LargestRemainder extends HighestAverages_Core implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Largest Remainder', 'LargestRemainder', 'LR', 'Hare–Niemeyer method', 'Hamilton method', 'Vinton\'s method'];
+    public const array METHOD_NAME = ['Largest Remainder', 'LargestRemainder', 'LR', 'Hare–Niemeyer method', 'Hamilton method', 'Vinton\'s method'];
 
     public static StvQuotas $optionQuota = StvQuotas::HARE;
 

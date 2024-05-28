@@ -19,9 +19,9 @@ use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 class MinimaxOpposition extends PairwiseStatsBased_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Minimax Opposition', 'MinimaxOpposition', 'Minimax_Opposition'];
+    public const array METHOD_NAME = ['Minimax Opposition', 'MinimaxOpposition', 'Minimax_Opposition'];
 
-    protected const COUNT_TYPE = 'worst_pairwise_opposition';
+    protected const string COUNT_TYPE = 'worst_pairwise_opposition';
 
 
     /////////// COMPUTE ///////////

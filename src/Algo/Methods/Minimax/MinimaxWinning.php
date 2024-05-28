@@ -19,9 +19,9 @@ use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 class MinimaxWinning extends PairwiseStatsBased_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Minimax Winning', 'MinimaxWinning', 'Minimax', 'Minimax_Winning', 'Simpson', 'Simpson-Kramer', 'Simpson-Kramer Method', 'Simpson Method'];
+    public const array METHOD_NAME = ['Minimax Winning', 'MinimaxWinning', 'Minimax', 'Minimax_Winning', 'Simpson', 'Simpson-Kramer', 'Simpson-Kramer Method', 'Simpson Method'];
 
-    protected const COUNT_TYPE = 'worst_pairwise_defeat_winning';
+    protected const string COUNT_TYPE = 'worst_pairwise_defeat_winning';
 
 
     /////////// COMPUTE ///////////

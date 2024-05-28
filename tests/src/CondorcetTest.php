@@ -82,7 +82,7 @@ test('method alias', function (): void {
 
 class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 {
-    public const METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
+    public const array METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
 
     // Get the Result object
@@ -126,13 +126,13 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 class CondorcetTest_DuplicateAlgorithmAlias extends CondorcetTest_ValidAlgorithmName implements MethodInterface
 {
-    public const METHOD_NAME = ['SecondMethodName', 'Alias_2'];
+    public const array METHOD_NAME = ['SecondMethodName', 'Alias_2'];
 }
 
 
 class CondorcetTest_UnvalidAlgorithmName
 {
-    public const METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
+    public const array METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
 
     // Get the Result object

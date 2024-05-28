@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 class FirstPastThePost extends Majority_Core
 {
     // Method Name
-    public const METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FPTP', 'FPP', 'SMP', 'FTPT'];
+    public const array METHOD_NAME = ['First-past-the-post voting', 'First-past-the-post', 'First Choice', 'FirstChoice', 'FPTP', 'FPP', 'SMP', 'FTPT'];
 
     // Mod
     protected int $maxRound = 1;

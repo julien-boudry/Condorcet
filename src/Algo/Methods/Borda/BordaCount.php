@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Election;
 class BordaCount extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['BordaCount', 'Borda Count', 'Borda', 'Méthode Borda'];
+    public const array METHOD_NAME = ['BordaCount', 'Borda Count', 'Borda', 'Méthode Borda'];
 
     public static int $optionStarting = 1;
 

@@ -19,9 +19,9 @@ use CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core;
 class Copeland extends PairwiseStatsBased_Core
 {
     // Method Name
-    public const METHOD_NAME = ['Copeland'];
+    public const array METHOD_NAME = ['Copeland'];
 
-    protected const COUNT_TYPE = 'balance';
+    protected const string COUNT_TYPE = 'balance';
 
 
     /////////// COMPUTE ///////////

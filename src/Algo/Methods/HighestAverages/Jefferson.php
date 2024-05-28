@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 class Jefferson extends HighestAverages_Core implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['Jefferson', 'D\'Hondt', 'Thomas Jefferson'];
+    public const array METHOD_NAME = ['Jefferson', 'D\'Hondt', 'Thomas Jefferson'];
 
 
     /////////// COMPUTE ///////////

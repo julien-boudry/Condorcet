@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 class CondorcetBasic extends Method implements MethodInterface
 {
     // Method Name
-    public const METHOD_NAME = ['CondorcetBasic'];
+    public const array METHOD_NAME = ['CondorcetBasic'];
 
     // Basic Condorcet
     protected ?int $CondorcetWinner = null;

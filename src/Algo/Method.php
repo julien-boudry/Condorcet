@@ -23,17 +23,15 @@ abstract class Method
     use HasElection;
     use CondorcetVersion;
 
-    private const METHOD_NAME = ['abstractMethod'];
-
-    public const IS_PROPORTIONAL = false;
-    public const IS_DETERMINISTIC = true;
+    public const bool IS_PROPORTIONAL = false;
+    public const bool IS_DETERMINISTIC = true;
 
     public static ?int $MaxCandidates = null;
 
     protected ?Result $Result = null;
 
     // Internal precision
-    public const DECIMAL_PRECISION = 9;
+    public const int DECIMAL_PRECISION = 9;
 
     // Static
 
