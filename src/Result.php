@@ -84,7 +84,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     protected readonly array $Result;
     protected array $ResultIterator;
-    protected $Stats;
+    public readonly mixed $Stats;
     protected array $warning = [];
 
     #[PublicAPI]

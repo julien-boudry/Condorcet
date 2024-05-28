@@ -83,7 +83,7 @@ class Election
 
     // Mechanics
     protected ElectionState $State = ElectionState::CANDIDATES_REGISTRATION;
-    protected Timer_Manager $timer;
+    protected readonly Timer_Manager $timer;
 
     // Params
     protected bool $ImplicitRanking = true;

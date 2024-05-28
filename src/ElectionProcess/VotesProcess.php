@@ -24,7 +24,7 @@ trait VotesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected VotesManager $Votes; // Votes list
+    protected readonly VotesManager $Votes; // Votes list
     protected int $voteFastMode = 0; // When parsing vote, avoid unnecessary checks
 
 

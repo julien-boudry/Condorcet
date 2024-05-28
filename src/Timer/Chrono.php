@@ -17,15 +17,15 @@ class Chrono
 {
     use CondorcetVersion;
 
-    protected Manager $manager;
-    protected float $start;
+    protected readonly Manager $manager;
+    public readonly float $start;
     protected ?string $role = null;
 
     public function __construct(Manager $timer, ?string $role = null)
     {
         $this->manager = $timer;
         $this->setRole($role);
-        $this->resetStart();
+        $this->start = microtime(true);
         $this->managerStartDeclare();
     }
 
@@ -42,11 +42,6 @@ class Chrono
     public function getTimerManager(): Manager
     {
         return $this->manager;
-    }
-
-    protected function resetStart(): void
-    {
-        $this->start = microtime(true);
     }
 
     public function getRole(): ?string
