@@ -6,7 +6,7 @@ namespace Tests\src\Console;
 
 use Tests\CondorcetTestCase;
 
-class ConsoleTestCase extends CondorcetTestCase
+abstract class ConsoleTestCase extends CondorcetTestCase
 {
     public const DEBIAN_INPUT_FILE = __DIR__ . '/../Tools/Converters/DebianData/leader2020_tally.txt';
     public const DAVIDHILL_INPUT_FILE = __DIR__ . '/../Tools/Converters/TidemanData/A77.HIL';

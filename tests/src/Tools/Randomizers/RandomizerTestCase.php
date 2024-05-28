@@ -6,7 +6,7 @@ namespace Tests\src\Tools\Randomizers;
 
 use Tests\CondorcetTestCase;
 
-class RandomizerTestCase extends CondorcetTestCase
+abstract class RandomizerTestCase extends CondorcetTestCase
 {
     public const SEED = 'CondorcetSeed';
 

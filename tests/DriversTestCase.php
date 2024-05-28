@@ -8,7 +8,7 @@ use CondorcetPHP\Condorcet\Election;
 use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 
 #[RequiresPhpExtension('pdo_sqlite')]
-class DriversTestCase extends CondorcetTestCase
+abstract class DriversTestCase extends CondorcetTestCase
 {
     protected function hashVotesList(Election $elec): string
     {

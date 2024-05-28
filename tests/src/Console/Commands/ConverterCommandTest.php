@@ -8,21 +8,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tests\src\Console\ConsoleTestCase;
 
-beforeEach(function () {
+beforeEach(function (): void {
     CondorcetApplication::create();
 
     $this->converterCommand = new CommandTester(CondorcetApplication::$SymfonyConsoleApplication->find('convert'));
 });
-afterEach(function () {
+
+afterEach(function (): void {
     file_exists(self::OUTPUT_FILE) && unlink(self::OUTPUT_FILE);
 });
+
 dataset('conversionsProvider', function () {
     return [
         'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', ConsoleTestCase::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
         'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', ConsoleTestCase::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
     ];
 });
-test('successfull conversions', function (string $from, string $to, string $input, string $comparaison) {
+
+test('successfull conversions', function (string $from, string $to, string $input, string $comparaison): void {
     $this->converterCommand->execute(
         [
             $from => true,
@@ -42,7 +45,8 @@ test('successfull conversions', function (string $from, string $to, string $inpu
 
     expect(file_get_contents(self::OUTPUT_FILE))->toBe(file_get_contents($comparaison));
 })->with('conversionsProvider');
-test('lacks an option', function () {
+
+test('lacks an option', function (): void {
     $this->expectException(ConsoleInputException::class);
     $this->expectExceptionMessageMatches('/output/');
 
@@ -58,7 +62,8 @@ test('lacks an option', function () {
         ]
     );
 });
-test('lacks an argument', function () {
+
+test('lacks an argument', function (): void {
     $this->expectException(ConsoleInputException::class);
     $this->expectExceptionMessageMatches('/output/');
 
@@ -74,7 +79,8 @@ test('lacks an argument', function () {
         ]
     );
 });
-test('wrong input', function () {
+
+test('wrong input', function (): void {
     $this->expectException(CondorcetInternalException::class);
     $this->expectExceptionMessage('The input file does not exist');
 

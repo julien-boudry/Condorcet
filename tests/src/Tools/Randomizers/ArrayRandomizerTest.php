@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer;
 
-test('default random votes', function () {
+test('default random votes', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
 
     for ($i = 0; $i < 10; $i++) {
@@ -14,7 +14,8 @@ test('default random votes', function () {
         expect($nv)->toHaveCount(\count(self::CANDIDATE_SET_1));
     }
 });
-test('max candidates ranked', function () {
+
+test('max candidates ranked', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
     $votesRandomizer->maxCandidatesRanked = 3;
 
@@ -27,7 +28,8 @@ test('max candidates ranked', function () {
         expect($nv)->toHaveCount($votesRandomizer->maxCandidatesRanked);
     }
 });
-test('min candidates ranked', function () {
+
+test('min candidates ranked', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
     $votesRandomizer->minCandidatesRanked = 3;
 
@@ -47,7 +49,8 @@ test('min candidates ranked', function () {
     $variationsCount = \count(array_unique($variations));
     expect($variationsCount)->toBe(\count(self::CANDIDATE_SET_1) - $votesRandomizer->minCandidatesRanked + 1);
 });
-test('min and max candidates ranked', function () {
+
+test('min and max candidates ranked', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
     $votesRandomizer->minCandidatesRanked = 3;
     $votesRandomizer->maxCandidatesRanked = 6;
@@ -67,7 +70,8 @@ test('min and max candidates ranked', function () {
     $variationsCount = \count(array_unique($variations));
     expect($variationsCount)->toBe($votesRandomizer->maxCandidatesRanked - $votesRandomizer->minCandidatesRanked + 1);
 });
-test('added ties', function () {
+
+test('added ties', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_2, self::SEED);
 
     $votesRandomizer->tiesProbability = 100;
@@ -91,7 +95,8 @@ test('added ties', function () {
     expect($nv)->toHaveCount(1);
     expect($nv[0])->toHaveCount(3);
 });
-test('added ties with array1', function () {
+
+test('added ties with array1', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_3, self::SEED);
 
     $votesRandomizer->tiesProbability = 100;
@@ -100,7 +105,8 @@ test('added ties with array1', function () {
     expect($nv)->toHaveCount(3);
     expect($nv[2])->toHaveCount(2);
 });
-test('added ties with array2', function () {
+
+test('added ties with array2', function (): void {
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, self::SEED);
 
     $votesRandomizer->tiesProbability = 500;
@@ -109,7 +115,8 @@ test('added ties with array2', function () {
     expect($nv)->toHaveCount(4);
     expect($nv[2])->toHaveCount(6);
 });
-test('seeds', function () {
+
+test('seeds', function (): void {
     // Test low seed
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, '42');
     expect($votesRandomizer->shuffle()[0])->toBe(self::CANDIDATE_SET_1[5]);
@@ -121,7 +128,7 @@ test('seeds', function () {
     expect($votesRandomizer->shuffle()[0])->toBe(self::CANDIDATE_SET_1[6]);
 
     // Test custom Randomizer
-    $r = new \Random\Randomizer(new \Random\Engine\PcgOneseq128XslRr64('abcdefghijklmnop'));
+    $r = new Random\Randomizer(new Random\Engine\PcgOneseq128XslRr64('abcdefghijklmnop'));
     $votesRandomizer = new ArrayRandomizer(self::CANDIDATE_SET_1, $r);
     expect($votesRandomizer->shuffle()[0])->toBe(self::CANDIDATE_SET_1[4]);
 

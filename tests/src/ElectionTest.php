@@ -610,7 +610,7 @@ test('election unserializing', function (): void {
     );
 
     unserialize(
-        file_get_contents(__DIR__.'/ElectionData/serialized_election_v3.2.0.txt')
+        file_get_contents(__DIR__ . '/ElectionData/serialized_election_v3.2.0.txt')
     );
 });
 
