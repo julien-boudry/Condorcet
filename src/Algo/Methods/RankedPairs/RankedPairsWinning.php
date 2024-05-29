@@ -19,5 +19,5 @@ class RankedPairsWinning extends RankedPairs_Core
     // Method Name
     public const array METHOD_NAME = ['Ranked Pairs Winning', 'RankedPairsWinning', 'Tideman Winning', 'RP Winning'];
 
-    protected const string RP_VARIANT_1 = 'win';
+    protected const RP_VARIANT VARIANT = RP_VARIANT::WINNING;
 }

@@ -4,48 +4,48 @@
             {
                 "from": "Chattanooga",
                 "to": "Knoxville",
-                "win": 83,
-                "minority": 17,
-                "margin": 66
+                "WINNING": 83,
+                "MINORITY": 17,
+                "MARGIN": 66
             }
         ],
         [
             {
                 "from": "Nashville",
                 "to": "Knoxville",
-                "win": 68,
-                "minority": 32,
-                "margin": 36
+                "WINNING": 68,
+                "MINORITY": 32,
+                "MARGIN": 36
             },
             {
                 "from": "Nashville",
                 "to": "Chattanooga",
-                "win": 68,
-                "minority": 32,
-                "margin": 36
+                "WINNING": 68,
+                "MINORITY": 32,
+                "MARGIN": 36
             }
         ],
         [
             {
                 "from": "Nashville",
                 "to": "Memphis",
-                "win": 58,
-                "minority": 42,
-                "margin": 16
+                "WINNING": 58,
+                "MINORITY": 42,
+                "MARGIN": 16
             },
             {
                 "from": "Knoxville",
                 "to": "Memphis",
-                "win": 58,
-                "minority": 42,
-                "margin": 16
+                "WINNING": 58,
+                "MINORITY": 42,
+                "MARGIN": 16
             },
             {
                 "from": "Chattanooga",
                 "to": "Memphis",
-                "win": 58,
-                "minority": 42,
-                "margin": 16
+                "WINNING": 58,
+                "MINORITY": 42,
+                "MARGIN": 16
             }
         ]
     ],

@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
-// Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-class RankedPairsMargin extends RankedPairs_Core
+enum RP_VARIANT
 {
-    // Method Name
-    public const array METHOD_NAME = ['Ranked Pairs Margin', 'RankedPairsMargin', 'Tideman Margin', 'RP Margin', 'Ranked Pairs', 'RankedPairs', 'Tideman method'];
-
-    protected const RP_VARIANT VARIANT = RP_VARIANT::MARGIN;
+    case UNDEFINED;
+    case WINNING;
+    case MARGIN;
+    case MINORITY;
 }

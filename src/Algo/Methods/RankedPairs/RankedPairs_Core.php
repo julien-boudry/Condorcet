@@ -19,7 +19,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 // Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 abstract class RankedPairs_Core extends Method implements MethodInterface
 {
-    protected const string RP_VARIANT_1 = 'abstractVariant';
+    protected const RP_VARIANT VARIANT = RP_VARIANT::UNDEFINED;
 
     // Limits
     public static ?int $MaxCandidates = 60;
@@ -225,9 +225,9 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
                     // Defeat
                     $pairs[$i]['to'] = $challenger_key;
 
-                    $pairs[$i]['win'] = $challenger_value;
-                    $pairs[$i]['minority'] = $candidate_value['lose'][$challenger_key];
-                    $pairs[$i]['margin'] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
+                    $pairs[$i][RP_VARIANT::WINNING->name] = $challenger_value;
+                    $pairs[$i][RP_VARIANT::MINORITY->name] = $candidate_value['lose'][$challenger_key];
+                    $pairs[$i][RP_VARIANT::MARGIN->name] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
 
                     $i++;
                 }
@@ -235,12 +235,12 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
         }
 
         usort($pairs, static function (array $a, array $b): int {
-            if ($a[static::RP_VARIANT_1] < $b[static::RP_VARIANT_1]) {
+            if ($a[static::VARIANT->name] < $b[static::VARIANT->name]) {
                 return 1;
-            } elseif ($a[static::RP_VARIANT_1] > $b[static::RP_VARIANT_1]) {
+            } elseif ($a[static::VARIANT->name] > $b[static::VARIANT->name]) {
                 return -1;
             } else { // Equal
-                return $a['minority'] <=> $b['minority'];
+                return $a[RP_VARIANT::MINORITY->name] <=> $b[RP_VARIANT::MINORITY->name];
             }
         });
 
@@ -251,7 +251,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
             if ($f === true) {
                 $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;
-            } elseif ($pairs[$pairsKey][static::RP_VARIANT_1] === $pairs[$pairsKey - 1][static::RP_VARIANT_1] && $pairs[$pairsKey]['minority'] === $pairs[$pairsKey - 1]['minority']) {
+            } elseif ($pairs[$pairsKey][static::VARIANT->name] === $pairs[$pairsKey - 1][static::VARIANT->name] && $pairs[$pairsKey][RP_VARIANT::MINORITY->name] === $pairs[$pairsKey - 1][RP_VARIANT::MINORITY->name]) {
                 $newArcs[$i][] = $pairs[$pairsKey];
             } else {
                 $newArcs[++$i][] = $pairs[$pairsKey];
