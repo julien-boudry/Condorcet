@@ -21,7 +21,7 @@ class InstantRunoff extends Method implements MethodInterface
     // Method Name
     public const array METHOD_NAME = ['Instant-runoff', 'InstantRunoff', 'IRV', 'preferential voting', 'ranked-choice voting', 'alternative vote', 'AlternativeVote', 'transferable vote', 'Vote alternatif'];
 
-    protected ?array $Stats = null;
+    protected readonly array $Stats;
 
     public readonly float $majority;
 
@@ -57,6 +57,7 @@ class InstantRunoff extends Method implements MethodInterface
 
         $candidateDone = [];
         $result = [];
+        $stats = [];
         $CandidatesWinnerCount = 0;
         $CandidatesLoserCount = 0;
 
@@ -67,7 +68,7 @@ class InstantRunoff extends Method implements MethodInterface
             $maxScore = max($score);
             $minScore = min($score);
 
-            $this->Stats[++$iteration] = $score;
+            $stats[++$iteration] = $score;
 
             if ($maxScore > $this->majority) {
                 foreach ($score as $candidateKey => $candidateScore) {
@@ -101,6 +102,7 @@ class InstantRunoff extends Method implements MethodInterface
             }
         }
 
+        $this->Stats = $stats;
         $this->Result = $this->createResult($result);
     }
 

@@ -27,7 +27,7 @@ abstract class RankedPairs_Core extends Method implements MethodInterface
     // Ranked Pairs
     protected readonly array $PairwiseSort;
     protected array $Arcs = [];
-    protected ?array $Stats = null;
+    protected array $Stats = [];
     protected bool $StatsDone = false;
 
 

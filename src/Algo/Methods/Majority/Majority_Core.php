@@ -22,7 +22,7 @@ abstract class Majority_Core extends Method implements MethodInterface
     protected int $numberOfTargetedCandidatesAfterEachRound;
 
     protected array $admittedCandidates = [];
-    protected ?array $Stats = null;
+    protected readonly array $Stats;
 
     protected function getStats(): array
     {

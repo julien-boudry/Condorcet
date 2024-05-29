@@ -26,7 +26,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     #[PublicAPI]
     public const array SEGMENT = [499, 50, 4, 1]; // Must be ordered desc.
 
-    protected \PDO $handler;
+    protected readonly \PDO $handler;
     protected bool $transaction = false;
     protected bool $queryError = false;
 

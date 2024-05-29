@@ -21,7 +21,7 @@ class DodgsonQuick extends Method implements MethodInterface
     // Method Name
     public const array METHOD_NAME = ['Dodgson Quick', 'DodgsonQuick', 'Dodgson Quick Winner'];
 
-    protected ?array $Stats = null;
+    protected readonly array $Stats;
 
     protected function getStats(): array
     {
