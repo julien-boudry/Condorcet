@@ -25,7 +25,7 @@ trait VotesProcess
 
     // Data and global options
     protected readonly VotesManager $Votes; // Votes list
-    protected int $voteFastMode = 0; // When parsing vote, avoid unnecessary checks
+    protected VotesFastMod $votesFastMode = VotesFastMod::NONE; // When parsing vote, avoid unnecessary checks
 
 
     /////////// VOTES LIST ///////////
@@ -198,7 +198,7 @@ trait VotesProcess
 
     public function checkVoteCandidate(Vote $vote): bool
     {
-        if ($this->voteFastMode === 0) {
+        if ($this->votesFastMode === VotesFastMod::NONE) {
             $linkCount = $vote->countLinks();
             $linkCheck = ($linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)));
 
@@ -209,7 +209,7 @@ trait VotesProcess
             }
         }
 
-        if ($this->voteFastMode < 2) {
+        if ($this->votesFastMode !== VotesFastMod::BYPASS_RANKING_UPDATE) {
             $ranking = $vote->getRanking();
 
             $change = $this->convertRankingCandidates($ranking);
@@ -513,19 +513,19 @@ trait VotesProcess
 
     protected function doAddVotesFromParse(array $adding): void
     {
-        $this->voteFastMode = 1;
+        $this->votesFastMode = VotesFastMod::BYPASS_CANDIDATES_CHECK;
 
         foreach ($adding as $oneLine) {
             for ($i = 1; $i <= $oneLine['multiple']; $i++) {
                 if ($i === 1) {
                     $finalVoteModel = $this->addVote($oneLine['vote']);
-                    $this->voteFastMode = 2;
+                    $this->votesFastMode = VotesFastMod::BYPASS_RANKING_UPDATE;
                 } else {
                     $this->addVote(clone $finalVoteModel);
                 }
             }
         }
 
-        $this->voteFastMode = 0;
+        $this->votesFastMode = VotesFastMod::NONE;
     }
 }
