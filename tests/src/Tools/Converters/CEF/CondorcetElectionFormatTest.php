@@ -335,8 +335,7 @@ test('empty ranking import', function (): void {
 });
 
 test('candidates from votes', function (): void {
-    $file = new SplTempFileObject;
-    $file->fwrite($input =  <<<'CVOTES'
+    $cef = CondorcetElectionFormat::createFromString(<<<'CVOTES'
         #/Number of Seats: 42
         #/Implicit Ranking: false
         #/Weight Allowed: false
@@ -348,8 +347,6 @@ test('candidates from votes', function (): void {
         D > F = A
         D>A>B>C>E>F
         CVOTES);
-
-    $cef = new CondorcetElectionFormat($file);
 
     expect($cef->candidates)->toBe(['A', 'B', 'C', 'D', 'E', 'F']);
     expect($cef->CandidatesParsedFromVotes)->toBeTrue();
@@ -371,7 +368,7 @@ test('file does not exists', function (): void {
 
 test('non standard parameters', function (): void {
     $file = new SplTempFileObject;
-    $file->fwrite($input =  <<<'CVOTES'
+    $file->fwrite(<<<'CVOTES'
         #/Number Of Seats: 42
         #/Implicit Ranking: tRue
         #/Weight Allowed: false

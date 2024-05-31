@@ -11,10 +11,11 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Converters\CEF;
 
-use CondorcetPHP\Condorcet\{Candidate, Election};
+use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\{ConverterExport, ConverterImport};
+use SplTempFileObject;
 
 class CondorcetElectionFormat implements ConverterExport, ConverterImport
 {
@@ -73,6 +74,16 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         }
 
         return ($file) ? null : $r;
+    }
+
+    #[PublicAPI]
+    #[Description("Create a CondorcetElectionFormat object from string.\n")]
+    public static function createFromString(string $input): self
+    {
+        $file = new SplTempFileObject;
+        $file->fwrite($input);
+
+        return new self ($file);
     }
 
     public static function boolParser(string $parse): bool

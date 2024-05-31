@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 ### Description
 The minimum PHP version is now 8.3
 
+### Added
+- CondorcetElectionFormat object can be created directly from a string input instead of only SplFileInfo object.
+
 #### Dev
 - Complete the migration to Pest PHP
 
