@@ -234,6 +234,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public int $invalidBlocksCount`  
 
 * [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
+* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
 * [public Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
 * [public Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
@@ -276,7 +277,6 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L21)
 
 ```php
-* private const METHOD_NAME: (array)
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
@@ -308,7 +308,7 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -337,7 +337,7 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static int $optionStarting
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -425,7 +425,7 @@ _Including above methods from public API_
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -480,6 +480,7 @@ _Including above methods from public API_
 * final public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
+* public const METHOD_NAME: (array)
 
 * protected array $candidatesVotes
 * protected array $candidatesSeats
@@ -578,7 +579,7 @@ _Including above methods from public API_
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
 
-* protected ?array $Stats
+* readonly protected array $Stats
 * readonly public float $majority
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
@@ -741,7 +742,7 @@ _Including above methods from public API_
 * protected int $targetNumberOfCandidatesForTheNextRound
 * protected int $numberOfTargetedCandidatesAfterEachRound
 * protected array $admittedCandidates
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -767,12 +768,13 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
+* public const METHOD_NAME: (array)
 
 * protected int $maxRound
 * protected int $targetNumberOfCandidatesForTheNextRound
 * protected int $numberOfTargetedCandidatesAfterEachRound
 * protected array $admittedCandidates
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -807,7 +809,7 @@ _Including above methods from public API_
 * protected int $targetNumberOfCandidatesForTheNextRound
 * protected int $numberOfTargetedCandidatesAfterEachRound
 * protected array $admittedCandidates
-* protected ?array $Stats
+* readonly protected array $Stats
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -924,6 +926,7 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
+* public const METHOD_NAME: (array)
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -945,12 +948,25 @@ _Including above methods from public API_
 * protected makeRanking (): void  
 ```
 
+#### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT implements UnitEnum`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L16)
+
+```php
+* `case RP_VARIANT::UNDEFINED`  
+* `case RP_VARIANT::WINNING`  
+* `case RP_VARIANT::MARGIN`  
+* `case RP_VARIANT::MINORITY`  
+
+* readonly public string $name
+
+```
+
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsMargin.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
-* protected const RP_VARIANT_1: (string)
+* protected const VARIANT: (object)
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
@@ -958,7 +974,7 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
 * protected array $Arcs
-* protected ?array $Stats
+* protected array $Stats
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -987,7 +1003,7 @@ _Including above methods from public API_
 
 ```php
 * public const METHOD_NAME: (array)
-* protected const RP_VARIANT_1: (string)
+* protected const VARIANT: (object)
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
@@ -995,7 +1011,7 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
 * protected array $Arcs
-* protected ?array $Stats
+* protected array $Stats
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -1023,15 +1039,16 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairs_Core.php#L20)
 
 ```php
-* protected const RP_VARIANT_1: (string)
+* protected const VARIANT: (object)
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
+* public const METHOD_NAME: (array)
 
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
 * protected array $Arcs
-* protected ?array $Stats
+* protected array $Stats
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
@@ -1069,7 +1086,6 @@ _Including above methods from public API_
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * public static array $optionCondorcetCompletionMethod
 * public static array $optionTieBreakerMethods
-* protected ?array $Stats
 * protected SplFixedArray $outcomes
 * readonly protected array $initialScoreTable
 * protected array $candidatesElectedFromFirstRound
@@ -1078,6 +1094,7 @@ _Including above methods from public API_
 * readonly protected int $condorcetWinnerOutcome
 * readonly protected array $completionMethodPairwise
 * readonly protected CondorcetPHP\Condorcet\Result $completionMethodResult
+* readonly protected array $Stats
 * protected float $votesNeededToWin
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
@@ -1111,7 +1128,7 @@ _Including above methods from public API_
 * public const DECIMAL_PRECISION: (integer)
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
-* protected ?array $Stats
+* readonly protected array $Stats
 * protected float $votesNeededToWin
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
@@ -1231,6 +1248,7 @@ _Including above methods from public API_
 * public const IS_PROPORTIONAL: (boolean)
 * public const IS_DETERMINISTIC: (boolean)
 * public const DECIMAL_PRECISION: (integer)
+* public const METHOD_NAME: (array)
 
 * protected array $StrongestPaths
 * public static ?int $MaxCandidates
@@ -1255,7 +1273,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements Traversable, Iterator, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/FilteredPairwise.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/FilteredPairwise.php#L17)
 
 ```php
 * readonly protected array $candidates
@@ -1633,7 +1651,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Console\Helper\CommandInputHelper `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/CommandInputHelper.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/CommandInputHelper.php#L14)
 
 ```php
 * public static getFilePath (string $path): ?string  
@@ -1797,7 +1815,7 @@ _Including above methods from public API_
 ```php
 * public const SEGMENT: (array)
 
-* protected PDO $handler
+* readonly protected PDO $handler
 * protected bool $transaction
 * protected bool $queryError
 * public static bool $preferBlobInsteadVarchar
@@ -1936,7 +1954,7 @@ _Including above methods from public API_
 * public static ?int $maxVoteNumber
 * protected static bool $checksumMode
 * protected CondorcetPHP\Condorcet\ElectionProcess\ElectionState $State
-* protected CondorcetPHP\Condorcet\Timer\Manager $timer
+* readonly protected CondorcetPHP\Condorcet\Timer\Manager $timer
 * protected bool $ImplicitRanking
 * protected bool $VoteWeightRule
 * protected array $Constraints
@@ -1944,8 +1962,8 @@ _Including above methods from public API_
 * protected string $objectVersion
 * protected array $Candidates
 * protected string $AutomaticNewCandidateName
-* protected CondorcetPHP\Condorcet\DataManager\VotesManager $Votes
-* protected int $voteFastMode
+* readonly protected CondorcetPHP\Condorcet\DataManager\VotesManager $Votes
+* protected CondorcetPHP\Condorcet\ElectionProcess\VotesFastMod $votesFastMode
 * protected ?CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $Pairwise
 * protected ?array $Calculator
 * protected CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity
@@ -2048,13 +2066,25 @@ _Including above methods from public API_
 
 ```
 
+#### `CondorcetPHP\Condorcet\ElectionProcess\VotesFastMod implements UnitEnum`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesFastMod.php#L15)
+
+```php
+* `case VotesFastMod::NONE`  
+* `case VotesFastMod::BYPASS_CANDIDATES_CHECK`  
+* `case VotesFastMod::BYPASS_RANKING_UPDATE`  
+
+* readonly public string $name
+
+```
+
 #### `CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable`  
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L20)
 
 ```php
 * readonly protected array $Result
 * protected array $ResultIterator
-* protected  $Stats
+* readonly public mixed $Stats
 * protected array $warning
 * readonly public array $ranking
 * readonly public array $rankingAsString
@@ -2545,8 +2575,8 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Chrono.php#L16)
 
 ```php
-* protected CondorcetPHP\Condorcet\Timer\Manager $manager
-* protected float $start
+* readonly protected CondorcetPHP\Condorcet\Timer\Manager $manager
+* readonly public float $start
 * protected ?string $role
 * protected string $objectVersion
 
@@ -2558,7 +2588,6 @@ _Including above methods from public API_
 * public getTimerManager (): CondorcetPHP\Condorcet\Timer\Manager  
 * public setRole (?string $role): void  
 * protected managerStartDeclare (): void  
-* protected resetStart (): void  
 ```
 
 #### `CondorcetPHP\Condorcet\Timer\Manager `  
@@ -2581,7 +2610,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L20)
 
 ```php
 * public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
@@ -2597,6 +2626,7 @@ _Including above methods from public API_
 
 * public static boolParser (string $parse): bool  
 * public static createFromElection (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
+* public static createFromString (string $input): self  
 * public __construct (SplFileInfo|string $input)  
 * public setDataToAnElection (CondorcetPHP\Condorcet\Election $election = new CondorcetPHP\Condorcet\Election, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * protected addCandidates (array $candidates): void  
@@ -2745,7 +2775,7 @@ _Including above methods from public API_
 * private ?CondorcetPHP\Condorcet\Election $electionContext
 * public bool $notUpdate
 * protected static ?stdClass $cacheKey
-* protected ?WeakMap $cacheMap
+* protected WeakMap $cacheMap
 * private ?WeakMap $link
 * protected string $objectVersion
 
