@@ -2,7 +2,7 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
-## [v4.7.0] - 2024-05-xx
+## [v4.7.0] - 2024-06-14
 ### Description
 The minimum PHP version is now 8.3
 
