@@ -83,7 +83,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         $file = new SplTempFileObject;
         $file->fwrite($input);
 
-        return new self ($file);
+        return new self($file);
     }
 
     public static function boolParser(string $parse): bool

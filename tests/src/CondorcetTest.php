@@ -120,7 +120,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
     {
         $election = $this->getElection();
 
-        $this->Result = $this->createResult(array_slice(array_map(fn(Candidate $e): int => $election->getCandidateKey($e), $this->getElection()->getCandidatesList()), 0, 3));
+        $this->Result = $this->createResult(\array_slice(array_map(fn(Candidate $e): int => $election->getCandidateKey($e), $this->getElection()->getCandidatesList()), 0, 3));
     }
 }
 
