@@ -8,7 +8,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDri
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use Tests\DriversTestCase;
 
-uses(DriversTestCase::class)->group('drivers');
+pest()->extends(DriversTestCase::class)->group('drivers');
 beforeEach()->skipOnPHP('<8.3');
 
 function getDriver(): DataHandlerDriverInterface

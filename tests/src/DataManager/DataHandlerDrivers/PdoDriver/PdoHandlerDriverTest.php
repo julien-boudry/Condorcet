@@ -7,7 +7,7 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDr
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use Tests\DriversTestCase;
 
-uses(DriversTestCase::class)->group('drivers');
+pest()->extends(DriversTestCase::class)->group('drivers');
 beforeEach()->skip(!hasPDO());
 
 function getPDO(): PDO

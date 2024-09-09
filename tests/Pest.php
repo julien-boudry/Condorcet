@@ -11,14 +11,14 @@ use CondorcetPHP\Condorcet\Condorcet;
 |
 | The closure you provide to your test functions is always bound to a specific PHPUnit test
 | case class. By default, that class is "PHPUnit\Framework\TestCase". Of course, you may
-| need to change it using the "uses()" function to bind a different classes or traits.
+| need to change it using the "pest()" function to bind a different classes or traits.
 |
 */
 
-uses(Tests\CondorcetTestCase::class);
-uses(Tests\AlgoTestCase::class)->in('src/Algo');
-uses(Tests\src\Console\ConsoleTestCase::class)->in('src/Console');
-uses(Tests\src\Tools\Randomizers\RandomizerTestCase::class)->in('src/Tools/Randomizers');
+uses(Tests\CondorcetTestCase::class)->in('Examples');
+pest()->extend(Tests\AlgoTestCase::class)->in('src/Algo');
+pest()->extend(Tests\src\Console\ConsoleTestCase::class)->in('src/Console');
+pest()->extend(Tests\src\Tools\Randomizers\RandomizerTestCase::class)->in('src/Tools/Randomizers');
 
 
 /*
