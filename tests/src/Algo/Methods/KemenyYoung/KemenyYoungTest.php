@@ -154,4 +154,4 @@ test('kemeny with many candidates', function (int $candidatesCount): void {
     expect($this->election->getWinner('KemenyYoung'))->toBe($candidates[0]);
 
     KemenyYoung::$MaxCandidates = $original;
-})->with('ManyCandidatesProvider')->group('large');
+})->with('ManyCandidatesProvider')->group('slow');

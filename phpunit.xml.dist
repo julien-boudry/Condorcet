@@ -7,7 +7,7 @@
   </testsuites>
   <groups>
     <exclude>
-      <group>large</group>
+      <group>slow</group>
     </exclude>
   </groups>
   <source>
