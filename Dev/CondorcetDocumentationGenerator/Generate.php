@@ -164,13 +164,13 @@ class Generate
                     if ($oneMethod->getNumberOfParameters() > 0) {
                         foreach ($oneMethod->getParameters() as $oneParameter) {
                             if (empty($oneParameter->getAttributes(FunctionParameter::class))) {
-                                var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName());
+                                var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                             }
                         }
                     }
 
                     if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
-                        var_dump('Description Attribute is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName());
+                        var_dump('Description Attribute is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                     }
                 } else {
                     $non_inDoc++;
