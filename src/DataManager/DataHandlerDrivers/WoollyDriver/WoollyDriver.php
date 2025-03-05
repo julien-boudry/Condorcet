@@ -1,4 +1,5 @@
 <?php
+
 /*
     WoollyM DataHandler Module - From the original Condorcet PHP
 

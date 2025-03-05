@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of Largest Remainder Methods module - From the original Condorcet PHP
 

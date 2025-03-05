@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of FTPT method Module - From the original Condorcet PHP
 

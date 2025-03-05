@@ -1,4 +1,5 @@
 <?php
+
 /*
     PDO DataHandler Module - From the original Condorcet PHP
 

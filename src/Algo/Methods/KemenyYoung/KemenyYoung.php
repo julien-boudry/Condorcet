@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of KEMENY–YOUNG method Module - From the original Condorcet PHP
 

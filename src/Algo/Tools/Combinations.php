@@ -1,4 +1,5 @@
 <?php
+
 /*
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -86,7 +87,7 @@ class Combinations
         $keys = array_keys($values);
 
         for ($i = 0; $i < $size; $i++) {
-            $b = sprintf('%0' . $count . 'b', $i);
+            $b = \sprintf('%0' . $count . 'b', $i);
             $out = [];
 
             for ($j = 0; $j < $count; $j++) {

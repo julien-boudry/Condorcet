@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of Highest Averages Methods module - From the original Condorcet PHP
 

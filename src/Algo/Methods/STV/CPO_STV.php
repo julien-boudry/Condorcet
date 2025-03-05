@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of CPO STV method Module - From the original Condorcet PHP
 

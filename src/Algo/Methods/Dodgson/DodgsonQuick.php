@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of DODGSON QUICK method Module - From the original Condorcet PHP
 

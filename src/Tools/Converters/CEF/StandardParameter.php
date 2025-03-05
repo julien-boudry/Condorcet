@@ -1,4 +1,5 @@
 <?php
+
 /*
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -14,7 +15,7 @@ namespace CondorcetPHP\Condorcet\Tools\Converters\CEF;
 use CondorcetPHP\Condorcet\Candidate;
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
-enum StandardParameter: String
+enum StandardParameter: string
 {
     case CANDIDATES = 'candidates';
     case SEATS = 'number of seats';

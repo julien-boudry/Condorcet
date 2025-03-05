@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of DODGSON TIDEMAN APPROXIMATION method Module - From the original Condorcet PHP
 

@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of RANKED PAIRS method Module - From the original Condorcet PHP
 

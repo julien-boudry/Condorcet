@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of BORDA COUNT method Module - From the original Condorcet PHP
 

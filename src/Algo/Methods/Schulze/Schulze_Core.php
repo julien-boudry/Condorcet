@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of SCHULZE method Module - From the original Condorcet PHP
 

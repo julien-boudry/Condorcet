@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of COPELAND method Module - From the original Condorcet PHP
 

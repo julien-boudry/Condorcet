@@ -1,4 +1,5 @@
 <?php
+
 /*
     Part of MINIMAX method Module - From the original Condorcet PHP
 
