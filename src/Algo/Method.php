@@ -84,7 +84,7 @@ abstract class Method
 
     protected function createResult(array $result): Result
     {
-        $optionsList = array_keys((new \ReflectionClass(static::class))->getStaticProperties());
+        $optionsList = array_keys(new \ReflectionClass(static::class)->getStaticProperties());
         $optionsList = array_filter($optionsList, static function (string $name): bool {
             return str_starts_with($name, 'option');
         });

@@ -754,7 +754,7 @@ class ElectionCommand extends Command
         $file = CommandInputHelper::getFilePath($this->CondorcetElectionFormatPath);
 
         if ($file !== null) {
-            (new CondorcetElectionFormat($file))->setDataToAnElection($this->election, $callBack);
+            new CondorcetElectionFormat($file)->setDataToAnElection($this->election, $callBack);
         } else {
             throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }
@@ -776,7 +776,7 @@ class ElectionCommand extends Command
         $file = CommandInputHelper::getFilePath($this->DavidHillFormatPath);
 
         if ($file !== null) {
-            (new DavidHillFormat($file))->setDataToAnElection($this->election);
+            new DavidHillFormat($file)->setDataToAnElection($this->election);
         } else {
             throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }

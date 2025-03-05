@@ -516,7 +516,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     private function formatRanking(array|string &$ranking): int
     {
         if (\is_string($ranking)) {
-            $ranking = (new VoteEntryParser($ranking))->ranking ?? [];
+            $ranking = new VoteEntryParser($ranking)->ranking ?? [];
         }
 
         $ranking = array_filter($ranking, static fn($key): bool => is_numeric($key), \ARRAY_FILTER_USE_KEY);
