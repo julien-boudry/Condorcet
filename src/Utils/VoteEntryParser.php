@@ -19,13 +19,13 @@ use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 // Base Condorcet class
 class VoteEntryParser
 {
-    public readonly string $originalEntry;
+    public private(set) readonly string $originalEntry;
 
-    public readonly ?string $comment;
-    public readonly int $multiple;
-    public readonly ?array $ranking;
-    public readonly ?array $tags;
-    public readonly int $weight;
+    public private(set) readonly ?string $comment;
+    public private(set) readonly int $multiple;
+    public private(set) readonly ?array $ranking;
+    public private(set) readonly ?array $tags;
+    public private(set) readonly int $weight;
 
     public function __construct(string $entry)
     {

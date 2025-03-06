@@ -21,9 +21,9 @@ class DebianFormat implements ConverterImport
     protected array $lines;
 
     #[PublicAPI]
-    public readonly array $candidates;
+    public private(set) readonly array $candidates;
     #[PublicAPI]
-    public readonly array $votes;
+    public private(set) readonly array $votes;
 
     #[PublicAPI]
     #[Description('Read a Tideman format file')]

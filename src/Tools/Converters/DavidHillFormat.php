@@ -21,9 +21,9 @@ class DavidHillFormat implements ConverterImport
     protected array $lines;
 
     #[PublicAPI]
-    public readonly array $candidates;
+    public private(set) readonly array $candidates;
     #[PublicAPI]
-    public readonly int $NumberOfSeats;
+    public private(set) readonly int $NumberOfSeats;
 
     #[PublicAPI]
     #[Description('Read a Tideman format file')]

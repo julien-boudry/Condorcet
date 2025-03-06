@@ -103,21 +103,21 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     protected \SplFileObject $file;
 
     #[PublicAPI]
-    public readonly array $parameters;
+    public private(set) readonly array $parameters;
 
     #[PublicAPI]
-    public readonly array $candidates;
+    public private(set) readonly array $candidates;
     #[PublicAPI]
-    public readonly int $numberOfSeats;
+    public private(set) readonly int $numberOfSeats;
     #[PublicAPI]
-    public readonly bool $implicitRanking;
+    public private(set) readonly bool $implicitRanking;
     #[PublicAPI]
-    public readonly bool $voteWeight;
+    public private(set) readonly bool $voteWeight;
 
     #[PublicAPI]
-    public readonly bool $CandidatesParsedFromVotes;
+    public private(set) readonly bool $CandidatesParsedFromVotes;
     #[PublicAPI]
-    public readonly int $invalidBlocksCount;
+    public private(set) readonly int $invalidBlocksCount;
 
     // Read
 
