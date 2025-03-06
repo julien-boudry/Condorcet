@@ -61,7 +61,7 @@ test('condorcet election format2 multiples errors and complications', function (
 
     expect($condorcetFormat->invalidBlocksCount)->toBe(3);
 
-    expect($election->getVotesList()[5]->getTags())->toBe(['tag1']);
+    expect($election->getVotesList()[5]->tags)->toBe(['tag1']);
 });
 
 test('condorcet election format3 custom election1', function (): void {

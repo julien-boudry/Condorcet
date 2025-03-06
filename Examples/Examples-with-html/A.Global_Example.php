@@ -63,7 +63,7 @@ const TEST_NAME_GE = 'Condorcet Global Example';
     foreach ($election->getVotesList() as $vote) {
         echo '<div class="votant">';
 
-        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->tags).'</strong><br>';
 
         echo '<ol>';
 

@@ -61,7 +61,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         } else {
             foreach ($election->getVotesListGenerator() as $vote) {
                 $line = "\n";
-                $line .= ($includeTags && !empty($vote->getTags())) ? $vote->getTagsAsString() . ' || ' : '';
+                $line .= ($includeTags && !empty($vote->tags)) ? $vote->getTagsAsString() . ' || ' : '';
 
                 $voteString = $vote->getSimpleRanking($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;

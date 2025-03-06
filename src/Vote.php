@@ -18,6 +18,7 @@ use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteExcept
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Relations\Linkable;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
+use Deprecated;
 
 class Vote implements \Iterator, \Stringable, ArrayAccess
 {
@@ -89,7 +90,11 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private int $weight = 1;
 
-    private array $tags = [];
+    #[PublicAPI]
+    #[Description('Get the registered tags for this Vote.')]
+    #[FunctionReturn('List of registered tag.')]
+    #[Related('Vote::getTagsAsString', 'Vote::addTags', 'Vote::removeTags')]
+    public private(set) array $tags = [];
 
     public private(set) string $hash = '';
 
@@ -183,7 +188,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     public function __toString(): string
     {
-        if (empty($this->getTags())) {
+        if (empty($this->tags)) {
             return $this->getSimpleRanking();
         } else {
             return $this->getTagsAsString() . ' || ' . $this->getSimpleRanking();
@@ -232,6 +237,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     }
 
 
+    #[Deprecated]
     #[PublicAPI]
     #[Description('Get the registered tags for this Vote.')]
     #[FunctionReturn('List of registered tag.')]
@@ -247,7 +253,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     #[Related('Vote::getTags', 'Vote::addTags', 'Vote::removeTags')]
     public function getTagsAsString(): string
     {
-        return implode(',', $this->getTags());
+        return implode(',', $this->tags);
     }
 
     #[PublicAPI]
@@ -668,7 +674,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     #[Related('Vote::addTags', 'Vote::removeTags')]
     public function removeAllTags(): true
     {
-        $this->removeTags($this->getTags());
+        $this->removeTags($this->tags);
         return true;
     }
 

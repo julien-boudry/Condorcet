@@ -63,7 +63,7 @@ const TEST_NAME_RM = 'Condorcet Bonus Example';
     foreach ($election->getVotesList() as $vote) {
         echo '<div class="votant">';
 
-        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->tags).'</strong><br>';
 
         echo '<ol>';
 
@@ -148,7 +148,7 @@ const TEST_NAME_RM = 'Condorcet Bonus Example';
     foreach ($election->getVotesList('custom_tag_One', true) as $vote) {
         echo '<div class="votant">';
 
-        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->tags).'</strong><br>';
 
         echo '<ol>';
 
@@ -172,7 +172,7 @@ const TEST_NAME_RM = 'Condorcet Bonus Example';
     foreach ($election->getVotesList('custom_tag_Two', false) as $vote) {
         echo '<div class="votant">';
 
-        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->tags).'</strong><br>';
 
         echo '<ol>';
 
@@ -221,7 +221,7 @@ const TEST_NAME_RM = 'Condorcet Bonus Example';
     foreach ($election->getVotesList() as $vote) {
         echo '<div class="votant">';
 
-        echo '<strong style="color:green;">'.implode(' / ', $vote->getTags()).'</strong><br>';
+        echo '<strong style="color:green;">'.implode(' / ', $vote->tags).'</strong><br>';
 
         echo '<ol>';
 

@@ -113,7 +113,7 @@ declare(strict_types=1);
 
         $myVote1->addTags(['strangeVote', 'greatFrenchVote']); // By Array
         $myVote2->addTags('greatFrenchVote,chauvinismVote'); // By String
-        $myVote3->addTags($myVote1->getTags()); // Copy & Past
+        $myVote3->addTags($myVote1->tags); // Copy & Past
 
 
         // Parsing Vote

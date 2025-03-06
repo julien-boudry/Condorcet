@@ -261,23 +261,23 @@ test('valid tags', function (): void {
 
     expect($vote1->addTags('tag1,tag2,tag3'))->toBeTrue();
 
-    expect(array_values($vote1->getTags()))->toBe($targetTags);
+    expect(array_values($vote1->tags))->toBe($targetTags);
 
     expect($vote1->removeAllTags())->toBeTrue();
 
-    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+    expect($vote1->tags)->toBeArray()->toBeEmpty();
 
     expect($vote1->addTags(['tag1', 'tag2', 'tag3']))->toBeTrue();
 
-    expect(array_values($vote1->getTags()))->toBe($targetTags);
+    expect(array_values($vote1->tags))->toBe($targetTags);
 
     expect($vote1->removeTags('tag2'))->toBe(['tag2']);
 
-    expect(array_values($vote1->getTags()))->toBe(['tag1', 'tag3']);
+    expect(array_values($vote1->tags))->toBe(['tag1', 'tag3']);
 
     expect($vote1->removeAllTags())->toBeTrue();
 
-    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+    expect($vote1->tags)->toBeArray()->toBeEmpty();
 });
 
 test('bad tag input1', function (): void {
@@ -298,7 +298,7 @@ test('bad tag input2', function (): void {
     } catch (Throwable $e) {
     }
 
-    expect($vote->getTags())->toBeArray()->toBeEmpty();
+    expect($vote->tags)->toBeArray()->toBeEmpty();
 
     expect($vote->removeAllTags())->toBeTrue();
 
@@ -318,7 +318,7 @@ test('bad tag input3', function (): void {
     } catch (Throwable $e) {
     }
 
-    expect($vote->getTags())->toBeArray()->toBeEmpty();
+    expect($vote->tags)->toBeArray()->toBeEmpty();
 
     expect($vote->removeAllTags())->toBeTrue();
 
@@ -338,7 +338,7 @@ test('bad tag input4', function (): void {
     } catch (Throwable $e) {
     }
 
-    expect($vote->getTags())->toBeArray()->toBeEmpty();
+    expect($vote->tags)->toBeArray()->toBeEmpty();
 
     $this->expectException(VoteInvalidFormatException::class);
     $this->expectExceptionMessage('The format of the vote is invalid: every tag must be of type string, NULL given');
@@ -352,7 +352,7 @@ test('bad tag input5', function (): void {
         []
     );
 
-    expect($vote->getTags())->toBeArray()->toBeEmpty();
+    expect($vote->tags)->toBeArray()->toBeEmpty();
 });
 
 test('add remove tags', function (): void {
@@ -362,7 +362,7 @@ test('add remove tags', function (): void {
     $vote1->addTags(['tag2', 'tag3']);
     expect($vote1->addTags('tag4,tag5'))->toBeTrue();
 
-    expect($vote1->getTags())->toBe(['tag1', 'tag2', 'tag3', 'tag4', 'tag5']);
+    expect($vote1->tags)->toBe(['tag1', 'tag2', 'tag3', 'tag4', 'tag5']);
 
     expect($vote1->removeTags(''))->toBeArray()->toBeEmpty();
 
@@ -370,18 +370,18 @@ test('add remove tags', function (): void {
     $vote1->removeTags(['tag2', 'tag3']);
     expect(['tag4', 'tag5'])->toBe($vote1->removeTags('tag4,tag5,tag42'));
 
-    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+    expect($vote1->tags)->toBeArray()->toBeEmpty();
 
     expect($vote1->addTags('tag4,tag5'))->toBeTrue();
     expect($vote1->removeAllTags())->toBeTrue();
 
-    expect($vote1->getTags())->toBeArray()->toBeEmpty();
+    expect($vote1->tags)->toBeArray()->toBeEmpty();
 });
 
 test('tags on constructor by string input', function (): void {
     $vote1 = new Vote('tag1,tag2 ||A > B >C', 'tag3,tag4');
 
-    expect($vote1->getTags())->tobe(['tag3', 'tag4', 'tag1', 'tag2']);
+    expect($vote1->tags)->tobe(['tag3', 'tag4', 'tag1', 'tag2']);
 
     expect($vote1->getSimpleRanking())->toBe('A > B > C');
 
