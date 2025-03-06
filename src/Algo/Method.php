@@ -53,7 +53,7 @@ abstract class Method
         $this->setElection($mother);
 
         if (static::$MaxCandidates !== null && $mother->countCandidates() > static::$MaxCandidates) {
-            throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates);
+            throw new CandidatesMaxNumberReachedException(static::METHOD_NAME[0], static::$MaxCandidates); // @phpstan-ignore classConstant.notFound
         }
     }
 
@@ -96,7 +96,7 @@ abstract class Method
         }
 
         return new Result(
-            fromMethod: static::METHOD_NAME[0],
+            fromMethod: static::METHOD_NAME[0], // @phpstan-ignore classConstant.notFound
             byClass: $this::class,
             election: $this->getElection(),
             result: $result,

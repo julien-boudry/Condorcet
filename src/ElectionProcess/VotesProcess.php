@@ -281,7 +281,7 @@ trait VotesProcess
     ): true {
         $key = $this->getVoteKey($vote);
         if ($key !== null) {
-            unset($this->Votes[$key]);
+            $this->Votes->offsetUnset($key);
             return true;
         } else {
             throw new VoteException('Cannot remove vote not registered in this election');
