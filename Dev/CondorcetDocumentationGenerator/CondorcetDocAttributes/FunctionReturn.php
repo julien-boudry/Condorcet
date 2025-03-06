@@ -13,7 +13,7 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDo
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY)]
 class FunctionReturn
 {
     public function __construct(public readonly string $text) {}

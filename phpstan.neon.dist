@@ -1,5 +1,6 @@
 parameters:
-    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
 
     ignoreErrors:
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
