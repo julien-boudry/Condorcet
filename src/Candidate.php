@@ -16,13 +16,36 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Relations\Linkable;
+use Deprecated;
 
 class Candidate implements \Stringable
 {
     use Linkable;
     use CondorcetVersion;
 
-    private array $name = [];
+    #[PublicAPI]
+    public string $name {
+        get => end($this->namesHistory)['name'];
+        set {
+            $name = mb_trim($value);
+
+            if (mb_strlen($name) > Election::MAX_CANDIDATE_NAME_LENGTH) {
+                throw new CandidateInvalidNameException($name);
+            }
+
+            if (preg_match('/<|>|\n|\t|\0|\^|\*|\$|:|;|(\|\|)|"|#/', $name) === 1) {
+                throw new CandidateInvalidNameException($name);
+            }
+
+            if (!$this->checkNameInElectionContext($name)) {
+                throw new CandidateExistsException("the name '{$name}' is taken by another candidate");
+            }
+
+            $this->namesHistory[] =  ['name' => $name, 'timestamp' => microtime(true)];
+        }
+    }
+
+    private array $namesHistory = [];
     private bool $provisional = false;
 
     // -------
@@ -35,12 +58,12 @@ class Candidate implements \Stringable
         #[FunctionParameter('Candidate Name')]
         string $name
     ) {
-        $this->setName($name);
+        $this->name = $name;
     }
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->name;
     }
 
     public function __serialize(): array
@@ -49,6 +72,7 @@ class Candidate implements \Stringable
 
         $r = get_object_vars($this);
         unset($r['link']);
+        unset($r['name']);
 
         return $r;
     }
@@ -64,24 +88,10 @@ class Candidate implements \Stringable
     public function setName(
         #[FunctionParameter('Candidate Name')]
         string $name
-    ): true {
-        $name = mb_trim($name);
+    ): self {
+        $this->name = $name;
 
-        if (mb_strlen($name) > Election::MAX_CANDIDATE_NAME_LENGTH) {
-            throw new CandidateInvalidNameException($name);
-        }
-
-        if (preg_match('/<|>|\n|\t|\0|\^|\*|\$|:|;|(\|\|)|"|#/', $name) === 1) {
-            throw new CandidateInvalidNameException($name);
-        }
-
-        if (!$this->checkNameInElectionContext($name)) {
-            throw new CandidateExistsException("the name '{$name}' is taken by another candidate");
-        }
-
-        $this->name[] =  ['name' => $name, 'timestamp' => microtime(true)];
-
-        return true;
+        return $this;
     }
 
     public function setProvisionalState(bool $provisional): void
@@ -91,13 +101,14 @@ class Candidate implements \Stringable
 
     // GETTERS
 
+    #[Deprecated]
     #[PublicAPI]
     #[Description('Get the candidate name.')]
     #[FunctionReturn('Candidate name.')]
     #[Related('Candidate::getHistory', 'Candidate::setName')]
     public function getName(): string
     {
-        return end($this->name)['name'];
+        return $this->name;
     }
 
     #[PublicAPI]
@@ -106,7 +117,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getCreateTimestamp')]
     public function getHistory(): array
     {
-        return $this->name;
+        return $this->namesHistory;
     }
 
     #[PublicAPI]
@@ -115,7 +126,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getTimestamp')]
     public function getCreateTimestamp(): float
     {
-        return $this->name[0]['timestamp'];
+        return $this->namesHistory[0]['timestamp'];
     }
 
     #[PublicAPI]
@@ -124,7 +135,7 @@ class Candidate implements \Stringable
     #[Related('Candidate::getCreateTimestamp')]
     public function getTimestamp(): float
     {
-        return end($this->name)['timestamp'];
+        return end($this->namesHistory)['timestamp'];
     }
 
     #[PublicAPI]

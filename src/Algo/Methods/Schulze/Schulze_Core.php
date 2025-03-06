@@ -59,10 +59,10 @@ abstract class Schulze_Core extends Method implements MethodInterface
         $explicit = [];
 
         foreach ($this->StrongestPaths as $candidate_key => $candidate_value) {
-            $candidate_key = $election->getCandidateObjectFromKey($candidate_key)->getName();
+            $candidate_key = $election->getCandidateObjectFromKey($candidate_key)->name;
 
             foreach ($candidate_value as $challenger_key => $challenger_value) {
-                $explicit[$candidate_key][$election->getCandidateObjectFromKey($challenger_key)->getName()] = $challenger_value;
+                $explicit[$candidate_key][$election->getCandidateObjectFromKey($challenger_key)->name] = $challenger_value;
             }
         }
 

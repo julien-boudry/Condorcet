@@ -81,7 +81,7 @@ class KemenyYoung extends Method implements MethodInterface
                 // Human readable
                 $i = 1;
                 foreach ($value as $candidate_key) {
-                    $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->getName();
+                    $explicit[$key][$i++] = $election->getCandidateObjectFromKey($candidate_key)->name;
                 }
 
                 $explicit[$key]['score'] = $this->computeOneScore($value, $election->getPairwise());

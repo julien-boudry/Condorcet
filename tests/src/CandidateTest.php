@@ -13,9 +13,9 @@ test('create timestamp', function (): void {
 });
 
 test('change name', function (): void {
-    expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
+    expect($this->candidate1->setName('candidate1.n2'))->toBe($this->candidate1);
 
-    expect($this->candidate1->getName())->toEqual('candidate1.n2');
+    expect($this->candidate1->name)->toEqual('candidate1.n2');
 
     expect($this->candidate1->getCreateTimestamp())->toBeLessThan($this->candidate1->getTimestamp());
     expect($this->candidate1->getHistory())->toHaveCount(2);
@@ -133,8 +133,8 @@ test('same candidate to multiple election', function (): void {
     expect($this->candidate1->getLinks())->toHaveCount(2);
 
     // Add some conflicts
-    expect($this->candidate1->setName('candidate1.n2'))->toBeTrue();
-    expect($this->candidate1->getName())->toBe('candidate1.n2');
+    expect($this->candidate1->setName('candidate1.n2'))->toBe($this->candidate1);
+    expect($this->candidate1->name)->toBe('candidate1.n2');
     expect($election1->addCandidate('candidate1.n1'))->not()->toBe($this->candidate1);
 
     $election2->addCandidate('Debussy');
@@ -142,7 +142,7 @@ test('same candidate to multiple election', function (): void {
     $this->expectException(CandidateExistsException::class);
     $this->expectExceptionMessage("This candidate already exists: the name 'Debussy' is taken by another candidate");
 
-    $this->candidate1->setName('Debussy');
+    $this->candidate1->name = 'Debussy';
 });
 
 test('clone candidate', function (): void {

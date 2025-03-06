@@ -151,7 +151,7 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected function getCandidateNameFromKey(int $candidateKey): string
     {
-        return $this->getElection()->getCandidateObjectFromKey($candidateKey)->getName();
+        return $this->getElection()->getCandidateObjectFromKey($candidateKey)->name;
     }
 
     protected function clearExplicitPairwiseCache(): void

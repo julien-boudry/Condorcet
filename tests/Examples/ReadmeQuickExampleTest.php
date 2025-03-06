@@ -48,12 +48,12 @@ test('readme quick example', function () {
     // Natural Condorcet Winner
     $myWinner = $myElection1->getCondorcetWinner();
     // Return a candidate object
-    expect('My winner is ' . $myWinner->getName() . '<br>')->toEqual('My winner is Candidate 1<br>');
+    expect('My winner is ' . $myWinner->name . '<br>')->toEqual('My winner is Candidate 1<br>');
 
     // Natural Condorcet Loser
     $myLoser = $myElection1->getCondorcetLoser();
     // Return a candidate object
-    expect('My loser is ' . $myLoser->getName())->toEqual('My loser is Candidate 3');
+    expect('My loser is ' . $myLoser->name)->toEqual('My loser is Candidate 3');
 
     // Schulze Ranking
     $myResultBySchulze = $myElection1->getResult('Schulze');

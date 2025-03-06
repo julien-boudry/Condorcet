@@ -126,8 +126,8 @@ test('array access', function (): void {
     // Ranking 1
     $vote = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-    expect($vote[1][0]->getName())->toBe('candidate1');
-    expect($vote[3][0]->getName())->toBe('candidate4');
+    expect($vote[1][0]->name)->toBe('candidate1');
+    expect($vote[3][0]->name)->toBe('candidate4');
 });
 
 test('array access set exception', function (): void {
@@ -588,7 +588,7 @@ test('vote history', function (): void {
 
     $candidate8 = $vote7->getAllCandidates()[1];
 
-    expect($candidate8->getName())->toBe('candidate8');
+    expect($candidate8->name)->toBe('candidate8');
 
     expect($candidate8->getProvisionalState())->toBeTrue();
 

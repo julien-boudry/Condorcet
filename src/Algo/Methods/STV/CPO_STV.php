@@ -280,7 +280,7 @@ class CPO_STV extends SingleTransferableVote
             $this->completionMethodResult = $completionMethodResult;
         }
 
-        $this->condorcetWinnerOutcome = (int) $condorcetWinnerOutcome->getName();
+        $this->condorcetWinnerOutcome = (int) $condorcetWinnerOutcome->name;
         $this->completionMethodPairwise = $winnerOutcomeElection->getExplicitPairwise();
     }
 
@@ -298,7 +298,7 @@ class CPO_STV extends SingleTransferableVote
                     $w = reset($tiebreaker);
                     return ($w === $a) ? -1 : 1;
                 } else {
-                    return mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->getName(), 'UTF-8');
+                    return mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8') <=> mb_strtolower($election->getCandidateObjectFromKey($b)->name, 'UTF-8');
                 }
             }
         });

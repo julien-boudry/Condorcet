@@ -59,7 +59,7 @@ trait CandidatesProcess
         $result = [];
 
         foreach ($this->candidates as $candidateKey => &$oneCandidate) {
-            $result[$candidateKey] = $oneCandidate->getName();
+            $result[$candidateKey] = $oneCandidate->name;
         }
 
         return $result;
@@ -104,7 +104,7 @@ trait CandidatesProcess
         string $candidateName
     ): ?Candidate {
         foreach ($this->candidates as $oneCandidate) {
-            if ($oneCandidate->getName() === $candidateName) {
+            if ($oneCandidate->name === $candidateName) {
                 return $oneCandidate;
             }
         }
@@ -193,7 +193,7 @@ trait CandidatesProcess
             $candidate_key = $this->getCandidateKey($candidate);
 
             if ($candidate_key === null) {
-                throw new CandidateDoesNotExistException($candidate->getName());
+                throw new CandidateDoesNotExistException($candidate->name);
             }
 
             $candidate = $candidate_key;

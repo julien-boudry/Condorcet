@@ -551,7 +551,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
                 // Check Duplicate
 
                 // Check objet reference AND check candidates name
-                if (!\in_array($name = $Candidate->getName(), $list_candidate, true)) {
+                if (!\in_array($name = $Candidate->name, $list_candidate, true)) {
                     $list_candidate[] = $name;
                 } else {
                     throw new VoteInvalidFormatException;
