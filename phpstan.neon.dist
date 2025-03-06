@@ -1,4 +1,5 @@
 parameters:
+    level: 5
     paths:
         - src
 
@@ -7,9 +8,5 @@ parameters:
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
         - '#Access to an uninitialized readonly property#'
         - '#Variable \$.* might not be defined.#'
-        - '#Unsafe access to private constant .* through static#'
         - '#Readonly property .* is assigned outside of the constructor.#'
-        - '#no value type specified in iterable type array#'
         - '#Exception::\$message has no type specified.#'
-
-        - '#Readonly property .*\$CandidatesParsedFromVotes is already assigned.#'

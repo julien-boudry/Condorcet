@@ -118,7 +118,7 @@ class ArrayRandomizer
             $prob -= 100_000;
         }
 
-        for ($i = $numberOfAddedTies = 0; $i < $numberOfTiesToAdd && \count($randomizedCandidates) > 1; ++$i && ++$numberOfAddedTies) {
+        for ($i = $numberOfAddedTies = 0; $i < $numberOfTiesToAdd && \count($randomizedCandidates) > 1; ++$i, ++$numberOfAddedTies) {
             $swFrom = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
 
             $orphan = $randomizedCandidates[$swFrom];

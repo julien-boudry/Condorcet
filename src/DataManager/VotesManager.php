@@ -153,6 +153,7 @@ class VotesManager extends ArrayManager
     }
 
     // Get the votes list
+    /** @return array<int, Vote> */
     public function getVotesList(?array $tags = null, bool|int $with = true): array
     {
         if ($tags === null) {
@@ -284,7 +285,7 @@ class VotesManager extends ArrayManager
         return $this->processSumVotesWeight(tags: $tags, with: $with, constraints: true);
     }
 
-    protected function processSumVotesWeight(?array $tags, bool|int $with, bool $constraints)
+    protected function processSumVotesWeight(?array $tags, bool|int $with, bool $constraints): int
     {
         $election = $this->getElection();
         $sum = 0;

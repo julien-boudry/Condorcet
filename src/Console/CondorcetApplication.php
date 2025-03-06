@@ -28,7 +28,8 @@ abstract class CondorcetApplication
     public static function run(): void
     {
         // Run
-        self::create() && self::$SymfonyConsoleApplication->run();
+        self::create();
+        self::$SymfonyConsoleApplication->run();
     }
 
     public static function create(): true

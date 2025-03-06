@@ -172,7 +172,7 @@ trait VotesProcess
         #[FunctionParameter('String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object')]
         array|string|null $tags = null
     ): Vote {
-        $this->prepareVoteInput($vote, $tags);
+        $vote = $this->prepareVoteInput($vote, $tags);
 
         // Check Max Vote Count
         if (self::$maxVoteNumber !== null && $this->countVotes() >= self::$maxVoteNumber) {
@@ -319,7 +319,7 @@ trait VotesProcess
 
     // Return the well formatted vote to use.
     #[Throws(VoteInvalidFormatException::class)]
-    protected function prepareVoteInput(array|string|Vote &$vote, array|string|null $tags = null): void
+    protected function prepareVoteInput(array|string|Vote $vote, array|string|null $tags = null): Vote
     {
         if (!($vote instanceof Vote)) {
             $vote = new Vote(ranking: $vote, tags: $tags, ownTimestamp: null, electionContext: $this);
@@ -329,6 +329,8 @@ trait VotesProcess
         if (!$this->checkVoteCandidate($vote)) {
             throw new VoteInvalidFormatException;
         }
+
+        return $vote;
     }
 
     #[PublicAPI]

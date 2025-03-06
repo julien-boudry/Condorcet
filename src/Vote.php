@@ -476,7 +476,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         }
 
         // Ranking
-        $this->candidatesCount = $this->formatRanking($ranking);
+        $ranking = $this->formatRanking($ranking);
 
         if ($this->electionContext !== null) {
             $this->electionContext->convertRankingCandidates($ranking);
@@ -519,7 +519,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         return true;
     }
 
-    private function formatRanking(array|string &$ranking): int
+    private function formatRanking(array|string $ranking): array
     {
         if (\is_string($ranking)) {
             $ranking = new VoteEntryParser($ranking)->ranking ?? [];
@@ -565,7 +565,9 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
             }
         }
 
-        return $candidatesCount;
+        $this->candidatesCount = $candidatesCount;
+
+        return $ranking;
     }
 
 

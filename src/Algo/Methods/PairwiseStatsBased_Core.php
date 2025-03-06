@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
-    private const string COUNT_TYPE = 'abstractCountType';
+    protected const string COUNT_TYPE = 'abstractCountType';
 
     protected readonly array $Comparison;
 
