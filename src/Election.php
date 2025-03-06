@@ -101,6 +101,9 @@ class Election
     #[PublicAPI]
     public protected(set) array $votesConstraints = [];
 
+    #[PublicAPI]
+    public string $hash { get => $this->getChecksum(); }
+
     // -------
 
     #[PublicAPI]

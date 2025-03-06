@@ -72,7 +72,7 @@ class Candidate implements \Stringable
 
         $r = get_object_vars($this);
         unset($r['link']);
-        unset($r['name']);
+        unset($r['name']); // Virtual property
 
         return $r;
     }

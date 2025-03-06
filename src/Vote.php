@@ -84,7 +84,8 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private float $lastTimestamp;
 
-    private int $counter;
+    #[PublicAPI]
+    public private(set) int $candidatesCount;
 
     private array $ranking_history = [];
 
@@ -279,7 +280,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     #[FunctionReturn('Number of Candidate into ranking.')]
     public function countRankingCandidates(): int
     {
-        return $this->counter;
+        return $this->candidatesCount;
     }
 
     #[PublicAPI]
@@ -475,7 +476,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
         }
 
         // Ranking
-        $candidateCounter = $this->formatRanking($ranking);
+        $this->candidatesCount = $this->formatRanking($ranking);
 
         if ($this->electionContext !== null) {
             $this->electionContext->convertRankingCandidates($ranking);
@@ -489,7 +490,6 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
         $this->ranking = $ranking;
         $this->lastTimestamp = $ownTimestamp ?? microtime(true);
-        $this->counter = $candidateCounter;
 
         $this->archiveRanking();
 
@@ -543,7 +543,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
         $ranking = $vote_r;
 
-        $counter = 0;
+        $candidatesCount = 0;
         $list_candidate = [];
         foreach ($ranking as &$line) {
             foreach ($line as &$Candidate) {
@@ -552,7 +552,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
                     $Candidate->setProvisionalState(true);
                 }
 
-                $counter++;
+                $candidatesCount++;
 
                 // Check Duplicate
 
@@ -565,7 +565,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
             }
         }
 
-        return $counter;
+        return $candidatesCount;
     }
 
 
@@ -725,7 +725,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private function archiveRanking(): void
     {
-        $this->ranking_history[] = ['ranking' => $this->ranking, 'timestamp' => $this->lastTimestamp, 'counter' => $this->counter];
+        $this->ranking_history[] = ['ranking' => $this->ranking, 'timestamp' => $this->lastTimestamp, 'counter' => $this->candidatesCount];
 
         $this->rewind();
     }

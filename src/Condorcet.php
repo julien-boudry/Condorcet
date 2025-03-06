@@ -106,7 +106,7 @@ abstract class Condorcet
 
         // Exclude Deterministic
         if (!$withNonDeterministicMethods) {
-            $auth = array_filter($auth, static fn($m): bool => $m::IS_DETERMINISTIC, \ARRAY_FILTER_USE_KEY);
+            $auth = array_filter($auth, static fn(string $m): bool => $m::IS_DETERMINISTIC, \ARRAY_FILTER_USE_KEY);
         }
 
         return array_column($auth, 0);

@@ -3,6 +3,7 @@ parameters:
         - src
 
     ignoreErrors:
+        - identifier: unset.possiblyHookedProperty
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
         - '#Access to an uninitialized readonly property#'
         - '#Variable \$.* might not be defined.#'
