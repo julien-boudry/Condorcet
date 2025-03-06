@@ -91,7 +91,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private array $tags = [];
 
-    private string $hashCode = '';
+    public private(set) string $hash = '';
 
     private ?Election $electionContext = null;
 
@@ -196,7 +196,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
     #[Related('Vote::getWeight')]
     public function getHashCode(): string
     {
-        return $this->hashCode;
+        return $this->hash;
     }
 
     // -------
@@ -726,6 +726,6 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private function computeHashCode(): string
     {
-        return $this->hashCode = hash('sha224', ((string) $this) . microtime(false));
+        return $this->hash = hash('sha224', ((string) $this) . microtime(false));
     }
 }
