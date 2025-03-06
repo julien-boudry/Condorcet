@@ -38,7 +38,7 @@ class RandomBallot extends Method implements MethodInterface
 
         $this->totalElectionWeight = $election->sumValidVotesWeightWithConstraints();
 
-        $randomizer = self::$optionRandomizer ?? (new Randomizer(new \Random\Engine\Secure));
+        $randomizer = self::$optionRandomizer ?? new Randomizer(new \Random\Engine\Secure);
 
         $this->electedWeightLevel = $randomizer->getInt(1, $this->totalElectionWeight);
 

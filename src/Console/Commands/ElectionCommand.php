@@ -570,7 +570,7 @@ class ElectionCommand extends Command
     protected function displayPairwiseSection(OutputInterface $output): void
     {
         if (!$this->pairwiseIsWrite) {
-            (new Table($output))
+            new Table($output)
                 ->setHeaderTitle('Pairwise')
                 ->setHeaders(['For each candidate, show their win, null, or lose'])
                 ->setRows([[preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump($this->election->getExplicitPairwise(), 100))]])
@@ -589,7 +589,7 @@ class ElectionCommand extends Command
             $this->io->methodResultSection('Condorcet natural winner & loser');
             $this->io->newLine();
 
-            (new Table($output))
+            new Table($output)
                 ->setHeaderTitle('Natural Condorcet')
                 ->setHeaders(['Type', 'Candidate'])
                 ->setRows([
@@ -635,7 +635,7 @@ class ElectionCommand extends Command
 
                 $this->io->newLine();
 
-                (new Table($output))
+                new Table($output)
                     ->setHeaderTitle('Configuration: ' . $oneMethod['name'])
                     ->setHeaders(['Variable', 'Value'])
                     ->setRows($rows)
@@ -656,7 +656,7 @@ class ElectionCommand extends Command
             $this->io->inlineSeparator();
             $this->io->writeln('<condor3>' . CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED . ' Condorcet Loser</>');
 
-            (new Table($output))
+            new Table($output)
                 ->setHeaderTitle('Results: ' . $oneMethod['name'])
                 ->setHeaders(['Rank', 'Candidates'])
                 ->setRows(FormaterHelper::formatResultTable($result))
@@ -765,7 +765,7 @@ class ElectionCommand extends Command
         $file = CommandInputHelper::getFilePath($this->DebianFormatPath);
 
         if ($file !== null) {
-            (new DebianFormat($file))->setDataToAnElection($this->election);
+            new DebianFormat($file)->setDataToAnElection($this->election);
         } else {
             throw new FileDoesNotExistException('File does not exist, path: ' . $this->CondorcetElectionFormatPath);
         }
