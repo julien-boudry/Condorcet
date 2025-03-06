@@ -89,29 +89,31 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     protected array $warning = [];
 
     #[PublicAPI]
-    public readonly array $ranking;
+    public private(set) readonly array $ranking;
     #[PublicAPI]
-    public readonly array $rankingAsString;
+    public array $rankingAsString {
+        get => $this->getResultAsArray(true);
+    }
     #[PublicAPI]
-    public readonly ?int $seats;
+    public private(set) readonly ?int $seats;
     #[PublicAPI]
-    public readonly array $methodOptions;
+    public private(set) readonly array $methodOptions;
     #[PublicAPI]
-    public readonly ?Candidate $CondorcetWinner;
+    public private(set) readonly ?Candidate $CondorcetWinner;
     #[PublicAPI]
-    public readonly ?Candidate $CondorcetLoser;
+    public private(set) readonly ?Candidate $CondorcetLoser;
     #[PublicAPI]
-    public readonly array $pairwise;
+    public private(set) readonly array $pairwise;
     #[PublicAPI]
-    public readonly float $buildTimestamp;
+    public private(set) readonly float $buildTimestamp;
     #[PublicAPI]
-    public readonly string $fromMethod;
+    public private(set) readonly string $fromMethod;
     #[PublicAPI]
-    public readonly string $byClass;
+    public private(set) readonly string $byClass;
     #[PublicAPI]
-    public readonly StatsVerbosity $statsVerbosity;
+    public private(set) readonly StatsVerbosity $statsVerbosity;
     #[PublicAPI]
-    public readonly string $electionCondorcetVersion;
+    public private(set) readonly string $electionCondorcetVersion;
 
 
     #[InternalModulesAPI]
@@ -128,7 +130,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
         $this->Result = $result;
         $this->ResultIterator = $this->ranking = $this->makeUserResult($election);
-        $this->rankingAsString = $this->getResultAsArray(true);
         $this->Stats = $stats;
         $this->seats = $seats;
         $this->fromMethod = $fromMethod;

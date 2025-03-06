@@ -590,7 +590,8 @@ test('election serializing', function (): void {
 
     $election = serialize($election);
 
-    // file_put_contents("Tests/src/ElectionData/serialized_election_v3.2.0.txt", $election); # For next test
+    // file_put_contents("Tests/src/ElectionData/serialized_election_v3.2.0.txt", str_replace(Condorcet::VERSION, '3.2.0', $election)); # For next test
+
     $election = unserialize($election);
 
     expect($election->getResult('Schulze'))->not()->toBe($result1);
