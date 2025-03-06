@@ -295,7 +295,7 @@ trait ResultsProcess
         $this->cleanupCalculator();
 
         // Clean pairwise
-        if ($this->getState() === ElectionState::VOTES_REGISTRATION) {
+        if ($this->state === ElectionState::VOTES_REGISTRATION) {
             $this->makePairwise();
         } else {
             $this->Pairwise = null;

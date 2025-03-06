@@ -98,7 +98,7 @@ class VotesManager extends ArrayManager
     {
         $election = $this->getElection();
 
-        if ($election->getState() === ElectionState::VOTES_REGISTRATION) {
+        if ($election->state === ElectionState::VOTES_REGISTRATION) {
             match ($type) {
                 VotesManagerEvent::NewVote, VotesManagerEvent::FinishUpdateVote => $election->getPairwise()->addNewVote($key),
                 VotesManagerEvent::RemoveVote, VotesManagerEvent::PrepareUpdateVote => $election->getPairwise()->removeVote($key),

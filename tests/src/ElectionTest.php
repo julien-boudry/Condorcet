@@ -691,8 +691,12 @@ test('election state5', function (): void {
 
     expect($this->election1->setStateTovote())->toBeTrue();
 
-    expect($this->election1->getState())->toBe(ElectionState::VOTES_REGISTRATION);
+    expect($this->election1->state)->toBe(ElectionState::VOTES_REGISTRATION);
 });
+
+it('cannot edit state', function (): void {
+    $this->election1->state = ElectionState::CANDIDATES_REGISTRATION;
+})->throws(Error::class, 'Cannot modify protected(set) property');
 
 test('add same vote', function (): void {
     $this->expectException(VoteException::class);

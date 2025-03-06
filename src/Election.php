@@ -83,7 +83,11 @@ class Election
     }
 
     // Mechanics
-    protected ElectionState $State = ElectionState::CANDIDATES_REGISTRATION;
+    #[PublicAPI]
+    #[Description('Get the election process level.')]
+    #[FunctionReturn("  \n`ElectionState::CANDIDATES_REGISTRATION`: Candidate registered state. No votes, no result, no cache.  \n`ElectionState::VOTES_REGISTRATION`: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.  \n3: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.")]
+    #[Related('Election::setStateToVote')]
+    public protected(set) ElectionState $state = ElectionState::CANDIDATES_REGISTRATION;
     protected readonly Timer_Manager $timer;
 
     // Params
@@ -110,7 +114,7 @@ class Election
             'Candidates' => $this->Candidates,
             'Votes' => $this->Votes,
 
-            'State' => $this->State,
+            'State' => $this->state,
             'objectVersion' => $this->objectVersion,
             'AutomaticNewCandidateName' => $this->AutomaticNewCandidateName,
 
@@ -143,7 +147,7 @@ class Election
         $this->registerAllLinks();
 
         $this->AutomaticNewCandidateName = $data['AutomaticNewCandidateName'];
-        $this->State = $data['State'];
+        $this->state = $data['State'];
         $this->objectVersion = $data['objectVersion'];
 
         $this->ImplicitRanking = $data['ImplicitRanking'];
@@ -437,14 +441,6 @@ class Election
 
     /////////// STATE ///////////
 
-    #[PublicAPI]
-    #[Description('Get the election process level.')]
-    #[FunctionReturn("  \n`ElectionState::CANDIDATES_REGISTRATION`: Candidate registered state. No votes, no result, no cache.  \n`ElectionState::VOTES_REGISTRATION`: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.  \n3: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.")]
-    #[Related('Election::setStateToVote')]
-    public function getState(): ElectionState
-    {
-        return $this->State;
-    }
 
     // Close the candidate config, be ready for voting (optional)
     #[PublicAPI]
@@ -454,12 +450,12 @@ class Election
     #[Related('Election::getState')]
     public function setStateToVote(): true
     {
-        if ($this->State === ElectionState::CANDIDATES_REGISTRATION) {
+        if ($this->state === ElectionState::CANDIDATES_REGISTRATION) {
             if (empty($this->Candidates)) {
                 throw new NoCandidatesException;
             }
 
-            $this->State = ElectionState::VOTES_REGISTRATION;
+            $this->state = ElectionState::VOTES_REGISTRATION;
             $this->preparePairwiseAndCleanCompute();
         }
 
@@ -469,12 +465,12 @@ class Election
     // Prepare to compute results & caching system
     protected function preparePairwiseAndCleanCompute(): bool
     {
-        if ($this->Pairwise === null && $this->State === ElectionState::VOTES_REGISTRATION) {
+        if ($this->Pairwise === null && $this->state === ElectionState::VOTES_REGISTRATION) {
             $this->cleanupCompute();
 
             // Return
             return true;
-        } elseif ($this->State === ElectionState::CANDIDATES_REGISTRATION || $this->countVotes() === 0) {
+        } elseif ($this->state === ElectionState::CANDIDATES_REGISTRATION || $this->countVotes() === 0) {
             throw new ResultRequestedWithoutVotesException;
         } else {
             return false;

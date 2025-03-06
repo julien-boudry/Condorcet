@@ -127,7 +127,7 @@ trait CandidatesProcess
         Candidate|string|null $candidate = null
     ): Candidate {
         // only if the vote has not started
-        if ($this->State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
+        if ($this->state->value > ElectionState::CANDIDATES_REGISTRATION->value) {
             throw new VotingHasStartedException("cannot add '{$candidate}'");
         }
 
@@ -181,7 +181,7 @@ trait CandidatesProcess
         array|Candidate|string $candidates_input
     ): array {
         // only if the vote has not started
-        if ($this->State->value > ElectionState::CANDIDATES_REGISTRATION->value) {
+        if ($this->state->value > ElectionState::CANDIDATES_REGISTRATION->value) {
             throw new VotingHasStartedException;
         }
 
