@@ -12,7 +12,7 @@ beforeEach(function (): void {
         {
             $vote = new Vote($data);
             $this->getElection()->checkVoteCandidate($vote);
-            $vote->registerLink($this->Election->get());
+            $vote->registerLink($this->getElection());
 
             return $vote;
         }

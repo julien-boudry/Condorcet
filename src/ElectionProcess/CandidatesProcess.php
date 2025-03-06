@@ -24,8 +24,8 @@ trait CandidatesProcess
     /////////// CONSTRUCTOR ///////////
 
     // Data and global options
-    protected array $Candidates = []; // Candidate list
-    protected string $AutomaticNewCandidateName = 'A';
+    public protected(set) array $candidates = []; // Candidate list
+    public protected(set) string $nextAutomaticCandidateName = 'A';
 
 
     /////////// GET CANDIDATES ///////////
@@ -37,7 +37,7 @@ trait CandidatesProcess
     #[Related('Election::getCandidatesList')]
     public function countCandidates(): int
     {
-        return \count($this->Candidates);
+        return \count($this->candidates);
     }
 
     #[PublicAPI]
@@ -46,7 +46,7 @@ trait CandidatesProcess
     #[Related('Election::countCandidates')]
     public function getCandidatesList(): array
     {
-        return $this->Candidates;
+        return $this->candidates;
     }
 
     // Get the list of registered CANDIDATES
@@ -58,7 +58,7 @@ trait CandidatesProcess
     {
         $result = [];
 
-        foreach ($this->Candidates as $candidateKey => &$oneCandidate) {
+        foreach ($this->candidates as $candidateKey => &$oneCandidate) {
             $result[$candidateKey] = $oneCandidate->getName();
         }
 
@@ -69,9 +69,9 @@ trait CandidatesProcess
     public function getCandidateKey(Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) {
-            $r = array_search(needle: $candidate, haystack: $this->Candidates, strict: true);
+            $r = array_search(needle: $candidate, haystack: $this->candidates, strict: true);
         } else {
-            $r = array_search(needle: trim((string) $candidate), haystack: $this->Candidates, strict: false);
+            $r = array_search(needle: trim((string) $candidate), haystack: $this->candidates, strict: false);
         }
 
         return ($r !== false) ? $r : null;
@@ -80,7 +80,7 @@ trait CandidatesProcess
     #[InternalModulesAPI]
     public function getCandidateObjectFromKey(int $candidate_key): ?Candidate
     {
-        return $this->Candidates[$candidate_key] ?? null;
+        return $this->candidates[$candidate_key] ?? null;
     }
 
     #[PublicAPI]
@@ -93,7 +93,7 @@ trait CandidatesProcess
         #[FunctionParameter("Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.\nIf strict mode is false, the comparison will be based on name")]
         bool $strictMode = true
     ): bool {
-        return $strictMode ? \in_array(needle: $candidate, haystack: $this->Candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->Candidates, strict: false);
+        return $strictMode ? \in_array(needle: $candidate, haystack: $this->candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->candidates, strict: false);
     }
 
     #[PublicAPI]
@@ -103,7 +103,7 @@ trait CandidatesProcess
         #[FunctionParameter('Candidate name')]
         string $candidateName
     ): ?Candidate {
-        foreach ($this->Candidates as $oneCandidate) {
+        foreach ($this->candidates as $oneCandidate) {
             if ($oneCandidate->getName() === $candidateName) {
                 return $oneCandidate;
             }
@@ -133,11 +133,11 @@ trait CandidatesProcess
 
         // Process
         if (empty($candidate) && $candidate !== '0') {
-            while (!$this->canAddCandidate($this->AutomaticNewCandidateName)) {
-                $this->AutomaticNewCandidateName++;
+            while (!$this->canAddCandidate($this->nextAutomaticCandidateName)) {
+                $this->nextAutomaticCandidateName++;
             }
 
-            $newCandidate = new Candidate($this->AutomaticNewCandidateName);
+            $newCandidate = new Candidate($this->nextAutomaticCandidateName);
         } else { // Try to add the candidate_id
             $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate((string) $candidate);
 
@@ -147,7 +147,7 @@ trait CandidatesProcess
         }
 
         // Register it
-        $this->Candidates[] = $newCandidate;
+        $this->candidates[] = $newCandidate;
 
         // Linking
         $newCandidate->registerLink($this);
@@ -201,11 +201,11 @@ trait CandidatesProcess
 
         $rem = [];
         foreach ($candidates_input as $candidate_key) {
-            $this->Candidates[$candidate_key]->destroyLink($this);
+            $this->candidates[$candidate_key]->destroyLink($this);
 
-            $rem[] = $this->Candidates[$candidate_key];
+            $rem[] = $this->candidates[$candidate_key];
 
-            unset($this->Candidates[$candidate_key]);
+            unset($this->candidates[$candidate_key]);
         }
 
         return $rem;

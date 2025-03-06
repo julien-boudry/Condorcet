@@ -91,10 +91,15 @@ class Election
     protected readonly Timer_Manager $timer;
 
     // Params
-    protected bool $ImplicitRanking = true;
-    protected bool $VoteWeightRule = false;
-    protected array $Constraints = [];
-    protected int $Seats = 100;
+    #[PublicAPI]
+    public protected(set) bool $implicitRankingRule = true;
+    #[PublicAPI]
+    public protected(set) bool $voteWeightAllowed = false;
+    #[PublicAPI]
+    public protected(set) int $electionSeats = 100;
+
+    #[PublicAPI]
+    public protected(set) array $votesConstraints = [];
 
     // -------
 
@@ -102,7 +107,7 @@ class Election
     #[Description('Build a new Election.')]
     public function __construct()
     {
-        $this->Candidates = [];
+        $this->candidates = [];
         $this->Votes = new VotesManager($this);
         $this->timer = new Timer_Manager;
     }
@@ -111,16 +116,16 @@ class Election
     {
         // Don't include others data
         $include = [
-            'Candidates' => $this->Candidates,
+            'Candidates' => $this->candidates,
             'Votes' => $this->Votes,
 
             'State' => $this->state,
             'objectVersion' => $this->objectVersion,
-            'AutomaticNewCandidateName' => $this->AutomaticNewCandidateName,
+            'nextAutomaticCandidateName' => $this->nextAutomaticCandidateName,
 
-            'ImplicitRanking' => $this->ImplicitRanking,
-            'VoteWeightRule' => $this->VoteWeightRule,
-            'Constraints' => $this->Constraints,
+            'ImplicitRanking' => $this->implicitRankingRule,
+            'VoteWeightRule' => $this->voteWeightAllowed,
+            'Constraints' => $this->votesConstraints,
 
             'Pairwise' => $this->Pairwise,
             'Calculator' => $this->Calculator,
@@ -141,18 +146,18 @@ class Election
             throw new ElectionObjectVersionMismatchException($objectVersion);
         }
 
-        $this->Candidates = $data['Candidates'];
+        $this->candidates = $data['Candidates'];
         $this->Votes = $data['Votes'];
         $this->Votes->setElection($this);
         $this->registerAllLinks();
 
-        $this->AutomaticNewCandidateName = $data['AutomaticNewCandidateName'];
+        $this->nextAutomaticCandidateName = $data['nextAutomaticCandidateName'];
         $this->state = $data['State'];
         $this->objectVersion = $data['objectVersion'];
 
-        $this->ImplicitRanking = $data['ImplicitRanking'];
-        $this->VoteWeightRule = $data['VoteWeightRule'];
-        $this->Constraints = $data['Constraints'];
+        $this->implicitRankingRule = $data['ImplicitRanking'];
+        $this->voteWeightAllowed = $data['VoteWeightRule'];
+        $this->votesConstraints = $data['Constraints'];
 
         $this->Pairwise = $data['Pairwise'] ?? new Pairwise($this);
         $this->Pairwise->setElection($this);
@@ -221,7 +226,7 @@ class Election
 
         $r = hash_init('sha256');
 
-        foreach ($this->Candidates as $value) {
+        foreach ($this->candidates as $value) {
             hash_update($r, (string) $value);
         }
 
@@ -244,7 +249,7 @@ class Election
 
     protected function registerAllLinks(): void
     {
-        foreach ($this->Candidates as $value) {
+        foreach ($this->candidates as $value) {
             $value->registerLink($this);
         }
 
@@ -262,7 +267,7 @@ class Election
     #[Related('Election::setImplicitRanking')]
     public function getImplicitRankingRule(): bool
     {
-        return $this->ImplicitRanking;
+        return $this->implicitRankingRule;
     }
 
     #[PublicAPI]
@@ -273,7 +278,7 @@ class Election
         #[FunctionParameter('New rule')]
         bool $rule = true
     ): bool {
-        $this->ImplicitRanking = $rule;
+        $this->implicitRankingRule = $rule;
         $this->cleanupCompute();
         return $this->getImplicitRankingRule();
     }
@@ -284,7 +289,7 @@ class Election
     #[Related('Election::allowsVoteWeight')]
     public function isVoteWeightAllowed(): bool
     {
-        return $this->VoteWeightRule;
+        return $this->voteWeightAllowed;
     }
 
     #[PublicAPI]
@@ -295,7 +300,7 @@ class Election
         #[FunctionParameter('New rule')]
         bool $rule = true
     ): bool {
-        $this->VoteWeightRule = $rule;
+        $this->voteWeightAllowed = $rule;
         $this->cleanupCompute();
         return $this->isVoteWeightAllowed();
     }
@@ -321,7 +326,7 @@ class Election
             throw new VoteConstraintException('class is already registered');
         }
 
-        $this->Constraints[] = $constraintClass;
+        $this->votesConstraints[] = $constraintClass;
 
         $this->cleanupCompute();
 
@@ -335,7 +340,7 @@ class Election
     #[Related('Election::clearConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function getConstraints(): array
     {
-        return $this->Constraints;
+        return $this->votesConstraints;
     }
 
     #[PublicAPI]
@@ -345,7 +350,7 @@ class Election
     #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
     public function clearConstraints(): bool
     {
-        $this->Constraints = [];
+        $this->votesConstraints = [];
 
         $this->cleanupCompute();
 
@@ -361,7 +366,7 @@ class Election
         #[FunctionParameter('A vote. Not necessarily registered in this election')]
         Vote $vote
     ): bool {
-        foreach ($this->Constraints as $oneConstraint) {
+        foreach ($this->votesConstraints as $oneConstraint) {
             if ($oneConstraint::isVoteAllow($this, $vote) === false) {
                 return false;
             }
@@ -379,7 +384,7 @@ class Election
     #[Related('Election::setNumberOfSeats', 'Result::getNumberOfSeats')]
     public function getNumberOfSeats(): int
     {
-        return $this->Seats;
+        return $this->electionSeats;
     }
 
     #[PublicAPI]
@@ -392,14 +397,14 @@ class Election
         int $seats
     ): int {
         if ($seats > 0) {
-            $this->Seats = $seats;
+            $this->electionSeats = $seats;
 
             $this->cleanupCompute();
         } else {
             throw new NoSeatsException;
         }
 
-        return $this->Seats;
+        return $this->electionSeats;
     }
 
 
@@ -451,7 +456,7 @@ class Election
     public function setStateToVote(): true
     {
         if ($this->state === ElectionState::CANDIDATES_REGISTRATION) {
-            if (empty($this->Candidates)) {
+            if (empty($this->candidates)) {
                 throw new NoCandidatesException;
             }
 

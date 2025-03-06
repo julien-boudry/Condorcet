@@ -133,7 +133,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->seats = $seats;
         $this->fromMethod = $fromMethod;
         $this->byClass = $byClass;
-        $this->statsVerbosity = $election->getStatsVerbosity();
+        $this->statsVerbosity = $election->StatsVerbosity;
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getWinner();
         $this->CondorcetLoser = $election->getLoser();

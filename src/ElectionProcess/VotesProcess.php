@@ -234,7 +234,7 @@ trait VotesProcess
             foreach ($choice as &$candidate) {
                 if (!$this->isRegisteredCandidate($candidate, true)) {
                     if ($candidate->getProvisionalState() && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) {
-                        $candidate = $this->Candidates[$this->getCandidateKey((string) $candidate)];
+                        $candidate = $this->candidates[$this->getCandidateKey((string) $candidate)];
                         $change = true;
                     }
                 }

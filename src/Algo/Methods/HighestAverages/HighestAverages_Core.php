@@ -103,7 +103,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
         $stats = [];
 
-        if ($election->getStatsVerbosity()->value > StatsVerbosity::LOW->value) {
+        if ($election->StatsVerbosity->value > StatsVerbosity::LOW->value) {
             foreach ($this->rounds as $roundNumber => $oneRound) {
                 foreach ($oneRound as $candidateKey => $roundCandidateStats) {
                     $stats['Rounds'][$roundNumber][$election->getCandidateObjectFromKey($candidateKey)->getName()] = $roundCandidateStats;
@@ -111,7 +111,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
             }
         }
 
-        if ($election->getStatsVerbosity()->value > StatsVerbosity::NONE->value) {
+        if ($election->StatsVerbosity->value > StatsVerbosity::NONE->value) {
             foreach ($this->candidatesSeats as $candidateKey => $candidateSeats) {
                 $stats['Seats per Candidates'][$election->getCandidateObjectFromKey($candidateKey)->getName()] = $candidateSeats;
             }

@@ -25,7 +25,7 @@ class Permutations
     #[PublicAPI] // Must be available with composer installation. Only applied to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 
-    protected readonly array $candidates;
+    public protected(set) readonly array $candidates;
 
     public static function getPossibleCountOfPermutations(int $candidatesNumber): int
     {
