@@ -38,7 +38,7 @@ abstract class Method
 
     final public static function setOption(string $optionName, array|\BackedEnum|int|float|string|Randomizer $optionValue): true
     {
-        $optionVar = 'option' . ucfirst($optionName);
+        $optionVar = 'option' . mb_ucfirst($optionName);
 
         static::${$optionVar} = $optionValue;
 

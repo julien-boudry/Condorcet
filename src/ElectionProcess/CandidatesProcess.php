@@ -71,7 +71,7 @@ trait CandidatesProcess
         if ($candidate instanceof Candidate) {
             $r = array_search(needle: $candidate, haystack: $this->candidates, strict: true);
         } else {
-            $r = array_search(needle: trim((string) $candidate), haystack: $this->candidates, strict: false);
+            $r = array_search(needle: mb_trim((string) $candidate), haystack: $this->candidates, strict: false);
         }
 
         return ($r !== false) ? $r : null;

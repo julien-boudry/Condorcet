@@ -77,11 +77,9 @@ class DebianFormat implements ConverterImport
             $match = null;
             preg_match($pattern, $oneCandidateLine, $match);
 
-            // $candidates[$k++] = new Candidate( \trim($match['candidateName']) );
-            // $candidates[] = new Candidate( \trim( $match['candidateName']) );
             $candidateName = $match['candidateName'];
             mb_check_encoding($candidateName) || ($candidateName = mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16'));
-            $candidateName = trim($candidateName);
+            $candidateName = mb_trim($candidateName);
 
             $candidates[] = new Candidate($candidateName);
         }
@@ -99,7 +97,7 @@ class DebianFormat implements ConverterImport
         foreach ($votesLines as $oneVoteLine) {
             $match = null;
 
-            preg_match($pattern, trim($oneVoteLine), $match);
+            preg_match($pattern, mb_trim($oneVoteLine), $match);
             $oneVoteLineRanking = mb_str_split($match['Ranking']);
 
             $oneVote = [];

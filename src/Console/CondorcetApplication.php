@@ -70,7 +70,7 @@ abstract class CondorcetApplication
                 throw new NoGitShellException;
             }
 
-            $result = trim(stream_get_contents($pipes[1]));
+            $result = mb_trim(stream_get_contents($pipes[1]));
 
             fclose($pipes[1]);
             fclose($pipes[2]);

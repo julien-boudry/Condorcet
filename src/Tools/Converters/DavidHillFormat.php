@@ -76,7 +76,7 @@ class DavidHillFormat implements ConverterImport
     protected function readCandidatesNames(): void
     {
         $last_line = end($this->lines);
-        $last_line = ltrim($last_line, '"');
+        $last_line = mb_ltrim($last_line, '"');
         $last_line = explode('" "', $last_line);
 
         // Remove Election Name

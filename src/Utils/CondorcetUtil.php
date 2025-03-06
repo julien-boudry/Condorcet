@@ -58,7 +58,7 @@ abstract class CondorcetUtil
             }
 
             // Trim
-            $line = trim($line);
+            $line = mb_trim($line);
 
             // Remove empty
             if (empty($line)) {

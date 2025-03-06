@@ -49,7 +49,7 @@ class VoteEntryParser
     // From a string like 'A>B=C=H>G=T>Q'
     public static function convertRankingFromString(string $formula): ?array
     {
-        $formula = trim($formula);
+        $formula = mb_trim($formula);
 
         // Condorcet Election Format special string
         if (empty($formula)) {
@@ -65,7 +65,7 @@ class VoteEntryParser
 
                 // Del space at start and end
                 foreach ($rank_vote as &$value) {
-                    $value = trim($value);
+                    $value = mb_trim($value);
                 }
             }
 
@@ -83,7 +83,7 @@ class VoteEntryParser
             $tags = explode(',', $tagsPart);
 
             array_walk($tags, static function (string &$value): void {
-                $value = trim($value);
+                $value = mb_trim($value);
             });
 
             $cut && $voteString = mb_substr($voteString, $offset + 2);
@@ -99,7 +99,7 @@ class VoteEntryParser
         $offset = mb_strpos($voteString, '#');
 
         if (\is_int($offset)) {
-            $comment = trim(mb_substr($voteString, $offset + 1));
+            $comment = mb_trim(mb_substr($voteString, $offset + 1));
 
             $cut && $voteString = mb_substr($voteString, 0, $offset);
 
@@ -115,7 +115,7 @@ class VoteEntryParser
         $offset = mb_strpos($entry, $character);
 
         if (\is_int($offset)) {
-            $input = trim(mb_substr($entry, $offset + 1));
+            $input = mb_trim(mb_substr($entry, $offset + 1));
 
             $value = '';
 

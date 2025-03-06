@@ -65,7 +65,7 @@ class Candidate implements \Stringable
         #[FunctionParameter('Candidate Name')]
         string $name
     ): true {
-        $name = trim($name);
+        $name = mb_trim($name);
 
         if (mb_strlen($name) > Election::MAX_CANDIDATE_NAME_LENGTH) {
             throw new CandidateInvalidNameException($name);

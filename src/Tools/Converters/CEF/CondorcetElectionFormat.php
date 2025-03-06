@@ -210,7 +210,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
             $parameterMatch = [];
 
             if (preg_match('/^#\/(?<parameter_name>.+):(?<parameter_value>.+)$/mi', $line, $parameterMatch)) {
-                $parameters[trim($parameterMatch['parameter_name'])] = trim($parameterMatch['parameter_value']);
+                $parameters[mb_trim($parameterMatch['parameter_name'])] = mb_trim($parameterMatch['parameter_value']);
                 continue;
             }
 
@@ -270,7 +270,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 $line = explode('=', $line);
 
                 foreach ($line as $oneCandidate) {
-                    $oneCandidate = trim($oneCandidate);
+                    $oneCandidate = mb_trim($oneCandidate);
 
                     if ($oneCandidate !== self::SPECIAL_KEYWORD_EMPTY_RANKING) {
                         $candidates[$oneCandidate] = null;
