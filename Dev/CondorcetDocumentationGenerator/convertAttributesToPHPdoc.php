@@ -14,7 +14,7 @@ $allowedAttributes = [
 	'FunctionReturn',
 	'Throws',
 	'Related',
-    'InternalModulesApi',
+    'InternalModulesAPI',
     'Example',
     'Book',
 ];
@@ -49,6 +49,7 @@ function convertAttributesToPhpdoc(string $content): string {
     $newContent = preg_replace_callback($pattern, function($matches) use ($allowedAttributes) {
          $attributesBlock = $matches[1];
          $definitionLine  = $matches[2];
+         $parameters = extractParameters($definitionLine);
 
          // Process each attribute line based on the allowed configuration array.
          $lines = preg_split('/\R/', $attributesBlock);
@@ -61,21 +62,19 @@ function convertAttributesToPhpdoc(string $content): string {
                   if (!in_array($attrName, $allowedAttributes)) {
                       continue;
                   }
+
                   $attrValue = isset($attrMatches[2]) ? trim($attrMatches[2], " \"'") : '';
 
                   // Map attribute names to PHPdoc annotations
                   switch($attrName) {
                       case 'PublicAPI':
-                          $annotations[] = ' @public';
+                          $annotations[] = ' @api';
                           break;
                       case 'Description':
                           $annotations[] = ' ' . $attrValue;
                           break;
-                      case 'FunctionParameter':
-                          $annotations[] = ' @param ' . $attrValue;
-                          break;
                       case 'FunctionReturn':
-                          $annotations[] = ' @return ' . $attrValue;
+                          $annotations[] = ' @return mixed ' . $attrValue;
                           break;
                       case 'Throws':
                           $annotations[] = ' @throws ' . $attrValue;
@@ -83,11 +82,19 @@ function convertAttributesToPhpdoc(string $content): string {
                       case 'Related':
                           $annotations[] = ' @see ' . $attrValue;
                           break;
+                      case 'InternalModulesAPI':
+                        $annotations[] = ' @internal ' . $attrValue;
+                        break;
                       default:
-                          $annotations[] = " @$attrName " . $attrValue;
+                          $annotations[] = ' @' . mb_strtolower($attrName) . ' ' . $attrValue;
                   }
              }
          }
+
+         foreach($parameters as $paramName => $paramDescription) {
+             $annotations[] = ' @param ' . '$' . $paramName . ' ' . $paramDescription;
+         }
+
          // If no allowed attributes were found, return original content.
          if (empty($annotations)) {
              return $matches[0];
@@ -106,4 +113,17 @@ function convertAttributesToPhpdoc(string $content): string {
     }, $content);
 
     return $newContent;
+}
+
+function extractParameters(string $code): array
+{
+    $pattern = '/#\[FunctionParameter\(\'([^\']+)\'\)\]\s+.*?\s+\$(\w+)/';
+    preg_match_all($pattern, $code, $matches, PREG_SET_ORDER);
+
+    $parameters = [];
+    foreach ($matches as $match) {
+        $parameters[$match[2]] = $match[1];
+    }
+
+    return $parameters;
 }

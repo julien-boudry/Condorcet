@@ -61,7 +61,7 @@ class Election
     // Change max parse iteration
     #[PublicAPI]
     #[Description('Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.')]
-    #[FunctionReturn('*(int or null)* The new limit.')]
+    #[FunctionReturn('The new limit.')]
     #[Related('static Election::setMaxVoteNumber')]
     public static function setMaxParseIteration(
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
@@ -73,7 +73,7 @@ class Election
     // Change max vote number
     #[PublicAPI]
     #[Description("Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.")]
-    #[FunctionReturn('*(int or null)* The new limit.')]
+    #[FunctionReturn('The new limit.')]
     #[Related('static Election::setMaxParseIteration')]
     public static function setMaxVoteNumber(
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
