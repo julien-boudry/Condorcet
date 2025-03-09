@@ -1,6 +1,6 @@
 ## public static Election::setMaxParseIteration
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L65)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L66)
 
 ### Description    
 
@@ -17,7 +17,7 @@ Null will deactivate this functionality. Else, enter an integer.
 
 ### Return value:   
 
-*(`?int`)* *(int or null)* The new limit.
+*(`?int`)* The new limit.
 
 
 ---------------------------------------

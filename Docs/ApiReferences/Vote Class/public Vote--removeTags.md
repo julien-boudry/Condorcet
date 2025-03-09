@@ -1,6 +1,6 @@
 ## public Vote::removeTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L638)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L647)
 
 ### Description    
 

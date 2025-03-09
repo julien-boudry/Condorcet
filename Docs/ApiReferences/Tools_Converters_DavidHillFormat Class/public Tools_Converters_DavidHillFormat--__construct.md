@@ -1,6 +1,6 @@
 ## public Tools\Converters\DavidHillFormat::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L29)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L30)
 
 ### Description    
 

@@ -6,6 +6,9 @@
  * Usage: php convertAttributesToPHPdoc.php
  */
 
+ namespace CondorcetPHP\Condorcet\Dev;
+
+
 // Configuration array for allowed attribute names
 $allowedAttributes = [
 	'PublicAPI',
@@ -19,9 +22,9 @@ $allowedAttributes = [
     'Book',
 ];
 
-$sourceDir = __DIR__ . '/../../src';
+$sourceDir = __DIR__ . '/../src';
 
-$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sourceDir));
+$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sourceDir));
 foreach ($iterator as $file) {
     if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) === 'php') {
         $filePath = $file->getRealPath();

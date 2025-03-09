@@ -1,6 +1,6 @@
 ## public Vote::getObjectVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L26)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L27)
 
 ### Description    
 

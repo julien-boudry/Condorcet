@@ -1,6 +1,6 @@
 ## public Candidate::countLinks
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L44)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L45)
 
 ### Description    
 

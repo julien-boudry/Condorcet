@@ -1,6 +1,6 @@
 ## public Election::parseVotesWithoutFail
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L404)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L407)
 
 ### Description    
 

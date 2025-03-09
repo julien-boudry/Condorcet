@@ -1,6 +1,6 @@
 ## public static Condorcet::setDefaultMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L220)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L221)
 
 ### Description    
 

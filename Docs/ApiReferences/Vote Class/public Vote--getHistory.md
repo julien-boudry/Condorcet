@@ -1,6 +1,6 @@
 ## public Vote::getHistory
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L228)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L235)
 
 ### Description    
 

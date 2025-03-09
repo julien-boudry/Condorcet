@@ -1,6 +1,6 @@
 ## public Candidate::getProvisionalState
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L132)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L144)
 
 ### Description    
 

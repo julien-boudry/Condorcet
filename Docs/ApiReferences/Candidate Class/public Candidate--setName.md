@@ -1,11 +1,11 @@
 ## public Candidate::setName
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L63)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L88)
 
 ### Description    
 
 ```php
-public Candidate->setName ( string $name ): true
+public Candidate->setName ( string $name ): self
 ```
 
 Change the candidate name.
@@ -18,7 +18,7 @@ Candidate Name.
 
 ### Return value:   
 
-*(`true`)* In case of success, return TRUE
+*(`self`)* In case of success, return TRUE
 
 
 

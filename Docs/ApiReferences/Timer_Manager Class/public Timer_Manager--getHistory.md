@@ -1,6 +1,6 @@
 ## public Timer\Manager::getHistory
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L72)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L73)
 
 ### Description    
 

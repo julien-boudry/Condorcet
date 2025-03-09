@@ -1,6 +1,6 @@
 ## public static Utils\CondorcetUtil::format
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L75)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L76)
 
 ### Description    
 

@@ -1,6 +1,6 @@
 ## public Tools\Randomizers\ArrayRandomizer::countCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L66)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L67)
 
 ### Description    
 

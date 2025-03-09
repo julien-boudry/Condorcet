@@ -1,6 +1,6 @@
 ## public Result::getMethodOptions
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L331)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L333)
 
 ### Description    
 

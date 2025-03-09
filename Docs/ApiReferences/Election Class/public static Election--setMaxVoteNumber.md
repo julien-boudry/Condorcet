@@ -1,6 +1,6 @@
 ## public static Election::setMaxVoteNumber
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L77)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L78)
 
 ### Description    
 
@@ -17,7 +17,7 @@ Null will deactivate this functionality. An integer will fix the limit.
 
 ### Return value:   
 
-*(`?int`)* *(int or null)* The new limit.
+*(`?int`)* The new limit.
 
 
 ---------------------------------------
