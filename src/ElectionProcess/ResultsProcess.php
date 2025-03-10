@@ -40,7 +40,7 @@ trait ResultsProcess
 
     // Generic function for default result with ability to change default object method
     #[PublicAPI]
-    #[Description("Get a full ranking from an advanced Condorcet method.\n*Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*")]
+    #[Description("Get a full ranking from an advanced Condorcet method.")]
     #[FunctionReturn('An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)')]
     #[Throws(AlgorithmException::class)]
     #[Book(BookLibrary::ResultsRanking)]

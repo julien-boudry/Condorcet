@@ -213,7 +213,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
-    #[Description('Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).')]
+    #[Description(('Get the election winner if any'))]
     #[FunctionReturn("Candidate object given. Null if there are no available winner.\nYou can get an array with multiples winners.")]
     #[Related('Result::getLoser', 'Election::getWinner')]
     public function getWinner(): array|Candidate|null
@@ -222,7 +222,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     #[PublicAPI]
-    #[Description('Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).')]
+    #[Description(('Get the election loser if any'))]
     #[FunctionReturn("Candidate object given. Null if there are no available loser.\nYou can get an array with multiples losers.")]
     #[Related('Result::getWinner', 'Election::getLoser')]
     public function getLoser(): array|Candidate|null

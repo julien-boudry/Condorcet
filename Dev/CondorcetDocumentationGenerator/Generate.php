@@ -6,6 +6,12 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\ConstExprParser;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
+use PHPStan\PhpDocParser\Parser\TypeParser;
+use PHPStan\PhpDocParser\ParserConfig;
 
 class Generate
 {
@@ -139,6 +145,14 @@ class Generate
     {
         $start_time = microtime(true);
 
+        // basic setup
+
+        $config = new ParserConfig(usedAttributes: []);
+        $lexer = new Lexer($config);
+        $constExprParser = new ConstExprParser($config);
+        $typeParser = new TypeParser($config, $constExprParser);
+        $phpDocParser = new PhpDocParser($config, $typeParser, $constExprParser);
+
         $pathDirectory = $path . \DIRECTORY_SEPARATOR;
 
         //
@@ -154,11 +168,25 @@ class Generate
 
         // Warnings
         foreach ($FullClassList as $FullClass) {
-            $methods = (new \ReflectionClass($FullClass))->getMethods(\ReflectionMethod::IS_PUBLIC);
+            $methods = new \ReflectionClass($FullClass)->getMethods(\ReflectionMethod::IS_PUBLIC);
 
             foreach ($methods as $oneMethod) {
+
+                $docBlock = $oneMethod->getDocComment();
+                $phpDocNode = false;
+
+                $isPublic = false;
+
+                if ($docBlock !== false) {
+                    $tokens = new TokenIterator($lexer->tokenize($docBlock));
+                    $phpDocNode = $phpDocParser->parse($tokens); // PhpDocNode
+
+                    $isPublic = !empty($phpDocNode->getTagsByName('@api')) ? true : false;
+                }
+
                 if ($oneMethod->isInternal()) {
-                } elseif (!empty($oneMethod->getAttributes(PublicAPI::class))) {
+                    // continue
+                } elseif ($isPublic) {
                     $inDoc++;
 
                     if ($oneMethod->getNumberOfParameters() > 0) {
@@ -169,13 +197,13 @@ class Generate
                         }
                     }
 
-                    if (empty($oneMethod->getAttributes(Description::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
+                    if (empty($phpDocNode->getAttribute('description')) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
                         var_dump('Description Attribute is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                     }
                 } else {
                     $non_inDoc++;
 
-                    if (empty($oneMethod->getAttributes(PublicAPI::class)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
+                    if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
                         // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     }
                 }
@@ -187,7 +215,7 @@ class Generate
         // generate .md
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new \ReflectionClass($FullClass);
-            $methods = ($reflectionClass)->getMethods();
+            $methods = $reflectionClass->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
             $full_methods_list[$shortClass] = [
@@ -198,6 +226,20 @@ class Generate
             ];
 
             foreach ($methods as $oneMethod) {
+                $docBlock = $oneMethod->getDocComment();
+                $phpDocNode = false;
+
+                $isPublic = false;
+
+                if ($docBlock !== false) {
+                    $tokens = new TokenIterator($lexer->tokenize($docBlock));
+                    $phpDocNode = $phpDocParser->parse($tokens); // PhpDocNode
+
+                    $isPublic = !empty($phpDocNode->getTagsByName('@api')) ? true : false;
+                }
+
+                // var_dump($oneMethod, $docBlock, $isPublic);
+
                 $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
                     'FullClass' => $FullClass,
                     'shortClass' => $shortClass,
@@ -217,7 +259,13 @@ class Generate
                 }
 
                 // Write Markdown
-                if (!empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) && (empty($apiAttribute[0]->getArguments()) || \in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true))) {
+                if ($isPublic) {
+                    // !empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) &&
+                    // (
+                    //     empty($apiAttribute[0]->getArguments()) ||
+                    //     \in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true)
+                    // )
+
                     $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
 
                     if (!is_dir($path)) {

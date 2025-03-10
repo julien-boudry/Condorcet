@@ -112,7 +112,12 @@ function convertAttributesToPhpdoc(string $content): string {
 
 
          // Inverse l'ordre : docblock généré AVANT les attributs existants
-         return $phpdoc . $attributesBlock . $definitionLine;
+         if (false && str_contains($attributesBlock, '#[\Override]')) {
+            return $phpdoc . "\n#[\\Override]\n" . $definitionLine;
+         }
+         else {
+            return $phpdoc . $attributesBlock . $definitionLine;
+         }
     }, $content);
 
     return $newContent;
