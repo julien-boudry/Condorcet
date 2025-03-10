@@ -39,7 +39,8 @@
         "phpstan/phpstan": "^2.1",
         "laravel/pint": "^1.21",
         "pestphp/pest": "^3.7",
-        "mammothphp/woollym": "dev-master"
+        "mammothphp/woollym": "dev-master",
+        "phpstan/phpdoc-parser": "^2.1"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
