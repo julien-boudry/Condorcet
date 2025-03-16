@@ -255,13 +255,13 @@ class Generate
 
                 // Write Markdown
                 if ($isPublic) {
-                    // !empty($apiAttribute = $oneMethod->getAttributes(PublicAPI::class)) &&
-                    // (
-                    //     empty($apiAttribute[0]->getArguments()) ||
-                    //     \in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true)
-                    // )
-
-                    if (!$classIsInternal) {
+                    if (
+                        !$classIsInternal &&
+                        (
+                            empty($this->docBlocGetTagDescriptionOrValue('@api', $oneMethod)) ||
+                            str_contains($this->docBlocGetTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
+                        )
+                    ) {
                         $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
 
                         if (!is_dir($path)) {
@@ -339,43 +339,40 @@ class Generate
         // Return Value
 
         if ($this->docBlocHasTag('@return', $method)) {
-            $returnTags = $this->getPhpDocNode($method->getDocComment())->getTagsByName('@return');
-            $returnTag = array_pop($returnTags);
+            $returnDescription = $this->docBlocGetTagDescriptionOrValue('@return', $method);
 
             $md .= "\n\n" .
                     "### Return value:   \n\n" .
-                    '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $returnTag->value->description . "\n\n";
+                    '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
         }
 
         // Throw
-        if (!empty($method->getAttributes(Throws::class))) {
+        if ($this->docBlocHasTag('@throws', $method)) {
             $md .=  "\n\n" .
                     "### Throws:   \n\n";
 
-            foreach ($method->getAttributes(Throws::class)[0]->getArguments() as $arg) {
-                $md .= '* ```' . $arg . "```\n";
+            foreach ( $this->getPhpDocNode($method)->getTagsByName('@throws') as $oneTag) {
+                $md .= '* ```' . $oneTag->value->type . " "  . "``` " . ($oneTag->value->description ?? '') . "\n";
             }
         }
 
         // Related methods
 
-        if (!empty($method->getAttributes(Related::class))) {
+        if (!empty($see = $this->docBlocGetTagDescriptionOrValue('@see', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Related method(s)      \n\n";
 
-            foreach ($method->getAttributes(Related::class) as $RelatedAttribute) {
-                foreach ($RelatedAttribute->newInstance()->relatedList as $value) {
-                    if ($value === self::simpleClass($method->class) . '::' . $method->name) {
-                        continue;
-                    }
-
-                    $md .= '* ' . self::cleverRelated($value, $this->pathBase) . "    \n";
+            foreach (explode(', ', $see) as $toSee) {
+                if ($toSee === self::simpleClass($method->class) . '::' . $method->name) {
+                    continue;
                 }
+
+                $md .= '* ' . self::cleverRelated($toSee, $this->pathBase) . "    \n";
             }
         }
 
-        if (!empty($method->getAttributes(Book::class))) {
+        if (!empty($book = $this->docBlocGetTagDescriptionOrValue('@book', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Tutorial\n\n";
@@ -387,19 +384,6 @@ class Generate
             }
         }
 
-        if (!empty($method->getAttributes(Example::class))) {
-            $md .=  "\n" .
-                    "---------------------------------------\n\n" .
-                    "### Examples and explanation\n\n";
-
-            foreach ($method->getAttributes(Example::class) as $ExampleAttribute) {
-                $ExampleAttribute = $ExampleAttribute->newInstance();
-
-                $md .= '* **[' . $ExampleAttribute->name . '](' . $ExampleAttribute->link . ")**    \n";
-            }
-        }
-
-
         return $md;
     }
 
@@ -407,8 +391,24 @@ class Generate
     {
         $file_content = '';
 
-        $testPublicAttribute = static function (\ReflectionMethod $reflectionMethod): bool {
-            return !(empty($apiAttribute = $reflectionMethod->getAttributes(PublicAPI::class)) || (!empty($apiAttribute[0]->getArguments()) && !\in_array(self::simpleClass($reflectionMethod->class), $apiAttribute[0]->getArguments(), true)));
+        $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
+            if(!$this->docBlocHasTag('@api', $reflectionMethod)) {
+                return false;
+            }
+
+            $apiDescription = $this->docBlocGetTagDescriptionOrValue('@api', $reflectionMethod);
+
+            if (empty($apiDescription)) {
+                return true;
+            }
+            else {
+                // var_dump($apiDescription);
+                if (str_contains($apiDescription, self::simpleClass($reflectionMethod->class))) {
+                    return true;
+                }
+            }
+
+            return false;
         };
 
         foreach ($index as $class => &$classMeta) {
@@ -424,7 +424,7 @@ class Generate
 
             $classWillBePublic = false;
 
-            if ($classMeta['ReflectionClass']->getAttributes(PublicAPI::class)) {
+            if ($this->docBlocHasTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
                 foreach ($classMeta['methods'] as $oneMethod) {
@@ -660,8 +660,12 @@ class Generate
         return $file_content;
     }
 
-    protected function getPhpDocNode(string $docBlock): PhpDocNode
+    protected function getPhpDocNode(string|ReflectionClass|ReflectionMethod $docBlock): PhpDocNode
     {
+        if ($docBlock instanceof Reflector) {
+            $docBlock = $docBlock->getDocComment();
+        }
+
         $tokens = new TokenIterator($this->lexer->tokenize($docBlock));
         return $this->phpDocParser->parse($tokens);
     }
@@ -689,6 +693,19 @@ class Generate
     protected function docBlocHasTag(string $tag, ReflectionClass|ReflectionMethod $source): bool
     {
         return in_array($tag, $this->getDocBlocTags($source), true);
+    }
+
+    protected function docBlocGetTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
+    {
+        if (!$this->docBlocHasTag($tag, $source)) {
+            return false;
+        }
+
+        $tagsNode =  $this->getPhpDocNode($source->getDocComment())->getTagsByName($tag);
+
+        $node = array_pop($tagsNode);
+
+        return $node->value->description ?? $node->value->value ?? null;
     }
 
     protected function getDocBlocDescription(PhpDocNode|ReflectionClass|ReflectionMethod $source): false|string
