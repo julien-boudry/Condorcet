@@ -6,12 +6,19 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
+use PHPStan\PhpDocParser\Ast\Node;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPStan\PhpDocParser\ParserConfig;
+use Reflection;
+use ReflectionClass;
+use ReflectionMethod;
+use Reflector;
 
 class Generate
 {
@@ -141,6 +148,9 @@ class Generate
 
     // Script
 
+    protected PhpDocParser $phpDocParser;
+    protected Lexer $lexer;
+
     public function __construct($path, public readonly string $pathBase)
     {
         $start_time = microtime(true);
@@ -148,10 +158,10 @@ class Generate
         // basic setup
 
         $config = new ParserConfig(usedAttributes: []);
-        $lexer = new Lexer($config);
+        $this->lexer = new Lexer($config);
         $constExprParser = new ConstExprParser($config);
         $typeParser = new TypeParser($config, $constExprParser);
-        $phpDocParser = new PhpDocParser($config, $typeParser, $constExprParser);
+        $this->phpDocParser = new PhpDocParser($config, $typeParser, $constExprParser);
 
         $pathDirectory = $path . \DIRECTORY_SEPARATOR;
 
@@ -175,14 +185,7 @@ class Generate
                 $docBlock = $oneMethod->getDocComment();
                 $phpDocNode = false;
 
-                $isPublic = false;
-
-                if ($docBlock !== false) {
-                    $tokens = new TokenIterator($lexer->tokenize($docBlock));
-                    $phpDocNode = $phpDocParser->parse($tokens); // PhpDocNode
-
-                    $isPublic = !empty($phpDocNode->getTagsByName('@api')) ? true : false;
-                }
+                $isPublic = $this->docBlocHasTag('@api', $oneMethod);
 
                 if ($oneMethod->isInternal()) {
                     // continue
@@ -197,8 +200,8 @@ class Generate
                         }
                     }
 
-                    if (empty($phpDocNode->getAttribute('description')) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
-                        var_dump('Description Attribute is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
+                    if (empty($this->getDocBlocDescription($oneMethod)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
+                        var_dump('Description is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                     }
                 } else {
                     $non_inDoc++;
@@ -215,6 +218,9 @@ class Generate
         // generate .md
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new \ReflectionClass($FullClass);
+
+            $classIsInternal = $this->docBlocHasTag('@internal', $reflectionClass);
+
             $methods = $reflectionClass->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
@@ -223,22 +229,11 @@ class Generate
                 'shortClass' => $shortClass,
                 'ReflectionClass' => $reflectionClass,
                 'methods' => [],
+                'isInternal' => $classIsInternal,
             ];
 
             foreach ($methods as $oneMethod) {
-                $docBlock = $oneMethod->getDocComment();
-                $phpDocNode = false;
-
-                $isPublic = false;
-
-                if ($docBlock !== false) {
-                    $tokens = new TokenIterator($lexer->tokenize($docBlock));
-                    $phpDocNode = $phpDocParser->parse($tokens); // PhpDocNode
-
-                    $isPublic = !empty($phpDocNode->getTagsByName('@api')) ? true : false;
-                }
-
-                // var_dump($oneMethod, $docBlock, $isPublic);
+                $isPublic = $this->docBlocHasTag('@api', $oneMethod);
 
                 $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
                     'FullClass' => $FullClass,
@@ -266,13 +261,15 @@ class Generate
                     //     \in_array(self::simpleClass($oneMethod->class), $apiAttribute[0]->getArguments(), true)
                     // )
 
-                    $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
+                    if (!$classIsInternal) {
+                        $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
 
-                    if (!is_dir($path)) {
-                        mkdir($path);
+                        if (!is_dir($path)) {
+                            mkdir($path);
+                        }
+
+                        file_put_contents($path . self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $method_array));
                     }
-
-                    file_put_contents($path . self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $method_array));
                 }
             }
         }
@@ -319,7 +316,7 @@ class Generate
 
                 "### Description    \n\n" .
                 self::computeRepresentationAsPHP($method) . "\n\n" .
-                $method->getAttributes(Description::class)[0]->getArguments()[0] . "\n    ";
+                $this->getDocBlocDescription($method) . "\n    ";
 
         // Input
         if ($method->getNumberOfParameters() > 0) {
@@ -341,10 +338,13 @@ class Generate
 
         // Return Value
 
-        if (!empty($method->getAttributes(FunctionReturn::class))) {
+        if ($this->docBlocHasTag('@return', $method)) {
+            $returnTags = $this->getPhpDocNode($method->getDocComment())->getTagsByName('@return');
+            $returnTag = array_pop($returnTags);
+
             $md .= "\n\n" .
                     "### Return value:   \n\n" .
-                    '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $method->getAttributes(FunctionReturn::class)[0]->getArguments()[0] . "\n\n";
+                    '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $returnTag->value->description . "\n\n";
         }
 
         // Throw
@@ -658,5 +658,54 @@ class Generate
         }
 
         return $file_content;
+    }
+
+    protected function getPhpDocNode(string $docBlock): PhpDocNode
+    {
+        $tokens = new TokenIterator($this->lexer->tokenize($docBlock));
+        return $this->phpDocParser->parse($tokens);
+    }
+
+    protected function getDocBlocTags(ReflectionClass|ReflectionMethod $source): array
+    {
+        if ($source instanceof Reflector) {
+            $docComment = $source->getDocComment();
+        }
+
+        $tags = [];
+
+        if ($docComment !== false) {
+            $phpDocNode = $this->getPhpDocNode($docComment);
+            $tagsNode = $phpDocNode->getTags();
+
+            foreach ($tagsNode as $tagNode) {
+                $tags[] = $tagNode->name;
+            }
+        }
+
+        return $tags;
+    }
+
+    protected function docBlocHasTag(string $tag, ReflectionClass|ReflectionMethod $source): bool
+    {
+        return in_array($tag, $this->getDocBlocTags($source), true);
+    }
+
+    protected function getDocBlocDescription(PhpDocNode|ReflectionClass|ReflectionMethod $source): false|string
+    {
+        if ($source instanceof Reflector) {
+            $source = $source->getDocComment();
+            $source = $source === false ? false : $this->getPhpDocNode($source);
+        }
+
+        if ($source === false) {
+            return false;
+        }
+
+        $textNodes = array_filter($source->children, fn(Node $node) => $node instanceof PhpDocTextNode);
+        $lines = array_map(fn(PhpDocTextNode $textNode) => $textNode->text, $textNodes);
+        $nonBlankLines = array_filter($lines);
+
+        return empty($nonBlankLines) ? false : implode(PHP_EOL, $nonBlankLines);
     }
 }

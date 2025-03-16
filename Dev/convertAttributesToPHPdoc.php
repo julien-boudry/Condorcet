@@ -74,7 +74,9 @@ function convertAttributesToPhpdoc(string $content): string {
                           $annotations[] = ' @api';
                           break;
                       case 'Description':
-                          $annotations[] = ' ' . $attrValue;
+                          foreach (explode("\\n", $attrValue) as $descriptionLine) {
+                              $annotations[] = ' ' . $descriptionLine;
+                          }
                           break;
                       case 'FunctionReturn':
                           $annotations[] = ' @return mixed ' . $attrValue;
@@ -97,6 +99,21 @@ function convertAttributesToPhpdoc(string $content): string {
          foreach($parameters as $paramName => $paramDescription) {
              $annotations[] = ' @param ' . '$' . $paramName . ' ' . $paramDescription;
          }
+
+         usort($annotations, function(string $a, string $b): int {
+            $a = mb_trim($a);
+            $b = mb_trim($b);
+
+            if (str_starts_with($a, '@') && !str_starts_with($b, '@')) {
+                return 1;
+            }
+            elseif (!str_starts_with($a, '@') && str_starts_with($b, '@')) {
+                 return -1;
+             }
+             else {
+                 return 0;
+             }
+         });
 
          // If no allowed attributes were found, return original content.
          if (empty($annotations)) {

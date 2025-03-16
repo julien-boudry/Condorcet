@@ -18,6 +18,14 @@ use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
+/**
+ *  ArrayManager
+ *
+ *  It's a simple array storage manager with a cache system and a DataHandlerDriverInterface.
+ *  It's used by VoteManager.
+ *
+ *  @internal
+ */
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {
     use HasElection;

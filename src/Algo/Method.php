@@ -18,7 +18,10 @@ use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 use Random\Randomizer;
 
-// Generic for Algorithms
+/**
+ * @internal
+ * Generic for Algorithms
+ */
 abstract class Method
 {
     use HasElection;
