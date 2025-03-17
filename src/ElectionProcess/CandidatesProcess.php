@@ -90,7 +90,7 @@ trait CandidatesProcess
     public function isRegisteredCandidate(
         #[FunctionParameter('Candidate object or candidate string name. String name works only if the strict mode is false')]
         Candidate|string $candidate,
-        #[FunctionParameter("Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.\nIf strict mode is false, the comparison will be based on name")]
+        #[FunctionParameter('Search comparison mode. In strict mode, candidate objects are compared strictly and a string input cannot match anything. If strict mode is false, the comparison will be based on name')]
         bool $strictMode = true
     ): bool {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->candidates, strict: false);
@@ -120,7 +120,7 @@ trait CandidatesProcess
     #[Description('Add one candidate to an election.')]
     #[FunctionReturn('The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).')]
     #[Throws(CandidateExistsException::class, VotingHasStartedException::class)]
-    #[Book(BookLibrary::Candidates)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
     #[Related('Election::parseCandidates', 'Election::addCandidatesFromJson', 'Election::removeCandidate', 'Election::getCandidatesList', 'Election::canAddCandidate')]
     public function addCandidate(
         #[FunctionParameter('Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.')]
@@ -174,10 +174,10 @@ trait CandidatesProcess
     #[Description("Remove candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. An exception will be thrown.*")]
     #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
     #[Throws(CandidateDoesNotExistException::class, VotingHasStartedException::class)]
-    #[Book(BookLibrary::Candidates)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
     #[Related('Election::addCandidate', 'Election::getCandidatesList')]
     public function removeCandidates(
-        #[FunctionParameter("* String matching candidate name\n* CondorcetPHP\Condorcet\Candidate object\n* Array populated by CondorcetPHP\Condorcet\Candidate\n* Array populated by string matching candidate name")]
+        #[FunctionParameter('String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name')]
         array|Candidate|string $candidates_input
     ): array {
         // only if the vote has not started
@@ -218,7 +218,7 @@ trait CandidatesProcess
     #[Description('Import candidate from a JSON source.')]
     #[FunctionReturn('List of newly registered candidate object.')]
     #[Throws(CandidateExistsException::class)]
-    #[Book(BookLibrary::Candidates)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
     #[Related('Election::addCandidate', 'Election::parseCandidates', 'Election::addVotesFromJson')]
     public function addCandidatesFromJson(
         #[FunctionParameter('JSON string input')]
@@ -251,7 +251,7 @@ trait CandidatesProcess
     #[Description('Import candidate from a text source.')]
     #[FunctionReturn('List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.')]
     #[Throws(CandidateExistsException::class, VoteMaxNumberReachedException::class)]
-    #[Book(BookLibrary::Candidates)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
     #[Related('Election::addCandidate', 'Election::addCandidatesFromJson', 'Election::parseVotes')]
     public function parseCandidates(
         #[FunctionParameter('String or valid path to a text file')]

@@ -205,7 +205,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     #[PublicAPI]
     #[Description('Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.')]
     #[FunctionReturn('Varying according to the algorithm used.')]
-    #[Book(BookLibrary::Results)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results)]
     #[Related('Election::getResult')]
     public function getStats(): mixed
     {

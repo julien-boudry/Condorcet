@@ -6,11 +6,13 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
 use HaydenPierce\ClassFinder\ClassFinder;
+use LogicException;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
+use PHPStan\PhpDocParser\Parser\ParserException;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
@@ -185,7 +187,7 @@ class Generate
                 $docBlock = $oneMethod->getDocComment();
                 $phpDocNode = false;
 
-                $isPublic = $this->docBlocHasTag('@api', $oneMethod);
+                $isPublic = $this->docBlockHasTag('@api', $oneMethod);
 
                 if ($oneMethod->isInternal()) {
                     // continue
@@ -193,14 +195,16 @@ class Generate
                     $inDoc++;
 
                     if ($oneMethod->getNumberOfParameters() > 0) {
+                        $docBlocParams = $this->getDocBlockParameters($oneMethod);
+
                         foreach ($oneMethod->getParameters() as $oneParameter) {
-                            if (empty($oneParameter->getAttributes(FunctionParameter::class))) {
+                            if (empty($docBlocParams[$oneParameter->getName()])) {
                                 var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                             }
                         }
                     }
 
-                    if (empty($this->getDocBlocDescription($oneMethod)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
+                    if (empty($this->getDocBlockDescription($oneMethod)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
                         var_dump('Description is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
                     }
                 } else {
@@ -219,7 +223,7 @@ class Generate
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new \ReflectionClass($FullClass);
 
-            $classIsInternal = $this->docBlocHasTag('@internal', $reflectionClass);
+            $classIsInternal = $this->docBlockHasTag('@internal', $reflectionClass);
 
             $methods = $reflectionClass->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
@@ -233,7 +237,7 @@ class Generate
             ];
 
             foreach ($methods as $oneMethod) {
-                $isPublic = $this->docBlocHasTag('@api', $oneMethod);
+                $isPublic = $this->docBlockHasTag('@api', $oneMethod);
 
                 $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
                     'FullClass' => $FullClass,
@@ -258,8 +262,8 @@ class Generate
                     if (
                         !$classIsInternal &&
                         (
-                            empty($this->docBlocGetTagDescriptionOrValue('@api', $oneMethod)) ||
-                            str_contains($this->docBlocGetTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
+                            empty($this->getdocBlockTagDescriptionOrValue('@api', $oneMethod)) ||
+                            str_contains($this->getdocBlockTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
                         )
                     ) {
                         $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
@@ -316,15 +320,15 @@ class Generate
 
                 "### Description    \n\n" .
                 self::computeRepresentationAsPHP($method) . "\n\n" .
-                $this->getDocBlocDescription($method) . "\n    ";
+                $this->getDocBlockDescription($method) . "\n    ";
 
         // Input
         if ($method->getNumberOfParameters() > 0) {
+            $docBlocParams = $this->getDocBlockParameters($method);
+
             foreach ($method->getParameters() as $value) {
-                if (!empty($attributes = $value->getAttributes(FunctionParameter::class))) {
-                    $pt = $attributes[0]->newInstance()->text;
-                } elseif (isset($entry['input'][$value->getName()]['text'])) {
-                    $pt = $entry['input'][$value->getName()]['text'];
+                if (!empty($docBlocParams[$value->getName()])) {
+                    $pt = $docBlocParams[$value->getName()];
                 } else {
                     $pt = '';
                 }
@@ -338,8 +342,8 @@ class Generate
 
         // Return Value
 
-        if ($this->docBlocHasTag('@return', $method)) {
-            $returnDescription = $this->docBlocGetTagDescriptionOrValue('@return', $method);
+        if ($this->docBlockHasTag('@return', $method)) {
+            $returnDescription = $this->getdocBlockTagDescriptionOrValue('@return', $method);
 
             $md .= "\n\n" .
                     "### Return value:   \n\n" .
@@ -347,7 +351,7 @@ class Generate
         }
 
         // Throw
-        if ($this->docBlocHasTag('@throws', $method)) {
+        if ($this->docBlockHasTag('@throws', $method)) {
             $md .=  "\n\n" .
                     "### Throws:   \n\n";
 
@@ -358,7 +362,7 @@ class Generate
 
         // Related methods
 
-        if (!empty($see = $this->docBlocGetTagDescriptionOrValue('@see', $method))) {
+        if (!empty($see = $this->getdocBlockTagDescriptionOrValue('@see', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Related method(s)      \n\n";
@@ -372,15 +376,15 @@ class Generate
             }
         }
 
-        if (!empty($book = $this->docBlocGetTagDescriptionOrValue('@book', $method))) {
+        if (!empty($book = $this->getdocBlockTagDescriptionOrValue('@book', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Tutorial\n\n";
 
-            foreach ($method->getAttributes(Book::class) as $BookAttribute) {
-                $BookAttribute = $BookAttribute->newInstance();
+            foreach (explode(', ', $this->getdocBlockTagDescriptionOrValue('@book', $method)) as $BookAttribute) {
+                $BookLibrary = constant($BookAttribute);
 
-                $md .= '* **[This method has explanations and examples in the Documentation Book](' . $BookAttribute->chapter->value . ")**    \n";
+                $md .= '* **[This method has explanations and examples in the Documentation Book](' . $BookLibrary->value . ")**    \n";
             }
         }
 
@@ -392,17 +396,16 @@ class Generate
         $file_content = '';
 
         $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
-            if(!$this->docBlocHasTag('@api', $reflectionMethod)) {
+            if(!$this->docBlockHasTag('@api', $reflectionMethod)) {
                 return false;
             }
 
-            $apiDescription = $this->docBlocGetTagDescriptionOrValue('@api', $reflectionMethod);
+            $apiDescription = $this->getdocBlockTagDescriptionOrValue('@api', $reflectionMethod);
 
             if (empty($apiDescription)) {
                 return true;
             }
             else {
-                // var_dump($apiDescription);
                 if (str_contains($apiDescription, self::simpleClass($reflectionMethod->class))) {
                     return true;
                 }
@@ -424,7 +427,7 @@ class Generate
 
             $classWillBePublic = false;
 
-            if ($this->docBlocHasTag('@api', $classMeta['ReflectionClass'])) {
+            if ($this->docBlockHasTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
                 foreach ($classMeta['methods'] as $oneMethod) {
@@ -670,7 +673,7 @@ class Generate
         return $this->phpDocParser->parse($tokens);
     }
 
-    protected function getDocBlocTags(ReflectionClass|ReflectionMethod $source): array
+    protected function getDocBlockTags(ReflectionClass|ReflectionMethod $source): array
     {
         if ($source instanceof Reflector) {
             $docComment = $source->getDocComment();
@@ -690,14 +693,14 @@ class Generate
         return $tags;
     }
 
-    protected function docBlocHasTag(string $tag, ReflectionClass|ReflectionMethod $source): bool
+    protected function docBlockHasTag(string $tag, ReflectionClass|ReflectionMethod $source): bool
     {
-        return in_array($tag, $this->getDocBlocTags($source), true);
+        return in_array($tag, $this->getDocBlockTags($source), true);
     }
 
-    protected function docBlocGetTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
+    protected function getdocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
     {
-        if (!$this->docBlocHasTag($tag, $source)) {
+        if (!$this->docBlockHasTag($tag, $source)) {
             return false;
         }
 
@@ -708,7 +711,7 @@ class Generate
         return $node->value->description ?? $node->value->value ?? null;
     }
 
-    protected function getDocBlocDescription(PhpDocNode|ReflectionClass|ReflectionMethod $source): false|string
+    protected function getDocBlockDescription(PhpDocNode|ReflectionClass|ReflectionMethod $source): false|string
     {
         if ($source instanceof Reflector) {
             $source = $source->getDocComment();
@@ -724,5 +727,20 @@ class Generate
         $nonBlankLines = array_filter($lines);
 
         return empty($nonBlankLines) ? false : implode(PHP_EOL, $nonBlankLines);
+    }
+
+    protected function getDocBlockParameters(ReflectionMethod $method): array
+    {
+        $phpDocNode = $this->getPhpDocNode($method);
+
+        $paramsTagValueNode = array_merge($phpDocNode->getTypelessParamTagValues(), $phpDocNode->getParamTagValues()); // ParamTagValueNode[]
+
+        $params = [];
+
+        foreach($paramsTagValueNode as $paramTagValueNode) {
+            $params[str_replace('$', '', $paramTagValueNode->parameterName)] = $paramTagValueNode->description ?? null;
+        }
+
+        return $params;
     }
 }

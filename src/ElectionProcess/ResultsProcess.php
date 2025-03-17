@@ -43,7 +43,7 @@ trait ResultsProcess
     #[Description("Get a full ranking from an advanced Condorcet method.")]
     #[FunctionReturn('An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)')]
     #[Throws(AlgorithmException::class)]
-    #[Book(BookLibrary::ResultsRanking)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking)]
     #[Related('Election::getWinner', 'Election::getResult', 'Condorcet::getDefaultMethod')]
     public function getResult(
         #[FunctionParameter('Not required for use election default method. Set the string name of the algorithm for use of a specific one.')]
@@ -100,10 +100,10 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
-    #[Book(BookLibrary::ResultsWinner)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
     #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
     public function getWinner(
-        #[FunctionParameter("*Only if not null:    *\n\nThe winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\nIf null, Natural Condorcet algorithm will be use.")]
+        #[FunctionParameter('Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.')]
         ?string $method = null
     ): array|Candidate|null {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -125,10 +125,10 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.')]
     #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
-    #[Book(BookLibrary::ResultsWinner)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
     #[Related('Election::getWinner', 'Election::getResult')]
     public function getLoser(
-        #[FunctionParameter("*Only if not nulle:*    \n\nThe loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple.    \n\n        If null, Natural Condorcet algorithm will be use.")]
+        #[FunctionParameter('Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.')]
         ?string $method = null
     ): array|Candidate|null {
         $algo = Condorcet::condorcetBasicSubstitution($method);
@@ -149,7 +149,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet winner if there is one.')]
     #[FunctionReturn('Candidate object given. Null if there are no available winner.')]
-    #[Book(BookLibrary::ResultsWinner)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
     #[Related('Election::getCondorcetLoser', 'Election::getWiner', 'Election::getResult')]
     public function getCondorcetWinner(): ?Candidate
     {
@@ -159,7 +159,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Get the natural Condorcet loser if there is one.')]
     #[FunctionReturn('Candidate object given. Null if there are no available loser.')]
-    #[Book(BookLibrary::ResultsWinner)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
     #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
     public function getCondorcetLoser(): ?Candidate
     {
@@ -169,7 +169,7 @@ trait ResultsProcess
     #[PublicAPI]
     #[Description('Return the Pairwise.')]
     #[FunctionReturn('Pairwise object.')]
-    #[Book(BookLibrary::Results)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results)]
     #[Related('Election::getExplicitPairwise', 'Election::getResult')]
     public function getPairwise(): Pairwise
     {

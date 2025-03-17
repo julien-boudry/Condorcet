@@ -25,7 +25,7 @@ trait CondorcetVersion
     #[FunctionReturn('Condorcet PHP version.')]
     #[Related('static Condorcet::getVersion')]
     public function getObjectVersion(
-        #[FunctionParameter("true will return : '2.0' and false will return : '2.0.0'")]
+        #[FunctionParameter('true will return 2.0 and false will return 2.0.0')]
         bool $major = false
     ): string {
         if ($major === true) {

@@ -52,7 +52,7 @@ class Candidate implements \Stringable
 
     #[PublicAPI]
     #[Description('Build a candidate.')]
-    #[Book(BookLibrary::Candidates)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
     #[Related('Candidate::setName')]
     public function __construct(
         #[FunctionParameter('Candidate Name')]

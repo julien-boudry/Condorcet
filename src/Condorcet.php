@@ -75,7 +75,7 @@ abstract class Condorcet
     #[FunctionReturn('Condorcet PHP version.')]
     #[Related('Election::getObjectVersion')]
     public static function getVersion(
-        #[FunctionParameter("* true will return : '2.0'\n* false will return : '2.0.0'")]
+        #[FunctionParameter('* true will return : 2.0, false will return : 2.0.0')]
         bool $major = false
     ): string {
         if ($major === true) {

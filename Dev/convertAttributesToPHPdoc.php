@@ -150,7 +150,7 @@ function extractParameters(string $code): array
 
     $parameters = [];
     foreach ($matches as $match) {
-        $parameters[$match[2]] = $match[1];
+        $parameters[$match[2]] = (mb_substr($match[1], -1) === '.') ? $match[1] : $match[1] . '.';
     }
 
     return $parameters;

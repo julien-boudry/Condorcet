@@ -34,7 +34,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         bool $aggregateVotes = true,
         #[FunctionParameter('Add the Number Of Seats parameters to the output')]
         bool $includeNumberOfSeats = true,
-        #[FunctionParameter('Add the vote tags information if any. Don\'t work if $aggregateVotes is true')]
+        #[FunctionParameter('Add the vote tags information if any. Not working if $aggregateVotes is true')]
         bool $includeTags = true,
         #[FunctionParameter('Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.')]
         bool $inContext = false,
@@ -79,7 +79,10 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
     #[PublicAPI]
     #[Description("Create a CondorcetElectionFormat object from string.\n")]
-    public static function createFromString(string $input): self
+    public static function createFromString(
+        #[FunctionParameter('CondorcetElectionFormat string to parse')]
+        string $input
+    ): self
     {
         $file = new SplTempFileObject;
         $file->fwrite($input);

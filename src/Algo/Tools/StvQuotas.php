@@ -30,7 +30,7 @@ enum StvQuotas: string
     #[PublicAPI]
     #[Description('Build the Enum Quotas option for STV methods')]
     #[FunctionReturn('The Quota option')]
-    #[Book(BookLibrary::VotingMethods)]
+    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods)]
     public static function make(
         #[FunctionParameter('Quota name')]
         string $quota
