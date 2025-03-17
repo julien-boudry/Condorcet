@@ -24,6 +24,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 {
     use CondorcetVersion;
 
+    /**
+     * @api
+     */
     #[PublicAPI]
     public const array SEGMENT = [499, 50, 4, 1]; // Must be ordered desc.
 
@@ -32,6 +35,10 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected bool $queryError = false;
 
     // Database structure
+
+    /**
+     * @api
+     */
     #[PublicAPI]
     public static bool $preferBlobInsteadVarchar = true;
 

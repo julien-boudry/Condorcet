@@ -45,13 +45,19 @@ class Election
 
     /////////// PROPERTIES ///////////
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public const int MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public static ?int $maxParseIteration = null;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public static ?int $maxVoteNumber = null;
 
     protected static bool $checksumMode = false;
@@ -83,7 +89,9 @@ class Election
     }
 
     // Mechanics
-    #[PublicAPI]
+    /**
+     * @api
+     */
     #[Description('Get the election process level.')]
     #[FunctionReturn("  \n`ElectionState::CANDIDATES_REGISTRATION`: Candidate registered state. No votes, no result, no cache.  \n`ElectionState::VOTES_REGISTRATION`: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.  \n3: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.")]
     #[Related('Election::setStateToVote')]
@@ -91,17 +99,27 @@ class Election
     protected readonly Timer_Manager $timer;
 
     // Params
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public protected(set) bool $implicitRankingRule = true;
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public protected(set) bool $voteWeightAllowed = false;
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public protected(set) int $electionSeats = 100;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public protected(set) array $votesConstraints = [];
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public string $hash { get => $this->getChecksum(); }
 
     // -------

@@ -23,7 +23,9 @@ class Candidate implements \Stringable
     use Linkable;
     use CondorcetVersion;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public string $name {
         get => end($this->namesHistory)['name'];
         set {

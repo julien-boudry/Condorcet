@@ -88,31 +88,66 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     public readonly mixed $Stats;
     protected array $warning = [];
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public private(set) readonly array $ranking;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public array $rankingAsString {
         get => $this->getResultAsArray(true);
     }
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly ?int $seats;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly array $methodOptions;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly ?Candidate $CondorcetWinner;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly ?Candidate $CondorcetLoser;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly array $pairwise;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly float $buildTimestamp;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly string $fromMethod;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly string $byClass;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly StatsVerbosity $statsVerbosity;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly string $electionCondorcetVersion;
 
 

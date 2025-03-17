@@ -21,15 +21,23 @@ class ArrayRandomizer
 
     public array $candidates;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public ?int $maxCandidatesRanked = null;
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public int|false $minCandidatesRanked = false; // false => min = max or candidatesCount
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public ?int $maxRanksCount = null;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
 
     #[PublicAPI]

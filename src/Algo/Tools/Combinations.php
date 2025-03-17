@@ -21,6 +21,9 @@ use SplFixedArray;
 #[InternalModulesAPI]
 class Combinations
 {
+    /**
+     * @api
+     */
     #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 

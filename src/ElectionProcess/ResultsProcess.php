@@ -30,7 +30,9 @@ trait ResultsProcess
     protected ?Pairwise $Pairwise = null;
     protected ?array $Calculator = null;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     #[Description('The current level of stats verbosity for this election object. Look at Election->setStatsVerbosity method for more informations.')]
     #[FunctionReturn('The current verbosity level for this election object.')]
     public protected(set) StatsVerbosity $StatsVerbosity = StatsVerbosity::STD;

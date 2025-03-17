@@ -84,14 +84,18 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     private float $lastTimestamp;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public private(set) int $candidatesCount;
 
     private array $ranking_history = [];
 
     private int $weight = 1;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     #[Description('Get the registered tags for this Vote.')]
     #[FunctionReturn('List of registered tag.')]
     #[Related('Vote::getTagsAsString', 'Vote::addTags', 'Vote::removeTags')]

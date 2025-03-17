@@ -20,9 +20,14 @@ class DavidHillFormat implements ConverterImport
 {
     protected array $lines;
 
-    #[PublicAPI]
+    /**
+     * @api
+     */
     public private(set) readonly array $candidates;
-    #[PublicAPI]
+
+    /**
+     * @api
+     */
     public private(set) readonly int $NumberOfSeats;
 
     #[PublicAPI]

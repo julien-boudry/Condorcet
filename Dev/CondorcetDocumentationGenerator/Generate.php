@@ -19,7 +19,10 @@ use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPStan\PhpDocParser\ParserConfig;
 use Reflection;
 use ReflectionClass;
+use ReflectionClassConstant;
+use ReflectionConstant;
 use ReflectionMethod;
+use ReflectionProperty;
 use Reflector;
 
 class Generate
@@ -187,7 +190,7 @@ class Generate
                 $docBlock = $oneMethod->getDocComment();
                 $phpDocNode = false;
 
-                $isPublic = $this->docBlockHasTag('@api', $oneMethod);
+                $isPublic = $this->hasDocBlockTag('@api', $oneMethod);
 
                 if ($oneMethod->isInternal()) {
                     // continue
@@ -223,7 +226,7 @@ class Generate
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new \ReflectionClass($FullClass);
 
-            $classIsInternal = $this->docBlockHasTag('@internal', $reflectionClass);
+            $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
 
             $methods = $reflectionClass->getMethods();
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
@@ -237,7 +240,7 @@ class Generate
             ];
 
             foreach ($methods as $oneMethod) {
-                $isPublic = $this->docBlockHasTag('@api', $oneMethod);
+                $isPublic = $this->hasDocBlockTag('@api', $oneMethod);
 
                 $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
                     'FullClass' => $FullClass,
@@ -262,8 +265,8 @@ class Generate
                     if (
                         !$classIsInternal &&
                         (
-                            empty($this->getdocBlockTagDescriptionOrValue('@api', $oneMethod)) ||
-                            str_contains($this->getdocBlockTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
+                            empty($this->getDocBlockTagDescriptionOrValue('@api', $oneMethod)) ||
+                            str_contains($this->getDocBlockTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
                         )
                     ) {
                         $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
@@ -342,8 +345,8 @@ class Generate
 
         // Return Value
 
-        if ($this->docBlockHasTag('@return', $method)) {
-            $returnDescription = $this->getdocBlockTagDescriptionOrValue('@return', $method);
+        if ($this->hasDocBlockTag('@return', $method)) {
+            $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $method);
 
             $md .= "\n\n" .
                     "### Return value:   \n\n" .
@@ -351,7 +354,7 @@ class Generate
         }
 
         // Throw
-        if ($this->docBlockHasTag('@throws', $method)) {
+        if ($this->hasDocBlockTag('@throws', $method)) {
             $md .=  "\n\n" .
                     "### Throws:   \n\n";
 
@@ -362,7 +365,7 @@ class Generate
 
         // Related methods
 
-        if (!empty($see = $this->getdocBlockTagDescriptionOrValue('@see', $method))) {
+        if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Related method(s)      \n\n";
@@ -376,12 +379,12 @@ class Generate
             }
         }
 
-        if (!empty($book = $this->getdocBlockTagDescriptionOrValue('@book', $method))) {
+        if (!empty($book = $this->getDocBlockTagDescriptionOrValue('@book', $method))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Tutorial\n\n";
 
-            foreach (explode(', ', $this->getdocBlockTagDescriptionOrValue('@book', $method)) as $BookAttribute) {
+            foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $method)) as $BookAttribute) {
                 $BookLibrary = constant($BookAttribute);
 
                 $md .= '* **[This method has explanations and examples in the Documentation Book](' . $BookLibrary->value . ")**    \n";
@@ -396,11 +399,11 @@ class Generate
         $file_content = '';
 
         $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
-            if(!$this->docBlockHasTag('@api', $reflectionMethod)) {
+            if(!$this->hasDocBlockTag('@api', $reflectionMethod)) {
                 return false;
             }
 
-            $apiDescription = $this->getdocBlockTagDescriptionOrValue('@api', $reflectionMethod);
+            $apiDescription = $this->getDocBlockTagDescriptionOrValue('@api', $reflectionMethod);
 
             if (empty($apiDescription)) {
                 return true;
@@ -427,7 +430,7 @@ class Generate
 
             $classWillBePublic = false;
 
-            if ($this->docBlockHasTag('@api', $classMeta['ReflectionClass'])) {
+            if ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
                 foreach ($classMeta['methods'] as $oneMethod) {
@@ -438,14 +441,14 @@ class Generate
                 }
 
                 foreach ($classMeta['ReflectionClass']->getReflectionConstants() as $oneConstant) {
-                    if (!empty($oneConstant->getAttributes(PublicAPI::class))) {
+                    if ($this->hasDocBlockTag('@api', $oneConstant)) {
                         $classWillBePublic = true;
                         break;
                     }
                 }
 
-                foreach ($classMeta['ReflectionClass']->getProperties() as $onePropertie) {
-                    if (!empty($onePropertie->getAttributes(PublicAPI::class))) {
+                foreach ($classMeta['ReflectionClass']->getProperties() as $oneProperty) {
+                    if ($this->hasDocBlockTag('@api', $oneProperty)) {
                         $classWillBePublic = true;
                         break;
                     }
@@ -512,7 +515,7 @@ class Generate
         $hasConstants = false;
 
         foreach ($class->getReflectionConstants($type) as $constant) {
-            if (!$mustHaveApiAttribute || !empty($constant->getAttributes(PublicAPI::class))) {
+            if (!$mustHaveApiAttribute || $this->hasDocBlockTag('@api', $constant)) {
                 $file_content .= '* ';
                 $file_content .=  $addMdCodeTag ? '`' : '';
 
@@ -542,20 +545,20 @@ class Generate
 
         $hasConstants = false;
 
-        foreach ($class->getProperties($type) as $propertie) {
-            if (!$mustHaveApiAttribute || !empty($propertie->getAttributes(PublicAPI::class))) {
+        foreach ($class->getProperties($type) as $property) {
+            if (!$mustHaveApiAttribute || $this->hasDocBlockTag('@api', $property)) {
                 $file_content .= '* ';
                 $file_content .=  $addMdCodeTag ? '`' : '';
 
-                $file_content .= $propertie->isReadOnly() ? 'readonly ' : '';
+                $file_content .= $property->isReadOnly() ? 'readonly ' : '';
 
-                $file_content .= $propertie->isPublic() ? 'public ' : '';
-                $file_content .= $propertie->isProtected() ? 'protected ' : '';
-                $file_content .= $propertie->isPrivate() ? 'private ' : '';
+                $file_content .= $property->isPublic() ? 'public ' : '';
+                $file_content .= $property->isProtected() ? 'protected ' : '';
+                $file_content .= $property->isPrivate() ? 'private ' : '';
 
-                $file_content .= $propertie->isStatic() ? 'static ' : '';
+                $file_content .= $property->isStatic() ? 'static ' : '';
 
-                $file_content .= ((string) $propertie->getType()) . ' $' . $propertie->getName();
+                $file_content .= ((string) $property->getType()) . ' $' . $property->getName();
                 $file_content .= $addMdCodeTag ? '`  ' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
@@ -673,7 +676,7 @@ class Generate
         return $this->phpDocParser->parse($tokens);
     }
 
-    protected function getDocBlockTags(ReflectionClass|ReflectionMethod $source): array
+    protected function getDocBlockTags(ReflectionClass|ReflectionMethod|ReflectionClassConstant|ReflectionProperty $source): array
     {
         if ($source instanceof Reflector) {
             $docComment = $source->getDocComment();
@@ -693,14 +696,14 @@ class Generate
         return $tags;
     }
 
-    protected function docBlockHasTag(string $tag, ReflectionClass|ReflectionMethod $source): bool
+    protected function hasDocBlockTag(string $tag, ReflectionClass|ReflectionMethod|ReflectionClassConstant|ReflectionProperty $source): bool
     {
         return in_array($tag, $this->getDocBlockTags($source), true);
     }
 
-    protected function getdocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
+    protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
     {
-        if (!$this->docBlockHasTag($tag, $source)) {
+        if (!$this->hasDocBlockTag($tag, $source)) {
             return false;
         }
 

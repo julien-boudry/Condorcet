@@ -22,6 +22,9 @@ use SplFixedArray;
 #[InternalModulesAPI]
 class Permutations
 {
+    /**
+     * @api
+     */
     #[PublicAPI] // Must be available with composer installation. Only applied to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 
