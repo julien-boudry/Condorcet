@@ -347,6 +347,7 @@ class Generate
 
         if ($this->hasDocBlockTag('@return', $method)) {
             $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $method);
+            $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
 
             $md .= "\n\n" .
                     "### Return value:   \n\n" .
@@ -359,7 +360,9 @@ class Generate
                     "### Throws:   \n\n";
 
             foreach ( $this->getPhpDocNode($method)->getTagsByName('@throws') as $oneTag) {
-                $md .= '* ```' . $oneTag->value->type . " "  . "``` " . ($oneTag->value->description ?? '') . "\n";
+                $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $method->getFileName());
+
+                $md .= '* ```' . $classPath  . "``` " . ($oneTag->value->description ?? '') . "\n";
             }
         }
 

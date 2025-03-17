@@ -79,7 +79,12 @@ function convertAttributesToPhpdoc(string $content): string {
                           }
                           break;
                       case 'FunctionReturn':
-                          $annotations[] = ' @return mixed ' . $attrValue;
+                          $i = 1;
+                          $return = '';
+                          foreach (explode("\\n", $attrValue) as $returnLine) {
+                            $return .= ($i++ === 1 ? ' @return mixed ' : "\n *".str_repeat(' ', 15)). $returnLine;
+                          }
+                          $annotations[] = $return;
                           break;
                       case 'Throws':
                           foreach (explode(',', $attrValue) as $oneThrow) {

@@ -110,7 +110,7 @@ trait VotesProcess
 
     #[PublicAPI]
     #[Description('Get registered vote list.')]
-    #[FunctionReturn("Return a string like :<br>\nA > B > C * 3<br>\nA = B > C * 6")]
+    #[FunctionReturn("Return a string like:  \nA > B > C * 3  \nA = B > C * 6")]
     #[Related('Election::parseVotes')]
     public function getVotesListAsString(
         #[FunctionParameter('Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.')]
