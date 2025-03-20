@@ -106,7 +106,7 @@ B/C/D/E: (5+4+3+2) / 4 = 3.5 points each
 F: 1 point
 ```
 
-If explicit voting is disabled, the missing rank does not earn points, but the existing ranks are not penalized.
+If implicit voting is disabled, the missing rank does not earn points, but the existing ranks are not penalized.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -120,7 +120,7 @@ $election->getLoser('BordaCount') ;
 // Get Stats
 $election->getResult('BordaCount')->getStats() ;
 
-// Chante the staring point to n - 0
+// Change the starting point to n - 0
 $election->setMethodOption('BordaCount', 'Starting', 0) ;
 $election->getResult('BordaCount') ;
 ```
@@ -236,9 +236,9 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 > **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "IRV", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-In the case of tie into a vote rank, rank is ignored like he never existed.
+In the case of a tie in a vote rank, rank is ignored like he never existed.
 
-An additional tie-breaking tentative is added in case of a tie in the preliminary result set. First, comparing candidate pairwise, in a second attempt, compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context.
+An additional result tie-breaking tentative is added in case of a tie in the preliminary result set. First, comparing candidate pairwise, in a second attempt, compare the total number of pairwise wins (global context), then with a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context, else order tie remains.
 
 ### Code example<!-- {docsify-ignore} -->
 
@@ -264,7 +264,7 @@ $election->getResult('Instant-runoff')->getStats() ;
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-Kemeny-Young is currently limited up to 10 candidates. It is very fast up to 9. At 10, this should remain under 30 seconds of processing even under a very modest system. Beyond that, it is certainly playable at least up to 12, but with a much higher processing time but a constantly low memory. But you must not ask for the `FULL` stats verbosity.
+By default, Kemeny-Young is currently limited to a maximum of 10 candidates. It is very fast up to 9. At 10, this should remain under 30 seconds of processing, even under a very modest system. Beyond that, it is probably playable at least up to 12, but with a much higher processing time (but a constantly low memory!). But, you should not ask for the `FULL` stats verbosity which can be too expensive to deliver.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -281,6 +281,10 @@ $election->getResult('Kemeny-Young')->getStats() ;
 // Get all the stats (can slow down and use a lot of memory starting 9 candidates)
 $election->->setStatsVerbosity(StatsVerbosity::FULL);
 $election->getResult('Kemeny-Young')->getStats() ;
+
+// Increase max allowed candidates
+KemenyYoung::$MaxCandidates = 12; // to 12
+KemenyYoung::$MaxCandidates = null; // no limit
 ```
 
 
@@ -737,7 +741,7 @@ $election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('CPO-STV') ;
 
 // Change the completion selection method
-$election->setMethodOption('CPO-STV', 'CondorcetCompletionMethod', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']) ; // Never use Ranked-Pairs or Kemeny-Young, they are too many outcomes to choose from, and their performances aren't polynomials.
+$election->setMethodOption('CPO-STV', 'CondorcetCompletionMethod', [1=> 'Ranked Pairs', 2=> 'Kemeny-Young']); // Never use Ranked-Pairs or Kemeny-Young, they are too many outcomes to choose from, and their performances aren't polynomials.
 $election->getResult('CPO-STV') ;
 
 // Change the sort method
