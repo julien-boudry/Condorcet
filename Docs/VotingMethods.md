@@ -297,7 +297,7 @@ KemenyYoung::$MaxCandidates = null; // no limit
 > **Methods alias available (for function call)**: "First-past-the-post voting", "First-past-the-post", "First Choice", "FirstChoice", "FPTP", "FPP", "SMP"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).
+In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: ```1 / (candidate-in-rank)```.
 
 For example: ```A = B > C```
 A/B earn each 0.5 points
