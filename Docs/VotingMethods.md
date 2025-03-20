@@ -61,7 +61,7 @@ The results are therefore likely to contain ties in some ranks. Which according 
 
 ### Tie into a vote rank<!-- {docsify-ignore} -->
 Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.
-This is more annoying for other methods like Borda, Instant-runoff or Ftpt. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
+This is more annoying for other methods like Borda, Instant-runoff or FPTP. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
 
 ### Implicit vs Explicit Ranking<!-- {docsify-ignore} -->
 Please read the manual [about explicit and implicit ranking](https://www.condorcet.io/#/3.AsPhpLibrary/6.Results/4.ImplicitOrExplicitMod) modes.
