@@ -76,7 +76,7 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
 | 4.7 | 8.3 | Stable | ✔ _support provided_
 | 4.6 | 8.2 | Old Stable | ✔ _support provided_
 | 3.x | 8.1 | Old Stable | ❌ _not any support_
-| 2.2 | 7.4 | Old Stable | ❌ _support requiring some bait_
+| 2.2 | 7.4 | Old Stable | ❌ _support requiring some incentive_
 | 2.0 | 7.1 | Old Stable | ❌ _not any support_
 | 1.0 | 5.6 | Old Stable | ❌ _not any support_
 | 0.9x | 5.5 | Old Stable | ❌ ℹ _Since v0.90, you should consider then it's a new project (api, engine)._
@@ -161,7 +161,7 @@ Namespace ```\CondorcetPHP\Condorcet``` is used.
 
 Can be installed as you prefer with: Composer / Natively provided autoloader / Any PSR-4 compatible autoloader.
 
-> **[Condorcet as a PHP library, installation instruction](https://www.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
+> **[Condorcet as a PHP library, installation instructions](https://www.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
 
 ### Library Manual
 
@@ -187,7 +187,7 @@ The precise documentation of methods can be found in Markdown format in the "Doc
 
 ### Specifics examples
 
-* [Condorcet Documentation Book](https://www.condorcet.io/) provides many code example
+* [Condorcet Documentation Book](https://www.condorcet.io/) provides many code examples
 * [Manage millions of votes with an external database driver](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
 
 

@@ -2,7 +2,7 @@
 
 Voting Methods (natively implemented)
 ===========================
-> **[Implementation philosophy](#implementation-philophy)**
+> **[Implementation philosophy](#implementation-philosophy)**
 
 # Natively implemented methods
 *The modular architecture allows you to import new methods as external classes. These are preloaded into the distribution.*
@@ -45,7 +45,7 @@ _Designed for electing an assembly. Return a ranking of elected candidates._
     * **[Single Transferable Vote](#single-transferable-vote)** *(The classical STV method)*
     * **[CPO-STV](#cpo-stv)** *Comparison of Pairs of Outcomes by the Single Transferable Vote, by Nicolaus Tideman*
 * **Highest Average / Largest Remainder Family**
-    * **[Highest Average: Sainte-Laguë](#sainte-laguë--webster-method)** *Include Variants like Norway ou Sweden methods*
+    * **[Highest Average: Sainte-Laguë](#sainte-laguë--webster-method)** *Include Variants like Norway or Sweden methods*
     * **[Highest Average: Thomas Jefferson / D'Hondt](#jefferson--dhondt-method)**
     * **[Largest Remainder: Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR](#hare-lr--droop-lr--imperiali-lr--hagenbach-bischoff-lr)**
 
@@ -53,7 +53,7 @@ _Designed for electing an assembly. Return a ranking of elected candidates._
 
 ---------------------------------------
 
-# Implementation Philophy
+# Implementation Philosophy
 
 ### Result tie-breaking<!-- {docsify-ignore} -->
 Unless explicitly stated otherwise in the details below, no tie-breaking is added to methods, we kept them pure.
@@ -236,7 +236,7 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 > **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "IRV", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-In the case of a tie in a vote rank, rank is ignored like he never existed.
+In the case of a tie in a vote rank, rank is ignored like it never existed.
 
 An additional result tie-breaking tentative is added in case of a tie in the preliminary result set. First, comparing candidate pairwise, in a second attempt, compare the total number of pairwise wins (global context), then with a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context, else order tie remains.
 
@@ -272,14 +272,14 @@ By default, Kemeny-Young is currently limited to a maximum of 10 candidates. It 
 $election->getResult('Kemeny-Young') ;
 
 // Just get Winner or Loser
-$election->getWinner('Kemeny-Young'') ;
+$election->getWinner('Kemeny-Young') ;
 $election->getLoser('Kemeny-Young') ;
 
 // Get Stats
 $election->getResult('Kemeny-Young')->getStats() ;
 
 // Get all the stats (can slow down and use a lot of memory starting 9 candidates)
-$election->->setStatsVerbosity(StatsVerbosity::FULL);
+$election->setStatsVerbosity(StatsVerbosity::FULL);
 $election->getResult('Kemeny-Young')->getStats() ;
 
 // Increase max allowed candidates
@@ -424,7 +424,7 @@ $election->getResult('Minimax Opposition')->getStats() ;
 
 > **Family:** Lotteries 
 > **Variant used:** *None*  
-**Wikipedia:** https://en.wikipedia.org/wiki/Random_ballot
+> **Wikipedia:** https://en.wikipedia.org/wiki/Random_ballot
 > ***  
 > **Methods alias available (for function call)**: Random Ballot / Single Stochastic Vote / Lottery Voting  
 
@@ -462,7 +462,7 @@ $election->getResult('Random Ballot') ;
 
 > **Family:** Lotteries 
 > **Variant used:** *None*  
-**Wikipedia:** https://en.wikipedia.org/wiki/Random_Candidates
+> **Wikipedia:** https://en.wikipedia.org/wiki/Random_Candidates
 > ***  
 > **Methods alias available (for function call)**: Random Candidates / Single Stochastic Vote / Lottery Voting  
 
@@ -500,7 +500,7 @@ $election->getResult('Random Candidates') ;
 
 > **Family:** Ranked Pairs  
 > **Variant used:** Margin *(Ranked Pairs Margin is used by Nicolaus Tideman himself from originals papers. But it's not necessarily the most common. Most other sources prefer the Winning variant. Even Wikipedia is different from one language to another.)*  
-**Wikipedia:** https://en.wikipedia.org/wiki/Ranked_pairs  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Ranked_pairs  
 > ***  
 > **Methods alias available (for function call)**: "Ranked Pairs Margin" / "Tideman Margin" / "RP Margin" / "Ranked Pairs" / "RankedPairs" / "Tideman method"  
 
@@ -640,7 +640,7 @@ $election->getResult('Schulze Ratio')->getStats() ;
 
 #### Implementation Comments<!-- {docsify-ignore} -->
 ###### Fundamentals
-- In case of tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of tie into a vote rank, rank is ignored like it never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.
 - Non-elected candidates are not included in the ranking. The ranking is, therefore, that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 
@@ -688,7 +688,7 @@ $election->getResult('STV') ;
 
 #### Implementation Comments<!-- {docsify-ignore} -->
 ##### Fundamentals
-- In case of a tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of a tie into a vote rank, rank is ignored like it never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.
 - Non-elected candidates are not included in the ranking. The ranking is, therefore, that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 - Ranking is sort by the initial score table, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.
@@ -727,7 +727,7 @@ $election->getResult('CPO-STV')->getNumberOfSeats();
 $election->getResult('CPO-STV')->getStats(); // Resulting array can be really fat
 
 // Get all the stats (can slow down and use a lot of memory in some case, often related to the number of candidate to elect)
-$election->->setStatsVerbosity(StatsVerbosity::FULL);
+$election->setStatsVerbosity(StatsVerbosity::FULL);
 $election->getResult('CPO-STV')->getStats() ;
 
 // Change the Quota
@@ -763,7 +763,7 @@ $election->getResult('CPO-STV') ;
 
 ### Implementation Comments<!-- {docsify-ignore} -->
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
-- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like it never existed.
 - In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
 
 
@@ -801,7 +801,7 @@ $this->election->setMethodOption('SainteLague', 'FirstDivisor', 1);
 
 ### Implementation Comments<!-- {docsify-ignore} -->
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
-- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like it never existed.
 - In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
 
 ### Code example<!-- {docsify-ignore} -->
@@ -836,7 +836,7 @@ $election->getResult('Jefferson')->getStats(); # Summarizes the number of seats.
 
 ### Implementation Comments<!-- {docsify-ignore} -->
 - Accepts votes including full rankings, but only the first place will be evaluated. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
-- In case of tie (more than one candidate) into the first vote rank, vote is ignored like he never existed.
+- In case of tie (more than one candidate) into the first vote rank, vote is ignored like it never existed.
 - In case of a quotient tie in a round, candidates are selected arbitrarily. Not a problem most of the time, because unselected candidates will be chosen in the next round, except if a tie occurs on the last available seat.
 
 ### Code example<!-- {docsify-ignore} -->
