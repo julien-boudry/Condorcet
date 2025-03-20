@@ -57,7 +57,7 @@ _Designed for electing an assembly. Return a ranking of elected candidates._
 
 ### Result tie-breaking<!-- {docsify-ignore} -->
 Unless explicitly stated otherwise in the details below, no tie-breaking is added to methods, we kept them pure.
-The results are therefore likely to contain ties in some ranks. Which according to the algorithms is more or less frequent, but always tends to become less likely in proportion to the size of the election.
+The results are, therefore, likely to contain ties in some ranks. Which, according to the algorithms, is more or less frequent but always tends to become less likely in proportion to the size of the election.
 
 ### Tie into a vote rank<!-- {docsify-ignore} -->
 Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), the votes are therefore likely to contain ties on certain ranks. In principle, this does not particularly disturb Condorcet's methods, since they are based on the Pairwise.
@@ -96,9 +96,9 @@ $election->getCondorcetLoser() ;
 > **Methods alias available (for function call)**: "BordaCount","Borda Count","Borda","Méthode Borda"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-By default the option is to start the count at n - 1. You can change it with BordaCount::setOption(), see below.
+By default, the option is to start the count at 1. You can change it with BordaCount::setOption(), see below.
 
-In case of tie into a vote rank, follow this example:
+In case of a tie in a vote rank, follow this example:
 ```
 A>B=C=D=E>F
 A: 6 points
@@ -106,7 +106,7 @@ B/C/D/E: (5+4+3+2) / 4 = 3.5 points each
 F: 1 point
 ```
 
-In case of explicit voting is disabled. Missing rank does not earn points, but the existing rank are not penalized.
+If explicit voting is disabled, the missing rank does not earn points, but the existing ranks are not penalized.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -236,9 +236,9 @@ $election->getResult('Dodgson Tideman')->getStats() ;
 > **Methods alias available (for function call)**: "Instant-runoff", "InstantRunoff", "IRV", "preferential voting", "ranked-choice voting", "alternative vote", "AlternativeVote", "transferable vote", "Vote alternatif"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-In case of tie into a vote rank, rank is ignored like he never existed.
+In the case of tie into a vote rank, rank is ignored like he never existed.
 
-An additional tie-breaking tentative is added in case of tie into the preliminary result set. First, comparing candidate pairwise, in a second attempt compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context.
+An additional tie-breaking tentative is added in case of a tie in the preliminary result set. First, comparing candidate pairwise, in a second attempt, compare the total number of pairwise wins (global context), and in a third desperate attempt, compare the balance of their victory/defeat in a global Pairwise context.
 
 ### Code example<!-- {docsify-ignore} -->
 
@@ -264,7 +264,7 @@ $election->getResult('Instant-runoff')->getStats() ;
 > **Methods alias available (for function call)**: "Kemeny–Young" / "Kemeny-Young" / "Kemeny Young" / "KemenyYoung" / "Kemeny rule" / "VoteFair popularity ranking" / "Maximum Likelihood Method" / "Median Relation"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
-Kemeny-Young is currently limited up to 10 candidates. It is very fast up to 9. At 10, this should remain under 30 seconds of processing even under a very modest system. Beyond that, it is certainly playable at least up to 12, but with a much higher processing time, but a constantly low memory. But you must not ask for the `FULL` stats verbosity.
+Kemeny-Young is currently limited up to 10 candidates. It is very fast up to 9. At 10, this should remain under 30 seconds of processing even under a very modest system. Beyond that, it is certainly playable at least up to 12, but with a much higher processing time but a constantly low memory. But you must not ask for the `FULL` stats verbosity.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -312,7 +312,7 @@ $election->getResult('FPTP')->getStats() ;
 ```
 
 
-## Multiple Rounds system
+## Multiple Rounds System
 
 > **Family:** Majority  
 > **Variant used:** *See implementation comment*  
@@ -323,9 +323,9 @@ $election->getResult('FPTP')->getStats() ;
 ### Implementation Comments<!-- {docsify-ignore} -->
 In case of tie into the first rank. All non-commissioned candidates earn points, but only a fraction. But not 1 point, the result of this computation: 1/(candidate-in-rank).
 For example: ```A = B > C```
-A/B earn each 0.5 points
+A/B each earn 0.5 points
 
-Method is trying to keep only two candidates for the next round. But that may be more in the event of a perfect tie.
+The method tries to keep only two candidates for the next round. But that may be more in the event of a perfect tie.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -495,14 +495,14 @@ $election->getResult('Random Candidates') ;
 ## Ranked Pairs Margin
 
 > **Family:** Ranked Pairs  
-> **Variant used:** Margin *(Ranked Pairs Margin is used by Nicolaus Tideman himself from originals papers. But it's not necessarily the most common. Most other documentation preferring the Winning variant. Even Wikipedia is the different from one language to another.)*  
+> **Variant used:** Margin *(Ranked Pairs Margin is used by Nicolaus Tideman himself from originals papers. But it's not necessarily the most common. Most other sources prefer the Winning variant. Even Wikipedia is different from one language to another.)*  
 **Wikipedia:** https://en.wikipedia.org/wiki/Ranked_pairs  
 > ***  
 > **Methods alias available (for function call)**: "Ranked Pairs Margin" / "Tideman Margin" / "RP Margin" / "Ranked Pairs" / "RankedPairs" / "Tideman method"  
 
 ### Implementation Comments<!-- {docsify-ignore} -->
 In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
-In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.
+In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advises a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. This method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -528,7 +528,7 @@ $election->getResult('Ranked Pairs Margin')->getStats() ;
 
 ### Implementation Comments<!-- {docsify-ignore} -->
 In the event of the impossibility of ordering a pair by their margin of victory. Try to separate them when possible by their smaller minority opposition.  
-In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advice a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. this method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
+In case of a tie in the ranking result. No advanced methods are used. It is, therefore, an implementation following the first paper published in 1987. Markus Schulze advises a tie-breaking method, but it brings unnecessary complexity and is partly based on randomness. This method can, therefore, come out ties on some ranks. Even if that is very unlikely on an honest election of good size.  
 
 ### Code example<!-- {docsify-ignore} -->
 ```php
@@ -638,10 +638,10 @@ $election->getResult('Schulze Ratio')->getStats() ;
 ###### Fundamentals
 - In case of tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.
-- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
+- Non-elected candidates are not included in the ranking. The ranking is, therefore, that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 
 ###### Quotas
-Default quota is the Droop quota. Three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, Imperiali.
+The default quota is the Droop quota. Three others are available using the method options system _(see example below)_: Hare, Hagenbach-Bischoff, and Imperiali.
 
 #### Code example<!-- {docsify-ignore} -->
 
@@ -684,9 +684,9 @@ $election->getResult('STV') ;
 
 #### Implementation Comments<!-- {docsify-ignore} -->
 ##### Fundamentals
-- In case of tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
+- In case of a tie into a vote rank, rank is ignored like he never existed. It's recommended to use the native vote constraint `NoTie` if you are not sure of your inputs: `$election->addConstraint(NoTie::class)`.
 - The implementation of this method does not support parties. A candidate is elected only once, whatever the number of seats.
-- Non-elected candidates are not included in the ranking. The ranking is therefore that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
+- Non-elected candidates are not included in the ranking. The ranking is, therefore, that of the elected. But you can use ```getStats()``` to get all initial scores table and outcomes scores.
 - Ranking is sort by the initial score table, the winners with the same initial score are put back on the same rank in the same spirit of implementation as all other voting methods.
 
 ###### Quotas
@@ -699,10 +699,10 @@ If none of them can deliver a single winner, the first one (default: ```SchulzeM
 This order can be changed using option system _(see example below)_.
 
 ###### Sorting score before electing
-If more candidates than seats fill the quotas directly before outcome comparaison, then the ranking of elected candidates is ordered using the initial score table. If a tie persists, tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.  
-Methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```  
-This can be changed by passing an option to the method, with an ordered array populated by method names. _(see example below)_  
-Ranked-Pairs or Kemeny-Young are not used by default, because they are slow (or in practice impossible) for elections with many candidates, performance for them are not polynomials.  
+If more candidates than seats fill the quotas directly before the outcome comparison, then the ranking of elected candidates is ordered using the initial score table. If a tie persists, a tie-breaker chaining concerning rank by chaining single-winner methods and comparing candidates. If this is not enough, use the alphabetical order.  
+The methods used to do it are the following in that order: ```SchulzeMargin → SchulzeWinning  → SchulzeRatio  → BordaCount  → Copeland  → InstantRunoff  → MinimaxMargin  → MinimaxWinning  → DodgsonTidemanApproximation  → FirstPastThePost```  
+This can be changed by passing an option to the method with an ordered array populated by method names. _(see example below)_  
+Ranked-Pairs or Kemeny-Young are not used by default because they are slow (or in practice impossible) for elections with many candidates. Because performance for them are not polynomials.  
 
 
 #### Code example<!-- {docsify-ignore} -->
@@ -770,7 +770,7 @@ $election->getResult('CPO-STV') ;
 $election->setNumberOfSeats(7); # Default is 100
 
 // Get the elected candidates with ranking
-$election->getResult('Sainte-Laguë'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+$election->getResult('Sainte-Laguë'); # Return the usual ranking. The same candidate can appear several times, so it's a party's method.
 
 // Check the number of seats
 $election->getResult('Sainte-Laguë')->getNumberOfSeats();
@@ -807,7 +807,7 @@ $this->election->setMethodOption('SainteLague', 'FirstDivisor', 1);
 $election->setNumberOfSeats(7); # Default is 100
 
 // Get the elected candidates with ranking
-$election->getResult('Jefferson'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+$election->getResult('Jefferson'); # Return the usual ranking. The same candidate can appear several times, so it's a party's method.
 
 // Check the number of seats
 $election->getResult('Jefferson')->getNumberOfSeats();
@@ -842,7 +842,7 @@ $election->getResult('Jefferson')->getStats(); # Summarizes the number of seats.
 $election->setNumberOfSeats(7); # Default is 100
 
 // Get the elected candidates with ranking
-$election->getResult('Largest Remainder'); # Return the usual ranking. Same candidate can appears several times, so it's a parties method.
+$election->getResult('Largest Remainder'); # Return the usual ranking. The same candidate can appear several times, so it's a party's method.
 
 // Check the number of seats
 $election->getResult('Largest Remainder')->getNumberOfSeats();
