@@ -1,6 +1,6 @@
 ## public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L30)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L38)
 
 ### Description    
 
@@ -9,7 +9,6 @@ public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
-
     
 
 #### **election:** *`CondorcetPHP\Condorcet\Election`*   
@@ -25,7 +24,7 @@ Add the Number Of Seats parameters to the output.
 
 
 #### **includeTags:** *`bool`*   
-Add the vote tags information if any. Don't work if $aggregateVotes is true.    
+Add the vote tags information if any. Not working if $aggregateVotes is true.    
 
 
 #### **inContext:** *`bool`*   

@@ -1,6 +1,6 @@
 ## public Election::removeVotesByTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L296)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L353)
 
 ### Description    
 
@@ -11,10 +11,10 @@ public Election->removeVotesByTags ( array|string $tags [, bool $with = true] ):
 Remove Vote from an election using tags.
 
 ```php
-$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
-$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
-$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
-$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
 ```
     
 

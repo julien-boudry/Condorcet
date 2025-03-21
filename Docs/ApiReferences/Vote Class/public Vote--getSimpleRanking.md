@@ -1,6 +1,6 @@
 ## public Vote::getSimpleRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L439)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L473)
 
 ### Description    
 
@@ -21,7 +21,7 @@ Include or not the weight symbol and value.
 
 ### Return value:   
 
-*(`string`)* String like 'A>D=C>B'
+*(`string`)* String like 'A>D=C>B
 
 
 ---------------------------------------

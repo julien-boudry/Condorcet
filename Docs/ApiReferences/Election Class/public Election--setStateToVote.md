@@ -1,6 +1,6 @@
 ## public Election::setStateToVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L459)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L526)
 
 ### Description    
 
@@ -23,8 +23,8 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\NoCandidatesException```
-* ```CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException```
+* ```CondorcetPHP\Condorcet\Throwable\NoCandidatesException``` 
+* ```CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException``` 
 
 ---------------------------------------
 

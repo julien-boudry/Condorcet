@@ -1,6 +1,6 @@
 ## public Vote::setWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L703)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L751)
 
 ### Description    
 
@@ -23,7 +23,7 @@ The new vote weight.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException``` 
 
 ---------------------------------------
 

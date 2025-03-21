@@ -1,6 +1,6 @@
 ## public Vote::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L129)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L140)
 
 ### Description    
 
@@ -29,7 +29,7 @@ Try to convert directly your candidates from sting input" to Candidate object of
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException``` 
 
 ---------------------------------------
 

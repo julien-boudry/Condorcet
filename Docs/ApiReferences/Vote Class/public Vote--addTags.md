@@ -1,6 +1,6 @@
 ## public Vote::addTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L621)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L662)
 
 ### Description    
 
@@ -23,7 +23,7 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException``` 
 
 ---------------------------------------
 

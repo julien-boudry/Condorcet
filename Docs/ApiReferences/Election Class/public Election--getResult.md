@@ -1,6 +1,6 @@
 ## public Election::getResult
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L48)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L54)
 
 ### Description    
 
@@ -9,7 +9,6 @@ public Election->getResult ( [?string $method = null , array $methodOptions = []
 ```
 
 Get a full ranking from an advanced Condorcet method.
-*Have a look on the [supported method](https://github.com/julien-boudry/Condorcet/wiki/I-%23-Installation-%26-Basic-Configuration-%23-2.-Condorcet-Methods), or create [your own algorithm](https://github.com/julien-boudry/Condorcet/wiki/III-%23-C.-Extending-Condorcet-%23-1.-Add-your-own-ranking-algorithm).*
     
 
 #### **method:** *`?string`*   
@@ -28,7 +27,7 @@ Array of option for some methods. Look at each method documentation.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\AlgorithmException```
+* ```CondorcetPHP\Condorcet\Throwable\AlgorithmException``` 
 
 ---------------------------------------
 

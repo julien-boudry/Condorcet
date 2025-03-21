@@ -1,6 +1,6 @@
 ## public Vote::getTagsAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L255)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L271)
 
 ### Description    
 

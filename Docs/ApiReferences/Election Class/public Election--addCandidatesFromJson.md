@@ -1,6 +1,6 @@
 ## public Election::addCandidatesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L223)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L249)
 
 ### Description    
 
@@ -23,7 +23,7 @@ JSON string input.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException```
+* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException``` 
 
 ---------------------------------------
 

@@ -1,6 +1,6 @@
 ## public Election::getLastTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L208)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L235)
 
 ### Description    
 

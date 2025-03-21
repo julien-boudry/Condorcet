@@ -1,6 +1,6 @@
 ## public Election::addCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L125)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L141)
 
 ### Description    
 
@@ -23,8 +23,8 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace o
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException```
-* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException```
+* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException``` 
+* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException``` 
 
 ---------------------------------------
 

@@ -1,6 +1,6 @@
 ## public Result::getLoser
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L228)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L282)
 
 ### Description    
 
@@ -8,7 +8,7 @@
 public Result->getLoser ( ): CondorcetPHP\Condorcet\Candidate|array|null
 ```
 
-Equivalent to [Condorcet/Election::getWinner($method)](../Election Class/public Election--getWinner.md).
+('Get the election loser if any')
     
 
 ### Return value:   

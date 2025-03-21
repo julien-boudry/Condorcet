@@ -1,6 +1,6 @@
 ## public static Election::setMaxParseIteration
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L66)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L75)
 
 ### Description    
 

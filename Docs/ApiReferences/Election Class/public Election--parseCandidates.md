@@ -1,6 +1,6 @@
 ## public Election::parseCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L256)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L286)
 
 ### Description    
 
@@ -27,8 +27,8 @@ If true, the input is evaluated as path to a text file.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException```
-* ```CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException```
+* ```CondorcetPHP\Condorcet\Throwable\CandidateExistsException``` 
+* ```CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException``` 
 
 ---------------------------------------
 

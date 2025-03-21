@@ -1,6 +1,6 @@
 ## public Election::setNumberOfSeats
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L398)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L455)
 
 ### Description    
 
@@ -23,7 +23,7 @@ The number of seats for proportional methods.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\NoSeatsException```
+* ```CondorcetPHP\Condorcet\Throwable\NoSeatsException``` 
 
 ---------------------------------------
 

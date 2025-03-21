@@ -1,6 +1,6 @@
 ## public Election::isRegisteredCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L90)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L100)
 
 ### Description    
 
@@ -16,8 +16,7 @@ Candidate object or candidate string name. String name works only if the strict 
 
 
 #### **strictMode:** *`bool`*   
-Search comparison mode. In strict mode, candidate objects are compared strictly and a string input can't match anything.
-If strict mode is false, the comparison will be based on name.    
+Search comparison mode. In strict mode, candidate objects are compared strictly and a string input cannot match anything. If strict mode is false, the comparison will be based on name.    
 
 
 ### Return value:   

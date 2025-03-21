@@ -1,6 +1,6 @@
 ## public Election::removeExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L439)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L499)
 
 ### Description    
 
@@ -19,7 +19,7 @@ Remove an external driver to store vote on very large election. And import his d
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\DataHandlerException```
+* ```CondorcetPHP\Condorcet\Throwable\DataHandlerException``` 
 
 ---------------------------------------
 

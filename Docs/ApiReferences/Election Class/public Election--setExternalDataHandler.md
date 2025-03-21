@@ -1,6 +1,6 @@
 ## public Election::setExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L422)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L481)
 
 ### Description    
 
@@ -23,7 +23,7 @@ Driver object.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\DataHandlerException```
+* ```CondorcetPHP\Condorcet\Throwable\DataHandlerException``` 
 
 ---------------------------------------
 

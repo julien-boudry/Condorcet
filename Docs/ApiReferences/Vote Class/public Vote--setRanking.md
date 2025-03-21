@@ -1,6 +1,6 @@
 ## public Vote::setRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L465)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L504)
 
 ### Description    
 
@@ -29,7 +29,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException```
+* ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException``` 
 
 ---------------------------------------
 

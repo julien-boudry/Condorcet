@@ -1,6 +1,6 @@
 ## public Result::getObjectVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L27)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L29)
 
 ### Description    
 
@@ -8,11 +8,11 @@
 public Result->getObjectVersion ( [bool $major = false] ): string
 ```
 
-Get the Condorcet PHP version who built this Election object. Usefull pour serializing Election.
+Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
     
 
 #### **major:** *`bool`*   
-true will return : '2.0' and false will return : '2.0.0'.    
+true will return 2.0 and false will return 2.0.0.    
 
 
 ### Return value:   

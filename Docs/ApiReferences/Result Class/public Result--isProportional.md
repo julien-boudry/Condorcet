@@ -1,6 +1,6 @@
 ## public Result::isProportional
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L372)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L438)
 
 ### Description    
 

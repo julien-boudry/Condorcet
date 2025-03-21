@@ -1,6 +1,6 @@
 ## public Vote::getContextualRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L319)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L343)
 
 ### Description    
 
@@ -23,7 +23,7 @@ An election already linked to the Vote.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException```
+* ```CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException``` 
 
 ---------------------------------------
 

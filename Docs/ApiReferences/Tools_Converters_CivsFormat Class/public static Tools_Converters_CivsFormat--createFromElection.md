@@ -1,6 +1,6 @@
 ## public static Tools\Converters\CivsFormat::createFromElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L26)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L30)
 
 ### Description    
 
@@ -9,7 +9,6 @@ public static Tools\Converters\CivsFormat::createFromElection ( CondorcetPHP\Con
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
-
     
 
 #### **election:** *`CondorcetPHP\Condorcet\Election`*   

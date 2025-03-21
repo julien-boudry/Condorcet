@@ -1,6 +1,6 @@
 ## public Election::removeCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L179)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L203)
 
 ### Description    
 
@@ -14,10 +14,7 @@ Remove candidates from an election.
     
 
 #### **candidates_input:** *`CondorcetPHP\Condorcet\Candidate|array|string`*   
-* String matching candidate name
-* CondorcetPHP\Condorcet\Candidate object
-* Array populated by CondorcetPHP\Condorcet\Candidate
-* Array populated by string matching candidate name.    
+String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name.    
 
 
 ### Return value:   
@@ -28,8 +25,8 @@ Remove candidates from an election.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException```
-* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException```
+* ```CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException``` 
+* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException``` 
 
 ---------------------------------------
 

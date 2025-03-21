@@ -1,6 +1,6 @@
 ## public Candidate::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L57)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L61)
 
 ### Description    
 
