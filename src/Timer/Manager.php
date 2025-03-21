@@ -25,8 +25,9 @@ class Manager
     protected ?float $lastChronoTimestamp = null;
     protected ?float $startDeclare = null;
     protected array $history = [];
-
-    #[Throws(TimerException::class)]
+/**
+ * @throws TimerException
+ */
     public function addTime(Chrono $chrono): void
     {
         if ($chrono->getTimerManager() === $this) {
@@ -65,11 +66,12 @@ class Manager
     {
         return $this->lastTimer;
     }
-
-    #[PublicAPI]
-    #[Description('Return benchmarked actions history.')]
-    #[FunctionReturn('An explicit array with history.')]
-    #[Related('Election::getTimerManager')]
+/**
+ * Return benchmarked actions history.
+ * @api 
+ * @return mixed An explicit array with history.
+ * @see Election::getTimerManager
+ */
     public function getHistory(): array
     {
         return $this->history;

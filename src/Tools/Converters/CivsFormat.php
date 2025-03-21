@@ -19,10 +19,14 @@ use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport;
 class CivsFormat implements ConverterExport
 {
     ////// # Static Export Method //////
-
-    #[PublicAPI]
-    #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]
-    #[FunctionReturn("If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
+/**
+ * Create a CondorcetElectionFormat file from an Election object.
+ * 
+ * @api 
+ * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
+ * @param $election Election with data.
+ * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
+ */
     public static function createFromElection(
         #[FunctionParameter('Election with data')]
         Election $election,

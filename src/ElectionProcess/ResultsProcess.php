@@ -41,12 +41,16 @@ trait ResultsProcess
     /////////// GET RESULTS ///////////
 
     // Generic function for default result with ability to change default object method
-    #[PublicAPI]
-    #[Description("Get a full ranking from an advanced Condorcet method.")]
-    #[FunctionReturn('An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)')]
-    #[Throws(AlgorithmException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking)]
-    #[Related('Election::getWinner', 'Election::getResult', 'Condorcet::getDefaultMethod')]
+/**
+ * Get a full ranking from an advanced Condorcet method.
+ * @api 
+ * @return mixed An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
+ * @throws AlgorithmException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking
+ * @see Election::getWinner, Election::getResult, Condorcet::getDefaultMethod
+ * @param $method Not required for use election default method. Set the string name of the algorithm for use of a specific one.
+ * @param $methodOptions Array of option for some methods. Look at each method documentation.
+ */
     public function getResult(
         #[FunctionParameter('Not required for use election default method. Set the string name of the algorithm for use of a specific one.')]
         ?string $method = null,
@@ -97,13 +101,18 @@ trait ResultsProcess
 
         return $result;
     }
-
-
-    #[PublicAPI]
-    #[Description('Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.')]
-    #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples winners.\n\nThrow an exception on error.")]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
-    #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
+/**
+ * Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
+ * @api 
+ * @return mixed Candidate object given. Null if there are no available winner or loser.
+ *               
+ *               If you use an advanced method instead of Natural, you can get an array with multiples winners.
+ *               
+ *               Throw an exception on error.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
+ * @see Election::getCondorcetWinner, Election::getLoser, Election::getResult
+ * @param $method Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
+ */
     public function getWinner(
         #[FunctionParameter('Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.')]
         ?string $method = null
@@ -122,13 +131,18 @@ trait ResultsProcess
             return $this->getResult($algo)->getWinner();
         }
     }
-
-
-    #[PublicAPI]
-    #[Description('Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.')]
-    #[FunctionReturn("Candidate object given. Null if there are no available winner or loser.\n\nIf you use an advanced method instead of Natural, you can get an array with multiples losers.\n\nThrow an exception on error.")]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
-    #[Related('Election::getWinner', 'Election::getResult')]
+/**
+ * Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
+ * @api 
+ * @return mixed Candidate object given. Null if there are no available winner or loser.
+ *               
+ *               If you use an advanced method instead of Natural, you can get an array with multiples losers.
+ *               
+ *               Throw an exception on error.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
+ * @see Election::getWinner, Election::getResult
+ * @param $method Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
+ */
     public function getLoser(
         #[FunctionParameter('Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.')]
         ?string $method = null
@@ -147,32 +161,35 @@ trait ResultsProcess
             return $this->getResult($algo)->getLoser();
         }
     }
-
-    #[PublicAPI]
-    #[Description('Get the natural Condorcet winner if there is one.')]
-    #[FunctionReturn('Candidate object given. Null if there are no available winner.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
-    #[Related('Election::getCondorcetLoser', 'Election::getWiner', 'Election::getResult')]
+/**
+ * Get the natural Condorcet winner if there is one.
+ * @api 
+ * @return mixed Candidate object given. Null if there are no available winner.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
+ * @see Election::getCondorcetLoser, Election::getWiner, Election::getResult
+ */
     public function getCondorcetWinner(): ?Candidate
     {
         return $this->getWinner(null);
     }
-
-    #[PublicAPI]
-    #[Description('Get the natural Condorcet loser if there is one.')]
-    #[FunctionReturn('Candidate object given. Null if there are no available loser.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner)]
-    #[Related('Election::getCondorcetWinner', 'Election::getLoser', 'Election::getResult')]
+/**
+ * Get the natural Condorcet loser if there is one.
+ * @api 
+ * @return mixed Candidate object given. Null if there are no available loser.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
+ * @see Election::getCondorcetWinner, Election::getLoser, Election::getResult
+ */
     public function getCondorcetLoser(): ?Candidate
     {
         return $this->getLoser(null);
     }
-
-    #[PublicAPI]
-    #[Description('Return the Pairwise.')]
-    #[FunctionReturn('Pairwise object.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results)]
-    #[Related('Election::getExplicitPairwise', 'Election::getResult')]
+/**
+ * Return the Pairwise.
+ * @api 
+ * @return mixed Pairwise object.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
+ * @see Election::getExplicitPairwise, Election::getResult
+ */
     public function getPairwise(): Pairwise
     {
         if ($this->Pairwise === null) {
@@ -181,11 +198,14 @@ trait ResultsProcess
 
         return $this->Pairwise;
     }
-
-    #[InternalModulesAPI]
-    #[Description('Get a pairwise object filtered by tags. Not any votes updates are provided to the object.')]
-    #[FunctionReturn('Return a Pairwise filtered by tags')]
-    #[Related('Election::getPairwise')]
+/**
+ * Get a pairwise object filtered by tags. Not any votes updates are provided to the object.
+ * @internal 
+ * @return mixed Return a Pairwise filtered by tags
+ * @see Election::getPairwise
+ * @param $tags Tags as string separated by commas or array.
+ * @param $with Votes with these tags or without.
+ */
     public function getFilteredPairwiseByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
@@ -194,20 +214,24 @@ trait ResultsProcess
     ): FilteredPairwise {
         return new FilteredPairwise($this, $tags, $with);
     }
-
-    #[PublicAPI]
-    #[Description('Return the Pairwise.')]
-    #[FunctionReturn('Pairwise as an explicit array .')]
-    #[Related('Election::getPairwise', 'Election::getResult')]
+/**
+ * Return the Pairwise.
+ * @api 
+ * @return mixed Pairwise as an explicit array .
+ * @see Election::getPairwise, Election::getResult
+ */
     public function getExplicitPairwise(): array
     {
         return $this->getPairwise()->getExplicitPairwise();
     }
-
-    #[PublicAPI]
-    #[Description('Get a pairwise filtered by tags.')]
-    #[FunctionReturn('Return a Pairwise filtered by tags')]
-    #[Related('Election::getPairwise')]
+/**
+ * Get a pairwise filtered by tags.
+ * @api 
+ * @return mixed Return a Pairwise filtered by tags
+ * @see Election::getPairwise
+ * @param $tags Tags as string separated by commas or array.
+ * @param $with Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.
+ */
     public function getExplicitFilteredPairwiseByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
@@ -218,10 +242,15 @@ trait ResultsProcess
     }
 
     // Generic function for default result with ability to change default object method
-    #[PublicAPI]
-    #[Description('Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.')]
-    #[FunctionReturn('True on success. Else False.')]
-    #[Related('Result::getMethodOptions')]
+/**
+ * Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
+ * @api 
+ * @return mixed True on success. Else False.
+ * @see Result::getMethodOptions
+ * @param $method Method name or class path.
+ * @param $optionName Option name.
+ * @param $optionValue Option Value.
+ */
     public function setMethodOption(
         #[FunctionParameter('Method name or class path')]
         string $method,
@@ -239,10 +268,12 @@ trait ResultsProcess
             return false;
         }
     }
-
-    #[PublicAPI]
-    #[Description('Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.')]
-    #[Related('Election::getVerbosity', 'Result::getVerbosity')]
+/**
+ * Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.
+ * @api 
+ * @see Election::getVerbosity, Result::getVerbosity
+ * @param $StatsVerbosity A verbosity level.
+ */
     public function setStatsVerbosity(
         #[FunctionParameter('A verbosity level')]
         StatsVerbosity $StatsVerbosity
@@ -257,10 +288,12 @@ trait ResultsProcess
 
 
     /////////// MAKE RESULTS ///////////
-
-    #[PublicAPI]
-    #[Description('Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.')]
-    #[Related('Election::getWinner', 'Election::getResult', 'Condorcet::getDefaultMethod')]
+/**
+ * Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
+ * @api 
+ * @see Election::getWinner, Election::getResult, Condorcet::getDefaultMethod
+ * @param $method Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
+ */
     public function computeResult(
         #[FunctionParameter('Not requiered for use object default method. Set the string name of the algorithm for use an specific one')]
         ?string $method = null

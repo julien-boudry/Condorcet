@@ -19,7 +19,9 @@ use CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException;
 // Base Condorcet class
 abstract class VoteUtil
 {
-    #[Throws(VoteInvalidFormatException::class)]
+/**
+ * @throws VoteInvalidFormatException
+ */
     public static function tagsConvert(array|string|null $tags): ?array
     {
         if (empty($tags)) {

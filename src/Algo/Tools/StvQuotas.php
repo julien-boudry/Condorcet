@@ -26,11 +26,13 @@ enum StvQuotas: string
     case HARE = 'Hare Quota';
     case HAGENBACH_BISCHOFF = 'Hagenbach-Bischoff Quota';
     case IMPERIALI = 'Imperiali Quota';
-
-    #[PublicAPI]
-    #[Description('Build the Enum Quotas option for STV methods')]
-    #[FunctionReturn('The Quota option')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods)]
+/**
+ * Build the Enum Quotas option for STV methods
+ * @api 
+ * @return mixed The Quota option
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods
+ * @param $quota Quota name.
+ */
     public static function make(
         #[FunctionParameter('Quota name')]
         string $quota

@@ -29,9 +29,11 @@ class DavidHillFormat implements ConverterImport
      * @api
      */
     public private(set) readonly int $NumberOfSeats;
-
-    #[PublicAPI]
-    #[Description('Read a Tideman format file')]
+/**
+ * Read a Tideman format file
+ * @api 
+ * @param $filePath File absolute path.
+ */
     public function __construct(
         #[FunctionParameter('File absolute path')]
         string $filePath
@@ -43,12 +45,14 @@ class DavidHillFormat implements ConverterImport
         $this->readCandidatesNames();
         $this->readVotes();
     }
-
-    #[PublicAPI]
-    #[Description('Add the data to an election object')]
-    #[FunctionReturn('The election object')]
-    #[Related("Tools\CondorcetElectionFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
-    #[\Override]
+/**
+ * Add the data to an election object
+ * @api 
+ * @return mixed The election object
+ * @see Tools\CondorcetElectionFormat::setDataToAnElection, Tools\DebianFormat::setDataToAnElection
+ * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+ */
+#[\Override]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         ?Election $election = null

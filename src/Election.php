@@ -65,10 +65,13 @@ class Election
     /////////// STATICS METHODS ///////////
 
     // Change max parse iteration
-    #[PublicAPI]
-    #[Description('Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.')]
-    #[FunctionReturn('The new limit.')]
-    #[Related('static Election::setMaxVoteNumber')]
+/**
+ * Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
+ * @api 
+ * @return mixed The new limit.
+ * @see static Election::setMaxVoteNumber
+ * @param $maxParseIterations Null will deactivate this functionality. Else, enter an integer.
+ */
     public static function setMaxParseIteration(
         #[FunctionParameter('Null will deactivate this functionality. Else, enter an integer.')]
         ?int $maxParseIterations
@@ -77,10 +80,13 @@ class Election
     }
 
     // Change max vote number
-    #[PublicAPI]
-    #[Description("Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.")]
-    #[FunctionReturn('The new limit.')]
-    #[Related('static Election::setMaxParseIteration')]
+/**
+ * Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
+ * @api 
+ * @return mixed The new limit.
+ * @see static Election::setMaxParseIteration
+ * @param $maxVotesNumber Null will deactivate this functionality. An integer will fix the limit.
+ */
     public static function setMaxVoteNumber(
         #[FunctionParameter('Null will deactivate this functionality. An integer will fix the limit.')]
         ?int $maxVotesNumber
@@ -123,9 +129,10 @@ class Election
     public string $hash { get => $this->getChecksum(); }
 
     // -------
-
-    #[PublicAPI]
-    #[Description('Build a new Election.')]
+/**
+ * Build a new Election.
+ * @api 
+ */
     public function __construct()
     {
         $this->candidates = [];
@@ -207,40 +214,50 @@ class Election
 
 
     /////////// TIMER & CHECKSUM ///////////
-
-    #[PublicAPI]
-    #[Description('Returns the cumulated computation runtime of this object. Include only computation related methods.')]
-    #[FunctionReturn('Timer')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer)]
-    #[Related('Election::getLastTimer')]
+/**
+ * Returns the cumulated computation runtime of this object. Include only computation related methods.
+ * @api 
+ * @return mixed Timer
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
+ * @see Election::getLastTimer
+ */
     public function getGlobalTimer(): float
     {
         return $this->timer->getGlobalTimer();
     }
-
-    #[PublicAPI]
-    #[Description('Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.')]
-    #[FunctionReturn('(Float) Timer')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer)]
-    #[Related('Election::getGlobalTimer')]
+/**
+ * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
+ * @api 
+ * @return mixed (Float) Timer
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
+ * @see Election::getGlobalTimer
+ */
     public function getLastTimer(): float
     {
         return $this->timer->getLastTimer();
     }
-
-    #[PublicAPI]
-    #[Description('Get the Timer manager object.')]
-    #[FunctionReturn("An CondorcetPHP\Condorcet\Timer\Manager object using by this election.")]
-    #[Related('Election::getGlobalTimer', 'Election::getLastTimer')]
+/**
+ * Get the Timer manager object.
+ * @api 
+ * @return mixed An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
+ * @see Election::getGlobalTimer, Election::getLastTimer
+ */
     public function getTimerManager(): Timer_Manager
     {
         return $this->timer;
     }
-
-    #[PublicAPI]
-    #[Description("SHA-2 256 checksum of following internal data:\n* Candidates\n* Votes list & tags\n* Computed data (pairwise, algorithm cache, stats)\n* Class version (major version like 3.4)\n\nCan be powerfull to check integrity and security of an election. Or working with serialized object.")]
-    #[FunctionReturn('SHA-2 256 bits Hexadecimal')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Crypto)]
+/**
+ * SHA-2 256 checksum of following internal data:
+ * * Candidates
+ * * Votes list & tags
+ * * Computed data (pairwise, algorithm cache, stats)
+ * * Class version (major version like 3.4)
+ * 
+ * Can be powerfull to check integrity and security of an election. Or working with serialized object.
+ * @api 
+ * @return mixed SHA-2 256 bits Hexadecimal
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Crypto
+ */
     public function getChecksum(): string
     {
         self::$checksumMode = true;
@@ -281,20 +298,27 @@ class Election
 
 
     /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
-
-    #[PublicAPI]
-    #[Description("Returns the corresponding setting as currently set (True by default).\nIf it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.\nIf it is false, then the candidates not ranked, are not taken into account at all.")]
-    #[FunctionReturn('True / False')]
-    #[Related('Election::setImplicitRanking')]
+/**
+ * Returns the corresponding setting as currently set (True by default).
+ * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+ * If it is false, then the candidates not ranked, are not taken into account at all.
+ * @api 
+ * @return mixed True / False
+ * @see Election::setImplicitRanking
+ */
     public function getImplicitRankingRule(): bool
     {
         return $this->implicitRankingRule;
     }
-
-    #[PublicAPI]
-    #[Description("Set the setting and reset all result data.\nIf it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.\nIf it is false, then the candidates not ranked, are not taken into account at all.")]
-    #[FunctionReturn('Return True')]
-    #[Related('Election::getImplicitRankingRule')]
+/**
+ * Set the setting and reset all result data.
+ * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+ * If it is false, then the candidates not ranked, are not taken into account at all.
+ * @api 
+ * @return mixed Return True
+ * @see Election::getImplicitRankingRule
+ * @param $rule New rule.
+ */
     public function setImplicitRanking(
         #[FunctionParameter('New rule')]
         bool $rule = true
@@ -303,20 +327,26 @@ class Election
         $this->resetComputation();
         return $this->getImplicitRankingRule();
     }
-
-    #[PublicAPI]
-    #[Description("Returns the corresponding setting as currently set (False by default).\nIf it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.")]
-    #[FunctionReturn('True / False')]
-    #[Related('Election::allowsVoteWeight')]
+/**
+ * Returns the corresponding setting as currently set (False by default).
+ * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
+ * @api 
+ * @return mixed True / False
+ * @see Election::allowsVoteWeight
+ */
     public function isVoteWeightAllowed(): bool
     {
         return $this->voteWeightAllowed;
     }
-
-    #[PublicAPI]
-    #[Description("Set the setting and reset all result data.\nThen the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.\nBy default, the voting weight is not activated and all votes are considered equal.")]
-    #[FunctionReturn('Return True')]
-    #[Related('Election::isVoteWeightAllowed')]
+/**
+ * Set the setting and reset all result data.
+ * Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
+ * By default, the voting weight is not activated and all votes are considered equal.
+ * @api 
+ * @return mixed Return True
+ * @see Election::isVoteWeightAllowed
+ * @param $rule New rule.
+ */
     public function allowsVoteWeight(
         #[FunctionParameter('New rule')]
         bool $rule = true
@@ -328,13 +358,15 @@ class Election
 
 
     /////////// VOTE CONSTRAINT ///////////
-
-    #[PublicAPI]
-    #[Description('Add a constraint rules as a valid class path.')]
-    #[FunctionReturn('True on success.')]
-    #[Throws(VoteConstraintException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints)]
-    #[Related('Election::getConstraints', 'Election::clearConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
+/**
+ * Add a constraint rules as a valid class path.
+ * @api 
+ * @return mixed True on success.
+ * @throws VoteConstraintException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+ * @see Election::getConstraints, Election::clearConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
+ */
     public function addConstraint(
         #[FunctionParameter('A valid class path. Class must extend VoteConstraint class')]
         string $constraintClass
@@ -353,22 +385,24 @@ class Election
 
         return true;
     }
-
-    #[PublicAPI]
-    #[Description('Get active constraints list.')]
-    #[FunctionReturn('Array with class name of each active constraint. Empty array if there is not.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints)]
-    #[Related('Election::clearConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
+/**
+ * Get active constraints list.
+ * @api 
+ * @return mixed Array with class name of each active constraint. Empty array if there is not.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+ * @see Election::clearConstraints, Election::addConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ */
     public function getConstraints(): array
     {
         return $this->votesConstraints;
     }
-
-    #[PublicAPI]
-    #[Description('Clear all constraints rules and clear previous results.')]
-    #[FunctionReturn('Return True.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints)]
-    #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::testIfVoteIsValidUnderElectionConstraints')]
+/**
+ * Clear all constraints rules and clear previous results.
+ * @api 
+ * @return mixed Return True.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+ * @see Election::getConstraints, Election::addConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ */
     public function clearConstraints(): bool
     {
         $this->votesConstraints = [];
@@ -377,12 +411,14 @@ class Election
 
         return true;
     }
-
-    #[PublicAPI]
-    #[Description('Test if a vote is valid with these election constraints.')]
-    #[FunctionReturn('Return True if vote will pass the constraints rules, else False.')]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints)]
-    #[Related('Election::getConstraints', 'Election::addConstraints', 'Election::clearConstraints')]
+/**
+ * Test if a vote is valid with these election constraints.
+ * @api 
+ * @return mixed Return True if vote will pass the constraints rules, else False.
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+ * @see Election::getConstraints, Election::addConstraints, Election::clearConstraints
+ * @param $vote A vote. Not necessarily registered in this election.
+ */
     public function testIfVoteIsValidUnderElectionConstraints(
         #[FunctionParameter('A vote. Not necessarily registered in this election')]
         Vote $vote
@@ -398,21 +434,24 @@ class Election
 
 
     /////////// STV SEATS ///////////
-
-    #[PublicAPI]
-    #[Description('Get number of Seats for STV methods.')]
-    #[FunctionReturn('Number of seats.')]
-    #[Related('Election::setNumberOfSeats', 'Result::getNumberOfSeats')]
+/**
+ * Get number of Seats for STV methods.
+ * @api 
+ * @return mixed Number of seats.
+ * @see Election::setNumberOfSeats, Result::getNumberOfSeats
+ */
     public function getNumberOfSeats(): int
     {
         return $this->electionSeats;
     }
-
-    #[PublicAPI]
-    #[Description('Set number of Seats for STV methods.')]
-    #[FunctionReturn('Number of seats.')]
-    #[Throws(NoSeatsException::class)]
-    #[Related('Election::getNumberOfSeats')]
+/**
+ * Set number of Seats for STV methods.
+ * @api 
+ * @return mixed Number of seats.
+ * @throws NoSeatsException
+ * @see Election::getNumberOfSeats
+ * @param $seats The number of seats for proportional methods.
+ */
     public function setNumberOfSeats(
         #[FunctionParameter('The number of seats for proportional methods.')]
         int $seats
@@ -430,13 +469,15 @@ class Election
 
 
     /////////// LARGE ELECTION MODE ///////////
-
-    #[PublicAPI]
-    #[Description('Import and enable an external driver to store vote on very large election.')]
-    #[FunctionReturn('True if success. Else throw an Exception.')]
-    #[Throws(DataHandlerException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection)]
-    #[Related('Election::removeExternalDataHandler')]
+/**
+ * Import and enable an external driver to store vote on very large election.
+ * @api 
+ * @return mixed True if success. Else throw an Exception.
+ * @throws DataHandlerException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
+ * @see Election::removeExternalDataHandler
+ * @param $driver Driver object.
+ */
     public function setExternalDataHandler(
         #[FunctionParameter('Driver object')]
         DataHandlerDriverInterface $driver
@@ -448,12 +489,13 @@ class Election
             throw new DataHandlerException('external data handler cannot be imported');
         }
     }
-
-    #[PublicAPI]
-    #[Description('Remove an external driver to store vote on very large election. And import his data into classical memory.')]
-    #[FunctionReturn('True if success. Else throw an Exception.')]
-    #[Throws(DataHandlerException::class)]
-    #[Related('Election::setExternalDataHandler')]
+/**
+ * Remove an external driver to store vote on very large election. And import his data into classical memory.
+ * @api 
+ * @return mixed True if success. Else throw an Exception.
+ * @throws DataHandlerException
+ * @see Election::setExternalDataHandler
+ */
     public function removeExternalDataHandler(): bool
     {
         if ($this->Votes->isUsingHandler()) {
@@ -469,11 +511,18 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-    #[PublicAPI]
-    #[Description("Force the election to get back to state 2. See Election::getState.\nIt is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.\n\nIf you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.\nIf you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.")]
-    #[FunctionReturn('Always True.')]
-    #[Throws(NoCandidatesException::class, ResultRequestedWithoutVotesException::class)]
-    #[Related('Election::getState')]
+/**
+ * Force the election to get back to state 2. See Election::getState.
+ * It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
+ * 
+ * If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
+ * If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
+ * @api 
+ * @return mixed Always True.
+ * @throws NoCandidatesException
+ * @throws ResultRequestedWithoutVotesException
+ * @see Election::getState
+ */
     public function setStateToVote(): true
     {
         if ($this->state === ElectionState::CANDIDATES_REGISTRATION) {

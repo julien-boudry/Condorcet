@@ -49,8 +49,9 @@ abstract class Method
     }
 
     // -------
-
-    #[Throws(CandidatesMaxNumberReachedException::class)]
+/**
+ * @throws CandidatesMaxNumberReachedException
+ */
     public function __construct(Election $mother)
     {
         $this->setElection($mother);
@@ -67,8 +68,9 @@ abstract class Method
 
         return $r;
     }
-
-    #[InternalModulesAPI]
+/**
+ * @internal 
+ */
     public function getResult(): Result
     {
         // Cache

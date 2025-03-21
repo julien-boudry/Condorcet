@@ -19,7 +19,9 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
-#[InternalModulesAPI]
+/**
+ * @internal 
+ */
 class Permutations
 {
     /**

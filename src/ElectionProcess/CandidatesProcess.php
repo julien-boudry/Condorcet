@@ -31,29 +31,34 @@ trait CandidatesProcess
     /////////// GET CANDIDATES ///////////
 
     // Count registered candidates
-    #[PublicAPI]
-    #[Description('Count the number of registered candidates')]
-    #[FunctionReturn('Number of registered candidates for this election.')]
-    #[Related('Election::getCandidatesList')]
+/**
+ * Count the number of registered candidates
+ * @api 
+ * @return mixed Number of registered candidates for this election.
+ * @see Election::getCandidatesList
+ */
     public function countCandidates(): int
     {
         return \count($this->candidates);
     }
-
-    #[PublicAPI]
-    #[Description('Return a list of registered candidates for this election.')]
-    #[FunctionReturn('List of candidates in an array.')]
-    #[Related('Election::countCandidates')]
+/**
+ * Return a list of registered candidates for this election.
+ * @api 
+ * @return mixed List of candidates in an array.
+ * @see Election::countCandidates
+ */
     public function getCandidatesList(): array
     {
         return $this->candidates;
     }
 
     // Get the list of registered CANDIDATES
-    #[PublicAPI]
-    #[Description('Return a list of registered candidates for this election.')]
-    #[FunctionReturn('List of candidates in an array populated with strings instead of CandidateObjects.')]
-    #[Related('Election::countCandidates')]
+/**
+ * Return a list of registered candidates for this election.
+ * @api 
+ * @return mixed List of candidates in an array populated with strings instead of CandidateObjects.
+ * @see Election::countCandidates
+ */
     public function getCandidatesListAsString(): array
     {
         $result = [];
@@ -64,8 +69,9 @@ trait CandidatesProcess
 
         return $result;
     }
-
-    #[InternalModulesAPI]
+/**
+ * @internal 
+ */
     public function getCandidateKey(Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) {
@@ -76,17 +82,21 @@ trait CandidatesProcess
 
         return ($r !== false) ? $r : null;
     }
-
-    #[InternalModulesAPI]
+/**
+ * @internal 
+ */
     public function getCandidateObjectFromKey(int $candidate_key): ?Candidate
     {
         return $this->candidates[$candidate_key] ?? null;
     }
-
-    #[PublicAPI]
-    #[Description('Check if a candidate is already taking part in the election.')]
-    #[FunctionReturn('True / False')]
-    #[Related('Election::addCandidate')]
+/**
+ * Check if a candidate is already taking part in the election.
+ * @api 
+ * @return mixed True / False
+ * @see Election::addCandidate
+ * @param $candidate Candidate object or candidate string name. String name works only if the strict mode is false.
+ * @param $strictMode Search comparison mode. In strict mode, candidate objects are compared strictly and a string input cannot match anything. If strict mode is false, the comparison will be based on name.
+ */
     public function isRegisteredCandidate(
         #[FunctionParameter('Candidate object or candidate string name. String name works only if the strict mode is false')]
         Candidate|string $candidate,
@@ -95,10 +105,12 @@ trait CandidatesProcess
     ): bool {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->candidates, strict: false);
     }
-
-    #[PublicAPI]
-    #[Description('Find candidate object by string and return the candidate object.')]
-    #[FunctionReturn('Candidate object')]
+/**
+ * Find candidate object by string and return the candidate object.
+ * @api 
+ * @return mixed Candidate object
+ * @param $candidateName Candidate name.
+ */
     public function getCandidateObjectFromName(
         #[FunctionParameter('Candidate name')]
         string $candidateName
@@ -116,12 +128,16 @@ trait CandidatesProcess
     /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
-    #[PublicAPI]
-    #[Description('Add one candidate to an election.')]
-    #[FunctionReturn('The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).')]
-    #[Throws(CandidateExistsException::class, VotingHasStartedException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
-    #[Related('Election::parseCandidates', 'Election::addCandidatesFromJson', 'Election::removeCandidate', 'Election::getCandidatesList', 'Election::canAddCandidate')]
+/**
+ * Add one candidate to an election.
+ * @api 
+ * @return mixed The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).
+ * @throws CandidateExistsException
+ * @throws VotingHasStartedException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+ * @see Election::parseCandidates, Election::addCandidatesFromJson, Election::removeCandidate, Election::getCandidatesList, Election::canAddCandidate
+ * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.
+ */
     public function addCandidate(
         #[FunctionParameter('Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.')]
         Candidate|string|null $candidate = null
@@ -157,11 +173,13 @@ trait CandidatesProcess
 
         return $newCandidate;
     }
-
-    #[PublicAPI]
-    #[Description('Check if a candidate is already registered. Equivalent of `!$election->isRegisteredCandidate($candidate, false)`.')]
-    #[FunctionReturn('True if your candidate is available, false otherwise.')]
-    #[Related('Election::addCandidate', 'Election::isRegisteredCandidate')]
+/**
+ * Check if a candidate is already registered. Equivalent of `!$election->isRegisteredCandidate($candidate, false)`.
+ * @api 
+ * @return mixed True if your candidate is available, false otherwise.
+ * @see Election::addCandidate, Election::isRegisteredCandidate
+ * @param $candidate String or Condorcet/Vote object.
+ */
     public function canAddCandidate(
         #[FunctionParameter('String or Condorcet/Vote object')]
         Candidate|string $candidate
@@ -170,12 +188,18 @@ trait CandidatesProcess
     }
 
     // Destroy a register vote candidate before voting
-    #[PublicAPI]
-    #[Description("Remove candidates from an election.\n\n*Please note: You can't remove candidates after the first vote. An exception will be thrown.*")]
-    #[FunctionReturn("List of removed CondorcetPHP\Condorcet\Candidate object.")]
-    #[Throws(CandidateDoesNotExistException::class, VotingHasStartedException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
-    #[Related('Election::addCandidate', 'Election::getCandidatesList')]
+/**
+ * Remove candidates from an election.
+ * 
+ * *Please note: You can't remove candidates after the first vote. An exception will be thrown.*
+ * @api 
+ * @return mixed List of removed CondorcetPHP\Condorcet\Candidate object.
+ * @throws CandidateDoesNotExistException
+ * @throws VotingHasStartedException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+ * @see Election::addCandidate, Election::getCandidatesList
+ * @param $candidates_input String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name.
+ */
     public function removeCandidates(
         #[FunctionParameter('String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name')]
         array|Candidate|string $candidates_input
@@ -213,13 +237,15 @@ trait CandidatesProcess
 
 
     /////////// PARSE CANDIDATES ///////////
-
-    #[PublicAPI]
-    #[Description('Import candidate from a JSON source.')]
-    #[FunctionReturn('List of newly registered candidate object.')]
-    #[Throws(CandidateExistsException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
-    #[Related('Election::addCandidate', 'Election::parseCandidates', 'Election::addVotesFromJson')]
+/**
+ * Import candidate from a JSON source.
+ * @api 
+ * @return mixed List of newly registered candidate object.
+ * @throws CandidateExistsException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+ * @see Election::addCandidate, Election::parseCandidates, Election::addVotesFromJson
+ * @param $input JSON string input.
+ */
     public function addCandidatesFromJson(
         #[FunctionParameter('JSON string input')]
         string $input
@@ -246,13 +272,17 @@ trait CandidatesProcess
 
         return $adding;
     }
-
-    #[PublicAPI]
-    #[Description('Import candidate from a text source.')]
-    #[FunctionReturn('List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.')]
-    #[Throws(CandidateExistsException::class, VoteMaxNumberReachedException::class)]
-    #[Book(\CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates)]
-    #[Related('Election::addCandidate', 'Election::addCandidatesFromJson', 'Election::parseVotes')]
+/**
+ * Import candidate from a text source.
+ * @api 
+ * @return mixed List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.
+ * @throws CandidateExistsException
+ * @throws VoteMaxNumberReachedException
+ * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+ * @see Election::addCandidate, Election::addCandidatesFromJson, Election::parseVotes
+ * @param $input String or valid path to a text file.
+ * @param $isFile If true, the input is evaluated as path to a text file.
+ */
     public function parseCandidates(
         #[FunctionParameter('String or valid path to a text file')]
         string $input,

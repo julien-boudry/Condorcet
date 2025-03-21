@@ -137,11 +137,14 @@ function convertAttributesToPhpdoc(string $content): string {
 
 
          // Inverse l'ordre : docblock généré AVANT les attributs existants
-         if (false && str_contains($attributesBlock, '#[\Override]')) {
+         if (/*false && */str_contains($attributesBlock, '#[\Override]')) {
             return $phpdoc . "\n#[\\Override]\n" . $definitionLine;
          }
+         elseif (/*false && */str_contains($attributesBlock, '#[Deprecated]')) {
+            return $phpdoc . "\n#[Deprecated]\n" . $definitionLine;
+         }
          else {
-            return $phpdoc . $attributesBlock . $definitionLine;
+            return $phpdoc . "\n" /*. $attributesBlock*/ . $definitionLine;
          }
     }, $content);
 

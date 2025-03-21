@@ -125,11 +125,12 @@ class Pairwise implements \ArrayAccess, \Iterator
             }
         }
     }
-
-    #[PublicAPI]
-    #[Description('Return the Pairwise.')]
-    #[FunctionReturn('Pairwise as an explicit array .')]
-    #[Related('Election::getPairwise', 'Election::getResult')]
+/**
+ * Return the Pairwise.
+ * @api 
+ * @return mixed Pairwise as an explicit array .
+ * @see Election::getPairwise, Election::getResult
+ */
     public function getExplicitPairwise(): array
     {
         if ($this->explicitPairwise === null) {

@@ -23,10 +23,18 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     ////// # Static Export Method //////
 
     public const string SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
-
-    #[PublicAPI]
-    #[Description("Create a CondorcetElectionFormat file from an Election object.\n")]
-    #[FunctionReturn("If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).")]
+/**
+ * Create a CondorcetElectionFormat file from an Election object.
+ * 
+ * @api 
+ * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
+ * @param $election Election with data.
+ * @param $aggregateVotes If true, will try to reduce number of lines, with quantifier for identical votes.
+ * @param $includeNumberOfSeats Add the Number Of Seats parameters to the output.
+ * @param $includeTags Add the vote tags information if any. Not working if $aggregateVotes is true.
+ * @param $inContext Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.
+ * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
+ */
     public static function createFromElection(
         #[FunctionParameter('Election with data')]
         Election $election,
@@ -76,9 +84,12 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
         return ($file) ? null : $r;
     }
-
-    #[PublicAPI]
-    #[Description("Create a CondorcetElectionFormat object from string.\n")]
+/**
+ * Create a CondorcetElectionFormat object from string.
+ * 
+ * @api 
+ * @param $input CondorcetElectionFormat string to parse.
+ */
     public static function createFromString(
         #[FunctionParameter('CondorcetElectionFormat string to parse')]
         string $input
@@ -141,9 +152,11 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     public private(set) readonly int $invalidBlocksCount;
 
     // Read
-
-    #[PublicAPI]
-    #[Description('Read a Condorcet format file, usually using .cvotes file extension')]
+/**
+ * Read a Condorcet format file, usually using .cvotes file extension
+ * @api 
+ * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
+ */
     public function __construct(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input
@@ -174,12 +187,15 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
             $this->CandidatesParsedFromVotes = false;
         }
     }
-
-    #[PublicAPI]
-    #[Description('Add the data to an election object')]
-    #[FunctionReturn('The election object')]
-    #[Related("Tools\DavidHillFormat::setDataToAnElection", "Tools\DebianFormat::setDataToAnElection")]
-    #[\Override]
+/**
+ * Add the data to an election object
+ * @api 
+ * @return mixed The election object
+ * @see Tools\DavidHillFormat::setDataToAnElection, Tools\DebianFormat::setDataToAnElection
+ * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+ * @param $callBack Callback function to execute after each registered vote.
+ */
+#[\Override]
     public function setDataToAnElection(
         #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
         Election $election = new Election,

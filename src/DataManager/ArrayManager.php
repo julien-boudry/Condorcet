@@ -379,8 +379,9 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
             return $this->maxKey = max($maxContainerKey, $maxHandlerKey);
         }
     }
-
-    #[Throws(DataHandlerException::class)]
+/**
+ * @throws DataHandlerException
+ */
     public function importHandler(DataHandlerDriverInterface $handler): true
     {
         if ($handler->countEntities() === 0) {

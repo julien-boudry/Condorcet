@@ -18,7 +18,9 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Election;
 
 // Generic for Algorithms
-#[InternalModulesAPI]
+/**
+ * @internal 
+ */
 abstract class TieBreakersCollection
 {
     public static function electSomeLosersbasedOnPairwiseComparaison(Election $election, array $candidatesKeys): array

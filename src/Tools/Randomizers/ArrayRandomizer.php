@@ -39,9 +39,12 @@ class ArrayRandomizer
      * @api
      */
     public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
-
-    #[PublicAPI]
-    #[Description('Create a new VotesRandomGenerator instance')]
+/**
+ * Create a new VotesRandomGenerator instance
+ * @api 
+ * @param $candidates List of candidates as string, candidates objects or sub-array.
+ * @param $seed If null, will use a cryptographically secure randomizer.
+ */
     public function __construct(
         #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
         array $candidates,
@@ -59,27 +62,31 @@ class ArrayRandomizer
             $this->randomizer = new Randomizer(new \Random\Engine\Xoshiro256StarStar($seed));
         }
     }
-
-    #[PublicAPI]
-    #[Description('Change the candidates running for this randomizer.')]
+/**
+ * Change the candidates running for this randomizer.
+ * @api 
+ * @param $candidates The array of candidates to shuffle.
+ */
     public function setCandidates(
         #[FunctionParameter('The array of candidates to shuffle')]
         array $candidates
     ): void {
         $this->candidates = $candidates;
     }
-
-    #[PublicAPI]
-    #[Description('Count candidates currently running for this instance of the randomizer.')]
-    #[FunctionReturn('Count of candidates')]
+/**
+ * Count candidates currently running for this instance of the randomizer.
+ * @api 
+ * @return mixed Count of candidates
+ */
     public function countCandidates(): int
     {
         return \count($this->candidates);
     }
-
-    #[PublicAPI]
-    #[Description('Generate a new random vote.')]
-    #[FunctionReturn('Return the new vote.')]
+/**
+ * Generate a new random vote.
+ * @api 
+ * @return mixed Return the new vote.
+ */
     public function shuffle(): array
     {
         $randomizedCandidates = $this->randomizer->shuffleArray($this->candidates);

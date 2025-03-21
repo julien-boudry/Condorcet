@@ -44,9 +44,10 @@ class VotesDeductedApprovals implements \Countable
     ///
 
     protected array $combinationsScore = [];
-
-    #[InternalModulesAPI]
-    #[Description('Build the object.')]
+/**
+ * Build the object.
+ * @internal 
+ */
     public function __construct(public readonly int $subsetSize, Election $election)
     {
         $this->setElection($election);
@@ -77,8 +78,9 @@ class VotesDeductedApprovals implements \Countable
     {
         return \count($this->combinationsScore);
     }
-
-    #[InternalModulesAPI]
+/**
+ * @internal 
+ */
     public function sumWeightIfVotesIncludeCandidates(array $candidatesKeys): int
     {
         return $this->combinationsScore[self::getCombinationsScoreKey($candidatesKeys)] ?? throw new CondorcetInternalException('This combination does not exist in this stats object');

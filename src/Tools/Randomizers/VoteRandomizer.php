@@ -17,9 +17,11 @@ use CondorcetPHP\Condorcet\Vote;
 
 class VoteRandomizer extends ArrayRandomizer
 {
-    #[PublicAPI]
-    #[Description('Generate a new random vote.')]
-    #[FunctionReturn('Return the new vote.')]
+/**
+ * Generate a new random vote.
+ * @api 
+ * @return mixed Return the new vote.
+ */
     public function getNewVote(): Vote
     {
         return new Vote(self::shuffle());

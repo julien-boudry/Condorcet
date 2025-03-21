@@ -45,9 +45,9 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     protected array $struct;
     // Prepare Query
     protected array $prepare = [];
-
-
-    #[Throws(DataHandlerException::class)]
+/**
+ * @throws DataHandlerException
+ */
     public function __construct(\PDO $bdd, bool $tryCreateTable = false, array $struct = ['tableName' => 'Entities', 'primaryColumnName' => 'id', 'dataColumnName' => 'data'])
     {
         if (!$this->checkStructureTemplate($struct)) {
