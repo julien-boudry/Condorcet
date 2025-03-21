@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
-use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
+use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore;
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use PhpBench\Attributes as Bench;
@@ -21,7 +21,7 @@ class PairwiseNumberOfCandidatesBench
 
     public function __construct()
     {
-        RankedPairs_Core::$MaxCandidates = null;
+        RankedPairsCore::$MaxCandidates = null;
     }
 
 

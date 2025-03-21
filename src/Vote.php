@@ -488,7 +488,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
         if (!$this->notUpdate) {
             foreach ($this->getLinks() as $link) {
-                $link->prepareUpdateVote($this);
+                $link->beginVoteUpdate($this);
             }
         }
 

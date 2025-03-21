@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Election;
 
-class MultipleRoundsSystem extends Majority_Core
+class MultipleRoundsSystem extends MajorityCore
 {
     // Method Name
     public const array METHOD_NAME = ['Multiple Rounds System', 'MultipleRoundsSystem', 'Multiple Rounds', 'Majority', 'Majority System', 'Two-round system', 'second ballot', 'runoff voting', 'ballotage', 'two round system', 'two round', 'two rounds', 'two rounds system', 'runoff voting'];

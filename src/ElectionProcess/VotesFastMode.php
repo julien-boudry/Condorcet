@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 // Manage Candidates for Election class
-enum VotesFastMod
+enum VotesFastMode
 {
     case NONE;
     case BYPASS_CANDIDATES_CHECK;

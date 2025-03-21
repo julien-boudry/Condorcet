@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
-abstract class Majority_Core extends Method implements MethodInterface
+abstract class MajorityCore extends Method implements MethodInterface
 {
     protected int $maxRound;
     protected int $targetNumberOfCandidatesForTheNextRound;

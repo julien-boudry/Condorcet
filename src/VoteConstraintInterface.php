@@ -14,5 +14,5 @@ namespace CondorcetPHP\Condorcet;
 
 interface VoteConstraintInterface
 {
-    public static function isVoteAllow(Election $election, Vote $vote): bool;
+    public static function isVoteAllowed(Election $election, Vote $vote): bool;
 }

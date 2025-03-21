@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\{Election, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
-abstract class Schulze_Core extends Method implements MethodInterface
+abstract class SchulzeCore extends Method implements MethodInterface
 {
     // Schulze
     protected array $StrongestPaths = [];

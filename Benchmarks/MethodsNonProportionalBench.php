@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Benchmarks;
 
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
-use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairs_Core;
+use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
@@ -24,7 +24,7 @@ class MethodsNonProportionalBench
 
     public function __construct()
     {
-        RankedPairs_Core::$MaxCandidates = null;
+        RankedPairsCore::$MaxCandidates = null;
         KemenyYoung::$MaxCandidates = 11;
     }
 
@@ -85,6 +85,6 @@ class MethodsNonProportionalBench
         } catch (MethodLimitReachedException $e) {
         }
 
-        $this->election->cleanupCalculator();
+        $this->election->resetMethodsComputation();
     }
 }

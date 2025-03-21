@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Election;
 
-class SchulzeRatio extends Schulze_Core
+class SchulzeRatio extends SchulzeCore
 {
     // Method Name
     public const array METHOD_NAME = ['Schulze Ratio', 'SchulzeRatio', 'Schulze_Ratio'];

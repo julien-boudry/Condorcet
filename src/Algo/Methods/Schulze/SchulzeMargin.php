@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Election;
 
-class SchulzeMargin extends Schulze_Core
+class SchulzeMargin extends SchulzeCore
 {
     // Method Name
     public const array METHOD_NAME = ['Schulze Margin', 'SchulzeMargin', 'Schulze_Margin'];

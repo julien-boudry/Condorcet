@@ -149,7 +149,7 @@ class Election
             'Constraints' => $this->votesConstraints,
 
             'Pairwise' => $this->Pairwise,
-            'Calculator' => $this->Calculator,
+            'Calculator' => $this->MethodsComputation,
         ];
 
         !self::$checksumMode && ($include += ['timer' => $this->timer]);
@@ -183,8 +183,8 @@ class Election
         $this->Pairwise = $data['Pairwise'] ?? new Pairwise($this);
         $this->Pairwise->setElection($this);
 
-        $this->Calculator = $data['Calculator'] ?? [];
-        foreach ($this->Calculator as $methodObject) {
+        $this->MethodsComputation = $data['Calculator'] ?? [];
+        foreach ($this->MethodsComputation as $methodObject) {
             $methodObject->setElection($this);
         }
 
@@ -300,7 +300,7 @@ class Election
         bool $rule = true
     ): bool {
         $this->implicitRankingRule = $rule;
-        $this->cleanupCompute();
+        $this->resetComputation();
         return $this->getImplicitRankingRule();
     }
 
@@ -322,7 +322,7 @@ class Election
         bool $rule = true
     ): bool {
         $this->voteWeightAllowed = $rule;
-        $this->cleanupCompute();
+        $this->resetComputation();
         return $this->isVoteWeightAllowed();
     }
 
@@ -349,7 +349,7 @@ class Election
 
         $this->votesConstraints[] = $constraintClass;
 
-        $this->cleanupCompute();
+        $this->resetComputation();
 
         return true;
     }
@@ -373,7 +373,7 @@ class Election
     {
         $this->votesConstraints = [];
 
-        $this->cleanupCompute();
+        $this->resetComputation();
 
         return true;
     }
@@ -388,7 +388,7 @@ class Election
         Vote $vote
     ): bool {
         foreach ($this->votesConstraints as $oneConstraint) {
-            if ($oneConstraint::isVoteAllow($this, $vote) === false) {
+            if ($oneConstraint::isVoteAllowed($this, $vote) === false) {
                 return false;
             }
         }
@@ -420,7 +420,7 @@ class Election
         if ($seats > 0) {
             $this->electionSeats = $seats;
 
-            $this->cleanupCompute();
+            $this->resetComputation();
         } else {
             throw new NoSeatsException;
         }
@@ -492,7 +492,7 @@ class Election
     protected function preparePairwiseAndCleanCompute(): bool
     {
         if ($this->Pairwise === null && $this->state === ElectionState::VOTES_REGISTRATION) {
-            $this->cleanupCompute();
+            $this->resetComputation();
 
             // Return
             return true;

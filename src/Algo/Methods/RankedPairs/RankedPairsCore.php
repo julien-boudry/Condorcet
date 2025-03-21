@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 
 // Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
-abstract class RankedPairs_Core extends Method implements MethodInterface
+abstract class RankedPairsCore extends Method implements MethodInterface
 {
     protected const RP_VARIANT VARIANT = RP_VARIANT::UNDEFINED;
 

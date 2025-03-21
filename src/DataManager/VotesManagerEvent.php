@@ -16,6 +16,6 @@ enum VotesManagerEvent
 {
     case NewVote;
     case RemoveVote;
-    case PrepareUpdateVote;
+    case VoteUpdateInProgress;
     case FinishUpdateVote;
 }

@@ -16,7 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Election;
 
-class SchulzeWinning extends Schulze_Core
+class SchulzeWinning extends SchulzeCore
 {
     // Method Name
     public const array METHOD_NAME = ['Schulze Winning', 'Schulze', 'SchulzeWinning', 'Schulze_Winning', 'Schwartz Sequential Dropping', 'SSD', 'Cloneproof Schwartz Sequential Dropping', 'CSSD', 'Beatpath', 'Beatpath Method', 'Beatpath Winner', 'Path Voting', 'Path Winner'];

@@ -26,7 +26,7 @@ trait VotesProcess
 
     // Data and global options
     protected readonly VotesManager $Votes; // Votes list
-    protected VotesFastMod $votesFastMode = VotesFastMod::NONE; // When parsing vote, avoid unnecessary checks
+    protected VotesFastMode $votesFastMode = VotesFastMode::NONE; // When parsing vote, avoid unnecessary checks
 
 
     /////////// VOTES LIST ///////////
@@ -172,7 +172,7 @@ trait VotesProcess
         #[FunctionParameter('String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object')]
         array|string|null $tags = null
     ): Vote {
-        $vote = $this->prepareVoteInput($vote, $tags);
+        $vote = $this->normalizeVoteInput($vote, $tags);
 
         // Check Max Vote Count
         if (self::$maxVoteNumber !== null && $this->countVotes() >= self::$maxVoteNumber) {
@@ -183,11 +183,13 @@ trait VotesProcess
         return $this->registerVote($vote, $tags); // Return the vote object
     }
 
-    public function prepareUpdateVote(Vote $existVote): void
+    #[InternalModulesAPI]
+    public function beginVoteUpdate(Vote $existVote): void
     {
-        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::PrepareUpdateVote);
+        $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::VoteUpdateInProgress);
     }
 
+    #[InternalModulesAPI]
     public function finishUpdateVote(Vote $existVote): void
     {
         $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::FinishUpdateVote);
@@ -197,9 +199,10 @@ trait VotesProcess
         }
     }
 
+    #[InternalModulesAPI]
     public function checkVoteCandidate(Vote $vote): bool
     {
-        if ($this->votesFastMode === VotesFastMod::NONE) {
+        if ($this->votesFastMode === VotesFastMode::NONE) {
             $linkCount = $vote->countLinks();
             $linkCheck = ($linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)));
 
@@ -210,7 +213,7 @@ trait VotesProcess
             }
         }
 
-        if ($this->votesFastMode !== VotesFastMod::BYPASS_RANKING_UPDATE) {
+        if ($this->votesFastMode !== VotesFastMode::BYPASS_RANKING_UPDATE) {
             $ranking = $vote->getRanking();
 
             $change = $this->convertRankingCandidates($ranking);
@@ -226,6 +229,7 @@ trait VotesProcess
         return true;
     }
 
+    #[InternalModulesAPI]
     public function convertRankingCandidates(array &$ranking): bool
     {
         $change = false;
@@ -319,7 +323,7 @@ trait VotesProcess
 
     // Return the well formatted vote to use.
     #[Throws(VoteInvalidFormatException::class)]
-    protected function prepareVoteInput(array|string|Vote $vote, array|string|null $tags = null): Vote
+    protected function normalizeVoteInput(array|string|Vote $vote, array|string|null $tags = null): Vote
     {
         if (!($vote instanceof Vote)) {
             $vote = new Vote(ranking: $vote, tags: $tags, ownTimestamp: null, electionContext: $this);
@@ -357,10 +361,10 @@ trait VotesProcess
             $multiple = !isset($record['multi']) ? 1 : (int) $record['multi'];
             $weight = !isset($record['weight']) ? 1 : (int) $record['weight'];
 
-            $this->synthesisVoteFromParse($count, $multiple, $adding, $vote, $tags, $weight);
+            $this->aggregateVotesFromParse($count, $multiple, $adding, $vote, $tags, $weight);
         }
 
-        $this->doAddVotesFromParse($adding);
+        $this->bulkAddVotes($adding);
 
         return $count;
     }
@@ -384,7 +388,7 @@ trait VotesProcess
         foreach ($input as $line) {
             $voteParser = new VoteEntryParser($line);
 
-            $this->synthesisVoteFromParse(
+            $this->aggregateVotesFromParse(
                 count: $count,
                 multiple: $voteParser->multiple,
                 adding: $adding,
@@ -394,7 +398,7 @@ trait VotesProcess
             );
         }
 
-        $this->doAddVotesFromParse($adding);
+        $this->bulkAddVotes($adding);
 
         return $count;
     }
@@ -465,7 +469,7 @@ trait VotesProcess
                     $count = 0;
                     $adding = [];
 
-                    $this->synthesisVoteFromParse(
+                    $this->aggregateVotesFromParse(
                         count: $count,
                         adding: $adding,
                         vote: $parsedVote->ranking,
@@ -480,7 +484,7 @@ trait VotesProcess
                         $doCallBack = $callBack($parsedVotesCounter);
                     }
 
-                    $this->doAddVotesFromParse($adding);
+                    $this->bulkAddVotes($adding);
                 } catch (VoteInvalidFormatException) {
                     ++$fail_count;
                 } finally {
@@ -494,7 +498,7 @@ trait VotesProcess
         return $fail_count;
     }
 
-    protected function synthesisVoteFromParse(int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight): void
+    protected function aggregateVotesFromParse(int &$count, int $multiple, array &$adding, array|string|Vote $vote, null|array|string $tags, int $weight): void
     {
         $adding_predicted_count = $count + $multiple;
 
@@ -514,21 +518,21 @@ trait VotesProcess
         $count += $multiple;
     }
 
-    protected function doAddVotesFromParse(array $adding): void
+    protected function bulkAddVotes(array $adding): void
     {
-        $this->votesFastMode = VotesFastMod::BYPASS_CANDIDATES_CHECK;
+        $this->votesFastMode = VotesFastMode::BYPASS_CANDIDATES_CHECK;
 
         foreach ($adding as $oneLine) {
             for ($i = 1; $i <= $oneLine['multiple']; $i++) {
                 if ($i === 1) {
                     $finalVoteModel = $this->addVote($oneLine['vote']);
-                    $this->votesFastMode = VotesFastMod::BYPASS_RANKING_UPDATE;
+                    $this->votesFastMode = VotesFastMode::BYPASS_RANKING_UPDATE;
                 } else {
                     $this->addVote(clone $finalVoteModel);
                 }
             }
         }
 
-        $this->votesFastMode = VotesFastMod::NONE;
+        $this->votesFastMode = VotesFastMode::NONE;
     }
 }

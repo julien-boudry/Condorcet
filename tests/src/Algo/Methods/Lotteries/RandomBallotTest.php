@@ -36,7 +36,7 @@ test('simple', function (): void {
         'Elected Ballot Key' => 3,
     ]);
 
-    $this->election->cleanupCalculator();
+    $this->election->resetMethodsComputation();
 
     expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('C > A > B');
 
@@ -45,5 +45,5 @@ test('simple', function (): void {
         'Elected Ballot Key' => 2,
     ]);
 
-    $this->election->cleanupCalculator();
+    $this->election->resetMethodsComputation();
 });
