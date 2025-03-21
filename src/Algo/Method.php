@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 use Random\Randomizer;
@@ -49,9 +49,9 @@ abstract class Method
     }
 
     // -------
-/**
- * @throws CandidatesMaxNumberReachedException
- */
+    /**
+     * @throws CandidatesMaxNumberReachedException
+     */
     public function __construct(Election $mother)
     {
         $this->setElection($mother);
@@ -68,9 +68,9 @@ abstract class Method
 
         return $r;
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function getResult(): Result
     {
         // Cache

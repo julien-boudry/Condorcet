@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Timer;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\Throwable\TimerException;
 
@@ -25,9 +25,9 @@ class Manager
     protected ?float $lastChronoTimestamp = null;
     protected ?float $startDeclare = null;
     protected array $history = [];
-/**
- * @throws TimerException
- */
+    /**
+     * @throws TimerException
+     */
     public function addTime(Chrono $chrono): void
     {
         if ($chrono->getTimerManager() === $this) {
@@ -66,12 +66,12 @@ class Manager
     {
         return $this->lastTimer;
     }
-/**
- * Return benchmarked actions history.
- * @api 
- * @return mixed An explicit array with history.
- * @see Election::getTimerManager
- */
+    /**
+     * Return benchmarked actions history.
+     * @api
+     * @return mixed An explicit array with history.
+     * @see Election::getTimerManager
+     */
     public function getHistory(): array
     {
         return $this->history;

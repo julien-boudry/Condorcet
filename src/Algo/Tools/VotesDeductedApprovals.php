@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
 use CondorcetPHP\Condorcet\{Candidate, Election};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, InternalModulesAPI};
 use CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
@@ -44,10 +43,10 @@ class VotesDeductedApprovals implements \Countable
     ///
 
     protected array $combinationsScore = [];
-/**
- * Build the object.
- * @internal 
- */
+    /**
+     * Build the object.
+     * @internal
+     */
     public function __construct(public readonly int $subsetSize, Election $election)
     {
         $this->setElection($election);
@@ -78,9 +77,9 @@ class VotesDeductedApprovals implements \Countable
     {
         return \count($this->combinationsScore);
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function sumWeightIfVotesIncludeCandidates(array $candidatesKeys): int
     {
         return $this->combinationsScore[self::getCombinationsScoreKey($candidatesKeys)] ?? throw new CondorcetInternalException('This combination does not exist in this stats object');

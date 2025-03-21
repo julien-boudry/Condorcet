@@ -12,15 +12,14 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Relations;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
 use CondorcetPHP\Condorcet\Election;
 
 trait HasElection
 {
     protected \WeakReference $selfElection;
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function getElection(): ?Election
     {
         return $this->selfElection->get(); // @phpstan-ignore-line

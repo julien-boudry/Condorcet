@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 
 use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
@@ -125,12 +124,12 @@ class Pairwise implements \ArrayAccess, \Iterator
             }
         }
     }
-/**
- * Return the Pairwise.
- * @api 
- * @return mixed Pairwise as an explicit array .
- * @see Election::getPairwise, Election::getResult
- */
+    /**
+     * Return the Pairwise.
+     * @api
+     * @return mixed Pairwise as an explicit array .
+     * @see Election::getPairwise, Election::getResult
+     */
     public function getExplicitPairwise(): array
     {
         if ($this->explicitPairwise === null) {
@@ -231,7 +230,7 @@ class Pairwise implements \ArrayAccess, \Iterator
                             $pairwise[$candidate_key]['win'][$opponent_candidate_key] += $voteWeight;
                             $pairwise[$opponent_candidate_key]['lose'][$candidate_key] += $voteWeight;
 
-                        // Null
+                            // Null
                         } elseif ($opponent_in_rank ?? \in_array(needle: $opponent_candidate_key, haystack: $candidates_in_rank_keys, strict: true)) {
                             $pairwise[$candidate_key]['null'][$opponent_candidate_key] += $voteWeight;
                         }

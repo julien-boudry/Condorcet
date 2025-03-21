@@ -14,8 +14,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, FunctionParameter, PublicAPI};
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
@@ -26,13 +25,13 @@ enum StvQuotas: string
     case HARE = 'Hare Quota';
     case HAGENBACH_BISCHOFF = 'Hagenbach-Bischoff Quota';
     case IMPERIALI = 'Imperiali Quota';
-/**
- * Build the Enum Quotas option for STV methods
- * @api 
- * @return mixed The Quota option
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods
- * @param $quota Quota name.
- */
+    /**
+     * Build the Enum Quotas option for STV methods
+     * @api
+     * @return mixed The Quota option
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotingMethods
+     * @param $quota Quota name.
+     */
     public static function make(
         #[FunctionParameter('Quota name')]
         string $quota

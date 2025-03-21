@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter, Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 // Registering native Condorcet Methods implementation
@@ -76,13 +76,13 @@ abstract class Condorcet
     /////////// STATICS METHODS ///////////
 
     // Return library version number
-/**
- * Get the library version.
- * @api 
- * @return mixed Condorcet PHP version.
- * @see Election::getObjectVersion
- * @param $major * true will return : 2.0, false will return : 2.0.0.
- */
+    /**
+     * Get the library version.
+     * @api
+     * @return mixed Condorcet PHP version.
+     * @see Election::getObjectVersion
+     * @param $major * true will return : 2.0, false will return : 2.0.0.
+     */
     public static function getVersion(
         #[FunctionParameter('* true will return : 2.0, false will return : 2.0.0')]
         bool $major = false
@@ -96,14 +96,14 @@ abstract class Condorcet
     }
 
     // Return an array with auth methods
-/**
- * Get a list of supported algorithm.
- * @api 
- * @return mixed Populated by method string name. You can use it on getResult ... and others methods.
- * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
- * @param $basic Include or not the natural Condorcet base algorithm.
- * @param $withNonDeterministicMethods Include or not non deterministic methods.
- */
+    /**
+     * Get a list of supported algorithm.
+     * @api
+     * @return mixed Populated by method string name. You can use it on getResult ... and others methods.
+     * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
+     * @param $basic Include or not the natural Condorcet base algorithm.
+     * @param $withNonDeterministicMethods Include or not non deterministic methods.
+     */
     public static function getAuthMethods(
         #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
         bool $basic = false,
@@ -127,12 +127,12 @@ abstract class Condorcet
 
 
     // Return the Class default method
-/**
- * Return the Condorcet static default method.
- * @api 
- * @return mixed Method name.
- * @see static Condorcet::getAuthMethods, static Condorcet::setDefaultMethod
- */
+    /**
+     * Return the Condorcet static default method.
+     * @api
+     * @return mixed Method name.
+     * @see static Condorcet::getAuthMethods, static Condorcet::setDefaultMethod
+     */
     public static function getDefaultMethod(): ?string
     {
         return self::$defaultMethod;
@@ -140,14 +140,14 @@ abstract class Condorcet
 
 
     // Check if the method is supported
-/**
- * Return the full class path for a method.
- * @api 
- * @return mixed Return null is method not exist.
- * @throws AlgorithmException
- * @see static Condorcet::getAuthMethods
- * @param $method A valid method name.
- */
+    /**
+     * Return the full class path for a method.
+     * @api
+     * @return mixed Return null is method not exist.
+     * @throws AlgorithmException
+     * @see static Condorcet::getAuthMethods
+     * @param $method A valid method name.
+     */
     public static function getMethodClass(
         #[FunctionParameter('A valid method name')]
         string $method
@@ -172,13 +172,13 @@ abstract class Condorcet
 
         return null;
     }
-/**
- * Test if a method is in the result set of Condorcet::getAuthMethods.
- * @api 
- * @return mixed True / False
- * @see static Condorcet::getMethodClass, static Condorcet::getAuthMethods
- * @param $method A valid method name or class.
- */
+    /**
+     * Test if a method is in the result set of Condorcet::getAuthMethods.
+     * @api
+     * @return mixed True / False
+     * @see static Condorcet::getMethodClass, static Condorcet::getAuthMethods
+     * @param $method A valid method name or class.
+     */
     public static function isAuthMethod(
         #[FunctionParameter('A valid method name or class')]
         string $method
@@ -188,13 +188,13 @@ abstract class Condorcet
 
 
     // Add algos
-/**
- * If you create your own Condorcet Algo. You will need it !
- * @api 
- * @return mixed True on Success. False on failure.
- * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
- * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
- */
+    /**
+     * If you create your own Condorcet Algo. You will need it !
+     * @api
+     * @return mixed True on Success. False on failure.
+     * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
+     * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
+     */
     public static function addMethod(
         #[FunctionParameter('The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).')]
         string $methodClass
@@ -237,13 +237,13 @@ abstract class Condorcet
 
 
     // Change default method for this class.
-/**
- * Put a new static method by default for the news Condorcet objects.
- * @api 
- * @return mixed In case of success, return TRUE
- * @see static Condorcet::getDefaultMethod
- * @param $method A valid method name or class.
- */
+    /**
+     * Put a new static method by default for the news Condorcet objects.
+     * @api
+     * @return mixed In case of success, return TRUE
+     * @see static Condorcet::getDefaultMethod
+     * @param $method A valid method name or class.
+     */
     public static function setDefaultMethod(
         #[FunctionParameter('A valid method name or class')]
         string $method

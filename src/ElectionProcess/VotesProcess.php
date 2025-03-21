@@ -14,9 +14,8 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, ParseVotesMaxNumberReachedException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, FunctionParameter, Throws};
 use CondorcetPHP\Condorcet\DataManager\{VotesManager, VotesManagerEvent};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
 // Manage Results for Election class
@@ -32,14 +31,14 @@ trait VotesProcess
     /////////// VOTES LIST ///////////
 
     // How many votes are registered ?
-/**
- * Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
- * @api 
- * @return mixed Number of valid and registered vote into this election.
- * @see Election::getVotesList, Election::countValidVoteWithConstraints
- * @param $tags Tag into string separated by commas, or an Array.
- * @param $with Count Votes with this tag ou without this tag-.
- */
+    /**
+     * Count the number of actual registered and valid vote for this election. This method ignore votes constraints, only valid vote will be counted.
+     * @api
+     * @return mixed Number of valid and registered vote into this election.
+     * @see Election::getVotesList, Election::countValidVoteWithConstraints
+     * @param $tags Tag into string separated by commas, or an Array.
+     * @param $with Count Votes with this tag ou without this tag-.
+     */
     public function countVotes(
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
@@ -48,24 +47,24 @@ trait VotesProcess
     ): int {
         return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
     }
-/**
- * Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
- * @api 
- * @return mixed Number of valid and registered vote into this election.
- * @see Election::countValidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
- */
+    /**
+     * Count the number of actual invalid (if constraints functionality is enabled) but registered vote for this election.
+     * @api
+     * @return mixed Number of valid and registered vote into this election.
+     * @see Election::countValidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
+     */
     public function countInvalidVoteWithConstraints(): int
     {
         return $this->Votes->countInvalidVoteWithConstraints();
     }
-/**
- * Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
- * @api 
- * @return mixed Number of valid and registered vote into this election.
- * @see Election::countInvalidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
- * @param $tags Tag into string separated by commas, or an Array.
- * @param $with Count Votes with this tag ou without this tag-.
- */
+    /**
+     * Count the number of actual registered and valid vote for this election. This method don't ignore votes constraints, only valid vote will be counted.
+     * @api
+     * @return mixed Number of valid and registered vote into this election.
+     * @see Election::countInvalidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
+     * @param $tags Tag into string separated by commas, or an Array.
+     * @param $with Count Votes with this tag ou without this tag-.
+     */
     public function countValidVoteWithConstraints(
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
@@ -76,14 +75,14 @@ trait VotesProcess
     }
 
     // Sum votes weight
-/**
- * Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.
- * @api 
- * @return mixed (Int) Total vote weight
- * @see Election::sumValidVotesWeightWithConstraints
- * @param $tags Tag into string separated by commas, or an Array.
- * @param $with Count Votes with this tag ou without this tag-.
- */
+    /**
+     * Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method ignore votes constraints.
+     * @api
+     * @return mixed (Int) Total vote weight
+     * @see Election::sumValidVotesWeightWithConstraints
+     * @param $tags Tag into string separated by commas, or an Array.
+     * @param $with Count Votes with this tag ou without this tag-.
+     */
     public function sumVotesWeight(
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
@@ -92,14 +91,14 @@ trait VotesProcess
     ): int {
         return $this->Votes->sumVotesWeight(VoteUtil::tagsConvert($tags), $with);
     }
-/**
- * Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
- * @api 
- * @return mixed (Int) Total vote weight
- * @see Election::countValidVoteWithConstraints, Election::countInvalidVoteWithConstraints
- * @param $tags Tag into string separated by commas, or an Array.
- * @param $with Count Votes with this tag ou without this tag-.
- */
+    /**
+     * Sum total votes weight in this election. If vote weight functionality is disable (default setting), it will return the number of registered votes. This method don't ignore votes constraints, only valid vote will be counted.
+     * @api
+     * @return mixed (Int) Total vote weight
+     * @see Election::countValidVoteWithConstraints, Election::countInvalidVoteWithConstraints
+     * @param $tags Tag into string separated by commas, or an Array.
+     * @param $with Count Votes with this tag ou without this tag-.
+     */
     public function sumValidVotesWeightWithConstraints(
         #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
@@ -110,14 +109,14 @@ trait VotesProcess
     }
 
     // Get the votes registered list
-/**
- * Get registered vote list.
- * @api 
- * @return mixed Populated by each Vote object.
- * @see Election::countVotes, Election::getVotesListAsString
- * @param $tags Tags list as a string separated by commas or array.
- * @param $with Get votes with these tags or without.
- */
+    /**
+     * Get registered vote list.
+     * @api
+     * @return mixed Populated by each Vote object.
+     * @see Election::countVotes, Election::getVotesListAsString
+     * @param $tags Tags list as a string separated by commas or array.
+     * @param $with Get votes with these tags or without.
+     */
     public function getVotesList(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -126,15 +125,15 @@ trait VotesProcess
     ): array {
         return $this->Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
     }
-/**
- * Get registered vote list.
- * @api 
- * @return mixed Return a string like:  
- *               A > B > C * 3  
- *               A = B > C * 6
- * @see Election::parseVotes
- * @param $withContext Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.
- */
+    /**
+     * Get registered vote list.
+     * @api
+     * @return mixed Return a string like:
+     *               A > B > C * 3
+     *               A = B > C * 6
+     * @see Election::parseVotes
+     * @param $withContext Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.
+     */
     public function getVotesListAsString(
         #[FunctionParameter('Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.')]
         bool $withContext = true
@@ -146,15 +145,15 @@ trait VotesProcess
     {
         return $this->Votes;
     }
-/**
- * Same as Election::getVotesList. But Return a PHP generator object.
- * Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
- * @api 
- * @return mixed Populated by each Vote object.
- * @see Election::getVotesList
- * @param $tags Tags list as a string separated by commas or array.
- * @param $with Get votes with these tags or without.
- */
+    /**
+     * Same as Election::getVotesList. But Return a PHP generator object.
+     * Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
+     * @api
+     * @return mixed Populated by each Vote object.
+     * @see Election::getVotesList
+     * @param $tags Tags list as a string separated by commas or array.
+     * @param $with Get votes with these tags or without.
+     */
     public function getVotesListGenerator(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -163,15 +162,15 @@ trait VotesProcess
     ): \Generator {
         return $this->Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
     }
-/**
- * Same as Election::getVotesList, filter out vote invalid under constraint. But Return a PHP generator object.
- * Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
- * @api 
- * @return mixed Populated by each Vote object.
- * @see Election::getVotesListGenerator, Election::getVotesList
- * @param $tags Tags list as a string separated by commas or array.
- * @param $with Get votes with these tags or without.
- */
+    /**
+     * Same as Election::getVotesList, filter out vote invalid under constraint. But Return a PHP generator object.
+     * Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
+     * @api
+     * @return mixed Populated by each Vote object.
+     * @see Election::getVotesListGenerator, Election::getVotesList
+     * @param $tags Tags list as a string separated by commas or array.
+     * @param $with Get votes with these tags or without.
+     */
     public function getVotesValidUnderConstraintGenerator(
         #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
@@ -180,9 +179,9 @@ trait VotesProcess
     ): \Generator {
         return $this->Votes->getVotesValidUnderConstraintGenerator($tags, $with);
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function getVoteKey(Vote $vote): ?int
     {
         return $this->Votes->getVoteKey($vote);
@@ -192,16 +191,16 @@ trait VotesProcess
     /////////// ADD & REMOVE VOTE ///////////
 
     // Add a single vote. Array key is the rank, each candidate in a rank are separate by ',' It is not necessary to register the last rank.
-/**
- * Add a vote to an election.
- * @api 
- * @return mixed The vote object.
- * @throws VoteMaxNumberReachedException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::parseVotes, Election::addVotesFromJson, Election::removeVote, Election::getVotesList
- * @param $vote String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you.
- * @param $tags String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
- */
+    /**
+     * Add a vote to an election.
+     * @api
+     * @return mixed The vote object.
+     * @throws VoteMaxNumberReachedException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::parseVotes, Election::addVotesFromJson, Election::removeVote, Election::getVotesList
+     * @param $vote String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you.
+     * @param $tags String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
+     */
     public function addVote(
         #[FunctionParameter('String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you')]
         array|string|Vote $vote,
@@ -218,16 +217,16 @@ trait VotesProcess
         // Register vote
         return $this->registerVote($vote, $tags); // Return the vote object
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function beginVoteUpdate(Vote $existVote): void
     {
         $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::VoteUpdateInProgress);
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function finishUpdateVote(Vote $existVote): void
     {
         $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::FinishUpdateVote);
@@ -236,9 +235,9 @@ trait VotesProcess
             $this->Votes[$this->getVoteKey($existVote)] = $existVote;
         }
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function checkVoteCandidate(Vote $vote): bool
     {
         if ($this->votesFastMode === VotesFastMode::NONE) {
@@ -267,9 +266,9 @@ trait VotesProcess
 
         return true;
     }
-/**
- * @internal 
- */
+    /**
+     * @internal
+     */
     public function convertRankingCandidates(array &$ranking): bool
     {
         $change = false;
@@ -299,13 +298,13 @@ trait VotesProcess
 
         return $vote;
     }
-/**
- * Remove all Votes from an election.
- * @api 
- * @return mixed True on success.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::addVote, Election::removeVote, Election::removeVotesByTags
- */
+    /**
+     * Remove all Votes from an election.
+     * @api
+     * @return mixed True on success.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::addVote, Election::removeVote, Election::removeVotesByTags
+     */
     public function removeAllVotes(): true
     {
         foreach ($this->getVotesList() as $oneVote) {
@@ -314,14 +313,14 @@ trait VotesProcess
 
         return true;
     }
-/**
- * Remove Votes from an election.
- * @api 
- * @return mixed True on success
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::removeAllVotes, Election::addVote, Election::getVotesList, Election::removeVotesByTags
- * @param $vote Vote object.
- */
+    /**
+     * Remove Votes from an election.
+     * @api
+     * @return mixed True on success
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::removeAllVotes, Election::addVote, Election::getVotesList, Election::removeVotesByTags
+     * @param $vote Vote object.
+     */
     public function removeVote(
         #[FunctionParameter('Vote object')]
         Vote $vote
@@ -334,22 +333,22 @@ trait VotesProcess
             throw new VoteException('Cannot remove vote not registered in this election');
         }
     }
-/**
- * Remove Vote from an election using tags.
- * 
- * ```php
- * \$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
- * \$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
- * \$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
- * \$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
- * ```
- * @api 
- * @return mixed List of removed CondorcetPHP\Condorcet\Vote object.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
- * @see Election::addVote, Election::getVotesList, Election::removeVotes
- * @param $tags Tags as string separated by commas or array.
- * @param $with Votes with these tags or without.
- */
+    /**
+     * Remove Vote from an election using tags.
+     *
+     * ```php
+     * \$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+     * \$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+     * \$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+     * \$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+     * ```
+     * @api
+     * @return mixed List of removed CondorcetPHP\Condorcet\Vote object.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
+     * @see Election::addVote, Election::getVotesList, Election::removeVotes
+     * @param $tags Tags as string separated by commas or array.
+     * @param $with Votes with these tags or without.
+     */
     public function removeVotesByTags(
         #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
@@ -375,9 +374,9 @@ trait VotesProcess
     /////////// PARSE VOTE ///////////
 
     // Return the well formatted vote to use.
-/**
- * @throws VoteInvalidFormatException
- */
+    /**
+     * @throws VoteInvalidFormatException
+     */
     protected function normalizeVoteInput(array|string|Vote $vote, array|string|null $tags = null): Vote
     {
         if (!($vote instanceof Vote)) {
@@ -391,14 +390,14 @@ trait VotesProcess
 
         return $vote;
     }
-/**
- * Import votes from a Json source.
- * @api 
- * @return mixed Count of new registered vote.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::addVote, Election::parseVotes, Election::addCandidatesFromJson
- * @param $input Json string input.
- */
+    /**
+     * Import votes from a Json source.
+     * @api
+     * @return mixed Count of new registered vote.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::addVote, Election::parseVotes, Election::addCandidatesFromJson
+     * @param $input Json string input.
+     */
     public function addVotesFromJson(
         #[FunctionParameter('Json string input')]
         string $input
@@ -425,15 +424,15 @@ trait VotesProcess
 
         return $count;
     }
-/**
- * Import votes from a text source. If any invalid vote is found inside, nothing are registered.
- * @api 
- * @return mixed Count of the new registered vote.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::addVote, Election::parseCandidates, Election::parseVotesWithoutFail, Election::addVotesFromJson
- * @param $input String or valid path to a text file.
- * @param $isFile If true, the input is evalatued as path to text file.
- */
+    /**
+     * Import votes from a text source. If any invalid vote is found inside, nothing are registered.
+     * @api
+     * @return mixed Count of the new registered vote.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::addVote, Election::parseCandidates, Election::parseVotesWithoutFail, Election::addVotesFromJson
+     * @param $input String or valid path to a text file.
+     * @param $isFile If true, the input is evalatued as path to text file.
+     */
     public function parseVotes(
         #[FunctionParameter('String or valid path to a text file')]
         string $input,
@@ -462,16 +461,16 @@ trait VotesProcess
 
         return $count;
     }
-/**
- * Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
- * @api 
- * @return mixed Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Election::addVote, Election::parseCandidates, Election::parseVotes, Election::addVotesFromJson
- * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
- * @param $isFile If true, the string input is evalatued as path to text file.
- * @param $callBack Callback function to execute after each valid line, before vote registration.
- */
+    /**
+     * Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
+     * @api
+     * @return mixed Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
+     * @see Election::addVote, Election::parseCandidates, Election::parseVotes, Election::addVotesFromJson
+     * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
+     * @param $isFile If true, the string input is evalatued as path to text file.
+     * @param $callBack Callback function to execute after each valid line, before vote registration.
+     */
     public function parseVotesWithoutFail(
         #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input,

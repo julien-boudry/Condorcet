@@ -12,20 +12,20 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {
     // Build by Version
     protected string $objectVersion = Condorcet::VERSION;
-/**
- * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
- * @api Candidate, Election, Result, Vote, Algo\Pairwise, DataManager\VotesManager, Timer\Manager
- * @return mixed Condorcet PHP version.
- * @see static Condorcet::getVersion
- * @param $major true will return 2.0 and false will return 2.0.0.
- */
+    /**
+     * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
+     * @api Candidate, Election, Result, Vote, Algo\Pairwise, DataManager\VotesManager, Timer\Manager
+     * @return mixed Condorcet PHP version.
+     * @see static Condorcet::getVersion
+     * @param $major true will return 2.0 and false will return 2.0.0.
+     */
     public function getObjectVersion(
         #[FunctionParameter('true will return 2.0 and false will return 2.0.0')]
         bool $major = false

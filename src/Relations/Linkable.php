@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Relations;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 
@@ -24,13 +24,13 @@ trait Linkable
     {
         $this->destroyAllLink();
     }
-/**
- * Check if this election is linked with this Candidate/Vote object.
- * @api 
- * @return mixed True or False.
- * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
- * @param $election Condorcet election to check.
- */
+    /**
+     * Check if this election is linked with this Candidate/Vote object.
+     * @api
+     * @return mixed True or False.
+     * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
+     * @param $election Condorcet election to check.
+     */
     public function haveLink(
         #[FunctionParameter('Condorcet election to check')]
         Election $election
@@ -39,24 +39,24 @@ trait Linkable
 
         return $this->link->offsetExists($election);
     }
-/**
- * Count number of linked election to this object.
- * @api 
- * @return mixed Number of linked elections.
- * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
- */
+    /**
+     * Count number of linked election to this object.
+     * @api
+     * @return mixed Number of linked elections.
+     * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
+     */
     public function countLinks(): int
     {
         $this->initWeakMap();
 
         return \count($this->link);
     }
-/**
- * Get elections object linked to this Vote or Candidate object.
- * @api 
- * @return mixed Populated by each elections Condorcet object.
- * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
- */
+    /**
+     * Get elections object linked to this Vote or Candidate object.
+     * @api
+     * @return mixed Populated by each elections Condorcet object.
+     * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
+     */
     public function getLinks(): array
     {
         $this->initWeakMap();

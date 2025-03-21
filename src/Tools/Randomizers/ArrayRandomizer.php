@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use Random\Randomizer;
 
 class ArrayRandomizer
@@ -39,12 +39,12 @@ class ArrayRandomizer
      * @api
      */
     public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
-/**
- * Create a new VotesRandomGenerator instance
- * @api 
- * @param $candidates List of candidates as string, candidates objects or sub-array.
- * @param $seed If null, will use a cryptographically secure randomizer.
- */
+    /**
+     * Create a new VotesRandomGenerator instance
+     * @api
+     * @param $candidates List of candidates as string, candidates objects or sub-array.
+     * @param $seed If null, will use a cryptographically secure randomizer.
+     */
     public function __construct(
         #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
         array $candidates,
@@ -62,31 +62,31 @@ class ArrayRandomizer
             $this->randomizer = new Randomizer(new \Random\Engine\Xoshiro256StarStar($seed));
         }
     }
-/**
- * Change the candidates running for this randomizer.
- * @api 
- * @param $candidates The array of candidates to shuffle.
- */
+    /**
+     * Change the candidates running for this randomizer.
+     * @api
+     * @param $candidates The array of candidates to shuffle.
+     */
     public function setCandidates(
         #[FunctionParameter('The array of candidates to shuffle')]
         array $candidates
     ): void {
         $this->candidates = $candidates;
     }
-/**
- * Count candidates currently running for this instance of the randomizer.
- * @api 
- * @return mixed Count of candidates
- */
+    /**
+     * Count candidates currently running for this instance of the randomizer.
+     * @api
+     * @return mixed Count of candidates
+     */
     public function countCandidates(): int
     {
         return \count($this->candidates);
     }
-/**
- * Generate a new random vote.
- * @api 
- * @return mixed Return the new vote.
- */
+    /**
+     * Generate a new random vote.
+     * @api
+     * @return mixed Return the new vote.
+     */
     public function shuffle(): array
     {
         $randomizedCandidates = $this->randomizer->shuffleArray($this->candidates);

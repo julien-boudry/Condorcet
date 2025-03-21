@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Utils;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\{Candidate, Result, Vote};
 
@@ -70,14 +70,14 @@ abstract class CondorcetUtil
     }
 
     // Simplify Condorcet Var_Dump. Transform object to String.
-/**
- * Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
- * Can be use before a var_dump, or just to get more simple data output.
- * @api 
- * @return mixed New formatted data.
- * @param $input Input to convert.
- * @param $convertObject If true. Will convert Candidate objects into string representation of their name.
- */
+    /**
+     * Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
+     * Can be use before a var_dump, or just to get more simple data output.
+     * @api
+     * @return mixed New formatted data.
+     * @param $input Input to convert.
+     * @param $convertObject If true. Will convert Candidate objects into string representation of their name.
+     */
     public static function format(
         #[FunctionParameter('Input to convert')]
         mixed $input,

@@ -58,10 +58,10 @@ class VotesManager extends ArrayManager
     {
         return parent::offsetGet($offset);
     }
-/**
- * @throws VoteManagerException
- */
-#[\Override]
+    /**
+     * @throws VoteManagerException
+     */
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($value instanceof Vote) {

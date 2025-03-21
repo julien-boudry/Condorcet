@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, Example, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Related};
 use HaydenPierce\ClassFinder\ClassFinder;
-use LogicException;
 use PHPStan\PhpDocParser\Ast\Node;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\ConstExprParser;
-use PHPStan\PhpDocParser\Parser\ParserException;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use PHPStan\PhpDocParser\Parser\TypeParser;
+use PHPStan\PhpDocParser\Parser\{ConstExprParser, PhpDocParser, TokenIterator, TypeParser};
+use PHPStan\PhpDocParser\Ast\PhpDoc\{PhpDocNode, PhpDocTextNode};
 use PHPStan\PhpDocParser\ParserConfig;
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
-use ReflectionConstant;
 use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
@@ -33,7 +26,7 @@ class Generate
 
     // Static - Translators
 
-    public static function makeFilename(\ReflectionMethod $method): string
+    public static function makeFilename(ReflectionMethod $method): string
     {
         return self::getModifiersName($method) .
                 ' ' .
@@ -80,7 +73,7 @@ class Generate
         return $rf_rt;
     }
 
-    public static function getGithubLink(\ReflectionFunctionAbstract|\ReflectionClass $refl): string
+    public static function getGithubLink(\ReflectionFunctionAbstract|ReflectionClass $refl): string
     {
         return self::GITHUB_BASE . self::GITHUB_BRANCH_PATH .
                 substr($refl->getFileName(), mb_strpos($refl->getFileName(), '/src/') + 1) .
@@ -88,9 +81,9 @@ class Generate
         ;
     }
 
-    public static function getModifiersName(\ReflectionMethod $method): string
+    public static function getModifiersName(ReflectionMethod $method): string
     {
-        return implode(' ', \Reflection::getModifierNames($method->getModifiers()));
+        return implode(' ', Reflection::getModifierNames($method->getModifiers()));
     }
 
     // Static - Builder
@@ -106,7 +99,7 @@ class Generate
         return '[' . $name . '](' . $url . ')';
     }
 
-    public static function computeRepresentationAsForIndex(\ReflectionMethod $method): string
+    public static function computeRepresentationAsForIndex(ReflectionMethod $method): string
     {
         return self::getModifiersName($method) .
                 ' ' .
@@ -116,7 +109,7 @@ class Generate
                 ' (' . (($method->getNumberOfParameters() > 0) ? '...' : '') . ')';
     }
 
-    public static function computeRepresentationAsPHP(\ReflectionMethod $method): string
+    public static function computeRepresentationAsPHP(ReflectionMethod $method): string
     {
         $option = false;
         $str = '(';
@@ -183,7 +176,7 @@ class Generate
 
         // Warnings
         foreach ($FullClassList as $FullClass) {
-            $methods = new \ReflectionClass($FullClass)->getMethods(\ReflectionMethod::IS_PUBLIC);
+            $methods = new ReflectionClass($FullClass)->getMethods(ReflectionMethod::IS_PUBLIC);
 
             foreach ($methods as $oneMethod) {
 
@@ -224,7 +217,7 @@ class Generate
 
         // generate .md
         foreach ($FullClassList as $FullClass) {
-            $reflectionClass = new \ReflectionClass($FullClass);
+            $reflectionClass = new ReflectionClass($FullClass);
 
             $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
 
@@ -314,7 +307,7 @@ class Generate
 
     // Build Methods
 
-    protected function createMarkdownContent(\ReflectionMethod $method, array $entry): string
+    protected function createMarkdownContent(ReflectionMethod $method, array $entry): string
     {
         // Header
         $md =   '## ' . self::getModifiersName($method) . ' ' . self::simpleClass($method->class) . '::' . $method->name . "\n\n" .
@@ -359,10 +352,10 @@ class Generate
             $md .=  "\n\n" .
                     "### Throws:   \n\n";
 
-            foreach ( $this->getPhpDocNode($method)->getTagsByName('@throws') as $oneTag) {
+            foreach ($this->getPhpDocNode($method)->getTagsByName('@throws') as $oneTag) {
                 $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $method->getFileName());
 
-                $md .= '* ```' . $classPath  . "``` " . ($oneTag->value->description ?? '') . "\n";
+                $md .= '* ```' . $classPath . '``` ' . ($oneTag->value->description ?? '') . "\n";
             }
         }
 
@@ -388,7 +381,7 @@ class Generate
                     "### Tutorial\n\n";
 
             foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $method)) as $BookAttribute) {
-                $BookLibrary = constant($BookAttribute);
+                $BookLibrary = \constant($BookAttribute);
 
                 $md .= '* **[This method has explanations and examples in the Documentation Book](' . $BookLibrary->value . ")**    \n";
             }
@@ -401,8 +394,8 @@ class Generate
     {
         $file_content = '';
 
-        $testPublicAttribute = function (\ReflectionMethod $reflectionMethod): bool {
-            if(!$this->hasDocBlockTag('@api', $reflectionMethod)) {
+        $testPublicAttribute = function (ReflectionMethod $reflectionMethod): bool {
+            if (!$this->hasDocBlockTag('@api', $reflectionMethod)) {
                 return false;
             }
 
@@ -410,8 +403,7 @@ class Generate
 
             if (empty($apiDescription)) {
                 return true;
-            }
-            else {
+            } else {
                 if (str_contains($apiDescription, self::simpleClass($reflectionMethod->class))) {
                     return true;
                 }
@@ -468,7 +460,7 @@ class Generate
                     $file_content .= $this->makeEnumeCases(new \ReflectionEnum($enumCases->name), false);
                     $file_content .= "\n";
                 } else {
-                    $file_content .= $this->makeConstants($classMeta['ReflectionClass'], \ReflectionClassConstant::IS_PUBLIC, true);
+                    $file_content .= $this->makeConstants($classMeta['ReflectionClass'], ReflectionClassConstant::IS_PUBLIC, true);
                 }
 
                 $file_content .= $this->makeProperties($classMeta['ReflectionClass'], null, true);
@@ -511,7 +503,7 @@ class Generate
         return $r;
     }
 
-    protected function makeConstants(\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
+    protected function makeConstants(ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
     {
         $file_content = '';
 
@@ -542,7 +534,7 @@ class Generate
         return $file_content;
     }
 
-    protected function makeProperties(\ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
+    protected function makeProperties(ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
     {
         $file_content = '';
 
@@ -701,7 +693,7 @@ class Generate
 
     protected function hasDocBlockTag(string $tag, ReflectionClass|ReflectionMethod|ReflectionClassConstant|ReflectionProperty $source): bool
     {
-        return in_array($tag, $this->getDocBlockTags($source), true);
+        return \in_array($tag, $this->getDocBlockTags($source), true);
     }
 
     protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
@@ -732,7 +724,7 @@ class Generate
         $lines = array_map(fn(PhpDocTextNode $textNode) => $textNode->text, $textNodes);
         $nonBlankLines = array_filter($lines);
 
-        return empty($nonBlankLines) ? false : implode(PHP_EOL, $nonBlankLines);
+        return empty($nonBlankLines) ? false : implode(\PHP_EOL, $nonBlankLines);
     }
 
     protected function getDocBlockParameters(ReflectionMethod $method): array
@@ -743,7 +735,7 @@ class Generate
 
         $params = [];
 
-        foreach($paramsTagValueNode as $paramTagValueNode) {
+        foreach ($paramsTagValueNode as $paramTagValueNode) {
             $params[str_replace('$', '', $paramTagValueNode->parameterName)] = $paramTagValueNode->description ?? null;
         }
 
