@@ -1,6 +1,7 @@
 *.sqlite
 *.clover
 *.cache
+*.gitignore.*
 
 # composer
 /vendor/

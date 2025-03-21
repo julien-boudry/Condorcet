@@ -39,7 +39,7 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
 
 ## Summary <!-- {docsify-ignore-all} -->
 - [Condorcet PHP](#condorcet-php)
-  - [Summary ](#summary-)
+  - [Summary](#summary)
   - [Project State and Specifications](#project-state-and-specifications)
   - [Supported Voting Methods](#supported-voting-methods)
     - [Single-Winner Methods provided natively](#single-winner-methods-provided-natively)
@@ -62,7 +62,7 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
   - [Performance \& Coding style considerations](#performance--coding-style-considerations)
       - [Coding standards:](#coding-standards)
       - [Performance:](#performance)
-          - [Kemeny-Youg case:](#kemeny-youg-case)
+          - [Kemeny-Young case:](#kemeny-young-case)
           - [Massive election case:](#massive-election-case)
   - [Roadmap for further releases](#roadmap-for-further-releases)
   - [Related projects / They use Condorcet](#related-projects--they-use-condorcet)
@@ -77,13 +77,13 @@ _Both approaches can handle up to hundreds of millions of votes (or more) on mod
 | 4.7 | 8.3 | Old Stable | ✔ _support provided_
 | 4.6 | 8.2 | Old Stable | ✔ _support provided_
 | 3.x | 8.1 | Old Stable | ❌ _not any support_
-| 2.2 | 7.4 | Old Stable | ❌ _support requiring some bait_
+| 2.2 | 7.4 | Old Stable | ❌ _support requiring some incentive_
 | 2.0 | 7.1 | Old Stable | ❌ _not any support_
 | 1.0 | 5.6 | Old Stable | ❌ _not any support_
 | 0.9x | 5.5 | Old Stable | ❌ ℹ _Since v0.90, you should consider then it's a new project (api, engine)._
 | 0.14 | 5.5 | Old Stable | ❌ _ready for the museum_
 
-_All versions require Json and Mbstring extensions (or polyfill). Pdo-Sqlite is recommended if you need to activate the default provided driver for bigs elections (hundred of thousands of votes or more)_
+_All versions require Json and Mbstring extensions (or polyfill). Pdo-Sqlite is recommended if you need to activate the default provided driver for big elections (hundreds of thousands of votes or more)._
 
 ## Supported Voting Methods
 Support both single-winner methods _(with or without the Condorcet criterion)_ and proportional methods.
@@ -94,13 +94,13 @@ Support both single-winner methods _(with or without the Condorcet criterion)_ a
 Single-winner methods return a full ranking of all candidates, even though they are generally designed to designate only one winner.
 
 #### Deterministic
-> Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FTPT / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)
+> Condorcet / Borda (+ Nauru variant) / Copeland / Dodgson (2 Approximations) / FPTP / Instant-runoff (alternative vote) / Kemeny–Young / Minimax (+ variants) / Ranked Pairs (+ variants) / Schulze (+ variants)
 
 #### Lotteries
 > Random Ballot / Random Candidates
 
 ### Proportional Methods provided natively
-Designed for electing assembly, return a full ranking of elected candidates.
+Designed for electing an assembly, return a full ranking of elected candidates.
 
 > Single Transferable Vote *(STV)* / Comparison of Pairs of Outcomes by the Single Transferable Vote *(CPO-STV)* / Highest Averages Methods *(Sainte-Laguë, Jefferson/D'Hondt, and variants)* / Largest Remainder Methods _(with different quotas)_
 
@@ -162,7 +162,7 @@ Namespace ```\CondorcetPHP\Condorcet``` is used.
 
 Can be installed as you prefer with: Composer / Natively provided autoloader / Any PSR-4 compatible autoloader.
 
-> **[Condorcet as a PHP library, installation instruction](https://www.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
+> **[Condorcet as a PHP library, installation instructions](https://www.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
 
 ### Library Manual
 
@@ -188,8 +188,8 @@ The precise documentation of methods can be found in Markdown format in the "Doc
 
 ### Specifics examples
 
-* [Condorcet Documentation Book](https://www.condorcet.io/) provides many code example
-* [Manage millions of votes with an external database drive](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
+* [Condorcet Documentation Book](https://www.condorcet.io/) provides many code examples
+* [Manage millions of votes with an external database driver](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
 
 
 ## Performance & Coding style considerations
