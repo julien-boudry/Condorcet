@@ -12,11 +12,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\InternalModulesAPI;
 use CondorcetPHP\Condorcet\{Election, Result};
 
 // Interface with the aim of verifying the good modular implementation of algorithms.
-#[InternalModulesAPI]
+/**
+ * @internal
+ */
 interface MethodInterface
 {
     public const array METHOD_NAME = [];

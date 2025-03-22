@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Tools\Randomizers;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use Random\Randomizer;
 
 class ArrayRandomizer
@@ -46,9 +45,7 @@ class ArrayRandomizer
      * @param $seed If null, will use a cryptographically secure randomizer.
      */
     public function __construct(
-        #[FunctionParameter('List of candidates as string, candidates objects or sub-array')]
         array $candidates,
-        #[FunctionParameter('If null, will use a cryptographically secure randomizer')]
         Randomizer|null|string $seed = null
     ) {
         $this->setCandidates($candidates);
@@ -68,7 +65,6 @@ class ArrayRandomizer
      * @param $candidates The array of candidates to shuffle.
      */
     public function setCandidates(
-        #[FunctionParameter('The array of candidates to shuffle')]
         array $candidates
     ): void {
         $this->candidates = $candidates;

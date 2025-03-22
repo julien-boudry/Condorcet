@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Utils;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException;
 use CondorcetPHP\Condorcet\{Candidate, Result, Vote};
 
@@ -79,9 +78,7 @@ abstract class CondorcetUtil
      * @param $convertObject If true. Will convert Candidate objects into string representation of their name.
      */
     public static function format(
-        #[FunctionParameter('Input to convert')]
         mixed $input,
-        #[FunctionParameter('If true. Will convert Candidate objects into string representation of their name')]
         bool $convertObject = true
     ): mixed {
         if (\is_object($input)) {

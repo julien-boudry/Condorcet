@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
-
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {
@@ -27,7 +25,6 @@ trait CondorcetVersion
      * @param $major true will return 2.0 and false will return 2.0.0.
      */
     public function getObjectVersion(
-        #[FunctionParameter('true will return 2.0 and false will return 2.0.0')]
         bool $major = false
     ): string {
         if ($major === true) {

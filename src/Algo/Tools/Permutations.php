@@ -15,19 +15,17 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException as CondorcetIntegerOverflowException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{InternalModulesAPI, PublicAPI};
 use SplFixedArray;
 
 // Thanks to Jorge Gomes @cyberkurumin
 /**
- * @internal 
+ * @internal
  */
 class Permutations
 {
     /**
      * @api
      */
-    #[PublicAPI] // Must be available with composer installation. Only applied to getPossibleCountOfPermutations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 
     public protected(set) readonly array $candidates;

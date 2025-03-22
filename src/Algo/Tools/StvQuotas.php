@@ -14,11 +14,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Tools;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, FunctionParameter, PublicAPI};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\Book;
 use CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException;
 
 // Generic for Algorithms
-#[PublicAPI]
 enum StvQuotas: string
 {
     case DROOP = 'Droop Quota';
@@ -33,7 +32,6 @@ enum StvQuotas: string
      * @param $quota Quota name.
      */
     public static function make(
-        #[FunctionParameter('Quota name')]
         string $quota
     ): self {
         try {

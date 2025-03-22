@@ -1,6 +1,6 @@
 ## public Election::removeAllVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L309)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L291)
 
 ### Description    
 

@@ -1321,7 +1321,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements ArrayAccess, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L19)
 
 ```php
 * private bool $valid
@@ -1391,7 +1391,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\Permutations `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Permutations.php#L25)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Permutations.php#L24)
 
 ```php
 * public static bool $useBigIntegerIfAvailable
@@ -1405,7 +1405,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L21)
 
 ```php
 * `case StvQuotas::DROOP`  
@@ -1421,7 +1421,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/TieBreakersCollection.php#L24)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/TieBreakersCollection.php#L23)
 
 ```php
 * public static electSomeLosersbasedOnPairwiseComparaison (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys): array  
@@ -1436,7 +1436,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\VotesDeductedApprovals implements Countable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VotesDeductedApprovals.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VotesDeductedApprovals.php#L22)
 
 ```php
 * protected array $combinationsScore
@@ -1453,7 +1453,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Candidate implements Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L20)
 
 ```php
 * public string $name
@@ -1823,7 +1823,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L22)
 
 ```php
 * public const SEGMENT: (array)
@@ -2663,7 +2663,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L18)
 
 ```php
 * public static createFromElection (CondorcetPHP\Condorcet\Election $election, ?SplFileObject $file = null): string|true  
@@ -2699,7 +2699,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L17)
 
 ```php
 * protected Random\Randomizer $randomizer
@@ -2717,7 +2717,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer extends CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L17)
 
 ```php
 * protected Random\Randomizer $randomizer
@@ -2736,7 +2736,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Utils\CondorcetUtil `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L18)
 
 ```php
 * public static format (mixed $input, bool $convertObject = true): mixed  

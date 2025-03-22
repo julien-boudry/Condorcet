@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 // Registering native Condorcet Methods implementation
@@ -84,7 +84,6 @@ abstract class Condorcet
      * @param $major * true will return : 2.0, false will return : 2.0.0.
      */
     public static function getVersion(
-        #[FunctionParameter('* true will return : 2.0, false will return : 2.0.0')]
         bool $major = false
     ): string {
         if ($major === true) {
@@ -105,9 +104,7 @@ abstract class Condorcet
      * @param $withNonDeterministicMethods Include or not non deterministic methods.
      */
     public static function getAuthMethods(
-        #[FunctionParameter('Include or not the natural Condorcet base algorithm')]
         bool $basic = false,
-        #[FunctionParameter('Include or not non deterministic methods')]
         bool $withNonDeterministicMethods = true
     ): array {
         $auth = self::$authMethods;
@@ -149,7 +146,6 @@ abstract class Condorcet
      * @param $method A valid method name.
      */
     public static function getMethodClass(
-        #[FunctionParameter('A valid method name')]
         string $method
     ): ?string {
         $auth = self::$authMethods;
@@ -180,7 +176,6 @@ abstract class Condorcet
      * @param $method A valid method name or class.
      */
     public static function isAuthMethod(
-        #[FunctionParameter('A valid method name or class')]
         string $method
     ): bool {
         return self::getMethodClass($method) !== null;
@@ -196,7 +191,6 @@ abstract class Condorcet
      * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
      */
     public static function addMethod(
-        #[FunctionParameter('The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).')]
         string $methodClass
     ): bool {
         // Check algos
@@ -245,7 +239,6 @@ abstract class Condorcet
      * @param $method A valid method name or class.
      */
     public static function setDefaultMethod(
-        #[FunctionParameter('A valid method name or class')]
         string $method
     ): bool {
         if (($method = self::getMethodClass($method)) && $method !== self::CONDORCET_BASIC_CLASS) {

@@ -15,7 +15,6 @@ namespace CondorcetPHP\Condorcet\Algo\Tools;
 use Brick\Math\BigInteger;
 use Brick\Math\Exception\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException as CondorcetIntegerOverflowException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{PublicAPI};
 use SplFixedArray;
 
 /**
@@ -26,7 +25,6 @@ class Combinations
     /**
      * @api
      */
-    #[PublicAPI] // Must be available with composer installation. Only appliez to getPossibleCountOfCombinations() method. PHP and memory can't do the compute() with such large numbers.
     public static bool $useBigIntegerIfAvailable = true;
 
     public static function getPossibleCountOfCombinations(int $count, int $length): int

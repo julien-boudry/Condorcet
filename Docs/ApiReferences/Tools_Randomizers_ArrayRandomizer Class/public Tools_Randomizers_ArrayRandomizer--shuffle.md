@@ -1,6 +1,6 @@
 ## public Tools\Randomizers\ArrayRandomizer::shuffle
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L90)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L86)
 
 ### Description    
 

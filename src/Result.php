@@ -190,7 +190,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  * @param $convertToString Convert Candidate object to string.
  */
     public function getResultAsArray(
-        #[FunctionParameter('Convert Candidate object to string')]
+
         bool $convertToString = false
     ): array {
         $r = $this->ranking;
@@ -349,7 +349,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  * @param $type Filter on a specific warning type code.
  */
     public function getWarning(
-        #[FunctionParameter('Filter on a specific warning type code')]
+
         ?int $type = null
     ): array {
         if ($type === null) {

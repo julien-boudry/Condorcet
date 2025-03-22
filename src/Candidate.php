@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, FunctionParameter, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Relations\Linkable;
 use Deprecated;
 
@@ -58,7 +58,6 @@ class Candidate implements \Stringable
      * @param $name Candidate Name.
      */
     public function __construct(
-        #[FunctionParameter('Candidate Name')]
         string $name
     ) {
         $this->name = $name;
@@ -92,7 +91,6 @@ class Candidate implements \Stringable
      * @param $name Candidate Name.
      */
     public function setName(
-        #[FunctionParameter('Candidate Name')]
         string $name
     ): self {
         $this->name = $name;

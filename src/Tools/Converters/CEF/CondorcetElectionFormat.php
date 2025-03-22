@@ -36,17 +36,17 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
  * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
  */
     public static function createFromElection(
-        #[FunctionParameter('Election with data')]
+
         Election $election,
-        #[FunctionParameter('If true, will try to reduce number of lines, with quantifier for identical votes')]
+
         bool $aggregateVotes = true,
-        #[FunctionParameter('Add the Number Of Seats parameters to the output')]
+
         bool $includeNumberOfSeats = true,
-        #[FunctionParameter('Add the vote tags information if any. Not working if $aggregateVotes is true')]
+
         bool $includeTags = true,
-        #[FunctionParameter('Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.')]
+
         bool $inContext = false,
-        #[FunctionParameter('If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_')]
+
         ?\SplFileObject $file = null
     ): ?string {
         $r = '';
@@ -91,7 +91,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
  * @param $input CondorcetElectionFormat string to parse.
  */
     public static function createFromString(
-        #[FunctionParameter('CondorcetElectionFormat string to parse')]
+
         string $input
     ): self
     {
@@ -158,7 +158,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
  * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
  */
     public function __construct(
-        #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
+
         \SplFileInfo|string $input
     ) {
         $input = ($input instanceof \SplFileInfo) ? $input : new \SplFileInfo($input);
@@ -197,9 +197,9 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
  */
 #[\Override]
     public function setDataToAnElection(
-        #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
+
         Election $election = new Election,
-        #[FunctionParameter('Callback function to execute after each registered vote.')]
+
         ?\Closure $callBack = null
     ): Election {
         // Parameters

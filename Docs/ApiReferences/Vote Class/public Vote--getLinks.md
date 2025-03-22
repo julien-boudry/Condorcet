@@ -1,6 +1,6 @@
 ## public Vote::getLinks
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L60)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L58)
 
 ### Description    
 

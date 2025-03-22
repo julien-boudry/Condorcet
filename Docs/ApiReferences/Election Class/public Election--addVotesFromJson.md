@@ -1,6 +1,6 @@
 ## public Election::addVotesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L402)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L381)
 
 ### Description    
 

@@ -35,7 +35,7 @@ class DebianFormat implements ConverterImport
  * @param $filePath File absolute path.
  */
     public function __construct(
-        #[FunctionParameter('File absolute path')]
+
         string $filePath
     ) {
         $this->lines = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
@@ -52,7 +52,7 @@ class DebianFormat implements ConverterImport
  */
 #[\Override]
     public function setDataToAnElection(
-        #[FunctionParameter('Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.')]
+
         ?Election $election = null
     ): Election {
         if ($election === null) {

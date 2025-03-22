@@ -14,7 +14,7 @@ namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Vote;
 use CondorcetPHP\Condorcet\Throwable\{FileDoesNotExistException, ParseVotesMaxNumberReachedException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, FunctionParameter, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\DataManager\{VotesManager, VotesManagerEvent};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 
@@ -40,9 +40,7 @@ trait VotesProcess
      * @param $with Count Votes with this tag ou without this tag-.
      */
     public function countVotes(
-        #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
     ): int {
         return $this->Votes->countVotes(VoteUtil::tagsConvert($tags), $with);
@@ -66,9 +64,7 @@ trait VotesProcess
      * @param $with Count Votes with this tag ou without this tag-.
      */
     public function countValidVoteWithConstraints(
-        #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
     ): int {
         return $this->Votes->countValidVotesWithConstraints(VoteUtil::tagsConvert($tags), $with);
@@ -84,9 +80,7 @@ trait VotesProcess
      * @param $with Count Votes with this tag ou without this tag-.
      */
     public function sumVotesWeight(
-        #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
     ): int {
         return $this->Votes->sumVotesWeight(VoteUtil::tagsConvert($tags), $with);
@@ -100,9 +94,7 @@ trait VotesProcess
      * @param $with Count Votes with this tag ou without this tag-.
      */
     public function sumValidVotesWeightWithConstraints(
-        #[FunctionParameter('Tag into string separated by commas, or an Array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Count Votes with this tag ou without this tag-')]
         bool|int $with = true
     ): int {
         return $this->Votes->sumVotesWeightWithConstraints(VoteUtil::tagsConvert($tags), $with);
@@ -118,9 +110,7 @@ trait VotesProcess
      * @param $with Get votes with these tags or without.
      */
     public function getVotesList(
-        #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): array {
         return $this->Votes->getVotesList(VoteUtil::tagsConvert($tags), $with);
@@ -135,7 +125,6 @@ trait VotesProcess
      * @param $withContext Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.
      */
     public function getVotesListAsString(
-        #[FunctionParameter('Depending of the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, ranking are never adapted to the context.')]
         bool $withContext = true
     ): string {
         return $this->Votes->getVotesListAsString($withContext);
@@ -155,9 +144,7 @@ trait VotesProcess
      * @param $with Get votes with these tags or without.
      */
     public function getVotesListGenerator(
-        #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): \Generator {
         return $this->Votes->getVotesListGenerator(VoteUtil::tagsConvert($tags), $with);
@@ -172,9 +159,7 @@ trait VotesProcess
      * @param $with Get votes with these tags or without.
      */
     public function getVotesValidUnderConstraintGenerator(
-        #[FunctionParameter('Tags list as a string separated by commas or array')]
         array|null|string $tags = null,
-        #[FunctionParameter('Get votes with these tags or without')]
         bool $with = true
     ): \Generator {
         return $this->Votes->getVotesValidUnderConstraintGenerator($tags, $with);
@@ -202,9 +187,7 @@ trait VotesProcess
      * @param $tags String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object.
      */
     public function addVote(
-        #[FunctionParameter('String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you not provide yourself Vote object, a new one will be generate for you')]
         array|string|Vote $vote,
-        #[FunctionParameter('String separated by commas or an array. Will add tags to the vote object for you. But you can too add it yourself to Vote object')]
         array|string|null $tags = null
     ): Vote {
         $vote = $this->normalizeVoteInput($vote, $tags);
@@ -322,7 +305,6 @@ trait VotesProcess
      * @param $vote Vote object.
      */
     public function removeVote(
-        #[FunctionParameter('Vote object')]
         Vote $vote
     ): true {
         $key = $this->getVoteKey($vote);
@@ -350,9 +332,7 @@ trait VotesProcess
      * @param $with Votes with these tags or without.
      */
     public function removeVotesByTags(
-        #[FunctionParameter('Tags as string separated by commas or array')]
         array|string $tags,
-        #[FunctionParameter('Votes with these tags or without')]
         bool $with = true
     ): array {
         $rem = [];
@@ -399,7 +379,6 @@ trait VotesProcess
      * @param $input Json string input.
      */
     public function addVotesFromJson(
-        #[FunctionParameter('Json string input')]
         string $input
     ): int {
         $input = CondorcetUtil::prepareJson($input);
@@ -434,9 +413,7 @@ trait VotesProcess
      * @param $isFile If true, the input is evalatued as path to text file.
      */
     public function parseVotes(
-        #[FunctionParameter('String or valid path to a text file')]
         string $input,
-        #[FunctionParameter('If true, the input is evalatued as path to text file')]
         bool $isFile = false
     ): int {
         $input = CondorcetUtil::prepareParse($input, $isFile);
@@ -472,11 +449,8 @@ trait VotesProcess
      * @param $callBack Callback function to execute after each valid line, before vote registration.
      */
     public function parseVotesWithoutFail(
-        #[FunctionParameter('String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject')]
         \SplFileInfo|string $input,
-        #[FunctionParameter('If true, the string input is evalatued as path to text file')]
         bool $isFile = false,
-        #[FunctionParameter('Callback function to execute after each valid line, before vote registration.')]
         ?\Closure $callBack = null
     ): int {
         $parsedVotesCounter = 0;

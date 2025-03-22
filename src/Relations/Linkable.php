@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Relations;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use CondorcetPHP\Condorcet\Election;
 use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 
@@ -32,7 +31,6 @@ trait Linkable
      * @param $election Condorcet election to check.
      */
     public function haveLink(
-        #[FunctionParameter('Condorcet election to check')]
         Election $election
     ): bool {
         $this->initWeakMap();

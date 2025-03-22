@@ -1,6 +1,6 @@
 ## public Election::getVotesListAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L138)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L127)
 
 ### Description    
 
@@ -17,8 +17,8 @@ Depending of the implicit ranking rule of the election, will complete or not the
 
 ### Return value:   
 
-*(`string`)* Return a string like:  
-A > B > C * 3  
+*(`string`)* Return a string like:
+A > B > C * 3
 A = B > C * 6
 
 

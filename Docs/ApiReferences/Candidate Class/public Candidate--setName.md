@@ -1,6 +1,6 @@
 ## public Candidate::setName
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L95)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L93)
 
 ### Description    
 

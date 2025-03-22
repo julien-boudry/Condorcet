@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{PublicAPI, Throws};
 use CondorcetPHP\Condorcet\CondorcetVersion;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
 use CondorcetPHP\Condorcet\Throwable\DataHandlerException;
@@ -27,7 +26,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     /**
      * @api
      */
-    #[PublicAPI]
     public const array SEGMENT = [499, 50, 4, 1]; // Must be ordered desc.
 
     protected readonly \PDO $handler;
@@ -39,7 +37,6 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
     /**
      * @api
      */
-    #[PublicAPI]
     public static bool $preferBlobInsteadVarchar = true;
 
     protected array $struct;

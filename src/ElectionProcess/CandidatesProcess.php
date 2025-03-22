@@ -98,9 +98,9 @@ trait CandidatesProcess
  * @param $strictMode Search comparison mode. In strict mode, candidate objects are compared strictly and a string input cannot match anything. If strict mode is false, the comparison will be based on name.
  */
     public function isRegisteredCandidate(
-        #[FunctionParameter('Candidate object or candidate string name. String name works only if the strict mode is false')]
+
         Candidate|string $candidate,
-        #[FunctionParameter('Search comparison mode. In strict mode, candidate objects are compared strictly and a string input cannot match anything. If strict mode is false, the comparison will be based on name')]
+
         bool $strictMode = true
     ): bool {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->candidates, strict: false);
@@ -112,7 +112,7 @@ trait CandidatesProcess
  * @param $candidateName Candidate name.
  */
     public function getCandidateObjectFromName(
-        #[FunctionParameter('Candidate name')]
+
         string $candidateName
     ): ?Candidate {
         foreach ($this->candidates as $oneCandidate) {
@@ -139,7 +139,7 @@ trait CandidatesProcess
  * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.
  */
     public function addCandidate(
-        #[FunctionParameter('Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.')]
+
         Candidate|string|null $candidate = null
     ): Candidate {
         // only if the vote has not started
@@ -181,7 +181,7 @@ trait CandidatesProcess
  * @param $candidate String or Condorcet/Vote object.
  */
     public function canAddCandidate(
-        #[FunctionParameter('String or Condorcet/Vote object')]
+
         Candidate|string $candidate
     ): bool {
         return !$this->isRegisteredCandidate($candidate, false);
@@ -201,7 +201,7 @@ trait CandidatesProcess
  * @param $candidates_input String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name.
  */
     public function removeCandidates(
-        #[FunctionParameter('String matching candidate name CondorcetPHP\Condorcet\Candidate object. Array populated by CondorcetPHP\Condorcet\Candidate\. Array populated by string matching candidate name')]
+
         array|Candidate|string $candidates_input
     ): array {
         // only if the vote has not started
@@ -247,7 +247,7 @@ trait CandidatesProcess
  * @param $input JSON string input.
  */
     public function addCandidatesFromJson(
-        #[FunctionParameter('JSON string input')]
+
         string $input
     ): array {
         $input = CondorcetUtil::prepareJson($input);
@@ -284,9 +284,9 @@ trait CandidatesProcess
  * @param $isFile If true, the input is evaluated as path to a text file.
  */
     public function parseCandidates(
-        #[FunctionParameter('String or valid path to a text file')]
+
         string $input,
-        #[FunctionParameter('If true, the input is evaluated as path to a text file')]
+
         bool $isFile = false
     ): array {
         $input = CondorcetUtil::prepareParse($input, $isFile);

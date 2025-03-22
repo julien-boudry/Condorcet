@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
 use CondorcetPHP\Condorcet\Election;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{FunctionParameter};
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport;
 
 class CivsFormat implements ConverterExport
@@ -28,9 +27,7 @@ class CivsFormat implements ConverterExport
      * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
      */
     public static function createFromElection(
-        #[FunctionParameter('Election with data')]
         Election $election,
-        #[FunctionParameter('If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_')]
         ?\SplFileObject $file = null
     ): true|string {
         $r = '';

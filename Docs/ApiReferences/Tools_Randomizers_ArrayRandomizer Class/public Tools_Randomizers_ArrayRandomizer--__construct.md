@@ -1,6 +1,6 @@
 ## public Tools\Randomizers\ArrayRandomizer::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L48)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L47)
 
 ### Description    
 
