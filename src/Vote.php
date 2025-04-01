@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet;
 
-use ArrayAccess;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
@@ -20,7 +19,11 @@ use CondorcetPHP\Condorcet\Relations\Linkable;
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteEntryParser, VoteUtil};
 use Deprecated;
 
-class Vote implements \Iterator, \Stringable, ArrayAccess
+/**
+ * @implements \ArrayAccess<int,array<Candidate>>
+ * @implements \Iterator<int,array<Candidate>>
+ */
+class Vote implements \Iterator, \Stringable, \ArrayAccess
 {
     use Linkable;
     use CondorcetVersion;
@@ -82,6 +85,7 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     // Vote
 
+    /** @var array<int,array<Candidate>> */
     private array $ranking;
 
     private float $lastTimestamp;
@@ -112,6 +116,8 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
 
     // Performance (for internal use)
     protected static ?\stdClass $cacheKey = null;
+
+    /** @var \WeakMap<\stdClass, array> */
     protected \WeakMap $cacheMap;
 
     public static function initCache(): \stdClass
@@ -134,8 +140,8 @@ class Vote implements \Iterator, \Stringable, ArrayAccess
  * @see Vote::setRanking, Vote::addTags
  * @param $ranking Equivalent to Vote::setRanking method.
  * @param $tags Equivalent to Vote::addTags method.
- * @param $ownTimestamp Set your own timestamp metadata on Ranking.
- * @param $electionContext Try to convert directly your candidates from sting input" to Candidate object of one election.
+ * @param $ownTimestamp Set your own timestamp metadata for this Ranking.
+ * @param $electionContext Try to convert directly your candidates from string input to Candidate object of one election.
  */
     public function __construct(
 

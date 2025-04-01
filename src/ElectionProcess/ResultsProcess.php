@@ -21,7 +21,9 @@ use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use Random\Randomizer;
 
-// Manage Results for Election class
+/**
+ * Manage Results for an Election class
+ */
 trait ResultsProcess
 {
     /////////// CONSTRUCTOR ///////////
@@ -170,7 +172,7 @@ trait ResultsProcess
  */
     public function getCondorcetWinner(): ?Candidate
     {
-        return $this->getWinner(null);
+        return $this->getWinner(null); // @phpstan-ignore return.type
     }
 /**
  * Get the natural Condorcet loser if there is one.
@@ -181,7 +183,7 @@ trait ResultsProcess
  */
     public function getCondorcetLoser(): ?Candidate
     {
-        return $this->getLoser(null);
+        return $this->getLoser(null); // @phpstan-ignore return.type
     }
 /**
  * Return the Pairwise.

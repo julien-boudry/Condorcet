@@ -1,11 +1,13 @@
 parameters:
-    level: 5
+    level: 7
     paths:
         - src
 
     ignoreErrors:
         - identifier: unset.possiblyHookedProperty
         - identifier: return.phpDocType
+        - identifier: missingType.iterableValue
+        - identifier: argument.type
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
         - '#Access to an uninitialized readonly property#'
         - '#Variable \$.* might not be defined.#'

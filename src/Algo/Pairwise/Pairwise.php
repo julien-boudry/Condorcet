@@ -16,6 +16,10 @@ use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
+/**
+ * @implements \ArrayAccess<int,array<string,array<int,int>>>
+ * @implements \Iterator<int,array<string,array<int,int>>>
+ */
 class Pairwise implements \ArrayAccess, \Iterator
 {
     use HasElection;
@@ -71,8 +75,11 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     // Pairwise
 
+    /** @var array<int,array<string,array<int,int>>> */
     protected readonly array $Pairwise_Model;
+    /** @var array<int,array<string,array<int,int>>> */
     protected array $Pairwise;
+
     protected ?array $explicitPairwise = null;
 
     public function __construct(
@@ -176,7 +183,7 @@ class Pairwise implements \ArrayAccess, \Iterator
             }
         }
 
-        $this->Pairwise_Model ??= $pairwiseModel;
+        $this->Pairwise_Model ??= $pairwiseModel; // @phpstan-ignore assign.readOnlyProperty
     }
 
     protected function doPairwise(): void

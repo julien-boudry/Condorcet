@@ -111,7 +111,7 @@ class ConvertCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->election = new $this->fromConverter($this->input)->setDataToAnElection();
+        $this->election = new $this->fromConverter($this->input)->setDataToAnElection(); // @phpstan-ignore method.notFound
 
         $this->toConverter::createFromElection(election: $this->election, file: $this->output);
 

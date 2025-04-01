@@ -28,6 +28,7 @@ class Permutations
      */
     public static bool $useBigIntegerIfAvailable = true;
 
+    /** @var array<int,mixed> */
     public protected(set) readonly array $candidates;
 
     public static function getPossibleCountOfPermutations(int $candidatesNumber): int
@@ -63,11 +64,17 @@ class Permutations
         }
     }
 
+    /**
+     * @param array<int,mixed> $candidates
+     */
     public function __construct(array $candidates)
     {
         $this->candidates = array_values($candidates);
     }
 
+    /**
+     * @return SplFixedArray<array<mixed>>
+     */
     public function getResults(): SplFixedArray
     {
         $results = new SplFixedArray(self::getPossibleCountOfPermutations(\count($this->candidates)));

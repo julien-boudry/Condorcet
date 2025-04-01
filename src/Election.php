@@ -81,11 +81,11 @@ class Election
 
     // Change max vote number
 /**
- * Add a limitation on Election::addVote and related methods. You can't add new vote y the number of registered vote is equall ou superior of this limit.
+ * Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or superior to this limit.
  * @api
  * @return mixed The new limit.
  * @see static Election::setMaxParseIteration
- * @param $maxVotesNumber Null will deactivate this functionality. An integer will fix the limit.
+ * @param $maxVotesNumber Null will deactivate this functionality. An integer will set the limit.
  */
     public static function setMaxVoteNumber(
 
@@ -98,7 +98,9 @@ class Election
     /**
      * Get the election process level.
      * @api
-     * @return ElectionState ElectionState::CANDIDATES_REGISTRATION`: Candidate registered state. No votes, no result, no cache.  \n`ElectionState::VOTES_REGISTRATION`: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.  \n3: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.
+     * @return ElectionState ElectionState::CANDIDATES_REGISTRATION: Candidate registered state. No votes, no result, no cache.
+     *                      ElectionState::VOTES_REGISTRATION: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
+     *                      ElectionState::RESULT_COMPUTING: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.
      * @see Election::setStateToVote
      */
     public protected(set) ElectionState $state = ElectionState::CANDIDATES_REGISTRATION;

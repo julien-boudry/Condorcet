@@ -17,6 +17,7 @@ use CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException;
 
 trait Linkable
 {
+    /** @var \WeakMap<Election,true> */
     private ?\WeakMap $link;
 
     public function __clone(): void
@@ -38,7 +39,7 @@ trait Linkable
         return $this->link->offsetExists($election);
     }
     /**
-     * Count number of linked election to this object.
+     * Count number of linked elections to this object.
      * @api
      * @return mixed Number of linked elections.
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
@@ -50,9 +51,9 @@ trait Linkable
         return \count($this->link);
     }
     /**
-     * Get elections object linked to this Vote or Candidate object.
+     * Get election objects linked to this Vote or Candidate object.
      * @api
-     * @return mixed Populated by each elections Condorcet object.
+     * @return mixed Array containing linked Condorcet election objects.
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
      */
     public function getLinks(): array
@@ -69,11 +70,11 @@ trait Linkable
     }
 
     // Internal
-    # Dot not Overloading ! Do not Use !
+    # Do not override! Do not use!
 
     protected function initWeakMap(): void
     {
-        $this->link ??= new \WeakMap;
+        $this->link ??= new \WeakMap; // @phpstan-ignore assign.propertyType
     }
 
     public function registerLink(Election $election): void

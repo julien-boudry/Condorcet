@@ -31,14 +31,21 @@ class DavidHillFormat implements ConverterImport
     public private(set) readonly int $NumberOfSeats;
 /**
  * Read a Tideman format file
- * @api 
+ * @api
  * @param $filePath File absolute path.
  */
     public function __construct(
 
         string $filePath
     ) {
-        $this->lines = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        $lineFile = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+
+        if ($lineFile !== false) {
+            $this->lines = $lineFile;
+        } else {
+            throw new \RuntimeException("Unable to read the file: {$filePath}");
+        }
+
         (end($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
         $this->readNumberOfSeats();
@@ -47,7 +54,7 @@ class DavidHillFormat implements ConverterImport
     }
 /**
  * Add the data to an election object
- * @api 
+ * @api
  * @return mixed The election object
  * @see Tools\CondorcetElectionFormat::setDataToAnElection, Tools\DebianFormat::setDataToAnElection
  * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.

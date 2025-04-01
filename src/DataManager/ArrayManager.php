@@ -19,12 +19,13 @@ use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInter
 use CondorcetPHP\Condorcet\Relations\HasElection;
 
 /**
- *  ArrayManager
+ * ArrayManager
  *
- *  It's a simple array storage manager with a cache system and a DataHandlerDriverInterface.
- *  It's used by VoteManager.
+ * It's a simple array storage manager with a cache system and a DataHandlerDriverInterface.
+ * It's used by VoteManager.
  *
- *  @internal
+ * @internal
+ * @phpstan-ignore missingType.generics,missingType.generics
  */
 abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 {
@@ -34,9 +35,11 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
     public static int $CacheSize = 2000;
     public static int $MaxContainerLength = 2000;
 
+    /** @var array<int, Vote> */
     protected array $Container = [];
     protected ?DataHandlerDriverInterface $DataHandler = null;
 
+    /** @var array<int, Vote> */
     protected array $Cache = [];
     protected int $CacheMaxKey = 0;
     protected int $CacheMinKey = 0;
@@ -202,7 +205,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $arrayKey = key($array);
 
         if ($arrayKey > $this->key()) {
-            $this->cursor = $arrayKey;
+            $this->cursor = $arrayKey; // @phpstan-ignore assign.propertyType
         }
     }
 
@@ -216,7 +219,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function count(): int
     {
-        return $this->counter;
+        return $this->counter; // @phpstan-ignore return.type
     }
 
     /////////// Array Methods ///////////

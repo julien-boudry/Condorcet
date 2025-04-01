@@ -54,11 +54,15 @@ class CPO_STV extends SingleTransferableVote
     public static array $optionCondorcetCompletionMethod = self::DEFAULT_METHODS_CHAINING;
     public static array $optionTieBreakerMethods = self::DEFAULT_METHODS_CHAINING;
 
+    /** @var SplFixedArray<array> */
     protected SplFixedArray $outcomes;
+    /** @var SplFixedArray<array> */
+    protected SplFixedArray $outcomeComparisonTable;
+
     protected readonly array $initialScoreTable;
     protected array $candidatesElectedFromFirstRound = [];
     protected readonly array $candidatesEliminatedFromFirstRound;
-    protected SplFixedArray $outcomeComparisonTable;
+
     protected readonly int $condorcetWinnerOutcome;
     protected readonly array $completionMethodPairwise;
     protected readonly Result $completionMethodResult;

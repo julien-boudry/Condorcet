@@ -10,13 +10,7 @@
 
 declare(strict_types=1);
 
-namespace CondorcetPHP\Condorcet\ElectionProcess;
+namespace CondorcetPHP\Condorcet\Throwable;
 
-/**
- * Manage Candidates for an Election class
- */
-enum ElectionState: int
-{
-    case CANDIDATES_REGISTRATION = 1;
-    case VOTES_REGISTRATION = 2;
-}
+class ElectionFileFormatParseException extends CondorcetPublicApiException
+{}

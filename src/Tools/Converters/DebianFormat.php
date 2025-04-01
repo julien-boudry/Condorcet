@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Tools\Converters;
 
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
+use CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
 class DebianFormat implements ConverterImport
@@ -31,21 +32,27 @@ class DebianFormat implements ConverterImport
     public private(set) readonly array $votes;
 /**
  * Read a Tideman format file
- * @api 
+ * @api
  * @param $filePath File absolute path.
  */
     public function __construct(
 
         string $filePath
     ) {
-        $this->lines = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+        $lineFile = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
+
+        if ($lineFile !== false) {
+            $this->lines = $lineFile;
+        } else {
+            throw new \RuntimeException("Unable to read the file: {$filePath}");
+        }
 
         $this->readCandidatesNames();
         $this->readVotes();
     }
 /**
  * Add the Debian data to an election object
- * @api 
+ * @api
  * @return mixed The election object
  * @see Tools\CondorcetElectionFormat::setDataToAnElection, Tools\DavidHillFormat::setDataToAnElection
  * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
@@ -79,14 +86,17 @@ class DebianFormat implements ConverterImport
 
         $candidatesLines = preg_grep($pattern, $this->lines);
 
+        if ($candidatesLines === false) {
+            throw new ElectionFileFormatParseException('Unable to read candidates names');
+        }
+
         $candidates = [];
-        // $k = 1;
 
         foreach ($candidatesLines as $oneCandidateLine) {
             $match = null;
             preg_match($pattern, $oneCandidateLine, $match);
 
-            $candidateName = $match['candidateName'];
+            $candidateName = $match['candidateName']; // @phpstan-ignore offsetAccess.notFound
             mb_check_encoding($candidateName) || ($candidateName = mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16'));
             $candidateName = mb_trim($candidateName);
 
@@ -101,13 +111,18 @@ class DebianFormat implements ConverterImport
         $pattern = '/^(V:)? ?(?<Ranking>[1-9-]+)[ \t]+(?<MD5>[a-z0-9]+)$/m';
 
         $votesLines = preg_grep($pattern, $this->lines);
+
+        if ($votesLines === false) {
+            throw new ElectionFileFormatParseException('Unable to read candidates names');
+        }
+
         $votes = [];
 
         foreach ($votesLines as $oneVoteLine) {
             $match = null;
 
             preg_match($pattern, mb_trim($oneVoteLine), $match);
-            $oneVoteLineRanking = mb_str_split($match['Ranking']);
+            $oneVoteLineRanking = mb_str_split($match['Ranking']); // @phpstan-ignore offsetAccess.notFound
 
             $oneVote = [];
             foreach ($oneVoteLineRanking as $candidateKey => $candidateRankEvaluation) {
@@ -116,7 +131,7 @@ class DebianFormat implements ConverterImport
                 }
             }
 
-            $votes[] = new Vote($oneVote, $match['MD5']);
+            $votes[] = new Vote($oneVote, $match['MD5']); // @phpstan-ignore offsetAccess.notFound
         }
 
         $this->votes = $votes;

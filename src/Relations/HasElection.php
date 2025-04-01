@@ -16,7 +16,9 @@ use CondorcetPHP\Condorcet\Election;
 
 trait HasElection
 {
+    /** @var \WeakReference<Election> */
     protected \WeakReference $selfElection;
+
     /**
      * @internal
      */

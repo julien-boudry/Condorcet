@@ -26,7 +26,7 @@ class Candidate implements \Stringable
      * @api
      */
     public string $name {
-        get => end($this->namesHistory)['name'];
+        get => end($this->namesHistory)['name']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
         set {
             $name = mb_trim($value);
 
@@ -46,6 +46,7 @@ class Candidate implements \Stringable
         }
     }
 
+    /** @var array<int,array> */
     private array $namesHistory = [];
     private bool $provisional = false;
 
@@ -116,9 +117,9 @@ class Candidate implements \Stringable
         return $this->name;
     }
     /**
-     * Return an history of each namming change, with timestamp.
+     * Return an history of each naming change, with timestamp.
      * @api
-     * @return mixed An explicit multi-dimenssional array.
+     * @return mixed An explicit multi-dimensional array.
      * @see Candidate::getCreateTimestamp
      */
     public function getHistory(): array
@@ -136,18 +137,18 @@ class Candidate implements \Stringable
         return $this->namesHistory[0]['timestamp'];
     }
     /**
-     * Get the timestamp corresponding of the last namming change.
+     * Get the timestamp corresponding of the last naming change.
      * @api
      * @return mixed Timestamp
      * @see Candidate::getCreateTimestamp
      */
     public function getTimestamp(): float
     {
-        return end($this->namesHistory)['timestamp'];
+        return end($this->namesHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
     }
     /**
      * When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
-     * Then, these string input will be converted to into temporary candidate objects, named \"provisional\". because you don't create the candidate yourself. They have a provisonal statut true.
+     * Then, these string input will be converted to into temporary candidate objects, marked as "provisional". Because you don't create the candidate yourself, they have a provisional status true.
      * When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::getHistory).
      *
      * See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.

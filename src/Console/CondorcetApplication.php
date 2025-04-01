@@ -93,6 +93,11 @@ abstract class CondorcetApplication
 
             $match = [];
             preg_match('/^v([0-9]+\.[0-9]+\.[0-9]+)/', $version, $match);
+
+            if (!isset($match[1])) {
+                throw new NoGitShellException('Version not found');
+            }
+
             $gitLastestTag = $match[1];
 
             $version = (version_compare($gitLastestTag, $applicationOfficialVersion, '>=')) ? $version : $applicationOfficialVersion . '-(dev)-' . $commit;

@@ -62,14 +62,14 @@ class Manager
         return $this->globalTimer;
     }
 
-    public function getLastTimer(): float
+    public function getLastTimer(): ?float
     {
         return $this->lastTimer;
     }
     /**
-     * Return benchmarked actions history.
+     * Returns benchmarked actions history.
      * @api
-     * @return mixed An explicit array with history.
+     * @return mixed An array containing detailed benchmark history.
      * @see Election::getTimerManager
      */
     public function getHistory(): array

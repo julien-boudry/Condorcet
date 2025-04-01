@@ -25,8 +25,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     public const string SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
 /**
  * Create a CondorcetElectionFormat file from an Election object.
- * 
- * @api 
+ *
+ * @api
  * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
  * @param $election Election with data.
  * @param $aggregateVotes If true, will try to reduce number of lines, with quantifier for identical votes.
@@ -69,7 +69,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         } else {
             foreach ($election->getVotesListGenerator() as $vote) {
                 $line = "\n";
-                $line .= ($includeTags && !empty($vote->tags)) ? $vote->getTagsAsString() . ' || ' : '';
+                $line .= ($includeTags && !empty($vote->tags)) ? $vote->getTagsAsString() . ' || ' : ''; // @phpstan-ignore method.notFound
 
                 $voteString = $vote->getSimpleRanking($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
@@ -86,8 +86,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     }
 /**
  * Create a CondorcetElectionFormat object from string.
- * 
- * @api 
+ *
+ * @api
  * @param $input CondorcetElectionFormat string to parse.
  */
     public static function createFromString(
@@ -154,7 +154,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     // Read
 /**
  * Read a Condorcet format file, usually using .cvotes file extension
- * @api 
+ * @api
  * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
  */
     public function __construct(
@@ -189,7 +189,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     }
 /**
  * Add the data to an election object
- * @api 
+ * @api
  * @return mixed The election object
  * @see Tools\DavidHillFormat::setDataToAnElection, Tools\DebianFormat::setDataToAnElection
  * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
@@ -269,11 +269,11 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 if (!isset($this->candidates) && $parameter === StandardParameter::CANDIDATES) {
                     $this->addCandidates($parameterValue);
                 } elseif (!isset($this->numberOfSeats) && $parameter === StandardParameter::SEATS) {
-                    $this->numberOfSeats = $parameterValue;
+                    $this->numberOfSeats = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
                 } elseif (!isset($this->implicitRanking) && $parameter === StandardParameter::IMPLICIT) {
-                    $this->implicitRanking = $parameterValue;
+                    $this->implicitRanking = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
                 } elseif (!isset($this->voteWeight) && $parameter === StandardParameter::WEIGHT) {
-                    $this->voteWeight = $parameterValue;
+                    $this->voteWeight = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
                 }
             }
         }

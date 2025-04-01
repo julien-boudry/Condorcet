@@ -70,6 +70,7 @@ class Combinations
         }
     }
 
+    /** @return SplFixedArray<array> */
     public static function compute(array $values, int $length, array $append_before = []): SplFixedArray
     {
         $count = \count($values);

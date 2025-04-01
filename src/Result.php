@@ -18,6 +18,10 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttri
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
+/**
+ * @implements \ArrayAccess<int,null|Candidate|array<int,Candidate>>
+ * @implements \Iterator<int,null|Candidate|array<int,Candidate>>
+ */
 class Result implements \ArrayAccess, \Countable, \Iterator
 {
     use CondorcetVersion;
@@ -36,7 +40,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     public function key(): int
     {
-        return key($this->ResultIterator);
+        return key($this->ResultIterator); // @phpstan-ignore return.type
     }
 
     public function next(): void
@@ -85,12 +89,14 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /////////// CONSTRUCTOR ///////////
 
+    /** @var array<int,null|int|array<int>> */
     protected readonly array $Result;
     protected array $ResultIterator;
     public readonly mixed $Stats;
     protected array $warning = [];
 
     /**
+     * @var array<int,array<int,Candidate>>
      * @api
      */
     public private(set) readonly array $ranking;
@@ -152,7 +158,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      */
     public private(set) readonly string $electionCondorcetVersion;
 /**
- * @internal 
+ * @internal
  */
     public function __construct(
         string $fromMethod,
@@ -173,8 +179,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->byClass = $byClass;
         $this->statsVerbosity = $election->StatsVerbosity;
         $this->electionCondorcetVersion = $election->getObjectVersion();
-        $this->CondorcetWinner = $election->getWinner();
-        $this->CondorcetLoser = $election->getLoser();
+        $this->CondorcetWinner = $election->getCondorcetWinner();
+        $this->CondorcetLoser = $election->getCondorcetLoser();
         $this->pairwise = $election->getExplicitPairwise();
         $this->buildTimestamp = microtime(true);
         $this->methodOptions = $methodOptions;
@@ -184,8 +190,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /////////// Get Result ///////////
 /**
  * Get result as an array
- * @api 
- * @return mixed An ordered multidimensionnal array by rank.
+ * @api
+ * @return array<int,string|array<string|Candidate>> An ordered multidimensional array by rank.
  * @see Election::getResult, Result::getResultAsString
  * @param $convertToString Convert Candidate object to string.
  */
@@ -209,7 +215,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get result as string
- * @api 
+ * @api
  * @return mixed Result ranking as string.
  * @see Election::getResult, Result::getResultAsArray
  */
@@ -219,10 +225,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get immutable result as an array
- * @api 
+ * @api
  * @return mixed Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
  *               Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
- *               
+ *
  *               This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
  * @see Result::getResultAsArray, Result::getResultAsString, Result::getOriginalResultAsString
  */
@@ -232,10 +238,10 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get immutable result as a string
- * @api 
+ * @api
  * @return mixed Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
  *               Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
- *               
+ *
  *               This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
  * @see Result::getResultAsArray, Result::getResultAsString, Result::getOriginalResultArrayWithString
  */
@@ -244,7 +250,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         return VoteUtil::getRankingAsString($this->getOriginalResultArrayWithString());
     }
 /**
- * @internal 
+ * @internal
  */
     public function getResultAsInternalKey(): array
     {
@@ -252,7 +258,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
- * @api 
+ * @api
  * @return mixed Varying according to the algorithm used.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
  * @see Election::getResult
@@ -263,7 +269,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * ('Get the election winner if any')
- * @api 
+ * @api
  * @return mixed Candidate object given. Null if there are no available winner.
  *               You can get an array with multiples winners.
  * @see Result::getLoser, Election::getWinner
@@ -274,7 +280,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * ('Get the election loser if any')
- * @api 
+ * @api
  * @return mixed Candidate object given. Null if there are no available loser.
  *               You can get an array with multiples losers.
  * @see Result::getWinner, Election::getLoser
@@ -285,7 +291,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the Condorcet winner, if exist, at the result time.
- * @api 
+ * @api
  * @return mixed CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
  * @see Result::getCondorcetLoser, Election::getWinner
  */
@@ -295,7 +301,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the Condorcet loser, if exist, at the result time.
- * @api 
+ * @api
  * @return mixed Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
  * @see Result::getCondorcetWinner, Election::getLoser
  */
@@ -334,7 +340,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /////////// Get & Set MetaData ///////////
 /**
- * @internal 
+ * @internal
  */
     public function addWarning(int $type, ?string $msg = null): true
     {
@@ -344,7 +350,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
- * @api 
+ * @api
  * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
  * @param $type Filter on a specific warning type code.
  */
@@ -368,7 +374,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the The algorithmic method used for this result.
- * @api 
+ * @api
  * @return mixed Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
  * @see Result::getMethod
  */
@@ -378,7 +384,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the The algorithmic method used for this result.
- * @api 
+ * @api
  * @return mixed Method name.
  * @see Result::getClassGenerator
  */
@@ -388,7 +394,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Return the method options.
- * @api 
+ * @api
  * @return mixed Array of options. Can be empty for most of the methods.
  * @see Result::getClassGenerator
  */
@@ -404,7 +410,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the timestamp of this result.
- * @api 
+ * @api
  * @return mixed Microsecond timestamp.
  */
     public function getBuildTimeStamp(): float
@@ -413,7 +419,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get the Condorcet PHP version that build this Result.
- * @api 
+ * @api
  * @return mixed Condorcet PHP version string format.
  */
     public function getCondorcetElectionGeneratorVersion(): string
@@ -422,7 +428,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Get number of Seats for STV methods result.
- * @api 
+ * @api
  * @return mixed Number of seats if this result is a STV method. Else NULL.
  * @see Election::setNumberOfSeats, Election::getNumberOfSeats
  */
@@ -432,7 +438,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 /**
  * Does the result come from a proportional method
- * @api 
+ * @api
  * @see Result::getNumberOfSeats
  */
     public function isProportional(): bool

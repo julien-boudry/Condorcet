@@ -26,9 +26,9 @@ abstract class FormaterHelper
                 $line = implode(' ; ', $line);
             }
 
-            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) {
+            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
                 $line .= ' ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
-            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) {
+            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
                 $line .= ' ' . CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
             }
 

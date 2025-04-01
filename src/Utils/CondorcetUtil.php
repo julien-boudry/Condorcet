@@ -70,8 +70,8 @@ abstract class CondorcetUtil
 
     // Simplify Condorcet Var_Dump. Transform object to String.
     /**
-     * Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
-     * Can be use before a var_dump, or just to get more simple data output.
+     * Provides pretty re-formatting, human readable, of all Condorcet PHP objects or result sets.
+     * Can be used before a var_dump, or just to get simpler data output.
      * @api
      * @return mixed New formatted data.
      * @param $input Input to convert.

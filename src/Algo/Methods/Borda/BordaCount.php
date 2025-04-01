@@ -24,8 +24,14 @@ class BordaCount extends Method implements MethodInterface
 
     public static int $optionStarting = 1;
 
+    /**
+     * @var array<int, float>
+     */
     protected readonly array $Stats;
 
+    /**
+     * @return array<string, float>
+     */
     protected function getStats(): array
     {
         $election = $this->getElection();
