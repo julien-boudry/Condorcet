@@ -42,6 +42,6 @@ class KemenyYoungBench
 
         $election->addVote($candidates);
 
-        $result = $election->getResult('Kemeny–Young');
+        $election->getResult('Kemeny–Young');
     }
 }

@@ -51,7 +51,7 @@ function convertAttributesToPhpdoc(string $content): string
     // Regex finds block of one or several attribute lines preceding a definition
     $pattern = '/((?:\s*#\[[^\]]+\]\s*\n)+)(\s*(?:abstract\s+|final\s+)?(?:public|protected|private\s+)?\s*(?:static\s+)?\s*(?:function|class|trait)[^{]+)/i';
 
-    $newContent = preg_replace_callback($pattern, function ($matches) use ($allowedAttributes) {
+    return preg_replace_callback($pattern, function ($matches) use ($allowedAttributes) {
         $attributesBlock = $matches[1];
         $definitionLine  = $matches[2];
         $parameters = extractParameters($definitionLine);

@@ -105,7 +105,7 @@ declare(strict_types=1);
         $election1->addVote($myVote5);
 
             // Please note that :
-              $election1->getCandidateObjectFromName('Olivier Messiaen') === $myMessiaenCandidate; // Return TRUE
+              $election1->getCandidateObjectFromName('Olivier Messiaen'); // === $myMessiaenCandidate
 
 
         // Add some nice tags to my Vote 1 & 2 & 3 (You can do this before or after add register into to the Election)

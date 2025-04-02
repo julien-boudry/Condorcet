@@ -30,8 +30,8 @@ class SimpleUsageBench
           B>F=A>C * 100
        ');
 
-        $winner = $election->getCondorcetWinner();
-        $loser = $election->getCondorcetLoser();
+        $election->getCondorcetWinner();
+        $election->getCondorcetLoser();
 
         $result = [];
 

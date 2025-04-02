@@ -62,6 +62,6 @@ class IntensiveUsageBench
             $election->getResult($method);
         }
 
-        $votes = $election->getVotesListAsString();
+        $election->getVotesListAsString();
     }
 }
