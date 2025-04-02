@@ -41,7 +41,7 @@ enum StvQuotas: string
                 'hagenbach-bischoff quota', 'hagenbach-bischoff' => self::HAGENBACH_BISCHOFF,
                 'imperiali quota', 'imperiali' => self::IMPERIALI,
             };
-        } catch (\UnhandledMatchError $e) {
+        } catch (\UnhandledMatchError) {
             throw new StvQuotaNotImplementedException('"' . $quota . '"');
         }
     }

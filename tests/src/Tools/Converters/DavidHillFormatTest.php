@@ -51,7 +51,7 @@ test('a77 with explicit', function (): void {
 });
 
 test('a1 for candidates names', function (): void {
-    $election = (new DavidHillFormat(__DIR__ . '/TidemanData/A1.HIL'))->setDataToAnElection();
+    $election = new DavidHillFormat(__DIR__ . '/TidemanData/A1.HIL')->setDataToAnElection();
 
     expect($election->countVotes())->toBe(380);
     expect($election->getNumberOfSeats())->toBe(3);
@@ -325,7 +325,7 @@ test('bug david hill random order and stats round', function (): void {
     // Without aggregate vote
     $file = new SplTempFileObject;
     $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: false));
-    $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
+    $implicitElectionFromCondorcetElection = new CondorcetElectionFormat($file)->setDataToAnElection();
 
     expect($implicitElectionFromCondorcetElection->getCandidatesListAsString())->toEqual($implicitElectionFromHill->getCandidatesListAsString());
 
@@ -335,16 +335,16 @@ test('bug david hill random order and stats round', function (): void {
         }
 
         // Stats
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getStats(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getStats());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->getStats())->toBe($implicitElectionFromHill->getResult($method)->getStats());
 
         // Result
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString())->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
     }
 
     // With aggregate vote
     $file = new SplTempFileObject;
     $file->fwrite(CondorcetElectionFormat::createFromElection(election: $implicitElectionFromHill, aggregateVotes: true));
-    $implicitElectionFromCondorcetElection = (new CondorcetElectionFormat($file))->setDataToAnElection();
+    $implicitElectionFromCondorcetElection = new CondorcetElectionFormat($file)->setDataToAnElection();
 
     expect($implicitElectionFromCondorcetElection->getCandidatesListAsString())->toEqual($implicitElectionFromHill->getCandidatesListAsString());
 
@@ -362,6 +362,6 @@ test('bug david hill random order and stats round', function (): void {
             );
 
         // Result
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString(), 'Method: ' . $method)->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString())->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
     }
 });

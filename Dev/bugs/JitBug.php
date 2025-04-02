@@ -63,7 +63,7 @@ abstract class Base
     {
         $this->foo = new Foo(
             fromMethod: 'test',
-            byClass: $this::class,
+            byClass: static::class,
             election: $this->barInstance,
             result: [],
             stats: [],

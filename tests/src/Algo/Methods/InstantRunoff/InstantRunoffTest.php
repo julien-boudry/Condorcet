@@ -137,7 +137,7 @@ test('result tie breaking', function (): void {
 });
 
 test('infinite loop on tideman dataset3 if explicit ranking', function (): void {
-    $election = (new DavidHillFormat(__DIR__ . '/../../../Tools/Converters/TidemanData/A3.HIL'))->setDataToAnElection();
+    $election = new DavidHillFormat(__DIR__ . '/../../../Tools/Converters/TidemanData/A3.HIL')->setDataToAnElection();
 
     $election->setImplicitRanking(false);
 

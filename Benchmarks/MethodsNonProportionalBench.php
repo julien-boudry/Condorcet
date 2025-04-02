@@ -82,7 +82,7 @@ class MethodsNonProportionalBench
     {
         try {
             $result = $this->election->getResult($params['method']);
-        } catch (MethodLimitReachedException $e) {
+        } catch (MethodLimitReachedException) {
         }
 
         $this->election->resetMethodsComputation();

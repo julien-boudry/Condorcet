@@ -67,7 +67,7 @@ class VotesManager extends ArrayManager
         if ($value instanceof Vote) {
             try {
                 $value->registerLink($this->getElection());
-            } catch (AlreadyLinkedException $e) {
+            } catch (AlreadyLinkedException) {
                 // Security : Check if vote object is not already registered and not present at offset
                 if (($this->Cache[$offset] ?? $this->Container[$offset] ?? false) !== $value) {
                     throw new VoteException('This vote is already linked to the election');

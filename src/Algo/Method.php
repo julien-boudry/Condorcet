@@ -90,9 +90,7 @@ abstract class Method
     protected function createResult(array $result): Result
     {
         $optionsList = array_keys(new \ReflectionClass(static::class)->getStaticProperties());
-        $optionsList = array_filter($optionsList, static function (string $name): bool {
-            return str_starts_with($name, 'option');
-        });
+        $optionsList = array_filter($optionsList, static fn(string $name): bool => str_starts_with($name, 'option'));
 
         $methodOptions = [];
 
@@ -102,7 +100,7 @@ abstract class Method
 
         return new Result(
             fromMethod: static::METHOD_NAME[0], // @phpstan-ignore classConstant.notFound
-            byClass: $this::class,
+            byClass: static::class,
             election: $this->getElection(),
             result: $result,
             stats: ($this->getElection()->StatsVerbosity->value > StatsVerbosity::NONE->value) ? $this->getStats() : null,

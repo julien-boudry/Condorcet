@@ -26,6 +26,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the ranking
+    #[\Override]
     public function getResult(): Result
     {
         // Cache

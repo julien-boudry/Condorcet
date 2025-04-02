@@ -77,7 +77,7 @@ class CPO_STV extends SingleTransferableVote
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \PHP_ROUND_HALF_DOWN);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         // Compute Initial Score
         $this->initialScoreTable = $this->makeScore();
@@ -122,9 +122,7 @@ class CPO_STV extends SingleTransferableVote
             $result = $this->outcomes[$this->condorcetWinnerOutcome];
 
             // Sort the best Outcome candidate list using originals scores
-            usort($result, function (int $a, int $b): int {
-                return $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a];
-            });
+            usort($result, fn(int $a, int $b): int => $this->initialScoreTable[$b] <=> $this->initialScoreTable[$a]);
         } else {
             $result = array_keys($this->initialScoreTable);
 
@@ -310,6 +308,7 @@ class CPO_STV extends SingleTransferableVote
 
     // Stats
 
+    #[\Override]
     protected function getStats(): array
     {
         $election = $this->getElection();

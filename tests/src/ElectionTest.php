@@ -21,8 +21,8 @@ beforeEach(function (): void {
     $this->election2 = new Election;
 });
 afterEach(function (): void {
-    Election::setMaxParseIteration((new ReflectionClass(Election::class))->getProperty('maxParseIteration')->getDefaultValue());
-    Election::setMaxVoteNumber((new ReflectionClass(Election::class))->getProperty('maxVoteNumber')->getDefaultValue());
+    Election::setMaxParseIteration(new ReflectionClass(Election::class)->getProperty('maxParseIteration')->getDefaultValue());
+    Election::setMaxVoteNumber(new ReflectionClass(Election::class)->getProperty('maxVoteNumber')->getDefaultValue());
 });
 
 test('remove all votes', function (): void {

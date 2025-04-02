@@ -6,7 +6,7 @@ beforeEach(function () {
     $this->condorcetDefaultMethod = Condorcet::getDefaultMethod();
 });
 afterEach(function () {
-    Condorcet::$UseTimer = (new ReflectionClass(Condorcet::class))->getProperty('UseTimer')->getDefaultValue();
+    Condorcet::$UseTimer = new ReflectionClass(Condorcet::class)->getProperty('UseTimer')->getDefaultValue();
     Condorcet::setDefaultMethod($this->condorcetDefaultMethod);
 });
 

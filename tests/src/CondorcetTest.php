@@ -86,6 +86,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 
     // Get the Result object
+    #[\Override]
     public function getResult($options = null): Result
     {
         // Cache

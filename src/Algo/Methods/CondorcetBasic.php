@@ -29,6 +29,7 @@ class CondorcetBasic extends Method implements MethodInterface
     /////////// PUBLIC ///////////
 
 
+    #[\Override]
     public function getResult(): never
     {
         throw new AlgorithmWithoutRankingFeatureException(self::METHOD_NAME[0]);

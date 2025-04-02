@@ -28,6 +28,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
 
     abstract protected function schulzeVariant(int $i, int $j, Election $election): int|float;
 
+    #[\Override]
     public function getResult(): Result
     {
         // Cache

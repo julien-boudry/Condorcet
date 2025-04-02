@@ -43,7 +43,7 @@ class WoollyDriver implements DataHandlerDriverInterface
     {
         try {
             $this->df->delete()->record(key: $key);
-        } catch (KeyNotExistException $e) {
+        } catch (KeyNotExistException) {
             if ($justTry) {
                 return null;
             } else {

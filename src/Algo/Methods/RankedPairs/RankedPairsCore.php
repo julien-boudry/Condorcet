@@ -36,6 +36,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
 
     // Get the Ranked Pairs ranking
+    #[\Override]
     public function getResult(): Result
     {
         // Cache

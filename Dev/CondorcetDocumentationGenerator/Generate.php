@@ -165,9 +165,7 @@ class Generate
 
         //
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
-        $FullClassList = array_filter($FullClassList, static function (string $value) {
-            return !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks');
-        });
+        $FullClassList = array_filter($FullClassList, static fn(string $value) => !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks'));
 
         $inDoc = 0;
         $non_inDoc = 0;

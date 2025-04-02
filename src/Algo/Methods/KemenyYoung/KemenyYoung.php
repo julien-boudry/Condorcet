@@ -26,7 +26,7 @@ class KemenyYoung extends Method implements MethodInterface
     public const array METHOD_NAME = ['Kemeny–Young', 'Kemeny-Young', 'Kemeny Young', 'KemenyYoung', 'Kemeny rule', 'VoteFair popularity ranking', 'Maximum Likelihood Method', 'Median Relation'];
 
     // Method Name
-    final public const CONFLICT_WARNING_CODE = 42;
+    final public const int CONFLICT_WARNING_CODE = 42;
 
     // Limits
     # If you need 9 candidates, you must use \ini_set('memory_limit','1024M'); before. Do not try to go to 10, it is not viable!
@@ -48,6 +48,7 @@ class KemenyYoung extends Method implements MethodInterface
 
 
     // Get the Kemeny ranking
+    #[\Override]
     public function getResult(): Result
     {
         // Cache

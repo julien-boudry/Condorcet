@@ -127,6 +127,7 @@ class CondorcetStyle extends SymfonyStyle
         $this->writeln($horizontalBorder);
     }
 
+    #[\Override]
     public function note(string|array $message): void
     {
         $this->block(messages: $message, style: 'fg=gray');

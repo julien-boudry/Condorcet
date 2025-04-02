@@ -54,7 +54,7 @@ declare(strict_types=1);
 
     # -C- Check your candidate list, if you forget it
         $election1->getCandidatesList(); // Return an array pupulate by each Candidate objet
-        $election1->getCandidatesList(true); // Return an array pupulate by each Candidate name as String.
+        $election1->getCandidatesListAsString(); // Return an array pupulate by each Candidate name as String.
 
         // OK, I need my Debussy (want his candidate object)
         $myDebussyCandidate = $election1->getCandidateObjectFromName('Debussy');

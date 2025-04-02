@@ -180,6 +180,7 @@ class ElectionCommand extends Command
         ;
     }
 
+    #[\Override]
     public function complete(CompletionInput $input, CompletionSuggestions $suggestions): void
     {
         if ($input->mustSuggestOptionValuesFor('quota')) {
@@ -672,7 +673,7 @@ class ElectionCommand extends Command
 
             // Stats
             if ($this->displayMethodsStats) {
-                $table = (new Table($output))
+                $table = new Table($output)
                     ->setHeaderTitle('Stats: ' . $oneMethod['name'])
 
                     ->setColumnWidth(0, 73)

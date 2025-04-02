@@ -234,7 +234,7 @@ test('create from election', function (): void {
         Petr Němec *1
         CVOTES);
 
-    $election = (new CondorcetElectionFormat($input))->setDataToAnElection();
+    $election = new CondorcetElectionFormat($input)->setDataToAnElection();
 
     expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(
         $assertion1 =

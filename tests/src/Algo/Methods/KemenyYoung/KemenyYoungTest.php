@@ -134,12 +134,10 @@ test('kemeny with only1 candidate', function (): void {
 
     expect($this->election->getWinner('KemenyYoung'))->toBe($candidate[0]);
 });
-dataset('ManyCandidatesProvider', function () {
-    return [
-        9  => [9],
-        10  => [10],
-    ];
-});
+dataset('ManyCandidatesProvider', fn() => [
+    9  => [9],
+    10  => [10],
+]);
 
 test('kemeny with many candidates', function (int $candidatesCount): void {
     $original = KemenyYoung::$MaxCandidates;

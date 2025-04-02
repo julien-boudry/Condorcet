@@ -18,12 +18,10 @@ afterEach(function (): void {
     file_exists(self::OUTPUT_FILE) && unlink(self::OUTPUT_FILE);
 });
 
-dataset('conversionsProvider', function () {
-    return [
-        'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', ConsoleTestCase::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
-        'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', ConsoleTestCase::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
-    ];
-});
+dataset('conversionsProvider', fn() => [
+    'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', ConsoleTestCase::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
+    'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', ConsoleTestCase::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
+]);
 
 test('successfull conversions', function (string $from, string $to, string $input, string $comparaison): void {
     $this->converterCommand->execute(
