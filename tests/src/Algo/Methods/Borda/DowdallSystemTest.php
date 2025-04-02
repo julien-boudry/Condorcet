@@ -32,7 +32,7 @@ test('result 1', function (): void {
     expect($this->election->getResult('DowdallSystem')->getStats())
         ->toEqualWithDelta(
             expected: [
-                'A' => 1 / 1,
+                'A' => 1,
                 'B' => 1 / 2,
                 'C' => 1 / 3,
                 'D' => 1 / 4,

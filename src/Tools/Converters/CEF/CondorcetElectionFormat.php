@@ -56,14 +56,14 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false') . "\n";
         // $r .= "\n";
 
-        if ($file) {
+        if ($file !== null) {
             $file->fwrite($r);
             $r = '';
         }
 
         if ($aggregateVotes) {
             $r .= "\n" . $election->getVotesListAsString($inContext);
-            if ($file) {
+            if ($file !== null) {
                 $file->fwrite($r);
             }
         } else {
@@ -74,7 +74,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 $voteString = $vote->getSimpleRanking($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
 
-                if ($file) {
+                if ($file !== null) {
                     $file->fwrite($line);
                 } else {
                     $r .= $line;
@@ -82,7 +82,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
             }
         }
 
-        return ($file) ? null : $r;
+        return ($file !== null) ? null : $r;
     }
 /**
  * Create a CondorcetElectionFormat object from string.

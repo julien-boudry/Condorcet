@@ -92,7 +92,7 @@ abstract class CondorcetApplication
             $commit = explode('-', $version)[2] ?? null;
 
             $match = [];
-            preg_match('/^v([0-9]+\.[0-9]+\.[0-9]+)/', $version, $match);
+            preg_match('/^v(\d+\.\d+\.\d+)/', $version, $match);
 
             if (!isset($match[1])) {
                 throw new NoGitShellException('Version not found');

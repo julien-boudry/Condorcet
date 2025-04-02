@@ -29,8 +29,7 @@ declare(strict_types=1);
         $myLutoCandidate = $election1->addCandidate('Lutoslawski');  // Return the CondorcetPHP\Candidate object.
 
         // Automatic name
-        $myAutomaticCandidate = $election1->addCandidate(); // Return an automatic CondorcetPHP\Candidate
-        $myAutomaticCandidate->name; // return 'B'. Because we have already register the A candidate above.
+        $myAutomaticCandidate = $election1->addCandidate();  // return 'B'. Because we have already register the A candidate above.
 
         // An objet
         $myMessiaenCandidate = new Candidate('Olivier Messiaen');

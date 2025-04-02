@@ -138,8 +138,12 @@ class ArrayRandomizer
             $swTo = $this->randomizer->pickArrayKeys($randomizedCandidates, 1)[0];
             $destination = $randomizedCandidates[$swTo];
 
-            \is_array($orphan) || $orphan = [$orphan];
-            \is_array($destination) || $destination = [$destination];
+            if (!\is_array($orphan)) {
+                $orphan = [$orphan];
+            }
+            if (!\is_array($destination)) {
+                $destination = [$destination];
+            }
             $newRankValue = array_merge($destination, $orphan);
 
             $randomizedCandidates[$swTo] = $newRankValue;

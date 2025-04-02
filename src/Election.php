@@ -161,7 +161,9 @@ class Election
             'Calculator' => $this->MethodsComputation,
         ];
 
-        !self::$checksumMode && ($include += ['timer' => $this->timer]);
+        if (!self::$checksumMode) {
+            $include += ['timer' => $this->timer];
+        }
 
         return $include;
     }
@@ -274,8 +276,9 @@ class Election
             hash_update($r, (string) $value);
         }
 
-        $this->Pairwise !== null
-            && hash_update($r, serialize($this->Pairwise->getExplicitPairwise()));
+        if ($this->Pairwise !== null) {
+            hash_update($r, serialize($this->Pairwise->getExplicitPairwise()));
+        }
 
         hash_update($r, $this->getObjectVersion(true));
 

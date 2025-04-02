@@ -85,11 +85,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
             default => 'CREATE TABLE IF NOT EXISTS ' . $this->struct['tableName'] . ' (' . $this->struct['primaryColumnName'] . ' INT AUTO_INCREMENT PRIMARY KEY NOT NULL , ' . $this->struct['dataColumnName'] . ' ' . $dataType . ' NOT NULL );'
         };
 
-        try {
-            $this->handler->exec($tableCreationQuery);
-        } catch (\Exception $e) {
-            throw $e;
-        }
+        $this->handler->exec($tableCreationQuery);
     }
 
     protected function initPrepareQuery(): void
@@ -110,13 +106,15 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
         $makeMany = static function (int $how) use (&$template): string {
             $query = $template['insert_template'];
 
-            for ($i = 1; $i < $how; $i++) {
-                $query .= '(:key' . $i . ', :data' . $i . '),';
+            for ($i = 1; $i <= $how; $i++) {
+                $query .= '(:key' . $i . ', :data' . $i . ')';
+
+                if ($i !== $how) {
+                    $query .= ',';
+                }
             }
 
-            $query .= '(:key' . $how . ', :data' . $how . ')' . $template['end_template'];
-
-            return $query;
+            return $query . $template['end_template'];
         };
 
         foreach (self::SEGMENT as $value) {
@@ -145,7 +143,7 @@ class PdoHandlerDriver implements DataHandlerDriverInterface
 
     public function closeTransaction(): void
     {
-        if ($this->transaction === true) {
+        if ($this->transaction) {
             /**
              * @infection-ignore-all
              */

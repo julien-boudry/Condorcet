@@ -113,7 +113,7 @@ class CondorcetStyle extends SymfonyStyle
         $totalLength = $messageLength + $prefixLength;
         $totalBorderLength = $totalLength + 4;
 
-        $horizontalBorder = '<condor2>' . str_repeat('=', (int) $totalBorderLength) . '</>';
+        $horizontalBorder = '<condor2>' . str_repeat('=', $totalBorderLength) . '</>';
         $vbs = '<condor2>|</>';
 
         $spaceMessage = '<bg=' . self::CONDORCET_MAIN_COLOR . '>' . str_repeat(' ', $messageLength) . '</>';

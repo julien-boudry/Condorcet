@@ -211,7 +211,11 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function valid(): bool
     {
-        return ($this->counter !== 0) ? $this->valid : false;
+        if ($this->counter === 0) {
+            return false;
+        }
+
+        return $this->valid;
     }
 
 

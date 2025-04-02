@@ -63,7 +63,7 @@ trait ResultsProcess
 
         // Filter if tag is provided & return
         if ($methodOptions['%tagFilter']) {
-            $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->timer, 'GetResult with filter') : null;
+            $chrono = (Condorcet::$UseTimer) ? new Timer_Chrono($this->timer, 'GetResult with filter') : null;
 
             $filter = new self;
 
@@ -87,7 +87,7 @@ trait ResultsProcess
 
         // -------
 
-        $chrono = (Condorcet::$UseTimer === true) ? new Timer_Chrono($this->timer) : null;
+        $chrono = (Condorcet::$UseTimer) ? new Timer_Chrono($this->timer) : null;
 
         if ($method === null) {
             $this->initResult(Condorcet::getDefaultMethod());
@@ -99,7 +99,9 @@ trait ResultsProcess
             throw new AlgorithmException($method);
         }
 
-        ($chrono !== null) && $chrono->setRole('GetResult for ' . $method);
+        if ($chrono !== null) {
+            $chrono->setRole('GetResult for ' . $method);
+        }
 
         return $result;
     }
@@ -124,7 +126,9 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
+            if (Condorcet::$UseTimer) {
+                new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
+            }
             $this->initResult($algo);
             $result = $this->MethodsComputation[$algo]->getWinner();
 
@@ -154,7 +158,9 @@ trait ResultsProcess
         // -------
 
         if ($algo === Condorcet::CONDORCET_BASIC_CLASS) {
-            (Condorcet::$UseTimer === true) && new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
+            if (Condorcet::$UseTimer) {
+                new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
+            }
             $this->initResult($algo);
             $result = $this->MethodsComputation[$algo]->getLoser();
 

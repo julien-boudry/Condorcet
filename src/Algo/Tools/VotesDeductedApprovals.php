@@ -62,7 +62,7 @@ class VotesDeductedApprovals implements \Countable
         foreach ($this->getElection()->getVotesValidUnderConstraintGenerator() as $oneVote) {
             $voteCandidates = $oneVote->getAllCandidates($this->getElection());
             $voteCandidates = array_map(static fn(Candidate $c): ?int => $election->getCandidateKey($c), $voteCandidates);
-            $voteCandidates = array_filter($voteCandidates, static fn(?int $c) => $c !== null);
+            $voteCandidates = array_filter($voteCandidates, static fn(?int $c): bool => $c !== null);
 
             foreach (Combinations::computeGenerator($candidatesKey, $subsetSize) as $oneCombination) {
                 if (self::voteHasCandidates($voteCandidates, $oneCombination)) {

@@ -15,10 +15,12 @@ beforeEach(function (): void {
 });
 
 afterEach(function (): void {
-    file_exists(self::OUTPUT_FILE) && unlink(self::OUTPUT_FILE);
+    if (file_exists(self::OUTPUT_FILE)) {
+        unlink(self::OUTPUT_FILE);
+    }
 });
 
-dataset('conversionsProvider', fn() => [
+dataset('conversionsProvider', fn(): array => [
     'fromDebianToCondorcet' => ['--from-debian-format', '--to-condorcet-election-format', ConsoleTestCase::DEBIAN_INPUT_FILE, __DIR__ . '/files/fromDebianExpectedFile.cvotes'],
     'fromDavidHillToCondorcet' => ['--from-david-hill-format', '--to-condorcet-election-format', ConsoleTestCase::DAVIDHILL_INPUT_FILE, __DIR__ . '/files/fromDavidHillExpectedFile.cvotes'],
 ]);

@@ -64,7 +64,7 @@ class Generate
     {
         if ($rf_rt !== null) {
             if ($codeBlock) {
-                return '`' . ((string) $rf_rt) . '`';
+                return '`' . ($rf_rt) . '`';
             } else {
                 return (string) $rf_rt;
             }
@@ -165,7 +165,7 @@ class Generate
 
         //
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
-        $FullClassList = array_filter($FullClassList, static fn(string $value) => !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks'));
+        $FullClassList = array_filter($FullClassList, static fn(string $value): bool => !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks'));
 
         $inDoc = 0;
         $non_inDoc = 0;
@@ -321,11 +321,7 @@ class Generate
             $docBlocParams = $this->getDocBlockParameters($method);
 
             foreach ($method->getParameters() as $value) {
-                if (!empty($docBlocParams[$value->getName()])) {
-                    $pt = $docBlocParams[$value->getName()];
-                } else {
-                    $pt = '';
-                }
+                $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
 
                 $md .=  "\n\n" .
                         '#### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n" .
@@ -401,10 +397,8 @@ class Generate
 
             if (empty($apiDescription)) {
                 return true;
-            } else {
-                if (str_contains($apiDescription, self::simpleClass($reflectionMethod->class))) {
-                    return true;
-                }
+            } elseif (str_contains($apiDescription, self::simpleClass($reflectionMethod->class))) {
+                return true;
             }
 
             return false;
@@ -551,7 +545,7 @@ class Generate
 
                 $file_content .= $property->isStatic() ? 'static ' : '';
 
-                $file_content .= ((string) $property->getType()) . ' $' . $property->getName();
+                $file_content .= ($property->getType()) . ' $' . $property->getName();
                 $file_content .= $addMdCodeTag ? '`  ' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
@@ -671,9 +665,7 @@ class Generate
 
     protected function getDocBlockTags(ReflectionClass|ReflectionMethod|ReflectionClassConstant|ReflectionProperty $source): array
     {
-        if ($source instanceof Reflector) {
-            $docComment = $source->getDocComment();
-        }
+        $docComment = $source->getDocComment();
 
         $tags = [];
 
@@ -718,8 +710,8 @@ class Generate
             return false;
         }
 
-        $textNodes = array_filter($source->children, fn(Node $node) => $node instanceof PhpDocTextNode);
-        $lines = array_map(fn(PhpDocTextNode $textNode) => $textNode->text, $textNodes);
+        $textNodes = array_filter($source->children, fn(Node $node): bool => $node instanceof PhpDocTextNode);
+        $lines = array_map(fn(PhpDocTextNode $textNode): string => $textNode->text, $textNodes);
         $nonBlankLines = array_filter($lines);
 
         return empty($nonBlankLines) ? false : implode(\PHP_EOL, $nonBlankLines);

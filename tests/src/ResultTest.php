@@ -377,4 +377,4 @@ test('immutable pairwise', function (string $method): void {
     $election->parseVotes('tag1 || A > B');
 
     $testSuite();
-})->with(static fn() => getMethodList());
+})->with(static fn(): array => getMethodList());

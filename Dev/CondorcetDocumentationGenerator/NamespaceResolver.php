@@ -43,7 +43,7 @@ class NamespaceResolver extends NodeVisitorAbstract {
     public string $namespace = '';
     public array $uses = [];
 
-    public function enterNode(Node $node) {
+    public function enterNode(Node $node): void {
         if ($node instanceof Node\Stmt\Namespace_) {
             $this->namespace = $node->name ? $node->name->toString() : '';
         }

@@ -134,7 +134,7 @@ test('kemeny with only1 candidate', function (): void {
 
     expect($this->election->getWinner('KemenyYoung'))->toBe($candidate[0]);
 });
-dataset('ManyCandidatesProvider', fn() => [
+dataset('ManyCandidatesProvider', fn(): array => [
     9  => [9],
     10  => [10],
 ]);

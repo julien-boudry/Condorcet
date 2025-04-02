@@ -133,6 +133,7 @@ class CondorcetTest_DuplicateAlgorithmAlias extends CondorcetTest_ValidAlgorithm
 
 class CondorcetTest_UnvalidAlgorithmName
 {
+    public Result $Result;
     public const array METHOD_NAME = ['FirstMethodName', 'Alias1', 'Alias_2', 'Alias 3'];
 
 

@@ -27,7 +27,7 @@ trait CondorcetVersion
     public function getObjectVersion(
         bool $major = false
     ): string {
-        if ($major === true) {
+        if ($major) {
             $version = explode('.', $this->objectVersion);
             return $version[0] . '.' . $version[1];
         } else {

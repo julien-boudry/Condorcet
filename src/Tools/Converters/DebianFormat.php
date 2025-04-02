@@ -97,7 +97,9 @@ class DebianFormat implements ConverterImport
             preg_match($pattern, $oneCandidateLine, $match);
 
             $candidateName = $match['candidateName']; // @phpstan-ignore offsetAccess.notFound
-            mb_check_encoding($candidateName) || ($candidateName = mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16'));
+            if (!mb_check_encoding($candidateName)) {
+                $candidateName = mb_convert_encoding($candidateName, 'UTF-8', 'ISO-8859-16');
+            }
             $candidateName = mb_trim($candidateName);
 
             $candidates[] = new Candidate($candidateName);

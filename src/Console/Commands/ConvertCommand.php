@@ -95,8 +95,12 @@ class ConvertCommand extends Command
             }
         }
 
-        empty($this->fromConverter) && throw new ConsoleInputException('The option defining the input format is missing');
-        empty($this->toConverter) && throw new ConsoleInputException('The option defining the output format is missing');
+        if (empty($this->fromConverter)) {
+            throw new ConsoleInputException('The option defining the input format is missing');
+        }
+        if (empty($this->toConverter)) {
+            throw new ConsoleInputException('The option defining the output format is missing');
+        }
 
         // Get Files
         $this->input = $input->getArgument('input') ?? throw new CondorcetInternalException('Argument "input" is required');

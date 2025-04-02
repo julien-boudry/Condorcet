@@ -106,7 +106,9 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function addNewVote(int $key): void
     {
-        (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Add Vote To Pairwise');
+        if (Condorcet::$UseTimer) {
+            new Timer_Chrono($this->getElection()->getTimerManager(), 'Add Vote To Pairwise');
+        }
 
         $this->clearExplicitPairwiseCache();
 
@@ -115,7 +117,9 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     public function removeVote(int $key): void
     {
-        (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Remove Vote To Pairwise');
+        if (Condorcet::$UseTimer) {
+            new Timer_Chrono($this->getElection()->getTimerManager(), 'Remove Vote To Pairwise');
+        }
 
         $this->clearExplicitPairwiseCache();
 
@@ -189,7 +193,9 @@ class Pairwise implements \ArrayAccess, \Iterator
     protected function doPairwise(): void
     {
         // Chrono
-        (Condorcet::$UseTimer === true) && new Timer_Chrono($this->getElection()->getTimerManager(), 'Do Pairwise');
+        if (Condorcet::$UseTimer) {
+            new Timer_Chrono($this->getElection()->getTimerManager(), 'Do Pairwise');
+        }
 
         $this->clearExplicitPairwiseCache();
         $this->Pairwise = $this->Pairwise_Model;

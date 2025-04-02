@@ -54,7 +54,9 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
             if ($maxVotesCandidateKey === null) {
                 $n = current($rescueCandidatesKeys);
                 $maxVotesCandidateKey = $n;
-                next($rescueCandidatesKeys) !== false || reset($rescueCandidatesKeys);
+                if (next($rescueCandidatesKeys) === false) {
+                    reset($rescueCandidatesKeys);
+                }
             }
 
             $this->candidatesVotes[$maxVotesCandidateKey] -= $quotient;

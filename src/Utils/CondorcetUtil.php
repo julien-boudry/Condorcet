@@ -36,7 +36,7 @@ abstract class CondorcetUtil
     public static function prepareParse(string $input, bool $isFile): array
     {
         // Is string or is file ?
-        if ($isFile === true) {
+        if ($isFile) {
             if (!is_file($input)) {
                 throw new FileDoesNotExistException('Specified input file does not exist. path: ' . $input);
             }

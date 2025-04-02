@@ -250,7 +250,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
         $i = 0;
         $f = true;
         foreach (array_keys($pairs) as $pairsKey) {
-            if ($f === true) {
+            if ($f) {
                 $newArcs[$i][] = $pairs[$pairsKey];
                 $f = false;
             } elseif ($pairs[$pairsKey][static::VARIANT->name] === $pairs[$pairsKey - 1][static::VARIANT->name] && $pairs[$pairsKey][RP_VARIANT::MINORITY->name] === $pairs[$pairsKey - 1][RP_VARIANT::MINORITY->name]) {

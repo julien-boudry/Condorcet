@@ -11,21 +11,13 @@ afterEach(function (): void {
 });
 
 test('overview example', function (): void {
-    try {
-        include __DIR__.'/../../Examples/1. Overview.php';
-    } catch (\Exception $e) {
-        throw $e;
-    }
+    include __DIR__.'/../../Examples/1. Overview.php';
 
     expect(true)->toBeTrue();
 });
 
 test('advanced object management example', function (): void {
-    try {
-        include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
-    } catch (\Exception $e) {
-        throw $e;
-    }
+    include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
 
     expect(true)->toBeTrue();
 });

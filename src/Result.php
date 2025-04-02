@@ -415,7 +415,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  */
     public function getBuildTimeStamp(): float
     {
-        return (float) $this->buildTimestamp;
+        return $this->buildTimestamp;
     }
 /**
  * Get the Condorcet PHP version that build this Result.

@@ -276,7 +276,9 @@ trait VotesProcess
     protected function registerVote(Vote $vote, array|string|null $tags): Vote
     {
         // Vote identifiant
-        $tags === null || $vote->addTags($tags);
+        if ($tags !== null) {
+            $vote->addTags($tags);
+        }
 
         // Register
         $this->Votes[] = $vote;

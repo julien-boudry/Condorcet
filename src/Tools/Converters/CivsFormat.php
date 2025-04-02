@@ -34,7 +34,7 @@ class CivsFormat implements ConverterExport
 
         $header = '# Candidates: ' . implode(' / ', $election->getCandidatesListAsString());
 
-        if ($file) {
+        if ($file !== null) {
             $file->fwrite($header);
         } else {
             $r .= $header;
@@ -64,11 +64,13 @@ class CivsFormat implements ConverterExport
                 $i = 0;
 
                 foreach ($ranked as $rank) {
-                    $i++ > 0 && $line .= ',';
+                    if ($i++ > 0) {
+                        $line .= ',';
+                    }
                     $line .= $rank ?? '-';
                 }
 
-                if ($file) {
+                if ($file !== null) {
                     $file->fwrite($line);
                 } else {
                     $r .= $line;
@@ -80,6 +82,6 @@ class CivsFormat implements ConverterExport
 
         }
 
-        return ($file) ? true : $r;
+        return ($file !== null) ? true : $r;
     }
 }

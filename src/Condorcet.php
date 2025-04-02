@@ -86,7 +86,7 @@ abstract class Condorcet
     public static function getVersion(
         bool $major = false
     ): string {
-        if ($major === true) {
+        if ($major) {
             $version = explode('.', self::VERSION);
             return $version[0] . '.' . $version[1];
         } else {

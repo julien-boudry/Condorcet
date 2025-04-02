@@ -62,7 +62,7 @@ abstract class VoteUtil
     public static function convertRankingFromCandidateObjectToInternalKeys(Election $election, array &$ranking): void
     {
         array_walk($ranking, static function (&$candidatesInRank) use ($election): void {
-            array_walk($candidatesInRank, static fn(&$v) => $v = $election->getCandidateKey($v));
+            array_walk($candidatesInRank, static fn(&$v): ?int => $v = $election->getCandidateKey($v));
         });
     }
 }

@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
 use Rector\Config\RectorConfig;
 use Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
+
+$rectorLevel = 17;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -16,14 +19,16 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     // uncomment to reach your current PHP version
+    ->withIndent(indentChar: ' ', indentSize: 4)
     ->withPhpSets()
-    ->withTypeCoverageLevel(0)
-    ->withDeadCodeLevel(0)
-    ->withCodeQualityLevel(0)
+    ->withTypeCoverageLevel($rectorLevel)
+    ->withDeadCodeLevel($rectorLevel)
+    ->withCodeQualityLevel($rectorLevel)
 
     ->withSkip([
         ClassPropertyAssignToConstructorPromotionRector::class,
         NullToStrictStringFuncCallArgRector::class,
         RestoreDefaultNullToNullableTypePropertyRector::class,
+        UnusedForeachValueToArrayKeysRector::class,
     ])
 ;

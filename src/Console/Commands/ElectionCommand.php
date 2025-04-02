@@ -373,8 +373,12 @@ class ElectionCommand extends Command
         }
 
         // Parse Votes & Candidates from classicals inputs
-        !empty($this->candidates) && $this->parseFromCandidatesArguments();
-        !empty($this->votes) && $this->parseFromVotesArguments($callBack);
+        if (!empty($this->candidates)) {
+            $this->parseFromCandidatesArguments();
+        }
+        if (!empty($this->votes)) {
+            $this->parseFromVotesArguments($callBack);
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -684,7 +688,9 @@ class ElectionCommand extends Command
 
                 $line = 0;
                 foreach ($result->getStats() as $oneStatKey => $oneStatEntry) {
-                    ++$line !== 1 && $table->addRow(new TableSeparator);
+                    if (++$line !== 1) {
+                        $table->addRow(new TableSeparator);
+                    }
                     $table->addRow([preg_replace('#!!float (\d+)#', '\1.0', Yaml::dump([$oneStatKey => $oneStatEntry], 100))]);
                 }
 
@@ -727,7 +733,9 @@ class ElectionCommand extends Command
                 $this->election->addConstraint(NoTie::class);
             }
         } catch (VoteConstraintException $e) {
-            str_contains($e->getMessage(), 'class is already registered') || throw $e;
+            if (!str_contains($e->getMessage(), 'class is already registered')) {
+                throw $e;
+            }
         }
     }
 
@@ -797,7 +805,7 @@ class ElectionCommand extends Command
             $memoryLimit = (int) ($memoryLimit / 1048576);
             $this->maxVotesInMemory = self::$VotesPerMB * $memoryLimit;
 
-            $callBack = function (int $parsedVotesCounter): bool {
+            return function (int $parsedVotesCounter): bool {
                 if ($parsedVotesCounter > $this->maxVotesInMemory) {
                     /**
                      * @infection-ignore-all
@@ -816,8 +824,6 @@ class ElectionCommand extends Command
                     return true; // Yes, continue
                 }
             };
-
-            return $callBack;
         }
     }
 }

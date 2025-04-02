@@ -107,7 +107,7 @@ function convertAttributesToPhpdoc(string $content): string
         }
 
         foreach ($parameters as $paramName => $paramDescription) {
-            $annotations[] = ' @param ' . '$' . $paramName . ' ' . $paramDescription;
+            $annotations[] = ' @param $' . $paramName . ' ' . $paramDescription;
         }
 
         usort($annotations, function (string $a, string $b): int {
@@ -145,8 +145,6 @@ function convertAttributesToPhpdoc(string $content): string
             return $phpdoc . "\n" /*. $attributesBlock*/ . $definitionLine;
         }
     }, $content);
-
-    return $newContent;
 }
 
 function extractParameters(string $code): array

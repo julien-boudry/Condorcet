@@ -84,7 +84,9 @@ class VoteEntryParser
                 $value = mb_trim($value);
             });
 
-            $cut && $voteString = mb_substr($voteString, $offset + 2);
+            if ($cut) {
+                $voteString = mb_substr($voteString, $offset + 2);
+            }
 
             return $tags;
         } else {
@@ -99,7 +101,9 @@ class VoteEntryParser
         if (\is_int($offset)) {
             $comment = mb_trim(mb_substr($voteString, $offset + 1));
 
-            $cut && $voteString = mb_substr($voteString, 0, $offset);
+            if ($cut) {
+                $voteString = mb_substr($voteString, 0, $offset);
+            }
 
             return $comment;
         } else {
@@ -131,7 +135,9 @@ class VoteEntryParser
                 throw new VoteInvalidFormatException("the value '{$value}' is not an integer.");
             }
 
-            $cut && $entry = mb_substr($entry, 0, $offset);
+            if ($cut) {
+                $entry = mb_substr($entry, 0, $offset);
+            }
 
             $value = \intval($value);
             return ($value > 0) ? $value : 1;

@@ -79,7 +79,7 @@ trait CandidatesProcess
         if ($candidate instanceof Candidate) {
             $r = array_search(needle: $candidate, haystack: $this->candidates, strict: true);
         } else {
-            $r = array_search(needle: mb_trim((string) $candidate), haystack: $this->candidates, strict: false);
+            $r = array_search(needle: mb_trim($candidate), haystack: $this->candidates, strict: false);
         }
 
         return ($r !== false) ? $r : null; // @phpstan-ignore return.type
@@ -157,7 +157,7 @@ trait CandidatesProcess
 
             $newCandidate = new Candidate($this->nextAutomaticCandidateName);
         } else { // Try to add the candidate_id
-            $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate((string) $candidate);
+            $newCandidate = ($candidate instanceof Candidate) ? $candidate : new Candidate($candidate);
 
             if (!$this->canAddCandidate($newCandidate)) {
                 throw new CandidateExistsException((string) $candidate);

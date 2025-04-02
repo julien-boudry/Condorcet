@@ -172,8 +172,12 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         }
 
         $this->setRanking($ranking, $ownTimestamp);
-        $tags === null || $this->addTags($tags);
-        $tagsFromString === null || $this->addTags($tagsFromString);
+        if ($tags !== null) {
+            $this->addTags($tags);
+        }
+        if ($tagsFromString !== null) {
+            $this->addTags($tagsFromString);
+        }
 
         if (isset($weight)) {
             $this->setWeight($weight);
@@ -482,7 +486,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
         bool $displayWeight = true
     ): string {
-        $ranking = $context ? $this->getContextualRanking($context) : $this->getRanking();
+        $ranking = $context !== null ? $this->getContextualRanking($context) : $this->getRanking();
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
@@ -577,11 +581,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         $i = 1;
         $vote_r = [];
         foreach ($ranking as &$value) {
-            if (!\is_array($value)) {
-                $vote_r[$i] = [$value];
-            } else {
-                $vote_r[$i] = $value;
-            }
+            $vote_r[$i] = !\is_array($value) ? [$value] : $value;
 
             $i++;
         }
@@ -626,11 +626,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
         Candidate|string $candidate
     ): true {
-        if ($candidate instanceof Candidate) {
-            $strict = true;
-        } else {
-            $strict = false;
-        }
+        $strict = $candidate instanceof Candidate;
 
         $ranking = $this->getRanking();
 
@@ -788,6 +784,6 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
     private function computeHashCode(): string
     {
-        return $this->hash = hash('sha224', ((string) $this) . microtime(false));
+        return $this->hash = hash('sha224', $this . microtime(false));
     }
 }
