@@ -41,7 +41,8 @@
         "pestphp/pest": "^3.7",
         "mammothphp/woollym": "dev-master",
         "phpstan/phpdoc-parser": "^2.1",
-        "nikic/php-parser": "^5.4"
+        "nikic/php-parser": "^5.4",
+        "rector/rector": "^2.0"
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
