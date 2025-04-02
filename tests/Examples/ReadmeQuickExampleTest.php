@@ -4,7 +4,7 @@ declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
-test('readme quick example', function () {
+test('readme quick example', function (): void {
     $myElection1 = new Election;
 
     // Create your own candidate object

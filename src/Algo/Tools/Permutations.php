@@ -53,7 +53,7 @@ class Permutations
             $result = $candidatesNumber;
 
             for ($iteration = 1; $iteration < $candidatesNumber; $iteration++) {
-                $result = $result * ($candidatesNumber - $iteration);
+                $result *= $candidatesNumber - $iteration;
             }
 
             if (\is_float($result)) { // @phpstan-ignore-line

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 use CondorcetPHP\Condorcet\Condorcet;
-beforeEach(function () {
+beforeEach(function (): void {
     $this->condorcetDefaultMethod = Condorcet::getDefaultMethod();
 });
-afterEach(function () {
+afterEach(function (): void {
     Condorcet::$UseTimer = new ReflectionClass(Condorcet::class)->getProperty('UseTimer')->getDefaultValue();
     Condorcet::setDefaultMethod($this->condorcetDefaultMethod);
 });
 
-test('overview example', function () {
+test('overview example', function (): void {
     try {
         include __DIR__.'/../../Examples/1. Overview.php';
     } catch (\Exception $e) {
@@ -20,7 +20,7 @@ test('overview example', function () {
     expect(true)->toBeTrue();
 });
 
-test('advanced object management example', function () {
+test('advanced object management example', function (): void {
     try {
         include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
     } catch (\Exception $e) {
@@ -30,13 +30,13 @@ test('advanced object management example', function () {
     expect(true)->toBeTrue();
 });
 
-test('global html example', function () {
+test('global html example', function (): void {
     $this->expectOutputRegex('/\<\/html\>/');
 
     include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
 });
 
-test('ranking manipulation html example', function () {
+test('ranking manipulation html example', function (): void {
     $this->expectOutputRegex('/\<\/html\>/');
 
     include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
