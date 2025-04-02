@@ -19,29 +19,27 @@ use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 // Base Condorcet class
 class VoteEntryParser
 {
-    public private(set) readonly string $originalEntry;
-
     public private(set) readonly ?string $comment;
     public private(set) readonly int $multiple;
     public private(set) readonly ?array $ranking;
     public private(set) readonly ?array $tags;
     public private(set) readonly int $weight;
 
-    public function __construct(string $entry)
+    public function __construct(public private(set) readonly string $originalEntry)
     {
-        $this->originalEntry = $entry;
+        $entry = $this->originalEntry;
 
         // Disallow < and "
         if (preg_match('/<|"/mi', $entry) === 1) {
             throw new VoteInvalidFormatException("found '<' or '|' in " . $entry);
         }
 
-        $this->comment = $this->getComment($entry, true);
+        $this->comment = self::getComment($entry, true);
 
         $this->multiple = self::parseIntValueFromVoteStringOffset('*', $entry, true);
         $this->weight = self::parseIntValueFromVoteStringOffset('^', $entry, true);
 
-        $this->tags = $this->convertTagsFromVoteString($entry, true);
+        $this->tags = self::convertTagsFromVoteString($entry, true);
 
         $this->ranking = self::convertRankingFromString($entry);
     }
