@@ -140,11 +140,6 @@ class CondorcetTest_UnvalidAlgorithmName
     // Get the Result object
     public function getResult($options = null): Result
     {
-        // Cache
-        if ($this->Result !== null) {
-            return $this->Result;
-        }
-
         // Ranking calculation
         $this->makeRanking();
 
@@ -168,10 +163,6 @@ class CondorcetTest_UnvalidAlgorithmName
 
     protected function makeRanking(): void
     {
-        $this->getElection()->getPairwise();
-
         $result = [0 => 0, 1 => [1, 2], 2 => 3]; // Candidate must be valid internal candidate key.
-
-        $this->Result = $result;
     }
 }

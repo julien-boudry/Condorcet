@@ -26,7 +26,7 @@ abstract class CondorcetPublicApiException extends \Exception implements \String
             if (!empty($this->message)) {
                 $this->message .= ': ' . $message;
             } else {
-                $this->message = $message;
+                $this->message = (string) $message;
             }
         }
 

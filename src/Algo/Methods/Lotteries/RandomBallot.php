@@ -58,7 +58,7 @@ class RandomBallot extends Method implements MethodInterface
         $this->Result = $this->createResult($electedVote->getContextualRankingWithCandidateKeys($election));
     }
 
-    public function getStats(): array
+    protected function getStats(): array
     {
         return [
             'Elected Weight Level' => $this->electedWeightLevel,

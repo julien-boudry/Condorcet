@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Algo\{StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
@@ -91,8 +92,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /** @var array<int,null|int|array<int>> */
     protected readonly array $Result;
+
     protected array $ResultIterator;
-    public readonly mixed $Stats;
     protected array $warning = [];
 
     /**
@@ -107,16 +108,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     public array $rankingAsString {
         get => $this->getResultAsArray(true);
     }
-
-    /**
-     * @api
-     */
-    public private(set) readonly ?int $seats;
-
-    /**
-     * @api
-     */
-    public private(set) readonly array $methodOptions;
 
     /**
      * @api
@@ -141,16 +132,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /**
      * @api
      */
-    public private(set) readonly string $fromMethod;
-
-    /**
-     * @api
-     */
-    public private(set) readonly string $byClass;
-
-    /**
-     * @api
-     */
     public private(set) readonly StatsVerbosity $statsVerbosity;
 
     /**
@@ -161,29 +142,29 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  * @internal
  */
     public function __construct(
-        string $fromMethod,
-        string $byClass,
+        /** @api */
+        public private(set) readonly string $fromMethod,
+        /** @api */
+        public private(set) readonly string $byClass,
         Election $election,
         array $result,
-        $stats,
-        ?int $seats = null,
-        array $methodOptions = []
+        /** @api */
+        public readonly null|array|StatsInterface $stats,
+        /** @api */
+        public private(set) readonly ?int $seats = null,
+        /** @api */
+        public private(set) readonly array $methodOptions = [],
     ) {
         ksort($result, \SORT_NUMERIC);
 
         $this->Result = $result;
         $this->ResultIterator = $this->ranking = $this->makeUserResult($election);
-        $this->Stats = $stats;
-        $this->seats = $seats;
-        $this->fromMethod = $fromMethod;
-        $this->byClass = $byClass;
         $this->statsVerbosity = $election->StatsVerbosity;
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getCondorcetWinner();
         $this->CondorcetLoser = $election->getCondorcetLoser();
         $this->pairwise = $election->getExplicitPairwise();
         $this->buildTimestamp = microtime(true);
-        $this->methodOptions = $methodOptions;
     }
 
 
@@ -263,10 +244,23 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
  * @see Election::getResult
  */
-    public function getStats(): mixed
+    public function getStats(): null|array|StatsInterface
     {
-        return $this->Stats;
+        return $this->stats;
     }
+
+    /**
+     * Like GetStats, but return always an array instead stats object.
+     * @api
+     * @see Result::getStats
+     */
+    public function getStatsAsArray() : array {
+        $stats = $this->getStats() ?? [];
+
+        return $stats instanceof StatsInterface ? $stats->asArray : $stats;
+    }
+
+
 /**
  * ('Get the election winner if any')
  * @api

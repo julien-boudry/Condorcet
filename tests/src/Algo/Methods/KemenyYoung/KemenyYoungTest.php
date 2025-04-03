@@ -67,7 +67,7 @@ test('stats 1', function (): void {
 
     expect($this->election->getResult('KemenyYoung')->getResultAsString())->toBe($r);
 
-    expect($this->election->getResult('KemenyYoung')->getStats())->toBe([
+    expect($this->election->getResult('KemenyYoung')->getStats()->asArray)->toBe([
         'Best Score' => 1,
         'Ranking In Conflicts' => 0,
         'Ranking Scores' => [
@@ -116,7 +116,7 @@ test('conflicts', function (): void {
     ],
     ]);
 
-    expect($result->getStats()['Ranking In Conflicts'])->toBe(3);
+    expect($result->getStats()->getEntry('Ranking In Conflicts'))->toBe(3);
 
     $this->election->addVote('A>B>C');
 

@@ -335,7 +335,8 @@ test('bug david hill random order and stats round', function (): void {
         }
 
         // Stats
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getStats())->toBe($implicitElectionFromHill->getResult($method)->getStats());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->getStatsAsArray())
+            ->toBe($implicitElectionFromHill->getResult($method)->getStatsAsArray());
 
         // Result
         expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString())->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());

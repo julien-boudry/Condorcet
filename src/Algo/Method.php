@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;
@@ -85,7 +86,7 @@ abstract class Method
 
     protected function compute(): void {}
 
-    abstract protected function getStats(): array;
+    abstract protected function getStats(): array|StatsInterface;
 
     protected function createResult(array $result): Result
     {

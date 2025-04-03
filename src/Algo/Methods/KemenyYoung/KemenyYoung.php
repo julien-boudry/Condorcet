@@ -17,6 +17,8 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung;
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 
 // Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
@@ -67,10 +69,10 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
-        $stats = [];
+        $stats = new BaseMethodStats(closed: false);
 
         $stats['Best Score'] = $this->MaxScore;
         $stats['Ranking In Conflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
@@ -91,7 +93,7 @@ class KemenyYoung extends Method implements MethodInterface
             $stats['Ranking Scores'] = $explicit;
         }
 
-        return $stats;
+        return $stats->close();
     }
 
     protected function conflictInfos(): void

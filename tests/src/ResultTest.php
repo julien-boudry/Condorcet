@@ -276,8 +276,8 @@ test('verbosity level', function (): void {
     expect($r3->statsVerbosity)->toBe(StatsVerbosity::FULL);
 
     expect($r3)->not()->toBe($r1);
-    expect($r1->getStats())->not()->toHaveKey('Ranking Scores');
-    expect($r3->getStats())->toHaveKey('Ranking Scores');
+    expect($r1->getStats()->asArray)->not()->toHaveKey('Ranking Scores');
+    expect($r3->getStats()->asArray)->toHaveKey('Ranking Scores');
 });
 
 test('immutable pairwise', function (string $method): void {

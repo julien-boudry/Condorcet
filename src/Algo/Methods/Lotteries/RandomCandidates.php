@@ -45,7 +45,7 @@ class RandomCandidates extends Method implements MethodInterface
         $this->Result = $this->createResult($ranking);
     }
 
-    public function getStats(): array
+    protected function getStats(): array
     {
         return ['Ties Probability' => self::$optionTiesProbability];
     }
