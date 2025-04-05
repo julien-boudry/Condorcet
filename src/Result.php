@@ -149,7 +149,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         Election $election,
         array $result,
         /** @api */
-        public readonly null|array|StatsInterface $stats,
+        public readonly StatsInterface $stats,
         /** @api */
         public private(set) readonly ?int $seats = null,
         /** @api */
