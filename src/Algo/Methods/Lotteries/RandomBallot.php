@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Lotteries;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use Random\Randomizer;
 
 class RandomBallot extends Method implements MethodInterface
@@ -58,11 +60,11 @@ class RandomBallot extends Method implements MethodInterface
         $this->Result = $this->createResult($electedVote->getContextualRankingWithCandidateKeys($election));
     }
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
-        return [
+        return new BaseMethodStats([
             'Elected Weight Level' => $this->electedWeightLevel,
             'Elected Ballot Key' => $this->electedBallotKey,
-        ];
+        ]);
     }
 }

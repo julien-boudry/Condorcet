@@ -40,7 +40,7 @@ test('result majority test systematic triangular', function (): void {
         3 => 'B',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Multiple Rounds System')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Multiple Rounds System')->getStatsAsArray())->toEqual([1 => [
         'A' => 42,
         'B' => 26,
         'D' => 17,
@@ -79,7 +79,7 @@ test('result majority test three round', function (): void {
 
     expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4 => 'D', 5 => 'E']);
 
-    expect($this->election->getResult('runoff voting')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('runoff voting')->getStatsAsArray())->toEqual([1 => [
         'B' => 12,
         'A' => 10,
         'C' => 10,
@@ -125,7 +125,7 @@ test('result majority test many round', function (): void {
 
     expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E', 6 => 'F']);
 
-    expect($this->election->getResult('runoff voting')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('runoff voting')->getStatsAsArray())->toEqual([1 => [
         'A' => 100,
         'B' => 99,
         'C' => 98,

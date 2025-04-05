@@ -31,7 +31,7 @@ test('simple', function (): void {
         expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
     }
 
-    expect($this->election->getResult('Random ballot')->getStats())->toBe([
+    expect($this->election->getResult('Random ballot')->getStatsAsArray())->toBe([
         'Elected Weight Level' => 6,
         'Elected Ballot Key' => 3,
     ]);
@@ -40,7 +40,7 @@ test('simple', function (): void {
 
     expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('C > A > B');
 
-    expect($this->election->getResult('Random ballot')->getStats())->toBe([
+    expect($this->election->getResult('Random ballot')->getStatsAsArray())->toBe([
         'Elected Weight Level' => 4,
         'Elected Ballot Key' => 2,
     ]);

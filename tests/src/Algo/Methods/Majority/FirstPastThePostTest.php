@@ -65,7 +65,7 @@ test('result french2002', function (): void {
         16 => 'Gluckstein',
     ]);
 
-    expect($this->election->getResult('Fptp')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
         'Chirac' => 1988,
         'Le Pen' => 1686,
         'Jospin' => 1618,
@@ -104,7 +104,7 @@ test('result 1', function (): void {
         3 => 'D',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Fptp')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
         'A' => 42,
         'B' => 26,
         'D' => 17,
@@ -133,7 +133,7 @@ test('result 2', function (): void {
         2 => 'B',
         3 => 'C', ]);
 
-    expect($this->election->getResult('Fptp')->getStats())->toBe([1 => [
+    expect($this->election->getResult('Fptp')->getStatsAsArray())->toBe([1 => [
         'A' => (float) 42,
         'D' => (float) 42,
         'B' => (float) 26,
@@ -156,7 +156,7 @@ test('result 3', function (): void {
         2 => 'C',
         3 => 'B', ]);
 
-    expect($this->election->getResult('Fptp')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
         'A' => 1 + 1 / 2,
         'C' => 1 / 2,
         'B' => 0,

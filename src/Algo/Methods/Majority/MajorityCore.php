@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 
 abstract class MajorityCore extends Method implements MethodInterface
 {
@@ -25,7 +27,7 @@ abstract class MajorityCore extends Method implements MethodInterface
     protected array $admittedCandidates = [];
     protected readonly array $Stats;
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
         $stats = [];
@@ -36,7 +38,7 @@ abstract class MajorityCore extends Method implements MethodInterface
             }
         }
 
-        return $stats;
+        return new BaseMethodStats($stats);
     }
 
 

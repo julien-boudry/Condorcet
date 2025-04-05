@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Lotteries;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer;
 use CondorcetPHP\Condorcet\Utils\VoteUtil;
 use Random\Randomizer;
@@ -45,8 +47,8 @@ class RandomCandidates extends Method implements MethodInterface
         $this->Result = $this->createResult($ranking);
     }
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
-        return ['Ties Probability' => self::$optionTiesProbability];
+        return new BaseMethodStats(['Ties Probability' => self::$optionTiesProbability]);
     }
 }

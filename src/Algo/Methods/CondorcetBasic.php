@@ -13,7 +13,10 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\EmptyStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
+use Override;
 
 // Condorcet Basic Class, provide natural Condorcet winner or looser
 class CondorcetBasic extends Method implements MethodInterface
@@ -36,9 +39,9 @@ class CondorcetBasic extends Method implements MethodInterface
     }
 
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
-        return [];
+        return new EmptyStats;
     }
 
 

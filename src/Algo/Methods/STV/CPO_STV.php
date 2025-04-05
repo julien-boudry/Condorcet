@@ -24,6 +24,8 @@ use CondorcetPHP\Condorcet\Algo\{Method, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Tools\{Combinations, StvQuotas, TieBreakersCollection};
 use CondorcetPHP\Condorcet\Algo\Methods\Minimax\{MinimaxMargin, MinimaxWinning};
 use CondorcetPHP\Condorcet\Algo\Methods\Schulze\{SchulzeMargin, SchulzeRatio, SchulzeWinning};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException;
 use CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException;
 use SplFixedArray;
@@ -309,7 +311,7 @@ class CPO_STV extends SingleTransferableVote
     // Stats
 
     #[\Override]
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
 
@@ -385,6 +387,6 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Return
-        return $stats;
+        return new BaseMethodStats($stats);
     }
 }

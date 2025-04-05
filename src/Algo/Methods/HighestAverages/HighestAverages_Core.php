@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 
 abstract class HighestAverages_Core extends Method implements MethodInterface
 {
@@ -97,7 +99,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
     abstract protected function computeQuotient(int $votesWeight, int $seats): float;
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
 
@@ -117,6 +119,6 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
             }
         }
 
-        return $stats;
+        return new BaseMethodStats($stats);
     }
 }

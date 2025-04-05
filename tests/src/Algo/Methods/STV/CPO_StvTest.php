@@ -143,7 +143,7 @@ test('cpo1', function (): void {
         ]
     );
 
-    expect($stats)->toHaveKey('Condorcet Completion Method Stats');
+    expect($stats->asArray)->toHaveKey('Condorcet Completion Method Stats');
 });
 
 test('cpo2', function (): void {

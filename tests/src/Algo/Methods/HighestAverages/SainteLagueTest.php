@@ -22,7 +22,7 @@ test('result 1', function (): void {
 
     expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('A > B > C > A > A > B > C');
 
-    expect($this->election->getResult('SainteLague')->getStats())->toBe([
+    expect($this->election->getResult('SainteLague')->getStatsAsArray())->toBe([
         'Rounds' => [
             1 => [
                 'A' => [

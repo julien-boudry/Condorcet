@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
 class InstantRunoff extends Method implements MethodInterface
@@ -26,7 +28,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     public readonly float $majority;
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
         $stats = ['majority' => $this->majority];
@@ -41,7 +43,7 @@ class InstantRunoff extends Method implements MethodInterface
             }
         }
 
-        return $stats;
+        return new BaseMethodStats($stats);
     }
 
 

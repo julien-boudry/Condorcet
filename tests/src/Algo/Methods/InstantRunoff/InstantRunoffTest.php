@@ -28,7 +28,7 @@ test('result 1', function (): void {
         3 => 'B',
         4 => 'C', ]);
 
-    expect($this->election->getResult('InstantRunoff')->getStats())->toBe([
+    expect($this->election->getResult('InstantRunoff')->getStatsAsArray())->toBe([
         'majority' => 50.0,
         'rounds' => [
             1 => [

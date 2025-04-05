@@ -16,6 +16,8 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\{Election, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
 abstract class SchulzeCore extends Method implements MethodInterface
@@ -54,7 +56,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
         $explicit = [];
@@ -67,7 +69,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
             }
         }
 
-        return $explicit;
+        return new BaseMethodStats($explicit);
     }
 
 

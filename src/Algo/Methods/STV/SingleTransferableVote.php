@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\STV;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Vote;
 
@@ -156,7 +158,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         return $scoreTable;
     }
 
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
 
@@ -172,6 +174,6 @@ class SingleTransferableVote extends Method implements MethodInterface
             }
         }
 
-        return $stats;
+        return new BaseMethodStats($stats);
     }
 }

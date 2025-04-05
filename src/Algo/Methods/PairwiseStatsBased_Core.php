@@ -14,6 +14,8 @@ namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
@@ -48,16 +50,16 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the stats
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
-        $explicit = [];
+        $explicit = new BaseMethodStats(closed: false);
 
         foreach ($this->Comparison as $candidate_key => $value) {
             $explicit[$election->getCandidateObjectFromKey($candidate_key)->name] = [static::COUNT_TYPE => $value[static::COUNT_TYPE]];
         }
 
-        return $explicit;
+        return $explicit->close();
     }
 
 

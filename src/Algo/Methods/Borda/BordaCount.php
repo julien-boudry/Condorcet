@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
+use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
 use CondorcetPHP\Condorcet\Election;
 
 class BordaCount extends Method implements MethodInterface
@@ -32,16 +34,16 @@ class BordaCount extends Method implements MethodInterface
     /**
      * @return array<string, float>
      */
-    protected function getStats(): array
+    protected function getStats(): StatsInterface
     {
         $election = $this->getElection();
-        $stats = [];
+        $stats = new BaseMethodStats(closed: false);
 
         foreach ($this->Stats as $candidateKey => $oneScore) {
             $stats[(string) $election->getCandidateObjectFromKey($candidateKey)] = $oneScore;
         }
 
-        return $stats;
+        return $stats->close();
     }
 
 

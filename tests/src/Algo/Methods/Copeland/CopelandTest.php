@@ -29,7 +29,7 @@ test('result 1', function (): void {
 
     expect($this->election->getWinner())->toBe($this->election->getWinner('Copeland'));
 
-    expect($this->election->getResult('Copeland')->getStats())->toBe([
+    expect($this->election->getResult('Copeland')->getStatsAsArray())->toBe([
         'Memphis' => [
             'balance' => -3,
         ],

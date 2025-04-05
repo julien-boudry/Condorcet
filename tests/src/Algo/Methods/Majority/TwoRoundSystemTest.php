@@ -67,7 +67,7 @@ test('result french2002', function (): void {
         16 => 'Gluckstein',
     ]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'Chirac' => 1988,
         'Le Pen' => 1686,
         'Jospin' => 1618,
@@ -111,7 +111,7 @@ test('result 1', function (): void {
         3 => 'D',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 42,
         'B' => 26,
         'D' => 17,
@@ -146,7 +146,7 @@ test('result 2', function (): void {
         3 => 'B',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 42,
         'D' => 42,
         'B' => 26,
@@ -174,7 +174,7 @@ test('result 3', function (): void {
         2 => 'C',
         3 => 'B', ]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 1.5,
         'C' => 0.5,
         'B' => 0,
@@ -200,7 +200,7 @@ test('result 5', function (): void {
         3 => 'B',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 51,
         'C' => 25,
         'B' => 24,
@@ -221,7 +221,7 @@ test('result 6', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 2 => 'C']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 50,
         'B' => 50,
         'C' => 0,
@@ -244,7 +244,7 @@ test('result 7', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B']]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 50,
         'B' => 50,
     ],
@@ -263,7 +263,7 @@ test('result 8', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C']]);
 
-    $stats = $this->election->getResult('Two Rounds')->getStats();
+    $stats = $this->election->getResult('Two Rounds')->getStatsAsArray();
 
     // \array_walk_recursive($stats, function (float &$value): float {
     //     return $value = round($value, 10);
@@ -279,7 +279,7 @@ test('result 8', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C']]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toBe([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toBe([1 => [
         'A' => 0.0,
         'B' => 0.0,
         'C' => 0.0,
@@ -306,7 +306,7 @@ test('result 9', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'B' => 12,
         'A' => 10,
         'C' => 10,
@@ -324,7 +324,7 @@ test('result 9', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 2 => 'C', 3 => 'D', 4 => 'E']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'B' => 12,
         'A' => 10,
         'C' => 10,
@@ -342,7 +342,7 @@ test('result 9', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'C', 3 => 'A', 4 => 'D', 5 => 'E']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'B' => 12,
         'C' => 11,
         'A' => 10,
@@ -374,7 +374,7 @@ test('result 10', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toBe([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toBe([1 => [
         'A' => (float) 10,
         'B' => (float) 10,
         'C' => (float) 10,
@@ -392,7 +392,7 @@ test('result 10', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toEqual([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toEqual([1 => [
         'A' => 10,
         'B' => 10,
         'C' => 10,
@@ -424,7 +424,7 @@ test('result 11', function (): void {
 
     expect($this->election->getResult('Two Rounds')->getResultAsArray(true))->toBe([1 => ['A', 'B', 'C']]);
 
-    expect($this->election->getResult('Two Rounds')->getStats())->toBe([1 => [
+    expect($this->election->getResult('Two Rounds')->getStatsAsArray())->toBe([1 => [
         'A' => (float) 10,
         'B' => (float) 10,
         'C' => (float) 10,

@@ -29,7 +29,7 @@ test('result 1', function (): void {
         5 => 'E',
         6 => 'F', ]);
 
-    expect($this->election->getResult('DowdallSystem')->getStats())
+    expect($this->election->getResult('DowdallSystem')->getStatsAsArray())
         ->toEqualWithDelta(
             expected: [
                 'A' => 1,

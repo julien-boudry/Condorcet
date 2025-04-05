@@ -30,7 +30,7 @@ test('result 1', function (): void {
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'B' => 294,
         'C' => 273,
         'A' => 226,
@@ -59,7 +59,7 @@ test('result 2', function (): void {
         3 => 'C',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'A' => 340,
         'B' => 280,
         'C' => 195,
@@ -79,7 +79,7 @@ test('result 3', function (): void {
         1 => 'A',
         2 => ['B', 'C'], ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'A' => 3,
         'B' => 1.5,
         'C' => 1.5, ]);
@@ -90,7 +90,7 @@ test('result 3', function (): void {
         1 => 'A',
         2 => ['B', 'C'], ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'A' => 3,
         'B' => 0,
         'C' => 0, ]);
@@ -116,7 +116,7 @@ test('result 4', function (): void {
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'B' => 294,
         'C' => 273,
         'A' => 226,
@@ -145,7 +145,7 @@ test('result variant', function (): void {
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStats())->toEqual([
+    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
         'B' => 294 - 100,
         'C' => 273 - 100,
         'A' => 226 - 100,
