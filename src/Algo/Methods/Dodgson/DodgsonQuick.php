@@ -26,7 +26,7 @@ class DodgsonQuick extends Method implements MethodInterface
 
     protected readonly array $Stats;
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $stats = new BaseMethodStats(closed: false);

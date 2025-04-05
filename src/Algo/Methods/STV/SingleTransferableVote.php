@@ -158,7 +158,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         return $scoreTable;
     }
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
 

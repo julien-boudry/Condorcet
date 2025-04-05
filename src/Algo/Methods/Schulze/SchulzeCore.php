@@ -56,7 +56,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
 
 
     // Get the Schulze ranking
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $explicit = [];

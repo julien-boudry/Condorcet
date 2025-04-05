@@ -99,7 +99,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
 
     abstract protected function computeQuotient(int $votesWeight, int $seats): float;
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
 

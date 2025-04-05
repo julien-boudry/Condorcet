@@ -50,7 +50,7 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 
 
     // Get the stats
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $explicit = new BaseMethodStats(closed: false);

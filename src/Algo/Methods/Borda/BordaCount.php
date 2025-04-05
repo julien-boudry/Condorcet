@@ -34,7 +34,7 @@ class BordaCount extends Method implements MethodInterface
     /**
      * @return array<string, float>
      */
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $stats = new BaseMethodStats(closed: false);

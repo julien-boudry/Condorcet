@@ -28,7 +28,7 @@ class InstantRunoff extends Method implements MethodInterface
 
     public readonly float $majority;
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $stats = ['majority' => $this->majority];

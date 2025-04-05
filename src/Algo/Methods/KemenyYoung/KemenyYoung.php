@@ -69,7 +69,7 @@ class KemenyYoung extends Method implements MethodInterface
     }
 
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $stats = new BaseMethodStats(closed: false);

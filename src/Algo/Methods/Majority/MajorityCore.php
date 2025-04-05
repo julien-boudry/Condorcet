@@ -27,7 +27,7 @@ abstract class MajorityCore extends Method implements MethodInterface
     protected array $admittedCandidates = [];
     protected readonly array $Stats;
 
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
         $stats = [];

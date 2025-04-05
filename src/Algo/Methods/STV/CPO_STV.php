@@ -311,7 +311,7 @@ class CPO_STV extends SingleTransferableVote
     // Stats
 
     #[\Override]
-    protected function getStats(): StatsInterface
+    protected function getStats(): BaseMethodStats
     {
         $election = $this->getElection();
 
