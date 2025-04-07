@@ -49,7 +49,9 @@ _Designed for electing an assembly. Return a ranking of elected candidates._
     * **[Highest Average: Thomas Jefferson / D'Hondt](#jefferson--dhondt-method)**
     * **[Largest Remainder: Hare-LR / Droop-LR / Imperiali-LR / Hagenbach-Bischoff-LR](#hare-lr--droop-lr--imperiali-lr--hagenbach-bischoff-lr)**
 
+## Informational methods
 
+* **[Smith Set](#smith-set)** Identifies the smallest non-empty set of candidates that collectively beat all others.
 
 ---------------------------------------
 
@@ -70,6 +72,7 @@ In terms of implementation, what you have to understand is that algorithms and p
 ---------------------------------------
 
 # Single Winner methods - Details & Implementation
+
 ## Condorcet Basic
 
 > **Family:** Condorcet  
@@ -85,7 +88,6 @@ $election->getCondorcetWinner() ;
 // Will return the strict natural Condorcet Loser candidate. Or Null if there is not.
 $election->getCondorcetLoser() ;
 ```
-
 
 ## Borda Count
 
@@ -863,4 +865,41 @@ $election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::HARE) ;
 $election->getResult('Largest Remainder') ;
 $election->setMethodOption('Largest Remainder', 'Quota', StvQuotas::DROOP) ;
 $election->getResult('Largest Remainder') ;
+```
+
+
+# Informational methods - Details & Implementation
+
+## Smith Set
+
+> **Family:** Condorcet  
+> **Variant used:** *None*  
+> **Wikipedia:** https://en.wikipedia.org/wiki/Smith_set  
+> ***  
+> **Methods alias available (for function call)**: "Smith set",  "Smith"
+
+### Implementation Comments<!-- {docsify-ignore} -->
+The Smith Set is the smallest non-empty set of candidates such that every candidate in the set defeats every candidate outside the set in a pairwise comparison.
+
+Key properties:
+- If there is a Condorcet winner, the Smith set contains only that candidate
+- In cases with voting cycles, the Smith set will contain all candidates in that cycle
+- The Smith set is always non-empty
+
+In this implementation:
+- All candidates in the Smith set are ranked equally at rank 1
+- All candidates outside the Smith set are ranked equally at rank 2
+- This provides a clear distinction between candidates that are part of the "unbeatable set" and those that are not
+
+### Code example<!-- {docsify-ignore} -->
+```php
+// Get Full Ranking
+$election->getResult('Smith set')[1] ; // The smith set as array of Candidates
+
+// Just get Winner(s) or Loser(s) (inside or outside the smith set)
+$election->getWinner('Smith set') ; // The smith set as array of Candidates
+$election->getLoser('Smith set') ; // The candidates not in the smith set, as array of Candidates
+
+// Get Stats (includes the Smith set)
+$election->getResult('Smith set')->getStats()['smith_set'] ;
 ```
