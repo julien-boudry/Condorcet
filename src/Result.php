@@ -244,7 +244,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
  * @see Election::getResult
  */
-    public function getStats(): null|array|StatsInterface
+    public function getStats(): StatsInterface
     {
         return $this->stats;
     }
@@ -255,9 +255,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * @see Result::getStats
      */
     public function getStatsAsArray() : array {
-        $stats = $this->getStats() ?? [];
-
-        return $stats instanceof StatsInterface ? $stats->asArray : $stats;
+        return $this->getStats()->asArray;
     }
 
 
