@@ -81,19 +81,23 @@ abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
             $challenge[$candidate_key] = $candidate_data[static::COUNT_TYPE];
         }
 
-        while ($done < $this->getElection()->countCandidates()) {
-            $looking = $this->looking($challenge);
+        if ($challenge === [null]) {
+            $result[$rank] = array_keys($this->getElection()->getCandidatesList());
+        } else {
+            while ($done < $this->getElection()->countCandidates()) {
+                $looking = $this->looking($challenge);
 
-            foreach ($challenge as $candidate => $value) {
-                if ($value === $looking) {
-                    $result[$rank][] = $candidate;
+                foreach ($challenge as $candidate => $value) {
+                    if ($value === $looking) {
+                        $result[$rank][] = $candidate;
 
-                    $done++;
-                    unset($challenge[$candidate]);
+                        $done++;
+                        unset($challenge[$candidate]);
+                    }
                 }
-            }
 
-            $rank++;
+                $rank++;
+            }
         }
 
         $this->Result = $this->createResult($result);
