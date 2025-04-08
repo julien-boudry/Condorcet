@@ -37,6 +37,7 @@ Condorcet::addMethod(Algo\Methods\RankedPairs\RankedPairsWinning::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeWinning::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeMargin::class);
 Condorcet::addMethod(Algo\Methods\Schulze\SchulzeRatio::class);
+Condorcet::addMethod(Algo\Methods\Smith\SchwartzSet::class);
 Condorcet::addMethod(Algo\Methods\Smith\SmithSet::class);
 
 # Proportional Methods

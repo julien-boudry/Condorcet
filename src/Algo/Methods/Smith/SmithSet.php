@@ -29,7 +29,6 @@ class SmithSet extends Method implements MethodInterface
 
 
     protected readonly array $SmithSet;
-    protected array $Stats = [];
 
     #[\Override]
     public function getResult(): Result
@@ -41,7 +40,6 @@ class SmithSet extends Method implements MethodInterface
 
         // Calculate Smith Set
         $this->SmithSet = $this->computeSmithSet();
-        $this->Stats['smith_set'] = $this->SmithSet;
 
         // Create result
         $result = [];
