@@ -15,7 +15,7 @@ test('empty relevant votes, one candidate', function (string $method): void {
     expect($election->getResult($method)->ranking)->toBe([1 => [$candidateD]]);
 })->with(Condorcet::getAuthMethods());
 
-// https://electowiki.org/wiki/Beatpath_example_12
+// https://electowiki.org/wiki/Beatpath_example_12 > examples fixed
 test('example with 12 candidates from electowiki', function(): void {
     $election = new Election;
     $election->allowsVoteWeight();
@@ -39,15 +39,20 @@ test('example with 12 candidates from electowiki', function(): void {
 
     expect($election->getCondorcetWinner())->toBeNull();
 
-    expect($election->getResult('Smith set')->rankingAsString)->toBe([1 => $election->getCandidatesListAsString()]);
+    expect($election->getResult('Smith set')->rankingAsString)->toBe(
+        [
+            1 => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'],
+            2 => 'L',
+        ]
+    );
 
-    // expect($election->getResult('Schwartz set')->rankingAsString)
-    //     ->toHaveCount(2)
-    //     ->toBe([
-    //         1 => ['A', 'B', 'C', 'D', 'E'],
-    //         2 => ['F', 'G', 'H', 'I', 'J', 'K', 'L'],
-    //     ]);
-    // ;
+    expect($election->getResult('Schwartz set')->rankingAsString)
+        ->toHaveCount(2)
+        ->toBe([
+            1 => ['A', 'B', 'C', 'D', 'E'],
+            2 => ['F', 'G', 'H', 'I', 'J', 'K', 'L'],
+        ]);
+    ;
 
-    expect($election->getWinner('Schulze'))->toBe('B');
-})->skip('Electo wiki seem to be wrong');
+    // expect($election->getWinner('Schulze'))->toBe('B');;
+});
