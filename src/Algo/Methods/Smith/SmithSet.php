@@ -80,7 +80,7 @@ class SmithSet extends Method implements MethodInterface
             $graph[$candidateKey] = [];
             foreach ($candidateList as $opponentKey) {
                 if ($candidateKey !== $opponentKey) {
-                    // candidateId defeats opponentId if it has more wins than losses
+                    // candidateKey defeats opponentKey if it has more wins than losses
                     if ($pairwise[$candidateKey]['win'][$opponentKey] > $pairwise[$candidateKey]['lose'][$opponentKey]) {
                         $graph[$candidateKey][] = $opponentKey;
                     }
@@ -88,51 +88,44 @@ class SmithSet extends Method implements MethodInterface
             }
         }
 
-        // Initialize all candidates as potential Smith Set members
-        $potentialSmithSet = $candidateList;
+        // Find the Smith Set using an iterative algorithm
+        $candidates = $candidateList;
 
-        // Iteratively identify and remove candidates that are not part of the Smith Set
-        $changed = true;
-        while ($changed && count($potentialSmithSet) > 0) {
-            $changed = false;
+        do {
+            $modified = false;
 
-            foreach ($potentialSmithSet as $idx => $candidateKey) {
-                // Check if there is any candidate in the potential Smith Set that defeats this candidate
-                // and is not defeated by any candidate in the set
-                foreach ($potentialSmithSet as $opponentKey) {
-                    if ($candidateKey === $opponentKey) {
-                        continue;
-                    }
-
-                    // If opponent defeats candidate
-                    if (in_array($candidateKey, $graph[$opponentKey], true)) {
-                        $isDefeated = false;
-
-                        // Check if opponent is defeated by any candidate in the set
-                        foreach ($potentialSmithSet as $thirdCandidateId) {
-                            if ($opponentKey !== $thirdCandidateId && in_array($opponentKey, $graph[$thirdCandidateId], true)) {
-                                $isDefeated = true;
-                                break;
-                            }
-                        }
-
-                        // If opponent is not defeated by any candidate in the set,
-                        // remove the candidate from the potential Smith Set
-                        if (!$isDefeated) {
-                            unset($potentialSmithSet[$idx]);
-                            $changed = true;
-                            break;
-                        }
+            foreach ($candidates as $i => $candidateId) {
+                // Check if this candidate is beaten by someone in the set
+                $beatenBy = [];
+                foreach ($candidates as $j => $opponentId) {
+                    if ($i !== $j && in_array($candidateId, $graph[$opponentId], true)) {
+                        $beatenBy[] = $opponentId;
                     }
                 }
 
-                if ($changed) {
-                    break;
+                if (empty($beatenBy)) {
+                    continue;
+                }
+
+                // Check if this candidate beats anyone in the set
+                $beats = [];
+                foreach ($candidates as $j => $opponentId) {
+                    if ($i !== $j && in_array($opponentId, $graph[$candidateId], true)) {
+                        $beats[] = $opponentId;
+                    }
+                }
+
+                // If this candidate is beaten by someone in the set but doesn't beat anyone in the set,
+                // remove it from consideration
+                if (empty($beats)) {
+                    unset($candidates[$i]);
+                    $modified = true;
                 }
             }
-        }
 
-        return array_values($potentialSmithSet);
+        } while ($modified && count($candidates) > 0);
+
+        return array_values($candidates);
     }
 
     #[\Override]

@@ -102,3 +102,31 @@ test('smith set with a clear top set', function (): void {
     expect($result->getResultAsArray()[1])->toBe([$candidateA, $candidateB])->toBe($result->getWinner());
     expect($result->getResultAsArray()[2])->toBe([$candidateC, $candidateD])->toBe($result->getLoser());
 });
+
+// Example from https://electowiki.org/wiki/Smith_set
+test('from electowiki 1', function(): void {
+    $this->election->parseCandidates('A;B;C');
+    $this->election->allowsVoteWeight();
+
+    $this->election->parseVotes('
+        A>B ^ 49
+        B>A ^ 3
+        C>B ^ 48
+    ');
+
+    expect($this->election->getResult('Smith')->getResultAsString())->toBe('B > A = C');
+});
+
+// Example from https://en.wikipedia.org/wiki/Smith_set
+test('from wikipedia 1', function(): void {
+    $this->election->parseCandidates('A;B;C;D');
+    $this->election->allowsVoteWeight();
+
+    $this->election->parseVotes('
+        D>A>B>C ^40
+        B>C>A>D ^35
+        C>A>B>D ^25
+    ');
+
+    expect($this->election->getResult('Smith')->getResultAsString())->toBe('A = B = C > D');
+});
