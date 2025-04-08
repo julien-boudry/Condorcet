@@ -9,7 +9,7 @@ use CondorcetPHP\Condorcet\Election;
 test('BaseMethodStats Are closed', function (): void {
     $election = new Election;
 
-    $election->parseCandidates('A,B,C');
+    $election->parseCandidates('A;B;C');
     $election->addVote('A > B > C');
 
     foreach(Condorcet::getAuthMethods() as $method) {
