@@ -5,7 +5,7 @@ declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
-use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented;
 
 test('get version', function (): void {
     expect(Condorcet::getVersion())->toBe(Condorcet::VERSION);
@@ -21,7 +21,7 @@ test('add existing method', function (): void {
 });
 
 test('bad class method', function (): void {
-    $this->expectException(AlgorithmException::class);
+    $this->expectException(VotingMethodIsNotImplemented::class);
     $this->expectExceptionMessage("The voting algorithm is not available: no class found for 'sjskkdlkkzksh'");
 
     Condorcet::addMethod('sjskkdlkkzksh');
@@ -49,7 +49,7 @@ test('add method', function (): void {
     // Try to add existing alias
     $algoClassPath = CondorcetTest_DuplicateAlgorithmAlias::class;
 
-    $this->expectException(AlgorithmException::class);
+    $this->expectException(VotingMethodIsNotImplemented::class);
     $this->expectExceptionMessage('The voting algorithm is not available: the given class is using an existing alias');
 
     Condorcet::addMethod($algoClassPath);
@@ -58,7 +58,7 @@ test('add method', function (): void {
 test('add unvalid method', function (): void {
     $algoClassPath = CondorcetTest_UnvalidAlgorithmName::class;
 
-    $this->expectException(AlgorithmException::class);
+    $this->expectException(VotingMethodIsNotImplemented::class);
     $this->expectExceptionMessage('The voting algorithm is not available: the given class is not correct');
 
     Condorcet::addMethod($algoClassPath);
@@ -69,7 +69,7 @@ test('unvalid default method', function (): void {
 });
 
 test('empty method', function (): void {
-    $this->expectException(AlgorithmException::class);
+    $this->expectException(VotingMethodIsNotImplemented::class);
     $this->expectExceptionMessage('The voting algorithm is not available: no method name given');
 
     Condorcet::isAuthMethod('');

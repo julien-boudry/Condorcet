@@ -5,7 +5,7 @@ use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin;
-use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
+use CondorcetPHP\Condorcet\Throwable\{VotingMethodIsNotImplemented, ResultException};
 
 beforeEach(function (): void {
     $this->election1 = new Election;
@@ -189,7 +189,7 @@ test('bad method name', function (): void {
 
     $this->election1->parseVotes('A>B>C');
 
-    $this->expectException(AlgorithmException::class);
+    $this->expectException(VotingMethodIsNotImplemented::class);
     $this->expectExceptionMessage('The voting algorithm is not available: bad method');
 
     $this->election1->getResult('bad method');
@@ -260,7 +260,7 @@ test('method option', function (): void {
 
     expect($b2->methodOptions['Starting'])->toBe(0);
 
-    expect(fn(): never => $this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toThrow(AlgorithmException::class);
+    expect(fn(): never => $this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toThrow(VotingMethodIsNotImplemented::class);
 });
 
 test('verbosity level', function (): void {

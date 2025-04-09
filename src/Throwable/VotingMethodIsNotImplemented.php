@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Throwable;
 
-class AlgorithmException extends CondorcetPublicApiException
+class VotingMethodIsNotImplemented extends CondorcetPublicApiException
 {
     protected $message = 'The voting algorithm is not available';
 }

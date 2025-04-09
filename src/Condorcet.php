@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
-use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented;
 
 // Registering native Condorcet Methods implementation
 
@@ -143,7 +143,7 @@ abstract class Condorcet
      * Return the full class path for a method.
      * @api
      * @return mixed Return null is method not exist.
-     * @throws AlgorithmException
+     * @throws VotingMethodIsNotImplemented
      * @see static Condorcet::getAuthMethods
      * @param $method A valid method name.
      */
@@ -153,7 +153,7 @@ abstract class Condorcet
         $auth = self::$authMethods;
 
         if (empty($method)) {
-            throw new AlgorithmException('no method name given');
+            throw new VotingMethodIsNotImplemented('no method name given');
         }
 
         if (isset($auth[$method])) {
@@ -215,16 +215,16 @@ abstract class Condorcet
     protected static function testMethod(string $method): bool
     {
         if (!class_exists($method)) {
-            throw new AlgorithmException("no class found for '{$method}'");
+            throw new VotingMethodIsNotImplemented("no class found for '{$method}'");
         }
 
         if (!is_subclass_of($method, Algo\MethodInterface::class) || !is_subclass_of($method, Algo\Method::class)) {
-            throw new AlgorithmException('the given class is not correct');
+            throw new VotingMethodIsNotImplemented('the given class is not correct');
         }
 
         foreach ($method::METHOD_NAME as $alias) {
             if (self::isAuthMethod($alias)) {
-                throw new AlgorithmException('the given class is using an existing alias');
+                throw new VotingMethodIsNotImplemented('the given class is using an existing alias');
             }
         }
 
@@ -258,7 +258,7 @@ abstract class Condorcet
             if (self::isAuthMethod($substitution)) {
                 $algo = $substitution;
             } else {
-                throw new AlgorithmException("No class found for method '{$substitution}'");
+                throw new VotingMethodIsNotImplemented("No class found for method '{$substitution}'");
             }
         } else {
             $algo = self::CONDORCET_BASIC_CLASS;

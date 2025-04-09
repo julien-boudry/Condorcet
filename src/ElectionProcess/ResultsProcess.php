@@ -18,7 +18,7 @@ use CondorcetPHP\Condorcet\Algo\Pairwise\{FilteredPairwise, Pairwise};
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
-use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
+use CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use League\Csv\InvalidArgument;
 use PHPUnit\Framework\MockObject\Generator\InvalidMethodNameException;
@@ -50,7 +50,7 @@ trait ResultsProcess
      * Get a full ranking from an advanced Condorcet method.
      * @api
      * @return mixed An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
-     * @throws AlgorithmException
+     * @throws VotingMethodIsNotImplemented
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking
      * @see Election::getWinner, Election::getResult, Condorcet::getDefaultMethod
      * @param $method Not required for use election default method. Set the string name of the algorithm for use of a specific one.
@@ -97,7 +97,7 @@ trait ResultsProcess
             $this->initResult($wanted_method);
             $result = $this->MethodsComputation[$wanted_method]->getResult();
         } else {
-            throw new AlgorithmException($method);
+            throw new VotingMethodIsNotImplemented($method);
         }
 
         if ($chrono !== null) {
@@ -273,7 +273,7 @@ trait ResultsProcess
 
             return $this;
         } else {
-            throw new AlgorithmException(
+            throw new VotingMethodIsNotImplemented(
                 'Method ' . $method . ' not found. Please check the name or the class path.'
             );
         }
