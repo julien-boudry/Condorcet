@@ -23,14 +23,14 @@ test('result 1', function (): void {
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-    expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('KemenyYoung')->rankingAsArrayString)->toBe([
         1 => 'Nashville',
         2 => 'Chattanooga',
         3 => 'Knoxville',
         4 => 'Memphis',
     ]);
 
-    expect($this->election->getResult('KemenyYoung')->getStats()['Best Score'])->toBe(393);
+    expect($this->election->getResult('KemenyYoung')->stats['Best Score'])->toBe(393);
 
     expect($this->election->getWinner('KemenyYoung'))->toBe($this->election->getWinner());
 });
@@ -49,7 +49,7 @@ test('result2', function (): void {
 
     $this->election->setImplicitRanking(false);
 
-    expect($this->election->getResult('KemenyYoung')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('KemenyYoung')->rankingAsArrayString)->toBe([
         1 => 'Elliot',
         2 => 'Roland',
         3 => 'Meredith',
@@ -65,9 +65,9 @@ test('stats 1', function (): void {
 
     $this->election->parseVotes($r = 'A > B');
 
-    expect($this->election->getResult('KemenyYoung')->getResultAsString())->toBe($r);
+    expect($this->election->getResult('KemenyYoung')->rankingAsString)->toBe($r);
 
-    expect($this->election->getResult('KemenyYoung')->getStats()->asArray)->toBe([
+    expect($this->election->getResult('KemenyYoung')->stats->asArray)->toBe([
         'Best Score' => 1,
         'Ranking In Conflicts' => 0,
         'Ranking Scores' => [
@@ -78,7 +78,7 @@ test('stats 1', function (): void {
 
     $this->election->setStatsVerbosity(StatsVerbosity::STD);
 
-    expect($this->election->getResult('KemenyYoung')->getStats())->not()->toHaveKey('rankingScores');
+    expect($this->election->getResult('KemenyYoung')->stats)->not()->toHaveKey('rankingScores');
 });
 
 test('max candidates', function (): void {
@@ -116,7 +116,7 @@ test('conflicts', function (): void {
     ],
     ]);
 
-    expect($result->getStats()->getEntry('Ranking In Conflicts'))->toBe(3);
+    expect($result->stats->getEntry('Ranking In Conflicts'))->toBe(3);
 
     $this->election->addVote('A>B>C');
 

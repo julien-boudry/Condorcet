@@ -268,7 +268,7 @@ class CPO_STV extends SingleTransferableVote
 
         foreach (self::$optionCondorcetCompletionMethod as $completionMethod) {
             $completionMethodResult = $winnerOutcomeElection->getResult($completionMethod);
-            $condorcetWinnerOutcome = $completionMethodResult->getWinner();
+            $condorcetWinnerOutcome = $completionMethodResult->winner;
 
             if (!\is_array($condorcetWinnerOutcome)) {
                 $selectionSucces = true;
@@ -279,7 +279,7 @@ class CPO_STV extends SingleTransferableVote
 
         if (!$selectionSucces) {
             $completionMethodResult = $winnerOutcomeElection->getResult(self::$optionCondorcetCompletionMethod[0]);
-            $condorcetWinnerOutcome = $completionMethodResult->getWinner();
+            $condorcetWinnerOutcome = $completionMethodResult->winner;
             $condorcetWinnerOutcome = reset($condorcetWinnerOutcome);
             $this->completionMethodResult = $completionMethodResult;
         }
@@ -360,7 +360,7 @@ class CPO_STV extends SingleTransferableVote
             if (isset($this->completionMethodResult)) {
                 $stats['Condorcet Completion Method Stats'] = [
                     'Pairwise' => $this->completionMethodPairwise,
-                    'Stats' => $this->completionMethodResult->getStats(),
+                    'Stats' => $this->completionMethodResult->stats,
                 ];
             }
         }

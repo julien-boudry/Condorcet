@@ -44,7 +44,7 @@ test('result 1', function (): void {
 
     $this->election->setNumberOfSeats(2);
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])
+    expect($this->election->getResult('STV')->stats['rounds'])
         ->toEqualWithDelta(
             expected: [
                 1 => [
@@ -66,9 +66,9 @@ test('result 1', function (): void {
             delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(34.0);
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(34.0);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'B',
     ]);
@@ -96,9 +96,9 @@ test('result 2', function (): void {
             Hamburger
         ');
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->tobe(6.0);
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->tobe(6.0);
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])->toBe([
+    expect($this->election->getResult('STV')->stats['rounds'])->toBe([
         1 => [
             'Chocolate' => 12.0,
             'Orange' => 4.0,
@@ -126,7 +126,7 @@ test('result 2', function (): void {
         ],
     ]);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Chocolate',
         2 => 'Orange',
         3 => 'Strawberry',
@@ -152,9 +152,9 @@ test('result 3', function (): void {
             Brad ^ 27
         ');
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(31.0);
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(31.0);
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])->toBe([
+    expect($this->election->getResult('STV')->stats['rounds'])->toBe([
         1 => [
             'Andrea' => 50.0,
             'Brad' => 27.0,
@@ -166,13 +166,13 @@ test('result 3', function (): void {
         ],
     ]);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Andrea',
         2 => 'Brad',
     ]);
 
     $this->election->setStatsVerbosity(StatsVerbosity::LOW);
-    expect($this->election->getResult('STV')->getStats())->not()->toHaveKey('rounds');
+    expect($this->election->getResult('STV')->stats)->not()->toHaveKey('rounds');
 });
 
 test('result 4', function (): void {
@@ -194,9 +194,9 @@ test('result 4', function (): void {
 
     $this->election->setNumberOfSeats(3);
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->tobe(26.0);
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->tobe(26.0);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'D',
         3 => 'C',
@@ -221,9 +221,9 @@ test('result alternative quotas1', function (): void {
     $this->election->setNumberOfSeats(2);
     $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero));
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero));
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])
+    expect($this->election->getResult('STV')->stats['rounds'])
         ->toEqualWithDelta(
             expected: [
                 1 => [
@@ -239,12 +239,12 @@ test('result alternative quotas1', function (): void {
             delta: 1 / (0.1 ** SingleTransferableVote::DECIMAL_PRECISION)
         );
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Andrea',
         2 => 'Carter',
     ]);
 
-    expect(StvQuotas::make('Hagenbach-Bischoff'))->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
+    expect(StvQuotas::make('Hagenbach-Bischoff'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
 });
 
 test('result alternative quotas2', function (): void {
@@ -265,9 +265,9 @@ test('result alternative quotas2', function (): void {
     $this->election->setNumberOfSeats(2);
     $this->election->setMethodOption('STV', 'Quota', StvQuotas::IMPERIALI);
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe((float) (100 / (2 + 2)));
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe((float) (100 / (2 + 2)));
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])->toBe([
+    expect($this->election->getResult('STV')->stats['rounds'])->toBe([
         1 => [
             'Andrea' => 65.0,
             'Brad' => 20.0,
@@ -279,12 +279,12 @@ test('result alternative quotas2', function (): void {
         ],
     ]);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Andrea',
         2 => 'Carter',
     ]);
 
-    expect(StvQuotas::make('Imperiali quota'))->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
+    expect(StvQuotas::make('Imperiali quota'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
 });
 
 test('result alternative quotas3', function (): void {
@@ -305,9 +305,9 @@ test('result alternative quotas3', function (): void {
     $this->election->setNumberOfSeats(2);
     $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hare quota'));
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe((float) (100 / 2));
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe((float) (100 / 2));
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])->toBe([
+    expect($this->election->getResult('STV')->stats['rounds'])->toBe([
         1 => [
             'Andrea' => 60.0,
             'Brad' => 26.0,
@@ -320,12 +320,12 @@ test('result alternative quotas3', function (): void {
         3 => ['Brad' => 26.0],
     ]);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Andrea',
         2 => 'Brad',
     ]);
 
-    expect(StvQuotas::HARE)->toBe($this->election->getResult('STV')->getMethodOptions()['Quota']);
+    expect(StvQuotas::HARE)->toBe($this->election->getResult('STV')->methodOptions['Quota']);
 });
 
 test('result alternative quotas4', function (): void {
@@ -351,9 +351,9 @@ test('result alternative quotas4', function (): void {
     $this->election->setNumberOfSeats(3);
     $this->election->setMethodOption('STV', 'Quota', StvQuotas::HAGENBACH_BISCHOFF);
 
-    expect($this->election->getResult('STV')->getStats()['Votes Needed to Win'])->toBe(25.0);
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(25.0);
 
-    expect($this->election->getResult('STV')->getStats()['rounds'])->toBe([
+    expect($this->election->getResult('STV')->stats['rounds'])->toBe([
         1 => [
             'Carter' => 34.0,
             'Andrea' => 25.0,
@@ -372,7 +372,7 @@ test('result alternative quotas4', function (): void {
         ],
     ]);
 
-    expect($this->election->getResult('STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('STV')->rankingAsArrayString)->toBe([
         1 => 'Carter',
         2 => 'Andrea',
         3 => 'Scott',

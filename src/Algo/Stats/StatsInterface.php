@@ -20,7 +20,9 @@ use Iterator;
  */
 interface StatsInterface extends \ArrayAccess, \IteratorAggregate
 {
+    /** @api */
     public array $asArray { get; }
 
+    /** @api */
     public function getEntry(string $entryName): mixed;
 }

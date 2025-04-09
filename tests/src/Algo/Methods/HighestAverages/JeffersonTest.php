@@ -20,7 +20,7 @@ test('result 1', function (): void {
     $this->election->parseVotes('A * 42; B ^31; C *15; D ^12');
 
     // Mix weight and number
-    expect($this->election->getResult('Jefferson')->getStats()['Seats per Candidates'])->toBe(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0]);
+    expect($this->election->getResult('Jefferson')->stats['Seats per Candidates'])->toBe(['A' => 3, 'B' => 2, 'C' => 1, 'D' => 0]);
 });
 
 test('result tideman a03', function (): void {

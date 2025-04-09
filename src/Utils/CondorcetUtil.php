@@ -90,7 +90,7 @@ abstract class CondorcetUtil
                 } elseif ($input instanceof Vote) {
                     $r = $input->getSimpleRanking();
                 } elseif ($input instanceof Result) {
-                    $r = $input->getResultAsArray(true);
+                    $r = $input->rankingAsArrayString;
                 }
             }
         } elseif (!\is_array($input)) {

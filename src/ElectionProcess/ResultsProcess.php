@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
+use CondorcetPHP\Condorcet\Algo\MethodInterface;
 use CondorcetPHP\Condorcet\Algo\Pairwise\{FilteredPairwise, Pairwise};
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
@@ -30,6 +31,7 @@ trait ResultsProcess
 
     // Result
     protected ?Pairwise $Pairwise = null;
+    /** @var ?array<MethodInterface> */
     protected ?array $MethodsComputation = null;
 
     /**
@@ -38,7 +40,6 @@ trait ResultsProcess
      * @return StatsVerbosity The current verbosity level for this election object.
      */
     public protected(set) StatsVerbosity $StatsVerbosity = StatsVerbosity::STD;
-
 
     /////////// GET RESULTS ///////////
 
@@ -54,9 +55,7 @@ trait ResultsProcess
      * @param $methodOptions Array of option for some methods. Look at each method documentation.
      */
     public function getResult(
-
         ?string $method = null,
-
         array $methodOptions = []
     ): Result {
         $methodOptions = self::formatResultOptions($methodOptions);
@@ -130,11 +129,11 @@ trait ResultsProcess
                 new Timer_Chrono($this->timer, 'GetWinner for CondorcetBasic');
             }
             $this->initResult($algo);
-            $result = $this->MethodsComputation[$algo]->getWinner();
+            $result = $this->MethodsComputation[$algo]->getWinner(); // @phpstan-ignore method.notFound
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
-            return $this->getResult($algo)->getWinner();
+            return $this->getResult($algo)->winner;
         }
     }
 /**
@@ -162,11 +161,11 @@ trait ResultsProcess
                 new Timer_Chrono($this->timer, 'GetLoser for CondorcetBasic');
             }
             $this->initResult($algo);
-            $result = $this->MethodsComputation[$algo]->getLoser();
+            $result = $this->MethodsComputation[$algo]->getLoser(); // @phpstan-ignore method.notFound
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
-            return $this->getResult($algo)->getLoser();
+            return $this->getResult($algo)->loser;
         }
     }
 /**
@@ -318,7 +317,7 @@ trait ResultsProcess
     protected function initResult(string $class): void
     {
         if (!isset($this->MethodsComputation[$class])) {
-            $this->MethodsComputation[$class] = new $class($this);
+            $this->MethodsComputation[$class] = new $class($this); // @phpstan-ignore assign.propertyType
         }
     }
 

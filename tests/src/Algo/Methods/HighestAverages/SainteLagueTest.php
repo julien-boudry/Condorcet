@@ -20,9 +20,9 @@ test('result 1', function (): void {
 
     $this->election->parseVotes('A ^53; B ^24; C ^23');
 
-    expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('A > B > C > A > A > B > C');
+    expect($this->election->getResult('SainteLague')->rankingAsString)->toBe('A > B > C > A > A > B > C');
 
-    expect($this->election->getResult('SainteLague')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('SainteLague')->stats->asArray)->toBe([
         'Rounds' => [
             1 => [
                 'A' => [
@@ -141,5 +141,5 @@ test('norwegian variant 1', function (): void {
 
     $this->election->parseVotes('H ^81140; Ap ^80862; FrP ^39851; SV ^26295; SP ^12187; KrF ^11229');
 
-    expect($this->election->getResult('SainteLague')->getResultAsString())->toBe('H > Ap > FrP > H > Ap > SV > H > Ap > FrP > H > Ap');
+    expect($this->election->getResult('SainteLague')->rankingAsString)->toBe('H > Ap > FrP > H > Ap > SV > H > Ap > FrP > H > Ap');
 });

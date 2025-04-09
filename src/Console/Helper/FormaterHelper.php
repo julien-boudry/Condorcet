@@ -19,16 +19,16 @@ abstract class FormaterHelper
 {
     public static function formatResultTable(Result $result): array
     {
-        $resultArray = $result->getResultAsArray(true);
+        $resultArray = $result->rankingAsArrayString;
 
         foreach ($resultArray as $rank => &$line) {
             if (\is_array($line)) {
                 $line = implode(' ; ', $line);
             }
 
-            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->getCondorcetWinner()) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
+            if ($rank === 1 && \count($result[1]) === 1 && $result[1][0] === $result->CondorcetWinner) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
                 $line .= ' ' . CondorcetStyle::CONDORCET_WINNER_SYMBOL_FORMATED;
-            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->getCondorcetLoser()) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
+            } elseif ($rank === max(array_keys($resultArray)) && \count($result[max(array_keys($resultArray))]) === 1 && $result[max(array_keys($resultArray))][0] === $result->CondorcetLoser) { // @phpstan-ignore offsetAccess.nonOffsetAccessible
                 $line .= ' ' . CondorcetStyle::CONDORCET_LOSER_SYMBOL_FORMATED;
             }
 

@@ -47,13 +47,13 @@ test('cpo1', function (): void {
 
     $this->election->setNumberOfSeats(3);
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([
         1 => 'Carter',
         2 => 'Andrea',
         3 => 'Delilah',
     ]);
 
-    $stats = $this->election->getResult('CPO STV')->getStats();
+    $stats = $this->election->getResult('CPO STV')->stats;
 
     expect($stats['Votes Needed to Win'])->toBe(25.0);
 
@@ -167,9 +167,9 @@ test('cpo2', function (): void {
 
     $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::HARE);
 
-    expect($this->election->getResult('CPO STV')->getResultAsString())->toBe('Andre > Escher > Gore');
+    expect($this->election->getResult('CPO STV')->rankingAsString)->toBe('Andre > Escher > Gore');
 
-    expect($this->election->getResult('CPO STV')->getStats()['Votes Needed to Win'])->toBe((float) 100);
+    expect($this->election->getResult('CPO STV')->stats['Votes Needed to Win'])->toBe((float) 100);
 });
 
 test('cpo3', function (): void {
@@ -190,12 +190,12 @@ test('cpo3', function (): void {
 
     $this->election->setMethodOption('CPO-STV', 'Quota', StvQuotas::DROOP);
 
-    expect($this->election->getResult('CPO STV')->getResultAsString())->toBe('A > C');
+    expect($this->election->getResult('CPO STV')->rankingAsString)->toBe('A > C');
 
-    expect($this->election->getResult('CPO STV')->getStats()['Votes Needed to Win'])->toBe((float) 11);
-    expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores'])->toBe([0 => 19.0, 2 => 22.0]);
-    expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores'])->toBe([0 => 19.0, 1 => 22.0]);
-    expect($this->election->getResult('CPO STV')->getStats()['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores'])->toBe([1 => 19.5, 2 => 13.5]);
+    expect($this->election->getResult('CPO STV')->stats['Votes Needed to Win'])->toBe((float) 11);
+    expect($this->election->getResult('CPO STV')->stats['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 2']['outcomes_scores'])->toBe([0 => 19.0, 2 => 22.0]);
+    expect($this->election->getResult('CPO STV')->stats['Outcomes Comparison']['Outcome N° 0 compared to Outcome N° 1']['outcomes_scores'])->toBe([0 => 19.0, 1 => 22.0]);
+    expect($this->election->getResult('CPO STV')->stats['Outcomes Comparison']['Outcome N° 1 compared to Outcome N° 2']['outcomes_scores'])->toBe([1 => 19.5, 2 => 13.5]);
 });
 
 test('less or equal candidates than seats', function (): void {
@@ -219,11 +219,11 @@ test('less or equal candidates than seats', function (): void {
                                         Chattanooga * 2
                                         Knoxville * 1');
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe($expectedRanking);
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe($expectedRanking);
 
     $this->election->setNumberOfSeats(5);
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe($expectedRanking);
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe($expectedRanking);
 });
 
 test('equality1', function (): void {
@@ -236,11 +236,11 @@ test('equality1', function (): void {
     $this->election->addVote('B>C>A');
     $this->election->addVote('A>B>C');
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => ['A', 'B']]);
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([1 => ['A', 'B']]);
 
     $this->election->setNumberOfSeats(3);
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => ['A', 'B'], 3 => 'C']);
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([1 => ['A', 'B'], 3 => 'C']);
 });
 
 test('equality2', function (): void {
@@ -252,7 +252,7 @@ test('equality2', function (): void {
     $this->election->addVote('A>B>C>D');
     $this->election->addVote('A>B>D>C');
 
-    expect($this->election->getResult('CPO STV')->getResultAsArray(true))->toBe([1 => 'A', 2 => ['B', 'D']]);
+    expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([1 => 'A', 2 => ['B', 'D']]);
 });
 
 test('limit1', function (): void {
@@ -284,5 +284,5 @@ test('cpo40 candidates', function (): void {
     $this->expectException(MethodLimitReachedException::class);
     $this->expectExceptionMessage('CPO-STV is currently limited to 12000 comparisons in order to avoid unreasonable deadlocks due to non-polyminial runtime aspects of the algorithm. Consult the documentation book to increase or remove this limit.');
 
-    $this->election->getResult('CPO STV')->getResultAsString();
+    $this->election->getResult('CPO STV')->rankingAsString;
 });

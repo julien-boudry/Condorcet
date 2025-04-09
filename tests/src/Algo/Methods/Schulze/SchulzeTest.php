@@ -22,7 +22,7 @@ test('result 1', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
-    expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([1 => ['B', 'D'],
+    expect($this->election->getResult('Schulze Winning')->rankingAsArrayString)->toBe([1 => ['B', 'D'],
         2 => ['A', 'C'], ]);
 });
 
@@ -68,7 +68,7 @@ test('result 3', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toEqual('Abby');
 
-    expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([1 => 'Abby',
+    expect($this->election->getResult('Schulze Winning')->rankingAsArrayString)->toBe([1 => 'Abby',
         2 => 'Brad',
         3 => 'Erin',
         4 => 'Dave',
@@ -91,7 +91,7 @@ test('schulze official example 1', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 14, 'C' => 14, 'D' => 12],
         'B' => ['A' => 13, 'C' => 13, 'D' => 12],
         'C' => ['A' => 13, 'B' => 15, 'D' => 12],
@@ -115,7 +115,7 @@ test('schulze official example 2', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateC);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 17, 'C' => 17, 'D' => 17],
         'B' => ['A' => 18, 'C' => 19, 'D' => 19],
         'C' => ['A' => 18, 'B' => 20, 'D' => 20],
@@ -143,7 +143,7 @@ test('schulze official example 3', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateE);
 
-    expect($this->election->getResult('Schulze Winning')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Schulze Winning')->rankingAsArrayString)->toBe([
         1 => 'E',
         2 => 'A',
         3 => 'C',
@@ -167,7 +167,7 @@ test('schulze official example 4', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateB, $candidateD]);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 5, 'C' => 5, 'D' => 5],
         'B' => ['A' => 5, 'C' => 7, 'D' => 5],
         'C' => ['A' => 5, 'B' => 5, 'D' => 5],
@@ -191,7 +191,7 @@ test('schulze official example 5', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 36, 'C' => 39, 'D' => 36],
         'B' => ['A' => 36, 'C' => 48, 'D' => 36],
         'C' => ['A' => 36, 'B' => 36, 'D' => 36],
@@ -217,7 +217,7 @@ test('schulze official example 6', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateC]);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 14, 'C' => 15, 'D' => 15],
         'B' => ['A' => 12, 'C' => 12, 'D' => 12],
         'C' => ['A' => 15, 'B' => 14, 'D' => 16],
@@ -272,7 +272,7 @@ test('schulze official example 8 situation 1', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateA);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 18, 'C' => 20, 'D' => 21],
         'B' => ['A' => 17, 'C' => 17, 'D' => 17],
         'C' => ['A' => 19, 'B' => 18, 'D' => 19],
@@ -301,7 +301,7 @@ test('schulze official example 8 situation 2', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 18, 'C' => 20, 'D' => 21, 'E' => 21],
         'B' => ['A' => 19, 'C' => 19, 'D' => 19, 'E' => 19],
         'C' => ['A' => 19, 'B' => 18, 'D' => 19, 'E' => 19],
@@ -367,7 +367,7 @@ test('schulze official example 10', function (): void {
     # Margin
     expect($this->election->getWinner('Schulze Margin'))->toBe($candidateA);
 
-    expect($this->election->getResult('Schulze Margin')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Margin')->stats->asArray)->toBe([
         'A' => ['B' => 67 - 55, 'C' => 67 - 55, 'D' => 67 - 55],
         'B' => ['A' => 50 - 40, 'C' => 79 - 59, 'D' => 45 - 29],
         'C' => ['A' => 50 - 40, 'B' => 72 - 58, 'D' => 45 - 29],
@@ -377,7 +377,7 @@ test('schulze official example 10', function (): void {
     # Ratio
     expect($this->election->getWinner('Schulze Ratio'))->toBe($candidateB);
 
-    expect($this->election->getResult('Schulze Ratio')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Ratio')->stats->asArray)->toBe([
         'A' => ['B' => 67 / 55, 'C' => 67 / 55, 'D' => 67 / 55],
         'B' => ['A' => 36 / 28, 'C' => 79 / 59, 'D' => 79 / 59],
         'C' => ['A' => 36 / 28, 'B' => 72 / 58, 'D' => 45 / 29],
@@ -387,7 +387,7 @@ test('schulze official example 10', function (): void {
     # Winning
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateD);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 67, 'C' => 67, 'D' => 45],
         'B' => ['A' => 45, 'C' => 79, 'D' => 45],
         'C' => ['A' => 45, 'B' => 45, 'D' => 45],
@@ -418,7 +418,7 @@ test('schulze official example 11', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe($candidateB);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 26, 'C' => 28, 'D' => 31, 'E' => 28],
         'B' => ['A' => 27, 'C' => 27, 'D' => 27, 'E' => 27],
         'C' => ['A' => 28, 'B' => 26, 'D' => 29, 'E' => 28],
@@ -461,7 +461,7 @@ test('schulze official example 13', function (): void {
 
     expect($this->election->getWinner('Schulze Winning'))->toBe([$candidateA, $candidateB]);
 
-    expect($this->election->getResult('Schulze Winning')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Schulze Winning')->stats->asArray)->toBe([
         'A' => ['B' => 3, 'C' => 3],
         'B' => ['A' => 3, 'C' => 4],
         'C' => ['A' => 3, 'B' => 3],
@@ -472,7 +472,7 @@ test('schulze ratio equality', function (): void {
     $this->election->parseCandidates('A;B;C;D');
     $this->election->parseVotes('A>B=C>D * 10');
 
-    expect($this->election->getResult('Schulze Ratio')->getResultAsArray(true))->toBe([1 => 'A',
+    expect($this->election->getResult('Schulze Ratio')->rankingAsArrayString)->toBe([1 => 'A',
         2 => ['B', 'C'],
         3 => 'D',
     ]);

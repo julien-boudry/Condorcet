@@ -56,7 +56,7 @@ abstract class TieBreakersCollection
         foreach ($methods as $oneMethod) {
             $tooKeep = [];
 
-            $methodResults = $election->getResult($oneMethod)->getResultAsInternalKey();
+            $methodResults = $election->getResult($oneMethod)->rawRanking;
 
             foreach ($methodResults as $rankValue) {
                 foreach ($rankValue as $oneCandidateKey) {

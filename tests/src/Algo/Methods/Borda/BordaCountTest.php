@@ -24,13 +24,13 @@ test('result 1', function (): void {
             D>C>B>A * 17
         ');
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'B',
         2 => 'C',
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'B' => 294,
         'C' => 273,
         'A' => 226,
@@ -53,13 +53,13 @@ test('result 2', function (): void {
             A>D>C>B ^ 15
         ');
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'B',
         3 => 'C',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'A' => 340,
         'B' => 280,
         'C' => 195,
@@ -75,22 +75,22 @@ test('result 3', function (): void {
             A
         ');
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => ['B', 'C'], ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'A' => 3,
         'B' => 1.5,
         'C' => 1.5, ]);
 
     $this->election->setImplicitRanking(false);
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => ['B', 'C'], ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'A' => 3,
         'B' => 0,
         'C' => 0, ]);
@@ -110,13 +110,13 @@ test('result 4', function (): void {
             D>C>B>A * 17
         ');
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'B',
         2 => 'C',
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'B' => 294,
         'C' => 273,
         'A' => 226,
@@ -139,13 +139,13 @@ test('result variant', function (): void {
 
     $this->election->setMethodOption('Borda Count', 'Starting', 0);
 
-    expect($this->election->getResult('Borda Count')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'B',
         2 => 'C',
         3 => 'A',
         4 => 'D', ]);
 
-    expect($this->election->getResult('Borda Count')->getStatsAsArray())->toEqual([
+    expect($this->election->getResult('Borda Count')->stats->asArray)->toEqual([
         'B' => 294 - 100,
         'C' => 273 - 100,
         'A' => 226 - 100,
@@ -158,5 +158,5 @@ test('very high vote weight and performances', function (): void {
 
     $this->election->parseVotes('1 > 0 ^6973568802');
 
-    expect($this->election->getResult('Borda Count')->getResultAsString())->toBe('1');
+    expect($this->election->getResult('Borda Count')->rankingAsString)->toBe('1');
 });

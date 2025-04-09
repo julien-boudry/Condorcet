@@ -33,13 +33,13 @@ test('result 1', function (): void {
 
     expect($this->election->getWinner('DodgsonTideman'))->toBe($CandidateCora);
 
-    expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => 'Cora',
+    expect($this->election->getResult('DodgsonTideman')->rankingAsArrayString)->toBe([1 => 'Cora',
         2 => 'Abby',
         3 => 'Brad',
         4 => 'Dave',
         5 => 'Erin', ]);
 
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray)->toBe([
         'Cora' => [
             'sum_defeat_margin' => 4,
         ],
@@ -78,7 +78,7 @@ test('result 3', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe([
         'D' => 3.0,
         'A' => 6.0,
         'B' => 6.0,
@@ -104,7 +104,7 @@ test('result 5', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('C');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe(['C' => 2.0,
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe(['C' => 2.0,
         'A' => 3.0,
         'B' => 13.0,
         'D' => 24.0,
@@ -128,7 +128,7 @@ test('result 6', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe(['D' => 3.0,
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe(['D' => 3.0,
         'C' => 4.0,
         'A' => 5.0,
         'B' => 7.0,
@@ -152,7 +152,7 @@ test('result 7', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('D');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe(['B' => 5.0,
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe(['B' => 5.0,
         'C' => 6.0,
         'A' => 8.0,
     ]);
@@ -173,7 +173,7 @@ test('result 8', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('A');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe(['A' => 1.0,
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe(['A' => 1.0,
         'B' => 2.0,
         'C' => 3.0,
     ]);
@@ -214,12 +214,12 @@ test('result 11', function (): void {
             C>D>B>A*1
         ');
 
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['A']['sum_defeat_margin'])->toEqual(1);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['B']['sum_defeat_margin'])->toEqual(1);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['C']['sum_defeat_margin'])->toEqual(4);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['D']['sum_defeat_margin'])->toEqual(2);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['A']['sum_defeat_margin'])->toEqual(1);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['B']['sum_defeat_margin'])->toEqual(1);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['C']['sum_defeat_margin'])->toEqual(4);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['D']['sum_defeat_margin'])->toEqual(2);
 
-    expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => ['A', 'B'],
+    expect($this->election->getResult('DodgsonTideman')->rankingAsArrayString)->toBe([1 => ['A', 'B'],
         2 => 'D',
         3 => 'C',
     ]);
@@ -248,14 +248,14 @@ test('result 12', function (): void {
             C>B>A>D*1
         ');
 
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['A']['sum_defeat_margin'])->toEqual(11);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['B']['sum_defeat_margin'])->toEqual(11);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['C']['sum_defeat_margin'])->toEqual(7);
-    expect($this->election->getResult('DodgsonTideman')->getStatsAsArray()['D']['sum_defeat_margin'])->toEqual(3);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['A']['sum_defeat_margin'])->toEqual(11);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['B']['sum_defeat_margin'])->toEqual(11);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['C']['sum_defeat_margin'])->toEqual(7);
+    expect($this->election->getResult('DodgsonTideman')->stats->asArray['D']['sum_defeat_margin'])->toEqual(3);
 
     expect($this->election->getWinner('DodgsonTideman'))->toEqual('D');
 
-    expect($this->election->getResult('DodgsonTideman')->getResultAsArray(true))->toBe([1 => 'D',
+    expect($this->election->getResult('DodgsonTideman')->rankingAsArrayString)->toBe([1 => 'D',
         2 => 'C',
         3 => ['A', 'B'],
     ]);
@@ -287,7 +287,7 @@ test('result 13', function (): void {
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('A');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray())->toBe(['A' => 3.0,
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray)->toBe(['A' => 3.0,
         'B' => 4.0,
         'C' => 20.0,
         'D' => 20.0,
@@ -320,9 +320,9 @@ test('result 14', function (): void {
             F>E>C>A>D>B*50
         ');
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray()['A'])->toEqual(13);
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray['A'])->toEqual(13);
 
-    expect($this->election->getResult('DodgsonQuick')->getStatsAsArray()['B'])->toEqual(12);
+    expect($this->election->getResult('DodgsonQuick')->stats->asArray['B'])->toEqual(12);
 
     expect($this->election->getWinner('DodgsonQuick'))->toEqual('B');
 });
@@ -354,7 +354,7 @@ test('result 16', function (): void {
             B
         ');
 
-    expect($this->election->getResult('DodgsonQuick')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('DodgsonQuick')->rankingAsArrayString)->toBe([
         1 => ['A', 'B'],
         2 => ['C', 'D'],
     ]);

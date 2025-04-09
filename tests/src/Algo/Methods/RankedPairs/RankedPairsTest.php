@@ -35,13 +35,13 @@ test('result 1', function (): void {
         4 => 'B',
         5 => 'D', ];
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Winning')->stats)->toMatchSnapshot();
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Margin')->stats)->toMatchSnapshot();
 });
 
 test('result 2', function (): void {
@@ -63,13 +63,13 @@ test('result 2', function (): void {
         3 => 'Knoxville',
         4 => 'Memphis', ];
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Winning')->stats)->toMatchSnapshot();
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Margin')->stats)->toMatchSnapshot();
 });
 
 test('result 3', function (): void {
@@ -104,9 +104,9 @@ test('result 3', function (): void {
 
     expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('Brad');
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 });
 
 test('result 4', function (): void {
@@ -148,9 +148,9 @@ test('result 5', function (): void {
 
     expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 });
 
 test('result 6', function (): void {
@@ -171,9 +171,9 @@ test('result 6', function (): void {
 
     expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 });
 
 test('result 7', function (): void {
@@ -192,9 +192,9 @@ test('result 7', function (): void {
     $expected =  [1 => ['A', 'B'],
         2 => 'C', ];
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 });
 
 test('result 8', function (): void {
@@ -221,15 +221,15 @@ test('result 8', function (): void {
 
     expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('B');
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Winning')->stats)->toMatchSnapshot();
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Winning')->stats)->toMatchSnapshot();
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getStats())->toMatchSnapshot();
+    expect($this->election->getResult('Ranked Pairs Winning')->stats)->toMatchSnapshot();
 });
 
 test('result 9', function (): void {
@@ -295,9 +295,9 @@ test('result 10', function (): void {
         4 => 'y',
         5 => 'z', ];
 
-    expect($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString)->toBe($expected);
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))->toBe($expected);
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)->toBe($expected);
 });
 
 test('result 11', function (): void {
@@ -312,8 +312,8 @@ test('result 11', function (): void {
             A > B > C * 5
         ');
 
-    expect($this->election->getResult('Ranked Pairs Margin')->getResultAsArray(true))
-        ->not()->toEqual($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+    expect($this->election->getResult('Ranked Pairs Margin')->rankingAsArrayString)
+        ->not()->toEqual($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString);
 });
 
 test('max candidates', function (): void {
@@ -347,7 +347,7 @@ test('max candidates', function (): void {
 //         }
 //         \var_dump($j);
 //         \var_dump($this->election->getVotesListAsString());
-//         \var_dump($this->election->getResult('Ranked Pairs Winning')->getResultAsArray(true));
+//         \var_dump($this->election->getResult('Ranked Pairs Winning')->rankingAsArrayString);
 //         expect(true)->toBeTrue();
 //     }
 // }

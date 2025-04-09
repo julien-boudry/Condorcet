@@ -104,7 +104,7 @@ abstract class Method
             fromMethod: static::METHOD_NAME[0], // @phpstan-ignore classConstant.notFound
             byClass: static::class,
             election: $this->getElection(),
-            result: $result,
+            rawRanking: $result,
             stats: $this->getElection()->StatsVerbosity->value > StatsVerbosity::NONE->value ? $this->getStats() : new EmptyStats,
             seats: (static::IS_PROPORTIONAL) ? $this->getElection()->getNumberOfSeats() : null,
             methodOptions: $methodOptions

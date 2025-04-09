@@ -16,17 +16,17 @@ beforeEach(function (): void {
 test('simple', function (): void {
     $this->election->addVote('A>B>C');
 
-    expect($this->election->getResult('Random candidates')->getOriginalResultAsString())->toBe('C > A > B');
+    expect($this->election->getResult('Random candidates')->originalRankingAsString)->toBe('C > A > B');
 
     // Test again, test cache
-    expect($this->election->getResult('Random candidates')->getOriginalResultAsString())->toBe('C > A > B');
+    expect($this->election->getResult('Random candidates')->originalRankingAsString)->toBe('C > A > B');
 
     // Test tie probability
     $this->election->setMethodOption('Random Candidates', 'TiesProbability', $lastTiesProbability = 42.42);
 
-    expect(($lastResult = $this->election->getResult('Random candidates'))->getOriginalResultAsString())->toBe('C > A = B');
+    expect(($lastResult = $this->election->getResult('Random candidates'))->originalRankingAsString)->toBe('C > A = B');
 
     $this->election->setMethodOption('Random Candidates', 'TiesProbability', 0);
 
-    expect($lastResult->getStats()['Ties Probability'])->toBe($lastTiesProbability);
+    expect($lastResult->stats['Ties Probability'])->toBe($lastTiesProbability);
 });

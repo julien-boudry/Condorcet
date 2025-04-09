@@ -34,23 +34,23 @@ test('result 1', function (): void {
         4 => 'Knoxville',
     ];
 
-    expect($this->election->getResult('Minimax Winning')->getResultAsArray(true))->toBe($expectedRanking);
+    expect($this->election->getResult('Minimax Winning')->rankingAsArrayString)->toBe($expectedRanking);
 
-    expect($this->election->getResult('Minimax Margin')->getResultAsArray(true))->toBe($expectedRanking);
+    expect($this->election->getResult('Minimax Margin')->rankingAsArrayString)->toBe($expectedRanking);
 
-    expect($this->election->getResult('Minimax Opposition')->getResultAsArray(true))->toBe($expectedRanking);
+    expect($this->election->getResult('Minimax Opposition')->rankingAsArrayString)->toBe($expectedRanking);
 
-    expect($this->election->getResult('Minimax Winning')->getStatsAsArray())->toBe(['Memphis'       =>  ['worst_pairwise_defeat_winning' => 58],
+    expect($this->election->getResult('Minimax Winning')->stats->asArray)->toBe(['Memphis'       =>  ['worst_pairwise_defeat_winning' => 58],
         'Nashville'     =>  ['worst_pairwise_defeat_winning' => 0],
         'Chattanooga'   =>  ['worst_pairwise_defeat_winning' => 68],
         'Knoxville'     =>  ['worst_pairwise_defeat_winning' => 83], ]);
 
-    expect($this->election->getResult('Minimax Margin')->getStatsAsArray())->toBe(['Memphis'       =>  ['worst_pairwise_defeat_margin' => 16],
+    expect($this->election->getResult('Minimax Margin')->stats->asArray)->toBe(['Memphis'       =>  ['worst_pairwise_defeat_margin' => 16],
         'Nashville'     =>  ['worst_pairwise_defeat_margin' => -16],
         'Chattanooga'   =>  ['worst_pairwise_defeat_margin' => 36],
         'Knoxville'     =>  ['worst_pairwise_defeat_margin' => 66], ]);
 
-    expect($this->election->getResult('Minimax Opposition')->getStatsAsArray())->toBe(['Memphis'       =>  ['worst_pairwise_opposition' => 58],
+    expect($this->election->getResult('Minimax Opposition')->stats->asArray)->toBe(['Memphis'       =>  ['worst_pairwise_opposition' => 58],
         'Nashville'     =>  ['worst_pairwise_opposition' => 42],
         'Chattanooga'   =>  ['worst_pairwise_opposition' => 68],
         'Knoxville'     =>  ['worst_pairwise_opposition' => 83], ]);
@@ -81,23 +81,23 @@ test('result 2', function (): void {
         3 => 'B',
     ];
 
-    expect($this->election->getResult('Minimax Winning')->getResultAsArray(true))->toBe($expectedRanking1);
+    expect($this->election->getResult('Minimax Winning')->rankingAsArrayString)->toBe($expectedRanking1);
 
-    expect($this->election->getResult('Minimax Margin')->getResultAsArray(true))->toBe($expectedRanking1);
+    expect($this->election->getResult('Minimax Margin')->rankingAsArrayString)->toBe($expectedRanking1);
 
-    expect($this->election->getResult('Minimax Opposition')->getResultAsArray(true))->toBe([1 => 'C',
+    expect($this->election->getResult('Minimax Opposition')->rankingAsArrayString)->toBe([1 => 'C',
         2 => 'A',
         3 => 'B', ]);
 
-    expect($this->election->getResult('Minimax Winning')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_defeat_winning' => 0],
+    expect($this->election->getResult('Minimax Winning')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_defeat_winning' => 0],
         'B'     =>  ['worst_pairwise_defeat_winning' => 94],
         'C'     =>  ['worst_pairwise_defeat_winning' => 47], ]);
 
-    expect($this->election->getResult('Minimax Margin')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_defeat_margin' => -2],
+    expect($this->election->getResult('Minimax Margin')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_defeat_margin' => -2],
         'B'     =>  ['worst_pairwise_defeat_margin' => 88],
         'C'     =>  ['worst_pairwise_defeat_margin' => 4], ]);
 
-    expect($this->election->getResult('Minimax Opposition')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_opposition' => 49],
+    expect($this->election->getResult('Minimax Opposition')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_opposition' => 49],
         'B'     =>  ['worst_pairwise_opposition' => 94],
         'C'     =>  ['worst_pairwise_opposition' => 47], ]);
 });
@@ -172,15 +172,15 @@ test('result 5', function (): void {
     expect($this->election->getWinner('Minimax Margin'))->toEqual('B');
     expect($this->election->getWinner('Minimax Opposition'))->toEqual('D');
 
-    expect($this->election->getResult('Minimax Winning')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_defeat_winning' => 35],
+    expect($this->election->getResult('Minimax Winning')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_defeat_winning' => 35],
         'B'     =>  ['worst_pairwise_defeat_winning' => 50],
         'C'   =>  ['worst_pairwise_defeat_winning' => 45],
         'D'     =>  ['worst_pairwise_defeat_winning' => 36], ]);
-    expect($this->election->getResult('Minimax Margin')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_defeat_margin' => 5],
+    expect($this->election->getResult('Minimax Margin')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_defeat_margin' => 5],
         'B'     =>  ['worst_pairwise_defeat_margin' => 1],
         'C'   =>  ['worst_pairwise_defeat_margin' => 2],
         'D'     =>  ['worst_pairwise_defeat_margin' => 3], ]);
-    expect($this->election->getResult('Minimax Opposition')->getStatsAsArray())->toBe(['A'       =>  ['worst_pairwise_opposition' => 43],
+    expect($this->election->getResult('Minimax Opposition')->stats->asArray)->toBe(['A'       =>  ['worst_pairwise_opposition' => 43],
         'B'     =>  ['worst_pairwise_opposition' => 50],
         'C'   =>  ['worst_pairwise_opposition' => 49],
         'D'     =>  ['worst_pairwise_opposition' => 36], ]);

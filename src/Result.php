@@ -55,9 +55,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
     // Implement ArrayAccess
-/**
- * @throws ResultException
- */
+    /**
+     * @throws ResultException
+     */
     public function offsetSet(mixed $offset, mixed $value): void
     {
         throw new ResultException;
@@ -67,9 +67,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     {
         return isset($this->ranking[$offset]);
     }
-/**
- * @throws ResultException
- */
+    /**
+     * @throws ResultException
+     */
     public function offsetUnset(mixed $offset): void
     {
         throw new ResultException;
@@ -90,75 +90,70 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
     /////////// CONSTRUCTOR ///////////
 
-    /** @var array<int,null|int|array<int>> */
-    protected readonly array $Result;
+    /**
+     * @var array<int,null|int|array<int>>
+     * @internal
+     */
+    public private(set) readonly array $rawRanking;
 
     protected array $ResultIterator;
+
     protected array $warning = [];
-
-    /**
-     * @var array<int,array<int,Candidate>>
-     * @api
-     */
-    public private(set) readonly array $ranking;
-
-    /**
-     * @api
-     */
-    public array $rankingAsString {
-        get => $this->getResultAsArray(true);
-    }
-
-    /**
-     * @api
-     */
-    public private(set) readonly ?Candidate $CondorcetWinner;
-
-    /**
-     * @api
-     */
-    public private(set) readonly ?Candidate $CondorcetLoser;
-
-    /**
-     * @api
-     */
-    public private(set) readonly array $pairwise;
-
-    /**
-     * @api
-     */
-    public private(set) readonly float $buildTimestamp;
 
     /**
      * @api
      */
     public private(set) readonly StatsVerbosity $statsVerbosity;
 
+
     /**
-     * @api
+     * @internal
      */
-    public private(set) readonly string $electionCondorcetVersion;
-/**
- * @internal
- */
     public function __construct(
-        /** @api */
+        /**
+         * Get the The algorithmic method used for this result.
+         * @api
+         * */
         public private(set) readonly string $fromMethod,
-        /** @api */
+        /**
+         * Get the The algorithmic method used for this result.
+         * @api
+         */
         public private(set) readonly string $byClass,
         Election $election,
-        array $result,
-        /** @api */
+        array $rawRanking,
+        /**
+         * Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
+         * @api
+         * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
+         */
         public readonly StatsInterface $stats,
-        /** @api */
+        /**
+         * Get number of Seats for STV methods result.
+         * @api
+         * */
         public private(set) readonly ?int $seats = null,
-        /** @api */
-        public private(set) readonly array $methodOptions = [],
-    ) {
-        ksort($result, \SORT_NUMERIC);
+        /**
+         * Return the method options. Can be empty for most of the methods.
+         * @api
+         */
+        public private(set) array $methodOptions = [] {
+            get {
+                $r = $this->methodOptions;
 
-        $this->Result = $result;
-        $this->ResultIterator = $this->ranking = $this->makeUserResult($election);
+                if ($this->isProportional) {
+                    $r['Seats'] = $this->seats;
+                }
+
+                return $r;
+            }
+        },
+    ) {
+        ksort($rawRanking, \SORT_NUMERIC);
+        $this->rawRanking = $rawRanking;
+
+        $this->ResultIterator = $this->ranking = $this->makeUserRanking($election);
+        $this->originalRankingAsArrayString = $this->rankingAsArrayString;
         $this->statsVerbosity = $election->StatsVerbosity;
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getCondorcetWinner();
@@ -167,146 +162,11 @@ class Result implements \ArrayAccess, \Countable, \Iterator
         $this->buildTimestamp = microtime(true);
     }
 
-
-    /////////// Get Result ///////////
-/**
- * Get result as an array
- * @api
- * @return array<int,string|array<string|Candidate>> An ordered multidimensional array by rank.
- * @see Election::getResult, Result::getResultAsString
- * @param $convertToString Convert Candidate object to string.
- */
-    public function getResultAsArray(
-
-        bool $convertToString = false
-    ): array {
-        $r = $this->ranking;
-
-        foreach ($r as &$rank) {
-            if (\count($rank) === 1) {
-                $rank = $convertToString ? (string) $rank[0] : $rank[0];
-            } elseif ($convertToString) {
-                foreach ($rank as &$subRank) {
-                    $subRank = (string) $subRank;
-                }
-            }
-        }
-
-        return $r;
-    }
-/**
- * Get result as string
- * @api
- * @return mixed Result ranking as string.
- * @see Election::getResult, Result::getResultAsArray
- */
-    public function getResultAsString(): string
-    {
-        return VoteUtil::getRankingAsString($this->getResultAsArray(true));
-    }
-/**
- * Get immutable result as an array
- * @api
- * @return mixed Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
- *               Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
- *
- *               This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
- * @see Result::getResultAsArray, Result::getResultAsString, Result::getOriginalResultAsString
- */
-    public function getOriginalResultArrayWithString(): array
-    {
-        return $this->rankingAsString;
-    }
-/**
- * Get immutable result as a string
- * @api
- * @return mixed Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
- *               Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
- *
- *               This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
- * @see Result::getResultAsArray, Result::getResultAsString, Result::getOriginalResultArrayWithString
- */
-    public function getOriginalResultAsString(): string
-    {
-        return VoteUtil::getRankingAsString($this->getOriginalResultArrayWithString());
-    }
-/**
- * @internal
- */
-    public function getResultAsInternalKey(): array
-    {
-        return $this->Result;
-    }
-/**
- * Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
- * @api
- * @return mixed Varying according to the algorithm used.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
- * @see Election::getResult
- */
-    public function getStats(): StatsInterface
-    {
-        return $this->stats;
-    }
-
-    /**
-     * Like GetStats, but return always an array instead stats object.
-     * @api
-     * @see Result::getStats
-     */
-    public function getStatsAsArray() : array {
-        return $this->getStats()->asArray;
-    }
-
-
-/**
- * ('Get the election winner if any')
- * @api
- * @return mixed Candidate object given. Null if there are no available winner.
- *               You can get an array with multiples winners.
- * @see Result::getLoser, Election::getWinner
- */
-    public function getWinner(): array|Candidate|null
-    {
-        return CondorcetUtil::format($this[1], false);
-    }
-/**
- * ('Get the election loser if any')
- * @api
- * @return mixed Candidate object given. Null if there are no available loser.
- *               You can get an array with multiples losers.
- * @see Result::getWinner, Election::getLoser
- */
-    public function getLoser(): array|Candidate|null
-    {
-        return CondorcetUtil::format($this[\count($this)], false);
-    }
-/**
- * Get the Condorcet winner, if exist, at the result time.
- * @api
- * @return mixed CondorcetPHP\Condorcet\Candidate object if there is a Condorcet winner or NULL instead.
- * @see Result::getCondorcetLoser, Election::getWinner
- */
-    public function getCondorcetWinner(): ?Candidate
-    {
-        return $this->CondorcetWinner;
-    }
-/**
- * Get the Condorcet loser, if exist, at the result time.
- * @api
- * @return mixed Condorcet/Candidate object if there is a Condorcet loser or NULL instead.
- * @see Result::getCondorcetWinner, Election::getLoser
- */
-    public function getCondorcetLoser(): ?Candidate
-    {
-        return $this->CondorcetLoser;
-    }
-
-    protected function makeUserResult(Election $election): array
+    protected function makeUserRanking(Election $election): array
     {
         $userResult = [];
 
-        foreach ($this->Result as $key => $value) {
+        foreach ($this->rawRanking as $key => $value) {
             if (\is_array($value)) {
                 foreach ($value as $candidate_key) {
                     $userResult[$key][] = $election->getCandidateObjectFromKey($candidate_key);
@@ -330,22 +190,153 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     }
 
 
+    /////////// Get Ranking ///////////
+
+    /**
+     * @var array<int,array<int,Candidate>>
+     * @api
+     */
+    public private(set) readonly array $ranking;
+
+    /**
+     * Get result as an array populated by Candidate objects
+     * @api
+     * @var array<int,Candidate|array<Candidate>>
+     */
+    public array $rankingAsArray {
+        get {
+            return array_map(function($rank): array|Candidate {
+                if (\count($rank) === 1) {
+                    return $rank[0];
+                } else {
+                    return $rank;
+                }
+            }, $this->ranking);
+        }
+    }
+
+    /**
+     * Get result as an array populated by string
+     * @api
+     * @var array<int,string|array<string>>
+     */
+    public array $rankingAsArrayString {
+        get {
+            return array_map(function($rank): array|string {
+                if ($rank instanceof Candidate) {
+                    return $rank->name;
+                } else {
+                    $newRankCandidates = [];
+
+                    foreach ($rank as $rankCandidates) {
+                        $newRankCandidates[] = $rankCandidates->name;
+                    }
+
+                    return $newRankCandidates;
+                }
+            }, $this->rankingAsArray);
+        }
+    }
+
+    /**
+     * Result ranking as string.
+     *  @api
+     */
+    public string $rankingAsString {
+        get => VoteUtil::getRankingAsString($this->rankingAsArrayString);
+    }
+
+    /**
+     * Get the Condorcet winner, if exist, at the result time.
+     * @api
+     */
+    public private(set) readonly ?Candidate $CondorcetWinner;
+
+    /**
+     * Get the Condorcet loser, if exist, at the result time.
+     * @api
+     */
+    public private(set) readonly ?Candidate $CondorcetLoser;
+
+    /**
+     * Get immutable result as an array
+     * Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
+     * Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
+     * This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
+     * @api
+     * @var array<int,string|array<string>>
+     */
+    public readonly array $originalRankingAsArrayString;
+
+    /**
+     * Get immutable result as a string
+     * Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created.
+     * Candidate objects are therefore protected from any change of candidateName, since the candidate objects are converted into a string when the results are promulgated.
+     * This control method can therefore be useful if you undertake suspicious operations on candidate objects after the results have been promulgated.
+     * @api
+     */
+    public string $originalRankingAsString {
+        get => VoteUtil::getRankingAsString($this->originalRankingAsArrayString);
+    }
+
+    /**
+     * @api
+     */
+    public private(set) readonly array $pairwise;
+
+    /**
+     * ('Get the election winner if any')
+     * Contain Candidate object. Null if there are no available winner. Or an array with multiples winners.
+     * @api
+     * @see Result::loser, Election::getWinner
+     */
+    public array|Candidate|null $winner {
+        get => CondorcetUtil::format($this[1], false);
+    }
+
+    /**
+     * ('Get the election loser if any')
+     * Contain Candidate object. Null if there are no available loser. Or an array with multiples losers.
+     * @api
+     * @see Result::winner, Election::getWinner
+     */
+    public array|Candidate|null $loser {
+        get => CondorcetUtil::format($this[\count($this)], false);
+    }
+
+
     /////////// Get & Set MetaData ///////////
-/**
- * @internal
- */
+
+    /**
+     * The timestamp of this result at build time.
+     * @api
+     */
+    public private(set) readonly float $buildTimestamp;
+
+    /**
+     * Get the Condorcet PHP version that build this Result.
+     * @api
+     */
+    public private(set) readonly string $electionCondorcetVersion;
+
+
+    /////////// Warning ///////////
+
+    /**
+     * @internal
+     */
     public function addWarning(int $type, ?string $msg = null): true
     {
         $this->warning[] = ['type' => $type, 'msg' => $msg];
 
         return true;
     }
-/**
- * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
- * @api
- * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
- * @param $type Filter on a specific warning type code.
- */
+    /**
+     * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
+     * @api
+     * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
+     * @param $type Filter on a specific warning type code.
+     */
     public function getWarning(
 
         ?int $type = null
@@ -364,77 +355,13 @@ class Result implements \ArrayAccess, \Countable, \Iterator
             return $r;
         }
     }
-/**
- * Get the The algorithmic method used for this result.
- * @api
- * @return mixed Method class path like CondorcetPHP\Condorcet\Algo\Methods\Copeland
- * @see Result::getMethod
- */
-    public function getClassGenerator(): string
-    {
-        return $this->byClass;
-    }
-/**
- * Get the The algorithmic method used for this result.
- * @api
- * @return mixed Method name.
- * @see Result::getClassGenerator
- */
-    public function getMethod(): string
-    {
-        return $this->fromMethod;
-    }
-/**
- * Return the method options.
- * @api
- * @return mixed Array of options. Can be empty for most of the methods.
- * @see Result::getClassGenerator
- */
-    public function getMethodOptions(): array
-    {
-        $r = $this->methodOptions;
 
-        if ($this->isProportional()) {
-            $r['Seats'] = $this->getNumberOfSeats();
-        }
-
-        return $r;
-    }
-/**
- * Get the timestamp of this result.
- * @api
- * @return mixed Microsecond timestamp.
- */
-    public function getBuildTimeStamp(): float
-    {
-        return $this->buildTimestamp;
-    }
-/**
- * Get the Condorcet PHP version that build this Result.
- * @api
- * @return mixed Condorcet PHP version string format.
- */
-    public function getCondorcetElectionGeneratorVersion(): string
-    {
-        return $this->electionCondorcetVersion;
-    }
-/**
- * Get number of Seats for STV methods result.
- * @api
- * @return mixed Number of seats if this result is a STV method. Else NULL.
- * @see Election::setNumberOfSeats, Election::getNumberOfSeats
- */
-    public function getNumberOfSeats(): ?int
-    {
-        return $this->seats;
-    }
-/**
- * Does the result come from a proportional method
- * @api
- * @see Result::getNumberOfSeats
- */
-    public function isProportional(): bool
-    {
-        return $this->seats !== null;
+    /**
+     * Does the result come from a proportional method
+     * @api
+     * @see Result::seats
+     */
+    public bool $isProportional {
+        get => $this->seats !== null;
     }
 }

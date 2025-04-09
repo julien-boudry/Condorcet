@@ -39,14 +39,14 @@ test('example with 12 candidates from electowiki', function(): void {
 
     expect($election->getCondorcetWinner())->toBeNull();
 
-    expect($election->getResult('Smith set')->rankingAsString)->toBe(
+    expect($election->getResult('Smith set')->rankingAsArrayString)->toBe(
         [
             1 => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'],
             2 => 'L',
         ]
     );
 
-    expect($election->getResult('Schwartz set')->rankingAsString)
+    expect($election->getResult('Schwartz set')->rankingAsArrayString)
         ->toHaveCount(2)
         ->toBe([
             1 => ['A', 'B', 'C', 'D', 'E'],

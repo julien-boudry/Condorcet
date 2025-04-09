@@ -433,7 +433,7 @@ test('vote weight', function (): void {
 
     expect($voteWithWeight->getSimpleRanking($election))->toBe('D > C > B > A');
 
-    expect($election->getResult('Schulze Winning')->getResultAsString())->not()->toBe('A = D > C > B');
+    expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
     $election->allowsVoteWeight(true);
 
@@ -441,13 +441,13 @@ test('vote weight', function (): void {
 
     expect($voteWithWeight->getSimpleRanking($election))->toBe('D > C > B > A ^2');
 
-    expect($election->getResult('Schulze Winning')->getResultAsString())->toBe('A = D > C > B');
+    expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 
     $election->allowsVoteWeight(false);
 
     expect($election->sumVotesWeight())->toBe(14);
 
-    expect($election->getResult('Schulze Winning')->getResultAsString())->not()->toBe('A = D > C > B');
+    expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
     $election->allowsVoteWeight(!$election->isVoteWeightAllowed());
 
@@ -461,7 +461,7 @@ test('vote weight', function (): void {
 
     expect($election->sumVotesWeight())->toBe(15);
 
-    expect($election->getResult('Schulze Winning')->getResultAsString())->toBe('A = D > C > B');
+    expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 
     $election->addVote('D > C > B');
 
@@ -595,7 +595,7 @@ test('election serializing', function (): void {
     $election = unserialize($election);
 
     expect($election->getResult('Schulze'))->not()->toBe($result1);
-    expect($election->getResult('Schulze')->getResultAsString())->toBe($result1->getResultAsString());
+    expect($election->getResult('Schulze')->rankingAsString)->toBe($result1->rankingAsString);
 
     expect($election->getVotesList()[0])->not()->toBe($vote1);
     expect($election->getVotesList()[0]->getSimpleRanking())->toBe($vote1->getSimpleRanking());
@@ -766,7 +766,7 @@ test('remove candidate result', function (string $method): void {
 
     $electionTest->parseVotes($votes);
 
-    expect($electionTest->getResult($method)->getResultAsArray(true))->toBe($electionRef->getResult($method)->getResultAsArray(true));
+    expect($electionTest->getResult($method)->rankingAsArrayString)->toBe($electionRef->getResult($method)->rankingAsArrayString);
 })->with(static fn(): array => getMethodList());
 
 test('ambiguous candidates on election side', function (): void {

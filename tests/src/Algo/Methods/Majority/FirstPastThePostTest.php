@@ -46,7 +46,7 @@ test('result french2002', function (): void {
             Gluckstein ^47
         ');
 
-    expect($this->election->getResult('Fptp')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Fptp')->rankingAsArrayString)->toBe([
         1 => 'Chirac',
         2 => 'Le Pen',
         3 => 'Jospin',
@@ -65,7 +65,7 @@ test('result french2002', function (): void {
         16 => 'Gluckstein',
     ]);
 
-    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->stats->asArray)->toEqual([1 => [
         'Chirac' => 1988,
         'Le Pen' => 1686,
         'Jospin' => 1618,
@@ -98,13 +98,13 @@ test('result 1', function (): void {
             D>C>B>A * 17
         ');
 
-    expect($this->election->getResult('Fptp')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Fptp')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'B',
         3 => 'D',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->stats->asArray)->toEqual([1 => [
         'A' => 42,
         'B' => 26,
         'D' => 17,
@@ -128,12 +128,12 @@ test('result 2', function (): void {
             D>B=C=A ^ 25
         ');
 
-    expect($this->election->getResult('Fptp')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Fptp')->rankingAsArrayString)->toBe([
         1 => ['A', 'D'],
         2 => 'B',
         3 => 'C', ]);
 
-    expect($this->election->getResult('Fptp')->getStatsAsArray())->toBe([1 => [
+    expect($this->election->getResult('Fptp')->stats->asArray)->toBe([1 => [
         'A' => (float) 42,
         'D' => (float) 42,
         'B' => (float) 26,
@@ -151,12 +151,12 @@ test('result 3', function (): void {
             A=C>B
         ');
 
-    expect($this->election->getResult('Fptp')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Fptp')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'C',
         3 => 'B', ]);
 
-    expect($this->election->getResult('Fptp')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('Fptp')->stats->asArray)->toEqual([1 => [
         'A' => 1 + 1 / 2,
         'C' => 1 / 2,
         'B' => 0,

@@ -112,7 +112,7 @@ test('different ranking', function (): void {
         1 => 'candidate4',
         2 => ['candidate1', 'candidate3'],
         3 => 'candidate2',
-    ])->toBe($election->getResult()->getResultAsArray(true));
+    ])->toBe($election->getResult()->rankingAsArrayString);
 
     // Contextual Ranking Fail
     $this->expectException(VoteNotLinkedException::class);
@@ -514,17 +514,17 @@ test('remove candidate', function (): void {
 
     $this->election1->addVote($vote1);
 
-    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 > candidate3');
+    expect($this->election1->getResult()->rankingAsString)->toBe('candidate1 > candidate2 > candidate3');
 
     $vote1->removeCandidate('candidate2');
 
     expect($vote1->getSimpleRanking())->toBe('candidate1 > candidate3 ^42');
 
-    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate3 > candidate2');
+    expect($this->election1->getResult()->rankingAsString)->toBe('candidate1 > candidate3 > candidate2');
 
     $vote1->removeCandidate($this->candidate3);
 
-    expect($this->election1->getResult()->getResultAsString())->toBe('candidate1 > candidate2 = candidate3');
+    expect($this->election1->getResult()->rankingAsString)->toBe('candidate1 > candidate2 = candidate3');
 
     $this->expectException(CandidateDoesNotExistException::class);
     $this->expectExceptionMessage('This candidate does not exist: candidate4');

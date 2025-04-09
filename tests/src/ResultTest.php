@@ -4,6 +4,7 @@ declare(strict_types=1);
 use CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin;
 use CondorcetPHP\Condorcet\Throwable\{AlgorithmException, ResultException};
 
 beforeEach(function (): void {
@@ -22,7 +23,7 @@ test('get result as string', function (): void {
             C > B > A * 2
         ');
 
-    expect($this->election1->getResult('Ranked Pairs')->getResultAsString())->toBe('A = B > C');
+    expect($this->election1->getResult('Ranked Pairs')->rankingAsString)->toBe('A = B > C');
 });
 
 test('get result as internal key', function (): void {
@@ -37,7 +38,7 @@ test('get result as internal key', function (): void {
             C > B > A * 2
         ');
 
-    expect($this->election1->getResult('Ranked Pairs')->getResultAsInternalKey())->toBe([1 => [0, 1], 2 => [2]]);
+    expect($this->election1->getResult('Ranked Pairs')->rawRanking)->toBe([1 => [0, 1], 2 => [2]]);
 });
 
 test('get condorcet election generator version', function (): void {
@@ -47,7 +48,7 @@ test('get condorcet election generator version', function (): void {
 
     $this->election1->addVote('C > B > A');
 
-    expect($this->election1->getResult('Ranked Pairs')->getCondorcetElectionGeneratorVersion())->toBe(Condorcet::getVersion());
+    expect($this->election1->getResult('Ranked Pairs')->electionCondorcetVersion)->toBe(Condorcet::getVersion());
 });
 
 test('result classgenerator', function (): void {
@@ -57,7 +58,7 @@ test('result classgenerator', function (): void {
 
     $this->election1->addVote('C > B > A');
 
-    expect($this->election1->getResult('Ranked Pairs')->getClassGenerator())->toBe(CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin::class);
+    expect($this->election1->getResult('Ranked Pairs')->byClass)->toBe(RankedPairsMargin::class);
 });
 
 test('method', function (): void {
@@ -67,7 +68,7 @@ test('method', function (): void {
 
     $this->election1->addVote('C > B > A');
 
-    expect($this->election1->getResult('Ranked Pairs')->getMethod())->toBe('Ranked Pairs Margin');
+    expect($this->election1->getResult('Ranked Pairs')->fromMethod)->toBeString()->toBe(RankedPairsMargin::METHOD_NAME[0]);
 });
 
 test('get build time stamp', function (): void {
@@ -77,7 +78,7 @@ test('get build time stamp', function (): void {
 
     $this->election1->addVote('C > B > A');
 
-    expect($this->election1->getResult('Ranked Pairs')->getBuildTimeStamp())->toBeFloat();
+    expect($this->election1->getResult('Ranked Pairs')->buildTimestamp)->toBeFloat();
 });
 
 test('get winner', function (): void {
@@ -92,8 +93,8 @@ test('get winner', function (): void {
             c > a > b * 2
         ');
 
-    expect($this->election1->getResult()->getWinner())->toEqual('c');
-    expect($this->election1->getResult()->getCondorcetWinner())->toEqual('c');
+    expect($this->election1->getResult()->winner)->toEqual('c');
+    expect($this->election1->getResult()->CondorcetWinner)->toEqual('c');
 });
 
 test('get loser', function (): void {
@@ -109,24 +110,31 @@ test('get loser', function (): void {
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-    expect($this->election1->getResult()->getLoser())->toEqual('Memphis');
-    expect($this->election1->getResult()->getCondorcetLoser())->toEqual('Memphis');
+    expect($this->election1->getResult()->loser)->toEqual('Memphis');
+    expect($this->election1->getResult()->CondorcetLoser)->toEqual('Memphis');
 });
 
-test('get original result', function (): void {
-    $this->election1->addCandidate('a');
+test('get original result', function (bool $changeCandidateName): void {
+    $candidateA = $this->election1->addCandidate('a');
     $this->election1->addCandidate('b');
     $this->election1->addCandidate('c');
 
     $this->election1->addVote('a > b > c');
 
-    expect($this->election1->getResult()->getOriginalResultArrayWithString())->toEqual([1 => 'a',
+    $result = $this->election1->getResult();
+
+    if ($changeCandidateName) {
+        $candidateA->setName('z');
+    }
+
+    expect($result->originalRankingAsArrayString)->toBe([
+        1 => 'a',
         2 => 'b',
         3 => 'c',
     ]);
 
-    expect($this->election1->getResult()->getOriginalResultAsString())->toBe('a > b > c');
-});
+    expect($result->originalRankingAsString)->toBe('a > b > c');
+})->with([false, true]);
 
 test('offset set', function (): void {
     $this->election1->addCandidate('B');
@@ -194,7 +202,7 @@ test('result rank ordering', function (): void {
 
     $this->election1->addVote('C = A = B');
 
-    expect($this->election1->getResult()->getOriginalResultArrayWithString())->toBe([1 => ['A', 'B', 'C']]);
+    expect($this->election1->getResult()->originalRankingAsArrayString)->toBe([1 => ['A', 'B', 'C']]);
 });
 
 test('proportional', function (): void {
@@ -208,19 +216,19 @@ test('proportional', function (): void {
 
     $result = $this->election1->getResult('STV');
 
-    expect($result->getNumberOfSeats())->toBe(2);
+    expect($result->seats)->toBe(2);
 
-    expect($result->getClassGenerator()::IS_PROPORTIONAL)->toBeTrue();
+    expect($result->byClass::IS_PROPORTIONAL)->toBeTrue();
 
-    expect($result->isProportional())->toBeTrue();
+    expect($result->isProportional)->toBeTrue();
 
     $result = $this->election1->getResult('Schulze');
 
-    expect($result->getNumberOfSeats())->toBeNull();
+    expect($result->seats)->toBeNull();
 
-    expect($result->getClassGenerator()::IS_PROPORTIONAL)->toBeFalse();
+    expect($result->byClass::IS_PROPORTIONAL)->toBeFalse();
 
-    expect($result->isProportional())->toBeFalse();
+    expect($result->isProportional)->toBeFalse();
 });
 
 test('method option', function (): void {
@@ -237,12 +245,12 @@ test('method option', function (): void {
     $b1 = $this->election1->getResult('Borda');
     $c1 = $this->election1->getResult('Copeland');
 
-    expect($b1->getMethodOptions()['Starting'])->toBe(1);
+    expect($b1->methodOptions['Starting'])->toBe(1);
 
     expect($this->election1->setMethodOption('Borda Count', 'Starting', 0))->toBeTrue();
     expect($class::$optionStarting)->toBe(0);
 
-    expect($b1->getMethodOptions()['Starting'])->toBe(1);
+    expect($b1->methodOptions['Starting'])->toBe(1);
 
     $b2 = $this->election1->getResult('Borda');
     $c2 = $this->election1->getResult('Copeland');
@@ -250,7 +258,7 @@ test('method option', function (): void {
     expect($b2)->not()->toBe($b1);
     expect($c2)->toBe($c1);
 
-    expect($b2->getMethodOptions()['Starting'])->toBe(0);
+    expect($b2->methodOptions['Starting'])->toBe(0);
 
     expect($this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toBeFalse();
 });
@@ -276,8 +284,8 @@ test('verbosity level', function (): void {
     expect($r3->statsVerbosity)->toBe(StatsVerbosity::FULL);
 
     expect($r3)->not()->toBe($r1);
-    expect($r1->getStats()->asArray)->not()->toHaveKey('Ranking Scores');
-    expect($r3->getStats()->asArray)->toHaveKey('Ranking Scores');
+    expect($r1->stats->asArray)->not()->toHaveKey('Ranking Scores');
+    expect($r3->stats->asArray)->toHaveKey('Ranking Scores');
 });
 
 test('immutable pairwise', function (string $method): void {

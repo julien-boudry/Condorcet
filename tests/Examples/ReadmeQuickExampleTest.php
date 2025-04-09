@@ -63,7 +63,7 @@ test('readme quick example', function (): void {
     expect(CondorcetUtil::format($myResultBySchulze))->toBe([1 => 'Candidate 1', 2 => 'Candidate 2', 3 => 'Candidate 4', 4 => 'Candidate 3']);
 
     // Get Schulze advanced computing data & stats
-    $mySchulzeStats = $myElection1->getResult('Schulze')->getStats();
+    $mySchulzeStats = $myElection1->getResult('Schulze')->stats;
 
     // Get Copeland Ranking
     $myResultByCopeland = $myElection1->getResult('Copeland');

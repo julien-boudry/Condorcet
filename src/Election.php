@@ -443,7 +443,7 @@ class Election
  * Get number of Seats for STV methods.
  * @api
  * @return mixed Number of seats.
- * @see Election::setNumberOfSeats, Result::getNumberOfSeats
+ * @see Election::setNumberOfSeats, Result::seats
  */
     public function getNumberOfSeats(): int
     {

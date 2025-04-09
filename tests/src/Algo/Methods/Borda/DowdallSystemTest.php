@@ -21,7 +21,7 @@ test('result 1', function (): void {
             A>B>C>D>E>F
         ');
 
-    expect($this->election->getResult('DowdallSystem')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('DowdallSystem')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'B',
         3 => 'C',
@@ -29,7 +29,7 @@ test('result 1', function (): void {
         5 => 'E',
         6 => 'F', ]);
 
-    expect($this->election->getResult('DowdallSystem')->getStatsAsArray())
+    expect($this->election->getResult('DowdallSystem')->stats->asArray)
         ->toEqualWithDelta(
             expected: [
                 'A' => 1,

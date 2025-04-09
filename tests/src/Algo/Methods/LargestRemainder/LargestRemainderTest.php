@@ -21,7 +21,7 @@ test('result 1', function (): void {
 
     $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     // Hare-LR
-    expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+    expect($this->election->getResult('LR')->stats['Seats per Candidates'])->toBe([
         'Yellows' => 5,
         'Whites' => 2,
         'Reds' => 1,
@@ -31,7 +31,7 @@ test('result 1', function (): void {
 
     $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP);
     // Hare-LR
-    expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+    expect($this->election->getResult('LR')->stats['Seats per Candidates'])->toBe([
         'Yellows' => 5,
         'Whites' => 2,
         'Reds' => 2,
@@ -50,7 +50,7 @@ test('result 2', function (): void {
 
     $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     // Hare-LR
-    expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+    expect($this->election->getResult('LR')->stats['Seats per Candidates'])->toBe([
         'A' => 7,
         'B' => 7,
         'C' => 4,
@@ -69,7 +69,7 @@ test('result 3', function (): void {
 
     $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::HARE);
     // Hare-LR
-    expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+    expect($this->election->getResult('LR')->stats['Seats per Candidates'])->toBe([
         'A' => 8,
         'B' => 8,
         'C' => 5,
@@ -86,7 +86,7 @@ test('result 4 lr', function (): void {
 
     $this->election->setMethodOption('LargestRemainder', 'Quota', StvQuotas::DROOP);
     // Hare-LR
-    expect($this->election->getResult('LR')->getStats()['Seats per Candidates'])->toBe([
+    expect($this->election->getResult('LR')->stats['Seats per Candidates'])->toBe([
         'A' => 33,
         'B' => 33,
         'C' => 33,

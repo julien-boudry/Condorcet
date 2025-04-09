@@ -21,7 +21,7 @@ test('result 1', function (): void {
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-    expect($this->election->getResult('Copeland')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Copeland')->rankingAsArrayString)->toBe([
         1 => 'Nashville',
         2 => 'Chattanooga',
         3 => 'Knoxville',
@@ -29,7 +29,7 @@ test('result 1', function (): void {
 
     expect($this->election->getWinner())->toBe($this->election->getWinner('Copeland'));
 
-    expect($this->election->getResult('Copeland')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Copeland')->stats->asArray)->toBe([
         'Memphis' => [
             'balance' => -3,
         ],
@@ -63,7 +63,7 @@ test('result 2', function (): void {
     expect($this->election->getWinner())->toBeNull();
     expect($this->election->getWinner('Copeland'))->toBe($candidateA);
 
-    expect($this->election->getResult('Copeland')->getResultAsArray())->toBe([1 => $candidateA,
+    expect($this->election->getResult('Copeland')->rankingAsArray)->toBe([1 => $candidateA,
         2 => [$candidateB, $candidateC, $candidateE],
         3 => $candidateD,
     ]);
@@ -95,7 +95,7 @@ test('result 3', function (): void {
 
     expect($this->election->getWinner('Copeland'))->toEqual(['Abby', 'Brad']);
 
-    expect($this->election->getResult('Copeland')->getResultAsArray(true))->toBe([1 => ['Abby', 'Brad'],
+    expect($this->election->getResult('Copeland')->rankingAsArrayString)->toBe([1 => ['Abby', 'Brad'],
         2 => ['Dave', 'Erin'],
         3 => 'Cora', ]);
 });

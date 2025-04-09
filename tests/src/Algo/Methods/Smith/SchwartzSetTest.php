@@ -24,8 +24,8 @@ test('schwartz set with clear condorcet winner', function(): void {
     // A is Condorcet winner, so Schwartz set should contain only A
     $result = $this->election->getResult('Schwartz set');
     expect($result->stats->getEntry('schwartz_set'))->toBe(['A']);
-    expect($result->rankingAsString)->toBe([1 => 'A', 2 => ['B', 'C']]);
-    expect($result->getWinner()->name)->toBe('A');
+    expect($result->rankingAsArrayString)->toBe([1 => 'A', 2 => ['B', 'C']]);
+    expect($result->winner->name)->toBe('A');
 });
 
 /**
@@ -47,7 +47,7 @@ test('schwartz set with condorcet cycle', function(): void {
     // All candidates are in a cycle, so all should be in the Schwartz set
     $result = $this->election->getResult('Schwartz set');
     expect($result->stats->getEntry('schwartz_set'))->toEqualCanonicalizing(['A', 'B', 'C']);
-    expect($result->rankingAsString)->toBe([1 => ['A', 'B', 'C']]);
+    expect($result->rankingAsArrayString)->toBe([1 => ['A', 'B', 'C']]);
 });
 
 /**
@@ -88,7 +88,7 @@ test('schwartz set from schulze paper example', function(): void {
     ');
 
     // Use consistent method to access Schwartz set results
-    expect($this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set'))->toContain('E');
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toContain('E');
 });
 
 /**
@@ -130,7 +130,7 @@ test('schwartz set with multiple disjoint cycles', function(): void {
         C>F ^8
     ');
 
-    expect($this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set'))
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))
         ->toEqualCanonicalizing(['A', 'B', 'C']);
 });
 
@@ -149,7 +149,7 @@ test('schwartz set from electowiki', function(): void {
     ');
 
     // The Schwartz set should be {B} (same as the Smith set in this case)
-    expect($this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set'))->toBe(['B']);
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toBe(['B']);
 });
 
 /**
@@ -159,7 +159,7 @@ test('schwartz set with single candidate', function(): void {
     $this->election->addCandidate('A');
     $this->election->addVote('A');
 
-    expect($this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set'))->toBe(['A']);
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toBe(['A']);
 });
 
 /**
@@ -170,7 +170,7 @@ test('schwartz set with complete tie', function(): void {
     $this->election->parseVotes('A=B=C * 10');
 
     // All candidates should be in the Schwartz set since none defeats another
-    expect($this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set'))->toEqualCanonicalizing(['A', 'B', 'C']);
+    expect($this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set'))->toEqualCanonicalizing(['A', 'B', 'C']);
 });
 
 /**
@@ -185,7 +185,7 @@ test('schwartz set equals smith set when no defeats between candidates', functio
         D>C>B>A * 10
     ');
 
-    $smithSet = $this->election->getResult('Smith set')->getStats()->getEntry('smith_set');
-    $schwartzSet = $this->election->getResult('Schwartz set')->getStats()->getEntry('schwartz_set');
+    $smithSet = $this->election->getResult('Smith set')->stats->getEntry('smith_set');
+    $schwartzSet = $this->election->getResult('Schwartz set')->stats->getEntry('schwartz_set');
     expect($schwartzSet)->toEqualCanonicalizing($smithSet);
 });

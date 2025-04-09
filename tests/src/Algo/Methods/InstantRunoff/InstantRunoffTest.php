@@ -22,13 +22,13 @@ test('result 1', function (): void {
             D>C>B>A * 17
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => 'D',
         2 => 'A',
         3 => 'B',
         4 => 'C', ]);
 
-    expect($this->election->getResult('InstantRunoff')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('InstantRunoff')->stats->asArray)->toBe([
         'majority' => 50.0,
         'rounds' => [
             1 => [
@@ -64,7 +64,7 @@ test('result 2', function (): void {
             sue > bob > bill
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => 'sue',
         2 => 'bob',
         3 => 'bill', ]);
@@ -84,7 +84,7 @@ test('result 3', function (): void {
             bill > bob > sue
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => 'bob',
         2 => 'bill',
         3 => 'sue', ]);
@@ -99,7 +99,7 @@ test('result 4', function (): void {
             A=B=C
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => ['A', 'B', 'C'], ]);
 });
 
@@ -112,7 +112,7 @@ test('result equality', function (): void {
             B
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => ['A', 'B'], ]);
 });
 
@@ -129,7 +129,7 @@ test('result tie breaking', function (): void {
             D>C>B * 2
         ');
 
-    expect($this->election->getResult('InstantRunoff')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('InstantRunoff')->rankingAsArrayString)->toBe([
         1 => ['A', 'B'],
         3 => 'C',
         4 => 'D',
@@ -141,5 +141,5 @@ test('infinite loop on tideman dataset3 if explicit ranking', function (): void 
 
     $election->setImplicitRanking(false);
 
-    expect($election->getResult('InstantRunoff')->getResultAsString())->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
+    expect($election->getResult('InstantRunoff')->rankingAsString)->toBe('6 > 8 > 4 > 11 > 2 > 5 > 14 > 1 = 7 > 12 > 3 > 9 > 10 > 15 > 13');
 });

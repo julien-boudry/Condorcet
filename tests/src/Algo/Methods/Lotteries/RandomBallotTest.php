@@ -24,23 +24,23 @@ test('simple', function (): void {
     expect($this->election->countVotes())->toBe(4);
     expect($this->election->sumValidVotesWeightWithConstraints())->toBe(7);
 
-    expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
+    expect($this->election->getResult('Random ballot')->rankingAsString)->toBe('A = B = C');
 
     // Cache must continue to stabilize result
     for ($i = 0; $i < 4; $i++) {
-        expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('A = B = C');
+        expect($this->election->getResult('Random ballot')->rankingAsString)->toBe('A = B = C');
     }
 
-    expect($this->election->getResult('Random ballot')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Random ballot')->stats->asArray)->toBe([
         'Elected Weight Level' => 6,
         'Elected Ballot Key' => 3,
     ]);
 
     $this->election->resetMethodsComputation();
 
-    expect($this->election->getResult('Random ballot')->getResultAsString())->toBe('C > A > B');
+    expect($this->election->getResult('Random ballot')->rankingAsString)->toBe('C > A > B');
 
-    expect($this->election->getResult('Random ballot')->getStatsAsArray())->toBe([
+    expect($this->election->getResult('Random ballot')->stats->asArray)->toBe([
         'Elected Weight Level' => 4,
         'Elected Ballot Key' => 2,
     ]);

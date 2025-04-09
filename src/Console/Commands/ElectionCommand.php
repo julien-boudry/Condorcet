@@ -624,7 +624,7 @@ class ElectionCommand extends Command
             // Result
             $result = $this->election->getResult($oneMethod['name']);
 
-            if (!empty($options = $result->getMethodOptions())) {
+            if (!empty($options = $result->methodOptions)) {
                 $rows = [];
                 foreach ($options as $key => $value) {
                     if ($value instanceof \BackedEnum) {
@@ -687,7 +687,7 @@ class ElectionCommand extends Command
                 ;
 
                 $line = 0;
-                foreach ($result->getStats() as $oneStatKey => $oneStatEntry) {
+                foreach ($result->stats as $oneStatKey => $oneStatEntry) {
                     if (++$line !== 1) {
                         $table->addRow(new TableSeparator);
                     }

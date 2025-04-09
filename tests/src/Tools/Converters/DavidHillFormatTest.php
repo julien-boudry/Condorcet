@@ -311,7 +311,7 @@ test('a1 for candidates names', function (): void {
         Candidate 10 > Candidate  9 > Candidate  7 > Candidate  3 > Candidate  2 > Candidate  1 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  8 * 1
         EOD);
 
-    expect($election->getResult('STV')->getResultAsString())->toBe('Candidate  1 > Candidate  9 > Candidate  8');
+    expect($election->getResult('STV')->rankingAsString)->toBe('Candidate  1 > Candidate  9 > Candidate  8');
 });
 
 test('bug david hill random order and stats round', function (): void {
@@ -335,11 +335,11 @@ test('bug david hill random order and stats round', function (): void {
         }
 
         // Stats
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getStatsAsArray())
-            ->toBe($implicitElectionFromHill->getResult($method)->getStatsAsArray());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->stats->asArray)
+            ->toBe($implicitElectionFromHill->getResult($method)->stats->asArray);
 
         // Result
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString())->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->rankingAsString)->toBe($implicitElectionFromHill->getResult($method)->rankingAsString);
     }
 
     // With aggregate vote
@@ -355,14 +355,14 @@ test('bug david hill random order and stats round', function (): void {
         }
 
         // Stats
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getStats())
+        expect($implicitElectionFromCondorcetElection->getResult($method)->stats)
             ->toEqualWithDelta(
-                expected: $implicitElectionFromHill->getResult($method)->getStats(),
+                expected: $implicitElectionFromHill->getResult($method)->stats,
                 delta: 1 / (0.1 ** Condorcet::getMethodClass($method)::DECIMAL_PRECISION),
                 message: 'Method: ' . $method
             );
 
         // Result
-        expect($implicitElectionFromCondorcetElection->getResult($method)->getResultAsString())->toBe($implicitElectionFromHill->getResult($method)->getResultAsString());
+        expect($implicitElectionFromCondorcetElection->getResult($method)->rankingAsString)->toBe($implicitElectionFromHill->getResult($method)->rankingAsString);
     }
 });

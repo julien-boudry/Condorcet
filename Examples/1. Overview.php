@@ -206,7 +206,7 @@ declare(strict_types=1);
     /* Please note that a Result object is fixed and independent. It does not change automatically when you change the election. You then have requested the production of a new object result. */
 
     // Get an easy game outcome to read and understand (Table populated by string)
-    $election1->getResult('Schulze')->getResultAsArray(true);
+    $election1->getResult('Schulze')->rankingAsArrayString;
 
 
 print $firstPart ?? 'Success!

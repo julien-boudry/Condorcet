@@ -17,9 +17,9 @@ test('2020 implicit', function (): void {
     expect($election->countVotes())->toBe(339);
     expect($election->getNumberOfSeats())->toBe(1);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
 
-    expect($election->getResult('Schulze Margin')->getStats())->toMatchSnapshot();
+    expect($election->getResult('Schulze Margin')->stats)->toMatchSnapshot();
 });
 
 test('2020 explicit', function (): void {
@@ -31,7 +31,7 @@ test('2020 explicit', function (): void {
 
     expect($election->countVotes())->toBe(339);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
 });
 
 test('2007 implicit', function (): void {
@@ -40,7 +40,7 @@ test('2007 implicit', function (): void {
     expect($election->countVotes())->toBe(482);
     expect($election->getNumberOfSeats())->toBe(1);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs');
 });
 
 test('2007 explicit', function (): void {
@@ -52,7 +52,7 @@ test('2007 explicit', function (): void {
 
     expect($election->countVotes())->toBe(482);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs');
 });
 
 test('2006 implicit', function (): void {
@@ -61,7 +61,7 @@ test('2006 implicit', function (): void {
     expect($election->countVotes())->toBe(421);
     expect($election->getNumberOfSeats())->toBe(1);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Anthony Towns > Steve McIntyre > Andreas Schuldei = Jeroen van Wolffelaar > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Anthony Towns > Steve McIntyre > Andreas Schuldei = Jeroen van Wolffelaar > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther');
 });
 
 test('2006 explicit', function (): void {
@@ -73,5 +73,5 @@ test('2006 explicit', function (): void {
 
     expect($election->countVotes())->toBe(421);
 
-    expect($election->getResult('Schulze Margin')->getResultAsString())->toBe('Steve McIntyre > Anthony Towns > Jeroen van Wolffelaar > Andreas Schuldei > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther');
+    expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Steve McIntyre > Anthony Towns > Jeroen van Wolffelaar > Andreas Schuldei > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther');
 });

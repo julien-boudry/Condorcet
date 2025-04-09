@@ -34,13 +34,13 @@ test('result majority test systematic triangular', function (): void {
     $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 3);
     $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
-    expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([
+    expect($this->election->getResult('Multiple Rounds System')->rankingAsArrayString)->toBe([
         1 => 'A',
         2 => 'D',
         3 => 'B',
         4 => 'C', ]);
 
-    expect($this->election->getResult('Multiple Rounds System')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('Multiple Rounds System')->stats->asArray)->toEqual([1 => [
         'A' => 42,
         'B' => 26,
         'D' => 17,
@@ -77,9 +77,9 @@ test('result majority test three round', function (): void {
     $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 2);
     $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', 0);
 
-    expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4 => 'D', 5 => 'E']);
+    expect($this->election->getResult('Multiple Rounds System')->rankingAsArrayString)->toBe([1 => 'B', 2 => 'A', 3 => 'C', 4 => 'D', 5 => 'E']);
 
-    expect($this->election->getResult('runoff voting')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('runoff voting')->stats->asArray)->toEqual([1 => [
         'B' => 12,
         'A' => 10,
         'C' => 10,
@@ -123,9 +123,9 @@ test('result majority test many round', function (): void {
     $this->election->setMethodOption($methodClass, 'TARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND', 5);
     $this->election->setMethodOption($methodClass, 'NUMBER_OF_TARGETED_CANDIDATES_AFTER_EACH_ROUND', -1);
 
-    expect($this->election->getResult('Multiple Rounds System')->getResultAsArray(true))->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E', 6 => 'F']);
+    expect($this->election->getResult('Multiple Rounds System')->rankingAsArrayString)->toBe([1 => 'A', 2 => 'B', 3 => 'C', 4 => 'D', 5 => 'E', 6 => 'F']);
 
-    expect($this->election->getResult('runoff voting')->getStatsAsArray())->toEqual([1 => [
+    expect($this->election->getResult('runoff voting')->stats->asArray)->toEqual([1 => [
         'A' => 100,
         'B' => 99,
         'C' => 98,

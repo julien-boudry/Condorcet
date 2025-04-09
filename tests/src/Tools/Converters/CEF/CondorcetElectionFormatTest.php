@@ -357,7 +357,7 @@ test('candidates from votes', function (): void {
     expect($election->getNumberOfSeats())->toBe(42);
 
     expect($election->getCandidatesList())->toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
-    expect($election->getResult()->getResultAsString())->toBe('D > A > B > C > E > F');
+    expect($election->getResult()->rankingAsString)->toBe('D > A > B > C > E > F');
 });
 
 test('file does not exists', function (): void {

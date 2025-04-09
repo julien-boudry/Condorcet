@@ -157,7 +157,7 @@ const TEST_NAME_GE = 'Condorcet Global Example';
 		<h3>Stats for <?php echo $method; ?>:</h3>
 
 		<pre>
-		<?php var_dump(CondorcetUtil::format($election->getResult($method)->getStats())); ?>
+		<?php var_dump(CondorcetUtil::format($election->getResult($method)->stats)); ?>
 		</pre>
 
 	<?php } ?>
