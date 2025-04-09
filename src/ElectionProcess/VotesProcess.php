@@ -195,8 +195,8 @@ trait VotesProcess
         $vote = $this->normalizeVoteInput($vote, $tags);
 
         // Check Max Vote Count
-        if (self::$maxVoteNumber !== null && $this->countVotes() >= self::$maxVoteNumber) {
-            throw new VoteMaxNumberReachedException(self::$maxVoteNumber);
+        if (self::$maxVotePerElection !== null && $this->countVotes() >= self::$maxVotePerElection) {
+            throw new VoteMaxNumberReachedException(self::$maxVotePerElection);
         }
 
         // Register vote
@@ -543,7 +543,7 @@ trait VotesProcess
     {
         $adding_predicted_count = $count + $multiple;
 
-        if (self::$maxVoteNumber && self::$maxVoteNumber < ($this->countVotes() + $adding_predicted_count)) {
+        if (self::$maxVotePerElection && self::$maxVotePerElection < ($this->countVotes() + $adding_predicted_count)) {
             throw new VoteMaxNumberReachedException(self::$maxParseIteration);
         }
 

@@ -14,5 +14,5 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class ParseVotesMaxNumberReachedException extends CondorcetPublicApiException
 {
-    protected $message = 'The maximum number of votes in a single parse has been reached. Please refer to Election::setMaxParseIteration(?int $i) to increase it.';
+    protected $message = 'The maximum number of votes in a single parse has been reached. Please refer to Election::maxParseIteration to increase it.';
 }

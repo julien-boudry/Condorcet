@@ -21,8 +21,8 @@ beforeEach(function (): void {
     $this->election2 = new Election;
 });
 afterEach(function (): void {
-    Election::setMaxParseIteration(new ReflectionClass(Election::class)->getProperty('maxParseIteration')->getDefaultValue());
-    Election::setMaxVoteNumber(new ReflectionClass(Election::class)->getProperty('maxVoteNumber')->getDefaultValue());
+    Election::$maxParseIteration = new ReflectionClass(Election::class)->getProperty('maxParseIteration')->getDefaultValue();
+    Election::$maxVotePerElection = new ReflectionClass(Election::class)->getProperty('maxVotePerElection')->getDefaultValue();
 });
 
 test('remove all votes', function (): void {
@@ -112,23 +112,24 @@ test('parse error', function (): void {
 });
 
 test('max parse iteration1', function (): void {
-    expect(Election::setMaxParseIteration(42))->toBe(42);
+    Election::$maxParseIteration = 42;
 
     expect($this->election1->parseVotes('candidate1>candidate2 * 42'))->toBe(42);
 
     expect($this->election1->parseVotes('candidate1>candidate2 * 42'))->toBe(42);
 
-    expect(Election::setMaxParseIteration(null))->toBeNull();
+    Election::$maxParseIteration = null;
     expect($this->election1->parseVotes('candidate1>candidate2 * 43'))->toBe(43);
 
-    expect(Election::setMaxParseIteration(42))->toBe(42);
+    Election::$maxParseIteration = 42;
 
     $this->expectException(ParseVotesMaxNumberReachedException::class);
     $this->election1->parseVotes('candidate1>candidate2 * 43');
 });
 
 test('max parse iteration2', function (): void {
-    expect(Election::setMaxParseIteration(42))->toBe(42);
+    Election::$maxParseIteration = 42;
+
 
     $this->expectException(ParseVotesMaxNumberReachedException::class);
 
@@ -140,16 +141,17 @@ test('max parse iteration2', function (): void {
 });
 
 test('max parse iteration3', function (): void {
-    expect(Election::setMaxParseIteration(2))->toBe(2);
+    Election::$maxParseIteration = 2;
 
     expect($this->election2->parseCandidates('candidate1;candidate2'))->toBe([0 => 'candidate1', 1 => 'candidate2']);
 
     expect($this->election2->parseCandidates('candidate3;candidate4'))->toBe([0 => 'candidate3', 1 => 'candidate4']);
 
-    expect(Election::setMaxParseIteration(null))->toBeNull();
+    Election::$maxParseIteration = null;
+
     expect($this->election2->parseCandidates('candidate5;candidate6;candidate7'))->toBe([0 => 'candidate5', 1 => 'candidate6', 2 => 'candidate7']);
 
-    expect(Election::setMaxParseIteration(2))->toBe(2);
+    Election::$maxParseIteration = 2;
 
     $this->expectException(VoteMaxNumberReachedException::class);
     $this->expectExceptionMessage('The maximal number of votes for the method is reached: 2');
@@ -161,7 +163,7 @@ test('max vote number', function (): void {
     $election = new Election;
     expect($election->parseCandidates('candidate1;candidate2;candidate3'))->toHaveCount(3);
 
-    expect(Election::setMaxVoteNumber(42))->toBe(42);
+    Election::$maxVotePerElection = 42;
 
     expect($election->parseVotes('candidate1>candidate2 * 21'))->toBe(21);
 
@@ -178,10 +180,10 @@ test('max vote number', function (): void {
 
     expect($election->countVotes())->toBe(42);
 
-    expect(Election::setMaxVoteNumber(null))->toBeNull();
+    Election::$maxVotePerElection = null;
     $election->addVote('candidate3');
 
-    expect(Election::setMaxVoteNumber(42))->toBe(42);
+    Election::$maxVotePerElection = 42;
 
     try {
         $election->addVote('candidate3');
@@ -189,7 +191,7 @@ test('max vote number', function (): void {
         $reserveException = $e;
     }
 
-    expect(Election::setMaxVoteNumber(null))->toBeNull();
+    Election::$maxVotePerElection = null;
     $this->expectException(VoteMaxNumberReachedException::class);
     $this->expectExceptionMessage('The maximal number of votes for the method is reached');
 

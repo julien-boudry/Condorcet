@@ -51,48 +51,24 @@ class Election
     public const int MAX_CANDIDATE_NAME_LENGTH = 100; // Max length for candidate name string (UTF-8)
 
     /**
+     * Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
+     * Null will deactivate this functionality. An integer will set the limit.
      * @api
      */
     public static ?int $maxParseIteration = null;
 
     /**
+     * Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or superior to this limit.
+     * Null will deactivate this functionality. An integer will set the limit.
      * @api
+     * @see static Election::$maxParseIteration
      */
-    public static ?int $maxVoteNumber = null;
+    public static ?int $maxVotePerElection = null;
 
     protected static bool $checksumMode = false;
 
     /////////// STATICS METHODS ///////////
 
-    // Change max parse iteration
-/**
- * Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
- * @api
- * @return mixed The new limit.
- * @see static Election::setMaxVoteNumber
- * @param $maxParseIterations Null will deactivate this functionality. Else, enter an integer.
- */
-    public static function setMaxParseIteration(
-
-        ?int $maxParseIterations
-    ): ?int {
-        return self::$maxParseIteration = $maxParseIterations;
-    }
-
-    // Change max vote number
-/**
- * Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or superior to this limit.
- * @api
- * @return mixed The new limit.
- * @see static Election::setMaxParseIteration
- * @param $maxVotesNumber Null will deactivate this functionality. An integer will set the limit.
- */
-    public static function setMaxVoteNumber(
-
-        ?int $maxVotesNumber
-    ): ?int {
-        return self::$maxVoteNumber = $maxVotesNumber;
-    }
 
     // Mechanics
     /**
