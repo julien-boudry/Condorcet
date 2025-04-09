@@ -435,7 +435,7 @@ test('vote weight', function (): void {
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
-    $election->allowsVoteWeight(true);
+    expect($election->allowsVoteWeight(true))->toBe($election);
 
     expect($election->sumVotesWeight())->toBe(15);
 
@@ -828,7 +828,7 @@ test('invalid seats', function (): void {
 test('seats', function (): void {
     expect($this->election1->getNumberOfSeats())->toBe(100);
 
-    $this->election1->setNumberOfSeats(5);
+    expect($this->election1->setNumberOfSeats(5))->toBe($this->election1);
 
     expect($this->election1->getNumberOfSeats())->toBe(5);
 });

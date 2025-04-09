@@ -327,10 +327,11 @@ class Election
     public function setImplicitRanking(
 
         bool $rule = true
-    ): bool {
+    ): static {
         $this->implicitRankingRule = $rule;
         $this->resetComputation();
-        return $this->getImplicitRankingRule();
+
+        return $this;
     }
 /**
  * Returns the corresponding setting as currently set (False by default).
@@ -355,10 +356,11 @@ class Election
     public function allowsVoteWeight(
 
         bool $rule = true
-    ): bool {
+    ): static {
         $this->voteWeightAllowed = $rule;
         $this->resetComputation();
-        return $this->isVoteWeightAllowed();
+
+        return $this;
     }
 
 
@@ -452,7 +454,6 @@ class Election
 /**
  * Set number of Seats for STV methods.
  * @api
- * @return mixed Number of seats.
  * @throws NoSeatsException
  * @see Election::getNumberOfSeats
  * @param $seats The number of seats for proportional methods.
@@ -460,7 +461,7 @@ class Election
     public function setNumberOfSeats(
 
         int $seats
-    ): int {
+    ): static {
         if ($seats > 0) {
             $this->electionSeats = $seats;
 
@@ -469,7 +470,7 @@ class Election
             throw new NoSeatsException;
         }
 
-        return $this->electionSeats;
+        return $this;
     }
 
 
@@ -477,7 +478,6 @@ class Election
 /**
  * Import and enable an external driver to store vote on very large election.
  * @api
- * @return mixed True if success. Else throw an Exception.
  * @throws DataHandlerException
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
  * @see Election::removeExternalDataHandler
@@ -486,10 +486,11 @@ class Election
     public function setExternalDataHandler(
 
         DataHandlerDriverInterface $driver
-    ): true {
+    ): static {
         if (!$this->Votes->isUsingHandler()) {
             $this->Votes->importHandler($driver);
-            return true;
+
+            return $this;
         } else {
             throw new DataHandlerException('external data handler cannot be imported');
         }

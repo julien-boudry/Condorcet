@@ -247,7 +247,7 @@ test('method option', function (): void {
 
     expect($b1->methodOptions['Starting'])->toBe(1);
 
-    expect($this->election1->setMethodOption('Borda Count', 'Starting', 0))->toBeTrue();
+    expect($this->election1->setMethodOption('Borda Count', 'Starting', 0));
     expect($class::$optionStarting)->toBe(0);
 
     expect($b1->methodOptions['Starting'])->toBe(1);
@@ -260,7 +260,7 @@ test('method option', function (): void {
 
     expect($b2->methodOptions['Starting'])->toBe(0);
 
-    expect($this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toBeFalse();
+    expect(fn(): never => $this->election1->setMethodOption('Unregistered method', 'Starting', 0))->toThrow(AlgorithmException::class);
 });
 
 test('verbosity level', function (): void {
@@ -273,7 +273,7 @@ test('verbosity level', function (): void {
     $r1 = $this->election1->getResult(KemenyYoung::class);
     expect($r1->statsVerbosity)->toBe(StatsVerbosity::STD);
 
-    $this->election1->setStatsVerbosity(StatsVerbosity::STD);
+    expect($this->election1->setStatsVerbosity(StatsVerbosity::STD))->toBe($this->election1);
     $r2 = $this->election1->getResult(KemenyYoung::class);
     expect($r2)->toBe($r1);
 

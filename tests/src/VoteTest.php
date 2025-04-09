@@ -36,14 +36,14 @@ test('different ranking', function (): void {
     // Ranking 2
     expect($vote1->setRanking(
         [$this->candidate1, $this->candidate2, $this->candidate3]
-    ))->toBeTrue();
+    ))->toBe($vote1);
 
     expect($vote1->getRanking())->toBe($newRanking1);
 
     // Ranking 3
     expect($vote1->setRanking(
         [4 => $this->candidate1, 6 => $this->candidate2, 14 => $this->candidate3]
-    ))->toBeTrue();
+    ))->toBe($vote1);
 
     expect($vote1->getRanking())->toBe($newRanking1);
 
@@ -51,41 +51,41 @@ test('different ranking', function (): void {
     expect($vote1)->toBe($this->election1->addVote($vote1));
 
     // Ranking 4
-    expect($vote1->setRanking(
+    $vote1->setRanking(
         [$this->candidate1, $this->candidate2]
-    ))->toBeTrue();
+    );
 
     expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
     expect($vote1->getRanking())->toHaveCount(2);
 
     // Ranking 5
-    expect($vote1->setRanking(
+    $vote1->setRanking(
         ['candidate1', 'candidate2']
-    ))->toBeTrue();
+    );
 
     expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
     // Ranking 6
-    expect($vote1->setRanking(
+    $vote1->setRanking(
         [42 => 'candidate2', 142 => 'candidate1']
-    ))->toBeTrue();
+    );
 
     expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
 
     // Ranking 7
-    expect($vote1->setRanking(
+    $vote1->setRanking(
         'candidate1>Kim Jong>candidate2>Trump'
-    ))->toBeTrue();
+    );
 
     expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
     // Ranking 8
-    expect($vote1->setRanking([
+    $vote1->setRanking([
         2 => $this->candidate2,
         1 => $this->candidate1,
         3 => $this->candidate3,
-    ]))->toBeTrue();
+    ]);
 
     expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
 
@@ -170,7 +170,7 @@ test('provisional candidate object', function (): void {
         new Candidate('candidate1'),
         $this->candidate2,
         $this->candidate3,
-    ]))->toBeTrue();
+    ]))->toBe($vote1);
 
     expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
 
@@ -247,8 +247,7 @@ test('different election', function (): void {
     expect($vote1->setRanking([
         [$this->candidate5, $this->candidate2],
         $this->candidate3,
-    ]))
-        ->toBeTrue();
+    ]))->toBe($vote1);
 
     expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
     expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);

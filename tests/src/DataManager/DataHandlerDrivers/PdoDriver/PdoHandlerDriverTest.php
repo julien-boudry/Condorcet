@@ -23,7 +23,7 @@ test('many vote manipulation', function (): void {
 
     $electionWithDb = new Election;
     $electionInMemory = new Election;
-    $electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver(getPDO(), true));
+    expect($electionWithDb->setExternalDataHandler($handlerDriver = new PdoHandlerDriver(getPDO(), true)))->toBe($electionWithDb);
 
     // Run Test
     $electionWithDb->parseCandidates('A;B;C;D;E');

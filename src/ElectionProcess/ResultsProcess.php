@@ -20,6 +20,8 @@ use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
+use League\Csv\InvalidArgument;
+use PHPUnit\Framework\MockObject\Generator\InvalidMethodNameException;
 use Random\Randomizer;
 
 /**
@@ -252,7 +254,6 @@ trait ResultsProcess
 /**
  * Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
  * @api
- * @return mixed True on success. Else False.
  * @see Result::getMethodOptions
  * @param $method Method name or class path.
  * @param $optionName Option name.
@@ -265,14 +266,16 @@ trait ResultsProcess
         string $optionName,
 
         array|\BackedEnum|int|float|string|Randomizer $optionValue
-    ): bool {
+    ): static {
         if ($method = Condorcet::getMethodClass($method)) {
             $method::setOption($optionName, $optionValue);
             unset($this->MethodsComputation[$method]);
 
-            return true;
+            return $this;
         } else {
-            return false;
+            throw new AlgorithmException(
+                'Method ' . $method . ' not found. Please check the name or the class path.'
+            );
         }
     }
 /**
@@ -284,12 +287,14 @@ trait ResultsProcess
     public function setStatsVerbosity(
 
         StatsVerbosity $StatsVerbosity
-    ): void {
+    ): static {
         if ($StatsVerbosity !== $this->StatsVerbosity) {
             $this->resetMethodsComputation();
         }
 
         $this->StatsVerbosity = $StatsVerbosity;
+
+        return $this;
     }
 
 
@@ -340,6 +345,7 @@ trait ResultsProcess
         }
     }
 
+    /** @internal */
     public function resetMethodsComputation(): void
     {
         $this->MethodsComputation = null;

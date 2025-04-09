@@ -504,7 +504,6 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
  *
  * Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
  * @api
- * @return mixed In case of success, return TRUE
  * @throws VoteInvalidFormatException
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
  * @see Vote::getRanking, Vote::getHistory, Vote::__construct
@@ -516,7 +515,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         array|string $ranking,
 
         ?float $ownTimestamp = null
-    ): true {
+    ): static {
         // Timestamp
         if ($ownTimestamp !== null) {
             if (!empty($this->ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
@@ -565,7 +564,8 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         }
 
         $this->computeHashCode();
-        return true;
+
+        return $this;
     }
 
     private function formatRanking(array|string $ranking): array

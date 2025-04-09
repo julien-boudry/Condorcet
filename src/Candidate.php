@@ -93,7 +93,7 @@ class Candidate implements \Stringable
      */
     public function setName(
         string $name
-    ): self {
+    ): static {
         $this->name = $name;
 
         return $this;

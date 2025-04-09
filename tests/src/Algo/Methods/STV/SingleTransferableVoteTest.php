@@ -17,7 +17,7 @@ afterEach(function (): void {
 test('quota option', function (): void {
     expect(StvQuotas::make('droop'))->toBe(StvQuotas::DROOP);
 
-    expect($this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff')))->toBeTrue();
+    expect($this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff')))->toBe($this->election);
 
     $this->expectException(StvQuotaNotImplementedException::class);
     $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
