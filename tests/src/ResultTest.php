@@ -124,7 +124,7 @@ test('get original result', function (bool $changeCandidateName): void {
     $result = $this->election1->getResult();
 
     if ($changeCandidateName) {
-        $candidateA->setName('z');
+        $candidateA->name = 'z';
     }
 
     expect($result->originalRankingAsArrayString)->toBe([

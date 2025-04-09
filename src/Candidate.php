@@ -23,10 +23,11 @@ class Candidate implements \Stringable
     use CondorcetVersion;
 
     /**
+     * Get the candidate name or change the candidate name.
      * @api
      */
     public string $name {
-        get => end($this->namesHistory)['name']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
+        get => end($this->nameHistory)['name']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
         set {
             $name = mb_trim($value);
 
@@ -42,20 +43,33 @@ class Candidate implements \Stringable
                 throw new CandidateExistsException("the name '{$name}' is taken by another candidate");
             }
 
-            $this->namesHistory[] =  ['name' => $name, 'timestamp' => microtime(true)];
+            $this->nameHistory[] =  ['name' => $name, 'timestamp' => microtime(true)];
         }
     }
 
-    /** @var array<int,array> */
-    private array $namesHistory = [];
-    private bool $provisional = false;
+    /**
+     * Return an history of each naming change, with timestamp.
+     * @var array<int,array>
+     * @api
+     * @see Candidate::createdAt, Candidate::updatedAt
+     */
+    public protected(set) array $nameHistory = [];
+
+    /**
+     * When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
+     * Then, these string input will be converted to into temporary candidate objects, marked as "provisional". Because you don't create the candidate yourself, they have a provisional status true.
+     * When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::nameHistory).
+     *
+     * See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
+     * @internal
+     */
+    public private(set) bool $provisionalState = false;
 
     // -------
     /**
      * Build a candidate.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
-     * @see Candidate::setName
      * @param $name Candidate Name.
      */
     public function __construct(
@@ -76,6 +90,8 @@ class Candidate implements \Stringable
         $r = get_object_vars($this);
         unset($r['link']);
         unset($r['name']); // Virtual property
+        unset($r['createdAt']); // Virtual property
+        unset($r['updatedAt']); // Virtual property
 
         return $r;
     }
@@ -86,9 +102,13 @@ class Candidate implements \Stringable
     /**
      * Change the candidate name.
      * *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
+     *
      * @api
-     * @return mixed In case of success, return TRUE
-     * @throws CandidateInvalidNameException
+     * @throws CandidateInvalidNameException If the name exceeds the maximum allowed length, contains invalid characters, or is already taken by another candidate in the election context.
+     * - Exceeds maximum length: The name length exceeds `Election::MAX_CANDIDATE_NAME_LENGTH`.
+     * - Contains invalid characters: The name contains prohibited characters such as `<`, `>`, `\n`, `\t`, `\0`, `^`, `*`, `$`, `:`, `;`, `||`, `"`, or `#`.
+     * - Name conflict: The name is already taken by another candidate in the election context.
+     *
      * @param $name Candidate Name.
      */
     public function setName(
@@ -99,65 +119,30 @@ class Candidate implements \Stringable
         return $this;
     }
 
+    /** @internal */
     public function setProvisionalState(bool $provisional): void
     {
-        $this->provisional = $provisional;
+        $this->provisionalState = $provisional;
     }
 
     // GETTERS
+
     /**
-     * Get the candidate name.
+     * The timestamp corresponding of the creation of this candidate.
      * @api
-     * @return mixed Candidate name.
-     * @see Candidate::getHistory, Candidate::setName
+     * @see Candidate::updatedAt, Candidate::nameHistory
      */
-    #[Deprecated]
-    public function getName(): string
-    {
-        return $this->name;
+    public float $createdAt {
+        get => $this->nameHistory[0]['timestamp'];
     }
+
     /**
-     * Return an history of each naming change, with timestamp.
+     * The timestamp corresponding of the last naming change.
      * @api
-     * @return mixed An explicit multi-dimensional array.
-     * @see Candidate::getCreateTimestamp
+     * @see Candidate::cratedAt, Candidate::nameHistory
      */
-    public function getHistory(): array
-    {
-        return $this->namesHistory;
-    }
-    /**
-     * Get the timestamp corresponding of the creation of this candidate.
-     * @api
-     * @return mixed Timestamp
-     * @see Candidate::getTimestamp
-     */
-    public function getCreateTimestamp(): float
-    {
-        return $this->namesHistory[0]['timestamp'];
-    }
-    /**
-     * Get the timestamp corresponding of the last naming change.
-     * @api
-     * @return mixed Timestamp
-     * @see Candidate::getCreateTimestamp
-     */
-    public function getTimestamp(): float
-    {
-        return end($this->namesHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
-    }
-    /**
-     * When you create yourself the vote object, without use the Election::addVote or other native election method. And if you use string input (or array of string).
-     * Then, these string input will be converted to into temporary candidate objects, marked as "provisional". Because you don't create the candidate yourself, they have a provisional status true.
-     * When the vote will be added for the first time to an election, provisional candidate object with a name that matches an election candidate, will be converted into the election candidate. And first ranking will be save into Vote history (Vote::getHistory).
-     *
-     * See VoteTest::testVoteHistory() test for a demonstration. In principle this is transparent from a usage point of view. If you want to avoid any non-strict comparisons, however, you should prefer to create your votes with the Election object, or with Candidate Objects in input. But, you must never getback a candidate marked as provisional in an another election in the same time, it's will not working.
-     * @api
-     * @return mixed True if candidate object is in a provisional state, false else.
-     */
-    public function getProvisionalState(): bool
-    {
-        return $this->provisional;
+    public float $updatedAt {
+        get => end($this->nameHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible
     }
 
     // -------

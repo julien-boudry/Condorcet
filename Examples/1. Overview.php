@@ -48,7 +48,7 @@ declare(strict_types=1);
         $myLutoCandidate->setName('Wiltod Lutoslawski'); # Done !
 
             # What was his old names?
-            $myLutoCandidate->getHistory(); // return the full history with timestamp of this Candidate naming
+            $myLutoCandidate->nameHistory; // return the full history with timestamp of this Candidate naming
 
 
     # -C- Check your candidate list, if you forget it

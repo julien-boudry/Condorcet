@@ -185,12 +185,12 @@ test('provisional candidate object', function (): void {
     // II
     $vote2 = new Vote('candidate1>candidate2');
 
-    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeTrue();
+    expect($vote2->getRanking()[1][0]->provisionalState)->toBeTrue();
     $vote2_firstRanking = $vote2->getRanking();
 
     $this->election1->addVote($vote2);
 
-    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    expect($vote2->getRanking()[1][0]->provisionalState)->toBeFalse();
 
     expect($vote2->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1],
         2 => [$this->candidate2],
@@ -204,12 +204,12 @@ test('provisional candidate object', function (): void {
 
     $vote3 = new Vote([$otherCandidate1, $otherCandidate2, $this->candidate3]);
 
-    expect($vote3->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    expect($vote3->getRanking()[1][0]->provisionalState)->toBeFalse();
     $vote3_firstRanking = $vote3->getRanking();
 
     $this->election1->addVote($vote3);
 
-    expect($vote2->getRanking()[1][0]->getProvisionalState())->toBeFalse();
+    expect($vote2->getRanking()[1][0]->provisionalState)->toBeFalse();
 
     expect($vote3->getContextualRanking($this->election1))->toBe([1 => [$this->candidate3],
         2 => [$this->candidate1, $this->candidate2], ]);
@@ -589,11 +589,11 @@ test('vote history', function (): void {
 
     expect($candidate8->name)->toBe('candidate8');
 
-    expect($candidate8->getProvisionalState())->toBeTrue();
+    expect($candidate8->provisionalState)->toBeTrue();
 
     $this->election1->addVote($vote7);
 
-    expect($candidate8->getProvisionalState())->toBeTrue();
+    expect($candidate8->provisionalState)->toBeTrue();
 
     expect($vote7->getHistory())->toHaveCount(1);
 });

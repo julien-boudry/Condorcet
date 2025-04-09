@@ -230,7 +230,7 @@ trait VotesProcess
             $linkCheck = ($linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)));
 
             foreach ($vote->getAllCandidates() as $candidate) {
-                if (!$linkCheck && $candidate->getProvisionalState() && !$this->hasCandidate(candidate: $candidate, strictMode: true) && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
+                if (!$linkCheck && $candidate->provisionalState && !$this->hasCandidate(candidate: $candidate, strictMode: true) && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
                     return false;
                 }
             }
@@ -261,7 +261,7 @@ trait VotesProcess
         foreach ($ranking as &$choice) {
             foreach ($choice as &$candidate) {
                 if (!$this->hasCandidate($candidate, true)) {
-                    if ($candidate->getProvisionalState() && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
+                    if ($candidate->provisionalState && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
                         $candidate = $this->candidates[$this->getCandidateKey((string) $candidate)];
                         $change = true;
                     }

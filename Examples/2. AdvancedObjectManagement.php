@@ -36,7 +36,7 @@ declare(strict_types=1);
     $myLutoCandidate->setName('W.Lutoslawski');
 
     // Have a look on $myLutoCandidate history
-    $myLutoCandidate->getHistory();
+    $myLutoCandidate->nameHistory;
 
     // Have a look to a vote from $election1. The candidate name have changed.
     $myVote4->getContextualRanking($election1, true);

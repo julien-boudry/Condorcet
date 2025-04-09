@@ -9,7 +9,7 @@ beforeEach(function (): void {
 });
 
 test('create timestamp', function (): void {
-    expect($this->candidate1->getTimestamp())->toEqual($this->candidate1->getCreateTimestamp());
+    expect($this->candidate1->updatedAt)->toEqual($this->candidate1->createdAt);
 });
 
 test('change name', function (): void {
@@ -17,8 +17,8 @@ test('change name', function (): void {
 
     expect($this->candidate1->name)->toEqual('candidate1.n2');
 
-    expect($this->candidate1->getCreateTimestamp())->toBeLessThan($this->candidate1->getTimestamp());
-    expect($this->candidate1->getHistory())->toHaveCount(2);
+    expect($this->candidate1->createdAt)->toBeLessThan($this->candidate1->updatedAt);
+    expect($this->candidate1->nameHistory)->toHaveCount(2);
 });
 
 test('trim name', function (): void {
