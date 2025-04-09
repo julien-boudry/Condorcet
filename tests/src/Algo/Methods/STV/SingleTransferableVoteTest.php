@@ -221,7 +221,7 @@ test('result alternative quotas1', function (): void {
     $this->election->setNumberOfSeats(2);
     $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
 
-    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero));
+    expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, RoundingMode::HalfTowardsZero));
 
     expect($this->election->getResult('STV')->stats['rounds'])
         ->toEqualWithDelta(

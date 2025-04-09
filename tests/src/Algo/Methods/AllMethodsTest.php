@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
 
 test('empty relevant votes, one candidate', function (string $method): void {
     $election = new Election;
@@ -16,10 +15,12 @@ test('empty relevant votes, one candidate', function (string $method): void {
 })->with(Condorcet::getAuthMethods());
 
 // https://electowiki.org/wiki/Beatpath_example_12 > examples fixed
-test('example with 12 candidates from electowiki', function(): void {
+test('example with 12 candidates from electowiki', function (): void {
     $election = new Election;
     $election->allowsVoteWeight();
-    do {$election->addCandidate();} while ($election->countCandidates() < 12);
+    do {
+        $election->addCandidate();
+    } while ($election->countCandidates() < 12);
 
     $election->parseVotes('
         A>B ^6
@@ -52,7 +53,7 @@ test('example with 12 candidates from electowiki', function(): void {
             1 => ['A', 'B', 'C', 'D', 'E'],
             2 => ['F', 'G', 'H', 'I', 'J', 'K', 'L'],
         ]);
-    ;
+
 
     // expect($election->getWinner('Schulze'))->toBe('B');;
 });

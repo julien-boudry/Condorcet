@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats, StatsInterface};
 
 test('BaseMethodStats Are closed', function (string $method): void {
     $election = new Election;
@@ -17,8 +15,7 @@ test('BaseMethodStats Are closed', function (string $method): void {
 
     expect($stats)->toBeInstanceOf(StatsInterface::class);
 
-    if ($stats instanceof BaseMethodStats)
-    {
+    if ($stats instanceof BaseMethodStats) {
         expect($stats->closed)->toBe(true);
     }
 

@@ -16,8 +16,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 // Ranked Pairs is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Ranked_Pairs
 abstract class RankedPairsCore extends Method implements MethodInterface

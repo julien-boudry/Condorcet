@@ -71,7 +71,7 @@ test('smith set with two candidates', function (): void {
     expect($result->stats['smith_set'][0])->toBe((string) $candidateA);
 
     // A beats B, so the Smith set should contain just A
-    expect($result->ranking)->toHaveCount(2)->toHaveKeys([1,2]);
+    expect($result->ranking)->toHaveCount(2)->toHaveKeys([1, 2]);
     expect($result->ranking[1])->toBe([$candidateA])->toContain($result->winner);
     expect($result->ranking[2])->toBe([$candidateB])->toContain($result->loser);
 });
@@ -104,7 +104,7 @@ test('smith set with a clear top set', function (): void {
 });
 
 // Example from https://electowiki.org/wiki/Smith_set
-test('from electowiki 1', function(): void {
+test('from electowiki 1', function (): void {
     $this->election->parseCandidates('A;B;C');
     $this->election->allowsVoteWeight();
 
@@ -118,7 +118,7 @@ test('from electowiki 1', function(): void {
 });
 
 // Example from https://en.wikipedia.org/wiki/Smith_set
-test('from wikipedia 1', function(): void {
+test('from wikipedia 1', function (): void {
     $this->election->parseCandidates('A;B;C;D');
     $this->election->allowsVoteWeight();
 

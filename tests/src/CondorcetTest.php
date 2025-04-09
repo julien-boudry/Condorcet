@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\EmptyStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmException;
 
 test('get version', function (): void {
@@ -88,7 +87,7 @@ class CondorcetTest_ValidAlgorithmName extends Method implements MethodInterface
 
 
     // Get the Result object
-    #[\Override]
+    #[Override]
     public function getResult($options = null): Result
     {
         // Cache

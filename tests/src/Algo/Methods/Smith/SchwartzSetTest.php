@@ -11,7 +11,7 @@ beforeEach(function (): void {
  * Basic property of Schwartz set: when there's a Condorcet winner,
  * the Schwartz set contains only that candidate.
  */
-test('schwartz set with clear condorcet winner', function(): void {
+test('schwartz set with clear condorcet winner', function (): void {
     $this->election->parseCandidates('A;B;C');
     $this->election->allowsVoteWeight();
 
@@ -32,7 +32,7 @@ test('schwartz set with clear condorcet winner', function(): void {
  * Classic rock-paper-scissors pattern example, common in voting theory literature
  * Creates a cycle where A beats B, B beats C, and C beats A
  */
-test('schwartz set with condorcet cycle', function(): void {
+test('schwartz set with condorcet cycle', function (): void {
     $this->election->parseCandidates('A;B;C');
     $this->election->allowsVoteWeight();
     $this->election->setImplicitRanking(false);
@@ -54,7 +54,7 @@ test('schwartz set with condorcet cycle', function(): void {
  * Adapted from the Smith set example on Wikipedia:
  * https://en.wikipedia.org/wiki/Smith_set
  */
-test('schwartz set example from wikipedia', function(): void {
+test('schwartz set example from wikipedia', function (): void {
     $this->election->parseCandidates('A;B;C;D');
     $this->election->allowsVoteWeight();
 
@@ -73,7 +73,7 @@ test('schwartz set example from wikipedia', function(): void {
  * "A new monotonic, clone-independent, reversal symmetric,
  * and Condorcet-consistent single-winner election method"
  */
-test('schwartz set from schulze paper example', function(): void {
+test('schwartz set from schulze paper example', function (): void {
     $this->election->parseCandidates('A;B;C;D;E');
 
     $this->election->parseVotes('
@@ -98,7 +98,7 @@ test('schwartz set from schulze paper example', function(): void {
  * - First cycle beats all members of second cycle
  * The Schwartz set should contain only members of the undominated first cycle
  */
-test('schwartz set with multiple disjoint cycles', function(): void {
+test('schwartz set with multiple disjoint cycles', function (): void {
     $this->election->parseCandidates('A;B;C;D;E;F');
     $this->election->allowsVoteWeight();
     $this->election->setImplicitRanking(false);
@@ -138,7 +138,7 @@ test('schwartz set with multiple disjoint cycles', function(): void {
  * Similar to examples on Electowiki:
  * https://electowiki.org/wiki/Schwartz_set
  */
-test('schwartz set from electowiki', function(): void {
+test('schwartz set from electowiki', function (): void {
     $this->election->parseCandidates('A;B;C');
     $this->election->allowsVoteWeight();
 
@@ -155,7 +155,7 @@ test('schwartz set from electowiki', function(): void {
 /**
  * Edge case: single candidate election
  */
-test('schwartz set with single candidate', function(): void {
+test('schwartz set with single candidate', function (): void {
     $this->election->addCandidate('A');
     $this->election->addVote('A');
 
@@ -165,7 +165,7 @@ test('schwartz set with single candidate', function(): void {
 /**
  * Edge case: complete tie between all candidates
  */
-test('schwartz set with complete tie', function(): void {
+test('schwartz set with complete tie', function (): void {
     $this->election->parseCandidates('A;B;C');
     $this->election->parseVotes('A=B=C * 10');
 
@@ -177,7 +177,7 @@ test('schwartz set with complete tie', function(): void {
  * Check relationship between Smith and Schwartz sets
  * In some cases they are equal - when there are no defeats between candidates
  */
-test('schwartz set equals smith set when no defeats between candidates', function(): void {
+test('schwartz set equals smith set when no defeats between candidates', function (): void {
     $this->election->parseCandidates('A;B;C;D');
 
     $this->election->parseVotes('

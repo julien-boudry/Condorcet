@@ -12,8 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Smith;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 use CondorcetPHP\Condorcet\Result;
 
@@ -52,7 +51,7 @@ class SmithSet extends Method implements MethodInterface
         // All other candidates are ranked second (equally)
         $rank = 2;
         foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
-            if (!in_array($candidateKey, $this->SmithSet, true)) {
+            if (!\in_array($candidateKey, $this->SmithSet, true)) {
                 $result[$rank][] = $candidateKey;
             }
         }
@@ -96,7 +95,7 @@ class SmithSet extends Method implements MethodInterface
                 // Check if this candidate is beaten by someone in the set
                 $beatenBy = [];
                 foreach ($candidates as $j => $opponentId) {
-                    if ($i !== $j && in_array($candidateId, $graph[$opponentId], true)) {
+                    if ($i !== $j && \in_array($candidateId, $graph[$opponentId], true)) {
                         $beatenBy[] = $opponentId;
                     }
                 }
@@ -108,7 +107,7 @@ class SmithSet extends Method implements MethodInterface
                 // Check if this candidate beats anyone in the set
                 $beats = [];
                 foreach ($candidates as $j => $opponentId) {
-                    if ($i !== $j && in_array($opponentId, $graph[$candidateId], true)) {
+                    if ($i !== $j && \in_array($opponentId, $graph[$candidateId], true)) {
                         $beats[] = $opponentId;
                     }
                 }
@@ -121,7 +120,7 @@ class SmithSet extends Method implements MethodInterface
                 }
             }
 
-        } while ($modified && count($candidates) > 0);
+        } while ($modified && \count($candidates) > 0);
 
         return array_values($candidates);
     }

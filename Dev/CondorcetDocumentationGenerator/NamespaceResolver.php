@@ -6,7 +6,6 @@ namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 use PhpParser\Error;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\ParserFactory;
 

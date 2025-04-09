@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Stats;
 
-use Iterator;
-
 /**
  * @extends \IteratorAggregate<string, mixed>
  * @extends \ArrayAccess<string, mixed>

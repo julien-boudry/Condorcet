@@ -15,8 +15,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Lotteries;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use Random\Randomizer;
 
 class RandomBallot extends Method implements MethodInterface

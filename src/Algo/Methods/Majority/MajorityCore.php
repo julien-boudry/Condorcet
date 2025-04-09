@@ -15,8 +15,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 abstract class MajorityCore extends Method implements MethodInterface
 {

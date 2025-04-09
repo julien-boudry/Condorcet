@@ -14,7 +14,8 @@ namespace CondorcetPHP\Condorcet\Throwable;
 
 class StatsEntryDoNotExistException extends CondorcetPublicApiException
 {
-    public function __construct(public readonly string $entryName) {
+    public function __construct(public readonly string $entryName)
+    {
         parent::__construct("entry {$this->entryName} do not exist");
     }
 }

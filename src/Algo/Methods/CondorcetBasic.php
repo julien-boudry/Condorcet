@@ -13,8 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\EmptyStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 use Override;
 
@@ -32,7 +31,7 @@ class CondorcetBasic extends Method implements MethodInterface
     /////////// PUBLIC ///////////
 
 
-    #[\Override]
+    #[Override]
     public function getResult(): never
     {
         throw new AlgorithmWithoutRankingFeatureException(self::METHOD_NAME[0]);

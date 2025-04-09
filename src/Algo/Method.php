@@ -13,8 +13,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo;
 
 use CondorcetPHP\Condorcet\{CondorcetVersion, Election, Result};
-use CondorcetPHP\Condorcet\Algo\Stats\EmptyStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Throws};
 use CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException;
 use CondorcetPHP\Condorcet\Relations\HasElection;

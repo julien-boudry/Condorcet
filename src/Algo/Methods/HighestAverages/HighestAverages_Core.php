@@ -15,8 +15,7 @@ declare(strict_types=1);
 namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 abstract class HighestAverages_Core extends Method implements MethodInterface
 {

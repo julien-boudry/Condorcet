@@ -14,8 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods;
 
 use CondorcetPHP\Condorcet\Result;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
-use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
-use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
+use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface

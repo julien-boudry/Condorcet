@@ -18,7 +18,6 @@ use Traversable;
 
 class BaseMethodStats implements StatsInterface
 {
-
     public readonly string $buildByMethod;
     protected array $data = [];
 
@@ -38,7 +37,7 @@ class BaseMethodStats implements StatsInterface
 
     public function offsetExists(mixed $offset): bool
     {
-        return array_key_exists($offset, $this->data);
+        return \array_key_exists($offset, $this->data);
     }
 
     public function offsetUnset(mixed $offset): void
@@ -54,15 +53,14 @@ class BaseMethodStats implements StatsInterface
     public function __construct(
         ?array $data = null,
         public protected(set) bool $closed = true
-    )
-    {
+    ) {
         if ($data !== null) {
             $this->data = $data;
         }
 
         $backtrace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2);
 
-        if (isset($backtrace[1]) && isset($backtrace[1]['class'])) {
+        if (isset($backtrace[1], $backtrace[1]['class'])) {
             $this->buildByMethod =  new \ReflectionMethod($backtrace[1]['class'], $backtrace[1]['function'])->class;
         } else {
             throw new CondorcetInternalError('Unable to get the caller method');
@@ -79,7 +77,7 @@ class BaseMethodStats implements StatsInterface
 
     public function getEntry(string $entryName): mixed
     {
-        if (array_key_exists($entryName, $this->data)) {
+        if (\array_key_exists($entryName, $this->data)) {
             return $this->data[$entryName];
         }
 

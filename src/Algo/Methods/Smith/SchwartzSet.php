@@ -12,8 +12,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Smith;
 
-use CondorcetPHP\Condorcet\Algo\Method;
-use CondorcetPHP\Condorcet\Algo\MethodInterface;
+use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats;
 use CondorcetPHP\Condorcet\Result;
 
@@ -51,7 +50,7 @@ class SchwartzSet extends Method implements MethodInterface
         // All other candidates are ranked second (equally)
         $rank = 2;
         foreach (array_keys($this->getElection()->getCandidatesList()) as $candidateKey) {
-            if (!in_array($candidateKey, $this->SchwartzSet, true)) {
+            if (!\in_array($candidateKey, $this->SchwartzSet, true)) {
                 $result[$rank][] = $candidateKey;
             }
         }
@@ -93,14 +92,14 @@ class SchwartzSet extends Method implements MethodInterface
 
         // Create a graph of SCCs
         $sccGraph = [];
-        for ($i = 0; $i < count($sccs); $i++) {
+        for ($i = 0; $i < \count($sccs); $i++) {
             $sccGraph[$i] = [];
-            for ($j = 0; $j < count($sccs); $j++) {
+            for ($j = 0; $j < \count($sccs); $j++) {
                 if ($i !== $j) {
                     // Check if any candidate in SCC i defeats any candidate in SCC j
                     foreach ($sccs[$i] as $candidateI) {
                         foreach ($sccs[$j] as $candidateJ) {
-                            if (in_array($candidateJ, $graph[$candidateI], true)) {
+                            if (\in_array($candidateJ, $graph[$candidateI], true)) {
                                 $sccGraph[$i][] = $j;
                                 break 2;
                             }
@@ -112,10 +111,10 @@ class SchwartzSet extends Method implements MethodInterface
 
         // Find undominated SCCs (sources in the SCC graph)
         $undominatedSccs = [];
-        for ($i = 0; $i < count($sccs); $i++) {
+        for ($i = 0; $i < \count($sccs); $i++) {
             $isDominated = false;
-            for ($j = 0; $j < count($sccs); $j++) {
-                if ($i !== $j && in_array($i, $sccGraph[$j], true)) {
+            for ($j = 0; $j < \count($sccs); $j++) {
+                if ($i !== $j && \in_array($i, $sccGraph[$j], true)) {
                     $isDominated = true;
                     break;
                 }
@@ -172,19 +171,19 @@ class SchwartzSet extends Method implements MethodInterface
      */
     private function consolidateStrongComponents(array $graph, array $sccs): array
     {
-        if (count($sccs) <= 1) {
+        if (\count($sccs) <= 1) {
             return $sccs;
         }
 
         // Construire un graphe des composantes
         $sccGraph = [];
-        for ($i = 0; $i < count($sccs); $i++) {
+        for ($i = 0; $i < \count($sccs); $i++) {
             $sccGraph[$i] = [];
-            for ($j = 0; $j < count($sccs); $j++) {
+            for ($j = 0; $j < \count($sccs); $j++) {
                 if ($i !== $j) {
                     foreach ($sccs[$i] as $from) {
                         foreach ($sccs[$j] as $to) {
-                            if (in_array($to, $graph[$from])) {
+                            if (\in_array($to, $graph[$from], true)) {
                                 $sccGraph[$i][] = $j;
                                 break 2;
                             }
@@ -197,18 +196,20 @@ class SchwartzSet extends Method implements MethodInterface
         // Détecter les cycles entre SCCs
         $merged = false;
         $newSccs = [];
-        $visited = array_fill(0, count($sccs), false);
+        $visited = array_fill(0, \count($sccs), false);
 
-        for ($i = 0; $i < count($sccs); $i++) {
-            if ($visited[$i]) continue;
+        for ($i = 0; $i < \count($sccs); $i++) {
+            if ($visited[$i]) {
+                continue;
+            }
 
             $component = $sccs[$i];
             $visited[$i] = true;
 
             // Trouver tous les autres composants qui forment un cycle avec celui-ci
-            for ($j = 0; $j < count($sccs); $j++) {
+            for ($j = 0; $j < \count($sccs); $j++) {
                 if ($i !== $j && !$visited[$j] &&
-                    in_array($j, $sccGraph[$i]) && in_array($i, $sccGraph[$j])) {
+                    \in_array($j, $sccGraph[$i], true) && \in_array($i, $sccGraph[$j], true)) {
                     $component = array_merge($component, $sccs[$j]);
                     $visited[$j] = true;
                     $merged = true;
