@@ -122,7 +122,7 @@ trait ResultsProcess
 
         ?string $method = null
     ): array|Candidate|null {
-        $algo = Condorcet::condorcetBasicSubstitution($method);
+        $algo = Condorcet::validateAlternativeWinnerLoserMethod($method);
 
         // -------
 
@@ -154,7 +154,7 @@ trait ResultsProcess
 
         ?string $method = null
     ): array|Candidate|null {
-        $algo = Condorcet::condorcetBasicSubstitution($method);
+        $algo = Condorcet::validateAlternativeWinnerLoserMethod($method);
 
         // -------
 

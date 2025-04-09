@@ -251,7 +251,8 @@ abstract class Condorcet
         }
     }
 
-    public static function condorcetBasicSubstitution(?string $substitution): string
+    /** @internal */
+    public static function validateAlternativeWinnerLoserMethod(?string $substitution): string
     {
         if ($substitution !== null) {
             if (self::isAuthMethod($substitution)) {

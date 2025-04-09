@@ -55,7 +55,7 @@ class InstantRunoff extends Method implements MethodInterface
         $election = $this->getElection();
 
         $candidateCount = $election->countCandidates();
-        $this->majority = $election->sumValidVotesWeightWithConstraints() / 2;
+        $this->majority = $election->sumValidVoteWeightsWithConstraints() / 2;
 
         $candidateDone = [];
         $result = [];

@@ -94,12 +94,11 @@ trait CandidatesProcess
 /**
  * Check if a candidate is already registered for this election.
  * @api
- * @return mixed True / False
  * @see Election::addCandidate
  * @param $candidate Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.
  * @param $strictMode Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.
  */
-    public function isRegisteredCandidate(
+    public function hasCandidate(
 
         Candidate|string $candidate,
 
@@ -176,17 +175,17 @@ trait CandidatesProcess
         return $newCandidate;
     }
 /**
- * Check if a candidate is already registered. Equivalent of `!$election->isRegisteredCandidate($candidate, false)`.
+ * Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
  * @api
  * @return mixed True if your candidate is available, false otherwise.
- * @see Election::addCandidate, Election::isRegisteredCandidate
+ * @see Election::addCandidate, Election::hasCandidate
  * @param $candidate String or Condorcet/Vote object.
  */
     public function canAddCandidate(
 
         Candidate|string $candidate
     ): bool {
-        return !$this->isRegisteredCandidate($candidate, false);
+        return !$this->hasCandidate($candidate, false);
     }
 
     // Destroy a register vote candidate before voting

@@ -15,14 +15,14 @@ afterEach(function (): void {
 });
 
 test('quota option', function (): void {
-    expect(StvQuotas::make('droop'))->toBe(StvQuotas::DROOP);
+    expect(StvQuotas::fromString('droop'))->toBe(StvQuotas::DROOP);
 
-    expect($this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff')))->toBe($this->election);
+    expect($this->election->setMethodOption('STV', 'Quota', StvQuotas::fromString('Hagenbach-Bischoff')))->toBe($this->election);
 
     $this->expectException(StvQuotaNotImplementedException::class);
     $this->expectExceptionMessage('This STV quota is not implemented: "another quota"');
 
-    $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('another quota'));
+    $this->election->setMethodOption('STV', 'Quota', StvQuotas::fromString('another quota'));
 });
 
 test('result 1', function (): void {
@@ -219,7 +219,7 @@ test('result alternative quotas1', function (): void {
         ');
 
     $this->election->setNumberOfSeats(2);
-    $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hagenbach-Bischoff'));
+    $this->election->setMethodOption('STV', 'Quota', StvQuotas::fromString('Hagenbach-Bischoff'));
 
     expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe(round(33 + 1 / 3, SingleTransferableVote::DECIMAL_PRECISION, RoundingMode::HalfTowardsZero));
 
@@ -244,7 +244,7 @@ test('result alternative quotas1', function (): void {
         2 => 'Carter',
     ]);
 
-    expect(StvQuotas::make('Hagenbach-Bischoff'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
+    expect(StvQuotas::fromString('Hagenbach-Bischoff'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
 });
 
 test('result alternative quotas2', function (): void {
@@ -284,7 +284,7 @@ test('result alternative quotas2', function (): void {
         2 => 'Carter',
     ]);
 
-    expect(StvQuotas::make('Imperiali quota'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
+    expect(StvQuotas::fromString('Imperiali quota'))->toBe($this->election->getResult('STV')->methodOptions['Quota']);
 });
 
 test('result alternative quotas3', function (): void {
@@ -303,7 +303,7 @@ test('result alternative quotas3', function (): void {
         ');
 
     $this->election->setNumberOfSeats(2);
-    $this->election->setMethodOption('STV', 'Quota', StvQuotas::make('Hare quota'));
+    $this->election->setMethodOption('STV', 'Quota', StvQuotas::fromString('Hare quota'));
 
     expect($this->election->getResult('STV')->stats['Votes Needed to Win'])->toBe((float) (100 / 2));
 

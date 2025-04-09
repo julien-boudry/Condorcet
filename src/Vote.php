@@ -444,7 +444,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
         foreach ($ranking as $CandidatesInRanks) {
             foreach ($CandidatesInRanks as $candidate) {
-                if ($election->isRegisteredCandidate($candidate, true)) {
+                if ($election->hasCandidate($candidate, true)) {
                     $newRanking[$nextRank][] = $candidate;
                     $countContextualCandidate++;
                     $rankChange = true;

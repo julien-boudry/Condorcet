@@ -364,7 +364,7 @@ test('parse votes without fail', function (): void {
     $this->election1->addCandidate('B');
     $this->election1->addCandidate('C');
 
-    expect($this->election1->parseVotesWithoutFail('
+    expect($this->election1->parseVotesSafe('
             A > B > C
             A > B > C * 4;tag1 || A > B > C*4 #Coucou
             A < B < C * 10
@@ -374,15 +374,15 @@ test('parse votes without fail', function (): void {
 
     expect($this->election1->countVotes())->toBe(10);
 
-    expect($this->election1->parseVotesWithoutFail(__DIR__ . '/../LargeElectionData/smallVote1.votes', true))->toBe(2);
+    expect($this->election1->parseVotesSafe(__DIR__ . '/../LargeElectionData/smallVote1.votes', true))->toBe(2);
 
     expect($this->election1->countVotes())->toBe(20);
 
-    expect($this->election1->parseVotesWithoutFail(new SplFileObject(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
+    expect($this->election1->parseVotesSafe(new SplFileObject(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
 
     expect($this->election1->countVotes())->toBe(30);
 
-    expect($this->election1->parseVotesWithoutFail(new SplFileInfo(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
+    expect($this->election1->parseVotesSafe(new SplFileInfo(__DIR__ . '/../LargeElectionData/smallVote1.votes'), true))->toBe(2);
 
     expect($this->election1->countVotes())->toBe(40);
 });
@@ -396,7 +396,7 @@ test('parse votes without fail invalid path', function (): void {
     $this->expectException(FileDoesNotExistException::class);
     $this->expectExceptionMessageMatches('/bad_file.txt$/');
 
-    $this->election1->parseVotesWithoutFail('bad_file.txt', true);
+    $this->election1->parseVotesSafe('bad_file.txt', true);
 });
 
 test('vote weight', function (): void {
@@ -417,16 +417,16 @@ test('vote weight', function (): void {
     $voteWithWeight = $election->addVote('D > C > B');
     $voteWithWeight->setWeight(2);
 
-    expect($election->sumVotesWeight())->toBe(14);
+    expect($election->sumVoteWeights())->toBe(14);
 
-    expect($election->sumValidVotesWeightWithConstraints())->toBe($election->sumVotesWeight());
+    expect($election->sumValidVoteWeightsWithConstraints())->toBe($election->sumVoteWeights());
 
     // Some test about votes weight tags filters
-    expect($election->sumVotesWeight('tag1,tag2'))->toBe(7);
+    expect($election->sumVoteWeights('tag1,tag2'))->toBe(7);
 
-    expect($election->sumVotesWeight('tag2', false))->toBe(13);
+    expect($election->sumVoteWeights('tag2', false))->toBe(13);
 
-    expect($election->sumVotesWeight('tag1,tag2', 2))->toBe(0);
+    expect($election->sumVoteWeights('tag1,tag2', 2))->toBe(0);
 
     // Continue
     expect((string) $voteWithWeight)->toBe('D > C > B ^2');
@@ -437,7 +437,7 @@ test('vote weight', function (): void {
 
     expect($election->allowsVoteWeight(true))->toBe($election);
 
-    expect($election->sumVotesWeight())->toBe(15);
+    expect($election->sumVoteWeights())->toBe(15);
 
     expect($voteWithWeight->getSimpleRanking($election))->toBe('D > C > B > A ^2');
 
@@ -445,7 +445,7 @@ test('vote weight', function (): void {
 
     $election->allowsVoteWeight(false);
 
-    expect($election->sumVotesWeight())->toBe(14);
+    expect($election->sumVoteWeights())->toBe(14);
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
@@ -453,13 +453,13 @@ test('vote weight', function (): void {
 
     $election->removeVote($voteWithWeight);
 
-    expect($election->sumVotesWeight())->toBe(13);
+    expect($election->sumVoteWeights())->toBe(13);
 
     $election->parseVotes('
             D > C > B ^2 * 1
         ');
 
-    expect($election->sumVotesWeight())->toBe(15);
+    expect($election->sumVoteWeights())->toBe(15);
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 

@@ -51,7 +51,7 @@ trait VotesProcess
      * Count the number of actual invalid (if constraints functionality is enabled) but registered votes for this election.
      * @api
      * @return mixed Number of valid and registered votes in this election.
-     * @see Election::countValidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
+     * @see Election::countValidVoteWithConstraints, Election::countVotes, Election::sumValidVoteWeightsWithConstraints
      */
     public function countInvalidVoteWithConstraints(): int
     {
@@ -61,7 +61,7 @@ trait VotesProcess
      * Count the number of actual registered and valid votes for this election. This method doesn't ignore votes constraints, only valid votes will be counted.
      * @api
      * @return mixed Number of valid and registered votes in this election.
-     * @see Election::countInvalidVoteWithConstraints, Election::countVotes, Election::sumValidVotesWeightWithConstraints
+     * @see Election::countInvalidVoteWithConstraints, Election::countVotes, Election::sumValidVoteWeightsWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
      */
@@ -77,15 +77,15 @@ trait VotesProcess
      * Sum total votes weight in this election. If vote weight functionality is disabled (default setting), it will return the number of registered votes. This method ignores votes constraints.
      * @api
      * @return mixed (Int) Total vote weight
-     * @see Election::sumValidVotesWeightWithConstraints
+     * @see Election::sumValidVoteWeightsWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
      */
-    public function sumVotesWeight(
+    public function sumVoteWeights(
         array|null|string $tags = null,
         bool|int $with = true
     ): int {
-        return $this->Votes->sumVotesWeight(VoteUtil::tagsConvert($tags), $with);
+        return $this->Votes->sumVoteWeights(VoteUtil::tagsConvert($tags), $with);
     }
     /**
      * Sum total votes weight in this election. If vote weight functionality is disabled (default setting), it will return the number of registered votes. This method doesn't ignore votes constraints, only valid votes will be counted.
@@ -95,11 +95,11 @@ trait VotesProcess
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
      */
-    public function sumValidVotesWeightWithConstraints(
+    public function sumValidVoteWeightsWithConstraints(
         array|null|string $tags = null,
         bool|int $with = true
     ): int {
-        return $this->Votes->sumVotesWeightWithConstraints(VoteUtil::tagsConvert($tags), $with);
+        return $this->Votes->sumVoteWeightsWithConstraints(VoteUtil::tagsConvert($tags), $with);
     }
 
     // Get the votes registered list
@@ -216,7 +216,7 @@ trait VotesProcess
     {
         $this->Votes->UpdateAndResetComputing(key: $this->getVoteKey($existVote), type: VotesManagerEvent::FinishUpdateVote);
 
-        if ($this->Votes->isUsingHandler()) {
+        if ($this->Votes->hasExternalHandler()) {
             $this->Votes[$this->getVoteKey($existVote)] = $existVote;
         }
     }
@@ -230,7 +230,7 @@ trait VotesProcess
             $linkCheck = ($linkCount === 0 || ($linkCount === 1 && $vote->haveLink($this)));
 
             foreach ($vote->getAllCandidates() as $candidate) {
-                if (!$linkCheck && $candidate->getProvisionalState() && !$this->isRegisteredCandidate(candidate: $candidate, strictMode: true) && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) {
+                if (!$linkCheck && $candidate->getProvisionalState() && !$this->hasCandidate(candidate: $candidate, strictMode: true) && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
                     return false;
                 }
             }
@@ -260,8 +260,8 @@ trait VotesProcess
 
         foreach ($ranking as &$choice) {
             foreach ($choice as &$candidate) {
-                if (!$this->isRegisteredCandidate($candidate, true)) {
-                    if ($candidate->getProvisionalState() && $this->isRegisteredCandidate(candidate: $candidate, strictMode: false)) {
+                if (!$this->hasCandidate($candidate, true)) {
+                    if ($candidate->getProvisionalState() && $this->hasCandidate(candidate: $candidate, strictMode: false)) {
                         $candidate = $this->candidates[$this->getCandidateKey((string) $candidate)];
                         $change = true;
                     }
@@ -329,7 +329,7 @@ trait VotesProcess
      * \$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
      * ```
      * @api
-     * @return mixed List of removed CondorcetPHP\Condorcet\Vote object.
+     * @return array List of removed CondorcetPHP\Condorcet\Vote object.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
      * @see Election::addVote, Election::getVotesList, Election::removeVotes
      * @param $tags Tags as string separated by commas or array.
@@ -445,14 +445,14 @@ trait VotesProcess
     /**
      * Similar to parseVote method. But will ignore invalid lines. This method is also far less greedy in memory and should be preferred for very large file inputs. Best used in combination with an external data handler.
      * @api
-     * @return mixed Number of invalid records in input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
+     * @return int Number of invalid records in input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      * @see Election::addVote, Election::parseCandidates, Election::parseVotes, Election::addVotesFromJson
      * @param $input String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.
      * @param $isFile If true, the string input is evaluated as path to text file.
      * @param $callBack Callback function to execute after each valid line, before vote registration.
      */
-    public function parseVotesWithoutFail(
+    public function parseVotesSafe(
         \SplFileInfo|string $input,
         bool $isFile = false,
         ?\Closure $callBack = null

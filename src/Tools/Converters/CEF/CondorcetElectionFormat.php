@@ -222,7 +222,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
         // Votes
         $this->file->rewind();
-        $this->invalidBlocksCount = $election->parseVotesWithoutFail(input: $this->file, callBack: $callBack);
+        $this->invalidBlocksCount = $election->parseVotesSafe(input: $this->file, callBack: $callBack);
 
         return $election;
     }

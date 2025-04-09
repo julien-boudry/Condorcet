@@ -187,7 +187,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
         if ($this->cursor >= $this->maxKey) {
             // Do nothing
-        } elseif (!$this->isUsingHandler()) {
+        } elseif (!$this->hasExternalHandler()) {
             $this->setCursorOnNextKeyInArray($this->Container);
         } else {
             $this->populateCache();
@@ -230,7 +230,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function getFullDataSet(): array
     {
-        if ($this->isUsingHandler()) {
+        if ($this->hasExternalHandler()) {
             $this->regularize();
             $this->clearCache();
 
@@ -314,7 +314,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function regularize(): bool
     {
-        if (!$this->isUsingHandler() || empty($this->Container)) {
+        if (!$this->hasExternalHandler() || empty($this->Container)) {
             return false;
         } else {
             $this->DataHandler->insertEntities($this->encodeManyEntities($this->Container));
@@ -360,7 +360,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
         $this->CacheMinKey = 0;
     }
 
-    public function isUsingHandler(): bool
+    public function hasExternalHandler(): bool
     {
         return $this->DataHandler !== null;
     }
@@ -369,7 +369,7 @@ abstract class ArrayManager implements \ArrayAccess, \Countable, \Iterator
 
     public function resetCounter(): int
     {
-        return $this->counter = $this->getContainerSize() + ($this->isUsingHandler() ? $this->DataHandler->countEntities() : 0);
+        return $this->counter = $this->getContainerSize() + ($this->hasExternalHandler() ? $this->DataHandler->countEntities() : 0);
     }
 
     public function resetMaxKey(): ?int

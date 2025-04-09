@@ -78,7 +78,7 @@ class CPO_STV extends SingleTransferableVote
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVotesWeightWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVoteWeightsWithConstraints(), $this->getElection()->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         // Compute Initial Score
         $this->initialScoreTable = $this->makeScore();

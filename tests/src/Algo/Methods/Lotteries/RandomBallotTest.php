@@ -22,7 +22,7 @@ test('simple', function (): void {
         ');
 
     expect($this->election->countVotes())->toBe(4);
-    expect($this->election->sumValidVotesWeightWithConstraints())->toBe(7);
+    expect($this->election->sumValidVoteWeightsWithConstraints())->toBe(7);
 
     expect($this->election->getResult('Random ballot')->rankingAsString)->toBe('A = B = C');
 

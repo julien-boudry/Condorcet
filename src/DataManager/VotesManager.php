@@ -181,7 +181,7 @@ class VotesManager extends ArrayManager
         $election = $this->getElection();
 
         foreach ($this->getVotesListGenerator($tags, $with) as $voteKey => $oneVote) {
-            if (!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+            if (!$election->isVoteValidUnderConstraints($oneVote)) {
                 continue;
             }
 
@@ -254,7 +254,7 @@ class VotesManager extends ArrayManager
         $count = 0;
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
-            if ($election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+            if ($election->isVoteValidUnderConstraints($oneVote)) {
                 $count++;
             }
         }
@@ -268,7 +268,7 @@ class VotesManager extends ArrayManager
         $count = 0;
 
         foreach ($this as $oneVote) {
-            if (!$election->testIfVoteIsValidUnderElectionConstraints($oneVote)) {
+            if (!$election->isVoteValidUnderConstraints($oneVote)) {
                 $count++;
             }
         }
@@ -276,23 +276,23 @@ class VotesManager extends ArrayManager
         return $count;
     }
 
-    public function sumVotesWeight(?array $tags, bool|int $with): int
+    public function sumVoteWeights(?array $tags, bool|int $with): int
     {
-        return $this->processSumVotesWeight(tags: $tags, with: $with, constraints: false);
+        return $this->processsumVoteWeights(tags: $tags, with: $with, constraints: false);
     }
 
-    public function sumVotesWeightWithConstraints(?array $tags, bool|int $with): int
+    public function sumVoteWeightsWithConstraints(?array $tags, bool|int $with): int
     {
-        return $this->processSumVotesWeight(tags: $tags, with: $with, constraints: true);
+        return $this->processsumVoteWeights(tags: $tags, with: $with, constraints: true);
     }
 
-    protected function processSumVotesWeight(?array $tags, bool|int $with, bool $constraints): int
+    protected function processsumVoteWeights(?array $tags, bool|int $with, bool $constraints): int
     {
         $election = $this->getElection();
         $sum = 0;
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
-            if (!$constraints || $election->testIfVoteIsValidUnderElectionConstraints($oneVote)) { # They are no constraints check OR the vote is valid.
+            if (!$constraints || $election->isVoteValidUnderConstraints($oneVote)) { # They are no constraints check OR the vote is valid.
                 $sum += $election->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
             }
         }

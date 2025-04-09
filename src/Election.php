@@ -371,7 +371,7 @@ class Election
  * @return mixed True on success.
  * @throws VoteConstraintException
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::clearConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
  * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
  */
     public function addConstraint(
@@ -397,7 +397,7 @@ class Election
  * @api
  * @return mixed Array with class name of each active constraint. Empty array if there is not.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::clearConstraints, Election::addConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ * @see Election::clearConstraints, Election::addConstraints, Election::isVoteValidUnderConstraints
  */
     public function getConstraints(): array
     {
@@ -408,7 +408,7 @@ class Election
  * @api
  * @return mixed Return True.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::addConstraints, Election::testIfVoteIsValidUnderElectionConstraints
+ * @see Election::getConstraints, Election::addConstraints, Election::isVoteValidUnderConstraints
  */
     public function clearConstraints(): bool
     {
@@ -421,12 +421,12 @@ class Election
 /**
  * Test if a vote is valid with these election constraints.
  * @api
- * @return mixed Return True if vote will pass the constraints rules, else False.
+ * @return bool Return True if vote will pass the constraints rules, else False.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
  * @see Election::getConstraints, Election::addConstraints, Election::clearConstraints
  * @param $vote A vote. Not necessarily registered in this election.
  */
-    public function testIfVoteIsValidUnderElectionConstraints(
+    public function isVoteValidUnderConstraints(
 
         Vote $vote
     ): bool {
@@ -487,7 +487,7 @@ class Election
 
         DataHandlerDriverInterface $driver
     ): static {
-        if (!$this->Votes->isUsingHandler()) {
+        if (!$this->Votes->hasExternalHandler()) {
             $this->Votes->importHandler($driver);
 
             return $this;
@@ -504,7 +504,7 @@ class Election
  */
     public function removeExternalDataHandler(): bool
     {
-        if ($this->Votes->isUsingHandler()) {
+        if ($this->Votes->hasExternalHandler()) {
             $this->Votes->closeHandler();
             return true;
         } else {

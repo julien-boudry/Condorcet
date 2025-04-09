@@ -544,8 +544,8 @@ class ElectionCommand extends Command
             $votesStatsTable->addRow(['Count registered votes', $formatter($this->election->countVotes())]);
             $votesStatsTable->addRow(['Count valid registered votes with constraints', $formatter($this->election->countValidVoteWithConstraints())]);
             $votesStatsTable->addRow(['Count invalid registered votes with constraints', $formatter($this->election->countInvalidVoteWithConstraints())]);
-            $votesStatsTable->addRow(['Sum vote weight', $formatter($this->election->sumVotesWeight())]);
-            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $formatter($this->election->sumValidVotesWeightWithConstraints())]);
+            $votesStatsTable->addRow(['Sum vote weight', $formatter($this->election->sumVoteWeights())]);
+            $votesStatsTable->addRow(['Sum valid votes weight with constraints', $formatter($this->election->sumValidVoteWeightsWithConstraints())]);
 
             $votesStatsTable->render();
 
@@ -618,7 +618,7 @@ class ElectionCommand extends Command
             $this->io->methodResultSection($oneMethod['name']);
 
             if (isset($oneMethod['class']::$optionQuota) && $input->getOption('quota') !== null) {
-                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::make($input->getOption('quota'))); // @phpstan-ignore-line
+                $this->election->setMethodOption($oneMethod['class'], 'Quota', StvQuotas::fromString($input->getOption('quota'))); // @phpstan-ignore-line
             }
 
             // Result
@@ -752,9 +752,9 @@ class ElectionCommand extends Command
     {
         // Parses Votes
         if ($file = CommandInputHelper::getFilePath($this->votes)) {
-            $this->election->parseVotesWithoutFail(input: $file, isFile: true, callBack: $callBack);
+            $this->election->parseVotesSafe(input: $file, isFile: true, callBack: $callBack);
         } else {
-            $this->election->parseVotesWithoutFail(input: $this->votes, isFile: false, callBack: $callBack);
+            $this->election->parseVotesSafe(input: $this->votes, isFile: false, callBack: $callBack);
         }
     }
 

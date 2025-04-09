@@ -74,10 +74,10 @@ test('constraints on vote', function (string $constraintClass): void {
 
     expect($this->election->getWinner())->toEqual('A');
 
-    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
-    expect($this->election->sumVotesWeight())->toEqual(46);
-    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->sumValidVoteWeightsWithConstraints())->toEqual(1);
+    expect($this->election->sumVoteWeights())->toEqual(46);
+    expect($this->election->sumVoteWeights('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVoteWeightsWithConstraints('tag1', false))->toEqual(0);
     expect($this->election->countVotes())->toEqual(5);
     expect($this->election->countValidVoteWithConstraints())->toEqual(1);
     expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);
@@ -91,10 +91,10 @@ test('constraints on vote', function (string $constraintClass): void {
     expect($this->election->getWinner('FTPT'))->toEqual('B');
     expect($this->election->getWinner())->toEqual('A');
 
-    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(43);
-    expect($this->election->sumVotesWeight())->toEqual(46);
-    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(42);
+    expect($this->election->sumValidVoteWeightsWithConstraints())->toEqual(43);
+    expect($this->election->sumVoteWeights())->toEqual(46);
+    expect($this->election->sumVoteWeights('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVoteWeightsWithConstraints('tag1', false))->toEqual(42);
     expect($this->election->countVotes())->toEqual(5);
     expect($this->election->countValidVoteWithConstraints())->toEqual(2);
     expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(1);
@@ -106,10 +106,10 @@ test('constraints on vote', function (string $constraintClass): void {
     expect($this->election->getWinner())->toEqual('A');
     expect($this->election->getWinner('FTPT'))->toEqual('A');
 
-    expect($this->election->sumValidVotesWeightWithConstraints())->toEqual(1);
-    expect($this->election->sumVotesWeight())->toEqual(46);
-    expect($this->election->sumVotesWeight('tag1', false))->toEqual(45);
-    expect($this->election->sumValidVotesWeightWithConstraints('tag1', false))->toEqual(0);
+    expect($this->election->sumValidVoteWeightsWithConstraints())->toEqual(1);
+    expect($this->election->sumVoteWeights())->toEqual(46);
+    expect($this->election->sumVoteWeights('tag1', false))->toEqual(45);
+    expect($this->election->sumValidVoteWeightsWithConstraints('tag1', false))->toEqual(0);
     expect($this->election->countVotes())->toEqual(5);
     expect($this->election->countValidVoteWithConstraints())->toEqual(1);
     expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(0);

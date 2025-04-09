@@ -45,7 +45,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $stats = [];
         $rank = 0;
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($election->sumValidVotesWeightWithConstraints(), $election->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($election->sumValidVoteWeightsWithConstraints(), $election->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         $candidateElected = [];
         $candidateEliminated = [];
