@@ -88,14 +88,34 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
     /** @var array<int,array<Candidate>> */
     private array $ranking;
 
-    private float $lastTimestamp;
+     /**
+     * Get the timestamp corresponding of the creation of this vote.
+     * @api
+     * @see Candidate::updatedAt
+     */
+    public float $createdAt {
+        get => $this->rankingHistory[0]['timestamp'];
+    }
 
     /**
+     * Get the timestamp corresponding of the last vote change.
+     * @api
+     * @see Vote::createdAt
+     */
+    public private(set) float $updatedAt;
+
+    /**
+     * Count the number of candidate provide into the active Ranking set.
      * @api
      */
-    public private(set) int $candidatesCount;
+    public private(set) int $countCandidates;
 
-    private array $ranking_history = [];
+    /**
+     * Return an history of each vote change, with timestamp.
+     * @var array<int,array>
+     * @api
+     */
+    public private(set) array $rankingHistory = [];
 
     private int $weight = 1;
 
@@ -107,6 +127,10 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
      */
     public private(set) array $tags = [];
 
+    /**
+     * Get Object sha-224 hash (cryptographic)
+     * @api
+     */
     public private(set) string $hash = '';
 
     private ?Election $electionContext = null;
@@ -192,6 +216,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         $this->link = null;
 
         $var = get_object_vars($this);
+        unset($var['createdAt']); // Virtual property
         unset($var['cacheMap']);
 
         return $var;
@@ -215,16 +240,6 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         } else {
             return $this->getTagsAsString() . ' || ' . $this->getSimpleRanking();
         }
-    }
-/**
- * Get Object hash (cryptographic)
- * @api
- * @return mixed SHA hash code.
- * @see Vote::getWeight
- */
-    public function getHashCode(): string
-    {
-        return $this->hash;
     }
 
     // -------
@@ -251,27 +266,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
         return $r;
     }
-/**
- * Return an history of each vote change, with timestamp.
- * @api
- * @return mixed An explicit multi-dimenssional array.
- * @see Vote::getCreateTimestamp
- */
-    public function getHistory(): array
-    {
-        return $this->ranking_history;
-    }
-/**
- * Get the registered tags for this Vote.
- * @api
- * @return mixed List of registered tag.
- * @see Vote::getTagsAsString, Vote::addTags, Vote::removeTags
- */
-#[Deprecated]
-    public function getTags(): array
-    {
-        return $this->tags;
-    }
+
 /**
  * Get the registered tags for this Vote.
  * @api
@@ -282,35 +277,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
     {
         return implode(',', $this->tags);
     }
-/**
- * Get the timestamp corresponding of the creation of this vote.
- * @api
- * @return mixed Timestamp
- * @see Candidate::getTimestamp
- */
-    public function getCreateTimestamp(): float
-    {
-        return $this->ranking_history[0]['timestamp'];
-    }
-/**
- * Get the timestamp corresponding of the last vote change.
- * @api
- * @return mixed Timestamp
- * @see Vote::getCreateTimestamp
- */
-    public function getTimestamp(): float
-    {
-        return $this->lastTimestamp;
-    }
-/**
- * Count the number of candidate provide into the active Ranking set.
- * @api
- * @return mixed Number of Candidate into ranking.
- */
-    public function countRankingCandidates(): int
-    {
-        return $this->candidatesCount;
-    }
+
 /**
  * Count the number of ranks.
  * @api
@@ -324,7 +291,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
  * Get all the candidates object set in the last ranking of this Vote.
  * @api
  * @return mixed Candidates list.
- * @see Vote::getRanking, Vote::countRankingCandidates
+ * @see Vote::getRanking, Vote::countCandidates
  * @param $context An election already linked to the Vote.
  */
     public function getAllCandidates(
@@ -506,7 +473,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
  * @api
  * @throws VoteInvalidFormatException
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
- * @see Vote::getRanking, Vote::getHistory, Vote::__construct
+ * @see Vote::getRanking, Vote::rankingHistory, Vote::__construct
  * @param $ranking A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.
  * @param $ownTimestamp Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.
  */
@@ -518,7 +485,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
     ): static {
         // Timestamp
         if ($ownTimestamp !== null) {
-            if (!empty($this->ranking_history) && $this->getTimestamp() >= $ownTimestamp) {
+            if (!empty($this->rankingHistory) && $this->updatedAt >= $ownTimestamp) {
                 throw new VoteInvalidFormatException('Timestamp format of vote is not correct');
             }
         }
@@ -537,7 +504,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
         }
 
         $this->ranking = $ranking;
-        $this->lastTimestamp = $ownTimestamp ?? microtime(true);
+        $this->updatedAt = $ownTimestamp ?? microtime(true);
 
         $this->archiveRanking();
 
@@ -610,7 +577,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
             }
         }
 
-        $this->candidatesCount = $candidatesCount;
+        $this->countCandidates = $candidatesCount;
 
         return $ranking;
     }
@@ -777,7 +744,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
     private function archiveRanking(): void
     {
-        $this->ranking_history[] = ['ranking' => $this->ranking, 'timestamp' => $this->lastTimestamp, 'counter' => $this->candidatesCount];
+        $this->rankingHistory[] = ['ranking' => $this->ranking, 'timestamp' => $this->updatedAt, 'counter' => $this->countCandidates];
 
         $this->rewind();
     }

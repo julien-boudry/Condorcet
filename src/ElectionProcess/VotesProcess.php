@@ -244,7 +244,7 @@ trait VotesProcess
             if ($change) {
                 $vote->setRanking(
                     $ranking,
-                    (abs($vote->getTimestamp() - microtime(true)) > 0.5) ? ($vote->getTimestamp() + 0.001) : null
+                    (abs($vote->updatedAt - microtime(true)) > 0.5) ? ($vote->updatedAt + 0.001) : null
                 );
             }
         }

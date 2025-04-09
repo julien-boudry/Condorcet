@@ -82,7 +82,7 @@ declare(strict_types=1);
     ]);
 
     # Get Ranking history
-    $myNewVote->getHistory();
+    $myNewVote->rankingHistory;
 
 
 print 'Success!

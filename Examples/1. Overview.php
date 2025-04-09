@@ -174,7 +174,7 @@ declare(strict_types=1);
 
 
             // Check the vote history
-            $myVote1History = $myVote1->getHistory();
+            $myVote1History = $myVote1->rankingHistory;
 
 
         # 3- Delete Votes

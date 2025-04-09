@@ -20,11 +20,11 @@ beforeEach(function (): void {
 test('timestamp', function (): void {
     $vote1 = new Vote([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-    expect($vote1->getTimestamp())->toBe($vote1->getCreateTimestamp());
+    expect($vote1->updatedAt)->toBe($vote1->createdAt);
 
     $vote1->setRanking([$this->candidate1, $this->candidate2, $this->candidate3]);
 
-    expect($vote1->getCreateTimestamp())->toBeLessThan($vote1->getTimestamp());
+    expect($vote1->createdAt)->toBeLessThan($vote1->updatedAt);
 });
 
 test('different ranking', function (): void {
@@ -430,17 +430,17 @@ test('custom timestamp', function (): void {
         $createTimestamp = microtime(true) - (3600 * 1000)
     );
 
-    expect($vote->getTimestamp())->toBe($createTimestamp);
+    expect($vote->updatedAt)->toBe($createTimestamp);
 
     $vote->setRanking('B>C>A', $ranking2Timestamp = microtime(true) - (60 * 1000));
 
-    expect($vote->getTimestamp())->toBe($ranking2Timestamp);
+    expect($vote->updatedAt)->toBe($ranking2Timestamp);
 
-    expect($vote->getCreateTimestamp())->toBe($createTimestamp);
+    expect($vote->createdAt)->toBe($createTimestamp);
 
-    expect($vote->getHistory()[0]['timestamp'])->toBe($createTimestamp);
+    expect($vote->rankingHistory[0]['timestamp'])->toBe($createTimestamp);
 
-    expect($vote->getHistory()[1]['timestamp'])->toBe($ranking2Timestamp);
+    expect($vote->rankingHistory[1]['timestamp'])->toBe($ranking2Timestamp);
 
     $this->expectException(VoteInvalidFormatException::class);
     $this->expectExceptionMessage('The format of the vote is invalid: Timestamp format of vote is not correct');
@@ -451,36 +451,36 @@ test('custom timestamp', function (): void {
 test('hash code', function (): void {
     $vote = new Vote('A>B>C');
 
-    $hashCode[1] = $vote->getHashCode();
+    $hashVote[1] = $vote->hash;
 
     $vote->addTags('tag1');
 
-    $hashCode[2] = $vote->getHashCode();
+    $hashVote[2] = $vote->hash;
 
     $vote->setRanking('C>A>B');
 
-    $hashCode[3] = $vote->getHashCode();
+    $hashVote[3] = $vote->hash;
 
     $vote->setRanking('C>A>B');
 
-    $hashCode[4] = $vote->getHashCode();
+    $hashVote[4] = $vote->hash;
 
-    expect($hashCode[1])->not()->tobe($hashCode[2]);
-    expect($hashCode[2])->not()->tobe($hashCode[3]);
-    expect($hashCode[3])->not()->toBe($hashCode[4]);
+    expect($hashVote[1])->not()->tobe($hashVote[2]);
+    expect($hashVote[2])->not()->tobe($hashVote[3]);
+    expect($hashVote[3])->not()->toBe($hashVote[4]);
 });
 
 test('count ranks', function (): void {
     $vote = new Vote('A>B=C>D');
 
     expect($vote->countRanks())->toBe(3);
-    expect($vote->countRankingCandidates())->toBe(4);
+    expect($vote->countCandidates)->toBe(4);
 });
 
 test('count ranking candidates', function (): void {
     $vote = new Vote('A>B>C');
 
-    expect($vote->countRankingCandidates())->toBe(3);
+    expect($vote->countCandidates)->toBe(3);
 });
 
 test('invalid weight', function (): void {
@@ -546,12 +546,12 @@ test('vote history', function (): void {
 
     $vote1 = $this->election1->addVote(['candidate1', 'candidate2']);
 
-    expect($vote1->getHistory())->toHaveCount(1);
+    expect($vote1->rankingHistory)->toHaveCount(1);
 
     // -------
     $vote2 = $this->election1->addVote('candidate1 > candidate2');
 
-    expect($vote2->getHistory())->toHaveCount(1);
+    expect($vote2->rankingHistory)->toHaveCount(1);
 
     // -------
     $vote3 = new Vote(['candidate1', 'candidate2']);
@@ -566,21 +566,21 @@ test('vote history', function (): void {
     $votes_lists = $this->election1->getVotesListGenerator('voterParsed', true);
     $vote4 = $votes_lists->current();
 
-    expect($vote4->getHistory())->toHaveCount(1);
+    expect($vote4->rankingHistory)->toHaveCount(1);
 
     // -------
     $vote5 = new Vote([$this->candidate5, $this->candidate6]);
 
     $this->election1->addVote($vote5);
 
-    expect($vote5->getHistory())->toHaveCount(1);
+    expect($vote5->rankingHistory)->toHaveCount(1);
 
     // -------
     $vote6 = new Vote([$this->candidate5, 'candidate6']);
 
     $this->election1->addVote($vote6);
 
-    expect($vote6->getHistory())->toHaveCount(2);
+    expect($vote6->rankingHistory)->toHaveCount(2);
 
     // -------
     $vote7 = new Vote([$this->candidate6, 'candidate8']);
@@ -595,7 +595,7 @@ test('vote history', function (): void {
 
     expect($candidate8->provisionalState)->toBeTrue();
 
-    expect($vote7->getHistory())->toHaveCount(1);
+    expect($vote7->rankingHistory)->toHaveCount(1);
 });
 
 test('bad ranking input1', function (): void {
