@@ -41,7 +41,7 @@ trait ResultsProcess
      * @api
      * @return StatsVerbosity The current verbosity level for this election object.
      */
-    public protected(set) StatsVerbosity $StatsVerbosity = StatsVerbosity::STD;
+    public protected(set) StatsVerbosity $statsVerbosity = StatsVerbosity::STD;
 
     /////////// GET RESULTS ///////////
 
@@ -175,7 +175,7 @@ trait ResultsProcess
  * @api
  * @return mixed Candidate object given. Null if there are no available winner.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
- * @see Election::getCondorcetLoser, Election::getWiner, Election::getResult
+ * @see Election::getCondorcetLoser, Election::getWinner, Election::getResult
  */
     public function getCondorcetWinner(): ?Candidate
     {
@@ -281,18 +281,18 @@ trait ResultsProcess
 /**
  * Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.
  * @api
- * @see Election::getVerbosity, Result::getVerbosity
+ * @see Election::statsVerbosity, Result::statsVerbosity
  * @param $StatsVerbosity A verbosity level.
  */
     public function setStatsVerbosity(
 
         StatsVerbosity $StatsVerbosity
     ): static {
-        if ($StatsVerbosity !== $this->StatsVerbosity) {
+        if ($StatsVerbosity !== $this->statsVerbosity) {
             $this->resetMethodsComputation();
         }
 
-        $this->StatsVerbosity = $StatsVerbosity;
+        $this->statsVerbosity = $StatsVerbosity;
 
         return $this;
     }

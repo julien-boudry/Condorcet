@@ -238,7 +238,7 @@ class CPO_STV extends SingleTransferableVote
         $winnerOutcomeElection = new Election;
         $winnerOutcomeElection->setImplicitRanking(false);
         $winnerOutcomeElection->allowsVoteWeight(true);
-        $winnerOutcomeElection->setStatsVerbosity($this->getElection()->StatsVerbosity);
+        $winnerOutcomeElection->setStatsVerbosity($this->getElection()->statsVerbosity);
 
         // Candidates
         foreach ($this->outcomes as $oneOutcomeKey => $outcomeValue) {
@@ -337,7 +337,7 @@ class CPO_STV extends SingleTransferableVote
         };
 
         // Stats >= STD
-        if ($election->StatsVerbosity->value >= StatsVerbosity::STD->value) {
+        if ($election->statsVerbosity->value >= StatsVerbosity::STD->value) {
             // Initial Scores Table
             $stats['Initial Score Table'] = $changeKeyToCandidateAndSortByName($this->initialScoreTable, $election);
 
@@ -354,7 +354,7 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Stats >= HIGH
-        if ($election->StatsVerbosity->value >= StatsVerbosity::HIGH->value) {
+        if ($election->statsVerbosity->value >= StatsVerbosity::HIGH->value) {
             // Completion method Stats
             if (isset($this->completionMethodResult)) {
                 $stats['Condorcet Completion Method Stats'] = [
@@ -365,7 +365,7 @@ class CPO_STV extends SingleTransferableVote
         }
 
         // Stats >= FULL
-        if ($election->StatsVerbosity->value >= StatsVerbosity::FULL->value) {
+        if ($election->statsVerbosity->value >= StatsVerbosity::FULL->value) {
             // Outcome
             foreach ($this->outcomes as $outcomeKey => $outcomeValue) {
                 $stats['Outcomes'][$outcomeKey] = $changeValueToCandidateAndSortByName($outcomeValue, $election);

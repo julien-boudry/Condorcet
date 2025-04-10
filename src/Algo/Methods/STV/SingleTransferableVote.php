@@ -163,7 +163,7 @@ class SingleTransferableVote extends Method implements MethodInterface
 
         $stats = ['Votes Needed to Win' => $this->votesNeededToWin];
 
-        if ($election->StatsVerbosity->value > StatsVerbosity::LOW->value) {
+        if ($election->statsVerbosity->value > StatsVerbosity::LOW->value) {
             $stats['rounds'] = [];
 
             foreach ($this->Stats as $roundNumber => $roundData) {

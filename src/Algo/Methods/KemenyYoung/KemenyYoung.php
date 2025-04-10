@@ -76,7 +76,7 @@ class KemenyYoung extends Method implements MethodInterface
         $stats['Best Score'] = $this->MaxScore;
         $stats['Ranking In Conflicts'] = $this->Conflits > 0 ? $this->Conflits + 1 : $this->Conflits;
 
-        if ($election->StatsVerbosity->value >= StatsVerbosity::FULL->value) {
+        if ($election->statsVerbosity->value >= StatsVerbosity::FULL->value) {
             $explicit = [];
 
             foreach ($this->getPossibleRankingIterator() as $key => $value) {

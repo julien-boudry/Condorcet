@@ -136,7 +136,7 @@ trait CandidatesProcess
  * @throws CandidateExistsException
  * @throws VotingHasStartedException
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
- * @see Election::parseCandidates, Election::addCandidatesFromJson, Election::removeCandidate, Election::getCandidatesList, Election::canAddCandidate
+ * @see Election::parseCandidates, Election::addCandidatesFromJson, Election::removeCandidates, Election::getCandidatesList, Election::canAddCandidate
  * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.
  */
     public function addCandidate(

@@ -154,7 +154,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
 
         $this->ResultIterator = $this->ranking = $this->makeUserRanking($election);
         $this->originalRankingAsArrayString = $this->rankingAsArrayString;
-        $this->statsVerbosity = $election->StatsVerbosity;
+        $this->statsVerbosity = $election->statsVerbosity;
         $this->electionCondorcetVersion = $election->getObjectVersion();
         $this->CondorcetWinner = $election->getCondorcetWinner();
         $this->CondorcetLoser = $election->getCondorcetLoser();

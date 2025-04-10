@@ -373,7 +373,7 @@ class Election
  * @api
  * @return mixed Array with class name of each active constraint. Empty array if there is not.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::clearConstraints, Election::addConstraints, Election::isVoteValidUnderConstraints
+ * @see Election::clearConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
  */
     public function getConstraints(): array
     {
@@ -384,7 +384,7 @@ class Election
  * @api
  * @return mixed Return True.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::addConstraints, Election::isVoteValidUnderConstraints
+ * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
  */
     public function clearConstraints(): bool
     {
@@ -399,7 +399,7 @@ class Election
  * @api
  * @return bool Return True if vote will pass the constraints rules, else False.
  * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::addConstraints, Election::clearConstraints
+ * @see Election::getConstraints, Election::addConstraint, Election::clearConstraints
  * @param $vote A vote. Not necessarily registered in this election.
  */
     public function isVoteValidUnderConstraints(
