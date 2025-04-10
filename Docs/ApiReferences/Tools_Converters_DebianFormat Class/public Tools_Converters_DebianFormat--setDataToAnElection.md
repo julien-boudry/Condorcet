@@ -1,6 +1,6 @@
 ## public Tools\Converters\DebianFormat::setDataToAnElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L54)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L61)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Add the Debian data to an election object
 Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.    
 
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Election`)* The election object
 

@@ -1,6 +1,6 @@
 ## public Vote::getContextualRankingAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L459)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L436)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Return the vote actual ranking complete for the contexte of the provide election
 An election already linked to the Vote.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* Contextual full ranking, with string instead Candidate object.
 

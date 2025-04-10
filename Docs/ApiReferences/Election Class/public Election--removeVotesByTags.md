@@ -1,6 +1,6 @@
 ## public Election::removeVotesByTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L334)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L338)
 
 ### Description    
 
@@ -26,7 +26,7 @@ Tags as string separated by commas or array.
 Votes with these tags or without.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* List of removed CondorcetPHP\Condorcet\Vote object.
 

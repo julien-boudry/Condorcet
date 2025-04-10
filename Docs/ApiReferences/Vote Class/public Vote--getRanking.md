@@ -1,6 +1,6 @@
 ## public Vote::getRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L230)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L255)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Get the actual Ranking of this Vote.
 Sort Candidate in a Rank by name. Useful for performant internal calls from methods.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* Multidimenssionnal array populated by Candidate object.
 

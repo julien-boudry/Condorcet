@@ -19,7 +19,7 @@ Add an existing election, useful if you want to set up some parameters or add ex
 Callback function to execute after each registered vote.    
 
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Election`)* The election object
 

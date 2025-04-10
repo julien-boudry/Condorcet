@@ -1,6 +1,6 @@
 ## public Vote::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L140)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L170)
 
 ### Description    
 
@@ -20,11 +20,11 @@ Equivalent to Vote::addTags method.
 
 
 #### **ownTimestamp:** *`?float`*   
-Set your own timestamp metadata on Ranking.    
+Set your own timestamp metadata for this Ranking.    
 
 
 #### **electionContext:** *`?CondorcetPHP\Condorcet\Election`*   
-Try to convert directly your candidates from sting input" to Candidate object of one election.    
+Try to convert directly your candidates from string input to Candidate object of one election.    
 
 
 ### Throws:   

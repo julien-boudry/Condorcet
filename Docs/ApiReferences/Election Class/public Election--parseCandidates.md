@@ -1,6 +1,6 @@
 ## public Election::parseCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L286)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L287)
 
 ### Description    
 
@@ -8,7 +8,7 @@
 public Election->parseCandidates ( string $input [, bool $isFile = false] ): array
 ```
 
-Import candidate from a text source.
+Import candidates from a text source.
     
 
 #### **input:** *`string`*   
@@ -16,12 +16,12 @@ String or valid path to a text file.
 
 
 #### **isFile:** *`bool`*   
-If true, the input is evaluated as path to a text file.    
+If true, the input is evaluated as a path to a text file.    
 
 
-### Return value:   
+### Return value   
 
-*(`array`)* List of newly registered candidate object. Count it for checking if all candidates have been correctly registered.
+*(`array`)* List of newly registered candidate objects. Count to check if all candidates were correctly registered.
 
 
 

@@ -1,6 +1,6 @@
 ## public Vote::setWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L751)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L720)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Set a vote weight. The vote weight capacity must be active at the election level
 The new vote weight.    
 
 
-### Return value:   
+### Return value   
 
 *(`int`)* New weight.
 

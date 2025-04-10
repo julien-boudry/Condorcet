@@ -19,7 +19,7 @@ Election with data.
 If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    
 
 
-### Return value:   
+### Return value   
 
 *(`string|true`)* If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
 

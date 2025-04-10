@@ -1,6 +1,6 @@
 ## public Election::clearConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L406)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L389)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->clearConstraints ( ): bool
 Clear all constraints rules and clear previous results.
     
 
-### Return value:   
+### Return value   
 
 *(`bool`)* Return True.
 
@@ -21,8 +21,8 @@ Clear all constraints rules and clear previous results.
 ### Related method(s)      
 
 * [Election::getConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--getConstraints.md)    
-* [Election::addConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--addConstraints.md)    
-* [Election::testIfVoteIsValidUnderElectionConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--testIfVoteIsValidUnderElectionConstraints.md)    
+* [Election::addConstraint](/Docs/ApiReferences/Election%20Class/public%20Election--addConstraint.md)    
+* [Election::isVoteValidUnderConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--isVoteValidUnderConstraints.md)    
 
 ---------------------------------------
 

@@ -1,6 +1,6 @@
 ## public Election::canAddCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L183)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L184)
 
 ### Description    
 
@@ -8,14 +8,14 @@
 public Election->canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string $candidate ): bool
 ```
 
-Check if a candidate is already registered. Equivalent of `!$election->isRegisteredCandidate($candidate, false)`.
+Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
     
 
 #### **candidate:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 String or Condorcet/Vote object.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True if your candidate is available, false otherwise.
 
@@ -25,4 +25,4 @@ String or Condorcet/Vote object.
 ### Related method(s)      
 
 * [Election::addCandidate](/Docs/ApiReferences/Election%20Class/public%20Election--addCandidate.md)    
-* [Election::isRegisteredCandidate](/Docs/ApiReferences/Election%20Class/public%20Election--isRegisteredCandidate.md)    
+* [Election::hasCandidate](/Docs/ApiReferences/Election%20Class/public%20Election--hasCandidate.md)    

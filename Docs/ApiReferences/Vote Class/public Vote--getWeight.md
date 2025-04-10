@@ -1,6 +1,6 @@
 ## public Vote::getWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L733)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L702)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Get the vote weight. The vote weight capacity must be active at the election lev
 In the context of wich election? (optional).    
 
 
-### Return value:   
+### Return value   
 
 *(`int`)* Weight. Default weight is 1.
 

@@ -1,6 +1,6 @@
 ## public Election::getChecksum
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L261)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L241)
 
 ### Description    
 
@@ -17,7 +17,7 @@ SHA-2 256 checksum of following internal data:
 Can be powerfull to check integrity and security of an election. Or working with serialized object.
     
 
-### Return value:   
+### Return value   
 
 *(`string`)* SHA-2 256 bits Hexadecimal
 

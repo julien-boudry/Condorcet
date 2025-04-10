@@ -1,6 +1,6 @@
 ## public Election::getImplicitRankingRule
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L309)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L290)
 
 ### Description    
 
@@ -13,7 +13,7 @@ If it is True then all votes expressing a partial ranking are understood as impl
 If it is false, then the candidates not ranked, are not taken into account at all.
     
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True / False
 

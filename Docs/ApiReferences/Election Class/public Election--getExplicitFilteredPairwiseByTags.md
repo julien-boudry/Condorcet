@@ -1,6 +1,6 @@
 ## public Election::getExplicitFilteredPairwiseByTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L235)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L244)
 
 ### Description    
 
@@ -19,7 +19,7 @@ Tags as string separated by commas or array.
 Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* Return a Pairwise filtered by tags
 

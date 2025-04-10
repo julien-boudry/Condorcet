@@ -1,6 +1,6 @@
 ## public static Condorcet::getVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L86)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L88)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Get the library version.
 * true will return : 2.0, false will return : 2.0.0.    
 
 
-### Return value:   
+### Return value   
 
 *(`string`)* Condorcet PHP version.
 

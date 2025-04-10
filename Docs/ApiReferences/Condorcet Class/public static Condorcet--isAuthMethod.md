@@ -1,6 +1,6 @@
 ## public static Condorcet::isAuthMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L178)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L180)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Test if a method is in the result set of Condorcet::getAuthMethods.
 A valid method name or class.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True / False
 

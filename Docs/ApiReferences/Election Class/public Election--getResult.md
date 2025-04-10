@@ -1,6 +1,6 @@
 ## public Election::getResult
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L54)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L59)
 
 ### Description    
 
@@ -19,7 +19,7 @@ Not required for use election default method. Set the string name of the algorit
 Array of option for some methods. Look at each method documentation.    
 
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Result`)* An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
@@ -27,7 +27,7 @@ Array of option for some methods. Look at each method documentation.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\AlgorithmException``` 
+* ```CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented``` 
 
 ---------------------------------------
 

@@ -1,6 +1,6 @@
 ## public Election::getCandidatesList
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L50)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L52)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getCandidatesList ( ): array
 Return a list of registered candidates for this election.
     
 
-### Return value:   
+### Return value   
 
 *(`array`)* List of candidates in an array.
 

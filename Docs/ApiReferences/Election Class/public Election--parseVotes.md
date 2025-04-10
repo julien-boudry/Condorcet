@@ -1,6 +1,6 @@
 ## public Election::parseVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L415)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L419)
 
 ### Description    
 
@@ -8,7 +8,7 @@
 public Election->parseVotes ( string $input [, bool $isFile = false] ): int
 ```
 
-Import votes from a text source. If any invalid vote is found inside, nothing are registered.
+Import votes from a text source. If any invalid vote is found inside, nothing is registered.
     
 
 #### **input:** *`string`*   
@@ -16,12 +16,12 @@ String or valid path to a text file.
 
 
 #### **isFile:** *`bool`*   
-If true, the input is evalatued as path to text file.    
+If true, the input is evaluated as path to text file.    
 
 
-### Return value:   
+### Return value   
 
-*(`int`)* Count of the new registered vote.
+*(`int`)* Count of the newly registered votes.
 
 
 ---------------------------------------

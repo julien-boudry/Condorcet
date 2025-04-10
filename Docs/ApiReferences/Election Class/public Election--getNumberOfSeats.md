@@ -1,6 +1,6 @@
 ## public Election::getNumberOfSeats
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L443)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L426)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getNumberOfSeats ( ): int
 Get number of Seats for STV methods.
     
 
-### Return value:   
+### Return value   
 
 *(`int`)* Number of seats.
 
@@ -21,4 +21,4 @@ Get number of Seats for STV methods.
 ### Related method(s)      
 
 * [Election::setNumberOfSeats](/Docs/ApiReferences/Election%20Class/public%20Election--setNumberOfSeats.md)    
-* [Result::getNumberOfSeats](/Docs/ApiReferences/Result%20Class/public%20Result--getNumberOfSeats.md)    
+* [Result::seats](/Docs/ApiReferences/Result%20Class/public%20Result--seats.md)    

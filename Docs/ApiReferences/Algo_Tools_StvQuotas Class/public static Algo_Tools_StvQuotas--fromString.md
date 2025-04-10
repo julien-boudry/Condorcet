@@ -1,11 +1,11 @@
-## public static Algo\Tools\StvQuotas::make
+## public static Algo\Tools\StvQuotas::fromString
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L34)
 
 ### Description    
 
 ```php
-public static Algo\Tools\StvQuotas::make ( string $quota ): self
+public static Algo\Tools\StvQuotas::fromString ( string $quota ): self
 ```
 
 Build the Enum Quotas option for STV methods
@@ -13,12 +13,6 @@ Build the Enum Quotas option for STV methods
 
 #### **quota:** *`string`*   
 Quota name.    
-
-
-### Return value:   
-
-*(`self`)* The Quota option
-
 
 ---------------------------------------
 

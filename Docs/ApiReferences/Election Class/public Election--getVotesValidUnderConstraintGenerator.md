@@ -1,6 +1,6 @@
 ## public Election::getVotesValidUnderConstraintGenerator
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L161)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L163)
 
 ### Description    
 
@@ -8,8 +8,8 @@
 public Election->getVotesValidUnderConstraintGenerator ( [array|string|null $tags = null , bool $with = true] ): Generator
 ```
 
-Same as Election::getVotesList, filter out vote invalid under constraint. But Return a PHP generator object.
-Usefull if your work on very large election with an external DataHandler, because it's will not using large memory amount.
+Same as Election::getVotesList, filter out vote invalid under constraint. But returns a PHP generator object.
+Useful if you work on very large elections with an external DataHandler, because it will not use large amounts of memory.
     
 
 #### **tags:** *`array|string|null`*   
@@ -20,7 +20,7 @@ Tags list as a string separated by commas or array.
 Get votes with these tags or without.    
 
 
-### Return value:   
+### Return value   
 
 *(`Generator`)* Populated by each Vote object.
 

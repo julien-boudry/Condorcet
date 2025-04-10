@@ -1,6 +1,6 @@
 ## public static Condorcet::getMethodClass
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L148)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L150)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Return the full class path for a method.
 A valid method name.    
 
 
-### Return value:   
+### Return value   
 
 *(`?string`)* Return null is method not exist.
 
@@ -23,7 +23,7 @@ A valid method name.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\AlgorithmException``` 
+* ```CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented``` 
 
 ---------------------------------------
 

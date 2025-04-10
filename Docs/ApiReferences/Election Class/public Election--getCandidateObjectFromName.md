@@ -1,6 +1,6 @@
 ## public Election::getCandidateObjectFromName
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L114)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L115)
 
 ### Description    
 
@@ -8,14 +8,14 @@
 public Election->getCandidateObjectFromName ( string $candidateName ): ?CondorcetPHP\Condorcet\Candidate
 ```
 
-Find candidate object by string and return the candidate object.
+Find the candidate object from its name and return it.
     
 
 #### **candidateName:** *`string`*   
-Candidate name.    
+Name of the candidate.    
 
 
-### Return value:   
+### Return value   
 
 *(`?CondorcetPHP\Condorcet\Candidate`)* Candidate object
 

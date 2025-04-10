@@ -1,11 +1,11 @@
 ## public Election::allowsVoteWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L350)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L332)
 
 ### Description    
 
 ```php
-public Election->allowsVoteWeight ( [bool $rule = true] ): bool
+public Election->allowsVoteWeight ( [bool $rule = true] ): static
 ```
 
 Set the setting and reset all result data.
@@ -17,9 +17,9 @@ By default, the voting weight is not activated and all votes are considered equa
 New rule.    
 
 
-### Return value:   
+### Return value   
 
-*(`bool`)* Return True
+*(`static`)* Return True
 
 
 ---------------------------------------

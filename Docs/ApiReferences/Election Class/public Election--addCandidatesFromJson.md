@@ -1,6 +1,6 @@
 ## public Election::addCandidatesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L249)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L250)
 
 ### Description    
 
@@ -8,16 +8,16 @@
 public Election->addCandidatesFromJson ( string $input ): array
 ```
 
-Import candidate from a JSON source.
+Import candidates from a JSON source.
     
 
 #### **input:** *`string`*   
-JSON string input.    
+JSON string.    
 
 
-### Return value:   
+### Return value   
 
-*(`array`)* List of newly registered candidate object.
+*(`array`)* List of newly registered candidate objects.
 
 
 

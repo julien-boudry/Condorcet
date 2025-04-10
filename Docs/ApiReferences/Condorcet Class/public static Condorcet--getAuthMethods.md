@@ -1,6 +1,6 @@
 ## public static Condorcet::getAuthMethods
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L106)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L108)
 
 ### Description    
 
@@ -19,7 +19,7 @@ Include or not the natural Condorcet base algorithm.
 Include or not non deterministic methods.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* Populated by method string name. You can use it on getResult ... and others methods.
 

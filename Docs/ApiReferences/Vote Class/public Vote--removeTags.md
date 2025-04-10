@@ -1,6 +1,6 @@
 ## public Vote::removeTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L690)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L659)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Remove registered tag(s) on this Vote.
 They can be added by string separated by commas or an array.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* List of deleted tags.
 

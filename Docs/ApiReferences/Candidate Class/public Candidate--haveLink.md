@@ -1,6 +1,6 @@
 ## public Candidate::haveLink
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L34)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Check if this election is linked with this Candidate/Vote object.
 Condorcet election to check.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True or False.
 

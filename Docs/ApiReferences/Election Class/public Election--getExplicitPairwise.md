@@ -1,6 +1,6 @@
 ## public Election::getExplicitPairwise
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L223)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L232)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getExplicitPairwise ( ): array
 Return the Pairwise.
     
 
-### Return value:   
+### Return value   
 
 *(`array`)* Pairwise as an explicit array .
 

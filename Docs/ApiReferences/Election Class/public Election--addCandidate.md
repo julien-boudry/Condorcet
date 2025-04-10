@@ -1,6 +1,6 @@
 ## public Election::addCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L141)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L142)
 
 ### Description    
 
@@ -8,16 +8,16 @@
 public Election->addCandidate ( [CondorcetPHP\Condorcet\Candidate|string|null $candidate = null] ): CondorcetPHP\Condorcet\Candidate
 ```
 
-Add one candidate to an election.
+Add a candidate to an election.
     
 
 #### **candidate:** *`CondorcetPHP\Condorcet\Candidate|string|null`*   
-Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace of your candidate name will be trimmed. If null, this function will create a new candidate with an automatic name.    
+Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.    
 
 
-### Return value:   
+### Return value   
 
-*(`CondorcetPHP\Condorcet\Candidate`)* The new candidate object (your or automatic one). Throws an exception on error (existing candidate...).
+*(`CondorcetPHP\Condorcet\Candidate`)* The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
 
 
 
@@ -32,7 +32,7 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The whitespace o
 
 * [Election::parseCandidates](/Docs/ApiReferences/Election%20Class/public%20Election--parseCandidates.md)    
 * [Election::addCandidatesFromJson](/Docs/ApiReferences/Election%20Class/public%20Election--addCandidatesFromJson.md)    
-* [Election::removeCandidate](/Docs/ApiReferences/Election%20Class/public%20Election--removeCandidate.md)    
+* [Election::removeCandidates](/Docs/ApiReferences/Election%20Class/public%20Election--removeCandidates.md)    
 * [Election::getCandidatesList](/Docs/ApiReferences/Election%20Class/public%20Election--getCandidatesList.md)    
 * [Election::canAddCandidate](/Docs/ApiReferences/Election%20Class/public%20Election--canAddCandidate.md)    
 

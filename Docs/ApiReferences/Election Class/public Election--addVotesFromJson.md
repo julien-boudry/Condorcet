@@ -1,6 +1,6 @@
 ## public Election::addVotesFromJson
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L381)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L385)
 
 ### Description    
 
@@ -15,9 +15,9 @@ Import votes from a Json source.
 Json string input.    
 
 
-### Return value:   
+### Return value   
 
-*(`int`)* Count of new registered vote.
+*(`int`)* Count of newly registered votes.
 
 
 ---------------------------------------

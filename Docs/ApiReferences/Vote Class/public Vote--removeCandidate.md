@@ -1,6 +1,6 @@
 ## public Vote::removeCandidate
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L619)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L592)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Remove candidate from ranking. Set a new ranking and archive the old ranking.
 Candidate object or string.    
 
 
-### Return value:   
+### Return value   
 
 *(`true`)* True on success.
 

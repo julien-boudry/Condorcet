@@ -1,11 +1,11 @@
 ## public Vote::setRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L504)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L480)
 
 ### Description    
 
 ```php
-public Vote->setRanking ( array|string $ranking [, ?float $ownTimestamp = null] ): true
+public Vote->setRanking ( array|string $ranking [, ?float $ownTimestamp = null] ): static
 ```
 
 Set a new ranking for this vote.
@@ -21,12 +21,6 @@ A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wi
 Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.    
 
 
-### Return value:   
-
-*(`true`)* In case of success, return TRUE
-
-
-
 ### Throws:   
 
 * ```CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException``` 
@@ -36,7 +30,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 ### Related method(s)      
 
 * [Vote::getRanking](/Docs/ApiReferences/Vote%20Class/public%20Vote--getRanking.md)    
-* [Vote::getHistory](/Docs/ApiReferences/Vote%20Class/public%20Vote--getHistory.md)    
+* [Vote::rankingHistory](/Docs/ApiReferences/Vote%20Class/public%20Vote--rankingHistory.md)    
 * [Vote::__construct](/Docs/ApiReferences/Vote%20Class/public%20Vote--__construct.md)    
 
 ---------------------------------------

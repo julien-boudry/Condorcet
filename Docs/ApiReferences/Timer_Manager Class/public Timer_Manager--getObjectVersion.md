@@ -15,7 +15,7 @@ Get the Condorcet PHP version who built this object. Usefull pour serializing El
 true will return 2.0 and false will return 2.0.0.    
 
 
-### Return value:   
+### Return value   
 
 *(`string`)* Condorcet PHP version.
 

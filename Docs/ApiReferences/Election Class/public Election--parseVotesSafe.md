@@ -1,14 +1,14 @@
-## public Election::parseVotesWithoutFail
+## public Election::parseVotesSafe
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L451)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L455)
 
 ### Description    
 
 ```php
-public Election->parseVotesWithoutFail ( SplFileInfo|string $input [, bool $isFile = false , ?Closure $callBack = null] ): int
+public Election->parseVotesSafe ( SplFileInfo|string $input [, bool $isFile = false , ?Closure $callBack = null] ): int
 ```
 
-Similar to parseVote method. But will ignore invalid line. This method is also far less greedy in memory and must be prefered for very large file input. And to combine with the use of an external data handler.
+Similar to parseVote method. But will ignore invalid lines. This method is also far less greedy in memory and should be preferred for very large file inputs. Best used in combination with an external data handler.
     
 
 #### **input:** *`SplFileInfo|string`*   
@@ -16,16 +16,16 @@ String, valid path to a text file or an object SplFileInfo or extending it like 
 
 
 #### **isFile:** *`bool`*   
-If true, the string input is evalatued as path to text file.    
+If true, the string input is evaluated as path to text file.    
 
 
 #### **callBack:** *`?Closure`*   
 Callback function to execute after each valid line, before vote registration.    
 
 
-### Return value:   
+### Return value   
 
-*(`int`)* Number of invalid records into input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
+*(`int`)* Number of invalid records in input (except empty lines). It's not an invalid votes count. Check Election::countVotes if you want to be sure.
 
 
 ---------------------------------------

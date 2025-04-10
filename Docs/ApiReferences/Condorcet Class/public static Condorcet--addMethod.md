@@ -1,6 +1,6 @@
 ## public static Condorcet::addMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L193)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L195)
 
 ### Description    
 
@@ -15,7 +15,7 @@ If you create your own Condorcet Algo. You will need it !
 The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True on Success. False on failure.
 

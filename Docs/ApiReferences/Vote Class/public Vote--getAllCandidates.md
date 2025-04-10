@@ -1,6 +1,6 @@
 ## public Vote::getAllCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L320)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L297)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Get all the candidates object set in the last ranking of this Vote.
 An election already linked to the Vote.    
 
 
-### Return value:   
+### Return value   
 
 *(`array`)* Candidates list.
 
@@ -25,4 +25,4 @@ An election already linked to the Vote.
 ### Related method(s)      
 
 * [Vote::getRanking](/Docs/ApiReferences/Vote%20Class/public%20Vote--getRanking.md)    
-* [Vote::countRankingCandidates](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRankingCandidates.md)    
+* [Vote::countCandidates](/Docs/ApiReferences/Vote%20Class/public%20Vote--countCandidates.md)    

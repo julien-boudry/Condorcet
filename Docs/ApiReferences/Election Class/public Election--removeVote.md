@@ -1,6 +1,6 @@
 ## public Election::removeVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L307)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L311)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Remove Votes from an election.
 Vote object.    
 
 
-### Return value:   
+### Return value   
 
 *(`true`)* True on success
 

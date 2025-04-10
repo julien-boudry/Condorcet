@@ -1,6 +1,6 @@
 ## public Vote::getTagsAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L271)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L276)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Vote->getTagsAsString ( ): string
 Get the registered tags for this Vote.
     
 
-### Return value:   
+### Return value   
 
 *(`string`)* List of registered tag as string separated by commas.
 

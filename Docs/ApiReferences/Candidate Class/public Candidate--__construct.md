@@ -1,6 +1,6 @@
 ## public Candidate::__construct
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L60)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L75)
 
 ### Description    
 
@@ -13,12 +13,6 @@ Build a candidate.
 
 #### **name:** *`string`*   
 Candidate Name.    
-
----------------------------------------
-
-### Related method(s)      
-
-* [Candidate::setName](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--setName.md)    
 
 ---------------------------------------
 

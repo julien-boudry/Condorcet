@@ -1,6 +1,6 @@
 ## public Election::removeAllVotes
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L291)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L295)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->removeAllVotes ( ): true
 Remove all Votes from an election.
     
 
-### Return value:   
+### Return value   
 
 *(`true`)* True on success.
 

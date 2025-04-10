@@ -1,6 +1,6 @@
 ## public Election::getTimerManager
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L245)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L225)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getTimerManager ( ): CondorcetPHP\Condorcet\Timer\Manager
 Get the Timer manager object.
     
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Timer\Manager`)* An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
 

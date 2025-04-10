@@ -1,6 +1,6 @@
 ## public Election::getCandidatesListAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L62)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L64)
 
 ### Description    
 
@@ -8,12 +8,12 @@
 public Election->getCandidatesListAsString ( ): array
 ```
 
-Return a list of registered candidates for this election.
+Return a list of registered candidates for this election as strings.
     
 
-### Return value:   
+### Return value   
 
-*(`array`)* List of candidates in an array populated with strings instead of CandidateObjects.
+*(`array`)* List of candidates in an array populated with strings instead of Candidate objects.
 
 
 ---------------------------------------

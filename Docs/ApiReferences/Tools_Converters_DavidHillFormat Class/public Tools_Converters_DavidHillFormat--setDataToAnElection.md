@@ -1,6 +1,6 @@
 ## public Tools\Converters\DavidHillFormat::setDataToAnElection
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L56)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L63)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Add the data to an election object
 Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.    
 
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Election`)* The election object
 

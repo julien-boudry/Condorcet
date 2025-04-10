@@ -11,7 +11,7 @@ public Tools\Randomizers\VoteRandomizer->getNewVote ( ): CondorcetPHP\Condorcet\
 Generate a new random vote.
     
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Vote`)* Return the new vote.
 

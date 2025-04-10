@@ -1,6 +1,6 @@
 ## public Election::removeExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L499)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L481)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->removeExternalDataHandler ( ): bool
 Remove an external driver to store vote on very large election. And import his data into classical memory.
     
 
-### Return value:   
+### Return value   
 
 *(`bool`)* True if success. Else throw an Exception.
 

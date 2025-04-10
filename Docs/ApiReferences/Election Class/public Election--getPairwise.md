@@ -1,6 +1,6 @@
 ## public Election::getPairwise
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L193)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L202)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getPairwise ( ): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise
 Return the Pairwise.
     
 
-### Return value:   
+### Return value   
 
 *(`CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`)* Pairwise object.
 

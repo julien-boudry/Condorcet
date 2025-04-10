@@ -1,6 +1,6 @@
 ## public Election::countCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L40)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L42)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->countCandidates ( ): int
 Count the number of registered candidates
     
 
-### Return value:   
+### Return value   
 
 *(`int`)* Number of registered candidates for this election.
 

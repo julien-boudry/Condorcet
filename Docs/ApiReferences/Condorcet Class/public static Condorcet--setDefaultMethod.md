@@ -1,6 +1,6 @@
 ## public static Condorcet::setDefaultMethod
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L241)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L243)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Put a new static method by default for the news Condorcet objects.
 A valid method name or class.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* In case of success, return TRUE
 

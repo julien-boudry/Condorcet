@@ -1,6 +1,6 @@
 ## public Election::addConstraint
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L370)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L353)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Add a constraint rules as a valid class path.
 A valid class path. Class must extend VoteConstraint class.    
 
 
-### Return value:   
+### Return value   
 
 *(`true`)* True on success.
 
@@ -31,7 +31,7 @@ A valid class path. Class must extend VoteConstraint class.
 
 * [Election::getConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--getConstraints.md)    
 * [Election::clearConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--clearConstraints.md)    
-* [Election::testIfVoteIsValidUnderElectionConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--testIfVoteIsValidUnderElectionConstraints.md)    
+* [Election::isVoteValidUnderConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--isVoteValidUnderConstraints.md)    
 
 ---------------------------------------
 

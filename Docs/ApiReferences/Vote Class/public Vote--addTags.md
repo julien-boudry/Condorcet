@@ -1,6 +1,6 @@
 ## public Vote::addTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L662)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L631)
 
 ### Description    
 
@@ -15,7 +15,7 @@ Add tag(s) on this Vote.
 Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* In case of success, return TRUE
 

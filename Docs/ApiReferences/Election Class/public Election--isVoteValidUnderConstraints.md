@@ -1,11 +1,11 @@
-## public Election::testIfVoteIsValidUnderElectionConstraints
+## public Election::isVoteValidUnderConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L422)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L405)
 
 ### Description    
 
 ```php
-public Election->testIfVoteIsValidUnderElectionConstraints ( CondorcetPHP\Condorcet\Vote $vote ): bool
+public Election->isVoteValidUnderConstraints ( CondorcetPHP\Condorcet\Vote $vote ): bool
 ```
 
 Test if a vote is valid with these election constraints.
@@ -15,7 +15,7 @@ Test if a vote is valid with these election constraints.
 A vote. Not necessarily registered in this election.    
 
 
-### Return value:   
+### Return value   
 
 *(`bool`)* Return True if vote will pass the constraints rules, else False.
 
@@ -25,7 +25,7 @@ A vote. Not necessarily registered in this election.
 ### Related method(s)      
 
 * [Election::getConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--getConstraints.md)    
-* [Election::addConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--addConstraints.md)    
+* [Election::addConstraint](/Docs/ApiReferences/Election%20Class/public%20Election--addConstraint.md)    
 * [Election::clearConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--clearConstraints.md)    
 
 ---------------------------------------

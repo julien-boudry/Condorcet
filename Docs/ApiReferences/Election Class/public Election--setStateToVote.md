@@ -1,6 +1,6 @@
 ## public Election::setStateToVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L526)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L508)
 
 ### Description    
 
@@ -15,7 +15,7 @@ If you are on state 1 (candidate registering), it's will close this state and pr
 If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
     
 
-### Return value:   
+### Return value   
 
 *(`true`)* Always True.
 

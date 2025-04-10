@@ -1,6 +1,6 @@
 ## public Election::getGlobalTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L224)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L204)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getGlobalTimer ( ): float
 Returns the cumulated computation runtime of this object. Include only computation related methods.
     
 
-### Return value:   
+### Return value   
 
 *(`float`)* Timer
 

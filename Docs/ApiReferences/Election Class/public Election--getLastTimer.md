@@ -1,6 +1,6 @@
 ## public Election::getLastTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L235)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L215)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Election->getLastTimer ( ): float
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
     
 
-### Return value:   
+### Return value   
 
 *(`float`)* (Float) Timer
 

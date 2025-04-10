@@ -11,7 +11,7 @@ public Tools\Randomizers\ArrayRandomizer->countCandidates ( ): int
 Count candidates currently running for this instance of the randomizer.
     
 
-### Return value:   
+### Return value   
 
 *(`int`)* Count of candidates
 

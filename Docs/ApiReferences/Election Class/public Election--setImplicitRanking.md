@@ -1,11 +1,11 @@
 ## public Election::setImplicitRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L322)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L303)
 
 ### Description    
 
 ```php
-public Election->setImplicitRanking ( [bool $rule = true] ): bool
+public Election->setImplicitRanking ( [bool $rule = true] ): static
 ```
 
 Set the setting and reset all result data.
@@ -17,9 +17,9 @@ If it is false, then the candidates not ranked, are not taken into account at al
 New rule.    
 
 
-### Return value:   
+### Return value   
 
-*(`bool`)* Return True
+*(`static`)* Return True
 
 
 ---------------------------------------

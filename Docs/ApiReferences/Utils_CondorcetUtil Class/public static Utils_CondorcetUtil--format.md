@@ -8,8 +8,8 @@
 public static Utils\CondorcetUtil::format ( mixed $input [, bool $convertObject = true] ): mixed
 ```
 
-Provide pretty re-formatting, human compliant, of all Condorcet PHP object or result set.
-Can be use before a var_dump, or just to get more simple data output.
+Provides pretty re-formatting, human readable, of all Condorcet PHP objects or result sets.
+Can be used before a var_dump, or just to get simpler data output.
     
 
 #### **input:** *`mixed`*   
@@ -20,7 +20,7 @@ Input to convert.
 If true. Will convert Candidate objects into string representation of their name.    
 
 
-### Return value:   
+### Return value   
 
 *(`mixed`)* New formatted data.
 

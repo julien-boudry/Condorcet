@@ -1,6 +1,6 @@
 ## public Vote::removeAllTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L721)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L690)
 
 ### Description    
 
@@ -11,7 +11,7 @@ public Vote->removeAllTags ( ): true
 Remove all registered tag(s) on this Vote.
     
 
-### Return value:   
+### Return value   
 
 *(`true`)* Return True.
 

@@ -1,6 +1,6 @@
 ## public Vote::getSimpleRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L473)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L450)
 
 ### Description    
 
@@ -19,7 +19,7 @@ An election already linked to the Vote.
 Include or not the weight symbol and value.    
 
 
-### Return value:   
+### Return value   
 
 *(`string`)* String like 'A>D=C>B
 

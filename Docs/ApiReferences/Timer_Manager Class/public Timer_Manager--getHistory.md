@@ -8,12 +8,12 @@
 public Timer\Manager->getHistory ( ): array
 ```
 
-Return benchmarked actions history.
+Returns benchmarked actions history.
     
 
-### Return value:   
+### Return value   
 
-*(`array`)* An explicit array with history.
+*(`array`)* An array containing detailed benchmark history.
 
 
 ---------------------------------------
