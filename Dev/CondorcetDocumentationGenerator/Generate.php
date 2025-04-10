@@ -337,7 +337,7 @@ class Generate
             $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
 
             $md .= "\n\n" .
-                    "### Return value:   \n\n" .
+                    "### Return value   \n\n" .
                     '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
         }
 
