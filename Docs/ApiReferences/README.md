@@ -1,4 +1,4 @@
-> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**
+> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | API Referencess | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**
 
 # API References
 ## Public API Index *
@@ -265,7 +265,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 
 
-## Full Class & API References
+## Full Class & API Reference
 _Including above methods from public API_
 
 

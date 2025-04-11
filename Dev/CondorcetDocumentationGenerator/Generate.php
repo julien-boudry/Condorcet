@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Related};
 use HaydenPierce\ClassFinder\ClassFinder;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Lexer\Lexer;
@@ -276,7 +275,7 @@ class Generate
         print 'Public methods in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal methods count: ' . $total_nonInternal_methods . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods including internals: ' . $total_methods . "\n";
 
         // Add Index
-        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::BOOK_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n" .
+        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::BOOK_URL . ") | API Referencess | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n" .
 
                         "# API References\n" .
                         "## Public API Index *\n" .
@@ -289,7 +288,7 @@ class Generate
         $file_content .= "\n\n\n";
 
         uksort($full_methods_list, 'strnatcmp');
-        $file_content .=    "## Full Class & API References\n" .
+        $file_content .=    "## Full Class & API Reference\n" .
                             "_Including above methods from public API_\n\n";
 
         $file_content .= $this->makeProfundis($full_methods_list);
