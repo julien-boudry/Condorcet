@@ -25,7 +25,7 @@ class Generate
 
     // Static - Translators
 
-    public static function makeFilename(ReflectionMethod $method): string
+    public static function makeFilename(ReflectionMethod|ReflectionProperty $method): string
     {
         return self::getModifiersName($method) .
                 ' ' .
@@ -80,9 +80,9 @@ class Generate
         ;
     }
 
-    public static function getModifiersName(ReflectionMethod $method): string
+    public static function getModifiersName(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        return implode(' ', Reflection::getModifierNames($method->getModifiers()));
+        return implode(' ', Reflection::getModifierNames($reflection->getModifiers()));
     }
 
     // Static - Builder
@@ -98,25 +98,33 @@ class Generate
         return '[' . $name . '](' . $url . ')';
     }
 
-    public static function computeRepresentationAsForIndex(ReflectionMethod $method): string
+    public static function computeRepresentationAsForIndex(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        return self::getModifiersName($method) .
+        if ($reflection instanceof ReflectionMethod) {
+            $parameters = ' (' . (($reflection->getNumberOfParameters() > 0) ? '...' : '') . ')';
+        } else {
+            $parameters = '';
+        }
+
+        return self::getModifiersName($reflection) .
                 ' ' .
-                self::simpleClass($method->class) .
-                (($method->isStatic()) ? '::' : '->') .
-                $method->name .
-                ' (' . (($method->getNumberOfParameters() > 0) ? '...' : '') . ')';
+                self::simpleClass($reflection->class) .
+                (($reflection->isStatic()) ? '::' : '->') .
+                $reflection->name .
+                $parameters
+        ;
     }
 
-    public static function computeRepresentationAsPHP(ReflectionMethod $method): string
+    public static function computeRepresentationAsPHP(ReflectionMethod|ReflectionProperty $reflection): string
     {
         $option = false;
-        $str = '(';
+        $str = '';
+        $str = $reflection instanceof ReflectionMethod ? '(' : '';
         $i = 0;
 
 
-        if ($method->getNumberOfParameters() > 0) {
-            foreach ($method->getParameters() as $value) {
+        if ($reflection instanceof ReflectionMethod && $reflection->getNumberOfParameters() > 0) {
+            foreach ($reflection->getParameters() as $value) {
                 $str .= ' ';
                 $str .= ($value->isOptional() && !$option) ? '[' : '';
                 $str .= ($i > 0) ? ', ' : '';
@@ -135,11 +143,15 @@ class Generate
             $str .= ']';
         }
 
-        $str .= ' )';
+        $str .= $reflection instanceof ReflectionMethod ? ' )' : '';
 
-        return "```php\n" .
-                self::getModifiersName($method) . ' ' . self::simpleClass($method->class) . (($method->isStatic()) ? '::' : '->') . $method->name . ' ' . $str . ((self::getTypeAsString($method->getReturnType()) !== null) ? ': ' . self::getTypeAsString($method->getReturnType()) : '') .
+        $returnType = $reflection instanceof ReflectionMethod ? $reflection->getReturnType() : $reflection->getType();
+
+        $r = "```php\n" .
+                self::getModifiersName($reflection) . ' ' . self::simpleClass($reflection->class) . (($reflection->isStatic()) ? '::' : '->') . $reflection->name . ' ' . $str . (self::getTypeAsString($returnType) !== null ? ': ' .$returnType : '') .
                 "\n```";
+
+        return $r;
     }
 
 
@@ -168,49 +180,49 @@ class Generate
 
         $inDoc = 0;
         $non_inDoc = 0;
-        $total_methods = 0;
-        $total_nonInternal_methods = 0;
+        $total_pages = 0;
+        $total_nonInternalMethods = 0;
 
         // Warnings
         foreach ($FullClassList as $FullClass) {
-            $methods = new ReflectionClass($FullClass)->getMethods(ReflectionMethod::IS_PUBLIC);
+            $pagesList = new ReflectionClass($FullClass)->getMethods(ReflectionMethod::IS_PUBLIC);
 
-            foreach ($methods as $oneMethod) {
+            foreach ($pagesList as $onePage) {
 
-                $docBlock = $oneMethod->getDocComment();
+                $docBlock = $onePage->getDocComment();
                 $phpDocNode = false;
 
-                $isPublic = $this->hasDocBlockTag('@api', $oneMethod);
+                $isPublic = $this->hasDocBlockTag('@api', $onePage);
 
-                if ($oneMethod->isInternal()) {
+                if ($onePage->isInternal()) {
                     // continue
                 } elseif ($isPublic) {
                     $inDoc++;
 
-                    if ($oneMethod->getNumberOfParameters() > 0) {
-                        $docBlocParams = $this->getDocBlockParameters($oneMethod);
+                    if ($onePage->getNumberOfParameters() > 0) {
+                        $docBlocParams = $this->getDocBlockParameters($onePage);
 
-                        foreach ($oneMethod->getParameters() as $oneParameter) {
+                        foreach ($onePage->getParameters() as $oneParameter) {
                             if (empty($docBlocParams[$oneParameter->getName()])) {
-                                var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
+                                var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                             }
                         }
                     }
 
-                    if (empty($this->getDocBlockDescription($oneMethod)) && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
-                        var_dump('Description is empty: ' . $oneMethod->getDeclaringClass()->getName() . '->' . $oneMethod->getName()); // @pest-arch-ignore-line
+                    if (empty($this->getDocBlockDescription($onePage)) && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
+                        var_dump('Description is empty: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                     }
                 } else {
                     $non_inDoc++;
 
-                    if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $oneMethod->getDeclaringClass()->getNamespaceName() !== '') {
+                    if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
                         // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
                     }
                 }
             }
         }
 
-        $full_methods_list = [];
+        $fullPagesListMeta = [];
 
         // generate .md
         foreach ($FullClassList as $FullClass) {
@@ -218,36 +230,39 @@ class Generate
 
             $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
 
-            $methods = $reflectionClass->getMethods();
+            $pagesList = $reflectionClass->getMethods();
+            $pagesList += $reflectionClass->getProperties();
+
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
-            $full_methods_list[$shortClass] = [
+            $fullPagesListMeta[$shortClass] = [
                 'FullClass' => $FullClass,
                 'shortClass' => $shortClass,
                 'ReflectionClass' => $reflectionClass,
-                'methods' => [],
+                'page' => [],
                 'isInternal' => $classIsInternal,
             ];
 
-            foreach ($methods as $oneMethod) {
-                $isPublic = $this->hasDocBlockTag('@api', $oneMethod);
+            foreach ($pagesList as $onePage) {
+                $isPublic = $this->hasDocBlockTag('@api', $onePage);
 
-                $method_array = $full_methods_list[$shortClass]['methods'][$oneMethod->name] = [
+                $pageProperties = $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
+                    'type' => $onePage instanceof ReflectionMethod ? 'method' : 'property',
                     'FullClass' => $FullClass,
                     'shortClass' => $shortClass,
-                    'name' => $oneMethod->name,
-                    'static' => $oneMethod->isStatic(),
-                    'visibility_public' => $oneMethod->isPublic(),
-                    'visibility_protected' => $oneMethod->isProtected(),
-                    'visibility_private' => $oneMethod->isPrivate(),
-                    'ReflectionMethod' => $oneMethod,
-                    'ReflectionClass' => $oneMethod->getDeclaringClass(),
+                    'name' => $onePage->name,
+                    'static' => $onePage->isStatic(),
+                    'visibility_public' => $onePage->isPublic(),
+                    'visibility_protected' => $onePage->isProtected(),
+                    'visibility_private' => $onePage->isPrivate(),
+                    'Reflection' => $onePage,
+                    'ReflectionClass' => $onePage->getDeclaringClass(),
                 ];
 
-                $total_methods++;
+                $total_pages++;
 
-                if (!$oneMethod->isInternal()) {
-                    $total_nonInternal_methods++;
+                if ($onePage instanceof ReflectionMethod && !$onePage->isInternal()) {
+                    $total_nonInternalMethods++;
                 }
 
                 // Write Markdown
@@ -255,24 +270,24 @@ class Generate
                     if (
                         !$classIsInternal &&
                         (
-                            empty($this->getDocBlockTagDescriptionOrValue('@api', $oneMethod)) ||
-                            str_contains($this->getDocBlockTagDescriptionOrValue('@api', $oneMethod), self::simpleClass($oneMethod->class))
+                            empty($this->getDocBlockTagDescriptionOrValue('@api', $onePage)) ||
+                            str_contains($this->getDocBlockTagDescriptionOrValue('@api', $onePage), self::simpleClass($onePage->class))
                         )
                     ) {
-                        $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($oneMethod->class)) . ' Class/';
+                        $path = $pathDirectory . str_replace('\\', '_', self::simpleClass($onePage->class)) . ' Class/';
 
                         if (!is_dir($path)) {
                             mkdir($path);
                         }
 
-                        file_put_contents($path . self::makeFilename($oneMethod), $this->createMarkdownContent($oneMethod, $method_array));
+                        file_put_contents($path . self::makeFilename($onePage), $this->createMarkdownContent($onePage, $pageProperties));
                     }
                 }
             }
         }
 
 
-        print 'Public methods in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal methods count: ' . $total_nonInternal_methods . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods including internals: ' . $total_methods . "\n";
+        print 'Public methods in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal methods count: ' . $total_nonInternalMethods . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods including internals: ' . $total_pages . "\n";
 
         // Add Index
         $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::BOOK_URL . ") | API Referencess | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n" .
@@ -283,15 +298,15 @@ class Generate
                         '_*: I try to update and complete the documentation. See also [the documentation book](' . self::BOOK_URL . "), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
-        $file_content .= $this->makeIndex($full_methods_list);
+        $file_content .= $this->makeIndex($fullPagesListMeta);
 
         $file_content .= "\n\n\n";
 
-        uksort($full_methods_list, 'strnatcmp');
+        uksort($fullPagesListMeta, 'strnatcmp');
         $file_content .=    "## Full Class & API Reference\n" .
                             "_Including above methods from public API_\n\n";
 
-        $file_content .= $this->makeProfundis($full_methods_list);
+        $file_content .= $this->makeProfundis($fullPagesListMeta);
 
 
         // Write file
@@ -304,22 +319,24 @@ class Generate
 
     // Build Methods
 
-    protected function createMarkdownContent(ReflectionMethod $method, array $entry): string
+    protected function createMarkdownContent(ReflectionMethod|ReflectionProperty $onePage, array $entry): string
     {
-        // Header
-        $md =   '## ' . self::getModifiersName($method) . ' ' . self::simpleClass($method->class) . '::' . $method->name . "\n\n" .
+        $gitHubLinkClass = $onePage instanceof ReflectionProperty ? $onePage->getDeclaringClass() : $onePage;
 
-                '> [Read it at the source](' . self::getGithubLink($method) . ")\n\n" .
+        // Header
+        $md =   '## ' . self::getModifiersName($onePage) . ' ' . self::simpleClass($onePage->class) . '::' . $onePage->name . "\n\n" .
+
+                '> [Read it at the source](' . self::getGithubLink($gitHubLinkClass) . ")\n\n" .
 
                 "### Description    \n\n" .
-                self::computeRepresentationAsPHP($method) . "\n\n" .
-                $this->getDocBlockDescription($method) . "\n    ";
+                self::computeRepresentationAsPHP($onePage) . "\n\n" .
+                $this->getDocBlockDescription($onePage) . "\n    ";
 
         // Input
-        if ($method->getNumberOfParameters() > 0) {
-            $docBlocParams = $this->getDocBlockParameters($method);
+        if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
+            $docBlocParams = $this->getDocBlockParameters($onePage);
 
-            foreach ($method->getParameters() as $value) {
+            foreach ($onePage->getParameters() as $value) {
                 $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
 
                 $md .=  "\n\n" .
@@ -331,22 +348,22 @@ class Generate
 
         // Return Value
 
-        if ($this->hasDocBlockTag('@return', $method)) {
-            $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $method);
+        if ($this->hasDocBlockTag('@return', $onePage)) {
+            $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $onePage);
             $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
 
             $md .= "\n\n" .
                     "### Return value   \n\n" .
-                    '*(' . self::getTypeAsString($method->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
+                    '*(' . self::getTypeAsString($onePage->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
         }
 
         // Throw
-        if ($this->hasDocBlockTag('@throws', $method)) {
+        if ($this->hasDocBlockTag('@throws', $onePage)) {
             $md .=  "\n\n" .
                     "### Throws:   \n\n";
 
-            foreach ($this->getPhpDocNode($method)->getTagsByName('@throws') as $oneTag) {
-                $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $method->getFileName());
+            foreach ($this->getPhpDocNode($onePage)->getTagsByName('@throws') as $oneTag) {
+                $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $onePage->getFileName());
 
                 $md .= '* ```' . $classPath . '``` ' . ($oneTag->value->description ?? '') . "\n";
             }
@@ -354,13 +371,13 @@ class Generate
 
         // Related methods
 
-        if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $method))) {
+        if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Related method(s)      \n\n";
 
             foreach (explode(', ', $see) as $toSee) {
-                if ($toSee === self::simpleClass($method->class) . '::' . $method->name) {
+                if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name) {
                     continue;
                 }
 
@@ -368,12 +385,12 @@ class Generate
             }
         }
 
-        if (!empty($book = $this->getDocBlockTagDescriptionOrValue('@book', $method))) {
+        if (!empty($book = $this->getDocBlockTagDescriptionOrValue('@book', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "### Tutorial\n\n";
 
-            foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $method)) as $BookAttribute) {
+            foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $onePage)) as $BookAttribute) {
                 $BookLibrary = \constant($BookAttribute);
 
                 $md .= '* **[This method has explanations and examples in the Documentation Book](' . $BookLibrary->value . ")**    \n";
@@ -387,7 +404,7 @@ class Generate
     {
         $file_content = '';
 
-        $testPublicAttribute = function (ReflectionMethod $reflectionMethod): bool {
+        $testPublicAttribute = function (ReflectionMethod|ReflectionProperty $reflectionMethod): bool {
             if (!$this->hasDocBlockTag('@api', $reflectionMethod)) {
                 return false;
             }
@@ -404,10 +421,10 @@ class Generate
         };
 
         foreach ($index as $class => &$classMeta) {
-            usort($classMeta['methods'], static function (array $a, array $b): int {
-                if ($a['ReflectionMethod']->isStatic() === $b['ReflectionMethod']->isStatic()) {
-                    return strnatcmp($a['ReflectionMethod']->name, $b['ReflectionMethod']->name);
-                } elseif ($a['ReflectionMethod']->isStatic() && !$b['ReflectionMethod']->isStatic()) {
+            usort($classMeta['page'], static function (array $a, array $b): int {
+                if ($a['Reflection']->isStatic() === $b['Reflection']->isStatic()) {
+                    return strnatcmp($a['Reflection']->name, $b['Reflection']->name);
+                } elseif ($a['Reflection']->isStatic() && !$b['Reflection']->isStatic()) {
                     return -1;
                 } else {
                     return 1;
@@ -419,8 +436,8 @@ class Generate
             if ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
-                foreach ($classMeta['methods'] as $oneMethod) {
-                    if ($testPublicAttribute($oneMethod['ReflectionMethod'])) {
+                foreach ($classMeta['page'] as $onePage) {
+                    if ($testPublicAttribute($onePage['Reflection'])) {
                         $classWillBePublic = true;
                         break;
                     }
@@ -458,18 +475,18 @@ class Generate
             }
 
 
-            foreach ($classMeta['methods'] as $oneMethod) {
-                if (!$testPublicAttribute($oneMethod['ReflectionMethod']) || !$oneMethod['ReflectionMethod']->isUserDefined()) {
+            foreach ($classMeta['page'] as $onePage) {
+                if (!$testPublicAttribute($onePage['Reflection']) || ($onePage instanceof ReflectionMethod && !$onePage['Reflection']->isUserDefined())) {
                     continue;
                 } else {
-                    $url = str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class)) . ' Class/' . self::getModifiersName($oneMethod['ReflectionMethod']) . ' ' . str_replace('\\', '_', self::simpleClass($oneMethod['ReflectionMethod']->class) . '--' . $oneMethod['ReflectionMethod']->name) . '.md';
+                    $url = str_replace('\\', '_', self::simpleClass($onePage['Reflection']->class)) . ' Class/' . self::getModifiersName($onePage['Reflection']) . ' ' . str_replace('\\', '_', self::simpleClass($onePage['Reflection']->class) . '--' . $onePage['Reflection']->name) . '.md';
                     $url = str_replace(' ', '%20', $url);
                     $url = $this->pathBase . '/' . $url;
 
-                    $file_content .= '* [' . self::computeRepresentationAsForIndex($oneMethod['ReflectionMethod']) . '](' . $url . ')';
+                    $file_content .= '* [' . self::computeRepresentationAsForIndex($onePage['Reflection']) . '](' . $url . ')';
 
-                    if (isset($oneMethod['ReflectionMethod']) && $oneMethod['ReflectionMethod']->hasReturnType()) {
-                        $file_content .= ': ' . self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType(), true);
+                    if (isset($onePage['Reflection']) && $onePage['Reflection'] instanceof ReflectionMethod && $onePage['Reflection']->hasReturnType()) {
+                        $file_content .= ': ' . self::getTypeAsString($onePage['Reflection']->getReturnType(), true);
                     }
 
                     $file_content .= "  \n";
@@ -525,16 +542,21 @@ class Generate
         return $file_content;
     }
 
-    protected function makeProperties(ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $addMdCodeTag = true): string
+    protected function makeProperties(ReflectionClass $class, ?int $type = null, bool $mustHaveApiAttribute = false, bool $forIndexSection = true): string
     {
         $file_content = '';
 
         $hasConstants = false;
 
         foreach ($class->getProperties($type) as $property) {
+
+            $url = str_replace('\\', '_', self::simpleClass($property->class)) . ' Class/' . self::getModifiersName($property) . ' ' . str_replace('\\', '_', self::simpleClass($property->class) . '--' . $property->name) . '.md';
+            $url = str_replace(' ', '%20', $url);
+            $url = $this->pathBase . '/' . $url;
+
             if (!$mustHaveApiAttribute || $this->hasDocBlockTag('@api', $property)) {
                 $file_content .= '* ';
-                $file_content .=  $addMdCodeTag ? '`' : '';
+                $file_content .=  $forIndexSection ? '`' : '';
 
                 $file_content .= $property->isReadOnly() ? 'readonly ' : '';
 
@@ -544,8 +566,13 @@ class Generate
 
                 $file_content .= $property->isStatic() ? 'static ' : '';
 
-                $file_content .= ($property->getType()) . ' $' . $property->getName();
-                $file_content .= $addMdCodeTag ? '`  ' : '';
+                $file_content .= $property->getType();
+                $file_content .= $forIndexSection ? '`' : '';
+                $file_content .= ' ';
+                $file_content .= $forIndexSection ? '[' : '';
+                $file_content .= '$';
+                $file_content .= $property->getName();
+                $file_content .= $forIndexSection ? ']('.$url.')' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
             }
@@ -563,7 +590,7 @@ class Generate
         $file_content = '';
 
         foreach ($index as $class => &$classMeta) {
-            usort($classMeta['methods'], static function (array $a, array $b): int {
+            usort($classMeta['page'], static function (array $a, array $b): int {
                 if ($a['static'] === $b['static']) {
                     if ($a['visibility_public'] && !$b['visibility_public']) {
                         return -1;
@@ -610,11 +637,11 @@ class Generate
                 $file_content .= $this->makeConstants(class: $classMeta['ReflectionClass'], addMdCodeTag: false);
             }
 
-            $file_content .= $this->makeProperties(class: $classMeta['ReflectionClass'], addMdCodeTag: false);
+            $file_content .= $this->makeProperties(class: $classMeta['ReflectionClass'], forIndexSection: false);
 
-            foreach ($classMeta['methods'] as $oneMethod) {
-                if ($oneMethod['ReflectionMethod']->isUserDefined()) {
-                    $parameters = $oneMethod['ReflectionMethod']->getParameters();
+            foreach ($classMeta['page'] as $oneMethod) {
+                if ($oneMethod['Reflection'] instanceof ReflectionProperty || $oneMethod['Reflection']->isUserDefined()) {
+                    $parameters =  $oneMethod['Reflection'] instanceof ReflectionMethod ? $oneMethod['Reflection']->getParameters() : [];
                     $parameters_string = '';
 
                     $i = 0;
@@ -638,8 +665,8 @@ class Generate
                     $representation .=  ($oneMethod['static']) ? 'static ' : '';
                     $representation .=  $oneMethod['name'] . ' (' . $parameters_string . ')';
 
-                    if ($oneMethod['ReflectionMethod']->hasReturnType()) {
-                        $representation .= ': ' . self::getTypeAsString($oneMethod['ReflectionMethod']->getReturnType());
+                    if ($oneMethod['Reflection'] instanceof ReflectionMethod && $oneMethod['Reflection']->hasReturnType()) {
+                        $representation .= ': ' . self::getTypeAsString($oneMethod['Reflection']->getReturnType());
                     }
 
                     $file_content .= '* ' . $representation . "  \n";
@@ -685,7 +712,7 @@ class Generate
         return \in_array($tag, $this->getDocBlockTags($source), true);
     }
 
-    protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod $source): null|false|string
+    protected function getDocBlockTagDescriptionOrValue(string $tag, ReflectionClass|ReflectionMethod|ReflectionProperty $source): null|false|string
     {
         if (!$this->hasDocBlockTag($tag, $source)) {
             return false;
@@ -698,7 +725,7 @@ class Generate
         return $node->value->description ?? $node->value->value ?? null;
     }
 
-    protected function getDocBlockDescription(PhpDocNode|ReflectionClass|ReflectionMethod $source): false|string
+    protected function getDocBlockDescription(PhpDocNode|ReflectionClass|ReflectionMethod|ReflectionProperty $source): false|string
     {
         if ($source instanceof Reflector) {
             $source = $source->getDocComment();

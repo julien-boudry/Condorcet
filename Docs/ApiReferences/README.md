@@ -7,10 +7,10 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Candidate Class  
 
-* `public string $name`  
-* `public array $nameHistory`  
-* `public float $createdAt`  
-* `public float $updatedAt`  
+* `public string` [$name](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--name.md)
+* `public array` [$nameHistory](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--nameHistory.md)
+* `public float` [$createdAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--createdAt.md)
+* `public float` [$updatedAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--updatedAt.md)
 
 * [public Candidate->__construct (...)](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--__construct.md)  
 * [public Candidate->countLinks ()](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--countLinks.md): `int`  
@@ -24,7 +24,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `final public const VERSION: (string)`  
 * `final public const CONDORCET_BASIC_CLASS: (string)`  
 
-* `public static bool $UseTimer`  
+* `public static bool` [$UseTimer](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--UseTimer.md)
 
 * [public static Condorcet::addMethod (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--addMethod.md): `bool`  
 * [public static Condorcet::getAuthMethods (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md): `array`  
@@ -38,15 +38,15 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * `public const MAX_CANDIDATE_NAME_LENGTH: (integer)`  
 
-* `public static ?int $maxParseIteration`  
-* `public static ?int $maxVotePerElection`  
-* `public CondorcetPHP\Condorcet\ElectionProcess\ElectionState $state`  
-* `public bool $implicitRankingRule`  
-* `public bool $voteWeightAllowed`  
-* `public int $electionSeats`  
-* `public array $votesConstraints`  
-* `public string $hash`  
-* `public CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity`  
+* `public static ?int` [$maxParseIteration](/Docs/ApiReferences/Election%20Class/public%20static%20Election--maxParseIteration.md)
+* `public static ?int` [$maxVotePerElection](/Docs/ApiReferences/Election%20Class/public%20static%20Election--maxVotePerElection.md)
+* `public CondorcetPHP\Condorcet\ElectionProcess\ElectionState` [$state](/Docs/ApiReferences/Election%20Class/public%20Election--state.md)
+* `public bool` [$implicitRankingRule](/Docs/ApiReferences/Election%20Class/public%20Election--implicitRankingRule.md)
+* `public bool` [$voteWeightAllowed](/Docs/ApiReferences/Election%20Class/public%20Election--voteWeightAllowed.md)
+* `public int` [$electionSeats](/Docs/ApiReferences/Election%20Class/public%20Election--electionSeats.md)
+* `public array` [$votesConstraints](/Docs/ApiReferences/Election%20Class/public%20Election--votesConstraints.md)
+* `public string` [$hash](/Docs/ApiReferences/Election%20Class/virtual%20public%20Election--hash.md)
+* `public CondorcetPHP\Condorcet\Algo\StatsVerbosity` [$statsVerbosity](/Docs/ApiReferences/Election%20Class/public%20Election--statsVerbosity.md)
 
 * [public Election->__construct ()](/Docs/ApiReferences/Election%20Class/public%20Election--__construct.md)  
 * [public Election->addCandidate (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
@@ -107,38 +107,46 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Result Class  
 
-* `readonly public CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity`  
-* `readonly public string $fromMethod`  
-* `readonly public string $byClass`  
-* `readonly public CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats`  
-* `readonly public ?int $seats`  
-* `public array $methodOptions`  
-* `readonly public array $ranking`  
-* `public array $rankingAsArray`  
-* `public array $rankingAsArrayString`  
-* `public string $rankingAsString`  
-* `readonly public ?CondorcetPHP\Condorcet\Candidate $CondorcetWinner`  
-* `readonly public ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser`  
-* `readonly public array $originalRankingAsArrayString`  
-* `public string $originalRankingAsString`  
-* `readonly public array $pairwise`  
-* `public CondorcetPHP\Condorcet\Candidate|array|null $winner`  
-* `public CondorcetPHP\Condorcet\Candidate|array|null $loser`  
-* `readonly public float $buildTimestamp`  
-* `readonly public string $electionCondorcetVersion`  
-* `public bool $isProportional`  
+* `readonly public CondorcetPHP\Condorcet\Algo\StatsVerbosity` [$statsVerbosity](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--statsVerbosity.md)
+* `readonly public string` [$fromMethod](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--fromMethod.md)
+* `readonly public string` [$byClass](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--byClass.md)
+* `readonly public CondorcetPHP\Condorcet\Algo\Stats\StatsInterface` [$stats](/Docs/ApiReferences/Result%20Class/public%20readonly%20Result--stats.md)
+* `readonly public ?int` [$seats](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--seats.md)
+* `public array` [$methodOptions](/Docs/ApiReferences/Result%20Class/final%20public%20Result--methodOptions.md)
+* `readonly public array` [$ranking](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--ranking.md)
+* `public array` [$rankingAsArray](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--rankingAsArray.md)
+* `public array` [$rankingAsArrayString](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--rankingAsArrayString.md)
+* `public string` [$rankingAsString](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--rankingAsString.md)
+* `readonly public ?CondorcetPHP\Condorcet\Candidate` [$CondorcetWinner](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--CondorcetWinner.md)
+* `readonly public ?CondorcetPHP\Condorcet\Candidate` [$CondorcetLoser](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--CondorcetLoser.md)
+* `readonly public array` [$originalRankingAsArrayString](/Docs/ApiReferences/Result%20Class/public%20readonly%20Result--originalRankingAsArrayString.md)
+* `public string` [$originalRankingAsString](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--originalRankingAsString.md)
+* `readonly public array` [$pairwise](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--pairwise.md)
+* `public CondorcetPHP\Condorcet\Candidate|array|null` [$winner](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--winner.md)
+* `public CondorcetPHP\Condorcet\Candidate|array|null` [$loser](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--loser.md)
+* `readonly public float` [$buildTimestamp](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--buildTimestamp.md)
+* `readonly public string` [$electionCondorcetVersion](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--electionCondorcetVersion.md)
+* `public bool` [$isProportional](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--isProportional.md)
 
+* [final public readonly Result->buildTimestamp](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--buildTimestamp.md)  
+* [final public readonly Result->electionCondorcetVersion](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--electionCondorcetVersion.md)  
 * [public Result->getObjectVersion (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getObjectVersion.md): `string`  
 * [public Result->getWarning (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getWarning.md): `array`  
+* [virtual public Result->isProportional](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--isProportional.md)  
+* [virtual public Result->loser](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--loser.md)  
+* [public readonly Result->originalRankingAsArrayString](/Docs/ApiReferences/Result%20Class/public%20readonly%20Result--originalRankingAsArrayString.md)  
+* [virtual public Result->originalRankingAsString](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--originalRankingAsString.md)  
+* [final public readonly Result->pairwise](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--pairwise.md)  
+* [virtual public Result->winner](/Docs/ApiReferences/Result%20Class/virtual%20public%20Result--winner.md)  
 
 ### CondorcetPHP\Condorcet\Vote Class  
 
-* `public float $createdAt`  
-* `public float $updatedAt`  
-* `public int $countCandidates`  
-* `public array $rankingHistory`  
-* `public array $tags`  
-* `public string $hash`  
+* `public float` [$createdAt](/Docs/ApiReferences/Vote%20Class/virtual%20public%20Vote--createdAt.md)
+* `public float` [$updatedAt](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--updatedAt.md)
+* `public int` [$countCandidates](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--countCandidates.md)
+* `public array` [$rankingHistory](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--rankingHistory.md)
+* `public array` [$tags](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--tags.md)
+* `public string` [$hash](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--hash.md)
 
 * [public Vote->__construct (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--__construct.md)  
 * [public Vote->addTags (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--addTags.md): `bool`  
@@ -170,12 +178,12 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Algo\Tools\Combinations Class  
 
-* `public static bool $useBigIntegerIfAvailable`  
+* `public static bool` [$useBigIntegerIfAvailable](/Docs/ApiReferences/Algo_Tools_Combinations%20Class/public%20static%20Algo_Tools_Combinations--useBigIntegerIfAvailable.md)
 
 
 ### CondorcetPHP\Condorcet\Algo\Tools\Permutations Class  
 
-* `public static bool $useBigIntegerIfAvailable`  
+* `public static bool` [$useBigIntegerIfAvailable](/Docs/ApiReferences/Algo_Tools_Permutations%20Class/public%20static%20Algo_Tools_Permutations--useBigIntegerIfAvailable.md)
 
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
@@ -191,7 +199,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * `public const SEGMENT: (array)`  
 
-* `public static bool $preferBlobInsteadVarchar`  
+* `public static bool` [$preferBlobInsteadVarchar](/Docs/ApiReferences/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/public%20static%20DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)
 
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
@@ -205,29 +213,29 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
-* `readonly public array $candidates`  
-* `readonly public int $NumberOfSeats`  
+* `readonly public array` [$candidates](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/final%20public%20readonly%20Tools_Converters_DavidHillFormat--candidates.md)
+* `readonly public int` [$NumberOfSeats](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/final%20public%20readonly%20Tools_Converters_DavidHillFormat--NumberOfSeats.md)
 
 * [public Tools\Converters\DavidHillFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--__construct.md)  
 * [public Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DebianFormat Class  
 
-* `readonly public array $candidates`  
-* `readonly public array $votes`  
+* `readonly public array` [$candidates](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/final%20public%20readonly%20Tools_Converters_DebianFormat--candidates.md)
+* `readonly public array` [$votes](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/final%20public%20readonly%20Tools_Converters_DebianFormat--votes.md)
 
 * [public Tools\Converters\DebianFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
 * [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat Class  
 
-* `readonly public array $parameters`  
-* `readonly public array $candidates`  
-* `readonly public int $numberOfSeats`  
-* `readonly public bool $implicitRanking`  
-* `readonly public bool $voteWeight`  
-* `readonly public bool $CandidatesParsedFromVotes`  
-* `readonly public int $invalidBlocksCount`  
+* `readonly public array` [$parameters](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)
+* `readonly public array` [$candidates](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)
+* `readonly public int` [$numberOfSeats](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--numberOfSeats.md)
+* `readonly public bool` [$implicitRanking](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)
+* `readonly public bool` [$voteWeight](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)
+* `readonly public bool` [$CandidatesParsedFromVotes](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)
+* `readonly public int` [$invalidBlocksCount](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/final%20public%20readonly%20Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)
 
 * [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
 * [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
@@ -236,22 +244,23 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer Class  
 
-* `public ?int $maxCandidatesRanked`  
-* `public int|false $minCandidatesRanked`  
-* `public ?int $maxRanksCount`  
-* `public int|float $tiesProbability`  
+* `public ?int` [$maxCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)
+* `public int|false` [$minCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)
+* `public ?int` [$maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
+* `public int|float` [$tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
 * [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
 * [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
 * [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
 * [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+* [public Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer Class  
 
-* `public ?int $maxCandidatesRanked`  
-* `public int|false $minCandidatesRanked`  
-* `public ?int $maxRanksCount`  
-* `public int|float $tiesProbability`  
+* `public ?int` [$maxCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)
+* `public int|false` [$minCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)
+* `public ?int` [$maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
+* `public int|float` [$tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
 * [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
 * [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
@@ -822,6 +831,7 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected doOneRound (): array  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
+* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
@@ -1104,13 +1114,16 @@ _Including above methods from public API_
 * public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
+* protected Result ()  
 * protected compareOutcomes (): void  
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getOutcomesComparisonKey (int $MainOutcomeKey, int $ComparedOutcomeKey): string  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array  
+* protected objectVersion ()  
 * protected selectBestOutcome (): void  
+* protected selfElection ()  
 * protected sortResultBeforeCut (array $result): void  
 ```
 
@@ -2198,19 +2211,28 @@ _Including above methods from public API_
 
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $rawRanking, CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats, ?int $seats = null, array $methodOptions = [])  
 * public addWarning (int $type, ?string $msg = null): true  
+* public buildTimestamp ()  
 * public count (): int  
 * public current (): CondorcetPHP\Condorcet\Candidate|array  
+* public electionCondorcetVersion ()  
 * public getObjectVersion (bool $major = false): string  
 * public getWarning (?int $type = null): array  
+* public isProportional ()  
 * public key (): int  
+* public loser ()  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
 * public offsetGet (mixed $offset): CondorcetPHP\Condorcet\Candidate|array|null  
 * public offsetSet (mixed $offset, mixed $value): void  
 * public offsetUnset (mixed $offset): void  
+* public originalRankingAsArrayString ()  
+* public originalRankingAsString ()  
+* public pairwise ()  
 * public rewind (): void  
 * public valid (): bool  
+* public winner ()  
 * protected makeUserRanking (CondorcetPHP\Condorcet\Election $election): array  
+* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
@@ -2809,6 +2831,7 @@ _Including above methods from public API_
 * public countCandidates (): int  
 * public setCandidates (array $candidates): void  
 * public shuffle (): array  
+* public tiesProbability ()  
 * protected makeTies (array $randomizedCandidates): array  
 ```
 
@@ -2857,6 +2880,7 @@ _Including above methods from public API_
 * public static getComment (string $voteString, bool $cut = false): ?string  
 * public static parseIntValueFromVoteStringOffset (string $character, string $entry, bool $cut = false): int  
 * public __construct (string $originalEntry)  
+* public originalEntry ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Utils\VoteUtil `  
