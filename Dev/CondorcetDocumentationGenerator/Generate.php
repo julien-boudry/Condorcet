@@ -213,7 +213,8 @@ class Generate
 
         // Warnings
         foreach ($FullClassList as $FullClass) {
-            $pagesList = new ReflectionClass($FullClass)->getMethods();
+            $reflectionClass = new ReflectionClass($FullClass);
+            $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
 
             foreach ($pagesList as $onePage) {
 
@@ -224,12 +225,12 @@ class Generate
                 if (!$onePage->isPublic() && $isPublicApi) {
                     var_dump('Has Public API tag but is not public: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                 }
-                elseif ($onePage->isInternal()) {
+                elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
                     // continue
                 } elseif ($onePage->isPublic() && $isPublicApi) {
                     $inDoc++;
 
-                    if ($onePage->getNumberOfParameters() > 0) {
+                    if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
                         $docBlocParams = $this->getDocBlockParameters($onePage);
 
                         foreach ($onePage->getParameters() as $oneParameter) {
