@@ -16,4 +16,4 @@ Contain Candidate object. Null if there are no available loser. Or an array with
 ### Related method(s)      
 
 * [Result::Winner](/Docs/ApiReferences/Result%20Class/Result--Winner.md)    
-* [Election::getWinner](/Docs/ApiReferences/Election%20Class/public%20Election--getWinner.md)    
+* [Election::getWinner](/Docs/ApiReferences/Election%20Class/Election--getWinner.md)    

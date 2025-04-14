@@ -12,15 +12,15 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public float` [$createdAt](/Docs/ApiReferences/Candidate%20Class/Candidate--createdAt.md)
 * `public float` [$updatedAt](/Docs/ApiReferences/Candidate%20Class/Candidate--updatedAt.md)
 
-* [public Candidate->__construct (...)](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--__construct.md)  
-* [public Candidate->countLinks ()](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--countLinks.md): `int`  
+* [public Candidate->__construct (...)](/Docs/ApiReferences/Candidate%20Class/Candidate--__construct.md)  
+* [public Candidate->countLinks ()](/Docs/ApiReferences/Candidate%20Class/Candidate--countLinks.md): `int`  
 * [virtual public Candidate->createdAt](/Docs/ApiReferences/Candidate%20Class/Candidate--createdAt.md)  
-* [public Candidate->getLinks ()](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--getLinks.md): `array`  
-* [public Candidate->getObjectVersion (...)](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--getObjectVersion.md): `string`  
-* [public Candidate->haveLink (...)](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--haveLink.md): `bool`  
+* [public Candidate->getLinks ()](/Docs/ApiReferences/Candidate%20Class/Candidate--getLinks.md): `array`  
+* [public Candidate->getObjectVersion (...)](/Docs/ApiReferences/Candidate%20Class/Candidate--getObjectVersion.md): `string`  
+* [public Candidate->haveLink (...)](/Docs/ApiReferences/Candidate%20Class/Candidate--haveLink.md): `bool`  
 * [virtual public Candidate->name](/Docs/ApiReferences/Candidate%20Class/Candidate--name.md)  
 * [public Candidate->nameHistory](/Docs/ApiReferences/Candidate%20Class/Candidate--nameHistory.md)  
-* [public Candidate->setName (...)](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--setName.md): `static`  
+* [public Candidate->setName (...)](/Docs/ApiReferences/Candidate%20Class/Candidate--setName.md): `static`  
 * [virtual public Candidate->updatedAt](/Docs/ApiReferences/Candidate%20Class/Candidate--updatedAt.md)  
 
 ### CondorcetPHP\Condorcet\Condorcet Class  
@@ -31,13 +31,13 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public static bool` [$UseTimer](/Docs/ApiReferences/Condorcet%20Class/Condorcet--UseTimer.md)
 
 * [public static Condorcet::UseTimer](/Docs/ApiReferences/Condorcet%20Class/Condorcet--UseTimer.md)  
-* [public static Condorcet::addMethod (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--addMethod.md): `bool`  
-* [public static Condorcet::getAuthMethods (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md): `array`  
-* [public static Condorcet::getDefaultMethod ()](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md): `?string`  
-* [public static Condorcet::getMethodClass (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md): `?string`  
-* [public static Condorcet::getVersion (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getVersion.md): `string`  
-* [public static Condorcet::isAuthMethod (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md): `bool`  
-* [public static Condorcet::setDefaultMethod (...)](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--setDefaultMethod.md): `bool`  
+* [public static Condorcet::addMethod (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--addMethod.md): `bool`  
+* [public static Condorcet::getAuthMethods (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--getAuthMethods.md): `array`  
+* [public static Condorcet::getDefaultMethod ()](/Docs/ApiReferences/Condorcet%20Class/Condorcet--getDefaultMethod.md): `?string`  
+* [public static Condorcet::getMethodClass (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--getMethodClass.md): `?string`  
+* [public static Condorcet::getVersion (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--getVersion.md): `string`  
+* [public static Condorcet::isAuthMethod (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--isAuthMethod.md): `bool`  
+* [public static Condorcet::setDefaultMethod (...)](/Docs/ApiReferences/Condorcet%20Class/Condorcet--setDefaultMethod.md): `bool`  
 
 ### CondorcetPHP\Condorcet\Election Class  
 
@@ -55,67 +55,67 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * [public static Election::maxParseIteration](/Docs/ApiReferences/Election%20Class/Election--maxParseIteration.md)  
 * [public static Election::maxVotePerElection](/Docs/ApiReferences/Election%20Class/Election--maxVotePerElection.md)  
-* [public Election->__construct ()](/Docs/ApiReferences/Election%20Class/public%20Election--__construct.md)  
-* [public Election->addCandidate (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
-* [public Election->addCandidatesFromJson (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addCandidatesFromJson.md): `array`  
-* [public Election->addConstraint (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addConstraint.md): `true`  
-* [public Election->addVote (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
-* [public Election->addVotesFromJson (...)](/Docs/ApiReferences/Election%20Class/public%20Election--addVotesFromJson.md): `int`  
-* [public Election->allowsVoteWeight (...)](/Docs/ApiReferences/Election%20Class/public%20Election--allowsVoteWeight.md): `static`  
-* [public Election->canAddCandidate (...)](/Docs/ApiReferences/Election%20Class/public%20Election--canAddCandidate.md): `bool`  
-* [public Election->clearConstraints ()](/Docs/ApiReferences/Election%20Class/public%20Election--clearConstraints.md): `bool`  
-* [public Election->computeResult (...)](/Docs/ApiReferences/Election%20Class/public%20Election--computeResult.md): `void`  
-* [public Election->countCandidates ()](/Docs/ApiReferences/Election%20Class/public%20Election--countCandidates.md): `int`  
-* [public Election->countInvalidVoteWithConstraints ()](/Docs/ApiReferences/Election%20Class/public%20Election--countInvalidVoteWithConstraints.md): `int`  
-* [public Election->countValidVoteWithConstraints (...)](/Docs/ApiReferences/Election%20Class/public%20Election--countValidVoteWithConstraints.md): `int`  
-* [public Election->countVotes (...)](/Docs/ApiReferences/Election%20Class/public%20Election--countVotes.md): `int`  
+* [public Election->__construct ()](/Docs/ApiReferences/Election%20Class/Election--__construct.md)  
+* [public Election->addCandidate (...)](/Docs/ApiReferences/Election%20Class/Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
+* [public Election->addCandidatesFromJson (...)](/Docs/ApiReferences/Election%20Class/Election--addCandidatesFromJson.md): `array`  
+* [public Election->addConstraint (...)](/Docs/ApiReferences/Election%20Class/Election--addConstraint.md): `true`  
+* [public Election->addVote (...)](/Docs/ApiReferences/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
+* [public Election->addVotesFromJson (...)](/Docs/ApiReferences/Election%20Class/Election--addVotesFromJson.md): `int`  
+* [public Election->allowsVoteWeight (...)](/Docs/ApiReferences/Election%20Class/Election--allowsVoteWeight.md): `static`  
+* [public Election->canAddCandidate (...)](/Docs/ApiReferences/Election%20Class/Election--canAddCandidate.md): `bool`  
+* [public Election->clearConstraints ()](/Docs/ApiReferences/Election%20Class/Election--clearConstraints.md): `bool`  
+* [public Election->computeResult (...)](/Docs/ApiReferences/Election%20Class/Election--computeResult.md): `void`  
+* [public Election->countCandidates ()](/Docs/ApiReferences/Election%20Class/Election--countCandidates.md): `int`  
+* [public Election->countInvalidVoteWithConstraints ()](/Docs/ApiReferences/Election%20Class/Election--countInvalidVoteWithConstraints.md): `int`  
+* [public Election->countValidVoteWithConstraints (...)](/Docs/ApiReferences/Election%20Class/Election--countValidVoteWithConstraints.md): `int`  
+* [public Election->countVotes (...)](/Docs/ApiReferences/Election%20Class/Election--countVotes.md): `int`  
 * [public Election->electionSeats](/Docs/ApiReferences/Election%20Class/Election--electionSeats.md)  
-* [public Election->getCandidateObjectFromName (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getCandidateObjectFromName.md): `?CondorcetPHP\Condorcet\Candidate`  
-* [public Election->getCandidatesList ()](/Docs/ApiReferences/Election%20Class/public%20Election--getCandidatesList.md): `array`  
-* [public Election->getCandidatesListAsString ()](/Docs/ApiReferences/Election%20Class/public%20Election--getCandidatesListAsString.md): `array`  
-* [public Election->getChecksum ()](/Docs/ApiReferences/Election%20Class/public%20Election--getChecksum.md): `string`  
-* [public Election->getCondorcetLoser ()](/Docs/ApiReferences/Election%20Class/public%20Election--getCondorcetLoser.md): `?CondorcetPHP\Condorcet\Candidate`  
-* [public Election->getCondorcetWinner ()](/Docs/ApiReferences/Election%20Class/public%20Election--getCondorcetWinner.md): `?CondorcetPHP\Condorcet\Candidate`  
-* [public Election->getConstraints ()](/Docs/ApiReferences/Election%20Class/public%20Election--getConstraints.md): `array`  
-* [public Election->getExplicitFilteredPairwiseByTags (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getExplicitFilteredPairwiseByTags.md): `array`  
-* [public Election->getExplicitPairwise ()](/Docs/ApiReferences/Election%20Class/public%20Election--getExplicitPairwise.md): `array`  
-* [public Election->getGlobalTimer ()](/Docs/ApiReferences/Election%20Class/public%20Election--getGlobalTimer.md): `float`  
-* [public Election->getImplicitRankingRule ()](/Docs/ApiReferences/Election%20Class/public%20Election--getImplicitRankingRule.md): `bool`  
-* [public Election->getLastTimer ()](/Docs/ApiReferences/Election%20Class/public%20Election--getLastTimer.md): `float`  
-* [public Election->getLoser (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* [public Election->getNumberOfSeats ()](/Docs/ApiReferences/Election%20Class/public%20Election--getNumberOfSeats.md): `int`  
-* [public Election->getObjectVersion (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getObjectVersion.md): `string`  
-* [public Election->getPairwise ()](/Docs/ApiReferences/Election%20Class/public%20Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
-* [public Election->getResult (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
-* [public Election->getTimerManager ()](/Docs/ApiReferences/Election%20Class/public%20Election--getTimerManager.md): `CondorcetPHP\Condorcet\Timer\Manager`  
-* [public Election->getVotesList (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesList.md): `array`  
-* [public Election->getVotesListAsString (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesListAsString.md): `string`  
-* [public Election->getVotesListGenerator (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesListGenerator.md): `Generator`  
-* [public Election->getVotesValidUnderConstraintGenerator (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesValidUnderConstraintGenerator.md): `Generator`  
-* [public Election->getWinner (...)](/Docs/ApiReferences/Election%20Class/public%20Election--getWinner.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* [public Election->hasCandidate (...)](/Docs/ApiReferences/Election%20Class/public%20Election--hasCandidate.md): `bool`  
+* [public Election->getCandidateObjectFromName (...)](/Docs/ApiReferences/Election%20Class/Election--getCandidateObjectFromName.md): `?CondorcetPHP\Condorcet\Candidate`  
+* [public Election->getCandidatesList ()](/Docs/ApiReferences/Election%20Class/Election--getCandidatesList.md): `array`  
+* [public Election->getCandidatesListAsString ()](/Docs/ApiReferences/Election%20Class/Election--getCandidatesListAsString.md): `array`  
+* [public Election->getChecksum ()](/Docs/ApiReferences/Election%20Class/Election--getChecksum.md): `string`  
+* [public Election->getCondorcetLoser ()](/Docs/ApiReferences/Election%20Class/Election--getCondorcetLoser.md): `?CondorcetPHP\Condorcet\Candidate`  
+* [public Election->getCondorcetWinner ()](/Docs/ApiReferences/Election%20Class/Election--getCondorcetWinner.md): `?CondorcetPHP\Condorcet\Candidate`  
+* [public Election->getConstraints ()](/Docs/ApiReferences/Election%20Class/Election--getConstraints.md): `array`  
+* [public Election->getExplicitFilteredPairwiseByTags (...)](/Docs/ApiReferences/Election%20Class/Election--getExplicitFilteredPairwiseByTags.md): `array`  
+* [public Election->getExplicitPairwise ()](/Docs/ApiReferences/Election%20Class/Election--getExplicitPairwise.md): `array`  
+* [public Election->getGlobalTimer ()](/Docs/ApiReferences/Election%20Class/Election--getGlobalTimer.md): `float`  
+* [public Election->getImplicitRankingRule ()](/Docs/ApiReferences/Election%20Class/Election--getImplicitRankingRule.md): `bool`  
+* [public Election->getLastTimer ()](/Docs/ApiReferences/Election%20Class/Election--getLastTimer.md): `float`  
+* [public Election->getLoser (...)](/Docs/ApiReferences/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
+* [public Election->getNumberOfSeats ()](/Docs/ApiReferences/Election%20Class/Election--getNumberOfSeats.md): `int`  
+* [public Election->getObjectVersion (...)](/Docs/ApiReferences/Election%20Class/Election--getObjectVersion.md): `string`  
+* [public Election->getPairwise ()](/Docs/ApiReferences/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
+* [public Election->getResult (...)](/Docs/ApiReferences/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
+* [public Election->getTimerManager ()](/Docs/ApiReferences/Election%20Class/Election--getTimerManager.md): `CondorcetPHP\Condorcet\Timer\Manager`  
+* [public Election->getVotesList (...)](/Docs/ApiReferences/Election%20Class/Election--getVotesList.md): `array`  
+* [public Election->getVotesListAsString (...)](/Docs/ApiReferences/Election%20Class/Election--getVotesListAsString.md): `string`  
+* [public Election->getVotesListGenerator (...)](/Docs/ApiReferences/Election%20Class/Election--getVotesListGenerator.md): `Generator`  
+* [public Election->getVotesValidUnderConstraintGenerator (...)](/Docs/ApiReferences/Election%20Class/Election--getVotesValidUnderConstraintGenerator.md): `Generator`  
+* [public Election->getWinner (...)](/Docs/ApiReferences/Election%20Class/Election--getWinner.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
+* [public Election->hasCandidate (...)](/Docs/ApiReferences/Election%20Class/Election--hasCandidate.md): `bool`  
 * [virtual public Election->hash](/Docs/ApiReferences/Election%20Class/Election--hash.md)  
 * [public Election->implicitRankingRule](/Docs/ApiReferences/Election%20Class/Election--implicitRankingRule.md)  
-* [public Election->isVoteValidUnderConstraints (...)](/Docs/ApiReferences/Election%20Class/public%20Election--isVoteValidUnderConstraints.md): `bool`  
-* [public Election->isVoteWeightAllowed ()](/Docs/ApiReferences/Election%20Class/public%20Election--isVoteWeightAllowed.md): `bool`  
-* [public Election->parseCandidates (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseCandidates.md): `array`  
-* [public Election->parseVotes (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotes.md): `int`  
-* [public Election->parseVotesSafe (...)](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotesSafe.md): `int`  
-* [public Election->removeAllVotes ()](/Docs/ApiReferences/Election%20Class/public%20Election--removeAllVotes.md): `true`  
-* [public Election->removeCandidates (...)](/Docs/ApiReferences/Election%20Class/public%20Election--removeCandidates.md): `array`  
-* [public Election->removeExternalDataHandler ()](/Docs/ApiReferences/Election%20Class/public%20Election--removeExternalDataHandler.md): `bool`  
-* [public Election->removeVote (...)](/Docs/ApiReferences/Election%20Class/public%20Election--removeVote.md): `true`  
-* [public Election->removeVotesByTags (...)](/Docs/ApiReferences/Election%20Class/public%20Election--removeVotesByTags.md): `array`  
-* [public Election->setExternalDataHandler (...)](/Docs/ApiReferences/Election%20Class/public%20Election--setExternalDataHandler.md): `static`  
-* [public Election->setImplicitRanking (...)](/Docs/ApiReferences/Election%20Class/public%20Election--setImplicitRanking.md): `static`  
-* [public Election->setMethodOption (...)](/Docs/ApiReferences/Election%20Class/public%20Election--setMethodOption.md): `static`  
-* [public Election->setNumberOfSeats (...)](/Docs/ApiReferences/Election%20Class/public%20Election--setNumberOfSeats.md): `static`  
-* [public Election->setStateToVote ()](/Docs/ApiReferences/Election%20Class/public%20Election--setStateToVote.md): `true`  
-* [public Election->setStatsVerbosity (...)](/Docs/ApiReferences/Election%20Class/public%20Election--setStatsVerbosity.md): `static`  
+* [public Election->isVoteValidUnderConstraints (...)](/Docs/ApiReferences/Election%20Class/Election--isVoteValidUnderConstraints.md): `bool`  
+* [public Election->isVoteWeightAllowed ()](/Docs/ApiReferences/Election%20Class/Election--isVoteWeightAllowed.md): `bool`  
+* [public Election->parseCandidates (...)](/Docs/ApiReferences/Election%20Class/Election--parseCandidates.md): `array`  
+* [public Election->parseVotes (...)](/Docs/ApiReferences/Election%20Class/Election--parseVotes.md): `int`  
+* [public Election->parseVotesSafe (...)](/Docs/ApiReferences/Election%20Class/Election--parseVotesSafe.md): `int`  
+* [public Election->removeAllVotes ()](/Docs/ApiReferences/Election%20Class/Election--removeAllVotes.md): `true`  
+* [public Election->removeCandidates (...)](/Docs/ApiReferences/Election%20Class/Election--removeCandidates.md): `array`  
+* [public Election->removeExternalDataHandler ()](/Docs/ApiReferences/Election%20Class/Election--removeExternalDataHandler.md): `bool`  
+* [public Election->removeVote (...)](/Docs/ApiReferences/Election%20Class/Election--removeVote.md): `true`  
+* [public Election->removeVotesByTags (...)](/Docs/ApiReferences/Election%20Class/Election--removeVotesByTags.md): `array`  
+* [public Election->setExternalDataHandler (...)](/Docs/ApiReferences/Election%20Class/Election--setExternalDataHandler.md): `static`  
+* [public Election->setImplicitRanking (...)](/Docs/ApiReferences/Election%20Class/Election--setImplicitRanking.md): `static`  
+* [public Election->setMethodOption (...)](/Docs/ApiReferences/Election%20Class/Election--setMethodOption.md): `static`  
+* [public Election->setNumberOfSeats (...)](/Docs/ApiReferences/Election%20Class/Election--setNumberOfSeats.md): `static`  
+* [public Election->setStateToVote ()](/Docs/ApiReferences/Election%20Class/Election--setStateToVote.md): `true`  
+* [public Election->setStatsVerbosity (...)](/Docs/ApiReferences/Election%20Class/Election--setStatsVerbosity.md): `static`  
 * [public Election->state](/Docs/ApiReferences/Election%20Class/Election--state.md)  
 * [public Election->statsVerbosity](/Docs/ApiReferences/Election%20Class/Election--statsVerbosity.md)  
-* [public Election->sumValidVoteWeightsWithConstraints (...)](/Docs/ApiReferences/Election%20Class/public%20Election--sumValidVoteWeightsWithConstraints.md): `int`  
-* [public Election->sumVoteWeights (...)](/Docs/ApiReferences/Election%20Class/public%20Election--sumVoteWeights.md): `int`  
+* [public Election->sumValidVoteWeightsWithConstraints (...)](/Docs/ApiReferences/Election%20Class/Election--sumValidVoteWeightsWithConstraints.md): `int`  
+* [public Election->sumVoteWeights (...)](/Docs/ApiReferences/Election%20Class/Election--sumVoteWeights.md): `int`  
 * [public Election->voteWeightAllowed](/Docs/ApiReferences/Election%20Class/Election--voteWeightAllowed.md)  
 * [public Election->votesConstraints](/Docs/ApiReferences/Election%20Class/Election--votesConstraints.md)  
 
@@ -150,8 +150,8 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [final public readonly Result->byClass](/Docs/ApiReferences/Result%20Class/Result--byClass.md)  
 * [final public readonly Result->electionCondorcetVersion](/Docs/ApiReferences/Result%20Class/Result--electionCondorcetVersion.md)  
 * [final public readonly Result->fromMethod](/Docs/ApiReferences/Result%20Class/Result--fromMethod.md)  
-* [public Result->getObjectVersion (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getObjectVersion.md): `string`  
-* [public Result->getWarning (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getWarning.md): `array`  
+* [public Result->getObjectVersion (...)](/Docs/ApiReferences/Result%20Class/Result--getObjectVersion.md): `string`  
+* [public Result->getWarning (...)](/Docs/ApiReferences/Result%20Class/Result--getWarning.md): `array`  
 * [virtual public Result->isProportional](/Docs/ApiReferences/Result%20Class/Result--isProportional.md)  
 * [final public Result->methodOptions](/Docs/ApiReferences/Result%20Class/Result--methodOptions.md)  
 * [public readonly Result->originalRankingAsArrayString](/Docs/ApiReferences/Result%20Class/Result--originalRankingAsArrayString.md)  
@@ -174,39 +174,39 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public array` [$tags](/Docs/ApiReferences/Vote%20Class/Vote--tags.md)
 * `public string` [$hash](/Docs/ApiReferences/Vote%20Class/Vote--hash.md)
 
-* [public Vote->__construct (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--__construct.md)  
-* [public Vote->addTags (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--addTags.md): `bool`  
+* [public Vote->__construct (...)](/Docs/ApiReferences/Vote%20Class/Vote--__construct.md)  
+* [public Vote->addTags (...)](/Docs/ApiReferences/Vote%20Class/Vote--addTags.md): `bool`  
 * [final public Vote->countCandidates](/Docs/ApiReferences/Vote%20Class/Vote--countCandidates.md)  
-* [public Vote->countLinks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countLinks.md): `int`  
-* [public Vote->countRanks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--countRanks.md): `int`  
+* [public Vote->countLinks ()](/Docs/ApiReferences/Vote%20Class/Vote--countLinks.md): `int`  
+* [public Vote->countRanks ()](/Docs/ApiReferences/Vote%20Class/Vote--countRanks.md): `int`  
 * [virtual public Vote->createdAt](/Docs/ApiReferences/Vote%20Class/Vote--createdAt.md)  
-* [public Vote->getAllCandidates (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getAllCandidates.md): `array`  
-* [public Vote->getContextualRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRanking.md): `array`  
-* [public Vote->getContextualRankingAsString (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getContextualRankingAsString.md): `array`  
-* [public Vote->getLinks ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--getLinks.md): `array`  
-* [public Vote->getObjectVersion (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getObjectVersion.md): `string`  
-* [public Vote->getRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getRanking.md): `array`  
-* [public Vote->getSimpleRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getSimpleRanking.md): `string`  
-* [public Vote->getTagsAsString ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--getTagsAsString.md): `string`  
-* [public Vote->getWeight (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--getWeight.md): `int`  
+* [public Vote->getAllCandidates (...)](/Docs/ApiReferences/Vote%20Class/Vote--getAllCandidates.md): `array`  
+* [public Vote->getContextualRanking (...)](/Docs/ApiReferences/Vote%20Class/Vote--getContextualRanking.md): `array`  
+* [public Vote->getContextualRankingAsString (...)](/Docs/ApiReferences/Vote%20Class/Vote--getContextualRankingAsString.md): `array`  
+* [public Vote->getLinks ()](/Docs/ApiReferences/Vote%20Class/Vote--getLinks.md): `array`  
+* [public Vote->getObjectVersion (...)](/Docs/ApiReferences/Vote%20Class/Vote--getObjectVersion.md): `string`  
+* [public Vote->getRanking (...)](/Docs/ApiReferences/Vote%20Class/Vote--getRanking.md): `array`  
+* [public Vote->getSimpleRanking (...)](/Docs/ApiReferences/Vote%20Class/Vote--getSimpleRanking.md): `string`  
+* [public Vote->getTagsAsString ()](/Docs/ApiReferences/Vote%20Class/Vote--getTagsAsString.md): `string`  
+* [public Vote->getWeight (...)](/Docs/ApiReferences/Vote%20Class/Vote--getWeight.md): `int`  
 * [final public Vote->hash](/Docs/ApiReferences/Vote%20Class/Vote--hash.md)  
-* [public Vote->haveLink (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--haveLink.md): `bool`  
+* [public Vote->haveLink (...)](/Docs/ApiReferences/Vote%20Class/Vote--haveLink.md): `bool`  
 * [final public Vote->rankingHistory](/Docs/ApiReferences/Vote%20Class/Vote--rankingHistory.md)  
-* [public Vote->removeAllTags ()](/Docs/ApiReferences/Vote%20Class/public%20Vote--removeAllTags.md): `true`  
-* [public Vote->removeCandidate (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--removeCandidate.md): `true`  
-* [public Vote->removeTags (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--removeTags.md): `array`  
-* [public Vote->setRanking (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--setRanking.md): `static`  
-* [public Vote->setWeight (...)](/Docs/ApiReferences/Vote%20Class/public%20Vote--setWeight.md): `int`  
+* [public Vote->removeAllTags ()](/Docs/ApiReferences/Vote%20Class/Vote--removeAllTags.md): `true`  
+* [public Vote->removeCandidate (...)](/Docs/ApiReferences/Vote%20Class/Vote--removeCandidate.md): `true`  
+* [public Vote->removeTags (...)](/Docs/ApiReferences/Vote%20Class/Vote--removeTags.md): `array`  
+* [public Vote->setRanking (...)](/Docs/ApiReferences/Vote%20Class/Vote--setRanking.md): `static`  
+* [public Vote->setWeight (...)](/Docs/ApiReferences/Vote%20Class/Vote--setWeight.md): `int`  
 * [final public Vote->tags](/Docs/ApiReferences/Vote%20Class/Vote--tags.md)  
 * [final public Vote->updatedAt](/Docs/ApiReferences/Vote%20Class/Vote--updatedAt.md)  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise Class  
 
-* [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/ApiReferences/Algo_Pairwise_Pairwise%20Class/public%20Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
+* [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/ApiReferences/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise Class  
 
-* [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/ApiReferences/Algo_Pairwise_Pairwise%20Class/public%20Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
+* [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/ApiReferences/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Tools\Combinations Class  
 
@@ -227,7 +227,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF`  
 * `case Algo\Tools\StvQuotas::IMPERIALI`  
 
-* [public static Algo\Tools\StvQuotas::fromString (...)](/Docs/ApiReferences/Algo_Tools_StvQuotas%20Class/public%20static%20Algo_Tools_StvQuotas--fromString.md): `self`  
+* [public static Algo\Tools\StvQuotas::fromString (...)](/Docs/ApiReferences/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
 
 ### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver Class  
 
@@ -239,12 +239,12 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 
-* [public Timer\Manager->getHistory ()](/Docs/ApiReferences/Timer_Manager%20Class/public%20Timer_Manager--getHistory.md): `array`  
-* [public Timer\Manager->getObjectVersion (...)](/Docs/ApiReferences/Timer_Manager%20Class/public%20Timer_Manager--getObjectVersion.md): `string`  
+* [public Timer\Manager->getHistory ()](/Docs/ApiReferences/Timer_Manager%20Class/Timer_Manager--getHistory.md): `array`  
+* [public Timer\Manager->getObjectVersion (...)](/Docs/ApiReferences/Timer_Manager%20Class/Timer_Manager--getObjectVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CivsFormat Class  
 
-* [public static Tools\Converters\CivsFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CivsFormat%20Class/public%20static%20Tools_Converters_CivsFormat--createFromElection.md): `string|true`  
+* [public static Tools\Converters\CivsFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CivsFormat%20Class/Tools_Converters_CivsFormat--createFromElection.md): `string|true`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
@@ -252,18 +252,18 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public int` [$NumberOfSeats](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--NumberOfSeats.md)
 
 * [final public readonly Tools\Converters\DavidHillFormat->NumberOfSeats](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--NumberOfSeats.md)  
-* [public Tools\Converters\DavidHillFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--__construct.md)  
+* [public Tools\Converters\DavidHillFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--__construct.md)  
 * [final public readonly Tools\Converters\DavidHillFormat->candidates](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)  
-* [public Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/public%20Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* [public Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DebianFormat Class  
 
 * `readonly public array` [$candidates](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--candidates.md)
 * `readonly public array` [$votes](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--votes.md)
 
-* [public Tools\Converters\DebianFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--__construct.md)  
+* [public Tools\Converters\DebianFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--__construct.md)  
 * [final public readonly Tools\Converters\DebianFormat->candidates](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--candidates.md)  
-* [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* [public Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 * [final public readonly Tools\Converters\DebianFormat->votes](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--votes.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat Class  
@@ -276,16 +276,16 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public bool` [$CandidatesParsedFromVotes](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)
 * `readonly public int` [$invalidBlocksCount](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)
 
-* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
-* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20static%20Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
+* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
+* [public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->CandidatesParsedFromVotes](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)  
-* [public Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
+* [public Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->candidates](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->implicitRanking](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->invalidBlocksCount](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->numberOfSeats](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--numberOfSeats.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->parameters](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)  
-* [public Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* [public Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->voteWeight](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer Class  
@@ -295,13 +295,13 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public ?int` [$maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
 * `public int|float` [$tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
-* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
-* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
 * [public Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
 * [public Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
 * [public Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
-* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
-* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
 * [public Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer Class  
@@ -311,19 +311,19 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public ?int` [$maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
 * `public int|float` [$tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
-* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--__construct.md)  
-* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
-* [public Tools\Randomizers\VoteRandomizer->getNewVote ()](/Docs/ApiReferences/Tools_Randomizers_VoteRandomizer%20Class/public%20Tools_Randomizers_VoteRandomizer--getNewVote.md): `CondorcetPHP\Condorcet\Vote`  
+* [public Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* [public Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* [public Tools\Randomizers\VoteRandomizer->getNewVote ()](/Docs/ApiReferences/Tools_Randomizers_VoteRandomizer%20Class/Tools_Randomizers_VoteRandomizer--getNewVote.md): `CondorcetPHP\Condorcet\Vote`  
 * [public Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
 * [public Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
 * [public Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
-* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
-* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/public%20Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+* [public Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* [public Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
 * [public Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/ApiReferences/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
 
 ### CondorcetPHP\Condorcet\Utils\CondorcetUtil Class  
 
-* [public static Utils\CondorcetUtil::format (...)](/Docs/ApiReferences/Utils_CondorcetUtil%20Class/public%20static%20Utils_CondorcetUtil--format.md): `mixed`  
+* [public static Utils\CondorcetUtil::format (...)](/Docs/ApiReferences/Utils_CondorcetUtil%20Class/Utils_CondorcetUtil--format.md): `mixed`  
 
 
 

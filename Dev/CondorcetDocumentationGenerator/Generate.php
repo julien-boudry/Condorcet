@@ -27,14 +27,7 @@ class Generate
 
     public static function makeFilename(ReflectionMethod|ReflectionProperty $page): string
     {
-        $modifiers = '';
-
-        if ($page instanceof ReflectionMethod) {
-            $modifiers .= self::getModifiersName($page) . ' ';
-        }
-
-        return $modifiers .
-                str_replace('\\', '_', self::simpleClass($page->class)) . '--' . $page->name .
+        return str_replace('\\', '_', self::simpleClass($page->class)) . '--' . $page->name .
                 '.md';
     }
 
@@ -541,13 +534,7 @@ class Generate
 
     protected function getUrl(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        $modifiers = '';
-
-        if ($reflection instanceof ReflectionMethod) {
-            $modifiers .= self::getModifiersName($reflection) . ' ';
-        }
-
-        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . $modifiers . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
+        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
         $url = str_replace(' ', '%20', $url);
 
         return $this->pathBase . '/' . $url;

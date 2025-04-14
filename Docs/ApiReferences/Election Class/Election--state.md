@@ -14,4 +14,4 @@ Get the election process level.
 
 ### Related method(s)      
 
-* [Election::setStateToVote](/Docs/ApiReferences/Election%20Class/public%20Election--setStateToVote.md)    
+* [Election::setStateToVote](/Docs/ApiReferences/Election%20Class/Election--setStateToVote.md)    

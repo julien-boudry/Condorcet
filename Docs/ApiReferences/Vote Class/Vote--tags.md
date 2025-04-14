@@ -14,6 +14,6 @@ Get the registered tags for this Vote.
 
 ### Related method(s)      
 
-* [Vote::getTagsAsString](/Docs/ApiReferences/Vote%20Class/public%20Vote--getTagsAsString.md)    
-* [Vote::addTags](/Docs/ApiReferences/Vote%20Class/public%20Vote--addTags.md)    
-* [Vote::removeTags](/Docs/ApiReferences/Vote%20Class/public%20Vote--removeTags.md)    
+* [Vote::getTagsAsString](/Docs/ApiReferences/Vote%20Class/Vote--getTagsAsString.md)    
+* [Vote::addTags](/Docs/ApiReferences/Vote%20Class/Vote--addTags.md)    
+* [Vote::removeTags](/Docs/ApiReferences/Vote%20Class/Vote--removeTags.md)    
