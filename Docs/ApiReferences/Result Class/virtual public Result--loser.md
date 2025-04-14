@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-virtual public Result->loser : CondorcetPHP\Condorcet\Candidate|array|null
+virtual public CondorcetPHP\Condorcet\Candidate|array|null Result->loser 
 ```
 
 ('Get the election loser if any')

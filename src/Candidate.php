@@ -139,7 +139,7 @@ class Candidate implements \Stringable
     /**
      * The timestamp corresponding of the last naming change.
      * @api
-     * @see Candidate::cratedAt, Candidate::nameHistory
+     * @see Candidate::createdAt, Candidate::nameHistory
      */
     public float $updatedAt {
         get => end($this->nameHistory)['timestamp']; // @phpstan-ignore offsetAccess.nonOffsetAccessible

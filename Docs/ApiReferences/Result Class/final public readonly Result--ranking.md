@@ -1,11 +1,11 @@
-## final public readonly Result::pairwise
+## final public readonly Result::ranking
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L26)
 
 ### Description    
 
 ```php
-final public readonly array Result->pairwise 
+final public readonly array Result->ranking 
 ```
 
 

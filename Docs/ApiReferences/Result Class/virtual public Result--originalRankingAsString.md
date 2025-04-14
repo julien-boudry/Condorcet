@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-virtual public Result->originalRankingAsString : string
+virtual public string Result->originalRankingAsString 
 ```
 
 Get immutable result as a string

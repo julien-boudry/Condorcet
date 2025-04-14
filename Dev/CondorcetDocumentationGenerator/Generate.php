@@ -117,13 +117,14 @@ class Generate
 
     public static function computeRepresentationAsPHP(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        $option = false;
         $str = '';
         $str = $reflection instanceof ReflectionMethod ? '(' : '';
         $i = 0;
 
 
         if ($reflection instanceof ReflectionMethod && $reflection->getNumberOfParameters() > 0) {
+            $option = false;
+
             foreach ($reflection->getParameters() as $value) {
                 $str .= ' ';
                 $str .= ($value->isOptional() && !$option) ? '[' : '';
@@ -137,19 +138,46 @@ class Generate
                 ($value->isOptional() && !$option) ? $option = true : null;
                 $i++;
             }
+
+            if ($option) {
+                $str .= ']';
+            }
         }
 
-        if ($option) {
-            $str .= ']';
+        $r = "```php\n";
+
+        if ($reflection instanceof ReflectionMethod) {
+            $str .= ' )';
+
+            $returnType = $reflection->getReturnType();
+
+            $r .=   self::getModifiersName($reflection) .
+                    ' ' .
+                    self::simpleClass($reflection->class) .
+                    ($reflection->isStatic() ? '::' : '->') .
+                    $reflection->name .
+                    ' ' .
+                    $str .
+                    (self::getTypeAsString($returnType) !== null ? ': ' . $returnType : '')
+                ;
+        }
+        elseif ($reflection instanceof ReflectionProperty) {
+            $type = $reflection->getType();
+
+            $r .=   self::getModifiersName($reflection) .
+                    ' ' .
+                    (self::getTypeAsString($type) !== null ? $type . ' ' : '') .
+                    self::simpleClass($reflection->class) .
+                    ($reflection->isStatic() ? '::' : '->') .
+                    $reflection->name .
+                    ' ' .
+                    $str
+                ;
+        } else {
+            throw new \Error('Unknown type');
         }
 
-        $str .= $reflection instanceof ReflectionMethod ? ' )' : '';
-
-        $returnType = $reflection instanceof ReflectionMethod ? $reflection->getReturnType() : $reflection->getType();
-
-        $r = "```php\n" .
-                self::getModifiersName($reflection) . ' ' . self::simpleClass($reflection->class) . (($reflection->isStatic()) ? '::' : '->') . $reflection->name . ' ' . $str . (self::getTypeAsString($returnType) !== null ? ': ' .$returnType : '') .
-                "\n```";
+        $r .= "\n```";
 
         return $r;
     }
@@ -189,7 +217,6 @@ class Generate
 
             foreach ($pagesList as $onePage) {
 
-                $docBlock = $onePage->getDocComment();
                 $phpDocNode = false;
 
                 $isPublic = $this->hasDocBlockTag('@api', $onePage);
@@ -230,8 +257,7 @@ class Generate
 
             $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
 
-            $pagesList = $reflectionClass->getMethods();
-            $pagesList += $reflectionClass->getProperties();
+            $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
 
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
@@ -245,6 +271,7 @@ class Generate
 
             foreach ($pagesList as $onePage) {
                 $isPublic = $this->hasDocBlockTag('@api', $onePage);
+
 
                 $pageProperties = $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
                     'type' => $onePage instanceof ReflectionMethod ? 'method' : 'property',
@@ -348,7 +375,7 @@ class Generate
 
         // Return Value
 
-        if ($this->hasDocBlockTag('@return', $onePage)) {
+        if ($onePage instanceof ReflectionMethod && $this->hasDocBlockTag('@return', $onePage)) {
             $returnDescription = $this->getDocBlockTagDescriptionOrValue('@return', $onePage);
             $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
 

@@ -1,0 +1,17 @@
+## public Election::state
+
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L25)
+
+### Description    
+
+```php
+public CondorcetPHP\Condorcet\ElectionProcess\ElectionState Election->state 
+```
+
+Get the election process level.
+    
+---------------------------------------
+
+### Related method(s)      
+
+* [Election::setStateToVote](/Docs/ApiReferences/Election%20Class/public%20Election--setStateToVote.md)    

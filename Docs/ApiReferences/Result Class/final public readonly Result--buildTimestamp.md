@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-final public readonly Result->buildTimestamp : float
+final public readonly float Result->buildTimestamp 
 ```
 
 The timestamp of this result at build time.

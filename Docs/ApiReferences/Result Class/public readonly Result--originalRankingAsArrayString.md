@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-public readonly Result->originalRankingAsArrayString : array
+public readonly array Result->originalRankingAsArrayString 
 ```
 
 Get immutable result as an array
