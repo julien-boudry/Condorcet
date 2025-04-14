@@ -14,4 +14,4 @@ Get the timestamp corresponding of the creation of this vote.
 
 ### Related method(s)      
 
-* [Candidate::updatedAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--updatedAt.md)    
+* [Candidate::updatedAt](/Docs/ApiReferences/Candidate%20Class/Candidate--updatedAt.md)    

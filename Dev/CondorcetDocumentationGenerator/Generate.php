@@ -25,11 +25,16 @@ class Generate
 
     // Static - Translators
 
-    public static function makeFilename(ReflectionMethod|ReflectionProperty $method): string
+    public static function makeFilename(ReflectionMethod|ReflectionProperty $page): string
     {
-        return self::getModifiersName($method) .
-                ' ' .
-                str_replace('\\', '_', self::simpleClass($method->class)) . '--' . $method->name .
+        $modifiers = '';
+
+        if ($page instanceof ReflectionMethod) {
+            $modifiers .= self::getModifiersName($page) . ' ';
+        }
+
+        return $modifiers .
+                str_replace('\\', '_', self::simpleClass($page->class)) . '--' . $page->name .
                 '.md';
     }
 
@@ -536,7 +541,13 @@ class Generate
 
     protected function getUrl(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . self::getModifiersName($reflection) . ' ' . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
+        $modifiers = '';
+
+        if ($reflection instanceof ReflectionMethod) {
+            $modifiers .= self::getModifiersName($reflection) . ' ';
+        }
+
+        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . $modifiers . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
         $url = str_replace(' ', '%20', $url);
 
         return $this->pathBase . '/' . $url;

@@ -14,5 +14,5 @@ Return an history of each naming change, with timestamp.
 
 ### Related method(s)      
 
-* [Candidate::createdAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--createdAt.md)    
-* [Candidate::updatedAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--updatedAt.md)    
+* [Candidate::createdAt](/Docs/ApiReferences/Candidate%20Class/Candidate--createdAt.md)    
+* [Candidate::updatedAt](/Docs/ApiReferences/Candidate%20Class/Candidate--updatedAt.md)    

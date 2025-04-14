@@ -14,4 +14,4 @@ Does the result come from a proportional method
 
 ### Related method(s)      
 
-* [Result::seats](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--seats.md)    
+* [Result::seats](/Docs/ApiReferences/Result%20Class/Result--seats.md)    

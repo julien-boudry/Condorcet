@@ -18,5 +18,5 @@ A verbosity level.
 
 ### Related method(s)      
 
-* [Election::statsVerbosity](/Docs/ApiReferences/Election%20Class/public%20Election--statsVerbosity.md)    
-* [Result::statsVerbosity](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--statsVerbosity.md)    
+* [Election::statsVerbosity](/Docs/ApiReferences/Election%20Class/Election--statsVerbosity.md)    
+* [Result::statsVerbosity](/Docs/ApiReferences/Result%20Class/Result--statsVerbosity.md)    

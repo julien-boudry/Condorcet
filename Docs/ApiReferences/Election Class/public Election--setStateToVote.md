@@ -30,4 +30,4 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Related method(s)      
 
-* [Election::state](/Docs/ApiReferences/Election%20Class/public%20Election--state.md)    
+* [Election::state](/Docs/ApiReferences/Election%20Class/Election--state.md)    

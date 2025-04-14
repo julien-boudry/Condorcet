@@ -14,5 +14,5 @@ The timestamp corresponding of the last naming change.
 
 ### Related method(s)      
 
-* [Candidate::createdAt](/Docs/ApiReferences/Candidate%20Class/virtual%20public%20Candidate--createdAt.md)    
-* [Candidate::nameHistory](/Docs/ApiReferences/Candidate%20Class/public%20Candidate--nameHistory.md)    
+* [Candidate::createdAt](/Docs/ApiReferences/Candidate%20Class/Candidate--createdAt.md)    
+* [Candidate::nameHistory](/Docs/ApiReferences/Candidate%20Class/Candidate--nameHistory.md)    

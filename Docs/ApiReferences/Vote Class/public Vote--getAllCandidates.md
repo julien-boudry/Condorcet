@@ -25,4 +25,4 @@ An election already linked to the Vote.
 ### Related method(s)      
 
 * [Vote::getRanking](/Docs/ApiReferences/Vote%20Class/public%20Vote--getRanking.md)    
-* [Vote::countCandidates](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--countCandidates.md)    
+* [Vote::countCandidates](/Docs/ApiReferences/Vote%20Class/Vote--countCandidates.md)    

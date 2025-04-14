@@ -26,4 +26,4 @@ Option Value.
 
 ### Related method(s)      
 
-* [Result::methodOptions](/Docs/ApiReferences/Result%20Class/final%20public%20Result--methodOptions.md)    
+* [Result::methodOptions](/Docs/ApiReferences/Result%20Class/Result--methodOptions.md)    

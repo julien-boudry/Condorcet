@@ -15,4 +15,4 @@ Null will deactivate this functionality. An integer will set the limit.
 
 ### Related method(s)      
 
-* [Election::maxParseIteration](/Docs/ApiReferences/Election%20Class/public%20static%20Election--maxParseIteration.md)    
+* [Election::maxParseIteration](/Docs/ApiReferences/Election%20Class/Election--maxParseIteration.md)    

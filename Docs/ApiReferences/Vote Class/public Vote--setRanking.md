@@ -30,7 +30,7 @@ Set your own timestamp metadata on Ranking. Your timestamp must be > than last r
 ### Related method(s)      
 
 * [Vote::getRanking](/Docs/ApiReferences/Vote%20Class/public%20Vote--getRanking.md)    
-* [Vote::rankingHistory](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--rankingHistory.md)    
+* [Vote::rankingHistory](/Docs/ApiReferences/Vote%20Class/Vote--rankingHistory.md)    
 * [Vote::__construct](/Docs/ApiReferences/Vote%20Class/public%20Vote--__construct.md)    
 
 ---------------------------------------

@@ -21,4 +21,4 @@ Get number of Seats for STV methods.
 ### Related method(s)      
 
 * [Election::setNumberOfSeats](/Docs/ApiReferences/Election%20Class/public%20Election--setNumberOfSeats.md)    
-* [Result::seats](/Docs/ApiReferences/Result%20Class/final%20public%20readonly%20Result--seats.md)    
+* [Result::seats](/Docs/ApiReferences/Result%20Class/Result--seats.md)    
