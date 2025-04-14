@@ -29,7 +29,7 @@ test('simple smith set example', function (): void {
 
     // All candidates should be ranked equally at rank 1
     expect($result->ranking)->toHaveCount(1)->toHaveKey(1);
-    expect($result->ranking[1])->toBe([$candidateA, $candidateB, $candidateC])->toBe($result->winner);
+    expect($result->ranking[1])->toBe([$candidateA, $candidateB, $candidateC])->toBe($result->Winner);
 });
 
 test('smith set with condorcet winner', function (): void {
@@ -51,8 +51,8 @@ test('smith set with condorcet winner', function (): void {
     expect($result->stats['smith_set'][0])->toBe((string) $candidateA);
 
     expect($result->ranking)->toHaveCount(2)->toHaveKeys([1, 2]);
-    expect($result->ranking[1])->toBe([$candidateA])->toContain($result->winner);
-    expect($result->ranking[2])->toBe([$candidateB, $candidateC])->toBe($result->loser);
+    expect($result->ranking[1])->toBe([$candidateA])->toContain($result->Winner);
+    expect($result->ranking[2])->toBe([$candidateB, $candidateC])->toBe($result->Loser);
 });
 
 test('smith set with two candidates', function (): void {
@@ -72,8 +72,8 @@ test('smith set with two candidates', function (): void {
 
     // A beats B, so the Smith set should contain just A
     expect($result->ranking)->toHaveCount(2)->toHaveKeys([1, 2]);
-    expect($result->ranking[1])->toBe([$candidateA])->toContain($result->winner);
-    expect($result->ranking[2])->toBe([$candidateB])->toContain($result->loser);
+    expect($result->ranking[1])->toBe([$candidateA])->toContain($result->Winner);
+    expect($result->ranking[2])->toBe([$candidateB])->toContain($result->Loser);
 });
 
 test('smith set with a clear top set', function (): void {
@@ -99,8 +99,8 @@ test('smith set with a clear top set', function (): void {
 
     // A and B should be ranked equally at rank 1, C and D at rank 2
     expect($result->ranking)->toHaveCount(2);
-    expect($result->rankingAsArray[1])->toBe([$candidateA, $candidateB])->toBe($result->winner);
-    expect($result->rankingAsArray[2])->toBe([$candidateC, $candidateD])->toBe($result->loser);
+    expect($result->rankingAsArray[1])->toBe([$candidateA, $candidateB])->toBe($result->Winner);
+    expect($result->rankingAsArray[2])->toBe([$candidateC, $candidateD])->toBe($result->Loser);
 });
 
 // Example from https://electowiki.org/wiki/Smith_set

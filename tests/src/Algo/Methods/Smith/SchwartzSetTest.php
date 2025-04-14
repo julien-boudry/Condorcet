@@ -25,7 +25,7 @@ test('schwartz set with clear condorcet winner', function (): void {
     $result = $this->election->getResult('Schwartz set');
     expect($result->stats->getEntry('schwartz_set'))->toBe(['A']);
     expect($result->rankingAsArrayString)->toBe([1 => 'A', 2 => ['B', 'C']]);
-    expect($result->winner->name)->toBe('A');
+    expect($result->Winner->name)->toBe('A');
 });
 
 /**

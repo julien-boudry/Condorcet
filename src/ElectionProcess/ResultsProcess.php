@@ -135,7 +135,7 @@ trait ResultsProcess
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
-            return $this->getResult($algo)->winner;
+            return $this->getResult($algo)->Winner;
         }
     }
 /**
@@ -167,7 +167,7 @@ trait ResultsProcess
 
             return ($result === null) ? null : $this->getCandidateObjectFromKey($result);
         } else {
-            return $this->getResult($algo)->loser;
+            return $this->getResult($algo)->Loser;
         }
     }
 /**

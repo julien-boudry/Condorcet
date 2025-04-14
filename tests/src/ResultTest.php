@@ -93,7 +93,7 @@ test('get winner', function (): void {
             c > a > b * 2
         ');
 
-    expect($this->election1->getResult()->winner)->toEqual('c');
+    expect($this->election1->getResult()->Winner)->toEqual('c');
     expect($this->election1->getResult()->CondorcetWinner)->toEqual('c');
 });
 
@@ -110,7 +110,7 @@ test('get loser', function (): void {
             Knoxville > Chattanooga > Nashville * 17
         ');
 
-    expect($this->election1->getResult()->loser)->toEqual('Memphis');
+    expect($this->election1->getResult()->Loser)->toEqual('Memphis');
     expect($this->election1->getResult()->CondorcetLoser)->toEqual('Memphis');
 });
 

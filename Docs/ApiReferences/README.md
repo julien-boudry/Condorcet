@@ -136,14 +136,16 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public array` [$originalRankingAsArrayString](/Docs/ApiReferences/Result%20Class/Result--originalRankingAsArrayString.md)
 * `public string` [$originalRankingAsString](/Docs/ApiReferences/Result%20Class/Result--originalRankingAsString.md)
 * `readonly public array` [$pairwise](/Docs/ApiReferences/Result%20Class/Result--pairwise.md)
-* `public CondorcetPHP\Condorcet\Candidate|array|null` [$winner](/Docs/ApiReferences/Result%20Class/Result--winner.md)
-* `public CondorcetPHP\Condorcet\Candidate|array|null` [$loser](/Docs/ApiReferences/Result%20Class/Result--loser.md)
+* `public CondorcetPHP\Condorcet\Candidate|array|null` [$Winner](/Docs/ApiReferences/Result%20Class/Result--Winner.md)
+* `public CondorcetPHP\Condorcet\Candidate|array|null` [$Loser](/Docs/ApiReferences/Result%20Class/Result--Loser.md)
 * `readonly public float` [$buildTimestamp](/Docs/ApiReferences/Result%20Class/Result--buildTimestamp.md)
 * `readonly public string` [$electionCondorcetVersion](/Docs/ApiReferences/Result%20Class/Result--electionCondorcetVersion.md)
 * `public bool` [$isProportional](/Docs/ApiReferences/Result%20Class/Result--isProportional.md)
 
 * [final public readonly Result->CondorcetLoser](/Docs/ApiReferences/Result%20Class/Result--CondorcetLoser.md)  
 * [final public readonly Result->CondorcetWinner](/Docs/ApiReferences/Result%20Class/Result--CondorcetWinner.md)  
+* [virtual public Result->Loser](/Docs/ApiReferences/Result%20Class/Result--Loser.md)  
+* [virtual public Result->Winner](/Docs/ApiReferences/Result%20Class/Result--Winner.md)  
 * [final public readonly Result->buildTimestamp](/Docs/ApiReferences/Result%20Class/Result--buildTimestamp.md)  
 * [final public readonly Result->byClass](/Docs/ApiReferences/Result%20Class/Result--byClass.md)  
 * [final public readonly Result->electionCondorcetVersion](/Docs/ApiReferences/Result%20Class/Result--electionCondorcetVersion.md)  
@@ -151,7 +153,6 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Result->getObjectVersion (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getObjectVersion.md): `string`  
 * [public Result->getWarning (...)](/Docs/ApiReferences/Result%20Class/public%20Result--getWarning.md): `array`  
 * [virtual public Result->isProportional](/Docs/ApiReferences/Result%20Class/Result--isProportional.md)  
-* [virtual public Result->loser](/Docs/ApiReferences/Result%20Class/Result--loser.md)  
 * [final public Result->methodOptions](/Docs/ApiReferences/Result%20Class/Result--methodOptions.md)  
 * [public readonly Result->originalRankingAsArrayString](/Docs/ApiReferences/Result%20Class/Result--originalRankingAsArrayString.md)  
 * [virtual public Result->originalRankingAsString](/Docs/ApiReferences/Result%20Class/Result--originalRankingAsString.md)  
@@ -163,7 +164,6 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [final public readonly Result->seats](/Docs/ApiReferences/Result%20Class/Result--seats.md)  
 * [public readonly Result->stats](/Docs/ApiReferences/Result%20Class/Result--stats.md)  
 * [final public readonly Result->statsVerbosity](/Docs/ApiReferences/Result%20Class/Result--statsVerbosity.md)  
-* [virtual public Result->winner](/Docs/ApiReferences/Result%20Class/Result--winner.md)  
 
 ### CondorcetPHP\Condorcet\Vote Class  
 
@@ -2599,8 +2599,8 @@ _Including above methods from public API_
 * readonly public array $originalRankingAsArrayString
 * public string $originalRankingAsString
 * readonly public array $pairwise
-* public CondorcetPHP\Condorcet\Candidate|array|null $winner
-* public CondorcetPHP\Condorcet\Candidate|array|null $loser
+* public CondorcetPHP\Condorcet\Candidate|array|null $Winner
+* public CondorcetPHP\Condorcet\Candidate|array|null $Loser
 * readonly public float $buildTimestamp
 * readonly public string $electionCondorcetVersion
 * public bool $isProportional
@@ -2608,6 +2608,8 @@ _Including above methods from public API_
 
 * public CondorcetLoser ()  
 * public CondorcetWinner ()  
+* public Loser ()  
+* public Winner ()  
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $rawRanking, CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats, ?int $seats = null, array $methodOptions = [])  
 * public addWarning (int $type, ?string $msg = null): true  
 * public buildTimestamp ()  
@@ -2620,7 +2622,6 @@ _Including above methods from public API_
 * public getWarning (?int $type = null): array  
 * public isProportional ()  
 * public key (): int  
-* public loser ()  
 * public methodOptions ()  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
@@ -2640,7 +2641,6 @@ _Including above methods from public API_
 * public stats ()  
 * public statsVerbosity ()  
 * public valid (): bool  
-* public winner ()  
 * protected ResultIterator ()  
 * protected makeUserRanking (CondorcetPHP\Condorcet\Election $election): array  
 * protected objectVersion ()  

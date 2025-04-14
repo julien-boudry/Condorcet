@@ -288,9 +288,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * ('Get the election winner if any')
      * Contain Candidate object. Null if there are no available winner. Or an array with multiples winners.
      * @api
-     * @see Result::loser, Election::getWinner
+     * @see Result::Loser, Election::getWinner
      */
-    public array|Candidate|null $winner {
+    public array|Candidate|null $Winner {
         get => CondorcetUtil::format($this[1], false);
     }
 
@@ -298,9 +298,9 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * ('Get the election loser if any')
      * Contain Candidate object. Null if there are no available loser. Or an array with multiples losers.
      * @api
-     * @see Result::winner, Election::getWinner
+     * @see Result::Winner, Election::getWinner
      */
-    public array|Candidate|null $loser {
+    public array|Candidate|null $Loser {
         get => CondorcetUtil::format($this[\count($this)], false);
     }
 

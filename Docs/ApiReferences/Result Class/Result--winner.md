@@ -1,11 +1,11 @@
-## virtual public Result::winner
+## virtual public Result::Winner
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L26)
 
 ### Description    
 
 ```php
-virtual public CondorcetPHP\Condorcet\Candidate|array|null Result->winner 
+virtual public CondorcetPHP\Condorcet\Candidate|array|null Result->Winner 
 ```
 
 ('Get the election winner if any')
@@ -15,5 +15,5 @@ Contain Candidate object. Null if there are no available winner. Or an array wit
 
 ### Related method(s)      
 
-* [Result::loser](/Docs/ApiReferences/Result%20Class/Result--loser.md)    
+* [Result::Loser](/Docs/ApiReferences/Result%20Class/Result--Loser.md)    
 * [Election::getWinner](/Docs/ApiReferences/Election%20Class/public%20Election--getWinner.md)    
