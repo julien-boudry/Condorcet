@@ -206,94 +206,51 @@ class Generate
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = array_filter($FullClassList, static fn(string $value): bool => !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks'));
 
-        $inDoc = 0;
-        $non_inDoc = 0;
-        $total_pages = 0;
-        $total_nonInternalMethods = 0;
-
         // Warnings
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new ReflectionClass($FullClass);
             $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
-
-            foreach ($pagesList as $onePage) {
-
-                $phpDocNode = false;
-
-                $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
-
-                if (!$onePage->isPublic() && $isPublicApi) {
-                    var_dump('Has Public API tag but is not public: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
-                }
-                elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
-                    // continue
-                } elseif ($onePage->isPublic() && $isPublicApi) {
-                    $inDoc++;
-
-                    if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
-                        $docBlocParams = $this->getDocBlockParameters($onePage);
-
-                        foreach ($onePage->getParameters() as $oneParameter) {
-                            if (empty($docBlocParams[$oneParameter->getName()])) {
-                                var_dump('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
-                            }
-                        }
-                    }
-
-                    if (empty($this->getDocBlockDescription($onePage)) && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
-                        var_dump('Description is empty: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
-                    }
-                } elseif ($onePage->isPublic()) {
-                    $non_inDoc++;
-
-                    if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
-                        // var_dump('Method not has API attribute: '.$oneMethod->getDeclaringClass()->getName().'->'.$oneMethod->getName());
-                    }
-                }
-            }
         }
 
         $fullPagesListMeta = [];
 
+        $inDoc = 0;
+        $non_inDoc = 0;
+        $total_pages = 0;
+        $total_nonInternal = 0;
+
         // generate .md
         foreach ($FullClassList as $FullClass) {
             $reflectionClass = new ReflectionClass($FullClass);
+            $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
+
+            $this->checkQuality($pagesList, $reflectionClass, $inDoc, $non_inDoc);
 
             $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
-
-            $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
 
             $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
 
             $fullPagesListMeta[$shortClass] = [
-                'FullClass' => $FullClass,
-                'shortClass' => $shortClass,
                 'ReflectionClass' => $reflectionClass,
-                'page' => [],
-                'isInternal' => $classIsInternal,
             ];
 
             foreach ($pagesList as $onePage) {
                 $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
 
-                $pageProperties = $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
-                    'type' => $onePage instanceof ReflectionMethod ? 'method' : 'property',
-                    'FullClass' => $FullClass,
-                    'shortClass' => $shortClass,
+                $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
                     'name' => $onePage->name,
                     'static' => $onePage->isStatic(),
                     'visibility_public' => $onePage->isPublic(),
                     'visibility_protected' => $onePage->isProtected(),
                     'visibility_private' => $onePage->isPrivate(),
                     'Reflection' => $onePage,
-                    'ReflectionClass' => $onePage->getDeclaringClass(),
                 ];
 
                 $total_pages++;
 
                 if ($onePage instanceof ReflectionMethod && !$onePage->isInternal()) {
-                    $total_nonInternalMethods++;
+                    $total_nonInternal++;
                 }
 
                 // Write Markdown
@@ -311,14 +268,14 @@ class Generate
                             mkdir($path);
                         }
 
-                        file_put_contents($path . self::makeFilename($onePage), $this->createMarkdownContent($onePage, $pageProperties));
+                        file_put_contents($path . self::makeFilename($onePage), $this->createMarkdownContent($onePage));
                     }
                 }
             }
         }
 
 
-        print 'Public methods in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal methods count: ' . $total_nonInternalMethods . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods including internals: ' . $total_pages . "\n";
+        print 'Public Methods/Properties in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal Methods/Properties count: ' . $total_nonInternal . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods/Properties including internals: ' . $total_pages . "\n";
 
         // Add Index
         $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::BOOK_URL . ") | API Referencess | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/Tests)**\n\n" .
@@ -347,10 +304,55 @@ class Generate
         echo 'YAH ! <br>' . (microtime(true) - $start_time) . 's';
     }
 
+    public function checkQuality (
+        /** @var array<ReflectionProperty|ReflectionMethod> */
+        array $pagesList,
+        ReflectionClass $reflectionClass,
+        int &$inDoc,
+        int &$non_inDoc
+    ): void
+    {
+        foreach ($pagesList as $onePage) {
+
+            $phpDocNode = false;
+
+            $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
+
+            if (!$onePage->isPublic() && $isPublicApi) {
+                var_dump('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+            }
+            elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
+                // continue
+            } elseif ($onePage->isPublic() && $isPublicApi) {
+                $inDoc++;
+
+                if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
+                    $docBlocParams = $this->getDocBlockParameters($onePage);
+
+                    foreach ($onePage->getParameters() as $oneParameter) {
+                        if (empty($docBlocParams[$oneParameter->getName()])) {
+                            var_dump('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                        }
+                    }
+                }
+
+                if (empty($this->getDocBlockDescription($onePage)) && $reflectionClass->getNamespaceName() !== '') {
+                    var_dump('Description is empty: ' . $reflectionClass->getName() . '->' . $reflectionClass->getName()); // @pest-arch-ignore-line
+                }
+            } elseif ($onePage->isPublic()) {
+                $non_inDoc++;
+
+                if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $reflectionClass->getNamespaceName() !== '') {
+                    // var_dump('Method not has API attribute: '.$reflectionClass->getName().'->'.$oneMethod->getName());
+                }
+            }
+        }
+    }
+
 
     // Build Methods
 
-    protected function createMarkdownContent(ReflectionMethod|ReflectionProperty $onePage, array $entry): string
+    protected function createMarkdownContent(ReflectionMethod|ReflectionProperty $onePage): string
     {
         $gitHubLinkClass = $onePage instanceof ReflectionProperty ? $onePage->getDeclaringClass() : $onePage;
 
