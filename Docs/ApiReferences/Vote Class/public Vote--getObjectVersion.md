@@ -24,4 +24,4 @@ true will return 2.0 and false will return 2.0.0.
 
 ### Related method(s)      
 
-* [static Condorcet::getVersion](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getVersion.md)    
+* [Condorcet::getVersion](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getVersion.md)    

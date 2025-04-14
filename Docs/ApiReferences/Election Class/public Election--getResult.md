@@ -34,7 +34,7 @@ Array of option for some methods. Look at each method documentation.
 ### Related method(s)      
 
 * [Election::getWinner](/Docs/ApiReferences/Election%20Class/public%20Election--getWinner.md)    
-* [Condorcet::getDefaultMethod](/Docs/ApiReferences/Condorcet%20Class/public%20Condorcet--getDefaultMethod.md)    
+* [Condorcet::getDefaultMethod](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md)    
 
 ---------------------------------------
 

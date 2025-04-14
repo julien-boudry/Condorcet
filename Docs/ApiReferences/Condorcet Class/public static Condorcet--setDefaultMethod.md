@@ -24,4 +24,4 @@ A valid method name or class.
 
 ### Related method(s)      
 
-* [static Condorcet::getDefaultMethod](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md)    
+* [Condorcet::getDefaultMethod](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getDefaultMethod.md)    

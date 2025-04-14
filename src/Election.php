@@ -61,7 +61,7 @@ class Election
      * Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or superior to this limit.
      * Null will deactivate this functionality. An integer will set the limit.
      * @api
-     * @see static Election::$maxParseIteration
+     * @see Election::maxParseIteration
      */
     public static ?int $maxVotePerElection = null;
 
@@ -494,7 +494,7 @@ class Election
 
     // Close the candidate config, be ready for voting (optional)
 /**
- * Force the election to get back to state 2. See Election::getState.
+ * Force the election to get back to state 2.
  * It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
  *
  * If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
@@ -503,7 +503,7 @@ class Election
  * @return mixed Always True.
  * @throws NoCandidatesException
  * @throws ResultRequestedWithoutVotesException
- * @see Election::getState
+ * @see Election::state
  */
     public function setStateToVote(): true
     {

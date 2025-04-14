@@ -101,7 +101,7 @@ abstract class Condorcet
      * Get a list of supported algorithm.
      * @api
      * @return mixed Populated by method string name. You can use it on getResult ... and others methods.
-     * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
+     * @see Condorcet::isAuthMethod, Condorcet::getMethodClass
      * @param $basic Include or not the natural Condorcet base algorithm.
      * @param $withNonDeterministicMethods Include or not non deterministic methods.
      */
@@ -130,7 +130,7 @@ abstract class Condorcet
      * Return the Condorcet static default method.
      * @api
      * @return mixed Method name.
-     * @see static Condorcet::getAuthMethods, static Condorcet::setDefaultMethod
+     * @see Condorcet::getAuthMethods, Condorcet::setDefaultMethod
      */
     public static function getDefaultMethod(): ?string
     {
@@ -144,7 +144,7 @@ abstract class Condorcet
      * @api
      * @return mixed Return null is method not exist.
      * @throws VotingMethodIsNotImplemented
-     * @see static Condorcet::getAuthMethods
+     * @see Condorcet::getAuthMethods
      * @param $method A valid method name.
      */
     public static function getMethodClass(
@@ -174,7 +174,7 @@ abstract class Condorcet
      * Test if a method is in the result set of Condorcet::getAuthMethods.
      * @api
      * @return mixed True / False
-     * @see static Condorcet::getMethodClass, static Condorcet::getAuthMethods
+     * @see Condorcet::getMethodClass, Condorcet::getAuthMethods
      * @param $method A valid method name or class.
      */
     public static function isAuthMethod(
@@ -189,7 +189,7 @@ abstract class Condorcet
      * If you create your own Condorcet Algo. You will need it !
      * @api
      * @return mixed True on Success. False on failure.
-     * @see static Condorcet::isAuthMethod, static Condorcet::getMethodClass
+     * @see Condorcet::isAuthMethod, Condorcet::getMethodClass
      * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
      */
     public static function addMethod(
@@ -237,7 +237,7 @@ abstract class Condorcet
      * Put a new static method by default for the news Condorcet objects.
      * @api
      * @return mixed In case of success, return TRUE
-     * @see static Condorcet::getDefaultMethod
+     * @see Condorcet::getDefaultMethod
      * @param $method A valid method name or class.
      */
     public static function setDefaultMethod(

@@ -8,7 +8,7 @@
 public Election->setStateToVote ( ): true
 ```
 
-Force the election to get back to state 2. See Election::getState.
+Force the election to get back to state 2.
 It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
 
 If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
@@ -30,4 +30,4 @@ If you are on state 3. The method result cache will be clear, but not the pairwi
 
 ### Related method(s)      
 
-* [Election::getState](/Docs/ApiReferences/Election%20Class/public%20Election--getState.md)    
+* [Election::state](/Docs/ApiReferences/Election%20Class/public%20Election--state.md)    

@@ -24,5 +24,5 @@ The class name implementing your method. The class name includes the namespace i
 
 ### Related method(s)      
 
-* [static Condorcet::isAuthMethod](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)    
-* [static Condorcet::getMethodClass](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md)    
+* [Condorcet::isAuthMethod](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--isAuthMethod.md)    
+* [Condorcet::getMethodClass](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md)    

@@ -20,6 +20,6 @@ Get the registered tags for this Vote.
 
 ### Related method(s)      
 
-* [Vote::getTags](/Docs/ApiReferences/Vote%20Class/public%20Vote--getTags.md)    
+* [Vote::tags](/Docs/ApiReferences/Vote%20Class/final%20public%20Vote--tags.md)    
 * [Vote::addTags](/Docs/ApiReferences/Vote%20Class/public%20Vote--addTags.md)    
 * [Vote::removeTags](/Docs/ApiReferences/Vote%20Class/public%20Vote--removeTags.md)    

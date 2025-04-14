@@ -87,13 +87,18 @@ class Generate
 
     // Static - Builder
 
-    public static function cleverRelated(string $name, string $path): string
+    public function cleverRelated(string $name): string
     {
-        $infos = explode('::', $name);
-        $infos[0] = str_replace('static ', '', $infos[0]);
+        list($class, $pointer) = explode('::', $name);
 
-        $url = $path . '/' . $infos[0] . ' Class/public ' . str_replace('::', '--', $name) . '.md';
-        $url = str_replace(' ', '%20', $url);
+        if (!isset($this->fullPagesListMeta[$class]['page'][$pointer])) {
+            var_dump('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input name: ' . $name);
+            return '[' . $name . ']()';
+        }
+
+        $reflector = $this->fullPagesListMeta[$class]['page'][$pointer]['Reflection'];
+
+        $url = $this->getUrl($reflector);
 
         return '[' . $name . '](' . $url . ')';
     }
@@ -187,6 +192,7 @@ class Generate
 
     protected PhpDocParser $phpDocParser;
     protected Lexer $lexer;
+    protected array $fullPagesListMeta = [];
 
     public function __construct($path, public readonly string $pathBase)
     {
@@ -206,39 +212,23 @@ class Generate
         $FullClassList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet\\', ClassFinder::RECURSIVE_MODE);
         $FullClassList = array_filter($FullClassList, static fn(string $value): bool => !str_contains($value, 'Condorcet\Test') && !str_contains($value, 'Condorcet\Dev') && !str_contains($value, 'Condorcet\Benchmarks'));
 
-        // Warnings
-        foreach ($FullClassList as $FullClass) {
-            $reflectionClass = new ReflectionClass($FullClass);
-            $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
-        }
-
-        $fullPagesListMeta = [];
-
         $inDoc = 0;
         $non_inDoc = 0;
         $total_pages = 0;
         $total_nonInternal = 0;
 
-        // generate .md
+        // populate fullclassMeta
         foreach ($FullClassList as $FullClass) {
+            $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
+
             $reflectionClass = new ReflectionClass($FullClass);
             $pagesList = array_merge($reflectionClass->getProperties(), $reflectionClass->getMethods());
 
-            $this->checkQuality($pagesList, $reflectionClass, $inDoc, $non_inDoc);
-
-            $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
-
-            $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
-
-            $fullPagesListMeta[$shortClass] = [
-                'ReflectionClass' => $reflectionClass,
-            ];
+            $this->fullPagesListMeta[$shortClass]['ReflectionClass'] = $reflectionClass;
+            $this->fullPagesListMeta[$shortClass]['pagesList'] = $pagesList;
 
             foreach ($pagesList as $onePage) {
-                $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
-
-
-                $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
+                $this->fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
                     'name' => $onePage->name,
                     'static' => $onePage->isStatic(),
                     'visibility_public' => $onePage->isPublic(),
@@ -246,6 +236,22 @@ class Generate
                     'visibility_private' => $onePage->isPrivate(),
                     'Reflection' => $onePage,
                 ];
+            }
+        }
+
+        // generate .md
+        foreach ($FullClassList as $FullClass) {
+            $reflectionClass = $this->fullPagesListMeta[$shortClass]['ReflectionClass'];
+            $pagesList = $this->fullPagesListMeta[$shortClass]['pagesList'];
+
+            $this->checkQuality($pagesList, $reflectionClass, $inDoc, $non_inDoc);
+
+            $classIsInternal = $this->hasDocBlockTag('@internal', $reflectionClass);
+
+            $shortClass = str_replace('CondorcetPHP\Condorcet\\', '', $FullClass);
+
+            foreach ($pagesList as $onePage) {
+                $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
                 $total_pages++;
 
@@ -286,15 +292,15 @@ class Generate
                         '_*: I try to update and complete the documentation. See also [the documentation book](' . self::BOOK_URL . "), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
-        $file_content .= $this->makeIndex($fullPagesListMeta);
+        $file_content .= $this->makeIndex($this->fullPagesListMeta);
 
         $file_content .= "\n\n\n";
 
-        uksort($fullPagesListMeta, 'strnatcmp');
+        uksort($this->fullPagesListMeta, 'strnatcmp');
         $file_content .=    "## Full Class & API Reference\n" .
                             "_Including above methods from public API_\n\n";
 
-        $file_content .= $this->makeProfundis($fullPagesListMeta);
+        $file_content .= $this->makeProfundis($this->fullPagesListMeta);
 
 
         // Write file
@@ -414,7 +420,7 @@ class Generate
                     continue;
                 }
 
-                $md .= '* ' . self::cleverRelated($toSee, $this->pathBase) . "    \n";
+                $md .= '* ' . $this->cleverRelated($toSee) . "    \n";
             }
         }
 
@@ -512,9 +518,7 @@ class Generate
                 if (!$testPublicAttribute($onePage['Reflection']) || ($onePage instanceof ReflectionMethod && !$onePage['Reflection']->isUserDefined())) {
                     continue;
                 } else {
-                    $url = str_replace('\\', '_', self::simpleClass($onePage['Reflection']->class)) . ' Class/' . self::getModifiersName($onePage['Reflection']) . ' ' . str_replace('\\', '_', self::simpleClass($onePage['Reflection']->class) . '--' . $onePage['Reflection']->name) . '.md';
-                    $url = str_replace(' ', '%20', $url);
-                    $url = $this->pathBase . '/' . $url;
+                    $url = $this->getUrl($onePage['Reflection']);
 
                     $file_content .= '* [' . self::computeRepresentationAsForIndex($onePage['Reflection']) . '](' . $url . ')';
 
@@ -528,6 +532,14 @@ class Generate
         }
 
         return $file_content;
+    }
+
+    protected function getUrl(ReflectionMethod|ReflectionProperty $reflection): string
+    {
+        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . self::getModifiersName($reflection) . ' ' . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
+        $url = str_replace(' ', '%20', $url);
+
+        return $this->pathBase . '/' . $url;
     }
 
     protected function makeEnumeCases(\ReflectionEnum $enumReflection, bool $shortName = false): string
@@ -583,9 +595,7 @@ class Generate
 
         foreach ($class->getProperties($type) as $property) {
 
-            $url = str_replace('\\', '_', self::simpleClass($property->class)) . ' Class/' . self::getModifiersName($property) . ' ' . str_replace('\\', '_', self::simpleClass($property->class) . '--' . $property->name) . '.md';
-            $url = str_replace(' ', '%20', $url);
-            $url = $this->pathBase . '/' . $url;
+            $url = $this->getUrl($property);
 
             if (!$mustHaveApiAttribute || $this->hasDocBlockTag('@api', $property)) {
                 $file_content .= '* ';

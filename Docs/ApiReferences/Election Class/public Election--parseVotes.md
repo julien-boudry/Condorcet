@@ -30,7 +30,7 @@ If true, the input is evaluated as path to text file.
 
 * [Election::addVote](/Docs/ApiReferences/Election%20Class/public%20Election--addVote.md)    
 * [Election::parseCandidates](/Docs/ApiReferences/Election%20Class/public%20Election--parseCandidates.md)    
-* [Election::parseVotesWithoutFail](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotesWithoutFail.md)    
+* [Election::parseVotesSafe](/Docs/ApiReferences/Election%20Class/public%20Election--parseVotesSafe.md)    
 * [Election::addVotesFromJson](/Docs/ApiReferences/Election%20Class/public%20Election--addVotesFromJson.md)    
 
 ---------------------------------------

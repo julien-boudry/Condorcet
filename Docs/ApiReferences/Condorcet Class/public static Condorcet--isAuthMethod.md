@@ -24,5 +24,5 @@ A valid method name or class.
 
 ### Related method(s)      
 
-* [static Condorcet::getMethodClass](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md)    
-* [static Condorcet::getAuthMethods](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md)    
+* [Condorcet::getMethodClass](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getMethodClass.md)    
+* [Condorcet::getAuthMethods](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md)    

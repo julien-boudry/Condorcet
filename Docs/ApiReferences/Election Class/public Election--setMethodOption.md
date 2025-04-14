@@ -1,6 +1,6 @@
 ## public Election::setMethodOption
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L262)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L261)
 
 ### Description    
 
@@ -26,4 +26,4 @@ Option Value.
 
 ### Related method(s)      
 
-* [Result::getMethodOptions](/Docs/ApiReferences/Result%20Class/public%20Result--getMethodOptions.md)    
+* [Result::methodOptions](/Docs/ApiReferences/Result%20Class/final%20public%20Result--methodOptions.md)    

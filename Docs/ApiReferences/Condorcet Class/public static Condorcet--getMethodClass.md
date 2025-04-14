@@ -29,4 +29,4 @@ A valid method name.
 
 ### Related method(s)      
 
-* [static Condorcet::getAuthMethods](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md)    
+* [Condorcet::getAuthMethods](/Docs/ApiReferences/Condorcet%20Class/public%20static%20Condorcet--getAuthMethods.md)    

@@ -14,4 +14,4 @@ Get the timestamp corresponding of the last vote change.
 
 ### Related method(s)      
 
-* [Vote::createdAt](/Docs/ApiReferences/Vote%20Class/public%20Vote--createdAt.md)    
+* [Vote::createdAt](/Docs/ApiReferences/Vote%20Class/virtual%20public%20Vote--createdAt.md)    

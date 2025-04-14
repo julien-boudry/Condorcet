@@ -37,7 +37,7 @@ Votes with these tags or without.
 
 * [Election::addVote](/Docs/ApiReferences/Election%20Class/public%20Election--addVote.md)    
 * [Election::getVotesList](/Docs/ApiReferences/Election%20Class/public%20Election--getVotesList.md)    
-* [Election::removeVotes](/Docs/ApiReferences/Election%20Class/public%20Election--removeVotes.md)    
+* [Election::removeVote](/Docs/ApiReferences/Election%20Class/public%20Election--removeVote.md)    
 
 ---------------------------------------
 

@@ -271,7 +271,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
  * Get the registered tags for this Vote.
  * @api
  * @return mixed List of registered tag as string separated by commas.
- * @see Vote::getTags, Vote::addTags, Vote::removeTags
+ * @see Vote::tags, Vote::addTags, Vote::removeTags
  */
     public function getTagsAsString(): string
     {

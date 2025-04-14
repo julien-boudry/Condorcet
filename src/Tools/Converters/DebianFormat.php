@@ -54,7 +54,7 @@ class DebianFormat implements ConverterImport
  * Add the Debian data to an election object
  * @api
  * @return mixed The election object
- * @see Tools\CondorcetElectionFormat::setDataToAnElection, Tools\DavidHillFormat::setDataToAnElection
+ * @see Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection, Tools\Converters\DavidHillFormat::setDataToAnElection
  * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
  */
 #[\Override]

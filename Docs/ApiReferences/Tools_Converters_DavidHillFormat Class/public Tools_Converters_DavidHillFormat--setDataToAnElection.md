@@ -24,5 +24,5 @@ Add an existing election, useful if you want to set up some parameters or add ex
 
 ### Related method(s)      
 
-* [Tools\CondorcetElectionFormat::setDataToAnElection](/Docs/ApiReferences/Tools\CondorcetElectionFormat%20Class/public%20Tools\CondorcetElectionFormat--setDataToAnElection.md)    
-* [Tools\DebianFormat::setDataToAnElection](/Docs/ApiReferences/Tools\DebianFormat%20Class/public%20Tools\DebianFormat--setDataToAnElection.md)    
+* [Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection](/Docs/ApiReferences/Tools_Converters_CEF_CondorcetElectionFormat%20Class/public%20Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md)    
+* [Tools\Converters\DebianFormat::setDataToAnElection](/Docs/ApiReferences/Tools_Converters_DebianFormat%20Class/public%20Tools_Converters_DebianFormat--setDataToAnElection.md)    

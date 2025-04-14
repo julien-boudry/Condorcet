@@ -21,7 +21,7 @@ trait CondorcetVersion
      * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
      * @api Candidate, Election, Result, Vote, Algo\Pairwise, DataManager\VotesManager, Timer\Manager
      * @return mixed Condorcet PHP version.
-     * @see static Condorcet::getVersion
+     * @see Condorcet::getVersion
      * @param $major true will return 2.0 and false will return 2.0.0.
      */
     public function getObjectVersion(

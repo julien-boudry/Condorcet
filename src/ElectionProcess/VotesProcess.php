@@ -331,7 +331,7 @@ trait VotesProcess
      * @api
      * @return array List of removed CondorcetPHP\Condorcet\Vote object.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
-     * @see Election::addVote, Election::getVotesList, Election::removeVotes
+     * @see Election::addVote, Election::getVotesList, Election::removeVote
      * @param $tags Tags as string separated by commas or array.
      * @param $with Votes with these tags or without.
      */
@@ -412,7 +412,7 @@ trait VotesProcess
      * @api
      * @return mixed Count of the newly registered votes.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
-     * @see Election::addVote, Election::parseCandidates, Election::parseVotesWithoutFail, Election::addVotesFromJson
+     * @see Election::addVote, Election::parseCandidates, Election::parseVotesSafe, Election::addVotesFromJson
      * @param $input String or valid path to a text file.
      * @param $isFile If true, the input is evaluated as path to text file.
      */

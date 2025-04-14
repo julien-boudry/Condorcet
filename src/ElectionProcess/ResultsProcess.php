@@ -250,21 +250,17 @@ trait ResultsProcess
         return $this->getFilteredPairwiseByTags($tags, $with)->getExplicitPairwise();
     }
 
-    // Generic function for default result with ability to change default object method
-/**
- * Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
- * @api
- * @see Result::getMethodOptions
- * @param $method Method name or class path.
- * @param $optionName Option name.
- * @param $optionValue Option Value.
- */
+    /**
+     * Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
+     * @api
+     * @see Result::methodOptions
+     * @param $method Method name or class path.
+     * @param $optionName Option name.
+     * @param $optionValue Option Value.
+     */
     public function setMethodOption(
-
         string $method,
-
         string $optionName,
-
         array|\BackedEnum|int|float|string|Randomizer $optionValue
     ): static {
         if ($method = Condorcet::getMethodClass($method)) {
