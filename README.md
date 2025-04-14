@@ -25,7 +25,7 @@
 
 Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
-> **Presentation | [Documentation Book](https://www.condorcet.io) | [API Reference](/Docs/ApiReferences/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
+> **Presentation | [Documentation Book](https://www.condorcet.io) | [API Reference](/Docs/api-reference/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
 
 Condorcet manages the stages of an electoral process (configuration, votes ingestion & manipulation, integrity) and calculates the results. It offers natively the implementation of more than 20 voting methods compatible with preferential voting ballots, including Condorcet methods, Alternative Voting, STV, and many others.
 => [**Supported Voting Methods**](#supported-voting-methods)
@@ -173,7 +173,7 @@ Living and learning examples, giving an overview but not exhaustive of the possi
 ### Class & API References
 
 The precise documentation of methods can be found in Markdown format in the "Documentation" folder for each release.
-> **[Class & API References](/Docs/ApiReferences/README.md)**
+> **[Class & API References](/Docs/api-reference/README.md)**
 
 ### PHP Library - Examples
 

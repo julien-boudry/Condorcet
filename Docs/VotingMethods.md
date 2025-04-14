@@ -1,4 +1,4 @@
-> **[Presentation](README.md) | [Documentation Book](https://www.condorcet.io) | [API Reference](Docs/ApiReferences/README.md) | Voting Method | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
+> **[Presentation](README.md) | [Documentation Book](https://www.condorcet.io) | [API Reference](Docs/api-reference/README.md) | Voting Method | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
 
 Voting Methods (natively implemented)
 ===========================

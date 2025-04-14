@@ -9,7 +9,7 @@ require_once __DIR__ . str_replace('/', \DIRECTORY_SEPARATOR, '/../vendor/../ven
 // Build command
 
 $path = mb_substr(__DIR__, 0, mb_strlen(__DIR__) - 4);
-$path .= $urlPath = '/Docs/ApiReferences';
+$path .= $urlPath = '/Docs/api-reference';
 
 // Clear folder
 
