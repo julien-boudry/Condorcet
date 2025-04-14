@@ -213,17 +213,20 @@ class Generate
 
         // Warnings
         foreach ($FullClassList as $FullClass) {
-            $pagesList = new ReflectionClass($FullClass)->getMethods(ReflectionMethod::IS_PUBLIC);
+            $pagesList = new ReflectionClass($FullClass)->getMethods();
 
             foreach ($pagesList as $onePage) {
 
                 $phpDocNode = false;
 
-                $isPublic = $this->hasDocBlockTag('@api', $onePage);
+                $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
-                if ($onePage->isInternal()) {
+                if (!$onePage->isPublic() && $isPublicApi) {
+                    var_dump('Has Public API tag but is not public: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                }
+                elseif ($onePage->isInternal()) {
                     // continue
-                } elseif ($isPublic) {
+                } elseif ($onePage->isPublic() && $isPublicApi) {
                     $inDoc++;
 
                     if ($onePage->getNumberOfParameters() > 0) {
@@ -231,7 +234,7 @@ class Generate
 
                         foreach ($onePage->getParameters() as $oneParameter) {
                             if (empty($docBlocParams[$oneParameter->getName()])) {
-                                var_dump('Method Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                                var_dump('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                             }
                         }
                     }
@@ -239,7 +242,7 @@ class Generate
                     if (empty($this->getDocBlockDescription($onePage)) && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
                         var_dump('Description is empty: ' . $onePage->getDeclaringClass()->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                     }
-                } else {
+                } elseif ($onePage->isPublic()) {
                     $non_inDoc++;
 
                     if ($phpDocNode && !$phpDocNode->hasAttribute('description') && $onePage->getDeclaringClass()->getNamespaceName() !== '') {
@@ -270,7 +273,7 @@ class Generate
             ];
 
             foreach ($pagesList as $onePage) {
-                $isPublic = $this->hasDocBlockTag('@api', $onePage);
+                $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
 
                 $pageProperties = $fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
@@ -293,7 +296,7 @@ class Generate
                 }
 
                 // Write Markdown
-                if ($isPublic) {
+                if ($isPublicApi) {
                     if (
                         !$classIsInternal &&
                         (
