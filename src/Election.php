@@ -84,17 +84,42 @@ class Election
 
     // Params
     /**
+     * The corresponding setting as currently set (True by default).
+     * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+     * If it is false, then the candidates not ranked, are not taken into account at all.
      * @api
+     * @see Election::setImplicitRanking
      */
-    public protected(set) bool $implicitRankingRule = true;
+    public bool $implicitRankingRule = true {
+        set {
+            $this->implicitRankingRule = $value;
+            $this->resetComputation();
+        }
+    }
+
     /**
      * @api
      */
     public protected(set) bool $voteWeightAllowed = false;
+
+
     /**
+     * Get number of Seats for STV methods.
      * @api
+     * @return mixed Number of seats.
+     * @see Election::setNumberOfSeats, Result::seats
      */
-    public protected(set) int $electionSeats = 100;
+    public int $electionSeats = 100 {
+        set (int $seats) {
+            if ($seats > 0) {
+                $this->electionSeats = $seats;
+
+                $this->resetComputation();
+            } else {
+                throw new NoSeatsException;
+            }
+        }
+    }
 
     /**
      * @api
@@ -279,33 +304,21 @@ class Election
 
 
     /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
-/**
- * Returns the corresponding setting as currently set (True by default).
- * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
- * If it is false, then the candidates not ranked, are not taken into account at all.
- * @api
- * @return mixed True / False
- * @see Election::setImplicitRanking
- */
-    public function getImplicitRankingRule(): bool
-    {
-        return $this->implicitRankingRule;
-    }
-/**
- * Set the setting and reset all result data.
- * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
- * If it is false, then the candidates not ranked, are not taken into account at all.
- * @api
- * @return mixed Return True
- * @see Election::getImplicitRankingRule
- * @param $rule New rule.
- */
+
+    /**
+     * Set the setting and reset all result data.
+     * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
+     * If it is false, then the candidates not ranked, are not taken into account at all.
+     * @api
+     * @return mixed Return True
+     * @see Election::getImplicitRankingRule
+     * @param $rule New rule.
+     */
     public function setImplicitRanking(
 
         bool $rule = true
     ): static {
         $this->implicitRankingRule = $rule;
-        $this->resetComputation();
 
         return $this;
     }
@@ -417,34 +430,19 @@ class Election
 
 
     /////////// STV SEATS ///////////
-/**
- * Get number of Seats for STV methods.
- * @api
- * @return mixed Number of seats.
- * @see Election::setNumberOfSeats, Result::seats
- */
-    public function getNumberOfSeats(): int
-    {
-        return $this->electionSeats;
-    }
-/**
- * Set number of Seats for STV methods.
- * @api
- * @throws NoSeatsException
- * @see Election::getNumberOfSeats
- * @param $seats The number of seats for proportional methods.
- */
+
+    /**
+     * Set number of Seats for STV methods.
+     * @api
+     * @throws NoSeatsException
+     * @see Election::getNumberOfSeats
+     * @param $seats The number of seats for proportional methods.
+     */
     public function setNumberOfSeats(
 
         int $seats
     ): static {
-        if ($seats > 0) {
-            $this->electionSeats = $seats;
-
-            $this->resetComputation();
-        } else {
-            throw new NoSeatsException;
-        }
+        $this->electionSeats = $seats;
 
         return $this;
     }

@@ -105,7 +105,7 @@ abstract class Method
             election: $this->getElection(),
             rawRanking: $result,
             stats: $this->getElection()->statsVerbosity->value > StatsVerbosity::NONE->value ? $this->getStats() : new EmptyStats,
-            seats: (static::IS_PROPORTIONAL) ? $this->getElection()->getNumberOfSeats() : null,
+            seats: (static::IS_PROPORTIONAL) ? $this->getElection()->electionSeats : null,
             methodOptions: $methodOptions
         );
     }

@@ -374,7 +374,7 @@ class Vote implements \Iterator, \Stringable, \ArrayAccess
 
         $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(false), $election, $countContextualCandidate);
 
-        if ($election->getImplicitRankingRule() && $countContextualCandidate < $candidates_count) {
+        if ($election->implicitRankingRule && $countContextualCandidate < $candidates_count) {
             $last_rank = [];
             $needed = $candidates_count - $countContextualCandidate;
 

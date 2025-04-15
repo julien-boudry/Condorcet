@@ -45,7 +45,7 @@ class SingleTransferableVote extends Method implements MethodInterface
         $stats = [];
         $rank = 0;
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($election->sumValidVoteWeightsWithConstraints(), $election->getNumberOfSeats()), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($election->sumValidVoteWeightsWithConstraints(), $election->electionSeats), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         $candidateElected = [];
         $candidateEliminated = [];
@@ -78,14 +78,14 @@ class SingleTransferableVote extends Method implements MethodInterface
 
             if (!$successOnRank && !empty($scoreTable)) {
                 $candidateEliminated[] = array_key_last($scoreTable);
-            } elseif (empty($scoreTable) || $rank >= $election->getNumberOfSeats()) {
+            } elseif (empty($scoreTable) || $rank >= $election->electionSeats) {
                 $end = true;
             }
 
             $stats[++$round] = $scoreTable;
         }
 
-        while ($rank < $election->getNumberOfSeats() && !empty($candidateEliminated)) {
+        while ($rank < $election->electionSeats && !empty($candidateEliminated)) {
             $rescueCandidateKey = array_key_last($candidateEliminated);
             $result[++$rank] = $candidateEliminated[$rescueCandidateKey];
             unset($candidateEliminated[$rescueCandidateKey]);

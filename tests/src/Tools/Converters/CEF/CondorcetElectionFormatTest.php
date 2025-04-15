@@ -23,8 +23,8 @@ test('condorcet election format1 simple', function (): void {
 
     expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-    expect($election->getNumberOfSeats())->toBe(100);
-    expect($election->getImplicitRankingRule())->toBeTrue()->toBe($election->implicitRankingRule);
+    expect($election->electionSeats)->toBe(100);
+    expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
     expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná ^42');
@@ -53,9 +53,9 @@ test('condorcet election format2 multiples errors and complications', function (
 
     expect($election->getCandidatesListAsString())->toBe(['A', 'B', 'C']);
 
-    expect($election->getNumberOfSeats())->toBe(6);
+    expect($election->electionSeats)->toBe(6);
 
-    expect($election->getImplicitRankingRule())->toBeFalse()->toBe($election->implicitRankingRule);
+    expect($election->implicitRankingRule)->toBeFalse()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(10);
 
@@ -83,8 +83,8 @@ test('condorcet election format3 custom election1', function (): void {
 
     expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-    expect($election->getNumberOfSeats())->toBe(42);
-    expect($election->getImplicitRankingRule())->toBeTrue()->toBe($election->implicitRankingRule);
+    expect($election->electionSeats)->toBe(42);
+    expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
     expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná');
@@ -113,8 +113,8 @@ test('condorcet election format4 custom election2', function (): void {
     // Must be forced by parameter
     expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
-    expect($election->getNumberOfSeats())->toBe(66);
-    expect($election->getImplicitRankingRule())->toBeFalse()->toBe($election->implicitRankingRule);
+    expect($election->electionSeats)->toBe(66);
+    expect($election->implicitRankingRule)->toBeFalse()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
     expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec ^42');
@@ -145,8 +145,8 @@ test('condorcet election format5 unknow parameters and empty lines and case', fu
 
     expect($election->getCandidatesListAsString())->toBe(['Richard Boháč', 'Simona Slaná', '郝文彦']);
 
-    expect($election->getNumberOfSeats())->toBe(42);
-    expect($election->getImplicitRankingRule())->toBeTrue()->toBe($election->implicitRankingRule);
+    expect($election->electionSeats)->toBe(42);
+    expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
     expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > 郝文彦 > Simona Slaná');
@@ -353,8 +353,8 @@ test('candidates from votes', function (): void {
 
     $election = $cef->setDataToAnElection();
 
-    expect($election->getImplicitRankingRule())->toBeFalse()->toBe($election->implicitRankingRule);
-    expect($election->getNumberOfSeats())->toBe(42);
+    expect($election->implicitRankingRule)->toBeFalse()->toBe($election->implicitRankingRule);
+    expect($election->electionSeats)->toBe(42);
 
     expect($election->getCandidatesList())->toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
     expect($election->getResult()->rankingAsString)->toBe('D > A > B > C > E > F');

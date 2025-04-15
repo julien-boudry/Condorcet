@@ -14,7 +14,7 @@ test('a77 with implicit', function (): void {
     $election = AlgoTestCase::$tidemanA77->setDataToAnElection();
 
     expect($election->countVotes())->toBe(213);
-    expect($election->getNumberOfSeats())->toBe(1);
+    expect($election->electionSeats)->toBe(1);
 
     expect($election->getVotesListAsString())->toBe(<<<'EOD'
         3 > 1 = 2 * 39
@@ -54,7 +54,7 @@ test('a1 for candidates names', function (): void {
     $election = new DavidHillFormat(__DIR__ . '/TidemanData/A1.HIL')->setDataToAnElection();
 
     expect($election->countVotes())->toBe(380);
-    expect($election->getNumberOfSeats())->toBe(3);
+    expect($election->electionSeats)->toBe(3);
 
     expect($election->getVotesListAsString())->toBe(<<<'EOD'
         Candidate  3 > Candidate  1 > Candidate  2 = Candidate  4 = Candidate  5 = Candidate  6 = Candidate  7 = Candidate  8 = Candidate  9 = Candidate 10 * 13

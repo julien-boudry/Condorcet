@@ -15,7 +15,7 @@ test('2020 implicit', function (): void {
     $election = AlgoTestCase::$debian2020->setDataToAnElection();
 
     expect($election->countVotes())->toBe(339);
-    expect($election->getNumberOfSeats())->toBe(1);
+    expect($election->electionSeats)->toBe(1);
 
     expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Jonathan Carter > Sruthi Chandran > Brian Gupta > None Of The Above');
 
@@ -38,7 +38,7 @@ test('2007 implicit', function (): void {
     $election = AlgoTestCase::$debian2007->setDataToAnElection();
 
     expect($election->countVotes())->toBe(482);
-    expect($election->getNumberOfSeats())->toBe(1);
+    expect($election->electionSeats)->toBe(1);
 
     expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Sam Hocevar > Steve McIntyre > Raphaël Hertzog > Wouter Verhelst > Anthony Towns > Gustavo Franco > None Of The Above > Simon Richter > Aigars Mahinovs');
 });
@@ -59,7 +59,7 @@ test('2006 implicit', function (): void {
     $election = AlgoTestCase::$debian2006->setDataToAnElection();
 
     expect($election->countVotes())->toBe(421);
-    expect($election->getNumberOfSeats())->toBe(1);
+    expect($election->electionSeats)->toBe(1);
 
     expect($election->getResult('Schulze Margin')->rankingAsString)->toBe('Anthony Towns > Steve McIntyre > Andreas Schuldei = Jeroen van Wolffelaar > Bill Allombert > None of the Above > Ari Pollak > Jonathan aka Ted Walther');
 });

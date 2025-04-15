@@ -473,7 +473,7 @@ class ElectionCommand extends Command
         $this->io->definitionList(
             ['Is vote weight allowed?' => $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE'],
             new TableSeparator,
-            ['Votes are evaluated according to the implicit ranking rule?' => $this->election->getImplicitRankingRule() ? 'TRUE' : 'FALSE'],
+            ['Votes are evaluated according to the implicit ranking rule?' => $this->election->implicitRankingRule ? 'TRUE' : 'FALSE'],
             new TableSeparator,
             ['Is vote tie in rank allowed?' => \in_array(needle: NoTie::class, haystack: $this->election->getConstraints(), strict: true) ? 'FALSE' : 'TRUE']
         );
