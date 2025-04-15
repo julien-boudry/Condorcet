@@ -311,7 +311,7 @@ class Election
      * If it is false, then the candidates not ranked, are not taken into account at all.
      * @api
      * @return mixed Return True
-     * @see Election::getImplicitRankingRule
+     * @see Election::implicitRankingRule
      * @param $rule New rule.
      */
     public function setImplicitRanking(
@@ -435,7 +435,7 @@ class Election
      * Set number of Seats for STV methods.
      * @api
      * @throws NoSeatsException
-     * @see Election::getNumberOfSeats
+     * @see Election::electionSeats
      * @param $seats The number of seats for proportional methods.
      */
     public function setNumberOfSeats(

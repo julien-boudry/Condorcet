@@ -1,6 +1,6 @@
 ## public Election::setImplicitRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L303)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L317)
 
 ### Description    
 
@@ -26,4 +26,4 @@ New rule.
 
 ### Related method(s)      
 
-* [Election::getImplicitRankingRule](/Docs/api-reference/Election%20Class/Election--getImplicitRankingRule.md)    
+* [Election::implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)    

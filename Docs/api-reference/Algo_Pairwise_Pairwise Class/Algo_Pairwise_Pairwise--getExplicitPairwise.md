@@ -1,6 +1,6 @@
 ## public Algo\Pairwise\Pairwise::getExplicitPairwise
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L144)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L154)
 
 ### Description    
 

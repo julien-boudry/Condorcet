@@ -8,5 +8,11 @@
 public int Election->electionSeats 
 ```
 
-
+Get number of Seats for STV methods.
     
+---------------------------------------
+
+### Related method(s)      
+
+* [Election::setNumberOfSeats](/Docs/api-reference/Election%20Class/Election--setNumberOfSeats.md)    
+* [Result::seats](/Docs/api-reference/Result%20Class/Result--seats.md)    

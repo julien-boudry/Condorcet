@@ -80,10 +80,8 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->getExplicitFilteredPairwiseByTags (...)](/Docs/api-reference/Election%20Class/Election--getExplicitFilteredPairwiseByTags.md): `array`  
 * [public Election->getExplicitPairwise ()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise.md): `array`  
 * [public Election->getGlobalTimer ()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md): `float`  
-* [public Election->getImplicitRankingRule ()](/Docs/api-reference/Election%20Class/Election--getImplicitRankingRule.md): `bool`  
 * [public Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `float`  
 * [public Election->getLoser (...)](/Docs/api-reference/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* [public Election->getNumberOfSeats ()](/Docs/api-reference/Election%20Class/Election--getNumberOfSeats.md): `int`  
 * [public Election->getObjectVersion (...)](/Docs/api-reference/Election%20Class/Election--getObjectVersion.md): `string`  
 * [public Election->getPairwise ()](/Docs/api-reference/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
 * [public Election->getResult (...)](/Docs/api-reference/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
@@ -202,10 +200,14 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise Class  
 
+* [public Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
+* [public Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
 * [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise Class  
 
+* [public Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
+* [public Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
 * [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Tools\Combinations Class  
@@ -1405,7 +1407,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L23)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -1436,7 +1438,7 @@ _Including above methods from public API_
 * protected makeStrongestPaths (): void  
 * protected objectVersion ()  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int|float  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int|float  
 * protected selfElection ()  
 ```
 
@@ -1472,7 +1474,7 @@ _Including above methods from public API_
 * protected makeStrongestPaths (): void  
 * protected objectVersion ()  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int  
 * protected selfElection ()  
 ```
 
@@ -1508,7 +1510,7 @@ _Including above methods from public API_
 * protected makeStrongestPaths (): void  
 * protected objectVersion ()  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): float  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): float  
 * protected selfElection ()  
 ```
 
@@ -1544,7 +1546,7 @@ _Including above methods from public API_
 * protected makeStrongestPaths (): void  
 * protected objectVersion ()  
 * protected prepareStrongestPath (): void  
-* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Election $election): int  
+* protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int  
 * protected selfElection ()  
 ```
 
@@ -1634,6 +1636,10 @@ _Including above methods from public API_
 * public __construct (CondorcetPHP\Condorcet\Election $link, array|string|null $tags = null, int|bool $withTags = true)  
 * public __serialize (): array  
 * public addNewVote (int $key): void  
+* public candidateKeyWinVersus (int $candidateKey, int $opponentKey): bool  
+* public candidateWinVersus (CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent): bool  
+* public compareCandidates (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): int  
+* public compareCandidatesKeys (int $aKey, int $bKey): int  
 * public current (): array  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
@@ -1661,11 +1667,12 @@ _Including above methods from public API_
 * protected getCandidateNameFromKey (int $candidateKey): string  
 * protected getVotesManagerGenerator (): Generator  
 * protected objectVersion ()  
+* protected prepareComparaison (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements ArrayAccess, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L24)
 
 ```php
 * private bool $valid
@@ -1678,6 +1685,10 @@ _Including above methods from public API_
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public __serialize (): array  
 * public addNewVote (int $key): void  
+* public candidateKeyWinVersus (int $candidateKey, int $opponentKey): bool  
+* public candidateWinVersus (CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent): bool  
+* public compareCandidates (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): int  
+* public compareCandidatesKeys (int $aKey, int $bKey): int  
 * public current (): array  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
@@ -1702,6 +1713,7 @@ _Including above methods from public API_
 * protected getCandidateNameFromKey (int $candidateKey): string  
 * protected getVotesManagerGenerator (): Generator  
 * protected objectVersion ()  
+* protected prepareComparaison (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): array  
 * protected selfElection ()  
 ```
 
@@ -2491,10 +2503,8 @@ _Including above methods from public API_
 * public getExplicitPairwise (): array  
 * public getFilteredPairwiseByTags (array|string $tags, int|bool $with = true): CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise  
 * public getGlobalTimer (): float  
-* public getImplicitRankingRule (): bool  
 * public getLastTimer (): float  
 * public getLoser (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
-* public getNumberOfSeats (): int  
 * public getObjectVersion (bool $major = false): string  
 * public getPairwise (): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise  
 * public getResult (?string $method = null, array $methodOptions = []): CondorcetPHP\Condorcet\Result  

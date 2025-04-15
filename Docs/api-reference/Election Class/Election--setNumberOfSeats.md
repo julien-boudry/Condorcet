@@ -1,6 +1,6 @@
 ## public Election::setNumberOfSeats
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L437)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L441)
 
 ### Description    
 
@@ -23,4 +23,4 @@ The number of seats for proportional methods.
 
 ### Related method(s)      
 
-* [Election::getNumberOfSeats](/Docs/api-reference/Election%20Class/Election--getNumberOfSeats.md)    
+* [Election::electionSeats](/Docs/api-reference/Election%20Class/Election--electionSeats.md)    
