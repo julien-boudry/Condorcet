@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
 class SchulzeWinning extends SchulzeCore
 {
@@ -22,8 +22,8 @@ class SchulzeWinning extends SchulzeCore
     public const array METHOD_NAME = ['Schulze Winning', 'Schulze', 'SchulzeWinning', 'Schulze_Winning', 'Schwartz Sequential Dropping', 'SSD', 'Cloneproof Schwartz Sequential Dropping', 'CSSD', 'Beatpath', 'Beatpath Method', 'Beatpath Winner', 'Path Voting', 'Path Winner'];
 
     #[\Override]
-    protected function schulzeVariant(int $i, int $j, Election $election): int
+    protected function schulzeVariant(int $i, int $j, Pairwise $pairwise): int
     {
-        return $election->getPairwise()[$i]['win'][$j];
+        return $pairwise[$i]['win'][$j];
     }
 }

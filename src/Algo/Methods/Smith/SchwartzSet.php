@@ -79,7 +79,7 @@ class SchwartzSet extends Method implements MethodInterface
             foreach ($candidateList as $opponentKey) {
                 if ($candidateKey !== $opponentKey) {
                     // candidateKey defeats opponentKey if it has more wins than losses
-                    if ($pairwise[$candidateKey]['win'][$opponentKey] > $pairwise[$candidateKey]['lose'][$opponentKey]) {
+                    if ($pairwise->candidateKeyWinVersus($candidateKey, $opponentKey)) {
                         $graph[$candidateKey][] = $opponentKey;
                         $reversedGraph[$opponentKey][] = $candidateKey;
                     }

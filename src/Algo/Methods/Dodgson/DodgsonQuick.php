@@ -45,25 +45,32 @@ class DodgsonQuick extends Method implements MethodInterface
     protected function compute(): void
     {
         $election = $this->getElection();
+        $candidates = array_keys($election->candidates);
 
         $pairwise = $election->getPairwise();
         $HeadToHead = [];
 
-        foreach ($pairwise as $candidateId => $CandidateStats) {
-            foreach ($CandidateStats['lose'] as $opponentId => $CandidateLose) {
-                if (($diff = $CandidateLose - $CandidateStats['win'][$opponentId]) >= 0) {
-                    $HeadToHead[$candidateId][$opponentId] = $diff;
+        foreach ($candidates as $candidateKey) {
+            foreach ($candidates as $opponentId) {
+                if ($candidateKey === $opponentId) {
+                    continue;
+                }
+
+                $diff = $pairwise->compareCandidatesKeys($opponentId, $candidateKey);
+
+                if ($diff >= 0) {
+                    $HeadToHead[$candidateKey][$opponentId] = $diff;
                 }
             }
         }
 
         $dodgsonQuick = [];
 
-        foreach ($HeadToHead as $candidateId => $CandidateTidemanScores) {
-            $dodgsonQuick[$candidateId] = 0;
+        foreach ($HeadToHead as $candidateKey => $CandidateTidemanScores) {
+            $dodgsonQuick[$candidateKey] = 0;
 
             foreach ($CandidateTidemanScores as $oneTidemanScore) {
-                $dodgsonQuick[$candidateId] += ceil($oneTidemanScore / 2);
+                $dodgsonQuick[$candidateKey] += ceil($oneTidemanScore / 2);
             }
         }
         asort($dodgsonQuick);

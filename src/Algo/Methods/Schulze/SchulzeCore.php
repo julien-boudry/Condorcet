@@ -14,8 +14,9 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\{Election, Result};
+use CondorcetPHP\Condorcet\{Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
+use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
 // Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
@@ -27,7 +28,7 @@ abstract class SchulzeCore extends Method implements MethodInterface
 
     /////////// PUBLIC ///////////
 
-    abstract protected function schulzeVariant(int $i, int $j, Election $election): int|float;
+    abstract protected function schulzeVariant(int $i, int $j, Pairwise $pairwise): int|float;
 
     #[\Override]
     public function getResult(): Result
@@ -101,14 +102,14 @@ abstract class SchulzeCore extends Method implements MethodInterface
     // Calculate the Strongest Paths
     protected function makeStrongestPaths(): void
     {
-        $election = $this->getElection();
-        $CandidatesKeys = array_keys($election->getCandidatesList());
+        $candidates = array_keys($this->getElection()->getCandidatesList());
+        $pairwise = $this->getElection()->getPairwise();
 
-        foreach ($CandidatesKeys as $i) {
-            foreach ($CandidatesKeys as $j) {
+        foreach ($candidates as $i) {
+            foreach ($candidates as $j) {
                 if ($i !== $j) {
-                    if ($election->getPairwise()[$i]['win'][$j] > $election->getPairwise()[$j]['win'][$i]) {
-                        $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $election);
+                    if ($pairwise->candidateKeyWinVersus($i, $j)) {
+                        $this->StrongestPaths[$i][$j] = $this->schulzeVariant($i, $j, $pairwise);
                     } else {
                         $this->StrongestPaths[$i][$j] = 0;
                     }
@@ -116,10 +117,10 @@ abstract class SchulzeCore extends Method implements MethodInterface
             }
         }
 
-        foreach ($CandidatesKeys as $i) {
-            foreach ($CandidatesKeys as $j) {
+        foreach ($candidates as $i) {
+            foreach ($candidates as $j) {
                 if ($i !== $j) {
-                    foreach ($CandidatesKeys as $k) {
+                    foreach ($candidates as $k) {
                         if ($i !== $k && $j !== $k) {
                             $this->StrongestPaths[$j][$k] =
                                 max(

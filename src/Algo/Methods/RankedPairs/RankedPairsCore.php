@@ -217,12 +217,13 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
     protected function pairwiseSort(): array
     {
+        $pairwise = $this->getElection()->getPairwise();
         $pairs = [];
 
         $i = 0;
-        foreach ($this->getElection()->getPairwise() as $candidate_key => $candidate_value) {
+        foreach ($pairwise as $candidate_key => $candidate_value) {
             foreach ($candidate_value['win'] as $challenger_key => $challenger_value) {
-                if ($challenger_value > $candidate_value['lose'][$challenger_key]) {
+                if ($pairwise->candidateKeyWinVersus($candidate_key, $challenger_key)) {
                     // Victory
                     $pairs[$i]['from'] = $candidate_key;
                     // Defeat
@@ -230,7 +231,7 @@ abstract class RankedPairsCore extends Method implements MethodInterface
 
                     $pairs[$i][RP_VARIANT::WINNING->name] = $challenger_value;
                     $pairs[$i][RP_VARIANT::MINORITY->name] = $candidate_value['lose'][$challenger_key];
-                    $pairs[$i][RP_VARIANT::MARGIN->name] = $candidate_value['win'][$challenger_key] - $candidate_value['lose'][$challenger_key];
+                    $pairs[$i][RP_VARIANT::MARGIN->name] = $pairwise->compareCandidatesKeys($candidate_key, $challenger_key);
 
                     $i++;
                 }

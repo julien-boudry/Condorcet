@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
 class SchulzeRatio extends SchulzeCore
 {
@@ -22,12 +22,12 @@ class SchulzeRatio extends SchulzeCore
     public const array METHOD_NAME = ['Schulze Ratio', 'SchulzeRatio', 'Schulze_Ratio'];
 
     #[\Override]
-    protected function schulzeVariant(int $i, int $j, Election $election): float
+    protected function schulzeVariant(int $i, int $j, Pairwise $pairwise): float
     {
-        if ($election->getPairwise()[$j]['win'][$i] !== 0) {
-            return (float) ($election->getPairwise()[$i]['win'][$j] / $election->getPairwise()[$j]['win'][$i]);
+        if ($pairwise[$j]['win'][$i] !== 0) {
+            return (float) ($pairwise[$i]['win'][$j] / $pairwise[$j]['win'][$i]);
         } else {
-            return (float) (($election->getPairwise()[$i]['win'][$j] + 1) / 1);
+            return (float) (($pairwise[$i]['win'][$j] + 1) / 1);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Throwable\CandidateExistsException;
 
 beforeEach(function (): void {
     $this->election1 = new Election;
@@ -261,4 +262,38 @@ test('remove vote bug with weight', function (): void {
             ],
         ],
     ]);
+});
+
+test('compare Candidates', function (): void {
+    $this->election1->removeAllVotes();
+    $this->election1->addVote('A>B>C');
+    $this->election1->addVote('A>C>B');
+
+    $pairwise = $this->election1->getPairwise();
+
+    expect($pairwise->compareCandidates('A', 'B'))->toBe(2);
+    expect($pairwise->candidateWinVersus('A', 'B'))->toBeTrue();
+    expect($pairwise->compareCandidates('A', 'C'))->toBe(2);
+    expect($pairwise->candidateWinVersus('A', 'C'))->toBeTrue();
+    expect($pairwise->compareCandidates('B', 'C'))->toBe(0);
+    expect($pairwise->candidateWinVersus('B', 'C'))->toBeFalse();
+    expect($pairwise->compareCandidates('B', 'A'))->toBe(-2);
+    expect($pairwise->candidateWinVersus('B', 'A'))->toBeFalse();
+    expect($pairwise->compareCandidates('C', 'A'))->toBe(-2);
+    expect($pairwise->candidateWinVersus('C', 'A'))->toBeFalse();
+    expect($pairwise->compareCandidates('C', 'B'))->toBe(0);
+    expect($pairwise->candidateWinVersus('C', 'B'))->toBeFalse();
+
+    $candidateA = $this->election1->getCandidateObjectFromName('A');
+    $candidateB = $this->election1->getCandidateObjectFromName('B');
+    $candidateC = $this->election1->getCandidateObjectFromName('C');
+
+    expect($pairwise->compareCandidates($candidateA, $candidateB))->toBe(2);
+    expect($pairwise->candidateWinVersus($candidateA, $candidateB))->toBeTrue();
+    expect($pairwise->compareCandidates($candidateA, 'C'))->toBe(2);
+    expect($pairwise->candidateWinVersus($candidateA, 'C'))->toBeTrue();
+    expect($pairwise->compareCandidates('B', $candidateC))->toBe(0);
+    expect($pairwise->candidateWinVersus('B', $candidateC))->toBeFalse();
+
+    expect(fn(): never => $pairwise->compareCandidates($candidateA, 'D'))->toThrow(CandidateExistsException::class);
 });

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
-use CondorcetPHP\Condorcet\Election;
+use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
 class SchulzeMargin extends SchulzeCore
 {
@@ -22,8 +22,8 @@ class SchulzeMargin extends SchulzeCore
     public const array METHOD_NAME = ['Schulze Margin', 'SchulzeMargin', 'Schulze_Margin'];
 
     #[\Override]
-    protected function schulzeVariant(int $i, int $j, Election $election): int
+    protected function schulzeVariant(int $i, int $j, Pairwise $pairwise): int
     {
-        return $election->getPairwise()[$i]['win'][$j] - $election->getPairwise()[$j]['win'][$i];
+        return $pairwise->compareCandidatesKeys($i, $j);
     }
 }

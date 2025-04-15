@@ -87,7 +87,7 @@ class Generate
 
     public function cleverRelated(string $name): string
     {
-        list($class, $pointer) = explode('::', $name);
+        [$class, $pointer] = explode('::', $name);
 
         if (!isset($this->fullPagesListMeta[$class]['page'][$pointer])) {
             var_dump('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input name: ' . $name);
@@ -162,9 +162,8 @@ class Generate
                     ' ' .
                     $str .
                     (self::getTypeAsString($returnType) !== null ? ': ' . $returnType : '')
-                ;
-        }
-        elseif ($reflection instanceof ReflectionProperty) {
+            ;
+        } elseif ($reflection instanceof ReflectionProperty) {
             $type = $reflection->getType();
 
             $r .=   self::getModifiersName($reflection) .
@@ -175,7 +174,7 @@ class Generate
                     $reflection->name .
                     ' ' .
                     $str
-                ;
+            ;
         } else {
             throw new \Error('Unknown type');
         }
@@ -308,14 +307,13 @@ class Generate
         echo 'YAH ! <br>' . (microtime(true) - $start_time) . 's';
     }
 
-    public function checkQuality (
+    public function checkQuality(
         /** @var array<ReflectionProperty|ReflectionMethod> */
         array $pagesList,
         ReflectionClass $reflectionClass,
         int &$inDoc,
         int &$non_inDoc
-    ): void
-    {
+    ): void {
         foreach ($pagesList as $onePage) {
 
             $phpDocNode = false;
@@ -324,8 +322,7 @@ class Generate
 
             if (!$onePage->isPublic() && $isPublicApi) {
                 var_dump('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
-            }
-            elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
+            } elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
                 // continue
             } elseif ($onePage->isPublic() && $isPublicApi) {
                 $inDoc++;
@@ -613,7 +610,7 @@ class Generate
                 $file_content .= $forIndexSection ? '[' : '';
                 $file_content .= '$';
                 $file_content .= $property->getName();
-                $file_content .= $forIndexSection ? ']('.$url.')' : '';
+                $file_content .= $forIndexSection ? '](' . $url . ')' : '';
                 $file_content .= "\n";
                 $hasConstants = true;
             }

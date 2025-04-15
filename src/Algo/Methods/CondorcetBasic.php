@@ -55,18 +55,25 @@ class CondorcetBasic extends Method implements MethodInterface
         // -------
 
         // Basic Condorcet calculation
-        foreach ($this->getElection()->getPairwise() as $candidate_key => $candidat_detail) {
+        $candidates = array_keys($this->getElection()->candidates);
+        $pairwise = $this->getElection()->getPairwise();
+
+        foreach ($candidates as $candidateKey) {
             $winner = true;
 
-            foreach ($candidat_detail['win'] as $challenger_key => $win_count) {
-                if ($win_count <= $candidat_detail['lose'][$challenger_key]) {
+            foreach ($candidates as $challengerKey) {
+                if ($candidateKey === $challengerKey) {
+                    continue;
+                }
+
+                if (!$pairwise->candidateKeyWinVersus($candidateKey, $challengerKey)) {
                     $winner = false;
                     break;
                 }
             }
 
             if ($winner) {
-                $this->CondorcetWinner = $candidate_key;
+                $this->CondorcetWinner = $candidateKey;
                 return $this->CondorcetWinner;
             }
         }
@@ -85,18 +92,26 @@ class CondorcetBasic extends Method implements MethodInterface
         // -------
 
         // Basic Condorcet calculation
-        foreach ($this->getElection()->getPairwise() as $candidate_key => $candidat_detail) {
+        // Basic Condorcet calculation
+        $candidates = array_keys($this->getElection()->candidates);
+        $pairwise = $this->getElection()->getPairwise();
+
+        foreach ($candidates as $candidateKey) {
             $loser = true;
 
-            foreach ($candidat_detail['lose'] as $challenger_key => $lose_count) {
-                if ($lose_count <= $candidat_detail['win'][$challenger_key]) {
+            foreach ($candidates as $challengerKey) {
+                if ($candidateKey === $challengerKey) {
+                    continue;
+                }
+
+                if ($pairwise->compareCandidatesKeys($candidateKey, $challengerKey) >= 0) {
                     $loser = false;
                     break;
                 }
             }
 
             if ($loser) {
-                $this->CondorcetLoser = $candidate_key;
+                $this->CondorcetLoser = $candidateKey;
                 return $this->CondorcetLoser;
             }
         }

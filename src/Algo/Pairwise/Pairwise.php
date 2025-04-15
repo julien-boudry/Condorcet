@@ -12,9 +12,10 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Pairwise;
 
-use CondorcetPHP\Condorcet\{Condorcet, CondorcetVersion, Election, Vote};
+use CondorcetPHP\Condorcet\{Candidate, Condorcet, CondorcetVersion, Election, Vote};
 use CondorcetPHP\Condorcet\Timer\Chrono as Timer_Chrono;
 use CondorcetPHP\Condorcet\Relations\HasElection;
+use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException};
 
 /**
  * @implements \ArrayAccess<int,array<string,array<int,int>>>
@@ -82,6 +83,9 @@ class Pairwise implements \ArrayAccess, \Iterator
 
     protected ?array $explicitPairwise = null;
 
+    /**
+     * @internal
+     */
     public function __construct(
         Election $link
     ) {
@@ -104,6 +108,9 @@ class Pairwise implements \ArrayAccess, \Iterator
         return $s;
     }
 
+    /**
+     * @internal
+     */
     public function addNewVote(int $key): void
     {
         if (Condorcet::$UseTimer) {
@@ -115,6 +122,9 @@ class Pairwise implements \ArrayAccess, \Iterator
         $this->computeOneVote($this->Pairwise, $this->getElection()->getVotesManager()[$key]);
     }
 
+    /**
+     * @internal
+     */
     public function removeVote(int $key): void
     {
         if (Condorcet::$UseTimer) {
@@ -158,6 +168,61 @@ class Pairwise implements \ArrayAccess, \Iterator
         }
 
         return $this->explicitPairwise;
+    }
+
+    protected function prepareComparaison(
+        Candidate|string $a,
+        Candidate|string $b
+    ): array {
+        $election = $this->getElection();
+
+        if (\is_string($a)) {
+            $a = $election->getCandidateObjectFromName($a);
+        }
+
+        if (\is_string($b)) {
+            $b = $election->getCandidateObjectFromName($b);
+        }
+
+        if ($a === null || $b === null) {
+            throw new CandidateExistsException('Candidate not linked to this election');
+        }
+
+        return [$election->getCandidateKey($a), $election->getCandidateKey($b)];
+    }
+
+    /**
+     * Compare Candidate pairwise to another Candidate.
+     * @return int $a wins - $b wins. Negative if a lose, positive if he win or 0 in case of a tie.
+     * @api
+     * @throws CandidateExistsException
+     */
+    public function compareCandidates(Candidate|string $a, Candidate|string $b): int
+    {
+        return $this->compareCandidatesKeys(...$this->prepareComparaison($a, $b));
+    }
+
+    /**
+     * Compare Candidate pairwise to another Candidate.
+     * @return bool true if $a win, false if it lose or tie
+     * @api
+     * @throws CandidateExistsException
+     */
+    public function candidateWinVersus(Candidate|string $candidate, Candidate|string $opponent): bool
+    {
+        return $this->candidateKeyWinVersus(...$this->prepareComparaison($candidate, $opponent));
+    }
+
+    /** @internal */
+    public function compareCandidatesKeys(int $aKey, int $bKey): int
+    {
+        return $this->Pairwise[$aKey]['win'][$bKey] - $this->Pairwise[$bKey]['win'][$aKey];
+    }
+
+    /** @internal */
+    public function candidateKeyWinVersus(int $candidateKey, int $opponentKey): bool
+    {
+        return $this->compareCandidatesKeys($candidateKey, $opponentKey) > 0;
     }
 
     protected function getCandidateNameFromKey(int $candidateKey): string

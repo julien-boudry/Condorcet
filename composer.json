@@ -84,7 +84,6 @@
     },
     "config": {
         "allow-plugins": {
-            "infection/extension-installer": false,
             "pestphp/pest-plugin": true
         }
     }
