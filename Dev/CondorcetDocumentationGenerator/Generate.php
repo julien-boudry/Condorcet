@@ -395,7 +395,7 @@ class Generate
                     "### Throws:   \n\n";
 
             foreach ($this->getPhpDocNode($onePage)->getTagsByName('@throws') as $oneTag) {
-                $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $onePage->getFileName());
+                $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $onePage->getDeclaringClass()->getFileName());
 
                 $md .= '* ```' . $classPath . '``` ' . ($oneTag->value->description ?? '') . "\n";
             }
@@ -715,7 +715,7 @@ class Generate
         return $file_content;
     }
 
-    protected function getPhpDocNode(string|ReflectionClass|ReflectionMethod $docBlock): PhpDocNode
+    protected function getPhpDocNode(string|ReflectionClass|ReflectionMethod|ReflectionProperty $docBlock): PhpDocNode
     {
         if ($docBlock instanceof Reflector) {
             $docBlock = $docBlock->getDocComment();

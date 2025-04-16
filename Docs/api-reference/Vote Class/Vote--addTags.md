@@ -1,6 +1,6 @@
 ## public Vote::addTags
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L631)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L628)
 
 ### Description    
 

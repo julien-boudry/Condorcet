@@ -12,7 +12,7 @@ namespace CondorcetPHP\Condorcet;
 // Generic for many Condorcet Class
 trait CondorcetVersion
 {
-    // Build by Version
+    /** @api */
     public private(set) string $buildByCondorcetVersion = Condorcet::VERSION;
 
     /**

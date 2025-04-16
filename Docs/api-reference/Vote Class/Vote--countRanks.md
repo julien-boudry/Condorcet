@@ -1,6 +1,6 @@
 ## public Vote::countRanks
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L286)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L283)
 
 ### Description    
 

@@ -1,11 +1,11 @@
-## public Timer\Manager::getObjectVersion
+## public Election::getCondorcetBuilderVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L27)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L25)
 
 ### Description    
 
 ```php
-public Timer\Manager->getObjectVersion ( [bool $major = false] ): string
+public Election->getCondorcetBuilderVersion ( [bool $major = false] ): string
 ```
 
 Get the Condorcet PHP version who built this object. Usefull pour serializing Election.

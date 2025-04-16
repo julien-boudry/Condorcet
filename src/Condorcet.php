@@ -79,7 +79,7 @@ abstract class Condorcet
      * Get the library version.
      * @api
      * @return mixed Condorcet PHP version.
-     * @see Election::getObjectVersion
+     * @see Election::getCondorcetBuilderVersion
      * @param $major * true will return : 2.0, false will return : 2.0.0.
      */
     public static function getVersion(

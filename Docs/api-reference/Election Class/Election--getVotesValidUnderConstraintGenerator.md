@@ -1,6 +1,6 @@
 ## public Election::getVotesValidUnderConstraintGenerator
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L163)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L160)
 
 ### Description    
 

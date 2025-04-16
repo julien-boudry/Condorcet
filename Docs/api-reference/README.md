@@ -11,12 +11,14 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public array` [$nameHistory](/Docs/api-reference/Candidate%20Class/Candidate--nameHistory.md)
 * `public float` [$createdAt](/Docs/api-reference/Candidate%20Class/Candidate--createdAt.md)
 * `public float` [$updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Candidate%20Class/Candidate--buildByCondorcetVersion.md)
 
 * [public Candidate->__construct (...)](/Docs/api-reference/Candidate%20Class/Candidate--__construct.md)  
+* [final public Candidate->buildByCondorcetVersion](/Docs/api-reference/Candidate%20Class/Candidate--buildByCondorcetVersion.md)  
 * [public Candidate->countLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md): `int`  
 * [virtual public Candidate->createdAt](/Docs/api-reference/Candidate%20Class/Candidate--createdAt.md)  
+* [public Candidate->getCondorcetBuilderVersion (...)](/Docs/api-reference/Candidate%20Class/Candidate--getCondorcetBuilderVersion.md): `string`  
 * [public Candidate->getLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks.md): `array`  
-* [public Candidate->getObjectVersion (...)](/Docs/api-reference/Candidate%20Class/Candidate--getObjectVersion.md): `string`  
 * [public Candidate->haveLink (...)](/Docs/api-reference/Candidate%20Class/Candidate--haveLink.md): `bool`  
 * [virtual public Candidate->name](/Docs/api-reference/Candidate%20Class/Candidate--name.md)  
 * [public Candidate->nameHistory](/Docs/api-reference/Candidate%20Class/Candidate--nameHistory.md)  
@@ -48,9 +50,10 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public CondorcetPHP\Condorcet\ElectionProcess\ElectionState` [$state](/Docs/api-reference/Election%20Class/Election--state.md)
 * `public bool` [$implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)
 * `public bool` [$voteWeightAllowed](/Docs/api-reference/Election%20Class/Election--voteWeightAllowed.md)
-* `public int` [$electionSeats](/Docs/api-reference/Election%20Class/Election--electionSeats.md)
+* `public int` [$seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)
 * `public array` [$votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)
 * `public string` [$hash](/Docs/api-reference/Election%20Class/Election--hash.md)
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)
 * `public CondorcetPHP\Condorcet\Algo\StatsVerbosity` [$statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)
 
 * [public static Election::maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)  
@@ -62,6 +65,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
 * [public Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md): `int`  
 * [public Election->allowsVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--allowsVoteWeight.md): `static`  
+* [final public Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
 * [public Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate.md): `bool`  
 * [public Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `bool`  
 * [public Election->computeResult (...)](/Docs/api-reference/Election%20Class/Election--computeResult.md): `void`  
@@ -69,11 +73,11 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->countInvalidVoteWithConstraints ()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints.md): `int`  
 * [public Election->countValidVoteWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints.md): `int`  
 * [public Election->countVotes (...)](/Docs/api-reference/Election%20Class/Election--countVotes.md): `int`  
-* [public Election->electionSeats](/Docs/api-reference/Election%20Class/Election--electionSeats.md)  
 * [public Election->getCandidateObjectFromName (...)](/Docs/api-reference/Election%20Class/Election--getCandidateObjectFromName.md): `?CondorcetPHP\Condorcet\Candidate`  
 * [public Election->getCandidatesList ()](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md): `array`  
 * [public Election->getCandidatesListAsString ()](/Docs/api-reference/Election%20Class/Election--getCandidatesListAsString.md): `array`  
 * [public Election->getChecksum ()](/Docs/api-reference/Election%20Class/Election--getChecksum.md): `string`  
+* [public Election->getCondorcetBuilderVersion (...)](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md): `string`  
 * [public Election->getCondorcetLoser ()](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser.md): `?CondorcetPHP\Condorcet\Candidate`  
 * [public Election->getCondorcetWinner ()](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner.md): `?CondorcetPHP\Condorcet\Candidate`  
 * [public Election->getConstraints ()](/Docs/api-reference/Election%20Class/Election--getConstraints.md): `array`  
@@ -82,7 +86,6 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->getGlobalTimer ()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md): `float`  
 * [public Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `float`  
 * [public Election->getLoser (...)](/Docs/api-reference/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* [public Election->getObjectVersion (...)](/Docs/api-reference/Election%20Class/Election--getObjectVersion.md): `string`  
 * [public Election->getPairwise ()](/Docs/api-reference/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
 * [public Election->getResult (...)](/Docs/api-reference/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
 * [public Election->getTimerManager ()](/Docs/api-reference/Election%20Class/Election--getTimerManager.md): `CondorcetPHP\Condorcet\Timer\Manager`  
@@ -104,6 +107,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->removeExternalDataHandler ()](/Docs/api-reference/Election%20Class/Election--removeExternalDataHandler.md): `bool`  
 * [public Election->removeVote (...)](/Docs/api-reference/Election%20Class/Election--removeVote.md): `true`  
 * [public Election->removeVotesByTags (...)](/Docs/api-reference/Election%20Class/Election--removeVotesByTags.md): `array`  
+* [public Election->seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)  
 * [public Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
 * [public Election->setImplicitRanking (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md): `static`  
 * [public Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
@@ -139,16 +143,18 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public float` [$buildTimestamp](/Docs/api-reference/Result%20Class/Result--buildTimestamp.md)
 * `readonly public string` [$electionCondorcetVersion](/Docs/api-reference/Result%20Class/Result--electionCondorcetVersion.md)
 * `public bool` [$isProportional](/Docs/api-reference/Result%20Class/Result--isProportional.md)
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Result%20Class/Result--buildByCondorcetVersion.md)
 
 * [final public readonly Result->CondorcetLoser](/Docs/api-reference/Result%20Class/Result--CondorcetLoser.md)  
 * [final public readonly Result->CondorcetWinner](/Docs/api-reference/Result%20Class/Result--CondorcetWinner.md)  
 * [virtual public Result->Loser](/Docs/api-reference/Result%20Class/Result--Loser.md)  
 * [virtual public Result->Winner](/Docs/api-reference/Result%20Class/Result--Winner.md)  
+* [final public Result->buildByCondorcetVersion](/Docs/api-reference/Result%20Class/Result--buildByCondorcetVersion.md)  
 * [final public readonly Result->buildTimestamp](/Docs/api-reference/Result%20Class/Result--buildTimestamp.md)  
 * [final public readonly Result->byClass](/Docs/api-reference/Result%20Class/Result--byClass.md)  
 * [final public readonly Result->electionCondorcetVersion](/Docs/api-reference/Result%20Class/Result--electionCondorcetVersion.md)  
 * [final public readonly Result->fromMethod](/Docs/api-reference/Result%20Class/Result--fromMethod.md)  
-* [public Result->getObjectVersion (...)](/Docs/api-reference/Result%20Class/Result--getObjectVersion.md): `string`  
+* [public Result->getCondorcetBuilderVersion (...)](/Docs/api-reference/Result%20Class/Result--getCondorcetBuilderVersion.md): `string`  
 * [public Result->getWarning (...)](/Docs/api-reference/Result%20Class/Result--getWarning.md): `array`  
 * [virtual public Result->isProportional](/Docs/api-reference/Result%20Class/Result--isProportional.md)  
 * [final public Result->methodOptions](/Docs/api-reference/Result%20Class/Result--methodOptions.md)  
@@ -171,18 +177,20 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public array` [$rankingHistory](/Docs/api-reference/Vote%20Class/Vote--rankingHistory.md)
 * `public array` [$tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)
 * `public string` [$hash](/Docs/api-reference/Vote%20Class/Vote--hash.md)
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Vote%20Class/Vote--buildByCondorcetVersion.md)
 
 * [public Vote->__construct (...)](/Docs/api-reference/Vote%20Class/Vote--__construct.md)  
 * [public Vote->addTags (...)](/Docs/api-reference/Vote%20Class/Vote--addTags.md): `bool`  
+* [final public Vote->buildByCondorcetVersion](/Docs/api-reference/Vote%20Class/Vote--buildByCondorcetVersion.md)  
 * [final public Vote->countCandidates](/Docs/api-reference/Vote%20Class/Vote--countCandidates.md)  
 * [public Vote->countLinks ()](/Docs/api-reference/Vote%20Class/Vote--countLinks.md): `int`  
 * [public Vote->countRanks ()](/Docs/api-reference/Vote%20Class/Vote--countRanks.md): `int`  
 * [virtual public Vote->createdAt](/Docs/api-reference/Vote%20Class/Vote--createdAt.md)  
 * [public Vote->getAllCandidates (...)](/Docs/api-reference/Vote%20Class/Vote--getAllCandidates.md): `array`  
+* [public Vote->getCondorcetBuilderVersion (...)](/Docs/api-reference/Vote%20Class/Vote--getCondorcetBuilderVersion.md): `string`  
 * [public Vote->getContextualRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getContextualRanking.md): `array`  
 * [public Vote->getContextualRankingAsString (...)](/Docs/api-reference/Vote%20Class/Vote--getContextualRankingAsString.md): `array`  
 * [public Vote->getLinks ()](/Docs/api-reference/Vote%20Class/Vote--getLinks.md): `array`  
-* [public Vote->getObjectVersion (...)](/Docs/api-reference/Vote%20Class/Vote--getObjectVersion.md): `string`  
 * [public Vote->getRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getRanking.md): `array`  
 * [public Vote->getSimpleRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getSimpleRanking.md): `string`  
 * [public Vote->getTagsAsString ()](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString.md): `string`  
@@ -198,16 +206,255 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [final public Vote->tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)  
 * [final public Vote->updatedAt](/Docs/api-reference/Vote%20Class/Vote--updatedAt.md)  
 
+### CondorcetPHP\Condorcet\Algo\Method Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\Jefferson Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\SainteLague Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder\LargestRemainder Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomBallot Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomCandidates Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Smith\SchwartzSet Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Algo\Methods\Smith\SmithSet Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
+
+* [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+
 ### CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise Class  
 
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)
+
+* [final public Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
 * [public Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
 * [public Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
+* [public Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
 * [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise Class  
 
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)
+
+* [final public Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
 * [public Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
 * [public Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
+* [public Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
 * [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Tools\Combinations Class  
@@ -231,18 +478,255 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * [public static Algo\Tools\StvQuotas::fromString (...)](/Docs/api-reference/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
 
+### CondorcetPHP\Condorcet\DataManager\ArrayManager Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)
+
+* [final public DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
+* [public DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\DataManager\VotesManager Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)
+
+* [final public DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
+* [public DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
+
 ### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver Class  
 
 * `public const SEGMENT: (array)`  
 
 * `public static bool` [$preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)
 
 * [public static DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver::preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)  
+* [final public DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)  
+* [public DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\CandidateExistsException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ConsoleInputException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\DataHandlerException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\NoCandidatesException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\NoSeatsException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ResultException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\TagsFilterException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\TimerException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteConstraintException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteManagerException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
+
+* [final public Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* [public Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--buildByCondorcetVersion.md)
+
+* [final public Throwable\Internal\CondorcetInternalError->buildByCondorcetVersion](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--buildByCondorcetVersion.md)  
+* [public Throwable\Internal\CondorcetInternalError->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--getCondorcetBuilderVersion.md): `string`  
+
+### CondorcetPHP\Condorcet\Timer\Chrono Class  
+
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--buildByCondorcetVersion.md)
+
+* [final public Timer\Chrono->buildByCondorcetVersion](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--buildByCondorcetVersion.md)  
+* [public Timer\Chrono->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 
+* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--buildByCondorcetVersion.md)
+
+* [final public Timer\Manager->buildByCondorcetVersion](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--buildByCondorcetVersion.md)  
+* [public Timer\Manager->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getCondorcetBuilderVersion.md): `string`  
 * [public Timer\Manager->getHistory ()](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getHistory.md): `array`  
-* [public Timer\Manager->getObjectVersion (...)](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getObjectVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CivsFormat Class  
 
@@ -334,7 +818,7 @@ _Including above methods from public API_
 
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Method `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L26)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L23)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -344,26 +828,26 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\StatsInterface  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/BordaCount.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/BordaCount.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -376,15 +860,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionStarting ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -393,12 +878,11 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getScoreByCandidateRanking (int $CandidatesRanked, CondorcetPHP\Condorcet\Election $election): float  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/DowdallSystem.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/DowdallSystem.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -411,15 +895,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionStarting ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -428,12 +913,11 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getScoreByCandidateRanking (int $CandidatesRanked, CondorcetPHP\Condorcet\Election $election): float  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -446,15 +930,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getLoser (): ?int  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): never  
 * public getWinner (): ?int  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -464,12 +949,11 @@ _Including above methods from public API_
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\StatsInterface  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Copeland/Copeland.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Copeland/Copeland.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -482,14 +966,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -499,12 +984,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonQuick.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonQuick.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -516,14 +1000,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -531,12 +1016,11 @@ _Including above methods from public API_
 * protected compute (): void  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonTidemanApproximation.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonTidemanApproximation.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -549,14 +1033,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -566,12 +1051,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/HighestAverages_Core.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/HighestAverages_Core.php#L17)
 
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
@@ -585,14 +1069,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -604,13 +1089,12 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRounds (): array  
-* protected objectVersion ()  
 * protected rounds ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\Jefferson extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/Jefferson.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/Jefferson.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -624,14 +1108,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -643,13 +1128,12 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRounds (): array  
-* protected objectVersion ()  
 * protected rounds ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\SainteLague extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/SainteLague.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/SainteLague.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -664,15 +1148,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionFirstDivisor ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -684,13 +1169,12 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRounds (): array  
-* protected objectVersion ()  
 * protected rounds ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/InstantRunoff/InstantRunoff.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/InstantRunoff/InstantRunoff.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -703,14 +1187,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public majority ()  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
@@ -720,12 +1205,11 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeScore (array $candidateDone): array  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/KemenyYoung/KemenyYoung.php#L24)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/KemenyYoung/KemenyYoung.php#L21)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -744,14 +1228,15 @@ _Including above methods from public API_
 * protected array $bestRankingTab
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Conflits ()  
@@ -770,12 +1255,11 @@ _Including above methods from public API_
 * protected getPossibleRankingIterator (): Generator  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder\LargestRemainder extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -790,15 +1274,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionQuota ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -810,13 +1295,12 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRounds (): array  
-* protected objectVersion ()  
 * protected rounds ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomBallot extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomBallot.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomBallot.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -831,16 +1315,17 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionRandomizer ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
 * public compute (): void  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -848,13 +1333,12 @@ _Including above methods from public API_
 * protected electedBallotKey ()  
 * protected electedWeightLevel ()  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 * protected totalElectionWeight ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomCandidates extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomCandidates.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomCandidates.php#L20)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -867,7 +1351,7 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionRandomizer ()  
@@ -875,20 +1359,20 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
 * public compute (): void  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/FirstPastThePost.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/FirstPastThePost.php#L14)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -904,14 +1388,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -923,13 +1408,12 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected maxRound ()  
 * protected numberOfTargetedCandidatesAfterEachRound ()  
-* protected objectVersion ()  
 * protected selfElection ()  
 * protected targetNumberOfCandidatesForTheNextRound ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MajorityCore.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MajorityCore.php#L17)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -945,14 +1429,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -964,13 +1449,12 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected maxRound ()  
 * protected numberOfTargetedCandidatesAfterEachRound ()  
-* protected objectVersion ()  
 * protected selfElection ()  
 * protected targetNumberOfCandidatesForTheNextRound ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MultipleRoundsSystem.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MultipleRoundsSystem.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -989,7 +1473,7 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
@@ -998,8 +1482,9 @@ _Including above methods from public API_
 * protected static optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND ()  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1011,13 +1496,12 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected maxRound ()  
 * protected numberOfTargetedCandidatesAfterEachRound ()  
-* protected objectVersion ()  
 * protected selfElection ()  
 * protected targetNumberOfCandidatesForTheNextRound ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxMargin.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxMargin.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1030,14 +1514,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -1047,12 +1532,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxOpposition.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxOpposition.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1065,14 +1549,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -1082,12 +1567,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxWinning.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxWinning.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1100,14 +1584,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -1117,12 +1602,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/PairwiseStatsBased_Core.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/PairwiseStatsBased_Core.php#L17)
 
 ```php
 * protected const COUNT_TYPE: (string)
@@ -1135,14 +1619,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Comparison ()  
@@ -1152,12 +1637,11 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected looking (array $challenge): int  
 * protected makeRanking (): void  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT implements UnitEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L14)
 
 ```php
 * `case RP_VARIANT::UNDEFINED`  
@@ -1171,7 +1655,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L19)
 
 ```php
 * protected const VARIANT: (object)
@@ -1187,14 +1671,15 @@ _Including above methods from public API_
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Arcs ()  
@@ -1210,13 +1695,12 @@ _Including above methods from public API_
 * protected getWinners (array $alreadyDone): array  
 * protected makeArcs (): void  
 * protected makeResult (): array  
-* protected objectVersion ()  
 * protected pairwiseSort (): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsMargin.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsMargin.php#L15)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1232,14 +1716,15 @@ _Including above methods from public API_
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Arcs ()  
@@ -1255,13 +1740,12 @@ _Including above methods from public API_
 * protected getWinners (array $alreadyDone): array  
 * protected makeArcs (): void  
 * protected makeResult (): array  
-* protected objectVersion ()  
 * protected pairwiseSort (): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsWinning.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsWinning.php#L15)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1277,14 +1761,15 @@ _Including above methods from public API_
 * protected bool $StatsDone
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Arcs ()  
@@ -1300,13 +1785,12 @@ _Including above methods from public API_
 * protected getWinners (array $alreadyDone): array  
 * protected makeArcs (): void  
 * protected makeResult (): array  
-* protected objectVersion ()  
 * protected pairwiseSort (): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV extends CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L30)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1332,7 +1816,7 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static MaxOutcomeComparisons ()  
@@ -1342,8 +1826,9 @@ _Including above methods from public API_
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1360,7 +1845,6 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected initialScoreTable ()  
 * protected makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array  
-* protected objectVersion ()  
 * protected outcomeComparisonTable ()  
 * protected outcomes ()  
 * protected selectBestOutcome (): void  
@@ -1370,7 +1854,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L20)
 
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
@@ -1384,15 +1868,16 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static optionQuota ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1401,13 +1886,12 @@ _Including above methods from public API_
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeScore (array $surplus = [], array $candidateElected = [], array $candidateEliminated = []): array  
-* protected objectVersion ()  
 * protected selfElection ()  
 * protected votesNeededToWin ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L20)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -1419,14 +1903,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1436,14 +1921,13 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
-* protected objectVersion ()  
 * protected prepareStrongestPath (): void  
 * protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int|float  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeMargin.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeMargin.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1455,14 +1939,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1472,14 +1957,13 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
-* protected objectVersion ()  
 * protected prepareStrongestPath (): void  
 * protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeRatio.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeRatio.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1491,14 +1975,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1508,14 +1993,13 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
-* protected objectVersion ()  
 * protected prepareStrongestPath (): void  
 * protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): float  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeWinning.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeWinning.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1527,14 +2011,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1544,14 +2029,13 @@ _Including above methods from public API_
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
 * protected makeRanking (): void  
 * protected makeStrongestPaths (): void  
-* protected objectVersion ()  
 * protected prepareStrongestPath (): void  
 * protected schulzeVariant (int $i, int $j, CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): int  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Smith\SchwartzSet extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SchwartzSet.php#L25)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SchwartzSet.php#L22)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1563,14 +2047,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1579,7 +2064,6 @@ _Including above methods from public API_
 * protected computeSchwartzSet (): array  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 * private consolidateStrongComponents (array $graph, array $sccs): array  
 * private dfs (array $graph, int $node, array $visited, array $stack): void  
@@ -1588,7 +2072,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Smith\SmithSet extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L25)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L22)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1600,14 +2084,15 @@ _Including above methods from public API_
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static MaxCandidates ()  
 * public static setOption (string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): true  
 * public __construct (CondorcetPHP\Condorcet\Election $mother)  
 * public __serialize (): array  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
-* public getObjectVersion (bool $major = false): string  
 * public getResult (): CondorcetPHP\Condorcet\Result  
 * public setElection (CondorcetPHP\Condorcet\Election $election): void  
 * protected Result ()  
@@ -1616,12 +2101,11 @@ _Including above methods from public API_
 * protected computeSmithSet (): array  
 * protected createResult (array $result): CondorcetPHP\Condorcet\Result  
 * protected getStats (): CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats  
-* protected objectVersion ()  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements Traversable, Iterator, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/FilteredPairwise.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/FilteredPairwise.php#L15)
 
 ```php
 * readonly protected array $candidates
@@ -1631,19 +2115,20 @@ _Including above methods from public API_
 * protected array $Pairwise
 * protected ?array $explicitPairwise
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (CondorcetPHP\Condorcet\Election $link, array|string|null $tags = null, int|bool $withTags = true)  
 * public __serialize (): array  
 * public addNewVote (int $key): void  
+* public buildByCondorcetVersion ()  
 * public candidateKeyWinVersus (int $candidateKey, int $opponentKey): bool  
 * public candidateWinVersus (CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent): bool  
 * public compareCandidates (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): int  
 * public compareCandidatesKeys (int $aKey, int $bKey): int  
 * public current (): array  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
-* public getObjectVersion (bool $major = false): string  
 * public key (): ?int  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
@@ -1666,13 +2151,12 @@ _Including above methods from public API_
 * protected formatNewpairwise (): void  
 * protected getCandidateNameFromKey (int $candidateKey): string  
 * protected getVotesManagerGenerator (): Generator  
-* protected objectVersion ()  
 * protected prepareComparaison (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements ArrayAccess, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L24)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L21)
 
 ```php
 * private bool $valid
@@ -1680,19 +2164,20 @@ _Including above methods from public API_
 * protected array $Pairwise
 * protected ?array $explicitPairwise
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (CondorcetPHP\Condorcet\Election $link)  
 * public __serialize (): array  
 * public addNewVote (int $key): void  
+* public buildByCondorcetVersion ()  
 * public candidateKeyWinVersus (int $candidateKey, int $opponentKey): bool  
 * public candidateWinVersus (CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent): bool  
 * public compareCandidates (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): int  
 * public compareCandidatesKeys (int $aKey, int $bKey): int  
 * public current (): array  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getExplicitPairwise (): array  
-* public getObjectVersion (bool $major = false): string  
 * public key (): ?int  
 * public next (): void  
 * public offsetExists (mixed $offset): bool  
@@ -1712,13 +2197,12 @@ _Including above methods from public API_
 * protected formatNewpairwise (): void  
 * protected getCandidateNameFromKey (int $candidateKey): string  
 * protected getVotesManagerGenerator (): Generator  
-* protected objectVersion ()  
 * protected prepareComparaison (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): array  
 * protected selfElection ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\StatsVerbosity implements UnitEnum, BackedEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/StatsVerbosity.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/StatsVerbosity.php#L13)
 
 ```php
 * `case StatsVerbosity::NONE`  
@@ -1736,7 +2220,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Stats\BaseMethodStats implements CondorcetPHP\Condorcet\Algo\Stats\StatsInterface, Traversable, IteratorAggregate, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Stats/BaseMethodStats.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Stats/BaseMethodStats.php#L16)
 
 ```php
 * readonly public string $buildByMethod
@@ -1762,7 +2246,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Stats\EmptyStats implements CondorcetPHP\Condorcet\Algo\Stats\StatsInterface, Traversable, IteratorAggregate, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Stats/EmptyStats.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Stats/EmptyStats.php#L14)
 
 ```php
 * public array $asArray
@@ -1777,7 +2261,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\Combinations `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Combinations.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Combinations.php#L20)
 
 ```php
 * public static bool $useBigIntegerIfAvailable
@@ -1789,14 +2273,14 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/PairwiseStats.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/PairwiseStats.php#L19)
 
 ```php
 * public static PairwiseComparison (CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $pairwise): array  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\Permutations `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Permutations.php#L24)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/Permutations.php#L21)
 
 ```php
 * public static bool $useBigIntegerIfAvailable
@@ -1812,7 +2296,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\StvQuotas implements UnitEnum, BackedEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L20)
 
 ```php
 * `case StvQuotas::DROOP`  
@@ -1830,7 +2314,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/TieBreakersCollection.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/TieBreakersCollection.php#L22)
 
 ```php
 * public static electSomeLosersbasedOnPairwiseComparaison (CondorcetPHP\Condorcet\Election $election, array $candidatesKeys): array  
@@ -1838,14 +2322,14 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Tools\VirtualVote `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VirtualVote.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VirtualVote.php#L14)
 
 ```php
 * public static removeCandidates (CondorcetPHP\Condorcet\Vote $vote, array $candidatesList): CondorcetPHP\Condorcet\Vote  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Tools\VotesDeductedApprovals implements Countable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VotesDeductedApprovals.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/VotesDeductedApprovals.php#L21)
 
 ```php
 * protected array $combinationsScore
@@ -1865,7 +2349,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Candidate implements Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L17)
 
 ```php
 * public string $name
@@ -1874,17 +2358,18 @@ _Including above methods from public API_
 * public float $createdAt
 * public float $updatedAt
 * private ?WeakMap $link
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __clone (): void  
 * public __construct (string $name)  
 * public __serialize (): array  
 * public __toString (): string  
+* public buildByCondorcetVersion ()  
 * public countLinks (): int  
 * public createdAt ()  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getLinks (): array  
-* public getObjectVersion (bool $major = false): string  
 * public haveLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public name ()  
 * public nameHistory ()  
@@ -1895,13 +2380,12 @@ _Including above methods from public API_
 * public updatedAt ()  
 * protected destroyAllLink (): void  
 * protected initWeakMap (): void  
-* protected objectVersion ()  
 * private checkNameInElectionContext (string $name): bool  
 * private link ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Condorcet `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L53)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L50)
 
 ```php
 * final public const AUTHOR: (string)
@@ -1928,7 +2412,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Console\Commands\ConvertCommand extends Symfony\Component\Console\Command\Command `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L33)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L30)
 
 ```php
 * public const SUCCESS: (integer)
@@ -1989,7 +2473,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Console\Commands\ElectionCommand extends Symfony\Component\Console\Command\Command `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L43)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L40)
 
 ```php
 * public const SUCCESS: (integer)
@@ -2094,7 +2578,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Console\CondorcetApplication `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/CondorcetApplication.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/CondorcetApplication.php#L18)
 
 ```php
 * public static Symfony\Component\Console\Application $SymfonyConsoleApplication
@@ -2106,7 +2590,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Console\Helper\CommandInputHelper `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/CommandInputHelper.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/CommandInputHelper.php#L12)
 
 ```php
 * public static getFilePath (string $path): ?string  
@@ -2115,7 +2599,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Console\Helper\FormaterHelper `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/FormaterHelper.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Helper/FormaterHelper.php#L15)
 
 ```php
 * public static formatResultTable (CondorcetPHP\Condorcet\Result $result): array  
@@ -2123,7 +2607,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Console\Style\CondorcetStyle extends Symfony\Component\Console\Style\SymfonyStyle implements Symfony\Component\Console\Output\OutputInterface, Symfony\Component\Console\Style\StyleInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Style/CondorcetStyle.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Style/CondorcetStyle.php#L19)
 
 ```php
 * public const CONDORCET_MAIN_COLOR: (string)
@@ -2202,14 +2686,14 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Constraints\NoTie implements CondorcetPHP\Condorcet\VoteConstraintInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Constraints/NoTie.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Constraints/NoTie.php#L14)
 
 ```php
 * public static isVoteAllowed (CondorcetPHP\Condorcet\Election $election, CondorcetPHP\Condorcet\Vote $vote): bool  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\DataManager\ArrayManager implements ArrayAccess, Countable, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/ArrayManager.php#L30)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/ArrayManager.php#L27)
 
 ```php
 * public static int $CacheSize
@@ -2224,7 +2708,7 @@ _Including above methods from public API_
 * protected int $maxKey
 * protected bool $valid
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static CacheSize ()  
 * public static MaxContainerLength ()  
@@ -2232,6 +2716,7 @@ _Including above methods from public API_
 * public __destruct ()  
 * public __serialize (): array  
 * public __unserialize (array $data): void  
+* public buildByCondorcetVersion ()  
 * public checkRegularize (): bool  
 * public clearCache (): void  
 * public closeHandler (): void  
@@ -2239,11 +2724,11 @@ _Including above methods from public API_
 * public current (): mixed  
 * public debugGetCache (): array  
 * public getCacheSize (): int  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getContainerSize (): int  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getFirstKey (): int  
 * public getFullDataSet (): array  
-* public getObjectVersion (bool $major = false): string  
 * public hasExternalHandler (): bool  
 * public importHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $handler): true  
 * public key (): ?int  
@@ -2273,7 +2758,6 @@ _Including above methods from public API_
 * protected encodeManyEntities (array $entities): array  
 * protected encodeOneEntity (CondorcetPHP\Condorcet\Vote $data): string  
 * protected maxKey ()  
-* protected objectVersion ()  
 * protected populateCache (): void  
 * protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected selfElection ()  
@@ -2281,7 +2765,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L19)
 
 ```php
 * public const SEGMENT: (array)
@@ -2292,15 +2776,16 @@ _Including above methods from public API_
 * public static bool $preferBlobInsteadVarchar
 * protected array $struct
 * protected array $prepare
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static preferBlobInsteadVarchar ()  
 * public __construct (PDO $bdd, bool $tryCreateTable = false, array $struct = [Entities,id,data])  
+* public buildByCondorcetVersion ()  
 * public closeTransaction (): void  
 * public countEntities (): int  
 * public createTable (): void  
 * public deleteOneEntity (int $key, bool $justTry): ?int  
-* public getObjectVersion (bool $major = false): string  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public insertEntities (array $input): void  
 * public selectMaxKey (): ?int  
 * public selectMinKey (): int  
@@ -2310,7 +2795,6 @@ _Including above methods from public API_
 * protected handler ()  
 * protected initPrepareQuery (): void  
 * protected initTransaction (): void  
-* protected objectVersion ()  
 * protected prepare ()  
 * protected queryError ()  
 * protected sliceInput (array $input): void  
@@ -2319,7 +2803,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\WoollyDriver\WoollyDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/WoollyDriver/WoollyDriver.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/WoollyDriver/WoollyDriver.php#L19)
 
 ```php
 * public string $voteColumnName
@@ -2338,7 +2822,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L19)
 
 ```php
 * public static int $CacheSize
@@ -2353,7 +2837,7 @@ _Including above methods from public API_
 * protected int $maxKey
 * protected bool $valid
 * protected WeakReference $selfElection
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static CacheSize ()  
 * public static MaxContainerLength ()  
@@ -2362,6 +2846,7 @@ _Including above methods from public API_
 * public __destruct ()  
 * public __serialize (): array  
 * public __unserialize (array $data): void  
+* public buildByCondorcetVersion ()  
 * public checkRegularize (): bool  
 * public clearCache (): void  
 * public closeHandler (): void  
@@ -2372,11 +2857,11 @@ _Including above methods from public API_
 * public current (): mixed  
 * public debugGetCache (): array  
 * public getCacheSize (): int  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getContainerSize (): int  
 * public getElection (): ?CondorcetPHP\Condorcet\Election  
 * public getFirstKey (): int  
 * public getFullDataSet (): array  
-* public getObjectVersion (bool $major = false): string  
 * public getVoteKey (CondorcetPHP\Condorcet\Vote $vote): ?int  
 * public getVotesList (?array $tags = null, int|bool $with = true): array  
 * public getVotesListAsString (bool $withContext): string  
@@ -2415,7 +2900,6 @@ _Including above methods from public API_
 * protected getFullVotesListGenerator (): Generator  
 * protected getPartialVotesListGenerator (array $tags, int|bool $with): Generator  
 * protected maxKey ()  
-* protected objectVersion ()  
 * protected populateCache (): void  
 * protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected processsumVoteWeights (?array $tags, int|bool $with, bool $constraints): int  
@@ -2424,7 +2908,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\VotesManagerEvent implements UnitEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManagerEvent.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManagerEvent.php#L12)
 
 ```php
 * `case VotesManagerEvent::NewVote`  
@@ -2438,7 +2922,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Election `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L25)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L22)
 
 ```php
 * public const MAX_CANDIDATE_NAME_LENGTH: (integer)
@@ -2450,10 +2934,10 @@ _Including above methods from public API_
 * readonly protected CondorcetPHP\Condorcet\Timer\Manager $timer
 * public bool $implicitRankingRule
 * public bool $voteWeightAllowed
-* public int $electionSeats
+* public int $seatsToElect
 * public array $votesConstraints
 * public string $hash
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 * public array $candidates
 * public string $nextAutomaticCandidateName
 * readonly protected CondorcetPHP\Condorcet\DataManager\VotesManager $Votes
@@ -2477,6 +2961,7 @@ _Including above methods from public API_
 * public addVotesFromJson (string $input): int  
 * public allowsVoteWeight (bool $rule = true): static  
 * public beginVoteUpdate (CondorcetPHP\Condorcet\Vote $existVote): void  
+* public buildByCondorcetVersion ()  
 * public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): bool  
 * public candidates ()  
 * public checkVoteCandidate (CondorcetPHP\Condorcet\Vote $vote): bool  
@@ -2488,7 +2973,6 @@ _Including above methods from public API_
 * public countValidVoteWithConstraints (array|string|null $tags = null, int|bool $with = true): int  
 * public countVotes (array|string|null $tags = null, int|bool $with = true): int  
 * public debugGetCalculator (): ?array  
-* public electionSeats ()  
 * public finishUpdateVote (CondorcetPHP\Condorcet\Vote $existVote): void  
 * public getCandidateKey (CondorcetPHP\Condorcet\Candidate|string $candidate): ?int  
 * public getCandidateObjectFromKey (int $candidate_key): ?CondorcetPHP\Condorcet\Candidate  
@@ -2496,6 +2980,7 @@ _Including above methods from public API_
 * public getCandidatesList (): array  
 * public getCandidatesListAsString (): array  
 * public getChecksum (): string  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getCondorcetLoser (): ?CondorcetPHP\Condorcet\Candidate  
 * public getCondorcetWinner (): ?CondorcetPHP\Condorcet\Candidate  
 * public getConstraints (): array  
@@ -2505,7 +2990,6 @@ _Including above methods from public API_
 * public getGlobalTimer (): float  
 * public getLastTimer (): float  
 * public getLoser (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
-* public getObjectVersion (bool $major = false): string  
 * public getPairwise (): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise  
 * public getResult (?string $method = null, array $methodOptions = []): CondorcetPHP\Condorcet\Result  
 * public getTimerManager (): CondorcetPHP\Condorcet\Timer\Manager  
@@ -2531,6 +3015,7 @@ _Including above methods from public API_
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote): true  
 * public removeVotesByTags (array|string $tags, bool $with = true): array  
 * public resetMethodsComputation (): void  
+* public seatsToElect ()  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): static  
 * public setImplicitRanking (bool $rule = true): static  
 * public setMethodOption (string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): static  
@@ -2551,7 +3036,6 @@ _Including above methods from public API_
 * protected computePairwise (): void  
 * protected initResult (string $class): void  
 * protected normalizeVoteInput (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): CondorcetPHP\Condorcet\Vote  
-* protected objectVersion ()  
 * protected preparePairwiseAndCleanCompute (): bool  
 * protected registerAllLinks (): void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags): CondorcetPHP\Condorcet\Vote  
@@ -2561,7 +3045,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\ElectionProcess\ElectionState implements UnitEnum, BackedEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ElectionState.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ElectionState.php#L15)
 
 ```php
 * `case ElectionState::CANDIDATES_REGISTRATION`  
@@ -2575,7 +3059,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode implements UnitEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesFastMode.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesFastMode.php#L15)
 
 ```php
 * `case VotesFastMode::NONE`  
@@ -2588,7 +3072,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L26)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L23)
 
 ```php
 * readonly public array $rawRanking
@@ -2614,7 +3098,7 @@ _Including above methods from public API_
 * readonly public float $buildTimestamp
 * readonly public string $electionCondorcetVersion
 * public bool $isProportional
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public CondorcetLoser ()  
 * public CondorcetWinner ()  
@@ -2622,13 +3106,14 @@ _Including above methods from public API_
 * public Winner ()  
 * public __construct (string $fromMethod, string $byClass, CondorcetPHP\Condorcet\Election $election, array $rawRanking, CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats, ?int $seats = null, array $methodOptions = [])  
 * public addWarning (int $type, ?string $msg = null): true  
+* public buildByCondorcetVersion ()  
 * public buildTimestamp ()  
 * public byClass ()  
 * public count (): int  
 * public current (): CondorcetPHP\Condorcet\Candidate|array  
 * public electionCondorcetVersion ()  
 * public fromMethod ()  
-* public getObjectVersion (bool $major = false): string  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getWarning (?int $type = null): array  
 * public isProportional ()  
 * public key (): int  
@@ -2653,88 +3138,87 @@ _Including above methods from public API_
 * public valid (): bool  
 * protected ResultIterator ()  
 * protected makeUserRanking (CondorcetPHP\Condorcet\Election $election): array  
-* protected objectVersion ()  
 * protected warning ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/AlgorithmWithoutRankingFeatureException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/AlgorithmWithoutRankingFeatureException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateDoesNotExistException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateDoesNotExistException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\CandidateExistsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateExistsException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateExistsException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateInvalidNameException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidateInvalidNameException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException implements Stringable, Throwable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidatesMaxNumberReachedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CandidatesMaxNumberReachedException.php#L12)
 
 ```php
 * protected  $message
@@ -2742,134 +3226,134 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string $method, int $maxCandidates)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public method ()  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Stringable, Throwable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CondorcetPublicApiException.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CondorcetPublicApiException.php#L15)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ConsoleInputException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ConsoleInputException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ConsoleInputException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/DataHandlerException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/DataHandlerException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ElectionFileFormatParseException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ElectionFileFormatParseException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ElectionObjectVersionMismatchException.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ElectionObjectVersionMismatchException.php#L14)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string $message = )  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/FileDoesNotExistException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/FileDoesNotExistException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\Internal\AlreadyLinkedException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/AlreadyLinkedException.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/AlreadyLinkedException.php#L13)
 
 ```php
 * protected  $message
@@ -2884,25 +3368,25 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError extends Error implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/CondorcetInternalError.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/CondorcetInternalError.php#L15)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException extends Exception implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/CondorcetInternalException.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/CondorcetInternalException.php#L13)
 
 ```php
 * protected  $message
@@ -2917,7 +3401,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\Internal\IntegerOverflowException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/IntegerOverflowException.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/IntegerOverflowException.php#L13)
 
 ```php
 * protected  $message
@@ -2932,7 +3416,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\Internal\NoGitShellException extends CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalException implements Stringable, Throwable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/NoGitShellException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/Internal/NoGitShellException.php#L12)
 
 ```php
 * protected  $message
@@ -2947,7 +3431,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/MethodLimitReachedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/MethodLimitReachedException.php#L12)
 
 ```php
 * protected  $message
@@ -2955,115 +3439,115 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string $method, ?string $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public method ()  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoCandidatesException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoCandidatesException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoSeatsException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoSeatsException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ParseVotesMaxNumberReachedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ParseVotesMaxNumberReachedException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ResultException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ResultException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ResultRequestedWithoutVotesException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ResultRequestedWithoutVotesException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/StatsEntryDoNotExistException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/StatsEntryDoNotExistException.php#L12)
 
 ```php
 * readonly public string $entryName
@@ -3071,239 +3555,240 @@ _Including above methods from public API_
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string $entryName)  
+* public buildByCondorcetVersion ()  
 * public entryName ()  
-* public getObjectVersion (bool $major = false): string  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/StvQuotaNotImplementedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/StvQuotaNotImplementedException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\TagsFilterException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TagsFilterException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TagsFilterException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\TimerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TimerException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/TimerException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteConstraintException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteConstraintException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteInvalidFormatException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteInvalidFormatException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteManagerException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteManagerException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteMaxNumberReachedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteMaxNumberReachedException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteNotLinkedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VoteNotLinkedException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VotingHasStartedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VotingHasStartedException.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VotingHasStartedException.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VotingMethodIsNotImplemented.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/VotingMethodIsNotImplemented.php#L12)
 
 ```php
 * protected  $message
 * protected  $code
 * protected string $file
 * protected int $line
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (string|int|null $message = null)  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * protected code ()  
 * protected file ()  
 * protected line ()  
 * protected message ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Timer\Chrono `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Chrono.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Chrono.php#L14)
 
 ```php
 * readonly protected CondorcetPHP\Condorcet\Timer\Manager $manager
 * readonly public float $start
 * protected ?string $role
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public __construct (CondorcetPHP\Condorcet\Timer\Manager $timer, ?string $role = null)  
 * public __destruct ()  
-* public getObjectVersion (bool $major = false): string  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getRole (): ?string  
 * public getStart (): float  
 * public getTimerManager (): CondorcetPHP\Condorcet\Timer\Manager  
@@ -3311,12 +3796,11 @@ _Including above methods from public API_
 * public start ()  
 * protected manager ()  
 * protected managerStartDeclare (): void  
-* protected objectVersion ()  
 * protected role ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Timer\Manager `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L16)
 
 ```php
 * protected float $globalTimer
@@ -3324,23 +3808,23 @@ _Including above methods from public API_
 * protected ?float $lastChronoTimestamp
 * protected ?float $startDeclare
 * protected array $history
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public addTime (CondorcetPHP\Condorcet\Timer\Chrono $chrono): void  
+* public buildByCondorcetVersion ()  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getGlobalTimer (): float  
 * public getHistory (): array  
 * public getLastTimer (): ?float  
-* public getObjectVersion (bool $major = false): string  
 * public startDeclare (CondorcetPHP\Condorcet\Timer\Chrono $chrono): static  
 * protected globalTimer ()  
 * protected history ()  
 * protected lastChronoTimestamp ()  
 * protected lastTimer ()  
-* protected objectVersion ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L18)
 
 ```php
 * public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
@@ -3374,7 +3858,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CEF\StandardParameter implements UnitEnum, BackedEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/StandardParameter.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/StandardParameter.php#L15)
 
 ```php
 * `case StandardParameter::CANDIDATES`  
@@ -3391,14 +3875,14 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L15)
 
 ```php
 * public static createFromElection (CondorcetPHP\Condorcet\Election $election, ?SplFileObject $file = null): string|true  
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L16)
 
 ```php
 * protected array $lines
@@ -3416,7 +3900,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\DebianFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L17)
 
 ```php
 * protected array $lines
@@ -3433,7 +3917,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L14)
 
 ```php
 * protected Random\Randomizer $randomizer
@@ -3457,7 +3941,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer extends CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L14)
 
 ```php
 * protected Random\Randomizer $randomizer
@@ -3482,7 +3966,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Utils\CondorcetUtil `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L15)
 
 ```php
 * public static format (mixed $input, bool $convertObject = true): mixed  
@@ -3492,7 +3976,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Utils\VoteEntryParser `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/VoteEntryParser.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/VoteEntryParser.php#L17)
 
 ```php
 * readonly public ?string $comment
@@ -3516,7 +4000,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Utils\VoteUtil `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/VoteUtil.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/VoteUtil.php#L17)
 
 ```php
 * public static convertRankingFromCandidateObjectToInternalKeys (CondorcetPHP\Condorcet\Election $election, array $ranking): void  
@@ -3525,7 +4009,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, ArrayAccess, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L26)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L23)
 
 ```php
 * private int $position
@@ -3542,7 +4026,7 @@ _Including above methods from public API_
 * protected static ?stdClass $cacheKey
 * protected WeakMap $cacheMap
 * private ?WeakMap $link
-* protected string $objectVersion
+* public string $buildByCondorcetVersion
 
 * public static clearCache (): void  
 * public static initCache (): stdClass  
@@ -3553,6 +4037,7 @@ _Including above methods from public API_
 * public __toString (): string  
 * public __wakeup (): void  
 * public addTags (array|string $tags): bool  
+* public buildByCondorcetVersion ()  
 * public countCandidates ()  
 * public countLinks (): int  
 * public countRanks (): int  
@@ -3560,12 +4045,12 @@ _Including above methods from public API_
 * public current (): array  
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public getAllCandidates (?CondorcetPHP\Condorcet\Election $context = null): array  
+* public getCondorcetBuilderVersion (bool $major = false): string  
 * public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingWithCandidateKeys (CondorcetPHP\Condorcet\Election $election): array  
 * public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $election): array  
 * public getLinks (): array  
-* public getObjectVersion (bool $major = false): string  
 * public getRanking (bool $sortCandidatesInRank = true): array  
 * public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
 * public getTagsAsString (): string  
@@ -3595,7 +4080,6 @@ _Including above methods from public API_
 * protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0): array  
 * protected destroyAllLink (): void  
 * protected initWeakMap (): void  
-* protected objectVersion ()  
 * private archiveRanking (): void  
 * private computeHashCode (): string  
 * private electionContext ()  

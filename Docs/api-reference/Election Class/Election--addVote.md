@@ -1,6 +1,6 @@
 ## public Election::addVote
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L191)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L188)
 
 ### Description    
 
@@ -27,7 +27,7 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException``` 
+* ```VoteMaxNumberReachedException``` 
 
 ---------------------------------------
 

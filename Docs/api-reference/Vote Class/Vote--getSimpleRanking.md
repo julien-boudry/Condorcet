@@ -1,6 +1,6 @@
 ## public Vote::getSimpleRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L450)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L447)
 
 ### Description    
 

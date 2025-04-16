@@ -1,6 +1,6 @@
 ## public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L93)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L90)
 
 ### Description    
 

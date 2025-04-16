@@ -1,6 +1,6 @@
 ## final public readonly Tools\Converters\DebianFormat::candidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L17)
 
 ### Description    
 

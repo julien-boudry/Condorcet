@@ -1,11 +1,11 @@
-## public Election::getObjectVersion
+## public Algo\Pairwise\Pairwise::getCondorcetBuilderVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L27)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/CondorcetVersion.php#L25)
 
 ### Description    
 
 ```php
-public Election->getObjectVersion ( [bool $major = false] ): string
+public Algo\Pairwise\Pairwise->getCondorcetBuilderVersion ( [bool $major = false] ): string
 ```
 
 Get the Condorcet PHP version who built this object. Usefull pour serializing Election.

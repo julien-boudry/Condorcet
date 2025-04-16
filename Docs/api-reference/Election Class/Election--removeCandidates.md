@@ -1,6 +1,6 @@
 ## public Election::removeCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L204)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L201)
 
 ### Description    
 
@@ -25,8 +25,8 @@ String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException``` 
-* ```CondorcetPHP\Condorcet\Throwable\VotingHasStartedException``` 
+* ```CandidateDoesNotExistException``` 
+* ```VotingHasStartedException``` 
 
 ---------------------------------------
 

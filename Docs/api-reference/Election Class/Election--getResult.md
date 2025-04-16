@@ -1,6 +1,6 @@
 ## public Election::getResult
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L59)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L56)
 
 ### Description    
 
@@ -27,7 +27,7 @@ Array of option for some methods. Look at each method documentation.
 
 ### Throws:   
 
-* ```CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented``` 
+* ```VotingMethodIsNotImplemented``` 
 
 ---------------------------------------
 

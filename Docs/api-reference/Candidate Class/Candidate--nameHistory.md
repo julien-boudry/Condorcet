@@ -1,6 +1,6 @@
 ## public Candidate::nameHistory
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L17)
 
 ### Description    
 

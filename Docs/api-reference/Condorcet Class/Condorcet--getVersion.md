@@ -1,6 +1,6 @@
 ## public static Condorcet::getVersion
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L88)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L85)
 
 ### Description    
 
@@ -24,4 +24,4 @@ Get the library version.
 
 ### Related method(s)      
 
-* [Election::getObjectVersion](/Docs/api-reference/Election%20Class/Election--getObjectVersion.md)    
+* [Election::getCondorcetBuilderVersion](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md)    

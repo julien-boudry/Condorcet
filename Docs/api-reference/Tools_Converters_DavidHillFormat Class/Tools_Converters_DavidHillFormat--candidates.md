@@ -1,6 +1,6 @@
 ## final public readonly Tools\Converters\DavidHillFormat::candidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L16)
 
 ### Description    
 
