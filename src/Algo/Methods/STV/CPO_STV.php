@@ -75,7 +75,7 @@ class CPO_STV extends SingleTransferableVote
         $this->outcomes = new SplFixedArray(0);
         $this->outcomeComparisonTable = new SplFixedArray(0);
 
-        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVoteWeightsWithConstraints(), $this->getElection()->electionSeats), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
+        $this->votesNeededToWin = round(self::$optionQuota->getQuota($this->getElection()->sumValidVoteWeightsWithConstraints(), $this->getElection()->seatsToElect), self::DECIMAL_PRECISION, \RoundingMode::HalfTowardsZero);
 
         // Compute Initial Score
         $this->initialScoreTable = $this->makeScore();
@@ -87,7 +87,7 @@ class CPO_STV extends SingleTransferableVote
             }
         }
 
-        $numberOfCandidatesNeededToComplete = $this->getElection()->electionSeats - \count($this->candidatesElectedFromFirstRound);
+        $numberOfCandidatesNeededToComplete = $this->getElection()->seatsToElect - \count($this->candidatesElectedFromFirstRound);
         $this->candidatesEliminatedFromFirstRound = array_diff(array_keys($this->getElection()->getCandidatesList()), $this->candidatesElectedFromFirstRound);
 
         if ($numberOfCandidatesNeededToComplete > 0 && $numberOfCandidatesNeededToComplete < \count($this->candidatesEliminatedFromFirstRound)) {
@@ -128,7 +128,7 @@ class CPO_STV extends SingleTransferableVote
             $this->sortResultBeforeCut($result);
 
             // Cut
-            $result = \array_slice($result, 0, $this->getElection()->electionSeats);
+            $result = \array_slice($result, 0, $this->getElection()->seatsToElect);
         }
 
         // Results: Format Ranks from 1

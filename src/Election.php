@@ -101,15 +101,16 @@ class Election
 
 
     /**
-     * Get number of Seats for STV methods.
+     * Get number of Seats for proportionals methods like STV.
      * @api
-     * @return mixed Number of seats.
+     * @return mixed Number of seats to elects.
+     * @throws NoSeatsException
      * @see Election::setNumberOfSeats, Result::seats
      */
-    public int $electionSeats = 100 {
+    public int $seatsToElect = 100 {
         set (int $seats) {
             if ($seats > 0) {
-                $this->electionSeats = $seats;
+                $this->seatsToElect = $seats;
 
                 $this->resetComputation();
             } else {
@@ -432,14 +433,14 @@ class Election
      * Set number of Seats for STV methods.
      * @api
      * @throws NoSeatsException
-     * @see Election::electionSeats
+     * @see Election::seatsToElect
      * @param $seats The number of seats for proportional methods.
      */
     public function setNumberOfSeats(
 
         int $seats
     ): static {
-        $this->electionSeats = $seats;
+        $this->seatsToElect = $seats;
 
         return $this;
     }

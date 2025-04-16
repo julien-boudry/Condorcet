@@ -827,9 +827,9 @@ test('invalid seats', function (): void {
 });
 
 test('seats', function (): void {
-    expect($this->election1->electionSeats)->toBe(100);
+    expect($this->election1->seatsToElect)->toBe(100);
 
     expect($this->election1->setNumberOfSeats(5))->toBe($this->election1);
 
-    expect($this->election1->electionSeats)->toBe(5);
+    expect($this->election1->seatsToElect)->toBe(5);
 });

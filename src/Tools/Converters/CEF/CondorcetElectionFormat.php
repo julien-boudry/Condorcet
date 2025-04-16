@@ -48,7 +48,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     ): ?string {
         $r = '';
         $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString()) . "\n";
-        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->electionSeats . "\n" : null;
+        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->seatsToElect . "\n" : null;
         $r .= '#/Implicit Ranking: ' . ($election->implicitRankingRule ? 'true' : 'false') . "\n";
         $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false') . "\n";
         // $r .= "\n";
