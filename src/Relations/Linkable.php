@@ -74,6 +74,7 @@ trait Linkable
         $this->link ??= new \WeakMap; // @phpstan-ignore assign.propertyType
     }
 
+    /** @internal */
     public function registerLink(Election $election): void
     {
         if (!$this->haveLink($election)) { // haveLink will initWeakmap if necessary
@@ -83,6 +84,7 @@ trait Linkable
         }
     }
 
+    /** @internal */
     public function destroyLink(Election $election): bool
     {
         if ($this->haveLink($election)) { // haveLink will initWeakmap if necessary

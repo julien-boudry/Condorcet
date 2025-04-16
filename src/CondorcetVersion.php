@@ -13,22 +13,23 @@ namespace CondorcetPHP\Condorcet;
 trait CondorcetVersion
 {
     // Build by Version
-    protected string $objectVersion = Condorcet::VERSION;
+    public private(set) string $buildByCondorcetVersion = Condorcet::VERSION;
+
     /**
      * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
-     * @api Candidate, Election, Result, Vote, Algo\Pairwise, DataManager\VotesManager, Timer\Manager
+     * @api
      * @return mixed Condorcet PHP version.
      * @see Condorcet::getVersion
      * @param $major true will return 2.0 and false will return 2.0.0.
      */
-    public function getObjectVersion(
+    public function getCondorcetBuilderVersion(
         bool $major = false
     ): string {
         if ($major) {
-            $version = explode('.', $this->objectVersion);
+            $version = explode('.', $this->buildByCondorcetVersion);
             return $version[0] . '.' . $version[1];
         } else {
-            return $this->objectVersion;
+            return $this->buildByCondorcetVersion;
         }
     }
 }

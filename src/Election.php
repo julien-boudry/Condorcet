@@ -149,7 +149,7 @@ class Election
             'Votes' => $this->Votes,
 
             'State' => $this->state,
-            'objectVersion' => $this->objectVersion,
+            'objectVersion' => $this->buildByCondorcetVersion,
             'nextAutomaticCandidateName' => $this->nextAutomaticCandidateName,
 
             'ImplicitRanking' => $this->implicitRankingRule,
@@ -184,7 +184,7 @@ class Election
 
         $this->nextAutomaticCandidateName = $data['nextAutomaticCandidateName'];
         $this->state = $data['State'];
-        $this->objectVersion = $data['objectVersion'];
+        $this->buildByCondorcetVersion = $data['objectVersion'];
 
         $this->implicitRankingRule = $data['ImplicitRanking'];
         $this->voteWeightAllowed = $data['VoteWeightRule'];
@@ -279,7 +279,7 @@ class Election
             hash_update($r, serialize($this->Pairwise->getExplicitPairwise()));
         }
 
-        hash_update($r, $this->getObjectVersion(true));
+        hash_update($r, $this->getCondorcetBuilderVersion(true));
 
         self::$checksumMode = false;
 

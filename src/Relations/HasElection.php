@@ -24,6 +24,7 @@ trait HasElection
         return $this->selfElection->get(); // @phpstan-ignore-line
     }
 
+    /** @internal */
     public function setElection(Election $election): void
     {
         $this->selfElection = \WeakReference::create($election);
