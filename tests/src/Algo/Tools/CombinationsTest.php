@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\Algo\Tools\Combinations;
 use CondorcetPHP\Condorcet\Throwable\Internal\{CondorcetInternalException, IntegerOverflowException};
 

@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Result};
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};

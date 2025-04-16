@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Election, Vote};
 use CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic;
 use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;

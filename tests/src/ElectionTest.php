@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\ElectionProcess\ElectionState;
 use CondorcetPHP\Condorcet\{Candidate, Condorcet, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, ElectionObjectVersionMismatchException, FileDoesNotExistException, NoCandidatesException, NoSeatsException, ParseVotesMaxNumberReachedException, ResultRequestedWithoutVotesException, VoteException, VoteInvalidFormatException, VoteMaxNumberReachedException, VotingHasStartedException};

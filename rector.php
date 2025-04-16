@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 
 use Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
 use Rector\Config\RectorConfig;

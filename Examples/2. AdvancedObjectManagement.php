@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 
 /* NO INTERFACE here, see html examples for it */
 

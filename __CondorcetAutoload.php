@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 /*
     Condorcet PHP - Election manager and results calculator.
     Designed for the Condorcet method. Integrating a large number of algorithms extending Condorcet. Expandable for all types of voting systems.
@@ -7,7 +6,6 @@
     By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-declare(strict_types=1);
 
 if (version_compare($condorcet_minimal_php_version = mb_substr(str_replace('^', '', json_decode(json: file_get_contents(__DIR__ . \DIRECTORY_SEPARATOR . 'composer.json'), associative: true, flags: \JSON_THROW_ON_ERROR)['require']['php']), 1, 3), \PHP_VERSION, '>')) {
     trigger_error(

@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Tools\Randomizers\{ArrayRandomizer, VoteRandomizer};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;

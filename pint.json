@@ -4,6 +4,7 @@
         "array_indentation": true,
         "array_push": true,
         "array_syntax": true,
+        "blank_line_after_opening_tag": false,
         "cast_spaces": true,
         "class_reference_name_casing": true,
         "combine_consecutive_issets": true,

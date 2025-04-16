@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Condorcet, Election};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;
 use CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat;

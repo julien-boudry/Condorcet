@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Election, Vote, VoteConstraintInterface};
 use CondorcetPHP\Condorcet\Constraints\NoTie;
 use CondorcetPHP\Condorcet\Throwable\VoteConstraintException;

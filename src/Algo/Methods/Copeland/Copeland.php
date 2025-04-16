@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 /*
     Part of COPELAND method Module - From the original Condorcet PHP
 
@@ -9,8 +8,6 @@
     By Julien Boudry and contributors - MIT LICENSE (Please read LICENSE.txt)
     https://github.com/julien-boudry/Condorcet
 */
-
-declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Copeland;
 

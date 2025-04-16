@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 /**
  * Script to convert custom attribute-based documentation
  * to standard PHPdoc comments in all PHP files inside /src.

@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, VoteException, VoteInvalidFormatException, VoteNotLinkedException};
 use CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat;

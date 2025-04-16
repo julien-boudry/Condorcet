@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV;
 use CondorcetPHP\Condorcet\Algo\StatsVerbosity;
 use CondorcetPHP\Condorcet\Election;

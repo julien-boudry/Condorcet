@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 use CondorcetPHP\Condorcet\Console\Commands\ElectionCommand;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, ResultRequestedWithoutVotesException};
 use CondorcetPHP\Condorcet\Console\CondorcetApplication;
