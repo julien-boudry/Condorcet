@@ -284,7 +284,7 @@ class Generate
                         "# API References\n" .
                         "## Public API Index *\n" .
 
-                        '_*: I try to update and complete the documentation. See also [the documentation book](' . self::BOOK_URL . "), [the tests](../Tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        '_*: I try to update and complete the documentation. See also [the documentation book](' . self::BOOK_URL . "), [the tests](../tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($this->fullPagesListMeta);
