@@ -126,7 +126,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
          */
         public readonly StatsInterface $stats,
         /**
-         * Get number of Seats for STV methods result.
+         * Get count of seats to elects for STV methods result.
          * @api
          * */
         public private(set) readonly ?int $seats = null,

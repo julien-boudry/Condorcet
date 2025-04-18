@@ -78,7 +78,7 @@ abstract class HighestAverages_Core extends Method implements MethodInterface
                 $quotient = $this->computeQuotient($oneCandidateVotes, $this->candidatesSeats[$candidateKey]);
 
                 $this->rounds[$roundNumber][$candidateKey]['Quotient'] = $quotient;
-                $this->rounds[$roundNumber][$candidateKey]['NumberOfSeatsAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
+                $this->rounds[$roundNumber][$candidateKey]['SeatsToElectAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
 
                 if ($quotient > $maxQuotient) {
                     $maxQuotient = $quotient;

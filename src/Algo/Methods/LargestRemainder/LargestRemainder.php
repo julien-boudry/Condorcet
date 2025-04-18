@@ -40,7 +40,7 @@ class LargestRemainder extends HighestAverages_Core implements MethodInterface
 
             foreach ($this->candidatesVotes as $candidateKey => $oneCandidateVotes) {
                 $this->rounds[$roundNumber][$candidateKey]['NumberOfVotesAllocatedBeforeRound'] = $oneCandidateVotes;
-                $this->rounds[$roundNumber][$candidateKey]['NumberOfSeatsAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
+                $this->rounds[$roundNumber][$candidateKey]['SeatsToElectAllocatedBeforeRound'] = $this->candidatesSeats[$candidateKey];
 
                 if ($oneCandidateVotes > $maxVotes) {
                     $maxVotes = $oneCandidateVotes;

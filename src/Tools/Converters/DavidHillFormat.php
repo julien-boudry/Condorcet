@@ -25,7 +25,7 @@ class DavidHillFormat implements ConverterImport
     /**
      * @api
      */
-    public private(set) readonly int $NumberOfSeats;
+    public private(set) readonly int $seatsToElect;
 /**
  * Read a Tideman format file
  * @api
@@ -45,7 +45,7 @@ class DavidHillFormat implements ConverterImport
 
         (end($this->lines) === '') ? array_pop($this->lines) : null; # Remove bad format from most popular source for this format (elections A01 and A04)
 
-        $this->readNumberOfSeats();
+        $this->parseSeatsToElect();
         $this->readCandidatesNames();
         $this->readVotes();
     }
@@ -65,7 +65,7 @@ class DavidHillFormat implements ConverterImport
             $election = new Election;
         }
 
-        $election->setNumberOfSeats($this->NumberOfSeats);
+        $election->setSeatsToElect($this->seatsToElect);
 
         foreach ($this->candidates as $oneCandidate) {
             $election->addCandidate($oneCandidate);
@@ -79,11 +79,11 @@ class DavidHillFormat implements ConverterImport
     }
 
     // Internal
-    protected function readNumberOfSeats(): void
+    protected function parseSeatsToElect(): void
     {
         $first_line = reset($this->lines);
 
-        $this->NumberOfSeats = (int) explode(' ', $first_line)[1];
+        $this->seatsToElect = (int) explode(' ', $first_line)[1];
     }
 
     protected function readCandidatesNames(): void

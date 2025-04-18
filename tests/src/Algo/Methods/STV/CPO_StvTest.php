@@ -44,7 +44,7 @@ test('cpo1', function (): void {
             Scott > Delilah ^21
         ');
 
-    $this->election->setNumberOfSeats(3);
+    $this->election->setSeatsToElect(3);
 
     expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([
         1 => 'Carter',
@@ -206,7 +206,7 @@ test('less or equal candidates than seats', function (): void {
     ];
 
     // Ref
-    $this->election->setNumberOfSeats(4);
+    $this->election->setSeatsToElect(4);
 
     $this->election->addCandidate('Memphis');
     $this->election->addCandidate('Nashville');
@@ -220,13 +220,13 @@ test('less or equal candidates than seats', function (): void {
 
     expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe($expectedRanking);
 
-    $this->election->setNumberOfSeats(5);
+    $this->election->setSeatsToElect(5);
 
     expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe($expectedRanking);
 });
 
 test('equality1', function (): void {
-    $this->election->setNumberOfSeats(2);
+    $this->election->setSeatsToElect(2);
 
     $this->election->parseCandidates('A;B;C');
 
@@ -237,14 +237,14 @@ test('equality1', function (): void {
 
     expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([1 => ['A', 'B']]);
 
-    $this->election->setNumberOfSeats(3);
+    $this->election->setSeatsToElect(3);
 
     expect($this->election->getResult('CPO STV')->rankingAsArrayString)->toBe([1 => ['A', 'B'], 3 => 'C']);
 });
 
 test('equality2', function (): void {
     $this->election->setImplicitRanking(false);
-    $this->election->setNumberOfSeats(3);
+    $this->election->setSeatsToElect(3);
 
     $this->election->parseCandidates('A;B;C;D');
 
@@ -255,7 +255,7 @@ test('equality2', function (): void {
 });
 
 test('limit1', function (): void {
-    $this->election->setNumberOfSeats(10);
+    $this->election->setSeatsToElect(10);
     $this->election->parseCandidates('1;2;3;4;5;6;7;8;9;10;11;12;13;14;15');
     $this->election->addVote('1>2');
 
@@ -267,7 +267,7 @@ test('limit1', function (): void {
 
 test('cpo40 candidates', function (): void {
     $this->election->setImplicitRanking(false);
-    $this->election->setNumberOfSeats((int) (40 / 3));
+    $this->election->setSeatsToElect((int) (40 / 3));
 
     $candidates = [];
     for ($i = 0; $i < 40; $i++) {

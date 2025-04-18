@@ -15,7 +15,7 @@ class IntensiveUsageBench
     {
         $election = new Election;
         $election->allowsVoteWeight(true);
-        $election->setNumberOfSeats(2);
+        $election->setSeatsToElect(2);
 
         $election->parseCandidates('A;B;C;D;E;F');
 

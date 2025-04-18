@@ -150,7 +150,7 @@ class ElectionCommand extends Command
             ->addOption(
                 name: 'seats',
                 mode: InputOption::VALUE_REQUIRED,
-                description: 'Specify the number of seats for proportional methods',
+                description: 'Specify the count of seats to elect for proportional methods',
             )
             ->addOption(
                 name: 'quota',
@@ -326,7 +326,7 @@ class ElectionCommand extends Command
                 }
 
                 if ($hasProportionalMethods) {
-                    $this->io->instruction('Number of Seats', 'Some of the method(s) chosen are proportional and require a number of seats.');
+                    $this->io->instruction('Number of Seats', 'Some of the method(s) chosen are proportional and require a seats count to elect.');
 
                     $answer = $this->io->ask('Number of seats to fill', (string) 100, static function ($answer): string {
                         if (!is_numeric($answer)) {
@@ -341,7 +341,7 @@ class ElectionCommand extends Command
                     });
 
                     $input->setOption('seats', $answer);
-                    $this->election->setNumberOfSeats((int) $answer);
+                    $this->election->setSeatsToElect((int) $answer);
                 }
             }
         }
@@ -359,7 +359,7 @@ class ElectionCommand extends Command
         }
 
         if ($input->getOption('import-debian-format')) {
-            $this->election->setNumberOfSeats(1); # Debian must be 1
+            $this->election->setSeatsToElect(1); # Debian must be 1
             $this->parseFromDebianFormat();
             $this->setUpParameters($input); # Do it again, because command line parameters have priority
         }
@@ -722,7 +722,7 @@ class ElectionCommand extends Command
         }
 
         if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1) {
-            $this->election->setNumberOfSeats($seats);
+            $this->election->setSeatsToElect($seats);
         }
 
         try {

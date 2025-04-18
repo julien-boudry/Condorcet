@@ -5,7 +5,7 @@
 ### Description    
 
 ```php
-public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeNumberOfSeats = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
+public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeSeatsToElect = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
@@ -19,7 +19,7 @@ Election with data.
 If true, will try to reduce number of lines, with quantifier for identical votes.    
 
 
-#### **includeNumberOfSeats:** *`bool`*   
+#### **includeSeatsToElect:** *`bool`*   
 Add the Number Of Seats parameters to the output.    
 
 

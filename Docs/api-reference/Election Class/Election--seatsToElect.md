@@ -8,7 +8,7 @@
 public int Election->seatsToElect 
 ```
 
-Get number of Seats for proportionals methods like STV.
+Get or set seats to elect count for proportionals methods like STV.
     
 
 ### Throws:   
@@ -19,5 +19,5 @@ Get number of Seats for proportionals methods like STV.
 
 ### Related method(s)      
 
-* [Election::setNumberOfSeats](/Docs/api-reference/Election%20Class/Election--setNumberOfSeats.md)    
+* [Election::setSeatsToElect](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md)    
 * [Result::seats](/Docs/api-reference/Result%20Class/Result--seats.md)    

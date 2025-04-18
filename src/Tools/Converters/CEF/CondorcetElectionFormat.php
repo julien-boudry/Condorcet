@@ -27,7 +27,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
  * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
  * @param $election Election with data.
  * @param $aggregateVotes If true, will try to reduce number of lines, with quantifier for identical votes.
- * @param $includeNumberOfSeats Add the Number Of Seats parameters to the output.
+ * @param $includeSeatsToElect Add the Number Of Seats parameters to the output.
  * @param $includeTags Add the vote tags information if any. Not working if $aggregateVotes is true.
  * @param $inContext Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.
  * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
@@ -38,7 +38,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
         bool $aggregateVotes = true,
 
-        bool $includeNumberOfSeats = true,
+        bool $includeSeatsToElect = true,
 
         bool $includeTags = true,
 
@@ -48,7 +48,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     ): ?string {
         $r = '';
         $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString()) . "\n";
-        $r .= ($includeNumberOfSeats) ? '#/Number of Seats: ' . $election->seatsToElect . "\n" : null;
+        $r .= ($includeSeatsToElect) ? '#/Number of Seats: ' . $election->seatsToElect . "\n" : null;
         $r .= '#/Implicit Ranking: ' . ($election->implicitRankingRule ? 'true' : 'false') . "\n";
         $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false') . "\n";
         // $r .= "\n";
@@ -126,7 +126,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     /**
      * @api
      */
-    public private(set) readonly int $numberOfSeats;
+    public private(set) readonly int $seatsToElect;
 
     /**
      * @api
@@ -201,7 +201,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     ): Election {
         // Parameters
         // Set number of seats if specified in file
-        ($this->numberOfSeats ?? false) && $election->setNumberOfSeats($this->numberOfSeats);
+        ($this->seatsToElect ?? false) && $election->setSeatsToElect($this->seatsToElect);
 
         // Set explicit pairwise mode if specified in file
         $this->implicitRanking ??= $election->implicitRankingRule;
@@ -265,8 +265,8 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
                 if (!isset($this->candidates) && $parameter === StandardParameter::CANDIDATES) {
                     $this->addCandidates($parameterValue);
-                } elseif (!isset($this->numberOfSeats) && $parameter === StandardParameter::SEATS) {
-                    $this->numberOfSeats = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
+                } elseif (!isset($this->seatsToElect) && $parameter === StandardParameter::SEATS) {
+                    $this->seatsToElect = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
                 } elseif (!isset($this->implicitRanking) && $parameter === StandardParameter::IMPLICIT) {
                     $this->implicitRanking = $parameterValue; // @phpstan-ignore assign.readOnlyProperty
                 } elseif (!isset($this->voteWeight) && $parameter === StandardParameter::WEIGHT) {

@@ -5,7 +5,7 @@ use CondorcetPHP\Condorcet\{Condorcet, Election};
 
 test('empty relevant votes, one candidate', function (string $method): void {
     $election = new Election;
-    $election->setNumberOfSeats(1);
+    $election->setSeatsToElect(1);
 
     $candidateD = $election->addCandidate('D');
     $election->addVote('A > B > C');

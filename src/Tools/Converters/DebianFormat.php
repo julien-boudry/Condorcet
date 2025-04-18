@@ -61,7 +61,7 @@ class DebianFormat implements ConverterImport
     ): Election {
         if ($election === null) {
             $election = new Election;
-            $election->setNumberOfSeats(1);
+            $election->setSeatsToElect(1);
         }
 
         foreach ($this->candidates as $oneCandidate) {

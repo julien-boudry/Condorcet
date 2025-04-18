@@ -1,18 +1,18 @@
-## public Election::setNumberOfSeats
+## public Election::setSeatsToElect
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L439)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L438)
 
 ### Description    
 
 ```php
-public Election->setNumberOfSeats ( int $seats ): static
+public Election->setSeatsToElect ( int $seats ): static
 ```
 
-Set number of Seats for STV methods.
+Set count of seats to elects for STV methods.
     
 
 #### **seats:** *`int`*   
-The number of seats for proportional methods.    
+The count of seats to elect for proportional methods.    
 
 
 ### Throws:   

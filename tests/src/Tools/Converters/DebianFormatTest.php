@@ -24,7 +24,7 @@ test('2020 implicit', function (): void {
 test('2020 explicit', function (): void {
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(1);
+    $election->setSeatsToElect(1);
 
     AlgoTestCase::$debian2020->setDataToAnElection($election);
 
@@ -45,7 +45,7 @@ test('2007 implicit', function (): void {
 test('2007 explicit', function (): void {
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(1);
+    $election->setSeatsToElect(1);
 
     AlgoTestCase::$debian2007->setDataToAnElection($election);
 
@@ -66,7 +66,7 @@ test('2006 implicit', function (): void {
 test('2006 explicit', function (): void {
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(1);
+    $election->setSeatsToElect(1);
 
     AlgoTestCase::$debian2006->setDataToAnElection($election);
 

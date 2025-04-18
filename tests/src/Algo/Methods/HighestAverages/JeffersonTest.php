@@ -13,7 +13,7 @@ test('result 1', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('D');
 
-    $this->election->setNumberOfSeats(6);
+    $this->election->setSeatsToElect(6);
     $this->election->allowsVoteWeight(true);
 
     $this->election->parseVotes('A * 42; B ^31; C *15; D ^12');

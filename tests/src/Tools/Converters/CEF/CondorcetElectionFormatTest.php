@@ -76,7 +76,7 @@ test('condorcet election format3 custom election1', function (): void {
 
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(66);
+    $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
 
@@ -102,7 +102,7 @@ test('condorcet election format4 custom election2', function (): void {
 
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(66);
+    $election->setSeatsToElect(66);
     $election->allowsVoteWeight(false);
 
     $condorcetFormat->setDataToAnElection($election);
@@ -138,7 +138,7 @@ test('condorcet election format5 unknow parameters and empty lines and case', fu
 
     $election = new Election;
     $election->setImplicitRanking(false);
-    $election->setNumberOfSeats(66);
+    $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
 
@@ -250,7 +250,7 @@ test('create from election', function (): void {
             CVOTES,
     );
 
-    expect(CondorcetElectionFormat::createFromElection(election: $election, includeNumberOfSeats: false))
+    expect(CondorcetElectionFormat::createFromElection(election: $election, includeSeatsToElect: false))
         ->not()->toContain('Number of Seats: 42');
 
     $election->setImplicitRanking(false);
@@ -381,7 +381,7 @@ test('non standard parameters', function (): void {
 
     $cef = new CondorcetElectionFormat($file);
 
-    expect($cef->numberOfSeats)->toBe(42);
+    expect($cef->seatsToElect)->toBe(42);
     expect($cef->parameters['Number Of Seats'])->toBe('42');
 
     expect($cef->implicitRanking)->toBeTrue();

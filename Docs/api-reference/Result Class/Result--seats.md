@@ -8,5 +8,5 @@
 final public readonly ?int Result->seats 
 ```
 
-Get number of Seats for STV methods result.
+Get count of seats to elects for STV methods result.
     

@@ -26,7 +26,7 @@ class PairwiseNumberOfCandidatesBench
     protected function buildElection(int $numberOfCandidates, int $numberOfVotes): void
     {
         $this->election = $election = new Election;
-        $this->election->setNumberOfSeats((int) ($numberOfCandidates / 3));
+        $this->election->setSeatsToElect((int) ($numberOfCandidates / 3));
 
         $candidates = [];
 

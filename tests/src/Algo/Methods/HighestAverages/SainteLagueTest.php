@@ -14,7 +14,7 @@ test('result 1', function (): void {
     $this->election->addCandidate('B');
     $this->election->addCandidate('C');
 
-    $this->election->setNumberOfSeats(7);
+    $this->election->setSeatsToElect(7);
     $this->election->allowsVoteWeight(true);
 
     $this->election->parseVotes('A ^53; B ^24; C ^23');
@@ -26,99 +26,99 @@ test('result 1', function (): void {
             1 => [
                 'A' => [
                     'Quotient' => 53.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
                 'B' => [
                     'Quotient' => 24.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
                 'C' => [
                     'Quotient' => 23.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
             ],
             2 => [
                 'A' => [
                     'Quotient' => 17.666666666666668,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'B' => [
                     'Quotient' => 24.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
                 'C' => [
                     'Quotient' => 23.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
             ],
             3 => [
                 'A' => [
                     'Quotient' => 17.666666666666668,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'B' => [
                     'Quotient' => 8.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'C' => [
                     'Quotient' => 23.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 0,
+                    'SeatsToElectAllocatedBeforeRound' => 0,
                 ],
             ],
             4 => [
                 'A' => [
                     'Quotient' => 17.666666666666668,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'B' => [
                     'Quotient' => 8.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'C' => [
                     'Quotient' => 7.666666666666667,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
             ],
             5 => [
                 'A' => [
                     'Quotient' => 10.6,
-                    'NumberOfSeatsAllocatedBeforeRound' => 2,
+                    'SeatsToElectAllocatedBeforeRound' => 2,
                 ],
                 'B' => [
                     'Quotient' => 8.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'C' => [
                     'Quotient' => 7.666666666666667,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
             ],
             6 => [
                 'A' => [
                     'Quotient' => 7.571428571428571,
-                    'NumberOfSeatsAllocatedBeforeRound' => 3,
+                    'SeatsToElectAllocatedBeforeRound' => 3,
                 ],
                 'B' => [
                     'Quotient' => 8.0,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
                 'C' => [
                     'Quotient' => 7.666666666666667,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
             ],
             7 => [
                 'A' => [
                     'Quotient' => 7.571428571428571,
-                    'NumberOfSeatsAllocatedBeforeRound' => 3,
+                    'SeatsToElectAllocatedBeforeRound' => 3,
                 ],
                 'B' => [
                     'Quotient' => 4.8,
-                    'NumberOfSeatsAllocatedBeforeRound' => 2,
+                    'SeatsToElectAllocatedBeforeRound' => 2,
                 ],
                 'C' => [
                     'Quotient' => 7.666666666666667,
-                    'NumberOfSeatsAllocatedBeforeRound' => 1,
+                    'SeatsToElectAllocatedBeforeRound' => 1,
                 ],
             ],
         ],
@@ -135,7 +135,7 @@ test('norwegian variant 1', function (): void {
 
     $this->election->parseCandidates('H;Ap;FrP;SV;SP;KrF');
 
-    $this->election->setNumberOfSeats(11);
+    $this->election->setSeatsToElect(11);
     $this->election->allowsVoteWeight(true);
 
     $this->election->parseVotes('H ^81140; Ap ^80862; FrP ^39851; SV ^26295; SP ^12187; KrF ^11229');

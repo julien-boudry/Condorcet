@@ -111,7 +111,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
 * [public Election->setImplicitRanking (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md): `static`  
 * [public Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
-* [public Election->setNumberOfSeats (...)](/Docs/api-reference/Election%20Class/Election--setNumberOfSeats.md): `static`  
+* [public Election->setSeatsToElect (...)](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md): `static`  
 * [public Election->setStateToVote ()](/Docs/api-reference/Election%20Class/Election--setStateToVote.md): `true`  
 * [public Election->setStatsVerbosity (...)](/Docs/api-reference/Election%20Class/Election--setStatsVerbosity.md): `static`  
 * [public Election->state](/Docs/api-reference/Election%20Class/Election--state.md)  
@@ -735,11 +735,11 @@ _*: I try to update and complete the documentation. See also [the documentation 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
 * `readonly public array` [$candidates](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)
-* `readonly public int` [$NumberOfSeats](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--NumberOfSeats.md)
+* `readonly public int` [$seatsToElect](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--seatsToElect.md)
 
-* [final public readonly Tools\Converters\DavidHillFormat->NumberOfSeats](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--NumberOfSeats.md)  
 * [public Tools\Converters\DavidHillFormat->__construct (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--__construct.md)  
 * [final public readonly Tools\Converters\DavidHillFormat->candidates](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)  
+* [final public readonly Tools\Converters\DavidHillFormat->seatsToElect](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--seatsToElect.md)  
 * [public Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DebianFormat Class  
@@ -756,7 +756,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * `readonly public array` [$parameters](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)
 * `readonly public array` [$candidates](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)
-* `readonly public int` [$numberOfSeats](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--numberOfSeats.md)
+* `readonly public int` [$seatsToElect](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--seatsToElect.md)
 * `readonly public bool` [$implicitRanking](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)
 * `readonly public bool` [$voteWeight](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)
 * `readonly public bool` [$CandidatesParsedFromVotes](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)
@@ -769,8 +769,8 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->candidates](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->implicitRanking](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->invalidBlocksCount](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)  
-* [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->numberOfSeats](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--numberOfSeats.md)  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->parameters](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)  
+* [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->seatsToElect](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--seatsToElect.md)  
 * [public Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 * [final public readonly Tools\Converters\CEF\CondorcetElectionFormat->voteWeight](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)  
 
@@ -3019,7 +3019,7 @@ _Including above methods from public API_
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): static  
 * public setImplicitRanking (bool $rule = true): static  
 * public setMethodOption (string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): static  
-* public setNumberOfSeats (int $seats): static  
+* public setSeatsToElect (int $seats): static  
 * public setStateToVote (): true  
 * public setStatsVerbosity (CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity): static  
 * public state ()  
@@ -3832,22 +3832,22 @@ _Including above methods from public API_
 * protected SplFileObject $file
 * readonly public array $parameters
 * readonly public array $candidates
-* readonly public int $numberOfSeats
+* readonly public int $seatsToElect
 * readonly public bool $implicitRanking
 * readonly public bool $voteWeight
 * readonly public bool $CandidatesParsedFromVotes
 * readonly public int $invalidBlocksCount
 
 * public static boolParser (string $parse): bool  
-* public static createFromElection (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeNumberOfSeats = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
+* public static createFromElection (CondorcetPHP\Condorcet\Election $election, bool $aggregateVotes = true, bool $includeSeatsToElect = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null): ?string  
 * public static createFromString (string $input): self  
 * public CandidatesParsedFromVotes ()  
 * public __construct (SplFileInfo|string $input)  
 * public candidates ()  
 * public implicitRanking ()  
 * public invalidBlocksCount ()  
-* public numberOfSeats ()  
 * public parameters ()  
+* public seatsToElect ()  
 * public setDataToAnElection (CondorcetPHP\Condorcet\Election $election = new CondorcetPHP\Condorcet\Election, ?Closure $callBack = null): CondorcetPHP\Condorcet\Election  
 * public voteWeight ()  
 * protected addCandidates (array $candidates): void  
@@ -3887,15 +3887,15 @@ _Including above methods from public API_
 ```php
 * protected array $lines
 * readonly public array $candidates
-* readonly public int $NumberOfSeats
+* readonly public int $seatsToElect
 
-* public NumberOfSeats ()  
 * public __construct (string $filePath)  
 * public candidates ()  
+* public seatsToElect ()  
 * public setDataToAnElection (?CondorcetPHP\Condorcet\Election $election = null): CondorcetPHP\Condorcet\Election  
 * protected lines ()  
+* protected parseSeatsToElect (): void  
 * protected readCandidatesNames (): void  
-* protected readNumberOfSeats (): void  
 * protected readVotes (): void  
 ```
 

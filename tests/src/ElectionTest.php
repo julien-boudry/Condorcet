@@ -247,7 +247,7 @@ test('empty ranking export', function (): void {
     expect($this->election2->getVotesListAsString(true))->toBe('/EMPTY_RANKING/ * 2');
     expect($this->election2->getVotesListAsString(false))->toBe('/EMPTY_RANKING/ * 1' . "\n" . 'D > E * 1');
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false))->toBe($cvotes_explicit_without_context =
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_explicit_without_context =
                     <<<'CVOTES'
                         #/Candidates: A ; B ; C
                         #/Implicit Ranking: false
@@ -257,9 +257,9 @@ test('empty ranking export', function (): void {
                         D > E * 1
                         CVOTES);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false))->toBe(str_replace(' * 1', '', $cvotes_explicit_without_context));
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: false, inContext: false))->toBe(str_replace(' * 1', '', $cvotes_explicit_without_context));
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true))
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: true))
         ->toBe(
             <<<'CVOTES'
                 #/Candidates: A ; B ; C
@@ -270,7 +270,7 @@ test('empty ranking export', function (): void {
                 CVOTES
         );
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true))->toBe(<<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: false, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C
         #/Implicit Ranking: false
         #/Weight Allowed: false
@@ -281,7 +281,7 @@ test('empty ranking export', function (): void {
 
     $this->election2->setImplicitRanking(true);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C
         #/Implicit Ranking: true
         #/Weight Allowed: false
@@ -289,7 +289,7 @@ test('empty ranking export', function (): void {
         A = B = C * 2
         CVOTES);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: true))->toBe(<<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: false, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C
         #/Implicit Ranking: true
         #/Weight Allowed: false
@@ -304,7 +304,7 @@ test('empty ranking export', function (): void {
 
     $this->election2->addVote(new Vote('A>B'));
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C ; D
         #/Implicit Ranking: true
         #/Weight Allowed: false
@@ -312,7 +312,7 @@ test('empty ranking export', function (): void {
         A > B > C = D * 1
         CVOTES);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: true, inContext: false))->toBe($cvotes_implicit_without_context =
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: false))->toBe($cvotes_implicit_without_context =
                     <<<'CVOTES'
                         #/Candidates: A ; B ; C ; D
                         #/Implicit Ranking: true
@@ -321,7 +321,7 @@ test('empty ranking export', function (): void {
                         A > B * 1
                         CVOTES);
 
-    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeNumberOfSeats: false, aggregateVotes: false, inContext: false))->toBe(str_replace(' * 1', '', $cvotes_implicit_without_context));
+    expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: false, inContext: false))->toBe(str_replace(' * 1', '', $cvotes_implicit_without_context));
 });
 
 test('parse vote candidate coherence', function (): void {
@@ -823,13 +823,13 @@ test('invalid seats', function (): void {
     $this->expectException(NoSeatsException::class);
     $this->expectExceptionMessage('No seats defined');
 
-    $this->election1->setNumberOfSeats(0);
+    $this->election1->setSeatsToElect(0);
 });
 
 test('seats', function (): void {
     expect($this->election1->seatsToElect)->toBe(100);
 
-    expect($this->election1->setNumberOfSeats(5))->toBe($this->election1);
+    expect($this->election1->setSeatsToElect(5))->toBe($this->election1);
 
     expect($this->election1->seatsToElect)->toBe(5);
 });

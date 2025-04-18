@@ -211,7 +211,7 @@ test('proportional', function (): void {
 
     $this->election1->addVote('A');
 
-    $this->election1->setNumberOfSeats(2);
+    $this->election1->setSeatsToElect(2);
 
     $result = $this->election1->getResult('STV');
 
