@@ -197,7 +197,7 @@ class Election
             $methodObject->setElection($this);
         }
 
-        $this->timer ??= $data['timer'];
+        $this->timer = $data['timer'];
     }
 
     public function __clone(): void

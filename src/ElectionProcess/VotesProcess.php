@@ -467,7 +467,7 @@ trait VotesProcess
             $file = ($input instanceof \SplFileInfo) ? $input : new \SplFileInfo($input);
 
             if ($file->isFile() && $file->isReadable()) {
-                $file = ($file instanceof \SplFileObject) ? $file : $file->openFile('r');
+                $file = $file->openFile('r');
             } else {
                 throw new FileDoesNotExistException('Specified input file does not exist. path: ' . $input);
             }
