@@ -253,7 +253,7 @@ class Pairwise implements \ArrayAccess, \Iterator
             }
         }
 
-        $this->Pairwise_Model ??= $pairwiseModel; // @phpstan-ignore assign.readOnlyProperty
+        $this->Pairwise_Model = $pairwiseModel; // @phpstan-ignore assign.readOnlyProperty
     }
 
     protected function doPairwise(): void
