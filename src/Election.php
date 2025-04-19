@@ -12,10 +12,9 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Throwable\{DataHandlerException, ElectionObjectVersionMismatchException, NoCandidatesException, NoSeatsException, ResultRequestedWithoutVotesException, VoteConstraintException};
 use CondorcetPHP\Condorcet\ElectionProcess\{CandidatesProcess, ElectionState, ResultsProcess, VotesProcess};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Related, Throws};
 use CondorcetPHP\Condorcet\DataManager\VotesManager;
 use CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Timer\Manager as Timer_Manager;
 
 // Base Condorcet class
@@ -107,7 +106,7 @@ class Election
      * @see Election::setSeatsToElect, Result::seats
      */
     public int $seatsToElect = 100 {
-        set (int $seats) {
+        set(int $seats) {
             if ($seats > 0) {
                 $this->seatsToElect = $seats;
 
@@ -216,50 +215,50 @@ class Election
 
 
     /////////// TIMER & CHECKSUM ///////////
-/**
- * Returns the cumulated computation runtime of this object. Include only computation related methods.
- * @api
- * @return mixed Timer
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
- * @see Election::getLastTimer
- */
+    /**
+     * Returns the cumulated computation runtime of this object. Include only computation related methods.
+     * @api
+     * @return mixed Timer
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
+     * @see Election::getLastTimer
+     */
     public function getGlobalTimer(): float
     {
         return $this->timer->getGlobalTimer();
     }
-/**
- * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
- * @api
- * @return mixed (Float) Timer
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
- * @see Election::getGlobalTimer
- */
+    /**
+     * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
+     * @api
+     * @return mixed (Float) Timer
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
+     * @see Election::getGlobalTimer
+     */
     public function getLastTimer(): float
     {
         return $this->timer->getLastTimer();
     }
-/**
- * Get the Timer manager object.
- * @api
- * @return mixed An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
- * @see Election::getGlobalTimer, Election::getLastTimer
- */
+    /**
+     * Get the Timer manager object.
+     * @api
+     * @return mixed An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
+     * @see Election::getGlobalTimer, Election::getLastTimer
+     */
     public function getTimerManager(): Timer_Manager
     {
         return $this->timer;
     }
-/**
- * SHA-2 256 checksum of following internal data:
- * * Candidates
- * * Votes list & tags
- * * Computed data (pairwise, algorithm cache, stats)
- * * Class version (major version like 3.4)
- *
- * Can be powerfull to check integrity and security of an election. Or working with serialized object.
- * @api
- * @return mixed SHA-2 256 bits Hexadecimal
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Crypto
- */
+    /**
+     * SHA-2 256 checksum of following internal data:
+     * * Candidates
+     * * Votes list & tags
+     * * Computed data (pairwise, algorithm cache, stats)
+     * * Class version (major version like 3.4)
+     *
+     * Can be powerfull to check integrity and security of an election. Or working with serialized object.
+     * @api
+     * @return mixed SHA-2 256 bits Hexadecimal
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Crypto
+     */
     public function getChecksum(): string
     {
         self::$checksumMode = true;
@@ -312,35 +311,33 @@ class Election
      * @param $rule New rule.
      */
     public function setImplicitRanking(
-
         bool $rule = true
     ): static {
         $this->implicitRankingRule = $rule;
 
         return $this;
     }
-/**
- * Returns the corresponding setting as currently set (False by default).
- * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
- * @api
- * @return mixed True / False
- * @see Election::allowsVoteWeight
- */
+    /**
+     * Returns the corresponding setting as currently set (False by default).
+     * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
+     * @api
+     * @return mixed True / False
+     * @see Election::allowsVoteWeight
+     */
     public function isVoteWeightAllowed(): bool
     {
         return $this->voteWeightAllowed;
     }
-/**
- * Set the setting and reset all result data.
- * Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
- * By default, the voting weight is not activated and all votes are considered equal.
- * @api
- * @return mixed Return True
- * @see Election::isVoteWeightAllowed
- * @param $rule New rule.
- */
+    /**
+     * Set the setting and reset all result data.
+     * Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
+     * By default, the voting weight is not activated and all votes are considered equal.
+     * @api
+     * @return mixed Return True
+     * @see Election::isVoteWeightAllowed
+     * @param $rule New rule.
+     */
     public function allowsVoteWeight(
-
         bool $rule = true
     ): static {
         $this->voteWeightAllowed = $rule;
@@ -351,17 +348,16 @@ class Election
 
 
     /////////// VOTE CONSTRAINT ///////////
-/**
- * Add a constraint rules as a valid class path.
- * @api
- * @return mixed True on success.
- * @throws VoteConstraintException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
- * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
- */
+    /**
+     * Add a constraint rules as a valid class path.
+     * @api
+     * @return mixed True on success.
+     * @throws VoteConstraintException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+     * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
+     * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
+     */
     public function addConstraint(
-
         string $constraintClass
     ): true {
         if (!class_exists($constraintClass)) {
@@ -378,24 +374,24 @@ class Election
 
         return true;
     }
-/**
- * Get active constraints list.
- * @api
- * @return mixed Array with class name of each active constraint. Empty array if there is not.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::clearConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
- */
+    /**
+     * Get active constraints list.
+     * @api
+     * @return mixed Array with class name of each active constraint. Empty array if there is not.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+     * @see Election::clearConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
+     */
     public function getConstraints(): array
     {
         return $this->votesConstraints;
     }
-/**
- * Clear all constraints rules and clear previous results.
- * @api
- * @return mixed Return True.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
- */
+    /**
+     * Clear all constraints rules and clear previous results.
+     * @api
+     * @return mixed Return True.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+     * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
+     */
     public function clearConstraints(): bool
     {
         $this->votesConstraints = [];
@@ -404,16 +400,15 @@ class Election
 
         return true;
     }
-/**
- * Test if a vote is valid with these election constraints.
- * @api
- * @return bool Return True if vote will pass the constraints rules, else False.
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
- * @see Election::getConstraints, Election::addConstraint, Election::clearConstraints
- * @param $vote A vote. Not necessarily registered in this election.
- */
+    /**
+     * Test if a vote is valid with these election constraints.
+     * @api
+     * @return bool Return True if vote will pass the constraints rules, else False.
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
+     * @see Election::getConstraints, Election::addConstraint, Election::clearConstraints
+     * @param $vote A vote. Not necessarily registered in this election.
+     */
     public function isVoteValidUnderConstraints(
-
         Vote $vote
     ): bool {
         foreach ($this->votesConstraints as $oneConstraint) {
@@ -436,7 +431,6 @@ class Election
      * @param $seats The count of seats to elect for proportional methods.
      */
     public function setSeatsToElect(
-
         int $seats
     ): static {
         $this->seatsToElect = $seats;
@@ -446,16 +440,15 @@ class Election
 
 
     /////////// LARGE ELECTION MODE ///////////
-/**
- * Import and enable an external driver to store vote on very large election.
- * @api
- * @throws DataHandlerException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
- * @see Election::removeExternalDataHandler
- * @param $driver Driver object.
- */
+    /**
+     * Import and enable an external driver to store vote on very large election.
+     * @api
+     * @throws DataHandlerException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
+     * @see Election::removeExternalDataHandler
+     * @param $driver Driver object.
+     */
     public function setExternalDataHandler(
-
         DataHandlerDriverInterface $driver
     ): static {
         if (!$this->Votes->hasExternalHandler()) {
@@ -466,13 +459,13 @@ class Election
             throw new DataHandlerException('external data handler cannot be imported');
         }
     }
-/**
- * Remove an external driver to store vote on very large election. And import his data into classical memory.
- * @api
- * @return mixed True if success. Else throw an Exception.
- * @throws DataHandlerException
- * @see Election::setExternalDataHandler
- */
+    /**
+     * Remove an external driver to store vote on very large election. And import his data into classical memory.
+     * @api
+     * @return mixed True if success. Else throw an Exception.
+     * @throws DataHandlerException
+     * @see Election::setExternalDataHandler
+     */
     public function removeExternalDataHandler(): bool
     {
         if ($this->Votes->hasExternalHandler()) {
@@ -488,18 +481,18 @@ class Election
 
 
     // Close the candidate config, be ready for voting (optional)
-/**
- * Force the election to get back to state 2.
- * It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
- *
- * If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
- * If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
- * @api
- * @return mixed Always True.
- * @throws NoCandidatesException
- * @throws ResultRequestedWithoutVotesException
- * @see Election::state
- */
+    /**
+     * Force the election to get back to state 2.
+     * It is not necessary to use this method. The election knows how to manage its phase changes on its own. But it is a way to clear the cache containing the results of the methods.
+     *
+     * If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
+     * If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
+     * @api
+     * @return mixed Always True.
+     * @throws NoCandidatesException
+     * @throws ResultRequestedWithoutVotesException
+     * @see Election::state
+     */
     public function setStateToVote(): true
     {
         if ($this->state === ElectionState::CANDIDATES_REGISTRATION) {

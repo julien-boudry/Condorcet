@@ -107,9 +107,9 @@ class VoteEntryParser
             return null;
         }
     }
-/**
- * @throws VoteInvalidFormatException
- */
+    /**
+     * @throws VoteInvalidFormatException
+     */
     public static function parseIntValueFromVoteStringOffset(string $character, string &$entry, bool $cut = false): int
     {
         $offset = mb_strpos($entry, $character);

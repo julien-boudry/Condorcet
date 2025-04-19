@@ -10,7 +10,6 @@
 namespace CondorcetPHP\Condorcet\Tools\Converters;
 
 use CondorcetPHP\Condorcet\{Candidate, Election, Vote};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Description, FunctionParameter, FunctionReturn, PublicAPI, Related};
 use CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException;
 use CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport;
 
@@ -27,13 +26,12 @@ class DebianFormat implements ConverterImport
      * @api
      */
     public private(set) readonly array $votes;
-/**
- * Read a Tideman format file
- * @api
- * @param $filePath File absolute path.
- */
+    /**
+     * Read a Tideman format file
+     * @api
+     * @param $filePath File absolute path.
+     */
     public function __construct(
-
         string $filePath
     ) {
         $lineFile = file($filePath, \FILE_IGNORE_NEW_LINES | \FILE_SKIP_EMPTY_LINES);
@@ -47,16 +45,15 @@ class DebianFormat implements ConverterImport
         $this->readCandidatesNames();
         $this->readVotes();
     }
-/**
- * Add the Debian data to an election object
- * @api
- * @return mixed The election object
- * @see Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection, Tools\Converters\DavidHillFormat::setDataToAnElection
- * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
- */
-#[\Override]
+    /**
+     * Add the Debian data to an election object
+     * @api
+     * @return mixed The election object
+     * @see Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection, Tools\Converters\DavidHillFormat::setDataToAnElection
+     * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+     */
+    #[\Override]
     public function setDataToAnElection(
-
         ?Election $election = null
     ): Election {
         if ($election === null) {

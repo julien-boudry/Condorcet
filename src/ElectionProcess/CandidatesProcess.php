@@ -10,9 +10,8 @@
 namespace CondorcetPHP\Condorcet\ElectionProcess;
 
 use CondorcetPHP\Condorcet\Candidate;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
 use CondorcetPHP\Condorcet\Throwable\{CandidateDoesNotExistException, CandidateExistsException, VoteMaxNumberReachedException, VotingHasStartedException};
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Utils\CondorcetUtil;
 
 /**
@@ -30,34 +29,34 @@ trait CandidatesProcess
     /////////// GET CANDIDATES ///////////
 
     // Count registered candidates
-/**
- * Count the number of registered candidates
- * @api
- * @return mixed Number of registered candidates for this election.
- * @see Election::getCandidatesList
- */
+    /**
+     * Count the number of registered candidates
+     * @api
+     * @return mixed Number of registered candidates for this election.
+     * @see Election::getCandidatesList
+     */
     public function countCandidates(): int
     {
         return \count($this->candidates);
     }
-/**
- * Return a list of registered candidates for this election.
- * @api
- * @return mixed List of candidates in an array.
- * @see Election::countCandidates
- */
+    /**
+     * Return a list of registered candidates for this election.
+     * @api
+     * @return mixed List of candidates in an array.
+     * @see Election::countCandidates
+     */
     public function getCandidatesList(): array
     {
         return $this->candidates;
     }
 
     // Get the list of registered CANDIDATES
-/**
- * Return a list of registered candidates for this election as strings.
- * @api
- * @return mixed List of candidates in an array populated with strings instead of Candidate objects.
- * @see Election::countCandidates
- */
+    /**
+     * Return a list of registered candidates for this election as strings.
+     * @api
+     * @return mixed List of candidates in an array populated with strings instead of Candidate objects.
+     * @see Election::countCandidates
+     */
     public function getCandidatesListAsString(): array
     {
         $result = [];
@@ -68,9 +67,9 @@ trait CandidatesProcess
 
         return $result;
     }
-/**
- * @internal
- */
+    /**
+     * @internal
+     */
     public function getCandidateKey(Candidate|string $candidate): ?int
     {
         if ($candidate instanceof Candidate) {
@@ -81,36 +80,33 @@ trait CandidatesProcess
 
         return ($r !== false) ? $r : null; // @phpstan-ignore return.type
     }
-/**
- * @internal
- */
+    /**
+     * @internal
+     */
     public function getCandidateObjectFromKey(int $candidate_key): ?Candidate
     {
         return $this->candidates[$candidate_key] ?? null;
     }
-/**
- * Check if a candidate is already registered for this election.
- * @api
- * @see Election::addCandidate
- * @param $candidate Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.
- * @param $strictMode Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.
- */
+    /**
+     * Check if a candidate is already registered for this election.
+     * @api
+     * @see Election::addCandidate
+     * @param $candidate Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.
+     * @param $strictMode Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.
+     */
     public function hasCandidate(
-
         Candidate|string $candidate,
-
         bool $strictMode = true
     ): bool {
         return $strictMode ? \in_array(needle: $candidate, haystack: $this->candidates, strict: true) : \in_array(needle: (string) $candidate, haystack: $this->candidates, strict: false);
     }
-/**
- * Find the candidate object from its name and return it.
- * @api
- * @return mixed Candidate object
- * @param $candidateName Name of the candidate.
- */
+    /**
+     * Find the candidate object from its name and return it.
+     * @api
+     * @return mixed Candidate object
+     * @param $candidateName Name of the candidate.
+     */
     public function getCandidateObjectFromName(
-
         string $candidateName
     ): ?Candidate {
         foreach ($this->candidates as $oneCandidate) {
@@ -126,18 +122,17 @@ trait CandidatesProcess
     /////////// ADD & REMOVE CANDIDATE ///////////
 
     // Add a vote candidate before voting
-/**
- * Add a candidate to an election.
- * @api
- * @return mixed The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
- * @throws CandidateExistsException
- * @throws VotingHasStartedException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
- * @see Election::parseCandidates, Election::addCandidatesFromJson, Election::removeCandidates, Election::getCandidatesList, Election::canAddCandidate
- * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.
- */
+    /**
+     * Add a candidate to an election.
+     * @api
+     * @return mixed The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
+     * @throws CandidateExistsException
+     * @throws VotingHasStartedException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+     * @see Election::parseCandidates, Election::addCandidatesFromJson, Election::removeCandidates, Election::getCandidatesList, Election::canAddCandidate
+     * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.
+     */
     public function addCandidate(
-
         Candidate|string|null $candidate = null
     ): Candidate {
         // only if the vote has not started
@@ -171,35 +166,33 @@ trait CandidatesProcess
 
         return $newCandidate;
     }
-/**
- * Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
- * @api
- * @return mixed True if your candidate is available, false otherwise.
- * @see Election::addCandidate, Election::hasCandidate
- * @param $candidate String or Condorcet/Vote object.
- */
+    /**
+     * Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
+     * @api
+     * @return mixed True if your candidate is available, false otherwise.
+     * @see Election::addCandidate, Election::hasCandidate
+     * @param $candidate String or Condorcet/Vote object.
+     */
     public function canAddCandidate(
-
         Candidate|string $candidate
     ): bool {
         return !$this->hasCandidate($candidate, false);
     }
 
     // Destroy a register vote candidate before voting
-/**
- * Remove candidates from an election.
- *
- * *Please note: You cannot remove candidates after the first vote. An exception will be thrown.*
- * @api
- * @return mixed List of removed candidate objects.
- * @throws CandidateDoesNotExistException
- * @throws VotingHasStartedException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
- * @see Election::addCandidate, Election::getCandidatesList
- * @param $candidates_input String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.
- */
+    /**
+     * Remove candidates from an election.
+     *
+     * *Please note: You cannot remove candidates after the first vote. An exception will be thrown.*
+     * @api
+     * @return mixed List of removed candidate objects.
+     * @throws CandidateDoesNotExistException
+     * @throws VotingHasStartedException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+     * @see Election::addCandidate, Election::getCandidatesList
+     * @param $candidates_input String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.
+     */
     public function removeCandidates(
-
         array|Candidate|string $candidates_input
     ): array {
         // only if the vote has not started
@@ -235,17 +228,16 @@ trait CandidatesProcess
 
 
     /////////// PARSE CANDIDATES ///////////
-/**
- * Import candidates from a JSON source.
- * @api
- * @return mixed List of newly registered candidate objects.
- * @throws CandidateExistsException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
- * @see Election::addCandidate, Election::parseCandidates, Election::addVotesFromJson
- * @param $input JSON string.
- */
+    /**
+     * Import candidates from a JSON source.
+     * @api
+     * @return mixed List of newly registered candidate objects.
+     * @throws CandidateExistsException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+     * @see Election::addCandidate, Election::parseCandidates, Election::addVotesFromJson
+     * @param $input JSON string.
+     */
     public function addCandidatesFromJson(
-
         string $input
     ): array {
         $input = CondorcetUtil::prepareJson($input);
@@ -270,21 +262,19 @@ trait CandidatesProcess
 
         return $adding;
     }
-/**
- * Import candidates from a text source.
- * @api
- * @return mixed List of newly registered candidate objects. Count to check if all candidates were correctly registered.
- * @throws CandidateExistsException
- * @throws VoteMaxNumberReachedException
- * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
- * @see Election::addCandidate, Election::addCandidatesFromJson, Election::parseVotes
- * @param $input String or valid path to a text file.
- * @param $isFile If true, the input is evaluated as a path to a text file.
- */
+    /**
+     * Import candidates from a text source.
+     * @api
+     * @return mixed List of newly registered candidate objects. Count to check if all candidates were correctly registered.
+     * @throws CandidateExistsException
+     * @throws VoteMaxNumberReachedException
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Candidates
+     * @see Election::addCandidate, Election::addCandidatesFromJson, Election::parseVotes
+     * @param $input String or valid path to a text file.
+     * @param $isFile If true, the input is evaluated as a path to a text file.
+     */
     public function parseCandidates(
-
         string $input,
-
         bool $isFile = false
     ): array {
         $input = CondorcetUtil::prepareParse($input, $isFile);

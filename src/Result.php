@@ -11,8 +11,7 @@ namespace CondorcetPHP\Condorcet;
 
 use CondorcetPHP\Condorcet\Algo\{StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Stats\StatsInterface;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary;
-use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Description, FunctionParameter, FunctionReturn, InternalModulesAPI, PublicAPI, Related, Throws};
+use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Utils\{CondorcetUtil, VoteUtil};
 use CondorcetPHP\Condorcet\Throwable\ResultException;
 
@@ -202,7 +201,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      */
     public array $rankingAsArray {
         get {
-            return array_map(function($rank): array|Candidate {
+            return array_map(function ($rank): array|Candidate {
                 if (\count($rank) === 1) {
                     return $rank[0];
                 } else {
@@ -219,7 +218,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      */
     public array $rankingAsArrayString {
         get {
-            return array_map(function($rank): array|string {
+            return array_map(function ($rank): array|string {
                 if ($rank instanceof Candidate) {
                     return $rank->name;
                 } else {
@@ -335,7 +334,6 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * @param $type Filter on a specific warning type code.
      */
     public function getWarning(
-
         ?int $type = null
     ): array {
         if ($type === null) {

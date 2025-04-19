@@ -12,7 +12,6 @@ namespace CondorcetPHP\Condorcet;
 use CondorcetPHP\Condorcet\Throwable\{CandidateExistsException, CandidateInvalidNameException};
 use CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\CondorcetDocAttributes\{Book, Throws};
 use CondorcetPHP\Condorcet\Relations\Linkable;
-use Deprecated;
 
 class Candidate implements \Stringable
 {
