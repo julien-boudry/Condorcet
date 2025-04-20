@@ -21,6 +21,10 @@ use CondorcetPHP\Condorcet\Election;
  */
 abstract class TieBreakersCollection
 {
+    /**
+     * @param array<int,mixed> $candidatesKeys
+     * @return array|array<int,mixed>
+     */
     public static function electSomeLosersbasedOnPairwiseComparaison(Election $election, array $candidatesKeys): array
     {
         $pairwise = $election->getPairwise();
@@ -49,7 +53,11 @@ abstract class TieBreakersCollection
 
         return (\count($tooKeep) > 0) ? $tooKeep : $candidatesKeys;
     }
-
+    /**
+     * @param array<int,mixed> $methods
+     * @param array<int,mixed> $candidatesKeys
+     * @return array|array<int,mixed>
+     */
     public static function tieBreakerWithAnotherMethods(Election $election, array $methods, array $candidatesKeys): array
     {
         foreach ($methods as $oneMethod) {

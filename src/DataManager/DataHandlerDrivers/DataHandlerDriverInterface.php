@@ -11,12 +11,13 @@ namespace CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers;
 
 interface DataHandlerDriverInterface
 {
-    /* public $dataContextObject; */
     // The Data Manager will set an object into this property. You should call for each Entity $dataContextObject->dataCallBack($EntityData) before returning stored data by the two select method.
 
 
-    // Entities to register.
-    // Ex: [Condorcet/Vote,Condorcet/Vote,Condorcet/Vote]. The key should not be kept
+    /**
+     * Entities to register.
+     * @param array<int,mixed> $input public $dataContextObject;
+     */
     public function insertEntities(array $input): void;
 
     // Delete Entity with this key. If justTry is true, don't throw Exception if row not exist. Else throw an \CondorcetPHP\Concordet\Throwable\CondorcetInternalError.

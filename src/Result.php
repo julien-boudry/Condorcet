@@ -87,7 +87,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /////////// CONSTRUCTOR ///////////
 
     /**
-     * @var array<int,null|int|array<int>>
+     * @var array<int,array<int,int>>
      * @internal
      */
     public private(set) readonly array $rawRanking;
