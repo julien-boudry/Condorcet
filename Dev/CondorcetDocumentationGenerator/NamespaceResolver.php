@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator;
 
-use PhpParser\Error;
-use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitorAbstract;
-use PhpParser\ParserFactory;
+use PhpParser\{Error, Node, NodeTraverser, NodeVisitorAbstract, ParserFactory};
 
-class NamespaceResolver extends NodeVisitorAbstract {
-
-    public static function resolveClassName(string $className, string $filePath): string {
+class NamespaceResolver extends NodeVisitorAbstract
+{
+    public static function resolveClassName(string $className, string $filePath): string
+    {
         $code = file_get_contents($filePath);
 
         $parser = new ParserFactory()->createForHostVersion();
@@ -23,7 +20,7 @@ class NamespaceResolver extends NodeVisitorAbstract {
             $stmts = $parser->parse($code);
             $traverser->traverse($stmts);
         } catch (Error $error) {
-            echo "Erreur de parsing : ", $error->getMessage();
+            echo 'Erreur de parsing : ', $error->getMessage();
             exit(1);
         }
 
@@ -42,7 +39,8 @@ class NamespaceResolver extends NodeVisitorAbstract {
     public string $namespace = '';
     public array $uses = [];
 
-    public function enterNode(Node $node): void {
+    public function enterNode(Node $node): void
+    {
         if ($node instanceof Node\Stmt\Namespace_) {
             $this->namespace = $node->name ? $node->name->toString() : '';
         }
