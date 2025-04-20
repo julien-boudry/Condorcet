@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Condorcet;
+
 beforeEach(function (): void {
     $this->condorcetDefaultMethod = Condorcet::getDefaultMethod();
 });
@@ -10,13 +11,13 @@ afterEach(function (): void {
 });
 
 test('overview example', function (): void {
-    include __DIR__.'/../../Examples/1. Overview.php';
+    include __DIR__ . '/../../Examples/1. Overview.php';
 
     expect(true)->toBeTrue();
 });
 
 test('advanced object management example', function (): void {
-    include __DIR__.'/../../Examples/2. AdvancedObjectManagement.php';
+    include __DIR__ . '/../../Examples/2. AdvancedObjectManagement.php';
 
     expect(true)->toBeTrue();
 });
@@ -24,11 +25,11 @@ test('advanced object management example', function (): void {
 test('global html example', function (): void {
     $this->expectOutputRegex('/\<\/html\>/');
 
-    include __DIR__.'/../../Examples/Examples-with-html/A.Global_Example.php';
+    include __DIR__ . '/../../Examples/Examples-with-html/A.Global_Example.php';
 });
 
 test('ranking manipulation html example', function (): void {
     $this->expectOutputRegex('/\<\/html\>/');
 
-    include __DIR__.'/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
+    include __DIR__ . '/../../Examples/Examples-with-html/B.Ranking_Manipulation.php';
 });
