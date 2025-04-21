@@ -1,8 +1,8 @@
-## virtual public Candidate::name
+# virtual public Candidate::name
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L16)
 
-### Description    
+## Description    
 
 ```php
 virtual public string Candidate->name 

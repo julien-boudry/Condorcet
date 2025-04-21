@@ -1,8 +1,8 @@
-## public Election::addVote
+# public Election::addVote
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L188)
 
-### Description    
+## Description    
 
 ```php
 public Election->addVote ( CondorcetPHP\Condorcet\Vote|array|string $vote [, array|string|null $tags = null] ): CondorcetPHP\Condorcet\Vote
@@ -11,27 +11,27 @@ public Election->addVote ( CondorcetPHP\Condorcet\Vote|array|string $vote [, arr
 Add a vote to an election.
     
 
-#### **vote:** *`CondorcetPHP\Condorcet\Vote|array|string`*   
+### **vote:** *`CondorcetPHP\Condorcet\Vote|array|string`*   
 String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you do not provide a Vote object yourself, a new one will be generated for you.    
 
 
-#### **tags:** *`array|string|null`*   
+### **tags:** *`array|string|null`*   
 String separated by commas or an array. Will add tags to the vote object for you. But you can also add them yourself to the Vote object.    
 
 
-### Return value   
+## Return value   
 
 *(`CondorcetPHP\Condorcet\Vote`)* The vote object.
 
 
 
-### Throws:   
+## Throws:   
 
 * ```VoteMaxNumberReachedException``` 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes.md)    
 * [Election::addVotesFromJson](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md)    
@@ -40,6 +40,6 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/1.AddVotes)**    

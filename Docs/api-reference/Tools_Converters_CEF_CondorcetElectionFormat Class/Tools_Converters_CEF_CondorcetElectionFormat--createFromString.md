@@ -1,8 +1,8 @@
-## public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString
+# public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L83)
 
-### Description    
+## Description    
 
 ```php
 public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString ( string $input ): self
@@ -11,5 +11,5 @@ public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString ( s
 Create a CondorcetElectionFormat object from string.
     
 
-#### **input:** *`string`*   
+### **input:** *`string`*   
 CondorcetElectionFormat string to parse.    

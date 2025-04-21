@@ -1,8 +1,8 @@
-## final public readonly Result::fromMethod
+# final public readonly Result::fromMethod
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
-### Description    
+## Description    
 
 ```php
 final public readonly string Result->fromMethod 

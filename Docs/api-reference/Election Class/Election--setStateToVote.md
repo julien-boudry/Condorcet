@@ -1,8 +1,8 @@
-## public Election::setStateToVote
+# public Election::setStateToVote
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L495)
 
-### Description    
+## Description    
 
 ```php
 public Election->setStateToVote ( ): true
@@ -15,19 +15,19 @@ If you are on state 1 (candidate registering), it's will close this state and pr
 If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
     
 
-### Return value   
+## Return value   
 
 *(`true`)* Always True.
 
 
 
-### Throws:   
+## Throws:   
 
 * ```CondorcetPHP\Condorcet\Throwable\NoCandidatesException``` 
 * ```CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException``` 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::state](/Docs/api-reference/Election%20Class/Election--state.md)    

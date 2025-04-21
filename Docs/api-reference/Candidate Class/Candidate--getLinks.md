@@ -1,8 +1,8 @@
-## public Candidate::getLinks
+# public Candidate::getLinks
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L56)
 
-### Description    
+## Description    
 
 ```php
 public Candidate->getLinks ( ): array
@@ -11,14 +11,14 @@ public Candidate->getLinks ( ): array
 Get election objects linked to this Vote or Candidate object.
     
 
-### Return value   
+## Return value   
 
 *(`array`)* Array containing linked Condorcet election objects.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Vote::countLinks](/Docs/api-reference/Vote%20Class/Vote--countLinks.md)    
 * [Candidate::countLinks](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md)    

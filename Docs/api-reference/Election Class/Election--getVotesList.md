@@ -1,8 +1,8 @@
-## public Election::getVotesList
+# public Election::getVotesList
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L111)
 
-### Description    
+## Description    
 
 ```php
 public Election->getVotesList ( [array|string|null $tags = null , bool $with = true] ): array
@@ -11,22 +11,22 @@ public Election->getVotesList ( [array|string|null $tags = null , bool $with = t
 Get registered votes list.
     
 
-#### **tags:** *`array|string|null`*   
+### **tags:** *`array|string|null`*   
 Tags list as a string separated by commas or array.    
 
 
-#### **with:** *`bool`*   
+### **with:** *`bool`*   
 Get votes with these tags or without.    
 
 
-### Return value   
+## Return value   
 
 *(`array`)* Populated by each Vote object.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes.md)    
 * [Election::getVotesListAsString](/Docs/api-reference/Election%20Class/Election--getVotesListAsString.md)    

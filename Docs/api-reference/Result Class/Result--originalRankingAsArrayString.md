@@ -1,8 +1,8 @@
-## public readonly Result::originalRankingAsArrayString
+# public readonly Result::originalRankingAsArrayString
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
-### Description    
+## Description    
 
 ```php
 public readonly array Result->originalRankingAsArrayString 

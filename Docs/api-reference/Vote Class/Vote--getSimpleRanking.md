@@ -1,8 +1,8 @@
-## public Vote::getSimpleRanking
+# public Vote::getSimpleRanking
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L433)
 
-### Description    
+## Description    
 
 ```php
 public Vote->getSimpleRanking ( [?CondorcetPHP\Condorcet\Election $context = null , bool $displayWeight = true] ): string
@@ -11,21 +11,21 @@ public Vote->getSimpleRanking ( [?CondorcetPHP\Condorcet\Election $context = nul
 Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
     
 
-#### **context:** *`?CondorcetPHP\Condorcet\Election`*   
+### **context:** *`?CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    
 
 
-#### **displayWeight:** *`bool`*   
+### **displayWeight:** *`bool`*   
 Include or not the weight symbol and value.    
 
 
-### Return value   
+## Return value   
 
 *(`string`)* String like 'A>D=C>B
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    

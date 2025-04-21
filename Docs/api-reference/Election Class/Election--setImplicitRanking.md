@@ -1,8 +1,8 @@
-## public Election::setImplicitRanking
+# public Election::setImplicitRanking
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L312)
 
-### Description    
+## Description    
 
 ```php
 public Election->setImplicitRanking ( [bool $rule = true] ): static
@@ -13,17 +13,17 @@ If it is True then all votes expressing a partial ranking are understood as impl
 If it is false, then the candidates not ranked, are not taken into account at all.
     
 
-#### **rule:** *`bool`*   
+### **rule:** *`bool`*   
 New rule.    
 
 
-### Return value   
+## Return value   
 
 *(`static`)* Return True
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)    

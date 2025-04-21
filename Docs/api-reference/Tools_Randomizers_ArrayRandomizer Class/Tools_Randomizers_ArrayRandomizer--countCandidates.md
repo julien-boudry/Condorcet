@@ -1,8 +1,8 @@
-## public Tools\Randomizers\ArrayRandomizer::countCandidates
+# public Tools\Randomizers\ArrayRandomizer::countCandidates
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L74)
 
-### Description    
+## Description    
 
 ```php
 public Tools\Randomizers\ArrayRandomizer->countCandidates ( ): int
@@ -11,7 +11,7 @@ public Tools\Randomizers\ArrayRandomizer->countCandidates ( ): int
 Count candidates currently running for this instance of the randomizer.
     
 
-### Return value   
+## Return value   
 
 *(`int`)* Count of candidates
 

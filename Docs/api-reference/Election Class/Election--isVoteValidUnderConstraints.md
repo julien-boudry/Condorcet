@@ -1,8 +1,8 @@
-## public Election::isVoteValidUnderConstraints
+# public Election::isVoteValidUnderConstraints
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L410)
 
-### Description    
+## Description    
 
 ```php
 public Election->isVoteValidUnderConstraints ( CondorcetPHP\Condorcet\Vote $vote ): bool
@@ -11,18 +11,18 @@ public Election->isVoteValidUnderConstraints ( CondorcetPHP\Condorcet\Vote $vote
 Test if a vote is valid with these election constraints.
     
 
-#### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
+### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
 A vote. Not necessarily registered in this election.    
 
 
-### Return value   
+## Return value   
 
 *(`bool`)* Return True if vote will pass the constraints rules, else False.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getConstraints](/Docs/api-reference/Election%20Class/Election--getConstraints.md)    
 * [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint.md)    
@@ -30,6 +30,6 @@ A vote. Not necessarily registered in this election.
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    

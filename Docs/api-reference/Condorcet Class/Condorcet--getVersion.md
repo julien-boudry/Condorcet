@@ -1,8 +1,8 @@
-## public static Condorcet::getVersion
+# public static Condorcet::getVersion
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L85)
 
-### Description    
+## Description    
 
 ```php
 public static Condorcet::getVersion ( [bool $major = false] ): string
@@ -11,17 +11,17 @@ public static Condorcet::getVersion ( [bool $major = false] ): string
 Get the library version.
     
 
-#### **major:** *`bool`*   
+### **major:** *`bool`*   
 * true will return : 2.0, false will return : 2.0.0.    
 
 
-### Return value   
+## Return value   
 
 *(`string`)* Condorcet PHP version.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getCondorcetBuilderVersion](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md)    

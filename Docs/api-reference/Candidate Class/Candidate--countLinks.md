@@ -1,8 +1,8 @@
-## public Candidate::countLinks
+# public Candidate::countLinks
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L44)
 
-### Description    
+## Description    
 
 ```php
 public Candidate->countLinks ( ): int
@@ -11,14 +11,14 @@ public Candidate->countLinks ( ): int
 Count number of linked elections to this object.
     
 
-### Return value   
+## Return value   
 
 *(`int`)* Number of linked elections.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Vote::countLinks](/Docs/api-reference/Vote%20Class/Vote--countLinks.md)    
 * [Vote::getLinks](/Docs/api-reference/Vote%20Class/Vote--getLinks.md)    

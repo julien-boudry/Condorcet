@@ -1,8 +1,8 @@
-## public Election::allowsVoteWeight
+# public Election::allowsVoteWeight
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L339)
 
-### Description    
+## Description    
 
 ```php
 public Election->allowsVoteWeight ( [bool $rule = true] ): static
@@ -13,17 +13,17 @@ Then the weight of votes (if specified) will be taken into account when calculat
 By default, the voting weight is not activated and all votes are considered equal.
     
 
-#### **rule:** *`bool`*   
+### **rule:** *`bool`*   
 New rule.    
 
 
-### Return value   
+## Return value   
 
 *(`static`)* Return True
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::isVoteWeightAllowed](/Docs/api-reference/Election%20Class/Election--isVoteWeightAllowed.md)    

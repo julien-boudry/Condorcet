@@ -1,8 +1,8 @@
-## public Election::getCondorcetWinner
+# public Election::getCondorcetWinner
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L171)
 
-### Description    
+## Description    
 
 ```php
 public Election->getCondorcetWinner ( ): ?CondorcetPHP\Condorcet\Candidate
@@ -11,14 +11,14 @@ public Election->getCondorcetWinner ( ): ?CondorcetPHP\Condorcet\Candidate
 Get the natural Condorcet winner if there is one.
     
 
-### Return value   
+## Return value   
 
 *(`?CondorcetPHP\Condorcet\Candidate`)* Candidate object given. Null if there are no available winner.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getCondorcetLoser](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser.md)    
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    
@@ -26,6 +26,6 @@ Get the natural Condorcet winner if there is one.
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/6.Results/1.WinnerAndLoser)**    

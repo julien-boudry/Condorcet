@@ -1,8 +1,8 @@
-## public Election::getLastTimer
+# public Election::getLastTimer
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L235)
 
-### Description    
+## Description    
 
 ```php
 public Election->getLastTimer ( ): float
@@ -11,19 +11,19 @@ public Election->getLastTimer ( ): float
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
     
 
-### Return value   
+## Return value   
 
 *(`float`)* (float) Timer
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getGlobalTimer](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md)    
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    

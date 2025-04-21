@@ -1,8 +1,8 @@
-## public Election::removeVote
+# public Election::removeVote
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L308)
 
-### Description    
+## Description    
 
 ```php
 public Election->removeVote ( CondorcetPHP\Condorcet\Vote $vote ): true
@@ -11,18 +11,18 @@ public Election->removeVote ( CondorcetPHP\Condorcet\Vote $vote ): true
 Remove Votes from an election.
     
 
-#### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
+### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
 Vote object.    
 
 
-### Return value   
+## Return value   
 
 *(`true`)* True on success
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::removeAllVotes](/Docs/api-reference/Election%20Class/Election--removeAllVotes.md)    
 * [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote.md)    
@@ -31,6 +31,6 @@ Vote object.
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/1.AddVotes)**    

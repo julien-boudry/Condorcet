@@ -1,8 +1,8 @@
-## public Election::removeCandidates
+# public Election::removeCandidates
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L195)
 
-### Description    
+## Description    
 
 ```php
 public Election->removeCandidates ( CondorcetPHP\Condorcet\Candidate|array|string $candidates_input ): array
@@ -13,30 +13,30 @@ Remove candidates from an election.
 *Please note: You cannot remove candidates after the first vote. An exception will be thrown.*
     
 
-#### **candidates_input:** *`CondorcetPHP\Condorcet\Candidate|array|string`*   
+### **candidates_input:** *`CondorcetPHP\Condorcet\Candidate|array|string`*   
 String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.    
 
 
-### Return value   
+## Return value   
 
 *(`array`)* List of removed candidate objects.
 
 
 
-### Throws:   
+## Throws:   
 
 * ```CandidateDoesNotExistException``` 
 * ```VotingHasStartedException``` 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate.md)    
 * [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md)    
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/4.Candidates)**    

@@ -1,8 +1,8 @@
-## public Election::implicitRankingRule
+# public Election::implicitRankingRule
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L20)
 
-### Description    
+## Description    
 
 ```php
 public bool Election->implicitRankingRule 
@@ -14,6 +14,6 @@ If it is false, then the candidates not ranked, are not taken into account at al
     
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::setImplicitRanking](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md)    

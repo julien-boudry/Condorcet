@@ -1,8 +1,8 @@
-## virtual public Result::Winner
+# virtual public Result::Winner
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
-### Description    
+## Description    
 
 ```php
 virtual public CondorcetPHP\Condorcet\Candidate|array|null Result->Winner 
@@ -13,7 +13,7 @@ Contain Candidate object. Null if there are no available winner. Or an array wit
     
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Result::Loser](/Docs/api-reference/Result%20Class/Result--Loser.md)    
 * [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner.md)    

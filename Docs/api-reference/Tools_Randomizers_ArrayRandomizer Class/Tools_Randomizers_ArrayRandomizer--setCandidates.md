@@ -1,8 +1,8 @@
-## public Tools\Randomizers\ArrayRandomizer::setCandidates
+# public Tools\Randomizers\ArrayRandomizer::setCandidates
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L64)
 
-### Description    
+## Description    
 
 ```php
 public Tools\Randomizers\ArrayRandomizer->setCandidates ( array $candidates ): void
@@ -11,5 +11,5 @@ public Tools\Randomizers\ArrayRandomizer->setCandidates ( array $candidates ): v
 Change the candidates running for this randomizer.
     
 
-#### **candidates:** *`array`*   
+### **candidates:** *`array`*   
 The array of candidates to shuffle.    

@@ -1,8 +1,8 @@
-## public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection
+# public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L34)
 
-### Description    
+## Description    
 
 ```php
 public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection ( CondorcetPHP\Condorcet\Election $election [, bool $aggregateVotes = true , bool $includeSeatsToElect = true , bool $includeTags = true , bool $inContext = false , ?SplFileObject $file = null] ): ?string
@@ -11,31 +11,31 @@ public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (
 Create a CondorcetElectionFormat file from an Election object.
     
 
-#### **election:** *`CondorcetPHP\Condorcet\Election`*   
+### **election:** *`CondorcetPHP\Condorcet\Election`*   
 Election with data.    
 
 
-#### **aggregateVotes:** *`bool`*   
+### **aggregateVotes:** *`bool`*   
 If true, will try to reduce number of lines, with quantifier for identical votes.    
 
 
-#### **includeSeatsToElect:** *`bool`*   
+### **includeSeatsToElect:** *`bool`*   
 Add the Number Of Seats parameters to the output.    
 
 
-#### **includeTags:** *`bool`*   
+### **includeTags:** *`bool`*   
 Add the vote tags information if any. Not working if $aggregateVotes is true.    
 
 
-#### **inContext:** *`bool`*   
+### **inContext:** *`bool`*   
 Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.    
 
 
-#### **file:** *`?SplFileObject`*   
+### **file:** *`?SplFileObject`*   
 If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    
 
 
-### Return value   
+## Return value   
 
 *(`?string`)* If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
 

@@ -1,8 +1,8 @@
-## public static Election::maxParseIteration
+# public static Election::maxParseIteration
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L20)
 
-### Description    
+## Description    
 
 ```php
 public static ?int Election::maxParseIteration 

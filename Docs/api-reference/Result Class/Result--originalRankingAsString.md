@@ -1,8 +1,8 @@
-## virtual public Result::originalRankingAsString
+# virtual public Result::originalRankingAsString
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
-### Description    
+## Description    
 
 ```php
 virtual public string Result->originalRankingAsString 

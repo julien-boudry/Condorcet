@@ -1,8 +1,8 @@
-## public Election::clearConstraints
+# public Election::clearConstraints
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L394)
 
-### Description    
+## Description    
 
 ```php
 public Election->clearConstraints ( ): bool
@@ -11,14 +11,14 @@ public Election->clearConstraints ( ): bool
 Clear all constraints rules and clear previous results.
     
 
-### Return value   
+## Return value   
 
 *(`bool`)* Return True.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getConstraints](/Docs/api-reference/Election%20Class/Election--getConstraints.md)    
 * [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint.md)    
@@ -26,6 +26,6 @@ Clear all constraints rules and clear previous results.
 
 ---------------------------------------
 
-### Tutorial
+## Tutorial
 
 * **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    

@@ -1,8 +1,8 @@
-## public static Utils\CondorcetUtil::format
+# public static Utils\CondorcetUtil::format
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L77)
 
-### Description    
+## Description    
 
 ```php
 public static Utils\CondorcetUtil::format ( mixed $input [, bool $convertObject = true] ): mixed
@@ -12,15 +12,15 @@ Provides pretty re-formatting, human readable, of all Condorcet PHP objects or r
 Can be used before a var_dump, or just to get simpler data output.
     
 
-#### **input:** *`mixed`*   
+### **input:** *`mixed`*   
 Input to convert.    
 
 
-#### **convertObject:** *`bool`*   
+### **convertObject:** *`bool`*   
 If true. Will convert Candidate objects into string representation of their name.    
 
 
-### Return value   
+## Return value   
 
 *(`mixed`)* New formatted data.
 

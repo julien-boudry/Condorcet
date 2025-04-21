@@ -1,8 +1,8 @@
-## public static Election::maxVotePerElection
+# public static Election::maxVotePerElection
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L20)
 
-### Description    
+## Description    
 
 ```php
 public static ?int Election::maxVotePerElection 
@@ -13,6 +13,6 @@ Null will deactivate this functionality. An integer will set the limit.
     
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)    

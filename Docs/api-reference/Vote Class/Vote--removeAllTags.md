@@ -1,8 +1,8 @@
-## public Vote::removeAllTags
+# public Vote::removeAllTags
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L666)
 
-### Description    
+## Description    
 
 ```php
 public Vote->removeAllTags ( ): true
@@ -11,14 +11,14 @@ public Vote->removeAllTags ( ): true
 Remove all registered tag(s) on this Vote.
     
 
-### Return value   
+## Return value   
 
 *(`true`)* Return True.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags.md)    
 * [Vote::removeTags](/Docs/api-reference/Vote%20Class/Vote--removeTags.md)    

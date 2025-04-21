@@ -1,8 +1,8 @@
-## public static Condorcet::getDefaultMethod
+# public static Condorcet::getDefaultMethod
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L132)
 
-### Description    
+## Description    
 
 ```php
 public static Condorcet::getDefaultMethod ( ): ?string
@@ -11,14 +11,14 @@ public static Condorcet::getDefaultMethod ( ): ?string
 Return the Condorcet static default method.
     
 
-### Return value   
+## Return value   
 
 *(`?string`)* Method name.
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Condorcet::getAuthMethods](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods.md)    
 * [Condorcet::setDefaultMethod](/Docs/api-reference/Condorcet%20Class/Condorcet--setDefaultMethod.md)    

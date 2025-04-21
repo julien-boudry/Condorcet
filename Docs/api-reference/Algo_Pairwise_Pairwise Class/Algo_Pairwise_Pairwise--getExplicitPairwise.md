@@ -1,8 +1,8 @@
-## public Algo\Pairwise\Pairwise::getExplicitPairwise
+# public Algo\Pairwise\Pairwise::getExplicitPairwise
 
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L151)
 
-### Description    
+## Description    
 
 ```php
 public Algo\Pairwise\Pairwise->getExplicitPairwise ( ): array
@@ -11,14 +11,14 @@ public Algo\Pairwise\Pairwise->getExplicitPairwise ( ): array
 Return the Pairwise.
     
 
-### Return value   
+## Return value   
 
 *(`array`)* Pairwise as an explicit array .
 
 
 ---------------------------------------
 
-### Related method(s)      
+## Related method(s)      
 
 * [Election::getPairwise](/Docs/api-reference/Election%20Class/Election--getPairwise.md)    
 * [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult.md)    

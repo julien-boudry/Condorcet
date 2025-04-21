@@ -356,11 +356,11 @@ class Generate
         $gitHubLinkClass = $onePage instanceof ReflectionProperty ? $onePage->getDeclaringClass() : $onePage;
 
         // Header
-        $md =   '## ' . self::getModifiersName($onePage) . ' ' . self::simpleClass($onePage->class) . '::' . $onePage->name . "\n\n" .
+        $md =   '# ' . self::getModifiersName($onePage) . ' ' . self::simpleClass($onePage->class) . '::' . $onePage->name . "\n\n" .
 
                 '> [Read it at the source](' . self::getGithubLink($gitHubLinkClass) . ")\n\n" .
 
-                "### Description    \n\n" .
+                "## Description    \n\n" .
                 self::computeRepresentationAsPHP($onePage) . "\n\n" .
                 $this->getDocBlockDescription($onePage) . "\n    ";
 
@@ -372,7 +372,7 @@ class Generate
                 $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
 
                 $md .=  "\n\n" .
-                        '#### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n" .
+                        '### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n" .
                         $pt . "    \n";
             }
         }
@@ -385,14 +385,14 @@ class Generate
             $returnDescription = implode("\n", array_map(fn($in): string => ltrim($in), explode("\n", $returnDescription)));
 
             $md .= "\n\n" .
-                    "### Return value   \n\n" .
+                    "## Return value   \n\n" .
                     '*(' . self::getTypeAsString($onePage->getReturnType(), true) . ')* ' . $returnDescription . "\n\n";
         }
 
         // Throw
         if ($this->hasDocBlockTag('@throws', $onePage)) {
             $md .=  "\n\n" .
-                    "### Throws:   \n\n";
+                    "## Throws:   \n\n";
 
             foreach ($this->getPhpDocNode($onePage)->getTagsByName('@throws') as $oneTag) {
                 $classPath = NamespaceResolver::resolveClassName((string) $oneTag->value->type, $onePage->getDeclaringClass()->getFileName());
@@ -406,7 +406,7 @@ class Generate
         if (!empty($see = $this->getDocBlockTagDescriptionOrValue('@see', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
-                    "### Related method(s)      \n\n";
+                    "## Related method(s)      \n\n";
 
             foreach (explode(', ', $see) as $toSee) {
                 if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name) {
@@ -420,7 +420,7 @@ class Generate
         if (!empty($book = $this->getDocBlockTagDescriptionOrValue('@book', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
-                    "### Tutorial\n\n";
+                    "## Tutorial\n\n";
 
             foreach (explode(', ', $this->getDocBlockTagDescriptionOrValue('@book', $onePage)) as $BookAttribute) {
                 $BookLibrary = \constant($BookAttribute);
