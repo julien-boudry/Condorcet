@@ -66,7 +66,7 @@ class Manager
     /**
      * Returns benchmarked actions history.
      * @api
-     * @return mixed An array containing detailed benchmark history.
+     * @return array An array containing detailed benchmark history.
      * @see Election::getTimerManager
      */
     public function getHistory(): array

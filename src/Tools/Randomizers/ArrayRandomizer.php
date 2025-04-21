@@ -69,7 +69,7 @@ class ArrayRandomizer
     /**
      * Count candidates currently running for this instance of the randomizer.
      * @api
-     * @return mixed Count of candidates
+     * @return int Count of candidates
      */
     public function countCandidates(): int
     {
@@ -78,7 +78,7 @@ class ArrayRandomizer
     /**
      * Generate a new random vote.
      * @api
-     * @return mixed Return the new vote.
+     * @return array Return the new vote.
      */
     public function shuffle(): array
     {

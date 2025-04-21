@@ -117,7 +117,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get the registered tags for this Vote.
      * @api
-     * @return mixed List of registered tag.
+     * @return array List of registered tag.
      * @see Vote::getTagsAsString, Vote::addTags, Vote::removeTags
      */
     public private(set) array $tags = [];
@@ -241,7 +241,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @api
      * @see Vote::setRanking
      * @param $sortCandidatesInRank Sort Candidate in a Rank by name. Useful for performant internal calls from methods.
-     * @return mixed Multidimenssionnal array populated by Candidate object.
+     * @return array Multidimenssionnal array populated by Candidate object.
      */
     public function getRanking(
         bool $sortCandidatesInRank = true
@@ -260,7 +260,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get the registered tags for this Vote.
      * @api
-     * @return mixed List of registered tag as string separated by commas.
+     * @return string List of registered tag as string separated by commas.
      * @see Vote::tags, Vote::addTags, Vote::removeTags
      */
     public function getTagsAsString(): string
@@ -271,7 +271,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Count the number of ranks.
      * @api
-     * @return mixed Number of ranks.
+     * @return int Number of ranks.
      */
     public function countRanks(): int
     {
@@ -282,7 +282,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @api
      * @see Vote::getRanking, Vote::countCandidates
      * @param $context An election already linked to the Vote.
-     * @return mixed Candidates list.
+     * @return array Candidates list.
      */
     public function getAllCandidates(
         ?Election $context = null
@@ -304,7 +304,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::getContextualRankingAsString, Vote::getRanking
      * @param $election An election already linked to the Vote.
      * @throws VoteNotLinkedException
-     * @return mixed Contextual full ranking.
+     * @return array Contextual full ranking.
      */
     public function getContextualRanking(
         Election $election,
@@ -415,7 +415,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @api
      * @see Vote::getContextualRanking, Vote::getRanking
      * @param $election An election already linked to the Vote.
-     * @return mixed Contextual full ranking, with string instead Candidate object.
+     * @return array Contextual full ranking, with string instead Candidate object.
      */
     public function getContextualRankingAsString(
         Election $election
@@ -428,7 +428,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::getRanking
      * @param $context An election already linked to the Vote.
      * @param $displayWeight Include or not the weight symbol and value.
-     * @return mixed String like 'A>D=C>B
+     * @return string String like 'A>D=C>B
      */
     public function getSimpleRanking(
         ?Election $context = null,
@@ -566,7 +566,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::setRanking
      * @param $candidate Candidate object or string.
      * @throws CandidateDoesNotExistException
-     * @return mixed True on success.
+     * @return true True on success.
      */
     public function removeCandidate(
         Candidate|string $candidate
@@ -604,7 +604,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::removeTags
      * @param $tags Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed.
      * @throws VoteInvalidFormatException
-     * @return mixed In case of success, return TRUE
+     * @return bool In case of success, return TRUE
      */
     public function addTags(
         array|string $tags
@@ -631,7 +631,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
      * @see Vote::addTags
      * @param $tags They can be added by string separated by commas or an array.
-     * @return mixed List of deleted tags.
+     * @return array List of deleted tags.
      */
     public function removeTags(
         array|string $tags
@@ -660,7 +660,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Remove all registered tag(s) on this Vote.
      * @api
-     * @return mixed Return True.
+     * @return true Return True.
      * @see Vote::addTags, Vote::removeTags
      */
     public function removeAllTags(): true
@@ -673,7 +673,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @api
      * @see Vote::setWeight
      * @param $context In the context of wich election? (optional).
-     * @return mixed Weight. Default weight is 1.
+     * @return int Weight. Default weight is 1.
      */
     public function getWeight(
         ?Election $context = null
@@ -690,7 +690,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @see Vote::getWeight
      * @param $newWeight The new vote weight.
      * @throws VoteInvalidFormatException
-     * @return mixed New weight.
+     * @return int New weight.
      */
     public function setWeight(
         int $newWeight

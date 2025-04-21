@@ -32,7 +32,7 @@ trait CandidatesProcess
     /**
      * Count the number of registered candidates
      * @api
-     * @return mixed Number of registered candidates for this election.
+     * @return int Number of registered candidates for this election.
      * @see Election::getCandidatesList
      */
     public function countCandidates(): int
@@ -42,7 +42,7 @@ trait CandidatesProcess
     /**
      * Return a list of registered candidates for this election.
      * @api
-     * @return mixed List of candidates in an array.
+     * @return array List of candidates in an array.
      * @see Election::countCandidates
      */
     public function getCandidatesList(): array
@@ -54,7 +54,7 @@ trait CandidatesProcess
     /**
      * Return a list of registered candidates for this election as strings.
      * @api
-     * @return mixed List of candidates in an array populated with strings instead of Candidate objects.
+     * @return array List of candidates in an array populated with strings instead of Candidate objects.
      * @see Election::countCandidates
      */
     public function getCandidatesListAsString(): array
@@ -104,7 +104,7 @@ trait CandidatesProcess
      * Find the candidate object from its name and return it.
      * @api
      * @param $candidateName Name of the candidate.
-     * @return mixed Candidate object
+     * @return null|Candidate Candidate object
      */
     public function getCandidateObjectFromName(
         string $candidateName
@@ -130,7 +130,7 @@ trait CandidatesProcess
      * @param $candidate Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.
      * @throws CandidateExistsException
      * @throws VotingHasStartedException
-     * @return mixed The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
+     * @return Candidate The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
      */
     public function addCandidate(
         Candidate|string|null $candidate = null
@@ -171,7 +171,7 @@ trait CandidatesProcess
      * @api
      * @see Election::addCandidate, Election::hasCandidate
      * @param $candidate String or Condorcet/Vote object.
-     * @return mixed True if your candidate is available, false otherwise.
+     * @return bool True if your candidate is available, false otherwise.
      */
     public function canAddCandidate(
         Candidate|string $candidate
@@ -190,7 +190,7 @@ trait CandidatesProcess
      * @param $candidates_input String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.
      * @throws CandidateDoesNotExistException
      * @throws VotingHasStartedException
-     * @return mixed List of removed candidate objects.
+     * @return array List of removed candidate objects.
      */
     public function removeCandidates(
         array|Candidate|string $candidates_input
@@ -235,7 +235,7 @@ trait CandidatesProcess
      * @see Election::addCandidate, Election::parseCandidates, Election::addVotesFromJson
      * @param $input JSON string.
      * @throws CandidateExistsException
-     * @return mixed List of newly registered candidate objects.
+     * @return array List of newly registered candidate objects.
      */
     public function addCandidatesFromJson(
         string $input
@@ -271,7 +271,7 @@ trait CandidatesProcess
      * @param $isFile If true, the input is evaluated as a path to a text file.
      * @throws CandidateExistsException
      * @throws VoteMaxNumberReachedException
-     * @return mixed List of newly registered candidate objects. Count to check if all candidates were correctly registered.
+     * @return array List of newly registered candidate objects. Count to check if all candidates were correctly registered.
      */
     public function parseCandidates(
         string $input,

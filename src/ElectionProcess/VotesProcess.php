@@ -36,7 +36,7 @@ trait VotesProcess
      * @see Election::getVotesList, Election::countValidVoteWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
-     * @return mixed Number of valid and registered votes in this election.
+     * @return int Number of valid and registered votes in this election.
      */
     public function countVotes(
         array|null|string $tags = null,
@@ -47,7 +47,7 @@ trait VotesProcess
     /**
      * Count the number of actual invalid (if constraints functionality is enabled) but registered votes for this election.
      * @api
-     * @return mixed Number of valid and registered votes in this election.
+     * @return int Number of valid and registered votes in this election.
      * @see Election::countValidVoteWithConstraints, Election::countVotes, Election::sumValidVoteWeightsWithConstraints
      */
     public function countInvalidVoteWithConstraints(): int
@@ -60,7 +60,7 @@ trait VotesProcess
      * @see Election::countInvalidVoteWithConstraints, Election::countVotes, Election::sumValidVoteWeightsWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
-     * @return mixed Number of valid and registered votes in this election.
+     * @return int Number of valid and registered votes in this election.
      */
     public function countValidVoteWithConstraints(
         array|null|string $tags = null,
@@ -76,7 +76,7 @@ trait VotesProcess
      * @see Election::sumValidVoteWeightsWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
-     * @return mixed (int) Total vote weight
+     * @return int (int) Total vote weight
      */
     public function sumVoteWeights(
         array|null|string $tags = null,
@@ -90,7 +90,7 @@ trait VotesProcess
      * @see Election::countValidVoteWithConstraints, Election::countInvalidVoteWithConstraints
      * @param $tags Tag in string separated by commas, or an Array.
      * @param $with Count Votes with this tag or without this tag.
-     * @return mixed (int) Total vote weight
+     * @return int Total vote weight
      */
     public function sumValidVoteWeightsWithConstraints(
         array|null|string $tags = null,
@@ -106,7 +106,7 @@ trait VotesProcess
      * @see Election::countVotes, Election::getVotesListAsString
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
-     * @return mixed Populated by each Vote object.
+     * @return array Populated by each Vote object.
      */
     public function getVotesList(
         array|null|string $tags = null,
@@ -119,7 +119,7 @@ trait VotesProcess
      * @api
      * @see Election::parseVotes
      * @param $withContext Depending on the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, rankings are never adapted to the context.
-     * @return mixed Return a string like:
+     * @return string Return a string like:
      *               A > B > C * 3
      *               A = B > C * 6
      */
@@ -140,7 +140,7 @@ trait VotesProcess
      * @see Election::getVotesList
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
-     * @return mixed Populated by each Vote object.
+     * @return \Generator Populated by each Vote object.
      */
     public function getVotesListGenerator(
         array|null|string $tags = null,
@@ -155,7 +155,7 @@ trait VotesProcess
      * @see Election::getVotesListGenerator, Election::getVotesList
      * @param $tags Tags list as a string separated by commas or array.
      * @param $with Get votes with these tags or without.
-     * @return mixed Populated by each Vote object.
+     * @return \Generator Populated by each Vote object.
      */
     public function getVotesValidUnderConstraintGenerator(
         array|null|string $tags = null,
@@ -183,7 +183,7 @@ trait VotesProcess
      * @param $vote String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you do not provide a Vote object yourself, a new one will be generated for you.
      * @param $tags String separated by commas or an array. Will add tags to the vote object for you. But you can also add them yourself to the Vote object.
      * @throws VoteMaxNumberReachedException
-     * @return mixed The vote object.
+     * @return Vote The vote object.
      */
     public function addVote(
         array|string|Vote $vote,
@@ -285,7 +285,7 @@ trait VotesProcess
     /**
      * Remove all Votes from an election.
      * @api
-     * @return mixed True on success.
+     * @return bool True on success.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      * @see Election::addVote, Election::removeVote, Election::removeVotesByTags
      */
@@ -303,7 +303,7 @@ trait VotesProcess
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      * @see Election::removeAllVotes, Election::addVote, Election::getVotesList, Election::removeVotesByTags
      * @param $vote Vote object.
-     * @return mixed True on success
+     * @return bool True on success
      */
     public function removeVote(
         Vote $vote
@@ -377,7 +377,7 @@ trait VotesProcess
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
      * @see Election::addVote, Election::parseVotes, Election::addCandidatesFromJson
      * @param $input Json string input.
-     * @return mixed Count of newly registered votes.
+     * @return int Count of newly registered votes.
      */
     public function addVotesFromJson(
         string $input
@@ -411,7 +411,7 @@ trait VotesProcess
      * @see Election::addVote, Election::parseCandidates, Election::parseVotesSafe, Election::addVotesFromJson
      * @param $input String or valid path to a text file.
      * @param $isFile If true, the input is evaluated as path to text file.
-     * @return mixed Count of the newly registered votes.
+     * @return int Count of the newly registered votes.
      */
     public function parseVotes(
         string $input,

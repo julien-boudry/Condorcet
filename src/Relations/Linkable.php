@@ -26,7 +26,7 @@ trait Linkable
      * @api
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
      * @param $election Condorcet election to check.
-     * @return mixed True or False.
+     * @return bool True or False.
      */
     public function haveLink(
         Election $election
@@ -38,7 +38,7 @@ trait Linkable
     /**
      * Count number of linked elections to this object.
      * @api
-     * @return mixed Number of linked elections.
+     * @return int Number of linked elections.
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
      */
     public function countLinks(): int
@@ -50,7 +50,7 @@ trait Linkable
     /**
      * Get election objects linked to this Vote or Candidate object.
      * @api
-     * @return mixed Array containing linked Condorcet election objects.
+     * @return array Array containing linked Condorcet election objects.
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
      */
     public function getLinks(): array

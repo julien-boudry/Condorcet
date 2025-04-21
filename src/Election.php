@@ -217,7 +217,7 @@ class Election
     /**
      * Returns the cumulated computation runtime of this object. Include only computation related methods.
      * @api
-     * @return mixed Timer
+     * @return float Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
      * @see Election::getLastTimer
      */
@@ -228,7 +228,7 @@ class Election
     /**
      * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
      * @api
-     * @return mixed (float) Timer
+     * @return float (float) Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
      * @see Election::getGlobalTimer
      */
@@ -239,7 +239,7 @@ class Election
     /**
      * Get the Timer manager object.
      * @api
-     * @return mixed An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
+     * @return Timer_Manager An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
      * @see Election::getGlobalTimer, Election::getLastTimer
      */
     public function getTimerManager(): Timer_Manager
@@ -255,7 +255,7 @@ class Election
      *
      * Can be powerfull to check integrity and security of an election. Or working with serialized object.
      * @api
-     * @return mixed SHA-2 256 bits Hexadecimal
+     * @return string SHA-2 256 bits Hexadecimal
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Crypto
      */
     public function getChecksum(): string
@@ -307,7 +307,7 @@ class Election
      * @api
      * @see Election::implicitRankingRule
      * @param $rule New rule.
-     * @return mixed Return True
+     * @return static Return True
      */
     public function setImplicitRanking(
         bool $rule = true
@@ -320,7 +320,7 @@ class Election
      * Returns the corresponding setting as currently set (False by default).
      * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
      * @api
-     * @return mixed True / False
+     * @return bool True / False
      * @see Election::allowsVoteWeight
      */
     public function isVoteWeightAllowed(): bool
@@ -334,7 +334,7 @@ class Election
      * @api
      * @see Election::isVoteWeightAllowed
      * @param $rule New rule.
-     * @return mixed Return True
+     * @return static Return True
      */
     public function allowsVoteWeight(
         bool $rule = true
@@ -354,7 +354,7 @@ class Election
      * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
      * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
      * @throws VoteConstraintException
-     * @return mixed True on success.
+     * @return true True on success.
      */
     public function addConstraint(
         string $constraintClass
@@ -376,7 +376,7 @@ class Election
     /**
      * Get active constraints list.
      * @api
-     * @return mixed Array with class name of each active constraint. Empty array if there is not.
+     * @return array Array with class name of each active constraint. Empty array if there is not.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      * @see Election::clearConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
      */
@@ -387,7 +387,7 @@ class Election
     /**
      * Clear all constraints rules and clear previous results.
      * @api
-     * @return mixed Return True.
+     * @return bool Return True.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
      */
@@ -462,7 +462,7 @@ class Election
      * Remove an external driver to store vote on very large election. And import his data into classical memory.
      * @api
      * @throws DataHandlerException
-     * @return mixed True if success. Else throw an Exception.
+     * @return bool True if success. Else throw an Exception.
      * @see Election::setExternalDataHandler
      */
     public function removeExternalDataHandler(): bool
@@ -489,7 +489,7 @@ class Election
      * @api
      * @throws NoCandidatesException
      * @throws ResultRequestedWithoutVotesException
-     * @return mixed Always True.
+     * @return true Always True.
      * @see Election::state
      */
     public function setStateToVote(): true

@@ -332,7 +332,7 @@ class Result implements \ArrayAccess, \Countable, \Iterator
      * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
      * @api
      * @param $type Filter on a specific warning type code.
-     * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
+     * @return array Warnings provided by the by the method that generated the warning. Empty array if there is not.
      */
     public function getWarning(
         ?int $type = null
