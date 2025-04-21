@@ -192,9 +192,9 @@ class Pairwise implements \ArrayAccess, \Iterator
      * Compare Candidate pairwise to another Candidate.
      * @param $a first candidate
      * @param $b candidate to be compared with $a
+     * @throws CandidateExistsException
      * @return int $a wins - $b wins. Negative if a lose, positive if he win or 0 in case of a tie.
      * @api
-     * @throws CandidateExistsException
      */
     public function compareCandidates(Candidate|string $a, Candidate|string $b): int
     {
@@ -205,9 +205,9 @@ class Pairwise implements \ArrayAccess, \Iterator
      * Compare Candidate pairwise to another Candidate.
      * @param $candidate the candidate to be compared
      * @param $opponent the candidate to be compared with $candidate
+     * @throws CandidateExistsException
      * @return bool true if $a win, false if it lose or tie
      * @api
-     * @throws CandidateExistsException
      */
     public function candidateWinVersus(Candidate|string $candidate, Candidate|string $opponent): bool
     {

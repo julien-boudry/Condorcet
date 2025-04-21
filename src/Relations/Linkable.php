@@ -24,9 +24,9 @@ trait Linkable
     /**
      * Check if this election is linked with this Candidate/Vote object.
      * @api
-     * @return mixed True or False.
      * @see Vote::countLinks, Candidate::countLinks, Vote::getLinks, Candidate::getLinks, Vote::haveLink, Candidate::haveLink
      * @param $election Condorcet election to check.
+     * @return mixed True or False.
      */
     public function haveLink(
         Election $election

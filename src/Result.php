@@ -134,15 +134,16 @@ class Result implements \ArrayAccess, \Countable, \Iterator
          * @api
          */
         public private(set) array $methodOptions = [] {
-            get {
-                $r = $this->methodOptions;
+            get
+    {
+        $r = $this->methodOptions;
 
-                if ($this->isProportional) {
-                    $r['Seats'] = $this->seats;
-                }
+        if ($this->isProportional) {
+            $r['Seats'] = $this->seats;
+        }
 
-                return $r;
-            }
+        return $r;
+    }
         },
     ) {
         ksort($rawRanking, \SORT_NUMERIC);
@@ -330,8 +331,8 @@ class Result implements \ArrayAccess, \Countable, \Iterator
     /**
      * From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
      * @api
-     * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
      * @param $type Filter on a specific warning type code.
+     * @return mixed Warnings provided by the by the method that generated the warning. Empty array if there is not.
      */
     public function getWarning(
         ?int $type = null

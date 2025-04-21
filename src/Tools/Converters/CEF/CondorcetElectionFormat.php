@@ -23,13 +23,13 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
      * Create a CondorcetElectionFormat file from an Election object.
      *
      * @api
-     * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
      * @param $election Election with data.
      * @param $aggregateVotes If true, will try to reduce number of lines, with quantifier for identical votes.
      * @param $includeSeatsToElect Add the Number Of Seats parameters to the output.
      * @param $includeTags Add the vote tags information if any. Not working if $aggregateVotes is true.
      * @param $inContext Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.
      * @param $file If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
+     * @return mixed If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).
      */
     public static function createFromElection(
         Election $election,
@@ -177,10 +177,10 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
     /**
      * Add the data to an election object
      * @api
-     * @return mixed The election object
      * @see Tools\Converters\DavidHillFormat::setDataToAnElection, Tools\Converters\DebianFormat::setDataToAnElection
      * @param $election Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
      * @param $callBack Callback function to execute after each registered vote.
+     * @return mixed The election object
      */
     #[\Override]
     public function setDataToAnElection(

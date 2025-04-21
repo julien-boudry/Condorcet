@@ -127,10 +127,10 @@ class Election
     public string $hash { get => $this->getChecksum(); }
 
     // -------
-/**
- * Build a new Election.
- * @api
- */
+    /**
+     * Build a new Election.
+     * @api
+     */
     public function __construct()
     {
         $this->candidates = [];
@@ -228,7 +228,7 @@ class Election
     /**
      * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
      * @api
-     * @return mixed (Float) Timer
+     * @return mixed (float) Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
      * @see Election::getGlobalTimer
      */
@@ -305,9 +305,9 @@ class Election
      * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
      * If it is false, then the candidates not ranked, are not taken into account at all.
      * @api
-     * @return mixed Return True
      * @see Election::implicitRankingRule
      * @param $rule New rule.
+     * @return mixed Return True
      */
     public function setImplicitRanking(
         bool $rule = true
@@ -332,9 +332,9 @@ class Election
      * Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
      * By default, the voting weight is not activated and all votes are considered equal.
      * @api
-     * @return mixed Return True
      * @see Election::isVoteWeightAllowed
      * @param $rule New rule.
+     * @return mixed Return True
      */
     public function allowsVoteWeight(
         bool $rule = true
@@ -350,11 +350,11 @@ class Election
     /**
      * Add a constraint rules as a valid class path.
      * @api
-     * @return mixed True on success.
-     * @throws VoteConstraintException
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
      * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
+     * @throws VoteConstraintException
+     * @return mixed True on success.
      */
     public function addConstraint(
         string $constraintClass
@@ -402,10 +402,10 @@ class Election
     /**
      * Test if a vote is valid with these election constraints.
      * @api
-     * @return bool Return True if vote will pass the constraints rules, else False.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      * @see Election::getConstraints, Election::addConstraint, Election::clearConstraints
      * @param $vote A vote. Not necessarily registered in this election.
+     * @return bool Return True if vote will pass the constraints rules, else False.
      */
     public function isVoteValidUnderConstraints(
         Vote $vote
@@ -425,9 +425,9 @@ class Election
     /**
      * Set count of seats to elects for STV methods.
      * @api
-     * @throws NoSeatsException
      * @see Election::seatsToElect
      * @param $seats The count of seats to elect for proportional methods.
+     * @throws NoSeatsException
      */
     public function setSeatsToElect(
         int $seats
@@ -442,10 +442,10 @@ class Election
     /**
      * Import and enable an external driver to store vote on very large election.
      * @api
-     * @throws DataHandlerException
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
      * @see Election::removeExternalDataHandler
      * @param $driver Driver object.
+     * @throws DataHandlerException
      */
     public function setExternalDataHandler(
         DataHandlerDriverInterface $driver
@@ -461,8 +461,8 @@ class Election
     /**
      * Remove an external driver to store vote on very large election. And import his data into classical memory.
      * @api
-     * @return mixed True if success. Else throw an Exception.
      * @throws DataHandlerException
+     * @return mixed True if success. Else throw an Exception.
      * @see Election::setExternalDataHandler
      */
     public function removeExternalDataHandler(): bool
@@ -487,9 +487,9 @@ class Election
      * If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
      * If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
      * @api
-     * @return mixed Always True.
      * @throws NoCandidatesException
      * @throws ResultRequestedWithoutVotesException
+     * @return mixed Always True.
      * @see Election::state
      */
     public function setStateToVote(): true
