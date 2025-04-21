@@ -1,6 +1,6 @@
 ## public Vote::getContextualRanking
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L317)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L309)
 
 ### Description    
 

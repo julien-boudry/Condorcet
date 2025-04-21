@@ -1,6 +1,6 @@
 ## final public readonly Result::buildTimestamp
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
 ### Description    
 

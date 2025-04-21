@@ -21,7 +21,7 @@ Count Votes with this tag or without this tag.
 
 ### Return value   
 
-*(`int`)* (Int) Total vote weight
+*(`int`)* (int) Total vote weight
 
 
 ---------------------------------------

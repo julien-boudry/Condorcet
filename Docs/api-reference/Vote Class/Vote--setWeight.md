@@ -1,6 +1,6 @@
 ## public Vote::setWeight
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L717)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L695)
 
 ### Description    
 

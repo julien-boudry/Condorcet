@@ -2349,7 +2349,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Candidate implements Stringable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L16)
 
 ```php
 * public string $name
@@ -2922,7 +2922,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Election `  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L20)
 
 ```php
 * public const MAX_CANDIDATE_NAME_LENGTH: (integer)
@@ -3072,7 +3072,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L23)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L22)
 
 ```php
 * readonly public array $rawRanking
@@ -3824,7 +3824,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L17)
 
 ```php
 * public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
@@ -3882,7 +3882,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DavidHillFormat.php#L15)
 
 ```php
 * protected array $lines
@@ -3900,7 +3900,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\DebianFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L16)
 
 ```php
 * protected array $lines
@@ -4008,8 +4008,8 @@ _Including above methods from public API_
 * public static tagsConvert (array|string|null $tags): ?array  
 ```
 
-#### `CondorcetPHP\Condorcet\Vote implements Iterator, Stringable, ArrayAccess, Traversable`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L23)
+#### `CondorcetPHP\Condorcet\Vote implements ArrayAccess, Iterator, Stringable, Traversable`  
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L21)
 
 ```php
 * private int $position
