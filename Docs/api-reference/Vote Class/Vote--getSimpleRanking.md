@@ -9,11 +9,11 @@ public Vote->getSimpleRanking ( [?CondorcetPHP\Condorcet\Election $context = nul
 ```
 
 Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
-    
+
+## Parameters
 
 ### **context:** *`?CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    
-
 
 ### **displayWeight:** *`bool`*   
 Include or not the weight symbol and value.    

@@ -9,11 +9,11 @@ public Election->getExplicitFilteredPairwiseByTags ( array|string $tags [, int|b
 ```
 
 Get a pairwise filtered by tags.
-    
+
+## Parameters
 
 ### **tags:** *`array|string`*   
 Tags as string separated by commas or array.    
-
 
 ### **with:** *`int|bool`*   
 Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.    

@@ -9,7 +9,7 @@ public Election->clearConstraints ( ): bool
 ```
 
 Clear all constraints rules and clear previous results.
-    
+
 
 ## Return value   
 

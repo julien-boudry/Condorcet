@@ -9,4 +9,3 @@ public bool Election->voteWeightAllowed
 ```
 
 
-    

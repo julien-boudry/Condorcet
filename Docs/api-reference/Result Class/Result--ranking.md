@@ -9,4 +9,3 @@ final public readonly array Result->ranking
 ```
 
 
-    

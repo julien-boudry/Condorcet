@@ -9,7 +9,7 @@ virtual public float Vote->createdAt
 ```
 
 Get the timestamp corresponding of the creation of this vote.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

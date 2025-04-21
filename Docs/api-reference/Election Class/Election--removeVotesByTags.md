@@ -16,11 +16,11 @@ Remove Vote from an election using tags.
 \$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
 \$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
 ```
-    
+
+## Parameters
 
 ### **tags:** *`array|string`*   
 Tags as string separated by commas or array.    
-
 
 ### **with:** *`bool`*   
 Votes with these tags or without.    

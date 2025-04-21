@@ -15,7 +15,7 @@ SHA-2 256 checksum of following internal data:
 * Class version (major version like 3.4)
 
 Can be powerfull to check integrity and security of an election. Or working with serialized object.
-    
+
 
 ## Return value   
 

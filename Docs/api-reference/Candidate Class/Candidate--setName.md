@@ -10,7 +10,8 @@ public Candidate->setName ( string $name ): static
 
 Change the candidate name.
 *If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*
-    
+
+## Parameter
 
 ### **name:** *`string`*   
 Candidate Name.    

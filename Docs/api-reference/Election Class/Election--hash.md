@@ -9,4 +9,3 @@ virtual public string Election->hash
 ```
 
 
-    

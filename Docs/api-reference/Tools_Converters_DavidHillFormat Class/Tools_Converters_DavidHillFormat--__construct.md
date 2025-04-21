@@ -9,7 +9,8 @@ public Tools\Converters\DavidHillFormat->__construct ( string $filePath )
 ```
 
 Read a Tideman format file
-    
+
+## Parameter
 
 ### **filePath:** *`string`*   
 File absolute path.    

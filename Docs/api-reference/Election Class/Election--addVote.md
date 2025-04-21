@@ -9,11 +9,11 @@ public Election->addVote ( CondorcetPHP\Condorcet\Vote|array|string $vote [, arr
 ```
 
 Add a vote to an election.
-    
+
+## Parameters
 
 ### **vote:** *`CondorcetPHP\Condorcet\Vote|array|string`*   
 String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you do not provide a Vote object yourself, a new one will be generated for you.    
-
 
 ### **tags:** *`array|string|null`*   
 String separated by commas or an array. Will add tags to the vote object for you. But you can also add them yourself to the Vote object.    

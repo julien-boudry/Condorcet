@@ -9,7 +9,8 @@ public Timer\Chrono->getCondorcetBuilderVersion ( [bool $major = false] ): strin
 ```
 
 Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
-    
+
+## Parameter
 
 ### **major:** *`bool`*   
 true will return 2.0 and false will return 2.0.0.    

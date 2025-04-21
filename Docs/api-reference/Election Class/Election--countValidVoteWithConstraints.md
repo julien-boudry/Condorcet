@@ -9,11 +9,11 @@ public Election->countValidVoteWithConstraints ( [array|string|null $tags = null
 ```
 
 Count the number of actual registered and valid votes for this election. This method doesn't ignore votes constraints, only valid votes will be counted.
-    
+
+## Parameters
 
 ### **tags:** *`array|string|null`*   
 Tag in string separated by commas, or an Array.    
-
 
 ### **with:** *`int|bool`*   
 Count Votes with this tag or without this tag.    

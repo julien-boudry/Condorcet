@@ -9,7 +9,7 @@ virtual public float Candidate->updatedAt
 ```
 
 The timestamp corresponding of the last naming change.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

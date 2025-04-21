@@ -9,4 +9,3 @@ public CondorcetPHP\Condorcet\Algo\StatsVerbosity Election->statsVerbosity
 ```
 
 The current level of stats verbosity for this election object. Look at Election->setStatsVerbosity method for more informations.
-    

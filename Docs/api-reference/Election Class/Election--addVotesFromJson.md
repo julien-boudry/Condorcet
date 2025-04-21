@@ -9,7 +9,8 @@ public Election->addVotesFromJson ( string $input ): int
 ```
 
 Import votes from a Json source.
-    
+
+## Parameter
 
 ### **input:** *`string`*   
 Json string input.    

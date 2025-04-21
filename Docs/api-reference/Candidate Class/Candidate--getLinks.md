@@ -9,7 +9,7 @@ public Candidate->getLinks ( ): array
 ```
 
 Get election objects linked to this Vote or Candidate object.
-    
+
 
 ## Return value   
 

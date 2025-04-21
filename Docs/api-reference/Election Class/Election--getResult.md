@@ -9,11 +9,11 @@ public Election->getResult ( [?string $method = null , array $methodOptions = []
 ```
 
 Get a full ranking from an advanced Condorcet method.
-    
+
+## Parameters
 
 ### **method:** *`?string`*   
 Not required for use election default method. Set the string name of the algorithm for use of a specific one.    
-
 
 ### **methodOptions:** *`array`*   
 Array of option for some methods. Look at each method documentation.    

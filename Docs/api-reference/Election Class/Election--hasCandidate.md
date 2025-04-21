@@ -9,11 +9,11 @@ public Election->hasCandidate ( CondorcetPHP\Condorcet\Candidate|string $candida
 ```
 
 Check if a candidate is already registered for this election.
-    
+
+## Parameters
 
 ### **candidate:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.    
-
 
 ### **strictMode:** *`bool`*   
 Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.    

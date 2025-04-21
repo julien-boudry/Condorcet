@@ -9,7 +9,7 @@ public int Election->seatsToElect
 ```
 
 Get or set seats to elect count for proportionals methods like STV.
-    
+
 
 ## Throws:   
 

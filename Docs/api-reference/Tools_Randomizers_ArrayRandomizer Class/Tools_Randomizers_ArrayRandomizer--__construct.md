@@ -9,11 +9,11 @@ public Tools\Randomizers\ArrayRandomizer->__construct ( array $candidates [, Ran
 ```
 
 Create a new VotesRandomGenerator instance
-    
+
+## Parameters
 
 ### **candidates:** *`array`*   
 List of candidates as string, candidates objects or sub-array.    
-
 
 ### **seed:** *`Random\Randomizer|string|null`*   
 If null, will use a cryptographically secure randomizer.    

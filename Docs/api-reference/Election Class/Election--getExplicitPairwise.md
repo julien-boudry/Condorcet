@@ -9,7 +9,7 @@ public Election->getExplicitPairwise ( ): array
 ```
 
 Return the Pairwise.
-    
+
 
 ## Return value   
 

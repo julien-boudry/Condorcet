@@ -9,7 +9,7 @@ public Candidate->countLinks ( ): int
 ```
 
 Count number of linked elections to this object.
-    
+
 
 ## Return value   
 

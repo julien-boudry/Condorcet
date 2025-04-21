@@ -9,7 +9,8 @@ public Election->isVoteValidUnderConstraints ( CondorcetPHP\Condorcet\Vote $vote
 ```
 
 Test if a vote is valid with these election constraints.
-    
+
+## Parameter
 
 ### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
 A vote. Not necessarily registered in this election.    

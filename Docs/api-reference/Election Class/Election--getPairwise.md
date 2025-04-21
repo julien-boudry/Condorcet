@@ -9,7 +9,7 @@ public Election->getPairwise ( ): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise
 ```
 
 Return the Pairwise.
-    
+
 
 ## Return value   
 

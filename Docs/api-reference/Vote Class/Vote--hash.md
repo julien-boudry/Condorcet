@@ -9,4 +9,3 @@ final public string Vote->hash
 ```
 
 Get Object sha-224 hash (cryptographic)
-    

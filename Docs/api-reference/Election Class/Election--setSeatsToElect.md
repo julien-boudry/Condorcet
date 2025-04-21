@@ -9,7 +9,8 @@ public Election->setSeatsToElect ( int $seats ): static
 ```
 
 Set count of seats to elects for STV methods.
-    
+
+## Parameter
 
 ### **seats:** *`int`*   
 The count of seats to elect for proportional methods.    

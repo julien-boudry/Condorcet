@@ -9,7 +9,7 @@ public Vote->countRanks ( ): int
 ```
 
 Count the number of ranks.
-    
+
 
 ## Return value   
 

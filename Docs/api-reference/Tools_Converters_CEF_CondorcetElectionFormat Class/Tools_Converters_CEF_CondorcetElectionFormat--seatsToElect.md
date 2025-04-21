@@ -9,4 +9,3 @@ final public readonly int Tools\Converters\CEF\CondorcetElectionFormat->seatsToE
 ```
 
 
-    

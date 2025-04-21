@@ -9,7 +9,7 @@ public Tools\Randomizers\ArrayRandomizer->shuffle ( ): array
 ```
 
 Generate a new random vote.
-    
+
 
 ## Return value   
 

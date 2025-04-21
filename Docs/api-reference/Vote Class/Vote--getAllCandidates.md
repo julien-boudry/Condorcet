@@ -9,7 +9,8 @@ public Vote->getAllCandidates ( [?CondorcetPHP\Condorcet\Election $context = nul
 ```
 
 Get all the candidates object set in the last ranking of this Vote.
-    
+
+## Parameter
 
 ### **context:** *`?CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    

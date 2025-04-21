@@ -9,4 +9,3 @@ final public readonly ?int Result->seats
 ```
 
 Get count of seats to elects for STV methods result.
-    

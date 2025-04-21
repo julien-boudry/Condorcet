@@ -9,11 +9,11 @@ public Election->getVotesList ( [array|string|null $tags = null , bool $with = t
 ```
 
 Get registered votes list.
-    
+
+## Parameters
 
 ### **tags:** *`array|string|null`*   
 Tags list as a string separated by commas or array.    
-
 
 ### **with:** *`bool`*   
 Get votes with these tags or without.    

@@ -9,4 +9,3 @@ final public readonly array Tools\Converters\CEF\CondorcetElectionFormat->candid
 ```
 
 
-    

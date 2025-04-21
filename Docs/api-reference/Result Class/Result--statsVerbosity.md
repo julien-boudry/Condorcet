@@ -9,4 +9,3 @@ final public readonly CondorcetPHP\Condorcet\Algo\StatsVerbosity Result->statsVe
 ```
 
 
-    

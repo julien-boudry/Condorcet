@@ -9,7 +9,7 @@ final public array Vote->tags
 ```
 
 Get the registered tags for this Vote.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

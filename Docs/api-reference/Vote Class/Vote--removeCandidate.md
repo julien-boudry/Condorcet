@@ -9,7 +9,8 @@ public Vote->removeCandidate ( CondorcetPHP\Condorcet\Candidate|string $candidat
 ```
 
 Remove candidate from ranking. Set a new ranking and archive the old ranking.
-    
+
+## Parameter
 
 ### **candidate:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 Candidate object or string.    

@@ -9,4 +9,3 @@ final public string Algo\Pairwise\Pairwise->buildByCondorcetVersion
 ```
 
 
-    

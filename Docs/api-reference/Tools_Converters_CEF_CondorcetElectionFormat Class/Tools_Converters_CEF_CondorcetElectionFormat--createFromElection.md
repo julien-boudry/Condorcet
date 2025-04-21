@@ -9,27 +9,23 @@ public static Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
-    
+
+## Parameters
 
 ### **election:** *`CondorcetPHP\Condorcet\Election`*   
 Election with data.    
 
-
 ### **aggregateVotes:** *`bool`*   
 If true, will try to reduce number of lines, with quantifier for identical votes.    
-
 
 ### **includeSeatsToElect:** *`bool`*   
 Add the Number Of Seats parameters to the output.    
 
-
 ### **includeTags:** *`bool`*   
 Add the vote tags information if any. Not working if $aggregateVotes is true.    
 
-
 ### **inContext:** *`bool`*   
 Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.    
-
 
 ### **file:** *`?SplFileObject`*   
 If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    

@@ -9,11 +9,11 @@ public static Condorcet::getAuthMethods ( [bool $basic = false , bool $withNonDe
 ```
 
 Get a list of supported algorithm.
-    
+
+## Parameters
 
 ### **basic:** *`bool`*   
 Include or not the natural Condorcet base algorithm.    
-
 
 ### **withNonDeterministicMethods:** *`bool`*   
 Include or not non deterministic methods.    

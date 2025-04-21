@@ -9,4 +9,3 @@ public Election->__construct ( )
 ```
 
 Build a new Election.
-    

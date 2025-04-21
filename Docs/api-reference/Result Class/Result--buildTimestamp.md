@@ -9,4 +9,3 @@ final public readonly float Result->buildTimestamp
 ```
 
 The timestamp of this result at build time.
-    

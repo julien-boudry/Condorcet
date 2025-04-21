@@ -9,11 +9,11 @@ public Algo\Pairwise\Pairwise->compareCandidates ( CondorcetPHP\Condorcet\Candid
 ```
 
 Compare Candidate pairwise to another Candidate.
-    
+
+## Parameters
 
 ### **a:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 first candidate    
-
 
 ### **b:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 candidate to be compared with $a    

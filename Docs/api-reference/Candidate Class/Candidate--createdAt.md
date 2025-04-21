@@ -9,7 +9,7 @@ virtual public float Candidate->createdAt
 ```
 
 The timestamp corresponding of the creation of this candidate.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

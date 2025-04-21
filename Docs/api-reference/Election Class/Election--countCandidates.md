@@ -9,7 +9,7 @@ public Election->countCandidates ( ): int
 ```
 
 Count the number of registered candidates
-    
+
 
 ## Return value   
 

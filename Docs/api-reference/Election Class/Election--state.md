@@ -9,7 +9,7 @@ public CondorcetPHP\Condorcet\ElectionProcess\ElectionState Election->state
 ```
 
 Get the election process level.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

@@ -9,7 +9,7 @@ public Election->getCondorcetWinner ( ): ?CondorcetPHP\Condorcet\Candidate
 ```
 
 Get the natural Condorcet winner if there is one.
-    
+
 
 ## Return value   
 

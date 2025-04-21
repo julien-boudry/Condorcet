@@ -9,4 +9,3 @@ final public array Vote->rankingHistory
 ```
 
 Return an history of each vote change, with timestamp.
-    

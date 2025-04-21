@@ -9,4 +9,3 @@ final public int Vote->countCandidates
 ```
 
 Count the number of candidate provide into the active Ranking set.
-    

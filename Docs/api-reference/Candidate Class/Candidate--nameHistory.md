@@ -9,7 +9,7 @@ public array Candidate->nameHistory
 ```
 
 Return an history of each naming change, with timestamp.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

@@ -9,4 +9,3 @@ final public readonly ?CondorcetPHP\Condorcet\Candidate Result->CondorcetLoser
 ```
 
 Get the Condorcet loser, if exist, at the result time.
-    

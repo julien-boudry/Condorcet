@@ -9,7 +9,7 @@ public Vote->removeAllTags ( ): true
 ```
 
 Remove all registered tag(s) on this Vote.
-    
+
 
 ## Return value   
 

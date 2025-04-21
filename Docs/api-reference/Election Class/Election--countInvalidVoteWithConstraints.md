@@ -9,7 +9,7 @@ public Election->countInvalidVoteWithConstraints ( ): int
 ```
 
 Count the number of actual invalid (if constraints functionality is enabled) but registered votes for this election.
-    
+
 
 ## Return value   
 

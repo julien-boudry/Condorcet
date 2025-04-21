@@ -9,7 +9,8 @@ public Vote->addTags ( array|string $tags ): bool
 ```
 
 Add tag(s) on this Vote.
-    
+
+## Parameter
 
 ### **tags:** *`array|string`*   
 Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed.    

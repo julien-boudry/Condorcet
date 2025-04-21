@@ -10,7 +10,7 @@ virtual public CondorcetPHP\Condorcet\Candidate|array|null Result->Loser
 
 ('Get the election loser if any')
 Contain Candidate object. Null if there are no available loser. Or an array with multiples losers.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

@@ -9,4 +9,3 @@ final public array Result->methodOptions
 ```
 
 Return the method options. Can be empty for most of the methods.
-    

@@ -9,7 +9,7 @@ public Election->removeAllVotes ( ): true
 ```
 
 Remove all Votes from an election.
-    
+
 
 ## Return value   
 

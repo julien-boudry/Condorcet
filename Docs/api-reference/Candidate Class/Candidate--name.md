@@ -9,4 +9,3 @@ virtual public string Candidate->name
 ```
 
 Get the candidate name or change the candidate name.
-    

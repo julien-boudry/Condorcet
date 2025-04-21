@@ -9,7 +9,7 @@ public static Condorcet::getDefaultMethod ( ): ?string
 ```
 
 Return the Condorcet static default method.
-    
+
 
 ## Return value   
 

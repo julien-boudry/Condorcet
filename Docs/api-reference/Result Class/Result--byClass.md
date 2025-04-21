@@ -9,4 +9,3 @@ final public readonly string Result->byClass
 ```
 
 Get the The algorithmic method used for this result.
-    

@@ -9,4 +9,3 @@ public ?int Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked
 ```
 
 
-    

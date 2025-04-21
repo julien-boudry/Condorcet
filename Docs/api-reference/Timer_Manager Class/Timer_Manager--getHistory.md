@@ -9,7 +9,7 @@ public Timer\Manager->getHistory ( ): array
 ```
 
 Returns benchmarked actions history.
-    
+
 
 ## Return value   
 

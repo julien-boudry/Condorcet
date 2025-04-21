@@ -9,7 +9,8 @@ public Result->getWarning ( [?int $type = null] ): array
 ```
 
 From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
-    
+
+## Parameter
 
 ### **type:** *`?int`*   
 Filter on a specific warning type code.    

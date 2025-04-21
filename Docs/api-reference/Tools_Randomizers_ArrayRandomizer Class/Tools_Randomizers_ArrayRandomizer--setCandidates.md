@@ -9,7 +9,8 @@ public Tools\Randomizers\ArrayRandomizer->setCandidates ( array $candidates ): v
 ```
 
 Change the candidates running for this randomizer.
-    
+
+## Parameter
 
 ### **candidates:** *`array`*   
 The array of candidates to shuffle.    

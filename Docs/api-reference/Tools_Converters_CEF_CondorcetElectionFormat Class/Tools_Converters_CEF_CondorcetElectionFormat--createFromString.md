@@ -9,7 +9,8 @@ public static Tools\Converters\CEF\CondorcetElectionFormat::createFromString ( s
 ```
 
 Create a CondorcetElectionFormat object from string.
-    
+
+## Parameter
 
 ### **input:** *`string`*   
 CondorcetElectionFormat string to parse.    

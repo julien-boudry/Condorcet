@@ -9,4 +9,3 @@ virtual public array Result->rankingAsArray
 ```
 
 Get result as an array populated by Candidate objects
-    

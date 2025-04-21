@@ -11,7 +11,8 @@ public Election->removeCandidates ( CondorcetPHP\Condorcet\Candidate|array|strin
 Remove candidates from an election.
 
 *Please note: You cannot remove candidates after the first vote. An exception will be thrown.*
-    
+
+## Parameter
 
 ### **candidates_input:** *`CondorcetPHP\Condorcet\Candidate|array|string`*   
 String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate object. Array filled with CondorcetPHP\Condorcet\Candidate objects. Array filled with strings corresponding to the candidate's name.    

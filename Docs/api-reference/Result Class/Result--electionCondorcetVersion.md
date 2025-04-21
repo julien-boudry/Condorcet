@@ -9,4 +9,3 @@ final public readonly string Result->electionCondorcetVersion
 ```
 
 Get the Condorcet PHP version that build this Result.
-    

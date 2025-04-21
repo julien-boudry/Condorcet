@@ -9,4 +9,3 @@ final public string DataManager\ArrayManager->buildByCondorcetVersion
 ```
 
 
-    

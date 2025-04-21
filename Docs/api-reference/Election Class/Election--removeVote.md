@@ -9,7 +9,8 @@ public Election->removeVote ( CondorcetPHP\Condorcet\Vote $vote ): true
 ```
 
 Remove Votes from an election.
-    
+
+## Parameter
 
 ### **vote:** *`CondorcetPHP\Condorcet\Vote`*   
 Vote object.    

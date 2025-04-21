@@ -9,7 +9,7 @@ final public float Vote->updatedAt
 ```
 
 Get the timestamp corresponding of the last vote change.
-    
+
 ---------------------------------------
 
 ## Related method(s)      

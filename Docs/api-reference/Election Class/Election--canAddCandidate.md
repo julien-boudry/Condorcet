@@ -9,7 +9,8 @@ public Election->canAddCandidate ( CondorcetPHP\Condorcet\Candidate|string $cand
 ```
 
 Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
-    
+
+## Parameter
 
 ### **candidate:** *`CondorcetPHP\Condorcet\Candidate|string`*   
 String or Condorcet/Vote object.    

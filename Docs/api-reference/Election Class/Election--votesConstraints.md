@@ -9,4 +9,3 @@ public array Election->votesConstraints
 ```
 
 
-    

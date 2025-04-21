@@ -9,11 +9,11 @@ public static Tools\Converters\CivsFormat::createFromElection ( CondorcetPHP\Con
 ```
 
 Create a CondorcetElectionFormat file from an Election object.
-    
+
+## Parameters
 
 ### **election:** *`CondorcetPHP\Condorcet\Election`*   
 Election with data.    
-
 
 ### **file:** *`?SplFileObject`*   
 If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.    

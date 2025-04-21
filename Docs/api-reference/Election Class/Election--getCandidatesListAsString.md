@@ -9,7 +9,7 @@ public Election->getCandidatesListAsString ( ): array
 ```
 
 Return a list of registered candidates for this election as strings.
-    
+
 
 ## Return value   
 

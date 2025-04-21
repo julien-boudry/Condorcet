@@ -9,19 +9,17 @@ public Vote->__construct ( array|string $ranking [, array|string|null $tags = nu
 ```
 
 Build a vote object.
-    
+
+## Parameters
 
 ### **ranking:** *`array|string`*   
 Equivalent to Vote::setRanking method.    
 
-
 ### **tags:** *`array|string|null`*   
 Equivalent to Vote::addTags method.    
 
-
 ### **ownTimestamp:** *`?float`*   
 Set your own timestamp metadata for this Ranking.    
-
 
 ### **electionContext:** *`?CondorcetPHP\Condorcet\Election`*   
 Try to convert directly your candidates from string input to Candidate object of one election.    

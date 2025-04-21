@@ -9,7 +9,8 @@ public Vote->getContextualRankingAsString ( CondorcetPHP\Condorcet\Election $ele
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
-    
+
+## Parameter
 
 ### **election:** *`CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    

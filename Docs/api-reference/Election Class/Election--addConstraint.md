@@ -9,7 +9,8 @@ public Election->addConstraint ( string $constraintClass ): true
 ```
 
 Add a constraint rules as a valid class path.
-    
+
+## Parameter
 
 ### **constraintClass:** *`string`*   
 A valid class path. Class must extend VoteConstraint class.    

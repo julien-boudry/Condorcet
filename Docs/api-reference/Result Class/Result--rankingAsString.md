@@ -9,4 +9,3 @@ virtual public string Result->rankingAsString
 ```
 
 Result ranking as string.
-    

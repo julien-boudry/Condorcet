@@ -13,7 +13,7 @@ It is not necessary to use this method. The election knows how to manage its pha
 
 If you are on state 1 (candidate registering), it's will close this state and prepare election to get firsts votes.
 If you are on state 3. The method result cache will be clear, but not the pairwise. Which will continue to be updated dynamically.
-    
+
 
 ## Return value   
 

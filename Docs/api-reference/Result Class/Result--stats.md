@@ -9,7 +9,7 @@ public readonly CondorcetPHP\Condorcet\Algo\Stats\StatsInterface Result->stats
 ```
 
 Get advanced computing data from used algorithm. Like Strongest paths for Schulze method.
-    
+
 ---------------------------------------
 
 ## Tutorial

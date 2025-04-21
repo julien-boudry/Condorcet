@@ -9,4 +9,3 @@ final public readonly bool Tools\Converters\CEF\CondorcetElectionFormat->implici
 ```
 
 
-    

@@ -9,4 +9,3 @@ final public string Timer\Chrono->buildByCondorcetVersion
 ```
 
 
-    

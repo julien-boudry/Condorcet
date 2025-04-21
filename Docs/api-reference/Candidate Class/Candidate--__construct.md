@@ -9,7 +9,8 @@ public Candidate->__construct ( string $name )
 ```
 
 Build a candidate.
-    
+
+## Parameter
 
 ### **name:** *`string`*   
 Candidate Name.    

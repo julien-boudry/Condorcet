@@ -9,4 +9,3 @@ public int|false Tools\Randomizers\ArrayRandomizer->minCandidatesRanked
 ```
 
 
-    

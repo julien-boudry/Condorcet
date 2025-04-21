@@ -9,7 +9,7 @@ public Algo\Pairwise\Pairwise->getExplicitPairwise ( ): array
 ```
 
 Return the Pairwise.
-    
+
 
 ## Return value   
 

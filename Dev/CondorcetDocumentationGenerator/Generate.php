@@ -362,16 +362,18 @@ class Generate
 
                 "## Description    \n\n" .
                 self::computeRepresentationAsPHP($onePage) . "\n\n" .
-                $this->getDocBlockDescription($onePage) . "\n    ";
+                $this->getDocBlockDescription($onePage) . "\n";
 
-        // Input
+        // Parameters
         if ($onePage instanceof ReflectionMethod && $onePage->getNumberOfParameters() > 0) {
             $docBlocParams = $this->getDocBlockParameters($onePage);
+
+            $md .= "\n" . "## Parameter" . ($onePage->getNumberOfParameters() > 1 ? 's' : '') . "\n";
 
             foreach ($onePage->getParameters() as $value) {
                 $pt = !empty($docBlocParams[$value->getName()]) ? $docBlocParams[$value->getName()] : '';
 
-                $md .=  "\n\n" .
+                $md .=  "\n" .
                         '### **' . $value->getName() . ':** *' . self::getTypeAsString($value->getType(), true) . "*   \n" .
                         $pt . "    \n";
             }

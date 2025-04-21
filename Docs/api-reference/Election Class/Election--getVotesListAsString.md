@@ -9,7 +9,8 @@ public Election->getVotesListAsString ( [bool $withContext = true] ): string
 ```
 
 Get registered votes list as string.
-    
+
+## Parameter
 
 ### **withContext:** *`bool`*   
 Depending on the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, rankings are never adapted to the context.    

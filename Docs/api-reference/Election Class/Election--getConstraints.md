@@ -9,7 +9,7 @@ public Election->getConstraints ( ): array
 ```
 
 Get active constraints list.
-    
+
 
 ## Return value   
 

@@ -9,7 +9,8 @@ public static Condorcet::getVersion ( [bool $major = false] ): string
 ```
 
 Get the library version.
-    
+
+## Parameter
 
 ### **major:** *`bool`*   
 * true will return : 2.0, false will return : 2.0.0.    
