@@ -5,7 +5,7 @@
 ## Description    
 
 ```php
-public Election->getLastTimer ( ): float
+public Election->getLastTimer ( ): ?float
 ```
 
 Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
@@ -13,7 +13,7 @@ Return the last computation runtime (typically after a getResult() call.). Inclu
 
 ## Return value   
 
-*(`float`)* (float) Timer
+*(`?float`)* Timer
 
 
 ---------------------------------------

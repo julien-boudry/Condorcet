@@ -228,11 +228,11 @@ class Election
     /**
      * Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
      * @api
-     * @return float (float) Timer
+     * @return ?float Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
      * @see Election::getGlobalTimer
      */
-    public function getLastTimer(): float
+    public function getLastTimer(): ?float
     {
         return $this->timer->getLastTimer();
     }

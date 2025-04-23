@@ -84,7 +84,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Election->getExplicitFilteredPairwiseByTags (...)](/Docs/api-reference/Election%20Class/Election--getExplicitFilteredPairwiseByTags.md): `array`  
 * [public Election->getExplicitPairwise ()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise.md): `array`  
 * [public Election->getGlobalTimer ()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md): `float`  
-* [public Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `float`  
+* [public Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `?float`  
 * [public Election->getLoser (...)](/Docs/api-reference/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
 * [public Election->getPairwise ()](/Docs/api-reference/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
 * [public Election->getResult (...)](/Docs/api-reference/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
@@ -2988,7 +2988,7 @@ _Including above methods from public API_
 * public getExplicitPairwise (): array  
 * public getFilteredPairwiseByTags (array|string $tags, int|bool $with = true): CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise  
 * public getGlobalTimer (): float  
-* public getLastTimer (): float  
+* public getLastTimer (): ?float  
 * public getLoser (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
 * public getPairwise (): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise  
 * public getResult (?string $method = null, array $methodOptions = []): CondorcetPHP\Condorcet\Result  
