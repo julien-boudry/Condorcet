@@ -8,4 +8,4 @@
 final public string Algo\Method->buildByCondorcetVersion 
 ```
 
-
+The Condorcet PHP version who built this object. Usefull pour serializing Election.

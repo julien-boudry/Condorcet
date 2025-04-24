@@ -8,4 +8,4 @@
 final public string Algo\Pairwise\Pairwise->buildByCondorcetVersion 
 ```
 
-
+The Condorcet PHP version who built this object. Usefull pour serializing Election.

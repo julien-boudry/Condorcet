@@ -8,4 +8,4 @@
 final public string Timer\Chrono->buildByCondorcetVersion 
 ```
 
-
+The Condorcet PHP version who built this object. Usefull pour serializing Election.

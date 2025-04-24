@@ -8,4 +8,4 @@
 public int|float Tools\Randomizers\ArrayRandomizer->tiesProbability 
 ```
 
-
+Per vote. Max decimal precision is 3.

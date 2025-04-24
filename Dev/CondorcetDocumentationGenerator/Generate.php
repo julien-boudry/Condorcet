@@ -323,7 +323,7 @@ class Generate
             $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
             if (!$onePage->isPublic() && $isPublicApi) {
-                warning('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName());
+                warning('Has Public API tag but is not public visibility: ' . $reflectionClass->getName() . '->' . $onePage->getName());
             } elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
                 // continue
             } elseif ($onePage->isPublic() && $isPublicApi) {
