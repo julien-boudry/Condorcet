@@ -187,8 +187,8 @@ class Election
         $this->voteWeightAllowed = $data['VoteWeightRule'];
         $this->votesConstraints = $data['Constraints'];
 
-        $this->Pairwise = $data['Pairwise'] ?? new Pairwise($this);
-        $this->Pairwise->setElection($this);
+        $this->Pairwise = $data['Pairwise'];
+        $this->Pairwise?->setElection($this);
 
         $this->MethodsComputation = $data['Calculator'] ?? [];
         foreach ($this->MethodsComputation as $methodObject) {
