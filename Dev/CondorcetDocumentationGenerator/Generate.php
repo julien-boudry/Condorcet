@@ -15,6 +15,10 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
 
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\note;
+use function Laravel\Prompts\warning;
+
 class Generate
 {
     public const BOOK_URL = 'https://www.condorcet.io';
@@ -88,7 +92,7 @@ class Generate
         [$class, $pointer] = explode('::', $name);
 
         if (!isset($this->fullPagesListMeta[$class]['page'][$pointer])) {
-            var_dump('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input name: ' . $name);
+            warning('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input name: ' . $name);
             return '[' . $name . ']()';
         }
 
@@ -319,7 +323,7 @@ class Generate
             $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
             if (!$onePage->isPublic() && $isPublicApi) {
-                var_dump('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                warning('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
             } elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
                 // continue
             } elseif ($onePage->isPublic() && $isPublicApi) {
@@ -330,13 +334,13 @@ class Generate
 
                     foreach ($onePage->getParameters() as $oneParameter) {
                         if (empty($docBlocParams[$oneParameter->getName()])) {
-                            var_dump('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                            info('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
                         }
                     }
                 }
 
                 if (empty($this->getDocBlockDescription($onePage)) && $reflectionClass->getNamespaceName() !== '') {
-                    var_dump('Description is empty: ' . $reflectionClass->getName() . '->' . $reflectionClass->getName()); // @pest-arch-ignore-line
+                    note('Description is empty: ' . $reflectionClass->getName() . '->' . $reflectionClass->getName()); // @pest-arch-ignore-line
                 }
             } elseif ($onePage->isPublic()) {
                 $non_inDoc++;
