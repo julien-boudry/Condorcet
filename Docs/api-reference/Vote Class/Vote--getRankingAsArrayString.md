@@ -1,6 +1,6 @@
 # public Vote::getRankingAsArrayString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L411)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L412)
 
 ## Description    
 

@@ -240,6 +240,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Get the actual Ranking of this Vote.
      * @api
      * @see Vote::setRanking
+     * @param $context An election already linked to the Vote.
      * @param $sortCandidatesInRank Sort Candidate in a Rank by name. Useful for performant internal calls from methods.
      * @return array Multidimenssionnal array populated by Candidate object.
      */

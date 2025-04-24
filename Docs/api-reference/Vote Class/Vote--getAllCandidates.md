@@ -1,6 +1,6 @@
 # public Vote::getAllCandidates
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L289)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L290)
 
 ## Description    
 
