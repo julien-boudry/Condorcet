@@ -323,7 +323,7 @@ class Generate
             $isPublicApi = $this->hasDocBlockTag('@api', $onePage);
 
             if (!$onePage->isPublic() && $isPublicApi) {
-                warning('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                warning('Has Public API tag but is not public: ' . $reflectionClass->getName() . '->' . $onePage->getName());
             } elseif ($onePage instanceof ReflectionMethod && $onePage->isInternal()) {
                 // continue
             } elseif ($onePage->isPublic() && $isPublicApi) {
@@ -334,13 +334,13 @@ class Generate
 
                     foreach ($onePage->getParameters() as $oneParameter) {
                         if (empty($docBlocParams[$oneParameter->getName()])) {
-                            info('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $reflectionClass->getName() . '->' . $onePage->getName()); // @pest-arch-ignore-line
+                            info('Has Public API attribute but parameter $' . $oneParameter->getName() . ' is undocumented ' . $reflectionClass->getName() . '->' . $onePage->getName());
                         }
                     }
                 }
 
                 if (empty($this->getDocBlockDescription($onePage)) && $reflectionClass->getNamespaceName() !== '') {
-                    note('Description is empty: ' . $reflectionClass->getName() . '->' . $reflectionClass->getName()); // @pest-arch-ignore-line
+                    note('Description is empty: ' . $onePage->class . '->' . $onePage->getName());
                 }
             } elseif ($onePage->isPublic()) {
                 $non_inDoc++;
