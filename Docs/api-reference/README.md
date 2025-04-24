@@ -471,10 +471,10 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
 
-* `case Algo\Tools\StvQuotas::DROOP`  
-* `case Algo\Tools\StvQuotas::HARE`  
-* `case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF`  
-* `case Algo\Tools\StvQuotas::IMPERIALI`  
+* case Algo\Tools\StvQuotas::DROOP  
+* case Algo\Tools\StvQuotas::HARE  
+* case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF  
+* case Algo\Tools\StvQuotas::IMPERIALI  
 
 * [public static Algo\Tools\StvQuotas::fromString (...)](/Docs/api-reference/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
 
@@ -1644,10 +1644,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L14)
 
 ```php
-* `case RP_VARIANT::UNDEFINED`  
-* `case RP_VARIANT::WINNING`  
-* `case RP_VARIANT::MARGIN`  
-* `case RP_VARIANT::MINORITY`  
+* case RP_VARIANT::UNDEFINED  
+* case RP_VARIANT::WINNING  
+* case RP_VARIANT::MARGIN  
+* case RP_VARIANT::MINORITY  
 
 * readonly public string $name
 
@@ -2205,12 +2205,12 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/StatsVerbosity.php#L13)
 
 ```php
-* `case StatsVerbosity::NONE`  
-* `case StatsVerbosity::LOW`  
-* `case StatsVerbosity::STD`  
-* `case StatsVerbosity::HIGH`  
-* `case StatsVerbosity::FULL`  
-* `case StatsVerbosity::DEBUG`  
+* case StatsVerbosity::NONE  
+* case StatsVerbosity::LOW  
+* case StatsVerbosity::STD  
+* case StatsVerbosity::HIGH  
+* case StatsVerbosity::FULL  
+* case StatsVerbosity::DEBUG  
 
 * readonly public string $name
 * readonly public int $value
@@ -2299,10 +2299,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L20)
 
 ```php
-* `case StvQuotas::DROOP`  
-* `case StvQuotas::HARE`  
-* `case StvQuotas::HAGENBACH_BISCHOFF`  
-* `case StvQuotas::IMPERIALI`  
+* case StvQuotas::DROOP  
+* case StvQuotas::HARE  
+* case StvQuotas::HAGENBACH_BISCHOFF  
+* case StvQuotas::IMPERIALI  
 
 * readonly public string $name
 * readonly public string $value
@@ -2911,10 +2911,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManagerEvent.php#L12)
 
 ```php
-* `case VotesManagerEvent::NewVote`  
-* `case VotesManagerEvent::RemoveVote`  
-* `case VotesManagerEvent::VoteUpdateInProgress`  
-* `case VotesManagerEvent::FinishUpdateVote`  
+* case VotesManagerEvent::NewVote  
+* case VotesManagerEvent::RemoveVote  
+* case VotesManagerEvent::VoteUpdateInProgress  
+* case VotesManagerEvent::FinishUpdateVote  
 
 * readonly public string $name
 
@@ -3048,8 +3048,8 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ElectionState.php#L15)
 
 ```php
-* `case ElectionState::CANDIDATES_REGISTRATION`  
-* `case ElectionState::VOTES_REGISTRATION`  
+* case ElectionState::CANDIDATES_REGISTRATION  
+* case ElectionState::VOTES_REGISTRATION  
 
 * readonly public string $name
 * readonly public int $value
@@ -3062,9 +3062,9 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesFastMode.php#L15)
 
 ```php
-* `case VotesFastMode::NONE`  
-* `case VotesFastMode::BYPASS_CANDIDATES_CHECK`  
-* `case VotesFastMode::BYPASS_RANKING_UPDATE`  
+* case VotesFastMode::NONE  
+* case VotesFastMode::BYPASS_CANDIDATES_CHECK  
+* case VotesFastMode::BYPASS_RANKING_UPDATE  
 
 * readonly public string $name
 
@@ -3861,10 +3861,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/StandardParameter.php#L15)
 
 ```php
-* `case StandardParameter::CANDIDATES`  
-* `case StandardParameter::SEATS`  
-* `case StandardParameter::IMPLICIT`  
-* `case StandardParameter::WEIGHT`  
+* case StandardParameter::CANDIDATES  
+* case StandardParameter::SEATS  
+* case StandardParameter::IMPLICIT  
+* case StandardParameter::WEIGHT  
 
 * readonly public string $name
 * readonly public string $value

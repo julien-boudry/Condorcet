@@ -545,7 +545,7 @@ class Generate
 
         foreach ($cases as $oneCase) {
             $name = ($shortName) ? $enumReflection->getShortName() : self::simpleClass($enumReflection->getName());
-            $r .= '* `case ' . $name . '::' . $oneCase->getName() . "`  \n";
+            $r .= '* case ' . $name . '::' . $oneCase->getName() . "  \n";
         }
 
         return $r;
