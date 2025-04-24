@@ -5,12 +5,15 @@
 ## Description    
 
 ```php
-public Vote->getRanking ( [bool $sortCandidatesInRank = true] ): array
+public Vote->getRanking ( [?CondorcetPHP\Condorcet\Election $context = null , bool $sortCandidatesInRank = true] ): array
 ```
 
 Get the actual Ranking of this Vote.
 
-## Parameter
+## Parameters
+
+### **context:** *`?CondorcetPHP\Condorcet\Election`*   
+    
 
 ### **sortCandidatesInRank:** *`bool`*   
 Sort Candidate in a Rank by name. Useful for performant internal calls from methods.    

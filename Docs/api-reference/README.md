@@ -188,11 +188,10 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [virtual public Vote->createdAt](/Docs/api-reference/Vote%20Class/Vote--createdAt.md)  
 * [public Vote->getAllCandidates (...)](/Docs/api-reference/Vote%20Class/Vote--getAllCandidates.md): `array`  
 * [public Vote->getCondorcetBuilderVersion (...)](/Docs/api-reference/Vote%20Class/Vote--getCondorcetBuilderVersion.md): `string`  
-* [public Vote->getContextualRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getContextualRanking.md): `array`  
-* [public Vote->getContextualRankingAsString (...)](/Docs/api-reference/Vote%20Class/Vote--getContextualRankingAsString.md): `array`  
 * [public Vote->getLinks ()](/Docs/api-reference/Vote%20Class/Vote--getLinks.md): `array`  
 * [public Vote->getRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getRanking.md): `array`  
-* [public Vote->getSimpleRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getSimpleRanking.md): `string`  
+* [public Vote->getRankingAsArrayString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsArrayString.md): `array`  
+* [public Vote->getRankingAsString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsString.md): `string`  
 * [public Vote->getTagsAsString ()](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString.md): `string`  
 * [public Vote->getWeight (...)](/Docs/api-reference/Vote%20Class/Vote--getWeight.md): `int`  
 * [final public Vote->hash](/Docs/api-reference/Vote%20Class/Vote--hash.md)  
@@ -4046,13 +4045,12 @@ _Including above methods from public API_
 * public destroyLink (CondorcetPHP\Condorcet\Election $election): bool  
 * public getAllCandidates (?CondorcetPHP\Condorcet\Election $context = null): array  
 * public getCondorcetBuilderVersion (bool $major = false): string  
-* public getContextualRanking (CondorcetPHP\Condorcet\Election $election): array  
-* public getContextualRankingAsString (CondorcetPHP\Condorcet\Election $election): array  
-* public getContextualRankingWithCandidateKeys (CondorcetPHP\Condorcet\Election $election): array  
-* public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $election): array  
+* public getContextualRankingWithCandidateKeys (CondorcetPHP\Condorcet\Election $context): array  
+* public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $context): array  
 * public getLinks (): array  
-* public getRanking (bool $sortCandidatesInRank = true): array  
-* public getSimpleRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
+* public getRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $sortCandidatesInRank = true): array  
+* public getRankingAsArrayString (CondorcetPHP\Condorcet\Election $context): array  
+* public getRankingAsString (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
 * public getTagsAsString (): string  
 * public getWeight (?CondorcetPHP\Condorcet\Election $context = null): int  
 * public hash ()  
@@ -4076,8 +4074,8 @@ _Including above methods from public API_
 * public updatedAt ()  
 * public valid (): bool  
 * protected cacheMap ()  
-* protected computeContextualRanking (CondorcetPHP\Condorcet\Election $election, bool $sortLastRankByName): array  
-* protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $election, int $countContextualCandidate = 0): array  
+* protected computeContextualRanking (CondorcetPHP\Condorcet\Election $context, bool $sortLastRankByName): array  
+* protected computeContextualRankingWithoutImplicit (array $ranking, CondorcetPHP\Condorcet\Election $context, int $countContextualCandidate = 0): array  
 * protected destroyAllLink (): void  
 * protected initWeakMap (): void  
 * private archiveRanking (): void  

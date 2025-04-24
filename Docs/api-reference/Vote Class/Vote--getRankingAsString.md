@@ -1,11 +1,11 @@
-# public Vote::getSimpleRanking
+# public Vote::getRankingAsString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L433)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L425)
 
 ## Description    
 
 ```php
-public Vote->getSimpleRanking ( [?CondorcetPHP\Condorcet\Election $context = null , bool $displayWeight = true] ): string
+public Vote->getRankingAsString ( [?CondorcetPHP\Condorcet\Election $context = null , bool $displayWeight = true] ): string
 ```
 
 Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()

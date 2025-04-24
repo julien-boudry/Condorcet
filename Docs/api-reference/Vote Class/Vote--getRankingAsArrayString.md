@@ -1,18 +1,18 @@
-# public Vote::getContextualRankingAsString
+# public Vote::getRankingAsArrayString
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L420)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L411)
 
 ## Description    
 
 ```php
-public Vote->getContextualRankingAsString ( CondorcetPHP\Condorcet\Election $election ): array
+public Vote->getRankingAsArrayString ( CondorcetPHP\Condorcet\Election $context ): array
 ```
 
 Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
 
 ## Parameter
 
-### **election:** *`CondorcetPHP\Condorcet\Election`*   
+### **context:** *`CondorcetPHP\Condorcet\Election`*   
 An election already linked to the Vote.    
 
 
@@ -25,5 +25,6 @@ An election already linked to the Vote.
 
 ## Related method(s)      
 
-* [Vote::getContextualRanking](/Docs/api-reference/Vote%20Class/Vote--getContextualRanking.md)    
+* [Vote::getContextualRanking]()    
 * [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking.md)    
+* [ Vote::getRankingAsString]()    
