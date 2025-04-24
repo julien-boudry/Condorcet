@@ -404,18 +404,18 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
      * @api
-     * @see Vote::getContextualRanking, Vote::getRanking,  Vote::getRankingAsString
+     * @see Vote::getRanking, Vote::getRanking, Vote::getRankingAsString
      * @param $context An election already linked to the Vote.
      * @return array Contextual full ranking, with string instead Candidate object.
      */
     public function getRankingAsArrayString(
-        Election $context
+        ?Election $context = null
     ): array {
         return CondorcetUtil::format($this->getRanking($context), true);
     }
 
     /**
-     * Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
+     * Get the current ranking as a string format. Optionally with an election context.
      * @api
      * @see Vote::getRanking
      * @param $context An election already linked to the Vote.

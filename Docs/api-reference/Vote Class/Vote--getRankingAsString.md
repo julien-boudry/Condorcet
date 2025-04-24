@@ -8,7 +8,7 @@
 public Vote->getRankingAsString ( [?CondorcetPHP\Condorcet\Election $context = null , bool $displayWeight = true] ): string
 ```
 
-Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
+Get the current ranking as a string format. Optionally with an election context.
 
 ## Parameters
 

@@ -4049,7 +4049,7 @@ _Including above methods from public API_
 * public getContextualRankingWithoutSort (CondorcetPHP\Condorcet\Election $context): array  
 * public getLinks (): array  
 * public getRanking (?CondorcetPHP\Condorcet\Election $context = null, bool $sortCandidatesInRank = true): array  
-* public getRankingAsArrayString (CondorcetPHP\Condorcet\Election $context): array  
+* public getRankingAsArrayString (?CondorcetPHP\Condorcet\Election $context = null): array  
 * public getRankingAsString (?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true): string  
 * public getTagsAsString (): string  
 * public getWeight (?CondorcetPHP\Condorcet\Election $context = null): int  
