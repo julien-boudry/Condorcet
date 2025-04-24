@@ -21,10 +21,11 @@ class ArrayRandomizer
      * @api
      */
     public ?int $maxCandidatesRanked = null;
+
     /**
      * @api
      */
-    public int|false $minCandidatesRanked = false; // false => min = max or candidatesCount
+    public int|false $minCandidatesRanked = false;
 
     /**
      * @api
@@ -32,9 +33,11 @@ class ArrayRandomizer
     public ?int $maxRanksCount = null;
 
     /**
+     * Per vote. Max decimal precision is 3.
      * @api
      */
-    public float|int $tiesProbability = 0; // Per vote. Max decimal precision is 3.
+    public float|int $tiesProbability = 0;
+
     /**
      * Create a new VotesRandomGenerator instance
      * @api
@@ -56,6 +59,7 @@ class ArrayRandomizer
             $this->randomizer = new Randomizer(new \Random\Engine\Xoshiro256StarStar($seed));
         }
     }
+
     /**
      * Change the candidates running for this randomizer.
      * @api
@@ -66,6 +70,7 @@ class ArrayRandomizer
     ): void {
         $this->candidates = $candidates;
     }
+
     /**
      * Count candidates currently running for this instance of the randomizer.
      * @api
@@ -75,6 +80,7 @@ class ArrayRandomizer
     {
         return \count($this->candidates);
     }
+
     /**
      * Generate a new random vote.
      * @api
