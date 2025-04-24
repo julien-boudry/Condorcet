@@ -432,7 +432,7 @@ test('vote weight', function (): void {
     // Continue
     expect((string) $voteWithWeight)->toBe('D > C > B ^2');
 
-    expect($voteWithWeight->getSimpleRanking($election))->toBe('D > C > B > A');
+    expect($voteWithWeight->getRankingAsString($election))->toBe('D > C > B > A');
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
@@ -440,7 +440,7 @@ test('vote weight', function (): void {
 
     expect($election->sumVoteWeights())->toBe(15);
 
-    expect($voteWithWeight->getSimpleRanking($election))->toBe('D > C > B > A ^2');
+    expect($voteWithWeight->getRankingAsString($election))->toBe('D > C > B > A ^2');
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 
@@ -599,7 +599,7 @@ test('election serializing', function (): void {
     expect($election->getResult('Schulze')->rankingAsString)->toBe($result1->rankingAsString);
 
     expect($election->getVotesList()[0])->not()->toBe($vote1);
-    expect($election->getVotesList()[0]->getSimpleRanking())->toBe($vote1->getSimpleRanking());
+    expect($election->getVotesList()[0]->getRankingAsString())->toBe($vote1->getRankingAsString());
     expect($election->getVotesList()[0]->haveLink($election))->toBeTrue();
     expect($vote1->haveLink($election))->toBeFalse();
 });

@@ -54,7 +54,7 @@ test('different ranking', function (): void {
         [$this->candidate1, $this->candidate2]
     );
 
-    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->toBe($newRanking1);
 
     expect($vote1->getRanking())->toHaveCount(2);
 
@@ -63,21 +63,21 @@ test('different ranking', function (): void {
         ['candidate1', 'candidate2']
     );
 
-    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->toBe($newRanking1);
 
     // Ranking 6
     $vote1->setRanking(
         [42 => 'candidate2', 142 => 'candidate1']
     );
 
-    expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->not()->toBe($newRanking1);
 
     // Ranking 7
     $vote1->setRanking(
         'candidate1>Kim Jong>candidate2>Trump'
     );
 
-    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->toBe($newRanking1);
 
     // Ranking 8
     $vote1->setRanking([
@@ -86,7 +86,7 @@ test('different ranking', function (): void {
         3 => $this->candidate3,
     ]);
 
-    expect($vote1->getContextualRanking($this->election1))->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->toBe($newRanking1);
 
     // Ranking 9
     $vote = new Vote('candidate4 > candidate3 = candidate1 > candidate2');
@@ -105,7 +105,7 @@ test('different ranking', function (): void {
         1 => 'candidate4',
         2 => ['candidate1', 'candidate3'],
         3 => 'candidate2',
-    ])->toBe(CondorcetUtil::format($vote->getContextualRanking($election)));
+    ])->toBe(CondorcetUtil::format($vote->getRanking(context: $election)));
 
     expect([
         1 => 'candidate4',
@@ -118,7 +118,7 @@ test('different ranking', function (): void {
     $this->expectExceptionMessage('The vote is not linked to an election');
 
     $unexpectedElection = new Election;
-    $vote1->getContextualRanking($unexpectedElection);
+    $vote1->getRanking(context: $unexpectedElection);
 });
 
 test('array access', function (): void {
@@ -151,11 +151,11 @@ test('simple ranking', function (): void {
     // Ranking 1
     $vote1 = new Vote('candidate1 > candidate3 = candidate2 > candidate4');
 
-    expect('candidate1 > candidate2 = candidate3 > candidate4')->toBe($vote1->getSimpleRanking());
+    expect('candidate1 > candidate2 = candidate3 > candidate4')->toBe($vote1->getRankingAsString());
 
     $this->election1->addVote($vote1);
 
-    expect('candidate1 > candidate2 = candidate3')->toBe($vote1->getSimpleRanking($this->election1));
+    expect('candidate1 > candidate2 = candidate3')->toBe($vote1->getRankingAsString($this->election1));
 });
 
 test('provisional candidate object', function (): void {
@@ -171,13 +171,13 @@ test('provisional candidate object', function (): void {
         $this->candidate3,
     ]))->toBe($vote1);
 
-    expect($vote1->getContextualRanking($this->election1))->not()->toBe($newRanking1);
+    expect($vote1->getRanking(context: $this->election1))->not()->toBe($newRanking1);
 
-    expect($vote1->getContextualRanking($this->election1))->toBe([1 => [$this->candidate2],
+    expect($vote1->getRanking(context: $this->election1))->toBe([1 => [$this->candidate2],
         2 => [$this->candidate3],
         3 => [$this->candidate1], ]);
 
-    expect($vote1->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate2',
+    expect($vote1->getRankingAsArrayString($this->election1))->toBe([1 => 'candidate2',
         2 => 'candidate3',
         3 => 'candidate1', ]);
 
@@ -191,7 +191,7 @@ test('provisional candidate object', function (): void {
 
     expect($vote2->getRanking()[1][0]->provisionalState)->toBeFalse();
 
-    expect($vote2->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1],
+    expect($vote2->getRanking(context: $this->election1))->toBe([1 => [$this->candidate1],
         2 => [$this->candidate2],
         3 => [$this->candidate3], ]);
 
@@ -210,10 +210,10 @@ test('provisional candidate object', function (): void {
 
     expect($vote2->getRanking()[1][0]->provisionalState)->toBeFalse();
 
-    expect($vote3->getContextualRanking($this->election1))->toBe([1 => [$this->candidate3],
+    expect($vote3->getRanking(context: $this->election1))->toBe([1 => [$this->candidate3],
         2 => [$this->candidate1, $this->candidate2], ]);
 
-    expect($vote3->getContextualRankingAsString($this->election1))->toBe([1 => 'candidate3',
+    expect($vote3->getRankingAsArrayString($this->election1))->toBe([1 => 'candidate3',
         2 => ['candidate1', 'candidate2'], ]);
 
     expect($vote3->getRanking())->toBe($vote3_firstRanking);
@@ -239,17 +239,17 @@ test('different election', function (): void {
     $election2->addVote($vote1);
 
     expect($vote1->getRanking())->toBe($vote1_originalRanking);
-    expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate3]]);
-    expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate4]]);
-    expect($vote1->getContextualRanking($election2))->not()->toBe($vote1->getRanking());
+    expect($vote1->getRanking(context: $election1))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate3]]);
+    expect($vote1->getRanking(context: $election2))->toBe([1 => [$this->candidate1], 2 => [$this->candidate2], 3 => [$this->candidate4]]);
+    expect($vote1->getRanking(context: $election2))->not()->toBe($vote1->getRanking());
 
     expect($vote1->setRanking([
         [$this->candidate5, $this->candidate2],
         $this->candidate3,
     ]))->toBe($vote1);
 
-    expect($vote1->getContextualRanking($election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
-    expect($vote1->getContextualRanking($election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);
+    expect($vote1->getRanking(context: $election1))->toBe([1 => [$this->candidate2], 2 => [$this->candidate3], 3 => [$this->candidate1]]);
+    expect($vote1->getRanking(context: $election2))->toBe([1 => [$this->candidate2], 2 => [$this->candidate1, $this->candidate4]]);
 });
 
 test('valid tags', function (): void {
@@ -381,7 +381,7 @@ test('tags on constructor by string input', function (): void {
 
     expect($vote1->tags)->tobe(['tag3', 'tag4', 'tag1', 'tag2']);
 
-    expect($vote1->getSimpleRanking())->toBe('A > B > C');
+    expect($vote1->getRankingAsString())->toBe('A > B > C');
 
     $vote2 = new Vote((string) $vote1);
 
@@ -516,7 +516,7 @@ test('remove candidate', function (): void {
 
     $vote1->removeCandidate('candidate2');
 
-    expect($vote1->getSimpleRanking())->toBe('candidate1 > candidate3 ^42');
+    expect($vote1->getRankingAsString())->toBe('candidate1 > candidate3 ^42');
 
     expect($this->election1->getResult()->rankingAsString)->toBe('candidate1 > candidate3 > candidate2');
 
@@ -615,9 +615,9 @@ test('bad ranking input2', function (): void {
 test('empty vote contextual in ranking', function (): void {
     $vote = $this->election1->addVote('candidate4 > candidate5');
 
-    expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
+    expect($vote->getRanking(context: $this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
 
-    $cr = $vote->getContextualRankingAsString($this->election1);
+    $cr = $vote->getRankingAsArrayString(context: $this->election1);
 
     expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
 });
@@ -625,9 +625,9 @@ test('empty vote contextual in ranking', function (): void {
 test('non empty vote contextual in ranking', function (): void {
     $vote = $this->election1->addVote('candidate1 = candidate2 = candidate3');
 
-    expect($vote->getContextualRanking($this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
+    expect($vote->getRanking(context: $this->election1))->toBe([1 => [$this->candidate1, $this->candidate2, $this->candidate3]]);
 
-    $cr = $vote->getContextualRankingAsString($this->election1);
+    $cr = $vote->getRankingAsArrayString(context: $this->election1);
 
     expect($cr)->toBe([1 => ['candidate1', 'candidate2', 'candidate3']]);
 });
@@ -645,7 +645,7 @@ test('duplicate candidates2', function (): void {
 
     $vote = $election->addVote('Spain>Japan>France>Netherlands>Australia>france');
 
-    expect($vote->getSimpleRanking($election))->toBe('Spain > Japan > France > Netherlands > Australia');
+    expect($vote->getRankingAsString($election))->toBe('Spain > Japan > France > Netherlands > Australia');
 });
 
 test('empty special key word', function (): void {

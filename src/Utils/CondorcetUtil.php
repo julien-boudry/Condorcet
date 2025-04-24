@@ -85,7 +85,7 @@ abstract class CondorcetUtil
                 if ($input instanceof Candidate) {
                     $r = (string) $input;
                 } elseif ($input instanceof Vote) {
-                    $r = $input->getSimpleRanking();
+                    $r = $input->getRankingAsString();
                 } elseif ($input instanceof Result) {
                     $r = $input->rankingAsArrayString;
                 }

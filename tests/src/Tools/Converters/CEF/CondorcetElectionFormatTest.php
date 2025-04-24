@@ -26,7 +26,7 @@ test('condorcet election format1 simple', function (): void {
     expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
-    expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná ^42');
+    expect($election->getVotesList()[0]->getRankingAsString(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná ^42');
     expect($condorcetFormat->invalidBlocksCount)->toBe(0);
 });
 
@@ -86,7 +86,7 @@ test('condorcet election format3 custom election1', function (): void {
     expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
-    expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná');
+    expect($election->getVotesList()[0]->getRankingAsString(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec > Simona Slaná');
     expect($condorcetFormat->invalidBlocksCount)->toBe(0);
 });
 
@@ -116,7 +116,7 @@ test('condorcet election format4 custom election2', function (): void {
     expect($election->implicitRankingRule)->toBeFalse()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
-    expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec ^42');
+    expect($election->getVotesList()[0]->getRankingAsString(context: $election, displayWeight: true))->toBe('Richard Boháč > Petr Němec ^42');
     expect($condorcetFormat->invalidBlocksCount)->toBe(0);
 });
 
@@ -148,7 +148,7 @@ test('condorcet election format5 unknow parameters and empty lines and case', fu
     expect($election->implicitRankingRule)->toBeTrue()->toBe($election->implicitRankingRule);
 
     expect($election->countVotes())->toBe(1);
-    expect($election->getVotesList()[0]->getSimpleRanking(context: $election, displayWeight: true))->toBe('Richard Boháč > 郝文彦 > Simona Slaná');
+    expect($election->getVotesList()[0]->getRankingAsString(context: $election, displayWeight: true))->toBe('Richard Boháč > 郝文彦 > Simona Slaná');
     expect($condorcetFormat->invalidBlocksCount)->toBe(0);
 });
 
@@ -188,7 +188,7 @@ test('official specification valid examples', function (): void {
     expect($election->getVotesList(tags: 'signature:55073db57b0a859911', with: true))->toHaveCount(1);
     expect($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->toHaveCount(1);
     expect($election->getVotesList(tags: 'otherTag', with: true))->toHaveCount(0);
-    expect(current($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->getSimpleRanking())->toBe('Candidate A > Candidate B > Candidate C');
+    expect(current($election->getVotesList(tags: 'julien@condorcet.vote', with: true))->getRankingAsString())->toBe('Candidate A > Candidate B > Candidate C');
 
     # Example without implicit ranking as weight
     $file = new SplTempFileObject;

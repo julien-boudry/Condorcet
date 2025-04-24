@@ -227,9 +227,9 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     public function __toString(): string
     {
         if (empty($this->tags)) {
-            return $this->getSimpleRanking();
+            return $this->getRankingAsString();
         } else {
-            return $this->getTagsAsString() . ' || ' . $this->getSimpleRanking();
+            return $this->getTagsAsString() . ' || ' . $this->getRankingAsString();
         }
     }
 
@@ -244,9 +244,10 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @return array Multidimenssionnal array populated by Candidate object.
      */
     public function getRanking(
+        ?Election $context = null,
         bool $sortCandidatesInRank = true
     ): array {
-        $r = $this->ranking;
+        $r = $context ? $this->computeContextualRanking($context, true) : $this->ranking;
 
         if ($sortCandidatesInRank) {
             foreach ($r as &$oneRank) {
@@ -277,6 +278,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     {
         return \count($this->ranking);
     }
+
     /**
      * Get all the candidates object set in the last ranking of this Vote.
      * @api
@@ -287,7 +289,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     public function getAllCandidates(
         ?Election $context = null
     ): array {
-        $ranking = ($context !== null) ? $this->getContextualRanking($context) : $this->getRanking(false);
+        $ranking = ($context !== null) ? $this->getRanking($context) : $this->getRanking(sortCandidatesInRank: false);
         $list = [];
 
         foreach ($ranking as $rank) {
@@ -298,46 +300,34 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         return $list;
     }
-    /**
-     * Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
-     * @api
-     * @see Vote::getContextualRankingAsString, Vote::getRanking
-     * @param $election An election already linked to the Vote.
-     * @throws VoteNotLinkedException
-     * @return array Contextual full ranking.
-     */
-    public function getContextualRanking(
-        Election $election,
-    ): array {
-        return $this->computeContextualRanking($election, true);
-    }
 
-    // Performances
     /**
+     * For performances
      * @internal
-     * @param $election An election already linked to the Vote.
+     * @param $context An election already linked to the Vote.
      */
     public function getContextualRankingWithoutSort(
-        Election $election,
+        Election $context,
     ): array {
-        return $this->computeContextualRanking($election, false);
+        return $this->computeContextualRanking($context, false);
     }
+
     /**
      * @internal
-     * @param $election An election already linked to the Vote.
+     * @param $context An election already linked to the Vote.
      */
     public function getContextualRankingWithCandidateKeys(
-        Election $election,
+        Election $context,
     ): array {
-        $ranking = $this->getContextualRankingWithoutSort($election);
+        $ranking = $this->getContextualRankingWithoutSort($context);
 
-        VoteUtil::convertRankingFromCandidateObjectToInternalKeys($election, $ranking);
+        VoteUtil::convertRankingFromCandidateObjectToInternalKeys($context, $ranking);
 
         return $ranking;
     }
 
     protected function computeContextualRanking(
-        Election $election,
+        Election $context,
         bool $sortLastRankByName
     ): array {
         // Cache for internal use
@@ -346,19 +336,19 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
         }
 
         // Normal procedure
-        if (!$this->haveLink($election)) {
+        if (!$this->haveLink($context)) {
             throw new VoteNotLinkedException;
         }
 
         $countContextualCandidate = 0;
 
         $present = $this->getAllCandidates();
-        $candidates_list = $election->getCandidatesList();
-        $candidates_count = $election->countCandidates();
+        $candidates_list = $context->getCandidatesList();
+        $candidates_count = $context->countCandidates();
 
-        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(false), $election, $countContextualCandidate);
+        $newRanking = $this->computeContextualRankingWithoutImplicit($this->getRanking(sortCandidatesInRank: false), $context, $countContextualCandidate);
 
-        if ($election->implicitRankingRule && $countContextualCandidate < $candidates_count) {
+        if ($context->implicitRankingRule && $countContextualCandidate < $candidates_count) {
             $last_rank = [];
             $needed = $candidates_count - $countContextualCandidate;
 
@@ -387,7 +377,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
         return $newRanking;
     }
 
-    protected function computeContextualRankingWithoutImplicit(array $ranking, Election $election, int &$countContextualCandidate = 0): array
+    protected function computeContextualRankingWithoutImplicit(array $ranking, Election $context, int &$countContextualCandidate = 0): array
     {
         $newRanking = [];
         $nextRank = 1;
@@ -395,7 +385,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         foreach ($ranking as $CandidatesInRanks) {
             foreach ($CandidatesInRanks as $candidate) {
-                if ($election->hasCandidate($candidate, true)) {
+                if ($context->hasCandidate($candidate, true)) {
                     $newRanking[$nextRank][] = $candidate;
                     $countContextualCandidate++;
                     $rankChange = true;
@@ -410,18 +400,20 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         return $newRanking;
     }
+
     /**
      * Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
      * @api
-     * @see Vote::getContextualRanking, Vote::getRanking
-     * @param $election An election already linked to the Vote.
+     * @see Vote::getContextualRanking, Vote::getRanking,  Vote::getRankingAsString
+     * @param $context An election already linked to the Vote.
      * @return array Contextual full ranking, with string instead Candidate object.
      */
-    public function getContextualRankingAsString(
-        Election $election
+    public function getRankingAsArrayString(
+        Election $context
     ): array {
-        return CondorcetUtil::format($this->getContextualRanking($election), true);
+        return CondorcetUtil::format($this->getRanking($context), true);
     }
+
     /**
      * Get the current ranking as a string format. Optionally with an election context, see Election::getContextualRanking()
      * @api
@@ -430,11 +422,11 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * @param $displayWeight Include or not the weight symbol and value.
      * @return string String like 'A>D=C>B
      */
-    public function getSimpleRanking(
+    public function getRankingAsString(
         ?Election $context = null,
         bool $displayWeight = true
     ): string {
-        $ranking = $context !== null ? $this->getContextualRanking($context) : $this->getRanking();
+        $ranking = $this->getRanking($context);
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
@@ -560,6 +552,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         return $ranking;
     }
+
     /**
      * Remove candidate from ranking. Set a new ranking and archive the old ranking.
      * @api
@@ -597,6 +590,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         return true;
     }
+
     /**
      * Add tag(s) on this Vote.
      * @api
@@ -625,6 +619,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         return true;
     }
+
     /**
      * Remove registered tag(s) on this Vote.
      * @api
@@ -657,6 +652,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
         $this->computeHashCode();
         return $rm;
     }
+
     /**
      * Remove all registered tag(s) on this Vote.
      * @api
@@ -668,6 +664,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
         $this->removeTags($this->tags);
         return true;
     }
+
     /**
      * Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
      * @api
@@ -684,6 +681,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
             return $this->weight;
         }
     }
+
     /**
      * Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
      * @api

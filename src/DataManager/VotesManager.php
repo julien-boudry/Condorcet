@@ -196,7 +196,7 @@ class VotesManager extends ArrayManager
         $nb = [];
 
         foreach ($this as $oneVote) {
-            $oneVoteString = $oneVote->getSimpleRanking($withContext ? $election : null);
+            $oneVoteString = $oneVote->getRankingAsString($withContext ? $election : null);
 
             if (!\array_key_exists(key: $oneVoteString, array: $weight)) {
                 $weight[$oneVoteString] = 0;

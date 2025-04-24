@@ -61,7 +61,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
                 $line = "\n";
                 $line .= ($includeTags && !empty($vote->tags)) ? $vote->getTagsAsString() . ' || ' : ''; // @phpstan-ignore method.notFound
 
-                $voteString = $vote->getSimpleRanking($inContext ? $election : null);
+                $voteString = $vote->getRankingAsString($inContext ? $election : null);
                 $line .= !empty($voteString) ? $voteString : self::SPECIAL_KEYWORD_EMPTY_RANKING;
 
                 if ($file !== null) {

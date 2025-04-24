@@ -38,7 +38,7 @@
     $myLutoCandidate->nameHistory;
 
     // Have a look to a vote from $election1. The candidate name have changed.
-    $myVote4->getContextualRanking($election1, true);
+    $myVote4->getRanking(context: $election1);
 
     // In what elections, this candidates have a part ?
         $myLutoCandidate->getLinks(); // Get his the two Election objects
@@ -66,8 +66,8 @@
     // Check ranking
     $myNewVote->getRanking(); // Here you get the original 9 ranks.
     // Check ranking
-    $myNewVote->getContextualRanking($election1); // Here you get the vote applicable to $election 1
-    $myNewVote->getContextualRanking($election2); // Here you get the vote applicable to $election 2
+    $myNewVote->getRanking($election1); // Here you get the vote applicable to $election 1
+    $myNewVote->getRanking($election2); // Here you get the vote applicable to $election 2
 
     // In what election, this candidates have a part ?
         $myNewVote->getLinks(); // Get Condorcet objects

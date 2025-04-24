@@ -12,8 +12,8 @@ test('virtual vote', function (): void {
 
     $vote2 = VirtualVote::removeCandidates($vote1, ['B']);
 
-    expect($vote2->getSimpleRanking())->not()->toBe($vote1->getSimpleRanking());
-    expect($vote2->getSimpleRanking())->toBe('A > C');
+    expect($vote2->getRankingAsString())->not()->toBe($vote1->getRankingAsString());
+    expect($vote2->getRankingAsString())->toBe('A > C');
 
     expect($vote1->countLinks())->toBe(1);
     expect($vote2->countLinks())->toBe(0);

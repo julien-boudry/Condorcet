@@ -121,7 +121,7 @@ class AlternativeNoTieConstraintClass implements VoteConstraintInterface
 {
     public static function isVoteAllowed(Election $election, Vote $vote): bool
     {
-        foreach ($vote->getContextualRanking($election) as $oneRank) {
+        foreach ($vote->getRanking(context: $election) as $oneRank) {
             if (\count($oneRank) > 1) {
                 return false;
             }

@@ -12,7 +12,7 @@ test('equivalence', function (): void {
         expect(
             array_values(
                 CondorcetUtil::format(
-                    $votesRandomizer->getNewVote()->getRanking(false)
+                    $votesRandomizer->getNewVote()->getRanking(sortCandidatesInRank: false)
                 )
             )
         )->toBe($arrayRandomizer->shuffle());
@@ -25,7 +25,7 @@ test('equivalence', function (): void {
         expect(
             array_values(
                 CondorcetUtil::format(
-                    $votesRandomizer->getNewVote()->getRanking(false)
+                    $votesRandomizer->getNewVote()->getRanking(sortCandidatesInRank: false)
                 )
             )
         )->tobe($arrayRandomizer->shuffle());

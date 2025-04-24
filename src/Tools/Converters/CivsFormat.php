@@ -44,7 +44,7 @@ class CivsFormat implements ConverterExport
         }
 
         foreach ($election->getVotesListGenerator() as $vote) {
-            $voteRanking = $vote->getContextualRanking($election);
+            $voteRanking = $vote->getRanking($election);
 
             $ranked = $rankedModel;
 
