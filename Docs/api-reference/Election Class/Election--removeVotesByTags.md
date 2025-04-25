@@ -43,4 +43,4 @@ Votes with these tags or without.
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/5.Votes/2.VotesTags)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/2.VotesTags)**    

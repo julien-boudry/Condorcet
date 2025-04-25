@@ -19,7 +19,7 @@ use function Laravel\Prompts\{info, note, warning};
 
 class Generate
 {
-    public const BOOK_URL = 'https://docs.condorcet.io';
+    public const DOCS_URL = 'https://docs.condorcet.io';
     public const GITHUB_BASE = 'https://github.com/julien-boudry/Condorcet';
     public const GITHUB_BRANCH_PATH = '/blob/master/';
 
@@ -280,12 +280,12 @@ class Generate
         print 'Public Methods/Properties in doc: ' . $inDoc . ' / ' . ($inDoc + $non_inDoc) . ' | Total non-internal Methods/Properties count: ' . $total_nonInternal . ' | Number of Class: ' . \count($FullClassList) . ' | Number of Methods/Properties including internals: ' . $total_pages . "\n";
 
         // Add Index
-        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::BOOK_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../../tests)**\n\n" .
+        $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::DOCS_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../../tests)**\n\n" .
 
                         "# API References\n" .
                         "## Public API Index *\n" .
 
-                        '_*: I try to update and complete the documentation. See also [the documentation book](' . self::BOOK_URL . "), [the tests](../tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        '_*: I try to update and complete the documentation. See also [the documentation book](' . self::DOCS_URL . "), [the tests](../tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
 
 
         $file_content .= $this->makeIndex($this->fullPagesListMeta);

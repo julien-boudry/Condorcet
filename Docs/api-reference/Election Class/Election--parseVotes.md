@@ -37,4 +37,4 @@ If true, the input is evaluated as path to text file.
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/5.Votes/1.AddVotes)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/1.AddVotes)**    

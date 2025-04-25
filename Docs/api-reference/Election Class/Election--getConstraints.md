@@ -28,4 +28,4 @@ Get active constraints list.
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/4.VoteConstraints)**    
