@@ -1,4 +1,4 @@
-> **[Presentation](README.md) | [Documentation Book](https://www.condorcet.io) | [API Reference](Docs/api-reference/README.md) | Voting Method | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
+> **[Presentation](README.md) | [Documentation Book](https://docs.condorcet.io) | [API Reference](Docs/api-reference/README.md) | Voting Method | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
 
 Voting Methods (natively implemented)
 ===========================
@@ -66,7 +66,7 @@ Unless you have prohibited ties yourself or via a filter (CondorcetPHP >= 1.8), 
 This is more annoying for other methods like Borda, Instant-runoff or FPTP. These methods being based on the rank assigned. How each handles these cases is specified below. Keep in mind that it can vary depending on the implementations. Some choices had to be made for each of them.
 
 ### Implicit vs Explicit Ranking<!-- {docsify-ignore} -->
-Please read the manual [about explicit and implicit ranking](https://www.condorcet.io/#/3.AsPhpLibrary/6.Results/4.ImplicitOrExplicitMod) modes.
+Please read the manual [about explicit and implicit ranking](https://docs.condorcet.io/#/3.AsPhpLibrary/6.Results/4.ImplicitOrExplicitMod) modes.
 In terms of implementation, what you have to understand is that algorithms and pairwise are blind. And see votes in their implicit or explicit context, which can significantly change the results of some of them.
 
 ---------------------------------------

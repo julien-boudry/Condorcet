@@ -19,7 +19,7 @@ use function Laravel\Prompts\{info, note, warning};
 
 class Generate
 {
-    public const BOOK_URL = 'https://www.condorcet.io';
+    public const BOOK_URL = 'https://docs.condorcet.io';
     public const GITHUB_BASE = 'https://github.com/julien-boudry/Condorcet';
     public const GITHUB_BRANCH_PATH = '/blob/master/';
 

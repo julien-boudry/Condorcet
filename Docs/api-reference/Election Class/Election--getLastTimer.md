@@ -26,4 +26,4 @@ Return the last computation runtime (typically after a getResult() call.). Inclu
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    

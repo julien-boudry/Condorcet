@@ -28,4 +28,4 @@ Remove all Votes from an election.
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/5.Votes/1.AddVotes)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/5.Votes/1.AddVotes)**    

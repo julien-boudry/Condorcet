@@ -37,8 +37,8 @@ A major release, including two new voting methods, additions to the internal API
 ### Added
 
 #### Voting Methods
-- New vote method: [Random Ballot](https://www.condorcet.io/VotingMethods?id=random-ballot)
-- New vote method: [Random Candidates](https://www.condorcet.io/VotingMethods?id=random-candidates)
+- New vote method: [Random Ballot](https://docs.condorcet.io/VotingMethods?id=random-ballot)
+- New vote method: [Random Candidates](https://docs.condorcet.io/VotingMethods?id=random-candidates)
 
 #### Public API
 - Results object new property `Result->pairwise` contain an immutable and explicit pairwise array, from the object creation.

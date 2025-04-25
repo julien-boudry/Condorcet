@@ -26,4 +26,4 @@ Returns the cumulated computation runtime of this object. Include only computati
 
 ## Tutorial
 
-* **[This method has explanations and examples in the Documentation Book](https://www.condorcet.io/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    
+* **[This method has explanations and examples in the Documentation Book](https://docs.condorcet.io/3.AsPhpLibrary/7.GoFurther/TimerBenchMarking)**    

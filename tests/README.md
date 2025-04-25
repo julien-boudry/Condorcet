@@ -1,4 +1,4 @@
-> **[Presentation](../README.md) | [Documentation Book](https://www.condorcet.io) | [API References](/Docs/api-reference/README.md) | [Voting Methods](/Docs/VotingMethods.md) | Tests**
+> **[Presentation](../README.md) | [Documentation Book](https://docs.condorcet.io) | [API References](/Docs/api-reference/README.md) | [Voting Methods](/Docs/VotingMethods.md) | Tests**
 
 #### ~300 tests and more than 1000 assertions to explore on this path
 

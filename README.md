@@ -25,7 +25,7 @@
 
 Condorcet PHP<!-- {docsify-ignore-all} -->
 ===========================
-> **Presentation | [Documentation Book](https://www.condorcet.io) | [API Reference](/Docs/api-reference/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
+> **Presentation | [Documentation Book](https://docs.condorcet.io) | [API Reference](/Docs/api-reference/README.md) | [Voting Methods](/Docs/VotingMethods.md) | [Tests](https://github.com/julien-boudry/Condorcet/tree/master/tests)**
 
 Condorcet manages the stages of an electoral process (configuration, votes ingestion & manipulation, integrity) and calculates the results. It offers natively the implementation of more than 20 voting methods compatible with preferential voting ballots, including Condorcet methods, Alternative Voting, STV, and many others.
 => [**Supported Voting Methods**](#supported-voting-methods)
@@ -106,7 +106,7 @@ Designed for electing an assembly, return a full ranking of elected candidates.
 
 ### Add your own voting method as a module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).
-- [*More explanations in this documentation*](https://www.condorcet.io/3.AsPhpLibrary/9.ExtendingCondorcet/1.CreateNewVoteMethod)
+- [*More explanations in this documentation*](https://docs.condorcet.io/3.AsPhpLibrary/9.ExtendingCondorcet/1.CreateNewVoteMethod)
 - [Modules Skeleton](https://github.com/CondorcetVote/Condorcet_Modules_Skeletons): A template for starting development quickly and following best practices.
 
 ## Main features
@@ -148,12 +148,12 @@ _It has no certification or proven implementation that would guarantee a very hi
 
 Can be installed natively from source (with composer), from PHAR file, from Docker image (build or pull).
 
-> **[Condorcet as a command line application, installation instructions](https://www.condorcet.io/#/2.AsCommandLineApplication/1.Installation)**
+> **[Condorcet as a command line application, installation instructions](https://docs.condorcet.io/#/2.AsCommandLineApplication/1.Installation)**
 
 ### Condorcet Book - Command Line
 
-* [**Examples**](https://www.condorcet.io/#/2.AsCommandLineApplication/2.QuickExample)
-* [**Man Page**](https://www.condorcet.io/#/2.AsCommandLineApplication/4.ManPage)
+* [**Examples**](https://docs.condorcet.io/#/2.AsCommandLineApplication/2.QuickExample)
+* [**Man Page**](https://docs.condorcet.io/#/2.AsCommandLineApplication/4.ManPage)
 
 ## Use Condorcet as a PHP Library
 
@@ -162,11 +162,11 @@ Namespace ```\CondorcetPHP\Condorcet``` is used.
 
 Can be installed as you prefer with: Composer / Natively provided autoloader / Any PSR-4 compatible autoloader.
 
-> **[Condorcet as a PHP library, installation instructions](https://www.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
+> **[Condorcet as a PHP library, installation instructions](https://docs.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
 
 ### Library Manual
 
-> **[Visit the Documentation Book](https://www.condorcet.io)**
+> **[Visit the Documentation Book](https://docs.condorcet.io)**
 
 Living and learning examples, giving an overview but not exhaustive of the possibilities of the library.
 
@@ -188,7 +188,7 @@ The precise documentation of methods can be found in Markdown format in the "Doc
 
 ### Specifics examples
 
-* [Condorcet Documentation Book](https://www.condorcet.io/) provides many code examples
+* [Condorcet Documentation Book](https://docs.condorcet.io/) provides many code examples
 * [Manage millions of votes with an external database driver](Examples/Specifics_Examples/use_large_election_external_database_drivers.php) Your own driver, or the provided simple driver for PDO.
 
 
@@ -221,7 +221,7 @@ If you need to manage an election with more than 50,000 votes, you should consid
 
 You can also develop your own custom datastore driver (to store in NoSQL... or whatever you fancy), the modular architecture allows you to link it easily.
 
-[Have a look at the documentation book](https://www.condorcet.io/#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)
+[Have a look at the documentation book](https://docs.condorcet.io/#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)
 
 _Benchmark on a modern machine (Linux - x64 - PHP 8.1 - CLI)._
 
