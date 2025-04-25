@@ -204,235 +204,70 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Vote->setWeight (...)](/Docs/api-reference/Vote%20Class/Vote--setWeight.md): `int`  
 * [final public Vote->tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)  
 * [final public Vote->updatedAt](/Docs/api-reference/Vote%20Class/Vote--updatedAt.md)  
-
-### CondorcetPHP\Condorcet\Algo\Method Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\Jefferson Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\SainteLague Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder\LargestRemainder Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomBallot Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomCandidates Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsMargin Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Smith\SchwartzSet Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-
-### CondorcetPHP\Condorcet\Algo\Methods\Smith\SmithSet Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)
-
 * [final public Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
 * [public Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
 
@@ -455,17 +290,7 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * [public Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
 * [public Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
 * [public Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
-
-### CondorcetPHP\Condorcet\Algo\Tools\Combinations Class  
-
-* `public static bool` [$useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Combinations%20Class/Algo_Tools_Combinations--useBigIntegerIfAvailable.md)
-
 * [public static Algo\Tools\Combinations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Combinations%20Class/Algo_Tools_Combinations--useBigIntegerIfAvailable.md)  
-
-### CondorcetPHP\Condorcet\Algo\Tools\Permutations Class  
-
-* `public static bool` [$useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Permutations%20Class/Algo_Tools_Permutations--useBigIntegerIfAvailable.md)
-
 * [public static Algo\Tools\Permutations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Permutations%20Class/Algo_Tools_Permutations--useBigIntegerIfAvailable.md)  
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
@@ -476,11 +301,6 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * case Algo\Tools\StvQuotas::IMPERIALI  
 
 * [public static Algo\Tools\StvQuotas::fromString (...)](/Docs/api-reference/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
-
-### CondorcetPHP\Condorcet\DataManager\ArrayManager Class  
-
-* `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)
-
 * [final public DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
 * [public DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
 
@@ -846,7 +666,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/BordaCount.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/BordaCount.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -881,7 +701,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Borda\DowdallSystem extends CondorcetPHP\Condorcet\Algo\Methods\Borda\BordaCount implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/DowdallSystem.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/DowdallSystem.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -916,7 +736,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L21)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -952,7 +772,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Copeland\Copeland extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Copeland/Copeland.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Copeland/Copeland.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -987,7 +807,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonQuick extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonQuick.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonQuick.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1019,7 +839,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Dodgson\DodgsonTidemanApproximation extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonTidemanApproximation.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonTidemanApproximation.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1054,7 +874,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/HighestAverages_Core.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/HighestAverages_Core.php#L18)
 
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
@@ -1093,7 +913,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\Jefferson extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/Jefferson.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/Jefferson.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1132,7 +952,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\SainteLague extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/SainteLague.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/SainteLague.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1173,7 +993,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\InstantRunoff\InstantRunoff extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/InstantRunoff/InstantRunoff.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/InstantRunoff/InstantRunoff.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1208,7 +1028,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\KemenyYoung\KemenyYoung extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/KemenyYoung/KemenyYoung.php#L21)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/KemenyYoung/KemenyYoung.php#L23)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1258,7 +1078,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\LargestRemainder\LargestRemainder extends CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L22)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1299,7 +1119,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomBallot extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomBallot.php#L18)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomBallot.php#L19)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1337,7 +1157,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Lotteries\RandomCandidates extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomCandidates.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomCandidates.php#L21)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1371,7 +1191,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Majority\FirstPastThePost extends CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/FirstPastThePost.php#L14)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/FirstPastThePost.php#L15)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1412,7 +1232,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MajorityCore.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MajorityCore.php#L18)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -1453,7 +1273,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Majority\MultipleRoundsSystem extends CondorcetPHP\Condorcet\Algo\Methods\Majority\MajorityCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MultipleRoundsSystem.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MultipleRoundsSystem.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1500,7 +1320,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxMargin extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxMargin.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxMargin.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1535,7 +1355,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxOpposition extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxOpposition.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxOpposition.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1570,7 +1390,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Minimax\MinimaxWinning extends CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxWinning.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxWinning.php#L18)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1605,7 +1425,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\PairwiseStatsBased_Core extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/PairwiseStatsBased_Core.php#L17)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/PairwiseStatsBased_Core.php#L18)
 
 ```php
 * protected const COUNT_TYPE: (string)
@@ -1640,7 +1460,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT implements UnitEnum`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L14)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RP_VARIANT.php#L15)
 
 ```php
 * case RP_VARIANT::UNDEFINED  
@@ -1654,7 +1474,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L19)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L22)
 
 ```php
 * protected const VARIANT: (object)
@@ -1744,7 +1564,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsWinning extends CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RankedPairsCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsWinning.php#L15)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsWinning.php#L16)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1789,7 +1609,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\CPO_STV extends CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L30)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L33)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1853,7 +1673,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\STV\SingleTransferableVote extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L23)
 
 ```php
 * final public const IS_PROPORTIONAL: (boolean)
@@ -1890,7 +1710,7 @@ _Including above methods from public API_
 ```
 
 #### `Abstract CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L20)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L23)
 
 ```php
 * public const IS_PROPORTIONAL: (boolean)
@@ -1926,7 +1746,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeMargin extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeMargin.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeMargin.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1962,7 +1782,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeRatio extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeRatio.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeRatio.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -1998,7 +1818,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeWinning extends CondorcetPHP\Condorcet\Algo\Methods\Schulze\SchulzeCore implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeWinning.php#L16)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeWinning.php#L17)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -2034,7 +1854,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Smith\SchwartzSet extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SchwartzSet.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SchwartzSet.php#L24)
 
 ```php
 * public const METHOD_NAME: (array)
@@ -2071,7 +1891,7 @@ _Including above methods from public API_
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\Methods\Smith\SmithSet extends CondorcetPHP\Condorcet\Algo\Method implements CondorcetPHP\Condorcet\Algo\MethodInterface`  
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L22)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L23)
 
 ```php
 * public const METHOD_NAME: (array)

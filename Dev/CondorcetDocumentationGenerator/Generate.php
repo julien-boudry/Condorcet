@@ -15,9 +15,7 @@ use ReflectionMethod;
 use ReflectionProperty;
 use Reflector;
 
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\note;
-use function Laravel\Prompts\warning;
+use function Laravel\Prompts\{info, note, warning};
 
 class Generate
 {
@@ -471,7 +469,10 @@ class Generate
 
             $classWillBePublic = false;
 
-            if ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
+            if ($this->hasDocBlockTag('@internal', $classMeta['ReflectionClass'])) {
+                $classWillBePublic = false;
+            }
+            elseif ($this->hasDocBlockTag('@api', $classMeta['ReflectionClass'])) {
                 $classWillBePublic = true;
             } else {
                 foreach ($classMeta['page'] as $onePage) {
