@@ -101,7 +101,7 @@ class Generate
         return '[' . $name . '](' . $url . ')';
     }
 
-    public static function computeRepresentationAsForIndex(ReflectionMethod|ReflectionProperty $reflection): string
+    public static function computeRepresentationAsForIndex(ReflectionMethod|ReflectionProperty $reflection): array
     {
         if ($reflection instanceof ReflectionMethod) {
             $parameters = ' (' . (($reflection->getNumberOfParameters() > 0) ? '...' : '') . ')';
@@ -109,13 +109,12 @@ class Generate
             $parameters = '';
         }
 
-        return self::getModifiersName($reflection) .
-                ' ' .
+        return [self::getModifiersName($reflection) .' ',
                 self::simpleClass($reflection->class) .
                 (($reflection->isStatic()) ? '::' : '->') .
                 $reflection->name .
                 $parameters
-        ;
+        ];
     }
 
     public static function computeRepresentationAsPHP(ReflectionMethod|ReflectionProperty $reflection): string
@@ -520,7 +519,8 @@ class Generate
                 } else {
                     $url = $this->getUrl($onePage['Reflection']);
 
-                    $file_content .= '* [' . self::computeRepresentationAsForIndex($onePage['Reflection']) . '](' . $url . ')';
+                    $representation = self::computeRepresentationAsForIndex($onePage['Reflection']);
+                    $file_content .= "* $representation[0] [" . $representation[1] . '](' . $url . ')';
 
                     if (isset($onePage['Reflection']) && $onePage['Reflection'] instanceof ReflectionMethod && $onePage['Reflection']->hasReturnType()) {
                         $file_content .= ': ' . self::getTypeAsString($onePage['Reflection']->getReturnType(), true);
