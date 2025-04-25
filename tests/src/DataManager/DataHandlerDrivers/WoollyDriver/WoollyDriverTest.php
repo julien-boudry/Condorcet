@@ -9,11 +9,12 @@ use Tests\DriversTestCase;
 
 pest()->extends(DriversTestCase::class)->group('drivers');
 
+beforeEach()->skip(fn(): bool => !class_exists('MammothPHP\WoollyM\DataFrame'), 'WoollyM not installed');
+
 function getDriver(): DataHandlerDriverInterface
 {
     return new WoollyDriver;
 }
-
 
 test('many vote manipulation', function (): void {
     // Setup

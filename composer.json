@@ -39,7 +39,6 @@
         "phpstan/phpstan": "^2.1",
         "laravel/pint": "^1.21",
         "pestphp/pest": "^3.7",
-        "mammothphp/woollym": "dev-master",
         "phpstan/phpdoc-parser": "^2.1",
         "nikic/php-parser": "^5.4",
         "rector/rector": "^2.0",
@@ -47,7 +46,8 @@
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
-        "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
+        "ext-pdo_sqlite": "Use sqlite3 bases for very large elections.",
+        "mammothphp/woollym": "Allow to use the CondorcetPHP library in a mammoth project and complete de dev test suite."
     },
     "autoload": {
         "psr-4": {
