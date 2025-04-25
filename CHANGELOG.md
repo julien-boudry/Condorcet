@@ -9,102 +9,101 @@ To upgrade, it is recommended to test carefully and read the documentation. Howe
 
 ### Breaking Changes
 - Removal of methods, notably many old setters/getters replaced by direct access to public properties.
-- Many methods  and properties have been renamed or merged for better consistency.
-- Result stats API has been completly reworked.
+- Many methods and properties have been renamed or merged for better consistency.
+- Result stats API has been completely reworked.
 - Dropped support for PHP < 8.4.
 
 ### Added
-- Documentation now uses standard PHPDoc tags, compatible with IDE.
+- Documentation now uses standard PHPDoc tags, compatible with IDEs.
 - Brand new documentation book available at https://docs.condorcet.io, replacing the old one.
 
 ### Changed
 - Result objects now expose all their properties as typed, read-only properties instead of getters.
-- Results Stats no longer return as variant mixed value (in fact: array) , but now return an object implementing `StatsInterface`.
+- Result stats no longer return as a mixed value (previously: array), but now return an object implementing `StatsInterface`.
 
 ### Dev
 - Added Pest mutation testing and advanced static analysis.
 - Added some architecture tests.
 - PHPStan 2.0 configuration.
 - PHP Rector configuration.
-- Add some PHPDoc generics
+- Added some PHPDoc generics.
 
 ## [v4.7.0] - 2024-06-14
 ### Description
-The minimum PHP version is now 8.3
+The minimum PHP version is now 8.3.
 
 ### Added
-- CondorcetElectionFormat object can be created directly from a string input instead of only SplFileInfo object.
+- CondorcetElectionFormat object can be created directly from a string input instead of only a SplFileInfo object.
 
 #### Dev
-- Complete the migration to Pest PHP
+- Complete migration to Pest PHP.
 
 ## [v4.6.1] - 2024-04-23
 ### Description
-Half-migration of tests to PestPHP.
+Partial migration of tests to PestPHP.
 
 #### Changed
-- Bugfix with external data handler since PHP 8.3.6
+- Bugfix with external data handler since PHP 8.3.6.
 
 ## [v4.6.0] - 2024-01-28
 ### Description
-Half-migration of tests to PestPHP.
+Partial migration of tests to PestPHP.
 
 ### Added
 - Experimental WoollyM PHP DataFrame driver.
 
 ## [v4.5.1] - 2023-12-01
 ### Description
-Support for Symfony 7 components
+Support for Symfony 7 components.
 
 ## [v4.5.0] - 2023-07-11
 ### Description
-A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its fair share of refinements and fixes in various areas, notably the Console.
+A major release, including two new voting methods, additions to the internal API, and additions to the public API. It also comes with its share of refinements and fixes in various areas, notably the Console.
 
 ### Added
 
 #### Voting Methods
-- New vote method: Random Ballot
-- New vote method: Random Candidates
+- New voting method: Random Ballot
+- New voting method: Random Candidates
 
 #### Public API
-- Results object new property `Result->pairwise` contain an immutable and explicit pairwise array, from the object creation.
-- `Election->countVotes()`, `Election->countValidVoteWithConstraints()`, `Election->countValidVoteWithConstraints` and `Election->sumValidVotesWeightWithConstraints` now optionally support votes filtering by tags.
+- Results object new property `Result->pairwise` contains an immutable and explicit pairwise array, from the object creation.
+- `Election->countVotes()`, `Election->countValidVoteWithConstraints()`, `Election->countValidVoteWithConstraints()`, and `Election->sumValidVotesWeightWithConstraints` now optionally support votes filtering by tags.
 - New `CondorcetElectionFormat::parameters` property, an array containing raw and untouched parameters from input, including non-standard parameters.
-
 
 #### Internal Modules API
 - New algo tool `VotesDeductedApprovals`
 - New FilteredPairwise object and API
-- Add a flag for preliminary support for non-deterministic methods
-- New API `Vote->getContextualRankingWithCandidatesKeys(Election $election)` to prevent code deduplication inside the votes method code.
+- Added a flag for preliminary support for non-deterministic methods
+- New API `Vote->getContextualRankingWithCandidatesKeys(Election $election)` to prevent code duplication inside the voting methods code.
 
 ### Changed
 
 #### Public API
-- Migrate `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`
-- Fix a bug with about MaxParseIteration that triggered the exception 1 vote in advance.
-- Create new dedicated `ParseVotesMaxNumberReachedException` for max parsing fail.
-- `Election::maxParseIteration` and `Election::setMaxVoteNumber` are now public properties and they can be accessed or modified directly. Corresponding setter and getter methods still exists but may be deprecated with v5.0.
+- Migrated `CondorcetPHP\Condorcet\Tools\Converters\CondorcetElectionFormat` class to `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`.
+- Fixed a bug with MaxParseIteration that triggered the exception one vote in advance.
+- Created new dedicated `ParseVotesMaxNumberReachedException` for max parsing failures.
+- `Election::maxParseIteration` and `Election::setMaxVoteNumber` are now public properties and can be accessed or modified directly. Corresponding setter and getter methods still exist but may be deprecated with v5.0.
 
 #### Console
-- Ignore duplicate candidates instead of an error at the end
-- Fix bug #147: crash on importing from ConforcetElectionFormat without pdo_sqlite extension.
-- Display separator is always semicolon, instead of commas in some cases (to avoid confusion with the input format)
-- Add a warning if only one candidate is registered
+- Ignore duplicate candidates instead of showing an error at the end.
+- Fixed bug #147: crash on importing from CondorcetElectionFormat without the pdo_sqlite extension.
+- Display separator is always a semicolon, instead of commas in some cases (to avoid confusion with the input format).
+- Add a warning if only one candidate is registered.
 
 ### Internal changes
-- Refactoring Linkable logic and organization
-- Move Pairwise namespace
+- Refactored Linkable logic and organization.
+- Moved Pairwise namespace.
 
 #### Engine
-- Fix a rare bug affecting the validity of results in some case of `Election->removeAllVotes()` used in conjunction with `Election->allowsVoteWeight` in a particular sequence. And prevent similar cases in the future. #153
-- Various optimizations & refactors
+- Fixed a rare bug affecting the validity of results in some cases of `Election->removeAllVotes()` used in conjunction with `Election->allowsVoteWeight` in a particular sequence. Also prevents similar cases in the future. #153
+- Various optimizations & refactors.
 
 #### Dev
 - Skip concerned tests if pdo_sqlite is not available.
-- Add CI tests without pdo_sqlite
-- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead or refactor to don't use any of them if possible.
-- Compatibility with PestPHP
+- Add CI tests without pdo_sqlite.
+- Remove the `RunInSeparateProcess` strategy, use `BackupStaticProperties` instead or refactor to avoid using any of them if possible.
+- Compatibility with PestPHP.
 
 
 ## [v4.4.1] - 2023-06-16
@@ -114,12 +113,13 @@ A major release, including two new voting methods, additions to the internal API
 ## [v4.4.0] - 2023-06-10
 
 ### Description
+New console improvements and internal tools.
 
 ### Added
 - [Console] Interactive mode asks if votes ranking are explicit (if option not provided)
 
 ### Changed
-- [Console] Interactive mode ignores duplicate candidates instead of error at the end of execution
+- [Console] Interactive mode ignores duplicate candidates instead of showing an error at the end of execution
 
 ### Internal API
 - New tools PairwiseDeductedApprovals for methods, simulate approbation from votes. _(actually unused by officials methods modules)_
