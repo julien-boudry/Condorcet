@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
+/** @internal */
 class SchulzeWinning extends SchulzeCore
 {
     // Method Name

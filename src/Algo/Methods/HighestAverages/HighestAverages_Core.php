@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface, StatsVerbosity};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
+/** @internal */
 abstract class HighestAverages_Core extends Method implements MethodInterface
 {
     final public const bool IS_PROPORTIONAL = true;

@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use Random\Randomizer;
 
+/** @internal */
 class RandomBallot extends Method implements MethodInterface
 {
     // Method Name

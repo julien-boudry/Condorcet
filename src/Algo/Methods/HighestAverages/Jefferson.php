@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 
 # Jefferson is a proportional algorithm | https://en.wikipedia.org/wiki/D%27Hondt_method
+/** @internal */
 class Jefferson extends HighestAverages_Core implements MethodInterface
 {
     // Method Name

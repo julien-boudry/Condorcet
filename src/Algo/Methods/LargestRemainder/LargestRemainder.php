@@ -15,7 +15,10 @@ use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Methods\HighestAverages\HighestAverages_Core;
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 
-# Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
+/**
+ * Largest Remainder is a proportional algorithm | https://en.wikipedia.org/wiki/Largest_remainder_method
+ * @internal
+ */
 class LargestRemainder extends HighestAverages_Core implements MethodInterface
 {
     // Method Name

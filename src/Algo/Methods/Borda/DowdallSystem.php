@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Borda;
 
 use CondorcetPHP\Condorcet\Election;
 
+/** @internal */
 class DowdallSystem extends BordaCount
 {
     // Method Name

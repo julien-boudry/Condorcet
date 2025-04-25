@@ -16,7 +16,10 @@ use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\StvQuotas;
 use CondorcetPHP\Condorcet\Vote;
 
-// Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
+/**
+ * Single transferable vote | https://en.wikipedia.org/wiki/Single_transferable_vote
+ * @internal
+ */
 class SingleTransferableVote extends Method implements MethodInterface
 {
     final public const bool IS_PROPORTIONAL = true;

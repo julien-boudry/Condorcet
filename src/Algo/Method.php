@@ -17,8 +17,8 @@ use CondorcetPHP\Condorcet\Relations\HasElection;
 use Random\Randomizer;
 
 /**
- * @internal
  * Generic for Algorithms
+ * @internal
  */
 abstract class Method
 {

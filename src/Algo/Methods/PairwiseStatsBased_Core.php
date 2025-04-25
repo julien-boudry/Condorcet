@@ -14,6 +14,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\PairwiseStats;
 
+/** @internal */
 abstract class PairwiseStatsBased_Core extends Method implements MethodInterface
 {
     protected const string COUNT_TYPE = 'abstractCountType';

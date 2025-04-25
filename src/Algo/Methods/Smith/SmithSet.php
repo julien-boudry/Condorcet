@@ -18,6 +18,7 @@ use CondorcetPHP\Condorcet\Result;
  *
  * The Smith Set is the smallest non-empty set of candidates such that every candidate in the set
  * defeats every candidate outside the set in a pairwise comparison.
+ * @internal
  */
 class SmithSet extends Method implements MethodInterface
 {

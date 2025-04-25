@@ -14,7 +14,10 @@ use CondorcetPHP\Condorcet\Algo\Stats\{EmptyStats, StatsInterface};
 use CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException;
 use Override;
 
-// Condorcet Basic Class, provide natural Condorcet winner or looser
+/**
+ * Condorcet Basic Class, provide natural Condorcet winner or looser
+ * @internal
+ */
 class CondorcetBasic extends Method implements MethodInterface
 {
     // Method Name

@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
+/** @internal */
 abstract class MajorityCore extends Method implements MethodInterface
 {
     protected int $maxRound;

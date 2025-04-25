@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\TieBreakersCollection;
 
+/** @internal */
 class InstantRunoff extends Method implements MethodInterface
 {
     // Method Name

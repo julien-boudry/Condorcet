@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
 use CondorcetPHP\Condorcet\Election;
 
+/** @internal */
 class MultipleRoundsSystem extends MajorityCore
 {
     // Method Name

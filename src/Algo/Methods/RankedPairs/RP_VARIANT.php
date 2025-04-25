@@ -11,6 +11,7 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\RankedPairs;
 
+/** @internal */
 enum RP_VARIANT
 {
     case UNDEFINED;

@@ -13,6 +13,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\Schulze;
 
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 
+/** @internal */
 class SchulzeRatio extends SchulzeCore
 {
     // Method Name

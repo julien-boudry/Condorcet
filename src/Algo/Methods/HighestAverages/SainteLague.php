@@ -14,6 +14,7 @@ namespace CondorcetPHP\Condorcet\Algo\Methods\HighestAverages;
 use CondorcetPHP\Condorcet\Algo\{MethodInterface};
 
 # Copeland is a proportional algorithm | https://en.wikipedia.org/wiki/Webster/Sainte-Lagu%C3%AB_method
+/** @internal */
 class SainteLague extends HighestAverages_Core implements MethodInterface
 {
     public static int|float $optionFirstDivisor = 1;

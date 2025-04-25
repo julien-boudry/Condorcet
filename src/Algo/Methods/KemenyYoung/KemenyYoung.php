@@ -17,7 +17,9 @@ use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Algo\Tools\Permutations;
 
-// Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
+/** Kemeny-Young is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Kemeny%E2%80%93Young_method
+ * @internal
+ */
 class KemenyYoung extends Method implements MethodInterface
 {
     // Method Name

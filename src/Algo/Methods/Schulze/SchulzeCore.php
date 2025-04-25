@@ -16,7 +16,10 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 
-// Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
+/**
+ * Schulze is a Condorcet Algorithm | http://en.wikipedia.org/wiki/Schulze_method
+ * @internal
+ */
 abstract class SchulzeCore extends Method implements MethodInterface
 {
     // Schulze

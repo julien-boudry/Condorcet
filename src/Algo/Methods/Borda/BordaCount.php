@@ -15,6 +15,7 @@ use CondorcetPHP\Condorcet\Algo\{Method, MethodInterface};
 use CondorcetPHP\Condorcet\Algo\Stats\{BaseMethodStats};
 use CondorcetPHP\Condorcet\Election;
 
+/** @internal */
 class BordaCount extends Method implements MethodInterface
 {
     // Method Name

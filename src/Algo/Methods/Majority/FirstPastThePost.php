@@ -11,6 +11,7 @@
 
 namespace CondorcetPHP\Condorcet\Algo\Methods\Majority;
 
+/** @internal */
 class FirstPastThePost extends MajorityCore
 {
     // Method Name

@@ -18,6 +18,8 @@ use CondorcetPHP\Condorcet\Result;
  *
  * The Schwartz Set is the union of minimal undominated sets, where a set is undominated
  * if no candidate outside the set defeats (or ties) any candidate in the set.
+ *
+ * @internal
  */
 class SchwartzSet extends Method implements MethodInterface
 {
