@@ -13,17 +13,17 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public float` [$updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Candidate%20Class/Candidate--buildByCondorcetVersion.md)
 
-* public  [Candidate->__construct (...)](/Docs/api-reference/Candidate%20Class/Candidate--__construct.md)  
-* final public  [Candidate->buildByCondorcetVersion](/Docs/api-reference/Candidate%20Class/Candidate--buildByCondorcetVersion.md)  
-* public  [Candidate->countLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md): `int`  
-* virtual public  [Candidate->createdAt](/Docs/api-reference/Candidate%20Class/Candidate--createdAt.md)  
-* public  [Candidate->getCondorcetBuilderVersion (...)](/Docs/api-reference/Candidate%20Class/Candidate--getCondorcetBuilderVersion.md): `string`  
-* public  [Candidate->getLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks.md): `array`  
-* public  [Candidate->haveLink (...)](/Docs/api-reference/Candidate%20Class/Candidate--haveLink.md): `bool`  
-* virtual public  [Candidate->name](/Docs/api-reference/Candidate%20Class/Candidate--name.md)  
-* public  [Candidate->nameHistory](/Docs/api-reference/Candidate%20Class/Candidate--nameHistory.md)  
-* public  [Candidate->setName (...)](/Docs/api-reference/Candidate%20Class/Candidate--setName.md): `static`  
-* virtual public  [Candidate->updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)  
+* `public` [Candidate->__construct (...)](/Docs/api-reference/Candidate%20Class/Candidate--__construct.md)  
+* `final public` [Candidate->buildByCondorcetVersion](/Docs/api-reference/Candidate%20Class/Candidate--buildByCondorcetVersion.md)  
+* `public` [Candidate->countLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks.md): `int`  
+* `virtual public` [Candidate->createdAt](/Docs/api-reference/Candidate%20Class/Candidate--createdAt.md)  
+* `public` [Candidate->getCondorcetBuilderVersion (...)](/Docs/api-reference/Candidate%20Class/Candidate--getCondorcetBuilderVersion.md): `string`  
+* `public` [Candidate->getLinks ()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks.md): `array`  
+* `public` [Candidate->haveLink (...)](/Docs/api-reference/Candidate%20Class/Candidate--haveLink.md): `bool`  
+* `virtual public` [Candidate->name](/Docs/api-reference/Candidate%20Class/Candidate--name.md)  
+* `public` [Candidate->nameHistory](/Docs/api-reference/Candidate%20Class/Candidate--nameHistory.md)  
+* `public` [Candidate->setName (...)](/Docs/api-reference/Candidate%20Class/Candidate--setName.md): `static`  
+* `virtual public` [Candidate->updatedAt](/Docs/api-reference/Candidate%20Class/Candidate--updatedAt.md)  
 
 ### CondorcetPHP\Condorcet\Condorcet Class  
 
@@ -32,14 +32,14 @@ _*: I try to update and complete the documentation. See also [the documentation 
 
 * `public static bool` [$UseTimer](/Docs/api-reference/Condorcet%20Class/Condorcet--UseTimer.md)
 
-* public static  [Condorcet::UseTimer](/Docs/api-reference/Condorcet%20Class/Condorcet--UseTimer.md)  
-* public static  [Condorcet::addMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--addMethod.md): `bool`  
-* public static  [Condorcet::getAuthMethods (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods.md): `array`  
-* public static  [Condorcet::getDefaultMethod ()](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod.md): `?string`  
-* public static  [Condorcet::getMethodClass (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass.md): `?string`  
-* public static  [Condorcet::getVersion (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getVersion.md): `string`  
-* public static  [Condorcet::isAuthMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--isAuthMethod.md): `bool`  
-* public static  [Condorcet::setDefaultMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--setDefaultMethod.md): `bool`  
+* `public static` [Condorcet::UseTimer](/Docs/api-reference/Condorcet%20Class/Condorcet--UseTimer.md)  
+* `public static` [Condorcet::addMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--addMethod.md): `bool`  
+* `public static` [Condorcet::getAuthMethods (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods.md): `array`  
+* `public static` [Condorcet::getDefaultMethod ()](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod.md): `?string`  
+* `public static` [Condorcet::getMethodClass (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getMethodClass.md): `?string`  
+* `public static` [Condorcet::getVersion (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--getVersion.md): `string`  
+* `public static` [Condorcet::isAuthMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--isAuthMethod.md): `bool`  
+* `public static` [Condorcet::setDefaultMethod (...)](/Docs/api-reference/Condorcet%20Class/Condorcet--setDefaultMethod.md): `bool`  
 
 ### CondorcetPHP\Condorcet\Election Class  
 
@@ -56,70 +56,70 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)
 * `public CondorcetPHP\Condorcet\Algo\StatsVerbosity` [$statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)
 
-* public static  [Election::maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)  
-* public static  [Election::maxVotePerElection](/Docs/api-reference/Election%20Class/Election--maxVotePerElection.md)  
-* public  [Election->__construct ()](/Docs/api-reference/Election%20Class/Election--__construct.md)  
-* public  [Election->addCandidate (...)](/Docs/api-reference/Election%20Class/Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
-* public  [Election->addCandidatesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson.md): `array`  
-* public  [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint.md): `true`  
-* public  [Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
-* public  [Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md): `int`  
-* public  [Election->allowsVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--allowsVoteWeight.md): `static`  
-* final public  [Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
-* public  [Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate.md): `bool`  
-* public  [Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `bool`  
-* public  [Election->computeResult (...)](/Docs/api-reference/Election%20Class/Election--computeResult.md): `void`  
-* public  [Election->countCandidates ()](/Docs/api-reference/Election%20Class/Election--countCandidates.md): `int`  
-* public  [Election->countInvalidVoteWithConstraints ()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints.md): `int`  
-* public  [Election->countValidVoteWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints.md): `int`  
-* public  [Election->countVotes (...)](/Docs/api-reference/Election%20Class/Election--countVotes.md): `int`  
-* public  [Election->getCandidateObjectFromName (...)](/Docs/api-reference/Election%20Class/Election--getCandidateObjectFromName.md): `?CondorcetPHP\Condorcet\Candidate`  
-* public  [Election->getCandidatesList ()](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md): `array`  
-* public  [Election->getCandidatesListAsString ()](/Docs/api-reference/Election%20Class/Election--getCandidatesListAsString.md): `array`  
-* public  [Election->getChecksum ()](/Docs/api-reference/Election%20Class/Election--getChecksum.md): `string`  
-* public  [Election->getCondorcetBuilderVersion (...)](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md): `string`  
-* public  [Election->getCondorcetLoser ()](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser.md): `?CondorcetPHP\Condorcet\Candidate`  
-* public  [Election->getCondorcetWinner ()](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner.md): `?CondorcetPHP\Condorcet\Candidate`  
-* public  [Election->getConstraints ()](/Docs/api-reference/Election%20Class/Election--getConstraints.md): `array`  
-* public  [Election->getExplicitFilteredPairwiseByTags (...)](/Docs/api-reference/Election%20Class/Election--getExplicitFilteredPairwiseByTags.md): `array`  
-* public  [Election->getExplicitPairwise ()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise.md): `array`  
-* public  [Election->getGlobalTimer ()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md): `float`  
-* public  [Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `?float`  
-* public  [Election->getLoser (...)](/Docs/api-reference/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* public  [Election->getPairwise ()](/Docs/api-reference/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
-* public  [Election->getResult (...)](/Docs/api-reference/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
-* public  [Election->getTimerManager ()](/Docs/api-reference/Election%20Class/Election--getTimerManager.md): `CondorcetPHP\Condorcet\Timer\Manager`  
-* public  [Election->getVotesList (...)](/Docs/api-reference/Election%20Class/Election--getVotesList.md): `array`  
-* public  [Election->getVotesListAsString (...)](/Docs/api-reference/Election%20Class/Election--getVotesListAsString.md): `string`  
-* public  [Election->getVotesListGenerator (...)](/Docs/api-reference/Election%20Class/Election--getVotesListGenerator.md): `Generator`  
-* public  [Election->getVotesValidUnderConstraintGenerator (...)](/Docs/api-reference/Election%20Class/Election--getVotesValidUnderConstraintGenerator.md): `Generator`  
-* public  [Election->getWinner (...)](/Docs/api-reference/Election%20Class/Election--getWinner.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
-* public  [Election->hasCandidate (...)](/Docs/api-reference/Election%20Class/Election--hasCandidate.md): `bool`  
-* virtual public  [Election->hash](/Docs/api-reference/Election%20Class/Election--hash.md)  
-* public  [Election->implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)  
-* public  [Election->isVoteValidUnderConstraints (...)](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints.md): `bool`  
-* public  [Election->isVoteWeightAllowed ()](/Docs/api-reference/Election%20Class/Election--isVoteWeightAllowed.md): `bool`  
-* public  [Election->parseCandidates (...)](/Docs/api-reference/Election%20Class/Election--parseCandidates.md): `array`  
-* public  [Election->parseVotes (...)](/Docs/api-reference/Election%20Class/Election--parseVotes.md): `int`  
-* public  [Election->parseVotesSafe (...)](/Docs/api-reference/Election%20Class/Election--parseVotesSafe.md): `int`  
-* public  [Election->removeAllVotes ()](/Docs/api-reference/Election%20Class/Election--removeAllVotes.md): `true`  
-* public  [Election->removeCandidates (...)](/Docs/api-reference/Election%20Class/Election--removeCandidates.md): `array`  
-* public  [Election->removeExternalDataHandler ()](/Docs/api-reference/Election%20Class/Election--removeExternalDataHandler.md): `bool`  
-* public  [Election->removeVote (...)](/Docs/api-reference/Election%20Class/Election--removeVote.md): `true`  
-* public  [Election->removeVotesByTags (...)](/Docs/api-reference/Election%20Class/Election--removeVotesByTags.md): `array`  
-* public  [Election->seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)  
-* public  [Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
-* public  [Election->setImplicitRanking (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md): `static`  
-* public  [Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
-* public  [Election->setSeatsToElect (...)](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md): `static`  
-* public  [Election->setStateToVote ()](/Docs/api-reference/Election%20Class/Election--setStateToVote.md): `true`  
-* public  [Election->setStatsVerbosity (...)](/Docs/api-reference/Election%20Class/Election--setStatsVerbosity.md): `static`  
-* public  [Election->state](/Docs/api-reference/Election%20Class/Election--state.md)  
-* public  [Election->statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)  
-* public  [Election->sumValidVoteWeightsWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints.md): `int`  
-* public  [Election->sumVoteWeights (...)](/Docs/api-reference/Election%20Class/Election--sumVoteWeights.md): `int`  
-* public  [Election->voteWeightAllowed](/Docs/api-reference/Election%20Class/Election--voteWeightAllowed.md)  
-* public  [Election->votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)  
+* `public static` [Election::maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)  
+* `public static` [Election::maxVotePerElection](/Docs/api-reference/Election%20Class/Election--maxVotePerElection.md)  
+* `public` [Election->__construct ()](/Docs/api-reference/Election%20Class/Election--__construct.md)  
+* `public` [Election->addCandidate (...)](/Docs/api-reference/Election%20Class/Election--addCandidate.md): `CondorcetPHP\Condorcet\Candidate`  
+* `public` [Election->addCandidatesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson.md): `array`  
+* `public` [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint.md): `true`  
+* `public` [Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
+* `public` [Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md): `int`  
+* `public` [Election->allowsVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--allowsVoteWeight.md): `static`  
+* `final public` [Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
+* `public` [Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate.md): `bool`  
+* `public` [Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `bool`  
+* `public` [Election->computeResult (...)](/Docs/api-reference/Election%20Class/Election--computeResult.md): `void`  
+* `public` [Election->countCandidates ()](/Docs/api-reference/Election%20Class/Election--countCandidates.md): `int`  
+* `public` [Election->countInvalidVoteWithConstraints ()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints.md): `int`  
+* `public` [Election->countValidVoteWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints.md): `int`  
+* `public` [Election->countVotes (...)](/Docs/api-reference/Election%20Class/Election--countVotes.md): `int`  
+* `public` [Election->getCandidateObjectFromName (...)](/Docs/api-reference/Election%20Class/Election--getCandidateObjectFromName.md): `?CondorcetPHP\Condorcet\Candidate`  
+* `public` [Election->getCandidatesList ()](/Docs/api-reference/Election%20Class/Election--getCandidatesList.md): `array`  
+* `public` [Election->getCandidatesListAsString ()](/Docs/api-reference/Election%20Class/Election--getCandidatesListAsString.md): `array`  
+* `public` [Election->getChecksum ()](/Docs/api-reference/Election%20Class/Election--getChecksum.md): `string`  
+* `public` [Election->getCondorcetBuilderVersion (...)](/Docs/api-reference/Election%20Class/Election--getCondorcetBuilderVersion.md): `string`  
+* `public` [Election->getCondorcetLoser ()](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser.md): `?CondorcetPHP\Condorcet\Candidate`  
+* `public` [Election->getCondorcetWinner ()](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner.md): `?CondorcetPHP\Condorcet\Candidate`  
+* `public` [Election->getConstraints ()](/Docs/api-reference/Election%20Class/Election--getConstraints.md): `array`  
+* `public` [Election->getExplicitFilteredPairwiseByTags (...)](/Docs/api-reference/Election%20Class/Election--getExplicitFilteredPairwiseByTags.md): `array`  
+* `public` [Election->getExplicitPairwise ()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise.md): `array`  
+* `public` [Election->getGlobalTimer ()](/Docs/api-reference/Election%20Class/Election--getGlobalTimer.md): `float`  
+* `public` [Election->getLastTimer ()](/Docs/api-reference/Election%20Class/Election--getLastTimer.md): `?float`  
+* `public` [Election->getLoser (...)](/Docs/api-reference/Election%20Class/Election--getLoser.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
+* `public` [Election->getPairwise ()](/Docs/api-reference/Election%20Class/Election--getPairwise.md): `CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise`  
+* `public` [Election->getResult (...)](/Docs/api-reference/Election%20Class/Election--getResult.md): `CondorcetPHP\Condorcet\Result`  
+* `public` [Election->getTimerManager ()](/Docs/api-reference/Election%20Class/Election--getTimerManager.md): `CondorcetPHP\Condorcet\Timer\Manager`  
+* `public` [Election->getVotesList (...)](/Docs/api-reference/Election%20Class/Election--getVotesList.md): `array`  
+* `public` [Election->getVotesListAsString (...)](/Docs/api-reference/Election%20Class/Election--getVotesListAsString.md): `string`  
+* `public` [Election->getVotesListGenerator (...)](/Docs/api-reference/Election%20Class/Election--getVotesListGenerator.md): `Generator`  
+* `public` [Election->getVotesValidUnderConstraintGenerator (...)](/Docs/api-reference/Election%20Class/Election--getVotesValidUnderConstraintGenerator.md): `Generator`  
+* `public` [Election->getWinner (...)](/Docs/api-reference/Election%20Class/Election--getWinner.md): `CondorcetPHP\Condorcet\Candidate|array|null`  
+* `public` [Election->hasCandidate (...)](/Docs/api-reference/Election%20Class/Election--hasCandidate.md): `bool`  
+* `virtual public` [Election->hash](/Docs/api-reference/Election%20Class/Election--hash.md)  
+* `public` [Election->implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)  
+* `public` [Election->isVoteValidUnderConstraints (...)](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints.md): `bool`  
+* `public` [Election->isVoteWeightAllowed ()](/Docs/api-reference/Election%20Class/Election--isVoteWeightAllowed.md): `bool`  
+* `public` [Election->parseCandidates (...)](/Docs/api-reference/Election%20Class/Election--parseCandidates.md): `array`  
+* `public` [Election->parseVotes (...)](/Docs/api-reference/Election%20Class/Election--parseVotes.md): `int`  
+* `public` [Election->parseVotesSafe (...)](/Docs/api-reference/Election%20Class/Election--parseVotesSafe.md): `int`  
+* `public` [Election->removeAllVotes ()](/Docs/api-reference/Election%20Class/Election--removeAllVotes.md): `true`  
+* `public` [Election->removeCandidates (...)](/Docs/api-reference/Election%20Class/Election--removeCandidates.md): `array`  
+* `public` [Election->removeExternalDataHandler ()](/Docs/api-reference/Election%20Class/Election--removeExternalDataHandler.md): `bool`  
+* `public` [Election->removeVote (...)](/Docs/api-reference/Election%20Class/Election--removeVote.md): `true`  
+* `public` [Election->removeVotesByTags (...)](/Docs/api-reference/Election%20Class/Election--removeVotesByTags.md): `array`  
+* `public` [Election->seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)  
+* `public` [Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
+* `public` [Election->setImplicitRanking (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md): `static`  
+* `public` [Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
+* `public` [Election->setSeatsToElect (...)](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md): `static`  
+* `public` [Election->setStateToVote ()](/Docs/api-reference/Election%20Class/Election--setStateToVote.md): `true`  
+* `public` [Election->setStatsVerbosity (...)](/Docs/api-reference/Election%20Class/Election--setStatsVerbosity.md): `static`  
+* `public` [Election->state](/Docs/api-reference/Election%20Class/Election--state.md)  
+* `public` [Election->statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)  
+* `public` [Election->sumValidVoteWeightsWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints.md): `int`  
+* `public` [Election->sumVoteWeights (...)](/Docs/api-reference/Election%20Class/Election--sumVoteWeights.md): `int`  
+* `public` [Election->voteWeightAllowed](/Docs/api-reference/Election%20Class/Election--voteWeightAllowed.md)  
+* `public` [Election->votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)  
 
 ### CondorcetPHP\Condorcet\Result Class  
 
@@ -145,29 +145,29 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public bool` [$isProportional](/Docs/api-reference/Result%20Class/Result--isProportional.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Result%20Class/Result--buildByCondorcetVersion.md)
 
-* final public readonly  [Result->CondorcetLoser](/Docs/api-reference/Result%20Class/Result--CondorcetLoser.md)  
-* final public readonly  [Result->CondorcetWinner](/Docs/api-reference/Result%20Class/Result--CondorcetWinner.md)  
-* virtual public  [Result->Loser](/Docs/api-reference/Result%20Class/Result--Loser.md)  
-* virtual public  [Result->Winner](/Docs/api-reference/Result%20Class/Result--Winner.md)  
-* final public  [Result->buildByCondorcetVersion](/Docs/api-reference/Result%20Class/Result--buildByCondorcetVersion.md)  
-* final public readonly  [Result->buildTimestamp](/Docs/api-reference/Result%20Class/Result--buildTimestamp.md)  
-* final public readonly  [Result->byClass](/Docs/api-reference/Result%20Class/Result--byClass.md)  
-* final public readonly  [Result->electionCondorcetVersion](/Docs/api-reference/Result%20Class/Result--electionCondorcetVersion.md)  
-* final public readonly  [Result->fromMethod](/Docs/api-reference/Result%20Class/Result--fromMethod.md)  
-* public  [Result->getCondorcetBuilderVersion (...)](/Docs/api-reference/Result%20Class/Result--getCondorcetBuilderVersion.md): `string`  
-* public  [Result->getWarning (...)](/Docs/api-reference/Result%20Class/Result--getWarning.md): `array`  
-* virtual public  [Result->isProportional](/Docs/api-reference/Result%20Class/Result--isProportional.md)  
-* final public  [Result->methodOptions](/Docs/api-reference/Result%20Class/Result--methodOptions.md)  
-* public readonly  [Result->originalRankingAsArrayString](/Docs/api-reference/Result%20Class/Result--originalRankingAsArrayString.md)  
-* virtual public  [Result->originalRankingAsString](/Docs/api-reference/Result%20Class/Result--originalRankingAsString.md)  
-* final public readonly  [Result->pairwise](/Docs/api-reference/Result%20Class/Result--pairwise.md)  
-* final public readonly  [Result->ranking](/Docs/api-reference/Result%20Class/Result--ranking.md)  
-* virtual public  [Result->rankingAsArray](/Docs/api-reference/Result%20Class/Result--rankingAsArray.md)  
-* virtual public  [Result->rankingAsArrayString](/Docs/api-reference/Result%20Class/Result--rankingAsArrayString.md)  
-* virtual public  [Result->rankingAsString](/Docs/api-reference/Result%20Class/Result--rankingAsString.md)  
-* final public readonly  [Result->seats](/Docs/api-reference/Result%20Class/Result--seats.md)  
-* public readonly  [Result->stats](/Docs/api-reference/Result%20Class/Result--stats.md)  
-* final public readonly  [Result->statsVerbosity](/Docs/api-reference/Result%20Class/Result--statsVerbosity.md)  
+* `final public readonly` [Result->CondorcetLoser](/Docs/api-reference/Result%20Class/Result--CondorcetLoser.md)  
+* `final public readonly` [Result->CondorcetWinner](/Docs/api-reference/Result%20Class/Result--CondorcetWinner.md)  
+* `virtual public` [Result->Loser](/Docs/api-reference/Result%20Class/Result--Loser.md)  
+* `virtual public` [Result->Winner](/Docs/api-reference/Result%20Class/Result--Winner.md)  
+* `final public` [Result->buildByCondorcetVersion](/Docs/api-reference/Result%20Class/Result--buildByCondorcetVersion.md)  
+* `final public readonly` [Result->buildTimestamp](/Docs/api-reference/Result%20Class/Result--buildTimestamp.md)  
+* `final public readonly` [Result->byClass](/Docs/api-reference/Result%20Class/Result--byClass.md)  
+* `final public readonly` [Result->electionCondorcetVersion](/Docs/api-reference/Result%20Class/Result--electionCondorcetVersion.md)  
+* `final public readonly` [Result->fromMethod](/Docs/api-reference/Result%20Class/Result--fromMethod.md)  
+* `public` [Result->getCondorcetBuilderVersion (...)](/Docs/api-reference/Result%20Class/Result--getCondorcetBuilderVersion.md): `string`  
+* `public` [Result->getWarning (...)](/Docs/api-reference/Result%20Class/Result--getWarning.md): `array`  
+* `virtual public` [Result->isProportional](/Docs/api-reference/Result%20Class/Result--isProportional.md)  
+* `final public` [Result->methodOptions](/Docs/api-reference/Result%20Class/Result--methodOptions.md)  
+* `public readonly` [Result->originalRankingAsArrayString](/Docs/api-reference/Result%20Class/Result--originalRankingAsArrayString.md)  
+* `virtual public` [Result->originalRankingAsString](/Docs/api-reference/Result%20Class/Result--originalRankingAsString.md)  
+* `final public readonly` [Result->pairwise](/Docs/api-reference/Result%20Class/Result--pairwise.md)  
+* `final public readonly` [Result->ranking](/Docs/api-reference/Result%20Class/Result--ranking.md)  
+* `virtual public` [Result->rankingAsArray](/Docs/api-reference/Result%20Class/Result--rankingAsArray.md)  
+* `virtual public` [Result->rankingAsArrayString](/Docs/api-reference/Result%20Class/Result--rankingAsArrayString.md)  
+* `virtual public` [Result->rankingAsString](/Docs/api-reference/Result%20Class/Result--rankingAsString.md)  
+* `final public readonly` [Result->seats](/Docs/api-reference/Result%20Class/Result--seats.md)  
+* `public readonly` [Result->stats](/Docs/api-reference/Result%20Class/Result--stats.md)  
+* `final public readonly` [Result->statsVerbosity](/Docs/api-reference/Result%20Class/Result--statsVerbosity.md)  
 
 ### CondorcetPHP\Condorcet\Vote Class  
 
@@ -179,119 +179,119 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public string` [$hash](/Docs/api-reference/Vote%20Class/Vote--hash.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Vote%20Class/Vote--buildByCondorcetVersion.md)
 
-* public  [Vote->__construct (...)](/Docs/api-reference/Vote%20Class/Vote--__construct.md)  
-* public  [Vote->addTags (...)](/Docs/api-reference/Vote%20Class/Vote--addTags.md): `bool`  
-* final public  [Vote->buildByCondorcetVersion](/Docs/api-reference/Vote%20Class/Vote--buildByCondorcetVersion.md)  
-* final public  [Vote->countCandidates](/Docs/api-reference/Vote%20Class/Vote--countCandidates.md)  
-* public  [Vote->countLinks ()](/Docs/api-reference/Vote%20Class/Vote--countLinks.md): `int`  
-* public  [Vote->countRanks ()](/Docs/api-reference/Vote%20Class/Vote--countRanks.md): `int`  
-* virtual public  [Vote->createdAt](/Docs/api-reference/Vote%20Class/Vote--createdAt.md)  
-* public  [Vote->getAllCandidates (...)](/Docs/api-reference/Vote%20Class/Vote--getAllCandidates.md): `array`  
-* public  [Vote->getCondorcetBuilderVersion (...)](/Docs/api-reference/Vote%20Class/Vote--getCondorcetBuilderVersion.md): `string`  
-* public  [Vote->getLinks ()](/Docs/api-reference/Vote%20Class/Vote--getLinks.md): `array`  
-* public  [Vote->getRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getRanking.md): `array`  
-* public  [Vote->getRankingAsArrayString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsArrayString.md): `array`  
-* public  [Vote->getRankingAsString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsString.md): `string`  
-* public  [Vote->getTagsAsString ()](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString.md): `string`  
-* public  [Vote->getWeight (...)](/Docs/api-reference/Vote%20Class/Vote--getWeight.md): `int`  
-* final public  [Vote->hash](/Docs/api-reference/Vote%20Class/Vote--hash.md)  
-* public  [Vote->haveLink (...)](/Docs/api-reference/Vote%20Class/Vote--haveLink.md): `bool`  
-* final public  [Vote->rankingHistory](/Docs/api-reference/Vote%20Class/Vote--rankingHistory.md)  
-* public  [Vote->removeAllTags ()](/Docs/api-reference/Vote%20Class/Vote--removeAllTags.md): `true`  
-* public  [Vote->removeCandidate (...)](/Docs/api-reference/Vote%20Class/Vote--removeCandidate.md): `true`  
-* public  [Vote->removeTags (...)](/Docs/api-reference/Vote%20Class/Vote--removeTags.md): `array`  
-* public  [Vote->setRanking (...)](/Docs/api-reference/Vote%20Class/Vote--setRanking.md): `static`  
-* public  [Vote->setWeight (...)](/Docs/api-reference/Vote%20Class/Vote--setWeight.md): `int`  
-* final public  [Vote->tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)  
-* final public  [Vote->updatedAt](/Docs/api-reference/Vote%20Class/Vote--updatedAt.md)  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
-* final public  [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
-* public  [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `public` [Vote->__construct (...)](/Docs/api-reference/Vote%20Class/Vote--__construct.md)  
+* `public` [Vote->addTags (...)](/Docs/api-reference/Vote%20Class/Vote--addTags.md): `bool`  
+* `final public` [Vote->buildByCondorcetVersion](/Docs/api-reference/Vote%20Class/Vote--buildByCondorcetVersion.md)  
+* `final public` [Vote->countCandidates](/Docs/api-reference/Vote%20Class/Vote--countCandidates.md)  
+* `public` [Vote->countLinks ()](/Docs/api-reference/Vote%20Class/Vote--countLinks.md): `int`  
+* `public` [Vote->countRanks ()](/Docs/api-reference/Vote%20Class/Vote--countRanks.md): `int`  
+* `virtual public` [Vote->createdAt](/Docs/api-reference/Vote%20Class/Vote--createdAt.md)  
+* `public` [Vote->getAllCandidates (...)](/Docs/api-reference/Vote%20Class/Vote--getAllCandidates.md): `array`  
+* `public` [Vote->getCondorcetBuilderVersion (...)](/Docs/api-reference/Vote%20Class/Vote--getCondorcetBuilderVersion.md): `string`  
+* `public` [Vote->getLinks ()](/Docs/api-reference/Vote%20Class/Vote--getLinks.md): `array`  
+* `public` [Vote->getRanking (...)](/Docs/api-reference/Vote%20Class/Vote--getRanking.md): `array`  
+* `public` [Vote->getRankingAsArrayString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsArrayString.md): `array`  
+* `public` [Vote->getRankingAsString (...)](/Docs/api-reference/Vote%20Class/Vote--getRankingAsString.md): `string`  
+* `public` [Vote->getTagsAsString ()](/Docs/api-reference/Vote%20Class/Vote--getTagsAsString.md): `string`  
+* `public` [Vote->getWeight (...)](/Docs/api-reference/Vote%20Class/Vote--getWeight.md): `int`  
+* `final public` [Vote->hash](/Docs/api-reference/Vote%20Class/Vote--hash.md)  
+* `public` [Vote->haveLink (...)](/Docs/api-reference/Vote%20Class/Vote--haveLink.md): `bool`  
+* `final public` [Vote->rankingHistory](/Docs/api-reference/Vote%20Class/Vote--rankingHistory.md)  
+* `public` [Vote->removeAllTags ()](/Docs/api-reference/Vote%20Class/Vote--removeAllTags.md): `true`  
+* `public` [Vote->removeCandidate (...)](/Docs/api-reference/Vote%20Class/Vote--removeCandidate.md): `true`  
+* `public` [Vote->removeTags (...)](/Docs/api-reference/Vote%20Class/Vote--removeTags.md): `array`  
+* `public` [Vote->setRanking (...)](/Docs/api-reference/Vote%20Class/Vote--setRanking.md): `static`  
+* `public` [Vote->setWeight (...)](/Docs/api-reference/Vote%20Class/Vote--setWeight.md): `int`  
+* `final public` [Vote->tags](/Docs/api-reference/Vote%20Class/Vote--tags.md)  
+* `final public` [Vote->updatedAt](/Docs/api-reference/Vote%20Class/Vote--updatedAt.md)  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Algo\Method->buildByCondorcetVersion](/Docs/api-reference/Algo_Method%20Class/Algo_Method--buildByCondorcetVersion.md)  
+* `public` [Algo\Method->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Method%20Class/Algo_Method--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)
 
-* final public  [Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
-* public  [Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
-* public  [Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
-* public  [Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
-* public  [Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
+* `final public` [Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
+* `public` [Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
+* `public` [Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
+* `public` [Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
+* `public` [Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
 
 ### CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)
 
-* final public  [Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
-* public  [Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
-* public  [Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
-* public  [Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
-* public  [Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
-* public static  [Algo\Tools\Combinations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Combinations%20Class/Algo_Tools_Combinations--useBigIntegerIfAvailable.md)  
-* public static  [Algo\Tools\Permutations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Permutations%20Class/Algo_Tools_Permutations--useBigIntegerIfAvailable.md)  
+* `final public` [Algo\Pairwise\Pairwise->buildByCondorcetVersion](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--buildByCondorcetVersion.md)  
+* `public` [Algo\Pairwise\Pairwise->candidateWinVersus (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--candidateWinVersus.md): `bool`  
+* `public` [Algo\Pairwise\Pairwise->compareCandidates (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--compareCandidates.md): `int`  
+* `public` [Algo\Pairwise\Pairwise->getCondorcetBuilderVersion (...)](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getCondorcetBuilderVersion.md): `string`  
+* `public` [Algo\Pairwise\Pairwise->getExplicitPairwise ()](/Docs/api-reference/Algo_Pairwise_Pairwise%20Class/Algo_Pairwise_Pairwise--getExplicitPairwise.md): `array`  
+* `public static` [Algo\Tools\Combinations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Combinations%20Class/Algo_Tools_Combinations--useBigIntegerIfAvailable.md)  
+* `public static` [Algo\Tools\Permutations::useBigIntegerIfAvailable](/Docs/api-reference/Algo_Tools_Permutations%20Class/Algo_Tools_Permutations--useBigIntegerIfAvailable.md)  
 
 ### CondorcetPHP\Condorcet\Algo\Tools\StvQuotas Enum  
 
@@ -300,16 +300,16 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * case Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF  
 * case Algo\Tools\StvQuotas::IMPERIALI  
 
-* public static  [Algo\Tools\StvQuotas::fromString (...)](/Docs/api-reference/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
-* final public  [DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
-* public  [DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
+* `public static` [Algo\Tools\StvQuotas::fromString (...)](/Docs/api-reference/Algo_Tools_StvQuotas%20Class/Algo_Tools_StvQuotas--fromString.md): `self`  
+* `final public` [DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
+* `public` [DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\DataManager\VotesManager Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)
 
-* final public  [DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
-* public  [DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
+* `final public` [DataManager\ArrayManager->buildByCondorcetVersion](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--buildByCondorcetVersion.md)  
+* `public` [DataManager\ArrayManager->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_ArrayManager%20Class/DataManager_ArrayManager--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver Class  
 
@@ -318,258 +318,258 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public static bool` [$preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)
 
-* public static  [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver::preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)  
-* final public  [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)  
-* public  [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--getCondorcetBuilderVersion.md): `string`  
+* `public static` [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver::preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)  
+* `final public` [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)  
+* `public` [DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver->getCondorcetBuilderVersion (...)](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\CandidateExistsException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ConsoleInputException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\DataHandlerException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ElectionObjectVersionMismatchException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\NoCandidatesException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\NoSeatsException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ResultException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\ResultRequestedWithoutVotesException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\TagsFilterException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\TimerException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteConstraintException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteManagerException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VotingHasStartedException Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\VotingMethodIsNotImplemented Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)
 
-* final public  [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
-* public  [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\CondorcetPublicApiException->buildByCondorcetVersion](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--buildByCondorcetVersion.md)  
+* `public` [Throwable\CondorcetPublicApiException->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_CondorcetPublicApiException%20Class/Throwable_CondorcetPublicApiException--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--buildByCondorcetVersion.md)
 
-* final public  [Throwable\Internal\CondorcetInternalError->buildByCondorcetVersion](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--buildByCondorcetVersion.md)  
-* public  [Throwable\Internal\CondorcetInternalError->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Throwable\Internal\CondorcetInternalError->buildByCondorcetVersion](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--buildByCondorcetVersion.md)  
+* `public` [Throwable\Internal\CondorcetInternalError->getCondorcetBuilderVersion (...)](/Docs/api-reference/Throwable_Internal_CondorcetInternalError%20Class/Throwable_Internal_CondorcetInternalError--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Timer\Chrono Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--buildByCondorcetVersion.md)
 
-* final public  [Timer\Chrono->buildByCondorcetVersion](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--buildByCondorcetVersion.md)  
-* public  [Timer\Chrono->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--getCondorcetBuilderVersion.md): `string`  
+* `final public` [Timer\Chrono->buildByCondorcetVersion](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--buildByCondorcetVersion.md)  
+* `public` [Timer\Chrono->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Chrono%20Class/Timer_Chrono--getCondorcetBuilderVersion.md): `string`  
 
 ### CondorcetPHP\Condorcet\Timer\Manager Class  
 
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--buildByCondorcetVersion.md)
 
-* final public  [Timer\Manager->buildByCondorcetVersion](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--buildByCondorcetVersion.md)  
-* public  [Timer\Manager->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getCondorcetBuilderVersion.md): `string`  
-* public  [Timer\Manager->getHistory ()](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getHistory.md): `array`  
+* `final public` [Timer\Manager->buildByCondorcetVersion](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--buildByCondorcetVersion.md)  
+* `public` [Timer\Manager->getCondorcetBuilderVersion (...)](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getCondorcetBuilderVersion.md): `string`  
+* `public` [Timer\Manager->getHistory ()](/Docs/api-reference/Timer_Manager%20Class/Timer_Manager--getHistory.md): `array`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CivsFormat Class  
 
-* public static  [Tools\Converters\CivsFormat::createFromElection (...)](/Docs/api-reference/Tools_Converters_CivsFormat%20Class/Tools_Converters_CivsFormat--createFromElection.md): `string|true`  
+* `public static` [Tools\Converters\CivsFormat::createFromElection (...)](/Docs/api-reference/Tools_Converters_CivsFormat%20Class/Tools_Converters_CivsFormat--createFromElection.md): `string|true`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat Class  
 
 * `readonly public array` [$candidates](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)
 * `readonly public int` [$seatsToElect](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--seatsToElect.md)
 
-* public  [Tools\Converters\DavidHillFormat->__construct (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--__construct.md)  
-* final public readonly  [Tools\Converters\DavidHillFormat->candidates](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)  
-* final public readonly  [Tools\Converters\DavidHillFormat->seatsToElect](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--seatsToElect.md)  
-* public  [Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* `public` [Tools\Converters\DavidHillFormat->__construct (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--__construct.md)  
+* `final public readonly` [Tools\Converters\DavidHillFormat->candidates](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--candidates.md)  
+* `final public readonly` [Tools\Converters\DavidHillFormat->seatsToElect](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--seatsToElect.md)  
+* `public` [Tools\Converters\DavidHillFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\DebianFormat Class  
 
 * `readonly public array` [$candidates](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--candidates.md)
 * `readonly public array` [$votes](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--votes.md)
 
-* public  [Tools\Converters\DebianFormat->__construct (...)](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--__construct.md)  
-* final public readonly  [Tools\Converters\DebianFormat->candidates](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--candidates.md)  
-* public  [Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
-* final public readonly  [Tools\Converters\DebianFormat->votes](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--votes.md)  
+* `public` [Tools\Converters\DebianFormat->__construct (...)](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--__construct.md)  
+* `final public readonly` [Tools\Converters\DebianFormat->candidates](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--candidates.md)  
+* `public` [Tools\Converters\DebianFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* `final public readonly` [Tools\Converters\DebianFormat->votes](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--votes.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat Class  
 
@@ -581,17 +581,17 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `readonly public bool` [$CandidatesParsedFromVotes](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)
 * `readonly public int` [$invalidBlocksCount](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)
 
-* public static  [Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
-* public static  [Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->CandidatesParsedFromVotes](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)  
-* public  [Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->candidates](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->implicitRanking](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->invalidBlocksCount](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->parameters](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->seatsToElect](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--seatsToElect.md)  
-* public  [Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
-* final public readonly  [Tools\Converters\CEF\CondorcetElectionFormat->voteWeight](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)  
+* `public static` [Tools\Converters\CEF\CondorcetElectionFormat::createFromElection (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromElection.md): `?string`  
+* `public static` [Tools\Converters\CEF\CondorcetElectionFormat::createFromString (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--createFromString.md): `self`  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->CandidatesParsedFromVotes](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--CandidatesParsedFromVotes.md)  
+* `public` [Tools\Converters\CEF\CondorcetElectionFormat->__construct (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--__construct.md)  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->candidates](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--candidates.md)  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->implicitRanking](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--implicitRanking.md)  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->invalidBlocksCount](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--invalidBlocksCount.md)  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->parameters](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--parameters.md)  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->seatsToElect](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--seatsToElect.md)  
+* `public` [Tools\Converters\CEF\CondorcetElectionFormat->setDataToAnElection (...)](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--setDataToAnElection.md): `CondorcetPHP\Condorcet\Election`  
+* `final public readonly` [Tools\Converters\CEF\CondorcetElectionFormat->voteWeight](/Docs/api-reference/Tools_Converters_CEF_CondorcetElectionFormat%20Class/Tools_Converters_CEF_CondorcetElectionFormat--voteWeight.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer Class  
 
@@ -600,14 +600,14 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public ?int` [$maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
 * `public int|float` [$tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
-* public  [Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
-* public  [Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
-* public  [Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
-* public  [Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* `public` [Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* `public` [Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+* `public` [Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
 
 ### CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer Class  
 
@@ -616,19 +616,19 @@ _*: I try to update and complete the documentation. See also [the documentation 
 * `public ?int` [$maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)
 * `public int|float` [$tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)
 
-* public  [Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
-* public  [Tools\Randomizers\VoteRandomizer->getNewVote ()](/Docs/api-reference/Tools_Randomizers_VoteRandomizer%20Class/Tools_Randomizers_VoteRandomizer--getNewVote.md): `CondorcetPHP\Condorcet\Vote`  
-* public  [Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
-* public  [Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
-* public  [Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
-* public  [Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->__construct (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--__construct.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->countCandidates ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--countCandidates.md): `int`  
+* `public` [Tools\Randomizers\VoteRandomizer->getNewVote ()](/Docs/api-reference/Tools_Randomizers_VoteRandomizer%20Class/Tools_Randomizers_VoteRandomizer--getNewVote.md): `CondorcetPHP\Condorcet\Vote`  
+* `public` [Tools\Randomizers\ArrayRandomizer->maxCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxCandidatesRanked.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->maxRanksCount](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--maxRanksCount.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->minCandidatesRanked](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--minCandidatesRanked.md)  
+* `public` [Tools\Randomizers\ArrayRandomizer->setCandidates (...)](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--setCandidates.md): `void`  
+* `public` [Tools\Randomizers\ArrayRandomizer->shuffle ()](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--shuffle.md): `array`  
+* `public` [Tools\Randomizers\ArrayRandomizer->tiesProbability](/Docs/api-reference/Tools_Randomizers_ArrayRandomizer%20Class/Tools_Randomizers_ArrayRandomizer--tiesProbability.md)  
 
 ### CondorcetPHP\Condorcet\Utils\CondorcetUtil Class  
 
-* public static  [Utils\CondorcetUtil::format (...)](/Docs/api-reference/Utils_CondorcetUtil%20Class/Utils_CondorcetUtil--format.md): `mixed`  
+* `public static` [Utils\CondorcetUtil::format (...)](/Docs/api-reference/Utils_CondorcetUtil%20Class/Utils_CondorcetUtil--format.md): `mixed`  
 
 
 

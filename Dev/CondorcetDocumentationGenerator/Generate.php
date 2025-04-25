@@ -109,7 +109,7 @@ class Generate
             $parameters = '';
         }
 
-        return [self::getModifiersName($reflection) .' ',
+        return [self::getModifiersName($reflection),
                 self::simpleClass($reflection->class) .
                 (($reflection->isStatic()) ? '::' : '->') .
                 $reflection->name .
@@ -520,7 +520,7 @@ class Generate
                     $url = $this->getUrl($onePage['Reflection']);
 
                     $representation = self::computeRepresentationAsForIndex($onePage['Reflection']);
-                    $file_content .= "* $representation[0] [" . $representation[1] . '](' . $url . ')';
+                    $file_content .= "* `$representation[0]` [" . $representation[1] . '](' . $url . ')';
 
                     if (isset($onePage['Reflection']) && $onePage['Reflection'] instanceof ReflectionMethod && $onePage['Reflection']->hasReturnType()) {
                         $file_content .= ': ' . self::getTypeAsString($onePage['Reflection']->getReturnType(), true);
