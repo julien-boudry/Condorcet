@@ -6,7 +6,7 @@ enum BookLibrary: string
 {
     public const BASE = Generate::DOCS_URL . '/book/3.AsPhpLibrary/';
 
-    case VotingMethods = Generate::DOCS_URL . '/VotingMethods';
+    case VotingMethods = Generate::DOCS_URL . '/gh/VotingMethods';
 
     case Installation = self::BASE . '1.Installation';
     case Flow = self::BASE . '2.WorkFlow';
@@ -19,7 +19,7 @@ enum BookLibrary: string
     case AddVotes = self::BASE . '5.Votes/1.AddVotes';
     case VotesTags = self::BASE . '5.Votes/2.VotesTags';
     case ManageVotes = self::BASE . '5.Votes/3.ManageVotes';
-    case VotesConstraints = self::BASE . '5.Votes/4.VoteConstraints';
+    case VotesConstraints = self::BASE . '5.Votes/5.VotesConstraints';
     case VoteWeight = self::BASE . '5.Votes/5.VoteWeight';
 
     case Results = self::BASE . '6.Results/1.WinnerAndLoser';
