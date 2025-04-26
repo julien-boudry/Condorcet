@@ -106,7 +106,7 @@ Designed for electing an assembly, return a full ranking of elected candidates.
 
 ### Add your own voting method as a module
 Condorcet is designed to be easily extensible with new algorithms (they don't need to share the same namespace).
-- [*More explanations in this documentation*](https://docs.condorcet.io/3.AsPhpLibrary/9.ExtendingCondorcet/1.CreateNewVoteMethod)
+- [*More explanations in this documentation*](https://docs.condorcet.io/book/3.AsPhpLibrary/9.ExtendingCondorcet/1.CreateNewVoteMethod)
 - [Modules Skeleton](https://github.com/CondorcetVote/Condorcet_Modules_Skeletons): A template for starting development quickly and following best practices.
 
 ## Main features
@@ -148,12 +148,12 @@ _It has no certification or proven implementation that would guarantee a very hi
 
 Can be installed natively from source (with composer), from PHAR file, from Docker image (build or pull).
 
-> **[Condorcet as a command line application, installation instructions](https://docs.condorcet.io/#/2.AsCommandLineApplication/1.Installation)**
+> **[Condorcet as a command line application, installation instructions](https://docs.condorcet.io/book/3.AsPhpLibrary/1.Installation)**
 
 ### Condorcet Book - Command Line
 
-* [**Examples**](https://docs.condorcet.io/#/2.AsCommandLineApplication/2.QuickExample)
-* [**Man Page**](https://docs.condorcet.io/#/2.AsCommandLineApplication/4.ManPage)
+* [**Examples**](https://docs.condorcet.io/book/2.AsCommandLineApplication/2.QuickExample)
+* [**Man Page**](https://docs.condorcet.io/book/2.AsCommandLineApplication/4.ManPage)
 
 ## Use Condorcet as a PHP Library
 
@@ -162,7 +162,7 @@ Namespace ```\CondorcetPHP\Condorcet``` is used.
 
 Can be installed as you prefer with: Composer / Natively provided autoloader / Any PSR-4 compatible autoloader.
 
-> **[Condorcet as a PHP library, installation instructions](https://docs.condorcet.io/#/3.AsPhpLibrary/1.Installation)**
+> **[Condorcet as a PHP library, installation instructions](https://docs.condorcet.io/book/3.AsPhpLibrary/1.Installation)**
 
 ### Library Manual
 
@@ -221,7 +221,7 @@ If you need to manage an election with more than 50,000 votes, you should consid
 
 You can also develop your own custom datastore driver (to store in NoSQL... or whatever you fancy), the modular architecture allows you to link it easily.
 
-[Have a look at the documentation book](https://docs.condorcet.io/#/3.AsPhpLibrary/7.GoFurther/GetStarteToHandleMillionsOfVotes)
+[Have a look at the documentation book](https://docs.condorcet.io/book/3.AsPhpLibrary/8.GoFurther/5.GetStartedToHandleMillionsOfVotes)
 
 _Benchmark on a modern machine (Linux - x64 - PHP 8.1 - CLI)._
 
