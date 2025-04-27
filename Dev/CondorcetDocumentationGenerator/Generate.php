@@ -283,9 +283,7 @@ class Generate
         $file_content =  '> **[Presentation](../README.md) | [Documentation Book](' . self::DOCS_URL . ") | API References | [Voting Methods](/Docs/VotingMethods.md) | [Tests](../../tests)**\n\n" .
 
                         "# API References\n" .
-                        "## Public API Index *\n" .
-
-                        '_*: I try to update and complete the documentation. See also [the documentation book](' . self::DOCS_URL . "), [the tests](../tests) also produce many examples. And create issues for questions or fixing documentation!_\n\n";
+                        "## Public API Index *\n";
 
 
         $file_content .= $this->makeIndex($this->fullPagesListMeta);
