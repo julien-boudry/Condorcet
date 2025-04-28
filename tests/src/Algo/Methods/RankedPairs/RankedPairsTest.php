@@ -124,7 +124,7 @@ test('result 4', function (): void {
     expect($this->election->getWinner('Ranked Pairs Winning'))->not()->toEqual('A');
 
     // Supporting not ranked candidate
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
     expect($this->election->getWinner('Ranked Pairs Winning'))->toEqual('A');
 });
 

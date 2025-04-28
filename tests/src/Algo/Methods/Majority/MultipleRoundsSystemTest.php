@@ -54,7 +54,7 @@ test('result majority test systematic triangular', function (): void {
 });
 
 test('result majority test three round', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');
@@ -98,7 +98,7 @@ test('result majority test three round', function (): void {
 });
 
 test('result majority test many round', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');

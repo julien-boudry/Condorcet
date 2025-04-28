@@ -14,7 +14,7 @@ test('result 1', function (): void {
     $this->election->addCandidate('D');
 
     $this->election->setSeatsToElect(6);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('A * 42; B ^31; C *15; D ^12');
 
@@ -26,7 +26,7 @@ test('result tideman a03', function (): void {
     $cef = new CondorcetElectionFormat(__DIR__ . '/' . 'A03.cvotes');
     $cef->setDataToAnElection($this->election);
 
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     // Empty ranking was throw an error.
     $this->election->getResult('Jefferson');

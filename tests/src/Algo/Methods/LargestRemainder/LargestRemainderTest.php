@@ -14,7 +14,7 @@ test('result 1', function (): void {
     $this->election->parseCandidates('Yellows;Whites;Reds;Greens;Blues;Pinks');
 
     $this->election->setSeatsToElect(10);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('Yellows ^47000;Whites ^16000;Reds ^15800;Greens ^12000;Blues ^6100;Pinks ^3100');
 
@@ -43,7 +43,7 @@ test('result 2', function (): void {
     $this->election->parseCandidates('A;B;C;D;E;F');
 
     $this->election->setSeatsToElect(25);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 
@@ -62,7 +62,7 @@ test('result 3', function (): void {
     $this->election->parseCandidates('A;B;C;D;E;F');
 
     $this->election->setSeatsToElect(26);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('A ^1500;B ^1500;C ^900;D^500;E ^500;F ^200');
 

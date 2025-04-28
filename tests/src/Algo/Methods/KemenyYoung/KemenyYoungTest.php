@@ -46,7 +46,7 @@ test('result2', function (): void {
             Meredith > Selden ^40
         ');
 
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     expect($this->election->getResult('KemenyYoung')->rankingAsArrayString)->toBe([
         1 => 'Elliot',

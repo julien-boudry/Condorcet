@@ -220,7 +220,7 @@ test('get votes list as string', function (): void {
 "A = B = E > C = D * 3\n" .
 'A = B = C = D = E * 1');
 
-    $this->election1->setImplicitRanking(false);
+    $this->election1->setImplicitRankingRule(false);
 
     expect($this->election1->getVotesListAsString())->toBe("A * 6\n" .
 "D * 6\n" .
@@ -239,7 +239,7 @@ test('get votes list as string', function (): void {
 
 test('empty ranking export', function (): void {
     $this->election2->parseCandidates('A;B;C');
-    $this->election2->setImplicitRanking(false);
+    $this->election2->setImplicitRankingRule(false);
 
     $this->election2->addVote(new Vote(''));
     $this->election2->addVote(new Vote('D>E'));
@@ -279,7 +279,7 @@ test('empty ranking export', function (): void {
         /EMPTY_RANKING/
         CVOTES);
 
-    $this->election2->setImplicitRanking(true);
+    $this->election2->setImplicitRankingRule(true);
 
     expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C
@@ -300,7 +300,7 @@ test('empty ranking export', function (): void {
 
     $this->election2 = new Election;
     $this->election2->parseCandidates('A;B;C;D');
-    $this->election2->setImplicitRanking(true);
+    $this->election2->setImplicitRankingRule(true);
 
     $this->election2->addVote(new Vote('A>B'));
 
@@ -436,7 +436,7 @@ test('vote weight', function (): void {
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
-    expect($election->allowsVoteWeight(true))->toBe($election);
+    expect($election->authorizeVoteWeight())->toBe($election)->and($election->authorizeVoteWeight)->toBeTrue();
 
     expect($election->sumVoteWeights())->toBe(15);
 
@@ -444,13 +444,13 @@ test('vote weight', function (): void {
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 
-    $election->allowsVoteWeight(false);
+    $election->authorizeVoteWeight = false;
 
     expect($election->sumVoteWeights())->toBe(14);
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
-    $election->allowsVoteWeight(!$election->isVoteWeightAllowed());
+    $election->authorizeVoteWeight(!$election->authorizeVoteWeight);
 
     $election->removeVote($voteWithWeight);
 
@@ -509,7 +509,7 @@ test('add votes from json', function (): void {
 
     $election->addVotesFromJson(json_encode($votes));
 
-    $election->allowsVoteWeight(true);
+    $election->authorizeVoteWeight = true;
 
     expect($election->getVotesListAsString())->toBe(<<<'VOTES'
         A > B > C ^42 * 5

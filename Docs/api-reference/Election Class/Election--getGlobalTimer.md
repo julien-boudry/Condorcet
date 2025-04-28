@@ -1,6 +1,6 @@
 # public Election::getGlobalTimer
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L224)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L243)
 
 ## Description    
 

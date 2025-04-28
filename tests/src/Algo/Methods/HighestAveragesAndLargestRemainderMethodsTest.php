@@ -12,7 +12,7 @@ afterEach(function (): void {
 
 test('france legislatives2022 1er tour', function (): void {
     $this->election->setSeatsToElect(577);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseCandidates(
         'Divers extrême gauche
@@ -204,7 +204,7 @@ test('france legislatives2022 1er tour', function (): void {
 test('result 1', function (): void {
     $this->election->parseCandidates('Con;Lab;LD;Brexit;Ash Ind;Green;Others');
     $this->election->setSeatsToElect(11);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('Con ^258794; Lab ^204011; LD ^33604; Brexit ^15728; Ash Ind ^13498; Green ^10375; Others ^9743');
 
@@ -223,7 +223,7 @@ test('result 2', function (): void {
     $this->election->addCandidate('D');
 
     $this->election->setSeatsToElect(8);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('A ^100000; B ^80000; C ^30000; D ^20000');
 

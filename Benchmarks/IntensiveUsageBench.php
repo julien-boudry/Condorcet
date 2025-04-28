@@ -14,7 +14,7 @@ class IntensiveUsageBench
     public function benchSimpleManyVotes(): void
     {
         $election = new Election;
-        $election->allowsVoteWeight(true);
+        $election->authorizeVoteWeight(true);
         $election->setSeatsToElect(2);
 
         $election->parseCandidates('A;B;C;D;E;F');
@@ -35,13 +35,13 @@ class IntensiveUsageBench
             $election->getResult($method);
         }
 
-        $election->setImplicitRanking(false);
+        $election->setImplicitRankingRule(false);
 
         foreach (Condorcet::getAuthMethods() as $method) {
             $election->getResult($method);
         }
 
-        $election->allowsVoteWeight(false);
+        $election->authorizeVoteWeight(false);
 
         foreach (Condorcet::getAuthMethods() as $method) {
             $election->getResult($method);

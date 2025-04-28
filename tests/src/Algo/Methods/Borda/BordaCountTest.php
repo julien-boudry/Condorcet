@@ -43,7 +43,7 @@ test('result 2', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('D');
 
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             B>A>C>D * 30
@@ -83,7 +83,7 @@ test('result 3', function (): void {
         'B' => 1.5,
         'C' => 1.5, ]);
 
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'A',
@@ -152,7 +152,7 @@ test('result variant', function (): void {
 });
 
 test('very high vote weight and performances', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
     $this->election->parseCandidates('0;1');
 
     $this->election->parseVotes('1 > 0 ^6973568802');

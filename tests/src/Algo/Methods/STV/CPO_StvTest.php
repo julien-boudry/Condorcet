@@ -32,8 +32,8 @@ test('cpo1', function (): void {
     $this->election->addCandidate('Scott');
 
     // key 4
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             Andrea ^25
@@ -147,7 +147,7 @@ test('cpo1', function (): void {
 
 test('cpo2', function (): void {
     // $this->election->setStatsVerbosity(StatsVerbosity::FULL);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $file = new SplTempFileObject(-1);
     $file->fwrite(<<<'CVOTES'
@@ -173,7 +173,7 @@ test('cpo2', function (): void {
 
 test('cpo3', function (): void {
     $this->election->setStatsVerbosity(StatsVerbosity::FULL);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $file = new SplTempFileObject(-1);
     $file->fwrite(<<<'CVOTES'
@@ -243,7 +243,7 @@ test('equality1', function (): void {
 });
 
 test('equality2', function (): void {
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
     $this->election->setSeatsToElect(3);
 
     $this->election->parseCandidates('A;B;C;D');
@@ -266,7 +266,7 @@ test('limit1', function (): void {
 });
 
 test('cpo40 candidates', function (): void {
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
     $this->election->setSeatsToElect((int) (40 / 3));
 
     $candidates = [];

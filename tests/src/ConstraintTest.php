@@ -57,7 +57,7 @@ test('constraints on vote', function (string $constraintClass): void {
             B^42
         ');
 
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     expect($this->election->getWinner())->toEqual('B');
 
@@ -84,7 +84,7 @@ test('constraints on vote', function (string $constraintClass): void {
 
     expect($this->election->getWinner('FTPT'))->toEqual('A');
 
-    expect($this->election->setImplicitRanking(false))->toBe($this->election);
+    expect($this->election->setImplicitRankingRule(false))->toBe($this->election);
     expect($this->election->implicitRankingRule)->toBeFalse();
 
     expect($this->election->getWinner('FTPT'))->toEqual('B');
@@ -99,7 +99,7 @@ test('constraints on vote', function (string $constraintClass): void {
     expect($this->election->countValidVoteWithConstraints('tag1', false))->toEqual(1);
     expect($this->election->countInvalidVoteWithConstraints())->toEqual(3);
 
-    $this->election->setImplicitRanking(true);
+    $this->election->setImplicitRankingRule(true);
     expect($this->election->implicitRankingRule)->toBeTrue();
 
     expect($this->election->getWinner())->toEqual('A');

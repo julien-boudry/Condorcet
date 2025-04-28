@@ -93,9 +93,28 @@ class Election
     }
 
     /**
+     * Returns the corresponding setting as currently set (False by default).
+     * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
      * @api
      */
-    public protected(set) bool $voteWeightAllowed = false;
+    public bool $authorizeVoteWeight = false {
+        set {
+            $this->authorizeVoteWeight = $value;
+            $this->resetComputation();
+        }
+    }
+
+    /**
+     * Alias as a fonction for Election->authorizeVoteWeight
+     * @see Election::authorizeVoteWeight
+     * @api
+     */
+    public function authorizeVoteWeight(bool $authorized = true): static
+    {
+        $this->authorizeVoteWeight = $authorized;
+
+        return $this;
+    }
 
 
     /**
@@ -150,7 +169,7 @@ class Election
             'nextAutomaticCandidateName' => $this->nextAutomaticCandidateName,
 
             'ImplicitRanking' => $this->implicitRankingRule,
-            'VoteWeightRule' => $this->voteWeightAllowed,
+            'VoteWeightRule' => $this->authorizeVoteWeight,
             'Constraints' => $this->votesConstraints,
 
             'Pairwise' => $this->Pairwise,
@@ -184,7 +203,7 @@ class Election
         $this->buildByCondorcetVersion = $data['objectVersion'];
 
         $this->implicitRankingRule = $data['ImplicitRanking'];
-        $this->voteWeightAllowed = $data['VoteWeightRule'];
+        $this->authorizeVoteWeight = $data['VoteWeightRule'];
         $this->votesConstraints = $data['Constraints'];
 
         $this->Pairwise = $data['Pairwise'];
@@ -309,42 +328,13 @@ class Election
      * @param $rule New rule.
      * @return static Return True
      */
-    public function setImplicitRanking(
+    public function setImplicitRankingRule(
         bool $rule = true
     ): static {
         $this->implicitRankingRule = $rule;
 
         return $this;
     }
-    /**
-     * Returns the corresponding setting as currently set (False by default).
-     * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
-     * @api
-     * @return bool True / False
-     * @see Election::allowsVoteWeight
-     */
-    public function isVoteWeightAllowed(): bool
-    {
-        return $this->voteWeightAllowed;
-    }
-    /**
-     * Set the setting and reset all result data.
-     * Then the weight of votes (if specified) will be taken into account when calculating the results. Otherwise all votes will be considered equal.
-     * By default, the voting weight is not activated and all votes are considered equal.
-     * @api
-     * @see Election::isVoteWeightAllowed
-     * @param $rule New rule.
-     * @return static Return True
-     */
-    public function allowsVoteWeight(
-        bool $rule = true
-    ): static {
-        $this->voteWeightAllowed = $rule;
-        $this->resetComputation();
-
-        return $this;
-    }
-
 
     /////////// VOTE CONSTRAINT ///////////
     /**
@@ -384,6 +374,7 @@ class Election
     {
         return $this->votesConstraints;
     }
+
     /**
      * Clear all constraints rules and clear previous results.
      * @api
@@ -399,6 +390,7 @@ class Election
 
         return true;
     }
+
     /**
      * Test if a vote is valid with these election constraints.
      * @api
@@ -458,6 +450,7 @@ class Election
             throw new DataHandlerException('external data handler cannot be imported');
         }
     }
+
     /**
      * Remove an external driver to store vote on very large election. And import his data into classical memory.
      * @api

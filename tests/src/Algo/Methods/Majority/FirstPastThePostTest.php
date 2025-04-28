@@ -7,7 +7,7 @@ beforeEach(function (): void {
 });
 
 test('result french2002', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->addCandidate('Chirac');
     $this->election->addCandidate('Jospin');
@@ -117,7 +117,7 @@ test('result 2', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('D');
 
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             A>B>C>D ^ 42

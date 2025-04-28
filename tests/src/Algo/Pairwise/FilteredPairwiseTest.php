@@ -15,7 +15,7 @@ beforeEach(function (): void {
 
 test('filtered pairwise results 1', function (): void {
     $this->election1->removeAllVotes();
-    $this->election1->allowsVoteWeight(true);
+    $this->election1->authorizeVoteWeight = true;
 
     $this->election1->parseVotes('
             A > B > C
@@ -254,7 +254,7 @@ test('modify filtered pairwise', function (): void {
 
 test('filtered pairwise results 2', function (): void {
     $this->election1->removeAllVotes();
-    $this->election1->allowsVoteWeight(true);
+    $this->election1->authorizeVoteWeight = true;
 
     $this->election1->parseVotes('
             A > B > C

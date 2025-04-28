@@ -16,9 +16,9 @@ test('condorcet election format1 simple', function (): void {
 
     $election = $condorcetFormat->setDataToAnElection();
 
-    expect($election->isVoteWeightAllowed())->toBeFalse()->toBe($election->voteWeightAllowed);
-    $election->allowsVoteWeight(true);
-    expect($election->isVoteWeightAllowed())->toBeTrue()->toBe($election->voteWeightAllowed);
+    expect($election->authorizeVoteWeight)->toBeFalse()->toBe($election->authorizeVoteWeight);
+    $election->authorizeVoteWeight = true;
+    expect($election->authorizeVoteWeight)->toBeTrue()->toBe($election->authorizeVoteWeight);
 
     expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
 
@@ -75,7 +75,7 @@ test('condorcet election format3 custom election1', function (): void {
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
     $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
@@ -101,13 +101,13 @@ test('condorcet election format4 custom election2', function (): void {
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
     $election->setSeatsToElect(66);
-    $election->allowsVoteWeight(false);
+    $election->authorizeVoteWeight = false;
 
     $condorcetFormat->setDataToAnElection($election);
 
-    $election->allowsVoteWeight(true);
+    $election->authorizeVoteWeight = true;
 
     // Must be forced by parameter
     expect($election->getCandidatesListAsString())->toBe(['Petr Němec', 'Richard Boháč', 'Simona Slaná']);
@@ -137,7 +137,7 @@ test('condorcet election format5 unknow parameters and empty lines and case', fu
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
     $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
@@ -253,7 +253,7 @@ test('create from election', function (): void {
     expect(CondorcetElectionFormat::createFromElection(election: $election, includeSeatsToElect: false))
         ->not()->toContain('Number of Seats: 42');
 
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
     expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(<<<'CVOTES'
         #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
         #/Number of Seats: 42
@@ -298,14 +298,14 @@ test('create from election', function (): void {
                 CVOTES
         );
 
-    $election->setImplicitRanking(true);
+    $election->setImplicitRankingRule(true);
     $output = new SplTempFileObject;
     expect(CondorcetElectionFormat::createFromElection(election: $election, file: $output))->toBeNull();
     $output->rewind();
 
     expect($output->fread(2048))->toBe($assertion1);
 
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
     $output = new SplTempFileObject;
     expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false, file: $output))->toBeNull();
     $output->rewind();

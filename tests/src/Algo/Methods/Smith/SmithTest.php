@@ -105,7 +105,7 @@ test('smith set with a clear top set', function (): void {
 // Example from https://electowiki.org/wiki/Smith_set
 test('from electowiki 1', function (): void {
     $this->election->parseCandidates('A;B;C');
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
         A>B ^ 49
@@ -119,7 +119,7 @@ test('from electowiki 1', function (): void {
 // Example from https://en.wikipedia.org/wiki/Smith_set
 test('from wikipedia 1', function (): void {
     $this->election->parseCandidates('A;B;C;D');
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
         D>A>B>C ^40

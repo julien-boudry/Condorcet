@@ -43,7 +43,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
         $r .= '#/Candidates: ' . implode(' ; ', $election->getCandidatesListAsString()) . "\n";
         $r .= ($includeSeatsToElect) ? '#/Number of Seats: ' . $election->seatsToElect . "\n" : null;
         $r .= '#/Implicit Ranking: ' . ($election->implicitRankingRule ? 'true' : 'false') . "\n";
-        $r .= '#/Weight Allowed: ' . ($election->isVoteWeightAllowed() ? 'true' : 'false') . "\n";
+        $r .= '#/Weight Allowed: ' . ($election->authorizeVoteWeight ? 'true' : 'false') . "\n";
         // $r .= "\n";
 
         if ($file !== null) {
@@ -193,11 +193,11 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
         // Set explicit pairwise mode if specified in file
         $this->implicitRanking ??= $election->implicitRankingRule;
-        $election->setImplicitRanking($this->implicitRanking);
+        $election->setImplicitRankingRule($this->implicitRanking);
 
         // Set Vote weight (Condorcet disable it by default)
-        $this->voteWeight ??= $election->isVoteWeightAllowed();
-        $election->allowsVoteWeight($this->voteWeight);
+        $this->voteWeight ??= $election->authorizeVoteWeight;
+        $election->authorizeVoteWeight = $this->voteWeight;
 
 
         // Candidates

@@ -42,7 +42,7 @@ test('get votes count with candidates all combination', function (): void {
     expect($votesStats->sumWeightIfVotesIncludeCandidates([8, 9]))->toBe(1);
 
     // Test with 2 and explicit
-    $election->setImplicitRanking(false);
+    $election->setImplicitRankingRule(false);
 
     $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
     expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2));
@@ -63,7 +63,7 @@ test('get votes count with candidates all combination', function (): void {
     expect($votesStats->sumWeightIfVotesIncludeCandidates([5, 6, 8, 7, 9]))->toBe(0);
 
     // With 2 and weight activated
-    $election->allowsVoteWeight(true);
+    $election->authorizeVoteWeight = true;
 
     $votesStats = $votesStats = new VotesDeductedApprovals(2, $election);
     expect($votesStats)->toHaveCount(Combinations::getPossibleCountOfCombinations($election->countCandidates(), 2));

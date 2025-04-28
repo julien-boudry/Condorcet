@@ -6,7 +6,7 @@ use Random\Randomizer;
 
 beforeEach(function (): void {
     $this->election = new Election;
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
     $this->election->parseCandidates('A;B;C');
 
     $this->election->setMethodOption('random ballot', 'Randomizer', new Randomizer(new Xoshiro256StarStar(hash('sha256', 'A random ballot Seed', true))));

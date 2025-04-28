@@ -16,7 +16,7 @@ test('empty relevant votes, one candidate', function (string $method): void {
 // https://electowiki.org/wiki/Beatpath_example_12 > examples fixed
 test('example with 12 candidates from electowiki', function (): void {
     $election = new Election;
-    $election->allowsVoteWeight();
+    $election->authorizeVoteWeight = true;
     do {
         $election->addCandidate();
     } while ($election->countCandidates() < 12);

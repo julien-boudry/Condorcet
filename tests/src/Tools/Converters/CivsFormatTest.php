@@ -42,7 +42,7 @@ test('implicit', function (): void {
 });
 
 test('explicit', function (): void {
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     $this->election->parseVotes('A>B');
     $this->election->parseVotes('C');
@@ -70,7 +70,7 @@ test('weight', function (): void {
         CIVS);
 
     //A ctivated
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $r = CivsFormat::createFromElection($this->election);
 

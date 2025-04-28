@@ -1,11 +1,11 @@
-# public Election::setImplicitRanking
+# public Election::setImplicitRankingRule
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L312)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L331)
 
 ## Description    
 
 ```php
-public Election->setImplicitRanking ( [bool $rule = true] ): static
+public Election->setImplicitRankingRule ( [bool $rule = true] ): static
 ```
 
 Set the setting and reset all result data.

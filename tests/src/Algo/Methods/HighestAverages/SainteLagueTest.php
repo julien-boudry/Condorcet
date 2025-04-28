@@ -15,7 +15,7 @@ test('result 1', function (): void {
     $this->election->addCandidate('C');
 
     $this->election->setSeatsToElect(7);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('A ^53; B ^24; C ^23');
 
@@ -136,7 +136,7 @@ test('norwegian variant 1', function (): void {
     $this->election->parseCandidates('H;Ap;FrP;SV;SP;KrF');
 
     $this->election->setSeatsToElect(11);
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('H ^81140; Ap ^80862; FrP ^39851; SV ^26295; SP ^12187; KrF ^11229');
 

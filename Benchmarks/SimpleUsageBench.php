@@ -14,7 +14,7 @@ class SimpleUsageBench
     public function benchSimpleManyVotes(): void
     {
         $election = new Election;
-        $election->allowsVoteWeight(true);
+        $election->authorizeVoteWeight(true);
 
         $election->parseCandidates('A;B;C;D;E;F');
 

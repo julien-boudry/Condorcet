@@ -47,7 +47,7 @@
 * `public static ?int` [$maxVotePerElection](/Docs/api-reference/Election%20Class/Election--maxVotePerElection.md)
 * `public CondorcetPHP\Condorcet\ElectionProcess\ElectionState` [$state](/Docs/api-reference/Election%20Class/Election--state.md)
 * `public bool` [$implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)
-* `public bool` [$voteWeightAllowed](/Docs/api-reference/Election%20Class/Election--voteWeightAllowed.md)
+* `public bool` [$authorizeVoteWeight](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight.md)
 * `public int` [$seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)
 * `public array` [$votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)
 * `public string` [$hash](/Docs/api-reference/Election%20Class/Election--hash.md)
@@ -62,7 +62,7 @@
 * `public` [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint.md): `true`  
 * `public` [Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote.md): `CondorcetPHP\Condorcet\Vote`  
 * `public` [Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson.md): `int`  
-* `public` [Election->allowsVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--allowsVoteWeight.md): `static`  
+* `public` [Election->authorizeVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight.md): `static`  
 * `final public` [Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
 * `public` [Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate.md): `bool`  
 * `public` [Election->clearConstraints ()](/Docs/api-reference/Election%20Class/Election--clearConstraints.md): `bool`  
@@ -96,7 +96,6 @@
 * `virtual public` [Election->hash](/Docs/api-reference/Election%20Class/Election--hash.md)  
 * `public` [Election->implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)  
 * `public` [Election->isVoteValidUnderConstraints (...)](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints.md): `bool`  
-* `public` [Election->isVoteWeightAllowed ()](/Docs/api-reference/Election%20Class/Election--isVoteWeightAllowed.md): `bool`  
 * `public` [Election->parseCandidates (...)](/Docs/api-reference/Election%20Class/Election--parseCandidates.md): `array`  
 * `public` [Election->parseVotes (...)](/Docs/api-reference/Election%20Class/Election--parseVotes.md): `int`  
 * `public` [Election->parseVotesSafe (...)](/Docs/api-reference/Election%20Class/Election--parseVotesSafe.md): `int`  
@@ -107,7 +106,7 @@
 * `public` [Election->removeVotesByTags (...)](/Docs/api-reference/Election%20Class/Election--removeVotesByTags.md): `array`  
 * `public` [Election->seatsToElect](/Docs/api-reference/Election%20Class/Election--seatsToElect.md)  
 * `public` [Election->setExternalDataHandler (...)](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler.md): `static`  
-* `public` [Election->setImplicitRanking (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRanking.md): `static`  
+* `public` [Election->setImplicitRankingRule (...)](/Docs/api-reference/Election%20Class/Election--setImplicitRankingRule.md): `static`  
 * `public` [Election->setMethodOption (...)](/Docs/api-reference/Election%20Class/Election--setMethodOption.md): `static`  
 * `public` [Election->setSeatsToElect (...)](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md): `static`  
 * `public` [Election->setStateToVote ()](/Docs/api-reference/Election%20Class/Election--setStateToVote.md): `true`  
@@ -116,7 +115,6 @@
 * `public` [Election->statsVerbosity](/Docs/api-reference/Election%20Class/Election--statsVerbosity.md)  
 * `public` [Election->sumValidVoteWeightsWithConstraints (...)](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints.md): `int`  
 * `public` [Election->sumVoteWeights (...)](/Docs/api-reference/Election%20Class/Election--sumVoteWeights.md): `int`  
-* `public` [Election->voteWeightAllowed](/Docs/api-reference/Election%20Class/Election--voteWeightAllowed.md)  
 * `public` [Election->votesConstraints](/Docs/api-reference/Election%20Class/Election--votesConstraints.md)  
 
 ### CondorcetPHP\Condorcet\Result Class  
@@ -2750,7 +2748,7 @@ _Including above methods from public API_
 * public CondorcetPHP\Condorcet\ElectionProcess\ElectionState $state
 * readonly protected CondorcetPHP\Condorcet\Timer\Manager $timer
 * public bool $implicitRankingRule
-* public bool $voteWeightAllowed
+* public bool $authorizeVoteWeight
 * public int $seatsToElect
 * public array $votesConstraints
 * public string $hash
@@ -2776,7 +2774,7 @@ _Including above methods from public API_
 * public addConstraint (string $constraintClass): true  
 * public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): CondorcetPHP\Condorcet\Vote  
 * public addVotesFromJson (string $input): int  
-* public allowsVoteWeight (bool $rule = true): static  
+* public authorizeVoteWeight (bool $authorized = true): static  
 * public beginVoteUpdate (CondorcetPHP\Condorcet\Vote $existVote): void  
 * public buildByCondorcetVersion ()  
 * public canAddCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate): bool  
@@ -2821,7 +2819,6 @@ _Including above methods from public API_
 * public hash ()  
 * public implicitRankingRule ()  
 * public isVoteValidUnderConstraints (CondorcetPHP\Condorcet\Vote $vote): bool  
-* public isVoteWeightAllowed (): bool  
 * public nextAutomaticCandidateName ()  
 * public parseCandidates (string $input, bool $isFile = false): array  
 * public parseVotes (string $input, bool $isFile = false): int  
@@ -2834,7 +2831,7 @@ _Including above methods from public API_
 * public resetMethodsComputation (): void  
 * public seatsToElect ()  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): static  
-* public setImplicitRanking (bool $rule = true): static  
+* public setImplicitRankingRule (bool $rule = true): static  
 * public setMethodOption (string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue): static  
 * public setSeatsToElect (int $seats): static  
 * public setStateToVote (): true  
@@ -2843,7 +2840,6 @@ _Including above methods from public API_
 * public statsVerbosity ()  
 * public sumValidVoteWeightsWithConstraints (array|string|null $tags = null, int|bool $with = true): int  
 * public sumVoteWeights (array|string|null $tags = null, int|bool $with = true): int  
-* public voteWeightAllowed ()  
 * public votesConstraints ()  
 * protected MethodsComputation ()  
 * protected Pairwise ()  

@@ -271,7 +271,7 @@ class ElectionCommand extends Command
                     default: true
                 );
 
-                $this->election->setImplicitRanking($implicitAnswer);
+                $this->election->setImplicitRankingRule($implicitAnswer);
             }
 
             // Interactive Votes
@@ -468,7 +468,7 @@ class ElectionCommand extends Command
         $this->io->title('Configuration');
 
         $this->io->definitionList(
-            ['Is vote weight allowed?' => $this->election->isVoteWeightAllowed() ? 'TRUE' : 'FALSE'],
+            ['Is vote weight allowed?' => $this->election->authorizeVoteWeight ? 'TRUE' : 'FALSE'],
             new TableSeparator,
             ['Votes are evaluated according to the implicit ranking rule?' => $this->election->implicitRankingRule ? 'TRUE' : 'FALSE'],
             new TableSeparator,
@@ -713,12 +713,12 @@ class ElectionCommand extends Command
     {
         /// Implicit Ranking
         if ($input->getOption('deactivate-implicit-ranking')) {
-            $this->election->setImplicitRanking(false);
+            $this->election->setImplicitRankingRule(false);
         }
 
         // Allow Votes Weight
         if ($input->getOption('allows-votes-weight')) {
-            $this->election->allowsVoteWeight(true);
+            $this->election->authorizeVoteWeight = true;
         }
 
         if ($input->getOption('seats') && ($seats = (int) $input->getOption('seats')) >= 1) {

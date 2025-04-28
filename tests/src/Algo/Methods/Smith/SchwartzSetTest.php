@@ -12,7 +12,7 @@ beforeEach(function (): void {
  */
 test('schwartz set with clear condorcet winner', function (): void {
     $this->election->parseCandidates('A;B;C');
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
         A>B>C ^ 6
@@ -33,8 +33,8 @@ test('schwartz set with clear condorcet winner', function (): void {
  */
 test('schwartz set with condorcet cycle', function (): void {
     $this->election->parseCandidates('A;B;C');
-    $this->election->allowsVoteWeight();
-    $this->election->setImplicitRanking(false);
+    $this->election->authorizeVoteWeight = true;
+    $this->election->setImplicitRankingRule(false);
 
     // Créer un cycle parfait où chaque candidat en bat un autre
     $this->election->parseVotes('
@@ -55,7 +55,7 @@ test('schwartz set with condorcet cycle', function (): void {
  */
 test('schwartz set example from wikipedia', function (): void {
     $this->election->parseCandidates('A;B;C;D');
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
         D>A>B>C ^40
@@ -99,8 +99,8 @@ test('schwartz set from schulze paper example', function (): void {
  */
 test('schwartz set with multiple disjoint cycles', function (): void {
     $this->election->parseCandidates('A;B;C;D;E;F');
-    $this->election->allowsVoteWeight();
-    $this->election->setImplicitRanking(false);
+    $this->election->authorizeVoteWeight = true;
+    $this->election->setImplicitRankingRule(false);
 
     // Define cycle for A, B, C
     $this->election->parseVotes('
@@ -139,7 +139,7 @@ test('schwartz set with multiple disjoint cycles', function (): void {
  */
 test('schwartz set from electowiki', function (): void {
     $this->election->parseCandidates('A;B;C');
-    $this->election->allowsVoteWeight();
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
         A>B ^ 49

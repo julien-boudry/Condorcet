@@ -431,7 +431,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
         $simpleRanking = VoteUtil::getRankingAsString($ranking);
 
-        if ($displayWeight && $this->weight > 1 && (($context && $context->isVoteWeightAllowed()) || $context === null)) {
+        if ($displayWeight && $this->weight > 1 && (($context && $context->authorizeVoteWeight) || $context === null)) {
             $simpleRanking .= ' ^' . $this->getWeight();
         }
 
@@ -676,7 +676,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     public function getWeight(
         ?Election $context = null
     ): int {
-        if ($context !== null && !$context->isVoteWeightAllowed()) {
+        if ($context !== null && !$context->authorizeVoteWeight) {
             return 1;
         } else {
             return $this->weight;

@@ -8,8 +8,8 @@ beforeEach(function (): void {
 });
 
 test('result french2002', function (): void {
-    $this->election->allowsVoteWeight(true);
-    $this->election->setImplicitRanking(false);
+    $this->election->authorizeVoteWeight = true;
+    $this->election->setImplicitRankingRule(false);
 
     $this->election->addCandidate('Chirac');
     $this->election->addCandidate('Jospin');
@@ -129,7 +129,7 @@ test('result 2', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('D');
 
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             A>B>C>D ^ 42
@@ -274,7 +274,7 @@ test('result 8', function (): void {
     ],
     ]);
 
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     expect($this->election->getResult('Two Rounds')->rankingAsArrayString)->toBe([1 => ['A', 'B', 'C']]);
 
@@ -287,7 +287,7 @@ test('result 8', function (): void {
 });
 
 test('result 9', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');
@@ -356,7 +356,7 @@ test('result 9', function (): void {
 });
 
 test('result 10', function (): void {
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');
@@ -387,7 +387,7 @@ test('result 10', function (): void {
         ],
     ]);
 
-    $this->election->setImplicitRanking(false);
+    $this->election->setImplicitRankingRule(false);
 
     expect($this->election->getResult('Two Rounds')->rankingAsArrayString)->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
@@ -407,8 +407,8 @@ test('result 10', function (): void {
 });
 
 test('result 11', function (): void {
-    $this->election->allowsVoteWeight(true);
-    $this->election->setImplicitRanking(false);
+    $this->election->authorizeVoteWeight = true;
+    $this->election->setImplicitRankingRule(false);
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');

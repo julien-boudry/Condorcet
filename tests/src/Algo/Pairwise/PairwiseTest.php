@@ -80,7 +80,7 @@ test('votes weight', function (): void {
     $electionOff->addVote('A>B>C=D ^4');
 
     $electionOn = clone $electionOff;
-    $electionOn->allowsVoteWeight(true);
+    $electionOn->authorizeVoteWeight = true;
 
     expect($electionOn->getExplicitPairwise())->not()->toBe($electionOff->getExplicitPairwise());
 
@@ -157,7 +157,7 @@ test('votes weight', function (): void {
 });
 
 test('remove vote 1', function (): void {
-    $this->election1->allowsVoteWeight(true);
+    $this->election1->authorizeVoteWeight = true;
     $this->election1->removeAllVotes();
 
     // removeAllVotes process a loop on each vote
@@ -212,7 +212,7 @@ test('remove vote 1', function (): void {
 test('remove vote bug with weight', function (): void {
     $this->election1->removeAllVotes();
     // removeAllVotes process a loop on each vote
-    $this->election1->allowsVoteWeight(true);
+    $this->election1->authorizeVoteWeight = true;
 
     // Bug was occured when they were not any votes left, then setting pairwise to null without rebuild a new one.
     $this->election1->parseVotes('A>B>C ^2');

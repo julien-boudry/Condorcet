@@ -236,8 +236,8 @@ class CPO_STV extends SingleTransferableVote
     {
         // With Condorcet
         $winnerOutcomeElection = new Election;
-        $winnerOutcomeElection->setImplicitRanking(false);
-        $winnerOutcomeElection->allowsVoteWeight(true);
+        $winnerOutcomeElection->setImplicitRankingRule(false);
+        $winnerOutcomeElection->authorizeVoteWeight = true;
         $winnerOutcomeElection->setStatsVerbosity($this->getElection()->statsVerbosity);
 
         // Candidates

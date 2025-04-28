@@ -205,7 +205,7 @@ class VotesManager extends ArrayManager
                 $nb[$oneVoteString] = 0;
             }
 
-            if ($election->isVoteWeightAllowed()) {
+            if ($election->authorizeVoteWeight) {
                 $weight[$oneVoteString] += $oneVote->getWeight();
             } else {
                 $weight[$oneVoteString]++;
@@ -290,7 +290,7 @@ class VotesManager extends ArrayManager
 
         foreach ($this->getVotesListGenerator($tags, $with) as $oneVote) {
             if (!$constraints || $election->isVoteValidUnderConstraints($oneVote)) { # They are no constraints check OR the vote is valid.
-                $sum += $election->isVoteWeightAllowed() ? $oneVote->getWeight() : 1;
+                $sum += $election->authorizeVoteWeight ? $oneVote->getWeight() : 1;
             }
         }
 

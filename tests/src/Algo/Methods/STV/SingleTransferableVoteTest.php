@@ -31,7 +31,7 @@ test('result 1', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('A');
 
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             A>B>C>D ^ 28
@@ -81,8 +81,8 @@ test('result 2', function (): void {
     $this->election->addCandidate('Strawberry');
     $this->election->addCandidate('Hamburger');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->setSeatsToElect(3);
 
@@ -138,8 +138,8 @@ test('result 3', function (): void {
     $this->election->addCandidate('Brad');
     $this->election->addCandidate('Carter');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->setSeatsToElect(2);
 
@@ -181,7 +181,7 @@ test('result 4', function (): void {
     $this->election->addCandidate('C');
     $this->election->addCandidate('A');
 
-    $this->election->allowsVoteWeight(true);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             A>D ^ 40
@@ -208,8 +208,8 @@ test('result alternative quotas1', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             Andrea > Carter ^45
@@ -252,8 +252,8 @@ test('result alternative quotas2', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             Andrea > Carter ^65
@@ -292,8 +292,8 @@ test('result alternative quotas3', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             Andrea > Carter ^60
@@ -335,8 +335,8 @@ test('result alternative quotas4', function (): void {
     $this->election->addCandidate('Delilah');
     $this->election->addCandidate('Scott');
 
-    $this->election->setImplicitRanking(false);
-    $this->election->allowsVoteWeight(true);
+    $this->election->setImplicitRankingRule(false);
+    $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
             Andrea ^25
