@@ -220,7 +220,7 @@ test('get votes list as string', function (): void {
 "A = B = E > C = D * 3\n" .
 'A = B = C = D = E * 1');
 
-    $this->election1->setImplicitRankingRule(false);
+    $this->election1->implicitRankingRule(false);
 
     expect($this->election1->getVotesListAsString())->toBe("A * 6\n" .
 "D * 6\n" .
@@ -239,7 +239,7 @@ test('get votes list as string', function (): void {
 
 test('empty ranking export', function (): void {
     $this->election2->parseCandidates('A;B;C');
-    $this->election2->setImplicitRankingRule(false);
+    $this->election2->implicitRankingRule(false);
 
     $this->election2->addVote(new Vote(''));
     $this->election2->addVote(new Vote('D>E'));
@@ -279,7 +279,7 @@ test('empty ranking export', function (): void {
         /EMPTY_RANKING/
         CVOTES);
 
-    $this->election2->setImplicitRankingRule(true);
+    $this->election2->implicitRankingRule(true);
 
     expect(CondorcetElectionFormat::createFromElection(election: $this->election2, includeSeatsToElect: false, aggregateVotes: true, inContext: true))->toBe(<<<'CVOTES'
         #/Candidates: A ; B ; C
@@ -300,7 +300,7 @@ test('empty ranking export', function (): void {
 
     $this->election2 = new Election;
     $this->election2->parseCandidates('A;B;C;D');
-    $this->election2->setImplicitRankingRule(true);
+    $this->election2->implicitRankingRule(true);
 
     $this->election2->addVote(new Vote('A>B'));
 

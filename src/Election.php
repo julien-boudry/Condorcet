@@ -77,21 +77,6 @@ class Election
     public protected(set) ElectionState $state = ElectionState::CANDIDATES_REGISTRATION;
     protected readonly Timer_Manager $timer;
 
-    // Params
-    /**
-     * The corresponding setting as currently set (True by default).
-     * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
-     * If it is false, then the candidates not ranked, are not taken into account at all.
-     * @api
-     * @see Election::setImplicitRanking
-     */
-    public bool $implicitRankingRule = true {
-        set {
-            $this->implicitRankingRule = $value;
-            $this->resetComputation();
-        }
-    }
-
     /**
      * Returns the corresponding setting as currently set (False by default).
      * If it is True then votes vote optionally can use weight otherwise (if false) all votes will be evaluated as equal for this election.
@@ -319,17 +304,29 @@ class Election
 
     /////////// IMPLICIT RANKING & VOTE WEIGHT ///////////
 
+    // Params
     /**
-     * Set the setting and reset all result data.
+     * The corresponding setting as currently set (True by default).
      * If it is True then all votes expressing a partial ranking are understood as implicitly placing all the non-mentioned candidates exequos on a last rank.
      * If it is false, then the candidates not ranked, are not taken into account at all.
      * @api
+     * @see Election::implicitRankingRule()
+     */
+    public bool $implicitRankingRule = true {
+        set {
+            $this->implicitRankingRule = $value;
+            $this->resetComputation();
+        }
+    }
+
+    /**
+     * Act like public property Election->implicitRankingRule, but return the election object.
+     * @api
      * @see Election::implicitRankingRule
      * @param $rule New rule.
-     * @return static Return True
      */
-    public function setImplicitRankingRule(
-        bool $rule = true
+    public function implicitRankingRule(
+        bool $rule
     ): static {
         $this->implicitRankingRule = $rule;
 

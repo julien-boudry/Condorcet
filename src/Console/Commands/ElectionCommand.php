@@ -271,7 +271,7 @@ class ElectionCommand extends Command
                     default: true
                 );
 
-                $this->election->setImplicitRankingRule($implicitAnswer);
+                $this->election->implicitRankingRule($implicitAnswer);
             }
 
             // Interactive Votes
@@ -713,7 +713,7 @@ class ElectionCommand extends Command
     {
         /// Implicit Ranking
         if ($input->getOption('deactivate-implicit-ranking')) {
-            $this->election->setImplicitRankingRule(false);
+            $this->election->implicitRankingRule(false);
         }
 
         // Allow Votes Weight

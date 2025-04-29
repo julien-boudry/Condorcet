@@ -30,7 +30,7 @@ test('a77 with implicit', function (): void {
 
 test('a77 with explicit', function (): void {
     $election = new Election;
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
 
     AlgoTestCase::$tidemanA77->setDataToAnElection($election);
 

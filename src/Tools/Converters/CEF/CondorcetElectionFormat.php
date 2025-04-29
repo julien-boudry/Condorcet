@@ -193,7 +193,7 @@ class CondorcetElectionFormat implements ConverterExport, ConverterImport
 
         // Set explicit pairwise mode if specified in file
         $this->implicitRanking ??= $election->implicitRankingRule;
-        $election->setImplicitRankingRule($this->implicitRanking);
+        $election->implicitRankingRule($this->implicitRanking);
 
         // Set Vote weight (Condorcet disable it by default)
         $this->voteWeight ??= $election->authorizeVoteWeight;

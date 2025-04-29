@@ -26,7 +26,7 @@ test('result tideman a03', function (): void {
     $cef = new CondorcetElectionFormat(__DIR__ . '/' . 'A03.cvotes');
     $cef->setDataToAnElection($this->election);
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     // Empty ranking was throw an error.
     $this->election->getResult('Jefferson');

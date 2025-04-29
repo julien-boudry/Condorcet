@@ -83,7 +83,7 @@ test('result 3', function (): void {
         'B' => 1.5,
         'C' => 1.5, ]);
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     expect($this->election->getResult('Borda Count')->rankingAsArrayString)->toBe([
         1 => 'A',

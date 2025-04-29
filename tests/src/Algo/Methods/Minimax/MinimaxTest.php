@@ -149,7 +149,7 @@ test('result 4', function (): void {
 
 test('result 5', function (): void {
     # From https://en.wikipedia.org/wiki/Condorcet_loser_criterion
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');
@@ -185,7 +185,7 @@ test('result 5', function (): void {
         'D'     =>  ['worst_pairwise_opposition' => 36], ]);
 
     // Implicit Ranking
-    $this->election->setImplicitRankingRule(true);
+    $this->election->implicitRankingRule(true);
 
     expect($this->election->getWinner('Minimax Winning'))->not()->toEqual('A');
 });

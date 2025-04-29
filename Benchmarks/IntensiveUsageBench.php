@@ -35,7 +35,7 @@ class IntensiveUsageBench
             $election->getResult($method);
         }
 
-        $election->setImplicitRankingRule(false);
+        $election->implicitRankingRule(false);
 
         foreach (Condorcet::getAuthMethods() as $method) {
             $election->getResult($method);

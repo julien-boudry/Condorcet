@@ -75,7 +75,7 @@ test('condorcet election format3 custom election1', function (): void {
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
     $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
@@ -101,7 +101,7 @@ test('condorcet election format4 custom election2', function (): void {
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
     $election->setSeatsToElect(66);
     $election->authorizeVoteWeight = false;
 
@@ -137,7 +137,7 @@ test('condorcet election format5 unknow parameters and empty lines and case', fu
     $condorcetFormat = new CondorcetElectionFormat($file);
 
     $election = new Election;
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
     $election->setSeatsToElect(66);
 
     $condorcetFormat->setDataToAnElection($election);
@@ -253,7 +253,7 @@ test('create from election', function (): void {
     expect(CondorcetElectionFormat::createFromElection(election: $election, includeSeatsToElect: false))
         ->not()->toContain('Number of Seats: 42');
 
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
     expect(CondorcetElectionFormat::createFromElection(election: $election))->toBe(<<<'CVOTES'
         #/Candidates: Petr Němec ; Richard Boháč ; Simona Slaná
         #/Number of Seats: 42
@@ -298,14 +298,14 @@ test('create from election', function (): void {
                 CVOTES
         );
 
-    $election->setImplicitRankingRule(true);
+    $election->implicitRankingRule(true);
     $output = new SplTempFileObject;
     expect(CondorcetElectionFormat::createFromElection(election: $election, file: $output))->toBeNull();
     $output->rewind();
 
     expect($output->fread(2048))->toBe($assertion1);
 
-    $election->setImplicitRankingRule(false);
+    $election->implicitRankingRule(false);
     $output = new SplTempFileObject;
     expect(CondorcetElectionFormat::createFromElection(election: $election, aggregateVotes: false, includeTags: false, file: $output))->toBeNull();
     $output->rewind();

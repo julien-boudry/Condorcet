@@ -42,7 +42,7 @@ test('implicit', function (): void {
 });
 
 test('explicit', function (): void {
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     $this->election->parseVotes('A>B');
     $this->election->parseVotes('C');

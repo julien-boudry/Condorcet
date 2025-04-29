@@ -9,7 +9,7 @@ beforeEach(function (): void {
 
 test('result french2002', function (): void {
     $this->election->authorizeVoteWeight = true;
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     $this->election->addCandidate('Chirac');
     $this->election->addCandidate('Jospin');
@@ -274,7 +274,7 @@ test('result 8', function (): void {
     ],
     ]);
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     expect($this->election->getResult('Two Rounds')->rankingAsArrayString)->toBe([1 => ['A', 'B', 'C']]);
 
@@ -387,7 +387,7 @@ test('result 10', function (): void {
         ],
     ]);
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     expect($this->election->getResult('Two Rounds')->rankingAsArrayString)->toBe([1 => ['A', 'B', 'C'], 2 => 'D', 3 => 'E']);
 
@@ -408,7 +408,7 @@ test('result 10', function (): void {
 
 test('result 11', function (): void {
     $this->election->authorizeVoteWeight = true;
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
 
     $this->election->addCandidate('A');
     $this->election->addCandidate('B');

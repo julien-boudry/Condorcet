@@ -81,7 +81,7 @@ test('result 2', function (): void {
     $this->election->addCandidate('Strawberry');
     $this->election->addCandidate('Hamburger');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->setSeatsToElect(3);
@@ -138,7 +138,7 @@ test('result 3', function (): void {
     $this->election->addCandidate('Brad');
     $this->election->addCandidate('Carter');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->setSeatsToElect(2);
@@ -208,7 +208,7 @@ test('result alternative quotas1', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
@@ -252,7 +252,7 @@ test('result alternative quotas2', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
@@ -292,7 +292,7 @@ test('result alternative quotas3', function (): void {
     $this->election->addCandidate('Carter');
     $this->election->addCandidate('Brad');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
@@ -335,7 +335,7 @@ test('result alternative quotas4', function (): void {
     $this->election->addCandidate('Delilah');
     $this->election->addCandidate('Scott');
 
-    $this->election->setImplicitRankingRule(false);
+    $this->election->implicitRankingRule(false);
     $this->election->authorizeVoteWeight = true;
 
     $this->election->parseVotes('
