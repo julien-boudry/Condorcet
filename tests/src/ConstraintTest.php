@@ -15,18 +15,18 @@ beforeEach(function (): void {
 test('add constraint and clear', function (): void {
     $class = NoTie::class;
 
-    expect($this->election->addConstraint($class))->toBeTrue();
+    expect($this->election->addConstraint($class))->toBe($this->election);
 
     expect($this->election->getConstraints())->toBe([$class]);
 
-    expect($this->election->clearConstraints())->toBeTrue();
+    expect($this->election->clearConstraints())->toBe($this->election);
 
     expect($this->election->getConstraints())
         ->toBeArray()
         ->toBeEmpty()
     ;
 
-    expect($this->election->addConstraint($class))->toBeTrue();
+    expect($this->election->addConstraint($class))->toBe($this->election);
 
     $this->expectException(VoteConstraintException::class);
     $this->expectExceptionMessage('The vote constraint could not be set up: class is already registered');

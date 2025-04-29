@@ -341,11 +341,10 @@ class Election
      * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
      * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
      * @throws VoteConstraintException
-     * @return true True on success.
      */
     public function addConstraint(
         string $constraintClass
-    ): true {
+    ): static {
         if (!class_exists($constraintClass)) {
             throw new VoteConstraintException('class is not defined');
         } elseif (!is_subclass_of($constraintClass, VoteConstraintInterface::class)) {
@@ -358,7 +357,7 @@ class Election
 
         $this->resetComputation();
 
-        return true;
+        return $this;
     }
     /**
      * Get active constraints list.
@@ -375,17 +374,16 @@ class Election
     /**
      * Clear all constraints rules and clear previous results.
      * @api
-     * @return bool Return True.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
      */
-    public function clearConstraints(): bool
+    public function clearConstraints(): static
     {
         $this->votesConstraints = [];
 
         $this->resetComputation();
 
-        return true;
+        return $this;
     }
 
     /**
