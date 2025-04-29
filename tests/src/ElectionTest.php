@@ -436,6 +436,7 @@ test('vote weight', function (): void {
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->not()->toBe('A = D > C > B');
 
+    // Authorize Vote Weight
     expect($election->authorizeVoteWeight())->toBe($election)->and($election->authorizeVoteWeight)->toBeTrue();
 
     expect($election->sumVoteWeights())->toBe(15);
@@ -444,6 +445,7 @@ test('vote weight', function (): void {
 
     expect($election->getResult('Schulze Winning')->rankingAsString)->toBe('A = D > C > B');
 
+    // Unauthorize Vote Weight
     $election->authorizeVoteWeight = false;
 
     expect($election->sumVoteWeights())->toBe(14);
@@ -477,6 +479,27 @@ test('vote weight', function (): void {
                 D > C > B > A * 1
                 VOTES
         );
+});
+
+test('vote weight change at vote level object', function (): void {
+    $election = new Election()->authorizeVoteWeight();
+
+    $election->addCandidate('A');
+    $election->addCandidate('B');
+    $election->addCandidate('C');
+
+    $vote1 = new Vote('A > B > C');
+
+    $election->addVote($vote1);
+    $election->parseVotes('B > A > C * 2');
+
+    expect($election->getResult()->rankingAsString)->toBe('B > A > C');
+    expect($election->getPairwise()->compareCandidates('A', 'B'))->toBe(-1);
+
+    $vote1->setWeight(3);
+
+    expect($election->getResult()->rankingAsString)->toBe('A > B > C');
+    expect($election->getPairwise()->compareCandidates('A', 'B'))->toBe(1);
 });
 
 test('add votes from json', function (): void {

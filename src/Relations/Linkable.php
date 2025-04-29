@@ -50,7 +50,7 @@ trait Linkable
     /**
      * Get election objects linked to this Vote or Candidate object.
      * @api
-     * @return array Array containing linked Condorcet election objects.
+     * @return array<Election> Array containing linked Condorcet election objects.
      * @see Vote::countLinks(), Candidate::countLinks(), Vote::getLinks(), Candidate::getLinks(), Vote::haveLink(), Candidate::haveLink()
      */
     public function getLinks(): array

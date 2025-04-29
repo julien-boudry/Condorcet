@@ -312,8 +312,11 @@ trait ResultsProcess
         return $this->MethodsComputation;
     }
 
-    // Cleanup results to compute again with new votes
-    protected function resetComputation(): void
+    /**
+     * Cleanup results and pairwise to compute again with new votes
+     * @internal
+     */
+    public function resetComputation(): void
     {
         // Algos
         $this->resetMethodsComputation();

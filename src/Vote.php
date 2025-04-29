@@ -703,7 +703,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
 
             if (\count($this->link) > 0) {
                 foreach ($this->getLinks() as $link) {
-                    $link->setStateToVote();
+                    $link->resetComputation();
                 }
             }
         }
