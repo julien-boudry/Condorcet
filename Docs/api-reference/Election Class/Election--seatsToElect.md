@@ -19,5 +19,5 @@ Get or set seats to elect count for proportionals methods like STV.
 
 ## Related
 
-* [Election::setSeatsToElect](/Docs/api-reference/Election%20Class/Election--setSeatsToElect.md)    
+* [Election::setSeatsToElect](/Docs/api-reference/Election%20Class/Election--setSeatsToElect().md)    
 * [Result::seats](/Docs/api-reference/Result%20Class/Result--seats.md)    

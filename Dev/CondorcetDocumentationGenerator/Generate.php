@@ -27,8 +27,13 @@ class Generate
 
     public static function makeFilename(ReflectionMethod|ReflectionProperty $page): string
     {
-        return str_replace('\\', '_', self::simpleClass($page->class)) . '--' . $page->name .
-                '.md';
+        $pageName = str_replace('\\', '_', self::simpleClass($page->class)) . '--' . $page->name;
+
+        if ($page instanceof ReflectionMethod) {
+            $pageName .= '()';
+        }
+
+        return $pageName . '.md';
     }
 
     public static function simpleClass(string $fullClassName): string
@@ -534,10 +539,14 @@ class Generate
 
     protected function getUrl(ReflectionMethod|ReflectionProperty $reflection): string
     {
-        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name) . '.md';
+        $url = str_replace('\\', '_', self::simpleClass($reflection->class)) . ' Class/' . str_replace('\\', '_', self::simpleClass($reflection->class) . '--' . $reflection->name);
         $url = str_replace(' ', '%20', $url);
 
-        return $this->pathBase . '/' . $url;
+        if ($reflection instanceof ReflectionMethod) {
+            $url .= '()';
+        }
+
+        return $this->pathBase . '/' . $url  . '.md';
     }
 
     protected function makeEnumeCases(\ReflectionEnum $enumReflection, bool $shortName = false): string
