@@ -586,7 +586,17 @@ class Generate
                 $file_content .= $constant->isProtected() ? 'protected' : '';
                 $file_content .= $constant->isPrivate() ? 'private' : '';
 
-                $file_content .= ' const ' . $constant->getName() . ': (' . \gettype($constant->getValue()) . ')';
+                $file_content .= ' const';
+
+                $type = $constant->getType();
+
+                if ($type !== null) {
+                    $file_content .= ' ' . self::getTypeAsString($type);
+                }
+
+                $file_content .= ' ' . $constant->getName();
+
+
                 $file_content .= $addMdCodeTag ? '`  ' : '';
                 $file_content .= "\n";
                 $hasConstants = true;

@@ -25,8 +25,8 @@
 
 ### CondorcetPHP\Condorcet\Condorcet Class  
 
-* `final public const VERSION: (string)`  
-* `final public const CONDORCET_BASIC_CLASS: (string)`  
+* `final public const VERSION`  
+* `final public const CONDORCET_BASIC_CLASS`  
 
 * `public static bool` [$UseTimer](/Docs/api-reference/Condorcet%20Class/Condorcet--UseTimer.md)
 
@@ -41,7 +41,7 @@
 
 ### CondorcetPHP\Condorcet\Election Class  
 
-* `public const MAX_CANDIDATE_NAME_LENGTH: (integer)`  
+* `public const int MAX_CANDIDATE_NAME_LENGTH`  
 
 * `public static ?int` [$maxParseIteration](/Docs/api-reference/Election%20Class/Election--maxParseIteration.md)
 * `public static ?int` [$maxVotePerElection](/Docs/api-reference/Election%20Class/Election--maxVotePerElection.md)
@@ -310,7 +310,7 @@
 
 ### CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver Class  
 
-* `public const SEGMENT: (array)`  
+* `public const array SEGMENT`  
 
 * `public static bool` [$preferBlobInsteadVarchar](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--preferBlobInsteadVarchar.md)
 * `public string` [$buildByCondorcetVersion](/Docs/api-reference/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver%20Class/DataManager_DataHandlerDrivers_PdoDriver_PdoHandlerDriver--buildByCondorcetVersion.md)
@@ -637,9 +637,9 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Method.php#L23)
 
 ```php
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
 * protected ?CondorcetPHP\Condorcet\Result $Result
@@ -666,10 +666,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/BordaCount.php#L19)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static int $optionStarting
 * readonly protected array $Stats
@@ -701,10 +701,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Borda/DowdallSystem.php#L17)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static int $optionStarting
 * readonly protected array $Stats
@@ -736,10 +736,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/CondorcetBasic.php#L21)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected ?int $CondorcetWinner
 * protected ?int $CondorcetLoser
@@ -772,11 +772,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Copeland/Copeland.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -807,10 +807,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonQuick.php#L19)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Stats
 * public static ?int $MaxCandidates
@@ -839,11 +839,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Dodgson/DodgsonTidemanApproximation.php#L19)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -874,10 +874,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/HighestAverages_Core.php#L18)
 
 ```php
-* final public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
-* public const METHOD_NAME: (array)
+* final public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
+* public const array METHOD_NAME
 
 * protected array $candidatesVotes
 * protected array $candidatesSeats
@@ -913,10 +913,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/Jefferson.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* final public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* final public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected array $candidatesVotes
 * protected array $candidatesSeats
@@ -952,10 +952,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/HighestAverages/SainteLague.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* final public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* final public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static int|float $optionFirstDivisor
 * protected array $candidatesVotes
@@ -993,10 +993,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/InstantRunoff/InstantRunoff.php#L19)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Stats
 * readonly public float $majority
@@ -1028,11 +1028,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/KemenyYoung/KemenyYoung.php#L23)
 
 ```php
-* public const METHOD_NAME: (array)
-* final public const CONFLICT_WARNING_CODE: (integer)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* final public const int CONFLICT_WARNING_CODE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
 * readonly protected int $countElectionCandidates
@@ -1078,10 +1078,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/LargestRemainder/LargestRemainder.php#L22)
 
 ```php
-* public const METHOD_NAME: (array)
-* final public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* final public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * protected array $candidatesVotes
@@ -1119,10 +1119,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomBallot.php#L19)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_DETERMINISTIC: (boolean)
-* public const IS_PROPORTIONAL: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_DETERMINISTIC
+* public const bool IS_PROPORTIONAL
+* public const int DECIMAL_PRECISION
 
 * public static ?Random\Randomizer $optionRandomizer
 * readonly protected int $totalElectionWeight
@@ -1157,10 +1157,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Lotteries/RandomCandidates.php#L21)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_DETERMINISTIC: (boolean)
-* public const IS_PROPORTIONAL: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_DETERMINISTIC
+* public const bool IS_PROPORTIONAL
+* public const int DECIMAL_PRECISION
 
 * public static ?Random\Randomizer $optionRandomizer
 * public static int|float $optionTiesProbability
@@ -1191,10 +1191,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/FirstPastThePost.php#L15)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected int $maxRound
 * protected int $targetNumberOfCandidatesForTheNextRound
@@ -1232,10 +1232,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MajorityCore.php#L18)
 
 ```php
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
-* public const METHOD_NAME: (array)
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
+* public const array METHOD_NAME
 
 * protected int $maxRound
 * protected int $targetNumberOfCandidatesForTheNextRound
@@ -1273,10 +1273,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Majority/MultipleRoundsSystem.php#L17)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected static int $optionMAX_ROUND
 * protected static int $optionTARGET_NUMBER_OF_CANDIDATES_FOR_THE_NEXT_ROUND
@@ -1320,11 +1320,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxMargin.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -1355,11 +1355,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxOpposition.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -1390,11 +1390,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Minimax/MinimaxWinning.php#L18)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -1425,11 +1425,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/PairwiseStatsBased_Core.php#L18)
 
 ```php
-* protected const COUNT_TYPE: (string)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
-* public const METHOD_NAME: (array)
+* protected const string COUNT_TYPE
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
+* public const array METHOD_NAME
 
 * readonly protected array $Comparison
 * public static ?int $MaxCandidates
@@ -1474,11 +1474,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsCore.php#L22)
 
 ```php
-* protected const VARIANT: (object)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
-* public const METHOD_NAME: (array)
+* protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
+* public const array METHOD_NAME
 
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
@@ -1519,11 +1519,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsMargin.php#L15)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const VARIANT: (object)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
@@ -1564,11 +1564,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/RankedPairs/RankedPairsWinning.php#L16)
 
 ```php
-* public const METHOD_NAME: (array)
-* protected const VARIANT: (object)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* protected const CondorcetPHP\Condorcet\Algo\Methods\RankedPairs\RP_VARIANT VARIANT
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static ?int $MaxCandidates
 * readonly protected array $PairwiseSort
@@ -1609,11 +1609,11 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/CPO_STV.php#L33)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const DEFAULT_METHODS_CHAINING: (array)
-* final public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const array DEFAULT_METHODS_CHAINING
+* final public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static ?int $MaxOutcomeComparisons
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
@@ -1673,10 +1673,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/STV/SingleTransferableVote.php#L23)
 
 ```php
-* final public const IS_PROPORTIONAL: (boolean)
-* public const METHOD_NAME: (array)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* final public const bool IS_PROPORTIONAL
+* public const array METHOD_NAME
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * public static CondorcetPHP\Condorcet\Algo\Tools\StvQuotas $optionQuota
 * readonly protected array $Stats
@@ -1710,10 +1710,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeCore.php#L23)
 
 ```php
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
-* public const METHOD_NAME: (array)
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
+* public const array METHOD_NAME
 
 * protected array $StrongestPaths
 * public static ?int $MaxCandidates
@@ -1746,10 +1746,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeMargin.php#L17)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
 * public static ?int $MaxCandidates
@@ -1782,10 +1782,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeRatio.php#L17)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
 * public static ?int $MaxCandidates
@@ -1818,10 +1818,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Schulze/SchulzeWinning.php#L17)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * protected array $StrongestPaths
 * public static ?int $MaxCandidates
@@ -1854,10 +1854,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SchwartzSet.php#L24)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $SchwartzSet
 * public static ?int $MaxCandidates
@@ -1891,10 +1891,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Methods/Smith/SmithSet.php#L23)
 
 ```php
-* public const METHOD_NAME: (array)
-* public const IS_PROPORTIONAL: (boolean)
-* public const IS_DETERMINISTIC: (boolean)
-* public const DECIMAL_PRECISION: (integer)
+* public const array METHOD_NAME
+* public const bool IS_PROPORTIONAL
+* public const bool IS_DETERMINISTIC
+* public const int DECIMAL_PRECISION
 
 * readonly protected array $SmithSet
 * public static ?int $MaxCandidates
@@ -2205,10 +2205,10 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L50)
 
 ```php
-* final public const AUTHOR: (string)
-* final public const HOMEPAGE: (string)
-* final public const VERSION: (string)
-* final public const CONDORCET_BASIC_CLASS: (string)
+* final public const AUTHOR
+* final public const HOMEPAGE
+* final public const VERSION
+* final public const CONDORCET_BASIC_CLASS
 
 * protected static ?string $defaultMethod
 * protected static array $authMethods
@@ -2232,9 +2232,9 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ConvertCommand.php#L30)
 
 ```php
-* public const SUCCESS: (integer)
-* public const FAILURE: (integer)
-* public const INVALID: (integer)
+* public const SUCCESS
+* public const FAILURE
+* public const INVALID
 
 * public static array $converters
 * readonly protected string $fromConverter
@@ -2293,9 +2293,9 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Commands/ElectionCommand.php#L40)
 
 ```php
-* public const SUCCESS: (integer)
-* public const FAILURE: (integer)
-* public const INVALID: (integer)
+* public const SUCCESS
+* public const FAILURE
+* public const INVALID
 
 * protected ?CondorcetPHP\Condorcet\Election $election
 * protected ?string $candidates
@@ -2427,23 +2427,23 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Console/Style/CondorcetStyle.php#L19)
 
 ```php
-* public const CONDORCET_MAIN_COLOR: (string)
-* public const CONDORCET_SECONDARY_COLOR: (string)
-* public const CONDORCET_THIRD_COLOR: (string)
-* public const CONDORCET_WINNER_SYMBOL: (string)
-* public const CONDORCET_LOSER_SYMBOL: (string)
-* public const CONDORCET_WINNER_SYMBOL_FORMATED: (string)
-* public const CONDORCET_LOSER_SYMBOL_FORMATED: (string)
-* public const MAX_LINE_LENGTH: (integer)
-* public const VERBOSITY_SILENT: (integer)
-* public const VERBOSITY_QUIET: (integer)
-* public const VERBOSITY_NORMAL: (integer)
-* public const VERBOSITY_VERBOSE: (integer)
-* public const VERBOSITY_VERY_VERBOSE: (integer)
-* public const VERBOSITY_DEBUG: (integer)
-* public const OUTPUT_NORMAL: (integer)
-* public const OUTPUT_RAW: (integer)
-* public const OUTPUT_PLAIN: (integer)
+* public const string CONDORCET_MAIN_COLOR
+* public const string CONDORCET_SECONDARY_COLOR
+* public const string CONDORCET_THIRD_COLOR
+* public const string CONDORCET_WINNER_SYMBOL
+* public const string CONDORCET_LOSER_SYMBOL
+* public const string CONDORCET_WINNER_SYMBOL_FORMATED
+* public const string CONDORCET_LOSER_SYMBOL_FORMATED
+* public const MAX_LINE_LENGTH
+* public const VERBOSITY_SILENT
+* public const VERBOSITY_QUIET
+* public const VERBOSITY_NORMAL
+* public const VERBOSITY_VERBOSE
+* public const VERBOSITY_VERY_VERBOSE
+* public const VERBOSITY_DEBUG
+* public const OUTPUT_NORMAL
+* public const OUTPUT_RAW
+* public const OUTPUT_PLAIN
 
 * readonly public Symfony\Component\Console\Helper\TableStyle $MainTableStyle
 * readonly public Symfony\Component\Console\Helper\TableStyle $FirstColumnStyle
@@ -2586,7 +2586,7 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L19)
 
 ```php
-* public const SEGMENT: (array)
+* public const array SEGMENT
 
 * readonly protected PDO $handler
 * protected bool $transaction
@@ -2744,7 +2744,7 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L20)
 
 ```php
-* public const MAX_CANDIDATE_NAME_LENGTH: (integer)
+* public const int MAX_CANDIDATE_NAME_LENGTH
 
 * public static ?int $maxParseIteration
 * public static ?int $maxVotePerElection
@@ -3646,7 +3646,7 @@ _Including above methods from public API_
 > [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L17)
 
 ```php
-* public const SPECIAL_KEYWORD_EMPTY_RANKING: (string)
+* public const string SPECIAL_KEYWORD_EMPTY_RANKING
 
 * protected SplFileObject $file
 * readonly public array $parameters

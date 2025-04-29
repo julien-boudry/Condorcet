@@ -1,6 +1,6 @@
 # public Election::getConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L370)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L371)
 
 ## Description    
 
