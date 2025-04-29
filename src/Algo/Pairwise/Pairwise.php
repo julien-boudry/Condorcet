@@ -114,9 +114,16 @@ class Pairwise implements \ArrayAccess, \Iterator
             new Timer_Chrono($this->getElection()->getTimerManager(), 'Add Vote To Pairwise');
         }
 
+        $election = $this->getElection();
+        $vote = $election->getVotesManager()[$key];
+
+        if ($election->isVoteValidUnderConstraints($vote) === false) {
+            return;
+        }
+
         $this->clearExplicitPairwiseCache();
 
-        $this->computeOneVote($this->Pairwise, $this->getElection()->getVotesManager()[$key]);
+        $this->computeOneVote($this->Pairwise, $vote);
     }
 
     /**
@@ -128,11 +135,18 @@ class Pairwise implements \ArrayAccess, \Iterator
             new Timer_Chrono($this->getElection()->getTimerManager(), 'Remove Vote To Pairwise');
         }
 
+        $election = $this->getElection();
+        $vote = $election->getVotesManager()[$key];
+
+        if ($election->isVoteValidUnderConstraints($vote) === false) {
+            return;
+        }
+
         $this->clearExplicitPairwiseCache();
 
         $diff = $this->Pairwise_Model;
 
-        $this->computeOneVote($diff, $this->getElection()->getVotesManager()[$key]);
+        $this->computeOneVote($diff, $vote);
 
         foreach ($diff as $candidate_key => $candidate_details) {
             foreach ($candidate_details as $type => $opponent) {

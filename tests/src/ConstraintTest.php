@@ -130,3 +130,47 @@ class AlternativeNoTieConstraintClass implements VoteConstraintInterface
         return true;
     }
 }
+
+
+test('add constraint after vote', function(): void {
+    $election = new Election;
+
+    $election->addConstraint(NoTie::class);
+
+    expect($election->getConstraints())->toBe([
+        NoTie::class
+    ]);
+
+    $election->parseCandidates('A;B;C;D');
+    $election->parseVotes('
+        B > A > C > D
+        A > B = C = D
+        A > B > C = D
+    ' );
+
+    expect($election->countValidVoteWithConstraints())->toBe(1);
+    expect($election->countInvalidVoteWithConstraints())->toBe(2);
+    expect($election->getWinner()->name)->toBe('B');
+});
+
+test('add/remove vote that is invalid under constraint', function(): void {
+    $this->election->authorizeVoteWeight = true;
+
+    $this->election->addVote('A > B > C');
+    $this->election->addVote('A > B > C');
+
+    $vote = new Vote('B > A = C');
+    $vote->setWeight(3);
+    $this->election->addVote($vote);
+
+    expect($this->election->getWinner()->name)->toBe('B');
+    expect($this->election->getPairwise()->compareCandidates('A', 'B'))->toBe(-1);
+
+    $this->election->addConstraint(NoTie::class);
+    expect($this->election->getWinner()->name)->toBe('A');
+    expect($this->election->getPairwise()->compareCandidates('A', 'B'))->toBe(2);
+
+    $this->election->removeVote($vote);
+    expect($this->election->getWinner()->name)->toBe('A');
+    expect($this->election->getPairwise()->compareCandidates('A', 'B'))->toBe(2);
+});
