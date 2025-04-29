@@ -2,6 +2,14 @@ CHANGELOG
 =========
 All notable changes to this project will be documented in this file.
 
+## [v4.7.1] - 2025-04-29
+### Description
+Maintenance release with critical bug fix backported from version 5.0.
+
+#### Changed
+- Fixed critical regression where modifying vote weight on a vote object after it was registered could produce invalid election results.
+- Fixed critical regression where registering constraints before adding votes could produce incorrect calculation results.
+
 ## [v4.7.0] - 2024-06-14
 ### Description
 The minimum PHP version is now 8.3
@@ -810,10 +818,12 @@ The code will be very severely rewritten and restructured for the next major rel
 
 ### Changed
 - isJson is now a static method, useful for Condorcet API project
-- Add an exception handler into the examples
+- Candidate name are now trim()
+- The old system of errors reporting is deleted.
+- The class now throws exceptions of class 'CondorcetException'
 
 ### Fixed
-- Some minors bugfix about CondorcetException class
+- Various bugfix
 
 ## [v0.12.0] - 2014-07-02
 ### Added
