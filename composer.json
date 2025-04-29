@@ -29,7 +29,8 @@
         "ext-mbstring": "*",
         "symfony/console": "^7.1",
         "symfony/yaml": "^7.2",
-        "brick/math": "^0.13"
+        "brick/math": "^0.13",
+        "mammothphp/woollym": "dev-master"
     },
     "require-dev": {
         "ext-pdo": "*",
