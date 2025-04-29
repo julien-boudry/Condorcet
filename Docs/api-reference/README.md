@@ -2834,6 +2834,7 @@ _Including above methods from public API_
 * public removeExternalDataHandler (): bool  
 * public removeVote (CondorcetPHP\Condorcet\Vote $vote): true  
 * public removeVotesByTags (array|string $tags, bool $with = true): array  
+* public resetComputation (): void  
 * public resetMethodsComputation (): void  
 * public seatsToElect ()  
 * public setExternalDataHandler (CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver): static  
@@ -2857,7 +2858,6 @@ _Including above methods from public API_
 * protected preparePairwiseAndCleanCompute (): bool  
 * protected registerAllLinks (): void  
 * protected registerVote (CondorcetPHP\Condorcet\Vote $vote, array|string|null $tags): CondorcetPHP\Condorcet\Vote  
-* protected resetComputation (): void  
 * protected timer ()  
 * protected votesFastMode ()  
 ```
