@@ -3,6 +3,16 @@ CHANGELOG
 All notable changes to this project will be documented in this file.
 
 ## [v5.0.0] - 2024-XX-XX
+
+## [v4.7.1] - 2025-04-29
+### Description
+Maintenance release with critical bug fix backported from version 5.0.
+
+#### Changed
+- Fixed critical regression where modifying vote weight on a vote object after it was registered could produce invalid election results.
+- Fixed critical regression where registering constraints before adding votes could produce incorrect calculation results.
+
+## [v4.7.0] - 2024-06-14
 ### Description
 Major release with many breaking changes, a modernized API, removal of deprecated features, and significant optimizations.
 To upgrade, it is recommended to test carefully and read the documentation. However, the main concepts and methods remain mostly unchanged.
@@ -801,3 +811,162 @@ However, foundations and most contents are available now.
 ### Changed
 - **Condorcet::format** static method is a substitute to var_dump to print easily better human readable Condorcet data (Vote, Résult). It can also be used to return (and not print) more simple dataset.
 - Many new methods or API change. But structure stay similar, and old simple scripts can continue to work without modifications or really minor changes.
+
+## [v0.14.0] - 2014-08-10
+### Description
+The code will be very severely rewritten and restructured for the next major release.
+
+### Added
+- Added UNIX timestamp of the record of each vote time as a special tag.
+- Ability to perform cryptographic checksum (SHA-2 256) the status of an election (candidates, votes, cache, library version).
+- New static method setMaxVoteNumber, allow you to limit the number of votes in a election. And public method to ignore it (or not) for each object.
+- Improvements and bugfixes around object serialization.
+- New Options for getClassVersion method
+
+### Changed
+- Compatibility is now guaranteed from PHP 5.5.12 to PHP 5.6.x. But the vital methods seem functional with PHP (>=) 5.4.3
+- Algorithm Kemeny-Young V2: more than 1000 times faster with a cache of pre-computed data. 6 candidates on an election is now very fast, and it is the new provisional limit.
+  Next Condorcet version will allow more candidates for Kemeny-Young (7 or 8), with more pre-computed sets.
+- Customized limitation of maximum candidate for Kemeny-Young is removed.
+- Works around the presentation of the single primary tag of each vote
+
+### Fixed
+- Improvements and bugfixes around object serialization.
+- Many bugfixes and minor internal adjustments. Mostly to satisfy the development of condorcet-vote.org, which uses the library as a real framework of election management.
+
+## [v0.13.2] - 2014-07-29
+### Fixed
+- Bugfix on getVotesList() and all tag filter methods
+
+## [v0.13.0] - 2014-07-06
+### Added
+- New logo by @Christelle-Radena
+- Add getLastTimer() and getGlobalTimer() methods
+
+### Changed
+- isJson is now a static method, useful for Condorcet API project
+- Candidate name are now trim()
+- The old system of errors reporting is deleted.
+- The class now throws exceptions of class 'CondorcetException'
+
+### Fixed
+- Various bugfix
+
+## [v0.12.0] - 2014-07-02
+### Added
+- Votes and candidates can now be defined by a json input. _( jsonVotes(), jsonCandidates() )_
+- Candidates can now be defined by a text input _( string or file with parseCandidates() )_
+- The input text or json can now take a parameter of anti-flood safety generating an exception, providing you foresee yourself.
+
+### Changed
+- (Git) The static method ::getClassVersion() returns 'DEV' entitle on developments branches.
+- Candidate name are now trim()
+- The old system of errors reporting is deleted.
+- The class now throws exceptions of class 'CondorcetException'
+
+### Fixed
+- Various bugfix
+
+## [v0.11.1] - 2014-07-01
+### Fixed
+- Minor bugfix for getMethod() & setMethod() methods.
+
+## [v0.11.0] - 2014-06-14
+### Added
+- Added the ability to include a multitude of votes votes simultaneously from a text or a single wide string file.
+- Adding an adjustable anti-flood on the previous method.
+
+- More flexibility to register or claim tags. Use an array or a string separated by commas.
+- The countVote() method can now act on specific tags.
+- The getVoteList() method can now be used more accurate and extensive.
+- The removeVotes() method can now be used more accurate and extensive.
+- The getResult() method can now be used to gain a profit on a partial selection of the votes (using tags) without requiring the prior removal of votes.
+- Added more specific error message on addVote()
+
+### Changed
+- Improved documentation
+- Various optimizations
+
+## [v0.10.1] - 2014-05-17
+### Fixed
+- Bugfix for Schulze_Ratio (division by 0)
+
+## [v0.10.0] - 2014-05-13
+### Added
+- New variants for the method of Schulze
+- Experimental Implementation of the Ranked Pairs method
+
+### Changed
+- Audited successfully Schulze with the example of Martin Schulze itself
+- Various optimizations
+
+## [v0.9.0] - 2014-05-01
+### Added
+- Ability to add options to the algorithm with getResult ()
+- KemenyYoung is now able to detect its conflicts and inform through the use of an option on getResult () (see the documentation)
+
+### Changed
+- Multiple bug fixes, some important (but never affecting the results).
+- Code harmonization
+- On the benefit of public methods provide a return value with the meaning and utility.
+- Isolation of static methods having intended to be used by algorithms to avoid duplication of one another.
+- Very complete (but not 100% exhaustive) examples of uses are kindly provided.
+- Global code review by the author.
+
+## [v0.8.0] - 2014-04-24
+### Added
+- New algorithm: Kemeny-Young (http://en.wikipedia.org/wiki/Kemeny-Young_method)
+
+### Changed
+- Many internal improvements, code cleanup and improve modularity rules
+- Candidates can now have long names (30 characters)
+
+## [v0.7.0] - 2014-04-18
+### Added
+- Support for serialize and unserialize object.
+  - Optimization of data to keep back.
+  - Checking the version of the data to import.
+  - WARNING : Resultat will be recalculated from voting data.
+
+### Changed
+- Complete harmonization of attribute names and methods. Compatibility with old API is completely broken on the form, but the operation remains exactly the same.
+- Many code cleanup and optimizations
+
+## [v0.6.0] - 2014-04-14
+### Added
+- Add new Condorcet algorithm: Minimax in its three variants (Winning, Margin, Opposition | The last one is not  Condorcet criterion compliant)
+  http://en.wikipedia.org/wiki/Minimax_Condorcet
+- Add the ability to record a new vote by using a format string like "A>B=C>D" rather than the use of an array, read the doc!
+
+### Fixed
+- Some bugfix & optimizations
+
+## [v0.5.1] - 2014-04-13
+### Fixed
+- Bugfix about registering new algorihms by an array
+
+## [v0.5.0] - 2014-04-13
+### Added
+- Support Composer
+
+### Changed
+- Important structural changes to meet the standard PSR-0, PSR-1 and PSR-2 (partial).
+
+## [v0.4.0] - 2014-04-06
+### Description
+First version ready for production, with many API improvements and news features. And the new Condorcet Copeland method.
+
+## [v0.3.0] - 2014-03-16
+### Description
+Considerable structural changes and redesign many parts of API.
+The class can now support the easy addition of new algorithms.
+
+The next release will be devoted to validate the apparent stability of this version 0.3 and enrich the API for more flexibility. And perhaps the arrival of a new algorithm.
+
+## [v0.2.0] - 2014-03-12
+### Description
+Second release! Not really ready for production, please test it!
+
+## [v0.1.0] - 2014-03-09
+### Description
+First release! Not really ready for production, please test it !
