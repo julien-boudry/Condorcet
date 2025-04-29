@@ -46,8 +46,7 @@
     },
     "suggest": {
         "ext-pdo": "Allow to use database for very large elections.",
-        "ext-pdo_sqlite": "Use sqlite3 bases for very large elections.",
-        "mammothphp/woollym": "Allow to use the CondorcetPHP library in a mammoth project and complete de dev test suite."
+        "ext-pdo_sqlite": "Use sqlite3 bases for very large elections."
     },
     "autoload": {
         "psr-4": {
