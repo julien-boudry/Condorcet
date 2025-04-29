@@ -288,7 +288,7 @@ trait ResultsProcess
     }
 
     // Cleanup results to compute again with new votes
-    protected function cleanupCompute(): void
+    public function cleanupCompute(): void
     {
         // Algos
         $this->cleanupCalculator();

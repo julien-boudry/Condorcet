@@ -478,6 +478,28 @@ test('vote weight', function (): void {
         );
 });
 
+test('vote weight change at vote level object', function (): void {
+    $election = new Election();
+    $election->allowsVoteWeight();
+
+    $election->addCandidate('A');
+    $election->addCandidate('B');
+    $election->addCandidate('C');
+
+    $vote1 = new Vote('A > B > C');
+
+    $election->addVote($vote1);
+    $election->parseVotes('B > A > C * 2');
+
+    expect($election->getResult()->getOriginalResultAsString())->toBe('B > A > C');
+    // expect($election->getPairwise()->compareCandidates('A', 'B'))->toBe(-1);
+
+    $vote1->setWeight(3);
+
+    expect($election->getResult()->getOriginalResultAsString())->toBe('A > B > C');
+    // expect($election->getPairwise()->compareCandidates('A', 'B'))->toBe(1);
+});
+
 test('add votes from json', function (): void {
     $election = new Election;
 

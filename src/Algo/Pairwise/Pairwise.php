@@ -104,7 +104,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $election = $this->getElection();
         $vote = $election->getVotesManager()[$key];
 
-        if ($election->isVoteValidUnderConstraints($vote) === false) {
+        if ($election->testIfVoteIsValidUnderElectionConstraints($vote) === false) {
             return;
         }
 
@@ -120,7 +120,7 @@ class Pairwise implements \ArrayAccess, \Iterator
         $election = $this->getElection();
         $vote = $election->getVotesManager()[$key];
 
-        if ($election->isVoteValidUnderConstraints($vote) === false) {
+        if ($election->testIfVoteIsValidUnderElectionConstraints($vote) === false) {
             return;
         }
 
