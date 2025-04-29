@@ -28,5 +28,5 @@ Get votes with these tags or without.
 
 ## Related
 
-* [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
-* [Election::getVotesListAsString](/Docs/api-reference/Election%20Class/Election--getVotesListAsString().md)    
+* [Election::countVotes()](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
+* [Election::getVotesListAsString()](/Docs/api-reference/Election%20Class/Election--getVotesListAsString().md)    

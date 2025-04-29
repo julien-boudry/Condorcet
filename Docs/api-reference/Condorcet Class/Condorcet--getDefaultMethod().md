@@ -20,5 +20,5 @@ Return the Condorcet static default method.
 
 ## Related
 
-* [Condorcet::getAuthMethods](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods().md)    
-* [Condorcet::setDefaultMethod](/Docs/api-reference/Condorcet%20Class/Condorcet--setDefaultMethod().md)    
+* [Condorcet::getAuthMethods()](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods().md)    
+* [Condorcet::setDefaultMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--setDefaultMethod().md)    

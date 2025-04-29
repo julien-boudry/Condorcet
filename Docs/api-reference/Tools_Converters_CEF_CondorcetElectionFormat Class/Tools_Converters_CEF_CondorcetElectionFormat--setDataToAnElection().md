@@ -28,5 +28,5 @@ Callback function to execute after each registered vote.
 
 ## Related
 
-* [Tools\Converters\DavidHillFormat::setDataToAnElection](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection().md)    
-* [Tools\Converters\DebianFormat::setDataToAnElection](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--setDataToAnElection().md)    
+* [Tools\Converters\DavidHillFormat::setDataToAnElection()](/Docs/api-reference/Tools_Converters_DavidHillFormat%20Class/Tools_Converters_DavidHillFormat--setDataToAnElection().md)    
+* [Tools\Converters\DebianFormat::setDataToAnElection()](/Docs/api-reference/Tools_Converters_DebianFormat%20Class/Tools_Converters_DebianFormat--setDataToAnElection().md)    

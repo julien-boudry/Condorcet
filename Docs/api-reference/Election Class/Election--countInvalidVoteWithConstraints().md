@@ -20,6 +20,6 @@ Count the number of actual invalid (if constraints functionality is enabled) but
 
 ## Related
 
-* [Election::countValidVoteWithConstraints](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints().md)    
-* [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
-* [Election::sumValidVoteWeightsWithConstraints](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    
+* [Election::countValidVoteWithConstraints()](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints().md)    
+* [Election::countVotes()](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
+* [Election::sumValidVoteWeightsWithConstraints()](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    

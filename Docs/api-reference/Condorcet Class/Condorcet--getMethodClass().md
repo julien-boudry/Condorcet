@@ -30,4 +30,4 @@ A valid method name.
 
 ## Related
 
-* [Condorcet::getAuthMethods](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods().md)    
+* [Condorcet::getAuthMethods()](/Docs/api-reference/Condorcet%20Class/Condorcet--getAuthMethods().md)    

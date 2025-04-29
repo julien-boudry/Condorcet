@@ -1,6 +1,6 @@
 # public Election::removeExternalDataHandler
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L456)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L457)
 
 ## Description    
 
@@ -25,4 +25,4 @@ Remove an external driver to store vote on very large election. And import his d
 
 ## Related
 
-* [Election::setExternalDataHandler](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler().md)    
+* [Election::setExternalDataHandler()](/Docs/api-reference/Election%20Class/Election--setExternalDataHandler().md)    

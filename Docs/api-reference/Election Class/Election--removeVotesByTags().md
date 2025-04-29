@@ -35,9 +35,9 @@ Votes with these tags or without.
 
 ## Related
 
-* [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
-* [Election::removeVote](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
+* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
 
 ---------------------------------------
 

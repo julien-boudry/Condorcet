@@ -30,7 +30,7 @@ Tag(s) are non-numeric alphanumeric string. They can be added by string separate
 
 ## Related
 
-* [Vote::removeTags](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    
+* [Vote::removeTags()](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    
 
 ---------------------------------------
 

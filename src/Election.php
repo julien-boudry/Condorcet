@@ -72,7 +72,7 @@ class Election
      * @return ElectionState ElectionState::CANDIDATES_REGISTRATION: Candidate registered state. No votes, no result, no cache.
      *                      ElectionState::VOTES_REGISTRATION: Voting registration phase. Pairwise cache can exist thanks to dynamic computation if voting phase continue after the first get result. But method result never exist.
      *                      ElectionState::RESULT_COMPUTING: Result phase: Some method result may exist, pairwise exist. An election will dynamically return to Phase 2 if votes are added or modified.
-     * @see Election::setStateToVote
+     * @see Election::setStateToVote()
      */
     public protected(set) ElectionState $state = ElectionState::CANDIDATES_REGISTRATION;
     protected readonly Timer_Manager $timer;
@@ -90,7 +90,8 @@ class Election
     }
 
     /**
-     * Alias as a fonction for Election->authorizeVoteWeight
+     * Alias as a method for Election->authorizeVoteWeight
+     * @param $authorized New rule.
      * @see Election::authorizeVoteWeight
      * @api
      */
@@ -106,7 +107,7 @@ class Election
      * Get or set seats to elect count for proportionals methods like STV.
      * @api
      * @throws NoSeatsException
-     * @see Election::setSeatsToElect, Result::seats
+     * @see Election::setSeatsToElect(), Result::seats
      */
     public int $seatsToElect = 100 {
         set(int $seats) {
@@ -223,7 +224,7 @@ class Election
      * @api
      * @return float Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
-     * @see Election::getLastTimer
+     * @see Election::getLastTimer()
      */
     public function getGlobalTimer(): float
     {
@@ -234,7 +235,7 @@ class Election
      * @api
      * @return ?float Timer
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Timer
-     * @see Election::getGlobalTimer
+     * @see Election::getGlobalTimer()
      */
     public function getLastTimer(): ?float
     {
@@ -244,7 +245,7 @@ class Election
      * Get the Timer manager object.
      * @api
      * @return Timer_Manager An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
-     * @see Election::getGlobalTimer, Election::getLastTimer
+     * @see Election::getGlobalTimer(), Election::getLastTimer()
      */
     public function getTimerManager(): Timer_Manager
     {
@@ -336,11 +337,11 @@ class Election
     /////////// VOTE CONSTRAINT ///////////
     /**
      * Add a constraint rules as a valid class path.
-     * @api
-     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
-     * @see Election::getConstraints, Election::clearConstraints, Election::isVoteValidUnderConstraints
      * @param $constraintClass A valid class path. Class must extend VoteConstraint class.
      * @throws VoteConstraintException
+     * @api
+     * @see Election::getConstraints(), Election::clearConstraints(), Election::isVoteValidUnderConstraints()
+     * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
      */
     public function addConstraint(
         string $constraintClass
@@ -364,7 +365,7 @@ class Election
      * @api
      * @return array Array with class name of each active constraint. Empty array if there is not.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
-     * @see Election::clearConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
+     * @see Election::clearConstraints(), Election::addConstraint(), Election::isVoteValidUnderConstraints()
      */
     public function getConstraints(): array
     {
@@ -375,7 +376,7 @@ class Election
      * Clear all constraints rules and clear previous results.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
-     * @see Election::getConstraints, Election::addConstraint, Election::isVoteValidUnderConstraints
+     * @see Election::getConstraints(), Election::addConstraint(), Election::isVoteValidUnderConstraints()
      */
     public function clearConstraints(): static
     {
@@ -390,7 +391,7 @@ class Election
      * Test if a vote is valid with these election constraints.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesConstraints
-     * @see Election::getConstraints, Election::addConstraint, Election::clearConstraints
+     * @see Election::getConstraints(), Election::addConstraint(), Election::clearConstraints()
      * @param $vote A vote. Not necessarily registered in this election.
      * @return bool Return True if vote will pass the constraints rules, else False.
      */
@@ -430,7 +431,7 @@ class Election
      * Import and enable an external driver to store vote on very large election.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::MassiveElection
-     * @see Election::removeExternalDataHandler
+     * @see Election::removeExternalDataHandler()
      * @param $driver Driver object.
      * @throws DataHandlerException
      */
@@ -451,7 +452,7 @@ class Election
      * @api
      * @throws DataHandlerException
      * @return bool True if success. Else throw an Exception.
-     * @see Election::setExternalDataHandler
+     * @see Election::setExternalDataHandler()
      */
     public function removeExternalDataHandler(): bool
     {

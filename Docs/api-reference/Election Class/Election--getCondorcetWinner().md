@@ -20,9 +20,9 @@ Get the natural Condorcet winner if there is one.
 
 ## Related
 
-* [Election::getCondorcetLoser](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser().md)    
-* [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [Election::getCondorcetLoser()](/Docs/api-reference/Election%20Class/Election--getCondorcetLoser().md)    
+* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
+* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
 
 ---------------------------------------
 

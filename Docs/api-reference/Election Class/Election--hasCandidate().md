@@ -22,4 +22,4 @@ Strict comparison mode. In strict mode, candidate objects are compared strictly 
 
 ## Related
 
-* [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
+* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    

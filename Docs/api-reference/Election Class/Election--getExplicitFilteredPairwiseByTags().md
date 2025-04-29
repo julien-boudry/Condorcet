@@ -28,4 +28,4 @@ Minimum number of specified tags that votes must include, or 0 for only votes wi
 
 ## Related
 
-* [Election::getPairwise](/Docs/api-reference/Election%20Class/Election--getPairwise().md)    
+* [Election::getPairwise()](/Docs/api-reference/Election%20Class/Election--getPairwise().md)    

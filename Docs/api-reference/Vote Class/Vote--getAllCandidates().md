@@ -25,5 +25,5 @@ An election already linked to the Vote.
 
 ## Related
 
-* [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking().md)    
+* [Vote::getRanking()](/Docs/api-reference/Vote%20Class/Vote--getRanking().md)    
 * [Vote::countCandidates](/Docs/api-reference/Vote%20Class/Vote--countCandidates.md)    

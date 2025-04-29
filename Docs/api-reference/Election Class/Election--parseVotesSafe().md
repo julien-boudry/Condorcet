@@ -31,10 +31,10 @@ Callback function to execute after each valid line, before vote registration.
 
 ## Related
 
-* [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
-* [Election::addVotesFromJson](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
+* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
+* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
+* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
+* [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
 
 ---------------------------------------
 

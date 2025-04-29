@@ -20,4 +20,4 @@ Returns benchmarked actions history.
 
 ## Related
 
-* [Election::getTimerManager](/Docs/api-reference/Election%20Class/Election--getTimerManager().md)    
+* [Election::getTimerManager()](/Docs/api-reference/Election%20Class/Election--getTimerManager().md)    

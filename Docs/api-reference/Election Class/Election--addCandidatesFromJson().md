@@ -30,9 +30,9 @@ JSON string.
 
 ## Related
 
-* [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
-* [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::addVotesFromJson](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
+* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
+* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
+* [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
 
 ---------------------------------------
 

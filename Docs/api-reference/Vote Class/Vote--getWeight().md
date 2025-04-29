@@ -25,4 +25,4 @@ In the context of wich election? (optional).
 
 ## Related
 
-* [Vote::setWeight](/Docs/api-reference/Vote%20Class/Vote--setWeight().md)    
+* [Vote::setWeight()](/Docs/api-reference/Vote%20Class/Vote--setWeight().md)    

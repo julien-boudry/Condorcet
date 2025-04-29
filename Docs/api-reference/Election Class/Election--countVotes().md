@@ -28,5 +28,5 @@ Count Votes with this tag or without this tag.
 
 ## Related
 
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
-* [Election::countValidVoteWithConstraints](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::countValidVoteWithConstraints()](/Docs/api-reference/Election%20Class/Election--countValidVoteWithConstraints().md)    

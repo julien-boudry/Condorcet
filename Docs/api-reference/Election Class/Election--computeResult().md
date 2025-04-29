@@ -19,6 +19,6 @@ Not requiered for use object default method. Set the string name of the algorith
 
 ## Related
 
-* [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult().md)    
-* [Condorcet::getDefaultMethod](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod().md)    
+* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
+* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [Condorcet::getDefaultMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod().md)    

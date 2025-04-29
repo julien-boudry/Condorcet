@@ -25,8 +25,8 @@ Condorcet election to check.
 
 ## Related
 
-* [Vote::countLinks](/Docs/api-reference/Vote%20Class/Vote--countLinks().md)    
-* [Candidate::countLinks](/Docs/api-reference/Candidate%20Class/Candidate--countLinks().md)    
-* [Vote::getLinks](/Docs/api-reference/Vote%20Class/Vote--getLinks().md)    
-* [Candidate::getLinks](/Docs/api-reference/Candidate%20Class/Candidate--getLinks().md)    
-* [Vote::haveLink](/Docs/api-reference/Vote%20Class/Vote--haveLink().md)    
+* [Vote::countLinks()](/Docs/api-reference/Vote%20Class/Vote--countLinks().md)    
+* [Candidate::countLinks()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks().md)    
+* [Vote::getLinks()](/Docs/api-reference/Vote%20Class/Vote--getLinks().md)    
+* [Candidate::getLinks()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks().md)    
+* [Vote::haveLink()](/Docs/api-reference/Vote%20Class/Vote--haveLink().md)    

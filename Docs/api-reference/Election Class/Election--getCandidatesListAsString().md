@@ -20,4 +20,4 @@ Return a list of registered candidates for this election as strings.
 
 ## Related
 
-* [Election::countCandidates](/Docs/api-reference/Election%20Class/Election--countCandidates().md)    
+* [Election::countCandidates()](/Docs/api-reference/Election%20Class/Election--countCandidates().md)    

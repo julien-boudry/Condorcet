@@ -20,5 +20,5 @@ Remove all registered tag(s) on this Vote.
 
 ## Related
 
-* [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
-* [Vote::removeTags](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    
+* [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
+* [Vote::removeTags()](/Docs/api-reference/Vote%20Class/Vote--removeTags().md)    

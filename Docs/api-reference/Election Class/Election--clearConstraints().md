@@ -1,6 +1,6 @@
 # public Election::clearConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L380)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L381)
 
 ## Description    
 
@@ -14,9 +14,9 @@ Clear all constraints rules and clear previous results.
 
 ## Related
 
-* [Election::getConstraints](/Docs/api-reference/Election%20Class/Election--getConstraints().md)    
-* [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint().md)    
-* [Election::isVoteValidUnderConstraints](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints().md)    
+* [Election::getConstraints()](/Docs/api-reference/Election%20Class/Election--getConstraints().md)    
+* [Election::addConstraint()](/Docs/api-reference/Election%20Class/Election--addConstraint().md)    
+* [Election::isVoteValidUnderConstraints()](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints().md)    
 
 ---------------------------------------
 

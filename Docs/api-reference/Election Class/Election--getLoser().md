@@ -29,8 +29,8 @@ Throw an exception on error.
 
 ## Related
 
-* [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
+* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
 
 ---------------------------------------
 

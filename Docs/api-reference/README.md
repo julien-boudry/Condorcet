@@ -62,6 +62,7 @@
 * `public` [Election->addConstraint (...)](/Docs/api-reference/Election%20Class/Election--addConstraint().md): `static`  
 * `public` [Election->addVote (...)](/Docs/api-reference/Election%20Class/Election--addVote().md): `CondorcetPHP\Condorcet\Vote`  
 * `public` [Election->addVotesFromJson (...)](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md): `int`  
+* `public` [Election->authorizeVoteWeight](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight.md)  
 * `public` [Election->authorizeVoteWeight (...)](/Docs/api-reference/Election%20Class/Election--authorizeVoteWeight().md): `static`  
 * `final public` [Election->buildByCondorcetVersion](/Docs/api-reference/Election%20Class/Election--buildByCondorcetVersion.md)  
 * `public` [Election->canAddCandidate (...)](/Docs/api-reference/Election%20Class/Election--canAddCandidate().md): `bool`  
@@ -94,6 +95,7 @@
 * `public` [Election->getWinner (...)](/Docs/api-reference/Election%20Class/Election--getWinner().md): `CondorcetPHP\Condorcet\Candidate|array|null`  
 * `public` [Election->hasCandidate (...)](/Docs/api-reference/Election%20Class/Election--hasCandidate().md): `bool`  
 * `virtual public` [Election->hash](/Docs/api-reference/Election%20Class/Election--hash.md)  
+* `public` [Election->implicitRankingRule](/Docs/api-reference/Election%20Class/Election--implicitRankingRule.md)  
 * `public` [Election->implicitRankingRule (...)](/Docs/api-reference/Election%20Class/Election--implicitRankingRule().md): `static`  
 * `public` [Election->isVoteValidUnderConstraints (...)](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints().md): `bool`  
 * `public` [Election->parseCandidates (...)](/Docs/api-reference/Election%20Class/Election--parseCandidates().md): `array`  
@@ -2013,6 +2015,7 @@ _Including above methods from public API_
 * protected getVotesManagerGenerator (): Generator  
 * protected prepareComparaison (CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b): array  
 * protected selfElection ()  
+* private valid ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Algo\StatsVerbosity implements UnitEnum, BackedEnum`  
@@ -2576,6 +2579,7 @@ _Including above methods from public API_
 * protected preDeletedTask (CondorcetPHP\Condorcet\Vote $object): void  
 * protected selfElection ()  
 * protected setCursorOnNextKeyInArray (array $array): void  
+* protected valid ()  
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`  
@@ -2719,6 +2723,7 @@ _Including above methods from public API_
 * protected processsumVoteWeights (?array $tags, int|bool $with, bool $constraints): int  
 * protected selfElection ()  
 * protected setCursorOnNextKeyInArray (array $array): void  
+* protected valid ()  
 ```
 
 #### `CondorcetPHP\Condorcet\DataManager\VotesManagerEvent implements UnitEnum`  
@@ -2773,6 +2778,7 @@ _Including above methods from public API_
 * public addConstraint (string $constraintClass): static  
 * public addVote (CondorcetPHP\Condorcet\Vote|array|string $vote, array|string|null $tags = null): CondorcetPHP\Condorcet\Vote  
 * public addVotesFromJson (string $input): int  
+* public authorizeVoteWeight ()  
 * public authorizeVoteWeight (bool $authorized = true): static  
 * public beginVoteUpdate (CondorcetPHP\Condorcet\Vote $existVote): void  
 * public buildByCondorcetVersion ()  
@@ -2816,6 +2822,7 @@ _Including above methods from public API_
 * public getWinner (?string $method = null): CondorcetPHP\Condorcet\Candidate|array|null  
 * public hasCandidate (CondorcetPHP\Condorcet\Candidate|string $candidate, bool $strictMode = true): bool  
 * public hash ()  
+* public implicitRankingRule ()  
 * public implicitRankingRule (bool $rule): static  
 * public isVoteValidUnderConstraints (CondorcetPHP\Condorcet\Vote $vote): bool  
 * public nextAutomaticCandidateName ()  
@@ -3632,6 +3639,7 @@ _Including above methods from public API_
 * protected history ()  
 * protected lastChronoTimestamp ()  
 * protected lastTimer ()  
+* protected startDeclare ()  
 ```
 
 #### `CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport`  

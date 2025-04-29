@@ -33,10 +33,10 @@ String separated by commas or an array. Will add tags to the vote object for you
 
 ## Related
 
-* [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
-* [Election::addVotesFromJson](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
-* [Election::removeVote](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
+* [Election::addVotesFromJson()](/Docs/api-reference/Election%20Class/Election--addVotesFromJson().md)    
+* [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
 
 ---------------------------------------
 

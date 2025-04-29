@@ -29,5 +29,5 @@ Get votes with these tags or without.
 
 ## Related
 
-* [Election::getVotesListGenerator](/Docs/api-reference/Election%20Class/Election--getVotesListGenerator().md)    
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::getVotesListGenerator()](/Docs/api-reference/Election%20Class/Election--getVotesListGenerator().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    

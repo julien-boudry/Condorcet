@@ -33,8 +33,8 @@ String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate
 
 ## Related
 
-* [Election::addCandidate](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
-* [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
+* [Election::addCandidate()](/Docs/api-reference/Election%20Class/Election--addCandidate().md)    
+* [Election::getCandidatesList()](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
 
 ---------------------------------------
 

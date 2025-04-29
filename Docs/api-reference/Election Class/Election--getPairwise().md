@@ -20,8 +20,8 @@ Return the Pairwise.
 
 ## Related
 
-* [Election::getExplicitPairwise](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise().md)    
-* [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [Election::getExplicitPairwise()](/Docs/api-reference/Election%20Class/Election--getExplicitPairwise().md)    
+* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
 
 ---------------------------------------
 

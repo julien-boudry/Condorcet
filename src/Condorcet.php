@@ -78,7 +78,7 @@ abstract class Condorcet
     /**
      * Get the library version.
      * @api
-     * @see Election::getCondorcetBuilderVersion
+     * @see Election::getCondorcetBuilderVersion()
      * @param $major * true will return : 2.0, false will return : 2.0.0.
      * @return string Condorcet PHP version.
      */
@@ -97,7 +97,7 @@ abstract class Condorcet
     /**
      * Get a list of supported algorithm.
      * @api
-     * @see Condorcet::isAuthMethod, Condorcet::getMethodClass
+     * @see Condorcet::isAuthMethod(), Condorcet::getMethodClass()
      * @param $basic Include or not the natural Condorcet base algorithm.
      * @param $withNonDeterministicMethods Include or not non deterministic methods.
      * @return array Populated by method string name. You can use it on getResult ... and others methods.
@@ -127,7 +127,7 @@ abstract class Condorcet
      * Return the Condorcet static default method.
      * @api
      * @return null|string Method name.
-     * @see Condorcet::getAuthMethods, Condorcet::setDefaultMethod
+     * @see Condorcet::getAuthMethods(), Condorcet::setDefaultMethod()
      */
     public static function getDefaultMethod(): ?string
     {
@@ -139,7 +139,7 @@ abstract class Condorcet
     /**
      * Return the full class path for a method.
      * @api
-     * @see Condorcet::getAuthMethods
+     * @see Condorcet::getAuthMethods()
      * @param $method A valid method name.
      * @throws VotingMethodIsNotImplemented
      * @return null|string Return null is method not exist.
@@ -170,7 +170,7 @@ abstract class Condorcet
     /**
      * Test if a method is in the result set of Condorcet::getAuthMethods.
      * @api
-     * @see Condorcet::getMethodClass, Condorcet::getAuthMethods
+     * @see Condorcet::getMethodClass(), Condorcet::getAuthMethods()
      * @param $method A valid method name or class.
      * @return bool True / False
      */
@@ -185,7 +185,7 @@ abstract class Condorcet
     /**
      * If you create your own Condorcet Algo. You will need it !
      * @api
-     * @see Condorcet::isAuthMethod, Condorcet::getMethodClass
+     * @see Condorcet::isAuthMethod(), Condorcet::getMethodClass()
      * @param $methodClass The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
      * @return bool True on Success. False on failure.
      */
@@ -233,7 +233,7 @@ abstract class Condorcet
     /**
      * Put a new static method by default for the news Condorcet objects.
      * @api
-     * @see Condorcet::getDefaultMethod
+     * @see Condorcet::getDefaultMethod()
      * @param $method A valid method name or class.
      * @return bool In case of success, return TRUE
      */

@@ -118,7 +118,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Get the registered tags for this Vote.
      * @api
      * @return array List of registered tag.
-     * @see Vote::getTagsAsString, Vote::addTags, Vote::removeTags
+     * @see Vote::getTagsAsString(), Vote::addTags(), Vote::removeTags()
      */
     public private(set) array $tags = [];
 
@@ -155,7 +155,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Build a vote object.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
-     * @see Vote::setRanking, Vote::addTags
+     * @see Vote::setRanking(), Vote::addTags()
      * @param $ranking Equivalent to Vote::setRanking method.
      * @param $tags Equivalent to Vote::addTags method.
      * @param $ownTimestamp Set your own timestamp metadata for this Ranking.
@@ -239,7 +239,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get the actual Ranking of this Vote.
      * @api
-     * @see Vote::setRanking
+     * @see Vote::setRanking()
      * @param $context An election already linked to the Vote.
      * @param $sortCandidatesInRank Sort Candidate in a Rank by name. Useful for performant internal calls from methods.
      * @return array Multidimenssionnal array populated by Candidate object.
@@ -263,7 +263,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Get the registered tags for this Vote.
      * @api
      * @return string List of registered tag as string separated by commas.
-     * @see Vote::tags, Vote::addTags, Vote::removeTags
+     * @see Vote::tags, Vote::addTags(), Vote::removeTags()
      */
     public function getTagsAsString(): string
     {
@@ -283,7 +283,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get all the candidates object set in the last ranking of this Vote.
      * @api
-     * @see Vote::getRanking, Vote::countCandidates
+     * @see Vote::getRanking(), Vote::countCandidates
      * @param $context An election already linked to the Vote.
      * @return array Candidates list.
      */
@@ -405,7 +405,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
      * @api
-     * @see Vote::getRanking, Vote::getRanking, Vote::getRankingAsString
+     * @see Vote::getRanking(), Vote::getRanking(), Vote::getRankingAsString()
      * @param $context An election already linked to the Vote.
      * @return array Contextual full ranking, with string instead Candidate object.
      */
@@ -418,7 +418,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get the current ranking as a string format. Optionally with an election context.
      * @api
-     * @see Vote::getRanking
+     * @see Vote::getRanking()
      * @param $context An election already linked to the Vote.
      * @param $displayWeight Include or not the weight symbol and value.
      * @return string String like 'A>D=C>B
@@ -446,7 +446,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Note that if your vote is already linked to one ore more elections, your ranking must be compliant with all of them, else an exception is throw. For do this, you need to use only valid Candidate object, you can't register a new ranking from string if your vote is already linked to an election.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Votes
-     * @see Vote::getRanking, Vote::rankingHistory, Vote::__construct
+     * @see Vote::getRanking(), Vote::rankingHistory, Vote::__construct()
      * @param $ranking A Ranking. Have a look at the Wiki https://github.com/julien-boudry/Condorcet/wiki/II-%23-B.-Vote-management-%23-1.-Add-Vote to learn the available ranking formats.
      * @param $ownTimestamp Set your own timestamp metadata on Ranking. Your timestamp must be > than last registered timestamp. Else, an exception will be throw.
      * @throws VoteInvalidFormatException
@@ -557,7 +557,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Remove candidate from ranking. Set a new ranking and archive the old ranking.
      * @api
-     * @see Vote::setRanking
+     * @see Vote::setRanking()
      * @param $candidate Candidate object or string.
      * @throws CandidateDoesNotExistException
      * @return true True on success.
@@ -596,7 +596,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Add tag(s) on this Vote.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
-     * @see Vote::removeTags
+     * @see Vote::removeTags()
      * @param $tags Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed.
      * @throws VoteInvalidFormatException
      * @return bool In case of success, return TRUE
@@ -625,7 +625,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Remove registered tag(s) on this Vote.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::VotesTags
-     * @see Vote::addTags
+     * @see Vote::addTags()
      * @param $tags They can be added by string separated by commas or an array.
      * @return array List of deleted tags.
      */
@@ -658,7 +658,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
      * Remove all registered tag(s) on this Vote.
      * @api
      * @return true Return True.
-     * @see Vote::addTags, Vote::removeTags
+     * @see Vote::addTags(), Vote::removeTags()
      */
     public function removeAllTags(): true
     {
@@ -669,7 +669,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Get the vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
      * @api
-     * @see Vote::setWeight
+     * @see Vote::setWeight()
      * @param $context In the context of wich election? (optional).
      * @return int Weight. Default weight is 1.
      */
@@ -686,7 +686,7 @@ class Vote implements \ArrayAccess, \Iterator, \Stringable
     /**
      * Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
      * @api
-     * @see Vote::getWeight
+     * @see Vote::getWeight()
      * @param $newWeight The new vote weight.
      * @throws VoteInvalidFormatException
      * @return int New weight.

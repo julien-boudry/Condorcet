@@ -30,4 +30,4 @@ The new vote weight.
 
 ## Related
 
-* [Vote::getWeight](/Docs/api-reference/Vote%20Class/Vote--getWeight().md)    
+* [Vote::getWeight()](/Docs/api-reference/Vote%20Class/Vote--getWeight().md)    

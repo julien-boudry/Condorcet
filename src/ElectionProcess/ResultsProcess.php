@@ -43,7 +43,7 @@ trait ResultsProcess
      * Get a full ranking from an advanced Condorcet method.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsRanking
-     * @see Election::getWinner, Election::getResult, Condorcet::getDefaultMethod
+     * @see Election::getWinner(), Election::getLoser(), Condorcet::getDefaultMethod()
      * @param $method Not required for use election default method. Set the string name of the algorithm for use of a specific one.
      * @param $methodOptions Array of option for some methods. Look at each method documentation.
      * @throws VotingMethodIsNotImplemented
@@ -103,7 +103,7 @@ trait ResultsProcess
      * Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
-     * @see Election::getCondorcetWinner, Election::getLoser, Election::getResult
+     * @see Election::getCondorcetWinner(), Election::getLoser(), Election::getResult()
      * @param $method Only if not null the winner will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      * @return array|Candidate|null Candidate object given. Null if there are no available winner or loser.
      *
@@ -134,7 +134,7 @@ trait ResultsProcess
      * Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm.
      * @api
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
-     * @see Election::getWinner, Election::getResult
+     * @see Election::getWinner(), Election::getResult()
      * @param $method Only if not null the loser will be provided by an advanced algorithm of an available advanced Condorcet method. For most of them, it will be the same as the Condorcet Marquis there. But if it does not exist, it may be different; and in some cases they may be multiple. If null, Natural Condorcet algorithm will be use.
      * @return array|Candidate|null Candidate object given. Null if there are no available winner or loser.
      *
@@ -166,7 +166,7 @@ trait ResultsProcess
      * @api
      * @return null|Candidate Candidate object given. Null if there are no available winner.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
-     * @see Election::getCondorcetLoser, Election::getWinner, Election::getResult
+     * @see Election::getCondorcetLoser(), Election::getWinner(), Election::getResult()
      */
     public function getCondorcetWinner(): ?Candidate
     {
@@ -177,7 +177,7 @@ trait ResultsProcess
      * @api
      * @return null|Candidate Candidate object given. Null if there are no available loser.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::ResultsWinner
-     * @see Election::getCondorcetWinner, Election::getLoser, Election::getResult
+     * @see Election::getCondorcetWinner(), Election::getLoser(), Election::getResult()
      */
     public function getCondorcetLoser(): ?Candidate
     {
@@ -188,7 +188,7 @@ trait ResultsProcess
      * @api
      * @return Pairwise Pairwise object.
      * @book \CondorcetPHP\Condorcet\Dev\CondorcetDocumentationGenerator\BookLibrary::Results
-     * @see Election::getExplicitPairwise, Election::getResult
+     * @see Election::getExplicitPairwise(), Election::getResult()
      */
     public function getPairwise(): Pairwise
     {
@@ -201,7 +201,7 @@ trait ResultsProcess
     /**
      * Get a pairwise object filtered by tags. Not any votes updates are provided to the object.
      * @internal
-     * @see Election::getPairwise
+     * @see Election::getPairwise()
      * @param $tags Tags as string separated by commas or array.
      * @param $with Votes with these tags or without.
      * @return FilteredPairwise Return a Pairwise filtered by tags
@@ -216,7 +216,7 @@ trait ResultsProcess
      * Return the Pairwise.
      * @api
      * @return array Pairwise as an explicit array .
-     * @see Election::getPairwise, Election::getResult
+     * @see Election::getPairwise(), Election::getResult()
      */
     public function getExplicitPairwise(): array
     {
@@ -225,7 +225,7 @@ trait ResultsProcess
     /**
      * Get a pairwise filtered by tags.
      * @api
-     * @see Election::getPairwise
+     * @see Election::getPairwise()
      * @param $tags Tags as string separated by commas or array.
      * @param $with Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.
      * @return array Return a Pairwise filtered by tags
@@ -285,7 +285,7 @@ trait ResultsProcess
     /**
      * Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
      * @api
-     * @see Election::getWinner, Election::getResult, Condorcet::getDefaultMethod
+     * @see Election::getWinner(), Election::getResult(), Condorcet::getDefaultMethod()
      * @param $method Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
      */
     public function computeResult(

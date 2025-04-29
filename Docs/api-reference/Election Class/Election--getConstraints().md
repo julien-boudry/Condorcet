@@ -1,6 +1,6 @@
 # public Election::getConstraints
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L369)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L370)
 
 ## Description    
 
@@ -20,9 +20,9 @@ Get active constraints list.
 
 ## Related
 
-* [Election::clearConstraints](/Docs/api-reference/Election%20Class/Election--clearConstraints().md)    
-* [Election::addConstraint](/Docs/api-reference/Election%20Class/Election--addConstraint().md)    
-* [Election::isVoteValidUnderConstraints](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints().md)    
+* [Election::clearConstraints()](/Docs/api-reference/Election%20Class/Election--clearConstraints().md)    
+* [Election::addConstraint()](/Docs/api-reference/Election%20Class/Election--addConstraint().md)    
+* [Election::isVoteValidUnderConstraints()](/Docs/api-reference/Election%20Class/Election--isVoteValidUnderConstraints().md)    
 
 ---------------------------------------
 

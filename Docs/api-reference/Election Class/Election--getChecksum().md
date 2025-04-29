@@ -1,6 +1,6 @@
 # public Election::getChecksum
 
-> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L265)
+> [Read it at the source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L266)
 
 ## Description    
 

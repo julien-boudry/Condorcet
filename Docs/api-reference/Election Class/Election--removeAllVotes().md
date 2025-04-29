@@ -20,9 +20,9 @@ Remove all Votes from an election.
 
 ## Related
 
-* [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::removeVote](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
-* [Election::removeVotesByTags](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
+* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
+* [Election::removeVote()](/Docs/api-reference/Election%20Class/Election--removeVote().md)    
+* [Election::removeVotesByTags()](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
 
 ---------------------------------------
 

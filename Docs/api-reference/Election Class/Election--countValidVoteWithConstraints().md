@@ -28,6 +28,6 @@ Count Votes with this tag or without this tag.
 
 ## Related
 
-* [Election::countInvalidVoteWithConstraints](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints().md)    
-* [Election::countVotes](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
-* [Election::sumValidVoteWeightsWithConstraints](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    
+* [Election::countInvalidVoteWithConstraints()](/Docs/api-reference/Election%20Class/Election--countInvalidVoteWithConstraints().md)    
+* [Election::countVotes()](/Docs/api-reference/Election%20Class/Election--countVotes().md)    
+* [Election::sumValidVoteWeightsWithConstraints()](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    

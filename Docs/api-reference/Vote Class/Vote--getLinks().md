@@ -20,8 +20,8 @@ Get election objects linked to this Vote or Candidate object.
 
 ## Related
 
-* [Vote::countLinks](/Docs/api-reference/Vote%20Class/Vote--countLinks().md)    
-* [Candidate::countLinks](/Docs/api-reference/Candidate%20Class/Candidate--countLinks().md)    
-* [Candidate::getLinks](/Docs/api-reference/Candidate%20Class/Candidate--getLinks().md)    
-* [Vote::haveLink](/Docs/api-reference/Vote%20Class/Vote--haveLink().md)    
-* [Candidate::haveLink](/Docs/api-reference/Candidate%20Class/Candidate--haveLink().md)    
+* [Vote::countLinks()](/Docs/api-reference/Vote%20Class/Vote--countLinks().md)    
+* [Candidate::countLinks()](/Docs/api-reference/Candidate%20Class/Candidate--countLinks().md)    
+* [Candidate::getLinks()](/Docs/api-reference/Candidate%20Class/Candidate--getLinks().md)    
+* [Vote::haveLink()](/Docs/api-reference/Vote%20Class/Vote--haveLink().md)    
+* [Candidate::haveLink()](/Docs/api-reference/Candidate%20Class/Candidate--haveLink().md)    

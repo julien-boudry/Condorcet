@@ -25,10 +25,10 @@ Vote object.
 
 ## Related
 
-* [Election::removeAllVotes](/Docs/api-reference/Election%20Class/Election--removeAllVotes().md)    
-* [Election::addVote](/Docs/api-reference/Election%20Class/Election--addVote().md)    
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
-* [Election::removeVotesByTags](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
+* [Election::removeAllVotes()](/Docs/api-reference/Election%20Class/Election--removeAllVotes().md)    
+* [Election::addVote()](/Docs/api-reference/Election%20Class/Election--addVote().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::removeVotesByTags()](/Docs/api-reference/Election%20Class/Election--removeVotesByTags().md)    
 
 ---------------------------------------
 

@@ -28,4 +28,4 @@ Count Votes with this tag or without this tag.
 
 ## Related
 
-* [Election::sumValidVoteWeightsWithConstraints](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    
+* [Election::sumValidVoteWeightsWithConstraints()](/Docs/api-reference/Election%20Class/Election--sumValidVoteWeightsWithConstraints().md)    

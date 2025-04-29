@@ -16,4 +16,4 @@ If it is false, then the candidates not ranked, are not taken into account at al
 
 ## Related
 
-* [Election::implicitRankingRule()]()    
+* [Election::implicitRankingRule()](/Docs/api-reference/Election%20Class/Election--implicitRankingRule().md)    

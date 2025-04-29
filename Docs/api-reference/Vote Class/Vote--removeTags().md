@@ -25,7 +25,7 @@ They can be added by string separated by commas or an array.
 
 ## Related
 
-* [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
+* [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
 
 ---------------------------------------
 

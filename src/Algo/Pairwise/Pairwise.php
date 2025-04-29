@@ -146,7 +146,7 @@ class Pairwise implements \ArrayAccess, \Iterator
      * Return the Pairwise.
      * @api
      * @return array Pairwise as an explicit array .
-     * @see Election::getPairwise, Election::getResult
+     * @see Election::getPairwise(), Election::getResult()
      */
     public function getExplicitPairwise(): array
     {

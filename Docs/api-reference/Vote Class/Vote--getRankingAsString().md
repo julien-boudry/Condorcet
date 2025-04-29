@@ -28,4 +28,4 @@ Include or not the weight symbol and value.
 
 ## Related
 
-* [Vote::getRanking](/Docs/api-reference/Vote%20Class/Vote--getRanking().md)    
+* [Vote::getRanking()](/Docs/api-reference/Vote%20Class/Vote--getRanking().md)    

@@ -33,8 +33,8 @@ Try to convert directly your candidates from string input to Candidate object of
 
 ## Related
 
-* [Vote::setRanking](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
-* [Vote::addTags](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
+* [Vote::setRanking()](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
+* [Vote::addTags()](/Docs/api-reference/Vote%20Class/Vote--addTags().md)    
 
 ---------------------------------------
 

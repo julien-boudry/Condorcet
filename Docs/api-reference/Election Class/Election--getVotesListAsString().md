@@ -27,4 +27,4 @@ A = B > C * 6
 
 ## Related
 
-* [Election::parseVotes](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    
+* [Election::parseVotes()](/Docs/api-reference/Election%20Class/Election--parseVotes().md)    

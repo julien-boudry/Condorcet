@@ -29,9 +29,9 @@ Throw an exception on error.
 
 ## Related
 
-* [Election::getCondorcetWinner](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner().md)    
-* [Election::getLoser](/Docs/api-reference/Election%20Class/Election--getLoser().md)    
-* [Election::getResult](/Docs/api-reference/Election%20Class/Election--getResult().md)    
+* [Election::getCondorcetWinner()](/Docs/api-reference/Election%20Class/Election--getCondorcetWinner().md)    
+* [Election::getLoser()](/Docs/api-reference/Election%20Class/Election--getLoser().md)    
+* [Election::getResult()](/Docs/api-reference/Election%20Class/Election--getResult().md)    
 
 ---------------------------------------
 

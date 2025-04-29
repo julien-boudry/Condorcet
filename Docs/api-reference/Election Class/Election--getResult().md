@@ -33,8 +33,9 @@ Array of option for some methods. Look at each method documentation.
 
 ## Related
 
-* [Election::getWinner](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
-* [Condorcet::getDefaultMethod](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod().md)    
+* [Election::getWinner()](/Docs/api-reference/Election%20Class/Election--getWinner().md)    
+* [Election::getLoser()](/Docs/api-reference/Election%20Class/Election--getLoser().md)    
+* [Condorcet::getDefaultMethod()](/Docs/api-reference/Condorcet%20Class/Condorcet--getDefaultMethod().md)    
 
 ---------------------------------------
 

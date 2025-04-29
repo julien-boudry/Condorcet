@@ -21,7 +21,7 @@ trait CondorcetVersion
     /**
      * Get the Condorcet PHP version who built this object. Usefull pour serializing Election.
      * @api
-     * @see Condorcet::getVersion
+     * @see Condorcet::getVersion()
      * @param $major true will return 2.0 and false will return 2.0.0.
      * @return string Condorcet PHP version.
      */

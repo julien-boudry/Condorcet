@@ -95,7 +95,7 @@ class Generate
         [$class, $pointer] = explode('::', $name);
 
         if (!isset($this->fullPagesListMeta[$class]['page'][$pointer])) {
-            warning('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input name: ' . $name);
+            warning('Cannot create link to page:' . $pointer . ' on class:' . $class . ' as input: ' . $name);
             return '[' . $name . ']()';
         }
 
@@ -229,7 +229,13 @@ class Generate
             $this->fullPagesListMeta[$shortClass]['pagesList'] = $pagesList;
 
             foreach ($pagesList as $onePage) {
-                $this->fullPagesListMeta[$shortClass]['page'][$onePage->name] = [
+                $pageName = $onePage->name;
+
+                if ($onePage instanceof ReflectionMethod) {
+                    $pageName .= '()';
+                }
+
+                $this->fullPagesListMeta[$shortClass]['page'][$pageName] = [
                     'name' => $onePage->name,
                     'static' => $onePage->isStatic(),
                     'visibility_public' => $onePage->isPublic(),
@@ -415,7 +421,7 @@ class Generate
                     "## Related\n\n";
 
             foreach (explode(', ', $see) as $toSee) {
-                if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name) {
+                if ($toSee === self::simpleClass($onePage->class) . '::' . $onePage->name . ($onePage instanceof ReflectionMethod ? '()' : '')) {
                     continue;
                 }
 
@@ -423,7 +429,7 @@ class Generate
             }
         }
 
-        if (!empty($book = $this->getDocBlockTagDescriptionOrValue('@book', $onePage))) {
+        if (!empty($this->getDocBlockTagDescriptionOrValue('@book', $onePage))) {
             $md .=  "\n" .
                     "---------------------------------------\n\n" .
                     "## Tutorial\n\n";
@@ -689,9 +695,9 @@ class Generate
 
             $file_content .= $this->makeProperties(class: $classMeta['ReflectionClass'], forIndexSection: false);
 
-            foreach ($classMeta['page'] as $oneMethod) {
-                if ($oneMethod['Reflection'] instanceof ReflectionProperty || $oneMethod['Reflection']->isUserDefined()) {
-                    $parameters =  $oneMethod['Reflection'] instanceof ReflectionMethod ? $oneMethod['Reflection']->getParameters() : [];
+            foreach ($classMeta['page'] as $onePage) {
+                if ($onePage['Reflection'] instanceof ReflectionProperty || $onePage['Reflection']->isUserDefined()) {
+                    $parameters =  $onePage['Reflection'] instanceof ReflectionMethod ? $onePage['Reflection']->getParameters() : [];
                     $parameters_string = '';
 
                     $i = 0;
@@ -708,15 +714,15 @@ class Generate
                         }
                     }
 
-                    $representation = ($oneMethod['visibility_public']) ? 'public ' : '';
-                    $representation .= ($oneMethod['visibility_protected']) ? 'protected ' : '';
-                    $representation .= ($oneMethod['visibility_private']) ? 'private ' : '';
+                    $representation = ($onePage['visibility_public']) ? 'public ' : '';
+                    $representation .= ($onePage['visibility_protected']) ? 'protected ' : '';
+                    $representation .= ($onePage['visibility_private']) ? 'private ' : '';
 
-                    $representation .=  ($oneMethod['static']) ? 'static ' : '';
-                    $representation .=  $oneMethod['name'] . ' (' . $parameters_string . ')';
+                    $representation .=  ($onePage['static']) ? 'static ' : '';
+                    $representation .=  $onePage['name'] . ' (' . $parameters_string . ')';
 
-                    if ($oneMethod['Reflection'] instanceof ReflectionMethod && $oneMethod['Reflection']->hasReturnType()) {
-                        $representation .= ': ' . self::getTypeAsString($oneMethod['Reflection']->getReturnType());
+                    if ($onePage['Reflection'] instanceof ReflectionMethod && $onePage['Reflection']->hasReturnType()) {
+                        $representation .= ': ' . self::getTypeAsString($onePage['Reflection']->getReturnType());
                     }
 
                     $file_content .= '* ' . $representation . "  \n";

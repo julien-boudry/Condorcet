@@ -29,4 +29,4 @@ Get votes with these tags or without.
 
 ## Related
 
-* [Election::getVotesList](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    
+* [Election::getVotesList()](/Docs/api-reference/Election%20Class/Election--getVotesList().md)    

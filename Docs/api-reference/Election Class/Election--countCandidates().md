@@ -20,4 +20,4 @@ Count the number of registered candidates
 
 ## Related
 
-* [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
+* [Election::getCandidatesList()](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    

@@ -31,11 +31,11 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate na
 
 ## Related
 
-* [Election::parseCandidates](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
-* [Election::addCandidatesFromJson](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson().md)    
-* [Election::removeCandidates](/Docs/api-reference/Election%20Class/Election--removeCandidates().md)    
-* [Election::getCandidatesList](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
-* [Election::canAddCandidate](/Docs/api-reference/Election%20Class/Election--canAddCandidate().md)    
+* [Election::parseCandidates()](/Docs/api-reference/Election%20Class/Election--parseCandidates().md)    
+* [Election::addCandidatesFromJson()](/Docs/api-reference/Election%20Class/Election--addCandidatesFromJson().md)    
+* [Election::removeCandidates()](/Docs/api-reference/Election%20Class/Election--removeCandidates().md)    
+* [Election::getCandidatesList()](/Docs/api-reference/Election%20Class/Election--getCandidatesList().md)    
+* [Election::canAddCandidate()](/Docs/api-reference/Election%20Class/Election--canAddCandidate().md)    
 
 ---------------------------------------
 

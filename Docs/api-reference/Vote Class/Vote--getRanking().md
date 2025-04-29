@@ -28,4 +28,4 @@ Sort Candidate in a Rank by name. Useful for performant internal calls from meth
 
 ## Related
 
-* [Vote::setRanking](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
+* [Vote::setRanking()](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    

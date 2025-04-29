@@ -30,4 +30,4 @@ Candidate object or string.
 
 ## Related
 
-* [Vote::setRanking](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
+* [Vote::setRanking()](/Docs/api-reference/Vote%20Class/Vote--setRanking().md)    
